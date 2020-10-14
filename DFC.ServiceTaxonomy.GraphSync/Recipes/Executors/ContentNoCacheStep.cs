@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json.Linq;
@@ -19,38 +20,34 @@ namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
     /// </summary>
     public class ContentNoCacheStep : IRecipeStepHandler
     {
-        private readonly IContentManager _contentManager;
         private readonly ISession _session;
-        private readonly IContentManagerSession _contentManagerSession;
         private readonly ILogger<ContentNoCacheStep> _logger;
 
         public const string StepName = "ContentNoCache";
 
         public ContentNoCacheStep(
-            IContentManager contentManager,
             ISession session,
-            IContentManagerSession contentManagerSession,
             ILogger<ContentNoCacheStep> logger)
         {
-            _contentManager = contentManager;
             _session = session;
-            _contentManagerSession = contentManagerSession;
             _logger = logger;
         }
 
-        public async Task ExecuteAsync(RecipeExecutionContext context)
+        public Task ExecuteAsync(RecipeExecutionContext context)
         {
             if (!string.Equals(context.Name, StepName, StringComparison.OrdinalIgnoreCase))
             {
-                return;
+                return Task.CompletedTask;
             }
 
             try
             {
+                Stopwatch stopwatch = Stopwatch.StartNew();
+
                 ContentStepModel? model = context.Step.ToObject<ContentStepModel>();
                 JArray? data = model?.Data;
                 if (data == null)
-                    return;
+                    return Task.CompletedTask;
 
                 foreach (JToken? token in data)
                 {
@@ -58,33 +55,41 @@ namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
                     if (contentItem == null)
                         continue;
 
-                    DateTime? modifiedUtc = contentItem.ModifiedUtc;
-                    DateTime? publishedUtc = contentItem.PublishedUtc;
-                    ContentItem? existing = await _contentManager.GetVersionAsync(contentItem.ContentItemVersionId);
+                    // assume item doesn't currently exist (for speed!)
 
-                    if (existing == null)
-                    {
-                        // Initializes the Id as it could be interpreted as an updated object when added back to YesSql
-                        contentItem.Id = 0;
-                        await _contentManager.CreateAsync(contentItem);
-                        _contentManagerSession.Clear();
+                    _session.Save(contentItem);
 
-                        // Overwrite ModifiedUtc & PublishedUtc values that handlers have changes
-                        // Should not be necessary if IContentManager had an Import method
-                        contentItem.ModifiedUtc = modifiedUtc;
-                        contentItem.PublishedUtc = publishedUtc;
-                    }
-                    else
-                    {
-                        // Replaces the id to force the current item to be updated
-                        existing.Id = contentItem.Id;
-                        _session.Save(existing);
-                    }
+                    // DateTime? modifiedUtc = contentItem.ModifiedUtc;
+                    // DateTime? publishedUtc = contentItem.PublishedUtc;
+                    // ContentItem? existing = await _contentManager.GetVersionAsync(contentItem.ContentItemVersionId);
+                    //
+                    // if (existing == null)
+                    // {
+                    //     // Initializes the Id as it could be interpreted as an updated object when added back to YesSql
+                    //     contentItem.Id = 0;
+                    //     await _contentManager.CreateAsync(contentItem);
+                    //     _contentManagerSession.Clear();
+                    //
+                    //     // Overwrite ModifiedUtc & PublishedUtc values that handlers have changes
+                    //     // Should not be necessary if IContentManager had an Import method
+                    //     contentItem.ModifiedUtc = modifiedUtc;
+                    //     contentItem.PublishedUtc = publishedUtc;
+                    // }
+                    // else
+                    // {
+                    //     // Replaces the id to force the current item to be updated
+                    //     existing.Id = contentItem.Id;
+                    //     _session.Save(existing);
+                    // }
                 }
+
+                _logger.LogInformation("Created content items in {TimeTaken}.", stopwatch.Elapsed);
 
 #pragma warning disable S1215
                 GC.Collect();
 #pragma warning restore S1215
+
+                return Task.CompletedTask;
             }
             catch (Exception ex)
             {
