@@ -19,7 +19,6 @@ using DFC.ServiceTaxonomy.GraphSync.Models;
 using DFC.ServiceTaxonomy.GraphSync.Neo4j.Queries.Interfaces;
 using DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces;
 using DFC.ServiceTaxonomy.Neo4j.Services.Interfaces;
-using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using MoreLinq;
@@ -34,7 +33,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
         private readonly IGraphSyncPartGraphSyncer _graphSyncPartGraphSyncer;
         private readonly ISyncNameProvider _syncNameProvider;
         private readonly IReplaceRelationshipsCommand _replaceRelationshipsCommand;
-        private readonly IMemoryCache _memoryCache;
         private readonly IContentItemVersionFactory _contentItemVersionFactory;
         private readonly IPublishedContentItemVersion _publishedContentItemVersion;
         private readonly IPreviewContentItemVersion _previewContentItemVersion;
@@ -60,7 +58,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             ISyncNameProvider syncNameProvider,
             IMergeNodeCommand mergeNodeCommand,
             IReplaceRelationshipsCommand replaceRelationshipsCommand,
-            IMemoryCache memoryCache,
             IContentItemVersionFactory contentItemVersionFactory,
             IPublishedContentItemVersion publishedContentItemVersion,
             IPreviewContentItemVersion previewContentItemVersion,
@@ -74,7 +71,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             _syncNameProvider = syncNameProvider;
             MergeNodeCommand = mergeNodeCommand;
             _replaceRelationshipsCommand = replaceRelationshipsCommand;
-            _memoryCache = memoryCache;
             _contentItemVersionFactory = contentItemVersionFactory;
             _publishedContentItemVersion = publishedContentItemVersion;
             _previewContentItemVersion = previewContentItemVersion;
@@ -115,13 +111,13 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             if (graphSyncPartContent == null)
                 return AllowSync.NotRequired;
 
-            string? disableSyncContentItemVersionId = _memoryCache.Get<string>($"DisableSync_{contentItem.ContentItemVersionId}");
-            if (disableSyncContentItemVersionId != null)
-            {
-                _logger.LogInformation("Not syncing {ContentType}:{ContentItemId}, version {ContentItemVersionId} as syncing has been disabled for it.",
-                    contentItem.ContentType, contentItem.ContentItemId, disableSyncContentItemVersionId);
-                return AllowSync.NotRequired;
-            }
+            // string? disableSyncContentItemVersionId = _memoryCache.Get<string>($"DisableSync_{contentItem.ContentItemVersionId}");
+            // if (disableSyncContentItemVersionId != null)
+            // {
+            //     _logger.LogInformation("Not syncing {ContentType}:{ContentItemId}, version {ContentItemVersionId} as syncing has been disabled for it.",
+            //         contentItem.ContentType, contentItem.ContentItemId, disableSyncContentItemVersionId);
+            //     return AllowSync.NotRequired;
+            // }
 
             //todo: ContentType belongs in the context, either combine helper & context, or supply context to helper?
             _syncNameProvider.ContentType = contentItem.ContentType;

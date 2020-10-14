@@ -101,6 +101,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
                     }
                     else
                     {
+                        //todo: casting to object? (unexpectedly) throws if null, so either use 'as' (and log a warning) or let it throw if content is missing. does the field definition say if its required or not? if so, go on that - don't want to silently let through e.g. importing a jp without an occupation - it'll just fail downstream. better to fail fast
                         JObject? contentItemField = (JObject?)content[contentPartFieldDefinition.Name];
                         if (contentItemField == null)
                             continue;
