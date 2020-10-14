@@ -21,6 +21,7 @@ using OrchardCore.ContentManagement;
 using OrchardCore.Recipes.Models;
 using OrchardCore.Recipes.Services;
 using Newtonsoft.Json;
+using YesSql;
 
 namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
 {
@@ -44,6 +45,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
         private readonly ISuperpositionContentItemVersion _superpositionContentItemVersion;
         private readonly IEscoContentItemVersion _escoContentItemVersion;
         private readonly IMemoryCache _memoryCache;
+        private readonly ISession _session;
         private readonly ILogger<CypherToContentStep> _logger;
 
         private const string StepName = "CypherToContent";
@@ -60,6 +62,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
             ISuperpositionContentItemVersion superpositionContentItemVersion,
             IEscoContentItemVersion escoContentItemVersion,
             IMemoryCache memoryCache,
+            ISession session,
             ILogger<CypherToContentStep> logger)
         {
             _graphCluster = graphCluster;
@@ -73,6 +76,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
             _superpositionContentItemVersion = superpositionContentItemVersion;
             _escoContentItemVersion = escoContentItemVersion;
             _memoryCache = memoryCache;
+            _session = session;
             _logger = logger;
         }
 
@@ -119,7 +123,9 @@ namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
 
                     foreach (ContentItem preparedContentItem in preparedContentItems)
                     {
-                        await CreateContentItem(preparedContentItem, cypherToContent.SyncBackRequired);
+                        //await CreateContentItem(preparedContentItem, cypherToContent.SyncBackRequired);
+                        //await CreatePublishedAsync(preparedContentItem);
+                        _session.Save(preparedContentItem);
                     }
 
                     //todo: log this, but ensure no double enumeration
@@ -165,27 +171,65 @@ namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
             return contentItem;
         }
 
-        private async Task CreateContentItem(ContentItem contentItem, bool syncBackRequired)
-        {
-            //todo: could put contenttype in there for extra safety!? overkill?
+        // private async Task CreateContentItem(ContentItem contentItem, bool syncBackRequired)
+        // {
+        //     //todo: could put contenttype in there for extra safety!? overkill?
+        //
+        //     // if the cache expires before the sync gets called, that's fine as its only an optimisation
+        //     // to not sync the content item. if it's synced, the graph will still be correct
+        //     // (we're essentially skipping a no-op)
+        //     // what we want to avoid, is _not_ syncing when we should
+        //     // that's why we use ContentItemVersionId, instead of ContentItemId
+        //     if (!syncBackRequired)
+        //     {
+        //         string cacheKey = $"DisableSync_{contentItem.ContentItemVersionId}";
+        //         _memoryCache.Set(cacheKey, contentItem.ContentItemVersionId,
+        //             new TimeSpan(0, 0, 30));
+        //     }
+        //
+        //     //todo: log adding content type + id? how would we (easily) get the contenttype??
+        //
+        //     await _contentManager.CreateAsync(contentItem);
+        //     _contentManagerSession.Clear();
+        // }
 
-            // if the cache expires before the sync gets called, that's fine as its only an optimisation
-            // to not sync the content item. if it's synced, the graph will still be correct
-            // (we're essentially skipping a no-op)
-            // what we want to avoid, is _not_ syncing when we should
-            // that's why we use ContentItemVersionId, instead of ContentItemId
-            if (!syncBackRequired)
-            {
-                string cacheKey = $"DisableSync_{contentItem.ContentItemVersionId}";
-                _memoryCache.Set(cacheKey, contentItem.ContentItemVersionId,
-                    new TimeSpan(0, 0, 30));
-            }
-
-            //todo: log adding content type + id? how would we (easily) get the contenttype??
-
-            await _contentManager.CreateAsync(contentItem);
-            _contentManagerSession.Clear();
-        }
+        // public async Task CreatePublishedAsync(ContentItem contentItem)
+        // {
+        //     // if (String.IsNullOrEmpty(contentItem.ContentItemVersionId))
+        //     // {
+        //     //     contentItem.ContentItemVersionId = _idGenerator.GenerateUniqueId(contentItem);
+        //     //     contentItem.Published = true;
+        //     //     contentItem.Latest = true;
+        //     // }
+        //
+        //     // Draft flag on create is required for explicitly-published content items
+        //     // if (options.IsDraft)
+        //     // {
+        //     //     contentItem.Published = false;
+        //     // }
+        //
+        //     // Build a context with the initialized instance to create
+        //     // var context = new CreateContentContext(contentItem);
+        //     //
+        //     // // invoke handlers to add information to persistent stores
+        //     // await Handlers.InvokeAsync((handler, context) => handler.CreatingAsync(context), context, _logger);
+        //
+        //     _session.Save(contentItem);
+        //     // _contentManagerSession.Store(contentItem);
+        //
+        //     // await ReversedHandlers.InvokeAsync((handler, context) => handler.CreatedAsync(context), context, _logger);
+        //
+        //     // if (options.IsPublished)
+        //     // {
+        //     //     var publishContext = new PublishContentContext(contentItem, null);
+        //     //
+        //     //     // invoke handlers to acquire state, or at least establish lazy loading callbacks
+        //     //     await Handlers.InvokeAsync((handler, context) => handler.PublishingAsync(context), publishContext, _logger);
+        //     //
+        //     //     // invoke handlers to acquire state, or at least establish lazy loading callbacks
+        //     //     await ReversedHandlers.InvokeAsync((handler, context) => handler.PublishedAsync(context), publishContext, _logger);
+        //     // }
+        // }
 
         private static readonly Regex _cSharpHelperRegex = new Regex(@"\[c#:([^\]]+)\]", RegexOptions.Compiled);
         private string ReplaceCSharpHelpers(string recipeFragment)
