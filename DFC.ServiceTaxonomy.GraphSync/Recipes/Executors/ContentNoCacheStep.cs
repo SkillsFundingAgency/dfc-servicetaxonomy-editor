@@ -59,6 +59,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
 
                     _session.Save(contentItem);
 
+//todo: call graph sync directly
+
                     // DateTime? modifiedUtc = contentItem.ModifiedUtc;
                     // DateTime? publishedUtc = contentItem.PublishedUtc;
                     // ContentItem? existing = await _contentManager.GetVersionAsync(contentItem.ContentItemVersionId);
