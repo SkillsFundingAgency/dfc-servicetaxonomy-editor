@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Exceptions;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Contexts;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Fields;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Helpers;
@@ -101,10 +102,11 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
                     }
                     else
                     {
-                        //todo: casting to object? (unexpectedly) throws if null, so either use 'as' (and log a warning) or let it throw if content is missing. does the field definition say if its required or not? if so, go on that - don't want to silently let through e.g. importing a jp without an occupation - it'll just fail downstream. better to fail fast
-                        JObject? contentItemField = (JObject?)content[contentPartFieldDefinition.Name];
+                        JObject? contentItemField = content[contentPartFieldDefinition.Name] as JObject;
                         if (contentItemField == null)
-                            continue;
+                        {
+                            throw new GraphSyncException($"The '{context.ContentItem.DisplayText}' {context.ContentItem.ContentType} is missing content for the {contentPartFieldDefinition.Name} {contentPartFieldDefinition.FieldDefinition.Name}.");
+                        }
 
                         await contentFieldGraphSyncer.AddSyncComponents(contentItemField, context);
                     }
