@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.CSharpScriptGlobals.CypherToContent.Interfaces;
+using DFC.ServiceTaxonomy.GraphSync.Orchestrators.Interfaces;
 using Microsoft.CodeAnalysis.CSharp.Scripting;
 using Microsoft.CodeAnalysis.Scripting;
 using Microsoft.Extensions.Logging;
@@ -20,23 +22,20 @@ namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
     {
         public const string StepName = "CSharpContent";
 
-        private readonly IContentManager _contentManager;
         private readonly ISession _session;
-        private readonly IContentManagerSession _contentManagerSession;
+        private readonly ISyncOrchestrator _syncOrchestrator;
         private readonly ICypherToContentCSharpScriptGlobals _cypherToContentCSharpScriptGlobals;
         private readonly ILogger<CSharpContentStep> _logger;
 
         public CSharpContentStep(
-            IContentManager contentManager,
             ISession session,
-            IContentManagerSession contentManagerSession,
+            ISyncOrchestrator syncOrchestrator,
             //todo: rename
             ICypherToContentCSharpScriptGlobals cypherToContentCSharpScriptGlobals,
             ILogger<CSharpContentStep> logger)
         {
-            _contentManager = contentManager;
             _session = session;
-            _contentManagerSession = contentManagerSession;
+            _syncOrchestrator = syncOrchestrator;
             _cypherToContentCSharpScriptGlobals = cypherToContentCSharpScriptGlobals;
             _logger = logger;
         }
@@ -48,6 +47,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
 
             try
             {
+                Stopwatch stopwatch = Stopwatch.StartNew();
+
                 CSharpContentStepModel? model = context.Step.ToObject<CSharpContentStepModel>();
                 if (model?.Data == null)
                     return;
@@ -62,30 +63,15 @@ namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
                     if (contentItem == null)
                         continue;
 
-                    DateTime? modifiedUtc = contentItem.ModifiedUtc;
-                    DateTime? publishedUtc = contentItem.PublishedUtc;
-                    ContentItem existing = await _contentManager.GetVersionAsync(contentItem.ContentItemVersionId);
+                    // assume item doesn't currently exist (for speed!)
 
-                    if (existing == null)
-                    {
-                        // Initializes the Id as it could be interpreted as an updated object when added back to YesSql
-                        contentItem.Id = 0;
-                        await _contentManager.CreateAsync(contentItem);
-                        _contentManagerSession.Clear();
-
-                        // Overwrite ModifiedUtc & PublishedUtc values that handlers have changes
-                        // Should not be necessary if IContentManager had an Import method
-                        contentItem.ModifiedUtc = modifiedUtc;
-                        contentItem.PublishedUtc = publishedUtc;
-                    }
-                    else
-                    {
-                        // Replaces the id to force the current item to be updated
-                        existing.Id = contentItem.Id;
-                        _session.Save(existing);
-                    }
+                    _session.Save(contentItem);
+                    await _syncOrchestrator.Publish(contentItem);
                 }
 
+                _logger.LogInformation("Created content items in {TimeTaken}.", stopwatch.Elapsed);
+
+                //todo: should we still collect?
 #pragma warning disable S1215
                 GC.Collect();
 #pragma warning restore S1215

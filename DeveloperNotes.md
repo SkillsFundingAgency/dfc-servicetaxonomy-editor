@@ -1,5 +1,9 @@
 #ToDo
 
+* in the grand tradition of esco always having 1 exception to the rule, 'types of wood materials' is both a skill and knowledge
+  (http://data.europa.eu/esco/skill/fb6f5f61-f3b8-40ba-8363-c8d762325ff7)
+  guessing it shouldn't be a skill
+
 * separate out / show as a deleted item in validate results wwhen a deleted item is validates and don't make into a link that goes nowhere
 
 * use linkgenerator instead of hardcoding in visualiser and validate results, perhaps wrap in service
@@ -621,6 +625,10 @@ match (n:Taxonomy) detach delete n;
 match (n:HTML) detach delete n;
 match (n:HTMLShared) detach delete n;
 :use neo4j;
+
+##Skills of type used by JP
+
+match (jp:JobProfile)-[ro:relatedOccupation]-(o:esco__Occupation)-[rs:esco__relatedOptionalSkill|esco__relatedEssentialSkill]-(s)-[rst:esco__skillType]-(st) where st.skos__prefLabel = 'skill' return count(distinct s)
 
 ##Testing graph validation
 

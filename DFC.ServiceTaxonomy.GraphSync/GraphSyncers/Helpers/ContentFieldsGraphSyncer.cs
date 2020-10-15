@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Exceptions;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Contexts;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Fields;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Helpers;
@@ -101,9 +102,11 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
                     }
                     else
                     {
-                        JObject? contentItemField = (JObject?)content[contentPartFieldDefinition.Name];
+                        JObject? contentItemField = content[contentPartFieldDefinition.Name] as JObject;
                         if (contentItemField == null)
-                            continue;
+                        {
+                            throw new GraphSyncException($"The '{context.ContentItem.DisplayText}' {context.ContentItem.ContentType} is missing content for the {contentPartFieldDefinition.Name} {contentPartFieldDefinition.FieldDefinition.Name}.");
+                        }
 
                         await contentFieldGraphSyncer.AddSyncComponents(contentItemField, context);
                     }

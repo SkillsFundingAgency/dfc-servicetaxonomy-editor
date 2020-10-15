@@ -13,7 +13,6 @@ using DFC.ServiceTaxonomy.GraphSync.Neo4j.Queries.Interfaces;
 using DFC.ServiceTaxonomy.Neo4j.Services.Interfaces;
 using Microsoft.CodeAnalysis.CSharp.Scripting;
 using Microsoft.CodeAnalysis.Scripting;
-using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json.Linq;
@@ -21,6 +20,7 @@ using OrchardCore.ContentManagement;
 using OrchardCore.Recipes.Models;
 using OrchardCore.Recipes.Services;
 using Newtonsoft.Json;
+using YesSql;
 
 namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
 {
@@ -35,15 +35,15 @@ namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
     {
         private readonly IGraphCluster _graphCluster;
         private readonly IServiceProvider _serviceProvider;
-        private readonly IContentManager _contentManager;
-        private readonly IContentManagerSession _contentManagerSession;
         private readonly IContentItemIdGenerator _idGenerator;
         private readonly ICypherToContentCSharpScriptGlobals _cypherToContentCSharpScriptGlobals;
         private readonly ISyncNameProvider _syncNameProvider;
         private readonly IPublishedContentItemVersion _publishedContentItemVersion;
         private readonly ISuperpositionContentItemVersion _superpositionContentItemVersion;
         private readonly IEscoContentItemVersion _escoContentItemVersion;
-        private readonly IMemoryCache _memoryCache;
+        private readonly ISession _session;
+        private readonly IContentManager _contentManager;
+        private readonly IContentManagerSession _contentManagerSession;
         private readonly ILogger<CypherToContentStep> _logger;
 
         private const string StepName = "CypherToContent";
@@ -51,28 +51,28 @@ namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
         public CypherToContentStep(
             IGraphCluster graphCluster,
             IServiceProvider serviceProvider,
-            IContentManager contentManager,
-            IContentManagerSession contentManagerSession,
             IContentItemIdGenerator idGenerator,
             ICypherToContentCSharpScriptGlobals cypherToContentCSharpScriptGlobals,
             ISyncNameProvider syncNameProvider,
             IPublishedContentItemVersion publishedContentItemVersion,
             ISuperpositionContentItemVersion superpositionContentItemVersion,
             IEscoContentItemVersion escoContentItemVersion,
-            IMemoryCache memoryCache,
+            ISession session,
+            IContentManager contentManager,
+            IContentManagerSession contentManagerSession,
             ILogger<CypherToContentStep> logger)
         {
             _graphCluster = graphCluster;
             _serviceProvider = serviceProvider;
-            _contentManager = contentManager;
-            _contentManagerSession = contentManagerSession;
             _idGenerator = idGenerator;
             _cypherToContentCSharpScriptGlobals = cypherToContentCSharpScriptGlobals;
             _syncNameProvider = syncNameProvider;
             _publishedContentItemVersion = publishedContentItemVersion;
             _superpositionContentItemVersion = superpositionContentItemVersion;
             _escoContentItemVersion = escoContentItemVersion;
-            _memoryCache = memoryCache;
+            _session = session;
+            _contentManager = contentManager;
+            _contentManagerSession = contentManagerSession;
             _logger = logger;
         }
 
@@ -119,7 +119,14 @@ namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
 
                     foreach (ContentItem preparedContentItem in preparedContentItems)
                     {
-                        await CreateContentItem(preparedContentItem, cypherToContent.SyncBackRequired);
+                        if (cypherToContent.SyncBackRequired)
+                        {
+                            await CreateContentItem(preparedContentItem);
+                        }
+                        else
+                        {
+                            _session.Save(preparedContentItem);
+                        }
                     }
 
                     //todo: log this, but ensure no double enumeration
@@ -165,22 +172,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
             return contentItem;
         }
 
-        private async Task CreateContentItem(ContentItem contentItem, bool syncBackRequired)
+        private async Task CreateContentItem(ContentItem contentItem)
         {
-            //todo: could put contenttype in there for extra safety!? overkill?
-
-            // if the cache expires before the sync gets called, that's fine as its only an optimisation
-            // to not sync the content item. if it's synced, the graph will still be correct
-            // (we're essentially skipping a no-op)
-            // what we want to avoid, is _not_ syncing when we should
-            // that's why we use ContentItemVersionId, instead of ContentItemId
-            if (!syncBackRequired)
-            {
-                string cacheKey = $"DisableSync_{contentItem.ContentItemVersionId}";
-                _memoryCache.Set(cacheKey, contentItem.ContentItemVersionId,
-                    new TimeSpan(0, 0, 30));
-            }
-
             //todo: log adding content type + id? how would we (easily) get the contenttype??
 
             await _contentManager.CreateAsync(contentItem);
