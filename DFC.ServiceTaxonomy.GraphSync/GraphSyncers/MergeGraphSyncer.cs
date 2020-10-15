@@ -111,14 +111,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             if (graphSyncPartContent == null)
                 return AllowSync.NotRequired;
 
-            // string? disableSyncContentItemVersionId = _memoryCache.Get<string>($"DisableSync_{contentItem.ContentItemVersionId}");
-            // if (disableSyncContentItemVersionId != null)
-            // {
-            //     _logger.LogInformation("Not syncing {ContentType}:{ContentItemId}, version {ContentItemVersionId} as syncing has been disabled for it.",
-            //         contentItem.ContentType, contentItem.ContentItemId, disableSyncContentItemVersionId);
-            //     return AllowSync.NotRequired;
-            // }
-
             //todo: ContentType belongs in the context, either combine helper & context, or supply context to helper?
             _syncNameProvider.ContentType = contentItem.ContentType;
 

@@ -174,20 +174,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
 
         private async Task CreateContentItem(ContentItem contentItem)
         {
-            //todo: could put contenttype in there for extra safety!? overkill?
-
-            // if the cache expires before the sync gets called, that's fine as its only an optimisation
-            // to not sync the content item. if it's synced, the graph will still be correct
-            // (we're essentially skipping a no-op)
-            // what we want to avoid, is _not_ syncing when we should
-            // that's why we use ContentItemVersionId, instead of ContentItemId
-            // if (!syncBackRequired)
-            // {
-            //     string cacheKey = $"DisableSync_{contentItem.ContentItemVersionId}";
-            //     _memoryCache.Set(cacheKey, contentItem.ContentItemVersionId,
-            //         new TimeSpan(0, 0, 30));
-            // }
-
             //todo: log adding content type + id? how would we (easily) get the contenttype??
 
             await _contentManager.CreateAsync(contentItem);
