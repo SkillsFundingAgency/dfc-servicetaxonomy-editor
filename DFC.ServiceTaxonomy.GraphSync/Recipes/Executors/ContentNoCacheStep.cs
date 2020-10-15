@@ -70,6 +70,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
 
                 _logger.LogInformation("Created content items in {TimeTaken}.", stopwatch.Elapsed);
 
+                //todo: should we still collect?
 #pragma warning disable S1215
                 GC.Collect();
 #pragma warning restore S1215
