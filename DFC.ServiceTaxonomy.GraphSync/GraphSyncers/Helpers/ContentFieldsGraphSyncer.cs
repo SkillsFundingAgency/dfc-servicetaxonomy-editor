@@ -105,7 +105,12 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
                         JObject? contentItemField = content[contentPartFieldDefinition.Name] as JObject;
                         if (contentItemField == null)
                         {
-                            throw new GraphSyncException($"The '{context.ContentItem.DisplayText}' {context.ContentItem.ContentType} is missing content for the {contentPartFieldDefinition.Name} {contentPartFieldDefinition.FieldDefinition.Name}.");
+                            _logger.LogWarning("The '{ContentItem}' {ContentType} is missing content for the {FieldName} {FieldType}.",
+                                context.ContentItem.DisplayText,
+                                context.ContentItem.ContentType,
+                                contentPartFieldDefinition.Name,
+                                contentPartFieldDefinition.FieldDefinition.Name);
+                            continue;
                         }
 
                         await contentFieldGraphSyncer.AddSyncComponents(contentItemField, context);
