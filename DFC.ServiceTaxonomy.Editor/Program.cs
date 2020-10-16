@@ -60,7 +60,7 @@ namespace DFC.ServiceTaxonomy.Editor
         {
             ConfigurationItemFactory.Default.RegisterItemsFromAssembly(typeof(AspNetExtensions).GetTypeInfo().Assembly);
             LogManager.AddHiddenAssembly(typeof(AspNetExtensions).GetTypeInfo().Assembly);
-            var fileName = Path.Combine(env.ContentRootPath, configFileRelativePath);
+            string fileName = Path.Combine(env.ContentRootPath, configFileRelativePath);
             LogManager.LoadConfiguration(fileName);
             return LogManager.Configuration;
         }
