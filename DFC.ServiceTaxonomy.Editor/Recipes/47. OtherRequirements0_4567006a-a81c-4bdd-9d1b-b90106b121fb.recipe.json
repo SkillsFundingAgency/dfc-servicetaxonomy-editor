@@ -1,0 +1,330 @@
+{
+  "name": "OtherRequirements0_4567006a-a81c-4bdd-9d1b-b90106b121fb",
+  "displayName": "OtherRequirements0_4567006a-a81c-4bdd-9d1b-b90106b121fb",
+  "description": "",
+  "author": "",
+  "website": "",
+  "version": "",
+  "issetuprecipe": false,
+  "categories": "",
+  "tags": [],
+  "steps": [
+    {
+      "name": "ContentNoCache",
+      "data": [
+  {
+    "TitlePart": {
+      "Title": "Many airlines also ask that you\u0027re able to swim up to 25 metres."
+    },
+    "OtherRequirement": {
+      "Description": {
+        "Html": "\u003Cp\u003EMany airlines also ask that you\u0027re able to swim up to 25 metres.\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/otherrequirement/a31de0b4-80f3-4ab3-b1e5-5a712f8e5748"
+    },
+    "ContentItemId": "43cxkvxpfmt1drewrqya6j9443",
+    "ContentItemVersionId": "4jary40tsmdgv79xhhm1zat6c5",
+    "ContentType": "OtherRequirement",
+    "DisplayText": "Many airlines also ask that you\u0027re able to swim up to 25 metres.",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-12T14:04:18.2632726Z",
+    "PublishedUtc": "2020-10-12T14:04:18.2632726Z",
+    "CreatedUtc": "2020-10-12T14:04:18.2632726Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "It will help to be physically fit, as you may need to help lift or move people."
+    },
+    "OtherRequirement": {
+      "Description": {
+        "Html": "\u003Cp\u003EIt will help to be physically fit, as you may need to help lift or move people.\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/otherrequirement/7d95b7e8-2c72-4db9-975b-817f285e7d3b"
+    },
+    "ContentItemId": "4p9axv6m2k63k6szfe2qm7nnxt",
+    "ContentItemVersionId": "4hrnqzd809mbrr0h4y9qsbszda",
+    "ContentType": "OtherRequirement",
+    "DisplayText": "It will help to be physically fit, as you may need to help lift or move people.",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-12T14:04:18.2632726Z",
+    "PublishedUtc": "2020-10-12T14:04:18.2632726Z",
+    "CreatedUtc": "2020-10-12T14:04:18.2632726Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "To stand for election, you\u0027ll need to be nominated by at least 10 electors from the constituency you wish to represent. You must also pay a \u00A3500 deposit. This is returned to you if you get more than 5% of the total votes cast in your constituency."
+    },
+    "OtherRequirement": {
+      "Description": {
+        "Html": "\u003Cp\u003ETo stand for election, you\u0027ll need to be nominated by at least 10 electors from the constituency you wish to represent. You must also pay a \u00A3500 deposit. This is returned to you if you get more than 5% of the total votes cast in your constituency.\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/otherrequirement/01814184-d92e-4616-aaab-7c798bed5986"
+    },
+    "ContentItemId": "46r2kbexrp0jkwfmkjvc01rnw0",
+    "ContentItemVersionId": "4jq3101gark1rrtkhz4518f3dw",
+    "ContentType": "OtherRequirement",
+    "DisplayText": "To stand for election, you\u0027ll need to be nominated by at least 10 electors from the constituency you wish to represent. You must also pay a \u00A3500 deposit. This is returned to you if you get more than 5% of the total votes cast in your constituency.",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-12T14:04:18.2632726Z",
+    "PublishedUtc": "2020-10-12T14:04:18.2632726Z",
+    "CreatedUtc": "2020-10-12T14:04:18.2632726Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Certain people are not allowed to stand as an MP, for example someone convicted of electoral fraud. You can check with the [Electoral Commission] for more information about this."
+    },
+    "OtherRequirement": {
+      "Description": {
+        "Html": "\u003Cp\u003ECertain people are not allowed to stand as an MP, for example someone convicted of electoral fraud. You can check with the \u003Ca href=\u0022https://www.electoralcommission.org.uk/i-am-a/candidate-or-agent\u0022\u003EElectoral Commission\u003C/a\u003E for more information about this.\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/otherrequirement/d8552956-adfa-4c4b-b764-d7855c5c86e0"
+    },
+    "ContentItemId": "46cmqp6tn4ex61zpjgzq6sc3wm",
+    "ContentItemVersionId": "4t7466ww1aj37466gm94f4qaw6",
+    "ContentType": "OtherRequirement",
+    "DisplayText": "Certain people are not allowed to stand as an MP, for example someone convicted of electoral fraud. You can check with the [Electoral Commission] for more information about this.",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-12T14:04:18.2632726Z",
+    "PublishedUtc": "2020-10-12T14:04:18.2632726Z",
+    "CreatedUtc": "2020-10-12T14:04:18.2632726Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "You can find out if this job is right for you by taking the [pre-application questionnaire |  http://www.ncalt.com/pre-join/index.html]."
+    },
+    "OtherRequirement": {
+      "Description": {
+        "Html": "\u003Cp\u003EYou can find out if this job is right for you by taking the [pre-application questionnaire |  http://www.ncalt.com/pre-join/index.html].\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/otherrequirement/dc0593c2-b124-445d-9184-c52d753dc152"
+    },
+    "ContentItemId": "413yd2ca6wz5w0kbss76d2k3d6",
+    "ContentItemVersionId": "4eqjvdxvebp1yxmx1rd0bk9wm4",
+    "ContentType": "OtherRequirement",
+    "DisplayText": "You can find out if this job is right for you by taking the [pre-application questionnaire |  http://www.ncalt.com/pre-join/index.html].",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-12T14:04:18.2632726Z",
+    "PublishedUtc": "2020-10-12T14:04:18.2632726Z",
+    "CreatedUtc": "2020-10-12T14:04:18.2632726Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "A driving licence may be helpful if you\u0027re going to be working on shifts outside of public transport hours."
+    },
+    "OtherRequirement": {
+      "Description": {
+        "Html": "\u003Cp\u003EA driving licence may be helpful if you\u0027re going to be working on shifts outside of public transport hours.\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/otherrequirement/8640412e-2874-409c-a7c8-70bac66c0732"
+    },
+    "ContentItemId": "4my70g6s713swtwdrdecnc3acq",
+    "ContentItemVersionId": "4mwpxt0xe07sswy4m90e8atdma",
+    "ContentType": "OtherRequirement",
+    "DisplayText": "A driving licence may be helpful if you\u0027re going to be working on shifts outside of public transport hours.",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-12T14:04:18.2632726Z",
+    "PublishedUtc": "2020-10-12T14:04:18.2632726Z",
+    "CreatedUtc": "2020-10-12T14:04:18.2632726Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "There are rules about height and weight - these vary between airlines. As a general guide, most look for people between 5ft 2in (157cm) and 6ft 2in (188cm) with weight in proportion to height."
+    },
+    "OtherRequirement": {
+      "Description": {
+        "Html": "\u003Cp\u003EThere are rules about height and weight - these vary between airlines. As a general guide, most look for people between 5ft 2in (157cm) and 6ft 2in (188cm) with weight in proportion to height.\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/otherrequirement/bb72494e-1f6c-49a8-9203-f5c813b1bb38"
+    },
+    "ContentItemId": "411v8cw8ac2ee6yshx1nkq3mdt",
+    "ContentItemVersionId": "41jf8qnhtmkm23x6zzv4hsa6xb",
+    "ContentType": "OtherRequirement",
+    "DisplayText": "There are rules about height and weight - these vary between airlines. As a general guide, most look for people between 5ft 2in (157cm) and 6ft 2in (188cm) with weight in proportion to height.",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-12T14:04:18.2632726Z",
+    "PublishedUtc": "2020-10-12T14:04:18.2632726Z",
+    "CreatedUtc": "2020-10-12T14:04:18.2632726Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "You may need a driving licence for some jobs."
+    },
+    "OtherRequirement": {
+      "Description": {
+        "Html": "\u003Cp\u003EYou may need a driving licence for some jobs.\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/otherrequirement/88d728fb-fb63-422b-aa1a-d33992ed4a85"
+    },
+    "ContentItemId": "41c9v1a7w54df1kq1v1bwpmc5r",
+    "ContentItemVersionId": "4bm4nkbxp6nv524jx4zppcnmcp",
+    "ContentType": "OtherRequirement",
+    "DisplayText": "You may need a driving licence for some jobs.",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-12T14:04:18.2632726Z",
+    "PublishedUtc": "2020-10-12T14:04:18.2632726Z",
+    "CreatedUtc": "2020-10-12T14:04:18.2632726Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "You\u0027ll usually need your own transport to get to and from work, as you may not be able to get public transport to suit your shift times."
+    },
+    "OtherRequirement": {
+      "Description": {
+        "Html": "\u003Cp\u003EYou\u0027ll usually need your own transport to get to and from work, as you may not be able to get public transport to suit your shift times.\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/otherrequirement/d8f98216-6b9a-474a-b26c-c2e6f28500ca"
+    },
+    "ContentItemId": "46adsdvy35wad35h6wvc6b9zcv",
+    "ContentItemVersionId": "40y2py238vgtn53dxcgcd9p6m5",
+    "ContentType": "OtherRequirement",
+    "DisplayText": "You\u0027ll usually need your own transport to get to and from work, as you may not be able to get public transport to suit your shift times.",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-12T14:04:18.2632726Z",
+    "PublishedUtc": "2020-10-12T14:04:18.2632726Z",
+    "CreatedUtc": "2020-10-12T14:04:18.2632726Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "A driving licence and your own transport will be useful though not always essential."
+    },
+    "OtherRequirement": {
+      "Description": {
+        "Html": "\u003Cp\u003EA driving licence and your own transport will be useful though not always essential.\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/otherrequirement/c6565290-5326-4043-8bee-bb0730efb8b0"
+    },
+    "ContentItemId": "4wdzxn2wsm6xgt02rhq0y5mfcv",
+    "ContentItemVersionId": "405w0wgm75spd42htpmz2agyxs",
+    "ContentType": "OtherRequirement",
+    "DisplayText": "A driving licence and your own transport will be useful though not always essential.",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-12T14:04:18.2632726Z",
+    "PublishedUtc": "2020-10-12T14:04:18.2632726Z",
+    "CreatedUtc": "2020-10-12T14:04:18.2632726Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "You\u0027ll also be expected to:have a smart appearance; have a valid passport with no restrictions for the countries the airline travels to; live within 90 minutes of your base; have good written and spoken English"
+    },
+    "OtherRequirement": {
+      "Description": {
+        "Html": "\u003Cp\u003EYou\u0027ll also be expected to:\u003Cul\u003E\u003Cli\u003Ehave a smart appearance\u003C/li\u003E\u003Cli\u003Ehave a valid passport with no restrictions for the countries the airline travels to\u003C/li\u003E\u003Cli\u003Elive within 90 minutes of your base\u003C/li\u003E\u003Cli\u003Ehave good written and spoken English\u003C/li\u003E\u003C/ul\u003E\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/otherrequirement/f7085f76-24d1-476e-b796-76779e5326f1"
+    },
+    "ContentItemId": "4zn3c5294f0hh5a7rqegwfjtmz",
+    "ContentItemVersionId": "4aa1gzyr7ck4bt87f3m96dg85a",
+    "ContentType": "OtherRequirement",
+    "DisplayText": "You\u0027ll also be expected to:have a smart appearance; have a valid passport with no restrictions for the countries the airline travels to; live within 90 minutes of your base; have good written and spoken English",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-12T14:04:18.2632726Z",
+    "PublishedUtc": "2020-10-12T14:04:18.2632726Z",
+    "CreatedUtc": "2020-10-12T14:04:18.2632726Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "To work with plant machinery like excavators or dumper trucks, you\u0027ll need to be 18 or over and have a driving licence."
+    },
+    "OtherRequirement": {
+      "Description": {
+        "Html": "\u003Cp\u003ETo work with plant machinery like excavators or dumper trucks, you\u0027ll need to be 18 or over and have a driving licence.\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/otherrequirement/c39f3ff2-8f51-4b12-9fe1-33adcdd5bbab"
+    },
+    "ContentItemId": "4cnnkqr56wsy04x9pt5hgs39d7",
+    "ContentItemVersionId": "4yq2qxa2br91pxdj5pbgtgp5xv",
+    "ContentType": "OtherRequirement",
+    "DisplayText": "To work with plant machinery like excavators or dumper trucks, you\u0027ll need to be 18 or over and have a driving licence.",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-12T14:04:18.2632726Z",
+    "PublishedUtc": "2020-10-12T14:04:18.2632726Z",
+    "CreatedUtc": "2020-10-12T14:04:18.2632726Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "You will also need to pass a [fitness test]."
+    },
+    "OtherRequirement": {
+      "Description": {
+        "Html": "\u003Cp\u003EYou will also need to pass a \u003Ca href=\u0022https://www.college.police.uk/What-we-do/Standards/Fitness/Pages/default.aspx\u0022\u003Efitness test\u003C/a\u003E.\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/otherrequirement/5831bdff-2d2e-438f-a95e-89d2cc34d1fb"
+    },
+    "ContentItemId": "4kg34ts3ex2syxn9wt9y78yy4y",
+    "ContentItemVersionId": "44parwctb6xk1vyjt8rzvtnjm1",
+    "ContentType": "OtherRequirement",
+    "DisplayText": "You will also need to pass a [fitness test].",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-12T14:04:18.2632726Z",
+    "PublishedUtc": "2020-10-12T14:04:18.2632726Z",
+    "CreatedUtc": "2020-10-12T14:04:18.2632726Z",
+    "Owner": "admin",
+    "Author": "admin"
+  }
+      ]
+    }
+  ]
+}

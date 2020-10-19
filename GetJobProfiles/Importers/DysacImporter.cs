@@ -4,6 +4,7 @@ using System.Linq;
 using GetJobProfiles.Models.API;
 using GetJobProfiles.Models.Recipe.ContentItems;
 using GetJobProfiles.Models.Recipe.Fields;
+using GetJobProfiles.Models.Recipe.Fields.Factories;
 using GetJobProfiles.Models.Recipe.Parts;
 using GraphQL;
 using NPOI.XSSF.UserModel;
@@ -21,25 +22,24 @@ namespace GetJobProfiles.Importers
 
         public IEnumerable<PersonalityQuestionSetContentItem> PersonalityQuestionSetContentItems { get; private set; }
 
-        private Dictionary<string, string> _personalityTraitContentItemIdDictionary { get; set; }
+        private readonly ContentPickerFactory contentPickerFactory = new ContentPickerFactory();
 
-        private Dictionary<string, string> _personalityQuestionContentItemIdDictionary;
+        private Dictionary<string, string> _personalityTraitContentItemDictionary { get; set; }
+
+        private Dictionary<string, string> _personalityQuestionContentItemDictionary;
 
         internal void ImportTraits(Dictionary<string, string> jobCategoryDictionary, XSSFWorkbook dysacWorkbook, string timestamp)
         {
             var traits = ReadTraitsFromFile("Trait", dysacWorkbook);
 
-            _personalityTraitContentItemIdDictionary = traits.Select(z => z.Title).Select(jc => new { Id = _generator.GenerateUniqueId(), Title = jc }).ToDictionary(y => y.Title, y => y.Id);
+            _personalityTraitContentItemDictionary = traits.Select(z => z.Title).Select(jc => new { Id = _generator.GenerateUniqueId(), Title = jc }).ToDictionary(y => y.Title, y => y.Id);
 
-            PersonalityTraitContentItems = traits.Select(x => new PersonalityTraitContentItem(x.Title, timestamp, _personalityTraitContentItemIdDictionary[x.Title])
+            PersonalityTraitContentItems = traits.Select(x => new PersonalityTraitContentItem(x.Title, timestamp, _personalityTraitContentItemDictionary[x.Title])
             {
                 EponymousPart = new PersonalityTraitPart
                 {
                     Description = new TextField(x.Description),
-                    JobCategories = new ContentPicker
-                    {
-                        ContentItemIds = jobCategoryDictionary.Where(z => x.JobCategories.Select(y => y.ToLowerInvariant()).Contains(z.Key.ToLowerInvariant())).Select(k => k.Value)
-                    }
+                    JobCategories = contentPickerFactory.CreateContentPickerFromContent("JobCategory", jobCategoryDictionary.Where(z => x.JobCategories.Select(y => y.ToLowerInvariant()).Contains(z.Key.ToLowerInvariant())).Select(k => k.Key.Trim()))
                 }
             }).ToList();
         }
@@ -48,17 +48,14 @@ namespace GetJobProfiles.Importers
         {
             var questions = ReadShortQuestionsFromFile("Shortquestion", dysacWorkbook);
 
-            _personalityQuestionContentItemIdDictionary = questions.Select(x => x.Title).Select(jc => new { Id = _generator.GenerateUniqueId(), Title = jc }).ToDictionary(y => y.Title, y => y.Id);
+            _personalityQuestionContentItemDictionary = questions.Select(x => x.Title).Select(jc => new { Id = _generator.GenerateUniqueId(), Title = jc }).ToDictionary(y => y.Title, y => y.Id);
 
-            PersonalityShortQuestionContentItems = questions.Select(x => new PersonalityShortQuestionContentItem(x.Title, timestamp, _personalityQuestionContentItemIdDictionary[x.Title])
+            PersonalityShortQuestionContentItems = questions.Select(x => new PersonalityShortQuestionContentItem(x.Title, timestamp, _personalityQuestionContentItemDictionary[x.Title])
             {
                 EponymousPart = new PersonalityShortQuestionPart
                 {
                     Impact = new TextField(x.Impact.ToLowerInvariant() == "yes" ? "Negative" : "Positive"),
-                    Trait = new ContentPicker
-                    {
-                        ContentItemIds = new List<string> { _personalityTraitContentItemIdDictionary[x.Trait] }
-                    }
+                    Trait = contentPickerFactory.CreateContentPickerFromContent("PersonalityTrait", new List<string> { x.Trait.Trim() })
                 }
             }).ToList();
         }
@@ -72,10 +69,7 @@ namespace GetJobProfiles.Importers
                     EponymousPart = new PersonalityQuestionSetPart
                     {
                         Type = new TextField("short"),
-                        Questions = new ContentPicker
-                        {
-                            ContentItemIds = _personalityQuestionContentItemIdDictionary.Select(x=>x.Value)
-                        }
+                        Questions = contentPickerFactory.CreateContentPickerFromContent("PersonalityShortQuestion",  _personalityQuestionContentItemDictionary.Select(x=>x.Key.Trim()))
                     }
                 }
             };

@@ -1,0 +1,258 @@
+{
+  "name": "VolunteeringRoutes0_4567006a-a81c-4bdd-9d1b-b90106b121fb",
+  "displayName": "VolunteeringRoutes0_4567006a-a81c-4bdd-9d1b-b90106b121fb",
+  "description": "",
+  "author": "",
+  "website": "",
+  "version": "",
+  "issetuprecipe": false,
+  "categories": "",
+  "tags": [],
+  "steps": [
+    {
+      "name": "ContentNoCache",
+      "data": [
+  {
+    "TitlePart": {
+      "Title": "MP"
+    },
+    "VolunteeringRoute": {
+      "Description": {
+        "Html": "\u003Cp\u003EMost people show their commitment through campaigning and volunteering for their party.\u003C/p\u003E\u003Cp\u003EYou can get other useful experience from:\u003Cul\u003E\u003Cli\u003Eserving as a local councillor\u003C/li\u003E\u003Cli\u003Ebeing active in a trade union\u003C/li\u003E\u003Cli\u003Ebeing involved in student politics\u003C/li\u003E\u003Cli\u003Eworking as a researcher or caseworker for an existing MP\u003C/li\u003E\u003C/ul\u003E\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/volunteeringroute/a0e4a9c1-0842-4396-b04b-621d9796b8cf"
+    },
+    "ContentItemId": "49sr8ewcxrcqq70h9asp1th2cz",
+    "ContentItemVersionId": "4x5shhc996mv6xt65sskfx9c4r",
+    "ContentType": "VolunteeringRoute",
+    "DisplayText": "MP",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-12T14:04:18.2632726Z",
+    "PublishedUtc": "2020-10-12T14:04:18.2632726Z",
+    "CreatedUtc": "2020-10-12T14:04:18.2632726Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Primary school teacher"
+    },
+    "VolunteeringRoute": {
+      "Description": {
+        "Html": "\u003Cp\u003EYou\u0027ll find it helpful to get some experience of working with children though this is not essential. You can do this through paid work or by \u003Ca href=\u0022https://getintoteaching.education.gov.uk/arranging-school-experience-independently\u0022\u003Evolunteering at a school\u003C/a\u003E, helping at an after school club or working on a holiday scheme.\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/volunteeringroute/eeb997ab-dbd5-415e-af77-5afd6424fd9a"
+    },
+    "ContentItemId": "489xs3r5k8nshvmxa9kwvevbxe",
+    "ContentItemVersionId": "4vkwrzmf4ngf440k4t6r7wz7mn",
+    "ContentType": "VolunteeringRoute",
+    "DisplayText": "Primary school teacher",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-12T14:04:18.2632726Z",
+    "PublishedUtc": "2020-10-12T14:04:18.2632726Z",
+    "CreatedUtc": "2020-10-12T14:04:18.2632726Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Social worker"
+    },
+    "VolunteeringRoute": {
+      "Description": {
+        "Html": "\u003Cp\u003EExperience of working with vulnerable groups or children is essential for most courses and jobs.\u003C/p\u003E\u003Cp\u003EBefore becoming qualified as a social worker, you can apply to be a social work assistant or support worker. You can also get skills and experience by volunteering in the community, with a charity or through paid work.\u003C/p\u003E\u003Cp\u003EYou can get more information on volunteering opportunities in your area from \u003Ca href=\u0022https://do-it.org/\u0022\u003EDo-it\u003C/a\u003E.\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/volunteeringroute/e902c23d-1862-46c7-996a-b2e623303e20"
+    },
+    "ContentItemId": "4q11nkamgmzcpz2djkskhk7fxc",
+    "ContentItemVersionId": "4mcxt5cbrbn33wn8qv566m8ym4",
+    "ContentType": "VolunteeringRoute",
+    "DisplayText": "Social worker",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-12T14:04:18.2632726Z",
+    "PublishedUtc": "2020-10-12T14:04:18.2632726Z",
+    "CreatedUtc": "2020-10-12T14:04:18.2632726Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Police officer"
+    },
+    "VolunteeringRoute": {
+      "Description": {
+        "Html": "\u003Cp\u003EYou can get a taste of what it\u0027s like to work with the police by volunteering as a \u003Ca href=\u0022http://recruit.college.police.uk/Special/Pages/default.aspx\u0022\u003Especial constable\u003C/a\u003E.\u003C/p\u003E\u003Cp\u003EYou could also get paid work as a \u003Ca href=\u0022http://recruit.college.police.uk/pcso/Pages/default.aspx\u0022\u003Epolice community support officer\u003C/a\u003E  (PCSO) before applying for police officer training.\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/volunteeringroute/5b542685-cbd6-48f1-b621-f33d22229116"
+    },
+    "ContentItemId": "4vd6rrdmr1dg0xnsf19swa5559",
+    "ContentItemVersionId": "4n2ek2pmyb47h6jme1entdxdxc",
+    "ContentType": "VolunteeringRoute",
+    "DisplayText": "Police officer",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-12T14:04:18.2632726Z",
+    "PublishedUtc": "2020-10-12T14:04:18.2632726Z",
+    "CreatedUtc": "2020-10-12T14:04:18.2632726Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Admin assistant"
+    },
+    "VolunteeringRoute": {
+      "Description": {
+        "Html": "\u003Cp\u003EYou could volunteer with a charity in an office based role to get some experience and skills that are useful for administration work.\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/volunteeringroute/721e8e97-d5df-46df-91c7-d037d461c891"
+    },
+    "ContentItemId": "4v4zq3yxqq67h744fe2d51g15j",
+    "ContentItemVersionId": "4q0nap3rnjv4rxcg3cbfpt95nh",
+    "ContentType": "VolunteeringRoute",
+    "DisplayText": "Admin assistant",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-12T14:04:18.2632726Z",
+    "PublishedUtc": "2020-10-12T14:04:18.2632726Z",
+    "CreatedUtc": "2020-10-12T14:04:18.2632726Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Emergency medical dispatcher"
+    },
+    "VolunteeringRoute": {
+      "Description": {
+        "Html": "\u003Cp\u003EPaid or unpaid experience of working in healthcare would be useful. You could contact the voluntary services co-ordinator or manager at your \u003Ca href=\u0022https://www.nhs.uk/servicedirectories/pages/nhstrustlisting.aspx\u0022\u003Elocal NHS trust\u003C/a\u003E for advice about opportunities.\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/volunteeringroute/c155a743-e9ed-4c21-a8c8-3a589302fd60"
+    },
+    "ContentItemId": "4s9pxqch97w4s2ewjxj520mb5n",
+    "ContentItemVersionId": "43ketkmx0pd6at9h4tbqhf33nv",
+    "ContentType": "VolunteeringRoute",
+    "DisplayText": "Emergency medical dispatcher",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-12T14:04:18.2632726Z",
+    "PublishedUtc": "2020-10-12T14:04:18.2632726Z",
+    "CreatedUtc": "2020-10-12T14:04:18.2632726Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Actor"
+    },
+    "VolunteeringRoute": {
+      "Description": {
+        "Html": "\u003Cp\u003EActing is very competitive and you\u0027ll need to develop your skills by getting as much practical experience of acting as possible. You could do this through:\u003Cul\u003E\u003Cli\u003Eamateur, community or youth theatre\u003C/li\u003E\u003Cli\u003Ecollege and university drama societies\u003C/li\u003E\u003Cli\u003Estudent drama festivals and competitions\u003C/li\u003E\u003C/ul\u003E\u003C/p\u003E\u003Cp\u003EThis can also help to put you in touch with people in the acting profession, who could be useful contacts when looking for work.\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/volunteeringroute/16be5a91-9ef3-416c-a8ff-c425257c5c90"
+    },
+    "ContentItemId": "4f3g93abvwenvyjda1vg51aanf",
+    "ContentItemVersionId": "47d0x1d0z21eb1yptww8t6dy4d",
+    "ContentType": "VolunteeringRoute",
+    "DisplayText": "Actor",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-12T14:04:18.2632726Z",
+    "PublishedUtc": "2020-10-12T14:04:18.2632726Z",
+    "CreatedUtc": "2020-10-12T14:04:18.2632726Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Waiter"
+    },
+    "VolunteeringRoute": {
+      "Description": {
+        "Html": "\u003Cp\u003EYou could volunteer in a cafe run by a local community organisation or a charity like the \u003Ca href=\u0022https://www.royalvoluntaryservice.org.uk/\u0022\u003ERoyal Voluntary Service\u003C/a\u003E. This will help you to develop your skills before you apply for paid work.\u003C/p\u003E\u003Cp\u003EYou can find more volunteering opportunities through \u003Ca href=\u0022https://do-it.org/\u0022\u003EDo-it\u003C/a\u003E.\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/volunteeringroute/d6c7eddf-24ce-4e2c-90aa-e614545647d4"
+    },
+    "ContentItemId": "40bxdyr43xkjk7p1s09w31z5wm",
+    "ContentItemVersionId": "4eh4cyhemjmzv7hyh0jqqd35ms",
+    "ContentType": "VolunteeringRoute",
+    "DisplayText": "Waiter",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-12T14:04:18.2632726Z",
+    "PublishedUtc": "2020-10-12T14:04:18.2632726Z",
+    "CreatedUtc": "2020-10-12T14:04:18.2632726Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Sales assistant"
+    },
+    "VolunteeringRoute": {
+      "Description": {
+        "Html": "\u003Cp\u003EGetting experience volunteering in a charity shop could lead into paid work.\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/volunteeringroute/09ff6135-f22e-4d79-9c6e-8e8f4a670d9d"
+    },
+    "ContentItemId": "4rz4zb1mm8vekxfbwp29n04xc1",
+    "ContentItemVersionId": "4apcc479zdhf9tsb9ge711btnr",
+    "ContentType": "VolunteeringRoute",
+    "DisplayText": "Sales assistant",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-12T14:04:18.2632726Z",
+    "PublishedUtc": "2020-10-12T14:04:18.2632726Z",
+    "CreatedUtc": "2020-10-12T14:04:18.2632726Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Care worker"
+    },
+    "VolunteeringRoute": {
+      "Description": {
+        "Html": "\u003Cp\u003EYou could do voluntary work with an organisation that supports vulnerable people, for example a:\u003Cul\u003E\u003Cli\u003Ecare home\u003C/li\u003E\u003Cli\u003Echarity\u003C/li\u003E\u003Cli\u003Ehospital\u003C/li\u003E\u003Cli\u003Ehospice\u003C/li\u003E\u003C/ul\u003E\u003C/p\u003E\u003Cp\u003E\u003Ca href=\u0022https://do-it.org/\u0022\u003EDo-it\u003C/a\u003E has more information on voluntary opportunities in your area.\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/volunteeringroute/38fe6cd8-daa6-41d9-a518-9c8f0fe1c0bd"
+    },
+    "ContentItemId": "4bkkp2v0rb0x7090d5s5fqh6n7",
+    "ContentItemVersionId": "4c735e0cpe4da3kdapz9wgr24j",
+    "ContentType": "VolunteeringRoute",
+    "DisplayText": "Care worker",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-12T14:04:18.2632726Z",
+    "PublishedUtc": "2020-10-12T14:04:18.2632726Z",
+    "CreatedUtc": "2020-10-12T14:04:18.2632726Z",
+    "Owner": "admin",
+    "Author": "admin"
+  }
+      ]
+    }
+  ]
+}
