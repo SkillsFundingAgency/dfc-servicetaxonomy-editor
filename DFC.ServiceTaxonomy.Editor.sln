@@ -59,6 +59,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DFC.ServiceTaxonomy.Taxonom
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DFC.ServiceTaxonomy.Content", "DFC.ServiceTaxonomy.Content\DFC.ServiceTaxonomy.Content.csproj", "{F8935113-7D2A-4156-866E-47AF78D1F997}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrchardCore.AuditTrail", "OrchardCore.AuditTrail\OrchardCore.AuditTrail.csproj", "{C2C7C180-F824-4C79-A573-B4D639A4A562}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -141,6 +143,10 @@ Global
 		{F8935113-7D2A-4156-866E-47AF78D1F997}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F8935113-7D2A-4156-866E-47AF78D1F997}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F8935113-7D2A-4156-866E-47AF78D1F997}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C2C7C180-F824-4C79-A573-B4D639A4A562}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C2C7C180-F824-4C79-A573-B4D639A4A562}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C2C7C180-F824-4C79-A573-B4D639A4A562}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C2C7C180-F824-4C79-A573-B4D639A4A562}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
