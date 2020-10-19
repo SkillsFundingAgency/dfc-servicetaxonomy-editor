@@ -19,7 +19,7 @@ We use the multi-graph facility to easily run 2 separate graphs on a development
 
 #### Create A Default 'Published' Graph
 
-Click 'Add Graph', then 'Create a Local Graph'. Enter a graph name, set the password to `ESCO`, select the latest version in the dropdown, then click 'Create'. Once the graph is created, click the 'Start' button.
+Click 'Add Graph', then 'Create a Local Graph'. Enter a graph name, set the password to `ESCO`, select the latest 4.0 version in the dropdown (4.1 and later versions are untested), then click 'Create'. Once the graph is created, click the 'Start' button.
 
 To perform interactive queries against the graph, once the graph is Active, click 'Manage' and then on the next page, click 'Open Browser'. If you're unfamiliar with the browser or Neo4j in general, check out the [docs](https://neo4j.com/developer/neo4j-browser/).
 
