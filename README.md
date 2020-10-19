@@ -15,7 +15,7 @@ Download [Neo4j desktop](https://neo4j.com/download/), install and run it.
 
 Neo4j desktop installs the Enterprise edition of Neo4j. The Enterprise edition supports multiple user databases in a single instance of Neo4j, and each user database can contain a single graph.
 
-We use the multi-graph facility to easily run 2 separate graphs on a development machine. One graph is used to contain only published content items, and the other is used to store the latest version of content items (so can contain a mix of published and draft items), which can be used to render a preview. (In the environments, each graph lives in a separate Community intance of Neo4j, within a Kubernetes cluster.)
+We use the multi-graph facility to easily run 2 separate graphs on a development machine. One graph is used to contain only published content items, and the other is used to store the latest version of content items (so can contain a mix of published and draft items), which can be used to render a preview. (In the environments, each graph lives in a separate Community instance of Neo4j, within a Kubernetes cluster.)
 
 #### Create A Default 'Published' Graph
 
@@ -65,6 +65,7 @@ Working with multiple-graphs is [documented on the Neo4j website](https://neo4j.
 To create the 'preview' graph, run these Cypher commands...
 
 ```
+:use system
 create database preview;
 :use preview;
 ```
