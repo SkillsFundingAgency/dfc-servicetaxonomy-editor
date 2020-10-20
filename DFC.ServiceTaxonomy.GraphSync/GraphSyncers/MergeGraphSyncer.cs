@@ -27,6 +27,7 @@ using OrchardCore.ContentManagement;
 
 namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 {
+
     public class MergeGraphSyncer : IMergeGraphSyncer
     {
         private readonly IEnumerable<IContentItemGraphSyncer> _itemSyncers;
@@ -105,6 +106,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
         {
             _logger.LogDebug("SyncAllowed to {GraphReplicaSetName} for '{ContentItem}' {ContentType}?",
                 graphReplicaSet.Name, contentItem.ToString(), contentItem.ContentType);
+
+            _logger.LogDebug("ContentItem content: {Content}", ((JObject)contentItem.Content).ToString());
 
             // we use the existence of a GraphSync content part as a marker to indicate that the content item should be synced
             JObject? graphSyncPartContent = (JObject?)contentItem.Content[nameof(GraphSyncPart)];
