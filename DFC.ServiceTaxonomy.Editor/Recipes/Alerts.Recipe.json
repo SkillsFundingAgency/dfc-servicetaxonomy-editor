@@ -1,0 +1,383 @@
+{
+  "name": "",
+  "displayName": "",
+  "description": "",
+  "author": "",
+  "website": "",
+  "version": "",
+  "issetuprecipe": false,
+  "categories": [],
+  "tags": [],
+  "steps": [
+    {
+      "name": "content",
+      "data": [
+        {
+          "ContentItemId": "40x71zgq560qaz0k0cgtbd4xm8",
+          "ContentItemVersionId": "4rzbv707m77rk1y730thrfrrm6",
+          "ContentType": "Page",
+          "DisplayText": "404",
+          "Latest": true,
+          "Published": true,
+          "ModifiedUtc": "2020-10-19T18:21:29.3052512Z",
+          "PublishedUtc": "2020-10-19T18:21:29.3216784Z",
+          "CreatedUtc": "2020-10-19T18:21:29.3052512Z",
+          "Owner": "admin",
+          "Author": "admin",
+          "TitlePart": {
+            "Title": "404"
+          },
+          "Page": {
+            "PageLocations": {
+              "TaxonomyContentItemId": "4eembshqzx66drajtdten34tc8",
+              "TermContentItemIds": [
+                "4463thdwjseek42re9jzb2dvnp"
+              ]
+            },
+            "Description": {
+              "Text": "Not Found Page"
+            },
+            "Herobanner": {
+              "Html": ""
+            }
+          },
+          "SitemapPart": {
+            "Priority": 5,
+            "OverrideSitemapConfig": false,
+            "ChangeFrequency": 0,
+            "Exclude": false
+          },
+          "FlowPart": {
+            "Widgets": [
+              {
+                "ContentItemId": "4tk8vm95d79eywhymsftr3qax3",
+                "ContentItemVersionId": null,
+                "ContentType": "HTML",
+                "DisplayText": null,
+                "Latest": false,
+                "Published": false,
+                "ModifiedUtc": "2020-10-19T18:21:29.170667Z",
+                "PublishedUtc": null,
+                "CreatedUtc": null,
+                "Owner": null,
+                "Author": "admin",
+                "HTML": {},
+                "HtmlBodyPart": {
+                  "Html": "<div class=\"govuk-grid-row\">\n\t<div class=\"govuk-grid-column-two-thirds\">\n\t\t<div>\n\t\t\t<div class=\"govuk-width-container\">\n\t\t\t\t<div class=\"content-container\">\n\t\t\t\t\t<h1 class=\"heading-xlarge\">Page not found</h1>\n\t\t\t\t\t<p>If you typed the web address or used a bookmark, check it is correct.</p>\n\t\t\t\t\t<p>If you pasted the web address, check you copied the whole address.</p>\n\t\t\t\t\t<p>If the web address is correct you can <a href=\"/contact-us\">contact us</a> to get help using this service or call 0800 100 900, 8am to 10pm, 7 days a week.</p>\n\t\t\t\t</div>\n\t\t\t</div>\n\t\t</div>\n\t</div>\n\t<div class=\"govuk-grid-column-one-third\">\n\t\t<div>\n\n\t\t</div>\n\t</div>\n</div>"
+                },
+                "GraphSyncPart": {
+                  "Text": "<<contentapiprefix>>/html/125611dd-1e68-4f73-be81-0271b33a0a38"
+                },
+                "FlowMetadata": {
+                  "Alignment": 3,
+                  "Size": 100
+                }
+              }
+            ]
+          },
+          "GraphSyncPart": {
+            "Text": "<<contentapiprefix>>/page/312ddf4e-6859-435b-8333-945e75dcfcfe"
+          },
+          "PageLocationPart": {
+            "UrlName": "404",
+            "DefaultPageForLocation": false,
+            "RedirectLocations": null,
+            "FullUrl": "/alerts/404"
+          }
+        },
+        {
+          "ContentItemId": "4qmdygcjqvrjwt6mt2ec5nvrna",
+          "ContentItemVersionId": "4kmk0x5h4pzbezw6byqftdvhcs",
+          "ContentType": "Page",
+          "DisplayText": "403",
+          "Latest": true,
+          "Published": true,
+          "ModifiedUtc": "2020-10-19T18:29:52.0803127Z",
+          "PublishedUtc": "2020-10-19T18:29:52.0827795Z",
+          "CreatedUtc": "2020-10-19T18:29:52.0803127Z",
+          "Owner": "admin",
+          "Author": "admin",
+          "TitlePart": {
+            "Title": "403"
+          },
+          "Page": {
+            "PageLocations": {
+              "TaxonomyContentItemId": "4eembshqzx66drajtdten34tc8",
+              "TermContentItemIds": [
+                "4463thdwjseek42re9jzb2dvnp"
+              ]
+            },
+            "Description": {
+              "Text": "Forbidden Page"
+            },
+            "Herobanner": {
+              "Html": ""
+            }
+          },
+          "SitemapPart": {
+            "Priority": 5,
+            "OverrideSitemapConfig": false,
+            "ChangeFrequency": 0,
+            "Exclude": false
+          },
+          "FlowPart": {
+            "Widgets": [
+              {
+                "ContentItemId": "46snqn0g29091v0ed1v1z9zz5z",
+                "ContentItemVersionId": null,
+                "ContentType": "HTML",
+                "DisplayText": null,
+                "Latest": false,
+                "Published": false,
+                "ModifiedUtc": "2020-10-19T18:29:52.0741426Z",
+                "PublishedUtc": null,
+                "CreatedUtc": null,
+                "Owner": null,
+                "Author": "admin",
+                "HTML": {},
+                "HtmlBodyPart": {
+                  "Html": "<div class=\"govuk-grid-row\">\n\t<div class=\"govuk-grid-column-two-thirds\">\n\t\t<h1 class=\"heading-xlarge\">Forbidden</h1>\n\t\t<p>Your request has been refused.</p>\n\t\t<p>\n\t\t\t<a href=\"/contact-us/report-a-technical-issue\">Contact us</a>&nbsp;if you reached this page from another part of the National Careers Service, so we can correct this mistake.</p>\n\t\t<p>If you typed the address, check that you've got the right spelling.</p>\n\t\t<h2 class=\"heading-medium\">Contact us</h2>\n\t\t<p>Call 0800 100 900 (8am to 10pm, 7 days a week) to speak to an adviser for help with questions, feedback or other issues you may have. Explore the different ways to&nbsp;<a href=\"/contact-an-adviser\">contact an adviser</a>.</p>\n\t</div>\n\t<div class=\"govuk-grid-column-one-third\">\n\t</div>\n</div>"
+                },
+                "GraphSyncPart": {
+                  "Text": "<<contentapiprefix>>/html/1852cc39-d162-435c-a283-d732fe7d80c6"
+                },
+                "FlowMetadata": {
+                  "Alignment": 3,
+                  "Size": 100
+                }
+              }
+            ]
+          },
+          "GraphSyncPart": {
+            "Text": "<<contentapiprefix>>/page/1d55d08f-0a3b-4724-8852-b2e7142030fe"
+          },
+          "PageLocationPart": {
+            "UrlName": "403",
+            "DefaultPageForLocation": false,
+            "RedirectLocations": null,
+            "FullUrl": "/alerts/403"
+          }
+        },
+        {
+          "ContentItemId": "4z74n4t78agxwy02r834arczdd",
+          "ContentItemVersionId": "4grt9bzfs925fxwznn5evh91xb",
+          "ContentType": "Page",
+          "DisplayText": "503",
+          "Latest": true,
+          "Published": true,
+          "ModifiedUtc": "2020-10-19T18:32:19.8653044Z",
+          "PublishedUtc": "2020-10-19T18:32:19.8813842Z",
+          "CreatedUtc": "2020-10-19T18:31:14.5135379Z",
+          "Owner": "admin",
+          "Author": "admin",
+          "TitlePart": {
+            "Title": "503"
+          },
+          "Page": {
+            "PageLocations": {
+              "TaxonomyContentItemId": "4eembshqzx66drajtdten34tc8",
+              "TermContentItemIds": [
+                "4463thdwjseek42re9jzb2dvnp"
+              ]
+            },
+            "Description": {
+              "Text": "Service Unavailable Page"
+            },
+            "Herobanner": {
+              "Html": ""
+            }
+          },
+          "SitemapPart": {
+            "Priority": 5,
+            "OverrideSitemapConfig": false,
+            "ChangeFrequency": 0,
+            "Exclude": false
+          },
+          "FlowPart": {
+            "Widgets": [
+              {
+                "ContentItemId": "4tk8vm95d79eywhymsftr3qax3",
+                "ContentItemVersionId": null,
+                "ContentType": "HTML",
+                "DisplayText": "",
+                "Latest": false,
+                "Published": false,
+                "ModifiedUtc": "2020-10-19T18:32:19.8732936Z",
+                "PublishedUtc": null,
+                "CreatedUtc": null,
+                "Owner": "",
+                "Author": "admin",
+                "HTML": {},
+                "HtmlBodyPart": {
+                  "Html": "<div class=\"govuk-grid-row\">\n\t<div class=\"govuk-grid-column-two-thirds\">\n\t\t<div>\n\t\t\t<div class=\"govuk-width-container\">\n\t\t\t\t<div class=\"content-container\">\n\t\t\t\t\t<h1 class=\"heading-xlarge\">Page not found</h1>\n\t\t\t\t\t<p>If you typed the web address or used a bookmark, check it is correct.</p>\n\t\t\t\t\t<p>If you pasted the web address, check you copied the whole address.</p>\n\t\t\t\t\t<p>If the web address is correct you can <a href=\"/contact-us\">contact us</a> to get help using this service or call 0800 100 900, 8am to 10pm, 7 days a week.</p>\n\t\t\t\t</div>\n\t\t\t</div>\n\t\t</div>\n\t</div>\n\t<div class=\"govuk-grid-column-one-third\">\n\t\t<div>\n\n\t\t</div>\n\t</div>\n</div>"
+                },
+                "GraphSyncPart": {
+                  "Text": "<<contentapiprefix>>/html/b805b07a-8bfa-4d53-b335-e04daebd725a"
+                },
+                "FlowMetadata": {
+                  "Alignment": 3,
+                  "Size": 100
+                }
+              }
+            ]
+          },
+          "GraphSyncPart": {
+            "Text": "<<contentapiprefix>>/page/07321975-7200-4137-81b7-94596f5e589b"
+          },
+          "PageLocationPart": {
+            "UrlName": "503",
+            "DefaultPageForLocation": false,
+            "RedirectLocations": null,
+            "FullUrl": "/alerts/503"
+          }
+        },
+        {
+          "ContentItemId": "4217dbbv3k3x21hrff425py54e",
+          "ContentItemVersionId": "4hf8fak0h715s0y5pk9jz450w6",
+          "ContentType": "Page",
+          "DisplayText": "400",
+          "Latest": true,
+          "Published": true,
+          "ModifiedUtc": "2020-10-19T18:32:38.1873493Z",
+          "PublishedUtc": "2020-10-19T18:32:38.2026713Z",
+          "CreatedUtc": "2020-10-19T18:31:10.660944Z",
+          "Owner": "admin",
+          "Author": "admin",
+          "TitlePart": {
+            "Title": "400"
+          },
+          "Page": {
+            "PageLocations": {
+              "TaxonomyContentItemId": "4eembshqzx66drajtdten34tc8",
+              "TermContentItemIds": [
+                "4463thdwjseek42re9jzb2dvnp"
+              ]
+            },
+            "Description": {
+              "Text": "Bad Request Page"
+            },
+            "Herobanner": {
+              "Html": ""
+            }
+          },
+          "SitemapPart": {
+            "Priority": 5,
+            "OverrideSitemapConfig": false,
+            "ChangeFrequency": 0,
+            "Exclude": false
+          },
+          "FlowPart": {
+            "Widgets": [
+              {
+                "ContentItemId": "4tk8vm95d79eywhymsftr3qax3",
+                "ContentItemVersionId": null,
+                "ContentType": "HTML",
+                "DisplayText": "",
+                "Latest": false,
+                "Published": false,
+                "ModifiedUtc": "2020-10-19T18:32:38.1928926Z",
+                "PublishedUtc": null,
+                "CreatedUtc": null,
+                "Owner": "",
+                "Author": "admin",
+                "HTML": {},
+                "HtmlBodyPart": {
+                  "Html": "<div class=\"govuk-grid-row\">\n\t<div class=\"govuk-grid-column-two-thirds\">\n\t\t<div>\n\t\t\t<div class=\"govuk-width-container\">\n\t\t\t\t<div class=\"content-container\">\n\t\t\t\t\t<h1 class=\"heading-xlarge\">Page not found</h1>\n\t\t\t\t\t<p>If you typed the web address or used a bookmark, check it is correct.</p>\n\t\t\t\t\t<p>If you pasted the web address, check you copied the whole address.</p>\n\t\t\t\t\t<p>If the web address is correct you can <a href=\"/contact-us\">contact us</a> to get help using this service or call 0800 100 900, 8am to 10pm, 7 days a week.</p>\n\t\t\t\t</div>\n\t\t\t</div>\n\t\t</div>\n\t</div>\n\t<div class=\"govuk-grid-column-one-third\">\n\t\t<div>\n\n\t\t</div>\n\t</div>\n</div>"
+                },
+                "GraphSyncPart": {
+                  "Text": "<<contentapiprefix>>/html/a195881e-1967-45e6-8f23-342a6e41544d"
+                },
+                "FlowMetadata": {
+                  "Alignment": 3,
+                  "Size": 100
+                }
+              }
+            ]
+          },
+          "GraphSyncPart": {
+            "Text": "<<contentapiprefix>>/page/de191289-755e-4000-9797-2d39e6d646b8"
+          },
+          "PageLocationPart": {
+            "UrlName": "400",
+            "DefaultPageForLocation": false,
+            "RedirectLocations": null,
+            "FullUrl": "/alerts/400"
+          }
+        },
+        {
+          "ContentItemId": "4hhvfstashcfy7jax0dwqt88d1",
+          "ContentItemVersionId": "4trpecf6gtqxfzde475p7ecew2",
+          "ContentType": "Page",
+          "DisplayText": "500",
+          "Latest": true,
+          "Published": true,
+          "ModifiedUtc": "2020-10-19T18:34:05.8407358Z",
+          "PublishedUtc": "2020-10-19T18:34:05.8578442Z",
+          "CreatedUtc": "2020-10-19T18:32:41.687475Z",
+          "Owner": "admin",
+          "Author": "admin",
+          "TitlePart": {
+            "Title": "500"
+          },
+          "Page": {
+            "PageLocations": {
+              "TaxonomyContentItemId": "4eembshqzx66drajtdten34tc8",
+              "TermContentItemIds": [
+                "4463thdwjseek42re9jzb2dvnp"
+              ]
+            },
+            "Description": {
+              "Text": "Internal Server Error Page"
+            },
+            "Herobanner": {
+              "Html": "<p><br></p>"
+            }
+          },
+          "SitemapPart": {
+            "Priority": 5,
+            "OverrideSitemapConfig": false,
+            "ChangeFrequency": 0,
+            "Exclude": false
+          },
+          "FlowPart": {
+            "Widgets": [
+              {
+                "ContentItemId": "4tk8vm95d79eywhymsftr3qax3",
+                "ContentItemVersionId": null,
+                "ContentType": "HTML",
+                "DisplayText": "",
+                "Latest": false,
+                "Published": false,
+                "ModifiedUtc": "2020-10-19T18:34:05.849966Z",
+                "PublishedUtc": null,
+                "CreatedUtc": null,
+                "Owner": "",
+                "Author": "admin",
+                "HTML": {},
+                "HtmlBodyPart": {
+                  "Html": "<div class=\"govuk-grid-row\">\n\t<div class=\"govuk-grid-column-two-thirds\">\n\t\t<div>\n\t\t\t<div class=\"govuk-width-container\">\n\t\t\t\t<div class=\"content-container\">\n\t\t\t\t\t<h1 class=\"heading-xlarge\">Sorry, there is a problem with this service</h1>\n\t\t\t\t\t<p>Please try again later.</p>\n\t\t\t\t\t<p>\n\t\t\t\t\t\t<a href=\"/contact-us\">Contact us</a> if you want to speak to one of our careers advisers.</p>\n\t\t\t\t</div>\n\t\t\t</div>\n\t\t</div>\n\t</div>\n\t<div class=\"govuk-grid-column-one-third\">\n\t\t<div>\n\t\t</div>\n\t</div>\n</div>"
+                },
+                "GraphSyncPart": {
+                  "Text": "<<contentapiprefix>>/html/8dbe74a0-dd54-4809-960d-35ae1592116d"
+                },
+                "FlowMetadata": {
+                  "Alignment": 3,
+                  "Size": 100
+                }
+              }
+            ]
+          },
+          "GraphSyncPart": {
+            "Text": "<<contentapiprefix>>/page/9a03f089-8944-4a5c-9244-9e1d6b0d8296"
+          },
+          "PageLocationPart": {
+            "UrlName": "500",
+            "DefaultPageForLocation": false,
+            "RedirectLocations": null,
+            "FullUrl": "/alerts/500"
+          }
+        }
+      ]
+    }
+  ]
+}
