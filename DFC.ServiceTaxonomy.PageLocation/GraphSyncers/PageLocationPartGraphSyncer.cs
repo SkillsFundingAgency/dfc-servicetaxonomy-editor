@@ -73,15 +73,6 @@ namespace DFC.ServiceTaxonomy.PageLocation.GraphSyncers
             if (!matched)
                 return (false, $"{UrlNamePropertyName} did not validate: {failureReason}");
 
-            (matched, failureReason) = context.GraphValidationHelper.BoolContentPropertyMatchesNodeProperty(
-                DefaultPageForLocationPropertyName,
-                content,
-                await context.SyncNameProvider.PropertyName(DefaultPageForLocationPropertyName),
-                context.NodeWithOutgoingRelationships.SourceNode);
-
-            if (!matched)
-                return (false, $"{DefaultPageForLocationPropertyName} did not validate: {failureReason}");
-
             (matched, failureReason) = context.GraphValidationHelper.StringContentPropertyMatchesNodeProperty(
                 FullUrlPropertyName,
                 content,
@@ -91,13 +82,29 @@ namespace DFC.ServiceTaxonomy.PageLocation.GraphSyncers
             if (!matched)
                 return (false, $"{FullUrlPropertyName} did not validate: {failureReason}");
 
-            (matched, failureReason) = context.GraphValidationHelper.ContentMultilineStringPropertyMatchesNodeProperty(
-                RedirectLocationsPropertyName,
-                content,
-                await context.SyncNameProvider.PropertyName(RedirectLocationsPropertyName),
-                context.NodeWithOutgoingRelationships.SourceNode);
+            var settings = context.ContentTypePartDefinition.GetSettings<PageLocationPartSettings>();
 
-            return matched ? (true, "") : (false, $"{RedirectLocationsPropertyName} did not validate: {failureReason}");
+            if (settings.DisplayRedirectLocationsAndDefaultPageForLocation)
+            {
+                (matched, failureReason) = context.GraphValidationHelper.BoolContentPropertyMatchesNodeProperty(
+                    DefaultPageForLocationPropertyName,
+                    content,
+                    await context.SyncNameProvider.PropertyName(DefaultPageForLocationPropertyName),
+                    context.NodeWithOutgoingRelationships.SourceNode);
+
+                if (!matched)
+                    return (false, $"{DefaultPageForLocationPropertyName} did not validate: {failureReason}");
+
+                (matched, failureReason) = context.GraphValidationHelper.ContentMultilineStringPropertyMatchesNodeProperty(
+                    RedirectLocationsPropertyName,
+                    content,
+                    await context.SyncNameProvider.PropertyName(RedirectLocationsPropertyName),
+                    context.NodeWithOutgoingRelationships.SourceNode);
+
+                return matched ? (true, "") : (false, $"{RedirectLocationsPropertyName} did not validate: {failureReason}");
+            }
+
+            return (true, "");
         }
 
         public override async Task MutateOnClone(JObject content, ICloneContext context)
