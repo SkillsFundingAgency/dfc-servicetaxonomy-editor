@@ -61,10 +61,6 @@ namespace GetJobProfiles.Importers
                     JobProfileContentItem profile = jobProfiles
                         .SingleOrDefault(x => x.JobProfileHeader.JobProfileWebsiteUrl.Text.Split("/").Last() == item.Url);
 
-                    if (item.Url.ToLower().Contains("isma"))
-                    {
-                        Console.WriteLine("item.Url");
-                    }
                     if (profile != null && !_exclusions.Contains(item.Url))
                     {
                         string title = item.EscoTitle.Split(new[] { "\r\n" }, StringSplitOptions.None).First().Trim();
