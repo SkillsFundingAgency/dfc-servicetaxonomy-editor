@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using DFC.ServiceTaxonomy.Content;
 using DFC.ServiceTaxonomy.Content.Services.Interface;
 using DFC.ServiceTaxonomy.GraphSync.Extensions;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Contexts;
@@ -12,7 +11,7 @@ using DFC.ServiceTaxonomy.PageLocation.Models;
 using DFC.ServiceTaxonomy.PageLocation.Services;
 using Newtonsoft.Json.Linq;
 using OrchardCore.ContentManagement;
-using OrchardCore.Title.Models;
+using OrchardCore.ContentManagement.Metadata;
 
 namespace DFC.ServiceTaxonomy.PageLocation.GraphSyncers
 {
@@ -20,11 +19,13 @@ namespace DFC.ServiceTaxonomy.PageLocation.GraphSyncers
     {
         private readonly IPageLocationClonePropertyGenerator _generator;
         private readonly IContentItemsService _contentItemsService;
+        private readonly IContentDefinitionManager _contentDefinitionManager;
 
-        public PageLocationPartGraphSyncer(IPageLocationClonePropertyGenerator generator, IContentItemsService contentItemsService)
+        public PageLocationPartGraphSyncer(IPageLocationClonePropertyGenerator generator, IContentItemsService contentItemsService, IContentDefinitionManager contentDefinitionManager)
         {
             _generator = generator;
             _contentItemsService = contentItemsService;
+            _contentDefinitionManager = contentDefinitionManager;
         }
 
         public override string PartName => nameof(PageLocationPart);
@@ -42,12 +43,19 @@ namespace DFC.ServiceTaxonomy.PageLocation.GraphSyncers
             using var _ = context.SyncNameProvider.PushPropertyNameTransform(_pageLocationPropertyNameTransform);
 
             context.MergeNodeCommand.AddProperty<string>(await context.SyncNameProvider.PropertyName(UrlNamePropertyName), content, UrlNamePropertyName);
-            context.MergeNodeCommand.AddProperty<bool>(await context.SyncNameProvider.PropertyName(DefaultPageForLocationPropertyName), content, DefaultPageForLocationPropertyName);
             context.MergeNodeCommand.AddProperty<string>(await context.SyncNameProvider.PropertyName(FullUrlPropertyName), content, FullUrlPropertyName);
 
-            context.MergeNodeCommand.AddArrayPropertyFromMultilineString(
-                await context.SyncNameProvider.PropertyName(RedirectLocationsPropertyName), content,
-                RedirectLocationsPropertyName);
+            var settings = context.ContentTypePartDefinition.GetSettings<PageLocationPartSettings>();
+
+            //TODO : if this setting changes, do we need to also check/remove these properties from the node?
+            if (settings.DisplayRedirectLocationsAndDefaultPageForLocation)
+            {
+                context.MergeNodeCommand.AddProperty<bool>(await context.SyncNameProvider.PropertyName(DefaultPageForLocationPropertyName), content, DefaultPageForLocationPropertyName);
+
+                context.MergeNodeCommand.AddArrayPropertyFromMultilineString(
+                    await context.SyncNameProvider.PropertyName(RedirectLocationsPropertyName), content,
+                    RedirectLocationsPropertyName);
+            }
         }
 
         public override async Task<(bool validated, string failureReason)> ValidateSyncComponent(

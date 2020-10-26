@@ -62,6 +62,33 @@ namespace DFC.ServiceTaxonomy.PageLocation.Validators
                 }
             }
 
+            IEnumerable<ContentItem> categories = await _session.Query<ContentItem, ContentItemIndex>(x => x.ContentType == "JobCategory" && x.Latest).ListAsync();
+
+            foreach (var category in categories)
+            {
+                ContentItem? draftCategory = await _contentManager.GetAsync(category.ContentItemId, VersionOptions.Draft);
+                ContentItem? publishedCategory = await _contentManager.GetAsync(category.ContentItemId, VersionOptions.Published);
+
+                //TODO: use nameof, but doing so would introduce a circular dependency between the page location and taxonomies projects
+                string? draftUrl = ((string?)draftCategory?.Content.PageLocationPart.FullUrl)?.Trim('/') ?? null;
+                string? pubUrl = ((string?)publishedCategory?.Content.PageLocationPart.FullUrl)?.Trim('/') ?? null;
+
+                string[]? draftRedirectLocations = draftCategory?.Content.PageLocationPart.RedirectLocations?.ToObject<string?>()?.Split("\r\n");
+                string[]? publishedRedirectLocations = publishedCategory?.Content.PageLocationPart.RedirectLocations?.ToObject<string?>()?.Split("\r\n");
+
+                if ((draftUrl?.Equals(url, StringComparison.OrdinalIgnoreCase) ?? false) || (pubUrl?.Equals(url, StringComparison.OrdinalIgnoreCase) ?? false))
+                {
+                    ErrorMessage = $"The generated URL for '{term["DisplayText"]}' has already been used as a Job Category URL.";
+                    return false;
+                }
+
+                if ((draftRedirectLocations?.Any(x => x.Trim('/').Equals(url, StringComparison.OrdinalIgnoreCase)) ?? false) || (publishedRedirectLocations?.Any(x => x.Trim('/').Equals(url, StringComparison.OrdinalIgnoreCase)) ?? false))
+                {
+                    ErrorMessage = $"The generated URL for '{term["DisplayText"]}' has already been used as a Job Category Redirect Location";
+                    return false;
+                }
+            }
+
             return true;
         }
     }

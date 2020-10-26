@@ -188,6 +188,9 @@
                             "Settings": {
                                 "ContentTypePartSettings": {
                                     "Position": "1"
+                                },
+                                "PageLocationPartSettings": {
+                                    "DisplayRedirectLocationsAndDefaultPageForLocation": true
                                 }
                             }
                         }
