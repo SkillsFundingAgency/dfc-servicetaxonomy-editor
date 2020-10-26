@@ -32,8 +32,12 @@ namespace GetJobProfiles.Importers
             "speech-and-language-therapy-assistant",
             "tv-or-film-production-runner",
             "ismai;-profile",
+            "ismail-profile",
             "ceiling-fixer",
-            "fenestration-fabricator"
+            "fenestration-fabricator",
+            "window-fabricator",
+            "heritage-officer",
+            "desk-profiler"
         };
 
         public List<string> Map(IEnumerable<JobProfileContentItem> jobProfiles)
@@ -57,6 +61,10 @@ namespace GetJobProfiles.Importers
                     JobProfileContentItem profile = jobProfiles
                         .SingleOrDefault(x => x.JobProfileHeader.JobProfileWebsiteUrl.Text.Split("/").Last() == item.Url);
 
+                    if (item.Url.ToLower().Contains("isma"))
+                    {
+                        Console.WriteLine("item.Url");
+                    }
                     if (profile != null && !_exclusions.Contains(item.Url))
                     {
                         string title = item.EscoTitle.Split(new[] { "\r\n" }, StringSplitOptions.None).First().Trim();

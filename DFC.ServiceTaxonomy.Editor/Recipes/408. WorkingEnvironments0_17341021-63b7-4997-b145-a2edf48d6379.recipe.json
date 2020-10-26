@@ -1,0 +1,4242 @@
+{
+  "name": "WorkingEnvironments0_17341021-63b7-4997-b145-a2edf48d6379",
+  "displayName": "WorkingEnvironments0_17341021-63b7-4997-b145-a2edf48d6379",
+  "description": "",
+  "author": "",
+  "website": "",
+  "version": "",
+  "issetuprecipe": false,
+  "categories": "",
+  "tags": [],
+  "steps": [
+    {
+      "name": "ContentNoCache",
+      "data": [
+  {
+    "TitlePart": {
+      "Title": "outdoors in all weathers, noisy, at height and dirty"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Eoutdoors in all weathers, noisy, at height and dirty\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/workingenvironment/58bb066c-ae60-49f7-909b-181a20359e58"
+    },
+    "ContentItemId": "4f9spact631bh0q1h6wa1nz644",
+    "ContentItemVersionId": "4mxxz4gvpw44jzaegay34rryc7",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "outdoors in all weathers, noisy, at height and dirty",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-26T13:54:31.3766966Z",
+    "PublishedUtc": "2020-10-26T13:54:31.3766966Z",
+    "CreatedUtc": "2020-10-26T13:54:31.3766966Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "physically demanding, outdoors in all weathers and you may spend nights away from home"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Ephysically demanding, outdoors in all weathers and you may spend nights away from home\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/workingenvironment/c2ce984e-9a1e-4dcd-83f6-dffa938a94ee"
+    },
+    "ContentItemId": "4g8h8p41agvxq06aq4za3da0c5",
+    "ContentItemVersionId": "4j9sgvk50vfaqrc6mj9pq7gcmh",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "physically demanding, outdoors in all weathers and you may spend nights away from home",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-26T13:54:31.3766966Z",
+    "PublishedUtc": "2020-10-26T13:54:31.3766966Z",
+    "CreatedUtc": "2020-10-26T13:54:31.3766966Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "outdoors in all weathers and you\u0027ll travel often"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Eoutdoors in all weathers and you\u0027ll travel often\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/workingenvironment/ea330547-eca6-4846-bf2a-6915fe709137"
+    },
+    "ContentItemId": "474rw5j4hfcj572rjh07jjp8ns",
+    "ContentItemVersionId": "44xj4pzqv9zxfshg96sbq6rc4s",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "outdoors in all weathers and you\u0027ll travel often",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-26T13:54:31.3766966Z",
+    "PublishedUtc": "2020-10-26T13:54:31.3766966Z",
+    "CreatedUtc": "2020-10-26T13:54:31.3766966Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "crowded, outdoors some of the time and you may spend nights away from home"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Ecrowded, outdoors some of the time and you may spend nights away from home\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/workingenvironment/7e71344c-3f3a-46f1-a201-c959378631a7"
+    },
+    "ContentItemId": "4ygb148h5ewp8ycth8fg87sxn7",
+    "ContentItemVersionId": "47gzs22rqtbbs7sfgbj05p94xr",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "crowded, outdoors some of the time and you may spend nights away from home",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-26T13:54:31.3766966Z",
+    "PublishedUtc": "2020-10-26T13:54:31.3766966Z",
+    "CreatedUtc": "2020-10-26T13:54:31.3766966Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "outdoors in all weathers, dusty and dirty"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Eoutdoors in all weathers, dusty and dirty\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/workingenvironment/1f0ffc9f-0f06-451e-a01f-bcddfabf1234"
+    },
+    "ContentItemId": "4kbq9nsynz884wdxv22mpayadn",
+    "ContentItemVersionId": "4j49n1dgxrm9317yhfrzpnjfnh",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "outdoors in all weathers, dusty and dirty",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-26T13:54:31.3766966Z",
+    "PublishedUtc": "2020-10-26T13:54:31.3766966Z",
+    "CreatedUtc": "2020-10-26T13:54:31.3766966Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "dusty and you\u0027ll travel often"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Edusty and you\u0027ll travel often\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/workingenvironment/965005be-3c5b-45ac-82ad-6e6c13b82ff5"
+    },
+    "ContentItemId": "49sqbnqzqjy0rva8csxb1sw4dq",
+    "ContentItemVersionId": "423e7axv7cxf6wk3mq1rzmapdg",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "dusty and you\u0027ll travel often",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-26T13:54:31.3766966Z",
+    "PublishedUtc": "2020-10-26T13:54:31.3766966Z",
+    "CreatedUtc": "2020-10-26T13:54:31.3766966Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "at height, outdoors in all weathers and you may spend nights away from home"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Eat height, outdoors in all weathers and you may spend nights away from home\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/workingenvironment/263fc3b6-c77c-4553-95da-b3bd6a6946d6"
+    },
+    "ContentItemId": "4fe1fk7mx1e8es0wqdrcvzr5c7",
+    "ContentItemVersionId": "443pzc0f941grv14379a13jj47",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "at height, outdoors in all weathers and you may spend nights away from home",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-26T13:54:31.3766966Z",
+    "PublishedUtc": "2020-10-26T13:54:31.3766966Z",
+    "CreatedUtc": "2020-10-26T13:54:31.3766966Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "physically demanding, at height and outdoors in all weathers"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Ephysically demanding, at height and outdoors in all weathers\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/workingenvironment/1b2761de-0c5d-47f3-9fba-c6c8fd990ef3"
+    },
+    "ContentItemId": "4g2xmyvr4x872rv0x72qa4z6c9",
+    "ContentItemVersionId": "43dnxzj348h5frwtj7m1ep5ac1",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "physically demanding, at height and outdoors in all weathers",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-26T13:54:31.3766966Z",
+    "PublishedUtc": "2020-10-26T13:54:31.3766966Z",
+    "CreatedUtc": "2020-10-26T13:54:31.3766966Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "outdoors some of the time and dirty"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Eoutdoors some of the time and dirty\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/workingenvironment/23bb2819-96de-4f43-ab3b-f6377fe71e63"
+    },
+    "ContentItemId": "4bcp1jt2y5vynw8v6knqce824q",
+    "ContentItemVersionId": "4ykvaad2svxq25y95c53tdy9xf",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "outdoors some of the time and dirty",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-26T13:54:31.3766966Z",
+    "PublishedUtc": "2020-10-26T13:54:31.3766966Z",
+    "CreatedUtc": "2020-10-26T13:54:31.3766966Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Physically Demanding"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Ephysically demanding\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/workingenvironment/fcdf213a-0c07-4d9e-b0e8-bdc659fae3e9"
+    },
+    "ContentItemId": "4maeqne8ysej3s67kf2fw36twm",
+    "ContentItemVersionId": "4pv71rt0ek7cg7c88khp40md4x",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "Physically Demanding",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-26T13:54:31.3766966Z",
+    "PublishedUtc": "2020-10-26T13:54:31.3766966Z",
+    "CreatedUtc": "2020-10-26T13:54:31.3766966Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "humid and physically active"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Ehumid and physically active\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/workingenvironment/3e9d79c8-cd29-4c14-a72e-072c2c79d0f1"
+    },
+    "ContentItemId": "4fkds8cm2s81715az06f14tgnt",
+    "ContentItemVersionId": "4dscbf44pmes570n3hepy3865z",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "humid and physically active",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-26T13:54:31.3766966Z",
+    "PublishedUtc": "2020-10-26T13:54:31.3766966Z",
+    "CreatedUtc": "2020-10-26T13:54:31.3766966Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "physically demanding and at height"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Ephysically demanding and at height\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/workingenvironment/b4dc130e-a5ba-4607-891b-6fc06afafa3b"
+    },
+    "ContentItemId": "4e612jr0frawp6w3x0kz20dzmv",
+    "ContentItemVersionId": "4mt6m758zscj063bckxd6vshdz",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "physically demanding and at height",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-26T13:54:31.3766966Z",
+    "PublishedUtc": "2020-10-26T13:54:31.3766966Z",
+    "CreatedUtc": "2020-10-26T13:54:31.3766966Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "physically active and you may spend nights away from home"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Ephysically active and you may spend nights away from home\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/workingenvironment/fd325a99-5690-42ef-a7a3-872ebb9059b6"
+    },
+    "ContentItemId": "43dm48ep9cst67cjwvjjw500mw",
+    "ContentItemVersionId": "4k3zaf1qn36rmr64z3xs81xqw5",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "physically active and you may spend nights away from home",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-26T13:54:31.3766966Z",
+    "PublishedUtc": "2020-10-26T13:54:31.3766966Z",
+    "CreatedUtc": "2020-10-26T13:54:31.3766966Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "humid, noisy and outdoors in all weathers"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Ehumid, noisy and outdoors in all weathers\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/workingenvironment/ab473d6a-d16f-4901-841b-4319b158224c"
+    },
+    "ContentItemId": "49446z720swv25d42x31np5ycm",
+    "ContentItemVersionId": "458mnd7b3atwwzvk2rcg6bm6x6",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "humid, noisy and outdoors in all weathers",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-26T13:54:31.3766966Z",
+    "PublishedUtc": "2020-10-26T13:54:31.3766966Z",
+    "CreatedUtc": "2020-10-26T13:54:31.3766966Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Dirty"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Edirty\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/workingenvironment/62ae00af-7c03-4c85-8013-9e648a485a2c"
+    },
+    "ContentItemId": "4j3r4mmp9p8w91eyfcbcmaqdwj",
+    "ContentItemVersionId": "4r7xk6nfd1jw40tzz80hgwh35b",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "Dirty",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-26T13:54:31.3766966Z",
+    "PublishedUtc": "2020-10-26T13:54:31.3766966Z",
+    "CreatedUtc": "2020-10-26T13:54:31.3766966Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "outdoors some of the time and you may spend nights away from home"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Eoutdoors some of the time and you may spend nights away from home\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/workingenvironment/93684afd-6623-4d4e-84f4-a732d3982007"
+    },
+    "ContentItemId": "44f9j2nsp9txxxdygtd7skmymh",
+    "ContentItemVersionId": "4fhaqr6ndwz6dr4dg6dh9b6z5d",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "outdoors some of the time and you may spend nights away from home",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-26T13:54:31.3766966Z",
+    "PublishedUtc": "2020-10-26T13:54:31.3766966Z",
+    "CreatedUtc": "2020-10-26T13:54:31.3766966Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "noisy and at height"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Enoisy and at height\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/workingenvironment/1ee6c04b-a93c-4631-beef-960af7ce1685"
+    },
+    "ContentItemId": "424vh2nr436vs4h27bn0f7qvwq",
+    "ContentItemVersionId": "4g2w4m94tpdv3thwbjb7a4zz5b",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "noisy and at height",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-26T13:54:31.3766966Z",
+    "PublishedUtc": "2020-10-26T13:54:31.3766966Z",
+    "CreatedUtc": "2020-10-26T13:54:31.3766966Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "physically and emotionally demanding and you\u0027ll travel often"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Ephysically and emotionally demanding and you\u0027ll travel often\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/workingenvironment/9954dd37-7790-4be7-867d-0dbdc829daa3"
+    },
+    "ContentItemId": "4zweyq57bxkahz5m7p546x7qcm",
+    "ContentItemVersionId": "4dsgxqhpgsvfj3vm90fnzkanmd",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "physically and emotionally demanding and you\u0027ll travel often",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-26T13:54:31.3766966Z",
+    "PublishedUtc": "2020-10-26T13:54:31.3766966Z",
+    "CreatedUtc": "2020-10-26T13:54:31.3766966Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "physically and emotionally demanding and you may spend nights away from home"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Ephysically and emotionally demanding and you may spend nights away from home\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/workingenvironment/9aa765df-2ef6-4d99-a64e-a8e77b0bfa88"
+    },
+    "ContentItemId": "4pwb9f7arj76erz7fs3w7z37c8",
+    "ContentItemVersionId": "4n8d83bwse0wq6qjt17wzbv1xz",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "physically and emotionally demanding and you may spend nights away from home",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-26T13:54:31.3766966Z",
+    "PublishedUtc": "2020-10-26T13:54:31.3766966Z",
+    "CreatedUtc": "2020-10-26T13:54:31.3766966Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "dusty, hot and physically demanding"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Edusty, hot and physically demanding\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/workingenvironment/12f33087-ae76-4bbd-b940-28a837a7e8c8"
+    },
+    "ContentItemId": "452cjkw6nqxte6bps7g3x47cnh",
+    "ContentItemVersionId": "4ww6sw0fsm4v6w5m8gpb07x1dt",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "dusty, hot and physically demanding",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-26T13:54:31.3766966Z",
+    "PublishedUtc": "2020-10-26T13:54:31.3766966Z",
+    "CreatedUtc": "2020-10-26T13:54:31.3766966Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "dusty and cool"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Edusty and cool\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/workingenvironment/1abb814a-a665-4591-b516-a1f79baedba3"
+    },
+    "ContentItemId": "4faf91ehbty7krdbqemmbxy5xq",
+    "ContentItemVersionId": "4hn5gjx1k56cvzgzcscvtn38ww",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "dusty and cool",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-26T13:54:31.3766966Z",
+    "PublishedUtc": "2020-10-26T13:54:31.3766966Z",
+    "CreatedUtc": "2020-10-26T13:54:31.3766966Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "dusty, physically demanding and noisy"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Edusty, physically demanding and noisy\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/workingenvironment/7f1ae896-05ec-4812-bd2b-63f35717fe92"
+    },
+    "ContentItemId": "4n2mksw92b49v38vbsppe86jm2",
+    "ContentItemVersionId": "4hykfw00y373t0k62wvf7esb5v",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "dusty, physically demanding and noisy",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-26T13:54:31.3766966Z",
+    "PublishedUtc": "2020-10-26T13:54:31.3766966Z",
+    "CreatedUtc": "2020-10-26T13:54:31.3766966Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "physically and emotionally demanding and outdoors some of the time"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Ephysically and emotionally demanding and outdoors some of the time\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/workingenvironment/21082692-fed3-4214-9816-04cdd7928ea9"
+    },
+    "ContentItemId": "4ey20d667wfkmt5vwbn5yn0cxf",
+    "ContentItemVersionId": "471cdn0bpycgzs20ferqnyzkmq",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "physically and emotionally demanding and outdoors some of the time",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-26T13:54:31.3766966Z",
+    "PublishedUtc": "2020-10-26T13:54:31.3766966Z",
+    "CreatedUtc": "2020-10-26T13:54:31.3766966Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "physically demanding, at height and cramped"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Ephysically demanding, at height and cramped\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/workingenvironment/ba0f3789-3f3b-4fda-9a7f-125ad810a872"
+    },
+    "ContentItemId": "4g2x0hzm44gvatza0tensa0hdp",
+    "ContentItemVersionId": "4q784ekmfgn8r70fm8ez8agkc2",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "physically demanding, at height and cramped",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-26T13:54:31.3766966Z",
+    "PublishedUtc": "2020-10-26T13:54:31.3766966Z",
+    "CreatedUtc": "2020-10-26T13:54:31.3766966Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "physically demanding and you\u0027ll travel often"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Ephysically demanding and you\u0027ll travel often\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/workingenvironment/e00184de-4999-4003-9740-dfe3349feca7"
+    },
+    "ContentItemId": "4pghjfh6fehbn14fnnpeanxnw6",
+    "ContentItemVersionId": "4fkm1d3jsg4f06sayh9av1xwna",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "physically demanding and you\u0027ll travel often",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-26T13:54:31.3766966Z",
+    "PublishedUtc": "2020-10-26T13:54:31.3766966Z",
+    "CreatedUtc": "2020-10-26T13:54:31.3766966Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "noisy, you\u0027ll travel often and physically demanding"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Enoisy, you\u0027ll travel often and physically demanding\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/workingenvironment/88c6df9f-a7fe-4715-a5fb-d3e671e5f623"
+    },
+    "ContentItemId": "4133nregmj9872vxwc56v27pw6",
+    "ContentItemVersionId": "4sphqjmm4xnpc7jessxp8k5ace",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "noisy, you\u0027ll travel often and physically demanding",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-26T13:54:31.3766966Z",
+    "PublishedUtc": "2020-10-26T13:54:31.3766966Z",
+    "CreatedUtc": "2020-10-26T13:54:31.3766966Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "outdoors some of the time, physically demanding and at height"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Eoutdoors some of the time, physically demanding and at height\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/workingenvironment/22de9909-6a15-4bd1-8638-84e64c50dade"
+    },
+    "ContentItemId": "414t4e42b6kfd01x00azapgqws",
+    "ContentItemVersionId": "4qm9kyqqc1d2bxw9tkeaamgfdf",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "outdoors some of the time, physically demanding and at height",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-26T13:54:31.3766966Z",
+    "PublishedUtc": "2020-10-26T13:54:31.3766966Z",
+    "CreatedUtc": "2020-10-26T13:54:31.3766966Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "noisy and hot"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Enoisy and hot\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/workingenvironment/d9314420-d131-416b-9ff5-a1ae295fcd2d"
+    },
+    "ContentItemId": "4qa01k2gsbvv45bkhh8aqz4tm0",
+    "ContentItemVersionId": "4fsqe5n08p76cw20nkwa6mce5e",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "noisy and hot",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-26T13:54:31.3766966Z",
+    "PublishedUtc": "2020-10-26T13:54:31.3766966Z",
+    "CreatedUtc": "2020-10-26T13:54:31.3766966Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "at height, dirty, outdoors in all weathers, physically demanding and you\u0027ll travel often"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Eat height, dirty, outdoors in all weathers, physically demanding and you\u0027ll travel often\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/workingenvironment/c3c056f7-40fd-4863-b598-07f2985718fb"
+    },
+    "ContentItemId": "445zjyyvadrmr2gc85gg8tp6my",
+    "ContentItemVersionId": "4fb913qb6hxrh7qnzqv9wev2c7",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "at height, dirty, outdoors in all weathers, physically demanding and you\u0027ll travel often",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-26T13:54:31.3766966Z",
+    "PublishedUtc": "2020-10-26T13:54:31.3766966Z",
+    "CreatedUtc": "2020-10-26T13:54:31.3766966Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Outdoors In All Weathers"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Eoutdoors in all weathers\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/workingenvironment/632a4798-8ae4-46c6-b911-e7516dbb65b4"
+    },
+    "ContentItemId": "4f5839apx13t6yhtz548gz1xmw",
+    "ContentItemVersionId": "4k6e5nsv3cb37wr82ny1302mm9",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "Outdoors In All Weathers",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-26T13:54:31.3766966Z",
+    "PublishedUtc": "2020-10-26T13:54:31.3766966Z",
+    "CreatedUtc": "2020-10-26T13:54:31.3766966Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "crowded, cramped and outdoors some of the time"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Ecrowded, cramped and outdoors some of the time\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/workingenvironment/7649fba8-2f78-4543-903c-4bc271ccd51b"
+    },
+    "ContentItemId": "4vx7y18y1ep541adc8wyz10g55",
+    "ContentItemVersionId": "44j53hmetpvwb7rfde3d5g28wv",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "crowded, cramped and outdoors some of the time",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-26T13:54:31.3766966Z",
+    "PublishedUtc": "2020-10-26T13:54:31.3766966Z",
+    "CreatedUtc": "2020-10-26T13:54:31.3766966Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "cramped, dirty, at height, physically demanding, outdoors in all weathers and noisy"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Ecramped, dirty, at height, physically demanding, outdoors in all weathers and noisy\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/workingenvironment/3b251e2e-d41e-4291-9dd6-270afd1d79f6"
+    },
+    "ContentItemId": "4w5pd4c6amq5txg528wwmpgdx5",
+    "ContentItemVersionId": "46qjr791zegnn0xnfh1bk3qc46",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "cramped, dirty, at height, physically demanding, outdoors in all weathers and noisy",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-26T13:54:31.3766966Z",
+    "PublishedUtc": "2020-10-26T13:54:31.3766966Z",
+    "CreatedUtc": "2020-10-26T13:54:31.3766966Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "at height, outdoors in all weathers, cramped and you may spend nights away from home"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Eat height, outdoors in all weathers, cramped and you may spend nights away from home\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/workingenvironment/155d1b00-5dfc-4981-984e-1a47cc3ae58d"
+    },
+    "ContentItemId": "4tgb6x0dard8y2wyv92n2t2adb",
+    "ContentItemVersionId": "431nt5d3jyg034s404v8hps44n",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "at height, outdoors in all weathers, cramped and you may spend nights away from home",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-26T13:54:31.3766966Z",
+    "PublishedUtc": "2020-10-26T13:54:31.3766966Z",
+    "CreatedUtc": "2020-10-26T13:54:31.3766966Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "humid and outdoors some of the time"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Ehumid and outdoors some of the time\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/workingenvironment/f0c6866f-abea-45a3-b494-0c1256d18b9e"
+    },
+    "ContentItemId": "49znpnkgecdsxsmjfdjpmvmvmj",
+    "ContentItemVersionId": "4cscgjbry1xwk6bpr5mt0d51d8",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "humid and outdoors some of the time",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-26T13:54:31.3766966Z",
+    "PublishedUtc": "2020-10-26T13:54:31.3766966Z",
+    "CreatedUtc": "2020-10-26T13:54:31.3766966Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "physically demanding and cold"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Ephysically demanding and cold\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/workingenvironment/125982a2-9d17-4495-a686-550bc84e5e71"
+    },
+    "ContentItemId": "4d19pc0x612ww0k76t3qfx94n4",
+    "ContentItemVersionId": "46krcpzzr1hmtzpsz88k41bdwf",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "physically demanding and cold",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-26T13:54:31.3766966Z",
+    "PublishedUtc": "2020-10-26T13:54:31.3766966Z",
+    "CreatedUtc": "2020-10-26T13:54:31.3766966Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Crowded"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Ecrowded\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/workingenvironment/bdb939ed-0033-46e9-8656-4e4f22de92e1"
+    },
+    "ContentItemId": "4d2f5qqv5hfycyxkw4qfy4egcy",
+    "ContentItemVersionId": "4d2zeasq8nz2b0rgw9b4rrh544",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "Crowded",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-26T13:54:31.3766966Z",
+    "PublishedUtc": "2020-10-26T13:54:31.3766966Z",
+    "CreatedUtc": "2020-10-26T13:54:31.3766966Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "hot, humid and noisy"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Ehot, humid and noisy\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/workingenvironment/44ed6931-64f4-4e69-b255-3dcf39b5ca60"
+    },
+    "ContentItemId": "40d95qcwewqm2zmp1gc0wf7bd9",
+    "ContentItemVersionId": "465wjmf76qkz44wt30e1qhw6nm",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "hot, humid and noisy",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-26T13:54:31.3766966Z",
+    "PublishedUtc": "2020-10-26T13:54:31.3766966Z",
+    "CreatedUtc": "2020-10-26T13:54:31.3766966Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "at height, outdoors in all weathers and physically demanding"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Eat height, outdoors in all weathers and physically demanding\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/workingenvironment/e3b37a3a-8bd4-4778-b3e4-1cdf3fa05c41"
+    },
+    "ContentItemId": "43adt2gqsf4ec258zpxs78x8dz",
+    "ContentItemVersionId": "4mr8v5j4sryn3wmwne5jyt0e41",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "at height, outdoors in all weathers and physically demanding",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-26T13:54:31.3766966Z",
+    "PublishedUtc": "2020-10-26T13:54:31.3766966Z",
+    "CreatedUtc": "2020-10-26T13:54:31.3766966Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "at height, outdoors some of the time, cramped, dirty and noisy"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Eat height, outdoors some of the time, cramped, dirty and noisy\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/workingenvironment/89da8d8a-0468-4b48-9ca2-b09d8cc85e8e"
+    },
+    "ContentItemId": "4vdvstfmarbxas234qb79yh6ca",
+    "ContentItemVersionId": "4x7gjyqj8aenwxtzepemn62k4y",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "at height, outdoors some of the time, cramped, dirty and noisy",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-26T13:54:31.3766966Z",
+    "PublishedUtc": "2020-10-26T13:54:31.3766966Z",
+    "CreatedUtc": "2020-10-26T13:54:31.3766966Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "hot, outdoors some of the time, at height and you may spend nights away from home"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Ehot, outdoors some of the time, at height and you may spend nights away from home\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/workingenvironment/f25a2cc3-7d6d-45b4-a0e6-8e911468b173"
+    },
+    "ContentItemId": "4dv6hdj4qmfk7ym3aj52kvp55r",
+    "ContentItemVersionId": "46s775mrt62gf45m85bvn5tz41",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "hot, outdoors some of the time, at height and you may spend nights away from home",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-26T13:54:31.3766966Z",
+    "PublishedUtc": "2020-10-26T13:54:31.3766966Z",
+    "CreatedUtc": "2020-10-26T13:54:31.3766966Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "at height, hot, outdoors some of the time and you may spend nights away from home"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Eat height, hot, outdoors some of the time and you may spend nights away from home\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/workingenvironment/f64bc8a6-002c-46da-b7ed-8dab1bed3ed7"
+    },
+    "ContentItemId": "4vrmsqzvz8e007p3vemzgyc0c4",
+    "ContentItemVersionId": "4bs4j69nshjhy2vc89e2ahvmc9",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "at height, hot, outdoors some of the time and you may spend nights away from home",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-26T13:54:31.3766966Z",
+    "PublishedUtc": "2020-10-26T13:54:31.3766966Z",
+    "CreatedUtc": "2020-10-26T13:54:31.3766966Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "outdoors some of the time, you\u0027ll travel often and physically demanding"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Eoutdoors some of the time, you\u0027ll travel often and physically demanding\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/workingenvironment/e20e9f32-fae9-4e87-bdf6-01a01a0ad96b"
+    },
+    "ContentItemId": "45fy32wqme7cm5fyx5apzs7edq",
+    "ContentItemVersionId": "41h8103qex8zjv4z6zhs0vr9m4",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "outdoors some of the time, you\u0027ll travel often and physically demanding",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-26T13:54:31.3766966Z",
+    "PublishedUtc": "2020-10-26T13:54:31.3766966Z",
+    "CreatedUtc": "2020-10-26T13:54:31.3766966Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "noisy, outdoors some of the time, at height and physically demanding"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Enoisy, outdoors some of the time, at height and physically demanding\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/workingenvironment/83e2b7f7-076a-4a28-ac74-7a9e7aa587dd"
+    },
+    "ContentItemId": "4gq73r48v90b6x46pnpta87gw2",
+    "ContentItemVersionId": "4csfrss4ttaaz3pmcx6gym54c3",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "noisy, outdoors some of the time, at height and physically demanding",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-26T13:54:31.3766966Z",
+    "PublishedUtc": "2020-10-26T13:54:31.3766966Z",
+    "CreatedUtc": "2020-10-26T13:54:31.3766966Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "cramped, hot, dirty and you\u0027ll travel often"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Ecramped, hot, dirty and you\u0027ll travel often\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/workingenvironment/fd46cf8c-dc10-4a17-98e4-41ac261e2776"
+    },
+    "ContentItemId": "4xw55atakjcsqvp3yrsgj373mg",
+    "ContentItemVersionId": "4qb87kvvfgd1y5n1dhb3pkj6mc",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "cramped, hot, dirty and you\u0027ll travel often",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-26T13:54:31.3766966Z",
+    "PublishedUtc": "2020-10-26T13:54:31.3766966Z",
+    "CreatedUtc": "2020-10-26T13:54:31.3766966Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "noisy and dusty"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Enoisy and dusty\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/workingenvironment/10656123-c086-4706-bb0e-25609490dd26"
+    },
+    "ContentItemId": "46yx3za87er7727216km9ma65k",
+    "ContentItemVersionId": "46102zmrvamvp2j7ckm8z6yhdj",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "noisy and dusty",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-26T13:54:31.3766966Z",
+    "PublishedUtc": "2020-10-26T13:54:31.3766966Z",
+    "CreatedUtc": "2020-10-26T13:54:31.3766966Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "dirty, physically demanding, cramped, at height and outdoors in all weathers"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Edirty, physically demanding, cramped, at height and outdoors in all weathers\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/workingenvironment/abc8643d-0f9d-4595-a2a2-48aae09c819d"
+    },
+    "ContentItemId": "4fnc3bscfcwdbw36f1e1qtkn5a",
+    "ContentItemVersionId": "4met5ayar2gbh1vkxdwx2qdq41",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "dirty, physically demanding, cramped, at height and outdoors in all weathers",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-26T13:54:31.3766966Z",
+    "PublishedUtc": "2020-10-26T13:54:31.3766966Z",
+    "CreatedUtc": "2020-10-26T13:54:31.3766966Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Noisy"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Enoisy\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/workingenvironment/bf600192-694b-447b-bd25-0441f8b06ac0"
+    },
+    "ContentItemId": "44a5jqkckfwezrabfgtkb5vaxn",
+    "ContentItemVersionId": "4zmpf82w9xqyhvrjwyapmqem4x",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "Noisy",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-26T13:54:31.3766966Z",
+    "PublishedUtc": "2020-10-26T13:54:31.3766966Z",
+    "CreatedUtc": "2020-10-26T13:54:31.3766966Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "hot and physically and emotionally demanding"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Ehot and physically and emotionally demanding\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/workingenvironment/7e97caf4-8b8c-4902-bbd4-3262936ce92c"
+    },
+    "ContentItemId": "4gcmphgwm4et45txhx70dc98dm",
+    "ContentItemVersionId": "4fx0anqpw80r82mnb3aasvzfcd",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "hot and physically and emotionally demanding",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-26T13:54:31.3766966Z",
+    "PublishedUtc": "2020-10-26T13:54:31.3766966Z",
+    "CreatedUtc": "2020-10-26T13:54:31.3766966Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "crowded, noisy and outdoors in all weathers"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Ecrowded, noisy and outdoors in all weathers\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/workingenvironment/8b8da8b8-e35c-478e-9e20-1e05ef1ceaa6"
+    },
+    "ContentItemId": "4rhwh654kmz79rmcb14f06yqd4",
+    "ContentItemVersionId": "42w8mdqget7s6vq1bb4hz8d45c",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "crowded, noisy and outdoors in all weathers",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-26T13:54:31.3766966Z",
+    "PublishedUtc": "2020-10-26T13:54:31.3766966Z",
+    "CreatedUtc": "2020-10-26T13:54:31.3766966Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "at height and outdoors some of the time"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Eat height and outdoors some of the time\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/workingenvironment/2818f225-0920-4699-9e3c-1427f5052eda"
+    },
+    "ContentItemId": "41fnxpn9b7yspvj6931bfv1yxt",
+    "ContentItemVersionId": "43c2egdc859y1vnea5hvh17t5t",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "at height and outdoors some of the time",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-26T13:54:31.3766966Z",
+    "PublishedUtc": "2020-10-26T13:54:31.3766966Z",
+    "CreatedUtc": "2020-10-26T13:54:31.3766966Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "outdoors in all weathers, physically demanding and you may spend nights away from home"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Eoutdoors in all weathers, physically demanding and you may spend nights away from home\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/workingenvironment/2a0a10b8-f394-4ead-b05a-ae324f18d883"
+    },
+    "ContentItemId": "4egjjp7efgg08722t106cdy8w4",
+    "ContentItemVersionId": "424nf8hqv1rkg6vh5jpyddk5da",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "outdoors in all weathers, physically demanding and you may spend nights away from home",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-26T13:54:31.3766966Z",
+    "PublishedUtc": "2020-10-26T13:54:31.3766966Z",
+    "CreatedUtc": "2020-10-26T13:54:31.3766966Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "noisy and humid"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Enoisy and humid\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/workingenvironment/3d9329ae-a075-404c-9b71-c576e01ae732"
+    },
+    "ContentItemId": "4brr0c2xg32yjt0d3xjnyvmawn",
+    "ContentItemVersionId": "4tpw4dj6s8kkkwktxebt1zndd4",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "noisy and humid",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-26T13:54:31.3766966Z",
+    "PublishedUtc": "2020-10-26T13:54:31.3766966Z",
+    "CreatedUtc": "2020-10-26T13:54:31.3766966Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "cramped, at height and outdoors some of the time"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Ecramped, at height and outdoors some of the time\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/workingenvironment/7d764efd-6171-431f-83a7-f60642999940"
+    },
+    "ContentItemId": "44ps3j6zahhtdr6p7eep27mqx7",
+    "ContentItemVersionId": "4afwj95cgect7tk5spre63s5d0",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "cramped, at height and outdoors some of the time",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-26T13:54:31.3766966Z",
+    "PublishedUtc": "2020-10-26T13:54:31.3766966Z",
+    "CreatedUtc": "2020-10-26T13:54:31.3766966Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "physically demanding and outdoors in all weathers"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Ephysically demanding and outdoors in all weathers\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/workingenvironment/ff8893fa-305f-4dc6-a33a-4f5a888a7237"
+    },
+    "ContentItemId": "40n1rqvf3ad2cv8c8ypc41d94n",
+    "ContentItemVersionId": "4q91epxdtpzh8wmq3fy15w5x45",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "physically demanding and outdoors in all weathers",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-26T13:54:31.3766966Z",
+    "PublishedUtc": "2020-10-26T13:54:31.3766966Z",
+    "CreatedUtc": "2020-10-26T13:54:31.3766966Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "outdoors in all weathers, at height and physically demanding"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Eoutdoors in all weathers, at height and physically demanding\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/workingenvironment/40bb9e4a-8e36-42b9-be1f-8e7522b7299d"
+    },
+    "ContentItemId": "4yhd18xwgd7cx62eej6bxn2y4g",
+    "ContentItemVersionId": "42pgnrf2mdw710ge1a3k2ehnmy",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "outdoors in all weathers, at height and physically demanding",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-26T13:54:31.3766966Z",
+    "PublishedUtc": "2020-10-26T13:54:31.3766966Z",
+    "CreatedUtc": "2020-10-26T13:54:31.3766966Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "outdoors in all weathers, cramped, at height and you may spend nights away from home"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Eoutdoors in all weathers, cramped, at height and you may spend nights away from home\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/workingenvironment/59ccee4c-3de1-47e0-b361-de6460f5680a"
+    },
+    "ContentItemId": "4fm97q315z2x2zp9rejr5ha2df",
+    "ContentItemVersionId": "4vxzzsjzdt41hxya4eztqqarxg",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "outdoors in all weathers, cramped, at height and you may spend nights away from home",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-26T13:54:31.3766966Z",
+    "PublishedUtc": "2020-10-26T13:54:31.3766966Z",
+    "CreatedUtc": "2020-10-26T13:54:31.3766966Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "outdoors in all weathers, at height, you\u0027ll travel often and cramped"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Eoutdoors in all weathers, at height, you\u0027ll travel often and cramped\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/workingenvironment/5c2c1476-6dd5-4b2b-80a8-3a6b522141a5"
+    },
+    "ContentItemId": "44z6wmd3md0n8whtyj8y5hv6m0",
+    "ContentItemVersionId": "4e821scnpzmzq6f92q9mc95vc7",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "outdoors in all weathers, at height, you\u0027ll travel often and cramped",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-26T13:54:31.3766966Z",
+    "PublishedUtc": "2020-10-26T13:54:31.3766966Z",
+    "CreatedUtc": "2020-10-26T13:54:31.3766966Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "outdoors some of the time and you\u0027ll travel often"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Eoutdoors some of the time and you\u0027ll travel often\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/workingenvironment/24a24a92-fafd-4293-9cfa-df36cadc43f5"
+    },
+    "ContentItemId": "40tadc82v8bv3t92fvx2szxx4k",
+    "ContentItemVersionId": "44px7mm10hk5204qk3jhx4td4b",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "outdoors some of the time and you\u0027ll travel often",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-26T13:54:31.3766966Z",
+    "PublishedUtc": "2020-10-26T13:54:31.3766966Z",
+    "CreatedUtc": "2020-10-26T13:54:31.3766966Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "physically demanding, outdoors in all weathers and at height"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Ephysically demanding, outdoors in all weathers and at height\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/workingenvironment/34bdefcb-db80-4b6c-990d-bdbfc113216b"
+    },
+    "ContentItemId": "4htk0695k2k051p86z4ejmmtnb",
+    "ContentItemVersionId": "4mnvb7qvnyrz05drd80rjdnfdd",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "physically demanding, outdoors in all weathers and at height",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-26T13:54:31.3766966Z",
+    "PublishedUtc": "2020-10-26T13:54:31.3766966Z",
+    "CreatedUtc": "2020-10-26T13:54:31.3766966Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Physically Active"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Ephysically active\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/workingenvironment/b9aaa6e6-9300-44d3-9094-02382be74784"
+    },
+    "ContentItemId": "4mbj3n1q8tn2ht4qh0map2xj46",
+    "ContentItemVersionId": "4zfss0n4hswzftwz09sps1hmx0",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "Physically Active",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-26T13:54:31.3766966Z",
+    "PublishedUtc": "2020-10-26T13:54:31.3766966Z",
+    "CreatedUtc": "2020-10-26T13:54:31.3766966Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "at height, physically demanding and outdoors in all weathers"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Eat height, physically demanding and outdoors in all weathers\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/workingenvironment/3f696cfc-5f25-4c68-8184-f1f0842f06f0"
+    },
+    "ContentItemId": "4rg3b0nm2ptc1txf0gt992zamx",
+    "ContentItemVersionId": "4ev8dn0xbz91m5c9szyfasngxc",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "at height, physically demanding and outdoors in all weathers",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-26T13:54:31.3766966Z",
+    "PublishedUtc": "2020-10-26T13:54:31.3766966Z",
+    "CreatedUtc": "2020-10-26T13:54:31.3766966Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "dirty, you\u0027ll travel often, physically and emotionally demanding and outdoors some of the time"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Edirty, you\u0027ll travel often, physically and emotionally demanding and outdoors some of the time\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/workingenvironment/e96038ba-e599-4641-9d2c-787fe4a02ee9"
+    },
+    "ContentItemId": "4k1t46j9sbhhexddw98x9svmwr",
+    "ContentItemVersionId": "4g0a3xwy51mee7cdaby88sfnw3",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "dirty, you\u0027ll travel often, physically and emotionally demanding and outdoors some of the time",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-26T13:54:31.3766966Z",
+    "PublishedUtc": "2020-10-26T13:54:31.3766966Z",
+    "CreatedUtc": "2020-10-26T13:54:31.3766966Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Outdoors Some Of The Time"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Eoutdoors some of the time\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/workingenvironment/2c54342a-2e66-4b57-92f1-e73d49bd7da4"
+    },
+    "ContentItemId": "4h7pkm6zcyge9s33we3p5h9fm9",
+    "ContentItemVersionId": "4krmg09v86mf5w177d9srjnbw2",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "Outdoors Some Of The Time",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-26T13:54:31.3766966Z",
+    "PublishedUtc": "2020-10-26T13:54:31.3766966Z",
+    "CreatedUtc": "2020-10-26T13:54:31.3766966Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "you\u0027ll travel often and physically demanding"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Eyou\u0027ll travel often and physically demanding\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/workingenvironment/07e3300a-95e8-4943-aff7-15c9224a27cd"
+    },
+    "ContentItemId": "40bsqemcpyevpwp52rcanybvct",
+    "ContentItemVersionId": "4mh2h8t1w5k7wy9fms6qd36png",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "you\u0027ll travel often and physically demanding",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-26T13:54:31.3766966Z",
+    "PublishedUtc": "2020-10-26T13:54:31.3766966Z",
+    "CreatedUtc": "2020-10-26T13:54:31.3766966Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "noisy and dirty"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Enoisy and dirty\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/workingenvironment/5809751a-3f42-4e58-960f-288a27119af2"
+    },
+    "ContentItemId": "4tzskwyf1tv2n5scfrez6sy5dh",
+    "ContentItemVersionId": "4cdfsfdbfptnwy92qmcejk8f5y",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "noisy and dirty",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-26T13:54:31.3766966Z",
+    "PublishedUtc": "2020-10-26T13:54:31.3766966Z",
+    "CreatedUtc": "2020-10-26T13:54:31.3766966Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "cramped and dusty"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Ecramped and dusty\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/workingenvironment/27c078a3-4721-41fd-b8d8-d3440fcb8a2f"
+    },
+    "ContentItemId": "4h2t6002y43rt3wq5h49a8egc4",
+    "ContentItemVersionId": "44gt65zzmg33j04b9tvs9ve54f",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "cramped and dusty",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-26T13:54:31.3766966Z",
+    "PublishedUtc": "2020-10-26T13:54:31.3766966Z",
+    "CreatedUtc": "2020-10-26T13:54:31.3766966Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "outdoors in all weathers and physically demanding"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Eoutdoors in all weathers and physically demanding\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/workingenvironment/9f288e68-aa8a-4519-a59e-3f3a86bc9ede"
+    },
+    "ContentItemId": "4b44v70vzr80vyb70krqp41cnb",
+    "ContentItemVersionId": "4ydqprf24pbbvzwfy43sha57d7",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "outdoors in all weathers and physically demanding",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-26T13:54:31.3766966Z",
+    "PublishedUtc": "2020-10-26T13:54:31.3766966Z",
+    "CreatedUtc": "2020-10-26T13:54:31.3766966Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "dusty and physically demanding"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Edusty and physically demanding\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/workingenvironment/d9de9ec7-466b-4897-9d95-3f3f591f0cb3"
+    },
+    "ContentItemId": "4x4e8ykbtvd6hz1hndy9eh02d0",
+    "ContentItemVersionId": "4cxmwb3czbfbrranb7emybj0nm",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "dusty and physically demanding",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-26T13:54:31.3766966Z",
+    "PublishedUtc": "2020-10-26T13:54:31.3766966Z",
+    "CreatedUtc": "2020-10-26T13:54:31.3766966Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "you\u0027ll travel often, dirty, outdoors in all weathers, physically demanding and noisy"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Eyou\u0027ll travel often, dirty, outdoors in all weathers, physically demanding and noisy\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/workingenvironment/5de73006-3c19-49ed-9511-933b70c4ba3a"
+    },
+    "ContentItemId": "4djhpq3p910435hnw4afyh8qmj",
+    "ContentItemVersionId": "4d5adpy6vxzsqxs6nrcswhaemg",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "you\u0027ll travel often, dirty, outdoors in all weathers, physically demanding and noisy",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-26T13:54:31.3766966Z",
+    "PublishedUtc": "2020-10-26T13:54:31.3766966Z",
+    "CreatedUtc": "2020-10-26T13:54:31.3766966Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "outdoors some of the time and involve using chemicals"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Eoutdoors some of the time and involve using chemicals\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/workingenvironment/94720126-cbc3-4734-85b8-22c9b4c0f842"
+    },
+    "ContentItemId": "40h7rgnjb7981wt3hmwdxy4rd7",
+    "ContentItemVersionId": "42z26q9n6p77fsv3sdf9z6sdxs",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "outdoors some of the time and involve using chemicals",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-26T13:54:31.3766966Z",
+    "PublishedUtc": "2020-10-26T13:54:31.3766966Z",
+    "CreatedUtc": "2020-10-26T13:54:31.3766966Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "you\u0027ll travel often and emotionally demanding"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Eyou\u0027ll travel often and emotionally demanding\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/workingenvironment/d7fd58c1-d5d9-4d19-8370-57118d2327e2"
+    },
+    "ContentItemId": "44xnkteb11k6nytbk64d7e8fnt",
+    "ContentItemVersionId": "4x1ytbpxf7fvvsk6rvxnxxz0nt",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "you\u0027ll travel often and emotionally demanding",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-26T13:54:31.3766966Z",
+    "PublishedUtc": "2020-10-26T13:54:31.3766966Z",
+    "CreatedUtc": "2020-10-26T13:54:31.3766966Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "at height and you\u0027ll travel often"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Eat height and you\u0027ll travel often\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/workingenvironment/b5e617bd-e2b5-43d0-a7a0-cff0f38506c9"
+    },
+    "ContentItemId": "4bfs00be2t0k7xq1pw3kzqm4xg",
+    "ContentItemVersionId": "4qwepk1e3sc0b2jtm1vp43zf5r",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "at height and you\u0027ll travel often",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-26T13:54:31.3766966Z",
+    "PublishedUtc": "2020-10-26T13:54:31.3766966Z",
+    "CreatedUtc": "2020-10-26T13:54:31.3766966Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "at height and cramped"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Eat height and cramped\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/workingenvironment/ffab46ef-0786-4c64-b38e-6002c738c128"
+    },
+    "ContentItemId": "4ktjerc5y0zmnr6ahez6645r4c",
+    "ContentItemVersionId": "48chmcd77pv5btsm4cebqby5xe",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "at height and cramped",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-26T13:54:31.3766966Z",
+    "PublishedUtc": "2020-10-26T13:54:31.3766966Z",
+    "CreatedUtc": "2020-10-26T13:54:31.3766966Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Physically And Emotionally Demanding"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Ephysically and emotionally demanding\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/workingenvironment/a4421653-0a44-4584-8554-e1e3ecdd82c0"
+    },
+    "ContentItemId": "4bb2jmd7h2ap4yzpvarx76ztw8",
+    "ContentItemVersionId": "4rxp5byymvgqsyntxsn92q62ch",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "Physically And Emotionally Demanding",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-26T13:54:31.3766966Z",
+    "PublishedUtc": "2020-10-26T13:54:31.3766966Z",
+    "CreatedUtc": "2020-10-26T13:54:31.3766966Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "physically demanding, humid and hot"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Ephysically demanding, humid and hot\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/workingenvironment/d975dfef-0ba9-4e74-b269-390d23c9c77f"
+    },
+    "ContentItemId": "4fpshxwgqby5dt0zq0gp0799na",
+    "ContentItemVersionId": "4ans9f58yhyg2w3jnb3hze73n6",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "physically demanding, humid and hot",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-26T13:54:31.3766966Z",
+    "PublishedUtc": "2020-10-26T13:54:31.3766966Z",
+    "CreatedUtc": "2020-10-26T13:54:31.3766966Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "outdoors in all weathers, you\u0027ll travel often and cramped"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Eoutdoors in all weathers, you\u0027ll travel often and cramped\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/workingenvironment/f37636a2-a227-49ad-96b9-771a5c585c2a"
+    },
+    "ContentItemId": "4pweg5dc1x94pspqdwzkc6bw4m",
+    "ContentItemVersionId": "444xtg9n388v74kem9hbn15e5f",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "outdoors in all weathers, you\u0027ll travel often and cramped",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-26T13:54:31.3766966Z",
+    "PublishedUtc": "2020-10-26T13:54:31.3766966Z",
+    "CreatedUtc": "2020-10-26T13:54:31.3766966Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "cramped and you\u0027ll travel often"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Ecramped and you\u0027ll travel often\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/workingenvironment/1b019090-37b9-4682-b1da-4cfe0c3ce744"
+    },
+    "ContentItemId": "44sfasv4dhbqyshjfhgwr2xcca",
+    "ContentItemVersionId": "46019qewdderaz8mdd79d6zrny",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "cramped and you\u0027ll travel often",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-26T13:54:31.3766966Z",
+    "PublishedUtc": "2020-10-26T13:54:31.3766966Z",
+    "CreatedUtc": "2020-10-26T13:54:31.3766966Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "cramped, dusty, at height, outdoors some of the time and noisy"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Ecramped, dusty, at height, outdoors some of the time and noisy\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/workingenvironment/4afa6bff-7b42-4186-adc1-974664837754"
+    },
+    "ContentItemId": "4yznw66k7x7jm1j2wv8rbzdnwf",
+    "ContentItemVersionId": "4c7nxncnhyvzx3e2a5e8dyxvw6",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "cramped, dusty, at height, outdoors some of the time and noisy",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-26T13:54:31.3766966Z",
+    "PublishedUtc": "2020-10-26T13:54:31.3766966Z",
+    "CreatedUtc": "2020-10-26T13:54:31.3766966Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "cramped, physically demanding and you may spend nights away from home"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Ecramped, physically demanding and you may spend nights away from home\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/workingenvironment/2178fb53-2633-4a63-81f8-b5e272da402a"
+    },
+    "ContentItemId": "4hf37wen3w5fg6d8gbyqazdhnx",
+    "ContentItemVersionId": "4br8h62wk57g0scwzj6txxqpd3",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "cramped, physically demanding and you may spend nights away from home",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-26T13:54:31.3766966Z",
+    "PublishedUtc": "2020-10-26T13:54:31.3766966Z",
+    "CreatedUtc": "2020-10-26T13:54:31.3766966Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "at height, physically and emotionally demanding and cramped"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Eat height, physically and emotionally demanding and cramped\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/workingenvironment/e17806c7-b1af-4fc7-bb12-3bdfde9626f1"
+    },
+    "ContentItemId": "4a7tbbhk5d1yv7zqygrfp11m5j",
+    "ContentItemVersionId": "4bqenvpck5grqvvzy9442g93mc",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "at height, physically and emotionally demanding and cramped",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-26T13:54:31.3766966Z",
+    "PublishedUtc": "2020-10-26T13:54:31.3766966Z",
+    "CreatedUtc": "2020-10-26T13:54:31.3766966Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "you\u0027ll travel often and outdoors in all weathers"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Eyou\u0027ll travel often and outdoors in all weathers\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/workingenvironment/e1c8768a-eb22-4843-b515-ff9151c5cb02"
+    },
+    "ContentItemId": "4yrr7bwsfc40b68yz16gy5x2c4",
+    "ContentItemVersionId": "4fvhwzcg516m62ancntxy41qc5",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "you\u0027ll travel often and outdoors in all weathers",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-26T13:54:31.3766966Z",
+    "PublishedUtc": "2020-10-26T13:54:31.3766966Z",
+    "CreatedUtc": "2020-10-26T13:54:31.3766966Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "at height, dirty, outdoors in all weathers and physically demanding"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Eat height, dirty, outdoors in all weathers and physically demanding\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/workingenvironment/5fd2ac4f-bc65-4921-b091-b6d7c8083609"
+    },
+    "ContentItemId": "453kb2t76a82w7rnzk2g6a1q43",
+    "ContentItemVersionId": "4yj05wrb3dwenz49pkgcn87n41",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "at height, dirty, outdoors in all weathers and physically demanding",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-26T13:54:31.3766966Z",
+    "PublishedUtc": "2020-10-26T13:54:31.3766966Z",
+    "CreatedUtc": "2020-10-26T13:54:31.3766966Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "dusty, outdoors some of the time, physically demanding and dirty"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Edusty, outdoors some of the time, physically demanding and dirty\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/workingenvironment/9cdd9e6a-339a-4db1-8db8-592b6de97ed2"
+    },
+    "ContentItemId": "49gvvxqj2n2g4rjxvsv6bq5z4v",
+    "ContentItemVersionId": "4n6vm3jvm0q5wrnancjxrtnxcz",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "dusty, outdoors some of the time, physically demanding and dirty",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-26T13:54:31.3766966Z",
+    "PublishedUtc": "2020-10-26T13:54:31.3766966Z",
+    "CreatedUtc": "2020-10-26T13:54:31.3766966Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "outdoors some of the time and crowded"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Eoutdoors some of the time and crowded\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/workingenvironment/d2795f5c-bbf3-4904-9199-d11718b8b64a"
+    },
+    "ContentItemId": "44pr2br2w2jkr4jawzegsa8yn5",
+    "ContentItemVersionId": "4qn0h3e123m511cmym0tehq143",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "outdoors some of the time and crowded",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-26T13:54:31.3766966Z",
+    "PublishedUtc": "2020-10-26T13:54:31.3766966Z",
+    "CreatedUtc": "2020-10-26T13:54:31.3766966Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "cramped, dusty, dirty and you may spend nights away from home"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Ecramped, dusty, dirty and you may spend nights away from home\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/workingenvironment/ac0fe32d-4e27-44ec-a7f1-1b7b0d6606d2"
+    },
+    "ContentItemId": "4vkk8nqwd4x4z5srep3fqt4hnf",
+    "ContentItemVersionId": "4s66secbcf5mc1m02n8v13vzdw",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "cramped, dusty, dirty and you may spend nights away from home",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-26T13:54:31.3766966Z",
+    "PublishedUtc": "2020-10-26T13:54:31.3766966Z",
+    "CreatedUtc": "2020-10-26T13:54:31.3766966Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "outdoors in all weathers and physically active"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Eoutdoors in all weathers and physically active\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/workingenvironment/bb9d957a-0c9a-470b-bae4-bbda4b0ced68"
+    },
+    "ContentItemId": "4zqfgw1kx9vxf17sgyebfzb3cb",
+    "ContentItemVersionId": "4z77gwaq5635167ebhqyqdn3xk",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "outdoors in all weathers and physically active",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-26T13:54:31.3766966Z",
+    "PublishedUtc": "2020-10-26T13:54:31.3766966Z",
+    "CreatedUtc": "2020-10-26T13:54:31.3766966Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "outdoors in all weathers, physically and emotionally demanding and you may spend nights away from home"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Eoutdoors in all weathers, physically and emotionally demanding and you may spend nights away from home\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/workingenvironment/77f4296b-8110-403b-b6e6-d5b312c06498"
+    },
+    "ContentItemId": "4gb847nsdf1nrz37cw01wa0kxb",
+    "ContentItemVersionId": "403rv2ydymbnr6d7j6k4xt0sxy",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "outdoors in all weathers, physically and emotionally demanding and you may spend nights away from home",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-26T13:54:31.3766966Z",
+    "PublishedUtc": "2020-10-26T13:54:31.3766966Z",
+    "CreatedUtc": "2020-10-26T13:54:31.3766966Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "outdoors in all weathers, physically demanding and you\u0027ll travel often"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Eoutdoors in all weathers, physically demanding and you\u0027ll travel often\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/workingenvironment/c51e48e2-2e38-4914-8b5a-5884eb608b4e"
+    },
+    "ContentItemId": "4r71v5zqdgkqvzv9x7x0875vcc",
+    "ContentItemVersionId": "470c4wvc1k9kp4w012x0sdhmnn",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "outdoors in all weathers, physically demanding and you\u0027ll travel often",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-26T13:54:31.3766966Z",
+    "PublishedUtc": "2020-10-26T13:54:31.3766966Z",
+    "CreatedUtc": "2020-10-26T13:54:31.3766966Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "physically and emotionally demanding, cramped and you may spend nights away from home"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Ephysically and emotionally demanding, cramped and you may spend nights away from home\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/workingenvironment/bcb1cdf4-3373-4e7f-a248-28b9adc15424"
+    },
+    "ContentItemId": "4q37x300hzexysths0ymav4qw6",
+    "ContentItemVersionId": "4z07j1g9ceesv7j20qggmgebnm",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "physically and emotionally demanding, cramped and you may spend nights away from home",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-26T13:54:31.3766966Z",
+    "PublishedUtc": "2020-10-26T13:54:31.3766966Z",
+    "CreatedUtc": "2020-10-26T13:54:31.3766966Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "outdoors in all weathers, at height, dusty and physically demanding"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Eoutdoors in all weathers, at height, dusty and physically demanding\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/workingenvironment/08b5f727-71ed-4f2e-a24c-3f69893c67d8"
+    },
+    "ContentItemId": "4dvfrzqmbd7s2v8cmn1gkqv3ms",
+    "ContentItemVersionId": "4mhmsnexf69wws1v0zt5d4q0xb",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "outdoors in all weathers, at height, dusty and physically demanding",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-26T13:54:31.3766966Z",
+    "PublishedUtc": "2020-10-26T13:54:31.3766966Z",
+    "CreatedUtc": "2020-10-26T13:54:31.3766966Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "outdoors some of the time and at height"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Eoutdoors some of the time and at height\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/workingenvironment/f114afd0-4df2-4fd7-a70d-a7553f1e8353"
+    },
+    "ContentItemId": "4qk3k7zca26yeszpt2d0v702x6",
+    "ContentItemVersionId": "4z691abqz1q3xtmbfyj8fv25x2",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "outdoors some of the time and at height",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-26T13:54:31.3766966Z",
+    "PublishedUtc": "2020-10-26T13:54:31.3766966Z",
+    "CreatedUtc": "2020-10-26T13:54:31.3766966Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "hot and cold"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Ehot and cold\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/workingenvironment/74f13764-2f31-4bac-999f-276320f3ca71"
+    },
+    "ContentItemId": "4xp23g7pfa6577h8nbman1ktwb",
+    "ContentItemVersionId": "4y1hx6vrcnqkxy23z10bbr9kcx",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "hot and cold",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-26T13:54:31.3766966Z",
+    "PublishedUtc": "2020-10-26T13:54:31.3766966Z",
+    "CreatedUtc": "2020-10-26T13:54:31.3766966Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "hot and humid"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Ehot and humid\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/workingenvironment/7b770f3e-4ef4-4631-9a13-28210551f8a6"
+    },
+    "ContentItemId": "43edmfwd6t5gw6bm5555knc4wr",
+    "ContentItemVersionId": "4n6rtygn0q10ksqr8q9w9cdydb",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "hot and humid",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-26T13:54:31.3766966Z",
+    "PublishedUtc": "2020-10-26T13:54:31.3766966Z",
+    "CreatedUtc": "2020-10-26T13:54:31.3766966Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "cramped, dusty and physically demanding"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Ecramped, dusty and physically demanding\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/workingenvironment/b8bae306-1208-4a06-b787-f920a3b4dee7"
+    },
+    "ContentItemId": "4240xj2zfxkd3464709c5bmcd5",
+    "ContentItemVersionId": "4ahy7n6y53cq0tyzgbwk4x455p",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "cramped, dusty and physically demanding",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-26T13:54:31.3766966Z",
+    "PublishedUtc": "2020-10-26T13:54:31.3766966Z",
+    "CreatedUtc": "2020-10-26T13:54:31.3766966Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "you\u0027ll travel often, outdoors in all weathers, cramped, dusty and at height"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Eyou\u0027ll travel often, outdoors in all weathers, cramped, dusty and at height\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/workingenvironment/0157e5b6-a59d-4202-bcb2-ba093c2e6e2b"
+    },
+    "ContentItemId": "4gqkdncekd6p4xwqsmnaznd3dt",
+    "ContentItemVersionId": "4rdnphh580v0w2pa6vj4ryaqxf",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "you\u0027ll travel often, outdoors in all weathers, cramped, dusty and at height",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-26T13:54:31.3766966Z",
+    "PublishedUtc": "2020-10-26T13:54:31.3766966Z",
+    "CreatedUtc": "2020-10-26T13:54:31.3766966Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Emotionally Demanding"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Eemotionally demanding\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/workingenvironment/d6eb5e3f-59d6-4fe2-95ad-8eb143e46f78"
+    },
+    "ContentItemId": "49bjmnnna0s1btm89xye5rm5w3",
+    "ContentItemVersionId": "46nmna5mf8wcyzkt6b2fd45swd",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "Emotionally Demanding",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-26T13:54:31.3766966Z",
+    "PublishedUtc": "2020-10-26T13:54:31.3766966Z",
+    "CreatedUtc": "2020-10-26T13:54:31.3766966Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Height"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Eat height\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/workingenvironment/7f312fb2-303b-4b36-9af5-856fc6d0712c"
+    },
+    "ContentItemId": "43c0qcwjqp9d7ty880ba7dj9mz",
+    "ContentItemVersionId": "4qrgzhv2j03cz66txfj5f3fqwd",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "Height",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-26T13:54:31.3766966Z",
+    "PublishedUtc": "2020-10-26T13:54:31.3766966Z",
+    "CreatedUtc": "2020-10-26T13:54:31.3766966Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "dirty, physically demanding and outdoors in all weathers"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Edirty, physically demanding and outdoors in all weathers\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/workingenvironment/63872d28-8ae0-4009-ad29-1744f31878b4"
+    },
+    "ContentItemId": "497x1z0g27w8q46ps2j364cvdb",
+    "ContentItemVersionId": "4pp311js63y44tmfke5rsysknk",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "dirty, physically demanding and outdoors in all weathers",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-26T13:54:31.3766966Z",
+    "PublishedUtc": "2020-10-26T13:54:31.3766966Z",
+    "CreatedUtc": "2020-10-26T13:54:31.3766966Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "physically demanding, you\u0027ll travel often, cramped, noisy and at height"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Ephysically demanding, you\u0027ll travel often, cramped, noisy and at height\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/workingenvironment/14e172e5-e941-47b3-a830-5fb5cacc1433"
+    },
+    "ContentItemId": "46vsg755w9wbswdh16d9pqyh5p",
+    "ContentItemVersionId": "4vmzqkvwaa5t66gj56wmpdpgc9",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "physically demanding, you\u0027ll travel often, cramped, noisy and at height",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-26T13:54:31.3766966Z",
+    "PublishedUtc": "2020-10-26T13:54:31.3766966Z",
+    "CreatedUtc": "2020-10-26T13:54:31.3766966Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Cramped"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Ecramped\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/workingenvironment/0c706d52-5503-4bfe-b000-ff071cd206f4"
+    },
+    "ContentItemId": "4ds7ng6qnbq2ztefstf4bfa6m9",
+    "ContentItemVersionId": "4bx909472g8nr0z9azffva92m0",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "Cramped",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-26T13:54:31.3766966Z",
+    "PublishedUtc": "2020-10-26T13:54:31.3766966Z",
+    "CreatedUtc": "2020-10-26T13:54:31.3766966Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "cramped, physically demanding, dusty and dirty"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Ecramped, physically demanding, dusty and dirty\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/workingenvironment/743046ef-9ebf-4fdf-a505-7a2df8e0f286"
+    },
+    "ContentItemId": "43mexkqtppytrz38brm9trnpn0",
+    "ContentItemVersionId": "49e90bcpkqnja5n65g8b6t2rn7",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "cramped, physically demanding, dusty and dirty",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-26T13:54:31.3766966Z",
+    "PublishedUtc": "2020-10-26T13:54:31.3766966Z",
+    "CreatedUtc": "2020-10-26T13:54:31.3766966Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "hot, noisy and cool"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Ehot, noisy and cool\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/workingenvironment/b83824bd-bb0d-476b-8d18-63d6f35118ce"
+    },
+    "ContentItemId": "4e1m11t5apn6z1rzkgnx7pg4nv",
+    "ContentItemVersionId": "4y59z6kbvfchvyc0vbrehv6gmf",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "hot, noisy and cool",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-26T13:54:31.3766966Z",
+    "PublishedUtc": "2020-10-26T13:54:31.3766966Z",
+    "CreatedUtc": "2020-10-26T13:54:31.3766966Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Cool"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Ecool\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/workingenvironment/2efd652e-30d3-449f-b3e0-b5cc04c3360c"
+    },
+    "ContentItemId": "4a1wycqpqm38s0h6dqnnpcrxwh",
+    "ContentItemVersionId": "4853az0xerjsd2j39r4x6qczwn",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "Cool",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-26T13:54:31.3766966Z",
+    "PublishedUtc": "2020-10-26T13:54:31.3766966Z",
+    "CreatedUtc": "2020-10-26T13:54:31.3766966Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "outdoors some of the time, you\u0027ll travel often and noisy"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Eoutdoors some of the time, you\u0027ll travel often and noisy\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/workingenvironment/3cf0a755-5c7d-4016-a36e-c0cbb8fc9709"
+    },
+    "ContentItemId": "4kkb0gxc7z67cz00sa747q1xn0",
+    "ContentItemVersionId": "4c3d2wg9xanqb1bq8vksqpdem1",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "outdoors some of the time, you\u0027ll travel often and noisy",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-26T13:54:31.3766966Z",
+    "PublishedUtc": "2020-10-26T13:54:31.3766966Z",
+    "CreatedUtc": "2020-10-26T13:54:31.3766966Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "you\u0027ll travel often and outdoors some of the time"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Eyou\u0027ll travel often and outdoors some of the time\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/workingenvironment/81e28579-070c-45d1-9ef6-82b28cffde0c"
+    },
+    "ContentItemId": "4xgrfrpfepyk4wb7jkpcvjs7w8",
+    "ContentItemVersionId": "4vjvxgg4fcaex0495ev7ftmmwn",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "you\u0027ll travel often and outdoors some of the time",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-26T13:54:31.3766966Z",
+    "PublishedUtc": "2020-10-26T13:54:31.3766966Z",
+    "CreatedUtc": "2020-10-26T13:54:31.3766966Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "outdoors in all weathers, cramped, noisy, physically demanding and dusty"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Eoutdoors in all weathers, cramped, noisy, physically demanding and dusty\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/workingenvironment/0f18f181-b6ff-4c57-92ef-e593f0501882"
+    },
+    "ContentItemId": "45wwmf7dmk65r1tp2avwztx855",
+    "ContentItemVersionId": "40gt0518aybznzs5fkar1073w5",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "outdoors in all weathers, cramped, noisy, physically demanding and dusty",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-26T13:54:31.3766966Z",
+    "PublishedUtc": "2020-10-26T13:54:31.3766966Z",
+    "CreatedUtc": "2020-10-26T13:54:31.3766966Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "outdoors in all weathers and physically and emotionally demanding"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Eoutdoors in all weathers and physically and emotionally demanding\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/workingenvironment/a986da01-8883-4a09-b479-7576aa689cb8"
+    },
+    "ContentItemId": "4v0yy6a2a5zsrz7gg2kmczkmdw",
+    "ContentItemVersionId": "4anemfbdfywmpterfqmgqn7ec4",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "outdoors in all weathers and physically and emotionally demanding",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-26T13:54:31.3766966Z",
+    "PublishedUtc": "2020-10-26T13:54:31.3766966Z",
+    "CreatedUtc": "2020-10-26T13:54:31.3766966Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "at height, outdoors some of the time, noisy, physically demanding and dusty"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Eat height, outdoors some of the time, noisy, physically demanding and dusty\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/workingenvironment/a2651139-98f1-426a-afd2-586e6c2d08cb"
+    },
+    "ContentItemId": "40hx08k3kr9tz22pba6jssaqn6",
+    "ContentItemVersionId": "47tce1rp1kaaergawhgtwzjxm9",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "at height, outdoors some of the time, noisy, physically demanding and dusty",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-26T13:54:31.3766966Z",
+    "PublishedUtc": "2020-10-26T13:54:31.3766966Z",
+    "CreatedUtc": "2020-10-26T13:54:31.3766966Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "cramped, outdoors in all weathers and physically demanding"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Ecramped, outdoors in all weathers and physically demanding\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/workingenvironment/5d5996b8-2987-41d7-b055-a228ac90f95d"
+    },
+    "ContentItemId": "4g59mwxgg2ye92z20n7r6xrxm9",
+    "ContentItemVersionId": "4w9j5ede4tv95437kx2gp7x2m1",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "cramped, outdoors in all weathers and physically demanding",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-26T13:54:31.3766966Z",
+    "PublishedUtc": "2020-10-26T13:54:31.3766966Z",
+    "CreatedUtc": "2020-10-26T13:54:31.3766966Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "you\u0027ll travel often, physically demanding and outdoors in all weathers"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Eyou\u0027ll travel often, physically demanding and outdoors in all weathers\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/workingenvironment/dcd5f3c6-996d-4091-840d-d4fe3ce38e84"
+    },
+    "ContentItemId": "47067t0yrhbm4tcbdw31e51jm0",
+    "ContentItemVersionId": "4vchmq74ds0bp6gbpaj7gwtpm0",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "you\u0027ll travel often, physically demanding and outdoors in all weathers",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-26T13:54:31.3766966Z",
+    "PublishedUtc": "2020-10-26T13:54:31.3766966Z",
+    "CreatedUtc": "2020-10-26T13:54:31.3766966Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "outdoors in all weathers and at height"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Eoutdoors in all weathers and at height\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/workingenvironment/59bdad24-8bdd-46cf-af3a-88768da7af1a"
+    },
+    "ContentItemId": "4mxvwg4rx4g1axkhdjwb0hpmnx",
+    "ContentItemVersionId": "4k7memta3s1z3wpdcrczywk4xv",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "outdoors in all weathers and at height",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-26T13:54:31.3766966Z",
+    "PublishedUtc": "2020-10-26T13:54:31.3766966Z",
+    "CreatedUtc": "2020-10-26T13:54:31.3766966Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "noisy and outdoors some of the time"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Enoisy and outdoors some of the time\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/workingenvironment/a53ebf90-1068-4c3d-a6b9-51b2b4f3ee3e"
+    },
+    "ContentItemId": "44emvkqza3yx70r7br3n4s14dz",
+    "ContentItemVersionId": "40zv79zhnj7fps4xgas0q6a1nf",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "noisy and outdoors some of the time",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-26T13:54:31.3766966Z",
+    "PublishedUtc": "2020-10-26T13:54:31.3766966Z",
+    "CreatedUtc": "2020-10-26T13:54:31.3766966Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "cramped and involve using chemicals"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Ecramped and involve using chemicals\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/workingenvironment/74cddcd1-90b9-48db-8a11-fa1d107ddb62"
+    },
+    "ContentItemId": "4mnwqnrhrbv2b3wsdkg5qajv5k",
+    "ContentItemVersionId": "4te3k0yazhyx4wbcs5gdx1ksmr",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "cramped and involve using chemicals",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-26T13:54:31.3766966Z",
+    "PublishedUtc": "2020-10-26T13:54:31.3766966Z",
+    "CreatedUtc": "2020-10-26T13:54:31.3766966Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "physically demanding, hot and noisy"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Ephysically demanding, hot and noisy\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/workingenvironment/607a278e-17f0-469b-9d60-b19519093698"
+    },
+    "ContentItemId": "4b5d9mgybwfszy9tzd48vptk5k",
+    "ContentItemVersionId": "4y22k7r1jc52a5crpr6fx5a1cd",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "physically demanding, hot and noisy",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-26T13:54:31.3766966Z",
+    "PublishedUtc": "2020-10-26T13:54:31.3766966Z",
+    "CreatedUtc": "2020-10-26T13:54:31.3766966Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "physically demanding and crowded"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Ephysically demanding and crowded\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/workingenvironment/ba2090de-0852-41fb-b553-dfabd57042f6"
+    },
+    "ContentItemId": "4wbd0am2pkkwv7wze48ynb80ce",
+    "ContentItemVersionId": "4qajn58yyefwsxse20zgqqnxd0",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "physically demanding and crowded",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-26T13:54:31.3766966Z",
+    "PublishedUtc": "2020-10-26T13:54:31.3766966Z",
+    "CreatedUtc": "2020-10-26T13:54:31.3766966Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "noisy and you may spend nights away from home"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Enoisy and you may spend nights away from home\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/workingenvironment/1eeb556c-cd98-4c48-b6e4-de8ff1a69be2"
+    },
+    "ContentItemId": "43qc8mtnxs9havw67wbw7yf1m1",
+    "ContentItemVersionId": "4fd3k572ks3mvst0x21r27jbn3",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "noisy and you may spend nights away from home",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-26T13:54:31.3766966Z",
+    "PublishedUtc": "2020-10-26T13:54:31.3766966Z",
+    "CreatedUtc": "2020-10-26T13:54:31.3766966Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "noisy, physically demanding, at height and you may spend nights away from home"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Enoisy, physically demanding, at height and you may spend nights away from home\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/workingenvironment/e304f7e4-7847-4f5d-aab7-d008da8ee1cd"
+    },
+    "ContentItemId": "479qcn9q43mkt24j8b5dvexe4m",
+    "ContentItemVersionId": "4jp4xfhzezc5t40ba6kjha6mn9",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "noisy, physically demanding, at height and you may spend nights away from home",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-26T13:54:31.3766966Z",
+    "PublishedUtc": "2020-10-26T13:54:31.3766966Z",
+    "CreatedUtc": "2020-10-26T13:54:31.3766966Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "physically demanding and you may spend nights away from home"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Ephysically demanding and you may spend nights away from home\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/workingenvironment/52391adb-c6e6-4062-89e9-b5df7ce45230"
+    },
+    "ContentItemId": "4gabtw0ycs3eky5m14a9sbhhmm",
+    "ContentItemVersionId": "431pvbhrgcknnvsq418nrahhw2",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "physically demanding and you may spend nights away from home",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-26T13:54:31.3766966Z",
+    "PublishedUtc": "2020-10-26T13:54:31.3766966Z",
+    "CreatedUtc": "2020-10-26T13:54:31.3766966Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Humid"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Ehumid\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/workingenvironment/b1e4364c-abc7-4a09-a301-90e8ecb026c5"
+    },
+    "ContentItemId": "4tsk0shw078cwwg9h2mnvxmww0",
+    "ContentItemVersionId": "4g58hrj73nrbas4057y6brc0xd",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "Humid",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-26T13:54:31.3766966Z",
+    "PublishedUtc": "2020-10-26T13:54:31.3766966Z",
+    "CreatedUtc": "2020-10-26T13:54:31.3766966Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "emotionally demanding and you\u0027ll travel often"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Eemotionally demanding and you\u0027ll travel often\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/workingenvironment/17d67408-af4e-44d2-9674-8645a0189b41"
+    },
+    "ContentItemId": "4nr8dtk5dpakyykp3041xdm2cq",
+    "ContentItemVersionId": "4y44q84jy6evh2zvccdqeb3tn5",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "emotionally demanding and you\u0027ll travel often",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-26T13:54:31.3766966Z",
+    "PublishedUtc": "2020-10-26T13:54:31.3766966Z",
+    "CreatedUtc": "2020-10-26T13:54:31.3766966Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "physically demanding, hot and cramped"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Ephysically demanding, hot and cramped\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/workingenvironment/630b27c2-ffb3-40a8-8925-4b6f3e074b75"
+    },
+    "ContentItemId": "4p8q0mv6tt3pb60xvdz9kr144y",
+    "ContentItemVersionId": "4c9jya52trqsrwzh61jxx0wtc0",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "physically demanding, hot and cramped",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-26T13:54:31.3766966Z",
+    "PublishedUtc": "2020-10-26T13:54:31.3766966Z",
+    "CreatedUtc": "2020-10-26T13:54:31.3766966Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "at height, outdoors some of the time, dusty, noisy and physically demanding"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Eat height, outdoors some of the time, dusty, noisy and physically demanding\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/workingenvironment/c9727c6b-fb24-4460-a5e9-1509fd7e0fdd"
+    },
+    "ContentItemId": "44p1cp334vwa3vpkvjreef9s5w",
+    "ContentItemVersionId": "4pfae1vpq65pht1dcx4nkqqyc6",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "at height, outdoors some of the time, dusty, noisy and physically demanding",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-26T13:54:31.3766966Z",
+    "PublishedUtc": "2020-10-26T13:54:31.3766966Z",
+    "CreatedUtc": "2020-10-26T13:54:31.3766966Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "physically demanding and cramped"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Ephysically demanding and cramped\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/workingenvironment/1fc96ac9-694b-4f3d-8c45-d03d49bc4699"
+    },
+    "ContentItemId": "46z4xckpkahttyfwxfzdebztdh",
+    "ContentItemVersionId": "466j7m3s3trkw5tcbwgcw7f4wj",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "physically demanding and cramped",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-26T13:54:31.3766966Z",
+    "PublishedUtc": "2020-10-26T13:54:31.3766966Z",
+    "CreatedUtc": "2020-10-26T13:54:31.3766966Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "physically demanding, cramped and dusty"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Ephysically demanding, cramped and dusty\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/workingenvironment/29412ad9-f4c1-4bd1-a157-f7779682b2cd"
+    },
+    "ContentItemId": "4f2vpy5fvmdpz7n9xjb6q7b2w3",
+    "ContentItemVersionId": "4pfp4g1qpwyr4vsz5wt2w8v9mp",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "physically demanding, cramped and dusty",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-26T13:54:31.3766966Z",
+    "PublishedUtc": "2020-10-26T13:54:31.3766966Z",
+    "CreatedUtc": "2020-10-26T13:54:31.3766966Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "emotionally demanding and you may spend nights away from home"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Eemotionally demanding and you may spend nights away from home\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/workingenvironment/56be50c7-56b4-4dad-9e50-1c898dc71ec5"
+    },
+    "ContentItemId": "46tmbs72apz79134s1xkp3grnc",
+    "ContentItemVersionId": "405pfjqysgc155x2n90s2cwdcb",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "emotionally demanding and you may spend nights away from home",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-26T13:54:31.3766966Z",
+    "PublishedUtc": "2020-10-26T13:54:31.3766966Z",
+    "CreatedUtc": "2020-10-26T13:54:31.3766966Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "physically demanding and outdoors some of the time"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Ephysically demanding and outdoors some of the time\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/workingenvironment/c44cbfd3-6890-4acb-bccb-29f7955cf96e"
+    },
+    "ContentItemId": "46bb1e9qhgcm46k4pzwgq5hzxa",
+    "ContentItemVersionId": "4pa7tr9t5ey503r10xb3scys49",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "physically demanding and outdoors some of the time",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-26T13:54:31.3766966Z",
+    "PublishedUtc": "2020-10-26T13:54:31.3766966Z",
+    "CreatedUtc": "2020-10-26T13:54:31.3766966Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "hot, physically demanding and humid"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Ehot, physically demanding and humid\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/workingenvironment/5f3c4bdc-5976-46bf-93c0-888f5f072722"
+    },
+    "ContentItemId": "415c5gp659pgq06ckemwy45hmm",
+    "ContentItemVersionId": "4jtpy3qpnb1s0sy10m3p11ex40",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "hot, physically demanding and humid",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-26T13:54:31.3766966Z",
+    "PublishedUtc": "2020-10-26T13:54:31.3766966Z",
+    "CreatedUtc": "2020-10-26T13:54:31.3766966Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Dusty"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Edusty\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/workingenvironment/f3705215-b10c-4ddc-97c6-888034c82827"
+    },
+    "ContentItemId": "4synw1ct2130q1hyb6ed9gjnd2",
+    "ContentItemVersionId": "43nbk6c20skhwsv8ewpj77q6xc",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "Dusty",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-26T13:54:31.3766966Z",
+    "PublishedUtc": "2020-10-26T13:54:31.3766966Z",
+    "CreatedUtc": "2020-10-26T13:54:31.3766966Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "outdoors some of the time and physically demanding"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Eoutdoors some of the time and physically demanding\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/workingenvironment/6b92dcd5-d266-413f-9e86-e163433afdbe"
+    },
+    "ContentItemId": "4qetqdwkgawvd6mhf92d34jjxy",
+    "ContentItemVersionId": "4smmsag7h30bbx0dck2xfagen6",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "outdoors some of the time and physically demanding",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-26T13:54:31.3766966Z",
+    "PublishedUtc": "2020-10-26T13:54:31.3766966Z",
+    "CreatedUtc": "2020-10-26T13:54:31.3766966Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "noisy and you\u0027ll travel often"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Enoisy and you\u0027ll travel often\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/workingenvironment/95a428c9-cbdc-46b9-b912-ba006cdf20ac"
+    },
+    "ContentItemId": "41v7desct5qdfvh60n7xac19xn",
+    "ContentItemVersionId": "448w4zx8kmcmr3cx86sm7qjpwe",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "noisy and you\u0027ll travel often",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-26T13:54:31.3766966Z",
+    "PublishedUtc": "2020-10-26T13:54:31.3766966Z",
+    "CreatedUtc": "2020-10-26T13:54:31.3766966Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "physically demanding, outdoors in all weathers, cramped and you may spend nights away from home"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Ephysically demanding, outdoors in all weathers, cramped and you may spend nights away from home\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/workingenvironment/5a9b0b19-0aeb-4ea6-9854-ab22bc6025e2"
+    },
+    "ContentItemId": "4j47z1v45778rtmbbpe7bqv3x8",
+    "ContentItemVersionId": "4rysbsc515qd7458zdfjhr53xt",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "physically demanding, outdoors in all weathers, cramped and you may spend nights away from home",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-26T13:54:31.3766966Z",
+    "PublishedUtc": "2020-10-26T13:54:31.3766966Z",
+    "CreatedUtc": "2020-10-26T13:54:31.3766966Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "physically demanding and cool"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Ephysically demanding and cool\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/workingenvironment/65df9364-1a8e-4769-9f56-f26b6c9f2760"
+    },
+    "ContentItemId": "43n5n9cwqad0k0yd27p1bcsk50",
+    "ContentItemVersionId": "4qw8tpnk06bg63f3rq070cx6cr",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "physically demanding and cool",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-26T13:54:31.3766966Z",
+    "PublishedUtc": "2020-10-26T13:54:31.3766966Z",
+    "CreatedUtc": "2020-10-26T13:54:31.3766966Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "hot and noisy"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Ehot and noisy\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/workingenvironment/1127a3f5-58b9-43ad-9f6a-c014cc4a4e3d"
+    },
+    "ContentItemId": "4s2vq0z9ar2v27psv1mj4bjmm6",
+    "ContentItemVersionId": "4wq050qkc44bjz7hwjdxzd7q4d",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "hot and noisy",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-26T13:54:31.3766966Z",
+    "PublishedUtc": "2020-10-26T13:54:31.3766966Z",
+    "CreatedUtc": "2020-10-26T13:54:31.3766966Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "outdoors in all weathers and you may spend nights away from home"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Eoutdoors in all weathers and you may spend nights away from home\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/workingenvironment/3bdb728e-3899-4bbf-85d1-50ddf12a16fa"
+    },
+    "ContentItemId": "49xg9ear192nr5mx49jcttepm2",
+    "ContentItemVersionId": "491qmqztgjfa724banyqb0dm5q",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "outdoors in all weathers and you may spend nights away from home",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-26T13:54:31.3766966Z",
+    "PublishedUtc": "2020-10-26T13:54:31.3766966Z",
+    "CreatedUtc": "2020-10-26T13:54:31.3766966Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "cramped, you\u0027ll travel often and at height"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Ecramped, you\u0027ll travel often and at height\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/workingenvironment/a2c51d32-1488-491f-8b44-3aa57a8dbc6b"
+    },
+    "ContentItemId": "4p7msr9fj32t0yga3f25s0zhms",
+    "ContentItemVersionId": "463f6cysxvdz7vgfnwh0p457dx",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "cramped, you\u0027ll travel often and at height",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-26T13:54:31.3766966Z",
+    "PublishedUtc": "2020-10-26T13:54:31.3766966Z",
+    "CreatedUtc": "2020-10-26T13:54:31.3766966Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "cold and physically demanding"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Ecold and physically demanding\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/workingenvironment/1a0df0c8-f099-4add-98c8-020547fe525f"
+    },
+    "ContentItemId": "48we7w5n1rj48zw6wmcc3ctx5n",
+    "ContentItemVersionId": "47sk0szbwv9kw7qy2dc0jr6756",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "cold and physically demanding",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-26T13:54:31.3766966Z",
+    "PublishedUtc": "2020-10-26T13:54:31.3766966Z",
+    "CreatedUtc": "2020-10-26T13:54:31.3766966Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "physically demanding and humid"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Ephysically demanding and humid\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/workingenvironment/7c918537-42e5-4383-9b2d-37fe8c6fb1ac"
+    },
+    "ContentItemId": "407xpv76km0kwy7w8jk4bzhbw4",
+    "ContentItemVersionId": "45dhp4j49vb7h0y5adbvvfpmde",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "physically demanding and humid",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-26T13:54:31.3766966Z",
+    "PublishedUtc": "2020-10-26T13:54:31.3766966Z",
+    "CreatedUtc": "2020-10-26T13:54:31.3766966Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "physically demanding, at height, outdoors some of the time and you may spend nights away from home"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Ephysically demanding, at height, outdoors some of the time and you may spend nights away from home\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/workingenvironment/3ad6a083-9985-4be6-8b74-f5f96468c248"
+    },
+    "ContentItemId": "419kwbxmy3h24xvxvpyqdz6wng",
+    "ContentItemVersionId": "424qg40kjswgp3c67pdqda2wm9",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "physically demanding, at height, outdoors some of the time and you may spend nights away from home",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-26T13:54:31.3766966Z",
+    "PublishedUtc": "2020-10-26T13:54:31.3766966Z",
+    "CreatedUtc": "2020-10-26T13:54:31.3766966Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "cold, dirty and physically and emotionally demanding"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Ecold, dirty and physically and emotionally demanding\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/workingenvironment/dbe2ba09-af7d-49fe-9812-fd2bb9968fab"
+    },
+    "ContentItemId": "488e5gw7zsm1x79j0ze896gmcp",
+    "ContentItemVersionId": "4eb93eka2t4qmzpvegz4gj004t",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "cold, dirty and physically and emotionally demanding",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-26T13:54:31.3766966Z",
+    "PublishedUtc": "2020-10-26T13:54:31.3766966Z",
+    "CreatedUtc": "2020-10-26T13:54:31.3766966Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "dusty, at height, noisy and physically demanding"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Edusty, at height, noisy and physically demanding\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/workingenvironment/d2180ffd-f69e-4ad7-b5ae-9542d632fe6b"
+    },
+    "ContentItemId": "4kapb3xejdcq15xsyvrj5pq8dr",
+    "ContentItemVersionId": "4prrpggzs3vjs3ja4jhk5236c4",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "dusty, at height, noisy and physically demanding",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-26T13:54:31.3766966Z",
+    "PublishedUtc": "2020-10-26T13:54:31.3766966Z",
+    "CreatedUtc": "2020-10-26T13:54:31.3766966Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "outdoors some of the time and physically and emotionally demanding"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Eoutdoors some of the time and physically and emotionally demanding\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/workingenvironment/9b01029b-0ac6-47c2-a67b-f97f52819169"
+    },
+    "ContentItemId": "4tyqw6k4tw7t463c8e1vv39cdg",
+    "ContentItemVersionId": "4956547md6zdd2kh28xe2yqh5j",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "outdoors some of the time and physically and emotionally demanding",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-26T13:54:31.3766966Z",
+    "PublishedUtc": "2020-10-26T13:54:31.3766966Z",
+    "CreatedUtc": "2020-10-26T13:54:31.3766966Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "physically demanding, outdoors in all weathers and you\u0027ll travel often"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Ephysically demanding, outdoors in all weathers and you\u0027ll travel often\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/workingenvironment/fece541e-5d23-496f-a9f6-c0d50e39836f"
+    },
+    "ContentItemId": "4jy4wbgzys4b124a0s096tz85n",
+    "ContentItemVersionId": "4ac684gqck43p1kdzv7rpj2w4a",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "physically demanding, outdoors in all weathers and you\u0027ll travel often",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-26T13:54:31.3766966Z",
+    "PublishedUtc": "2020-10-26T13:54:31.3766966Z",
+    "CreatedUtc": "2020-10-26T13:54:31.3766966Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "outdoors in all weathers and emotionally demanding"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Eoutdoors in all weathers and emotionally demanding\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/workingenvironment/0291205c-376b-472c-8719-b1ca1177cce0"
+    },
+    "ContentItemId": "4ydzgg6955aqk3z1qn54k73amx",
+    "ContentItemVersionId": "4b69tcgp3mrygvbsyrjpbp2pde",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "outdoors in all weathers and emotionally demanding",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-26T13:54:31.3766966Z",
+    "PublishedUtc": "2020-10-26T13:54:31.3766966Z",
+    "CreatedUtc": "2020-10-26T13:54:31.3766966Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "cool, noisy and hot"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Ecool, noisy and hot\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/workingenvironment/ae8b291e-0540-4c74-9bd3-b5ee59f3c3d6"
+    },
+    "ContentItemId": "4ekezt2b8anqmz6xas8ayfam53",
+    "ContentItemVersionId": "4fn9kyajc6t8bsmsjnxv378e4j",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "cool, noisy and hot",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-26T13:54:31.3766966Z",
+    "PublishedUtc": "2020-10-26T13:54:31.3766966Z",
+    "CreatedUtc": "2020-10-26T13:54:31.3766966Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "dirty and you\u0027ll travel often"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Edirty and you\u0027ll travel often\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/workingenvironment/bb7889ae-442c-404f-8bcc-b010b0cdf46d"
+    },
+    "ContentItemId": "4qprd53tve4pm3kep3bztg7f5m",
+    "ContentItemVersionId": "49zd28y9q7pp6w1zd53vz9vyxw",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "dirty and you\u0027ll travel often",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-26T13:54:31.3766966Z",
+    "PublishedUtc": "2020-10-26T13:54:31.3766966Z",
+    "CreatedUtc": "2020-10-26T13:54:31.3766966Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "at height, noisy, dirty, physically demanding, outdoors in all weathers and cramped"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Eat height, noisy, dirty, physically demanding, outdoors in all weathers and cramped\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/workingenvironment/6a486150-37f3-416a-b0d4-dbafeeb6f1c2"
+    },
+    "ContentItemId": "402pjwjh0frz16ksec7a8f2gcv",
+    "ContentItemVersionId": "4tdb1d524j1me4663gtxk47k51",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "at height, noisy, dirty, physically demanding, outdoors in all weathers and cramped",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-26T13:54:31.3766966Z",
+    "PublishedUtc": "2020-10-26T13:54:31.3766966Z",
+    "CreatedUtc": "2020-10-26T13:54:31.3766966Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "crowded, you\u0027ll travel often, outdoors some of the time and noisy"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Ecrowded, you\u0027ll travel often, outdoors some of the time and noisy\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/workingenvironment/2e82ff5f-c704-4c72-8819-56d24869b6ce"
+    },
+    "ContentItemId": "4rjg5hj25k1znramwj7byjjgdj",
+    "ContentItemVersionId": "4npg6p7bfavzfy2mz1nz97rkdt",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "crowded, you\u0027ll travel often, outdoors some of the time and noisy",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-26T13:54:31.3766966Z",
+    "PublishedUtc": "2020-10-26T13:54:31.3766966Z",
+    "CreatedUtc": "2020-10-26T13:54:31.3766966Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "noisy, hot and humid"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Enoisy, hot and humid\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/workingenvironment/456a99a5-1b2f-4dac-8064-6ec88c1ea274"
+    },
+    "ContentItemId": "4m3vjajnse5x0wk2g5txkwynnp",
+    "ContentItemVersionId": "40j5fkwyc0jzkwydkgfs4xc6nn",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "noisy, hot and humid",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-26T13:54:31.3766966Z",
+    "PublishedUtc": "2020-10-26T13:54:31.3766966Z",
+    "CreatedUtc": "2020-10-26T13:54:31.3766966Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "cramped, at height, outdoors in all weathers and you may spend nights away from home"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Ecramped, at height, outdoors in all weathers and you may spend nights away from home\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/workingenvironment/14dd34cf-50f2-459b-8c60-eafd67d31a05"
+    },
+    "ContentItemId": "4nqknzd6wx4hsrg31h38vx6fnh",
+    "ContentItemVersionId": "45872cxpp86c6x5dkqrq5verx0",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "cramped, at height, outdoors in all weathers and you may spend nights away from home",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-26T13:54:31.3766966Z",
+    "PublishedUtc": "2020-10-26T13:54:31.3766966Z",
+    "CreatedUtc": "2020-10-26T13:54:31.3766966Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "noisy, crowded and hot"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Enoisy, crowded and hot\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/workingenvironment/d85237fe-f149-4e62-b6ae-12710f41856b"
+    },
+    "ContentItemId": "4fbr1snp7wwtg6nhtj194jtx5a",
+    "ContentItemVersionId": "4vn78jw2pqf7s75hgf71hz75w2",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "noisy, crowded and hot",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-26T13:54:31.3766966Z",
+    "PublishedUtc": "2020-10-26T13:54:31.3766966Z",
+    "CreatedUtc": "2020-10-26T13:54:31.3766966Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "cramped, you\u0027ll travel often, dusty and cold"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Ecramped, you\u0027ll travel often, dusty and cold\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/workingenvironment/9db1e2c1-c32b-4132-b3e8-db530a5d2bdc"
+    },
+    "ContentItemId": "4tscj3yh1kphptdevpjztjse5n",
+    "ContentItemVersionId": "4c7q3kzfarvka1q86335dqgyd6",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "cramped, you\u0027ll travel often, dusty and cold",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-26T13:54:31.3766966Z",
+    "PublishedUtc": "2020-10-26T13:54:31.3766966Z",
+    "CreatedUtc": "2020-10-26T13:54:31.3766966Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "hot, cramped and at height"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Ehot, cramped and at height\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/workingenvironment/ac9585d7-8aa3-49c7-b965-1e112b2eb884"
+    },
+    "ContentItemId": "4m58j8saefh79s684phdm5r244",
+    "ContentItemVersionId": "4fgvwcx2hbq6dzkx8cc248amwh",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "hot, cramped and at height",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-26T13:54:31.3766966Z",
+    "PublishedUtc": "2020-10-26T13:54:31.3766966Z",
+    "CreatedUtc": "2020-10-26T13:54:31.3766966Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "hot and physically demanding"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Ehot and physically demanding\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/workingenvironment/a7f572b3-313f-479a-879d-3ac250acae0d"
+    },
+    "ContentItemId": "4frzzhraxbmqjrbrvgjg139rx8",
+    "ContentItemVersionId": "458vh5vg4nr8fra68mhhycnynq",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "hot and physically demanding",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-26T13:54:31.3766966Z",
+    "PublishedUtc": "2020-10-26T13:54:31.3766966Z",
+    "CreatedUtc": "2020-10-26T13:54:31.3766966Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "cramped, at height and outdoors in all weathers"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Ecramped, at height and outdoors in all weathers\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/workingenvironment/a60fe674-91aa-4fbb-8bb2-565d6ec62dd7"
+    },
+    "ContentItemId": "49epbqpyhfx092k891vrz0cpw9",
+    "ContentItemVersionId": "4whabetmz5wdqvgyt0rjqc2k43",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "cramped, at height and outdoors in all weathers",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-26T13:54:31.3766966Z",
+    "PublishedUtc": "2020-10-26T13:54:31.3766966Z",
+    "CreatedUtc": "2020-10-26T13:54:31.3766966Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "physically demanding, outdoors in all weathers, at height and you\u0027ll travel often"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Ephysically demanding, outdoors in all weathers, at height and you\u0027ll travel often\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/workingenvironment/894aeb3b-7461-4abe-8bba-51d2eb6aa93c"
+    },
+    "ContentItemId": "4c4j2gyjz0hdyttt52nygchc4w",
+    "ContentItemVersionId": "4qfjh6h9j8hhsx8t48db5ed6wj",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "physically demanding, outdoors in all weathers, at height and you\u0027ll travel often",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-26T13:54:31.3766966Z",
+    "PublishedUtc": "2020-10-26T13:54:31.3766966Z",
+    "CreatedUtc": "2020-10-26T13:54:31.3766966Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "physically and emotionally demanding and outdoors in all weathers"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Ephysically and emotionally demanding and outdoors in all weathers\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/workingenvironment/4f408c8c-e112-49ca-89e4-92ab3c7cb5ac"
+    },
+    "ContentItemId": "4scd5n4nx1cfmrhcvf1eem38n4",
+    "ContentItemVersionId": "4tkn8csrn1sb2zc591r4wbmhcn",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "physically and emotionally demanding and outdoors in all weathers",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-26T13:54:31.3766966Z",
+    "PublishedUtc": "2020-10-26T13:54:31.3766966Z",
+    "CreatedUtc": "2020-10-26T13:54:31.3766966Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "outdoors in all weathers, at height, physically demanding and dusty"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Eoutdoors in all weathers, at height, physically demanding and dusty\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/workingenvironment/64b22b8d-dedb-45e2-a6c4-e9d3e8f4fff7"
+    },
+    "ContentItemId": "4xv2t2msje4rvvn1ns06c4vmcv",
+    "ContentItemVersionId": "4y1n5fqd82xarvp022hzdeekwp",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "outdoors in all weathers, at height, physically demanding and dusty",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-26T13:54:31.3766966Z",
+    "PublishedUtc": "2020-10-26T13:54:31.3766966Z",
+    "CreatedUtc": "2020-10-26T13:54:31.3766966Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "you\u0027ll travel often, cramped and physically demanding"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Eyou\u0027ll travel often, cramped and physically demanding\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/workingenvironment/ec274878-5d21-4358-9d76-8dfb11bd445f"
+    },
+    "ContentItemId": "4vzhc7be87gtf4tyhy8t8a9rcq",
+    "ContentItemVersionId": "42sp4d4s80ck44rvwf4fefrzx9",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "you\u0027ll travel often, cramped and physically demanding",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-26T13:54:31.3766966Z",
+    "PublishedUtc": "2020-10-26T13:54:31.3766966Z",
+    "CreatedUtc": "2020-10-26T13:54:31.3766966Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "at height and outdoors in all weathers"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Eat height and outdoors in all weathers\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/workingenvironment/192f15b6-8c31-48b6-a270-99bb71ed6390"
+    },
+    "ContentItemId": "4pzaw1rfhb97f08xc5b0339jcy",
+    "ContentItemVersionId": "4rv7rjtcjkpztv4t7wfa9p5kwd",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "at height and outdoors in all weathers",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-26T13:54:31.3766966Z",
+    "PublishedUtc": "2020-10-26T13:54:31.3766966Z",
+    "CreatedUtc": "2020-10-26T13:54:31.3766966Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "cramped and you may spend nights away from home"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Ecramped and you may spend nights away from home\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/workingenvironment/2eba9005-d7c8-4377-85ec-9900d0093fb9"
+    },
+    "ContentItemId": "4x9hcjqz6cwtw3h63qckg6qsng",
+    "ContentItemVersionId": "4qtstqye1xd6h33st2awa2eq4s",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "cramped and you may spend nights away from home",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-26T13:54:31.3766966Z",
+    "PublishedUtc": "2020-10-26T13:54:31.3766966Z",
+    "CreatedUtc": "2020-10-26T13:54:31.3766966Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "cramped and hot"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Ecramped and hot\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/workingenvironment/4f6d67c1-f5ec-4057-8ddc-c3d54c847033"
+    },
+    "ContentItemId": "4x8v782aq8n9n2fb44q2bwvy54",
+    "ContentItemVersionId": "46hwvy58bgse41453bw1r4srmb",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "cramped and hot",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-26T13:54:31.3766966Z",
+    "PublishedUtc": "2020-10-26T13:54:31.3766966Z",
+    "CreatedUtc": "2020-10-26T13:54:31.3766966Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "at height, dirty and cramped"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Eat height, dirty and cramped\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/workingenvironment/222f8e28-bd63-45b7-ab31-39fb53501460"
+    },
+    "ContentItemId": "4x1qtvnhfczjwwey6vhngvyg5w",
+    "ContentItemVersionId": "4phhtrwjbn328xr7y0csqaykd1",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "at height, dirty and cramped",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-26T13:54:31.3766966Z",
+    "PublishedUtc": "2020-10-26T13:54:31.3766966Z",
+    "CreatedUtc": "2020-10-26T13:54:31.3766966Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Travel Often"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Eyou\u0027ll travel often\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/workingenvironment/6976c994-9078-44ec-86ad-b9f3a68c3d66"
+    },
+    "ContentItemId": "40y2wy0s6dwz63apet2ttagfxq",
+    "ContentItemVersionId": "4trx3emcvwg4psd3k4gw915jxq",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "Travel Often",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-26T13:54:31.3766966Z",
+    "PublishedUtc": "2020-10-26T13:54:31.3766966Z",
+    "CreatedUtc": "2020-10-26T13:54:31.3766966Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "dirty, outdoors some of the time and physically demanding"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Edirty, outdoors some of the time and physically demanding\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/workingenvironment/5284df4d-24d2-4eab-abb0-29c00f1fe784"
+    },
+    "ContentItemId": "4vqqr8yb0aq085mn7he92dwnxd",
+    "ContentItemVersionId": "4w3j7qkfdaaw4wr9kryxtpdx5a",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "dirty, outdoors some of the time and physically demanding",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-26T13:54:31.3766966Z",
+    "PublishedUtc": "2020-10-26T13:54:31.3766966Z",
+    "CreatedUtc": "2020-10-26T13:54:31.3766966Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "at height, cramped and physically demanding"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Eat height, cramped and physically demanding\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/workingenvironment/7dc81d78-a9cd-47a8-9f92-976a4b4006fc"
+    },
+    "ContentItemId": "4cg0nmbcxkxskr94mrtpzzyant",
+    "ContentItemVersionId": "497q3p7rfx88e1v869zk6r8jc4",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "at height, cramped and physically demanding",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-26T13:54:31.3766966Z",
+    "PublishedUtc": "2020-10-26T13:54:31.3766966Z",
+    "CreatedUtc": "2020-10-26T13:54:31.3766966Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "noisy and physically demanding"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Enoisy and physically demanding\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/workingenvironment/ff3d0cb9-ee0a-4638-ba15-02e63e17d769"
+    },
+    "ContentItemId": "4whra7hgh6kf7468c91pptwcdz",
+    "ContentItemVersionId": "4mveprmm2xz3w18z6k8t34rw4m",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "noisy and physically demanding",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-26T13:54:31.3766966Z",
+    "PublishedUtc": "2020-10-26T13:54:31.3766966Z",
+    "CreatedUtc": "2020-10-26T13:54:31.3766966Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "noisy, dirty and dusty"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Enoisy, dirty and dusty\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/workingenvironment/7d182f35-9792-4d72-b9c7-ceab6e75aae9"
+    },
+    "ContentItemId": "406t05t91nj1p4res6k9vsmhmc",
+    "ContentItemVersionId": "4p0dsm403bwecr3cgkmmwgxanb",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "noisy, dirty and dusty",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-26T13:54:31.3766966Z",
+    "PublishedUtc": "2020-10-26T13:54:31.3766966Z",
+    "CreatedUtc": "2020-10-26T13:54:31.3766966Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "humid and hot"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Ehumid and hot\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/workingenvironment/4a0023ed-c6b0-43e2-8cfa-a5b83c99e8f1"
+    },
+    "ContentItemId": "4te18fcmpn9w1y8ncperq7r44c",
+    "ContentItemVersionId": "4ng0yt6h0ybej0qazb8gmvb1m5",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "humid and hot",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-26T13:54:31.3766966Z",
+    "PublishedUtc": "2020-10-26T13:54:31.3766966Z",
+    "CreatedUtc": "2020-10-26T13:54:31.3766966Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "cramped, physically demanding, at height, outdoors in all weathers and you may spend nights away from home"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Ecramped, physically demanding, at height, outdoors in all weathers and you may spend nights away from home\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/workingenvironment/5a469987-c53b-4900-87f0-a9842adf99e1"
+    },
+    "ContentItemId": "4f4gyzjf41749z04ttjxjn3jda",
+    "ContentItemVersionId": "4wqaxjayd8mpm4kjc33beqp9dn",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "cramped, physically demanding, at height, outdoors in all weathers and you may spend nights away from home",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-26T13:54:31.3766966Z",
+    "PublishedUtc": "2020-10-26T13:54:31.3766966Z",
+    "CreatedUtc": "2020-10-26T13:54:31.3766966Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "cool and physically demanding"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Ecool and physically demanding\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/workingenvironment/80adf144-024b-443b-a508-43d977921c42"
+    },
+    "ContentItemId": "4ccmzcfk9478n23hjxxa276d4k",
+    "ContentItemVersionId": "4m9jeq39jy9c66q5psex216hm5",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "cool and physically demanding",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-26T13:54:31.3766966Z",
+    "PublishedUtc": "2020-10-26T13:54:31.3766966Z",
+    "CreatedUtc": "2020-10-26T13:54:31.3766966Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "outdoors in all weathers, at height and you may spend nights away from home"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Eoutdoors in all weathers, at height and you may spend nights away from home\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/workingenvironment/fc549b31-e4f6-4642-a65d-41e049277c0f"
+    },
+    "ContentItemId": "4sns6ky4mcap87240k2x9x04ce",
+    "ContentItemVersionId": "48spz4sc076rzy9vsngtjz3tmn",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "outdoors in all weathers, at height and you may spend nights away from home",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-26T13:54:31.3766966Z",
+    "PublishedUtc": "2020-10-26T13:54:31.3766966Z",
+    "CreatedUtc": "2020-10-26T13:54:31.3766966Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "emotionally demanding, outdoors some of the time and you may spend nights away from home"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Eemotionally demanding, outdoors some of the time and you may spend nights away from home\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/workingenvironment/00b1598f-fb52-4d5f-aa0e-805b8b54ae8c"
+    },
+    "ContentItemId": "4x70jhttccrv0vxcgfbgmxfz5f",
+    "ContentItemVersionId": "4q2cgbcjhj1f9re4nm55e1zfw5",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "emotionally demanding, outdoors some of the time and you may spend nights away from home",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-26T13:54:31.3766966Z",
+    "PublishedUtc": "2020-10-26T13:54:31.3766966Z",
+    "CreatedUtc": "2020-10-26T13:54:31.3766966Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "physically demanding, cramped, you\u0027ll travel often, outdoors some of the time, dusty, noisy and at height"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Ephysically demanding, cramped, you\u0027ll travel often, outdoors some of the time, dusty, noisy and at height\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/workingenvironment/5d8389a7-f12c-4b2b-89e7-a99a9d0564db"
+    },
+    "ContentItemId": "4cpa4sd42401j1a255d607wjc2",
+    "ContentItemVersionId": "4g1mzq8xe0qhv1jebwxfy29adf",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "physically demanding, cramped, you\u0027ll travel often, outdoors some of the time, dusty, noisy and at height",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-26T13:54:31.3766966Z",
+    "PublishedUtc": "2020-10-26T13:54:31.3766966Z",
+    "CreatedUtc": "2020-10-26T13:54:31.3766966Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "dusty and noisy"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Edusty and noisy\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/workingenvironment/167437f5-94b1-4803-9db1-7bfbfbd4d333"
+    },
+    "ContentItemId": "49p013hpq9nh0zdabqgjabmrnt",
+    "ContentItemVersionId": "4kc5hrtnebbyz5sqykcemw7vwq",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "dusty and noisy",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-26T13:54:31.3766966Z",
+    "PublishedUtc": "2020-10-26T13:54:31.3766966Z",
+    "CreatedUtc": "2020-10-26T13:54:31.3766966Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "at height, physically and emotionally demanding, outdoors some of the time, dirty and cramped"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Eat height, physically and emotionally demanding, outdoors some of the time, dirty and cramped\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/workingenvironment/20dd6a4f-b120-4149-b7b9-73f7d73a49e4"
+    },
+    "ContentItemId": "4aa6qnadj1mpj0498yss00ydc2",
+    "ContentItemVersionId": "4xwme5pqjcs8d77hyp2bz49gn1",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "at height, physically and emotionally demanding, outdoors some of the time, dirty and cramped",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-26T13:54:31.3766966Z",
+    "PublishedUtc": "2020-10-26T13:54:31.3766966Z",
+    "CreatedUtc": "2020-10-26T13:54:31.3766966Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "cool, physically demanding and you\u0027ll travel often"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Ecool, physically demanding and you\u0027ll travel often\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/workingenvironment/e41ae8cf-e465-44b5-91bf-b9df1b4925b4"
+    },
+    "ContentItemId": "4zfk17k7dsg7tva9jy8mw08hwp",
+    "ContentItemVersionId": "4sr7xtahsmpe76g426b2cjnscy",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "cool, physically demanding and you\u0027ll travel often",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-26T13:54:31.3766966Z",
+    "PublishedUtc": "2020-10-26T13:54:31.3766966Z",
+    "CreatedUtc": "2020-10-26T13:54:31.3766966Z",
+    "Owner": "admin",
+    "Author": "admin"
+  }
+      ]
+    }
+  ]
+}

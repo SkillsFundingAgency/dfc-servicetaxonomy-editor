@@ -1,0 +1,299 @@
+{
+  "name": "PersonalityTrait0_17341021-63b7-4997-b145-a2edf48d6379",
+  "displayName": "PersonalityTrait0_17341021-63b7-4997-b145-a2edf48d6379",
+  "description": "",
+  "author": "",
+  "website": "",
+  "version": "",
+  "issetuprecipe": false,
+  "categories": "",
+  "tags": [],
+  "steps": [
+    {
+      "name": "CSharpContent",
+      "data": [
+  {
+    "TitlePart": {
+      "Title": "Helper"
+    },
+    "PersonalityTrait": {
+      "Description": {
+        "Text": "you enjoy helping and listening to other people"
+      },
+      "JobCategories": {
+        "ContentItemIds": [
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022JobCategory\u0022, \u0022Hospitality and food\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022JobCategory\u0022, \u0022Retail and sales\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022JobCategory\u0022, \u0022Healthcare\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022JobCategory\u0022, \u0022Social care\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022JobCategory\u0022, \u0022Travel and tourism\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022JobCategory\u0022, \u0022Animal care\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022JobCategory\u0022, \u0022Teaching and education\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022JobCategory\u0022, \u0022Emergency and uniform services\u0022)\u00BB"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/personalitytrait/3fba7305-41e2-4b14-ab5f-4a4970e872b6"
+    },
+    "ContentItemId": "4csxnevmg7k784dccgr8artkn5",
+    "ContentItemVersionId": "4nb8151mg2ebf3pk2zkj6jxr4v",
+    "ContentType": "PersonalityTrait",
+    "DisplayText": "Helper",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-26T13:54:31.3766966Z",
+    "PublishedUtc": "2020-10-26T13:54:31.3766966Z",
+    "CreatedUtc": "2020-10-26T13:54:31.3766966Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Creator"
+    },
+    "PersonalityTrait": {
+      "Description": {
+        "Text": "you are a creative person and enjoy coming up with new ways of doing things"
+      },
+      "JobCategories": {
+        "ContentItemIds": [
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022JobCategory\u0022, \u0022Sports and leisure\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022JobCategory\u0022, \u0022Creative and media\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022JobCategory\u0022, \u0022Construction and trades\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022JobCategory\u0022, \u0022Computing\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022JobCategory\u0022, \u0022technology and digital\u0022)\u00BB"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/personalitytrait/edef3cd2-634a-48e3-9e92-da06ac01b1ec"
+    },
+    "ContentItemId": "4v6y3gpbwweps3smjpc3y3x2dg",
+    "ContentItemVersionId": "4pzrzj2yn6ahr5wfz2wnpkwrmh",
+    "ContentType": "PersonalityTrait",
+    "DisplayText": "Creator",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-26T13:54:31.3766966Z",
+    "PublishedUtc": "2020-10-26T13:54:31.3766966Z",
+    "CreatedUtc": "2020-10-26T13:54:31.3766966Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Doer"
+    },
+    "PersonalityTrait": {
+      "Description": {
+        "Text": "you are a practical person and enjoy getting things done"
+      },
+      "JobCategories": {
+        "ContentItemIds": [
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022JobCategory\u0022, \u0022Engineering and maintenance\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022JobCategory\u0022, \u0022Beauty and wellbeing\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022JobCategory\u0022, \u0022Creative and media\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022JobCategory\u0022, \u0022Transport\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022JobCategory\u0022, \u0022Healthcare\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022JobCategory\u0022, \u0022Home services\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022JobCategory\u0022, \u0022Environment and land\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022JobCategory\u0022, \u0022Travel and tourism\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022JobCategory\u0022, \u0022Animal care\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022JobCategory\u0022, \u0022Construction and trades\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022JobCategory\u0022, \u0022Business and finance\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022JobCategory\u0022, \u0022Law and legal\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022JobCategory\u0022, \u0022Delivery and storage\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022JobCategory\u0022, \u0022Emergency and uniform services\u0022)\u00BB"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/personalitytrait/6a424077-11d5-409e-aba6-bc4c8a9ba21c"
+    },
+    "ContentItemId": "4h6htfftahkdbw39fgcbkyz35y",
+    "ContentItemVersionId": "4k8gabfz0zr9axe1y5cfbtv84t",
+    "ContentType": "PersonalityTrait",
+    "DisplayText": "Doer",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-26T13:54:31.3766966Z",
+    "PublishedUtc": "2020-10-26T13:54:31.3766966Z",
+    "CreatedUtc": "2020-10-26T13:54:31.3766966Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Analyst"
+    },
+    "PersonalityTrait": {
+      "Description": {
+        "Text": "you like dealing with complicated problems or working with numbers"
+      },
+      "JobCategories": {
+        "ContentItemIds": [
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022JobCategory\u0022, \u0022Manufacturing\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022JobCategory\u0022, \u0022Sports and leisure\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022JobCategory\u0022, \u0022Creative and media\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022JobCategory\u0022, \u0022Science and research\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022JobCategory\u0022, \u0022Construction and trades\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022JobCategory\u0022, \u0022Computing\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022JobCategory\u0022, \u0022technology and digital\u0022)\u00BB"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/personalitytrait/985d0f76-663e-401c-8a05-10a6d3ae6f72"
+    },
+    "ContentItemId": "4qz1km3wjbr252z6hbxrfkp3xe",
+    "ContentItemVersionId": "4t37jxfd89f8yvtjtb4349kr5f",
+    "ContentType": "PersonalityTrait",
+    "DisplayText": "Analyst",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-26T13:54:31.3766966Z",
+    "PublishedUtc": "2020-10-26T13:54:31.3766966Z",
+    "CreatedUtc": "2020-10-26T13:54:31.3766966Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Driver"
+    },
+    "PersonalityTrait": {
+      "Description": {
+        "Text": "you are motivated, set yourself personal goals and are comfortable competing with other people"
+      },
+      "JobCategories": {
+        "ContentItemIds": [
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022JobCategory\u0022, \u0022Manufacturing\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022JobCategory\u0022, \u0022Sports and leisure\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022JobCategory\u0022, \u0022Beauty and wellbeing\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022JobCategory\u0022, \u0022Managerial\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022JobCategory\u0022, \u0022Science and research\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022JobCategory\u0022, \u0022Business and finance\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022JobCategory\u0022, \u0022Law and legal\u0022)\u00BB"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/personalitytrait/c08ec707-e130-4525-95b3-804ebc9b40fd"
+    },
+    "ContentItemId": "4mkcw4xerzeg921d9tp4mt7g5d",
+    "ContentItemVersionId": "4tvd45spwj74t6v8fbdfn3fcc2",
+    "ContentType": "PersonalityTrait",
+    "DisplayText": "Driver",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-26T13:54:31.3766966Z",
+    "PublishedUtc": "2020-10-26T13:54:31.3766966Z",
+    "CreatedUtc": "2020-10-26T13:54:31.3766966Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Leader"
+    },
+    "PersonalityTrait": {
+      "Description": {
+        "Text": "you like to lead other people and are good at taking control of situations"
+      },
+      "JobCategories": {
+        "ContentItemIds": [
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022JobCategory\u0022, \u0022Managerial\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022JobCategory\u0022, \u0022Teaching and education\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022JobCategory\u0022, \u0022Emergency and uniform services\u0022)\u00BB"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/personalitytrait/a16e5cfa-3a20-46e2-9bdb-80d42e37ae43"
+    },
+    "ContentItemId": "4c95s90btwh4h5vpnsbf57vanh",
+    "ContentItemVersionId": "4yyq7qajr8wq3tzrha50peja44",
+    "ContentType": "PersonalityTrait",
+    "DisplayText": "Leader",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-26T13:54:31.3766966Z",
+    "PublishedUtc": "2020-10-26T13:54:31.3766966Z",
+    "CreatedUtc": "2020-10-26T13:54:31.3766966Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Influencer"
+    },
+    "PersonalityTrait": {
+      "Description": {
+        "Text": "you are sociable and find it easy to understand people"
+      },
+      "JobCategories": {
+        "ContentItemIds": [
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022JobCategory\u0022, \u0022Hospitality and food\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022JobCategory\u0022, \u0022Retail and sales\u0022)\u00BB"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/personalitytrait/4ed21e2d-cb76-4926-b61f-861377c4af06"
+    },
+    "ContentItemId": "4p980d910577a62mgyb79cbwma",
+    "ContentItemVersionId": "45qznrmzm6c7sxtp5gsq16f1cr",
+    "ContentType": "PersonalityTrait",
+    "DisplayText": "Influencer",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-26T13:54:31.3766966Z",
+    "PublishedUtc": "2020-10-26T13:54:31.3766966Z",
+    "CreatedUtc": "2020-10-26T13:54:31.3766966Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Organiser"
+    },
+    "PersonalityTrait": {
+      "Description": {
+        "Text": "you like to plan things and are well organised"
+      },
+      "JobCategories": {
+        "ContentItemIds": [
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022JobCategory\u0022, \u0022Manufacturing\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022JobCategory\u0022, \u0022Administration\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022JobCategory\u0022, \u0022Government services\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022JobCategory\u0022, \u0022Transport\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022JobCategory\u0022, \u0022Science and research\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022JobCategory\u0022, \u0022Home services\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022JobCategory\u0022, \u0022Travel and tourism\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022JobCategory\u0022, \u0022Teaching and education\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022JobCategory\u0022, \u0022Business and finance\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022JobCategory\u0022, \u0022Law and legal\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022JobCategory\u0022, \u0022Delivery and storage\u0022)\u00BB"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/personalitytrait/0b8e0269-642e-4e53-85a2-61f11d7ac480"
+    },
+    "ContentItemId": "45sbk8py0yny7vcftc5j751mck",
+    "ContentItemVersionId": "4j7gmwe8wbpfs2hy3mv7vr4qc3",
+    "ContentType": "PersonalityTrait",
+    "DisplayText": "Organiser",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-26T13:54:31.3766966Z",
+    "PublishedUtc": "2020-10-26T13:54:31.3766966Z",
+    "CreatedUtc": "2020-10-26T13:54:31.3766966Z",
+    "Owner": "admin",
+    "Author": "admin"
+  }
+      ]
+    }
+  ]
+}

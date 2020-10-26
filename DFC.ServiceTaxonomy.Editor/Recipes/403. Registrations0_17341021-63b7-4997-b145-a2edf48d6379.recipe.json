@@ -1,0 +1,882 @@
+{
+  "name": "Registrations0_17341021-63b7-4997-b145-a2edf48d6379",
+  "displayName": "Registrations0_17341021-63b7-4997-b145-a2edf48d6379",
+  "description": "",
+  "author": "",
+  "website": "",
+  "version": "",
+  "issetuprecipe": false,
+  "categories": "",
+  "tags": [],
+  "steps": [
+    {
+      "name": "ContentNoCache",
+      "data": [
+  {
+    "TitlePart": {
+      "Title": "Social Work England"
+    },
+    "Registration": {
+      "Description": {
+        "Html": "\u003Cp\u003Eyou\u0027ll need to register with \u003Ca href=\u0022https://www.socialworkengland.org.uk/registration/apply-to-register/\u0022\u003ESocial Work England\u003C/a\u003E\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/registration/552a6dbe-a3de-4de7-a899-49fd3a21128a"
+    },
+    "ContentItemId": "4m5gsqff86tw8wqdf14pr1ernb",
+    "ContentItemVersionId": "46ymsr8x0xzvy2192w1fqwgsw8",
+    "ContentType": "Registration",
+    "DisplayText": "Social Work England",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-26T13:54:31.3766966Z",
+    "PublishedUtc": "2020-10-26T13:54:31.3766966Z",
+    "CreatedUtc": "2020-10-26T13:54:31.3766966Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Financial Conduct Authority"
+    },
+    "Registration": {
+      "Description": {
+        "Html": "\u003Cp\u003Eyou\u0027ll need to register as an \u0027approved person\u0027 by the \u003Ca href=\u0022https://www.fca.org.uk/firms/approved-persons\u0022\u003EFinancial Conduct Authority\u003C/a\u003E\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/registration/c10ec078-c06b-46ee-926d-764ad379b9b2"
+    },
+    "ContentItemId": "45k97kvgzhpjbwh98ycm6nbvx7",
+    "ContentItemVersionId": "415wjcwa4hjkh7zww4e7dtd64a",
+    "ContentType": "Registration",
+    "DisplayText": "Financial Conduct Authority",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-26T13:54:31.3766966Z",
+    "PublishedUtc": "2020-10-26T13:54:31.3766966Z",
+    "CreatedUtc": "2020-10-26T13:54:31.3766966Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Intellectual Property Regulation Board"
+    },
+    "Registration": {
+      "Description": {
+        "Html": "\u003Cp\u003Eyou can register with the \u003Ca href=\u0022https://ipreg.org.uk/pro/getting-qualified\u0022\u003EIntellectual Property Regulation Board\u003C/a\u003E\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/registration/a93e346e-fb03-4d90-be25-993f8772c471"
+    },
+    "ContentItemId": "4n95bdqr1g5ds5rbwz65ar0tms",
+    "ContentItemVersionId": "4kxz7avds67m34089yrc9x2k5k",
+    "ContentType": "Registration",
+    "DisplayText": "Intellectual Property Regulation Board",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-26T13:54:31.3766966Z",
+    "PublishedUtc": "2020-10-26T13:54:31.3766966Z",
+    "CreatedUtc": "2020-10-26T13:54:31.3766966Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "General Osteopathic Council"
+    },
+    "Registration": {
+      "Description": {
+        "Html": "\u003Cp\u003Eyou must be registered with the \u003Ca href=\u0022https://www.osteopathy.org.uk/training-and-registering/\u0022\u003EGeneral Osteopathic Council\u003C/a\u003E to work as an osteopath\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/registration/fd283918-1902-44bb-b512-48b148b82121"
+    },
+    "ContentItemId": "4pfe1gr2yg7f2tg445ftypfcmt",
+    "ContentItemVersionId": "41fa014vs6heb121nqjxydsr5p",
+    "ContentType": "Registration",
+    "DisplayText": "General Osteopathic Council",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-26T13:54:31.3766966Z",
+    "PublishedUtc": "2020-10-26T13:54:31.3766966Z",
+    "CreatedUtc": "2020-10-26T13:54:31.3766966Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "CPCS"
+    },
+    "Registration": {
+      "Description": {
+        "Html": "\u003Cp\u003Eyou\u0027ll need a \u003Ca href=\u0022http://www.citb.co.uk/cards-testing/construction-plant-competence-scheme-cpcs/\u0022\u003EConstruction Plant Competence Scheme\u003C/a\u003E (CPCS) card to operate some machinery\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/registration/eb86fc6f-07cd-418a-a2ac-ebbe94ebe87c"
+    },
+    "ContentItemId": "4bvt7dxp94fsg23pdmmtwxv8cx",
+    "ContentItemVersionId": "4v8z9qm0szqr8whtgernxrkvde",
+    "ContentType": "Registration",
+    "DisplayText": "CPCS",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-26T13:54:31.3766966Z",
+    "PublishedUtc": "2020-10-26T13:54:31.3766966Z",
+    "CreatedUtc": "2020-10-26T13:54:31.3766966Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "HCPC"
+    },
+    "Registration": {
+      "Description": {
+        "Html": "\u003Cp\u003Eyou\u0027ll need to register with the \u003Ca href=\u0022http://www.hcpc-uk.co.uk/\u0022\u003EHealth and Care Professions Council\u003C/a\u003E\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/registration/d7a7dcd7-c0d4-4ba2-a9e5-2d31df4b1f8e"
+    },
+    "ContentItemId": "4pnqka7s80d2y1jqgn985knwcn",
+    "ContentItemVersionId": "4wycpwyrmp6z5v58f25g81pc45",
+    "ContentType": "Registration",
+    "DisplayText": "HCPC",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-26T13:54:31.3766966Z",
+    "PublishedUtc": "2020-10-26T13:54:31.3766966Z",
+    "CreatedUtc": "2020-10-26T13:54:31.3766966Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "CLC"
+    },
+    "Registration": {
+      "Description": {
+        "Html": "\u003Cp\u003Eyou\u0027ll need to \u003Ca href=\u0022http://www.clc-uk.org/trainee-lawyer/Apply-for-your-first-qualifying-licence.aspx\u0022\u003Eapply to the Council for Licensed Conveyancers for a licence\u003C/a\u003E to work as a conveyancer\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/registration/179fc912-5f64-416c-8ea9-4a04f93cce11"
+    },
+    "ContentItemId": "4zp30c2ec48zd365bk4n0527cm",
+    "ContentItemVersionId": "4jjpemmk0v20z7h9mdtrfcssna",
+    "ContentType": "Registration",
+    "DisplayText": "CLC",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-26T13:54:31.3766966Z",
+    "PublishedUtc": "2020-10-26T13:54:31.3766966Z",
+    "CreatedUtc": "2020-10-26T13:54:31.3766966Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "you may need a \u003Ca href=\u0022https://www.shopfitters.org/industry-accreditation-cards/\u0022\u003EShopfitting and Interior Contracting Competency Scheme\u003C/a\u003E (SICCS) card to work on some jobs"
+    },
+    "Registration": {
+      "Description": {
+        "Html": "\u003Cp\u003Eyou may need a \u003Ca href=\u0022https://www.shopfitters.org/industry-accreditation-cards/\u0022\u003EShopfitting and Interior Contracting Competency Scheme\u003C/a\u003E (SICCS) card to work on some jobs\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/registration/45c3ee8b-2754-44cc-b8b4-0a297322df50"
+    },
+    "ContentItemId": "49yg5sjfwseaa3trqczyaqtfdz",
+    "ContentItemVersionId": "4pfda7t26rj1t5fhr4hdf7mc52",
+    "ContentType": "Registration",
+    "DisplayText": "you may need a \u003Ca href=\u0022https://www.shopfitters.org/industry-accreditation-cards/\u0022\u003EShopfitting and Interior Contracting Competency Scheme\u003C/a\u003E (SICCS) card to work on some jobs",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-26T13:54:31.3766966Z",
+    "PublishedUtc": "2020-10-26T13:54:31.3766966Z",
+    "CreatedUtc": "2020-10-26T13:54:31.3766966Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "GOC"
+    },
+    "Registration": {
+      "Description": {
+        "Html": "\u003Cp\u003Eyou\u0027ll need to be registered with the \u003Ca href=\u0022https://www.optical.org/en/Registration/the-register/index.cfm\u0022\u003EGeneral Optical Council\u003C/a\u003E\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/registration/a0dd764e-2d0c-447f-b975-8a3484c6b786"
+    },
+    "ContentItemId": "4mwznreqjn32drqwz90j3m9fdq",
+    "ContentItemVersionId": "4qtcb6625e3bj61zgywetnrsd1",
+    "ContentType": "Registration",
+    "DisplayText": "GOC",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-26T13:54:31.3766966Z",
+    "PublishedUtc": "2020-10-26T13:54:31.3766966Z",
+    "CreatedUtc": "2020-10-26T13:54:31.3766966Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "GMC-general"
+    },
+    "Registration": {
+      "Description": {
+        "Html": "\u003Cp\u003Eyou\u0027ll need to register with the \u003Ca href=\u0022https://www.gmc-uk.org/registration-and-licensing\u0022\u003EGeneral Medical Council\u003C/a\u003E\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/registration/0753826a-38cd-4af8-bbd1-3b5e561c38e1"
+    },
+    "ContentItemId": "48v5gckme9ty7508g7tdx0qvcj",
+    "ContentItemVersionId": "4c1ypykjj649f6h6khcvvb1zdd",
+    "ContentType": "Registration",
+    "DisplayText": "GMC-general",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-26T13:54:31.3766966Z",
+    "PublishedUtc": "2020-10-26T13:54:31.3766966Z",
+    "CreatedUtc": "2020-10-26T13:54:31.3766966Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "CCNSG"
+    },
+    "Registration": {
+      "Description": {
+        "Html": "\u003Cp\u003Eyou\u0027ll need an industry safety certificate like the \u003Ca href=\u0022https://www.ecitb.org.uk/Training-Services/CCNSG\u0022\u003EClient Contractor National Safety Group\u003C/a\u003E (CCNSG) Safety Passport Scheme for many jobs\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/registration/dde58465-289b-475f-b0fb-f377f61bb4c4"
+    },
+    "ContentItemId": "49eyq0ttp04re4wh6r3pz6pn54",
+    "ContentItemVersionId": "4cxdm1j45pfw4yfe0pxaj04cn2",
+    "ContentType": "Registration",
+    "DisplayText": "CCNSG",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-26T13:54:31.3766966Z",
+    "PublishedUtc": "2020-10-26T13:54:31.3766966Z",
+    "CreatedUtc": "2020-10-26T13:54:31.3766966Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "CCDO-demolition"
+    },
+    "Registration": {
+      "Description": {
+        "Html": "\u003Cp\u003Ea \u003Ca href=\u0022https://ndtg.training/ccdo-card\u0022\u003ECertificate of Competence for Demolition Operatives\u003C/a\u003E (CCDO) card is usually required to work on site\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/registration/6aa36915-bd57-4589-aec8-4a2ddd7acfdb"
+    },
+    "ContentItemId": "4pnjwqv103yyww8ygpr8y7h44b",
+    "ContentItemVersionId": "4ezj8pgqg4g23tyjtah00tntc9",
+    "ContentType": "Registration",
+    "DisplayText": "CCDO-demolition",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-26T13:54:31.3766966Z",
+    "PublishedUtc": "2020-10-26T13:54:31.3766966Z",
+    "CreatedUtc": "2020-10-26T13:54:31.3766966Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "General Medical Council GP Register"
+    },
+    "Registration": {
+      "Description": {
+        "Html": "\u003Cp\u003Eafter your training you\u0027ll need to join the \u003Ca href=\u0022https://www.gmc-uk.org/registration-and-licensing/join-the-register\u0022\u003EGeneral Medical Council GP Register,\u003C/a\u003E and apply for a licence to practise as a doctor\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/registration/3ee8c95b-2a79-4c27-b6f5-22326611ff86"
+    },
+    "ContentItemId": "4xbzdafzn01qfw2z8dw7p5ys48",
+    "ContentItemVersionId": "40hnfnsjedbz65nbgjxt4y6tds",
+    "ContentType": "Registration",
+    "DisplayText": "General Medical Council GP Register",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-26T13:54:31.3766966Z",
+    "PublishedUtc": "2020-10-26T13:54:31.3766966Z",
+    "CreatedUtc": "2020-10-26T13:54:31.3766966Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "CILEx"
+    },
+    "Registration": {
+      "Description": {
+        "Html": "\u003Cp\u003Eyou\u0027ll need to register with the \u003Ca href=\u0022http://www.cilex.org.uk/study/lawyer_qualifications/how_to_apply\u0022\u003EChartered Institute of Legal Executives\u003C/a\u003E to start your training\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/registration/9098aa63-496f-4678-aae4-f826b383aea2"
+    },
+    "ContentItemId": "4ffgeg3fnxry9vn6tpqc2zxxwh",
+    "ContentItemVersionId": "4xtknsgpy1tq8sgrvwxn73aanw",
+    "ContentType": "Registration",
+    "DisplayText": "CILEx",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-26T13:54:31.3766966Z",
+    "PublishedUtc": "2020-10-26T13:54:31.3766966Z",
+    "CreatedUtc": "2020-10-26T13:54:31.3766966Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Your first step is to look at \u003Ca href=\u0022https://www.gov.uk/government/publications/pre-registration-briefing-for-those-wishing-to-become-childminders\u0022\u003EOfsted\u0027s pre-registration briefing\u003C/a\u003E on becoming a childminder."
+    },
+    "Registration": {
+      "Description": {
+        "Html": "\u003Cp\u003EYour first step is to look at \u003Ca href=\u0022https://www.gov.uk/government/publications/pre-registration-briefing-for-those-wishing-to-become-childminders\u0022\u003EOfsted\u0027s pre-registration briefing\u003C/a\u003E on becoming a childminder.\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/registration/9ce7877e-7531-4109-aeae-cc76e5f8ce70"
+    },
+    "ContentItemId": "4n4b140tzpma4yjwffdy53w6ct",
+    "ContentItemVersionId": "4we276np9800r4rhhqqzfjn2x2",
+    "ContentType": "Registration",
+    "DisplayText": "Your first step is to look at \u003Ca href=\u0022https://www.gov.uk/government/publications/pre-registration-briefing-for-those-wishing-to-become-childminders\u0022\u003EOfsted\u0027s pre-registration briefing\u003C/a\u003E on becoming a childminder.",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-26T13:54:31.3766966Z",
+    "PublishedUtc": "2020-10-26T13:54:31.3766966Z",
+    "CreatedUtc": "2020-10-26T13:54:31.3766966Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "CNHC"
+    },
+    "Registration": {
+      "Description": {
+        "Html": "\u003Cp\u003Eyou could join an accredited register managed by the \u003Ca href=\u0022http://www.cnhc.org.uk/\u0022\u003EComplementary and Natural Healthcare Council\u003C/a\u003E (CNHC) or the \u003Ca href=\u0022http://www.fht.org.uk/\u0022\u003EFederation of Holistic  Therapists\u003C/a\u003E\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/registration/3d2588a3-a9f0-4a9f-90f8-3c662195f72c"
+    },
+    "ContentItemId": "45fpb25njq3key1m1r3wmqzmd9",
+    "ContentItemVersionId": "48n1500jywv435ynhanpqafan9",
+    "ContentType": "Registration",
+    "DisplayText": "CNHC",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-26T13:54:31.3766966Z",
+    "PublishedUtc": "2020-10-26T13:54:31.3766966Z",
+    "CreatedUtc": "2020-10-26T13:54:31.3766966Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "General Dental Council"
+    },
+    "Registration": {
+      "Description": {
+        "Html": "\u003Cp\u003Eyou\u0027ll need to register with the \u003Ca href=\u0022https://www.gdc-uk.org/registration\u0022\u003EGeneral Dental Council\u003C/a\u003E\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/registration/d32ebbd0-ea48-4fdd-bcaa-d3fb85957f92"
+    },
+    "ContentItemId": "4hywbd6kr89m6vs2ghpsqqjb5a",
+    "ContentItemVersionId": "46zd0q3f7b27hy02gcgqxcz8dt",
+    "ContentType": "Registration",
+    "DisplayText": "General Dental Council",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-26T13:54:31.3766966Z",
+    "PublishedUtc": "2020-10-26T13:54:31.3766966Z",
+    "CreatedUtc": "2020-10-26T13:54:31.3766966Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "You may have to do a basic skills test to show that you have the minimum standard of English and maths needed to support the educational development of children in your care. You\u0027ll also need to pass an assessment of your home and any equipment you w"
+    },
+    "Registration": {
+      "Description": {
+        "Html": "\u003Cp\u003EYou may have to do a basic skills test to show that you have the minimum standard of English and maths needed to support the educational development of children in your care. You\u0027ll also need to pass an assessment of your home and any equipment you will use.\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/registration/c5397672-c198-4c53-8895-b7986f56c199"
+    },
+    "ContentItemId": "4wy6k731s33d80yrd73cffnn4v",
+    "ContentItemVersionId": "4ehk9yb8f5w01rmgahwbxa9cxa",
+    "ContentType": "Registration",
+    "DisplayText": "You may have to do a basic skills test to show that you have the minimum standard of English and maths needed to support the educational development of children in your care. You\u0027ll also need to pass an assessment of your home and any equipment you w",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-26T13:54:31.3766966Z",
+    "PublishedUtc": "2020-10-26T13:54:31.3766966Z",
+    "CreatedUtc": "2020-10-26T13:54:31.3766966Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "BAPT"
+    },
+    "Registration": {
+      "Description": {
+        "Html": "\u003Cp\u003Eyou\u0027ll need to register with the \u003Ca href=\u0022http://www.bapt.info/register\u0022\u003EBritish Association of Play Therapists\u003C/a\u003E or \u003Ca href=\u0022http://playtherapy.org.uk/Membership\u0022\u003EPlay Therapy UK\u003C/a\u003E\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/registration/301befe1-cf92-4680-85b2-4825ce5932a6"
+    },
+    "ContentItemId": "4degwescfty6g0zges9b4pbr4j",
+    "ContentItemVersionId": "4bgfhn1kxwz1jv0dh8mh9wj547",
+    "ContentType": "Registration",
+    "DisplayText": "BAPT",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-26T13:54:31.3766966Z",
+    "PublishedUtc": "2020-10-26T13:54:31.3766966Z",
+    "CreatedUtc": "2020-10-26T13:54:31.3766966Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "RICS APC"
+    },
+    "Registration": {
+      "Description": {
+        "Html": "\u003Cp\u003Eyou can register with the Royal Institute of Chartered Surveyors to become a chartered surveyor through the \u003Ca href=\u0022https://www.rics.org/uk/surveying-profession/join-rics/chartered-member-mrics/assessment-of-professional-competence-apc/\u0022\u003EAssessment of Professional Competence\u003C/a\u003E (APC) scheme\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/registration/02656d1b-2b2b-49ea-8029-b421e3d514e3"
+    },
+    "ContentItemId": "42n765tpy1jmczdcdezavkpn5q",
+    "ContentItemVersionId": "4t0hsyfx9py4c64fj6480f4gcp",
+    "ContentType": "Registration",
+    "DisplayText": "RICS APC",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-26T13:54:31.3766966Z",
+    "PublishedUtc": "2020-10-26T13:54:31.3766966Z",
+    "CreatedUtc": "2020-10-26T13:54:31.3766966Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "FRC"
+    },
+    "Registration": {
+      "Description": {
+        "Html": "\u003Cp\u003Eyou must be registered with \u003Ca href=\u0022http://www.farrier-reg.gov.uk/registration/\u0022\u003EFarriers Registration Council\u003C/a\u003E\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/registration/f8862073-fe02-4424-85ae-ef123293d8df"
+    },
+    "ContentItemId": "4cvq1dgyt1hw2693c5a6g4t6mb",
+    "ContentItemVersionId": "4p50tae5t9hzx206f22jnng4ns",
+    "ContentType": "Registration",
+    "DisplayText": "FRC",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-26T13:54:31.3766966Z",
+    "PublishedUtc": "2020-10-26T13:54:31.3766966Z",
+    "CreatedUtc": "2020-10-26T13:54:31.3766966Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "CSCS"
+    },
+    "Registration": {
+      "Description": {
+        "Html": "\u003Cp\u003Eyou\u0027ll need a \u003Ca href=\u0022https://www.cscs.uk.com\u0022\u003EConstruction Skills Certification Scheme\u003C/a\u003E (CSCS) card or equivalent to train and work on a construction site\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/registration/57ebac52-9dad-481f-99ea-11619f10fd17"
+    },
+    "ContentItemId": "422qk0ccbykj3208a58g9xe5mk",
+    "ContentItemVersionId": "4h0z3h1x2gx2vyc6ccaddnwgwb",
+    "ContentType": "Registration",
+    "DisplayText": "CSCS",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-26T13:54:31.3766966Z",
+    "PublishedUtc": "2020-10-26T13:54:31.3766966Z",
+    "CreatedUtc": "2020-10-26T13:54:31.3766966Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Taxi registration"
+    },
+    "Registration": {
+      "Description": {
+        "Html": "\u003Cp\u003Eyou\u0027ll need a taxi driver\u0027s licence from your \u003Ca href=\u0022https://www.gov.uk/find-local-council\u0022\u003Elocal council\u0027s licensing unit\u003C/a\u003E or \u003Ca href=\u0022https://tfl.gov.uk/info-for/taxis-and-private-hire/\u0022\u003ETransport for London\u003C/a\u003E (TfL), if you want to work in the capital\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/registration/0dba2244-e591-4121-bae1-58b293923710"
+    },
+    "ContentItemId": "4x89b9nr1ptn9za3xnfxf9hk44",
+    "ContentItemVersionId": "411y4yamqv2v0y68ac137jymds",
+    "ContentType": "Registration",
+    "DisplayText": "Taxi registration",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-26T13:54:31.3766966Z",
+    "PublishedUtc": "2020-10-26T13:54:31.3766966Z",
+    "CreatedUtc": "2020-10-26T13:54:31.3766966Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "RCVS"
+    },
+    "Registration": {
+      "Description": {
+        "Html": "\u003Cp\u003Eyou\u0027ll need to register with the \u003Ca href=\u0022https://www.rcvs.org.uk/registration/\u0022\u003ERoyal College of Veterinary Surgeons\u003C/a\u003E\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/registration/9c07ae70-e44d-4b1c-8728-23b80b0dba65"
+    },
+    "ContentItemId": "4vvgqdf6yqsdvrwsvravy6z343",
+    "ContentItemVersionId": "4m01v6vmnrp0q23tfkjeh4hj5s",
+    "ContentType": "Registration",
+    "DisplayText": "RCVS",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-26T13:54:31.3766966Z",
+    "PublishedUtc": "2020-10-26T13:54:31.3766966Z",
+    "CreatedUtc": "2020-10-26T13:54:31.3766966Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "QTS"
+    },
+    "Registration": {
+      "Description": {
+        "Html": "\u003Cp\u003Eyou\u0027ll usually need \u003Ca href=\u0022https://www.gov.uk/guidance/qualified-teacher-status-qts\u0022\u003Equalified teacher status\u003C/a\u003E (QTS) to teach in a state school in England\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/registration/f27c82e6-5fcc-4113-b2c4-9b5d1f7b8e71"
+    },
+    "ContentItemId": "49bg58c0d49jz4nbqp3922hzca",
+    "ContentItemVersionId": "4ksekyz6cen66vywecyeev3twf",
+    "ContentType": "Registration",
+    "DisplayText": "QTS",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-26T13:54:31.3766966Z",
+    "PublishedUtc": "2020-10-26T13:54:31.3766966Z",
+    "CreatedUtc": "2020-10-26T13:54:31.3766966Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "OISC"
+    },
+    "Registration": {
+      "Description": {
+        "Html": "\u003Cp\u003Eyou\u0027ll need to register with the \u003Ca href=\u0022https://www.gov.uk/government/publications/how-to-become-a-regulated-immigration-adviser/how-to-become-a-regulated-immigration-adviser#check-if-you-need-to-apply-for-registration\u0022\u003EOffice of the Immigration Services Commissioner\u003C/a\u003E\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/registration/bdd64be0-1c6c-44b8-9cd9-78aeb0846d3f"
+    },
+    "ContentItemId": "45m63q8ck82fkrjf7ajcjfvnd0",
+    "ContentItemVersionId": "4xsbbkmdmn11d2j82gacbbqecp",
+    "ContentType": "Registration",
+    "DisplayText": "OISC",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-26T13:54:31.3766966Z",
+    "PublishedUtc": "2020-10-26T13:54:31.3766966Z",
+    "CreatedUtc": "2020-10-26T13:54:31.3766966Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "NMC"
+    },
+    "Registration": {
+      "Description": {
+        "Html": "\u003Cp\u003Eyou\u0027ll need to register with the \u003Ca href=\u0022https://www.nmc.org.uk/registration\u0022\u003ENursing and Midwifery Council\u003C/a\u003E\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/registration/935d3872-516a-4649-b60e-39e5708baa3b"
+    },
+    "ContentItemId": "4z41mrn3z33we69f300hghw8nn",
+    "ContentItemVersionId": "48xmeenbxyx0q0b86v341sycdb",
+    "ContentType": "Registration",
+    "DisplayText": "NMC",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-26T13:54:31.3766966Z",
+    "PublishedUtc": "2020-10-26T13:54:31.3766966Z",
+    "CreatedUtc": "2020-10-26T13:54:31.3766966Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "GCC"
+    },
+    "Registration": {
+      "Description": {
+        "Html": "\u003Cp\u003Eyou\u0027ll need to be registered with the \u003Ca href=\u0022https://www.gcc-uk.org/education-and-registration\u0022\u003EGeneral Chiropractic Council\u003C/a\u003E before you can work as a chiropractor\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/registration/08cf7a6d-f2be-444e-af13-8d12e1fc961f"
+    },
+    "ContentItemId": "4sbzmh02n93286afqp6gvv81cv",
+    "ContentItemVersionId": "4fd9wbpzcyxxdt8jd86bdvnawb",
+    "ContentType": "Registration",
+    "DisplayText": "GCC",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-26T13:54:31.3766966Z",
+    "PublishedUtc": "2020-10-26T13:54:31.3766966Z",
+    "CreatedUtc": "2020-10-26T13:54:31.3766966Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Environmental health dept"
+    },
+    "Registration": {
+      "Description": {
+        "Html": "\u003Cp\u003Eyou\u0027ll need to \u003Ca href=\u0022https://www.gov.uk/food-business-registration\u0022\u003Eregister\u003C/a\u003E with your local Environmental Health Department before you start trading\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/registration/7298835d-d27a-49ea-a73f-ca23abc9f430"
+    },
+    "ContentItemId": "4vvf4zss5j23g5272p7mv5tbd1",
+    "ContentItemVersionId": "4rmdba91bpmqc1p72rw08edens",
+    "ContentType": "Registration",
+    "DisplayText": "Environmental health dept",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-26T13:54:31.3766966Z",
+    "PublishedUtc": "2020-10-26T13:54:31.3766966Z",
+    "CreatedUtc": "2020-10-26T13:54:31.3766966Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "General Pharmaceutical Council"
+    },
+    "Registration": {
+      "Description": {
+        "Html": "\u003Cp\u003Eyou\u0027ll need to register with the \u003Ca href=\u0022https://www.pharmacyregulation.org/registration\u0022\u003EGeneral Pharmaceutical Council\u003C/a\u003E\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/registration/ebb61762-7eb8-4533-a1d6-34a15d4b8312"
+    },
+    "ContentItemId": "4q9f6r0ny4nfz5fm40g97y2g5y",
+    "ContentItemVersionId": "4qj76h4r82s5y2gp735wbr7x4v",
+    "ContentType": "Registration",
+    "DisplayText": "General Pharmaceutical Council",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-26T13:54:31.3766966Z",
+    "PublishedUtc": "2020-10-26T13:54:31.3766966Z",
+    "CreatedUtc": "2020-10-26T13:54:31.3766966Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "If you want to care for children under 8 for more than 2 hours a day, you\u0027ll need to \u003Ca href=\u0022https://www.gov.uk/government/collections/early-years-childcare-registering-with-ofsted\u0022\u003Eregister with Ofsted\u003C/a\u003E. For this, you\u0027ll usually need:a home-base"
+    },
+    "Registration": {
+      "Description": {
+        "Html": "\u003Cp\u003EIf you want to care for children under 8 for more than 2 hours a day, you\u0027ll need to \u003Ca href=\u0022https://www.gov.uk/government/collections/early-years-childcare-registering-with-ofsted\u0022\u003Eregister with Ofsted\u003C/a\u003E. For this, you\u0027ll usually need:a home-based childcare course approved by \u003Ca href=\u0022https://www.gov.uk/find-local-council\u0022\u003Eyour local council\u003C/a\u003E that covers the \u003Ca href=\u0022https://www.gov.uk/early-years-foundation-stage\u0022\u003EEarly Years Foundation Stage\u003C/a\u003E framework; a paediatric first aid course; child protection training; a food safety qualification\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/registration/9907cb1f-e06a-4da0-93a2-c9a6220cbe6c"
+    },
+    "ContentItemId": "4mhbbhnsgsspbynqj9mm8bdkcc",
+    "ContentItemVersionId": "4xhhpmn9164jt30gr8t2mzt0w2",
+    "ContentType": "Registration",
+    "DisplayText": "If you want to care for children under 8 for more than 2 hours a day, you\u0027ll need to \u003Ca href=\u0022https://www.gov.uk/government/collections/early-years-childcare-registering-with-ofsted\u0022\u003Eregister with Ofsted\u003C/a\u003E. For this, you\u0027ll usually need:a home-base",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-26T13:54:31.3766966Z",
+    "PublishedUtc": "2020-10-26T13:54:31.3766966Z",
+    "CreatedUtc": "2020-10-26T13:54:31.3766966Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "TICA"
+    },
+    "Registration": {
+      "Description": {
+        "Html": "\u003Cp\u003Eyou\u0027ll need a \u003Ca href=\u0022https://tica-acad.co.uk/tica-skillcard//\u0022\u003EThermal Insulation Contractors Association\u003C/a\u003E (TICA) skill card to train and work on commercial and industrial sites\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/registration/483b3d5b-f304-43c0-a1d9-fc0bcf231bf4"
+    },
+    "ContentItemId": "465hqvjxc9k5948xaem14s4fng",
+    "ContentItemVersionId": "4rh9cgswdzpxwvyxszm247sq5c",
+    "ContentType": "Registration",
+    "DisplayText": "TICA",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-26T13:54:31.3766966Z",
+    "PublishedUtc": "2020-10-26T13:54:31.3766966Z",
+    "CreatedUtc": "2020-10-26T13:54:31.3766966Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Scaffolding card CISRS"
+    },
+    "Registration": {
+      "Description": {
+        "Html": "\u003Cp\u003Eyou\u0027ll need a \u003Ca href=\u0022http://cisrs.org.uk/cisrs-cards/\u0022\u003EConstruction Industry Scaffolders Record Scheme\u003C/a\u003E (CISRS) safety card or equivalent to train and work on a construction site\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/registration/5d41da23-62fe-43a4-afcd-3a9a089bd695"
+    },
+    "ContentItemId": "4j3hqx3zqec9wsm9dwcwm5d941",
+    "ContentItemVersionId": "45g753wqvskxy5xyqh0rjx674m",
+    "ContentType": "Registration",
+    "DisplayText": "Scaffolding card CISRS",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-26T13:54:31.3766966Z",
+    "PublishedUtc": "2020-10-26T13:54:31.3766966Z",
+    "CreatedUtc": "2020-10-26T13:54:31.3766966Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Architects Registration Board"
+    },
+    "Registration": {
+      "Description": {
+        "Html": "\u003Cp\u003Eyou\u0027ll need to be registered with the \u003Ca href=\u0022http://www.arb.org.uk/architect-information/applying-for-registration-for-the-first-time/\u0022\u003EArchitects Registration Board\u003C/a\u003E\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/registration/cfb5ffb6-7a41-4c75-8a3f-448c2cce3208"
+    },
+    "ContentItemId": "4e5y3cge4r4s1thebk74hkrj4b",
+    "ContentItemVersionId": "4w1fk7q31tbkzs6f57m9tw3jm2",
+    "ContentType": "Registration",
+    "DisplayText": "Architects Registration Board",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-26T13:54:31.3766966Z",
+    "PublishedUtc": "2020-10-26T13:54:31.3766966Z",
+    "CreatedUtc": "2020-10-26T13:54:31.3766966Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "National Registers of Communications Professionals working with Deaf and Deafblind people "
+    },
+    "Registration": {
+      "Description": {
+        "Html": "\u003Cp\u003Eyou\u0027ll need to register with the \u003Ca href=\u0022http://www.nrcpd.org.uk/registration\u0022\u003ENational Registers of Communications Professionals working with Deaf and Deafblind People\u003C/a\u003E\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/registration/da8808d5-4ef3-4a74-86ff-5fdc4471b365"
+    },
+    "ContentItemId": "4bbe7t9babw3g2ynb01zdqjtwd",
+    "ContentItemVersionId": "46j5g6jv5em6tsrc7wqjh49a4n",
+    "ContentType": "Registration",
+    "DisplayText": "National Registers of Communications Professionals working with Deaf and Deafblind people ",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-26T13:54:31.3766966Z",
+    "PublishedUtc": "2020-10-26T13:54:31.3766966Z",
+    "CreatedUtc": "2020-10-26T13:54:31.3766966Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "SIA"
+    },
+    "Registration": {
+      "Description": {
+        "Html": "\u003Cp\u003Eyou\u0027ll need a \u003Ca href=\u0022https://www.sia.homeoffice.gov.uk/Pages/licensing.aspx\u0022\u003ESecurity Industry Authority\u003C/a\u003E (SIA) licence for agency and contractor jobs\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/registration/77e992d3-d020-4e8c-857b-74b17415f884"
+    },
+    "ContentItemId": "4myntf3as00d3ykymysmbdb7c0",
+    "ContentItemVersionId": "4fjjawadn3tqprsxfwzpcrm751",
+    "ContentType": "Registration",
+    "DisplayText": "SIA",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-26T13:54:31.3766966Z",
+    "PublishedUtc": "2020-10-26T13:54:31.3766966Z",
+    "CreatedUtc": "2020-10-26T13:54:31.3766966Z",
+    "Owner": "admin",
+    "Author": "admin"
+  }
+      ]
+    }
+  ]
+}

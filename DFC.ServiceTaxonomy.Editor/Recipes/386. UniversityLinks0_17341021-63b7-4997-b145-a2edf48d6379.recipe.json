@@ -1,0 +1,268 @@
+{
+  "name": "UniversityLinks0_17341021-63b7-4997-b145-a2edf48d6379",
+  "displayName": "UniversityLinks0_17341021-63b7-4997-b145-a2edf48d6379",
+  "description": "",
+  "author": "",
+  "website": "",
+  "version": "",
+  "issetuprecipe": false,
+  "categories": "",
+  "tags": [],
+  "steps": [
+    {
+      "name": "ContentNoCache",
+      "data": [
+  {
+    "UniversityLink": {
+      "Link": {
+        "Url": "https://www.ucas.com/conservatoires",
+        "Text": "search for conservatoire courses"
+      }
+    },
+    "TitlePart": {
+      "Title": "UCAS Conservatoires"
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/universitylink/2c4d8736-f7cb-4137-9bcd-60a1eb8b5ccb"
+    },
+    "ContentItemId": "4rk9gnarjekb7spppy2a47h65p",
+    "ContentItemVersionId": "492810ra3wnky4gjg4j06tsp55",
+    "ContentType": "UniversityLink",
+    "DisplayText": "UCAS Conservatoires",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-26T13:54:31.3766966Z",
+    "PublishedUtc": "2020-10-26T13:54:31.3766966Z",
+    "CreatedUtc": "2020-10-26T13:54:31.3766966Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "UniversityLink": {
+      "Link": {
+        "Url": "https://www.gov.uk/funding-for-postgraduate-study",
+        "Text": "finance for postgraduate courses"
+      }
+    },
+    "TitlePart": {
+      "Title": "Postgrad Loans"
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/universitylink/791254d0-ea31-4d87-aa04-828f72822906"
+    },
+    "ContentItemId": "41sszy8d1pbvs6bq56dartcad5",
+    "ContentItemVersionId": "43br1jjn00h6m1277z9ac2yfcq",
+    "ContentType": "UniversityLink",
+    "DisplayText": "Postgrad Loans",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-26T13:54:31.3766966Z",
+    "PublishedUtc": "2020-10-26T13:54:31.3766966Z",
+    "CreatedUtc": "2020-10-26T13:54:31.3766966Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "UniversityLink": {
+      "Link": {
+        "Url": "https://www.gov.uk/student-finance",
+        "Text": "student finance for fees and living costs"
+      }
+    },
+    "TitlePart": {
+      "Title": "Show Student finance"
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/universitylink/127594fe-e27d-400f-9528-1c3694056204"
+    },
+    "ContentItemId": "46g3y1td4485c1qzyeg4ppsm5f",
+    "ContentItemVersionId": "4vy04pkng3v2r05zxag18wy941",
+    "ContentType": "UniversityLink",
+    "DisplayText": "Show Student finance",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-26T13:54:31.3766966Z",
+    "PublishedUtc": "2020-10-26T13:54:31.3766966Z",
+    "CreatedUtc": "2020-10-26T13:54:31.3766966Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "UniversityLink": {
+      "Link": {
+        "Url": "https://www.gov.uk/guidance/find-postgraduate-teacher-training-courses-in-england",
+        "Text": "postgraduate teacher training courses"
+      }
+    },
+    "TitlePart": {
+      "Title": "PGCE courses"
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/universitylink/fd9e7390-25fa-426b-8251-350808bb11ec"
+    },
+    "ContentItemId": "4gcbc2v0ceb02w46wzfe76mtcc",
+    "ContentItemVersionId": "4fz31548mz12x4ghy3m7n2qzx1",
+    "ContentType": "UniversityLink",
+    "DisplayText": "PGCE courses",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-26T13:54:31.3766966Z",
+    "PublishedUtc": "2020-10-26T13:54:31.3766966Z",
+    "CreatedUtc": "2020-10-26T13:54:31.3766966Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "UniversityLink": {
+      "Link": {
+        "Url": "https://www.admissionstesting.org/for-test-takers/bmat/",
+        "Text": "BioMedical Admissions Test"
+      }
+    },
+    "TitlePart": {
+      "Title": "BMAT"
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/universitylink/de44b824-60fe-46b6-8a3f-9dc8a4bb94f7"
+    },
+    "ContentItemId": "4axw8kqzysyvvt5zzs1tw7djnz",
+    "ContentItemVersionId": "4gydxe00w343fw9zyq9ach61w7",
+    "ContentType": "UniversityLink",
+    "DisplayText": "BMAT",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-26T13:54:31.3766966Z",
+    "PublishedUtc": "2020-10-26T13:54:31.3766966Z",
+    "CreatedUtc": "2020-10-26T13:54:31.3766966Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "UniversityLink": {
+      "Link": {
+        "Url": "https://getintoteaching.education.gov.uk/funding-my-teacher-training",
+        "Text": "funding for teacher training"
+      }
+    },
+    "TitlePart": {
+      "Title": "Teacher training funding"
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/universitylink/87afc768-40d7-41df-8a76-8e133fb1b084"
+    },
+    "ContentItemId": "4q1my0tfnawh7158aw9j2n83d7",
+    "ContentItemVersionId": "43ex43zmjvfrsxd0e2gwk0zwcb",
+    "ContentType": "UniversityLink",
+    "DisplayText": "Teacher training funding",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-26T13:54:31.3766966Z",
+    "PublishedUtc": "2020-10-26T13:54:31.3766966Z",
+    "CreatedUtc": "2020-10-26T13:54:31.3766966Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "UniversityLink": {
+      "Link": {
+        "Url": "https://www.ucas.com/",
+        "Text": "university courses and entry requirements"
+      }
+    },
+    "TitlePart": {
+      "Title": "Show UCAS info"
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/universitylink/b51493ef-74fc-4016-87e9-029513f9f0b6"
+    },
+    "ContentItemId": "40p0t0x3853qvyw1n1ezx2pxxy",
+    "ContentItemVersionId": "4ss29k60xnakr2x5cqye9w094w",
+    "ContentType": "UniversityLink",
+    "DisplayText": "Show UCAS info",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-26T13:54:31.3766966Z",
+    "PublishedUtc": "2020-10-26T13:54:31.3766966Z",
+    "CreatedUtc": "2020-10-26T13:54:31.3766966Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "UniversityLink": {
+      "Link": {
+        "Url": "https://www.ucat.ac.uk/ucat/",
+        "Text": "University Clinical Aptitude Test"
+      }
+    },
+    "TitlePart": {
+      "Title": "UCAT"
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/universitylink/92c0c163-5475-4be2-9f07-7bc65b813c9c"
+    },
+    "ContentItemId": "4wp5ghepv4bq77wz5d948gj54q",
+    "ContentItemVersionId": "43nf2y2r7mg9cs0044fxc0amnd",
+    "ContentType": "UniversityLink",
+    "DisplayText": "UCAT",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-26T13:54:31.3766966Z",
+    "PublishedUtc": "2020-10-26T13:54:31.3766966Z",
+    "CreatedUtc": "2020-10-26T13:54:31.3766966Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "UniversityLink": {
+      "Link": {
+        "Url": "http://www.bsdht.org.uk/profession_copy",
+        "Text": "list of approved dental hygiene courses"
+      }
+    },
+    "TitlePart": {
+      "Title": "British Society of Dental Hygiene and Therapy - list of approved courses"
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/universitylink/9c00fd22-add0-4fa5-87f2-e5be332ee256"
+    },
+    "ContentItemId": "4h2mn4sbtfjpz77ckmq88ev6dc",
+    "ContentItemVersionId": "4hap6d15mahsq06tsxdsnhgx4s",
+    "ContentType": "UniversityLink",
+    "DisplayText": "British Society of Dental Hygiene and Therapy - list of approved courses",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-26T13:54:31.3766966Z",
+    "PublishedUtc": "2020-10-26T13:54:31.3766966Z",
+    "CreatedUtc": "2020-10-26T13:54:31.3766966Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "UniversityLink": {
+      "Link": {
+        "Url": "https://www.gov.uk/what-different-qualification-levels-mean/list-of-qualification-levels",
+        "Text": "equivalent entry requirements"
+      }
+    },
+    "TitlePart": {
+      "Title": "Show Equiv Entry Reqs"
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/universitylink/2da382c3-0e35-4d5a-802d-e4254a2d7abb"
+    },
+    "ContentItemId": "46bkk9099adjc319e6dnach7x7",
+    "ContentItemVersionId": "4ckeb34gcm5m8ydw84ba3zzs4v",
+    "ContentType": "UniversityLink",
+    "DisplayText": "Show Equiv Entry Reqs",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-10-26T13:54:31.3766966Z",
+    "PublishedUtc": "2020-10-26T13:54:31.3766966Z",
+    "CreatedUtc": "2020-10-26T13:54:31.3766966Z",
+    "Owner": "admin",
+    "Author": "admin"
+  }
+      ]
+    }
+  ]
+}

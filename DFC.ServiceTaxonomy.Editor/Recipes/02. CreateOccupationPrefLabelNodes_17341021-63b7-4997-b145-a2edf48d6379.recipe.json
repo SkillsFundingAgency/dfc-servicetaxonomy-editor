@@ -1,0 +1,19 @@
+{
+    "name": "CreateOccupationPrefLabelNodes_17341021-63b7-4997-b145-a2edf48d6379",
+    "displayName": "CreateOccupationPrefLabelNodes_17341021-63b7-4997-b145-a2edf48d6379",
+    "description": "",
+    "author": "",
+    "website": "",
+    "version": "",
+    "issetuprecipe": false,
+    "categories": "",
+    "tags": [],
+    "steps": [
+        {
+            "name": "CypherCommand",
+            "commands": [
+                "match (o:esco__Occupation)\r\n unwind o.skos__prefLabel as prefLabel\r\ncreate (al:OccupationLabel:Resource {skos__prefLabel: prefLabel, uri: \"<<contentapiprefix>>/occupationlabel/\" + apoc.create.uuid()})\r\ncreate (o)-[:hasPrefLabel]->(al)"
+            ]
+        }
+    ]
+}

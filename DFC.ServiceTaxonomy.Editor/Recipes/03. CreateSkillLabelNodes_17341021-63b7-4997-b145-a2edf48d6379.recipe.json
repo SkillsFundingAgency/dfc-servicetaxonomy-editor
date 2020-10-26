@@ -1,0 +1,21 @@
+{
+    "name": "CreateSkillLabelNodes_17341021-63b7-4997-b145-a2edf48d6379",
+    "displayName": "CreateSkillLabelNodes_17341021-63b7-4997-b145-a2edf48d6379",
+    "description": "",
+    "author": "",
+    "website": "",
+    "version": "",
+    "issetuprecipe": false,
+    "categories": "",
+    "tags": [],
+    "steps": [
+        {
+            "name": "CypherCommand",
+            "commands": [
+                "match (n:esco__Skill)\r\nwith distinct n\r\nunwind n.skos__prefLabel as prefLabels\r\ncreate (l:SkillLabel:Resource {skos__prefLabel: prefLabels, uri: \"<<contentapiprefix>>/SkillLabel/\" + apoc.create.uuid()})\r\ncreate (n)-[:hasPrefLabel]->(l)",
+                "match (n:esco__Skill)\r\nwith distinct n\r\nunwind n.skos__altLabel as altLabels\r\ncreate (l:SkillLabel:Resource {skos__prefLabel: altLabels, uri: \"<<contentapiprefix>>/SkillLabel/\" + apoc.create.uuid()})\r\ncreate (n)-[:hasAltLabel]->(l)",
+                "match (n:esco__Skill)\r\nwith distinct n\r\nunwind n.skos__hiddenLabel as hiddenLabels\r\ncreate (l:SkillLabel:Resource {skos__prefLabel: hiddenLabels, uri: \"<<contentapiprefix>>/SkillLabel/\" + apoc.create.uuid()})\r\ncreate (n)-[:hasHiddenLabel]->(l)"
+            ]
+        }
+    ]
+}
