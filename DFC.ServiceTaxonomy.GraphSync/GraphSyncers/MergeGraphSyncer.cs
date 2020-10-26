@@ -27,6 +27,7 @@ using OrchardCore.ContentManagement;
 
 namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 {
+
     public class MergeGraphSyncer : IMergeGraphSyncer
     {
         private readonly IEnumerable<IContentItemGraphSyncer> _itemSyncers;
