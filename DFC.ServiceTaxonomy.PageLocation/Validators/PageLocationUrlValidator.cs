@@ -2,11 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using DFC.ServiceTaxonomy.PageLocation.Indexes;
 using DFC.ServiceTaxonomy.Taxonomies.Helper;
 using DFC.ServiceTaxonomy.Taxonomies.Validation;
 using Newtonsoft.Json.Linq;
 using OrchardCore.ContentManagement;
-using OrchardCore.ContentManagement.Records;
+using OrchardCore.ContentManagement.Utilities;
 using YesSql;
 
 namespace DFC.ServiceTaxonomy.PageLocation.Validators
@@ -35,56 +36,29 @@ namespace DFC.ServiceTaxonomy.PageLocation.Validators
 
             string url = _taxonomyHelper.BuildTermUrl(term, taxonomy);
             //TODO: check whether or not we only care about published pages, but I think we care about both
-            IEnumerable<ContentItem> pages = await _session.Query<ContentItem, ContentItemIndex>(x => x.ContentType == "Page" && x.Latest).ListAsync();
+            IEnumerable<ContentItem> contentItems = await _session.Query<ContentItem, PageLocationPartIndex>().ListAsync();
             
-            foreach (var page in pages)
+            foreach (var contentItem in contentItems)
             {
-                ContentItem? draftPage = await _contentManager.GetAsync(page.ContentItemId, VersionOptions.Draft);
-                ContentItem? publishedPage = await _contentManager.GetAsync(page.ContentItemId, VersionOptions.Published);
+                ContentItem? draftContentItem = await _contentManager.GetAsync(contentItem.ContentItemId, VersionOptions.Draft);
+                ContentItem? publishedContentItem = await _contentManager.GetAsync(contentItem.ContentItemId, VersionOptions.Published);
 
                 //TODO: use nameof, but doing so would introduce a circular dependency between the page location and taxonomies projects
-                string? draftUrl = ((string?)draftPage?.Content.PageLocationPart.FullUrl)?.Trim('/') ?? null;
-                string? pubUrl = ((string?)publishedPage?.Content.PageLocationPart.FullUrl)?.Trim('/') ?? null;
+                string? draftUrl = ((string?)draftContentItem?.Content.PageLocationPart.FullUrl)?.Trim('/') ?? null;
+                string? pubUrl = ((string?)publishedContentItem?.Content.PageLocationPart.FullUrl)?.Trim('/') ?? null;
 
-                string[]? draftRedirectLocations = draftPage?.Content.PageLocationPart.RedirectLocations?.ToObject<string?>()?.Split("\r\n");
-                string[]? publishedRedirectLocations = publishedPage?.Content.PageLocationPart.RedirectLocations?.ToObject<string?>()?.Split("\r\n");
+                string[]? draftRedirectLocations = draftContentItem?.Content.PageLocationPart.RedirectLocations?.ToObject<string?>()?.Split("\r\n");
+                string[]? publishedRedirectLocations = publishedContentItem?.Content.PageLocationPart.RedirectLocations?.ToObject<string?>()?.Split("\r\n");
 
                 if ((draftUrl?.Equals(url, StringComparison.OrdinalIgnoreCase) ?? false) || (pubUrl?.Equals(url, StringComparison.OrdinalIgnoreCase) ?? false))
                 {
-                    ErrorMessage = $"The generated URL for '{term["DisplayText"]}' has already been used as a Page URL.";
+                    ErrorMessage = $"The generated URL for '{term["DisplayText"]}' has already been used as a {draftContentItem?.ContentType.CamelFriendly() ?? publishedContentItem!.ContentType.CamelFriendly()} URL.";
                     return false;
                 }
 
                 if ((draftRedirectLocations?.Any(x => x.Trim('/').Equals(url, StringComparison.OrdinalIgnoreCase)) ?? false) || (publishedRedirectLocations?.Any(x => x.Trim('/').Equals(url, StringComparison.OrdinalIgnoreCase)) ?? false))
                 {
-                    ErrorMessage = $"The generated URL for '{term["DisplayText"]}' has already been used as a Page Redirect Location";
-                    return false;
-                }
-            }
-
-            IEnumerable<ContentItem> categories = await _session.Query<ContentItem, ContentItemIndex>(x => x.ContentType == "JobCategory" && x.Latest).ListAsync();
-
-            foreach (var category in categories)
-            {
-                ContentItem? draftCategory = await _contentManager.GetAsync(category.ContentItemId, VersionOptions.Draft);
-                ContentItem? publishedCategory = await _contentManager.GetAsync(category.ContentItemId, VersionOptions.Published);
-
-                //TODO: use nameof, but doing so would introduce a circular dependency between the page location and taxonomies projects
-                string? draftUrl = ((string?)draftCategory?.Content.PageLocationPart.FullUrl)?.Trim('/') ?? null;
-                string? pubUrl = ((string?)publishedCategory?.Content.PageLocationPart.FullUrl)?.Trim('/') ?? null;
-
-                string[]? draftRedirectLocations = draftCategory?.Content.PageLocationPart.RedirectLocations?.ToObject<string?>()?.Split("\r\n");
-                string[]? publishedRedirectLocations = publishedCategory?.Content.PageLocationPart.RedirectLocations?.ToObject<string?>()?.Split("\r\n");
-
-                if ((draftUrl?.Equals(url, StringComparison.OrdinalIgnoreCase) ?? false) || (pubUrl?.Equals(url, StringComparison.OrdinalIgnoreCase) ?? false))
-                {
-                    ErrorMessage = $"The generated URL for '{term["DisplayText"]}' has already been used as a Job Category URL.";
-                    return false;
-                }
-
-                if ((draftRedirectLocations?.Any(x => x.Trim('/').Equals(url, StringComparison.OrdinalIgnoreCase)) ?? false) || (publishedRedirectLocations?.Any(x => x.Trim('/').Equals(url, StringComparison.OrdinalIgnoreCase)) ?? false))
-                {
-                    ErrorMessage = $"The generated URL for '{term["DisplayText"]}' has already been used as a Job Category Redirect Location";
+                    ErrorMessage = $"The generated URL for '{term["DisplayText"]}' has already been used as a {draftContentItem?.ContentType.CamelFriendly() ?? publishedContentItem!.ContentType.CamelFriendly()} Redirect Location";
                     return false;
                 }
             }

@@ -17,6 +17,7 @@ using System;
 using DFC.ServiceTaxonomy.PageLocation.Constants;
 using DFC.ServiceTaxonomy.Taxonomies.Helper;
 using Newtonsoft.Json.Linq;
+using OrchardCore.ContentManagement.Utilities;
 
 namespace DFC.ServiceTaxonomy.PageLocation.Drivers
 {
@@ -78,7 +79,7 @@ namespace DFC.ServiceTaxonomy.PageLocation.Drivers
             if (otherContentItems.Any(x => ((string)x.Content.PageLocationPart.FullUrl).Equals(pageLocation.FullUrl, StringComparison.OrdinalIgnoreCase)))
             {
                 var duplicate = otherContentItems.First(x => ((string)x.Content.PageLocationPart.FullUrl).Equals(pageLocation.FullUrl, StringComparison.OrdinalIgnoreCase));
-                updater.ModelState.AddModelError(Prefix, nameof(pageLocation.UrlName), $"There is already a {duplicate.ContentType} with this URL Name at the same Page Location. Please choose a different URL Name, or change the Page Location.");
+                updater.ModelState.AddModelError(Prefix, nameof(pageLocation.UrlName), $"There is already a {duplicate.ContentType.CamelFriendly()} with this URL Name at the same Page Location. Please choose a different URL Name, or change the Page Location.");
             }
 
             var redirectLocations = pageLocation.RedirectLocations?.Split("\r\n").ToList();
