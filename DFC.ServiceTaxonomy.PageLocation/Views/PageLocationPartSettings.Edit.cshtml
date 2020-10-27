@@ -1,1 +1,9 @@
-﻿
+﻿@model DFC.ServiceTaxonomy.PageLocation.ViewModels.PageLocationPartSettingsViewModel
+
+<div class="form-group pb-1">
+    <div class="custom-control custom-checkbox">
+        <input asp-for="DisplayRedirectLocationsAndDefaultPageForLocation" class="custom-control-input" />
+        <label asp-for="DisplayRedirectLocationsAndDefaultPageForLocation" class="custom-control-label">@T["Display the Default Page at Location, and Redirect Locations fields?"]</label>
+        <span class="hint">— @T["Check to display the Default Page at Location, and Redirect Locations fields."]</span>
+    </div>
+</div>

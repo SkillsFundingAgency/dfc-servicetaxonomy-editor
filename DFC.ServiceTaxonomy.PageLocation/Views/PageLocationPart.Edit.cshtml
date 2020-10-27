@@ -8,13 +8,16 @@
     <span class="hint">@T["The URL of the page. Leave empty to auto-generate it."]</span>
 </div>
 
-<div class="form-group">
-    <div class="custom-control custom-checkbox">
-        <input type="checkbox" class="custom-control-input" asp-for="DefaultPageForLocation" checked="@Model.DefaultPageForLocation" />
-        <label class="custom-control-label" asp-for="DefaultPageForLocation">@T["Set as Default for Location"]</label>
-        <span class="hint">— @T["Check to set this page as the default page to be shown at the specified location."]</span>
+@if (Model.Settings?.DisplayRedirectLocationsAndDefaultPageForLocation ?? true)
+{
+    <div class="form-group">
+        <div class="custom-control custom-checkbox">
+            <input type="checkbox" class="custom-control-input" asp-for="DefaultPageForLocation" checked="@Model.DefaultPageForLocation" />
+            <label class="custom-control-label" asp-for="DefaultPageForLocation">@T["Set as Default for Location"]</label>
+            <span class="hint">— @T["Check to set this page as the default page to be shown at the specified location."]</span>
+        </div>
     </div>
-</div>
+}
 
 <div class="form-group">
     <label asp-for="FullUrl">@T["Full URL"]</label>
@@ -22,23 +25,26 @@
     <span class="hint">@T["The full URL of the page. It will be automatically generated."]</span>
 </div>
 
-<div class="form-group">
-    <label asp-for="RedirectLocations">@T["Redirect Locations"]</label>
-    <textarea rows="2" asp-for="RedirectLocations" class="form-control"></textarea>
-    <span asp-validation-for="RedirectLocations"></span>
-</div>
+@if (Model.Settings?.DisplayRedirectLocationsAndDefaultPageForLocation ?? true)
+{
+    <div class="form-group">
+        <label asp-for="RedirectLocations">@T["Redirect Locations"]</label>
+        <textarea rows="2" asp-for="RedirectLocations" class="form-control"></textarea>
+        <span asp-validation-for="RedirectLocations"></span>
+    </div>
+}
 
 <script depends-on="jQuery" at="Foot">
     $(function () {
         var $urlNameInput = $('input[name="PageLocationPart.UrlName"]'),
             $titleInput = $('input[name="TitlePart.Title"]'),
-            $pageLocationsFormGroup = $('input[name^="Page.PageLocations"]').first().closest('.form-group'),
+            $pageLocationsFormGroup = $('input[name*=".PageLocations."]').first().closest('.form-group'),
             $pageLocationsLabel = $pageLocationsFormGroup.prev('label'),
-            $pageLocationCheckboxes = $pageLocationsFormGroup.find('input[name^="Page.PageLocations"]'),
+            $pageLocationCheckboxes = $pageLocationsFormGroup.find('input[name*=".PageLocations."]'),
             $fullUrlInput = $('input[name="PageLocationPart.FullUrl"]');
 
         //taxonomy HTML structure is broke - there are some nested form groups which shouldn't be here
-        $pageLocationsFormGroup.find('.form-group').remove().insertAfter($pageLocationsFormGroup);
+        $pageLocationsFormGroup.find('.form-group, .d-none, > label, [data-editor-type="ContentPicker"]').remove().insertAfter($pageLocationsFormGroup);
 
         //now we can find the wrapping form group around the taxonomy field and move it where we want it.
         $pageLocationsLabel.remove().insertAfter($urlNameInput.closest('.form-group'));
@@ -56,7 +62,7 @@
 
         function buildFullUrl() {
             var $location = $pageLocationsFormGroup
-                .find('input[name^="Page.PageLocations"]:checked')
+                .find('input[name*=".PageLocations."]:checked')
                 .first()
                 .siblings('label')
                 .first();
@@ -81,6 +87,11 @@
 
                 $fullUrlInput.val(locationString + $urlNameInput.val());
             }
+        }
+
+        if ($('h1:contains("New Job Category")').length) {
+            var $jobCategoriesTermLabel = $('label:contains("job-categories")');
+            $jobCategoriesTermLabel.prev('input').prop('checked', true);
         }
     });
 </script>
