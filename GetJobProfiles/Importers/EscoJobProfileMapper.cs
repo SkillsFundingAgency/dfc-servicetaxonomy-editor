@@ -32,8 +32,12 @@ namespace GetJobProfiles.Importers
             "speech-and-language-therapy-assistant",
             "tv-or-film-production-runner",
             "ismai;-profile",
+            "ismail-profile",
             "ceiling-fixer",
-            "fenestration-fabricator"
+            "fenestration-fabricator",
+            "window-fabricator",
+            "heritage-officer",
+            "desk-profiler"
         };
 
         public List<string> Map(IEnumerable<JobProfileContentItem> jobProfiles)
