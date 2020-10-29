@@ -2,5 +2,6 @@
 {
     public class PageLocationPartSettings
     {
+        public bool DisplayRedirectLocationsAndDefaultPageForLocation { get; set; }
     }
 }

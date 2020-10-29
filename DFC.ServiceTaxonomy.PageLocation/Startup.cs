@@ -16,6 +16,7 @@ using Microsoft.Extensions.DependencyInjection;
 using OrchardCore.ContentManagement;
 using OrchardCore.ContentManagement.Display.ContentDisplay;
 using OrchardCore.ContentManagement.Handlers;
+using OrchardCore.ContentTypes.Editors;
 using OrchardCore.Data.Migration;
 using OrchardCore.Modules;
 using OrchardCore.ResourceManagement;
@@ -28,6 +29,7 @@ namespace DFC.ServiceTaxonomy.PageLocation
         static Startup()
         {
             TemplateContext.GlobalMemberAccessStrategy.Register<PageLocationPartViewModel>();
+            TemplateContext.GlobalMemberAccessStrategy.Register<PageLocationPartSettingsViewModel>();
         }
 
         public override void ConfigureServices(IServiceCollection services)
@@ -44,6 +46,7 @@ namespace DFC.ServiceTaxonomy.PageLocation
             services.AddScoped<IContentHandler, DefaultPageLocationsContentHandler>();
 
             services.AddScoped<IContentDisplayDriver, PageLocationDriver>();
+            services.AddScoped<IContentTypePartDefinitionDisplayDriver, PageLocationPartSettingsDisplayDriver>();
 
             services.AddTransient<ITaxonomyTermValidator, PageLocationUrlValidator>();
             services.AddTransient<ITaxonomyTermValidator, PageLocationTitleValidator>();
