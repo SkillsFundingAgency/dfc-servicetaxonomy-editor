@@ -9,20 +9,24 @@ using Neo4j.Driver;
 
 namespace DFC.ServiceTaxonomy.GraphSync.Neo4j.Queries
 {
-    //todo: this might be used to get incoming relationships, but it looks like it actually gets outgoing relationships
-    // so we should be able to get rid of this and use one of the other queries
+    //todo: replace with NodeWithIncomingRelationshipsQuery?
     public class NodeAndIncomingRelationshipsQuery : IQuery<INodeAndOutRelationshipsAndTheirInRelationships?>
     {
         private readonly IEnumerable<string> _sourceNodeLabels;
         private readonly string _sourceNodePropertyIdName;
         private readonly string _sourceNodeId;
+        private readonly int _maxPathLength;
 
         public NodeAndIncomingRelationshipsQuery(
-            IEnumerable<string> sourceNodeLabels, string sourceNodePropertyIdName, string sourceNodeId)
+            IEnumerable<string> sourceNodeLabels,
+            string sourceNodePropertyIdName,
+            string sourceNodeId,
+            int maxPathLength = 1)
         {
             _sourceNodeLabels = sourceNodeLabels;
             _sourceNodePropertyIdName = sourceNodePropertyIdName;
             _sourceNodeId = sourceNodeId;
+            _maxPathLength = maxPathLength;
         }
 
         public List<string> ValidationErrors()
@@ -34,6 +38,11 @@ namespace DFC.ServiceTaxonomy.GraphSync.Neo4j.Queries
                 validationErrors.Add("At least one NodeLabel must be provided.");
             }
 
+            if (_maxPathLength < 1)
+            {
+                validationErrors.Add("MaxPathLength must be positive.");
+            }
+
             return validationErrors;
         }
 
@@ -41,7 +50,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Neo4j.Queries
         {
             get
             {
-                var commandStringBuilder = new StringBuilder($"match (s)-[r]->(d:{string.Join(":", _sourceNodeLabels)} {{{_sourceNodePropertyIdName}: '{_sourceNodeId}'}})");
+                var commandStringBuilder = new StringBuilder($"match (s)-[r*1..{_maxPathLength}]->(d:{string.Join(":", _sourceNodeLabels)} {{{_sourceNodePropertyIdName}: '{_sourceNodeId}'}})");
                 commandStringBuilder.AppendLine(" with s, {destNode: d, relationship: r, destinationIncomingRelationships:collect({destIncomingRelationship:'',  destIncomingRelSource:'todo'})} as relationshipDetails");
                 commandStringBuilder.AppendLine(" with { sourceNode: s, outgoingRelationships: collect(relationshipDetails)} as nodeAndOutRelationshipsAndTheirInRelationships");
                 commandStringBuilder.AppendLine(" return nodeAndOutRelationshipsAndTheirInRelationships");

@@ -14,12 +14,18 @@ namespace DFC.ServiceTaxonomy.GraphSync.Neo4j.Queries
     // think separate, but with shared base
     public class NodeWithIncomingRelationshipsQuery : IQuery<INodeWithIncomingRelationships?>
     {
+        private int MaxPathLength { get; }
         private IEnumerable<string> NodeLabels { get; }
         private string IdPropertyName { get; }
         private object IdPropertyValue { get; }
 
-        public NodeWithIncomingRelationshipsQuery(IEnumerable<string> nodeLabels, string idPropertyName, object idPropertyValue)
+        public NodeWithIncomingRelationshipsQuery(
+            IEnumerable<string> nodeLabels,
+            string idPropertyName,
+            object idPropertyValue,
+            int maxPathLength = 1)
         {
+            MaxPathLength = maxPathLength;
             NodeLabels = nodeLabels;
             IdPropertyName = idPropertyName;
             IdPropertyValue = idPropertyValue;
@@ -29,9 +35,14 @@ namespace DFC.ServiceTaxonomy.GraphSync.Neo4j.Queries
         {
             var validationErrors = new List<string>();
 
-            if(!NodeLabels.Any())
+            if (!NodeLabels.Any())
             {
                 validationErrors.Add("At least one NodeLabel must be provided.");
+            }
+
+            if (MaxPathLength < 1)
+            {
+                validationErrors.Add("MaxPathLength must be positive.");
             }
 
             return validationErrors;
@@ -45,13 +56,14 @@ namespace DFC.ServiceTaxonomy.GraphSync.Neo4j.Queries
 
                 return new Query(
 @$"match (s:{string.Join(":", NodeLabels)} {{{IdPropertyName}: '{IdPropertyValue}'}})
-optional match (s)<-[r]-(d)
+optional match (s)<-[r*1..{MaxPathLength}]-(d)
 with s, {{relationship: r, destinationNode: d}} as relationshipDetails
 with {{sourceNode: s, incomingRelationships: collect(relationshipDetails)}} as sourceNodeWithIncomingRelationships
 return sourceNodeWithIncomingRelationships");
             }
         }
 
+        //todo: need to update to handle multi path
         public INodeWithIncomingRelationships? ProcessRecord(IRecord record)
         {
             var results = (Dictionary<string, object>)record["sourceNodeWithIncomingRelationships"];
