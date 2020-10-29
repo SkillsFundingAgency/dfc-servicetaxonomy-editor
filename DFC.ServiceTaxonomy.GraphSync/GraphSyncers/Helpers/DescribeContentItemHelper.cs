@@ -14,7 +14,6 @@ using DFC.ServiceTaxonomy.GraphSync.Settings;
 using DFC.ServiceTaxonomy.Neo4j.Queries.Interfaces;
 using Microsoft.Extensions.Options;
 using OrchardCore.ContentManagement;
-using OrchardCore.ContentManagement.Metadata;
 
 namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
 {
@@ -22,16 +21,13 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
     {
         private readonly IContentManager _contentManager;
         private readonly IEnumerable<IContentItemGraphSyncer> _contentItemGraphSyncers;
-        private readonly List<string> encounteredContentItems = new List<string>();
-        private readonly List<string> encounteredContentTypes = new List<string>();
+        private readonly List<string> _encounteredContentItems = new List<string>();
+        private readonly List<string> _encounteredContentTypes = new List<string>();
         private readonly IOptions<GraphSyncSettings> _graphSyncSettings;
 
         public DescribeContentItemHelper(
             IContentManager contentManager,
-            IContentDefinitionManager contentDefinitionManager,
-            ISyncNameProvider syncNameProvider,
             IEnumerable<IContentItemGraphSyncer> contentItemGraphSyncers,
-            IServiceProvider serviceProvider,
             IOptions<GraphSyncSettings> graphSyncSettings)
         {
             _contentManager = contentManager;
@@ -39,7 +35,10 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
             _graphSyncSettings = graphSyncSettings;
         }
 
-        public async Task<IEnumerable<IQuery<INodeAndOutRelationshipsAndTheirInRelationships?>>> GetRelationshipCommands(IDescribeRelationshipsContext context, List<ContentItemRelationship> currentList, IDescribeRelationshipsContext parentContext)
+        public async Task<IEnumerable<IQuery<INodeAndOutRelationshipsAndTheirInRelationships?>>> GetRelationshipCommands(
+            IDescribeRelationshipsContext context,
+            List<ContentItemRelationship> currentList,
+            IDescribeRelationshipsContext parentContext)
         {
             var graphSyncPartSettings = context.SyncNameProvider.GetGraphSyncPartSettings(context.ContentItem.ContentType);
             int maxVisualiserDepth = graphSyncPartSettings?.VisualiserNodeDepth != null
@@ -56,7 +55,9 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
             return commandsToReturn;
         }
 
-        private void BuildIncomingRelationshipCommands(List<IQuery<INodeAndOutRelationshipsAndTheirInRelationships?>> commandsToReturn, IDescribeRelationshipsContext context)
+        private void BuildIncomingRelationshipCommands(
+            List<IQuery<INodeAndOutRelationshipsAndTheirInRelationships?>> commandsToReturn,
+            IDescribeRelationshipsContext context)
         {
             commandsToReturn.Add(new NodeAndIncomingRelationshipsQuery(context.SourceNodeLabels, context.SourceNodeIdPropertyName, context.SourceNodeId));
         }
@@ -86,7 +87,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
 
         public async Task BuildRelationships(ContentItem contentItem, IDescribeRelationshipsContext context)
         {
-            if (encounteredContentItems.Any(x => x == contentItem.ContentItemId) || encounteredContentTypes.Any(x => x == contentItem.ContentType))
+            if (_encounteredContentItems.Any(x => x == contentItem.ContentItemId) || _encounteredContentTypes.Any(x => x == contentItem.ContentType))
             {
                 return;
             }
@@ -96,8 +97,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
                 await itemSync.AddRelationship(context);
             }
 
-            encounteredContentTypes.Add(contentItem.ContentType);
-            encounteredContentItems.Add(contentItem.ContentItemId);
+            _encounteredContentTypes.Add(contentItem.ContentType);
+            _encounteredContentItems.Add(contentItem.ContentItemId);
         }
     }
 }
