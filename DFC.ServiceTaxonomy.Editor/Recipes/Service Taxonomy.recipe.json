@@ -450,7 +450,8 @@
                                     "PropertyNameTransform": "Value",
                                     "IdPropertyName": "uri",
                                     "GenerateIdPropertyValue": "$\"<<contentapiprefix>>/{ContentType}/{Value}\".ToLowerInvariant()",
-                                    "DisplayId": true
+                                    "DisplayId": true,
+                                    "VisualiserIncomingRelationshipsPathLength": 2
                                 },
                                 "ContentIndexSettings": {}
                             }
