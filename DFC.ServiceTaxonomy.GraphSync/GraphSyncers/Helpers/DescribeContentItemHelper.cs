@@ -61,6 +61,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
             return commandsToReturn;
         }
 
+//https://stackoverflow.com/questions/4522580/generic-list-of-generic-interfaces-not-allowed-any-alternative-approaches
+
         //todo: return query, rather than pass in commandsToReturn
         //private IQuery<TRecord> BuildIncomingRelationshipCommand<TRecord>(
         private IQuery<INodeWithIncomingRelationships?> BuildIncomingRelationshipCommand(
