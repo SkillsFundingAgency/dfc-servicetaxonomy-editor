@@ -149,7 +149,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             if (results.AnyRepairFailures)
                 return results;
 
-            _logger.LogInformation("Woohoo: graph passed validation or was successfully repaired.");
+            _logger.LogInformation("Woohoo: graph passed validation or was successfully repaired at {Time}.",
+                timestamp.ToString("O"));
 
             _session.Save(new AuditSyncLog(timestamp));
             await _session.CommitAsync();
