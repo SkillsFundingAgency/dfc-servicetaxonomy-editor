@@ -1,0 +1,46 @@
+{
+    "TitlePart_Edit": [
+        {
+            "place": "Parts:0#Metadata;0",
+            "contentType": [
+                "Page"
+            ]
+        }
+    ],
+    "TextField_Edit": [
+        {
+            "differentiator": "Page-Description",
+            "place": "Parts:1#Metadata;0"
+        }
+    ],
+    "PageLocationPart_Edit": [
+        {
+            "place": "Parts:2#Metadata;0",
+            "contentType": [
+                "Page"
+            ]
+        }
+    ],
+    "GraphSyncPart_Edit": [
+        {
+            "place": "Parts:3#Metadata;0",
+            "contentType": [
+                "Page"
+            ]
+        }
+    ],
+    "HtmlField_Edit": [
+        {
+            "differentiator": "Page-Herobanner",
+            "place": "Parts:0#Content;1"
+        }
+    ],
+    "SitemapPart_Edit": [
+        {
+            "place": "Parts:0#SEO;2",
+            "contentType": [
+                "Page"
+            ]
+        }
+    ]
+}
