@@ -7,6 +7,7 @@
     <PreserveCompilationReferences>true</PreserveCompilationReferences>
     <Nullable>enable</Nullable>
     <AddRazorSupportForMvc>true</AddRazorSupportForMvc>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
   </PropertyGroup>
 
   <ItemGroup>
@@ -44,9 +45,9 @@
     <PackageReference Include="Joonasw.AspNetCore.SecurityHeaders" Version="3.0.0" />
     <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.14.0" />
     <PackageReference Include="Microsoft.ApplicationInsights.NLogTarget" Version="2.14.0" />
-    <PackageReference Include="OrchardCore.Logging.NLog" Version="1.0.0-rc4" />
-    <PackageReference Include="OrchardCore.Application.Cms.Targets" Version="1.0.0-rc4" />
-    <PackageReference Include="OrchardCore.ContentManagement" Version="1.0.0-rc4" />
+    <PackageReference Include="OrchardCore.Logging.NLog" Version="1.0.0-rc5" />
+    <PackageReference Include="OrchardCore.Application.Cms.Targets" Version="1.0.0-rc5" />
+    <PackageReference Include="OrchardCore.ContentManagement" Version="1.0.0-rc5" />
     <PackageReference Include="SonarAnalyzer.CSharp" Version="8.13.0.21683">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
