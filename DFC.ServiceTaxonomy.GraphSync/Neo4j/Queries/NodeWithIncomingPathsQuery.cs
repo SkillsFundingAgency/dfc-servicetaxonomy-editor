@@ -122,9 +122,9 @@ Option B is probably beter for visualisation, as its what we massage the data in
                 validationErrors.Add("At least one NodeLabel must be provided.");
             }
 
-            if (MaxPathLength < 1)
+            if (MaxPathLength < 0)
             {
-                validationErrors.Add("MaxPathLength must be positive.");
+                validationErrors.Add("MaxPathLength must not be negative.");
             }
 
             return validationErrors;
@@ -136,17 +136,16 @@ Option B is probably beter for visualisation, as its what we massage the data in
             {
                 this.CheckIsValid();
 
+                var parameters = new Dictionary<string, object>
+                {
+                    {"maxLevel", MaxPathLength},
+                    {"idPropertyValue", IdPropertyValue}
+                };
+
                 return new Query(
-// @$"match (s:{string.Join(":", NodeLabels)} {{{IdPropertyName}: '{IdPropertyValue}'}})
-// optional match (s)<-[r*1..{MaxPathLength}]-(d)
-// with s, {{relationship: r, destinationNode: d}} as relationshipDetails
-// with {{sourceNode: s, incomingRelationships: collect(relationshipDetails)}} as sourceNodeWithIncomingRelationships
-// return sourceNodeWithIncomingRelationships");
-                    @$"match (s:{string.Join(":", NodeLabels)} {{{IdPropertyName}: '{IdPropertyValue}'}})
-match (s)<-[r]-(d)
-with s, {{relationship: r, destinationNode: d}} as relationshipDetails
-with {{sourceNode: s, incomingRelationships: collect(relationshipDetails)}} as sourceNodeWithIncomingRelationships
-return sourceNodeWithIncomingRelationships");
+                    @$"match (n:{string.Join(":", NodeLabels)} {{{IdPropertyName}:$idPropertyValue}})
+call apoc.path.subgraphAll(n, {{maxLevel: $maxLevel, relationshipFilter: '<'}}) yield nodes, relationships
+return nodes, relationships", parameters);
 
             }
         }
