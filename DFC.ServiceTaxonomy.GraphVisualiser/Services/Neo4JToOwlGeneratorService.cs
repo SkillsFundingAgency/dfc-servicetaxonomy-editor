@@ -12,7 +12,7 @@ namespace DFC.ServiceTaxonomy.GraphVisualiser.Services
 {
     public class Neo4JToOwlGeneratorService : OwlDataGeneratorService, INeo4JToOwlGeneratorService
     {
-        private long minRelationshipId;
+        // private long minRelationshipId;
 
         private readonly ISyncNameProvider _syncNameProvider;
 
@@ -24,7 +24,7 @@ namespace DFC.ServiceTaxonomy.GraphVisualiser.Services
         public OwlDataModel CreateOwlDataModels(long selectedNodeId, IEnumerable<INode> nodes, HashSet<IRelationship> relationships, string prefLabel)
         {
             //minNodeId = nodes.Keys.Min() - 1;
-            minRelationshipId = relationships.Count > 0 ? relationships.Min(r => r.Id) - 1 : 0;
+            // minRelationshipId = relationships.Count > 0 ? relationships.Min(r => r.Id) - 1 : 0;
 
             TransformData(nodes, prefLabel);
             TransformData(relationships);
