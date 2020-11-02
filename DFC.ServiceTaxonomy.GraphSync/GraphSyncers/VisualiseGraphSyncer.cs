@@ -87,18 +87,21 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             if (inAndOutResults.Any())
             {
                 //Get all outgoing relationships from the query and add in any source nodes
-                data.Nodes = inAndOutResults
+                data.Nodes.UnionWith(
+                    inAndOutResults
                     .SelectMany(x => x!.OutgoingRelationships.Select(x => x.outgoingRelationship.DestinationNode))
-                    .Union(inAndOutResults.GroupBy(x => x!.SourceNode).Select(z => z.FirstOrDefault()!.SourceNode));
+                    .Union(inAndOutResults.GroupBy(x => x!.SourceNode).Select(z => z.FirstOrDefault()!.SourceNode)));
                 data.SelectedNodeId = inAndOutResults.FirstOrDefault()!.SourceNode.Id;
-                data.Relationships = inAndOutResults!.SelectMany(y => y!.OutgoingRelationships.Select(z => z.outgoingRelationship.Relationship))
-                    .ToHashSet();
+                data.Relationships.UnionWith(
+                    inAndOutResults!
+                        .SelectMany(y => y!.OutgoingRelationships.Select(z => z.outgoingRelationship.Relationship))
+                    .ToHashSet());
             }
 
-            var inResults = result.OfType<INodeWithIncomingRelationships?>();
-            if (inResults.Any())
+            var inResults = result.OfType<ISubgraph>().FirstOrDefault();
+            if (inResults != null)
             {
-                //todo:
+                data.Add(inResults);
             }
 
             return data;

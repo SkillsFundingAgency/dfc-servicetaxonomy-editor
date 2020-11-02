@@ -8,7 +8,7 @@ namespace DFC.ServiceTaxonomy.Neo4j.Queries.Interfaces
         //todo: change to reference to INode
         long SelectedNodeId { get; }
         //todo: enumerable/hashset
-        IEnumerable<INode>? Nodes { get; }
-        HashSet<IRelationship>? Relationships  { get; }
+        HashSet<INode> Nodes { get; }
+        HashSet<IRelationship> Relationships  { get; }
     }
 }

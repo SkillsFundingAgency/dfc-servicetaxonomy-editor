@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using DFC.ServiceTaxonomy.Neo4j.Queries.Interfaces;
+using DFC.ServiceTaxonomy.Neo4j.Queries.Model;
 using Neo4j.Driver;
 
 namespace DFC.ServiceTaxonomy.Neo4j.Queries
@@ -92,7 +93,7 @@ Option B is probably beter for visualisation, as its what we massage the data in
 
     //todo: replace usage of NodeWithIncomingRelationshipsQuery with this more general case
 
-    public class SubgraphQuery : IQuery<ISubgraph?>
+    public class SubgraphQuery : IQuery<ISubgraph>
     {
         private IEnumerable<string> NodeLabels { get; }
         private string IdPropertyName { get; }
@@ -168,35 +169,11 @@ return nodes, relationships", parameters);
         }
 
         //null if source node not found
-        public ISubgraph? ProcessRecord(IRecord record)
+        public ISubgraph ProcessRecord(IRecord record)
         {
-            return null;
+            return new Subgraph(
+                ((List<object>)record["nodes"]).Cast<INode>(),
+                ((List<object>)record["relationships"]).Cast<IRelationship>());
         }
-
-        //todo: need to update to handle multi path
-        // public INodeWithIncomingRelationships? ProcessRecord(IRecord record)
-        // {
-        //     var results = (Dictionary<string, object>)record["sourceNodeWithIncomingRelationships"];
-        //     if (results == null)
-        //         throw new QueryResultException($"{nameof(NodeWithIncomingRelationshipsQuery)} results not in expected format.");
-        //
-        //     if (!(results["sourceNode"] is INode sourceNode))
-        //         return null;
-        //
-        //     IEnumerable<(IRelationship, INode)> incomingRelationships =
-        //         ((IEnumerable<object>)results["incomingRelationships"])
-        //         .Cast<IDictionary<string, object>>()
-        //         .Select(or =>
-        //             ((IRelationship)or["relationship"], (INode)or["destinationNode"]));
-        //
-        //     if (incomingRelationships.Count() == 1 && incomingRelationships.First().Item1 == null)
-        //         incomingRelationships = Enumerable.Empty<(IRelationship, INode)>();
-        //
-        //     INodeWithIncomingRelationships nodeWithIncoming =
-        //         //todo: check all combos of missing data
-        //         new NodeWithIncomingRelationships(sourceNode, incomingRelationships);
-        //
-        //     return nodeWithIncoming;
-        // }
     }
 }

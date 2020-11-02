@@ -8,8 +8,27 @@ namespace DFC.ServiceTaxonomy.Neo4j.Queries.Model
     {
         //todo: change to reference to INode
         public long SelectedNodeId { get; set; }
-        //todo: enumerable/hashset
-        public IEnumerable<INode>? Nodes { get; set; }
-        public HashSet<IRelationship>? Relationships  { get; set; }
+        public HashSet<INode> Nodes { get; set; }
+        public HashSet<IRelationship> Relationships { get; set; }
+
+        public Subgraph()
+        {
+            Nodes = new HashSet<INode>();
+            Relationships = new HashSet<IRelationship>();
+        }
+
+        public Subgraph(IEnumerable<INode> nodes, IEnumerable<IRelationship> relationships)
+        {
+            Nodes = new HashSet<INode>(nodes);
+            Relationships = new HashSet<IRelationship>(relationships);
+        }
+
+        public void Add(ISubgraph subgraph)
+        {
+            //todo: check both have same sourcenode
+            // if different/ null?????
+            Nodes.UnionWith(subgraph.Nodes);
+            Relationships.UnionWith(subgraph.Relationships);
+        }
     }
 }
