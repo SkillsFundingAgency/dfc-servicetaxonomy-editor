@@ -137,7 +137,9 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
                             contentItemVersion,
                             contentTypeDefinition,
                             validateFrom,
-                            result);
+                            result,
+                            validationScope);
+
                         if (syncFailures.Any())
                         {
                             await AttemptRepair(syncFailures, contentTypeDefinition, contentItemVersion, result);
@@ -174,7 +176,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             IContentItemVersion contentItemVersion,
             ContentTypeDefinition contentTypeDefinition,
             DateTime lastSynced,
-            ValidateAndRepairResult result)
+            ValidateAndRepairResult result,
+            ValidationScope scope)
         {
             List<ValidationFailure> syncFailures = new List<ValidationFailure>();
 
@@ -204,7 +207,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
                         contentItem.ContentType,
                         contentItem.ContentItemId,
                         GraphDescription(_currentGraph!));
-                    result.Validated.Add(contentItem);
+                    result.Validated.Add(new ValidatedContentItem(contentItem));
                 }
                 else
                 {
@@ -216,26 +219,32 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
                 }
             }
 
-            foreach (ContentItem contentItem in deletedContentTypeContentItems)
+            if (scope == ValidationScope.ModifiedSinceLastValidation)
             {
-                (bool validated, string? validationFailureReason) =
-                    await ValidateDeletedContentItem(contentItem, contentTypeDefinition, contentItemVersion);
+                foreach (ContentItem contentItem in deletedContentTypeContentItems)
+                {
+                    (bool validated, string? validationFailureReason) =
+                        await ValidateDeletedContentItem(contentItem, contentTypeDefinition, contentItemVersion);
 
-                if (validated)
-                {
-                    _logger.LogInformation("Sync validation passed for deleted {ContentType} {ContentItemId} in {CurrentGraph}.",
-                        contentItem.ContentType,
-                        contentItem.ContentItemId,
-                        GraphDescription(_currentGraph!));
-                    result.Validated.Add(contentItem);
-                }
-                else
-                {
-                    string message = $"Sync validation failed in {{CurrentGraph}}.{Environment.NewLine}{{validationFailureReason}}.";
-                    _logger.LogWarning(message, GraphDescription(_currentGraph!), validationFailureReason);
-                    ValidationFailure validationFailure = new ValidationFailure(contentItem, validationFailureReason!, FailureType.Delete);
-                    syncFailures.Add(validationFailure);
-                    result.ValidationFailures.Add(validationFailure);
+                    if (validated)
+                    {
+                        _logger.LogInformation(
+                            "Sync validation passed for deleted {ContentType} {ContentItemId} in {CurrentGraph}.",
+                            contentItem.ContentType,
+                            contentItem.ContentItemId,
+                            GraphDescription(_currentGraph!));
+                        result.Validated.Add(new ValidatedContentItem(contentItem, ValidateType.Delete));
+                    }
+                    else
+                    {
+                        string message =
+                            $"Sync validation failed in {{CurrentGraph}}.{Environment.NewLine}{{validationFailureReason}}.";
+                        _logger.LogWarning(message, GraphDescription(_currentGraph!), validationFailureReason);
+                        ValidationFailure validationFailure = new ValidationFailure(contentItem,
+                            validationFailureReason!, ValidateType.Delete);
+                        syncFailures.Add(validationFailure);
+                        result.ValidationFailures.Add(validationFailure);
+                    }
                 }
             }
 
@@ -261,7 +270,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 
             foreach (var failure in syncValidationFailures)
             {
-                if (failure.Type == FailureType.Merge)
+                if (failure.Type == ValidateType.Merge)
                 {
                     await AttemptMergeRepair(contentTypeDefinition, contentItemVersion, result, failure);
                 }
@@ -300,7 +309,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
                     failure.ContentItem.ContentType,
                     failure.ContentItem.ContentItemId,
                     GraphDescription(_currentGraph!));
-                result.Repaired.Add(failure.ContentItem);
+                result.Repaired.Add(new ValidatedContentItem(failure.ContentItem));
             }
             else
             {
@@ -336,13 +345,13 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
                     failure.ContentItem.ContentType,
                     failure.ContentItem.ContentItemId,
                     GraphDescription(_currentGraph!));
-                result.Repaired.Add(failure.ContentItem);
+                result.Repaired.Add(new ValidatedContentItem(failure.ContentItem, ValidateType.Delete));
             }
             else
             {
                 string message = $"Repair was unsuccessful.{Environment.NewLine}{{ValidationFailureReason}}.";
                 _logger.LogWarning(message, validationFailureReason);
-                result.RepairFailures.Add(new RepairFailure(failure.ContentItem, validationFailureReason!));
+                result.RepairFailures.Add(new RepairFailure(failure.ContentItem, validationFailureReason!, ValidateType.Delete));
             }
         }
 
