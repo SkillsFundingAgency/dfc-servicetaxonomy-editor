@@ -96,7 +96,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             }
 
             var inResults = result.OfType<ISubgraph>().FirstOrDefault();
-            if (inResults != null && inResults.Nodes.Count > 1)
+            if (inResults != null)
             {
                 subgraph.Add(inResults);
             }

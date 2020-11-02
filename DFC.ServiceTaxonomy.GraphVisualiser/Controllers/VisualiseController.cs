@@ -122,7 +122,7 @@ namespace DFC.ServiceTaxonomy.GraphVisualiser.Controllers
             var subgraph = await _visualiseGraphSyncer.GetVisualisationSubgraph(contentItemId, graphName, _contentItemVersion!);
 
             var owlDataModel = _neo4JToOwlGeneratorService.CreateOwlDataModels(
-                subgraph.SourceNode!.Id,
+                subgraph.SourceNode?.Id,
                 subgraph.Nodes!,
                 subgraph.Relationships!,
                 "skos__prefLabel");
