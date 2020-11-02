@@ -89,7 +89,6 @@ return nodes, relationships", parameters);
             }
         }
 
-        //null if source node not found
         public ISubgraph ProcessRecord(IRecord record)
         {
             var nodes = ((List<object>)record["nodes"]).Cast<INode>();
