@@ -6,6 +6,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces
 {
     public interface IVisualiseGraphSyncer
     {
-        Task<Subgraph> GetData(string contentItemId, string graphName, IContentItemVersion contentItemVersion);
+        Task<Subgraph> GetVisualisationSubgraph(string contentItemId, string graphName, IContentItemVersion contentItemVersion);
     }
 }

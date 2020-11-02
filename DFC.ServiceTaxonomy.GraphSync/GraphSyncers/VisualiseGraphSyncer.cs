@@ -62,7 +62,10 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             return await _describeContentItemHelper.GetRelationshipCommands(rootContext, relationships, rootContext);
         }
 
-        public async Task<Subgraph> GetData(string contentItemId, string graphName, IContentItemVersion contentItemVersion)
+        public async Task<Subgraph> GetVisualisationSubgraph(
+            string contentItemId,
+            string graphName,
+            IContentItemVersion contentItemVersion)
         {
             var relationshipCommands = await BuildVisualisationCommands(contentItemId, contentItemVersion!);
 
@@ -73,12 +76,12 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
                 result.OfType<INodeAndOutRelationshipsAndTheirInRelationships?>();
 
             //todo: should really always return the source node (until then, the subgraph will pull it if the main results don't)
-            Subgraph data;
+            Subgraph subgraph;
             if (inAndOutResults.Any())
             {
                 // get all outgoing relationships from the query and add in any source nodes
 
-                data = new Subgraph(
+                subgraph = new Subgraph(
                     inAndOutResults
                         .SelectMany(x => x!.OutgoingRelationships.Select(x => x.outgoingRelationship.DestinationNode))
                         .Union(inAndOutResults.GroupBy(x => x!.SourceNode).Select(z => z.FirstOrDefault()!.SourceNode)),
@@ -89,17 +92,16 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             }
             else
             {
-                data = new Subgraph();
+                subgraph = new Subgraph();
             }
 
-            //todo: source node when non returned previously
             var inResults = result.OfType<ISubgraph>().FirstOrDefault();
-            if (inResults != null)
+            if (inResults != null && inResults.Nodes.Count > 1)
             {
-                data.Add(inResults);
+                subgraph.Add(inResults);
             }
 
-            return data;
+            return subgraph;
         }
     }
 }
