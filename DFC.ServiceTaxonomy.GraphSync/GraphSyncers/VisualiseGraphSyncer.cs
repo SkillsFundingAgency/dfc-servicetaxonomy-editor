@@ -64,12 +64,10 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             await _describeContentItemHelper.BuildRelationships(contentItem, rootContext);
 
             var relationships = new List<ContentItemRelationship>();
-            var relationshipCommands = await _describeContentItemHelper.GetRelationshipCommands(rootContext, relationships, rootContext);
-
-            return relationshipCommands!;
+            return await _describeContentItemHelper.GetRelationshipCommands(rootContext, relationships, rootContext);
         }
 
-        public async Task<GraphDataset> GetData(string contentItemId, string graphName, IContentItemVersion contentItemVersion)
+        public async Task<Subgraph> GetData(string contentItemId, string graphName, IContentItemVersion contentItemVersion)
         {
             var relationshipCommands = await BuildVisualisationCommands(contentItemId, contentItemVersion!);
 
@@ -81,7 +79,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             // long sourceNodeId = 0;
             // HashSet<IRelationship> relationships = new HashSet<IRelationship>();
 
-            var data = new GraphDataset();
+            var data = new Subgraph();
 
             var inAndOutResults =
                 result.OfType<INodeAndOutRelationshipsAndTheirInRelationships?>();
@@ -120,7 +118,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
         }
     }
 
-    public class GraphDataset
+    public class Subgraph
     {
         public long SelectedNodeId { get; set; }
         //todo: enumerable/hashset

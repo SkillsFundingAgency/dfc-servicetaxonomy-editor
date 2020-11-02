@@ -12,6 +12,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces
         //Task<IEnumerable<IQuery<INodeAndOutRelationshipsAndTheirInRelationships>>> BuildVisualisationCommands(string contentItemId, IContentItemVersion contentItemVersion);
         //Task<IEnumerable<IQuery<object?>>> BuildVisualisationCommands(string contentItemId, IContentItemVersion contentItemVersion);
 
-        Task<GraphDataset> GetData(string contentItemId, string graphName, IContentItemVersion contentItemVersion);
+        Task<Subgraph> GetData(string contentItemId, string graphName, IContentItemVersion contentItemVersion);
     }
 }

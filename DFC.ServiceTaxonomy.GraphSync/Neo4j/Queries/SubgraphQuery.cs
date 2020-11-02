@@ -92,21 +92,25 @@ Option B is probably beter for visualisation, as its what we massage the data in
 
      */
 
+    //call with relationshipFilter = "<"
 
     //todo: replace usage of NodeWithIncomingRelationshipsQuery with this more general case
-    public class NodeWithIncomingPathsQuery : IQuery<INodeWithIncomingRelationships?>
+    public class SubgraphQuery : IQuery<INodeWithIncomingRelationships?>
     {
-        private int MaxPathLength { get; }
         private IEnumerable<string> NodeLabels { get; }
         private string IdPropertyName { get; }
         private object IdPropertyValue { get; }
+        private string? RelationshipFilter { get; }
+        private int MaxPathLength { get; }
 
-        public NodeWithIncomingPathsQuery(
+        public SubgraphQuery(
             IEnumerable<string> nodeLabels,
             string idPropertyName,
             object idPropertyValue,
+            string? relationshipFilter = null,
             int maxPathLength = 1)
         {
+            RelationshipFilter = relationshipFilter;
             MaxPathLength = maxPathLength;
             NodeLabels = nodeLabels;
             IdPropertyName = idPropertyName;
@@ -144,10 +148,15 @@ Option B is probably beter for visualisation, as its what we massage the data in
 
                 return new Query(
                     @$"match (n:{string.Join(":", NodeLabels)} {{{IdPropertyName}:$idPropertyValue}})
-call apoc.path.subgraphAll(n, {{maxLevel: $maxLevel, relationshipFilter: '<'}}) yield nodes, relationships
+call apoc.path.subgraphAll(n, {{maxLevel: $maxLevel {DefaultNullStringParameter("relationshipFilter", RelationshipFilter)}) yield nodes, relationships
 return nodes, relationships", parameters);
 
             }
+        }
+
+        private string DefaultNullStringParameter(string parameterName, string? val)
+        {
+            return val == null ? "" : $", {parameterName}: '{val}'";
         }
 
         //todo: need to update to handle multi path
