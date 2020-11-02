@@ -119,9 +119,14 @@ namespace DFC.ServiceTaxonomy.GraphVisualiser.Controllers
 
         private async Task<ActionResult> GetData(string contentItemId, string graphName)
         {
-            var graphDataset = await _visualiseGraphSyncer.GetData(contentItemId, graphName, _contentItemVersion!);
+            var subgraph = await _visualiseGraphSyncer.GetData(contentItemId, graphName, _contentItemVersion!);
 
-            var owlDataModel = _neo4JToOwlGeneratorService.CreateOwlDataModels(graphDataset.SelectedNodeId, graphDataset.Nodes!, graphDataset.Relationships!, "skos__prefLabel");
+            var owlDataModel = _neo4JToOwlGeneratorService.CreateOwlDataModels(
+                subgraph.SourceNode!.Id,
+                subgraph.Nodes!,
+                subgraph.Relationships!,
+                "skos__prefLabel");
+
             string owlResponseString = JsonSerializer.Serialize(owlDataModel, _jsonOptions);
             return Content(owlResponseString, MediaTypeNames.Application.Json);
         }

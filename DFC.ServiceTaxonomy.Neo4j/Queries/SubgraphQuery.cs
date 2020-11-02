@@ -9,6 +9,9 @@ namespace DFC.ServiceTaxonomy.Neo4j.Queries
     //todo: replace usage of NodeWithIncomingRelationshipsQuery with this more general case
     public class SubgraphQuery : IQuery<ISubgraph>
     {
+        public const string RelationshipFilterIncoming = "<";
+        public const string RelationshipFilterOutgoing = ">";
+
         private IEnumerable<string> NodeLabels { get; }
         private string IdPropertyName { get; }
         private object IdPropertyValue { get; }
@@ -33,6 +36,7 @@ namespace DFC.ServiceTaxonomy.Neo4j.Queries
         /// </listheader>
         /// </list>
         /// </param>
+        /// <param name="maxPathLength">The maximum number of hops in the traversal.</param>
         public SubgraphQuery(
             IEnumerable<string> nodeLabels,
             string idPropertyName,
@@ -88,9 +92,13 @@ return nodes, relationships", parameters);
         //null if source node not found
         public ISubgraph ProcessRecord(IRecord record)
         {
+            var nodes = ((List<object>)record["nodes"]).Cast<INode>();
+
+            //todo: is sourcenode always first??
             return new Subgraph(
-                ((List<object>)record["nodes"]).Cast<INode>(),
-                ((List<object>)record["relationships"]).Cast<IRelationship>());
+                nodes,
+                ((List<object>)record["relationships"]).Cast<IRelationship>(),
+                nodes.First(n => Equals(n.Properties[IdPropertyName], IdPropertyValue)));
         }
     }
 }

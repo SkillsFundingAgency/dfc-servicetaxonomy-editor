@@ -5,8 +5,7 @@ namespace DFC.ServiceTaxonomy.Neo4j.Queries.Interfaces
 {
     public interface ISubgraph
     {
-        //todo: change to reference to INode
-        long SelectedNodeId { get; }
+        INode? SourceNode { get; }
         HashSet<INode> Nodes { get; }
         HashSet<IRelationship> Relationships  { get; }
     }

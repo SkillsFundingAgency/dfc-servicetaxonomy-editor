@@ -69,23 +69,27 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             // get all results atomically
             var result = await _neoGraphCluster.Run(graphName, relationshipCommands.ToArray());
 
-            var data = new Subgraph();
-
             var inAndOutResults =
                 result.OfType<INodeAndOutRelationshipsAndTheirInRelationships?>();
 
+            //todo: should really always return the source node (until then, the subgraph will pull it if the main results don't)
+            Subgraph data;
             if (inAndOutResults.Any())
             {
-                //Get all outgoing relationships from the query and add in any source nodes
-                data.Nodes.UnionWith(
+                // get all outgoing relationships from the query and add in any source nodes
+
+                data = new Subgraph(
                     inAndOutResults
-                    .SelectMany(x => x!.OutgoingRelationships.Select(x => x.outgoingRelationship.DestinationNode))
-                    .Union(inAndOutResults.GroupBy(x => x!.SourceNode).Select(z => z.FirstOrDefault()!.SourceNode)));
-                data.SelectedNodeId = inAndOutResults.FirstOrDefault()!.SourceNode.Id;
-                data.Relationships.UnionWith(
+                        .SelectMany(x => x!.OutgoingRelationships.Select(x => x.outgoingRelationship.DestinationNode))
+                        .Union(inAndOutResults.GroupBy(x => x!.SourceNode).Select(z => z.FirstOrDefault()!.SourceNode)),
                     inAndOutResults!
                         .SelectMany(y => y!.OutgoingRelationships.Select(z => z.outgoingRelationship.Relationship))
-                    .ToHashSet());
+                        .ToHashSet(),
+                    inAndOutResults.FirstOrDefault()?.SourceNode);
+            }
+            else
+            {
+                data = new Subgraph();
             }
 
             //todo: source node when non returned previously

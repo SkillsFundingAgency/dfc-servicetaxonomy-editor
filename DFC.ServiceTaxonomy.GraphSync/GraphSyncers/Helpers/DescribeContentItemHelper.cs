@@ -41,7 +41,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
             IDescribeRelationshipsContext parentContext)
         {
             var graphSyncPartSettings = context.SyncNameProvider.GetGraphSyncPartSettings(context.ContentItem.ContentType);
-            int maxVisualiserDepth = graphSyncPartSettings?.VisualiserNodeDepth != null
+            int maxVisualiserDepth = graphSyncPartSettings.VisualiserNodeDepth != null
                 ? Math.Min(graphSyncPartSettings.VisualiserNodeDepth.Value,
                     _graphSyncSettings.Value.MaxVisualiserNodeDepth)
                 : _graphSyncSettings.Value.MaxVisualiserNodeDepth;
@@ -49,27 +49,15 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
             var allRelationships = await ContentItemRelationshipToCypherHelper.GetRelationships(context, currentList, parentContext, maxVisualiserDepth);
             var uniqueCommands = allRelationships.Select(z => z.RelationshipPathString).GroupBy(x => x).Select(g => g.First());
 
-            List<IQuery<object?>> commandsToReturn = BuildOutgoingRelationshipCommands(uniqueCommands);
+            List<IQuery<object?>> commandsToReturn = uniqueCommands
+                .Select(c => new NodeAndNestedOutgoingRelationshipsQuery(c!)).Cast<IQuery<object?>>().ToList();
 
             commandsToReturn.Add(new SubgraphQuery(
                 context.SourceNodeLabels,
                 context.SourceNodeIdPropertyName,
                 context.SourceNodeId,
-                "<",
-                graphSyncPartSettings?.VisualiserIncomingRelationshipsPathLength ?? 1));
-
-            return commandsToReturn;
-        }
-
-        //todo: simplify
-        private static List<IQuery<object?>> BuildOutgoingRelationshipCommands(IEnumerable<string?> uniqueCommands)
-        {
-            var commandsToReturn = new List<IQuery<object?>>();
-
-            foreach (var command in uniqueCommands.ToList())
-            {
-                commandsToReturn.Add(new NodeAndNestedOutgoingRelationshipsQuery(command!));
-            }
+                SubgraphQuery.RelationshipFilterIncoming,
+                graphSyncPartSettings.VisualiserIncomingRelationshipsPathLength ?? 1));
 
             return commandsToReturn;
         }
@@ -78,7 +66,18 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
         {
             //todo: check for null
             ContentItem? contentItem = await context.ContentItemVersion.GetContentItem(_contentManager, contentItemId);
-            var childContext = new DescribeRelationshipsContext(context.SourceNodeIdPropertyName, context.SourceNodeId, context.SourceNodeLabels, contentItem!, context.SyncNameProvider, context.ContentManager, context.ContentItemVersion, context, context.ServiceProvider, context.RootContentItem);
+            //todo: can we just store parentcontext and contentitem?
+            var childContext = new DescribeRelationshipsContext(
+                context.SourceNodeIdPropertyName,
+                context.SourceNodeId,
+                context.SourceNodeLabels,
+                contentItem!,
+                context.SyncNameProvider,
+                context.ContentManager,
+                context.ContentItemVersion,
+                context,
+                context.ServiceProvider,
+                context.RootContentItem);
 
             context.AddChildContext(childContext);
 

@@ -29,7 +29,7 @@ namespace DFC.ServiceTaxonomy.GraphVisualiser.Services
                 Namespace = CreateNamespaces(),
                 Header = CreateHeader(),
                 Settings = CreateSettings(),
-                Class = nodeDataModels.Select(n => CreateClass(n, $"{selectedNodeId}")).ToList(),
+                Class = nodeDataModels.Select(n => CreateClass(n, selectedNodeId.ToString())).ToList(),
                 ClassAttribute = nodeDataModels.Select(CreateClassAttribute).ToList(),
                 Property = relationshipDataModels.Select(CreateProperty).ToList(),
                 PropertyAttribute = relationshipDataModels.Select(CreatePropertyAttribute).ToList(),
