@@ -41,6 +41,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.Settings
                     model.GenerateIdPropertyValue = graphSyncPartSettings.GenerateIdPropertyValue;
                     model.PreExistingNodeUriPrefix = graphSyncPartSettings.PreExistingNodeUriPrefix;
                     model.VisualiserNodeDepth = graphSyncPartSettings.VisualiserNodeDepth;
+                    model.VisualiserIncomingRelationshipsPathLength =
+                        graphSyncPartSettings.VisualiserIncomingRelationshipsPathLength;
 
                     BuildGraphSyncPartSettingsList(model);
                 })
@@ -87,7 +89,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Settings
             }
 
             var model = new GraphSyncPartSettingsViewModel();
-            
+
 
             if (await context.Updater.TryUpdateModelAsync(model, Prefix,
                 m => m.BagPartContentItemRelationshipType,
@@ -99,7 +101,9 @@ namespace DFC.ServiceTaxonomy.GraphSync.Settings
                 m => m.IdPropertyName,
                 m => m.GenerateIdPropertyValue,
                 m => m.PreExistingNodeUriPrefix,
-                m => m.VisualiserNodeDepth) && Valid(model, context))
+                m => m.VisualiserNodeDepth,
+                m => m.VisualiserIncomingRelationshipsPathLength)
+                && Valid(model, context))
             {
                 context.Builder.WithSettings(new GraphSyncPartSettings
                 {
@@ -112,7 +116,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.Settings
                     IdPropertyName = model.IdPropertyName,
                     GenerateIdPropertyValue = model.GenerateIdPropertyValue,
                     PreExistingNodeUriPrefix = model.PreExistingNodeUriPrefix,
-                    VisualiserNodeDepth = model.VisualiserNodeDepth
+                    VisualiserNodeDepth = model.VisualiserNodeDepth,
+                    VisualiserIncomingRelationshipsPathLength = model.VisualiserIncomingRelationshipsPathLength
                 });
             }
 
@@ -127,6 +132,13 @@ namespace DFC.ServiceTaxonomy.GraphSync.Settings
             {
                 context.Updater.ModelState.AddModelError(Prefix, nameof(GraphSyncPartSettings.VisualiserNodeDepth),
                     "Visualiser node depth must be greater than 0");
+                valid = false;
+            }
+
+            if (model.VisualiserIncomingRelationshipsPathLength != null && model.VisualiserIncomingRelationshipsPathLength < 1)
+            {
+                context.Updater.ModelState.AddModelError(Prefix, nameof(GraphSyncPartSettings.VisualiserIncomingRelationshipsPathLength),
+                    "Visualiser incoming relationships path length must be greater than 0");
                 valid = false;
             }
 
