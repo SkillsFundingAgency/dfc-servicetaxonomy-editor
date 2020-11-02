@@ -194,7 +194,7 @@
                     "Author": "admin",
                     "SharedContent": {
                         "Content": {
-                            "Html": "<div>\n    <h2 class=\"govuk-heading-m\">Want to speak to an adviser?</h2>\n    <p class=\"govuk-body-m\" style=\"margin-bottom: 0\"><span class=\"govuk-body govuk-!-font-weight-bold\">Call</span> 0800 100 900 or <a class=\"govuk-link\" href=\"/webchat/chat\" rel=\"external\" target=\"'_blank'\">use webchat</a></p>\n    <p class=\"govuk-caption-m\">8am to 10pm, 7 days a week</p>\n</div>"
+                            "Html": "<div><h2 class=\"govuk-heading-m\">Speak to an adviser?</h2><p class=\"govuk-body-m\" style=\"margin-bottom: 0\"><span class=\"govuk-body govuk-!-font-weight-bold\">Call</span> 0800 100 900 or <a class=\"govuk-link\" href=\"/webchat/chat\" rel=\"external\" target=\"'_blank'\">use webchat</a></p><p class=\"govuk-caption-m\">8am-8pm Monday-Friday</p><p class=\"govuk-caption-m\">10am-5pm Saturday</p></div>"
                         }
                     },
                     "GraphSyncPart": {

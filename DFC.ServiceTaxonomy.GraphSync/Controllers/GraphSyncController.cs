@@ -88,7 +88,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.Controllers
             }
             return View(new TriggerSyncValidationViewModel
             {
-                ValidateAndRepairResults = validateAndRepairResults
+                ValidateAndRepairResults = validateAndRepairResults,
+                Scope = scope
             });
         }
     }
