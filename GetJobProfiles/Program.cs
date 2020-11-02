@@ -116,12 +116,12 @@ namespace GetJobProfiles
                 }
             };
 
-            var dysacImporter = new DysacImporter();
+            var dysacImporter = new DysacImporter(oNetConverter.ONetOccupationalCodeToSocCodeDictionary, oNetConverter.ONetOccupationalCodeContentItems);
             using var dysacJobProfileReader = new StreamReader(@"SeedData\dysac_job_profile_mappings.xlsx");
             var dysacJobProfileWorkbook = new XSSFWorkbook(dysacJobProfileReader.BaseStream);
 
             var client = new RestHttpClient.RestHttpClient(httpClient);
-            var converter = new JobProfileConverter(client, socCodeDictionary, oNetDictionary, titleOptionsLookup, dysacImporter.GetSocToPersonalitySkillMappings(dysacJobProfileWorkbook), timestamp);
+            var converter = new JobProfileConverter(client, socCodeDictionary, oNetDictionary, titleOptionsLookup, timestamp);
             await converter.Go(skip, take, napTimeMs, jobProfilesToImport);
 
             var jobProfiles = converter.JobProfiles.ToArray();
@@ -143,6 +143,7 @@ namespace GetJobProfiles
             dysacImporter.ImportTraits(jobCategoryImporter.JobCategoryContentItemIdDictionary, dysacWorkbook, timestamp);
             dysacImporter.ImportShortQuestions(dysacWorkbook, timestamp);
             dysacImporter.ImportQuestionSet(timestamp);
+            dysacImporter.BuildONetOccupationalSkills(dysacJobProfileWorkbook);
 
             const string cypherCommandRecipesPath = "CypherCommandRecipes";
 
@@ -227,7 +228,9 @@ namespace GetJobProfiles
             await BatchSerializeToFiles(converter.Registrations.IdLookup.Select(r => new RegistrationContentItem(GetTitle("Registration", r.Key), timestamp, r.Key, r.Value)), batchSize, $"{filenamePrefix}Registrations");
             await BatchSerializeToFiles(converter.Restrictions.IdLookup.Select(r => new RestrictionContentItem(GetTitle("Restriction", r.Key), timestamp, r.Key, r.Value)), batchSize, $"{filenamePrefix}Restrictions");
             await BatchSerializeToFiles(socCodeConverter.SocCodeContentItems, batchSize, $"{filenamePrefix}SocCodes");
-            await BatchSerializeToFiles(oNetConverter.ONetOccupationalCodeContentItems, batchSize, $"{filenamePrefix}ONetOccupationalCodes");
+
+            await CopyRecipe(contentRecipesPath, "ONetSkill");
+            await BatchSerializeToFiles(oNetConverter.ONetOccupationalCodeContentItems, batchSize, $"{filenamePrefix}ONetOccupationalCodes", CSharpContentStep.StepName);
             await BatchSerializeToFiles(converter.WorkingEnvironments.IdLookup.Select(x => new WorkingEnvironmentContentItem(GetTitle("Environment", x.Key), timestamp, x.Key, x.Value)), batchSize, $"{filenamePrefix}WorkingEnvironments");
             await BatchSerializeToFiles(converter.WorkingLocations.IdLookup.Select(x => new WorkingLocationContentItem(GetTitle("Location", x.Key), timestamp, x.Key, x.Value)), batchSize, $"{filenamePrefix}WorkingLocations");
             await BatchSerializeToFiles(converter.WorkingUniforms.IdLookup.Select(x => new WorkingUniformContentItem(GetTitle("Uniform", x.Key), timestamp, x.Key, x.Value)), batchSize, $"{filenamePrefix}WorkingUniforms");
@@ -240,7 +243,6 @@ namespace GetJobProfiles
             await BatchSerializeToFiles(converter.VolunteeringRoute.ItemToCompositeName.Keys, batchSize, $"{filenamePrefix}VolunteeringRoutes");
             await BatchSerializeToFiles(converter.WorkRoute.ItemToCompositeName.Keys, batchSize, $"{filenamePrefix}WorkRoutes");
 
-            await CopyRecipe(contentRecipesPath, "PersonalitySkill");
             await BatchSerializeToFiles(jobProfiles, jobProfileBatchSize, $"{filenamePrefix}JobProfiles", CSharpContentStep.StepName);
             await BatchSerializeToFiles(jobCategoryImporter.JobCategoryContentItems, batchSize, $"{filenamePrefix}JobCategories");
 

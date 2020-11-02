@@ -6,19 +6,13 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Results.ValidateAndRepair
     {
         public ContentItem ContentItem { get; }
         public string Reason { get; }
-        public FailureType Type { get; }
+        public ValidateType Type { get; }
 
-        public ValidationFailure(ContentItem contentItem, string reason, FailureType type = FailureType.Merge)
+        public ValidationFailure(ContentItem contentItem, string reason, ValidateType type = ValidateType.Merge)
         {
             ContentItem = contentItem;
             Reason = reason;
             Type = type;
         }
-    }
-
-    public enum FailureType
-    {
-        Merge,
-        Delete
     }
 }

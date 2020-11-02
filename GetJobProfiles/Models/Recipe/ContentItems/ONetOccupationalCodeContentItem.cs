@@ -1,4 +1,5 @@
 ﻿using GetJobProfiles.Models.Recipe.ContentItems.Base;
+using GetJobProfiles.Models.Recipe.Fields;
 using GetJobProfiles.Models.Recipe.Parts;
 
 namespace GetJobProfiles.Models.Recipe.ContentItems
@@ -12,9 +13,11 @@ namespace GetJobProfiles.Models.Recipe.ContentItems
         {
             TitlePart = new TitlePart(title);
             GraphSyncPart = new GraphSyncPart(CONTENT_TYPE);
+            EponymousPart = new ONetOccupationalCodePart();
         }
 
         public TitlePart TitlePart { get; set; }
         public GraphSyncPart GraphSyncPart { get; set; }
+        public virtual ONetOccupationalCodePart EponymousPart { get; set; }
     }
 }

@@ -7,6 +7,7 @@ using GetJobProfiles.Models.Recipe.Fields;
 using GetJobProfiles.Models.Recipe.Fields.Factories;
 using GetJobProfiles.Models.Recipe.Parts;
 using GraphQL;
+using NPOI.SS.UserModel;
 using NPOI.XSSF.UserModel;
 using OrchardCore.Entities;
 
@@ -14,7 +15,15 @@ namespace GetJobProfiles.Importers
 {
     public class DysacImporter
     {
+        public DysacImporter(Dictionary<string, string> oNetToSocCodeDictionary, List<ONetOccupationalCodeContentItem> oNetOccupationalCodeContentItems)
+        {
+            _oNetToSocCodeDictionary = oNetToSocCodeDictionary;
+            _oNetOccupationalCodeContentItems = oNetOccupationalCodeContentItems;
+        }
+
         private static readonly DefaultIdGenerator _generator = new DefaultIdGenerator();
+
+        private static ContentPickerFactory ONetSkillsContentPickerFactory = new ContentPickerFactory();
 
         public IEnumerable<PersonalityTraitContentItem> PersonalityTraitContentItems { get; private set; }
 
@@ -23,6 +32,10 @@ namespace GetJobProfiles.Importers
         public IEnumerable<PersonalityQuestionSetContentItem> PersonalityQuestionSetContentItems { get; private set; }
 
         private readonly ContentPickerFactory contentPickerFactory = new ContentPickerFactory();
+
+        private readonly Dictionary<string, string> _oNetToSocCodeDictionary;
+
+        private readonly List<ONetOccupationalCodeContentItem> _oNetOccupationalCodeContentItems;
 
         private Dictionary<string, string> _personalityTraitContentItemDictionary { get; set; }
 
@@ -123,10 +136,26 @@ namespace GetJobProfiles.Importers
             return listToReturn;
         }
 
-        public Dictionary<string, List<string>> GetSocToPersonalitySkillMappings(XSSFWorkbook mappingsWorkbook)
+        public void BuildONetOccupationalSkills(XSSFWorkbook mappingsWorkbook)
         {
             var sheet = mappingsWorkbook.GetSheet("JP Link");
             var dictionaryToReturn = new Dictionary<string, List<string>>();
+
+            LoadONetSkills(sheet, dictionaryToReturn);
+
+            foreach(var item in _oNetOccupationalCodeContentItems)
+            {
+                var skillsToApply = dictionaryToReturn.ContainsKey(item.TitlePart.Title) ? dictionaryToReturn[item.TitlePart.Title] : new List<string>();
+
+                if (skillsToApply.Any())
+                {
+                    item.EponymousPart.ONetSkills = ONetSkillsContentPickerFactory.CreateContentPickerFromContent("ONetSkill", skillsToApply);
+                }
+            }
+        }
+
+        private void LoadONetSkills(ISheet sheet, Dictionary<string, List<string>> dictionaryToReturn)
+        {
 
             //Skip first two rows
             for (int r = 2; r < sheet.PhysicalNumberOfRows; r++)
@@ -139,22 +168,21 @@ namespace GetJobProfiles.Importers
                     var value = row.Cells[c].StringCellValue.Replace("Published", "").Replace($"{socCode}-", "");
 
                     var nonPrefixedSocCode = socCode.Substring(0, 4);
+                    var occupationalCode = _oNetToSocCodeDictionary.ContainsKey(nonPrefixedSocCode) ? _oNetToSocCodeDictionary[nonPrefixedSocCode] : string.Empty;
 
-                    if (dictionaryToReturn.ContainsKey(nonPrefixedSocCode))
+                    if (dictionaryToReturn.ContainsKey(occupationalCode))
                     {
-                        if (!dictionaryToReturn[nonPrefixedSocCode].Contains(value))
+                        if (!dictionaryToReturn[occupationalCode].Contains(value))
                         {
-                            dictionaryToReturn[nonPrefixedSocCode].Add(value);
+                            dictionaryToReturn[occupationalCode].Add(value);
                         }
                     }
                     else
                     {
-                        dictionaryToReturn.Add(nonPrefixedSocCode, new List<string> { value });
+                        dictionaryToReturn.Add(occupationalCode, new List<string> { value });
                     }
                 }
             }
-
-            return dictionaryToReturn;
         }
     }
 }
