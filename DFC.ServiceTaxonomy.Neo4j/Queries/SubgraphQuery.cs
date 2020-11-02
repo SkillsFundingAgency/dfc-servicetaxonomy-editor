@@ -6,93 +6,7 @@ using Neo4j.Driver;
 
 namespace DFC.ServiceTaxonomy.Neo4j.Queries
 {
-    /*
-
-     https://prezi.com/p/owhz2icrbmby/apoc-path-expander-procedures/
-     https://stackoverflow.com/questions/44248154/how-extract-the-complete-trees-in-order-with-cypher
-
-
-match (n:SharedContent)
-  where n.uri = 'http://localhost:7071/api/execute/sharedcontent/0fc70da1-ed83-495d-8972-d9a78c1973c5'
-
-call apoc.path.expand(n, "<", null, 0, 2)
-yield path
-
-with apoc.path.elements(path) as elements
-return elements[0] as sourceNode, collect({firstHopRelationship: elements[1], firstHopNodes: elements[2], hop2Relationship: elements[3], hop2Nodes: elements[4]}) as incoming
-
-//todo: sourceNode, {rel, node, {rel, node, {rel, node, null}}}
-//rather than sourcenode {r1, n1, r2, n2}
-// how to return in the hierarchy we'd have to construct from the returns?
-
-
-
-Option A
-
-easier to generate cypher (but relationships and nodes not labelled)
-
-match (n:SharedContent)
-  where n.uri = //'http://localhost:7071/api/execute/sharedcontent/dfde0410-b1ce-414e-ac2f-f3cffeac4f9b' // no incoming
-  'http://localhost:7071/api/execute/sharedcontent/0fc70da1-ed83-495d-8972-d9a78c1973c5' // 2 degree incoming
-
-call apoc.path.expand(n, "<", null, 0, 2)
-yield path
-
-with apoc.path.elements(path) as elements
-return elements[0] as sourceNode, collect(elements[1..]) as incoming
-
-
-
-
-
-
-match (n:SharedContent)
-  where n.uri = 'http://localhost:7071/api/execute/sharedcontent/0fc70da1-ed83-495d-8972-d9a78c1973c5'
-
-call apoc.path.expand(n, "<", null, 0, 2)
-yield path
-
-with apoc.path.elements(path) as elements
-with elements[0] as sourceNode, collect(distinct {firstHopRelationship: elements[1], firstHopNodes: elements[2]}) as level1, elements
-with sourceNode, [l1 in level1 | {rel: l1.firstHopRelationship, node: l1.firstHopNode, next: collect(distinct {rel: elements[3], nod: elements[4]}) where elements[1].uri = l1.firstHopNode.uri }]
-//  ^^^^ this bit
-return sourceNode, level1, xxx
-
-
-
-//spanning tree?
-
-match (n:SharedContent)
-  where n.uri = 'http://localhost:7071/api/execute/sharedcontent/0fc70da1-ed83-495d-8972-d9a78c1973c5'
-
-call apoc.path.spanningTree(n, {maxLevel: 2, relationshipFilter: '<'})
-yield path
-
-with apoc.path.elements(path) as elements
-return elements
-
-
-// subgraphAll (option B)
-
-match (n:SharedContent)
-  where n.uri = 'http://localhost:7071/api/execute/sharedcontent/0fc70da1-ed83-495d-8972-d9a78c1973c5'
-
-call apoc.path.subgraphAll(n, {maxLevel: 2, relationshipFilter: '<'})
-yield nodes, relationships
-
-return nodes, relationships
-
-
-Option A would be better to create a hierarchy for validation and such like
-
-Option B is probably beter for visualisation, as its what we massage the data into for the visualiser anyway
-
-     */
-
-    //call with relationshipFilter = "<"
-
     //todo: replace usage of NodeWithIncomingRelationshipsQuery with this more general case
-
     public class SubgraphQuery : IQuery<ISubgraph>
     {
         private IEnumerable<string> NodeLabels { get; }
@@ -101,9 +15,8 @@ Option B is probably beter for visualisation, as its what we massage the data in
         private string? RelationshipFilter { get; }
         private int MaxPathLength { get; }
 
-        //todo: finish table from https://neo4j.com/labs/apoc/4.1/graph-querying/expand-subgraph/#expand-subgraph-relationship-filters
         /// <summary>
-        ///
+        /// See https://neo4j.com/labs/apoc/4.1/graph-querying/expand-subgraph/ for underlying cypher.
         /// </summary>
         /// <param name="relationshipFilter">Syntax: [&lt;]RELATIONSHIP_TYPE1[&gt;]|[&lt;]RELATIONSHIP_TYPE2[&gt;]|...
         /// <list type="table">
@@ -113,6 +26,10 @@ Option B is probably beter for visualisation, as its what we massage the data in
         /// <term>Direction</term>
         /// <item><term>null</term><term>any type</term><term>BOTH</term></item>
         /// <item><term>LIKES&gt;</term><term>LIKES</term><term>OUTGOING</term></item>
+        /// <item><term>&lt;FOLLOWS</term><term>FOLLOWS</term><term>INCOMING</term></item>
+        /// <item><term>KNOWS</term><term>KNOWS</term><term>BOTH</term></item>
+        /// <item><term>&gt;</term><term>any type</term><term>OUTGOING</term></item>
+        /// <item><term>&lt;</term><term>any type</term><term>INCOMING</term></item>
         /// </listheader>
         /// </list>
         /// </param>

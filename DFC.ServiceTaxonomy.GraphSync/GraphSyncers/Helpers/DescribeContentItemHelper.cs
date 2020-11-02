@@ -35,7 +35,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
             _graphSyncSettings = graphSyncSettings;
         }
 
-//        public async Task<IEnumerable<IQuery<INodeAndOutRelationshipsAndTheirInRelationships?>>> GetRelationshipCommands<T>(
         public async Task<IEnumerable<IQuery<object?>>> GetRelationshipCommands(
             IDescribeRelationshipsContext context,
             List<ContentItemRelationship> currentList,
@@ -50,8 +49,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
             var allRelationships = await ContentItemRelationshipToCypherHelper.GetRelationships(context, currentList, parentContext, maxVisualiserDepth);
             var uniqueCommands = allRelationships.Select(z => z.RelationshipPathString).GroupBy(x => x).Select(g => g.First());
 
-//            List<IQuery<INodeAndOutRelationshipsAndTheirInRelationships?>> commandsToReturn = BuildOutgoingRelationshipCommands(uniqueCommands);
-
             List<IQuery<object?>> commandsToReturn = BuildOutgoingRelationshipCommands(uniqueCommands);
 
             commandsToReturn.Add(new SubgraphQuery(
@@ -61,30 +58,13 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
                 "<",
                 graphSyncPartSettings?.VisualiserIncomingRelationshipsPathLength ?? 1));
 
-//            commandsToReturn.Add(BuildIncomingRelationshipCommand(context, maxIncomingPathLength));
-            //BuildIncomingRelationshipCommand(commandsToReturn, context, maxIncomingPathLength);
-
             return commandsToReturn;
         }
 
-//https://stackoverflow.com/questions/4522580/generic-list-of-generic-interfaces-not-allowed-any-alternative-approaches
-
-        //todo: return query, rather than pass in commandsToReturn
-        //private IQuery<TRecord> BuildIncomingRelationshipCommand<TRecord>(
-//         private IQuery<INodeWithIncomingRelationships?> BuildIncomingRelationshipCommand(
-//             //List<IQuery<INodeAndOutRelationshipsAndTheirInRelationships?>> commandsToReturn,
-//             IDescribeRelationshipsContext context,
-//             int maxIncomingPathLength)
-//         {
-// //            commandsToReturn.Add(new NodeAndIncomingRelationshipsQuery(context.SourceNodeLabels, context.SourceNodeIdPropertyName, context.SourceNodeId, maxIncomingPathLength));
-//             return new NodeWithIncomingRelationshipsQuery(context.SourceNodeLabels, context.SourceNodeIdPropertyName, context.SourceNodeId, maxIncomingPathLength);
-//         }
-
-//        private static List<IQuery<INodeAndOutRelationshipsAndTheirInRelationships?>> BuildOutgoingRelationshipCommands(IEnumerable<string?> uniqueCommands)
+        //todo: simplify
         private static List<IQuery<object?>> BuildOutgoingRelationshipCommands(IEnumerable<string?> uniqueCommands)
         {
- //           var commandsToReturn = new List<IQuery<INodeAndOutRelationshipsAndTheirInRelationships?>>();
- var commandsToReturn = new List<IQuery<object?>>();
+            var commandsToReturn = new List<IQuery<object?>>();
 
             foreach (var command in uniqueCommands.ToList())
             {
