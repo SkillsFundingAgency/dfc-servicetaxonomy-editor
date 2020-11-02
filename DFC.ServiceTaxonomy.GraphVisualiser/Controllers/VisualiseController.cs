@@ -121,30 +121,6 @@ namespace DFC.ServiceTaxonomy.GraphVisualiser.Controllers
         {
             var graphDataset = await _visualiseGraphSyncer.GetData(contentItemId, graphName, _contentItemVersion!);
 
-            // var relationshipCommands = await _visualiseGraphSyncer.BuildVisualisationCommands(contentItemId, _contentItemVersion!);
-            // var result = await _neoGraphCluster.Run(graph, relationshipCommands.ToArray());
-            //
-            // string owlResponseString = "";
-            // IEnumerable<INode> nodesToProcess = new List<INode>();
-            // long sourceNodeId = 0;
-            // HashSet<IRelationship> relationships = new HashSet<IRelationship>();
-            //
-            // if (result.Any())
-            // {
-            //     //Get all outgoing relationships from the query and add in any source nodes
-            //     nodesToProcess = result.SelectMany(x => x!.OutgoingRelationships.Select(x => x.outgoingRelationship.DestinationNode)).Union(result.GroupBy(x => x!.SourceNode).Select(z => z.FirstOrDefault()!.SourceNode));
-            //     sourceNodeId = result.FirstOrDefault()!.SourceNode.Id;
-            //     relationships = result!.SelectMany(y => y!.OutgoingRelationships.Select(z => z.outgoingRelationship.Relationship)).ToHashSet<IRelationship>();
-            // }
-            //todo: when do we get no results?
-            // else
-            // {
-            //     var nodeOnlyResult = await _neoGraphCluster.Run(graph, new NodeWithOutgoingRelationshipsQuery(_visualiseGraphSyncer.SourceNodeLabels!, _visualiseGraphSyncer.SourceNodeIdPropertyName!, _visualiseGraphSyncer.SourceNodeId!));
-            //     nodesToProcess = nodeOnlyResult.GroupBy(x => x!.SourceNode).Select(z => z.FirstOrDefault()!.SourceNode);
-            //     sourceNodeId = nodeOnlyResult.FirstOrDefault()!.SourceNode.Id;
-            //     relationships = nodeOnlyResult!.SelectMany(y => y!.OutgoingRelationships.Select(z => z.Relationship)).ToHashSet<IRelationship>();
-            // }
-
             var owlDataModel = _neo4JToOwlGeneratorService.CreateOwlDataModels(graphDataset.SelectedNodeId, graphDataset.Nodes!, graphDataset.Relationships!, "skos__prefLabel");
             string owlResponseString = JsonSerializer.Serialize(owlDataModel, _jsonOptions);
             return Content(owlResponseString, MediaTypeNames.Application.Json);
