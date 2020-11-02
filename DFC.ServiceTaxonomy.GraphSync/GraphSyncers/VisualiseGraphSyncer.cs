@@ -23,10 +23,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
         private readonly IGraphCluster _neoGraphCluster;
         private readonly IServiceProvider _serviceProvider;
 
-        // public string? SourceNodeId { get; private set; }
-        // public IEnumerable<string>? SourceNodeLabels { get; private set; }
-        // public string? SourceNodeIdPropertyName { get; private set; }
-
         public VisualiseGraphSyncer(
             IContentManager contentManager,
             ISyncNameProvider syncNameProvider,
@@ -41,7 +37,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             _serviceProvider = serviceProvider;
         }
 
-//        public async Task<IEnumerable<IQuery<INodeAndOutRelationshipsAndTheirInRelationships>>> BuildVisualisationCommands(string contentItemId, IContentItemVersion contentItemVersion)
         private async Task<IEnumerable<IQuery<object?>>> BuildVisualisationCommands(string contentItemId, IContentItemVersion contentItemVersion)
         {
             ContentItem? contentItem = await contentItemVersion.GetContentItem(_contentManager, contentItemId);
@@ -74,11 +69,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             // get all results atomically
             var result = await _neoGraphCluster.Run(graphName, relationshipCommands.ToArray());
 
-            // string owlResponseString = "";
-            // IEnumerable<INode> nodesToProcess = new List<INode>();
-            // long sourceNodeId = 0;
-            // HashSet<IRelationship> relationships = new HashSet<IRelationship>();
-
             var data = new Subgraph();
 
             var inAndOutResults =
@@ -98,6 +88,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
                     .ToHashSet());
             }
 
+            //todo: source node when non returned previously
             var inResults = result.OfType<ISubgraph>().FirstOrDefault();
             if (inResults != null)
             {
@@ -105,19 +96,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             }
 
             return data;
-
-            //todo: when do we get no results?
-            // else
-            // {
-            //     var nodeOnlyResult = await _neoGraphCluster.Run(graph, new NodeWithOutgoingRelationshipsQuery(_visualiseGraphSyncer.SourceNodeLabels!, _visualiseGraphSyncer.SourceNodeIdPropertyName!, _visualiseGraphSyncer.SourceNodeId!));
-            //     nodesToProcess = nodeOnlyResult.GroupBy(x => x!.SourceNode).Select(z => z.FirstOrDefault()!.SourceNode);
-            //     sourceNodeId = nodeOnlyResult.FirstOrDefault()!.SourceNode.Id;
-            //     relationships = nodeOnlyResult!.SelectMany(y => y!.OutgoingRelationships.Select(z => z.Relationship)).ToHashSet<IRelationship>();
-            // }
-
-            // var owlDataModel = _neo4JToOwlGeneratorService.CreateOwlDataModels(sourceNodeId, nodesToProcess, relationships, "skos__prefLabel");
-            // owlResponseString = JsonSerializer.Serialize(owlDataModel, _jsonOptions);
-            // return Content(owlResponseString, MediaTypeNames.Application.Json);
         }
     }
 }
