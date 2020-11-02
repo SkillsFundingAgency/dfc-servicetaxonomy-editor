@@ -9,9 +9,9 @@ using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Helpers;
 using DFC.ServiceTaxonomy.GraphSync.Models;
 using DFC.ServiceTaxonomy.GraphSync.Neo4j.Queries.Interfaces;
 using DFC.ServiceTaxonomy.Neo4j.Queries.Interfaces;
+using DFC.ServiceTaxonomy.Neo4j.Queries.Model;
 using DFC.ServiceTaxonomy.Neo4j.Services.Interfaces;
 using OrchardCore.ContentManagement;
-using Neo4j.Driver;
 
 namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 {
@@ -116,13 +116,5 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             // owlResponseString = JsonSerializer.Serialize(owlDataModel, _jsonOptions);
             // return Content(owlResponseString, MediaTypeNames.Application.Json);
         }
-    }
-
-    public class Subgraph
-    {
-        public long SelectedNodeId { get; set; }
-        //todo: enumerable/hashset
-        public IEnumerable<INode>? Nodes { get; set; }
-        public HashSet<IRelationship>? Relationships  { get; set; }
     }
 }
