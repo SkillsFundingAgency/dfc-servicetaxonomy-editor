@@ -91,6 +91,7 @@ Option B is probably beter for visualisation, as its what we massage the data in
     //call with relationshipFilter = "<"
 
     //todo: replace usage of NodeWithIncomingRelationshipsQuery with this more general case
+
     public class SubgraphQuery : IQuery<ISubgraph?>
     {
         private IEnumerable<string> NodeLabels { get; }
@@ -99,6 +100,21 @@ Option B is probably beter for visualisation, as its what we massage the data in
         private string? RelationshipFilter { get; }
         private int MaxPathLength { get; }
 
+        //todo: finish table from https://neo4j.com/labs/apoc/4.1/graph-querying/expand-subgraph/#expand-subgraph-relationship-filters
+        /// <summary>
+        ///
+        /// </summary>
+        /// <param name="relationshipFilter">Syntax: [&lt;]RELATIONSHIP_TYPE1[&gt;]|[&lt;]RELATIONSHIP_TYPE2[&gt;]|...
+        /// <list type="table">
+        /// <listheader>
+        /// <term>Input</term>
+        /// <term>Type</term>
+        /// <term>Direction</term>
+        /// <item><term>null</term><term>any type</term><term>BOTH</term></item>
+        /// <item><term>LIKES&gt;</term><term>LIKES</term><term>OUTGOING</term></item>
+        /// </listheader>
+        /// </list>
+        /// </param>
         public SubgraphQuery(
             IEnumerable<string> nodeLabels,
             string idPropertyName,
@@ -136,23 +152,19 @@ Option B is probably beter for visualisation, as its what we massage the data in
             {
                 this.CheckIsValid();
 
-                var parameters = new Dictionary<string, object>
+                var parameters = new Dictionary<string, object?>
                 {
                     {"maxLevel", MaxPathLength},
-                    {"idPropertyValue", IdPropertyValue}
+                    {"idPropertyValue", IdPropertyValue},
+                    {"relationshipFilter", RelationshipFilter}
                 };
 
                 return new Query(
                     @$"match (n:{string.Join(":", NodeLabels)} {{{IdPropertyName}:$idPropertyValue}})
-call apoc.path.subgraphAll(n, {{maxLevel: $maxLevel {DefaultNullStringParameter("relationshipFilter", RelationshipFilter)}) yield nodes, relationships
+call apoc.path.subgraphAll(n, {{maxLevel: $maxLevel, relationshipFilter: $relationshipFilter}}) yield nodes, relationships
 return nodes, relationships", parameters);
 
             }
-        }
-
-        private string DefaultNullStringParameter(string parameterName, string? val)
-        {
-            return val == null ? "" : $", {parameterName}: '{val}'";
         }
 
         //null if source node not found
