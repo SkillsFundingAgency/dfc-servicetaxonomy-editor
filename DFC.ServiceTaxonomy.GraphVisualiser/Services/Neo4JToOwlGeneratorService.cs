@@ -12,8 +12,6 @@ namespace DFC.ServiceTaxonomy.GraphVisualiser.Services
 {
     public class Neo4JToOwlGeneratorService : OwlDataGeneratorService, INeo4JToOwlGeneratorService
     {
-        private long minRelationshipId;
-
         private readonly ISyncNameProvider _syncNameProvider;
 
         public Neo4JToOwlGeneratorService(IOptionsMonitor<OwlDataGeneratorConfigModel> owlDataGeneratorConfigModel, ISyncNameProvider syncNameProvider) : base(owlDataGeneratorConfigModel)
@@ -21,11 +19,8 @@ namespace DFC.ServiceTaxonomy.GraphVisualiser.Services
             _syncNameProvider = syncNameProvider;
         }
 
-        public OwlDataModel CreateOwlDataModels(long selectedNodeId, IEnumerable<INode> nodes, HashSet<IRelationship> relationships, string prefLabel)
+        public OwlDataModel CreateOwlDataModels(long? selectedNodeId, IEnumerable<INode> nodes, HashSet<IRelationship> relationships, string prefLabel)
         {
-            //minNodeId = nodes.Keys.Min() - 1;
-            minRelationshipId = relationships.Count > 0 ? relationships.Min(r => r.Id) - 1 : 0;
-
             TransformData(nodes, prefLabel);
             TransformData(relationships);
 
@@ -34,7 +29,7 @@ namespace DFC.ServiceTaxonomy.GraphVisualiser.Services
                 Namespace = CreateNamespaces(),
                 Header = CreateHeader(),
                 Settings = CreateSettings(),
-                Class = nodeDataModels.Select(n => CreateClass(n, $"{selectedNodeId}")).ToList(),
+                Class = nodeDataModels.Select(n => CreateClass(n, selectedNodeId?.ToString())).ToList(),
                 ClassAttribute = nodeDataModels.Select(CreateClassAttribute).ToList(),
                 Property = relationshipDataModels.Select(CreateProperty).ToList(),
                 PropertyAttribute = relationshipDataModels.Select(CreatePropertyAttribute).ToList(),

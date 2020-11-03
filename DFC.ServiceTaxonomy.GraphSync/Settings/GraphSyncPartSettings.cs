@@ -14,6 +14,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.Settings
         public string? IdPropertyName { get; set; }
         public string? GenerateIdPropertyValue { get; set; }
         public bool DisplayId { get; set; }
+        //todo: rename
         public int? VisualiserNodeDepth { get; set; }
+        public int? VisualiserIncomingRelationshipsPathLength { get; set; }
     }
 }
