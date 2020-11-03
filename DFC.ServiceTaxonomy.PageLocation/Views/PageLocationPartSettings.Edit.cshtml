@@ -6,4 +6,10 @@
         <label asp-for="DisplayRedirectLocationsAndDefaultPageForLocation" class="custom-control-label">@T["Display the Default Page at Location, and Redirect Locations fields?"]</label>
         <span class="hint">— @T["Check to display the Default Page at Location, and Redirect Locations fields."]</span>
     </div>
+
+    <div class="form-group mt-4">
+        <label asp-for="DefaultPageLocationPath">@T["Default Page Location Path"]</label>
+        <input asp-for="DefaultPageLocationPath" class="form-control" />
+        <span class="hint">@T["The page location path which should be selected by default when creating new content items."]</span>
+    </div>
 </div>

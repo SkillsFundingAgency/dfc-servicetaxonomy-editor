@@ -504,11 +504,24 @@
                             }
                         },
                         {
+                            "PartName": "PageLocationPart",
+                            "Name": "PageLocationPart",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "1"
+                                },
+                                "PageLocationPartSettings": {
+                                    "DisplayRedirectLocationsAndDefaultPageForLocation": false,
+                                    "DefaultPageLocationPath": "job-categories"
+                                }
+                            }
+                        },
+                        {
                             "PartName": "JobProfile",
                             "Name": "JobProfile",
                             "Settings": {
                                 "ContentTypePartSettings": {
-                                    "Position": "1"
+                                    "Position": "2"
                                 }
                             }
                         },
@@ -517,7 +530,7 @@
                             "Name": "JobProfileHeader",
                             "Settings": {
                                 "ContentTypePartSettings": {
-                                    "Position": "2"
+                                    "Position": "3"
                                 }
                             }
                         },
@@ -526,7 +539,7 @@
                             "Name": "HowToBecome",
                             "Settings": {
                                 "ContentTypePartSettings": {
-                                    "Position": "3"
+                                    "Position": "4"
                                 }
                             }
                         },
@@ -535,7 +548,7 @@
                             "Name": "WhatItTakes",
                             "Settings": {
                                 "ContentTypePartSettings": {
-                                    "Position": "4"
+                                    "Position": "5"
                                 }
                             }
                         },
@@ -544,7 +557,7 @@
                             "Name": "WhatYouWillDo",
                             "Settings": {
                                 "ContentTypePartSettings": {
-                                    "Position": "5"
+                                    "Position": "6"
                                 }
                             }
                         },
@@ -553,7 +566,7 @@
                             "Name": "CareerPath",
                             "Settings": {
                                 "ContentTypePartSettings": {
-                                    "Position": "6"
+                                    "Position": "7"
                                 }
                             }
                         },
@@ -562,7 +575,7 @@
                             "Name": "GraphSyncPart",
                             "Settings": {
                                 "ContentTypePartSettings": {
-                                    "Position": "7"
+                                    "Position": "8"
                                 },
                                 "GraphSyncPartSettings": {
                                     "NodeNameTransform": "ContentType",
@@ -694,7 +707,7 @@
                             "Name": "JobCategory",
                             "Settings": {
                                 "ContentTypePartSettings": {
-                                    "Position": "1"
+                                    "Position": "2"
                                 }
                             }
                         },
@@ -708,11 +721,24 @@
                             }
                         },
                         {
+                            "PartName": "PageLocationPart",
+                            "Name": "PageLocationPart",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "1"
+                                },
+                                "PageLocationPartSettings": {
+                                    "DisplayRedirectLocationsAndDefaultPageForLocation": false,
+                                    "DefaultPageLocationPath": "job-categories" 
+                                }
+                            }
+                        },
+                        {
                             "PartName": "GraphSyncPart",
                             "Name": "GraphSyncPart",
                             "Settings": {
                                 "ContentTypePartSettings": {
-                                    "Position": "2"
+                                    "Position": "3"
                                 },
                                 "GraphSyncPartSettings": {
                                     "NodeNameTransform": "ContentType",
@@ -2650,27 +2676,36 @@
                     "Settings": {},
                     "ContentPartFieldDefinitionRecords": [
                         {
+                            "FieldName": "TaxonomyField",
+                            "Name": "PageLocations",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Page Locations",
+                                    "Position": "0"
+                                },
+                                "ContentIndexSettings": {},
+                                "TaxonomyFieldSettings": {
+                                    "Required": true,
+                                    "TaxonomyContentItemId": "4eembshqzx66drajtdten34tc8",
+                                    "Unique": true
+                                },
+                                "TaxonomyFieldTagsEditorSettings": {
+                                    "Open": false
+                                }
+                            }
+                        },
+                        {
                             "FieldName": "HtmlField",
                             "Name": "Description",
                             "Settings": {
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "Description",
                                     "Editor": "Trumbowyg",
-                                    "Position": "0"
+                                    "Position": "1"
                                 },
                                 "HtmlFieldSettings": {},
                                 "HtmlFieldTrumbowygEditorSettings": {
                                     "Options": "{\r\n    semantic: {\r\n        'b': 'strong',\r\n        'i': 'em',\r\n        's': 'del',\r\n        'strike': 'del',\r\n        'div': 'div'\r\n    },\r\n    tagsToKeep: [\r\n      \"area\",\r\n      \"base\",\r\n      \"br\",\r\n      \"col\",\r\n      \"embed\",\r\n      \"hr\",\r\n      \"img\",\r\n      \"input\",\r\n      \"param\",\r\n      \"source\",\r\n      \"track\",\r\n      \"wbr\",\r\n\r\n      \"div\",\r\n      \"iframe\"\r\n    ],\r\n    autogrow: true,\r\n    btns: [\r\n        [\"viewHTML\"],\r\n        [\"undo\", \"redo\"],\r\n        [\"heading\", \"paragraph\", \"fontSize\"],\r\n        [\"fontWeight\"],\r\n        [\"foreColor\", \"backColor\"],\r\n        [\"links\"],\r\n        [\"image\"],\r\n        [\"align\"],\r\n        [\"list\", \"bulletList\", \"numberList\"],\r\n        [\"sectionBreak\"],\r\n        [\"removeformat\"],\r\n        [\"fullscreen\"],\r\n        [\"accordion\"],\r\n        [\"tabs\"]\r\n    ],\r\n    btnsDef: {\r\n        align: {\r\n            dropdown: [\"justifyLeft\", \"justifyCenter\", \"justifyRight\", \"justifyFull\"],\r\n            ico: \"justifyLeft\"\r\n        },\r\n        image: {\r\n            dropdown: [\"insertImage\", \"base64\", \"noembed\"],\r\n            ico: \"insertImage\"\r\n        }\r\n    },\r\n    plugins: {\r\n      colors: {\r\n          colorList: [\r\n            '0b0c0c',\r\n            '626a6e',\r\n            '1d70b8',\r\n            '003078',\r\n            '4c2c92',\r\n            'b1b4b6',\r\n            'ffdd00',\r\n            'd4351c',\r\n            \r\n            '003a69',\r\n            '347ca9',\r\n            \r\n            '00703c',\r\n            '5694ca',\r\n            'f3f2f1',\r\n            'ffffff',\r\n            '6f72af',\r\n            '912b88',\r\n            'd53880',\r\n            'f499be',\r\n            'f47738',\r\n            'b58840',\r\n            '85994b',\r\n            '28a197',\r\n          ]\r\n      }\r\n  }\r\n}"
-                                }
-                            }
-                        },
-                        {
-                            "FieldName": "TextField",
-                            "Name": "WebsiteURI",
-                            "Settings": {
-                                "ContentPartFieldSettings": {
-                                    "DisplayName": "Website URI",
-                                    "Position": "0"
                                 }
                             }
                         },
@@ -2680,7 +2715,7 @@
                             "Settings": {
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "Job Profiles",
-                                    "Position": "1"
+                                    "Position": "2"
                                 },
                                 "ContentPickerFieldSettings": {
                                     "Hint": "Creates relationships of type [:hasJobProfile].",
@@ -3507,13 +3542,32 @@
                             }
                         },
                         {
+                            "FieldName": "TaxonomyField",
+                            "Name": "PageLocations",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Page Locations",
+                                    "Position": "1"
+                                },
+                                "ContentIndexSettings": {},
+                                "TaxonomyFieldSettings": {
+                                    "Required": true,
+                                    "TaxonomyContentItemId": "4eembshqzx66drajtdten34tc8",
+                                    "Unique": true
+                                },
+                                "TaxonomyFieldTagsEditorSettings": {
+                                    "Open": false
+                                }
+                            }
+                        },
+                        {
                             "FieldName": "ContentPickerField",
                             "Name": "Occupation",
                             "Settings": {
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "Occupation",
                                     "Editor": "Preview",
-                                    "Position": "1"
+                                    "Position": "2"
                                 },
                                 "ContentPickerFieldSettings": {
                                     "Hint": "Creates relationships of type [:relatedOccupation].",
@@ -3533,7 +3587,7 @@
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "Description",
                                     "Editor": "Trumbowyg",
-                                    "Position": "2"
+                                    "Position": "3"
                                 },
                                 "HtmlFieldSettings": {},
                                 "HtmlFieldTrumbowygEditorSettings": {
@@ -3549,7 +3603,7 @@
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "Title Options",
                                     "Editor": "PredefinedList",
-                                    "Position": "3"
+                                    "Position": "4"
                                 },
                                 "TextFieldSettings": {},
                                 "TextFieldPredefinedListEditorSettings": {
@@ -3587,7 +3641,7 @@
                             "Settings": {
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "SOC Code",
-                                    "Position": "4"
+                                    "Position": "5"
                                 },
                                 "ContentPickerFieldSettings": {
                                     "Hint": "Creates relationships of type [:hasSocCode].",
@@ -3605,7 +3659,7 @@
                             "Settings": {
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "ONet Occupational Code",
-                                    "Position": "5"
+                                    "Position": "6"
                                 },
                                 "ContentPickerFieldSettings": {
                                     "Hint": "Creates relationships of type [:hasONetOccupationalCode].",
@@ -3615,16 +3669,6 @@
                                     ]
                                 },
                                 "ContentIndexSettings": {}
-                            }
-                        },
-                        {
-                            "FieldName": "TextField",
-                            "Name": "JobProfileWebsiteUrl",
-                            "Settings": {
-                                "ContentPartFieldSettings": {
-                                    "DisplayName": "Job Profile Website Url",
-                                    "Position": "6"
-                                }
                             }
                         },
                         {
