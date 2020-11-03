@@ -17,6 +17,7 @@ using GetJobProfiles.Models.Recipe.Fields;
 using Microsoft.Extensions.Configuration;
 using MoreLinq;
 using MoreLinq.Extensions;
+using Newtonsoft.Json.Linq;
 using NPOI.XSSF.UserModel;
 
 // when we run this for real, we should run it against prod (or preprod), so that we get the current real details,
@@ -140,6 +141,7 @@ namespace GetJobProfiles
             using var dysacReader = new StreamReader(@"SeedData\dysac.xlsx");
             var dysacWorkbook = new XSSFWorkbook(dysacReader.BaseStream);
 
+            dysacImporter.GenerateJobProfileONetSkillRank(JArray.Parse(File.ReadAllText(@"SeedData\job_profile_onet_skill_rank.json")));
             dysacImporter.ImportTraits(jobCategoryImporter.JobCategoryContentItemIdDictionary, dysacWorkbook, timestamp);
             dysacImporter.ImportShortQuestions(dysacWorkbook, timestamp);
             dysacImporter.ImportQuestionSet(timestamp);

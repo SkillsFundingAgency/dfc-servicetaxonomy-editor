@@ -7,6 +7,8 @@ using GetJobProfiles.Models.Recipe.Fields;
 using GetJobProfiles.Models.Recipe.Fields.Factories;
 using GetJobProfiles.Models.Recipe.Parts;
 using GraphQL;
+using Newtonsoft.Json.Linq;
+using NPOI.SS.Formula.Functions;
 using NPOI.SS.UserModel;
 using NPOI.XSSF.UserModel;
 using OrchardCore.Entities;
@@ -31,9 +33,13 @@ namespace GetJobProfiles.Importers
 
         public IEnumerable<PersonalityQuestionSetContentItem> PersonalityQuestionSetContentItems { get; private set; }
 
+        public List<RelationshipModel> SkillToOccupationRelationships = new List<RelationshipModel>() { get; set; }
+
         private readonly ContentPickerFactory contentPickerFactory = new ContentPickerFactory();
 
         private readonly Dictionary<string, string> _oNetToSocCodeDictionary;
+
+        private readonly Dictionary<string, List<ONetSkillRank>> _oNetOccupationToSkillRank = new Dictionary<string, List<ONetSkillRank>>();
 
         private readonly List<ONetOccupationalCodeContentItem> _oNetOccupationalCodeContentItems;
 
@@ -86,6 +92,31 @@ namespace GetJobProfiles.Importers
                     }
                 }
             };
+        }
+
+        internal void GenerateJobProfileONetSkillRank(JArray jobProfileRankJObject)
+        {
+            foreach (var item in jobProfileRankJObject)
+            {
+                var skills = item["RelatedSkills"].Value<JArray>();
+
+                foreach (var skill in skills)
+                {
+                    var skillName = skill["Skill"].Value<string>();
+                    var rank = skill["ONetRank"].Value<decimal>();
+                    var socCode = skill["Title"].Value<string>().Substring(0, 4);
+                    var occupationalCode = _oNetToSocCodeDictionary.ContainsKey(socCode) ? _oNetToSocCodeDictionary[socCode].ToUpperInvariant() : string.Empty;
+
+                    if (!_oNetOccupationToSkillRank.ContainsKey(occupationalCode))
+                    {
+                        _oNetOccupationToSkillRank.Add(occupationalCode, new List<ONetSkillRank> { new ONetSkillRank { Name = skillName, Rank = rank } });
+                    }
+                    else
+                    {
+                        _oNetOccupationToSkillRank[occupationalCode].Add(new ONetSkillRank { Name = skillName, Rank = rank });
+                    }
+                }
+            }
         }
 
         private IEnumerable<PersonalityShortQuestion> ReadShortQuestionsFromFile(string sheetName, XSSFWorkbook dysacWorkbook)
@@ -143,9 +174,17 @@ namespace GetJobProfiles.Importers
 
             LoadONetSkills(sheet, dictionaryToReturn);
 
-            foreach(var item in _oNetOccupationalCodeContentItems)
+            foreach (var item in _oNetOccupationalCodeContentItems)
             {
+                var skillMapping = _oNetOccupationToSkillRank[item.TitlePart.Title.ToUpperInvariant()];
+
                 var skillsToApply = dictionaryToReturn.ContainsKey(item.TitlePart.Title) ? dictionaryToReturn[item.TitlePart.Title] : new List<string>();
+
+                foreach (var skill in skillsToApply)
+                {
+                    var selectedSkill = skillMapping.FirstOrDefault(x => x.Name.ToUpperInvariant() == skill.ToUpperInvariant());
+                    SkillToOccupationRelationships.Add(new RelationshipModel { Source = item.TitlePart.Title, Destination = selectedSkill.Name, Value = selectedSkill.Rank });
+                }
 
                 if (skillsToApply.Any())
                 {
@@ -156,7 +195,6 @@ namespace GetJobProfiles.Importers
 
         private void LoadONetSkills(ISheet sheet, Dictionary<string, List<string>> dictionaryToReturn)
         {
-
             //Skip first two rows
             for (int r = 2; r < sheet.PhysicalNumberOfRows; r++)
             {
