@@ -231,11 +231,15 @@ You can do this from management studio:
 1) Right-Click on the server instance, select Properties
 2) Select Advanced page, set under Containment the property value to True
 
+<new backups should also contain the content definitions>
+
 ### Restore Graphs
 
 Backups require the use of the `neo4j-admin.bat` utility. The utility is only installed with Neo4j, if you install the Enterprise server edition, rather than the Desktop edition. However, it gets created when you create a graph using the Desktop edition.
 
 `neo4j-admin.bat` doesn't work out of the box, if you only have Neo4j Desktop installed. On Windows, it [requires OracleJDK11 or ZuluJDK11](https://neo4j.com/docs/operations-manual/current/installation/requirements/). As ZuluJDK is open and free, this guide uses that.
+
+#### Install Compatible OpenJDK
 
 Download and install the latest Windows msi from the [download page](https://www.azul.com/downloads/zulu-community/?os=windows&architecture=x86-64-bit&package=jdk). (Neo itself seems to use Zulu, can we just reuse its version?)
 
@@ -255,13 +259,21 @@ OpenJDK Runtime Environment Zulu15.28+13-CA (build 15.0.1+8)
 OpenJDK 64-Bit Server VM Zulu15.28+13-CA (build 15.0.1+8, mixed mode, sharing)
 ```
 
-restore graph
+#### Restore The Graph
 
-latest version allows spaces in path (earlier e.g. 4.0.4 doesn't support spaces in the path)
+Unzip the appropriate backup.
+
+Create a new graph through Desktop. Click 'Manage' and 'Open Folder'. Note the database folder name.
+
+In a command prompt, cd to the database folder name, then the installation* folder, then bin. Run this command, replacing the path to the extracted backup (note the latest Neo db version allows spaces in the path, but earlier versions e.g. 4.0.4, don't)
+
 ```
 neo4j-admin.bat restore --from="I:\stax backups\neo4j-publish" --verbose --database=neo4j --force
 ```
-install apoc
+
+Install apoc.
+
+Start the graph. The number of nodes and relationships should be in the millions.
 
 complains about password
 tried disabling authentication
