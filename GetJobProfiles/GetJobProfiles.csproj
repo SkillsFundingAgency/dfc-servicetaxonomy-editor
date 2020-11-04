@@ -35,6 +35,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="CypherCommandRecipes\ONetSkillMappings.recipe.json" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\DFC.ServiceTaxonomy.GraphSync\DFC.ServiceTaxonomy.GraphSync.csproj" />
   </ItemGroup>
 
