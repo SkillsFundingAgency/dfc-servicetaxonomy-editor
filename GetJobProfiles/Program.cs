@@ -141,7 +141,7 @@ namespace GetJobProfiles
             using var dysacReader = new StreamReader(@"SeedData\dysac.xlsx");
             var dysacWorkbook = new XSSFWorkbook(dysacReader.BaseStream);
 
-            dysacImporter.GenerateJobProfileONetSkillRank(JArray.Parse(File.ReadAllText(@"SeedData\job_profile_onet_skill_rank.json")));
+            dysacImporter.ImportONetSkillRank(jobProfileWorkbook);
             dysacImporter.ImportTraits(jobCategoryImporter.JobCategoryContentItemIdDictionary, dysacWorkbook, timestamp);
             dysacImporter.ImportShortQuestions(dysacWorkbook, timestamp);
             dysacImporter.ImportQuestionSet(timestamp);
@@ -166,7 +166,8 @@ namespace GetJobProfiles
             IDictionary<string, string> tokens = new Dictionary<string, string>
             {
                 {"whereClause", whereClause},
-                {"occupationMatch", occupationMatch }
+                {"occupationMatch", occupationMatch },
+                {"commandText", string.Join($"{Environment.NewLine},", dysacImporter.ONetSkillCypherCommands) }
 
             };
 
@@ -233,6 +234,7 @@ namespace GetJobProfiles
 
             await CopyRecipe(contentRecipesPath, "ONetSkill");
             await BatchSerializeToFiles(oNetConverter.ONetOccupationalCodeContentItems, batchSize, $"{filenamePrefix}ONetOccupationalCodes", CSharpContentStep.StepName);
+            await CopyRecipeWithTokenisation(cypherCommandRecipesPath, "ONetSkillMappings", tokens);
             await BatchSerializeToFiles(converter.WorkingEnvironments.IdLookup.Select(x => new WorkingEnvironmentContentItem(GetTitle("Environment", x.Key), timestamp, x.Key, x.Value)), batchSize, $"{filenamePrefix}WorkingEnvironments");
             await BatchSerializeToFiles(converter.WorkingLocations.IdLookup.Select(x => new WorkingLocationContentItem(GetTitle("Location", x.Key), timestamp, x.Key, x.Value)), batchSize, $"{filenamePrefix}WorkingLocations");
             await BatchSerializeToFiles(converter.WorkingUniforms.IdLookup.Select(x => new WorkingUniformContentItem(GetTitle("Uniform", x.Key), timestamp, x.Key, x.Value)), batchSize, $"{filenamePrefix}WorkingUniforms");
@@ -310,7 +312,6 @@ namespace GetJobProfiles
 
             _importTotalsReport.AppendLine($"{nodeName}: {totalItems}");
         }
-
 
         private static async Task CopyRecipeWithTokenisation(string recipePath, string recipeName, IDictionary<string, string> tokens)
         {

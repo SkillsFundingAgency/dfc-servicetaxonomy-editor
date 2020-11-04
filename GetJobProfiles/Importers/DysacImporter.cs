@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
+using System.Text;
 using GetJobProfiles.Models.API;
 using GetJobProfiles.Models.Recipe.ContentItems;
 using GetJobProfiles.Models.Recipe.Fields;
 using GetJobProfiles.Models.Recipe.Fields.Factories;
 using GetJobProfiles.Models.Recipe.Parts;
 using GraphQL;
-using Newtonsoft.Json.Linq;
-using NPOI.SS.Formula.Functions;
 using NPOI.SS.UserModel;
 using NPOI.XSSF.UserModel;
 using OrchardCore.Entities;
@@ -33,7 +33,9 @@ namespace GetJobProfiles.Importers
 
         public IEnumerable<PersonalityQuestionSetContentItem> PersonalityQuestionSetContentItems { get; private set; }
 
-        public List<RelationshipModel> SkillToOccupationRelationships = new List<RelationshipModel>() { get; set; }
+        public string ONetSkillCypherCommands = string.Empty;
+
+        private List<RelationshipModel> SkillToOccupationRelationships = new List<RelationshipModel>();
 
         private readonly ContentPickerFactory contentPickerFactory = new ContentPickerFactory();
 
@@ -94,26 +96,67 @@ namespace GetJobProfiles.Importers
             };
         }
 
-        internal void GenerateJobProfileONetSkillRank(JArray jobProfileRankJObject)
+        internal void ImportONetSkillRank(XSSFWorkbook jobProfileWorkbook)
         {
-            foreach (var item in jobProfileRankJObject)
+            LoadONetSkillRanks(jobProfileWorkbook);
+
+            var sb = new StringBuilder();
+
+            int totalSkillCount = _oNetOccupationToSkillRank.Sum(z => z.Value.Count);
+            int currentSkill = 1;
+
+            foreach (var occupation in _oNetOccupationToSkillRank)
             {
-                var skills = item["RelatedSkills"].Value<JArray>();
-
-                foreach (var skill in skills)
+                foreach (var skill in occupation.Value)
                 {
-                    var skillName = skill["Skill"].Value<string>();
-                    var rank = skill["ONetRank"].Value<decimal>();
-                    var socCode = skill["Title"].Value<string>().Substring(0, 4);
-                    var occupationalCode = _oNetToSocCodeDictionary.ContainsKey(socCode) ? _oNetToSocCodeDictionary[socCode].ToUpperInvariant() : string.Empty;
+                    if (currentSkill != totalSkillCount)
+                    {
+                        sb.AppendLine($"\"match(o:ONetOccupationalCode{{ skos__prefLabel:'{occupation.Key}'}})-[r:hasONetSkill]-(d{{ skos__prefLabel:'{skill.Name}'}}) set r.ONetRank = {skill.Rank} return o\",");
+                    }
+                    else
+                    {
+                        sb.AppendLine($"\"match(o:ONetOccupationalCode{{ skos__prefLabel:'{occupation.Key}'}})-[r:hasONetSkill]-(d{{ skos__prefLabel:'{skill.Name}'}}) set r.ONetRank = {skill.Rank} return o\"");
+                    }
 
+                    currentSkill++;
+                }
+            }
+
+            ONetSkillCypherCommands = sb.ToString();
+        }
+
+        private void LoadONetSkillRanks(XSSFWorkbook jobProfileWorkbook)
+        {
+            var sheet = jobProfileWorkbook.GetSheet("SocSkillsMatrix");
+
+            var titleIndex = sheet.GetRow(0).Cells.Single(x => x.StringCellValue == "Title").ColumnIndex;
+            var oNetIndex = sheet.GetRow(0).Cells.Single(x => x.StringCellValue == "ONetRank").ColumnIndex;
+
+            for (int i = 1; i <= sheet.LastRowNum; i++)
+            {
+                var row = sheet.GetRow(i);
+
+                var title = row.GetCell(titleIndex).StringCellValue;
+                var splitTitle = title.Split('-');
+
+                var socCode = splitTitle[0].Substring(0, 4);
+                var skillName = splitTitle[1];
+                var rank = decimal.Parse(row.GetCell(oNetIndex).StringCellValue);
+
+                var occupationalCode = _oNetToSocCodeDictionary.ContainsKey(socCode) ? _oNetToSocCodeDictionary[socCode].ToUpperInvariant() : string.Empty;
+
+                if (!string.IsNullOrEmpty(occupationalCode))
+                {
                     if (!_oNetOccupationToSkillRank.ContainsKey(occupationalCode))
                     {
                         _oNetOccupationToSkillRank.Add(occupationalCode, new List<ONetSkillRank> { new ONetSkillRank { Name = skillName, Rank = rank } });
                     }
                     else
                     {
-                        _oNetOccupationToSkillRank[occupationalCode].Add(new ONetSkillRank { Name = skillName, Rank = rank });
+                        if (!_oNetOccupationToSkillRank[occupationalCode].Any(z => z.Name.ToUpperInvariant().Trim() == skillName.ToUpperInvariant()))
+                        {
+                            _oNetOccupationToSkillRank[occupationalCode].Add(new ONetSkillRank { Name = skillName, Rank = rank });
+                        }
                     }
                 }
             }
@@ -176,19 +219,30 @@ namespace GetJobProfiles.Importers
 
             foreach (var item in _oNetOccupationalCodeContentItems)
             {
-                var skillMapping = _oNetOccupationToSkillRank[item.TitlePart.Title.ToUpperInvariant()];
-
-                var skillsToApply = dictionaryToReturn.ContainsKey(item.TitlePart.Title) ? dictionaryToReturn[item.TitlePart.Title] : new List<string>();
-
-                foreach (var skill in skillsToApply)
+                if (!string.IsNullOrEmpty(item.TitlePart.Title))
                 {
-                    var selectedSkill = skillMapping.FirstOrDefault(x => x.Name.ToUpperInvariant() == skill.ToUpperInvariant());
-                    SkillToOccupationRelationships.Add(new RelationshipModel { Source = item.TitlePart.Title, Destination = selectedSkill.Name, Value = selectedSkill.Rank });
-                }
+                    var skillMapping = _oNetOccupationToSkillRank.ContainsKey(item.TitlePart.Title.ToUpperInvariant()) ? _oNetOccupationToSkillRank[item.TitlePart.Title.ToUpperInvariant()] : null;
 
-                if (skillsToApply.Any())
-                {
-                    item.EponymousPart.ONetSkills = ONetSkillsContentPickerFactory.CreateContentPickerFromContent("ONetSkill", skillsToApply);
+                    var skillsToApply = dictionaryToReturn.ContainsKey(item.TitlePart.Title) ? dictionaryToReturn[item.TitlePart.Title] : new List<string>();
+
+                    foreach (var skill in skillsToApply)
+                    {
+                        var selectedSkill = skillMapping?.FirstOrDefault(x => x.Name.ToUpperInvariant() == skill.ToUpperInvariant() || x.Name.ToUpperInvariant().Contains(skill.ToUpperInvariant()));
+
+                        if (selectedSkill != null)
+                        {
+                            SkillToOccupationRelationships.Add(new RelationshipModel { Source = item.TitlePart.Title, Destination = selectedSkill.Name, Value = selectedSkill.Rank });
+                        }
+                        else
+                        {
+                            Console.WriteLine($"No skill mapping found for {skill} in {item.TitlePart.Title}");
+                        }
+                    }
+
+                    if (skillsToApply.Any())
+                    {
+                        item.EponymousPart.ONetSkills = ONetSkillsContentPickerFactory.CreateContentPickerFromContent("ONetSkill", skillsToApply);
+                    }
                 }
             }
         }
