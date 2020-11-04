@@ -47,6 +47,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
 
             try
             {
+                _logger.LogInformation("Running {StepName} for {RecipeName} recipe.", StepName, context.RecipeDescriptor.Name);
+
                 Stopwatch stopwatch = Stopwatch.StartNew();
 
                 CSharpContentStepModel? model = context.Step.ToObject<CSharpContentStepModel>();

@@ -84,6 +84,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
 
             try
             {
+                _logger.LogInformation("Running {StepName} for {RecipeName} recipe.", StepName, context.RecipeDescriptor.Name);
+
                 var step = context.Step.ToObject<CypherToContentStepModel>();
 
                 foreach (CypherToContentModel? cypherToContent in step!.Queries ?? Enumerable.Empty<CypherToContentModel?>())
