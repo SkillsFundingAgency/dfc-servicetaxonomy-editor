@@ -202,17 +202,6 @@ namespace GetJobProfiles
 
             const string contentRecipesPath = "ContentRecipes";
 
-            if (!createTestFiles)
-            {
-                //    await CopyRecipe(contentRecipesPath, "SharedContent");
-                //    await CopyRecipe(contentRecipesPath, "ContentHelp");
-                await CopyRecipe(contentRecipesPath, "EmailTemplates");
-                await CopyRecipe(contentRecipesPath, "ContactUsPages");
-                //      await CopyRecipe(contentRecipesPath, "SkillsToolKit");
-                //    await CopyRecipe(contentRecipesPath, "Taxonomies");
-                //    await CopyRecipe(contentRecipesPath, "TestPages");
-            }
-
             await BatchSerializeToFiles(qcfLevelBuilder.QCFLevelContentItems, batchSize, $"{filenamePrefix}QCFLevels");
             await BatchSerializeToFiles(apprenticeshipStandardImporter.ApprenticeshipStandardRouteContentItems, batchSize, $"{filenamePrefix}ApprenticeshipStandardRoutes");
             await BatchSerializeToFiles(apprenticeshipStandardImporter.ApprenticeshipStandardContentItems, batchSize, $"{filenamePrefix}ApprenticeshipStandards");
