@@ -16,8 +16,6 @@ using GetJobProfiles.Models.Recipe.ContentItems.EntryRoutes.Factories;
 using GetJobProfiles.Models.Recipe.Fields;
 using Microsoft.Extensions.Configuration;
 using MoreLinq;
-using MoreLinq.Extensions;
-using Newtonsoft.Json.Linq;
 using NPOI.XSSF.UserModel;
 
 // when we run this for real, we should run it against prod (or preprod), so that we get the current real details,
@@ -102,10 +100,10 @@ namespace GetJobProfiles
             // max number of contentitems in an import recipe
             const int batchSize = 400;
             const int jobProfileBatchSize = 200;
-            const int occupationLabelsBatchSize = 400;
+            const int occupationLabelsBatchSize = 1000;
             const int occupationsBatchSize = 400;
             const int skillBatchSize = 400;
-            const int skillLabelsBatchSize = 400;
+            const int skillLabelsBatchSize = 1000;
 
             var httpClient = new HttpClient
             {
