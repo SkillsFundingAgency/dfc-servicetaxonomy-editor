@@ -166,9 +166,7 @@ namespace GetJobProfiles
             IDictionary<string, string> tokens = new Dictionary<string, string>
             {
                 {"whereClause", whereClause},
-                {"occupationMatch", occupationMatch },
-                {"commandText", string.Join($"{Environment.NewLine},", dysacImporter.ONetSkillCypherCommands) }
-
+                {"occupationMatch", occupationMatch }
             };
 
             bool excludeGraphContentMutators = bool.Parse(config["ExcludeGraphContentMutators"] ?? "False");
@@ -234,7 +232,13 @@ namespace GetJobProfiles
 
             await CopyRecipe(contentRecipesPath, "ONetSkill");
             await BatchSerializeToFiles(oNetConverter.ONetOccupationalCodeContentItems, batchSize, $"{filenamePrefix}ONetOccupationalCodes", CSharpContentStep.StepName);
-            await CopyRecipeWithTokenisation(cypherCommandRecipesPath, "ONetSkillMappings", tokens);
+
+            await CopyRecipeWithTokenisation(cypherCommandRecipesPath, "ONetSkillMappings", new Dictionary<string, string>
+            {
+                {"commandText", string.Join($"{Environment.NewLine},", dysacImporter.ONetSkillCypherCommands) }
+
+            });
+
             await BatchSerializeToFiles(converter.WorkingEnvironments.IdLookup.Select(x => new WorkingEnvironmentContentItem(GetTitle("Environment", x.Key), timestamp, x.Key, x.Value)), batchSize, $"{filenamePrefix}WorkingEnvironments");
             await BatchSerializeToFiles(converter.WorkingLocations.IdLookup.Select(x => new WorkingLocationContentItem(GetTitle("Location", x.Key), timestamp, x.Key, x.Value)), batchSize, $"{filenamePrefix}WorkingLocations");
             await BatchSerializeToFiles(converter.WorkingUniforms.IdLookup.Select(x => new WorkingUniformContentItem(GetTitle("Uniform", x.Key), timestamp, x.Key, x.Value)), batchSize, $"{filenamePrefix}WorkingUniforms");
