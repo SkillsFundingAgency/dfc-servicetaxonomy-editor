@@ -1,0 +1,258 @@
+{
+  "name": "QCFLevels0_7855a32c-7f9f-42b6-9246-617217b197a1",
+  "displayName": "QCFLevels0_7855a32c-7f9f-42b6-9246-617217b197a1",
+  "description": "",
+  "author": "",
+  "website": "",
+  "version": "",
+  "issetuprecipe": false,
+  "categories": "",
+  "tags": [],
+  "steps": [
+    {
+      "name": "ContentNoCache",
+      "data": [
+  {
+    "QCFLevel": {
+      "Description": {
+        "Html": "\u003Cp\u003EEntry Level\u003C/p\u003E"
+      }
+    },
+    "TitlePart": {
+      "Title": "0"
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/qcflevel/8d3a9fca-6415-4300-9b26-92e462621fbc"
+    },
+    "ContentItemId": "4k3hkjcx76fq651s0dq9tkxcn3",
+    "ContentItemVersionId": "424248yq0mkzhy876t2mmcazcr",
+    "ContentType": "QCFLevel",
+    "DisplayText": "0",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-11-04T10:44:54.3300304Z",
+    "PublishedUtc": "2020-11-04T10:44:54.3300304Z",
+    "CreatedUtc": "2020-11-04T10:44:54.3300304Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "QCFLevel": {
+      "Description": {
+        "Html": "\u003Cp\u003EQualification Level 1\u003C/p\u003E"
+      }
+    },
+    "TitlePart": {
+      "Title": "1"
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/qcflevel/f3431b46-a4bd-4bb5-a5ce-bcff7be4b5e5"
+    },
+    "ContentItemId": "4s2ffrf0meyg71q1r5karebb5t",
+    "ContentItemVersionId": "47k1x2btr2fpbvdgfbezz1pq5g",
+    "ContentType": "QCFLevel",
+    "DisplayText": "1",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-11-04T10:44:54.3300304Z",
+    "PublishedUtc": "2020-11-04T10:44:54.3300304Z",
+    "CreatedUtc": "2020-11-04T10:44:54.3300304Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "QCFLevel": {
+      "Description": {
+        "Html": "\u003Cp\u003EQualification Level 2\u003C/p\u003E"
+      }
+    },
+    "TitlePart": {
+      "Title": "2"
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/qcflevel/863ad161-7d2e-4619-bb25-c31888a5ee5f"
+    },
+    "ContentItemId": "4tjv18hasq9zk65v6n77an3ycq",
+    "ContentItemVersionId": "41cvghxnqnq0b1dv9hq0xfjcxv",
+    "ContentType": "QCFLevel",
+    "DisplayText": "2",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-11-04T10:44:54.3300304Z",
+    "PublishedUtc": "2020-11-04T10:44:54.3300304Z",
+    "CreatedUtc": "2020-11-04T10:44:54.3300304Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "QCFLevel": {
+      "Description": {
+        "Html": "\u003Cp\u003EQualification Level 3\u003C/p\u003E"
+      }
+    },
+    "TitlePart": {
+      "Title": "3"
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/qcflevel/dfe2ae55-db93-4d27-925c-2509684a289e"
+    },
+    "ContentItemId": "4303nzrvx6qyd1pm8h0ywwm9cf",
+    "ContentItemVersionId": "4d1qv3yr8z3n64dcder1rj1k5q",
+    "ContentType": "QCFLevel",
+    "DisplayText": "3",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-11-04T10:44:54.3300304Z",
+    "PublishedUtc": "2020-11-04T10:44:54.3300304Z",
+    "CreatedUtc": "2020-11-04T10:44:54.3300304Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "QCFLevel": {
+      "Description": {
+        "Html": "\u003Cp\u003EQualification Level 4\u003C/p\u003E"
+      }
+    },
+    "TitlePart": {
+      "Title": "4"
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/qcflevel/dd22d675-63ff-406d-9455-35a13f7e9c42"
+    },
+    "ContentItemId": "4bdyqx873nesdtjsz68c9raan6",
+    "ContentItemVersionId": "4s5az0amv6k4mr9d891cf196mn",
+    "ContentType": "QCFLevel",
+    "DisplayText": "4",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-11-04T10:44:54.3300304Z",
+    "PublishedUtc": "2020-11-04T10:44:54.3300304Z",
+    "CreatedUtc": "2020-11-04T10:44:54.3300304Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "QCFLevel": {
+      "Description": {
+        "Html": "\u003Cp\u003EQualification Level 5\u003C/p\u003E"
+      }
+    },
+    "TitlePart": {
+      "Title": "5"
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/qcflevel/2bf65448-9792-43dc-a60c-6608e9644e16"
+    },
+    "ContentItemId": "47yvycxrnv66wzbxj0j0ehaac1",
+    "ContentItemVersionId": "4efsqvv4s8ekav6kka33z90hdy",
+    "ContentType": "QCFLevel",
+    "DisplayText": "5",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-11-04T10:44:54.3300304Z",
+    "PublishedUtc": "2020-11-04T10:44:54.3300304Z",
+    "CreatedUtc": "2020-11-04T10:44:54.3300304Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "QCFLevel": {
+      "Description": {
+        "Html": "\u003Cp\u003EQualification Level 6\u003C/p\u003E"
+      }
+    },
+    "TitlePart": {
+      "Title": "6"
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/qcflevel/21197757-13d9-4b84-b5da-450fa51d5d83"
+    },
+    "ContentItemId": "41t4awygzg8h8yrkr27jtt7jc2",
+    "ContentItemVersionId": "4bb0ecbendxxf2c1bfc7n49fcb",
+    "ContentType": "QCFLevel",
+    "DisplayText": "6",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-11-04T10:44:54.3300304Z",
+    "PublishedUtc": "2020-11-04T10:44:54.3300304Z",
+    "CreatedUtc": "2020-11-04T10:44:54.3300304Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "QCFLevel": {
+      "Description": {
+        "Html": "\u003Cp\u003EQualification Level 7\u003C/p\u003E"
+      }
+    },
+    "TitlePart": {
+      "Title": "7"
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/qcflevel/3751559b-6ce2-4eb1-9fdb-7126988b29c2"
+    },
+    "ContentItemId": "4473hy3s1nxmxvfhs0gyz83r5w",
+    "ContentItemVersionId": "4ekj3kydb06fs7fgk4m32vaen6",
+    "ContentType": "QCFLevel",
+    "DisplayText": "7",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-11-04T10:44:54.3300304Z",
+    "PublishedUtc": "2020-11-04T10:44:54.3300304Z",
+    "CreatedUtc": "2020-11-04T10:44:54.3300304Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "QCFLevel": {
+      "Description": {
+        "Html": "\u003Cp\u003EQualification Level 8\u003C/p\u003E"
+      }
+    },
+    "TitlePart": {
+      "Title": "8"
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/qcflevel/f59c4b08-c4a7-4219-9eba-93310ea24473"
+    },
+    "ContentItemId": "4s7fq95jntgbb0ca5g7f0qjc4j",
+    "ContentItemVersionId": "4mxpjvdjzwjy2vgpdtwx8dq1xa",
+    "ContentType": "QCFLevel",
+    "DisplayText": "8",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-11-04T10:44:54.3300304Z",
+    "PublishedUtc": "2020-11-04T10:44:54.3300304Z",
+    "CreatedUtc": "2020-11-04T10:44:54.3300304Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "QCFLevel": {
+      "Description": {
+        "Html": "\u003Cp\u003ENo qualifications\u003C/p\u003E"
+      }
+    },
+    "TitlePart": {
+      "Title": "99"
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/qcflevel/fd811e4d-bd48-4a21-9278-6273b8d01838"
+    },
+    "ContentItemId": "4tsjw95stse954e0gw50rw5q50",
+    "ContentItemVersionId": "4n8v3f6rw1fqx76nc95jegja5x",
+    "ContentType": "QCFLevel",
+    "DisplayText": "99",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-11-04T10:44:54.3300304Z",
+    "PublishedUtc": "2020-11-04T10:44:54.3300304Z",
+    "CreatedUtc": "2020-11-04T10:44:54.3300304Z",
+    "Owner": "admin",
+    "Author": "admin"
+  }
+      ]
+    }
+  ]
+}

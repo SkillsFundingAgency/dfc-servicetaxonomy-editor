@@ -1,0 +1,21 @@
+{
+    "name": "CreateSkillLabelContentItems1600_7855a32c-7f9f-42b6-9246-617217b197a1",
+    "displayName": "CreateSkillLabelContentItems1600_7855a32c-7f9f-42b6-9246-617217b197a1",
+    "description": "",
+    "author": "",
+    "website": "",
+    "version": "",
+    "issetuprecipe": false,
+    "categories": "",
+    "tags": [],
+    "steps": [
+        {
+            "name": "CypherToContent",
+            "queries": [
+                {
+                    "query": "match (l:SkillLabel)\r\nreturn { ContentType: 'SkillLabel', GraphSyncPart:{Text:l.uri}, TitlePart:{Title:l.skos__prefLabel}} order by l.uri\r\nskip 1600 limit 400"
+                }
+            ]
+        }
+    ]
+}
