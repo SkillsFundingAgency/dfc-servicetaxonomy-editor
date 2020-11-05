@@ -34,9 +34,9 @@ namespace GetJobProfiles.Importers
                 jobCategoryDictionary.Add(uri, categories);
             }
 
-            JobCategoryContentItemIdDictionary = jobCategoryDictionary.SelectMany(z => z.Value).Distinct().Select(jc => new { Id = _generator.GenerateUniqueId(), Title = jc.Trim() }).ToDictionary(y => y.Title, y => y.Id);
+            JobCategoryContentItemIdDictionary = jobCategoryDictionary.SelectMany(z => z.Value).Distinct().Select(jc => new { Id = _generator.GenerateUniqueId(), Title = jc }).ToDictionary(y => y.Title, y => y.Id);
 
-            JobCategoryContentItems = jobCategoryDictionary.SelectMany(dict => dict.Value).Distinct().ToList().Select(z => z.Trim()).Select(category
+            JobCategoryContentItems = jobCategoryDictionary.SelectMany(dict => dict.Value).Distinct().ToList().Select(category
                  => new JobCategoryContentItem(category, timestamp, JobCategoryContentItemIdDictionary[category])
                  {
                      EponymousPart = new JobCategoryPart
