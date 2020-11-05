@@ -49,11 +49,13 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 
             _syncNameProvider.ContentType = contentItem.ContentType;
 
-            string? SourceNodeId = _syncNameProvider.GetIdPropertyValue(graphSyncPartContent, contentItemVersion);
-            IEnumerable<string>? SourceNodeLabels = await _syncNameProvider.NodeLabels();
-            string? SourceNodeIdPropertyName = _syncNameProvider.IdPropertyName();
+            string? sourceNodeId = _syncNameProvider.GetIdPropertyValue(graphSyncPartContent, contentItemVersion);
+            IEnumerable<string> sourceNodeLabels = await _syncNameProvider.NodeLabels();
+            string sourceNodeIdPropertyName = _syncNameProvider.IdPropertyName();
 
-            var rootContext = new DescribeRelationshipsContext(SourceNodeIdPropertyName, SourceNodeId, SourceNodeLabels, contentItem, _syncNameProvider, _contentManager, contentItemVersion, null, _serviceProvider, contentItem);
+            var rootContext = new DescribeRelationshipsContext(
+                sourceNodeIdPropertyName, sourceNodeId, sourceNodeLabels, contentItem, _syncNameProvider,
+                _contentManager, contentItemVersion, null, _serviceProvider, contentItem);
             rootContext.SetContentField(contentItem.Content);
 
             await _describeContentItemHelper.BuildRelationships(contentItem, rootContext);
@@ -95,7 +97,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
                 subgraph = new Subgraph();
             }
 
-            var inResults = result.OfType<ISubgraph>().FirstOrDefault();
+            ISubgraph? inResults = result.OfType<ISubgraph>().FirstOrDefault();
             if (inResults != null)
             {
                 subgraph.Add(inResults);
