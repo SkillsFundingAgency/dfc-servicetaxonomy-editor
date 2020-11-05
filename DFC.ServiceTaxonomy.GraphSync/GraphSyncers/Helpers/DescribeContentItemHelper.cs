@@ -86,11 +86,12 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
 
         public async Task BuildRelationships(ContentItem contentItem, IDescribeRelationshipsContext context)
         {
+            //todo: only 2nd part required?
             if (_encounteredContentItems.Any(x => x == contentItem.ContentItemId) || _encounteredContentTypes.Any(x => x == contentItem.ContentType))
             {
                 return;
             }
-
+            //todo: this is using the taxonomy part to add content picker relationships!! think needs to ask each item syncer if it can sync
             foreach (var itemSync in _contentItemGraphSyncers)
             {
                 await itemSync.AddRelationship(context);

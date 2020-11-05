@@ -44,7 +44,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             {
                 return Enumerable.Empty<IQuery<INodeAndOutRelationshipsAndTheirInRelationships>>();
             }
-
+            //todo: best to not use dynamic
             dynamic? graphSyncPartContent = contentItem.Content[nameof(GraphSyncPart)];
 
             _syncNameProvider.ContentType = contentItem.ContentType;
@@ -60,6 +60,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 
             await _describeContentItemHelper.BuildRelationships(contentItem, rootContext);
 
+            //todo: return relationships - can we do it without creating cypher outside of a query?
             var relationships = new List<ContentItemRelationship>();
             return await _describeContentItemHelper.GetRelationshipCommands(rootContext, relationships, rootContext);
         }
