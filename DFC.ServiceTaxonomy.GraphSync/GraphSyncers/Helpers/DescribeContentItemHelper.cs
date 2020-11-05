@@ -52,6 +52,10 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
             List<IQuery<object?>> commandsToReturn = uniqueCommands
                 .Select(c => new NodeAndNestedOutgoingRelationshipsQuery(c!)).Cast<IQuery<object?>>().ToList();
 
+            //todo: for occupation and skill, we need to filter out nodes that have just the skos__Concept and Resource labels
+            // but allow other nodes that have a skos__Concept label, such as occupations and skills
+            // (or filter on relationships, whitelist whatever)
+            //todo: add a setting to graphsyncsettings for the filtering (for now we'll set incoming to 0 for occs & skills)
             commandsToReturn.Add(new SubgraphQuery(
                 context.SourceNodeLabels,
                 context.SourceNodeIdPropertyName,

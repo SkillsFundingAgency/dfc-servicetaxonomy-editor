@@ -72,7 +72,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
         public DisposeAction PushPropertyNameTransform(Func<string, string> nodePropertyTranformer)
         {
             _propertyNameTransformers.Push(nodePropertyTranformer);
-            return new DisposeAction(() => PopPropertyNameTransform());
+            return new DisposeAction(PopPropertyNameTransform);
         }
 
         public void PopPropertyNameTransform()
@@ -195,6 +195,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
         //todo: replace consumers with nameof(GraphSyncPart.Text)
         public string ContentIdPropertyName => "Text";
 
+        //todo: rename
+        //todo: shared code
         public object? GetIdPropertyValue(
             JObject graphSyncContent,
             IContentItemVersion contentItemVersion,
@@ -223,14 +225,85 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
             return idString;
         }
 
+        //todo: shared code
+        public object? GetEventIdPropertyValue(
+            JObject graphSyncContent,
+            IContentItemVersion contentItemVersion)
+        {
+            object? idValue = graphSyncContent[ContentIdPropertyName]?.ToObject<object?>();
+
+            string? idString = idValue as string;
+            if (idString == null)
+                return idValue;
+
+            string fromContentApiBaseUrl = _superpositionContentItemVersion.ContentApiBaseUrl;
+
+            if (!idString.StartsWith(fromContentApiBaseUrl, StringComparison.OrdinalIgnoreCase))
+            {
+                //todo: should we throw? do all consumers handle this ok?
+                throw new InvalidOperationException($"Unexpected IdPropertyValue '{idString}'. Expecting it to start with '{fromContentApiBaseUrl}'.");
+            }
+
+            string toContentApiBaseUrl = contentItemVersion.ContentApiBaseUrl;
+
+            return idString.Replace(fromContentApiBaseUrl, toContentApiBaseUrl, StringComparison.OrdinalIgnoreCase);
+        }
+
+        public object? GetNodeIdPropertyValue(
+            JObject graphSyncContent,
+            IContentItemVersion contentItemVersion)
+        {
+            CheckPreconditions();
+
+            object? idValue = graphSyncContent[ContentIdPropertyName]?.ToObject<object?>();
+
+            string? idString = idValue as string;
+            if (idString == null)
+                return idValue;
+
+            string fromContentApiBaseUrl = _superpositionContentItemVersion.ContentApiBaseUrl;
+
+            if (!idString.StartsWith(fromContentApiBaseUrl, StringComparison.OrdinalIgnoreCase))
+            {
+                //todo: should we throw? do all consumers handle this ok?
+                throw new InvalidOperationException($"Unexpected IdPropertyValue '{idString}'. Expecting it to start with '{fromContentApiBaseUrl}'.");
+            }
+
+            string toContentApiBaseUrl = GetContentApiBaseUrlWithPreexistingOverride(contentItemVersion);
+
+            return idString.Replace(fromContentApiBaseUrl, toContentApiBaseUrl, StringComparison.OrdinalIgnoreCase);
+        }
+
+        private string GetContentApiBaseUrlWithPreexistingOverride(IContentItemVersion contentItemVersion)
+        {
+            if (!_graphSyncPartSettings!.PreexistingNode)
+                return contentItemVersion.ContentApiBaseUrl;
+
+            if (_graphSyncPartSettings.PreExistingNodeUriPrefix == null)
+                throw new InvalidOperationException("Bad GraphSyncPart settings: PreexistingNode is true, but PreExistingNodeUriPrefix is null.");
+
+            return _graphSyncPartSettings.PreExistingNodeUriPrefix;
+        }
+
         public string IdPropertyValueFromNodeValue(string nodeIdValue, IContentItemVersion contentItemVersion)
         {
+            CheckPreconditions();
+
+            string fromContentApiBaseUrl = GetContentApiBaseUrlWithPreexistingOverride(contentItemVersion);
+
+            if (!nodeIdValue.StartsWith(fromContentApiBaseUrl, StringComparison.OrdinalIgnoreCase))
+            {
+                //todo: should we throw? do all consumers handle this ok?
+                throw new InvalidOperationException($"Unexpected node IdPropertyValue '{nodeIdValue}'. Expecting it to start with '{fromContentApiBaseUrl}'.");
+            }
+
             return nodeIdValue.Replace(
-                contentItemVersion.ContentApiBaseUrl,
+                fromContentApiBaseUrl,
                 _superpositionContentItemVersion.ContentApiBaseUrl,
                 StringComparison.OrdinalIgnoreCase);
         }
 
+        //todo: does this version need to take preexisting node into consideration?
         //todo: new ContentItemVersion (similar to neutral) with ContentApiPrefixToken as ContentApiBaseUrl and have one version of this method with default from?
         public string IdPropertyValueFromNodeValue(
             string nodeIdValue,

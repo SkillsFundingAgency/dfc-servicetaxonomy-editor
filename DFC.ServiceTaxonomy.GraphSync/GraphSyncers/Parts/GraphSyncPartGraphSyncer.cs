@@ -1,5 +1,4 @@
 using System.Threading.Tasks;
-using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.ContentItemVersions;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Contexts;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Parts;
 using DFC.ServiceTaxonomy.GraphSync.Models;
@@ -9,19 +8,13 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
 {
     public class GraphSyncPartGraphSyncer : ContentPartGraphSyncer, IGraphSyncPartGraphSyncer
     {
-        private readonly IPreExistingContentItemVersion _preExistingContentItemVersion;
-
-        public GraphSyncPartGraphSyncer(IPreExistingContentItemVersion preExistingContentItemVersion)
-        {
-            _preExistingContentItemVersion = preExistingContentItemVersion;
-        }
-
         public override int Priority { get => int.MaxValue; }
         public override string PartName => nameof(GraphSyncPart);
 
         public override Task AddSyncComponents(JObject content, IGraphMergeContext context)
         {
-            object? idValue = context.SyncNameProvider.GetIdPropertyValue(content, context.ContentItemVersion);
+            //todo: don't think it gets here for readonly nodes, but this didn't used to take into account preexisting node, so the behaviours changed, so need to test it
+            object? idValue = context.SyncNameProvider.GetNodeIdPropertyValue(content, context.ContentItemVersion);
             if (idValue != null)
             {
                 // id is added as a special case as part of SyncAllowed,
@@ -49,13 +42,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
             JObject content,
             IValidateAndRepairContext context)
         {
-            var syncSettings = context.SyncNameProvider.GetGraphSyncPartSettings(context.ContentItem.ContentType);
-
-            if (syncSettings.PreexistingNode)
-            {
-                _preExistingContentItemVersion.SetContentApiBaseUrl(syncSettings.PreExistingNodeUriPrefix);
-            }
-
+            //todo: assumes string id
             return Task.FromResult(context.GraphValidationHelper.ContentPropertyMatchesNodeProperty(
                 context.SyncNameProvider.ContentIdPropertyName,
                 content,
@@ -64,7 +51,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
                 (contentValue, nodeValue) =>
                     nodeValue is string nodeValueString
                     && Equals((string)contentValue!,
-                        context.SyncNameProvider.IdPropertyValueFromNodeValue(nodeValueString, syncSettings.PreexistingNode ? _preExistingContentItemVersion : context.ContentItemVersion))));
+                        context.SyncNameProvider.IdPropertyValueFromNodeValue(nodeValueString, context.ContentItemVersion))));
         }
     }
 }

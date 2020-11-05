@@ -37,7 +37,10 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             _serviceProvider = serviceProvider;
         }
 
-        private async Task<IEnumerable<IQuery<object?>>> BuildVisualisationCommands(string contentItemId, IContentItemVersion contentItemVersion)
+        //todo: if issue with data, don't just hang visualiser
+        private async Task<IEnumerable<IQuery<object?>>> BuildVisualisationCommands(
+            string contentItemId,
+            IContentItemVersion contentItemVersion)
         {
             ContentItem? contentItem = await contentItemVersion.GetContentItem(_contentManager, contentItemId);
             if (contentItem == null)
@@ -49,7 +52,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 
             _syncNameProvider.ContentType = contentItem.ContentType;
 
-            string? sourceNodeId = _syncNameProvider.GetIdPropertyValue(graphSyncPartContent, contentItemVersion);
+            string? sourceNodeId = _syncNameProvider.GetNodeIdPropertyValue(graphSyncPartContent, contentItemVersion);
             IEnumerable<string> sourceNodeLabels = await _syncNameProvider.NodeLabels();
             string sourceNodeIdPropertyName = _syncNameProvider.IdPropertyName();
 

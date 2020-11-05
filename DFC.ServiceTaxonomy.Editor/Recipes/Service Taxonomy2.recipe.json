@@ -419,7 +419,8 @@
                                     "IdPropertyName": "uri",
                                     "GenerateIdPropertyValue": "$\"http://data.europa.eu/esco/{ContentType.ToLowerInvariant()}/{Value}\"",
                                     "PreExistingNodeUriPrefix": "http://data.europa.eu/esco",
-                                    "DisplayId": true
+                                    "DisplayId": true,
+                                    "VisualiserIncomingRelationshipsPathLength": 0
                                 },
                                 "ContentIndexSettings": {}
                             }
@@ -860,7 +861,8 @@
                                     "IdPropertyName": "uri",
                                     "GenerateIdPropertyValue": "$\"http://data.europa.eu/esco/{ContentType.ToLowerInvariant()}/{Value}\"",
                                     "PreExistingNodeUriPrefix": "http://data.europa.eu/esco",
-                                    "DisplayId": true
+                                    "DisplayId": true,
+                                    "VisualiserIncomingRelationshipsPathLength": 0
                                 }
                             }
                         }
