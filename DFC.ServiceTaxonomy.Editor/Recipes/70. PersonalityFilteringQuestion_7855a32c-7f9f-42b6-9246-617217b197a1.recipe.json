@@ -25,9 +25,9 @@
                     "Owner": "admin",
                     "Author": "admin",
                     "PersonalityFilteringQuestion": {
-                        "PersonalitySkill": {
+                        "ONetSkill": {
                             "ContentItemIds": [
-                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"PersonalitySkill\", \"Concern for Others\")\u00BB"
+                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"ONetSkill\", \"Concern for Others\")\u00BB"
                             ]
                         },
                         "Text": {
@@ -54,9 +54,9 @@
                     "Owner": "admin",
                     "Author": "admin",
                     "PersonalityFilteringQuestion": {
-                        "PersonalitySkill": {
+                        "ONetSkill": {
                             "ContentItemIds": [
-                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"PersonalitySkill\", \"Fine Manipulative Abilities\")\u00BB"
+                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"ONetSkill\", \"Fine Manipulative Abilities\")\u00BB"
                             ]
                         },
                         "Text": {
@@ -83,9 +83,9 @@
                     "Owner": "admin",
                     "Author": "admin",
                     "PersonalityFilteringQuestion": {
-                        "PersonalitySkill": {
+                        "ONetSkill": {
                             "ContentItemIds": [
-                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"PersonalitySkill\", \"Adaptability/Flexibility\")\u00BB"
+                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"ONetSkill\", \"Adaptability/Flexibility\")\u00BB"
                             ]
                         },
                         "Text": {
@@ -112,9 +112,9 @@
                     "Owner": "admin",
                     "Author": "admin",
                     "PersonalityFilteringQuestion": {
-                        "PersonalitySkill": {
+                        "ONetSkill": {
                             "ContentItemIds": [
-                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"PersonalitySkill\", \"Reading Comprehension\")\u00BB"
+                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"ONetSkill\", \"Reading Comprehension\")\u00BB"
                             ]
                         },
                         "Text": {
@@ -141,9 +141,9 @@
                     "Owner": "admin",
                     "Author": "admin",
                     "PersonalityFilteringQuestion": {
-                        "PersonalitySkill": {
+                        "ONetSkill": {
                             "ContentItemIds": [
-                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"PersonalitySkill\", \"Stress Tolerance\")\u00BB"
+                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"ONetSkill\", \"Stress Tolerance\")\u00BB"
                             ]
                         },
                         "Text": {
@@ -170,9 +170,9 @@
                     "Owner": "admin",
                     "Author": "admin",
                     "PersonalityFilteringQuestion": {
-                        "PersonalitySkill": {
+                        "ONetSkill": {
                             "ContentItemIds": [
-                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"PersonalitySkill\", \"Verbal Abilities\")\u00BB"
+                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"ONetSkill\", \"Verbal Abilities\")\u00BB"
                             ]
                         },
                         "Text": {
@@ -199,9 +199,9 @@
                     "Owner": "admin",
                     "Author": "admin",
                     "PersonalityFilteringQuestion": {
-                        "PersonalitySkill": {
+                        "ONetSkill": {
                             "ContentItemIds": [
-                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"PersonalitySkill\", \"Initiative\")\u00BB"
+                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"ONetSkill\", \"Initiative\")\u00BB"
                             ]
                         },
                         "Text": {
@@ -228,9 +228,9 @@
                     "Owner": "admin",
                     "Author": "admin",
                     "PersonalityFilteringQuestion": {
-                        "PersonalitySkill": {
+                        "ONetSkill": {
                             "ContentItemIds": [
-                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"PersonalitySkill\", \"Cooperation\")\u00BB"
+                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"ONetSkill\", \"Cooperation\")\u00BB"
                             ]
                         },
                         "Text": {
@@ -257,9 +257,9 @@
                     "Owner": "admin",
                     "Author": "admin",
                     "PersonalityFilteringQuestion": {
-                        "PersonalitySkill": {
+                        "ONetSkill": {
                             "ContentItemIds": [
-                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"PersonalitySkill\", \"Analytical Thinking\")\u00BB"
+                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"ONetSkill\", \"Analytical Thinking\")\u00BB"
                             ]
                         },
                         "Text": {
@@ -286,9 +286,9 @@
                     "Owner": "admin",
                     "Author": "admin",
                     "PersonalityFilteringQuestion": {
-                        "PersonalitySkill": {
+                        "ONetSkill": {
                             "ContentItemIds": [
-                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"PersonalitySkill\", \"Speaking, Verbal Abilities\")\u00BB"
+                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"ONetSkill\", \"Speaking, Verbal Abilities\")\u00BB"
                             ]
                         },
                         "Text": {
@@ -315,9 +315,9 @@
                     "Owner": "admin",
                     "Author": "admin",
                     "PersonalityFilteringQuestion": {
-                        "PersonalitySkill": {
+                        "ONetSkill": {
                             "ContentItemIds": [
-                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"PersonalitySkill\", \"Quantitative Abilities, Mathematics Knowledge\")\u00BB"
+                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"ONetSkill\", \"Quantitative Abilities, Mathematics Knowledge\")\u00BB"
                             ]
                         },
                         "Text": {
@@ -344,9 +344,9 @@
                     "Owner": "admin",
                     "Author": "admin",
                     "PersonalityFilteringQuestion": {
-                        "PersonalitySkill": {
+                        "ONetSkill": {
                             "ContentItemIds": [
-                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"PersonalitySkill\", \"Self Control\")\u00BB"
+                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"ONetSkill\", \"Self Control\")\u00BB"
                             ]
                         },
                         "Text": {
