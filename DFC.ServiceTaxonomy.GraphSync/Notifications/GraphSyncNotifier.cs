@@ -128,7 +128,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Notifications
         {
             if (_logger.IsEnabled(LogLevel.Information))
             {
-                _logger.LogInformation(exception, "Notification '{NotificationType}' with user message '{NotificationUserMessage}' and technical message '{NotificationTechnicalMessage}' and exception '{Exception}'}.",
+                _logger.LogInformation(exception, "Notification '{NotificationType}' with user message '{NotificationUserMessage}' and technical message '{NotificationTechnicalMessage}' and exception '{Exception}'.",
                     type, userMessage, technicalMessage, exception?.ToString() ?? "None");
             }
 

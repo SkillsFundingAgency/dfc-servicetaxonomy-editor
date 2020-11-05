@@ -23,6 +23,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Settings
         public string? IdPropertyName { get; set; }
         public string? GenerateIdPropertyValue { get; set; }
         public int? VisualiserNodeDepth { get; set; }
+        public int? VisualiserIncomingRelationshipsPathLength { get; set; }
         public bool DisplayId { get; set; }
         public bool ReadOnly { get; internal set; }
         public string? PreExistingNodeUriPrefix { get; set; }

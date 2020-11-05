@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
+using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.ContentItemVersions;
+using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.ContentItemVersions;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts;
 using FakeItEasy;
 using Newtonsoft.Json.Linq;
@@ -17,7 +19,9 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Parts.GraphSyncPa
             A.CallTo(() => SyncNameProvider.ContentIdPropertyName).Returns(ContentIdPropertyName);
             A.CallTo(() => SyncNameProvider.IdPropertyName()).Returns(NodeTitlePropertyName);
 
-            ContentPartGraphSyncer = new GraphSyncPartGraphSyncer();
+            IPreExistingContentItemVersion preExistingContentItemVersion = new PreExistingContentItemVersion();
+
+            ContentPartGraphSyncer = new GraphSyncPartGraphSyncer(preExistingContentItemVersion);
         }
 
         [Theory]

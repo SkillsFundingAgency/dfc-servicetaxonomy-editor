@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using OrchardCore.ContentManagement;
 
 namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Results.ValidateAndRepair
 {
@@ -11,9 +10,9 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Results.ValidateAndRepair
         public string GraphName { get; }
         public bool DefaultGraph { get; }
 
-        public List<ContentItem> Validated { get; } = new List<ContentItem>();
+        public List<ValidatedContentItem> Validated { get; } = new List<ValidatedContentItem>();
         public List<ValidationFailure> ValidationFailures { get; } = new List<ValidationFailure>();
-        public List<ContentItem> Repaired { get; } = new List<ContentItem>();
+        public List<ValidatedContentItem> Repaired { get; } = new List<ValidatedContentItem>();
         public List<RepairFailure> RepairFailures { get; } = new List<RepairFailure>();
 
         public ValidateAndRepairResult(
