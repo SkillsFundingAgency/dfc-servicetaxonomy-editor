@@ -60,13 +60,12 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Helpers
             JObject graphSyncContent,
             IContentItemVersion contentItemVersion);
 
-        //string IdPropertyValueFromNodeValue(string nodeIdValue, IContentItemVersion contentItemVersion);
-        string IdPropertyValueFromNodeValue(
+        string ConvertIdPropertyValue(
             string nodeIdValue,
-            IContentItemVersion fromContentItemVersion,
-            IContentItemVersion toContentItemVersion);
+            IContentItemVersion toContentItemVersion,
+            params IContentItemVersion[] fromContentItemVersions);
 
         #endregion stateless
     }
-    #pragma warning restore S4136
+#pragma warning restore S4136
 }

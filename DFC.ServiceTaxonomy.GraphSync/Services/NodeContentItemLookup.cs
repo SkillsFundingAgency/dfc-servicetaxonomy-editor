@@ -13,19 +13,22 @@ namespace DFC.ServiceTaxonomy.GraphSync.Services
     public class NodeContentItemLookup : INodeContentItemLookup
     {
         private readonly IContentItemVersionFactory _contentItemVersionFactory;
-        private readonly ISuperpositionContentItemVersion _superpositionContentItemVersion;
         private readonly ISyncNameProvider _syncNameProvider;
+        private readonly ISuperpositionContentItemVersion _superpositionContentItemVersion;
+        private readonly IEscoContentItemVersion _escoContentItemVersion;
         private readonly ISession _session;
 
         public NodeContentItemLookup(
             IContentItemVersionFactory contentItemVersionFactory,
-            ISuperpositionContentItemVersion superpositionContentItemVersion,
             ISyncNameProvider syncNameProvider,
+            ISuperpositionContentItemVersion _superpositionContentItemVersion,
+            IEscoContentItemVersion escoContentItemVersion,
             ISession session)
         {
             _contentItemVersionFactory = contentItemVersionFactory;
-            _superpositionContentItemVersion = superpositionContentItemVersion;
             _syncNameProvider = syncNameProvider;
+            this._superpositionContentItemVersion = _superpositionContentItemVersion;
+            _escoContentItemVersion = escoContentItemVersion;
             _session = session;
         }
 
@@ -34,10 +37,18 @@ namespace DFC.ServiceTaxonomy.GraphSync.Services
         {
             IContentItemVersion contentItemVersion = _contentItemVersionFactory.Get(graphReplicaSetName);
 
-            string graphSyncNodeId = _syncNameProvider.IdPropertyValueFromNodeValue(nodeId, contentItemVersion, _superpositionContentItemVersion);
+            // what we should be doing, but we'd have to pass along the node labels to get the content type
+            //ISyncNameProvider syncNameProvider = _serviceProvider.GetRequiredService<ISyncNameProvider>();
+            //syncNameProvider.ContentType = pickedContentType;
 
-            var contentItems = await _session.Query<ContentItem, GraphSyncPartIndex>(
-                x => x.NodeId == graphSyncNodeId)
+            //string graphSyncNodeId = syncNameProvider.IdPropertyValueFromNodeValue(nodeId, contentItemVersion);
+
+            string graphSyncNodeId = _syncNameProvider.ConvertIdPropertyValue(nodeId,
+                _superpositionContentItemVersion,
+                contentItemVersion, _escoContentItemVersion);
+
+            var contentItems = await _session
+                .Query<ContentItem, GraphSyncPartIndex>(x => x.NodeId == graphSyncNodeId)
                 .ListAsync();
 
             return contentItems?.FirstOrDefault()?.ContentItemId;

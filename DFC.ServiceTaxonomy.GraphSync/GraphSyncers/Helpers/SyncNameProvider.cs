@@ -285,6 +285,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
             return _graphSyncPartSettings.PreExistingNodeUriPrefix;
         }
 
+        //todo: rename IdPropertyValueFromNodeId
         public string IdPropertyValueFromNodeValue(string nodeIdValue, IContentItemVersion contentItemVersion)
         {
             CheckPreconditions();
@@ -306,15 +307,20 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
 
         //todo: does this version need to take preexisting node into consideration?
         //todo: new ContentItemVersion (similar to neutral) with ContentApiPrefixToken as ContentApiBaseUrl and have one version of this method with default from?
-        public string IdPropertyValueFromNodeValue(
+        public string ConvertIdPropertyValue(
             string nodeIdValue,
-            IContentItemVersion fromContentItemVersion,
-            IContentItemVersion toContentItemVersion)
+            IContentItemVersion toContentItemVersion,
+            params IContentItemVersion[] fromContentItemVersions)
         {
-            return nodeIdValue.Replace(
-                fromContentItemVersion.ContentApiBaseUrl,
-                toContentItemVersion.ContentApiBaseUrl,
-                StringComparison.OrdinalIgnoreCase);
+            foreach (var fromContentItemVersion in fromContentItemVersions)
+            {
+                nodeIdValue = nodeIdValue.Replace(
+                    fromContentItemVersion.ContentApiBaseUrl,
+                    toContentItemVersion.ContentApiBaseUrl,
+                    StringComparison.OrdinalIgnoreCase);
+            }
+
+            return nodeIdValue;
         }
 
         private void CheckPreconditions()
