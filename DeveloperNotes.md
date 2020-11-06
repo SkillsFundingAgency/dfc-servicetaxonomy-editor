@@ -1,12 +1,5 @@
 #ToDo
 
-
-* master recipe doesn't contain taxonomy, but does contain ContactUsPages which requires it!!!
-
-skipped occupation couldn't find label
-
-
-
 * in the grand tradition of esco always having 1 exception to the rule, 'types of wood materials' is both a skill and knowledge
   (http://data.europa.eu/esco/skill/fb6f5f61-f3b8-40ba-8363-c8d762325ff7)
   guessing it shouldn't be a skill
