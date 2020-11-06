@@ -238,11 +238,11 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
 
             string fromContentApiBaseUrl = _superpositionContentItemVersion.ContentApiBaseUrl;
 
-            if (!idString.StartsWith(fromContentApiBaseUrl, StringComparison.OrdinalIgnoreCase))
-            {
-                //todo: should we throw? do all consumers handle this ok?
-                throw new InvalidOperationException($"Unexpected IdPropertyValue '{idString}'. Expecting it to start with '{fromContentApiBaseUrl}'.");
-            }
+            //if (!idString.StartsWith(fromContentApiBaseUrl, StringComparison.OrdinalIgnoreCase))
+            //{
+            //    //todo: should we throw? do all consumers handle this ok?
+            //    throw new InvalidOperationException($"Unexpected IdPropertyValue '{idString}'. Expecting it to start with '{fromContentApiBaseUrl}'.");
+            //}
 
             string toContentApiBaseUrl = contentItemVersion.ContentApiBaseUrl;
 
@@ -263,11 +263,12 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
 
             string fromContentApiBaseUrl = _superpositionContentItemVersion.ContentApiBaseUrl;
 
-            if (!idString.StartsWith(fromContentApiBaseUrl, StringComparison.OrdinalIgnoreCase))
-            {
-                //todo: should we throw? do all consumers handle this ok?
-                throw new InvalidOperationException($"Unexpected IdPropertyValue '{idString}'. Expecting it to start with '{fromContentApiBaseUrl}'.");
-            }
+            //todo: this assumes id is of the form <<contentapiprefix>> : setting?
+            //if (!idString.StartsWith(fromContentApiBaseUrl, StringComparison.OrdinalIgnoreCase))
+            //{
+            //    //todo: should we throw? do all consumers handle this ok?
+            //    throw new InvalidOperationException($"Unexpected IdPropertyValue '{idString}'. Expecting it to start with '{fromContentApiBaseUrl}'.");
+            //}
 
             string toContentApiBaseUrl = GetContentApiBaseUrlWithPreexistingOverride(contentItemVersion);
 

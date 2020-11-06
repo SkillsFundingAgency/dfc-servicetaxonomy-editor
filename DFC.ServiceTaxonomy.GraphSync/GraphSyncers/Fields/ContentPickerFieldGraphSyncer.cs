@@ -75,11 +75,16 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
             ContentPickerFieldSettings contentPickerFieldSettings =
                 context.ContentPartFieldDefinition!.GetSettings<ContentPickerFieldSettings>();
 
+            //todo: use pickedContentSyncNameProvider in RelationshipTypeContentPicker?
             string relationshipType = await RelationshipTypeContentPicker(contentPickerFieldSettings, context.SyncNameProvider);
 
             //todo: support multiple pickable content types
             string pickedContentType = contentPickerFieldSettings.DisplayedContentTypes[0];
-            IEnumerable<string> destNodeLabels = await context.SyncNameProvider.NodeLabels(pickedContentType);
+
+            ISyncNameProvider pickedContentSyncNameProvider = _serviceProvider.GetRequiredService<ISyncNameProvider>();
+            pickedContentSyncNameProvider.ContentType = pickedContentType;
+
+            IEnumerable<string> destNodeLabels = await pickedContentSyncNameProvider.NodeLabels();
 
             if (contentItemIdsJArray?.HasValues != true)
             {
@@ -100,14 +105,10 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
                 throw new GraphSyncException(
                     $"Missing picked content items. Looked for {string.Join(",", contentItemIdsJArray.Values<string?>())}. Found {string.Join(",", foundDestinationContentItems.Select(i => i.ContentItemId))}. Current merge node command: {context.MergeNodeCommand}.");
             }
+
             // if we're syncing to the published graph, some items may be draft only,
             // so it's valid to have less found content items than are picked
             //todo: we could also check when publishing and take into account how many we expect not to find as they are draft only
-
-            //todo: create pickedContentSyncNameProvider sooner and use it (RelationshipTypeContentPicker gets picked type)
-            //todo: need to test this too!
-            ISyncNameProvider pickedContentSyncNameProvider = _serviceProvider.GetRequiredService<ISyncNameProvider>();
-            pickedContentSyncNameProvider.ContentType = pickedContentType;
 
             IEnumerable<object> foundDestinationNodeIds =
                 foundDestinationContentItems.Select(ci => GetNodeId(ci!, pickedContentSyncNameProvider, context.ContentItemVersion));
