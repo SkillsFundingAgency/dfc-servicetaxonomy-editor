@@ -167,7 +167,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
 
             JObject graphSyncContent = contentItem.Content[nameof(GraphSyncPart)];
             graphSyncContent[_syncNameProvider.ContentIdPropertyName] =
-                JToken.FromObject(_syncNameProvider.GetIdPropertyValue(
+                JToken.FromObject(_syncNameProvider.GetAndConvertIdPropertyValue(
                     graphSyncContent, _superpositionContentItemVersion,
                     _publishedContentItemVersion, _escoContentItemVersion)!);
 

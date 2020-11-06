@@ -51,7 +51,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Helpers
 
         GraphSyncPartSettings GetGraphSyncPartSettings(string contentType);
 
-        object? GetIdPropertyValue(
+        object? GetAndConvertIdPropertyValue(
             JObject graphSyncContent,
             IContentItemVersion contentItemVersion,
             params IContentItemVersion[] fromContentItemVersions);

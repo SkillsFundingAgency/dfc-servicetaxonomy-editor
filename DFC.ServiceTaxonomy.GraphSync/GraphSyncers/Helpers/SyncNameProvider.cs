@@ -196,7 +196,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
         public string ContentIdPropertyName => "Text";
 
         //todo: shared code
-        public object? GetIdPropertyValue(
+        public object? GetAndConvertIdPropertyValue(
             JObject graphSyncContent,
             IContentItemVersion contentItemVersion,
             params IContentItemVersion[] fromContentItemVersions)
