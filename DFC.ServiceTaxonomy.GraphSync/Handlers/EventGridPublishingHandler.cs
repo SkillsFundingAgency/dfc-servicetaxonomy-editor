@@ -121,7 +121,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers
                 _ => _neutralEventContentItemVersion
             };
 
-            //todo: if this throws, its not getting reported in the UI
             string userId = _syncNameProvider.GetEventIdPropertyValue(contentItem.Content.GraphSyncPart, contentItemVersion);
 
             ContentEvent contentEvent = new ContentEvent(contentItem, userId, eventType);

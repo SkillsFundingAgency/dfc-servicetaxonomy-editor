@@ -21,13 +21,13 @@ namespace DFC.ServiceTaxonomy.GraphSync.Services
         public NodeContentItemLookup(
             IContentItemVersionFactory contentItemVersionFactory,
             ISyncNameProvider syncNameProvider,
-            ISuperpositionContentItemVersion _superpositionContentItemVersion,
+            ISuperpositionContentItemVersion superpositionContentItemVersion,
             IEscoContentItemVersion escoContentItemVersion,
             ISession session)
         {
             _contentItemVersionFactory = contentItemVersionFactory;
             _syncNameProvider = syncNameProvider;
-            this._superpositionContentItemVersion = _superpositionContentItemVersion;
+            _superpositionContentItemVersion = superpositionContentItemVersion;
             _escoContentItemVersion = escoContentItemVersion;
             _session = session;
         }
