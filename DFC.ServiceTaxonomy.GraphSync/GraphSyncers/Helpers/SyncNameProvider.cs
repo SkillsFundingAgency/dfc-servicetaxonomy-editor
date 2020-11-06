@@ -195,7 +195,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
         //todo: replace consumers with nameof(GraphSyncPart.Text)
         public string ContentIdPropertyName => "Text";
 
-        //todo: rename
         //todo: shared code
         public object? GetIdPropertyValue(
             JObject graphSyncContent,
@@ -292,11 +291,12 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
 
             string fromContentApiBaseUrl = GetContentApiBaseUrlWithPreexistingOverride(contentItemVersion);
 
-            if (!nodeIdValue.StartsWith(fromContentApiBaseUrl, StringComparison.OrdinalIgnoreCase))
-            {
-                //todo: should we throw? do all consumers handle this ok?
-                throw new InvalidOperationException($"Unexpected node IdPropertyValue '{nodeIdValue}'. Expecting it to start with '{fromContentApiBaseUrl}'.");
-            }
+            // assumes certain id config
+            // if (!nodeIdValue.StartsWith(fromContentApiBaseUrl, StringComparison.OrdinalIgnoreCase))
+            // {
+            //     //todo: should we throw? do all consumers handle this ok?
+            //     throw new InvalidOperationException($"Unexpected node IdPropertyValue '{nodeIdValue}'. Expecting it to start with '{fromContentApiBaseUrl}'.");
+            // }
 
             return nodeIdValue.Replace(
                 fromContentApiBaseUrl,
