@@ -305,8 +305,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
                 StringComparison.OrdinalIgnoreCase);
         }
 
-        //todo: does this version need to take preexisting node into consideration?
-        //todo: new ContentItemVersion (similar to neutral) with ContentApiPrefixToken as ContentApiBaseUrl and have one version of this method with default from?
         public string ConvertIdPropertyValue(
             string nodeIdValue,
             IContentItemVersion toContentItemVersion,

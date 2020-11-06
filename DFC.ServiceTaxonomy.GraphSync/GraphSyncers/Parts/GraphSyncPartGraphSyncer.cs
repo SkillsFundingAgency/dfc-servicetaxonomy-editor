@@ -13,7 +13,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
 
         public override Task AddSyncComponents(JObject content, IGraphMergeContext context)
         {
-            //todo: don't think it gets here for readonly nodes, but this didn't used to take into account preexisting node, so the behaviours changed, so need to test it
             object? idValue = context.SyncNameProvider.GetNodeIdPropertyValue(content, context.ContentItemVersion);
             if (idValue != null)
             {

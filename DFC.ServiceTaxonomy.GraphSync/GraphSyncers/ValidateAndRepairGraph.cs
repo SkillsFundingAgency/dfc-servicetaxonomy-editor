@@ -34,7 +34,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
         AllItems
     }
 
-    //todo: occupations are not validating (preview is missing esco data and anything that relies on it - that's probably why jp's failed to import, but 1 was in the published graph)
     public class ValidateAndRepairGraph : IValidateAndRepairGraph
     {
         private readonly IEnumerable<IContentItemGraphSyncer> _itemSyncers;
