@@ -49,6 +49,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
 
             try
             {
+                _logger.LogInformation("Running {StepName} for {RecipeName} recipe.", StepName, context.RecipeDescriptor.Name);
+
                 Stopwatch stopwatch = Stopwatch.StartNew();
 
                 ContentStepModel? model = context.Step.ToObject<ContentStepModel>();
@@ -64,7 +66,9 @@ namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
 
                     // assume item doesn't currently exist (for speed!)
 
+                    _logger.LogInformation("Saving '{DisplayText}' {ContentType} to SQL DB.", contentItem.DisplayText, contentItem.ContentType);
                     _session.Save(contentItem);
+                    _logger.LogInformation("Publishing '{DisplayText}' {ContentType} to graphs.", contentItem.DisplayText, contentItem.ContentType);
                     await _syncOrchestrator.Publish(contentItem);
                 }
 

@@ -365,7 +365,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 
             _syncNameProvider.ContentType = contentItem.ContentType;
 
-            object nodeId = _syncNameProvider.GetIdPropertyValue(contentItem.Content.GraphSyncPart, contentItemVersion);
+            object nodeId = _syncNameProvider.GetNodeIdPropertyValue(contentItem.Content.GraphSyncPart, contentItemVersion);
 
             //todo: one query to fetch outgoing and incoming
             List<INodeWithOutgoingRelationships?> results = await _currentGraph!.Run(
@@ -436,7 +436,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 
             _syncNameProvider.ContentType = contentItem.ContentType;
 
-            object nodeId = _syncNameProvider.GetIdPropertyValue(contentItem.Content.GraphSyncPart, contentItemVersion);
+            object nodeId = _syncNameProvider.GetNodeIdPropertyValue(contentItem.Content.GraphSyncPart, contentItemVersion);
 
             //todo: one query to fetch outgoing and incoming
             List<INodeWithOutgoingRelationships?> results = await _currentGraph!.Run(

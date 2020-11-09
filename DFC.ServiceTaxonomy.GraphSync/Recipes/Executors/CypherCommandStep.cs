@@ -48,6 +48,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
 
             try
             {
+                _logger.LogInformation("Running {StepName} for {RecipeName} recipe.", StepName, context.RecipeDescriptor.Name);
+
                 var step = context.Step.ToObject<CypherCommandStepModel>();
 
                 foreach (string? command in step!.Commands ?? Enumerable.Empty<string?>())

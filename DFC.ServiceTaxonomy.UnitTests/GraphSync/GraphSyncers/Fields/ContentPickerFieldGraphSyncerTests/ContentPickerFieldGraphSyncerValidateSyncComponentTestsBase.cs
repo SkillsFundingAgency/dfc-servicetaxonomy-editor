@@ -1,6 +1,5 @@
 ﻿using System;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields;
-using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.ContentItemVersions;
 using FakeItEasy;
 
 namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Fields.ContentPickerFieldGraphSyncerTests
@@ -11,7 +10,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Fields.ContentPic
 
         public ContentPickerFieldGraphSyncerValidateSyncComponentTestsBase()
         {
-            ContentFieldGraphSyncer = new ContentPickerFieldGraphSyncer(A.Fake<IPreExistingContentItemVersion>(), A.Fake<IServiceProvider>());
+            ContentFieldGraphSyncer = new ContentPickerFieldGraphSyncer(A.Fake<IServiceProvider>());
         }
 
         //todo: tests

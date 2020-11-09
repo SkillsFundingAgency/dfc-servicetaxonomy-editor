@@ -11,7 +11,7 @@
     <div class="row col-md">
         <label asp-for="BagPartContentItemRelationshipType">@T["BagPart ContentItem relationship type"]</label>
         <input asp-for="BagPartContentItemRelationshipType" class="form-control" readonly="@(Model.ReadOnly ? "readonly" : "")" />
-        <span class="hint">@T["If the containing content type is stored in a BagPart, the type of relationship to create in the graph."]</span>
+        <span class="hint">@T["If this content type is contained withing a BagPart, the type of relationship to create in the graph."]</span>
     </div>
 </fieldset>
 
