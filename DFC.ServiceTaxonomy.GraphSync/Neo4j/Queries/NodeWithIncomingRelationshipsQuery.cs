@@ -18,7 +18,10 @@ namespace DFC.ServiceTaxonomy.GraphSync.Neo4j.Queries
         private string IdPropertyName { get; }
         private object IdPropertyValue { get; }
 
-        public NodeWithIncomingRelationshipsQuery(IEnumerable<string> nodeLabels, string idPropertyName, object idPropertyValue)
+        public NodeWithIncomingRelationshipsQuery(
+            IEnumerable<string> nodeLabels,
+            string idPropertyName,
+            object idPropertyValue)
         {
             NodeLabels = nodeLabels;
             IdPropertyName = idPropertyName;
@@ -29,7 +32,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Neo4j.Queries
         {
             var validationErrors = new List<string>();
 
-            if(!NodeLabels.Any())
+            if (!NodeLabels.Any())
             {
                 validationErrors.Add("At least one NodeLabel must be provided.");
             }
