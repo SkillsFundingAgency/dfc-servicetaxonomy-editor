@@ -49,21 +49,12 @@ namespace DFC.ServiceTaxonomy.GraphSync.Orchestrators
 
             IContentManager contentManager = _serviceProvider.GetRequiredService<IContentManager>();
 
-            if (!await SyncToGraphReplicaSetIfAllowed(
+            return await SyncToGraphReplicaSetIfAllowed(
                 SyncOperation.SaveDraft,
                 GraphReplicaSetNames.Preview,
                 contentItem,
-                contentManager))
-            {
-                return false;
-            }
-
-            foreach (var contentOrchestrationHandler in _contentOrchestrationHandlers)
-            {
-                await contentOrchestrationHandler.DraftSaved(contentItem);
-            }
-
-            return true;
+                contentManager,
+                async (handler) => await handler.DraftSaved(contentItem));
         }
 
         /// <returns>false if publish to either graph was blocked or failed.</returns>
@@ -107,21 +98,17 @@ namespace DFC.ServiceTaxonomy.GraphSync.Orchestrators
                 return false;
             }
 
-            // again, not concurrent and published first (for recreating incoming relationships)
-
-            if (publishedAllowSync.Result == AllowSyncResult.Allowed)
+            if (publishedAllowSync.Result == AllowSyncResult.Allowed
+                && previewAllowSync.Result == AllowSyncResult.Allowed)
             {
+                // again, not concurrent and published first (for recreating incoming relationships)
                 await SyncToGraphReplicaSet(SyncOperation.Publish, publishedMergeGraphSyncer!, contentItem);
-            }
-
-            if (previewAllowSync.Result == AllowSyncResult.Allowed)
-            {
                 await SyncToGraphReplicaSet(SyncOperation.Publish, previewMergeGraphSyncer!, contentItem);
-            }
 
-            foreach (var contentOrchestrationHandler in _contentOrchestrationHandlers)
-            {
-                await contentOrchestrationHandler.Published(contentItem);
+                foreach (var contentOrchestrationHandler in _contentOrchestrationHandlers)
+                {
+                    await contentOrchestrationHandler.Published(contentItem);
+                }
             }
 
             return true;
@@ -161,26 +148,22 @@ namespace DFC.ServiceTaxonomy.GraphSync.Orchestrators
                 return false;
             }
 
-            // again, not concurrent and published first (for recreating incoming relationships)
-
-            if (publishedAllowSync.Result == AllowSyncResult.Allowed)
+            if (publishedAllowSync.Result == AllowSyncResult.Allowed
+                && previewAllowSync.Result == AllowSyncResult.Allowed)
             {
+                // again, not concurrent and published first (for recreating incoming relationships)
                 await SyncToGraphReplicaSet(SyncOperation.Update, publishedMergeGraphSyncer!, publishedContentItem);
-            }
-
-            if (previewAllowSync.Result == AllowSyncResult.Allowed)
-            {
                 await SyncToGraphReplicaSet(SyncOperation.Update, previewMergeGraphSyncer!, previewContentItem);
-            }
 
-            foreach (var contentOrchestrationHandler in _contentOrchestrationHandlers)
-            {
-                await contentOrchestrationHandler.DraftSaved(previewContentItem);
-            }
+                foreach (var contentOrchestrationHandler in _contentOrchestrationHandlers)
+                {
+                    await contentOrchestrationHandler.DraftSaved(previewContentItem);
+                }
 
-            foreach (var contentOrchestrationHandler in _contentOrchestrationHandlers)
-            {
-                await contentOrchestrationHandler.Published(publishedContentItem);
+                foreach (var contentOrchestrationHandler in _contentOrchestrationHandlers)
+                {
+                    await contentOrchestrationHandler.Published(publishedContentItem);
+                }
             }
 
             return true;
@@ -198,21 +181,12 @@ namespace DFC.ServiceTaxonomy.GraphSync.Orchestrators
             ContentItem? publishedContentItem =
                 await _publishedContentItemVersion.GetContentItem(contentManager, contentItem.ContentItemId);
 
-            if (!await SyncToGraphReplicaSetIfAllowed(
+            return await SyncToGraphReplicaSetIfAllowed(
                 SyncOperation.DiscardDraft,
                 GraphReplicaSetNames.Preview,
                 publishedContentItem!,
-                contentManager))
-            {
-                return false;
-            }
-
-            foreach (var contentOrchestrationHandler in _contentOrchestrationHandlers)
-            {
-                await contentOrchestrationHandler.DraftDiscarded(contentItem);
-            }
-
-            return true;
+                contentManager,
+                async (handler) => await handler.DraftDiscarded(contentItem));
         }
 
         /// <returns>false if saving clone to preview graph was blocked or failed.</returns>
@@ -226,21 +200,12 @@ namespace DFC.ServiceTaxonomy.GraphSync.Orchestrators
 
             await cloneGraphSync.MutateOnClone(contentItem, contentManager);
 
-            if (!await SyncToGraphReplicaSetIfAllowed(
+            return await SyncToGraphReplicaSetIfAllowed(
                 SyncOperation.Clone,
                 GraphReplicaSetNames.Preview,
                 contentItem,
-                contentManager))
-            {
-                return false;
-            }
-
-            foreach (var contentOrchestrationHandler in _contentOrchestrationHandlers)
-            {
-                await contentOrchestrationHandler.Cloned(contentItem);
-            }
-
-            return true;
+                contentManager,
+                async (handler) => await handler.Cloned(contentItem));
         }
 
         //todo: remove equivalent in mergegraphsyncer?
@@ -248,7 +213,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.Orchestrators
             SyncOperation syncOperation,
             string replicaSetName,
             ContentItem contentItem,
-            IContentManager contentManager)
+            IContentManager contentManager,
+            Func<IContentOrchestrationHandler, Task> callHandlerWhenAllowed)
         {
             (IAllowSync allowSync, IMergeGraphSyncer? mergeGraphSyncer) =
                 await GetMergeGraphSyncerIfSyncAllowed(syncOperation, replicaSetName, contentItem, contentManager);
@@ -260,6 +226,11 @@ namespace DFC.ServiceTaxonomy.GraphSync.Orchestrators
                     return false;
                 case AllowSyncResult.Allowed:
                     await SyncToGraphReplicaSet(syncOperation, mergeGraphSyncer!, contentItem);
+
+                    foreach (var contentOrchestrationHandler in _contentOrchestrationHandlers)
+                    {
+                        await callHandlerWhenAllowed(contentOrchestrationHandler);
+                    }
                     break;
             }
             return true;
