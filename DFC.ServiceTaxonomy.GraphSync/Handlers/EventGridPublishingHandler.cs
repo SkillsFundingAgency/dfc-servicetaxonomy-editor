@@ -121,7 +121,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers
                 _ => _neutralEventContentItemVersion
             };
 
-            string userId = _syncNameProvider.GetIdPropertyValue(contentItem.Content.GraphSyncPart, contentItemVersion);
+            string userId = _syncNameProvider.GetEventIdPropertyValue(contentItem.Content.GraphSyncPart, contentItemVersion);
 
             ContentEvent contentEvent = new ContentEvent(contentItem, userId, eventType);
             await _eventGridContentClient.Publish(contentEvent);

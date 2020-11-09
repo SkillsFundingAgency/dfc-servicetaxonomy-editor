@@ -81,6 +81,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
             }
         }
 
+        //todo: share code with above
         public async Task AddSyncComponents(JObject content, IGraphMergeContext context)
         {
             foreach (var contentFieldGraphSyncer in _contentFieldGraphSyncer)

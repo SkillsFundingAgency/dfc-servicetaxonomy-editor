@@ -26,7 +26,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
         private const string ContentItemIdsKey = "ContentItemIds";
         //todo: move into hidden ## section?
         private static readonly Regex _relationshipTypeRegex = new Regex("\\[:(.*?)\\]", RegexOptions.Compiled);
-        private readonly IPreExistingContentItemVersion _preExistingContentItemVersion;
         private readonly IServiceProvider _serviceProvider;
 
         public const string ContentPickerRelationshipPropertyName = "contentPicker";
@@ -34,11 +33,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
         public static IEnumerable<KeyValuePair<string, object>> ContentPickerRelationshipProperties { get; } =
             new Dictionary<string, object> { { ContentPickerRelationshipPropertyName, true } };
 
-        public ContentPickerFieldGraphSyncer(
-            IPreExistingContentItemVersion preExistingContentItemVersion,
-            IServiceProvider serviceProvider)
+        public ContentPickerFieldGraphSyncer(IServiceProvider serviceProvider)
         {
-            _preExistingContentItemVersion = preExistingContentItemVersion;
             _serviceProvider = serviceProvider;
         }
 
@@ -79,11 +75,16 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
             ContentPickerFieldSettings contentPickerFieldSettings =
                 context.ContentPartFieldDefinition!.GetSettings<ContentPickerFieldSettings>();
 
+            //todo: use pickedContentSyncNameProvider in RelationshipTypeContentPicker?
             string relationshipType = await RelationshipTypeContentPicker(contentPickerFieldSettings, context.SyncNameProvider);
 
             //todo: support multiple pickable content types
             string pickedContentType = contentPickerFieldSettings.DisplayedContentTypes[0];
-            IEnumerable<string> destNodeLabels = await context.SyncNameProvider.NodeLabels(pickedContentType);
+
+            ISyncNameProvider pickedContentSyncNameProvider = _serviceProvider.GetRequiredService<ISyncNameProvider>();
+            pickedContentSyncNameProvider.ContentType = pickedContentType;
+
+            IEnumerable<string> destNodeLabels = await pickedContentSyncNameProvider.NodeLabels();
 
             if (contentItemIdsJArray?.HasValues != true)
             {
@@ -104,14 +105,13 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
                 throw new GraphSyncException(
                     $"Missing picked content items. Looked for {string.Join(",", contentItemIdsJArray.Values<string?>())}. Found {string.Join(",", foundDestinationContentItems.Select(i => i.ContentItemId))}. Current merge node command: {context.MergeNodeCommand}.");
             }
+
             // if we're syncing to the published graph, some items may be draft only,
             // so it's valid to have less found content items than are picked
             //todo: we could also check when publishing and take into account how many we expect not to find as they are draft only
 
-            // warning: we should logically be passing an ISyncNameProvider with its ContentType set to pickedContentType
-            // however, GetIdPropertyValue() doesn't use the set ContentType, so this works
             IEnumerable<object> foundDestinationNodeIds =
-                foundDestinationContentItems.Select(ci => GetNodeId(ci!, context));
+                foundDestinationContentItems.Select(ci => GetNodeId(ci!, pickedContentSyncNameProvider, context.ContentItemVersion));
 
             long ordinal = 0;
 
@@ -121,7 +121,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
                 relationshipType,
                 ContentPickerRelationshipProperties.Concat(new[] { new KeyValuePair<string, object>("Ordinal", ordinal++) }),
                 destNodeLabels,
-                context.SyncNameProvider.IdPropertyName(pickedContentType),
+                pickedContentSyncNameProvider.IdPropertyName(),
                 item);
             }
         }
@@ -165,7 +165,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
             foreach (ContentItem destinationContentItem in destinationContentItems)
             {
                 //todo: should logically be called using destination ContentType, but it makes no difference atm
-                object destinationId = context.SyncNameProvider.GetIdPropertyValue(
+                object destinationId = context.SyncNameProvider.GetNodeIdPropertyValue(
                     destinationContentItem.Content.GraphSyncPart, context.ContentItemVersion);
 
                 string destinationIdPropertyName =
@@ -236,15 +236,15 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
             return relationshipType;
         }
 
-        private object GetNodeId(ContentItem pickedContentItem, IGraphMergeContext context)
+        private object GetNodeId(
+            ContentItem pickedContentItem,
+            ISyncNameProvider syncNameProvider,
+            IContentItemVersion contentItemVersion)
         {
-            //Todo add GetNodeId support to TaxonomyFieldGraphSyncer
-            var syncSettings = context.SyncNameProvider.GetGraphSyncPartSettings(pickedContentItem.ContentType);
+            //todo: add GetNodeId support to TaxonomyFieldGraphSyncer
 
-            _preExistingContentItemVersion.SetContentApiBaseUrl(syncSettings.PreExistingNodeUriPrefix);
-
-            return context.SyncNameProvider.GetIdPropertyValue(
-                      pickedContentItem.Content[nameof(GraphSyncPart)], syncSettings.PreExistingNodeUriPrefix == null ? context.ContentItemVersion : _preExistingContentItemVersion );
+            return syncNameProvider.GetNodeIdPropertyValue(
+                pickedContentItem.Content[nameof(GraphSyncPart)], contentItemVersion);
         }
     }
 }

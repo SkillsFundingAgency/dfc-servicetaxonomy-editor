@@ -84,6 +84,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
 
             try
             {
+                _logger.LogInformation("Running {StepName} for {RecipeName} recipe.", StepName, context.RecipeDescriptor.Name);
+
                 var step = context.Step.ToObject<CypherToContentStepModel>();
 
                 foreach (CypherToContentModel? cypherToContent in step!.Queries ?? Enumerable.Empty<CypherToContentModel?>())
@@ -165,7 +167,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
 
             JObject graphSyncContent = contentItem.Content[nameof(GraphSyncPart)];
             graphSyncContent[_syncNameProvider.ContentIdPropertyName] =
-                JToken.FromObject(_syncNameProvider.GetIdPropertyValue(
+                JToken.FromObject(_syncNameProvider.GetAndConvertIdPropertyValue(
                     graphSyncContent, _superpositionContentItemVersion,
                     _publishedContentItemVersion, _escoContentItemVersion)!);
 

@@ -37,27 +37,33 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             _serviceProvider = serviceProvider;
         }
 
-        private async Task<IEnumerable<IQuery<object?>>> BuildVisualisationCommands(string contentItemId, IContentItemVersion contentItemVersion)
+        //todo: if issue with data, don't just hang visualiser
+        private async Task<IEnumerable<IQuery<object?>>> BuildVisualisationCommands(
+            string contentItemId,
+            IContentItemVersion contentItemVersion)
         {
             ContentItem? contentItem = await contentItemVersion.GetContentItem(_contentManager, contentItemId);
             if (contentItem == null)
             {
                 return Enumerable.Empty<IQuery<INodeAndOutRelationshipsAndTheirInRelationships>>();
             }
-
+            //todo: best to not use dynamic
             dynamic? graphSyncPartContent = contentItem.Content[nameof(GraphSyncPart)];
 
             _syncNameProvider.ContentType = contentItem.ContentType;
 
-            string? SourceNodeId = _syncNameProvider.GetIdPropertyValue(graphSyncPartContent, contentItemVersion);
-            IEnumerable<string>? SourceNodeLabels = await _syncNameProvider.NodeLabels();
-            string? SourceNodeIdPropertyName = _syncNameProvider.IdPropertyName();
+            string? sourceNodeId = _syncNameProvider.GetNodeIdPropertyValue(graphSyncPartContent, contentItemVersion);
+            IEnumerable<string> sourceNodeLabels = await _syncNameProvider.NodeLabels();
+            string sourceNodeIdPropertyName = _syncNameProvider.IdPropertyName();
 
-            var rootContext = new DescribeRelationshipsContext(SourceNodeIdPropertyName, SourceNodeId, SourceNodeLabels, contentItem, _syncNameProvider, _contentManager, contentItemVersion, null, _serviceProvider, contentItem);
+            var rootContext = new DescribeRelationshipsContext(
+                sourceNodeIdPropertyName, sourceNodeId, sourceNodeLabels, contentItem, _syncNameProvider,
+                _contentManager, contentItemVersion, null, _serviceProvider, contentItem);
             rootContext.SetContentField(contentItem.Content);
 
             await _describeContentItemHelper.BuildRelationships(contentItem, rootContext);
 
+            //todo: return relationships - can we do it without creating cypher outside of a query?
             var relationships = new List<ContentItemRelationship>();
             return await _describeContentItemHelper.GetRelationshipCommands(rootContext, relationships, rootContext);
         }
@@ -95,7 +101,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
                 subgraph = new Subgraph();
             }
 
-            var inResults = result.OfType<ISubgraph>().FirstOrDefault();
+            ISubgraph? inResults = result.OfType<ISubgraph>().FirstOrDefault();
             if (inResults != null)
             {
                 subgraph.Add(inResults);

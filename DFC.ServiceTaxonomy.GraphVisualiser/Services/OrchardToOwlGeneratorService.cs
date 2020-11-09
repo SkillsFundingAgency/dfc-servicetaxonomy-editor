@@ -97,16 +97,8 @@ namespace DFC.ServiceTaxonomy.GraphVisualiser.Services
 
         private NodeDataModel TransformContentTypeDefinitionToNode(ContentTypeDefinition contentTypeDefinition, long key, string id)
         {
-            var result = new NodeDataModel
-            {
-                Id = id,
-                Key = key,
-                Type = contentTypeDefinition.Name,
-                Label = contentTypeDefinition.DisplayName,
-                Comment = contentTypeDefinition.DisplayName,
-            };
-
-            return result;
+            return new NodeDataModel(
+                id, key, contentTypeDefinition.Name, contentTypeDefinition.DisplayName, contentTypeDefinition.DisplayName);
         }
 
         private RelationshipDataModel TransformContentTypePartDefinitionToRelationship(ContentTypePartDefinition contentTypePartDefinition, string linkFromName, string linkToName)
@@ -124,17 +116,10 @@ namespace DFC.ServiceTaxonomy.GraphVisualiser.Services
 
         private NodeDataModel TransformContentTypePartDefinitionToNode(ContentTypePartDefinition contentPartItem, long key, string id)
         {
-            string type = contentPartItem.PartDefinition.Name;
-            var result = new NodeDataModel
-            {
-                Id = id,
-                Key = key,
-                Type = type,
-                Label = contentPartItem.PartDefinition.GetSettings<ContentPartSettings>()?.DisplayName ?? contentPartItem.Name,
-                Comment = contentPartItem.PartDefinition.GetSettings<ContentPartSettings>()?.Description ?? contentPartItem.Name,
-            };
-
-            return result;
+            return new NodeDataModel(
+                id, key, contentPartItem.PartDefinition.Name,
+                contentPartItem.PartDefinition.GetSettings<ContentPartSettings>()?.DisplayName ?? contentPartItem.Name,
+                contentPartItem.PartDefinition.GetSettings<ContentPartSettings>()?.Description ?? contentPartItem.Name);
         }
 
         private RelationshipDataModel TransformContentTypeDefinitionToRelationship(ContentTypeDefinition contentTypeDefinition, string linkFromName, string linkToName)
@@ -152,36 +137,27 @@ namespace DFC.ServiceTaxonomy.GraphVisualiser.Services
 
         private NodeDataModel TransformContentPartFieldDefinitionToNode(ContentPartFieldDefinition contentPartFieldDefinition, long key, string id)
         {
-            var result = new NodeDataModel
-            {
-                Id = id,
-                Key = key,
-                Type = contentPartFieldDefinition.Name,
-                Label = contentPartFieldDefinition.GetSettings<ContentPartFieldSettings>()?.DisplayName ?? contentPartFieldDefinition.Name,
-                Comment = contentPartFieldDefinition.GetSettings<ContentPartFieldSettings>()?.Description ?? contentPartFieldDefinition.Name,
-            };
+            ContentPartFieldSettings? contentPartFieldSettings = contentPartFieldDefinition.GetSettings<ContentPartFieldSettings>();
 
-            return result;
+            return new NodeDataModel(id, key, contentPartFieldDefinition.Name,
+                contentPartFieldSettings?.DisplayName ?? contentPartFieldDefinition.Name,
+                contentPartFieldSettings?.Description ?? contentPartFieldDefinition.Name);
         }
 
         private RelationshipDataModel TransformContentPartFieldDefinitionToRelationship(ContentPartFieldDefinition contentPartFieldDefinition, string linkFromName, string linkToName)
         {
-            var relationshipDataModel = new RelationshipDataModel
+            return new RelationshipDataModel
             {
                 Id = contentPartFieldDefinition.Name,
                 Label = contentPartFieldDefinition.GetSettings<ContentPartFieldSettings>()?.DisplayName ?? contentPartFieldDefinition.Name,
                 Domain = linkFromName,
                 Range = linkToName,
             };
-
-            return relationshipDataModel;
         }
 
         private ContentTypeDefinition? GetContentTypeDefinition(string name)
         {
-            var result = contentTypeDefinitions?.FirstOrDefault(f => f.Name.Equals(name, StringComparison.OrdinalIgnoreCase));
-
-            return result;
+            return contentTypeDefinitions?.FirstOrDefault(f => f.Name.Equals(name, StringComparison.OrdinalIgnoreCase));
         }
     }
 }

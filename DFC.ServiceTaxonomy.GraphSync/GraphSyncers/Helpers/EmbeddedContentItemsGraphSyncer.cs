@@ -518,7 +518,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
                 context.ExpectedRelationshipCounts[expectedRelationshipType] = ++currentCount;
 
                 // we've already validated the destination node, so we can assume the id property is there
-                object destinationId = embeddedContentNameProvider.GetIdPropertyValue(
+                object destinationId = embeddedContentNameProvider.GetNodeIdPropertyValue(
                     embeddedContentItem.Content.GraphSyncPart, context.ContentItemVersion);
 
                 string embeddedContentIdPropertyName = embeddedContentNameProvider.IdPropertyName(embeddedContentItem.ContentType);
