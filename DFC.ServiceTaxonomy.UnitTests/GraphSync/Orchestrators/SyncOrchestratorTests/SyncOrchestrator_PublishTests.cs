@@ -48,14 +48,34 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.Orchestrators.SyncOrchestrator
         //todo: SyncCalled theory needed
         //todo: ExceptionPropagates theory needed
 
-        [Fact]
-        public async Task Publish_EventGridPublishingHandlerCalled()
+        // we should only ever get NotRequired returned by both published and preview
+        // not in conjunction with Allowed or Blocked
+        //todo: add an exception guard for it?
+        [Theory]
+        [InlineData(AllowSyncResult.Allowed, AllowSyncResult.Allowed, 1)]
+        [InlineData(AllowSyncResult.Allowed, AllowSyncResult.Blocked, 0)]
+        [InlineData(AllowSyncResult.Allowed, AllowSyncResult.NotRequired, 0)]
+        [InlineData(AllowSyncResult.Blocked, AllowSyncResult.Allowed, 0)]
+        [InlineData(AllowSyncResult.Blocked, AllowSyncResult.Blocked, 0)]
+        [InlineData(AllowSyncResult.Blocked, AllowSyncResult.NotRequired, 0)]
+        [InlineData(AllowSyncResult.NotRequired, AllowSyncResult.Allowed, 0)]
+        [InlineData(AllowSyncResult.NotRequired, AllowSyncResult.Blocked, 0)]
+        [InlineData(AllowSyncResult.NotRequired, AllowSyncResult.NotRequired, 0)]
+        public async Task Publish_EventGridPublishingHandlerCalled(
+            AllowSyncResult publishedAllowSyncResult,
+            AllowSyncResult previewAllowSyncResult,
+            int publishedCalled)
         {
-            bool success = await SyncOrchestrator.Publish(ContentItem);
+            A.CallTo(() => PublishedAllowSync.Result)
+                .Returns(publishedAllowSyncResult);
 
-            Assert.True(success);
+            A.CallTo(() => PreviewAllowSync.Result)
+                .Returns(previewAllowSyncResult);
 
-            A.CallTo(() => EventGridPublishingHandler.Published(ContentItem)).MustHaveHappened();
+            await SyncOrchestrator.Publish(ContentItem);
+
+            A.CallTo(() => EventGridPublishingHandler.Published(ContentItem))
+                .MustHaveHappened(publishedCalled, Times.Exactly);
         }
     }
 }
