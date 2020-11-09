@@ -130,15 +130,16 @@ namespace DFC.ServiceTaxonomy.GraphSync.Settings
 
             if (model.VisualiserNodeDepth != null && model.VisualiserNodeDepth < 1)
             {
+                //todo: allow 0
                 context.Updater.ModelState.AddModelError(Prefix, nameof(GraphSyncPartSettings.VisualiserNodeDepth),
-                    "Visualiser node depth must be greater than 0");
+                    "Visualiser node depth must be greater than 0.");
                 valid = false;
             }
 
-            if (model.VisualiserIncomingRelationshipsPathLength != null && model.VisualiserIncomingRelationshipsPathLength < 1)
+            if (model.VisualiserIncomingRelationshipsPathLength != null && model.VisualiserIncomingRelationshipsPathLength < 0)
             {
                 context.Updater.ModelState.AddModelError(Prefix, nameof(GraphSyncPartSettings.VisualiserIncomingRelationshipsPathLength),
-                    "Visualiser incoming relationships path length must be greater than 0");
+                    "Visualiser incoming relationships path length must not be negative.");
                 valid = false;
             }
 

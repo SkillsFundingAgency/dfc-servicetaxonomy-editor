@@ -30,8 +30,9 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
             IEnumerable<IContentItemGraphSyncer> contentItemGraphSyncers,
             IOptions<GraphSyncSettings> graphSyncSettings)
         {
+            _contentItemGraphSyncers = contentItemGraphSyncers.OrderByDescending(s => s.Priority);
+
             _contentManager = contentManager;
-            _contentItemGraphSyncers = contentItemGraphSyncers;
             _graphSyncSettings = graphSyncSettings;
         }
 
@@ -52,6 +53,10 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
             List<IQuery<object?>> commandsToReturn = uniqueCommands
                 .Select(c => new NodeAndNestedOutgoingRelationshipsQuery(c!)).Cast<IQuery<object?>>().ToList();
 
+            //todo: for occupation and skill, we need to filter out nodes that have just the skos__Concept and Resource labels (and others)
+            // but allow other nodes that have a skos__Concept label, such as occupations and skills
+            // (or filter on relationships, whitelist whatever)
+            //todo: add a setting to graphsyncsettings for the filtering (for now we'll set incoming to 0 for occs & skills)
             commandsToReturn.Add(new SubgraphQuery(
                 context.SourceNodeLabels,
                 context.SourceNodeIdPropertyName,
@@ -86,14 +91,19 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
 
         public async Task BuildRelationships(ContentItem contentItem, IDescribeRelationshipsContext context)
         {
+            //todo: only 2nd part required?
             if (_encounteredContentItems.Any(x => x == contentItem.ContentItemId) || _encounteredContentTypes.Any(x => x == contentItem.ContentType))
             {
                 return;
             }
 
-            foreach (var itemSync in _contentItemGraphSyncers)
+            foreach (IContentItemGraphSyncer itemSyncer in _contentItemGraphSyncers)
             {
-                await itemSync.AddRelationship(context);
+                //todo: allow syncers to chain or not? probably not
+                if (itemSyncer.CanSync(context.ContentItem))
+                {
+                    await itemSyncer.AddRelationship(context);
+                }
             }
 
             _encounteredContentTypes.Add(contentItem.ContentType);

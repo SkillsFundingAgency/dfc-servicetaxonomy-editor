@@ -43,7 +43,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
                 null,
                 await termSyncNameProvider.NodeLabels(),
                 termSyncNameProvider.IdPropertyName(),
-                termSyncNameProvider.GetIdPropertyValue(contentItem.Content.GraphSyncPart, context.ContentItemVersion));
+                termSyncNameProvider.GetNodeIdPropertyValue(contentItem.Content.GraphSyncPart, context.ContentItemVersion));
         }
 
         //todo: would need to add AddSyncComponentsDetaching if we start using this

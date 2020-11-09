@@ -75,7 +75,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Items
             {
                 // bag part has p.Name == <<name>>, p.PartDefinition.Name == "BagPart"
                 // (other non-named parts have the part name in both)
-
+                //todo: contentTypeDefinition can be moved outside of foreach
                 var contentTypeDefinition = _contentDefinitionManager.GetTypeDefinition(context.ContentItem.ContentType);
                 var contentTypePartDefinitions =
                     contentTypeDefinition.Parts.Where(p => partSync.CanSync(context.ContentItem.ContentType, p.PartDefinition));
@@ -170,6 +170,7 @@ Relationships ----------------------------------
         {
             var contentTypeDefinition = _contentDefinitionManager.GetTypeDefinition(context.ContentItem.ContentType);
 
+            //todo: this is missing a CanSync check, can we replace it with IteratePartSyncers?
             foreach (var partSync in _partSyncers)
             {
                 foreach (var contentTypePartDefinition in contentTypeDefinition.Parts)

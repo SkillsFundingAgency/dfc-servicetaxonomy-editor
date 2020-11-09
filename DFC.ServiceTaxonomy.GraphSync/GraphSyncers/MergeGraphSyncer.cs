@@ -267,7 +267,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 
             getDraftRelationshipsQuery.NodeLabels = MergeNodeCommand.NodeLabels;
             getDraftRelationshipsQuery.IdPropertyName = MergeNodeCommand.IdPropertyName;
-            getDraftRelationshipsQuery.IdPropertyValue = _syncNameProvider.GetIdPropertyValue(
+            getDraftRelationshipsQuery.IdPropertyValue = _syncNameProvider.GetNodeIdPropertyValue(
                 graphSyncPartContent, _previewContentItemVersion);
 
             IEnumerable<INodeWithOutgoingRelationships?> incomingContentPickerRelationshipsOrDefault =

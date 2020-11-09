@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Helpers;
 using DFC.ServiceTaxonomy.GraphVisualiser.Models;
@@ -14,15 +13,18 @@ namespace DFC.ServiceTaxonomy.GraphVisualiser.Services
     {
         private readonly ISyncNameProvider _syncNameProvider;
 
-        public Neo4JToOwlGeneratorService(IOptionsMonitor<OwlDataGeneratorConfigModel> owlDataGeneratorConfigModel, ISyncNameProvider syncNameProvider) : base(owlDataGeneratorConfigModel)
+        public Neo4JToOwlGeneratorService(
+            IOptionsMonitor<OwlDataGeneratorConfigModel> owlDataGeneratorConfigModel,
+            ISyncNameProvider syncNameProvider)
+            : base(owlDataGeneratorConfigModel)
         {
             _syncNameProvider = syncNameProvider;
         }
 
         public OwlDataModel CreateOwlDataModels(long? selectedNodeId, IEnumerable<INode> nodes, HashSet<IRelationship> relationships, string prefLabel)
         {
-            TransformData(nodes, prefLabel);
-            TransformData(relationships);
+            TransformNodes(nodes, prefLabel);
+            TransformRelationships(relationships);
 
             var result = new OwlDataModel
             {
@@ -38,71 +40,23 @@ namespace DFC.ServiceTaxonomy.GraphVisualiser.Services
             return result;
         }
 
-        private void TransformData(IEnumerable<INode> nodes, string prefLabel)
+        private void TransformNodes(IEnumerable<INode> nodes, string prefLabel)
         {
-            nodeDataModels = (from a in nodes
-                              select new NodeDataModel
-                              {
-                                  Id = $"Class{a.Id}",
-                                  Key = 1,
-                                  Type = a.Labels.First(l => l != "Resource" || l == "esco__Occupation" || l == "esco__Skill"),
-                                  Label = GetPropertyValue(a, new[] { prefLabel, "Description", "FurtherInfo" }),
-                                  Comment = GetPropertyValue(a, new[] { "Description" }),
-                                  StaxProperties = a.Properties.Where(p => p.Key != prefLabel).Select(p => $"{p.Key}:{p.Value}").ToList(),
-                                  NodeId = GetNodeId(a.Properties, a.Labels.First(l => l != "Resource" || l == "esco__Occupation" || l == "esco__Skill"))
-                              }
-            ).ToList();
+            nodeDataModels = nodes
+                .Select(node => new NodeDataModel(node, prefLabel, _syncNameProvider))
+                .ToList();
         }
 
-        private void TransformData(HashSet<IRelationship> relationships)
+        private void TransformRelationships(IEnumerable<IRelationship> relationships)
         {
-            relationshipDataModels = (from a in relationships
-                                      select new RelationshipDataModel
-                                      {
-                                          Id = $"{a.Id}",
-                                          Label = a.Type,
-                                          Domain = $"Class{a.StartNodeId}",
-                                          Range = $"Class{a.EndNodeId}"
-                                      }
-            ).ToList();
-        }
-
-        private string? GetNodeId(IReadOnlyDictionary<string, object> staxProperties, string? contentType)
-        {
-            try
-            {
-                if (!staxProperties.Any() || contentType == null)
+            relationshipDataModels = relationships
+                .Select(a => new RelationshipDataModel
                 {
-                    return null;
-                }
-
-                string? propertyId = _syncNameProvider.IdPropertyName(contentType);
-
-                return staxProperties.FirstOrDefault(x => x.Key == propertyId).Value.ToString();
-            }
-            catch (Exception)
-            {
-                //Exception caused by Content Types not being in OC e.g. ESCO__MemberData.
-                //To be rectified in a follow up story
-                return null;
-            }
-        }
-
-        private string GetPropertyValue(INode node, string[] names)
-        {
-            foreach (string name in names)
-            {
-                string result = node.Properties.ContainsKey(name)
-                                ? (string)node.Properties[name]
-                                : string.Empty;
-
-                if (!string.IsNullOrWhiteSpace(result))
-                {
-                    return result;
-                }
-            }
-
-            return string.Empty;
+                    Id = $"{a.Id}",
+                    Label = a.Type,
+                    Domain = $"Class{a.StartNodeId}",
+                    Range = $"Class{a.EndNodeId}"
+                }).ToList();
         }
     }
 }
