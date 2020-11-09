@@ -72,6 +72,11 @@ namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
                     await _syncOrchestrator.Publish(contentItem);
                 }
 
+                // needed to fix an object already disposed exception, see
+                // https://github.com/OrchardCMS/OrchardCore/issues/3191
+                // https://github.com/OrchardCMS/OrchardCore/blob/d4602a736196a46bb2dacf2f370cd71e2b2e5941/src/OrchardCore.Modules/OrchardCore.Contents/Recipes/ContentStep.cs#L53
+                // await _session.CommitAsync();
+
                 _logger.LogInformation("Created content items in {TimeTaken}.", stopwatch.Elapsed);
 
                 //todo: should we still collect?
