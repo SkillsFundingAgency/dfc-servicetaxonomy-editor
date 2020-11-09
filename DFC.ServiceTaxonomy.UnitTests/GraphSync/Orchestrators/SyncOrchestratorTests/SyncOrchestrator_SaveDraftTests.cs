@@ -62,12 +62,19 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.Orchestrators.SyncOrchestrator
             await Assert.ThrowsAsync<Exception>(() => SyncOrchestrator.SaveDraft(ContentItem));
         }
 
-        [Fact]
-        public async Task SaveDraft_EventGridPublishingHandlerCalled()
+        [Theory]
+        [InlineData(AllowSyncResult.Allowed, 1)]
+        [InlineData(AllowSyncResult.Blocked, 0)]
+        [InlineData(AllowSyncResult.NotRequired, 0)]
+        public async Task SaveDraft_EventGridPublishingHandlerCalled(AllowSyncResult previewAllowSyncResult, int draftSavedCalled)
         {
+            A.CallTo(() => PreviewAllowSync.Result)
+                .Returns(previewAllowSyncResult);
+
             await SyncOrchestrator.SaveDraft(ContentItem);
 
-            A.CallTo(() => EventGridPublishingHandler.DraftSaved(ContentItem)).MustHaveHappened();
+            A.CallTo(() => EventGridPublishingHandler.DraftSaved(ContentItem))
+                .MustHaveHappened(draftSavedCalled, Times.Exactly);
         }
     }
 }
