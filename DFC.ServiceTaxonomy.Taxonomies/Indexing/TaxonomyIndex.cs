@@ -38,7 +38,7 @@ namespace DFC.ServiceTaxonomy.Taxonomies.Indexing
                 .Map(contentItem =>
                 {
                     // allow draft content items to be indexed
-                    //todo: do we still need to allow them not we use published only?
+                    //todo: do we still need to allow them, now we use published only?
                     // if (!contentItem.IsPublished())
                     // {
                     //     return null;
