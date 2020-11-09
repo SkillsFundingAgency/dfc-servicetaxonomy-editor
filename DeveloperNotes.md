@@ -1,5 +1,17 @@
 #ToDo
 
+* pre-populate custom graph sync settings to represent the real defaults
+
+* view ontology bug:
+2020-11-09 13:33:40.5975|Default|00-0f0935e940146544a0b380bfd475e2e8-f7bcefe1391f194a-00||Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware|ERROR|An unhandled exception has occurred while executing the request. DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Exceptions.GraphSyncException: Unknown graph replica set 'null'.
+at DFC.ServiceTaxonomy.GraphSync.GraphSyncers.ContentItemVersions.ContentItemVersionFactory.Get(String graphReplicaSetName) in I:\git\dfc-servicetaxonomy-editor\DFC.ServiceTaxonomy.GraphSync\GraphSyncers\ContentItemVersions\ContentItemVersionFactory.cs:line 28
+at DFC.ServiceTaxonomy.GraphVisualiser.Controllers.VisualiseController.Data(String contentItemId, String graph) in I:\git\dfc-servicetaxonomy-editor\DFC.ServiceTaxonomy.GraphVisualiser\Controllers\VisualiseController.cs:line 86
+
+
+* visualiser: right click menu
+https://developer.mozilla.org/en-US/docs/Web/API/DocumentOrShadowRoot/elementFromPoint
+https://stackoverflow.com/questions/4909167/how-to-add-a-custom-right-click-menu-to-a-webpage (Stephan Stanisic)
+
 * in the grand tradition of esco always having 1 exception to the rule, 'types of wood materials' is both a skill and knowledge
   (http://data.europa.eu/esco/skill/fb6f5f61-f3b8-40ba-8363-c8d762325ff7)
   guessing it shouldn't be a skill
