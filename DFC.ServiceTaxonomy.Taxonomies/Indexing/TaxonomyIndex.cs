@@ -37,6 +37,13 @@ namespace DFC.ServiceTaxonomy.Taxonomies.Indexing
             context.For<TaxonomyIndex>()
                 .Map(contentItem =>
                 {
+                    // allow draft content items to be indexed
+                    //todo: do we still need to allow them not we use published only?
+                    // if (!contentItem.IsPublished())
+                    // {
+                    //     return null;
+                    // }
+
                     // Can we safely ignore this content item?
                     if (_ignoredTypes.Contains(contentItem.ContentType))
                     {
@@ -47,8 +54,16 @@ namespace DFC.ServiceTaxonomy.Taxonomies.Indexing
                     _contentDefinitionManager = _contentDefinitionManager ?? _serviceProvider.GetRequiredService<IContentDefinitionManager>();
 
                     // Search for Taxonomy fields
-                    var fieldDefinitions = _contentDefinitionManager
-                        .GetTypeDefinition(contentItem.ContentType)
+                    var contentTypeDefinition = _contentDefinitionManager.GetTypeDefinition(contentItem.ContentType);
+
+                    // This can occur when content items become orphaned, particularly layer widgets when a layer is removed, before its widgets have been unpublished.
+                    if (contentTypeDefinition == null)
+                    {
+                        _ignoredTypes.Add(contentItem.ContentType);
+                        return null;
+                    }
+
+                    var fieldDefinitions = contentTypeDefinition
                         .Parts.SelectMany(x => x.PartDefinition.Fields.Where(f => f.FieldDefinition.Name == nameof(TaxonomyField)))
                         .ToArray();
 
