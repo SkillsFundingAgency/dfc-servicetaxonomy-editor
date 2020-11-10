@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace GetJobProfiles.Models.Recipe.Fields
+﻿namespace GetJobProfiles.Models.Recipe.Fields
 {
     public class TaxonomyField
     {
+        public string TaxonomyContentItemId { get; set; }
+        public string[] TermContentItemIds { get; set; }
     }
 }

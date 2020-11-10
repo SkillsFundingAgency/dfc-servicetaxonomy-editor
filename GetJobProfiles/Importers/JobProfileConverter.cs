@@ -199,11 +199,16 @@ namespace GetJobProfiles.Importers
             {
                 PageLocationPart = new PageLocationPart
                 {
-                    UrlName = new TextField(jobProfileWebsiteUrl.Substring(jobProfileWebsiteUrl.LastIndexOf("/"))),
-                    FullUrl = new TextField(jobProfileWebsiteUrl),
+                    UrlName = new TextField(jobProfileWebsiteUrl),
+                    FullUrl = new TextField($"/job-profiles/{jobProfileWebsiteUrl}"),
                 },
                 EponymousPart = new JobProfilePart
                 {
+                    PageLocations = new TaxonomyField
+                    {
+                        TaxonomyContentItemId = "4eembshqzx66drajtdten34tc8",
+                        TermContentItemIds = new [] { "4x352kh85x7894jr7yqbt0z34b" }
+                    },
                     Description = new HtmlField(jobProfile.Overview),
                     TitleOptions = _titleOptionsFactory.Create(jobProfileWebsiteUrl),
                     SOCCode = _socCodeContentPickerFactory.Create(jobProfile.Soc),
