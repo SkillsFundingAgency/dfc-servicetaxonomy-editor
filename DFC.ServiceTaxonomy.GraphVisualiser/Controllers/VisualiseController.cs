@@ -74,19 +74,20 @@ namespace DFC.ServiceTaxonomy.GraphVisualiser.Controllers
             return View();
         }
 
+        #pragma warning disable S4457
         public async Task<ActionResult> Data([FromQuery] string? contentItemId, [FromQuery] string? graph)
         {
-            ValidateParameters(graph);
-
             if (string.IsNullOrWhiteSpace(contentItemId))
-            {
                 return GetOntology();
-            }
+
+            if (string.IsNullOrEmpty(graph))
+                throw new ArgumentNullException(nameof(graph));
 
             _contentItemVersion = _contentItemVersionFactory.Get(graph!);
 
             return await GetData(contentItemId, graph!);
         }
+        #pragma warning restore S4457
 
         public async Task<ActionResult> NodeLink([FromQuery] string nodeId, [FromQuery] string route, [FromQuery] string graph)
         {
@@ -97,14 +98,6 @@ namespace DFC.ServiceTaxonomy.GraphVisualiser.Controllers
                 "resetFocus" => Redirect(ResetFocusBaseUrl.Replace(ContentItemIdPlaceHolder, contentItemId).Replace(GraphPlaceHolder, graph)),
                 _ => Redirect(EditBaseUrl.Replace(ContentItemIdPlaceHolder, contentItemId)),
             };
-        }
-
-        private static void ValidateParameters(string? graph)
-        {
-            if (string.IsNullOrEmpty(graph))
-            {
-                throw new ArgumentNullException(nameof(graph));
-            }
         }
 
         private ActionResult GetOntology()
