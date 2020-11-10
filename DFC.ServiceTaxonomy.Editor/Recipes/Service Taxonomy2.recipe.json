@@ -419,7 +419,8 @@
                                     "IdPropertyName": "uri",
                                     "GenerateIdPropertyValue": "$\"http://data.europa.eu/esco/{ContentType.ToLowerInvariant()}/{Value}\"",
                                     "PreExistingNodeUriPrefix": "http://data.europa.eu/esco",
-                                    "DisplayId": true
+                                    "DisplayId": true,
+                                    "VisualiserIncomingRelationshipsPathLength": 0
                                 },
                                 "ContentIndexSettings": {}
                             }
@@ -841,7 +842,8 @@
                                     "IdPropertyName": "uri",
                                     "GenerateIdPropertyValue": "$\"http://data.europa.eu/esco/{ContentType.ToLowerInvariant()}/{Value}\"",
                                     "PreExistingNodeUriPrefix": "http://data.europa.eu/esco",
-                                    "DisplayId": true
+                                    "DisplayId": true,
+                                    "VisualiserIncomingRelationshipsPathLength": 0
                                 }
                             }
                         }
@@ -2265,17 +2267,17 @@
                     "ContentPartFieldDefinitionRecords": [
                         {
                             "FieldName": "ContentPickerField",
-                            "Name": "ONetSkill",
+                            "Name": "PersonalitySkill",
                             "Settings": {
                                 "ContentPartFieldSettings": {
-                                    "DisplayName": "ONet Skill",
+                                    "DisplayName": "Personality Skill",
                                     "Position": "0"
                                 },
                                 "ContentPickerFieldSettings": {
-                                    "Hint": "Creates relationships of [:hasONetSkill].",
+                                    "Hint": "Creates relationships of [:hasPersonalitySkill].",
                                     "Required": true,
                                     "DisplayedContentTypes": [
-                                        "ONetSkill"
+                                        "PersonalitySkill"
                                     ]
                                 },
                                 "ContentIndexSettings": {}
@@ -2297,7 +2299,7 @@
                     ]
                 },
                 {
-                    "Name": "ONetSkill",
+                    "Name": "PersonalitySkill",
                     "Settings": {},
                     "ContentPartFieldDefinitionRecords": [
                         {

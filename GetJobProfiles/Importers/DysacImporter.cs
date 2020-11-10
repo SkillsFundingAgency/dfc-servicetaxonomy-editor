@@ -139,7 +139,7 @@ namespace GetJobProfiles.Importers
                 var title = row.GetCell(titleIndex).StringCellValue;
                 var splitTitle = title.Split('-');
 
-                var socCode = splitTitle[0].Substring(0, 4);
+                var socCode = splitTitle[0];
                 var skillName = splitTitle[1];
                 var rank = decimal.Parse(row.GetCell(oNetIndex).StringCellValue);
 
@@ -259,19 +259,21 @@ namespace GetJobProfiles.Importers
                     var socCode = row.Cells[c].StringCellValue.Substring(0, 5);
                     var value = row.Cells[c].StringCellValue.Replace("Published", "").Replace($"{socCode}-", "");
 
-                    var nonPrefixedSocCode = socCode.Substring(0, 4);
-                    var occupationalCode = _oNetToSocCodeDictionary.ContainsKey(nonPrefixedSocCode) ? _oNetToSocCodeDictionary[nonPrefixedSocCode] : string.Empty;
+                    var occupationalCode = _oNetToSocCodeDictionary.ContainsKey(socCode) ? _oNetToSocCodeDictionary[socCode] : string.Empty;
 
-                    if (dictionaryToReturn.ContainsKey(occupationalCode))
+                    if (!string.IsNullOrEmpty(occupationalCode))
                     {
-                        if (!dictionaryToReturn[occupationalCode].Contains(value))
+                        if (dictionaryToReturn.ContainsKey(occupationalCode))
                         {
-                            dictionaryToReturn[occupationalCode].Add(value);
+                            if (!dictionaryToReturn[occupationalCode].Contains(value))
+                            {
+                                dictionaryToReturn[occupationalCode].Add(value);
+                            }
                         }
-                    }
-                    else
-                    {
-                        dictionaryToReturn.Add(occupationalCode, new List<string> { value });
+                        else
+                        {
+                            dictionaryToReturn.Add(occupationalCode, new List<string> { value });
+                        }
                     }
                 }
             }

@@ -50,7 +50,7 @@ namespace GetJobProfiles.Importers
         private readonly RestHttpClient.RestHttpClient _client;
         private readonly SocCodeContentPickerFactory _socCodeContentPickerFactory;
         private readonly Dictionary<string, string> _oNetDictionary;
-        private readonly Dictionary<string, List<string>> _dysacSkillSocLookup;
+        //private readonly Dictionary<string, List<string>> _dysacSkillSocLookup;
         private readonly TitleOptionsTextFieldFactory _titleOptionsFactory;
         private readonly DefaultIdGenerator _idGenerator;
 

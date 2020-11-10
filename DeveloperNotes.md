@@ -1,5 +1,17 @@
 #ToDo
 
+* pre-populate custom graph sync settings to represent the real defaults
+
+* view ontology bug:
+2020-11-09 13:33:40.5975|Default|00-0f0935e940146544a0b380bfd475e2e8-f7bcefe1391f194a-00||Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware|ERROR|An unhandled exception has occurred while executing the request. DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Exceptions.GraphSyncException: Unknown graph replica set 'null'.
+at DFC.ServiceTaxonomy.GraphSync.GraphSyncers.ContentItemVersions.ContentItemVersionFactory.Get(String graphReplicaSetName) in I:\git\dfc-servicetaxonomy-editor\DFC.ServiceTaxonomy.GraphSync\GraphSyncers\ContentItemVersions\ContentItemVersionFactory.cs:line 28
+at DFC.ServiceTaxonomy.GraphVisualiser.Controllers.VisualiseController.Data(String contentItemId, String graph) in I:\git\dfc-servicetaxonomy-editor\DFC.ServiceTaxonomy.GraphVisualiser\Controllers\VisualiseController.cs:line 86
+
+
+* visualiser: right click menu
+https://developer.mozilla.org/en-US/docs/Web/API/DocumentOrShadowRoot/elementFromPoint
+https://stackoverflow.com/questions/4909167/how-to-add-a-custom-right-click-menu-to-a-webpage (Stephan Stanisic)
+
 * in the grand tradition of esco always having 1 exception to the rule, 'types of wood materials' is both a skill and knowledge
   (http://data.europa.eu/esco/skill/fb6f5f61-f3b8-40ba-8363-c8d762325ff7)
   guessing it shouldn't be a skill
@@ -678,8 +690,11 @@ AltLabel is similar to prefLabel, in that there are nodes that follow the same p
 
 ##Delete Page related
 
+```
 :use neo4j;
 match (n:Page) detach delete n;
+match (n:ContentHelp) detach delete n;
+match (n:Email) detach delete n;
 match (n:SharedContent) detach delete n;
 match (n:PageLocation) detach delete n;
 match (n:Taxonomy) detach delete n;
@@ -687,6 +702,8 @@ match (n:HTML) detach delete n;
 match (n:HTMLShared) detach delete n;
 :use published1;
 match (n:Page) detach delete n;
+match (n:ContentHelp) detach delete n;
+match (n:Email) detach delete n;
 match (n:SharedContent) detach delete n;
 match (n:PageLocation) detach delete n;
 match (n:Taxonomy) detach delete n;
@@ -694,6 +711,8 @@ match (n:HTML) detach delete n;
 match (n:HTMLShared) detach delete n;
 :use preview0;
 match (n:Page) detach delete n;
+match (n:ContentHelp) detach delete n;
+match (n:Email) detach delete n;
 match (n:SharedContent) detach delete n;
 match (n:PageLocation) detach delete n;
 match (n:Taxonomy) detach delete n;
@@ -701,12 +720,169 @@ match (n:HTML) detach delete n;
 match (n:HTMLShared) detach delete n;
 :use preview1;
 match (n:Page) detach delete n;
+match (n:ContentHelp) detach delete n;
+match (n:Email) detach delete n;
 match (n:SharedContent) detach delete n;
 match (n:PageLocation) detach delete n;
 match (n:Taxonomy) detach delete n;
 match (n:HTML) detach delete n;
 match (n:HTMLShared) detach delete n;
 :use neo4j;
+```
+
+##Delete Job Profile Related
+
+```
+:use neo4j;
+match (n:OccupationLabel) detach delete n;
+match (n:SkillLabel) detach delete n;
+match (n:QCFLevel) detach delete n;
+match (n:ApprenticeshipStandardRoute) detach delete n;
+match (n:ApprenticeshipStandard) detach delete n;
+match (n:RequirementsPrefix) detach delete n;
+match (n:ApprenticeshipLink) detach delete n;
+match (n:ApprenticeshipRequirement) detach delete n;
+match (n:CollegeLink) detach delete n;
+match (n:CollegeRequirement) detach delete n;
+match (n:UniversityLink) detach delete n;
+match (n:UniversityRequirement) detach delete n;
+match (n:DayToDayTask) detach delete n;
+match (n:OtherRequirement) detach delete n;
+match (n:Registration) detach delete n;
+match (n:Restriction) detach delete n;
+match (n:SOCCode) detach delete n;
+match (n:ONetSkill) detach delete n;
+match (n:ONetOccupationalCode) detach delete n;
+match (n:WorkingEnvironment) detach delete n;
+match (n:WorkingLocation) detach delete n;
+match (n:WorkingUniform) detach delete n;
+match (n:ApprenticeshipRoute) detach delete n;
+match (n:CollegeRoute) detach delete n;
+match (n:UniversityRoute) detach delete n;
+match (n:DirectRoute) detach delete n;
+match (n:OtherRoute) detach delete n;
+match (n:VolunteeringRoute) detach delete n;
+match (n:WorkRoute) detach delete n;
+match (n:JobProfile) detach delete n;
+match (n:JobCategory) detach delete n;
+match (n:PersonalityTrait) detach delete n;
+match (n:PersonalityShortQuestion) detach delete n;
+match (n:PersonalityQuestionSet) detach delete n;
+match (n:PersonalityFilteringQuestion) detach delete n;
+
+:use published1;
+match (n:OccupationLabel) detach delete n;
+match (n:SkillLabel) detach delete n;
+match (n:QCFLevel) detach delete n;
+match (n:ApprenticeshipStandardRoute) detach delete n;
+match (n:ApprenticeshipStandard) detach delete n;
+match (n:RequirementsPrefix) detach delete n;
+match (n:ApprenticeshipLink) detach delete n;
+match (n:ApprenticeshipRequirement) detach delete n;
+match (n:CollegeLink) detach delete n;
+match (n:CollegeRequirement) detach delete n;
+match (n:UniversityLink) detach delete n;
+match (n:UniversityRequirement) detach delete n;
+match (n:DayToDayTask) detach delete n;
+match (n:OtherRequirement) detach delete n;
+match (n:Registration) detach delete n;
+match (n:Restriction) detach delete n;
+match (n:SOCCode) detach delete n;
+match (n:ONetSkill) detach delete n;
+match (n:ONetOccupationalCode) detach delete n;
+match (n:WorkingEnvironment) detach delete n;
+match (n:WorkingLocation) detach delete n;
+match (n:WorkingUniform) detach delete n;
+match (n:ApprenticeshipRoute) detach delete n;
+match (n:CollegeRoute) detach delete n;
+match (n:UniversityRoute) detach delete n;
+match (n:DirectRoute) detach delete n;
+match (n:OtherRoute) detach delete n;
+match (n:VolunteeringRoute) detach delete n;
+match (n:WorkRoute) detach delete n;
+match (n:JobProfile) detach delete n;
+match (n:JobCategory) detach delete n;
+match (n:PersonalityTrait) detach delete n;
+match (n:PersonalityShortQuestion) detach delete n;
+match (n:PersonalityQuestionSet) detach delete n;
+match (n:PersonalityFilteringQuestion) detach delete n;
+
+:use preview0;
+match (n:OccupationLabel) detach delete n;
+match (n:SkillLabel) detach delete n;
+match (n:QCFLevel) detach delete n;
+match (n:ApprenticeshipStandardRoute) detach delete n;
+match (n:ApprenticeshipStandard) detach delete n;
+match (n:RequirementsPrefix) detach delete n;
+match (n:ApprenticeshipLink) detach delete n;
+match (n:ApprenticeshipRequirement) detach delete n;
+match (n:CollegeLink) detach delete n;
+match (n:CollegeRequirement) detach delete n;
+match (n:UniversityLink) detach delete n;
+match (n:UniversityRequirement) detach delete n;
+match (n:DayToDayTask) detach delete n;
+match (n:OtherRequirement) detach delete n;
+match (n:Registration) detach delete n;
+match (n:Restriction) detach delete n;
+match (n:SOCCode) detach delete n;
+match (n:ONetSkill) detach delete n;
+match (n:ONetOccupationalCode) detach delete n;
+match (n:WorkingEnvironment) detach delete n;
+match (n:WorkingLocation) detach delete n;
+match (n:WorkingUniform) detach delete n;
+match (n:ApprenticeshipRoute) detach delete n;
+match (n:CollegeRoute) detach delete n;
+match (n:UniversityRoute) detach delete n;
+match (n:DirectRoute) detach delete n;
+match (n:OtherRoute) detach delete n;
+match (n:VolunteeringRoute) detach delete n;
+match (n:WorkRoute) detach delete n;
+match (n:JobProfile) detach delete n;
+match (n:JobCategory) detach delete n;
+match (n:PersonalityTrait) detach delete n;
+match (n:PersonalityShortQuestion) detach delete n;
+match (n:PersonalityQuestionSet) detach delete n;
+match (n:PersonalityFilteringQuestion) detach delete n;
+
+:use preview1;
+match (n:OccupationLabel) detach delete n;
+match (n:SkillLabel) detach delete n;
+match (n:QCFLevel) detach delete n;
+match (n:ApprenticeshipStandardRoute) detach delete n;
+match (n:ApprenticeshipStandard) detach delete n;
+match (n:RequirementsPrefix) detach delete n;
+match (n:ApprenticeshipLink) detach delete n;
+match (n:ApprenticeshipRequirement) detach delete n;
+match (n:CollegeLink) detach delete n;
+match (n:CollegeRequirement) detach delete n;
+match (n:UniversityLink) detach delete n;
+match (n:UniversityRequirement) detach delete n;
+match (n:DayToDayTask) detach delete n;
+match (n:OtherRequirement) detach delete n;
+match (n:Registration) detach delete n;
+match (n:Restriction) detach delete n;
+match (n:SOCCode) detach delete n;
+match (n:ONetSkill) detach delete n;
+match (n:ONetOccupationalCode) detach delete n;
+match (n:WorkingEnvironment) detach delete n;
+match (n:WorkingLocation) detach delete n;
+match (n:WorkingUniform) detach delete n;
+match (n:ApprenticeshipRoute) detach delete n;
+match (n:CollegeRoute) detach delete n;
+match (n:UniversityRoute) detach delete n;
+match (n:DirectRoute) detach delete n;
+match (n:OtherRoute) detach delete n;
+match (n:VolunteeringRoute) detach delete n;
+match (n:WorkRoute) detach delete n;
+match (n:JobProfile) detach delete n;
+match (n:JobCategory) detach delete n;
+match (n:PersonalityTrait) detach delete n;
+match (n:PersonalityShortQuestion) detach delete n;
+match (n:PersonalityQuestionSet) detach delete n;
+match (n:PersonalityFilteringQuestion) detach delete n;
+
+:use neo4j;
+```
 
 ##Skills of type used by JP
 

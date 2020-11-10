@@ -95,7 +95,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
 
             relatedSyncNameProvider.ContentType = taxonomyContentItem.ContentType;
             destNodeLabels = await relatedSyncNameProvider.NodeLabels();
-            object taxonomyIdValue = relatedSyncNameProvider.GetIdPropertyValue(
+            object taxonomyIdValue = relatedSyncNameProvider.GetNodeIdPropertyValue(
                 taxonomyContentItem.Content[nameof(GraphSyncPart)], context.ContentItemVersion);
 
             context.ReplaceRelationshipsCommand.AddRelationshipsTo(
@@ -171,7 +171,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
             IContentItemVersion contentItemVersion)
         {
             ContentItem termContentItem = taxonomyTerms[termContentItemId];
-            return termSyncNameProvider.GetIdPropertyValue(
+            return termSyncNameProvider.GetNodeIdPropertyValue(
                 (JObject)termContentItem.Content[nameof(GraphSyncPart)]!, contentItemVersion);
         }
 

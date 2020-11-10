@@ -1,0 +1,23 @@
+{
+  "name": "00_Pages",
+  "displayName": "00_Pages",
+  "description": "",
+  "author": "",
+  "website": "",
+  "version": "",
+  "issetuprecipe": false,
+  "categories": "",
+  "tags": [],
+  "steps": [
+    {
+      "name": "recipes",
+      "values": [
+        { "executionid": "00_Pages", "name": "00_Pages_Taxonomies" },
+        { "executionid": "00_Pages", "name": "00_Pages_SharedContent" },
+        { "executionid": "00_Pages", "name": "00_Pages_ContentHelp" },
+        { "executionid": "00_Pages", "name": "00_Pages_EmailTemplates" },
+        { "executionid": "00_Pages", "name": "00_Pages_ContactUsPages" }
+      ]
+    }
+  ]
+}

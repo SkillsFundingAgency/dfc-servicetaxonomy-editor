@@ -132,6 +132,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.Notifications
                     type, userMessage, technicalMessage, exception?.ToString() ?? "None");
             }
 
+            string exceptionText = GetExceptionText(exception);
+
             HtmlContentBuilder htmlContentBuilder = new HtmlContentBuilder();
 
             string uniqueId = $"id{Guid.NewGuid():N}";
@@ -140,7 +142,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Notifications
                 Activity.Current.TraceId.ToString(),
                 userMessage,
                 technicalMessage,
-                exception);
+                exceptionText);
 
             //fa-angle-double-down, hat-wizard, oil-can, fa-wrench?
             htmlContentBuilder
@@ -159,12 +161,27 @@ namespace DFC.ServiceTaxonomy.GraphSync.Notifications
             {
                 //todo: we only include the exception's message (temporarily) to try to stop the notification message blowing up the page!
                 //htmlContentBuilder.AppendHtml($"<div class=\"card mt-3\"><div class=\"card-header\">Exception</div><div class=\"card-body\"><pre><code>{exception}</code></pre></div></div>");
-                htmlContentBuilder.AppendHtml($"<div class=\"card mt-3\"><div class=\"card-header\">Exception</div><div class=\"card-body\"><pre><code>{exception.Message}</code></pre></div></div>");
+                htmlContentBuilder.AppendHtml($"<div class=\"card mt-3\"><div class=\"card-header\">Exception</div><div class=\"card-body\"><pre><code>{exceptionText}</code></pre></div></div>");
             }
 
             htmlContentBuilder.AppendHtml("</div></div></div>");
 
             _entries.Add(new NotifyEntry { Type = type, Message = htmlContentBuilder });
+        }
+
+        private string GetExceptionText(Exception? exception)
+        {
+            const int maxExceptionTextLength = 200;
+
+            string exceptionMessage = exception?.Message ?? "";
+
+            // make sure the exception text doesn't take us over the max notification size
+            if (exceptionMessage.Length > maxExceptionTextLength)
+            {
+                exceptionMessage = $"{exceptionMessage.Substring(0, maxExceptionTextLength)} [truncated]";
+            }
+
+            return exceptionMessage;
         }
 
         //todo: add Trace Id to std notifications?
@@ -205,13 +222,13 @@ function {onClickFunction}() {{
             );
         }
 
-        private string TechnicalClipboardCopy(string traceId, string userMessage, string technicalMessage, Exception? exception = null)
+        private string TechnicalClipboardCopy(string traceId, string userMessage, string technicalMessage, string exceptionText)
         {
             return
 @$"Trace ID          : {traceId}
 User Message      : {userMessage}
 Technical Message : {technicalMessage}
-Exception         : {exception?.Message}";
+Exception         : {exceptionText}";
             //todo: we want the full exception really!
 //Exception         : {exception}";
         }
