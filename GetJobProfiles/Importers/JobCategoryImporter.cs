@@ -38,8 +38,18 @@ namespace GetJobProfiles.Importers
             JobCategoryContentItems = jobCategoryDictionary.SelectMany(dict => dict.Value).Distinct().ToList().Select(
                 category => new JobCategoryContentItem(category, timestamp, JobCategoryContentItemIdDictionary[category])
                 {
+                    PageLocationPart = new PageLocationPart
+                    {
+                        UrlName = new TextField(category.ToLower().Replace(' ', '-')),
+                        FullUrl = new TextField($"/job-categories/{category.ToLower().Replace(' ', '-')}")
+                    },
                     EponymousPart = new JobCategoryPart
                     {
+                        PageLocations = new TaxonomyField
+                        {
+                            TaxonomyContentItemId = "4eembshqzx66drajtdten34tc8",
+                            TermContentItemIds = new[] { "4y9c37rra2k0x6dhqg796akwxk" }
+                        },
                         Description = new HtmlField(category),
                         JobProfiles = new ContentPicker
                         {
@@ -49,8 +59,7 @@ namespace GetJobProfiles.Importers
                                         .Select(dict => dict.Key).Any(uri =>
                                             jp.PageLocationPart.FullUrl.Text.EndsWith(uri)))
                                 .Select(jp => jp.ContentItemId)
-                        },
-                        WebsiteURI = new TextField($"/job-categories/{category.ToLower().Replace(' ', '-')}")
+                        }
                     }
                 });
         }
