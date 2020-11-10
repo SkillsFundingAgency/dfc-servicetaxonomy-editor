@@ -2286,17 +2286,17 @@
                     "ContentPartFieldDefinitionRecords": [
                         {
                             "FieldName": "ContentPickerField",
-                            "Name": "ONetSkill",
+                            "Name": "PersonalitySkill",
                             "Settings": {
                                 "ContentPartFieldSettings": {
-                                    "DisplayName": "ONet Skill",
+                                    "DisplayName": "Personality Skill",
                                     "Position": "0"
                                 },
                                 "ContentPickerFieldSettings": {
-                                    "Hint": "Creates relationships of [:hasONetSkill].",
+                                    "Hint": "Creates relationships of [:hasPersonalitySkill].",
                                     "Required": true,
                                     "DisplayedContentTypes": [
-                                        "ONetSkill"
+                                        "PersonalitySkill"
                                     ]
                                 },
                                 "ContentIndexSettings": {}
@@ -2318,7 +2318,7 @@
                     ]
                 },
                 {
-                    "Name": "ONetSkill",
+                    "Name": "PersonalitySkill",
                     "Settings": {},
                     "ContentPartFieldDefinitionRecords": [
                         {

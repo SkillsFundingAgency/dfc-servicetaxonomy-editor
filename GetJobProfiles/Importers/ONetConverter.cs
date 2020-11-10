@@ -46,11 +46,9 @@ namespace GetJobProfiles.Importers
 
                     if (existingContentItem == null)
                     {
-                        var cleansedSocCode = socCode.Length == 5 ? socCode.Substring(0, 4) : socCode;
-
-                        if (!ONetOccupationalCodeToSocCodeDictionary.ContainsKey(cleansedSocCode))
+                        if (!ONetOccupationalCodeToSocCodeDictionary.ContainsKey(socCode))
                         {
-                            ONetOccupationalCodeToSocCodeDictionary.Add(cleansedSocCode, occupationalCode);
+                            ONetOccupationalCodeToSocCodeDictionary.Add(socCode, occupationalCode);
                         }
 
                         var contentItem = new ONetOccupationalCodeContentItem(occupationalCode, timestamp);
