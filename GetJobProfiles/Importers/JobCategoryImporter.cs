@@ -47,7 +47,7 @@ namespace GetJobProfiles.Importers
                                 .Where(jp =>
                                     jobCategoryDictionary.Where(dict => dict.Value.Any(val => val == category))
                                         .Select(dict => dict.Key).Any(uri =>
-                                            jp.JobProfileHeader.JobProfileWebsiteUrl.Text.EndsWith(uri)))
+                                            jp.PageLocationPart.FullUrl.Text.EndsWith(uri)))
                                 .Select(jp => jp.ContentItemId)
                         },
                         WebsiteURI = new TextField($"/job-categories/{category.ToLower().Replace(' ', '-')}")
