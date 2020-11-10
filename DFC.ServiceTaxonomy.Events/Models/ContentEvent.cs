@@ -24,7 +24,7 @@ namespace DFC.ServiceTaxonomy.Events.Models
             //todo: the new activity should be Stop()ed
             Data = new ContentEventData(userId, itemId, contentItem.ContentItemVersionId, contentItem.DisplayText, contentItem.Author, contentItem.ContentType, Activity.Current ?? new Activity(nameof(ContentEvent)).Start());
             EventType = GetEventType(contentEventType);
-            EventTime = (contentItem.ModifiedUtc ?? contentItem.CreatedUtc)!.Value;
+            EventTime = DateTime.UtcNow;
             MetadataVersion = null;
             DataVersion = "1.0";
         }
