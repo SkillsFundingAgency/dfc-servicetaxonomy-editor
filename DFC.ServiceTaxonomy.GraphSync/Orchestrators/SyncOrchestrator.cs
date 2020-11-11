@@ -226,17 +226,21 @@ namespace DFC.ServiceTaxonomy.GraphSync.Orchestrators
                     return false;
                 case AllowSyncResult.Allowed:
                     await SyncToGraphReplicaSet(syncOperation, mergeGraphSyncer!, contentItem);
-
-                    foreach (var contentOrchestrationHandler in _contentOrchestrationHandlers)
-                    {
-                        await callHandlerWhenAllowed(contentOrchestrationHandler);
-                    }
+                    await CallContentOrchestrationHandlers(callHandlerWhenAllowed);
                     break;
             }
             return true;
         }
 
-        #pragma warning disable S1172
+        private async Task CallContentOrchestrationHandlers(Func<IContentOrchestrationHandler, Task> callHandlerWhenAllowed)
+        {
+            foreach (var contentOrchestrationHandler in _contentOrchestrationHandlers)
+            {
+                await callHandlerWhenAllowed(contentOrchestrationHandler);
+            }
+        }
+
+#pragma warning disable S1172
         private async Task<(IAllowSync, IMergeGraphSyncer?)> GetMergeGraphSyncerIfSyncAllowed(
             SyncOperation syncOperation,
             string replicaSetName,
