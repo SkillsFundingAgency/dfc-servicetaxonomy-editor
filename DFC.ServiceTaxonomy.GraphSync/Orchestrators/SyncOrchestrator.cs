@@ -6,6 +6,7 @@ using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.ContentItemVersions;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Results.AllowSync;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Results.AllowSync;
+using DFC.ServiceTaxonomy.GraphSync.Handlers.Exceptions;
 using DFC.ServiceTaxonomy.GraphSync.Handlers.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.Notifications;
 using DFC.ServiceTaxonomy.GraphSync.Orchestrators.Interfaces;
@@ -105,10 +106,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.Orchestrators
                 await SyncToGraphReplicaSet(SyncOperation.Publish, publishedMergeGraphSyncer!, contentItem);
                 await SyncToGraphReplicaSet(SyncOperation.Publish, previewMergeGraphSyncer!, contentItem);
 
-                foreach (var contentOrchestrationHandler in _contentOrchestrationHandlers)
-                {
-                    await contentOrchestrationHandler.Published(contentItem);
-                }
+                await CallContentOrchestrationHandlers(
+                    async (handler) => await handler.Published(contentItem));
             }
 
             return true;
@@ -155,15 +154,11 @@ namespace DFC.ServiceTaxonomy.GraphSync.Orchestrators
                 await SyncToGraphReplicaSet(SyncOperation.Update, publishedMergeGraphSyncer!, publishedContentItem);
                 await SyncToGraphReplicaSet(SyncOperation.Update, previewMergeGraphSyncer!, previewContentItem);
 
-                foreach (var contentOrchestrationHandler in _contentOrchestrationHandlers)
-                {
-                    await contentOrchestrationHandler.DraftSaved(previewContentItem);
-                }
+                await CallContentOrchestrationHandlers(
+                    async (handler) => await handler.DraftSaved(previewContentItem));
 
-                foreach (var contentOrchestrationHandler in _contentOrchestrationHandlers)
-                {
-                    await contentOrchestrationHandler.Published(publishedContentItem);
-                }
+                await CallContentOrchestrationHandlers(
+                    async (handler) => await handler.Published(publishedContentItem));
             }
 
             return true;
@@ -236,7 +231,28 @@ namespace DFC.ServiceTaxonomy.GraphSync.Orchestrators
         {
             foreach (var contentOrchestrationHandler in _contentOrchestrationHandlers)
             {
-                await callHandlerWhenAllowed(contentOrchestrationHandler);
+                try
+                {
+                    await callHandlerWhenAllowed(contentOrchestrationHandler);
+                }
+                //todo: catch exception or provide control through context?
+                catch (ContentOrchestrationHandlerException handlerException)
+                {
+                    if (handlerException.NotifyType != null)
+                    {
+                        _notifier.Add(handlerException.Message,
+                            $"ContentOrchestrationHandler threw exception.",
+                            exception: handlerException,
+                            type: handlerException.NotifyType.Value);
+
+                        //todo: log
+                        //todo: rethrow if notify type error??
+                    }
+                }
+                catch (Exception exception)
+                {
+                    _logger.LogError(exception, "Content orchestration handler threw exception.");
+                }
             }
         }
 

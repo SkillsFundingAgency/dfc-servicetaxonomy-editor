@@ -1,13 +1,16 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.Events.Configuration;
 using DFC.ServiceTaxonomy.Events.Models;
 using DFC.ServiceTaxonomy.Events.Services.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.ContentItemVersions;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Helpers;
+using DFC.ServiceTaxonomy.GraphSync.Handlers.Exceptions;
 using DFC.ServiceTaxonomy.GraphSync.Handlers.Interfaces;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using OrchardCore.ContentManagement;
+using OrchardCore.DisplayManagement.Notify;
 
 namespace DFC.ServiceTaxonomy.GraphSync.Handlers
 {
@@ -114,17 +117,27 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers
                 return;
             }
 
-            IContentItemVersion contentItemVersion = eventType switch
+            try
             {
-                ContentEventType.Published => _publishedContentItemVersion,
-                ContentEventType.Draft => _previewContentItemVersion,
-                _ => _neutralEventContentItemVersion
-            };
+                IContentItemVersion contentItemVersion = eventType switch
+                {
+                    ContentEventType.Published => _publishedContentItemVersion,
+                    ContentEventType.Draft => _previewContentItemVersion,
+                    _ => _neutralEventContentItemVersion
+                };
 
-            string userId = _syncNameProvider.GetEventIdPropertyValue(contentItem.Content.GraphSyncPart, contentItemVersion);
+                string userId = _syncNameProvider.GetEventIdPropertyValue(contentItem.Content.GraphSyncPart, contentItemVersion);
 
-            ContentEvent contentEvent = new ContentEvent(contentItem, userId, eventType);
-            await _eventGridContentClient.Publish(contentEvent);
+                ContentEvent contentEvent = new ContentEvent(contentItem, userId, eventType);
+                await _eventGridContentClient.Publish(contentEvent);
+            }
+            catch (Exception publishException)
+            {
+                throw new ContentOrchestrationHandlerException("Warning: the event grid event could not be published.", publishException)
+                {
+                    NotifyType = NotifyType.Warning
+                };
+            }
         }
     }
 }
