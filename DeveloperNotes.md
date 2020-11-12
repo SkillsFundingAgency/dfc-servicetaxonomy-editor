@@ -2,7 +2,7 @@
 
 * pre-populate custom graph sync settings to represent the real defaults
 
-* requirements prefix items jave empty text
+* requirements prefix items have empty text
 
 * visualiser: right click menu
 https://developer.mozilla.org/en-US/docs/Web/API/DocumentOrShadowRoot/elementFromPoint
