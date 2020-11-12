@@ -72,7 +72,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers
             _logger = logger;
         }
 
-        //todo: switch to contexts?
         public async Task DraftSaved(IOrchestrationContext context)
         {
             await PublishContentEvent(context, ContentEventType.Draft);
