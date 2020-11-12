@@ -14,6 +14,7 @@ namespace GetJobProfiles.Models.Recipe.ContentItems
         }
 
         public TitlePart TitlePart { get; set; }
+        public PageLocationPart PageLocationPart { get; set; }
         public JobCategoryPart EponymousPart { get; set; }
         public GraphSyncPart GraphSyncPart { get; set; }
     }
