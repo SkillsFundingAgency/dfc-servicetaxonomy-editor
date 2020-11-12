@@ -22,7 +22,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.Orchestrators
         private readonly IPublishedContentItemVersion _publishedContentItemVersion;
         private readonly IPreviewContentItemVersion _previewContentItemVersion;
         private readonly IServiceProvider _serviceProvider;
-        private readonly IEnumerable<IContentOrchestrationHandler> _contentOrchestrationHandlers;
 
         public DeleteOrchestrator(
             IContentDefinitionManager contentDefinitionManager,
@@ -32,12 +31,11 @@ namespace DFC.ServiceTaxonomy.GraphSync.Orchestrators
             IPublishedContentItemVersion publishedContentItemVersion,
             IPreviewContentItemVersion previewContentItemVersion,
             IEnumerable<IContentOrchestrationHandler> contentOrchestrationHandlers)
-            : base(contentDefinitionManager, notifier, logger)
+            : base(contentDefinitionManager, notifier, contentOrchestrationHandlers, logger)
         {
             _publishedContentItemVersion = publishedContentItemVersion;
             _previewContentItemVersion = previewContentItemVersion;
             _serviceProvider = serviceProvider;
-            _contentOrchestrationHandlers = contentOrchestrationHandlers;
         }
 
         /// <returns>false if unpublish to publish graph was blocked.</returns>
@@ -57,11 +55,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.Orchestrators
                 return false;
             }
 
-            //if unpublish was successful publish events
-            foreach (var contentOrchestrationHandler in _contentOrchestrationHandlers)
-            {
-                await contentOrchestrationHandler.Unpublished(contentItem);
-            }
+            await CallContentOrchestrationHandlers(contentItem,
+                async (handler, context) => await handler.Unpublished(context));
 
             return true;
         }
@@ -108,11 +103,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.Orchestrators
             await DeleteFromGraphReplicaSet(previewDeleteGraphSyncer!, contentItem, SyncOperation.Delete);
             await DeleteFromGraphReplicaSet(publishedDeleteGraphSyncer!, contentItem, SyncOperation.Delete);
 
-            // if everything succeeded, publish event and return true
-            foreach (var contentOrchestrationHandler in _contentOrchestrationHandlers)
-            {
-                await contentOrchestrationHandler.Deleted(contentItem);
-            }
+            await CallContentOrchestrationHandlers(contentItem,
+                async (handler, context) => await handler.Deleted(context));
 
             return true;
         }

@@ -83,12 +83,12 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.Orchestrators
                 .Returns(PublishedAllowSync);
 
             EventGridPublishingHandler = A.Fake<IContentOrchestrationHandler>();
-            A.CallTo(() => EventGridPublishingHandler.Published(A<ContentItem>.Ignored)).Returns(Task.CompletedTask);
-            A.CallTo(() => EventGridPublishingHandler.DraftSaved(A<ContentItem>.Ignored)).Returns(Task.CompletedTask);
-            A.CallTo(() => EventGridPublishingHandler.Cloned(A<ContentItem>.Ignored)).Returns(Task.CompletedTask);
-            A.CallTo(() => EventGridPublishingHandler.Unpublished(A<ContentItem>.Ignored)).Returns(Task.CompletedTask);
-            A.CallTo(() => EventGridPublishingHandler.DraftDiscarded(A<ContentItem>.Ignored)).Returns(Task.CompletedTask);
-            A.CallTo(() => EventGridPublishingHandler.Deleted(A<ContentItem>.Ignored)).Returns(Task.CompletedTask);
+            A.CallTo(() => EventGridPublishingHandler.Published(A<IOrchestrationContext>.Ignored)).Returns(Task.CompletedTask);
+            A.CallTo(() => EventGridPublishingHandler.DraftSaved(A<IOrchestrationContext>.Ignored)).Returns(Task.CompletedTask);
+            A.CallTo(() => EventGridPublishingHandler.Cloned(A<IOrchestrationContext>.Ignored)).Returns(Task.CompletedTask);
+            A.CallTo(() => EventGridPublishingHandler.Unpublished(A<IOrchestrationContext>.Ignored)).Returns(Task.CompletedTask);
+            A.CallTo(() => EventGridPublishingHandler.DraftDiscarded(A<IOrchestrationContext>.Ignored)).Returns(Task.CompletedTask);
+            A.CallTo(() => EventGridPublishingHandler.Deleted(A<IOrchestrationContext>.Ignored)).Returns(Task.CompletedTask);
 
             DeleteOrchestrator = new DeleteOrchestrator(
                 ContentDefinitionManager,
