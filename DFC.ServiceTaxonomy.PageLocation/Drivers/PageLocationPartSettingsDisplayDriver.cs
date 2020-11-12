@@ -20,6 +20,7 @@ namespace DFC.ServiceTaxonomy.PageLocation.Drivers
             {
                 PageLocationPartSettings settings = contentTypePartDefinition.GetSettings<PageLocationPartSettings>();
                 model.DisplayRedirectLocationsAndDefaultPageForLocation = settings.DisplayRedirectLocationsAndDefaultPageForLocation;
+                model.DefaultPageLocationPath = settings.DefaultPageLocationPath;
             })
             .Location("Content");
         }
@@ -34,9 +35,14 @@ namespace DFC.ServiceTaxonomy.PageLocation.Drivers
             var model = new PageLocationPartSettingsViewModel();
 
             await context.Updater.TryUpdateModelAsync(model, Prefix,
-                m => m.DisplayRedirectLocationsAndDefaultPageForLocation);
+                m => m.DisplayRedirectLocationsAndDefaultPageForLocation,
+                m => m.DefaultPageLocationPath);
 
-            context.Builder.WithSettings(new PageLocationPartSettings { DisplayRedirectLocationsAndDefaultPageForLocation = model.DisplayRedirectLocationsAndDefaultPageForLocation });
+            context.Builder.WithSettings(new PageLocationPartSettings
+            {
+                DisplayRedirectLocationsAndDefaultPageForLocation = model.DisplayRedirectLocationsAndDefaultPageForLocation,
+                DefaultPageLocationPath = model.DefaultPageLocationPath
+            });
 
             return Edit(contentTypePartDefinition, context.Updater);
         }

@@ -59,7 +59,7 @@ namespace GetJobProfiles.Importers
                 foreach (var item in distinctEscoJobProfileMap)
                 {
                     JobProfileContentItem profile = jobProfiles
-                        .SingleOrDefault(x => x.JobProfileHeader.JobProfileWebsiteUrl.Text.Split("/").Last() == item.Url);
+                        .SingleOrDefault(x => x.PageLocationPart.FullUrl?.Text.Split("/").Last() == item.Url);
 
                     if (profile != null && !_exclusions.Contains(item.Url))
                     {
@@ -67,7 +67,7 @@ namespace GetJobProfiles.Importers
                         string uri = item.EscoUri.Split(new[] { "\r\n" }, StringSplitOptions.None).First().Trim();
 
                         //todo: GetContentItemIdByUri would be better - even better GetContentItemIdByUserId and take into account settings
-                        profile.JobProfileHeader.Occupation = new ContentPicker {ContentItemIds = new[]
+                        profile.EponymousPart.Occupation = new ContentPicker {ContentItemIds = new[]
                         {
                             $"«c#: await Content.GetContentItemIdByDisplayText(\"Occupation\", \"{title}\")»"
                         }};

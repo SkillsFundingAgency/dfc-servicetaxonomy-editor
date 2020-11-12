@@ -89,9 +89,10 @@
             }
         }
 
-        if ($('h1:contains("New Job Category")').length) {
-            var $jobCategoriesTermLabel = $('label:contains("job-categories")');
-            $jobCategoriesTermLabel.prev('input').prop('checked', true);
+        @if (!string.IsNullOrWhiteSpace(Model.Settings?.DefaultPageLocationPath))
+        {
+            @:var $termLabel = $('label:contains("@Model.Settings.DefaultPageLocationPath")');
+            @:$termLabel.prev('input').prop('checked', true);
         }
     });
 </script>
