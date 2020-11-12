@@ -191,6 +191,66 @@
                                         }
                                     },
                                     {
+                                        "ContentItemId": "4y9c37rra2k0x6dhqg796akwxk",
+                                        "ContentItemVersionId": null,
+                                        "ContentType": "PageLocation",
+                                        "DisplayText": "job-categories",
+                                        "Latest": false,
+                                        "Published": false,
+                                        "ModifiedUtc": "2020-07-16T13:43:53.6627996Z",
+                                        "PublishedUtc": null,
+                                        "CreatedUtc": null,
+                                        "Owner": null,
+                                        "Author": "admin",
+                                        "TitlePart": {
+                                            "Title": "job-categories"
+                                        },
+                                        "PageLocation": {
+                                            "BreadcrumbText": {
+                                                "Text": "Job Categories"
+                                            }
+                                        },
+                                        "GraphSyncPart": {
+                                            "Text": "<<contentapiprefix>>/pagelocation/e7cfa73a-9488-4f52-8ed0-3053f9df7127"
+                                        },
+                                        "TermPart": {
+                                            "TaxonomyContentItemId": "4eembshqzx66drajtdten34tc8"
+                                        },
+                                        "@WeldedPartSettings": {
+                                            "TermPart": {}
+                                        }
+                                    },
+                                    {
+                                        "ContentItemId": "4x352kh85x7894jr7yqbt0z34b",
+                                        "ContentItemVersionId": null,
+                                        "ContentType": "PageLocation",
+                                        "DisplayText": "job-profiles",
+                                        "Latest": false,
+                                        "Published": false,
+                                        "ModifiedUtc": "2020-07-16T13:43:53.6627996Z",
+                                        "PublishedUtc": null,
+                                        "CreatedUtc": null,
+                                        "Owner": null,
+                                        "Author": "admin",
+                                        "TitlePart": {
+                                            "Title": "job-profiles"
+                                        },
+                                        "PageLocation": {
+                                            "BreadcrumbText": {
+                                                "Text": "Job Profiles"
+                                            }
+                                        },
+                                        "GraphSyncPart": {
+                                            "Text": "<<contentapiprefix>>/pagelocation/b95bfc51-9d16-4cb7-836b-fef79a6e899a"
+                                        },
+                                        "TermPart": {
+                                            "TaxonomyContentItemId": "4eembshqzx66drajtdten34tc8"
+                                        },
+                                        "@WeldedPartSettings": {
+                                            "TermPart": {}
+                                        }
+                                    },
+                                    {
                                         "ContentItemId": "4rk5qs3dmjc22t2wfvnvwe1p4x",
                                         "ContentItemVersionId": null,
                                         "ContentType": "PageLocation",
