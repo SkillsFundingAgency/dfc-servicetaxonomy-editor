@@ -1,4 +1,9 @@
-﻿using DFC.ServiceTaxonomy.GraphSync.Notifications;
+﻿using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using DFC.ServiceTaxonomy.GraphSync.Handlers.Contexts;
+using DFC.ServiceTaxonomy.GraphSync.Handlers.Interfaces;
+using DFC.ServiceTaxonomy.GraphSync.Notifications;
 using DFC.ServiceTaxonomy.GraphSync.Services;
 using Microsoft.Extensions.Logging;
 using OrchardCore.ContentManagement;
@@ -11,15 +16,43 @@ namespace DFC.ServiceTaxonomy.GraphSync.Orchestrators
         protected readonly IContentDefinitionManager _contentDefinitionManager;
         protected readonly IGraphSyncNotifier _notifier;
         protected readonly ILogger _logger;
+        private readonly IEnumerable<IContentOrchestrationHandler> _contentOrchestrationHandlers;
 
         protected Orchestrator(
             IContentDefinitionManager contentDefinitionManager,
             IGraphSyncNotifier notifier,
+            IEnumerable<IContentOrchestrationHandler> contentOrchestrationHandlers,
             ILogger logger)
         {
             _contentDefinitionManager = contentDefinitionManager;
             _notifier = notifier;
+            _contentOrchestrationHandlers = contentOrchestrationHandlers;
             _logger = logger;
+        }
+
+        protected async Task CallContentOrchestrationHandlers(
+            ContentItem contentItem,
+            Func<IContentOrchestrationHandler, IOrchestrationContext, Task> callHandlerWhenAllowed)
+        {
+            var context = new OrchestrationContext(contentItem, _notifier);
+
+            foreach (var contentOrchestrationHandler in _contentOrchestrationHandlers)
+            {
+                try
+                {
+                    await callHandlerWhenAllowed(contentOrchestrationHandler, context);
+
+                    if (context.Cancel)
+                    {
+                        //todo:
+                    }
+                }
+                catch (Exception exception)
+                {
+                    //todo:
+                    _logger.LogError(exception, "Content orchestration handler threw exception.");
+                }
+            }
         }
 
         //todo: todo temporarily protected

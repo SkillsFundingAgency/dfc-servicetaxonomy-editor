@@ -6,7 +6,6 @@ using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.ContentItemVersions;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Results.AllowSync;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Results.AllowSync;
-using DFC.ServiceTaxonomy.GraphSync.Handlers.Exceptions;
 using DFC.ServiceTaxonomy.GraphSync.Handlers.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.Notifications;
 using DFC.ServiceTaxonomy.GraphSync.Orchestrators.Interfaces;
@@ -24,7 +23,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.Orchestrators
         private readonly IGraphCluster _graphCluster;
         private readonly IPublishedContentItemVersion _publishedContentItemVersion;
         private readonly IServiceProvider _serviceProvider;
-        private readonly IEnumerable<IContentOrchestrationHandler> _contentOrchestrationHandlers;
 
         public SyncOrchestrator(
             IContentDefinitionManager contentDefinitionManager,
@@ -34,12 +32,11 @@ namespace DFC.ServiceTaxonomy.GraphSync.Orchestrators
             ILogger<SyncOrchestrator> logger,
             IPublishedContentItemVersion publishedContentItemVersion,
             IEnumerable<IContentOrchestrationHandler> contentOrchestrationHandlers)
-            : base(contentDefinitionManager, notifier, logger)
+            : base(contentDefinitionManager, notifier, contentOrchestrationHandlers, logger)
         {
             _graphCluster = graphCluster;
             _publishedContentItemVersion = publishedContentItemVersion;
             _serviceProvider = serviceProvider;
-            _contentOrchestrationHandlers = contentOrchestrationHandlers;
         }
 
         /// <returns>false if saving draft to preview graph was blocked or failed.</returns>
@@ -55,7 +52,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Orchestrators
                 GraphReplicaSetNames.Preview,
                 contentItem,
                 contentManager,
-                async (handler) => await handler.DraftSaved(contentItem));
+                async (handler, context) => await handler.DraftSaved(context));
         }
 
         /// <returns>false if publish to either graph was blocked or failed.</returns>
@@ -106,8 +103,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.Orchestrators
                 await SyncToGraphReplicaSet(SyncOperation.Publish, publishedMergeGraphSyncer!, contentItem);
                 await SyncToGraphReplicaSet(SyncOperation.Publish, previewMergeGraphSyncer!, contentItem);
 
-                await CallContentOrchestrationHandlers(
-                    async (handler) => await handler.Published(contentItem));
+                await CallContentOrchestrationHandlers(contentItem,
+                    async (handler, context) => await handler.Published(context));
             }
 
             return true;
@@ -154,11 +151,11 @@ namespace DFC.ServiceTaxonomy.GraphSync.Orchestrators
                 await SyncToGraphReplicaSet(SyncOperation.Update, publishedMergeGraphSyncer!, publishedContentItem);
                 await SyncToGraphReplicaSet(SyncOperation.Update, previewMergeGraphSyncer!, previewContentItem);
 
-                await CallContentOrchestrationHandlers(
-                    async (handler) => await handler.DraftSaved(previewContentItem));
+                await CallContentOrchestrationHandlers(previewContentItem,
+                    async (handler, context) => await handler.DraftSaved(context));
 
-                await CallContentOrchestrationHandlers(
-                    async (handler) => await handler.Published(publishedContentItem));
+                await CallContentOrchestrationHandlers(publishedContentItem,
+                    async (handler, context) => await handler.Published(context));
             }
 
             return true;
@@ -181,7 +178,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Orchestrators
                 GraphReplicaSetNames.Preview,
                 publishedContentItem!,
                 contentManager,
-                async (handler) => await handler.DraftDiscarded(contentItem));
+                async (handler, context) => await handler.DraftDiscarded(context));
         }
 
         /// <returns>false if saving clone to preview graph was blocked or failed.</returns>
@@ -200,7 +197,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Orchestrators
                 GraphReplicaSetNames.Preview,
                 contentItem,
                 contentManager,
-                async (handler) => await handler.Cloned(contentItem));
+                async (handler, context) => await handler.Cloned(context));
         }
 
         //todo: remove equivalent in mergegraphsyncer?
@@ -209,7 +206,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Orchestrators
             string replicaSetName,
             ContentItem contentItem,
             IContentManager contentManager,
-            Func<IContentOrchestrationHandler, Task> callHandlerWhenAllowed)
+            Func<IContentOrchestrationHandler, IOrchestrationContext, Task> callHandlerWhenAllowed)
         {
             (IAllowSync allowSync, IMergeGraphSyncer? mergeGraphSyncer) =
                 await GetMergeGraphSyncerIfSyncAllowed(syncOperation, replicaSetName, contentItem, contentManager);
@@ -221,39 +218,10 @@ namespace DFC.ServiceTaxonomy.GraphSync.Orchestrators
                     return false;
                 case AllowSyncResult.Allowed:
                     await SyncToGraphReplicaSet(syncOperation, mergeGraphSyncer!, contentItem);
-                    await CallContentOrchestrationHandlers(callHandlerWhenAllowed);
+                    await CallContentOrchestrationHandlers(contentItem, callHandlerWhenAllowed);
                     break;
             }
             return true;
-        }
-
-        private async Task CallContentOrchestrationHandlers(Func<IContentOrchestrationHandler, Task> callHandlerWhenAllowed)
-        {
-            foreach (var contentOrchestrationHandler in _contentOrchestrationHandlers)
-            {
-                try
-                {
-                    await callHandlerWhenAllowed(contentOrchestrationHandler);
-                }
-                //todo: catch exception or provide control through context?
-                catch (ContentOrchestrationHandlerException handlerException)
-                {
-                    if (handlerException.NotifyType != null)
-                    {
-                        _notifier.Add(handlerException.Message,
-                            $"ContentOrchestrationHandler threw exception.",
-                            exception: handlerException,
-                            type: handlerException.NotifyType.Value);
-
-                        //todo: log
-                        //todo: rethrow if notify type error??
-                    }
-                }
-                catch (Exception exception)
-                {
-                    _logger.LogError(exception, "Content orchestration handler threw exception.");
-                }
-            }
         }
 
 #pragma warning disable S1172

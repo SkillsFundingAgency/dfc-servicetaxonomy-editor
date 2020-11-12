@@ -5,11 +5,9 @@ using DFC.ServiceTaxonomy.Events.Models;
 using DFC.ServiceTaxonomy.Events.Services.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.ContentItemVersions;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Helpers;
-using DFC.ServiceTaxonomy.GraphSync.Handlers.Exceptions;
 using DFC.ServiceTaxonomy.GraphSync.Handlers.Interfaces;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using OrchardCore.ContentManagement;
 using OrchardCore.DisplayManagement.Notify;
 
 namespace DFC.ServiceTaxonomy.GraphSync.Handlers
@@ -63,8 +61,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers
             IPublishedContentItemVersion publishedContentItemVersion,
             IPreviewContentItemVersion previewContentItemVersion,
             INeutralEventContentItemVersion neutralEventContentItemVersion,
-            ILogger<EventGridPublishingHandler> logger
-            )
+            ILogger<EventGridPublishingHandler> logger)
         {
             _eventGridConfiguration = eventGridConfiguration;
             _eventGridContentClient = eventGridContentClient;
@@ -76,39 +73,39 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers
         }
 
         //todo: switch to contexts?
-        public async Task DraftSaved(ContentItem contentItem)
+        public async Task DraftSaved(IOrchestrationContext context)
         {
-            await PublishContentEvent(contentItem, ContentEventType.Draft);
+            await PublishContentEvent(context, ContentEventType.Draft);
         }
 
-        public async Task Published(ContentItem contentItem)
+        public async Task Published(IOrchestrationContext context)
         {
-            await PublishContentEvent(contentItem, ContentEventType.Published);
+            await PublishContentEvent(context, ContentEventType.Published);
         }
 
-        public async Task Unpublished(ContentItem contentItem)
+        public async Task Unpublished(IOrchestrationContext context)
         {
-            await PublishContentEvent(contentItem, ContentEventType.Unpublished);
-            await PublishContentEvent(contentItem, ContentEventType.Draft);
+            await PublishContentEvent(context, ContentEventType.Unpublished);
+            await PublishContentEvent(context, ContentEventType.Draft);
         }
 
-        public async Task Cloned(ContentItem contentItem)
+        public async Task Cloned(IOrchestrationContext context)
         {
-            await PublishContentEvent(contentItem, ContentEventType.Draft);
+            await PublishContentEvent(context, ContentEventType.Draft);
         }
 
-        public async Task Deleted(ContentItem contentItem)
+        public async Task Deleted(IOrchestrationContext context)
         {
-            await PublishContentEvent(contentItem, ContentEventType.Deleted);
+            await PublishContentEvent(context, ContentEventType.Deleted);
         }
 
-        public async Task DraftDiscarded(ContentItem contentItem)
+        public async Task DraftDiscarded(IOrchestrationContext context)
         {
-            await PublishContentEvent(contentItem, ContentEventType.DraftDiscarded);
+            await PublishContentEvent(context, ContentEventType.DraftDiscarded);
         }
 
         private async Task PublishContentEvent(
-            ContentItem contentItem,
+            IOrchestrationContext context,
             ContentEventType eventType)
         {
             if (!_eventGridConfiguration.CurrentValue.PublishEvents)
@@ -126,17 +123,18 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers
                     _ => _neutralEventContentItemVersion
                 };
 
-                string userId = _syncNameProvider.GetEventIdPropertyValue(contentItem.Content.GraphSyncPart, contentItemVersion);
+                string userId = _syncNameProvider.GetEventIdPropertyValue(
+                    context.ContentItem.Content.GraphSyncPart,
+                    contentItemVersion);
 
-                ContentEvent contentEvent = new ContentEvent(contentItem, userId, eventType);
+                ContentEvent contentEvent = new ContentEvent(context.ContentItem, userId, eventType);
                 await _eventGridContentClient.Publish(contentEvent);
             }
             catch (Exception publishException)
             {
-                throw new ContentOrchestrationHandlerException("Warning: the event grid event could not be published.", publishException)
-                {
-                    NotifyType = NotifyType.Warning
-                };
+                _logger.LogError(publishException, "The event grid event could not be published.");
+                context.Notifier.Add("Warning: the event grid event could not be published. Composite apps might not show your changes.",
+                    "Exception", publishException, type: NotifyType.Warning);
             }
         }
     }
