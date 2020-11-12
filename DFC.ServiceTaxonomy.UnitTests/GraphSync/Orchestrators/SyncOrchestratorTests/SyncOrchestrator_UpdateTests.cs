@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Results.AllowSync;
-using DFC.ServiceTaxonomy.GraphSync.Handlers.Contexts;
+using DFC.ServiceTaxonomy.GraphSync.Handlers.Interfaces;
 using FakeItEasy;
 using Xunit;
 
@@ -77,10 +77,10 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.Orchestrators.SyncOrchestrator
             await SyncOrchestrator.Update(ContentItem, ContentItem);
 
             A.CallTo(() => EventGridPublishingHandler.Published(
-                    A<OrchestrationContext>.That.Matches(ctx => Equals(ctx.ContentItem, ContentItem))))
+                    A<IOrchestrationContext>.That.Matches(ctx => Equals(ctx.ContentItem, ContentItem))))
                 .MustHaveHappened(publishedCalled, Times.Exactly);
             A.CallTo(() => EventGridPublishingHandler.DraftSaved(
-                    A<OrchestrationContext>.That.Matches(ctx => Equals(ctx.ContentItem, ContentItem))))
+                    A<IOrchestrationContext>.That.Matches(ctx => Equals(ctx.ContentItem, ContentItem))))
                 .MustHaveHappened(draftSavedCalled, Times.Exactly);
         }
     }
