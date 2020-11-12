@@ -55,7 +55,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Orchestrators
             }
         }
 
-        //todo: todo temporarily protected
+        //todo: temporarily protected
         protected string GetContentTypeDisplayName(ContentItem contentItem)
         {
             return _contentDefinitionManager.GetTypeDefinition(contentItem.ContentType).DisplayName;

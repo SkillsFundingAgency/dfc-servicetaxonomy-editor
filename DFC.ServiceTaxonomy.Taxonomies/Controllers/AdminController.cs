@@ -300,7 +300,6 @@ namespace DFC.ServiceTaxonomy.Taxonomies.Controllers
             taxonomy.Published = false;
             await _contentManager.PublishAsync(taxonomy);
 
-            //todo: think events will fire from updatedasync as it uses the sync orchestrator
             //Content item will get published as part of the taxonomy, handler ensure Event Grid is informed of Content Item change
             foreach (var handler in _handlers)
             {

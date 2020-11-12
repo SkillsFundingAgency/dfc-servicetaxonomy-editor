@@ -43,7 +43,6 @@ namespace DFC.ServiceTaxonomy.PageLocation.Handlers
             _contentOrchestrationHandlers = contentOrchestrationHandlers;
         }
 
-        //todo: do we need this? will events fire anyway?
         public async Task PublishedAsync(ContentItem term)
         {
             if (term.ContentType != ContentTypes.PageLocation)
