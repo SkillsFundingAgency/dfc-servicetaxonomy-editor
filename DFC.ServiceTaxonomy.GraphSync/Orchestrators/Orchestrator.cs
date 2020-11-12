@@ -38,19 +38,11 @@ namespace DFC.ServiceTaxonomy.GraphSync.Orchestrators
 
             foreach (var contentOrchestrationHandler in _contentOrchestrationHandlers)
             {
-                try
-                {
-                    await callHandlerWhenAllowed(contentOrchestrationHandler, context);
+                await callHandlerWhenAllowed(contentOrchestrationHandler, context);
 
-                    if (context.Cancel)
-                    {
-                        //todo:
-                    }
-                }
-                catch (Exception exception)
+                if (context.Cancel)
                 {
-                    //todo:
-                    _logger.LogError(exception, "Content orchestration handler threw exception.");
+                    //todo: implement if/when we need it
                 }
             }
         }
