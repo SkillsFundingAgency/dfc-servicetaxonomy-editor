@@ -40,10 +40,12 @@ namespace DFC.ServiceTaxonomy.GraphSync.Orchestrators
         //todo: cancel
         public async Task<bool> Restore(ContentItem contentItem)
         {
-            _logger.LogDebug("Restore: Syncing '{ContentItem}' {ContentType} to Preview.",
+            _logger.LogDebug("Restore: Syncing '{ContentItem}' {ContentType} to Preview and deleting from Published.",
                 contentItem.ToString(), contentItem.ContentType);
 
             IContentManager contentManager = _serviceProvider.GetRequiredService<IContentManager>();
+
+            //todo: when all
 
             (IAllowSync previewAllowSync, IMergeGraphSyncer? previewMergeGraphSyncer) =
                 await GetMergeGraphSyncerIfSyncAllowed(
@@ -60,16 +62,14 @@ namespace DFC.ServiceTaxonomy.GraphSync.Orchestrators
                 return false;
             }
 
-            (IAllowSync publishedAllowSync, IMergeGraphSyncer? publishedMergeGraphSyncer) =
-                await GetMergeGraphSyncerIfSyncAllowed(
-                    SyncOperation.Publish,
-                    GraphReplicaSetNames.Published,
-                    contentItem, contentManager);
+            (IAllowSync publishedAllowSync, IDeleteGraphSyncer? publishedDeleteGraphSyncer) =
+                await GetDeleteGraphSyncerIfDeleteAllowed(
+                    contentItem, _publishedContentItemVersion, SyncOperation.Restore);
 
             if (publishedAllowSync.Result == AllowSyncResult.Blocked)
             {
                 await _notifier.AddBlocked(
-                    SyncOperation.Publish,
+                    SyncOperation.Restore,
                     contentItem,
                     new[] { (GraphReplicaSetNames.Published, publishedAllowSync) });
                 return false;
@@ -78,12 +78,11 @@ namespace DFC.ServiceTaxonomy.GraphSync.Orchestrators
             if (publishedAllowSync.Result == AllowSyncResult.Allowed
                 && previewAllowSync.Result == AllowSyncResult.Allowed)
             {
-                // again, not concurrent and published first (for recreating incoming relationships)
-                await SyncToGraphReplicaSet(SyncOperation.Publish, publishedMergeGraphSyncer!, contentItem);
-                await SyncToGraphReplicaSet(SyncOperation.Publish, previewMergeGraphSyncer!, contentItem);
+                await SyncToGraphReplicaSet(SyncOperation.Restore, previewMergeGraphSyncer!, contentItem);
+                await DeleteFromGraphReplicaSet(publishedDeleteGraphSyncer!, contentItem, SyncOperation.Restore);
 
                 await CallContentOrchestrationHandlers(contentItem,
-                    async (handler, context) => await handler.Published(context));
+                    async (handler, context) => await handler.Restored(context));
             }
 
             return true;
