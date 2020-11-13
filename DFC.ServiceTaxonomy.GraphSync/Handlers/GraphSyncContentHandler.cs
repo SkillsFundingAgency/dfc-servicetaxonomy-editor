@@ -40,7 +40,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers
 
             try
             {
-                if (!await _syncOrchestrator.SaveDraft(context.ContentItem))
+                if (!await _syncOrchestrator.Restore(context.ContentItem))
                 {
                     // sad paths have already been notified to the user and logged
                     Cancel(context);
