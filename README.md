@@ -224,8 +224,6 @@ Neo4j supports online backup and restores, or offline dump and loads (file syste
 
 Online backup and restore is an Enterprise edition only feature, so is available locally when using Neo4j Desktop, but isn't available for our Kubernetes containers. The offline dump and load however, is the recommended way to copy data between environments.
 
-todo: document dump and load
-
 ### How To Restore Backups
 
 Backups consist of a backup of the Orchard Core SQL database, and also backups of the Published and Preview databases.
@@ -249,6 +247,8 @@ Backups require the use of the `neo4j-admin.bat` utility. The utility is only in
 
 ##### Install Compatible OpenJDK
 
+(Todo: is this necessary if you use Open Terminal?)
+
 Download and install the latest Windows msi from the [download page](https://www.azul.com/downloads/zulu-community/?os=windows&architecture=x86-64-bit&package=jdk). (Neo itself seems to use Zulu, can we just reuse its version?)
 
 Chances are, you already have a version of a JDK installed, so you need to switch to the ZuluJDK. First check that your PATH environment variable has been updated with the Zulu bin before the existing JDK bin.
@@ -269,19 +269,42 @@ OpenJDK 64-Bit Server VM Zulu15.28+13-CA (build 15.0.1+8, mixed mode, sharing)
 
 ##### Restore The Graph
 
+If the backup/dump is from an earlier version of Neo4j, click 'Manage', then 'Settings' and uncomment the following line and apply...
+
+```dbms.allow_upgrade=true```
+
+
 Unzip the appropriate backup.
 
-Create a new graph through Desktop. Click 'Manage' and 'Open Folder'. Note the database folder name.
-
-In a command prompt, cd to the database folder name, then the installation* folder, then bin. Run this command, replacing the path to the extracted backup (note the latest Neo db version allows spaces in the path, but earlier versions e.g. 4.0.4, don't)
+Create a new graph through Desktop. Click 'Open' to open the Browser, then create the preview graph...
 
 ```
+CREATE DATABASE preview0
+```
+
+Click 'Manage', then '>_ Open Terminal'
+
+In the terminal, run these commands, replacing the path to the extracted backup (note the latest Neo db version allows spaces in the path, but earlier versions e.g. 4.0.4, don't)
+
+```
+cd bin
 neo4j-admin.bat restore --from="I:\stax backups\neo4j-publish" --verbose --database=neo4j --force
+neo4j-admin.bat restore --from="I:\stax backups\neo4j-preview" --verbose --database=preview0 --force
+```
+
+or if you're loading a dump...
+
+```
+cd bin
+neo4j-admin.bat load --from="I:\stax backups\neo4j-publish" --database=neo4j --force
+neo4j-admin.bat load --from="I:\stax backups\neo4j-publish" --database=preview0 --force
 ```
 
 Install apoc.
 
 Start the graph. The number of nodes and relationships should be in the millions.
+
+Note that this [article](https://tbgraph.wordpress.com/2020/11/11/dump-and-load-a-database-in-neo4j-desktop/) shows how to load a dump through the Desktop, but the options don't seem to be available.
 
 ## User Guide
 

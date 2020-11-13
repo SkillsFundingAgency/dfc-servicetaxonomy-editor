@@ -1,15 +1,14 @@
 ﻿using System.Threading.Tasks;
-using OrchardCore.ContentManagement;
 
 namespace DFC.ServiceTaxonomy.GraphSync.Handlers.Interfaces
 {
     public interface IContentOrchestrationHandler
     {
-        Task DraftSaved(ContentItem contentItem);
-        Task Published(ContentItem contentItem);
-        Task Unpublished(ContentItem contentItem);
-        Task Cloned(ContentItem contentItem);
-        Task Deleted(ContentItem contentItem);
-        Task DraftDiscarded(ContentItem contentItem);
+        Task DraftSaved(IOrchestrationContext context);
+        Task Published(IOrchestrationContext context);
+        Task Unpublished(IOrchestrationContext context);
+        Task Cloned(IOrchestrationContext context);
+        Task Deleted(IOrchestrationContext context);
+        Task DraftDiscarded(IOrchestrationContext context);
     }
 }

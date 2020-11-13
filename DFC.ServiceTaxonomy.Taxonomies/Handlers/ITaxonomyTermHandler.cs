@@ -8,6 +8,5 @@ namespace DFC.ServiceTaxonomy.Taxonomies.Handlers
         Task<bool> UpdatedAsync(ContentItem term, ContentItem taxonomy);
 
         Task PublishedAsync(ContentItem term);
-
     }
 }

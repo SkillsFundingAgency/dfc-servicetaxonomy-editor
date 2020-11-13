@@ -2,11 +2,7 @@
 
 * pre-populate custom graph sync settings to represent the real defaults
 
-* view ontology bug:
-2020-11-09 13:33:40.5975|Default|00-0f0935e940146544a0b380bfd475e2e8-f7bcefe1391f194a-00||Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware|ERROR|An unhandled exception has occurred while executing the request. DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Exceptions.GraphSyncException: Unknown graph replica set 'null'.
-at DFC.ServiceTaxonomy.GraphSync.GraphSyncers.ContentItemVersions.ContentItemVersionFactory.Get(String graphReplicaSetName) in I:\git\dfc-servicetaxonomy-editor\DFC.ServiceTaxonomy.GraphSync\GraphSyncers\ContentItemVersions\ContentItemVersionFactory.cs:line 28
-at DFC.ServiceTaxonomy.GraphVisualiser.Controllers.VisualiseController.Data(String contentItemId, String graph) in I:\git\dfc-servicetaxonomy-editor\DFC.ServiceTaxonomy.GraphVisualiser\Controllers\VisualiseController.cs:line 86
-
+* requirements prefix items have empty text
 
 * visualiser: right click menu
 https://developer.mozilla.org/en-US/docs/Web/API/DocumentOrShadowRoot/elementFromPoint

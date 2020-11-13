@@ -302,7 +302,7 @@ namespace DFC.ServiceTaxonomy.Taxonomies.Controllers
 
             //Content item will get published as part of the taxonomy, handler ensure Event Grid is informed of Content Item change
             foreach (var handler in _handlers)
-            {  
+            {
                 var updated = await handler.UpdatedAsync(contentItem, taxonomy);
 
                 if (updated)
