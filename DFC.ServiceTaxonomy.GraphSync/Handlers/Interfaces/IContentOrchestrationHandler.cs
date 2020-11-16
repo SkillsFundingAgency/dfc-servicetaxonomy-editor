@@ -10,5 +10,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers.Interfaces
         Task Cloned(IOrchestrationContext context);
         Task Deleted(IOrchestrationContext context);
         Task DraftDiscarded(IOrchestrationContext context);
+        Task Restored(IOrchestrationContext context);
     }
 }
