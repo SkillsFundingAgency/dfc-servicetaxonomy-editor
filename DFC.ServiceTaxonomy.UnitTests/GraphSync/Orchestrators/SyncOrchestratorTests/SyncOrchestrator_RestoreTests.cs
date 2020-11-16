@@ -121,7 +121,35 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.Orchestrators.SyncOrchestrator
                 .MustHaveHappened(publishedCalled, Times.Exactly);
         }
 
-        //todo: ExceptionPropagates theory needed
+        [Fact]
+        public async Task Restore_PreviewSyncToGraphReplicaSetThrows_ExceptionPropagates()
+        {
+            A.CallTo(() => PublishedAllowSync.Result)
+                .Returns(AllowSyncResult.Allowed);
+
+            A.CallTo(() => PreviewAllowSync.Result)
+                .Returns(AllowSyncResult.Allowed);
+
+            A.CallTo(() => PreviewMergeGraphSyncer.SyncToGraphReplicaSet())
+                .Throws(() => new Exception());
+
+            await Assert.ThrowsAsync<Exception>(() => SyncOrchestrator.Restore(ContentItem));
+        }
+
+        [Fact]
+        public async Task Restore_PublishedDeleteThrows_ExceptionPropagates()
+        {
+            A.CallTo(() => PublishedAllowSync.Result)
+                .Returns(AllowSyncResult.Allowed);
+
+            A.CallTo(() => PreviewAllowSync.Result)
+                .Returns(AllowSyncResult.Allowed);
+
+            A.CallTo(() => PublishedDeleteGraphSyncer.Delete())
+                .Throws(() => new Exception());
+
+            await Assert.ThrowsAsync<Exception>(() => SyncOrchestrator.Restore(ContentItem));
+        }
 
         // we should only ever get NotRequired returned by both published and preview
         // not in conjunction with Allowed or Blocked
