@@ -22,13 +22,13 @@ namespace DFC.ServiceTaxonomy.Events.Services
             _httpClient = httpClient;
         }
 
-        public async Task<T> Get<T>(Uri uri, object? queryData = null, CancellationToken cancellationToken = default)
+        public async Task<T?> Get<T>(Uri uri, object? queryData = null, CancellationToken cancellationToken = default)
         {
             using HttpResponseMessage response = await GetResponse(uri, queryData, cancellationToken).ConfigureAwait(false);
             return await response.Content.ReadFromJsonAsync<T>(cancellationToken: cancellationToken).ConfigureAwait(false);
         }
 
-        public Task<T> Get<T>(string uri, object? queryData = null, CancellationToken cancellationToken = default)
+        public Task<T?> Get<T>(string uri, object? queryData = null, CancellationToken cancellationToken = default)
         {
             return Get<T>(new Uri(uri, UriKind.RelativeOrAbsolute), queryData, cancellationToken);
         }
@@ -44,7 +44,7 @@ namespace DFC.ServiceTaxonomy.Events.Services
             return Get(new Uri(uri, UriKind.RelativeOrAbsolute), queryData, cancellationToken);
         }
 
-        public async Task<TResponse> PostAsJson<TResponse>(string uri, CancellationToken cancellationToken = default)
+        public async Task<TResponse?> PostAsJson<TResponse>(string uri, CancellationToken cancellationToken = default)
         {
             Stream result = await PostAsJson<object>(uri, null, cancellationToken).ConfigureAwait(false);
 
@@ -67,7 +67,7 @@ namespace DFC.ServiceTaxonomy.Events.Services
             return await response.Content.ReadAsStreamAsync().ConfigureAwait(false);
         }
 
-        public async Task<TResponse> PostAsJson<TRequest, TResponse>(string uri, TRequest requestData, CancellationToken cancellationToken = default)
+        public async Task<TResponse?> PostAsJson<TRequest, TResponse>(string uri, TRequest requestData, CancellationToken cancellationToken = default)
         {
             Stream result = await PostAsJson(uri, requestData, cancellationToken).ConfigureAwait(false);
 
