@@ -136,10 +136,11 @@ namespace DFC.ServiceTaxonomy.GraphSync.Notifications
 
             HtmlContentBuilder htmlContentBuilder = new HtmlContentBuilder();
 
+            string traceId = Activity.Current?.TraceId.ToString() ?? "N/A";
             string uniqueId = $"id{Guid.NewGuid():N}";
             string onClickFunction = $"click_{uniqueId}";
             string clipboardCopy = TechnicalClipboardCopy(
-                Activity.Current.TraceId.ToString(),
+                traceId,
                 userMessage,
                 technicalMessage,
                 exceptionText);
@@ -152,7 +153,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Notifications
                 .AppendHtml($"<a class=\"close\" style=\"right: 1.25em;\" data-toggle=\"collapse\" href=\"#{uniqueId}\" role=\"button\" aria-expanded=\"false\" aria-controls=\"{uniqueId}\"><i class=\"fas fa-wrench\"></i></a>")
                 .AppendHtml($"<div class=\"collapse\" id=\"{uniqueId}\">")
                 .AppendHtml($"<div class=\"card mt-2\"><div class=\"card-header\">Technical Details <button onclick=\"{onClickFunction}()\" style=\"float: right;\" type=\"button\"><i class=\"fas fa-copy\"></i></button></div><div class=\"card-body\">")
-                .AppendHtml($"<h5 class=\"card-title\">Trace ID</h5><h6 class=\"card-subtitle text-muted\">{Activity.Current.TraceId}</h6>")
+                .AppendHtml($"<h5 class=\"card-title\">Trace ID</h5><h6 class=\"card-subtitle text-muted\">{traceId}</h6>")
                 .AppendHtml("<div class=\"mt-3\">")
                 .AppendHtml(technicalHtmlMessage ?? new HtmlString(technicalMessage))
                 .AppendHtml("</div>");
