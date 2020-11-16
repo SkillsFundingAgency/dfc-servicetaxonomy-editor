@@ -31,7 +31,7 @@
     <PackageReference Include="OrchardCore.Workflows" Version="1.0.0-rc6" />
     <PackageReference Include="OrchardCore.Abstractions" Version="1.0.0-rc6" />
     <PackageReference Include="OrchardCore.Sitemaps" Version="1.0.0-rc6" />
-    <PackageReference Include="SonarAnalyzer.CSharp" Version="8.13.0.21683">
+    <PackageReference Include="SonarAnalyzer.CSharp" Version="8.14.0.22654">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
