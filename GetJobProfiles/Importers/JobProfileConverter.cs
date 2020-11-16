@@ -199,8 +199,8 @@ namespace GetJobProfiles.Importers
             {
                 PageLocationPart = new PageLocationPart
                 {
-                    UrlName = new TextField(jobProfileWebsiteUrl),
-                    FullUrl = new TextField($"/job-profiles/{jobProfileWebsiteUrl}"),
+                    UrlName = jobProfileWebsiteUrl,
+                    FullUrl = $"/job-profiles/{jobProfileWebsiteUrl}",
                 },
                 EponymousPart = new JobProfilePart
                 {

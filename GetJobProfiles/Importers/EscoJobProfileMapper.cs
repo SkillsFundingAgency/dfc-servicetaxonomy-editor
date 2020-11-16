@@ -59,7 +59,7 @@ namespace GetJobProfiles.Importers
                 foreach (var item in distinctEscoJobProfileMap)
                 {
                     JobProfileContentItem profile = jobProfiles
-                        .SingleOrDefault(x => x.PageLocationPart.FullUrl?.Text.Split("/").Last() == item.Url);
+                        .SingleOrDefault(x => x.PageLocationPart.FullUrl?.Split("/").Last() == item.Url);
 
                     if (profile != null && !_exclusions.Contains(item.Url))
                     {
