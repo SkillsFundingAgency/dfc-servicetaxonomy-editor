@@ -199,7 +199,9 @@ namespace DFC.ServiceTaxonomy.GraphSync.Notifications
         {
             if (_entries.Any(x => x.Type == NotifyType.Error))
             {
-                return _entries.Where(x => x.Type != NotifyType.Success).ToList();
+                // orchard core sometimes uses Information, where Success is more appropriate
+                // and all current Information notifiers seem to really be Success notifiers
+                return _entries.Where(x => !(x.Type == NotifyType.Success || x.Type == NotifyType.Information)).ToList();
             }
 
             return _entries;

@@ -22,7 +22,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.Orchestrators
     {
         private readonly IGraphCluster _graphCluster;
         private readonly IPublishedContentItemVersion _publishedContentItemVersion;
-        private readonly IServiceProvider _serviceProvider;
 
         public SyncOrchestrator(
             IContentDefinitionManager contentDefinitionManager,
@@ -32,11 +31,60 @@ namespace DFC.ServiceTaxonomy.GraphSync.Orchestrators
             ILogger<SyncOrchestrator> logger,
             IPublishedContentItemVersion publishedContentItemVersion,
             IEnumerable<IContentOrchestrationHandler> contentOrchestrationHandlers)
-            : base(contentDefinitionManager, notifier, contentOrchestrationHandlers, logger)
+            : base(contentDefinitionManager, notifier, serviceProvider, contentOrchestrationHandlers, logger)
         {
             _graphCluster = graphCluster;
             _publishedContentItemVersion = publishedContentItemVersion;
-            _serviceProvider = serviceProvider;
+        }
+
+        public async Task<bool> Restore(ContentItem contentItem)
+        {
+            _logger.LogDebug("Restore: Syncing '{ContentItem}' {ContentType} to Preview and deleting from Published.",
+                contentItem.ToString(), contentItem.ContentType);
+
+            IContentManager contentManager = _serviceProvider.GetRequiredService<IContentManager>();
+
+            //todo: could/should we use WhenAll?
+
+            (IAllowSync previewAllowSync, IMergeGraphSyncer? previewMergeGraphSyncer) =
+                await GetMergeGraphSyncerIfSyncAllowed(
+                    SyncOperation.Restore,
+                    GraphReplicaSetNames.Preview,
+                    contentItem, contentManager);
+
+            if (previewAllowSync.Result == AllowSyncResult.Blocked)
+            {
+                await _notifier.AddBlocked(
+                    SyncOperation.Restore,
+                    contentItem,
+                    new[] { (GraphReplicaSetNames.Preview, previewAllowSync) });
+                return false;
+            }
+
+            (IAllowSync publishedAllowSync, IDeleteGraphSyncer? publishedDeleteGraphSyncer) =
+                await GetDeleteGraphSyncerIfDeleteAllowed(
+                    contentItem, _publishedContentItemVersion, SyncOperation.Restore);
+
+            if (publishedAllowSync.Result == AllowSyncResult.Blocked)
+            {
+                await _notifier.AddBlocked(
+                    SyncOperation.Restore,
+                    contentItem,
+                    new[] { (GraphReplicaSetNames.Published, publishedAllowSync) });
+                return false;
+            }
+
+            if (publishedAllowSync.Result == AllowSyncResult.Allowed
+                && previewAllowSync.Result == AllowSyncResult.Allowed)
+            {
+                await SyncToGraphReplicaSet(SyncOperation.Restore, previewMergeGraphSyncer!, contentItem);
+                await DeleteFromGraphReplicaSet(publishedDeleteGraphSyncer!, contentItem, SyncOperation.Restore);
+
+                await CallContentOrchestrationHandlers(contentItem,
+                    async (handler, context) => await handler.Restored(context));
+            }
+
+            return true;
         }
 
         /// <returns>false if saving draft to preview graph was blocked or failed.</returns>
@@ -224,7 +272,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.Orchestrators
             return true;
         }
 
-#pragma warning disable S1172
         private async Task<(IAllowSync, IMergeGraphSyncer?)> GetMergeGraphSyncerIfSyncAllowed(
             SyncOperation syncOperation,
             string replicaSetName,
