@@ -45,7 +45,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Orchestrators
 
             IContentManager contentManager = _serviceProvider.GetRequiredService<IContentManager>();
 
-            //todo: when all
+            //todo: could/should we use WhenAll?
 
             (IAllowSync previewAllowSync, IMergeGraphSyncer? previewMergeGraphSyncer) =
                 await GetMergeGraphSyncerIfSyncAllowed(
