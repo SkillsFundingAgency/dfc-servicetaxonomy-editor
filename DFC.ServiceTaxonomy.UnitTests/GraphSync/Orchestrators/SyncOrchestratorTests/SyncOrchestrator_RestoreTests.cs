@@ -1,22 +1,43 @@
 ﻿using System;
 using System.Threading.Tasks;
+using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
+using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.ContentItemVersions;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Results.AllowSync;
 using DFC.ServiceTaxonomy.GraphSync.Handlers.Interfaces;
+using DFC.ServiceTaxonomy.GraphSync.Services;
 using FakeItEasy;
+using OrchardCore.ContentManagement;
 using Xunit;
 
 namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.Orchestrators.SyncOrchestratorTests
 {
-    public class SyncOrchestrator_PublishTests : SyncOrchestratorTestsBase
+    public class SyncOrchestrator_RestoreTests : SyncOrchestratorTestsBase
     {
-        public SyncOrchestrator_PublishTests()
+        public SyncOperation SyncOperation { get; }
+        public IDeleteGraphSyncer PublishedDeleteGraphSyncer { get; set; }
+
+        public SyncOrchestrator_RestoreTests()
         {
+            SyncOperation = SyncOperation.Restore;
+
+            PublishedDeleteGraphSyncer = A.Fake<IDeleteGraphSyncer>();
+
+            A.CallTo(() => PublishedDeleteGraphSyncer.DeleteAllowed(
+                    A<ContentItem>._,
+                    A<IContentItemVersion>.That.Matches(v => v.GraphReplicaSetName == GraphReplicaSetNames.Published),
+                    SyncOperation,
+                    null,
+                    null))
+                .Returns(PublishedAllowSync);
+
             A.CallTo(() => ServiceProvider.GetService(A<Type>.That.Matches(
                     t => t.Name == (nameof(IMergeGraphSyncer)))))
-                .Returns(PublishedMergeGraphSyncer).Once()
-                .Then
-                .Returns(PreviewMergeGraphSyncer).Once();
+                .Returns(PreviewMergeGraphSyncer);
+
+            A.CallTo(() => ServiceProvider.GetService(A<Type>.That.Matches(
+                    t => t.Name == (nameof(IDeleteGraphSyncer)))))
+                .Returns(PublishedDeleteGraphSyncer);
         }
 
         [Theory]
@@ -30,7 +51,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.Orchestrators.SyncOrchestrator
         [InlineData(AllowSyncResult.NotRequired, AllowSyncResult.Allowed, true)]
         [InlineData(AllowSyncResult.NotRequired, AllowSyncResult.Blocked, false)]
         [InlineData(AllowSyncResult.NotRequired, AllowSyncResult.NotRequired, true)]
-        public async Task Publish_SyncAllowedSyncMatrix_ReturnsBool(
+        public async Task Restore_SyncAllowedSyncMatrix_ReturnsBool(
             AllowSyncResult publishedAllowSyncAllowedResult,
             AllowSyncResult previewAllowSyncAllowedResult,
             bool expectedSuccess)
@@ -41,7 +62,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.Orchestrators.SyncOrchestrator
             A.CallTo(() => PreviewAllowSync.Result)
                 .Returns(previewAllowSyncAllowedResult);
 
-            bool success = await SyncOrchestrator.Publish(ContentItem);
+            bool success = await SyncOrchestrator.Restore(ContentItem);
 
             Assert.Equal(expectedSuccess, success);
         }
@@ -56,7 +77,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.Orchestrators.SyncOrchestrator
         [InlineData(AllowSyncResult.NotRequired, AllowSyncResult.Allowed, 0)]
         [InlineData(AllowSyncResult.NotRequired, AllowSyncResult.Blocked, 0)]
         [InlineData(AllowSyncResult.NotRequired, AllowSyncResult.NotRequired, 0)]
-        public async Task Publish_SyncToGraphReplicaSetOnPreviewGraphCalled(
+        public async Task Restore_SyncToGraphReplicaSetCalled(
             AllowSyncResult publishedAllowSyncResult,
             AllowSyncResult previewAllowSyncResult,
             int publishedCalled)
@@ -67,7 +88,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.Orchestrators.SyncOrchestrator
             A.CallTo(() => PreviewAllowSync.Result)
                 .Returns(previewAllowSyncResult);
 
-            await SyncOrchestrator.Publish(ContentItem);
+            await SyncOrchestrator.Restore(ContentItem);
 
             A.CallTo(() => PreviewMergeGraphSyncer.SyncToGraphReplicaSet())
                 .MustHaveHappened(publishedCalled, Times.Exactly);
@@ -83,7 +104,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.Orchestrators.SyncOrchestrator
         [InlineData(AllowSyncResult.NotRequired, AllowSyncResult.Allowed, 0)]
         [InlineData(AllowSyncResult.NotRequired, AllowSyncResult.Blocked, 0)]
         [InlineData(AllowSyncResult.NotRequired, AllowSyncResult.NotRequired, 0)]
-        public async Task Publish_SyncToGraphReplicaSetOnPublishedGraphCalled(
+        public async Task Restore_DeleteCalled(
             AllowSyncResult publishedAllowSyncResult,
             AllowSyncResult previewAllowSyncResult,
             int publishedCalled)
@@ -94,14 +115,14 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.Orchestrators.SyncOrchestrator
             A.CallTo(() => PreviewAllowSync.Result)
                 .Returns(previewAllowSyncResult);
 
-            await SyncOrchestrator.Publish(ContentItem);
+            await SyncOrchestrator.Restore(ContentItem);
 
-            A.CallTo(() => PublishedMergeGraphSyncer.SyncToGraphReplicaSet())
+            A.CallTo(() => PublishedDeleteGraphSyncer.Delete())
                 .MustHaveHappened(publishedCalled, Times.Exactly);
         }
 
         [Fact]
-        public async Task Publish_PreviewSyncToGraphReplicaSetThrows_ExceptionPropagates()
+        public async Task Restore_PreviewSyncToGraphReplicaSetThrows_ExceptionPropagates()
         {
             A.CallTo(() => PublishedAllowSync.Result)
                 .Returns(AllowSyncResult.Allowed);
@@ -112,11 +133,11 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.Orchestrators.SyncOrchestrator
             A.CallTo(() => PreviewMergeGraphSyncer.SyncToGraphReplicaSet())
                 .Throws(() => new Exception());
 
-            await Assert.ThrowsAsync<Exception>(() => SyncOrchestrator.Publish(ContentItem));
+            await Assert.ThrowsAsync<Exception>(() => SyncOrchestrator.Restore(ContentItem));
         }
 
         [Fact]
-        public async Task Publish_PublishedSyncToGraphReplicaSetThrows_ExceptionPropagates()
+        public async Task Restore_PublishedDeleteThrows_ExceptionPropagates()
         {
             A.CallTo(() => PublishedAllowSync.Result)
                 .Returns(AllowSyncResult.Allowed);
@@ -124,10 +145,10 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.Orchestrators.SyncOrchestrator
             A.CallTo(() => PreviewAllowSync.Result)
                 .Returns(AllowSyncResult.Allowed);
 
-            A.CallTo(() => PublishedMergeGraphSyncer.SyncToGraphReplicaSet())
+            A.CallTo(() => PublishedDeleteGraphSyncer.Delete())
                 .Throws(() => new Exception());
 
-            await Assert.ThrowsAsync<Exception>(() => SyncOrchestrator.Publish(ContentItem));
+            await Assert.ThrowsAsync<Exception>(() => SyncOrchestrator.Restore(ContentItem));
         }
 
         // we should only ever get NotRequired returned by both published and preview
@@ -143,7 +164,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.Orchestrators.SyncOrchestrator
         [InlineData(AllowSyncResult.NotRequired, AllowSyncResult.Allowed, 0)]
         [InlineData(AllowSyncResult.NotRequired, AllowSyncResult.Blocked, 0)]
         [InlineData(AllowSyncResult.NotRequired, AllowSyncResult.NotRequired, 0)]
-        public async Task Publish_EventGridPublishingHandlerCalled(
+        public async Task Restore_EventGridPublishingHandlerCalled(
             AllowSyncResult publishedAllowSyncResult,
             AllowSyncResult previewAllowSyncResult,
             int publishedCalled)
@@ -154,9 +175,9 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.Orchestrators.SyncOrchestrator
             A.CallTo(() => PreviewAllowSync.Result)
                 .Returns(previewAllowSyncResult);
 
-            await SyncOrchestrator.Publish(ContentItem);
+            await SyncOrchestrator.Restore(ContentItem);
 
-            A.CallTo(() => EventGridPublishingHandler.Published(
+            A.CallTo(() => EventGridPublishingHandler.Restored(
                     A<IOrchestrationContext>.That.Matches(ctx => Equals(ctx.ContentItem, ContentItem))))
                 .MustHaveHappened(publishedCalled, Times.Exactly);
         }
