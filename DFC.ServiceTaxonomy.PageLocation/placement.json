@@ -7,7 +7,7 @@
             ]
         },
         {
-            "place": "Parts:0#Header;0",
+            "place": "Parts:0#Content;0",
             "contentType": [
                 "JobProfile"
             ]
@@ -15,7 +15,7 @@
     ],
     "TaxonomyField_Edit": [
         {
-            "place": "Parts:1#Header;0",
+            "place": "Parts:1#Content;0",
             "contentType": [
                 "JobProfile"
             ]
@@ -23,15 +23,15 @@
     ],
     "ContentPickerField_Edit": [
         {
-            "place": "Parts:3#Header;0",
+            "place": "Parts:3#Content;0",
             "differentiator": "JobProfile-Occupation"
         },
         {
-            "place": "Parts:6#Header;0",
+            "place": "Parts:6#Content;0",
             "differentiator": "JobProfile-SOCCode"
         },
         {
-            "place": "Parts:7#Header;0",
+            "place": "Parts:7#Content;0",
             "differentiator": "JobProfile-ONetOccupationalCode"
         },
         {
@@ -102,37 +102,37 @@
         },
         {
             "differentiator": "JobProfile-TitleOptions",
-            "place": "Parts:5#Header;0"
+            "place": "Parts:5#Content;0"
         },
         {
             "differentiator": "JobProfile-SalaryStarter",
-            "place": "Parts:8#Header;0"
+            "place": "Parts:8#Content;0"
         },
         {
             "differentiator": "JobProfile-SalaryExperienced",
-            "place": "Parts:9#Header;0"
+            "place": "Parts:9#Content;0"
         },
         {
             "differentiator": "JobProfile-WorkingHoursDetails",
-            "place": "Parts:12#Header;0"
+            "place": "Parts:12#Content;0"
         },
         {
             "differentiator": "JobProfile-WorkingPattern",
-            "place": "Parts:13#Header;0"
+            "place": "Parts:13#Content;0"
         },
         {
             "differentiator": "JobProfile-WorkingPatternDetails",
-            "place": "Parts:14#Header;0"
+            "place": "Parts:14#Content;0"
         }
     ],
     "NumericField_Edit": [
         {
             "differentiator": "JobProfile-MinimumHours",
-            "place": "Parts:10#Header;0"
+            "place": "Parts:10#Content;0"
         },
         {
             "differentiator": "JobProfile-MaximumHours",
-            "place": "Parts:11#Header;0"
+            "place": "Parts:11#Content;0"
         }
     ],
     "PageLocationPart_Edit": [
@@ -143,7 +143,7 @@
             ]
         },
         {
-            "place": "Parts:2#Header;0",
+            "place": "Parts:2#Content;0",
             "contentType": [
                 "JobProfile"
             ]
@@ -157,7 +157,7 @@
             ]
         },
         {
-            "place": "Parts:15#Header;0",
+            "place": "Parts:15#Content;0",
             "contentType": [
                 "JobProfile"
             ]
@@ -170,7 +170,7 @@
         },
         {
             "differentiator": "JobProfile-Description",
-            "place": "Parts:4#Header;0"
+            "place": "Parts:4#Content;0"
         },
         {
             "differentiator": "JobProfile-HtbCareerTips",
