@@ -83,7 +83,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.Orchestrators.SyncOrchestrator
         [InlineData(AllowSyncResult.NotRequired, AllowSyncResult.Allowed, 0)]
         [InlineData(AllowSyncResult.NotRequired, AllowSyncResult.Blocked, 0)]
         [InlineData(AllowSyncResult.NotRequired, AllowSyncResult.NotRequired, 0)]
-        public async Task Publish_SyncToGraphReplicaSetOnPOublishedGraphCalled(
+        public async Task Publish_SyncToGraphReplicaSetOnPublishedGraphCalled(
             AllowSyncResult publishedAllowSyncResult,
             AllowSyncResult previewAllowSyncResult,
             int publishedCalled)
