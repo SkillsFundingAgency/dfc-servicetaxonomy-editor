@@ -46,7 +46,60 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.Orchestrators.SyncOrchestrator
             Assert.Equal(expectedSuccess, success);
         }
 
-        //todo: SyncCalled theory needed
+        [Theory]
+        [InlineData(AllowSyncResult.Allowed, AllowSyncResult.Allowed, 1)]
+        [InlineData(AllowSyncResult.Allowed, AllowSyncResult.Blocked, 0)]
+        [InlineData(AllowSyncResult.Allowed, AllowSyncResult.NotRequired, 0)]
+        [InlineData(AllowSyncResult.Blocked, AllowSyncResult.Allowed, 0)]
+        [InlineData(AllowSyncResult.Blocked, AllowSyncResult.Blocked, 0)]
+        [InlineData(AllowSyncResult.Blocked, AllowSyncResult.NotRequired, 0)]
+        [InlineData(AllowSyncResult.NotRequired, AllowSyncResult.Allowed, 0)]
+        [InlineData(AllowSyncResult.NotRequired, AllowSyncResult.Blocked, 0)]
+        [InlineData(AllowSyncResult.NotRequired, AllowSyncResult.NotRequired, 0)]
+        public async Task Publish_SyncToGraphReplicaSetOnPreviewGraphCalled(
+            AllowSyncResult publishedAllowSyncResult,
+            AllowSyncResult previewAllowSyncResult,
+            int publishedCalled)
+        {
+            A.CallTo(() => PublishedAllowSync.Result)
+                .Returns(publishedAllowSyncResult);
+
+            A.CallTo(() => PreviewAllowSync.Result)
+                .Returns(previewAllowSyncResult);
+
+            await SyncOrchestrator.Publish(ContentItem);
+
+            A.CallTo(() => PreviewMergeGraphSyncer.SyncToGraphReplicaSet())
+                .MustHaveHappened(publishedCalled, Times.Exactly);
+        }
+
+        [Theory]
+        [InlineData(AllowSyncResult.Allowed, AllowSyncResult.Allowed, 1)]
+        [InlineData(AllowSyncResult.Allowed, AllowSyncResult.Blocked, 0)]
+        [InlineData(AllowSyncResult.Allowed, AllowSyncResult.NotRequired, 0)]
+        [InlineData(AllowSyncResult.Blocked, AllowSyncResult.Allowed, 0)]
+        [InlineData(AllowSyncResult.Blocked, AllowSyncResult.Blocked, 0)]
+        [InlineData(AllowSyncResult.Blocked, AllowSyncResult.NotRequired, 0)]
+        [InlineData(AllowSyncResult.NotRequired, AllowSyncResult.Allowed, 0)]
+        [InlineData(AllowSyncResult.NotRequired, AllowSyncResult.Blocked, 0)]
+        [InlineData(AllowSyncResult.NotRequired, AllowSyncResult.NotRequired, 0)]
+        public async Task Publish_SyncToGraphReplicaSetOnPOublishedGraphCalled(
+            AllowSyncResult publishedAllowSyncResult,
+            AllowSyncResult previewAllowSyncResult,
+            int publishedCalled)
+        {
+            A.CallTo(() => PublishedAllowSync.Result)
+                .Returns(publishedAllowSyncResult);
+
+            A.CallTo(() => PreviewAllowSync.Result)
+                .Returns(previewAllowSyncResult);
+
+            await SyncOrchestrator.Publish(ContentItem);
+
+            A.CallTo(() => PublishedMergeGraphSyncer.SyncToGraphReplicaSet())
+                .MustHaveHappened(publishedCalled, Times.Exactly);
+        }
+
         //todo: ExceptionPropagates theory needed
 
         // we should only ever get NotRequired returned by both published and preview
