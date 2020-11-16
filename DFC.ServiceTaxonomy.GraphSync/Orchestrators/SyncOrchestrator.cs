@@ -37,7 +37,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.Orchestrators
             _publishedContentItemVersion = publishedContentItemVersion;
         }
 
-        //todo: cancel
         public async Task<bool> Restore(ContentItem contentItem)
         {
             _logger.LogDebug("Restore: Syncing '{ContentItem}' {ContentType} to Preview and deleting from Published.",
