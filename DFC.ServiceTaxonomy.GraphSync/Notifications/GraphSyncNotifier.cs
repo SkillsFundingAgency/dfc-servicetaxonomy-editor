@@ -35,13 +35,14 @@ namespace DFC.ServiceTaxonomy.GraphSync.Notifications
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly ILogger<GraphSyncNotifier> _logger;
         private readonly IList<NotifyEntry> _entries;
+        private readonly ISlackMessagePublisher _slackMessagePublisher;
 
         public GraphSyncNotifier(
             INodeContentItemLookup nodeContentItemLookup,
             IContentDefinitionManager contentDefinitionManager,
             LinkGenerator linkGenerator,
             IHttpContextAccessor httpContextAccessor,
-            ILogger<GraphSyncNotifier> logger)
+            ILogger<GraphSyncNotifier> logger, ISlackMessagePublisher slackMessagePublisher)
         {
             _nodeContentItemLookup = nodeContentItemLookup;
             _contentDefinitionManager = contentDefinitionManager;
@@ -49,6 +50,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Notifications
             _httpContextAccessor = httpContextAccessor;
             _logger = logger;
             _entries = new List<NotifyEntry>();
+            _slackMessagePublisher = slackMessagePublisher;
         }
 
         public async Task AddBlocked(
@@ -131,6 +133,9 @@ namespace DFC.ServiceTaxonomy.GraphSync.Notifications
                 _logger.LogInformation(exception, "Notification '{NotificationType}' with user message '{NotificationUserMessage}' and technical message '{NotificationTechnicalMessage}' and exception '{Exception}'.",
                     type, userMessage, technicalMessage, exception?.ToString() ?? "None");
             }
+
+            //publish to slack
+            _slackMessagePublisher.SendMessageAsync(userMessage);
 
             string exceptionText = GetExceptionText(exception);
 

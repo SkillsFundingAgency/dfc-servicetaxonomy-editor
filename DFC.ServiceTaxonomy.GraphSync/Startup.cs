@@ -172,6 +172,7 @@ namespace DFC.ServiceTaxonomy.GraphSync
             services.AddSingleton<INeutralEventContentItemVersion>(new NeutralEventContentItemVersion());
             services.AddSingleton<ISuperpositionContentItemVersion>(new SuperpositionContentItemVersion());
             services.AddSingleton<IEscoContentItemVersion>(new EscoContentItemVersion());
+            services.AddTransient<ISlackMessagePublisher, SlackMessagePublisher>();
 
             // permissions
             services.AddScoped<IPermissionProvider, Permissions>();
