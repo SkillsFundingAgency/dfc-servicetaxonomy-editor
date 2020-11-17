@@ -10,5 +10,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.Orchestrators.Interfaces
         Task<bool> Update(ContentItem publishedContentItem, ContentItem previewContentItem);
         Task<bool> DiscardDraft(ContentItem contentItem);
         Task<bool> Clone(ContentItem contentItem);
+        Task<bool> Restore(ContentItem contentItem);
     }
 }

@@ -63,6 +63,9 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.Orchestrators
                 .ReturnsLazily<IGraphReplicaSet, string>(graphReplicaSetName => graphReplicaSets[graphReplicaSetName]);
 
             PublishedContentItemVersion = A.Fake<IPublishedContentItemVersion>();
+            A.CallTo(() => PublishedContentItemVersion.GraphReplicaSetName)
+                .Returns(GraphReplicaSetNames.Published);
+
             ServiceProvider = A.Fake<IServiceProvider>();
             Logger = A.Fake<ILogger<SyncOrchestrator>>();
 

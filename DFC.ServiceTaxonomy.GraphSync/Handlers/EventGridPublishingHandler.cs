@@ -103,6 +103,14 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers
             await PublishContentEvent(context, ContentEventType.DraftDiscarded);
         }
 
+        #pragma warning disable S4144
+        public async Task Restored(IOrchestrationContext context)
+        {
+            await PublishContentEvent(context, ContentEventType.Unpublished);
+            await PublishContentEvent(context, ContentEventType.Draft);
+        }
+        #pragma warning restore S4144
+
         private async Task PublishContentEvent(
             IOrchestrationContext context,
             ContentEventType eventType)

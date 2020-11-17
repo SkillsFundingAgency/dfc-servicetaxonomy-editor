@@ -48,8 +48,8 @@ namespace GetJobProfiles.Importers
                 {
                     PageLocationPart = new PageLocationPart
                     {
-                        UrlName = new TextField(category.ToLower().Replace(' ', '-')),
-                        FullUrl = new TextField($"/job-categories/{category.ToLower().Replace(' ', '-')}")
+                        UrlName = category.ToLower().Replace(' ', '-'),
+                        FullUrl = $"/job-categories/{category.ToLower().Replace(' ', '-')}"
                     },
                     EponymousPart = new JobCategoryPart
                     {
@@ -65,7 +65,7 @@ namespace GetJobProfiles.Importers
                                 .Where(jp =>
                                     jobCategoryDictionary.Where(dict => dict.Value.Any(val => val == category))
                                         .Select(dict => dict.Key).Any(uri =>
-                                            jp.PageLocationPart.FullUrl.Text.EndsWith(uri)))
+                                            jp.PageLocationPart.FullUrl.EndsWith(uri)))
                                 .Select(jp => jp.ContentItemId)
                         }
                     }
