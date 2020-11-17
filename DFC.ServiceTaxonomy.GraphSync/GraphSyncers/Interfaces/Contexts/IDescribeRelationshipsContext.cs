@@ -1,33 +1,24 @@
-﻿
-using System;
+﻿using System;
 using System.Collections.Generic;
 using DFC.ServiceTaxonomy.GraphSync.Models;
-using Newtonsoft.Json.Linq;
 using OrchardCore.ContentManagement;
-using OrchardCore.ContentManagement.Metadata.Models;
 
 namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Contexts
 {
     public interface IDescribeRelationshipsContext : IGraphSyncContext
     {
-        IServiceProvider ServiceProvider { get; set; }
+        IServiceProvider ServiceProvider { get; }
 
-        List<ContentItemRelationship> AvailableRelationships { get; set; }
+        List<ContentItemRelationship> AvailableRelationships { get; }
 
-        JObject? ContentField { get; }
+        string SourceNodeId { get; }
 
-        string SourceNodeId { get; set; }
-
-        IEnumerable<string> SourceNodeLabels { get; set; }
+        IEnumerable<string> SourceNodeLabels { get; }
 
         int CurrentDepth { get; set; }
 
-        string SourceNodeIdPropertyName { get; set; }
+        string SourceNodeIdPropertyName { get; }
 
-        void SetContentField(JObject jObject);
-
-        new ContentTypePartDefinition ContentTypePartDefinition { get; set; }
-
-        ContentItem RootContentItem { get; set; }
+        ContentItem RootContentItem { get; }
     }
 }

@@ -38,30 +38,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
             _serviceProvider = serviceProvider;
         }
 
-        public async Task AddRelationship(IDescribeRelationshipsContext parentContext)
-        {
-            var describeContentItemHelper = _serviceProvider.GetRequiredService<IDescribeContentItemHelper>();
-
-            ContentPickerFieldSettings contentPickerFieldSettings =
-               parentContext.ContentPartFieldDefinition!.GetSettings<ContentPickerFieldSettings>();
-
-            JArray? contentItemIdsJArray = (JArray?)parentContext.ContentField?[parentContext.ContentPartFieldDefinition!.Name]![ContentItemIdsKey];
-
-            if (contentItemIdsJArray != null && contentItemIdsJArray.Count > 0)
-            {
-                string relationshipType = await RelationshipTypeContentPicker(contentPickerFieldSettings, parentContext.SyncNameProvider);
-                var sourceNodeLabels = await parentContext.SyncNameProvider.NodeLabels(parentContext.ContentItem.ContentType);
-                string pickedContentType = contentPickerFieldSettings.DisplayedContentTypes[0];
-                IEnumerable<string> destNodeLabels = await parentContext.SyncNameProvider.NodeLabels(pickedContentType);
-                parentContext.AvailableRelationships.Add(new ContentItemRelationship(sourceNodeLabels, relationshipType, destNodeLabels));
-
-                foreach (var nestedItem in contentItemIdsJArray)
-                {
-                    await describeContentItemHelper.BuildRelationships(nestedItem.Value<string>(), parentContext);
-                }
-            }
-        }
-
         public async Task AddSyncComponents(JObject contentItemField, IGraphMergeContext context)
         {
             //todo requires 'picked' part has a graph sync part
@@ -129,6 +105,30 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
         public async Task AddSyncComponentsDetaching(IGraphMergeContext context)
         {
             await AddSyncComponents(context);
+        }
+
+        public async Task AddRelationship(JObject contentItemField, IDescribeRelationshipsContext parentContext)
+        {
+            var describeContentItemHelper = _serviceProvider.GetRequiredService<IDescribeContentItemHelper>();
+
+            ContentPickerFieldSettings contentPickerFieldSettings =
+                parentContext.ContentPartFieldDefinition!.GetSettings<ContentPickerFieldSettings>();
+
+            JArray? contentItemIdsJArray = (JArray?)contentItemField[ContentItemIdsKey];
+
+            if (contentItemIdsJArray?.HasValues == true)
+            {
+                string relationshipType = await RelationshipTypeContentPicker(contentPickerFieldSettings, parentContext.SyncNameProvider);
+                var sourceNodeLabels = await parentContext.SyncNameProvider.NodeLabels(parentContext.ContentItem.ContentType);
+                string pickedContentType = contentPickerFieldSettings.DisplayedContentTypes[0];
+                IEnumerable<string> destNodeLabels = await parentContext.SyncNameProvider.NodeLabels(pickedContentType);
+                parentContext.AvailableRelationships.Add(new ContentItemRelationship(sourceNodeLabels, relationshipType, destNodeLabels));
+
+                foreach (var nestedItem in contentItemIdsJArray)
+                {
+                    await describeContentItemHelper.BuildRelationships(nestedItem.Value<string>(), parentContext);
+                }
+            }
         }
 
         public async Task<(bool validated, string failureReason)> ValidateSyncComponent(

@@ -12,7 +12,7 @@ using OrchardCore.ContentManagement;
 
 namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Contexts
 {
-    public class DescribeRelationshipsContext : GraphSyncContext, IDescribeRelationshipsContext
+    public class DescribeRelationshipsContext : GraphSyncContext, IDescribeRelationshipsItemSyncContext
     {
         public new IDescribeRelationshipsContext? ParentContext { get; }
         public new IEnumerable<IDescribeRelationshipsContext> ChildContexts => _childContexts.Cast<IDescribeRelationshipsContext>();
@@ -37,7 +37,13 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Contexts
             IContentItemVersion contentItemVersion,
             IDescribeRelationshipsContext? parentContext,
             IServiceProvider serviceProvider,
-            ContentItem rootContentItem) : base(contentItem, graphSyncHelper, contentManager, contentItemVersion, parentContext, serviceProvider.GetRequiredService<ILogger<GraphDeleteContext>>())
+            ContentItem rootContentItem) : base(
+                contentItem,
+                graphSyncHelper,
+                contentManager,
+                contentItemVersion,
+                parentContext,
+                serviceProvider.GetRequiredService<ILogger<GraphDeleteContext>>())
         {
             AvailableRelationships = new List<ContentItemRelationship>();
             ServiceProvider = serviceProvider;

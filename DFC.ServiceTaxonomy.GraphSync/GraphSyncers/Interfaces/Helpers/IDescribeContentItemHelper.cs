@@ -9,7 +9,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Helpers
 {
     public interface IDescribeContentItemHelper
     {
-        Task BuildRelationships(ContentItem contentItem, IDescribeRelationshipsContext context);
+        Task BuildRelationships(ContentItem contentItem, IDescribeRelationshipsItemSyncContext context);
         Task BuildRelationships(string contentItemId, IDescribeRelationshipsContext context);
         Task<IEnumerable<IQuery<object?>>> GetRelationshipCommands(IDescribeRelationshipsContext context, List<ContentItemRelationship> currentList, IDescribeRelationshipsContext parentContext);
     }

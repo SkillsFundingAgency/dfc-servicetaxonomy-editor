@@ -53,7 +53,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
             JObject content,
             IValidateAndRepairContext context);
 
-        public virtual Task AddRelationship(IDescribeRelationshipsContext context)
+        public virtual Task AddRelationship(JObject content, IDescribeRelationshipsContext context)
         {
             return Task.CompletedTask;
         }

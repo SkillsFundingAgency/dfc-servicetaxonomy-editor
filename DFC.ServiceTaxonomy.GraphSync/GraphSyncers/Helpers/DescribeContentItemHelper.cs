@@ -89,7 +89,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
             await BuildRelationships(contentItem!, childContext);
         }
 
-        public async Task BuildRelationships(ContentItem contentItem, IDescribeRelationshipsContext context)
+        public async Task BuildRelationships(ContentItem contentItem, IDescribeRelationshipsItemSyncContext context)
         {
             //todo: only 2nd part required?
             if (_encounteredContentItems.Any(x => x == contentItem.ContentItemId) || _encounteredContentTypes.Any(x => x == contentItem.ContentType))
