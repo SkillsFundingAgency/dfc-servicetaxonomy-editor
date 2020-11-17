@@ -685,7 +685,7 @@
                                 },
                                 "PageLocationPartSettings": {
                                     "DisplayRedirectLocationsAndDefaultPageForLocation": false,
-                                    "DefaultPageLocationPath": "job-categories" 
+                                    "DefaultPageLocationPath": "job-categories"
                                 }
                             }
                         },
@@ -701,7 +701,8 @@
                                     "IdPropertyName": "uri",
                                     "PropertyNameTransform": "Value",
                                     "GenerateIdPropertyValue": "$\"<<contentapiprefix>>/{ContentType}/{Value}\".ToLowerInvariant()",
-                                    "DisplayId": true
+                                    "DisplayId": true,
+                                    "VisualiserNodeDepth": 1
                                 }
                             }
                         }
