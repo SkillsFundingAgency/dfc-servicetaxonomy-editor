@@ -16,6 +16,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Contexts
         IEnumerable<string> SourceNodeLabels { get; }
 
         int CurrentDepth { get; set; }
+        int MaxDepthFromHere { get; }
 
         string SourceNodeIdPropertyName { get; }
 
