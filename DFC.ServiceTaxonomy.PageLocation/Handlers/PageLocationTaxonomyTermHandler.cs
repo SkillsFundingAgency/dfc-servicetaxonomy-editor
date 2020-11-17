@@ -4,7 +4,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.Content;
 using DFC.ServiceTaxonomy.Content.Services.Interface;
+using DFC.ServiceTaxonomy.GraphSync.Handlers.Contexts;
 using DFC.ServiceTaxonomy.GraphSync.Handlers.Interfaces;
+using DFC.ServiceTaxonomy.GraphSync.Notifications;
 using DFC.ServiceTaxonomy.GraphSync.Orchestrators.Interfaces;
 using DFC.ServiceTaxonomy.PageLocation.Constants;
 using DFC.ServiceTaxonomy.PageLocation.Models;
@@ -22,6 +24,7 @@ namespace DFC.ServiceTaxonomy.PageLocation.Handlers
         private readonly ITaxonomyHelper _taxonomyHelper;
         private readonly ISyncOrchestrator _syncOrchestrator;
         private readonly IContentItemsService _contentItemsService;
+        private readonly IGraphSyncNotifier _notifier;
         private readonly IEnumerable<IContentOrchestrationHandler> _contentOrchestrationHandlers;
 
         public PageLocationTaxonomyTermHandler(
@@ -29,12 +32,14 @@ namespace DFC.ServiceTaxonomy.PageLocation.Handlers
             ITaxonomyHelper taxonomyHelper,
             ISyncOrchestrator syncOrchestrator,
             IContentItemsService contentItemsService,
+            IGraphSyncNotifier notifier,
             IEnumerable<IContentOrchestrationHandler> contentOrchestrationHandlers)
         {
             _session = session;
             _taxonomyHelper = taxonomyHelper;
             _syncOrchestrator = syncOrchestrator;
             _contentItemsService = contentItemsService;
+            _notifier = notifier;
             _contentOrchestrationHandlers = contentOrchestrationHandlers;
         }
 
@@ -43,9 +48,11 @@ namespace DFC.ServiceTaxonomy.PageLocation.Handlers
             if (term.ContentType != ContentTypes.PageLocation)
                 return;
 
+            var context = new OrchestrationContext(term, _notifier);
+
             foreach (var orchestrator in _contentOrchestrationHandlers)
             {
-                await orchestrator.Published(term);
+                await orchestrator.Published(context);
             }
         }
 

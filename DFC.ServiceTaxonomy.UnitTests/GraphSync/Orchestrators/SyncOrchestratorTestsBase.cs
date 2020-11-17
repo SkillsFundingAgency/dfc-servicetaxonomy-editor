@@ -63,6 +63,9 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.Orchestrators
                 .ReturnsLazily<IGraphReplicaSet, string>(graphReplicaSetName => graphReplicaSets[graphReplicaSetName]);
 
             PublishedContentItemVersion = A.Fake<IPublishedContentItemVersion>();
+            A.CallTo(() => PublishedContentItemVersion.GraphReplicaSetName)
+                .Returns(GraphReplicaSetNames.Published);
+
             ServiceProvider = A.Fake<IServiceProvider>();
             Logger = A.Fake<ILogger<SyncOrchestrator>>();
 
@@ -89,12 +92,12 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.Orchestrators
                 .Returns(PublishedAllowSync);
 
             EventGridPublishingHandler = A.Fake<IContentOrchestrationHandler>();
-            A.CallTo(() => EventGridPublishingHandler.Published(A<ContentItem>.Ignored)).Returns(Task.CompletedTask);
-            A.CallTo(() => EventGridPublishingHandler.DraftSaved(A<ContentItem>.Ignored)).Returns(Task.CompletedTask);
-            A.CallTo(() => EventGridPublishingHandler.Cloned(A<ContentItem>.Ignored)).Returns(Task.CompletedTask);
-            A.CallTo(() => EventGridPublishingHandler.Unpublished(A<ContentItem>.Ignored)).Returns(Task.CompletedTask);
-            A.CallTo(() => EventGridPublishingHandler.DraftDiscarded(A<ContentItem>.Ignored)).Returns(Task.CompletedTask);
-            A.CallTo(() => EventGridPublishingHandler.Deleted(A<ContentItem>.Ignored)).Returns(Task.CompletedTask);
+            A.CallTo(() => EventGridPublishingHandler.Published(A<IOrchestrationContext>.Ignored)).Returns(Task.CompletedTask);
+            A.CallTo(() => EventGridPublishingHandler.DraftSaved(A<IOrchestrationContext>.Ignored)).Returns(Task.CompletedTask);
+            A.CallTo(() => EventGridPublishingHandler.Cloned(A<IOrchestrationContext>.Ignored)).Returns(Task.CompletedTask);
+            A.CallTo(() => EventGridPublishingHandler.Unpublished(A<IOrchestrationContext>.Ignored)).Returns(Task.CompletedTask);
+            A.CallTo(() => EventGridPublishingHandler.DraftDiscarded(A<IOrchestrationContext>.Ignored)).Returns(Task.CompletedTask);
+            A.CallTo(() => EventGridPublishingHandler.Deleted(A<IOrchestrationContext>.Ignored)).Returns(Task.CompletedTask);
 
             SyncOrchestrator = new SyncOrchestrator(
                 ContentDefinitionManager,

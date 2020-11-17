@@ -8,10 +8,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="OrchardCore.ContentManagement" Version="1.0.0-rc4" />
-    <PackageReference Include="OrchardCore.ContentManagement.Display" Version="1.0.0-rc4" />
-    <PackageReference Include="OrchardCore.DisplayManagement" Version="1.0.0-rc4" />
-    <PackageReference Include="OrchardCore.Module.Targets" Version="1.0.0-rc4" />
+    <PackageReference Include="OrchardCore.ContentManagement" Version="1.0.0-rc6" />
+    <PackageReference Include="OrchardCore.ContentManagement.Display" Version="1.0.0-rc6" />
+    <PackageReference Include="OrchardCore.DisplayManagement" Version="1.0.0-rc6" />
+    <PackageReference Include="OrchardCore.Module.Targets" Version="1.0.0-rc6" />
   </ItemGroup>
 
   <ItemGroup>

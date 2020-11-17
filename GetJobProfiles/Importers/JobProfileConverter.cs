@@ -29,7 +29,6 @@ namespace GetJobProfiles.Importers
         public readonly ContentPickerFactory WorkingEnvironments = new ContentPickerFactory();
         public readonly ContentPickerFactory WorkingLocations = new ContentPickerFactory();
         public readonly ContentPickerFactory WorkingUniforms = new ContentPickerFactory();
-        public readonly ContentPickerFactory PersonalitySkills = new ContentPickerFactory();
         public readonly ImportedAcademicRouteEqualityComparer ImportedAcademicRouteEqualityComparer;
         public readonly ImportedTitleHtmlDescriptionEqualityComparer ImportedTitleHtmlDescriptionEqualityComparer;
         public readonly ContentPickerContentItemFactory<AcademicEntryRouteContentItem> ApprenticeshipRoute;
@@ -51,7 +50,7 @@ namespace GetJobProfiles.Importers
         private readonly RestHttpClient.RestHttpClient _client;
         private readonly SocCodeContentPickerFactory _socCodeContentPickerFactory;
         private readonly Dictionary<string, string> _oNetDictionary;
-        private readonly Dictionary<string, List<string>> _dysacSkillSocLookup;
+        //private readonly Dictionary<string, List<string>> _dysacSkillSocLookup;
         private readonly TitleOptionsTextFieldFactory _titleOptionsFactory;
         private readonly DefaultIdGenerator _idGenerator;
 
@@ -75,13 +74,11 @@ namespace GetJobProfiles.Importers
             Dictionary<string, string> socCodeDictionary,
             Dictionary<string, string> oNetDictionary,
             Dictionary<string, string> titleOptionsLookup,
-            Dictionary<string, List<string>> dysacSkillSocLookup,
             string timestamp)
         {
             _client = client;
             _socCodeContentPickerFactory = new SocCodeContentPickerFactory(socCodeDictionary);
             _oNetDictionary = oNetDictionary;
-            _dysacSkillSocLookup = dysacSkillSocLookup;
             _titleOptionsFactory = new TitleOptionsTextFieldFactory(titleOptionsLookup);
             _idGenerator = new DefaultIdGenerator();
             Timestamp = timestamp;
@@ -200,12 +197,20 @@ namespace GetJobProfiles.Importers
 
             var contentItem = new JobProfileContentItem(jobProfile.Title, Timestamp)
             {
-                EponymousPart = new JobProfilePart(),
-                JobProfileHeader = new JobProfileHeaderPart
+                PageLocationPart = new PageLocationPart
                 {
+                    UrlName = jobProfileWebsiteUrl,
+                    FullUrl = $"/job-profiles/{jobProfileWebsiteUrl}",
+                },
+                EponymousPart = new JobProfilePart
+                {
+                    PageLocations = new TaxonomyField
+                    {
+                        TaxonomyContentItemId = "4eembshqzx66drajtdten34tc8",
+                        TermContentItemIds = new [] { "4x352kh85x7894jr7yqbt0z34b" }
+                    },
                     Description = new HtmlField(jobProfile.Overview),
                     TitleOptions = _titleOptionsFactory.Create(jobProfileWebsiteUrl),
-                    JobProfileWebsiteUrl = new TextField(jobProfileWebsiteUrl),
                     SOCCode = _socCodeContentPickerFactory.Create(jobProfile.Soc),
                     ONetOccupationalCode = new ContentPicker { ContentItemIds = new List<string> { oNetContentItemIds } },
                     SalaryStarter = new TextField(jobProfile.SalaryStarter),
@@ -214,121 +219,108 @@ namespace GetJobProfiles.Importers
                     MaximumHours = new NumericField(jobProfile.MaximumHours),
                     WorkingHoursDetails = new TextField(jobProfile.WorkingHoursDetails),
                     WorkingPattern = new TextField(jobProfile.WorkingPattern),
-                    WorkingPatternDetails = new TextField(jobProfile.WorkingPatternDetails)
-                },
-                HowToBecome = new HowToBecomePart
-                {
+                    WorkingPatternDetails = new TextField(jobProfile.WorkingPatternDetails),
                     HtbBodies = new HtmlField(jobProfile.HowToBecome.MoreInformation.ProfessionalAndIndustryBodies),
                     HtbCareerTips = new HtmlField(jobProfile.HowToBecome.MoreInformation.CareerTips),
                     HtbFurtherInformation = new HtmlField(jobProfile.HowToBecome.MoreInformation.FurtherInformation),
-                    HtbRegistrations = Registrations.CreateContentPicker(jobProfile.HowToBecome.MoreInformation.Registrations)
-                },
-                WhatItTakes = new WhatItTakesPart
-                {
+                    HtbRegistrations = Registrations.CreateContentPicker(jobProfile.HowToBecome.MoreInformation.Registrations),
                     WitDigitalSkillsLevel = new HtmlField(jobProfile.WhatItTakes.DigitalSkillsLevel),
                     WitRestrictions = Restrictions.CreateContentPicker(jobProfile.WhatItTakes.RestrictionsAndRequirements.RelatedRestrictions),
                     WitOtherRequirements = OtherRequirements.CreateContentPicker(jobProfile.WhatItTakes.RestrictionsAndRequirements.OtherRequirements),
-                    PersonalitySkills = PersonalitySkills.CreateContentPickerFromContent("PersonalitySkill", _dysacSkillSocLookup[jobProfile.Soc])
-                },
-                WhatYouWillDo = new WhatYouWillDoPart
-                {
                     WydWorkingEnvironment = WorkingEnvironments.CreateContentPicker(environment),
                     WydWorkingLocation = WorkingLocations.CreateContentPicker(location),
-                    WydWorkingUniform = WorkingUniforms.CreateContentPicker(uniform)
-                },
-                CareerPath = new CareerPathPart
-                {
+                    WydWorkingUniform = WorkingUniforms.CreateContentPicker(uniform),
                     CareerPathAndProgression = new HtmlField(jobProfile.CareerPathAndProgression.CareerPathAndProgression)
                 }
             };
 
             if (jobProfile.HowToBecome.EntryRoutes.Apprenticeship.IsEmpty())
             {
-                contentItem.HowToBecome.ApprenticeshipRoute = new ContentPicker();
+                contentItem.EponymousPart.ApprenticeshipRoute = new ContentPicker();
             }
             else
             {
                 var apprenticeshipEntryRoute = ApprenticeshipRoutes.Create(contentItem.DisplayText,
                     jobProfile.HowToBecome.EntryRoutes.Apprenticeship, Timestamp);
 
-                contentItem.HowToBecome.ApprenticeshipRoute = ApprenticeshipRoute.CreateContentPicker(apprenticeshipEntryRoute);
+                contentItem.EponymousPart.ApprenticeshipRoute = ApprenticeshipRoute.CreateContentPicker(apprenticeshipEntryRoute);
             }
 
             if (jobProfile.HowToBecome.EntryRoutes.College.IsEmpty())
             {
-                contentItem.HowToBecome.CollegeRoute = new ContentPicker();
+                contentItem.EponymousPart.CollegeRoute = new ContentPicker();
             }
             else
             {
                 var collegeEntryRoute = CollegeRoutes.Create(contentItem.DisplayText,
                     jobProfile.HowToBecome.EntryRoutes.College, Timestamp);
 
-                contentItem.HowToBecome.CollegeRoute = CollegeRoute.CreateContentPicker(collegeEntryRoute);
+                contentItem.EponymousPart.CollegeRoute = CollegeRoute.CreateContentPicker(collegeEntryRoute);
             }
 
             if (jobProfile.HowToBecome.EntryRoutes.University.IsEmpty())
             {
-                contentItem.HowToBecome.UniversityRoute = new ContentPicker();
+                contentItem.EponymousPart.UniversityRoute = new ContentPicker();
             }
             else
             {
                 var universityEntryRoute = UniversityRoutes.Create(contentItem.DisplayText,
                     jobProfile.HowToBecome.EntryRoutes.University, Timestamp);
 
-                contentItem.HowToBecome.UniversityRoute = UniversityRoute.CreateContentPicker(universityEntryRoute);
+                contentItem.EponymousPart.UniversityRoute = UniversityRoute.CreateContentPicker(universityEntryRoute);
             }
 
             if (!jobProfile.HowToBecome.EntryRoutes.DirectApplication.Any())
             {
-                contentItem.HowToBecome.DirectRoute = new ContentPicker();
+                contentItem.EponymousPart.DirectRoute = new ContentPicker();
             }
             else
             {
                 var route = new DirectRouteContentItem(contentItem.DisplayText, Timestamp,
                     jobProfile.HowToBecome.EntryRoutes.DirectApplication);
 
-                contentItem.HowToBecome.DirectRoute = DirectRoute.CreateContentPicker(route);
+                contentItem.EponymousPart.DirectRoute = DirectRoute.CreateContentPicker(route);
             }
 
             if (!jobProfile.HowToBecome.EntryRoutes.OtherRoutes.Any())
             {
-                contentItem.HowToBecome.OtherRoute = new ContentPicker();
+                contentItem.EponymousPart.OtherRoute = new ContentPicker();
             }
             else
             {
                 var route = new OtherRouteContentItem(contentItem.DisplayText, Timestamp,
                     jobProfile.HowToBecome.EntryRoutes.OtherRoutes);
 
-                contentItem.HowToBecome.OtherRoute = OtherRoute.CreateContentPicker(route);
+                contentItem.EponymousPart.OtherRoute = OtherRoute.CreateContentPicker(route);
             }
 
             if (!jobProfile.HowToBecome.EntryRoutes.Volunteering.Any())
             {
-                contentItem.HowToBecome.VolunteeringRoute = new ContentPicker();
+                contentItem.EponymousPart.VolunteeringRoute = new ContentPicker();
             }
             else
             {
                 var route = new VolunteeringRouteContentItem(contentItem.DisplayText, Timestamp,
                     jobProfile.HowToBecome.EntryRoutes.Volunteering);
 
-                contentItem.HowToBecome.VolunteeringRoute = VolunteeringRoute.CreateContentPicker(route);
+                contentItem.EponymousPart.VolunteeringRoute = VolunteeringRoute.CreateContentPicker(route);
             }
 
             if (!jobProfile.HowToBecome.EntryRoutes.Work.Any())
             {
-                contentItem.HowToBecome.WorkRoute = new ContentPicker();
+                contentItem.EponymousPart.WorkRoute = new ContentPicker();
             }
             else
             {
                 var route = new WorkRouteContentItem(contentItem.DisplayText, Timestamp,
                     jobProfile.HowToBecome.EntryRoutes.Work);
 
-                contentItem.HowToBecome.WorkRoute = WorkRoute.CreateContentPicker(route);
+                contentItem.EponymousPart.WorkRoute = WorkRoute.CreateContentPicker(route);
             }
 
             if (DayToDayTaskExclusions.Contains(jobProfile.Url))
             {
-                contentItem.WhatYouWillDo.DayToDayTasks = new ContentPicker();
+                contentItem.EponymousPart.DayToDayTasks = new ContentPicker();
             }
             else
             {
@@ -372,7 +364,7 @@ namespace GetJobProfiles.Importers
                     }
                 }
 
-                contentItem.WhatYouWillDo.DayToDayTasks = new ContentPicker(DayToDayTasks, activities);
+                contentItem.EponymousPart.DayToDayTasks = new ContentPicker(DayToDayTasks, activities);
             }
 
             return contentItem;

@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Results.AllowSync;
+using DFC.ServiceTaxonomy.GraphSync.Handlers.Interfaces;
 using FakeItEasy;
 using Xunit;
 
@@ -62,12 +63,20 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.Orchestrators.SyncOrchestrator
             await Assert.ThrowsAsync<Exception>(() => SyncOrchestrator.SaveDraft(ContentItem));
         }
 
-        [Fact]
-        public async Task SaveDraft_EventGridPublishingHandlerCalled()
+        [Theory]
+        [InlineData(AllowSyncResult.Allowed, 1)]
+        [InlineData(AllowSyncResult.Blocked, 0)]
+        [InlineData(AllowSyncResult.NotRequired, 0)]
+        public async Task SaveDraft_EventGridPublishingHandlerCalled(AllowSyncResult previewAllowSyncResult, int draftSavedCalled)
         {
+            A.CallTo(() => PreviewAllowSync.Result)
+                .Returns(previewAllowSyncResult);
+
             await SyncOrchestrator.SaveDraft(ContentItem);
 
-            A.CallTo(() => EventGridPublishingHandler.DraftSaved(ContentItem)).MustHaveHappened();
+            A.CallTo(() => EventGridPublishingHandler.DraftSaved(
+                    A<IOrchestrationContext>.That.Matches(ctx => Equals(ctx.ContentItem, ContentItem))))
+                .MustHaveHappened(draftSavedCalled, Times.Exactly);
         }
     }
 }

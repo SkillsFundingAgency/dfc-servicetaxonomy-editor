@@ -16,10 +16,13 @@ using OrchardCore.DisplayManagement.Notify;
 
 namespace DFC.ServiceTaxonomy.GraphSync.Orchestrators
 {
-    public class ContentTypeOrchestrator : Orchestrator, IContentTypeOrchestrator
+    public class ContentTypeOrchestrator : IContentTypeOrchestrator
     {
         private readonly IGraphResyncer _graphResyncer;
         private readonly IServiceProvider _serviceProvider;
+        private readonly IContentDefinitionManager _contentDefinitionManager;
+        private readonly IGraphSyncNotifier _notifier;
+        private readonly ILogger<ContentTypeOrchestrator> _logger;
 
         public const string ZombieFlag = "Zombie";
 
@@ -29,10 +32,12 @@ namespace DFC.ServiceTaxonomy.GraphSync.Orchestrators
             IContentDefinitionManager contentDefinitionManager,
             IGraphSyncNotifier notifier,
             ILogger<ContentTypeOrchestrator> logger)
-            : base(contentDefinitionManager, notifier, logger)
         {
             _graphResyncer = graphResyncer;
             _serviceProvider = serviceProvider;
+            _contentDefinitionManager = contentDefinitionManager;
+            _notifier = notifier;
+            _logger = logger;
         }
 
         public async Task DeleteItemsOfType(string contentTypeName)

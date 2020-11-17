@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Results.AllowSync;
+using DFC.ServiceTaxonomy.GraphSync.Handlers.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.Services;
 using FakeItEasy;
 using Xunit;
@@ -70,7 +71,9 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.Orchestrators.DeleteOrchestrat
         {
             await DeleteOrchestrator.Unpublish(ContentItem);
 
-            A.CallTo(() => EventGridPublishingHandler.Unpublished(ContentItem)).MustHaveHappened();
+            A.CallTo(() => EventGridPublishingHandler.Unpublished(
+                    A<IOrchestrationContext>.That.Matches(ctx => Equals(ctx.ContentItem, ContentItem))))
+                .MustHaveHappened();
         }
     }
 }

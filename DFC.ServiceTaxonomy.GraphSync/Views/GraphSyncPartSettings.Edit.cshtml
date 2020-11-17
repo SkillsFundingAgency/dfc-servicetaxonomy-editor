@@ -11,7 +11,7 @@
     <div class="row col-md">
         <label asp-for="BagPartContentItemRelationshipType">@T["BagPart ContentItem relationship type"]</label>
         <input asp-for="BagPartContentItemRelationshipType" class="form-control" readonly="@(Model.ReadOnly ? "readonly" : "")" />
-        <span class="hint">@T["If the containing content type is stored in a BagPart, the type of relationship to create in the graph."]</span>
+        <span class="hint">@T["If this content type is contained withing a BagPart, the type of relationship to create in the graph."]</span>
     </div>
 </fieldset>
 
@@ -67,7 +67,15 @@
     <div class="row col-md">
         <label asp-for="VisualiserNodeDepth">@T["Visualiser Node Depth"]</label>
         <input asp-for="VisualiserNodeDepth" class="form-control" />
-        <span class="hint">@T["The Maximum depth the visualiser will traverse for a given node"]</span>
+        <span class="hint">@T["The maximum depth the visualiser will traverse for a given node"]</span>
+    </div>
+</fieldset>
+
+<fieldset class="form-group graphsync-setting">
+    <div class="row col-md">
+        <label asp-for="VisualiserIncomingRelationshipsPathLength">@T["Visualiser Incoming Relationships Path Length"]</label>
+        <input asp-for="VisualiserIncomingRelationshipsPathLength" class="form-control" />
+        <span class="hint">@T["The path length of incoming relationships to visualise"]</span>
     </div>
 </fieldset>
 

@@ -128,19 +128,22 @@ namespace DFC.ServiceTaxonomy.GraphSync.Notifications
         {
             if (_logger.IsEnabled(LogLevel.Information))
             {
-                _logger.LogInformation(exception, "Notification '{NotificationType}' with user message '{NotificationUserMessage}' and technical message '{NotificationTechnicalMessage}' and exception '{Exception}'}.",
+                _logger.LogInformation(exception, "Notification '{NotificationType}' with user message '{NotificationUserMessage}' and technical message '{NotificationTechnicalMessage}' and exception '{Exception}'.",
                     type, userMessage, technicalMessage, exception?.ToString() ?? "None");
             }
 
+            string exceptionText = GetExceptionText(exception);
+
             HtmlContentBuilder htmlContentBuilder = new HtmlContentBuilder();
 
+            string traceId = Activity.Current?.TraceId.ToString() ?? "N/A";
             string uniqueId = $"id{Guid.NewGuid():N}";
             string onClickFunction = $"click_{uniqueId}";
             string clipboardCopy = TechnicalClipboardCopy(
-                Activity.Current.TraceId.ToString(),
+                traceId,
                 userMessage,
                 technicalMessage,
-                exception);
+                exceptionText);
 
             //fa-angle-double-down, hat-wizard, oil-can, fa-wrench?
             htmlContentBuilder
@@ -150,7 +153,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Notifications
                 .AppendHtml($"<a class=\"close\" style=\"right: 1.25em;\" data-toggle=\"collapse\" href=\"#{uniqueId}\" role=\"button\" aria-expanded=\"false\" aria-controls=\"{uniqueId}\"><i class=\"fas fa-wrench\"></i></a>")
                 .AppendHtml($"<div class=\"collapse\" id=\"{uniqueId}\">")
                 .AppendHtml($"<div class=\"card mt-2\"><div class=\"card-header\">Technical Details <button onclick=\"{onClickFunction}()\" style=\"float: right;\" type=\"button\"><i class=\"fas fa-copy\"></i></button></div><div class=\"card-body\">")
-                .AppendHtml($"<h5 class=\"card-title\">Trace ID</h5><h6 class=\"card-subtitle text-muted\">{Activity.Current.TraceId}</h6>")
+                .AppendHtml($"<h5 class=\"card-title\">Trace ID</h5><h6 class=\"card-subtitle text-muted\">{traceId}</h6>")
                 .AppendHtml("<div class=\"mt-3\">")
                 .AppendHtml(technicalHtmlMessage ?? new HtmlString(technicalMessage))
                 .AppendHtml("</div>");
@@ -159,12 +162,27 @@ namespace DFC.ServiceTaxonomy.GraphSync.Notifications
             {
                 //todo: we only include the exception's message (temporarily) to try to stop the notification message blowing up the page!
                 //htmlContentBuilder.AppendHtml($"<div class=\"card mt-3\"><div class=\"card-header\">Exception</div><div class=\"card-body\"><pre><code>{exception}</code></pre></div></div>");
-                htmlContentBuilder.AppendHtml($"<div class=\"card mt-3\"><div class=\"card-header\">Exception</div><div class=\"card-body\"><pre><code>{exception.Message}</code></pre></div></div>");
+                htmlContentBuilder.AppendHtml($"<div class=\"card mt-3\"><div class=\"card-header\">Exception</div><div class=\"card-body\"><pre><code>{exceptionText}</code></pre></div></div>");
             }
 
             htmlContentBuilder.AppendHtml("</div></div></div>");
 
             _entries.Add(new NotifyEntry { Type = type, Message = htmlContentBuilder });
+        }
+
+        private string GetExceptionText(Exception? exception)
+        {
+            const int maxExceptionTextLength = 200;
+
+            string exceptionMessage = exception?.Message ?? "";
+
+            // make sure the exception text doesn't take us over the max notification size
+            if (exceptionMessage.Length > maxExceptionTextLength)
+            {
+                exceptionMessage = $"{exceptionMessage.Substring(0, maxExceptionTextLength)} [truncated]";
+            }
+
+            return exceptionMessage;
         }
 
         //todo: add Trace Id to std notifications?
@@ -182,7 +200,9 @@ namespace DFC.ServiceTaxonomy.GraphSync.Notifications
         {
             if (_entries.Any(x => x.Type == NotifyType.Error))
             {
-                return _entries.Where(x => x.Type != NotifyType.Success).ToList();
+                // orchard core sometimes uses Information, where Success is more appropriate
+                // and all current Information notifiers seem to really be Success notifiers
+                return _entries.Where(x => !(x.Type == NotifyType.Success || x.Type == NotifyType.Information)).ToList();
             }
 
             return _entries;
@@ -205,13 +225,13 @@ function {onClickFunction}() {{
             );
         }
 
-        private string TechnicalClipboardCopy(string traceId, string userMessage, string technicalMessage, Exception? exception = null)
+        private string TechnicalClipboardCopy(string traceId, string userMessage, string technicalMessage, string exceptionText)
         {
             return
 @$"Trace ID          : {traceId}
 User Message      : {userMessage}
 Technical Message : {technicalMessage}
-Exception         : {exception?.Message}";
+Exception         : {exceptionText}";
             //todo: we want the full exception really!
 //Exception         : {exception}";
         }

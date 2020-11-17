@@ -12,31 +12,31 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.CodeAnalysis.CSharp.Scripting" Version="3.5.0" />
+    <PackageReference Include="Microsoft.CodeAnalysis.CSharp.Scripting" Version="3.8.0" />
     <PackageReference Include="morelinq" Version="3.3.2" />
-    <PackageReference Include="OrchardCore.Alias" Version="1.0.0-rc4" />
-    <PackageReference Include="OrchardCore.ContentFields" Version="1.0.0-rc4" />
-    <PackageReference Include="OrchardCore.ContentTypes" Version="1.0.0-rc4" />
-    <PackageReference Include="OrchardCore.Flows" Version="1.0.0-rc4" />
-    <PackageReference Include="OrchardCore.Html" Version="1.0.0-rc4" />
-    <PackageReference Include="OrchardCore.Module.Targets" Version="1.0.0-rc4" />
-    <PackageReference Include="OrchardCore.ContentManagement" Version="1.0.0-rc4" />
-    <PackageReference Include="OrchardCore.ContentManagement.Display" Version="1.0.0-rc4" />
-    <PackageReference Include="OrchardCore.ContentTypes.Abstractions" Version="1.0.0-rc4" />
-    <PackageReference Include="OrchardCore.DisplayManagement" Version="1.0.0-rc4" />
-    <PackageReference Include="OrchardCore.PublishLater" Version="1.0.0-rc4" />
-    <PackageReference Include="OrchardCore.Title" Version="1.0.0-rc4" />
-    <PackageReference Include="OrchardCore.Autoroute" Version="1.0.0-rc4" />
-    <PackageReference Include="OrchardCore.Alias" Version="1.0.0-rc4" />
-    <PackageReference Include="OrchardCore.Workflows" Version="1.0.0-rc4" />
-    <PackageReference Include="OrchardCore.Abstractions" Version="1.0.0-rc4" />
-    <PackageReference Include="OrchardCore.Sitemaps" Version="1.0.0-rc4" />
-    <PackageReference Include="SonarAnalyzer.CSharp" Version="8.13.0.21683">
+    <PackageReference Include="OrchardCore.Alias" Version="1.0.0-rc6" />
+    <PackageReference Include="OrchardCore.ContentFields" Version="1.0.0-rc6" />
+    <PackageReference Include="OrchardCore.ContentTypes" Version="1.0.0-rc6" />
+    <PackageReference Include="OrchardCore.Flows" Version="1.0.0-rc6" />
+    <PackageReference Include="OrchardCore.Html" Version="1.0.0-rc6" />
+    <PackageReference Include="OrchardCore.Module.Targets" Version="1.0.0-rc6" />
+    <PackageReference Include="OrchardCore.ContentManagement" Version="1.0.0-rc6" />
+    <PackageReference Include="OrchardCore.ContentManagement.Display" Version="1.0.0-rc6" />
+    <PackageReference Include="OrchardCore.ContentTypes.Abstractions" Version="1.0.0-rc6" />
+    <PackageReference Include="OrchardCore.DisplayManagement" Version="1.0.0-rc6" />
+    <PackageReference Include="OrchardCore.PublishLater" Version="1.0.0-rc6" />
+    <PackageReference Include="OrchardCore.Title" Version="1.0.0-rc6" />
+    <PackageReference Include="OrchardCore.Autoroute" Version="1.0.0-rc6" />
+    <PackageReference Include="OrchardCore.Alias" Version="1.0.0-rc6" />
+    <PackageReference Include="OrchardCore.Workflows" Version="1.0.0-rc6" />
+    <PackageReference Include="OrchardCore.Abstractions" Version="1.0.0-rc6" />
+    <PackageReference Include="OrchardCore.Sitemaps" Version="1.0.0-rc6" />
+    <PackageReference Include="SonarAnalyzer.CSharp" Version="8.14.0.22654">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="System.Configuration.ConfigurationManager" Version="4.7.0" />
-    <PackageReference Include="System.Linq.Async" Version="4.1.1" />
+    <PackageReference Include="System.Configuration.ConfigurationManager" Version="5.0.0" />
+    <PackageReference Include="System.Linq.Async" Version="5.0.0" />
   </ItemGroup>
 
   <ItemGroup>
