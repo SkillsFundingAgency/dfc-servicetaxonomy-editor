@@ -51,6 +51,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Contexts
             SourceNodeLabels = sourceNodeLabels;
             SourceNodeIdPropertyName = sourceNodeIdPropertyName;
             RootContentItem = rootContentItem;
+            CurrentDepth = (parentContext?.CurrentDepth + 1) ?? 0;
         }
 
         public void SetContentField(JObject jObject)

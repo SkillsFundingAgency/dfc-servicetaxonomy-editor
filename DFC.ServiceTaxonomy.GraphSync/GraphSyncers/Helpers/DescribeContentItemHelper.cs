@@ -40,7 +40,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
             IDescribeRelationshipsContext context,
             List<ContentItemRelationship> currentList,
             IDescribeRelationshipsContext parentContext)
-        {
+        {//todo: need to apply max node depth for child items, not just at the top level
             var graphSyncPartSettings = context.SyncNameProvider.GetGraphSyncPartSettings(context.ContentItem.ContentType);
             int maxVisualiserDepth = graphSyncPartSettings.VisualiserNodeDepth != null
                 ? Math.Min(graphSyncPartSettings.VisualiserNodeDepth.Value,
@@ -83,8 +83,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
                 context,
                 context.ServiceProvider,
                 context.RootContentItem);
-
-            context.AddChildContext(childContext);
 
             await BuildRelationships(contentItem!, childContext);
         }
