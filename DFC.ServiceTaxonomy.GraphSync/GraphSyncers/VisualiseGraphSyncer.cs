@@ -64,6 +64,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             await _describeContentItemHelper.BuildRelationships(contentItem, rootContext);
 
             //todo: return relationships - can we do it without creating cypher outside of a query?
+            //todo: each child context is added twice
+            //todo: current depth is always 0, so deep nodes like PersonalityQuestionSet returns masses of data
             var relationships = new List<ContentItemRelationship>();
             return await _describeContentItemHelper.GetRelationshipCommands(rootContext, relationships, rootContext);
         }
