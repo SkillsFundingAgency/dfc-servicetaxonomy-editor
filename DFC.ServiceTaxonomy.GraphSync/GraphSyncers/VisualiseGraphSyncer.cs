@@ -59,13 +59,10 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             var rootContext = new DescribeRelationshipsContext(
                 sourceNodeIdPropertyName, sourceNodeId, sourceNodeLabels, contentItem, _syncNameProvider,
                 _contentManager, contentItemVersion, null, _serviceProvider, contentItem);
-            rootContext.SetContentField(contentItem.Content);
 
             //todo: get global max depth here and pass in, then take account of item max depth too
             await _describeContentItemHelper.BuildRelationships(contentItem, rootContext);
-            //todo: is contentfield still used?
             //todo: return relationships - can we do it without creating cypher outside of a query?
-            //todo: each child context is added twice
             //todo: current depth is always 0, so deep nodes like PersonalityQuestionSet returns masses of data
             //todo: depth cut-off is done after build relationships, so does more work than is necessary
             var relationships = new List<ContentItemRelationship>();

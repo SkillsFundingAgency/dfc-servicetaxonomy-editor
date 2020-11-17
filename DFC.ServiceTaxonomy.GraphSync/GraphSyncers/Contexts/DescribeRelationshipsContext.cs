@@ -7,7 +7,6 @@ using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Helpers;
 using DFC.ServiceTaxonomy.GraphSync.Models;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Newtonsoft.Json.Linq;
 using OrchardCore.ContentManagement;
 
 namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Contexts
@@ -18,14 +17,13 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Contexts
         public new IEnumerable<IDescribeRelationshipsContext> ChildContexts => _childContexts.Cast<IDescribeRelationshipsContext>();
         public List<ContentItemRelationship> AvailableRelationships { get; set; }
 
-        public IServiceProvider ServiceProvider { get; set; }
-        public JObject? ContentField { get; private set; }
+        public IServiceProvider ServiceProvider { get; }
         public int CurrentDepth { get; set; }
-        public string SourceNodeId { get; set; }
-        public string SourceNodeIdPropertyName { get; set; }
-        public IEnumerable<string> SourceNodeLabels { get; set; }
+        public string SourceNodeId { get; }
+        public string SourceNodeIdPropertyName { get; }
+        public IEnumerable<string> SourceNodeLabels { get; }
 
-        public ContentItem RootContentItem { get; set; }
+        public ContentItem RootContentItem { get; }
 
         public DescribeRelationshipsContext(
             string sourceNodeIdPropertyName,
@@ -52,11 +50,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Contexts
             SourceNodeIdPropertyName = sourceNodeIdPropertyName;
             RootContentItem = rootContentItem;
             CurrentDepth = (parentContext?.CurrentDepth + 1) ?? 0;
-        }
-
-        public void SetContentField(JObject jObject)
-        {
-            ContentField = jObject;
         }
     }
 }

@@ -611,7 +611,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
                 var describeRelationshipService = _serviceProvider.GetRequiredService<IDescribeContentItemHelper>();
 
                 var childContext = new DescribeRelationshipsContext(context.SourceNodeIdPropertyName, context.SourceNodeId, context.SourceNodeLabels, embeddedContentItem, context.SyncNameProvider, context.ContentManager, context.ContentItemVersion, context, context.ServiceProvider, context.RootContentItem);
-                childContext.SetContentField(embeddedContentItem.Content);
                 await describeRelationshipService.BuildRelationships(embeddedContentItem, childContext);
             }
         }
