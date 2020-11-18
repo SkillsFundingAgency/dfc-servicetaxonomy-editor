@@ -121,8 +121,7 @@ stages:
 
 - stage: DeployToDev
   #condition: and(eq(dependencies.Build.result,'Succeeded'), eq(variables['Build.SourceBranch'], 'refs/heads/dev'))
-  #condition: and(eq(dependencies.Build.result,'Succeeded'), or(eq(variables['Build.SourceBranch'], 'refs/heads/dev'),eq(variables['Build.SourceBranch'], 'refs/heads/master')))
-  condition: eq(dependencies.Build.result,'Succeeded')
+  condition: and(eq(dependencies.Build.result,'Succeeded'), or(eq(variables['Build.SourceBranch'], 'refs/heads/dev'),eq(variables['Build.SourceBranch'], 'refs/heads/master')))
   displayName: Deploy to DEV_SERVICETAXONOMY
   variables:
   - group: dfc-shared-all
