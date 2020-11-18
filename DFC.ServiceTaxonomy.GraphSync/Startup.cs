@@ -3,6 +3,7 @@ using DFC.ServiceTaxonomy.CSharpScriptGlobals.CypherToContent;
 using DFC.ServiceTaxonomy.CSharpScriptGlobals.CypherToContent.Interfaces;
 using DFC.ServiceTaxonomy.Editor.Module.Drivers;
 using DFC.ServiceTaxonomy.GraphSync.Activities;
+using DFC.ServiceTaxonomy.GraphSync.Configuration;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.DependencyInjection;
@@ -179,6 +180,9 @@ namespace DFC.ServiceTaxonomy.GraphSync
 
             // navigation
             services.AddScoped<INavigationProvider, AdminMenu>();
+
+            //configuration
+            services.Configure<SlackMessagePublishingConfiguration>(_configuration.GetSection("SlackMessagePublishingConfiguration"));
         }
 
         public override void Configure(IApplicationBuilder builder, IEndpointRouteBuilder routes, IServiceProvider serviceProvider)

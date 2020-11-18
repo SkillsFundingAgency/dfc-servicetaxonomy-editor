@@ -7,6 +7,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.AspNetCore.Http;
 using DFC.ServiceTaxonomy.Editor.Configuration;
+using DFC.ServiceTaxonomy.Editor.Filters;
+using Microsoft.AspNetCore.Mvc;
 
 namespace DFC.ServiceTaxonomy.Editor
 {
@@ -50,6 +52,8 @@ namespace DFC.ServiceTaxonomy.Editor
             {
                 options.Cookie.Name = "staxantiforgery_Default";
             }), order:10);
+
+            services.Configure<MvcOptions>(options => options.Filters.Add(typeof(UnhandledExceptionFilterAttribute)));
 
             services.Configure<PagesConfiguration>(Configuration.GetSection("Pages"));
         }

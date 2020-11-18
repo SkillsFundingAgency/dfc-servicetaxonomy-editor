@@ -134,10 +134,15 @@ namespace DFC.ServiceTaxonomy.GraphSync.Notifications
                     type, userMessage, technicalMessage, exception?.ToString() ?? "None");
             }
 
+            string exceptionText = GetExceptionText(exception);
+
             //publish to slack
             _slackMessagePublisher.SendMessageAsync(userMessage);
 
-            string exceptionText = GetExceptionText(exception);
+            if (!string.IsNullOrWhiteSpace(exceptionText))
+            {
+                _slackMessagePublisher.SendMessageAsync($"```{exceptionText}```");
+            }
 
             HtmlContentBuilder htmlContentBuilder = new HtmlContentBuilder();
 
