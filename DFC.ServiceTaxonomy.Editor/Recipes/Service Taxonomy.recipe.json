@@ -930,7 +930,7 @@
             "data": [
                 {
                     "WorkflowTypeId": "4hw6br5f7fnkdv8syssnqedkcs",
-                    "Name": "Sync Validation",
+                    "Name": "Overnight Sync Validation",
                     "IsEnabled": true,
                     "IsSingleton": true,
                     "DeleteFinishedWorkflows": false,
@@ -957,7 +957,8 @@
                             "Properties": {
                                 "ActivityMetadata": {
                                     "Title": null
-                                }
+                                },
+                                "Scope": 0
                             }
                         }
                     ],
@@ -967,6 +968,49 @@
                             "SourceActivityId": "4ds5z2jqrskbhypepw3j11834k",
                             "SourceOutcomeName": "Done",
                             "DestinationActivityId": "4mvaxsfc5ntc90s0pbs7xtds4x"
+                        }
+                    ]
+                },
+                {
+                    "WorkflowTypeId": "4p7m8n8y2jj2n522d5chcs9t48",
+                    "Name": "Weekend Sync Validation",
+                    "IsEnabled": true,
+                    "IsSingleton": true,
+                    "DeleteFinishedWorkflows": false,
+                    "Activities": [
+                        {
+                            "ActivityId": "4zjhsyyzm6yrtzywrmyk0n375m",
+                            "Name": "TimerEvent",
+                            "X": 0,
+                            "Y": 0,
+                            "IsStart": true,
+                            "Properties": {
+                                "ActivityMetadata": {
+                                    "Title": "Every Sunday at Midnight"
+                                },
+                                "CronExpression": "0 0 * * 0"
+                            }
+                        },
+                        {
+                            "ActivityId": "4cwv5dfv47q8e72c0chw3tc05e",
+                            "Name": "AuditSyncIssuesTask",
+                            "X": 40,
+                            "Y": 180,
+                            "IsStart": false,
+                            "Properties": {
+                                "Scope": 1,
+                                "ActivityMetadata": {
+                                    "Title": null
+                                }
+                            }
+                        }
+                    ],
+                    "Transitions": [
+                        {
+                            "Id": 0,
+                            "SourceActivityId": "4zjhsyyzm6yrtzywrmyk0n375m",
+                            "SourceOutcomeName": "Done",
+                            "DestinationActivityId": "4cwv5dfv47q8e72c0chw3tc05e"
                         }
                     ]
                 }
