@@ -133,6 +133,12 @@
         },
         "Neo4jReplicaSets1GraphInstances1Enabled": {
             "value": true
+        },
+        "PublishToSlack": {
+            "value": true
+        },
+        "SlackWebhookEndpoint": {
+            "value": "not-a-real-endpoint"
         }
     }
 }
