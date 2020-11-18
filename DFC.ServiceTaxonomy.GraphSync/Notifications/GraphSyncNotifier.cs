@@ -77,7 +77,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Notifications
             }
 
             //todo: need details of the content item with incoming relationships
-            Add($"{syncOperation} the '{contentItem.DisplayText}' {contentType} has been cancelled, due to an issue with graph syncing.",
+            await Add($"{syncOperation} the '{contentItem.DisplayText}' {contentType} has been cancelled, due to an issue with graph syncing.",
                 technicalMessage.ToString(),
                 technicalHtmlMessage: new HtmlString(technicalHtmlMessage.ToString()));
         }
@@ -120,7 +120,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Notifications
         }
 
         //todo: add custom styles via scss?
-        public void Add(
+        public async Task Add(
             string userMessage,
             string technicalMessage = "",
             Exception? exception = null,
@@ -136,13 +136,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Notifications
 
             string exceptionText = GetExceptionText(exception);
 
-            //publish to slack
-            _slackMessagePublisher.SendMessageAsync(userMessage);
-
-            if (!string.IsNullOrWhiteSpace(exceptionText))
-            {
-                _slackMessagePublisher.SendMessageAsync($"```{exceptionText}```");
-            }
+            
 
             HtmlContentBuilder htmlContentBuilder = new HtmlContentBuilder();
 
@@ -154,6 +148,10 @@ namespace DFC.ServiceTaxonomy.GraphSync.Notifications
                 userMessage,
                 technicalMessage,
                 exceptionText);
+
+            //publish to slack
+            string slackMessage = BuildSlackMessage(traceId, userMessage, technicalMessage, exception);
+            await _slackMessagePublisher.SendMessageAsync(slackMessage);
 
             //fa-angle-double-down, hat-wizard, oil-can, fa-wrench?
             htmlContentBuilder
@@ -178,6 +176,21 @@ namespace DFC.ServiceTaxonomy.GraphSync.Notifications
             htmlContentBuilder.AppendHtml("</div></div></div>");
 
             _entries.Add(new NotifyEntry { Type = type, Message = htmlContentBuilder });
+        }
+
+        private string BuildSlackMessage(string traceId, string userMessage, string technicalMessage, Exception? exception)
+        {
+            string message =
+                $"```Trace ID: {traceId}\r\nUser Message: {userMessage}\r\nTechnical Message: {technicalMessage}";
+
+            if (exception != null)
+            {
+                message += $"\r\nException:\r\n\r\n{exception}";
+            }
+
+            message += "```";
+
+            return message;
         }
 
         private string GetExceptionText(Exception? exception)

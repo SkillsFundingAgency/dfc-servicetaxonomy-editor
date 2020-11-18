@@ -17,31 +17,7 @@ namespace DFC.ServiceTaxonomy.Editor.Filters
 
         public override async Task OnExceptionAsync(ExceptionContext context)
         {
-            string message = context.Exception.Message;
-
-            if (context.Exception.StackTrace != null)
-            {
-                message += $"\r\n```{context.Exception.StackTrace}```";
-            }
-
-            if (context.Exception.InnerException != null)
-            {
-                message = message.TrimEnd('`');
-                message += $"\r\n\r\nInner Exceptions:";
-
-                var exception = context.Exception;
-
-                while (exception.InnerException != null)
-                {
-#pragma warning disable S1643 // Strings should not be concatenated using '+' in a loop
-                    message += $"\r\n{exception.InnerException.Message}";
-#pragma warning restore S1643 // Strings should not be concatenated using '+' in a loop
-                    exception = exception.InnerException;
-                }
-
-                message += "```";
-            }
-
+            string message = $"```{context.Exception}```";
             await _slackMessagePublisher.SendMessageAsync(message);
         }
     }
