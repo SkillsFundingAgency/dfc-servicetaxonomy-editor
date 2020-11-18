@@ -372,6 +372,14 @@
                             {
                                 "name": "Pages__PreviewAppPrefix",
                                 "value": "[parameters('PreviewAppPrefix')]"
+                            },
+                            {
+                                "name": "SlackMessagePublishingConfiguration__PublishToSlack",
+                                "value": "[parameters('PublishToSlack')]"
+                            },
+                            {
+                                "name": "SlackMessagePublishingConfiguration__SlackWebhookEndpoint",
+                                "value": "[parameters('SlackWebhookEndpoint')]"
                             }
                         ]
                     }
