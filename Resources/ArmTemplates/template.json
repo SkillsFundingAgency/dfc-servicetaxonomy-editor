@@ -136,6 +136,15 @@
         },
         "Neo4jReplicaSets1GraphInstances1Enabled": {
             "type": "bool"
+        },
+        "PublishToSlack": {
+            "type": "bool"
+        },
+         "SlackWebhookEndpoint": {
+            "type": "securestring",
+            "metadata": {
+                "description": "the token (everything after https://hooks.slack.com/services/) for an incoming webhook in slack"
+            }
         }
     },
     "variables": {
