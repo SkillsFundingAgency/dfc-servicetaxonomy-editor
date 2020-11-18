@@ -8,12 +8,12 @@ namespace DFC.ServiceTaxonomy.Editor.Module.Drivers
     {
         protected override void EditActivity(AuditSyncIssuesTask activity, AuditSyncIssuesTaskViewModel model)
         {
-            //model.Value = activity.Value.Expression;
+            model.Scope = activity.Scope;
         }
 
         protected override void UpdateActivity(AuditSyncIssuesTaskViewModel model, AuditSyncIssuesTask activity)
         {
-            //activity.Value = new WorkflowExpression<string>(model.Value);
+            activity.Scope = model.Scope;
         }
     }
 }

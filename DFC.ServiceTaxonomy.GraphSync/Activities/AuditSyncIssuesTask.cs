@@ -30,6 +30,12 @@ namespace DFC.ServiceTaxonomy.GraphSync.Activities
         public override LocalizedString DisplayText => T["Identify sync issues and attempt repair"];
         public override LocalizedString Category => T["Graph"];
 
+        public ValidationScope Scope
+        {
+            get => GetProperty(() => ValidationScope.ModifiedSinceLastValidation);
+            set => SetProperty(value);
+        }
+
         public override IEnumerable<Outcome> GetPossibleOutcomes(WorkflowExecutionContext workflowContext, ActivityContext activityContext)
         {
 #pragma warning disable S3220 // Method calls should not resolve ambiguously to overloads with "params"
@@ -41,7 +47,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Activities
         {
             _logger.LogInformation($"{nameof(AuditSyncIssuesTask)} triggered.");
 
-            await _validateAndRepairGraph.ValidateGraph(ValidationScope.AllItems);
+            await _validateAndRepairGraph.ValidateGraph(Scope);
 
             return Outcomes("Done");
         }
