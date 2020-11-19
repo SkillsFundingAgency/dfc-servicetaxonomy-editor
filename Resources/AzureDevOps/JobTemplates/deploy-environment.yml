@@ -119,4 +119,4 @@ jobs:
             Environment: ${{ parameters.Environment }}
             TestArtifactBranch: ${{ parameters.TestArtifactBranch }}
             TestTag: Editor
-            TestEnvTag: __ReleaseEnvironmentName__
+            TestEnvTag: EnvironmentTag
