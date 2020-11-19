@@ -291,7 +291,7 @@ cd bin
 neo4j-admin.bat restore --from="I:\stax backups\neo4j-publish" --verbose --database=neo4j --force
 neo4j-admin.bat restore --from="I:\stax backups\neo4j-preview" --verbose --database=preview0 --force
 ```
-GetVisualisationSubgraph
+
 or if you're loading a dump...
 
 ```
