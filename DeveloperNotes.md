@@ -2,6 +2,7 @@
 
 * pre-populate custom graph sync settings to represent the real defaults
 * add visualisation settings into read only set
+* can't reset focus on a pagelocation, nor visualise it from the editor
 
 * requirements prefix items have empty text
 

@@ -2,6 +2,8 @@
 
 @using OrchardCore.ContentManagement
 @using DFC.ServiceTaxonomy.GraphSync.Models
+@using DFC.ServiceTaxonomy.Taxonomies.Models
+@using Newtonsoft.Json.Linq
 @inject IContentManager ContentManager
 
 @{
@@ -9,7 +11,11 @@
 
     ContentItem contentItem = Model.ContentItem;
     string? graphSyncPartText = contentItem.Content[nameof(GraphSyncPart)]?[nameof(GraphSyncPart.Text)]?.Value;
-    var hasPublished = await ContentManager.HasPublishedVersionAsync(contentItem);
+
+    // bit of a hack: if item is a taxonomy term, then allow the published version to be visualised
+    //todo: real fix is to ensure terms are marked as published when the taxonomy is published
+    var hasPublished = ((JObject)contentItem.Content).ContainsKey(nameof(TermPart))
+                        || await ContentManager.HasPublishedVersionAsync(contentItem);
 }
 
 @if (graphSyncPartText != null)
