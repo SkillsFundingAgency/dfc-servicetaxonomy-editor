@@ -211,9 +211,16 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
 
             string termRelationshipType = TermRelationshipType(termContentType);
 
-            var describeRelationshipsContext = new DescribeRelationshipsContext(
+            //todo: auto collect all taxonomy terms? or go through build relationships?
+
+            //todo: ????
+            int maxdepthfromhere = 10;
+
+            // gets auto-added to parent. better way though?
+            #pragma warning disable S1848
+            new DescribeRelationshipsContext(
                 parentContext.SourceNodeIdPropertyName, parentContext.SourceNodeId, parentContext.SourceNodeLabels,
-                parentContext.ContentItem, parentContext.SyncNameProvider, parentContext.ContentManager,
+                parentContext.ContentItem, maxdepthfromhere, parentContext.SyncNameProvider, parentContext.ContentManager,
                 parentContext.ContentItemVersion, parentContext, parentContext.ServiceProvider,
                 parentContext.RootContentItem)
             {
@@ -225,8 +232,9 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
                         await parentContext.SyncNameProvider.NodeLabels(termContentType))
                 }
             };
+            #pragma warning restore S1848
 
-            parentContext.AddChildContext(describeRelationshipsContext);
+            //parentContext.AddChildContext(describeRelationshipsContext);
         }
 
         public async Task<(bool validated, string failureReason)> ValidateSyncComponent(

@@ -26,11 +26,11 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Contexts
 
         public ContentItem RootContentItem { get; }
 
-        public DescribeRelationshipsContext(
-            string sourceNodeIdPropertyName,
+        public DescribeRelationshipsContext(string sourceNodeIdPropertyName,
             string sourceNodeId,
             IEnumerable<string> sourceNodeLabels,
             ContentItem contentItem,
+            int maxDepthFromHere,
             ISyncNameProvider graphSyncHelper,
             IContentManager contentManager,
             IContentItemVersion contentItemVersion,
@@ -48,6 +48,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Contexts
             ServiceProvider = serviceProvider;
             SourceNodeId = sourceNodeId;
             SourceNodeLabels = sourceNodeLabels;
+            MaxDepthFromHere = maxDepthFromHere;
             SourceNodeIdPropertyName = sourceNodeIdPropertyName;
             RootContentItem = rootContentItem;
             CurrentDepth = (parentContext?.CurrentDepth + 1) ?? 0;

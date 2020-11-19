@@ -124,6 +124,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
                 IEnumerable<string> destNodeLabels = await parentContext.SyncNameProvider.NodeLabels(pickedContentType);
                 parentContext.AvailableRelationships.Add(new ContentItemRelationship(sourceNodeLabels, relationshipType, destNodeLabels));
 
+                //todo: do we need each child, or can we just have a hashset of types
                 foreach (var nestedItem in contentItemIdsJArray)
                 {
                     await describeContentItemHelper.BuildRelationships(nestedItem.Value<string>(), parentContext);

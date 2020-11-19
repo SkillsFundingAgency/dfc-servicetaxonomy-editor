@@ -1,6 +1,7 @@
 #ToDo
 
 * pre-populate custom graph sync settings to represent the real defaults
+* add visualisation settings into read only set
 
 * requirements prefix items have empty text
 

@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Contexts;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Exceptions;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Contexts;
@@ -610,8 +609,20 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
 
                 var describeRelationshipService = _serviceProvider.GetRequiredService<IDescribeContentItemHelper>();
 
-                var childContext = new DescribeRelationshipsContext(context.SourceNodeIdPropertyName, context.SourceNodeId, context.SourceNodeLabels, embeddedContentItem, context.SyncNameProvider, context.ContentManager, context.ContentItemVersion, context, context.ServiceProvider, context.RootContentItem);
-                await describeRelationshipService.BuildRelationships(embeddedContentItem, childContext);
+                // var childContext = new DescribeRelationshipsContext(context.SourceNodeIdPropertyName, context.SourceNodeId, context.SourceNodeLabels, embeddedContentItem, context.SyncNameProvider, context.ContentManager, context.ContentItemVersion, context, context.ServiceProvider, context.RootContentItem);
+                // await describeRelationshipService.BuildRelationships(embeddedContentItem, childContext);
+                //todo: version that accepts existing context, but why have all the child contexts with the same properties?
+                await describeRelationshipService.BuildRelationships(
+                    embeddedContentItem,
+                    context.SourceNodeIdPropertyName,
+                    context.SourceNodeId,
+                    context.SourceNodeLabels,
+                    context.SyncNameProvider,
+                    context.ContentManager,
+                    context.ContentItemVersion,
+                    context,
+                    context.ServiceProvider,
+                    context.RootContentItem);
             }
         }
     }
