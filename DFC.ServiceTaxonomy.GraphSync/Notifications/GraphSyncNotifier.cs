@@ -181,17 +181,18 @@ namespace DFC.ServiceTaxonomy.GraphSync.Notifications
 
         private string BuildSlackMessage(string traceId, string userMessage, string technicalMessage, Exception? exception)
         {
-            string message =
-                $"```Trace ID: {traceId}\r\nUser Message: {userMessage}\r\nTechnical Message: {technicalMessage}";
+            StringBuilder sb =
+                new StringBuilder(
+                    $"```Trace ID: {traceId}\r\nUser Message: {userMessage}\r\nTechnical Message: {technicalMessage}");
 
             if (exception != null)
             {
-                message += $"\r\nException:\r\n\r\n{exception}";
+                sb.Append($"\r\nException:\r\n\r\n{exception}");
             }
 
-            message += "```";
+            sb.Append("```");
 
-            return message;
+            return sb.ToString();
         }
 
         private string GetExceptionText(Exception? exception)
