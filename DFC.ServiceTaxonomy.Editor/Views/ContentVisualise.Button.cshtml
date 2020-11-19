@@ -12,10 +12,19 @@
     ContentItem contentItem = Model.ContentItem;
     string? graphSyncPartText = contentItem.Content[nameof(GraphSyncPart)]?[nameof(GraphSyncPart.Text)]?.Value;
 
+    //todo: need to support all containable items, so need to get part graph syncers to participate
+    // e.g. add GetContainingContentItem on all graph syncers, or similar
+    JToken? termPart = ((JObject) contentItem.Content)[nameof(TermPart)];
+
+    string? containingContentItemId = null;
+    if (termPart != null)
+    {
+        containingContentItemId = (string?) termPart["TaxonomyContentItemId"];
+    }
+
     // bit of a hack: if item is a taxonomy term, then allow the published version to be visualised
     //todo: real fix is to ensure terms are marked as published when the taxonomy is published
-    var hasPublished = ((JObject)contentItem.Content).ContainsKey(nameof(TermPart))
-                        || await ContentManager.HasPublishedVersionAsync(contentItem);
+    var hasPublished = termPart != null || await ContentManager.HasPublishedVersionAsync(contentItem);
 }
 
 @if (graphSyncPartText != null)
@@ -29,6 +38,7 @@
                asp-controller="Visualise"
                asp-area="@typeof(DFC.ServiceTaxonomy.GraphVisualiser.Startup)!.Namespace"
                asp-route-contentItemId="@contentItem.ContentItemId"
+               asp-route-containingContentItemId="@containingContentItemId"
                asp-route-graph="preview"
                target="_blank"
                class="dropdown-item @(!Model.EditMode ? "btn-sm" : "")">@T["Visualise draft graph"]</a>
@@ -39,6 +49,7 @@
                    asp-controller="Visualise"
                    asp-area="@typeof(DFC.ServiceTaxonomy.GraphVisualiser.Startup)!.Namespace"
                    asp-route-contentItemId="@contentItem.ContentItemId"
+                   asp-route-containingContentItemId="@containingContentItemId"
                    asp-route-graph="published"
                    target="_blank"
                    class="dropdown-item @(!Model.EditMode ? "btn-sm" : "")">@T["Visualise published graph"]</a>
