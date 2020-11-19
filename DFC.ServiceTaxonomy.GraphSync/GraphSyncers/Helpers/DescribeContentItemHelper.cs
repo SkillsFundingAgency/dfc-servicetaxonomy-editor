@@ -8,7 +8,6 @@ using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Contexts;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Helpers;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Items;
 using DFC.ServiceTaxonomy.GraphSync.Models;
-using DFC.ServiceTaxonomy.GraphSync.Neo4j.Helpers;
 using DFC.ServiceTaxonomy.GraphSync.Neo4j.Queries;
 using DFC.ServiceTaxonomy.GraphSync.Settings;
 using DFC.ServiceTaxonomy.Neo4j.Queries;
@@ -44,14 +43,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
         {
             var currentList = new List<ContentItemRelationship>();
 
-            //todo: need to apply max node depth for child items, not just at the top level
-            //int maxVisualiserDepth = graphSyncPartSettings.VisualiserNodeDepth != null
-            //    ? Math.Min(graphSyncPartSettings.VisualiserNodeDepth.Value,
-            //        _graphSyncSettings.Value.MaxVisualiserNodeDepth)
-            //    : _graphSyncSettings.Value.MaxVisualiserNodeDepth;
-
-            //            var allRelationships = await ContentItemRelationshipToCypherHelper.GetRelationships(context, currentList, parentContext, maxVisualiserDepth);
-            var allRelationships = await ContentItemRelationshipToCypherHelper.GetRelationships(context, currentList, context);
+            var allRelationships = await GetRelationships(context, currentList, context);
             var uniqueCommands = allRelationships.Select(z => z.RelationshipPathString).GroupBy(x => x).Select(g => g.First());
 
             List<IQuery<object?>> commandsToReturn = uniqueCommands
@@ -75,6 +67,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
 
         //todo: contentmanager
         //todo: taxonomies use reltype*maxdepth ?
+        //todo: for child contexts, do we need anything more than parentcontext, contentitem & relationships?
+
         public async Task<IDescribeRelationshipsContext?> BuildRelationships(
             ContentItem contentItem,
             string sourceNodeIdPropertyName,
@@ -156,59 +150,38 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
                 context.RootContentItem);
         }
 
-        // public async Task BuildRelationships(string contentItemId, IDescribeRelationshipsContext context)
-        // {
-        //     //todo: check for null
-        //     ContentItem? contentItem = await context.ContentItemVersion.GetContentItem(_contentManager, contentItemId);
-        //     if (contentItem == null)
-        //     {
-        //         //todoL: which excpetion
-        //         throw new InvalidOperationException($"ContentItem with id {contentItemId} not found.");
-        //     }
-        //
-        //     // if (_encounteredContentItems.Any(x => x == contentItem.ContentItemId)
-        //     //     || _encounteredContentTypes.Any(x => x == contentItem.ContentType))
-        //     if (_encounteredContentTypes.Any(x => x == contentItem.ContentType))
-        //     {
-        //         return;
-        //     }
-        //
-        //     //todo: can we just store parentcontext and contentitem?
-        //     var childContext = new DescribeRelationshipsContext(
-        //         context.SourceNodeIdPropertyName,
-        //         context.SourceNodeId,
-        //         context.SourceNodeLabels,
-        //         contentItem!,
-        //         context.SyncNameProvider,
-        //         context.ContentManager,
-        //         context.ContentItemVersion,
-        //         context,
-        //         context.ServiceProvider,
-        //         context.RootContentItem);
-        //
-        //     await BuildRelationships(contentItem!, childContext);
-        // }
+        //todo: move any cypher generation into a query
+        private static async Task<IEnumerable<ContentItemRelationship>> GetRelationships(
+            IDescribeRelationshipsContext context,
+            List<ContentItemRelationship> currentList,
+            IDescribeRelationshipsContext parentContext)
+        {
+            foreach (var child in context.AvailableRelationships)
+            {
+                if (child == null)
+                    continue;
 
-        // public async Task BuildRelationships(ContentItem contentItem, IDescribeRelationshipsItemSyncContext context)
-        // {
-        //     //todo: only 2nd part required?
-        //     //todo: don't create context if excluding
-        //     if (_encounteredContentItems.Any(x => x == contentItem.ContentItemId) || _encounteredContentTypes.Any(x => x == contentItem.ContentType))
-        //     {
-        //         return;
-        //     }
-        //
-        //     foreach (IContentItemGraphSyncer itemSyncer in _contentItemGraphSyncers)
-        //     {
-        //         //todo: allow syncers to chain or not? probably not
-        //         if (itemSyncer.CanSync(context.ContentItem))
-        //         {
-        //             await itemSyncer.AddRelationship(context);
-        //         }
-        //     }
-        //
-        //     _encounteredContentTypes.Add(contentItem.ContentType);
-        //     _encounteredContentItems.Add(contentItem.ContentItemId);
-        // }
+                var parentRelationship = parentContext.AvailableRelationships.FirstOrDefault(x => x.Destination.All(child.Source.Contains));
+
+                if (parentRelationship != null && !string.IsNullOrEmpty(parentRelationship.RelationshipPathString))
+                {
+                    var relationshipString = $"{parentRelationship.RelationshipPathString}-[r{context.CurrentDepth}:{child.Relationship}]-(d{context.CurrentDepth}:{string.Join(":", child.Destination!)})";
+                    child.RelationshipPathString = relationshipString;
+                }
+                else
+                {
+                    child.RelationshipPathString = $@"match (s:{string.Join(":", context.SourceNodeLabels)} {{{context.SourceNodeIdPropertyName}: '{context.SourceNodeId}'}})-[r{1}:{child.Relationship}]-(d{1}:{string.Join(":", child.Destination!)})";
+                }
+            }
+
+            currentList.AddRange(context.AvailableRelationships);
+
+            foreach (var childContext in context.ChildContexts)
+            {
+                await GetRelationships((IDescribeRelationshipsContext)childContext, currentList, context);
+            }
+
+            return currentList;
+        }
     }
 }
