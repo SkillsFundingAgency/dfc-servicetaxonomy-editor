@@ -6,6 +6,7 @@ using System.Text.RegularExpressions;
 using DFC.ServiceTaxonomy.GraphSync.Neo4j.Queries.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.Neo4j.Queries.Models;
 using DFC.ServiceTaxonomy.Neo4j.Exceptions;
+using DFC.ServiceTaxonomy.Neo4j.Queries;
 using DFC.ServiceTaxonomy.Neo4j.Queries.Interfaces;
 using Neo4j.Driver;
 
@@ -17,8 +18,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Neo4j.Queries
     {
         private readonly string _command;
 
-        public NodeAndNestedOutgoingRelationshipsQuery(
-            string command)
+        public NodeAndNestedOutgoingRelationshipsQuery(string command)
         {
             _command = command;
         }
@@ -32,6 +32,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.Neo4j.Queries
         {
             get
             {
+                this.CheckIsValid();
+
                 return BuildCommand();
             }
         }
@@ -40,12 +42,12 @@ namespace DFC.ServiceTaxonomy.GraphSync.Neo4j.Queries
         {
             var withStringBuilder = new StringBuilder();
 
-            int currentDepth = 1;
-            int depthCount = Regex.Matches(_command, "d[0-9]+:").Count;
+            int currentDepth = 0;
+            //todo: brittle
+            int depthCount = (Regex.Matches(_command, "d[0-9]+:").Count)-1;
 
             List<string> collectClauses = new List<string>();
             List<string> relationshipClauses = new List<string>();
-
 
             while (currentDepth <= depthCount)
             {

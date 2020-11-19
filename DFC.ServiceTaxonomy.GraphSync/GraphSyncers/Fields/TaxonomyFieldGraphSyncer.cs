@@ -202,7 +202,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
         {
             //todo: check for null
             ContentItem? taxonomyContentItem = await GetTaxonomyContentItem(
-                (JObject)contentItemField[parentContext.ContentPartFieldDefinition!.Name!]!,
+                contentItemField,
                 parentContext.ContentItemVersion,
                 parentContext.ContentManager);
 
