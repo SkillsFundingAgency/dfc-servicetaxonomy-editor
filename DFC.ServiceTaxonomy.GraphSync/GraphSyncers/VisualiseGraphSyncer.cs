@@ -56,9 +56,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             string sourceNodeIdPropertyName = _syncNameProvider.IdPropertyName();
 
             var rootContext = await _describeContentItemHelper.BuildRelationships(
-                contentItem,
-                sourceNodeIdPropertyName, sourceNodeId, sourceNodeLabels, _syncNameProvider,
-                _contentManager, contentItemVersion, null, _serviceProvider, contentItem);
+                contentItem, sourceNodeIdPropertyName, sourceNodeId, sourceNodeLabels, _syncNameProvider,
+                _contentManager, contentItemVersion, null, _serviceProvider);
 
             //todo: return relationships - can we do it without creating cypher outside of a query?
             //todo: current depth is always 0, so deep nodes like PersonalityQuestionSet returns masses of data

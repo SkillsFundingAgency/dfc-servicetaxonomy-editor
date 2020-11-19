@@ -19,10 +19,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Helpers
             IContentManager contentManager,
             IContentItemVersion contentItemVersion,
             IDescribeRelationshipsContext? parentContext,
-            IServiceProvider serviceProvider,
-            ContentItem rootContentItem);
+            IServiceProvider serviceProvider);
 
-        // Task BuildRelationships(ContentItem contentItem, IDescribeRelationshipsItemSyncContext context);
         Task<IDescribeRelationshipsContext?> BuildRelationships(string contentItemId, IDescribeRelationshipsContext context);
         Task<IEnumerable<IQuery<object?>>> GetRelationshipCommands(IDescribeRelationshipsContext context);//, IDescribeRelationshipsContext parentContext);
     }

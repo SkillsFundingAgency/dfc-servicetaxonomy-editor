@@ -621,8 +621,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
                     context.ContentManager,
                     context.ContentItemVersion,
                     context,
-                    context.ServiceProvider,
-                    context.RootContentItem);
+                    context.ServiceProvider);
             }
         }
     }

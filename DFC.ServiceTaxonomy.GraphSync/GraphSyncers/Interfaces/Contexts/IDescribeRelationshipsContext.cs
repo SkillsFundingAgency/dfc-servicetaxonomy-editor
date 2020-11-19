@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using DFC.ServiceTaxonomy.GraphSync.Models;
-using OrchardCore.ContentManagement;
 
 namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Contexts
 {
@@ -15,11 +14,9 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Contexts
 
         IEnumerable<string> SourceNodeLabels { get; }
 
-        int CurrentDepth { get; set; }
+        int CurrentDepth { get; }
         int MaxDepthFromHere { get; }
 
         string SourceNodeIdPropertyName { get; }
-
-        ContentItem RootContentItem { get; }
     }
 }

@@ -78,8 +78,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
             IContentManager contentManager,
             IContentItemVersion contentItemVersion,
             IDescribeRelationshipsContext? parentContext,
-            IServiceProvider serviceProvider,
-            ContentItem rootContentItem)
+            IServiceProvider serviceProvider)
         {
             var graphSyncPartSettings = syncNameProvider.GetGraphSyncPartSettings(contentItem.ContentType);
 
@@ -105,7 +104,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
 
             var context = new DescribeRelationshipsContext(
                 sourceNodeIdPropertyName, sourceNodeId, sourceNodeLabels, contentItem, maxDepthFromHere, syncNameProvider,
-                contentManager, contentItemVersion, parentContext, serviceProvider, rootContentItem);
+                contentManager, contentItemVersion, parentContext, serviceProvider);
 
             foreach (IContentItemGraphSyncer itemSyncer in _contentItemGraphSyncers)
             {
@@ -146,8 +145,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
                 context.ContentManager,
                 context.ContentItemVersion,
                 context,
-                context.ServiceProvider,
-                context.RootContentItem);
+                context.ServiceProvider);
         }
 
         //todo: move any cypher generation into a query

@@ -221,8 +221,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
             new DescribeRelationshipsContext(
                 parentContext.SourceNodeIdPropertyName, parentContext.SourceNodeId, parentContext.SourceNodeLabels,
                 parentContext.ContentItem, maxdepthfromhere, parentContext.SyncNameProvider, parentContext.ContentManager,
-                parentContext.ContentItemVersion, parentContext, parentContext.ServiceProvider,
-                parentContext.RootContentItem)
+                parentContext.ContentItemVersion, parentContext, parentContext.ServiceProvider)
             {
                 AvailableRelationships = new List<ContentItemRelationship>
                 {
