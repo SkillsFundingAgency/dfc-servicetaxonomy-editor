@@ -24,12 +24,12 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
         private readonly IEnumerable<IContentItemGraphSyncer> _contentItemGraphSyncers;
         //private readonly List<string> _encounteredContentItems = new List<string>();
         private readonly List<string> _encounteredContentTypes = new List<string>();
-        private readonly IOptions<GraphSyncSettings> _graphSyncSettings;
+        private readonly IOptionsMonitor<GraphSyncSettings> _graphSyncSettings;
 
         public DescribeContentItemHelper(
             IContentManager contentManager,
             IEnumerable<IContentItemGraphSyncer> contentItemGraphSyncers,
-            IOptions<GraphSyncSettings> graphSyncSettings)
+            IOptionsMonitor<GraphSyncSettings> graphSyncSettings)
         {
             _contentItemGraphSyncers = contentItemGraphSyncers.OrderByDescending(s => s.Priority);
 
@@ -45,14 +45,13 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
             var currentList = new List<ContentItemRelationship>();
 
             //todo: need to apply max node depth for child items, not just at the top level
-            var graphSyncPartSettings = context.SyncNameProvider.GetGraphSyncPartSettings(context.ContentItem.ContentType);
-            int maxVisualiserDepth = graphSyncPartSettings.VisualiserNodeDepth != null
-                ? Math.Min(graphSyncPartSettings.VisualiserNodeDepth.Value,
-                    _graphSyncSettings.Value.MaxVisualiserNodeDepth)
-                : _graphSyncSettings.Value.MaxVisualiserNodeDepth;
+            //int maxVisualiserDepth = graphSyncPartSettings.VisualiserNodeDepth != null
+            //    ? Math.Min(graphSyncPartSettings.VisualiserNodeDepth.Value,
+            //        _graphSyncSettings.Value.MaxVisualiserNodeDepth)
+            //    : _graphSyncSettings.Value.MaxVisualiserNodeDepth;
 
-//            var allRelationships = await ContentItemRelationshipToCypherHelper.GetRelationships(context, currentList, parentContext, maxVisualiserDepth);
-            var allRelationships = await ContentItemRelationshipToCypherHelper.GetRelationships(context, currentList, context, maxVisualiserDepth);
+            //            var allRelationships = await ContentItemRelationshipToCypherHelper.GetRelationships(context, currentList, parentContext, maxVisualiserDepth);
+            var allRelationships = await ContentItemRelationshipToCypherHelper.GetRelationships(context, currentList, context);
             var uniqueCommands = allRelationships.Select(z => z.RelationshipPathString).GroupBy(x => x).Select(g => g.First());
 
             List<IQuery<object?>> commandsToReturn = uniqueCommands
@@ -62,6 +61,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
             // but allow other nodes that have a skos__Concept label, such as occupations and skills
             // (or filter on relationships, whitelist whatever)
             //todo: add a setting to graphsyncsettings for the filtering (for now we'll set incoming to 0 for occs & skills)
+            var graphSyncPartSettings = context.SyncNameProvider.GetGraphSyncPartSettings(context.ContentItem.ContentType);
+
             commandsToReturn.Add(new SubgraphQuery(
                 context.SourceNodeLabels,
                 context.SourceNodeIdPropertyName,
@@ -73,6 +74,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
         }
 
         //todo: contentmanager
+        //todo: taxonomies use reltype*maxdepth ?
         public async Task<IDescribeRelationshipsContext?> BuildRelationships(
             ContentItem contentItem,
             string sourceNodeIdPropertyName,
@@ -92,7 +94,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
             if (parentContext == null)
             {
                 maxDepthFromHere = Math.Min(graphSyncPartSettings.VisualiserNodeDepth ?? int.MaxValue,
-                    5); //todo: appsettings.VisualiserNodeDepthMax);
+                    //todo: store in root in case changes mid flow?
+                    _graphSyncSettings.CurrentValue.MaxVisualiserNodeDepth);
             }
             else
             {
