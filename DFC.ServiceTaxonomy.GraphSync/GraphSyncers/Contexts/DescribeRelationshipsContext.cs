@@ -18,7 +18,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Contexts
         public List<ContentItemRelationship> AvailableRelationships { get; set; }
 
         public IServiceProvider ServiceProvider { get; }
-        public int CurrentDepth { get; set; }
+        public int CurrentDepth { get; }
         public int MaxDepthFromHere { get; }
         public string SourceNodeId { get; }
         public string SourceNodeIdPropertyName { get; }

@@ -5,6 +5,8 @@
       <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
       <NoWarn>NU5125</NoWarn>
       <Nullable>enable</Nullable>
+      <EnableNETAnalyzers>true</EnableNETAnalyzers>
+      <AnalysisLevel>latest</AnalysisLevel>
       <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 
       <Authors>Education and Skills Funding Agency Team</Authors>
