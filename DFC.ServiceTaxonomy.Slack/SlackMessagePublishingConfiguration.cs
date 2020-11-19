@@ -1,4 +1,4 @@
-﻿namespace DFC.ServiceTaxonomy.GraphSync.Configuration
+﻿namespace DFC.ServiceTaxonomy.Slack
 {
     public class SlackMessagePublishingConfiguration
     {

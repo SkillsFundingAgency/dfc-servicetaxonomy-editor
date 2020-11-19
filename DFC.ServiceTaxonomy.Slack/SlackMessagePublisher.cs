@@ -2,10 +2,9 @@
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
-using DFC.ServiceTaxonomy.GraphSync.Configuration;
 using Microsoft.Extensions.Options;
 
-namespace DFC.ServiceTaxonomy.GraphSync.Services
+namespace DFC.ServiceTaxonomy.Slack
 {
     public class SlackMessagePublisher : ISlackMessagePublisher
     {
@@ -22,10 +21,18 @@ namespace DFC.ServiceTaxonomy.GraphSync.Services
         {
             if ((_config.PublishToSlack ?? false) && !string.IsNullOrWhiteSpace(_config.SlackWebhookEndpoint))
             {
-                StringContent content = new StringContent(JsonSerializer.Serialize(new {text}), Encoding.UTF8,
+                await SendMessageAsync(_config.SlackWebhookEndpoint, text);
+            }
+        }
+
+        public async Task SendMessageAsync(string webhookEndpoint, string text)
+        {
+            if (_config.PublishToSlack ?? false)
+            {
+                StringContent content = new StringContent(JsonSerializer.Serialize(new { text }), Encoding.UTF8,
                     "application/json");
 
-                await _client.PostAsync(_config.SlackWebhookEndpoint, content);
+                await _client.PostAsync(webhookEndpoint, content);
             }
         }
     }

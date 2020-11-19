@@ -3,7 +3,6 @@ using DFC.ServiceTaxonomy.CSharpScriptGlobals.CypherToContent;
 using DFC.ServiceTaxonomy.CSharpScriptGlobals.CypherToContent.Interfaces;
 using DFC.ServiceTaxonomy.Editor.Module.Drivers;
 using DFC.ServiceTaxonomy.GraphSync.Activities;
-using DFC.ServiceTaxonomy.GraphSync.Configuration;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.DependencyInjection;
@@ -50,6 +49,7 @@ using DFC.ServiceTaxonomy.GraphSync.Orchestrators;
 using DFC.ServiceTaxonomy.GraphSync.Orchestrators.Interfaces;
 using DFC.ServiceTaxonomy.Neo4j.Services.Interfaces;
 using DFC.ServiceTaxonomy.Neo4j.Services.Internal;
+using DFC.ServiceTaxonomy.Slack;
 using Microsoft.Extensions.Configuration;
 using OrchardCore.ContentManagement.Handlers;
 using OrchardCore.ContentTypes.Events;
@@ -173,7 +173,6 @@ namespace DFC.ServiceTaxonomy.GraphSync
             services.AddSingleton<INeutralEventContentItemVersion>(new NeutralEventContentItemVersion());
             services.AddSingleton<ISuperpositionContentItemVersion>(new SuperpositionContentItemVersion());
             services.AddSingleton<IEscoContentItemVersion>(new EscoContentItemVersion());
-            services.AddTransient<ISlackMessagePublisher, SlackMessagePublisher>();
 
             // permissions
             services.AddScoped<IPermissionProvider, Permissions>();
@@ -181,8 +180,8 @@ namespace DFC.ServiceTaxonomy.GraphSync
             // navigation
             services.AddScoped<INavigationProvider, AdminMenu>();
 
-            //configuration
-            services.Configure<SlackMessagePublishingConfiguration>(_configuration.GetSection("SlackMessagePublishingConfiguration"));
+            //slack message publishing
+            services.AddSlackMessagePublishing(_configuration);
         }
 
         public override void Configure(IApplicationBuilder builder, IEndpointRouteBuilder routes, IServiceProvider serviceProvider)

@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
-using DFC.ServiceTaxonomy.GraphSync.Services;
+using DFC.ServiceTaxonomy.Slack;
 using Microsoft.AspNetCore.Mvc.Filters;
 
 namespace DFC.ServiceTaxonomy.Editor.Filters
