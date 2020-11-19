@@ -52,19 +52,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Contexts
             SourceNodeIdPropertyName = sourceNodeIdPropertyName;
             RootContentItem = rootContentItem;
             CurrentDepth = (parentContext?.CurrentDepth + 1) ?? 0;
-
-            //var graphSyncPartSettings = SyncNameProvider.GetGraphSyncPartSettings(ContentItem.ContentType);
-            //if (parentContext == null)
-            //{
-            //    MaxDepthFromHere = Math.Min(graphSyncPartSettings.VisualiserNodeDepth ?? int.MaxValue,
-            //        5); //todo: appsettings.VisualiserNodeDepthMax);
-            //}
-            //else
-            //{
-            //    //todo: we don't want to create the context if maxdepthfromhere is 0, so this isn't the place to calc this
-            //    MaxDepthFromHere = Math.Min(parentContext.MaxDepthFromHere - 1,
-            //        graphSyncPartSettings.VisualiserNodeDepth ?? int.MaxValue);
-            //}
         }
     }
 }

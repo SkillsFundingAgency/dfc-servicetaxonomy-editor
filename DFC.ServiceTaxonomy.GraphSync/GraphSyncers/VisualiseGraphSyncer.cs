@@ -55,13 +55,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             IEnumerable<string> sourceNodeLabels = await _syncNameProvider.NodeLabels();
             string sourceNodeIdPropertyName = _syncNameProvider.IdPropertyName();
 
-            // var rootContext = new DescribeRelationshipsContext(
-            //     sourceNodeIdPropertyName, sourceNodeId, sourceNodeLabels, contentItem, _syncNameProvider,
-            //     _contentManager, contentItemVersion, null, _serviceProvider, contentItem);
-
-            //todo: get global max depth here and pass in, then take account of item max depth too
-            // await _describeContentItemHelper.BuildRelationships(contentItem, rootContext);
-
             var rootContext = await _describeContentItemHelper.BuildRelationships(
                 contentItem,
                 sourceNodeIdPropertyName, sourceNodeId, sourceNodeLabels, _syncNameProvider,
