@@ -51,6 +51,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Neo4j.Queries
 
             while (currentDepth <= depthCount)
             {
+                //todo: destinationIncomingRelationships
                 relationshipClauses.Add($"{{destNode: d{currentDepth}, relationship: r{currentDepth}, destinationIncomingRelationships:collect({{destIncomingRelationship:'todo',  destIncomingRelSource:'todo'}})}} as dr{currentDepth}RelationshipDetails");
 
                 collectClauses.Add($"collect(dr{currentDepth}RelationshipDetails)");

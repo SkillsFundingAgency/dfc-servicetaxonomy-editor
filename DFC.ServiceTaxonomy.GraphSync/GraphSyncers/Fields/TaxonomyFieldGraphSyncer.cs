@@ -73,6 +73,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
 
             IEnumerable<string> contentItemIds = contentItemIdsJArray.Select(jtoken => jtoken.ToObject<string>()!);
 
+            //todo: add extension GetSyncNameProvider(contentType)?
             ISyncNameProvider relatedSyncNameProvider = _serviceProvider.GetRequiredService<ISyncNameProvider>();
             relatedSyncNameProvider.ContentType = termContentType;
 
@@ -213,11 +214,15 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
 
             //todo: auto collect all taxonomy terms? or go through build relationships?
 
+            //todo: missing hasPageLocationTaxonomy
+
             //todo: ????
             int maxdepthfromhere = 10;
 
+            var sourceNodeLabels = await parentContext.SyncNameProvider.NodeLabels(parentContext.ContentItem.ContentType);
+
             // gets auto-added to parent. better way though?
-            #pragma warning disable S1848
+#pragma warning disable S1848
             new DescribeRelationshipsContext(
                 parentContext.SourceNodeIdPropertyName, parentContext.SourceNodeId, parentContext.SourceNodeLabels,
                 parentContext.ContentItem, maxdepthfromhere, parentContext.SyncNameProvider, parentContext.ContentManager,
@@ -226,14 +231,29 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
                 AvailableRelationships = new List<ContentItemRelationship>
                 {
                     new ContentItemRelationship(
-                        await parentContext.SyncNameProvider.NodeLabels(parentContext.ContentItem.ContentType),
+                        sourceNodeLabels,
                         termRelationshipType,
                         await parentContext.SyncNameProvider.NodeLabels(termContentType))
                 }
             };
-            #pragma warning restore S1848
 
-            //parentContext.AddChildContext(describeRelationshipsContext);
+            string taxonomyRelationshipType = TaxonomyRelationshipType(taxonomyContentItem);
+
+            new DescribeRelationshipsContext(
+                parentContext.SourceNodeIdPropertyName, parentContext.SourceNodeId, parentContext.SourceNodeLabels,
+                parentContext.ContentItem, maxdepthfromhere, parentContext.SyncNameProvider, parentContext.ContentManager,
+                parentContext.ContentItemVersion, parentContext, parentContext.ServiceProvider)
+            {
+                AvailableRelationships = new List<ContentItemRelationship>
+                {
+                    new ContentItemRelationship(
+                        sourceNodeLabels,
+                        taxonomyRelationshipType,
+                        await parentContext.SyncNameProvider.NodeLabels(taxonomyContentItem.ContentType))
+                }
+            };
+
+#pragma warning restore S1848
         }
 
         public async Task<(bool validated, string failureReason)> ValidateSyncComponent(

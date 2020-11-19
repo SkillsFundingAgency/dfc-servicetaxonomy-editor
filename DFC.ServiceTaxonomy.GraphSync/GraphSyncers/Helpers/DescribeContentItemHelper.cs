@@ -39,10 +39,10 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
         //todo: only ever called with both contexts the same
         public async Task<IEnumerable<IQuery<object?>>> GetRelationshipCommands(
             IDescribeRelationshipsContext context)
-            //IDescribeRelationshipsContext parentContext)
         {
             var currentList = new List<ContentItemRelationship>();
 
+            //todo: coupling between GetRelationships and NodeAndNestedOutgoingRelationshipsQuery
             var allRelationships = await GetRelationships(context, currentList, context);
             var uniqueCommands = allRelationships.Select(z => z.RelationshipPathString).GroupBy(x => x).Select(g => g.First());
 
