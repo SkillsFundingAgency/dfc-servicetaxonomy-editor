@@ -214,10 +214,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
 
             //todo: auto collect all taxonomy terms? or go through build relationships?
 
-            //todo: missing hasPageLocationTaxonomy
-
-            //todo: ????
-            int maxdepthfromhere = 10;
+            const int maxDepthFromHere = 0;
 
             var sourceNodeLabels = await parentContext.SyncNameProvider.NodeLabels(parentContext.ContentItem.ContentType);
 
@@ -225,7 +222,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
 #pragma warning disable S1848
             new DescribeRelationshipsContext(
                 parentContext.SourceNodeIdPropertyName, parentContext.SourceNodeId, parentContext.SourceNodeLabels,
-                parentContext.ContentItem, maxdepthfromhere, parentContext.SyncNameProvider, parentContext.ContentManager,
+                parentContext.ContentItem, maxDepthFromHere, parentContext.SyncNameProvider, parentContext.ContentManager,
                 parentContext.ContentItemVersion, parentContext, parentContext.ServiceProvider)
             {
                 AvailableRelationships = new List<ContentItemRelationship>
@@ -241,7 +238,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
 
             new DescribeRelationshipsContext(
                 parentContext.SourceNodeIdPropertyName, parentContext.SourceNodeId, parentContext.SourceNodeLabels,
-                parentContext.ContentItem, maxdepthfromhere, parentContext.SyncNameProvider, parentContext.ContentManager,
+                parentContext.ContentItem, maxDepthFromHere, parentContext.SyncNameProvider, parentContext.ContentManager,
                 parentContext.ContentItemVersion, parentContext, parentContext.ServiceProvider)
             {
                 AvailableRelationships = new List<ContentItemRelationship>
