@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Results.AllowSync;
 using DFC.ServiceTaxonomy.GraphSync.Services;
 using DFC.ServiceTaxonomy.GraphSync.Services.Interface;
+using DFC.ServiceTaxonomy.Slack;
 using Microsoft.AspNetCore.Html;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
@@ -35,13 +36,14 @@ namespace DFC.ServiceTaxonomy.GraphSync.Notifications
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly ILogger<GraphSyncNotifier> _logger;
         private readonly IList<NotifyEntry> _entries;
+        private readonly ISlackMessagePublisher _slackMessagePublisher;
 
         public GraphSyncNotifier(
             INodeContentItemLookup nodeContentItemLookup,
             IContentDefinitionManager contentDefinitionManager,
             LinkGenerator linkGenerator,
             IHttpContextAccessor httpContextAccessor,
-            ILogger<GraphSyncNotifier> logger)
+            ILogger<GraphSyncNotifier> logger, ISlackMessagePublisher slackMessagePublisher)
         {
             _nodeContentItemLookup = nodeContentItemLookup;
             _contentDefinitionManager = contentDefinitionManager;
@@ -49,6 +51,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Notifications
             _httpContextAccessor = httpContextAccessor;
             _logger = logger;
             _entries = new List<NotifyEntry>();
+            _slackMessagePublisher = slackMessagePublisher;
         }
 
         public async Task AddBlocked(
@@ -75,7 +78,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Notifications
             }
 
             //todo: need details of the content item with incoming relationships
-            Add($"{syncOperation} the '{contentItem.DisplayText}' {contentType} has been cancelled, due to an issue with graph syncing.",
+            await Add($"{syncOperation} the '{contentItem.DisplayText}' {contentType} has been cancelled, due to an issue with graph syncing.",
                 technicalMessage.ToString(),
                 technicalHtmlMessage: new HtmlString(technicalHtmlMessage.ToString()));
         }
@@ -118,7 +121,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Notifications
         }
 
         //todo: add custom styles via scss?
-        public void Add(
+        public async Task Add(
             string userMessage,
             string technicalMessage = "",
             Exception? exception = null,
@@ -133,7 +136,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Notifications
             }
 
             string exceptionText = GetExceptionText(exception);
-
+            
             HtmlContentBuilder htmlContentBuilder = new HtmlContentBuilder();
 
             string traceId = Activity.Current?.TraceId.ToString() ?? "N/A";
@@ -144,6 +147,17 @@ namespace DFC.ServiceTaxonomy.GraphSync.Notifications
                 userMessage,
                 technicalMessage,
                 exceptionText);
+
+            try
+            {
+                //publish to slack
+                string slackMessage = BuildSlackMessage(traceId, userMessage, technicalMessage, exception);
+                await _slackMessagePublisher.SendMessageAsync(slackMessage);
+            }
+            catch (Exception e)
+            {
+                _logger.LogError(e, e.Message);
+            }
 
             //fa-angle-double-down, hat-wizard, oil-can, fa-wrench?
             htmlContentBuilder
@@ -168,6 +182,22 @@ namespace DFC.ServiceTaxonomy.GraphSync.Notifications
             htmlContentBuilder.AppendHtml("</div></div></div>");
 
             _entries.Add(new NotifyEntry { Type = type, Message = htmlContentBuilder });
+        }
+
+        private string BuildSlackMessage(string traceId, string userMessage, string technicalMessage, Exception? exception)
+        {
+            StringBuilder sb =
+                new StringBuilder(
+                    $"```Trace ID: {traceId}\r\nUser Message: {userMessage}\r\nTechnical Message: {technicalMessage}");
+
+            if (exception != null)
+            {
+                sb.Append($"\r\nException:\r\n\r\n{exception}");
+            }
+
+            sb.Append("```");
+
+            return sb.ToString();
         }
 
         private string GetExceptionText(Exception? exception)

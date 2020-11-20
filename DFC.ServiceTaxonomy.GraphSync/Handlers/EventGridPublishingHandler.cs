@@ -140,7 +140,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers
             catch (Exception publishException)
             {
                 _logger.LogError(publishException, "The event grid event could not be published.");
-                context.Notifier.Add("Warning: the event grid event could not be published. Composite apps might not show your changes.",
+                await context.Notifier.Add("Warning: the event grid event could not be published. Composite apps might not show your changes.",
                     "Exception", publishException, type: NotifyType.Warning);
             }
         }
