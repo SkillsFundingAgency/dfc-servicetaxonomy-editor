@@ -369,11 +369,13 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 
             object nodeId = _syncNameProvider.GetNodeIdPropertyValue(contentItem.Content.GraphSyncPart, contentItemVersion);
 
+            var nodeLabels = await _syncNameProvider.NodeLabels();
+
             //todo: atomic querying
             //todo: one query to fetch outgoing and incoming
             List<INodeWithOutgoingRelationships?> results = await _currentGraph!.Run(
                 new NodeWithOutgoingRelationshipsQuery(
-                    await _syncNameProvider.NodeLabels(),
+                    nodeLabels,
                     _syncNameProvider.IdPropertyName(),
                     nodeId));
 
@@ -384,7 +386,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 
             ISubgraph? nodeWithIncomingRelationships = (await _currentGraph!.Run(
                 new SubgraphQuery(
-                    await _syncNameProvider.NodeLabels(),
+                    nodeLabels,
                     _syncNameProvider.IdPropertyName(),
                     nodeId,
                     SubgraphQuery.RelationshipFilterIncoming, 1)))
