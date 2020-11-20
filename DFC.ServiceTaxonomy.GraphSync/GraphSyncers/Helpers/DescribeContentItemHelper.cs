@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Contexts;
+using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Exceptions;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.ContentItemVersions;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Contexts;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Helpers;
@@ -21,7 +22,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
     {
         private readonly IContentManager _contentManager;
         private readonly IEnumerable<IContentItemGraphSyncer> _contentItemGraphSyncers;
-        //private readonly List<string> _encounteredContentItems = new List<string>();
         private readonly List<string> _encounteredContentTypes = new List<string>();
         private readonly IOptionsMonitor<GraphSyncSettings> _graphSyncSettings;
 
@@ -116,7 +116,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
             }
 
             _encounteredContentTypes.Add(contentItem.ContentType);
-            //_encounteredContentItems.Add(contentItem.ContentItemId);
 
             return context;
         }
@@ -128,14 +127,11 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
             ContentItem? contentItem = await context.ContentItemVersion.GetContentItem(_contentManager, contentItemId);
             if (contentItem == null)
             {
-                //todoL: which excpetion
-                throw new InvalidOperationException($"ContentItem with id {contentItemId} not found.");
+                throw new GraphSyncException($"ContentItem with id {contentItemId} not found.");
             }
 
-            //todo: overload () that accepts context (non root)
-            // and version that accepts
+            //todo: overload () that accepts context (non root)?
             //todo: child context is same as parent. do we require all of these?
-            // are they not used??
             return await BuildRelationships(
                 contentItem,
                 context.SourceNodeIdPropertyName,
