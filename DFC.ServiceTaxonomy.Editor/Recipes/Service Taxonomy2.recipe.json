@@ -150,7 +150,8 @@
                                     "PropertyNameTransform": "Value",
                                     "IdPropertyName": "uri",
                                     "GenerateIdPropertyValue": "$\"<<contentapiprefix>>/{ContentType}/{Value}\".ToLowerInvariant()",
-                                    "DisplayId": true
+                                    "DisplayId": true,
+                                    "VisualiserNodeDepth": 2
                                 },
                                 "ContentIndexSettings": {
                                     "Template": "undefined"

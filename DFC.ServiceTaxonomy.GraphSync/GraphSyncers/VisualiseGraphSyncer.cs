@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Contexts;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.ContentItemVersions;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Helpers;
@@ -56,16 +55,20 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             IEnumerable<string> sourceNodeLabels = await _syncNameProvider.NodeLabels();
             string sourceNodeIdPropertyName = _syncNameProvider.IdPropertyName();
 
-            var rootContext = new DescribeRelationshipsContext(
-                sourceNodeIdPropertyName, sourceNodeId, sourceNodeLabels, contentItem, _syncNameProvider,
-                _contentManager, contentItemVersion, null, _serviceProvider, contentItem);
-            rootContext.SetContentField(contentItem.Content);
-
-            await _describeContentItemHelper.BuildRelationships(contentItem, rootContext);
+            var rootContext = await _describeContentItemHelper.BuildRelationships(
+                contentItem, sourceNodeIdPropertyName, sourceNodeId, sourceNodeLabels, _syncNameProvider,
+                _contentManager, contentItemVersion, null, _serviceProvider);
 
             //todo: return relationships - can we do it without creating cypher outside of a query?
-            var relationships = new List<ContentItemRelationship>();
-            return await _describeContentItemHelper.GetRelationshipCommands(rootContext, relationships, rootContext);
+            //todo: current depth is always 0, so deep nodes like PersonalityQuestionSet returns masses of data
+            //todo: depth cut-off is done after build relationships, so does more work than is necessary
+            //var relationships = new List<ContentItemRelationship>();
+
+            if (rootContext == null)
+                return Enumerable.Empty<IQuery<object?>>();
+
+            //todo: should create relationships in here
+            return await _describeContentItemHelper.GetRelationshipCommands(rootContext);
         }
 
         public async Task<Subgraph> GetVisualisationSubgraph(

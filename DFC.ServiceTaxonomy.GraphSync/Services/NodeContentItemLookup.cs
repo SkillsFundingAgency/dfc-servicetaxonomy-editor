@@ -38,8 +38,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Services
             IContentItemVersion contentItemVersion = _contentItemVersionFactory.Get(graphReplicaSetName);
 
             // what we should be doing, but we'd have to pass along the node labels to get the content type
-            //ISyncNameProvider syncNameProvider = _serviceProvider.GetRequiredService<ISyncNameProvider>();
-            //syncNameProvider.ContentType = pickedContentType;
+            //ISyncNameProvider syncNameProvider = _serviceProvider.GetSyncNameProvider(pickedContentType);
 
             //string graphSyncNodeId = syncNameProvider.IdPropertyValueFromNodeValue(nodeId, contentItemVersion);
 

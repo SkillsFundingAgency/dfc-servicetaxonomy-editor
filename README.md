@@ -276,13 +276,13 @@ If the backup/dump is from an earlier version of Neo4j, click 'Manage', then 'Se
 
 Unzip the appropriate backup.
 
-Create a new graph through Desktop. Click 'Open' to open the Browser, then create the preview graph...
+Create a new graph through Desktop. Start it, click 'Open' to open the Browser, then create the preview graph...
 
 ```
 CREATE DATABASE preview0
 ```
 
-Click 'Manage', then '>_ Open Terminal'
+Stop the graph, then click 'Manage', then '>_ Open Terminal'
 
 In the terminal, run these commands, replacing the path to the extracted backup (note the latest Neo db version allows spaces in the path, but earlier versions e.g. 4.0.4, don't)
 

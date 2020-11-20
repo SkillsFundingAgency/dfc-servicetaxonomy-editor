@@ -146,6 +146,7 @@ namespace DFC.ServiceTaxonomy.GraphVisualiser.Services
                 Id = nodeDataModel.Id,
                 Type = $"owl:{(nodeDataModel.Id!.Equals($"Class{selectedNode}") ? "equivalent" : string.Empty)}Class",
                 ContentType = nodeDataModel.Type,
+                //todo: need to support contained items like taxonomy terms
                 EditUrl = CreateUrlFromContentItemId(nodeDataModel.NodeId, EditBaseUrl),
                 ResetFocusUrl = CreateUrlFromContentItemId(nodeDataModel.NodeId, ResetFocusBaseUrl)
             };
