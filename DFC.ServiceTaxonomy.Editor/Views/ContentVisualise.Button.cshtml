@@ -16,11 +16,13 @@
     // e.g. add GetContainingContentItem on all graph syncers, or similar
     JToken? termPart = ((JObject) contentItem.Content)[nameof(TermPart)];
 
-    string? containingContentItemId = null;
-    if (termPart != null)
-    {
-        containingContentItemId = (string?) termPart["TaxonomyContentItemId"];
-    }
+    //string? containingContentItemId = null;
+    //if (termPart != null)
+    //{
+    //    containingContentItemId = (string?) termPart["TaxonomyContentItemId"];
+    //}
+
+    string? contentItemId = (termPart == null) ? contentItem.ContentItemId : (string?)termPart["TaxonomyContentItemId"];
 
     // bit of a hack: if item is a taxonomy term, then allow the published version to be visualised
     //todo: real fix is to ensure terms are marked as published when the taxonomy is published
@@ -37,22 +39,24 @@
             <a asp-action="@nameof(DFC.ServiceTaxonomy.GraphVisualiser.Controllers.VisualiseController.Viewer)"
                asp-controller="Visualise"
                asp-area="@typeof(DFC.ServiceTaxonomy.GraphVisualiser.Startup)!.Namespace"
-               asp-route-contentItemId="@contentItem.ContentItemId"
-               asp-route-containingContentItemId="@containingContentItemId"
+               asp-route-contentItemId="@contentItemId"
                asp-route-graph="preview"
                target="_blank"
                class="dropdown-item @(!Model.EditMode ? "btn-sm" : "")">@T["Visualise draft graph"]</a>
+
+            @*asp-route-containingContentItemId="@containingContentItemId"*@
 
             @if (hasPublished)
             {
                 <a asp-action="@nameof(DFC.ServiceTaxonomy.GraphVisualiser.Controllers.VisualiseController.Viewer)"
                    asp-controller="Visualise"
                    asp-area="@typeof(DFC.ServiceTaxonomy.GraphVisualiser.Startup)!.Namespace"
-                   asp-route-contentItemId="@contentItem.ContentItemId"
-                   asp-route-containingContentItemId="@containingContentItemId"
+                   asp-route-contentItemId="@contentItemId"
                    asp-route-graph="published"
                    target="_blank"
                    class="dropdown-item @(!Model.EditMode ? "btn-sm" : "")">@T["Visualise published graph"]</a>
+
+                @*asp-route-containingContentItemId="@containingContentItemId"*@
             }
         </div>
     </div>

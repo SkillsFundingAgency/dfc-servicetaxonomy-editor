@@ -73,13 +73,10 @@ namespace DFC.ServiceTaxonomy.GraphVisualiser.Controllers
         #pragma warning disable S4457
         //todo: params not always coming through!
         public async Task<ActionResult> Data(
-            [FromQuery] string? contentItemId,
-            [FromQuery] string? containingContentItemId,
-            [FromQuery] string? graph)
+            [FromQuery] string? graph,
+            [FromQuery] string? contentItemId)
+            //[FromQuery] string? containingContentItemId)
         {
-#pragma warning disable
-            var x = containingContentItemId;
-
             if (string.IsNullOrWhiteSpace(contentItemId))
                 return GetOntology();
 
