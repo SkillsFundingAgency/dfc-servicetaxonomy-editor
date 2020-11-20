@@ -17,6 +17,8 @@ using DFC.ServiceTaxonomy.GraphSync.Models;
 using DFC.ServiceTaxonomy.GraphSync.Neo4j.Queries;
 using DFC.ServiceTaxonomy.GraphSync.Neo4j.Queries.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.Services;
+using DFC.ServiceTaxonomy.Neo4j.Queries;
+using DFC.ServiceTaxonomy.Neo4j.Queries.Interfaces;
 using DFC.ServiceTaxonomy.Neo4j.Services.Interfaces;
 using DFC.ServiceTaxonomy.Neo4j.Services.Internal;
 using Microsoft.Extensions.DependencyInjection;
@@ -380,14 +382,15 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             if (nodeWithOutgoingRelationships == null)
                 return (false, FailureContext("Node not found querying outgoing relationships.", contentItem));
 
-            List<INodeWithIncomingRelationships?> incomingResults = await _currentGraph!.Run(
-                new NodeWithIncomingRelationshipsQuery(
+            ISubgraph? nodeWithIncomingRelationships = (await _currentGraph!.Run(
+                new SubgraphQuery(
                     await _syncNameProvider.NodeLabels(),
                     _syncNameProvider.IdPropertyName(),
-                    nodeId));
+                    nodeId,
+                    SubgraphQuery.RelationshipFilterIncoming, 1)))
+                .FirstOrDefault();
 
-            INodeWithIncomingRelationships? nodeWithIncomingRelationships = incomingResults.FirstOrDefault();
-            if (nodeWithIncomingRelationships == null)
+            if (nodeWithIncomingRelationships?.SourceNode == null)
                 return (false, FailureContext("Node not found querying incoming relationships.", contentItem));
 
             ValidateAndRepairItemSyncContext context = new ValidateAndRepairItemSyncContext(

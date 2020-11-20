@@ -4,6 +4,7 @@ using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.ContentItemVersions;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Contexts;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Helpers;
 using DFC.ServiceTaxonomy.GraphSync.Neo4j.Queries.Interfaces;
+using DFC.ServiceTaxonomy.Neo4j.Queries.Interfaces;
 using Microsoft.Extensions.Logging;
 using OrchardCore.ContentManagement;
 
@@ -13,7 +14,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Contexts
     {
         //todo: there can (should) be only one
         public INodeWithOutgoingRelationships NodeWithOutgoingRelationships { get; }
-        public INodeWithIncomingRelationships NodeWithIncomingRelationships { get; }
+        public ISubgraph NodeWithIncomingRelationships { get; }
         public IGraphValidationHelper GraphValidationHelper { get; }
         public IDictionary<string, int> ExpectedRelationshipCounts { get; }
         public IValidateAndRepairGraph ValidateAndRepairGraph { get; }
@@ -23,7 +24,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Contexts
             IContentManager contentManager,
             IContentItemVersion contentItemVersion,
             INodeWithOutgoingRelationships nodeWithOutgoingRelationships,
-            INodeWithIncomingRelationships nodeWithIncomingRelationships,
+            ISubgraph nodeWithIncomingRelationships,
             ISyncNameProvider syncNameProvider,
             IGraphValidationHelper graphValidationHelper,
             IValidateAndRepairGraph validateAndRepairGraph,
