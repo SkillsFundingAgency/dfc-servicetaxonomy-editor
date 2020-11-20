@@ -136,9 +136,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Notifications
             }
 
             string exceptionText = GetExceptionText(exception);
-
             
-
             HtmlContentBuilder htmlContentBuilder = new HtmlContentBuilder();
 
             string traceId = Activity.Current?.TraceId.ToString() ?? "N/A";
@@ -150,9 +148,16 @@ namespace DFC.ServiceTaxonomy.GraphSync.Notifications
                 technicalMessage,
                 exceptionText);
 
-            //publish to slack
-            string slackMessage = BuildSlackMessage(traceId, userMessage, technicalMessage, exception);
-            await _slackMessagePublisher.SendMessageAsync(slackMessage);
+            try
+            {
+                //publish to slack
+                string slackMessage = BuildSlackMessage(traceId, userMessage, technicalMessage, exception);
+                await _slackMessagePublisher.SendMessageAsync(slackMessage);
+            }
+            catch (Exception e)
+            {
+                _logger.LogError(e, e.Message);
+            }
 
             //fa-angle-double-down, hat-wizard, oil-can, fa-wrench?
             htmlContentBuilder
