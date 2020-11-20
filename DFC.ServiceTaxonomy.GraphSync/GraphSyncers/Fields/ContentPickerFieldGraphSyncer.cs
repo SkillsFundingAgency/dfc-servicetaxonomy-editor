@@ -57,8 +57,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
             //todo: support multiple pickable content types
             string pickedContentType = contentPickerFieldSettings.DisplayedContentTypes[0];
 
-            ISyncNameProvider pickedContentSyncNameProvider = _serviceProvider.GetRequiredService<ISyncNameProvider>();
-            pickedContentSyncNameProvider.ContentType = pickedContentType;
+            ISyncNameProvider pickedContentSyncNameProvider = _serviceProvider.GetSyncNameProvider(pickedContentType);
 
             IEnumerable<string> destNodeLabels = await pickedContentSyncNameProvider.NodeLabels();
 

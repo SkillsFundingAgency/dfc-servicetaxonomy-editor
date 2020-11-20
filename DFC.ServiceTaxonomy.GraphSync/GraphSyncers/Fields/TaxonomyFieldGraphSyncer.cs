@@ -9,7 +9,6 @@ using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Fields;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Helpers;
 using DFC.ServiceTaxonomy.GraphSync.Models;
 using DFC.ServiceTaxonomy.GraphSync.Neo4j.Queries.Interfaces;
-using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json.Linq;
 using OrchardCore.ContentManagement;
 using DFC.ServiceTaxonomy.Taxonomies.Models;
@@ -73,9 +72,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
 
             IEnumerable<string> contentItemIds = contentItemIdsJArray.Select(jtoken => jtoken.ToObject<string>()!);
 
-            //todo: add extension GetSyncNameProvider(contentType)?
-            ISyncNameProvider relatedSyncNameProvider = _serviceProvider.GetRequiredService<ISyncNameProvider>();
-            relatedSyncNameProvider.ContentType = termContentType;
+            ISyncNameProvider relatedSyncNameProvider = _serviceProvider.GetSyncNameProvider(termContentType);
 
             var flattenedTermsContentItems = GetFlattenedTermsContentItems(taxonomyPartContent);
 
@@ -276,8 +273,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
                 return (false, $"expecting {contentItemIds.Count} relationships of type {termRelationshipType} in graph, but found {actualRelationships.Length}");
             }
 
-            ISyncNameProvider relatedSyncNameProvider = _serviceProvider.GetRequiredService<ISyncNameProvider>();
-            relatedSyncNameProvider.ContentType = termContentType;
+            ISyncNameProvider relatedSyncNameProvider = _serviceProvider.GetSyncNameProvider(termContentType);
 
             var flattenedTermsContentItems = GetFlattenedTermsContentItems(taxonomyPartContent);
 
