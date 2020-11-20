@@ -19,6 +19,7 @@ parameters:
   DFCAzureDevOpsProjectGuid: ''
   DfcServiceTaxonomyTestsBuildId: ''
   TestArtifactBranch: ''
+  TestExclusionTag: ''
  
 jobs:    
 - deployment: DeployArmTemplateTo_${{ parameters.Environment }}
@@ -119,4 +120,4 @@ jobs:
             Environment: ${{ parameters.Environment }}
             TestArtifactBranch: ${{ parameters.TestArtifactBranch }}
             TestTag: Editor
-            TestEnvTag:  ${{ parameters.EnvironmentTag }} 
+            TestExclusionTag: ${{ parameters.TestExclusionTag }} 

@@ -4,7 +4,7 @@ parameters:
   Environment: 
   TestArtifactBranch:
   TestTag:
-  TestEnvTag:
+  TestExclusionTag:
 
 steps:
 - task: DownloadPipelineArtifact@2
@@ -40,7 +40,7 @@ steps:
       **\DFC.ServiceTaxonomy.TestSuite.dll
       !**\*TestAdapter.dll
       !**\obj\**
-    testFiltercriteria: '"TestCategory=${{ parameters.TestTag }}&TestCategory=${{ parameters.TestEnvTag }}"'
+    testFiltercriteria: '"TestCategory=${{ parameters.TestTag }}&TestCategory!=${{ parameters.TestExclusionTag }}"'
 - task: DeleteFiles@1
   displayName: 'Delete tokenised parameters.json file'
   inputs:
