@@ -1,10 +1,23 @@
 @using DFC.ServiceTaxonomy.Editor.Module.ViewModels
+@using DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 @model AuditSyncIssuesTaskViewModel
 
-<fieldset class="form-group"> @*asp-validation-class-for="Value"> *@
+<fieldset class="form-group">
+    @*asp-validation-class-for="Value"> *@
     @* todo allow user to specify bolt endpoint here? *@
     @* <label asp-for="Value">@T["Value"]</label> *@
     @* <input type="text" asp-for="Value" class="form-control code" /> *@
     @* <span asp-validation-for="Value"></span> *@
     @* <span class="hint">@T["The value to correlate workflow instances with. With Liquid support."]</span> *@
+    <label asp-for="Scope">@T["Validation Scope"]</label>
+    <div class="form-check">
+        <label class="form-check-label">
+            <input type="radio" class="form-check-input" asp-for="Scope" value="@ValidationScope.AllItems"> @T["All Items"]
+        </label>
+    </div>
+    <div class="form-check">
+        <label class="form-check-label">
+            <input type="radio" class="form-check-input" asp-for="Scope" value="@ValidationScope.ModifiedSinceLastValidation">@T["Recently Modified Items"]
+        </label>
+    </div>
 </fieldset>
