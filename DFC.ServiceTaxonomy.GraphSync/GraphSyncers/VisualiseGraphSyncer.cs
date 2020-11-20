@@ -60,9 +60,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
                 _contentManager, contentItemVersion, null, _serviceProvider);
 
             //todo: return relationships - can we do it without creating cypher outside of a query?
-            //todo: current depth is always 0, so deep nodes like PersonalityQuestionSet returns masses of data
-            //todo: depth cut-off is done after build relationships, so does more work than is necessary
-            //var relationships = new List<ContentItemRelationship>();
 
             if (rootContext == null)
                 return Enumerable.Empty<IQuery<object?>>();
