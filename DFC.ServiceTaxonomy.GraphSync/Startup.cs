@@ -181,7 +181,7 @@ namespace DFC.ServiceTaxonomy.GraphSync
             services.AddScoped<INavigationProvider, AdminMenu>();
 
             //slack message publishing
-            services.AddSlackMessagePublishing(_configuration);
+            services.AddSlackMessagePublishing(_configuration, true);
         }
 
         public override void Configure(IApplicationBuilder builder, IEndpointRouteBuilder routes, IServiceProvider serviceProvider)

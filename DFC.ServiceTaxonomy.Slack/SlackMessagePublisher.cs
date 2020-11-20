@@ -1,8 +1,9 @@
-﻿using System.Net.Http;
+﻿using System;
+using System.Net.Http;
 using System.Text;
-using System.Text.Json;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Options;
+using Newtonsoft.Json;
 
 namespace DFC.ServiceTaxonomy.Slack
 {
@@ -19,9 +20,12 @@ namespace DFC.ServiceTaxonomy.Slack
 
         public async Task SendMessageAsync(string text)
         {
-            if ((_config.PublishToSlack ?? false) && !string.IsNullOrWhiteSpace(_config.SlackWebhookEndpoint))
+            if (_config.PublishToSlack ?? false)
             {
-                await SendMessageAsync(_config.SlackWebhookEndpoint, text);
+                if (string.IsNullOrWhiteSpace(_config.SlackWebhookEndpoint))
+                    throw new InvalidOperationException(nameof(_config.SlackWebhookEndpoint));
+
+                await SendMessageAsync(_config.SlackWebhookEndpoint!, text);
             }
         }
 
@@ -29,7 +33,7 @@ namespace DFC.ServiceTaxonomy.Slack
         {
             if (_config.PublishToSlack ?? false)
             {
-                StringContent content = new StringContent(JsonSerializer.Serialize(new { text }), Encoding.UTF8,
+                StringContent content = new(JsonConvert.SerializeObject(new { text }), Encoding.UTF8,
                     "application/json");
 
                 await _client.PostAsync(webhookEndpoint, content);
