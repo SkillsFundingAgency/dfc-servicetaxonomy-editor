@@ -5,6 +5,7 @@ using System.Linq;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Helpers;
 using DFC.ServiceTaxonomy.GraphSync.Neo4j.Queries.Interfaces;
 using DFC.ServiceTaxonomy.Neo4j.Extensions;
+using DFC.ServiceTaxonomy.Neo4j.Queries.Interfaces;
 using Neo4j.Driver;
 using Newtonsoft.Json.Linq;
 
@@ -282,6 +283,28 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
 
             if (properties != null && !AreEqual(properties, incomingRelationship.Relationship.Properties))
                 return (false, $"{IncomingRelationshipDescription(relationshipType, destinationIdPropertyName, destinationId)} has incorrect properties. expecting {properties.ToCypherPropertiesString()}, found {incomingRelationship.Relationship.Properties.ToCypherPropertiesString()}");
+
+            return (true, "");
+        }
+
+        public (bool validated, string failureReason) ValidateIncomingRelationship(
+            ISubgraph nodeWithIncomingRelationships,
+            string relationshipType,
+            string destinationIdPropertyName,
+            object destinationId,
+            IEnumerable<KeyValuePair<string, object>>? properties = null)
+        {
+            IRelationship? incomingRelationship =
+                nodeWithIncomingRelationships.Relationships.SingleOrDefault(r =>
+                    r.Type == relationshipType
+                    && Equals(nodeWithIncomingRelationships.Nodes.First(n => n.Id == r.StartNodeId)
+                            .Properties[destinationIdPropertyName], destinationId));
+
+            if (incomingRelationship == null)
+                return (false, $"{IncomingRelationshipDescription(relationshipType, destinationIdPropertyName, destinationId)} not found");
+
+            if (properties != null && !AreEqual(properties, incomingRelationship.Properties))
+                return (false, $"{IncomingRelationshipDescription(relationshipType, destinationIdPropertyName, destinationId)} has incorrect properties. expecting {properties.ToCypherPropertiesString()}, found {incomingRelationship.Properties.ToCypherPropertiesString()}");
 
             return (true, "");
         }

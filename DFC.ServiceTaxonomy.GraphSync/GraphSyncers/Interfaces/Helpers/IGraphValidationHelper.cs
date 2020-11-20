@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using DFC.ServiceTaxonomy.GraphSync.Neo4j.Queries.Interfaces;
+using DFC.ServiceTaxonomy.Neo4j.Queries.Interfaces;
 using Neo4j.Driver;
 using Newtonsoft.Json.Linq;
 
@@ -65,15 +66,22 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Helpers
           string nodePropertyName,
           INode sourceNode);
 
-        public (bool validated, string failureReason) ValidateOutgoingRelationship(
+        (bool validated, string failureReason) ValidateOutgoingRelationship(
             INodeWithOutgoingRelationships nodeWithOutgoingRelationships,
             string relationshipType,
             string destinationIdPropertyName,
             object destinationId,
             IEnumerable<KeyValuePair<string, object>>? properties = null);
 
-        public (bool validated, string failureReason) ValidateIncomingRelationship(
+        (bool validated, string failureReason) ValidateIncomingRelationship(
             INodeWithIncomingRelationships nodeWithIncomingRelationships,
+            string relationshipType,
+            string destinationIdPropertyName,
+            object destinationId,
+            IEnumerable<KeyValuePair<string, object>>? properties = null);
+
+        (bool validated, string failureReason) ValidateIncomingRelationship(
+            ISubgraph nodeWithIncomingRelationships,
             string relationshipType,
             string destinationIdPropertyName,
             object destinationId,
