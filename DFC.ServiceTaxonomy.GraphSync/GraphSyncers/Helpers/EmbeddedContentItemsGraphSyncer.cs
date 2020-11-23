@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Contexts;
+using DFC.ServiceTaxonomy.GraphSync.Extensions;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Exceptions;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Contexts;
@@ -507,8 +507,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
                 if (!validated)
                     return (false, $"contained item failed validation: {failureReason}");
 
-                var embeddedContentNameProvider = _serviceProvider.GetRequiredService<ISyncNameProvider>();
-                embeddedContentNameProvider.ContentType = embeddedContentItem.ContentType;
+                var embeddedContentNameProvider = _serviceProvider.GetSyncNameProvider(embeddedContentItem.ContentType);
 
                 // check expected relationship is in graph
                 string expectedRelationshipType = await RelationshipType(embeddedContentItem.ContentType);
@@ -601,18 +600,29 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
 
             foreach (var embeddedContentItem in convertedItems)
             {
-                var embeddedContentGraphSyncHelper = _serviceProvider.GetRequiredService<ISyncNameProvider>();
-                embeddedContentGraphSyncHelper.ContentType = embeddedContentItem.ContentType;
+                //todo: pass to BuildRelationships??
+                // var embeddedContentGraphSyncHelper = _serviceProvider.GetSyncNameProvider(embeddedContentItem.ContentType);
 
                 string relationshipType = await RelationshipType(embeddedContentItem.ContentType);
 
-                context.AvailableRelationships.Add(new ContentItemRelationship(await context.SyncNameProvider.NodeLabels(context.ContentItem.ContentType), relationshipType, await context.SyncNameProvider.NodeLabels(embeddedContentItem.ContentType)));
+                context.AvailableRelationships.Add(new ContentItemRelationship(
+                    await context.SyncNameProvider.NodeLabels(context.ContentItem.ContentType),
+                    relationshipType,
+                    await context.SyncNameProvider.NodeLabels(embeddedContentItem.ContentType)));
 
                 var describeRelationshipService = _serviceProvider.GetRequiredService<IDescribeContentItemHelper>();
 
-                var childContext = new DescribeRelationshipsContext(context.SourceNodeIdPropertyName, context.SourceNodeId, context.SourceNodeLabels, embeddedContentItem, context.SyncNameProvider, context.ContentManager, context.ContentItemVersion, context, context.ServiceProvider, context.RootContentItem);
-                childContext.SetContentField(embeddedContentItem.Content);
-                await describeRelationshipService.BuildRelationships(embeddedContentItem, childContext);
+                //todo: version that accepts existing context, but why have all the child contexts with the same properties?
+                await describeRelationshipService.BuildRelationships(
+                    embeddedContentItem,
+                    context.SourceNodeIdPropertyName,
+                    context.SourceNodeId,
+                    context.SourceNodeLabels,
+                    context.SyncNameProvider,
+                    context.ContentManager,
+                    context.ContentItemVersion,
+                    context,
+                    context.ServiceProvider);
             }
         }
     }

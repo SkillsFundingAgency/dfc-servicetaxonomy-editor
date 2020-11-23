@@ -150,7 +150,8 @@
                                     "PropertyNameTransform": "Value",
                                     "IdPropertyName": "uri",
                                     "GenerateIdPropertyValue": "$\"<<contentapiprefix>>/{ContentType}/{Value}\".ToLowerInvariant()",
-                                    "DisplayId": true
+                                    "DisplayId": true,
+                                    "VisualiserNodeDepth": 2
                                 },
                                 "ContentIndexSettings": {
                                     "Template": "undefined"
@@ -2268,17 +2269,17 @@
                     "ContentPartFieldDefinitionRecords": [
                         {
                             "FieldName": "ContentPickerField",
-                            "Name": "PersonalitySkill",
+                            "Name": "ONetSkill",
                             "Settings": {
                                 "ContentPartFieldSettings": {
-                                    "DisplayName": "Personality Skill",
+                                    "DisplayName": "ONet Skill",
                                     "Position": "0"
                                 },
                                 "ContentPickerFieldSettings": {
-                                    "Hint": "Creates relationships of [:hasPersonalitySkill].",
+                                    "Hint": "Creates relationships of [:hasONetSkill].",
                                     "Required": true,
                                     "DisplayedContentTypes": [
-                                        "PersonalitySkill"
+                                        "ONetSkill"
                                     ]
                                 },
                                 "ContentIndexSettings": {}
@@ -2300,7 +2301,7 @@
                     ]
                 },
                 {
-                    "Name": "PersonalitySkill",
+                    "Name": "ONetSkill",
                     "Settings": {},
                     "ContentPartFieldDefinitionRecords": [
                         {

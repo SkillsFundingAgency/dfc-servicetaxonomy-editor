@@ -25,10 +25,10 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Parts
 
         Task MutateOnClone(JObject content, ICloneContext context);
 
+        Task AddRelationship(JObject content, IDescribeRelationshipsContext context);
+
         Task<(bool validated, string failureReason)> ValidateSyncComponent(
             JObject content,
             IValidateAndRepairContext context);
-
-        Task AddRelationship(IDescribeRelationshipsContext context);
     }
 }

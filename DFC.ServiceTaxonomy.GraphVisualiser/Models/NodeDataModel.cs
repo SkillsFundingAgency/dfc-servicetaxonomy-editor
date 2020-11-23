@@ -8,13 +8,13 @@ namespace DFC.ServiceTaxonomy.GraphVisualiser.Models
 {
     public class NodeDataModel
     {
-        public string? Id { get; set; }
-        public long Key { get; set; }
-        public string? Type { get; set; }
-        public string? Label { get; set; }
-        public string? Comment { get; set; }
-        public List<string> StaxProperties { get; set; }
-        public string? NodeId { get; set; }
+        public string? Id { get; }
+        public long Key { get; }
+        public string? Type { get; }
+        public string? Label { get; }
+        public string? Comment { get; }
+        public List<string> StaxProperties { get; }
+        public string? NodeId { get; }
 
         public NodeDataModel(INode node, string prefLabel, ISyncNameProvider syncNameProvider)
         {

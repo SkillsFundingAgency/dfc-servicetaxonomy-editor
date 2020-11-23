@@ -53,13 +53,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
             _logger = logger;
         }
 
-        public async Task AddRelationship(IDescribeRelationshipsContext context)
+        public async Task AddRelationship(JObject content, IDescribeRelationshipsContext context)
         {
-            if (context.ContentField == null)
-            {
-                return;
-            }
-
             foreach (var contentFieldGraphSyncer in _contentFieldGraphSyncer)
             {
                 IEnumerable<ContentPartFieldDefinition> contentPartFieldDefinitions =
@@ -68,13 +63,13 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
 
                 foreach (ContentPartFieldDefinition contentPartFieldDefinition in contentPartFieldDefinitions)
                 {
-                    JObject? contentItemField = (JObject?)context.ContentField[contentPartFieldDefinition.Name];
+                    JObject? contentItemField = (JObject?)content[contentPartFieldDefinition.Name];
                     if (contentItemField == null)
                         continue;
 
                     context.SetContentPartFieldDefinition(contentPartFieldDefinition);
 
-                    await contentFieldGraphSyncer.AddRelationship(context);
+                    await contentFieldGraphSyncer.AddRelationship(contentItemField, context);
                 }
 
                 context.SetContentPartFieldDefinition(default);

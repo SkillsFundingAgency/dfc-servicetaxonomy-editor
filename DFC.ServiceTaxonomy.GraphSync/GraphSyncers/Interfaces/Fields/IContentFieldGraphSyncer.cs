@@ -15,13 +15,13 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Fields
             return Task.CompletedTask;
         }
 
-        Task<(bool validated, string failureReason)> ValidateSyncComponent(
-            JObject contentItemField,
-            IValidateAndRepairContext context);
-
-        Task AddRelationship(IDescribeRelationshipsContext itemContext)
+        Task AddRelationship(JObject contentItemField, IDescribeRelationshipsContext itemContext)
         {
             return Task.CompletedTask;
         }
+
+        Task<(bool validated, string failureReason)> ValidateSyncComponent(
+            JObject contentItemField,
+            IValidateAndRepairContext context);
     }
 }

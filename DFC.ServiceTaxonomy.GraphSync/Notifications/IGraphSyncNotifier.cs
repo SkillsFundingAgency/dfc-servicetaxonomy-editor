@@ -16,7 +16,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Notifications
             ContentItem contentItem,
             IEnumerable<(string GraphReplicaSetName, IAllowSync AllowSync)> graphBlockers);
 
-        void Add(
+        Task Add(
             string userMessage,
             string technicalMessage = "",
             Exception? exception = null,

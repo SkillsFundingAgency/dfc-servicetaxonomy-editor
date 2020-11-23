@@ -6,7 +6,6 @@ using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.ContentItemVersions;
 using DFC.ServiceTaxonomy.GraphSync.Services.Interface;
 using DFC.ServiceTaxonomy.GraphVisualiser.Services;
-using DFC.ServiceTaxonomy.Neo4j.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using OrchardCore.ContentManagement.Metadata;
 
@@ -38,7 +37,6 @@ namespace DFC.ServiceTaxonomy.GraphVisualiser.Controllers
         private const string ResetFocusBaseUrl = "/Visualise/Viewer?contentItemId={ContentItemID}&graph={graph}";
         private const string ContentItemIdPlaceHolder = "{ContentItemID}";
         private const string GraphPlaceHolder = "{graph}";
-        private readonly IGraphCluster _neoGraphCluster;
         private readonly IContentDefinitionManager _contentDefinitionManager;
         private readonly INeo4JToOwlGeneratorService _neo4JToOwlGeneratorService;
         private readonly IOrchardToOwlGeneratorService _orchardToOwlGeneratorService;
@@ -52,7 +50,6 @@ namespace DFC.ServiceTaxonomy.GraphVisualiser.Controllers
         };
 
         public VisualiseController(
-            IGraphCluster neoGraphCluster,
             IContentDefinitionManager contentDefinitionManager,
             INeo4JToOwlGeneratorService neo4jToOwlGeneratorService,
             IOrchardToOwlGeneratorService orchardToOwlGeneratorService,
@@ -60,7 +57,6 @@ namespace DFC.ServiceTaxonomy.GraphVisualiser.Controllers
             IContentItemVersionFactory contentItemVersionFactory,
             INodeContentItemLookup nodeContentItemLookup)
         {
-            _neoGraphCluster = neoGraphCluster ?? throw new ArgumentNullException(nameof(neoGraphCluster));
             _contentDefinitionManager = contentDefinitionManager ?? throw new ArgumentNullException(nameof(contentDefinitionManager));
             _neo4JToOwlGeneratorService = neo4jToOwlGeneratorService ?? throw new ArgumentNullException(nameof(neo4jToOwlGeneratorService));
             _orchardToOwlGeneratorService = orchardToOwlGeneratorService ?? throw new ArgumentNullException(nameof(orchardToOwlGeneratorService));
@@ -75,7 +71,11 @@ namespace DFC.ServiceTaxonomy.GraphVisualiser.Controllers
         }
 
         #pragma warning disable S4457
-        public async Task<ActionResult> Data([FromQuery] string? contentItemId, [FromQuery] string? graph)
+        //todo: params not always coming through!
+        public async Task<ActionResult> Data(
+            [FromQuery] string? graph,
+            [FromQuery] string? contentItemId)
+            //[FromQuery] string? containingContentItemId)
         {
             if (string.IsNullOrWhiteSpace(contentItemId))
                 return GetOntology();
