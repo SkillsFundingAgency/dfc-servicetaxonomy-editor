@@ -1,0 +1,31 @@
+﻿@model DumpControlViewModel
+
+    <h1 class="text-center">Dump Control</h1>
+
+@functions
+{
+    private enum Status
+    {
+        InProgress,
+        Success,
+        Failed
+    }
+
+    private void ShowStatus(Status status)
+    {
+        switch (status)
+        {
+            case Status.InProgress:
+                <div class="display-1 text-center" style="color: dodgerblue"><i class="far fa-paper-plane"></i></div>
+                break;
+            case Status.Success:
+                <div class="display-1 text-center" style="color: limegreen"><i class="fas fa-check"></i></div>
+                break;
+            case Status.Failed:
+                <div class="display-1 text-center" style="color: orangered"><i class="fas fa-times"></i></div>
+                break;
+            default:
+                throw new ArgumentOutOfRangeException(nameof(status), status, null);
+        }
+    }
+}

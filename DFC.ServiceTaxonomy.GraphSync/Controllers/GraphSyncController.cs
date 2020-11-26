@@ -92,5 +92,25 @@ namespace DFC.ServiceTaxonomy.GraphSync.Controllers
                 Scope = scope
             });
         }
+
+        [Admin]
+        public async Task<IActionResult> DumpControl()
+        {
+            if (!await _authorizationService.AuthorizeAsync(User, Permissions.AdministerGraphs))
+            {
+                return Forbid();
+            }
+
+            try
+            {
+                //todo:
+            }
+            catch (Exception e)
+            {
+                _logger.LogWarning(e, "Dump cannot be controlled.");
+                await _notifier.Add("Unable to control dump.", exception: e);
+            }
+            return View(new DumpControlViewModel());
+        }
     }
 }
