@@ -51,7 +51,8 @@ namespace DFC.ServiceTaxonomy.PageLocation
             services.AddTransient<ITaxonomyTermValidator, PageLocationUrlValidator>();
             services.AddTransient<ITaxonomyTermValidator, PageLocationTitleValidator>();
             services.AddTransient<ITaxonomyValidator, PageLocationsTaxonomyValidator>();
-            services.AddTransient<ITaxonomyTermDeleteValidator, PageLocationDeleteValidator>();
+            services.AddTransient<ITaxonomyTermUpdateValidator, PageLocationUpdateOrDeleteValidator>();
+            services.AddTransient<ITaxonomyTermDeleteValidator, PageLocationUpdateOrDeleteValidator>();
 
             services.AddTransient<ITaxonomyTermHandler, PageLocationTaxonomyTermHandler>();
 

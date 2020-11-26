@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using DFC.ServiceTaxonomy.Content;
 using DFC.ServiceTaxonomy.Content.Services.Interface;
 using DFC.ServiceTaxonomy.PageLocation.Constants;
 using DFC.ServiceTaxonomy.Taxonomies.Helper;
@@ -11,18 +10,18 @@ using OrchardCore.ContentManagement;
 
 namespace DFC.ServiceTaxonomy.PageLocation.Validators
 {
-    public class PageLocationDeleteValidator : ITaxonomyTermDeleteValidator
+    public class PageLocationUpdateOrDeleteValidator : ITaxonomyTermDeleteValidator, ITaxonomyTermUpdateValidator
     {
         private readonly IContentItemsService _contentItemsService;
         private readonly ITaxonomyHelper _taxonomyHelper;
 
-        public PageLocationDeleteValidator(IContentItemsService contentItemsService, ITaxonomyHelper taxonomyHelper)
+        public PageLocationUpdateOrDeleteValidator(IContentItemsService contentItemsService, ITaxonomyHelper taxonomyHelper)
         {
             _contentItemsService = contentItemsService;
             _taxonomyHelper = taxonomyHelper;
         }
 
-        public string ErrorMessage => "Page Locations with pages associated to them or any of their children cannot be deleted.";
+        public string ErrorMessage => "Page Locations with pages associated to them or any of their children cannot be changed or deleted.";
 
         public async Task<bool> Validate(JObject term, JObject taxonomy)
         {

@@ -249,7 +249,12 @@
                     }).addClass(fontWeightOrSize.class);
                 }
             } else {
-                $(node).wrap('<span class="' + fontWeightOrSize.class + '"></span>');
+                trumbowyg.execCmd('fontSize', '1');
+
+                // Find <font> elements that were added and change to <span> with chosen size
+                trumbowyg.$ed.find('font[size="1"]').replaceWith(function () {
+                    return $('<span class="' + fontWeightOrSize.class + '">' + this.innerHTML + '</span>');
+                });
             }
         }
 

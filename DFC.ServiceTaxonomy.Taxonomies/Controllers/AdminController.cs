@@ -31,6 +31,7 @@ namespace DFC.ServiceTaxonomy.Taxonomies.Controllers
         private readonly INotifier _notifier;
         private readonly IUpdateModelAccessor _updateModelAccessor;
         private readonly IEnumerable<ITaxonomyTermValidator> _validators;
+        private readonly IEnumerable<ITaxonomyTermUpdateValidator> _updateValidators;
         private readonly IEnumerable<ITaxonomyTermDeleteValidator> _deleteValidators;
         private readonly IEnumerable<ITaxonomyTermHandler> _handlers;
         private readonly ITaxonomyHelper _taxonomyHelper;
@@ -45,6 +46,7 @@ namespace DFC.ServiceTaxonomy.Taxonomies.Controllers
             IHtmlLocalizer<AdminController> localizer,
             IUpdateModelAccessor updateModelAccessor,
             IEnumerable<ITaxonomyTermValidator> validators,
+            IEnumerable<ITaxonomyTermUpdateValidator> updateValidators,
             IEnumerable<ITaxonomyTermDeleteValidator> deleteValidators,
             IEnumerable<ITaxonomyTermHandler> handlers,
             ITaxonomyHelper taxonomyHelper)
@@ -58,6 +60,7 @@ namespace DFC.ServiceTaxonomy.Taxonomies.Controllers
             _updateModelAccessor = updateModelAccessor;
             H = localizer;
             _validators = validators;
+            _updateValidators = updateValidators;
             _deleteValidators = deleteValidators;
             _handlers = handlers;
             _taxonomyHelper = taxonomyHelper;
@@ -115,6 +118,7 @@ namespace DFC.ServiceTaxonomy.Taxonomies.Controllers
             }
 
             var contentItem = await _contentManager.NewAsync(id);
+            contentItem.Published = true;
             contentItem.Weld<TermPart>();
             contentItem.Alter<TermPart>(t => t.TaxonomyContentItemId = taxonomyContentItemId);
 
@@ -290,6 +294,14 @@ namespace DFC.ServiceTaxonomy.Taxonomies.Controllers
             taxonomyItem[nameof(ContentItem.DisplayText)] = contentItem.DisplayText;
 
             foreach (var validator in _validators)
+            {
+                if (!await validator.Validate(JObject.FromObject(contentItem), JObject.FromObject(taxonomy)))
+                {
+                    return ValidationError(validator.ErrorMessage, model, taxonomyContentItemId, taxonomyItemId);
+                }
+            }
+
+            foreach (var validator in _updateValidators)
             {
                 if (!await validator.Validate(JObject.FromObject(contentItem), JObject.FromObject(taxonomy)))
                 {
