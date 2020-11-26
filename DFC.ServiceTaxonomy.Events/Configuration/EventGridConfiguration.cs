@@ -8,6 +8,7 @@ namespace DFC.ServiceTaxonomy.Events.Configuration
         /// Used effectively as a global publish events or not feature toggle
         /// </summary>
         public bool PublishEvents { get; set; }
-        public List<EventGridTopicConfiguration> Topics { get; set; } = new List<EventGridTopicConfiguration>();
+        public List<EventGridTopicConfiguration> Topics { get; set; } = new();
+        public string? SubscriptionsApiUrl { get; set; }
     }
 }
