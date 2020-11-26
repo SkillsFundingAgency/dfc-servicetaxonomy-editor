@@ -1,4 +1,6 @@
-﻿namespace DFC.ServiceTaxonomy.Events.Services.Interfaces
+﻿using DFC.ServiceTaxonomy.Services.Rest.Interfaces;
+
+namespace DFC.ServiceTaxonomy.Events.Services.Interfaces
 {
     public interface IEventGridContentRestHttpClientFactory
     {

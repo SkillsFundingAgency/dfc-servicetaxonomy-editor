@@ -2,6 +2,7 @@
 using System.Net.Http;
 using DFC.ServiceTaxonomy.Events.Services.Exceptions;
 using DFC.ServiceTaxonomy.Events.Services.Interfaces;
+using DFC.ServiceTaxonomy.Services.Rest.Interfaces;
 
 namespace DFC.ServiceTaxonomy.Events.Services
 {

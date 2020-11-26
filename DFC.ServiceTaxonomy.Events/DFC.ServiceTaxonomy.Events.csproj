@@ -37,4 +37,8 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\DFC.ServiceTaxonomy.Services\DFC.ServiceTaxonomy.Services.csproj" />
+  </ItemGroup>
+
 </Project>

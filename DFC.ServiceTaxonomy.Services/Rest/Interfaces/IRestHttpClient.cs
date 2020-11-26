@@ -4,7 +4,7 @@ using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace DFC.ServiceTaxonomy.Events.Services.Interfaces
+namespace DFC.ServiceTaxonomy.Services.Rest.Interfaces
 {
     public interface IRestHttpClient
     {
