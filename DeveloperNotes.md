@@ -1,5 +1,45 @@
 #ToDo
 
+* prod backup
+
+neo consumers subscribe to /graph/commands
+
+admin menu ui: Graph Operations (or similar) with permissions
+
+get all subscribers to publish /graph/commands/handler/stop-replica
+
+subscribe to /graph/commands/reply/stop-replica
+
+user selects graph-replica, clicks stop button
+
+disable (at least) graph repairs and graph sync, but better to replace all page requests (except for graph operations page) with maintenance page
+
+publish /graph/commands/handler/stop-replica/published/0, with operation guid (tie into traceid?)
+
+consumers receive, disable replica and wait for all request to replica to finish
+
+consumers publish /graph/commands/reply/stop-replica/published/0
+
+wait for all subscribers to publish reply matching operation guid
+
+show ticks next to subscribers that have stopped (auto page refresh? let user refresh? signalr or equivalent probably overkill)
+
+once all ticked, let user know dump can be taken of graph (show instructions?)
+
+once user clicks backup taken
+
+publish /graph/commands/handler/start-replica/published/0
+
+wait for all replies, showing result to operator
+
+or cmd line (to do backup would need to be run inside noe container in k8s)
+
+publish /graph/commands/stop-replica
+
+show operation id to user - have facility to restart replicas, in case something goes wrong and they need to send out another start
+
+if the replica is running, that should be a no-op, apart from sending the reply
+
 * pre-populate custom graph sync settings to represent the real defaults
 * add visualisation settings into read only set
 * can't reset focus on a pagelocation, nor visualise it from the editor
