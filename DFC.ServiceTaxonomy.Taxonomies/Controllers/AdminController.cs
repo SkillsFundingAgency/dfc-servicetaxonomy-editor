@@ -31,6 +31,7 @@ namespace DFC.ServiceTaxonomy.Taxonomies.Controllers
         private readonly INotifier _notifier;
         private readonly IUpdateModelAccessor _updateModelAccessor;
         private readonly IEnumerable<ITaxonomyTermValidator> _validators;
+        private readonly IEnumerable<ITaxonomyTermDeleteValidator> _deleteValidators;
         private readonly IEnumerable<ITaxonomyTermHandler> _handlers;
         private readonly ITaxonomyHelper _taxonomyHelper;
 
@@ -44,6 +45,7 @@ namespace DFC.ServiceTaxonomy.Taxonomies.Controllers
             IHtmlLocalizer<AdminController> localizer,
             IUpdateModelAccessor updateModelAccessor,
             IEnumerable<ITaxonomyTermValidator> validators,
+            IEnumerable<ITaxonomyTermDeleteValidator> deleteValidators,
             IEnumerable<ITaxonomyTermHandler> handlers,
             ITaxonomyHelper taxonomyHelper)
         {
@@ -56,6 +58,7 @@ namespace DFC.ServiceTaxonomy.Taxonomies.Controllers
             _updateModelAccessor = updateModelAccessor;
             H = localizer;
             _validators = validators;
+            _deleteValidators = deleteValidators;
             _handlers = handlers;
             _taxonomyHelper = taxonomyHelper;
         }
@@ -124,7 +127,7 @@ namespace DFC.ServiceTaxonomy.Taxonomies.Controllers
 
                 return View(model);
             }
-            
+
             if (taxonomyItemId == null)
             {
                 // Use the taxonomy as the parent if no target is specified
@@ -172,8 +175,11 @@ namespace DFC.ServiceTaxonomy.Taxonomies.Controllers
             taxonomy.Published = false;
             await _contentManager.PublishAsync(taxonomy);
 
-            //force publish the new term content item to trigger events etc
-            await _contentManager.PublishAsync(contentItem);
+            //Content item will get published as part of the taxonomy, handler ensure Event Grid is informed of Content Item change
+            foreach (var handler in _handlers)
+            {
+                await handler.PublishedAsync(contentItem);
+            }
 
             return RedirectToAction("Edit", "Admin", new { area = "OrchardCore.Contents", contentItemId = taxonomyContentItemId });
         }
@@ -294,12 +300,15 @@ namespace DFC.ServiceTaxonomy.Taxonomies.Controllers
             taxonomy.Published = false;
             await _contentManager.PublishAsync(taxonomy);
 
-            //force publish the new term content item to trigger events etc
-            await _contentManager.PublishAsync(contentItem);
-
+            //Content item will get published as part of the taxonomy, handler ensure Event Grid is informed of Content Item change
             foreach (var handler in _handlers)
             {
-                await handler.UpdatedAsync(contentItem, taxonomy);
+                var updated = await handler.UpdatedAsync(contentItem, taxonomy);
+
+                if (updated)
+                {
+                    await handler.PublishedAsync(contentItem);
+                }
             }
 
             return RedirectToAction("Edit", "Admin", new { area = "OrchardCore.Contents", contentItemId = taxonomyContentItemId });
@@ -338,6 +347,15 @@ namespace DFC.ServiceTaxonomy.Taxonomies.Controllers
             if (taxonomyItem == null)
             {
                 return NotFound();
+            }
+
+            foreach (var validator in _deleteValidators)
+            {
+                if (!await validator.Validate(taxonomyItem, JObject.FromObject(taxonomy)))
+                {
+                    _notifier.Error(H[validator.ErrorMessage]);
+                    return RedirectToAction("Edit", "Admin", new { area = "OrchardCore.Contents", contentItemId = taxonomyContentItemId });
+                }
             }
 
             taxonomyItem.Remove();

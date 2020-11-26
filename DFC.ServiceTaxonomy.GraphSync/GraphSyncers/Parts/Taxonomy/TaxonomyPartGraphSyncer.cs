@@ -56,6 +56,22 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts.Taxonomy
             JObject content,
             IValidateAndRepairContext context)
         {
+            _embeddedContentItemsGraphSyncer.IsNonLeafEmbeddedTerm = false;
+            return await ValidateSyncComponentImplementation(content, context);
+        }
+
+        public async Task<(bool validated, string failureReason)> ValidateSyncComponentForNonLeafEmbeddedTerm(
+            JObject content,
+            IValidateAndRepairContext context)
+        {
+            _embeddedContentItemsGraphSyncer.IsNonLeafEmbeddedTerm = true;
+            return await ValidateSyncComponentImplementation(content, context);
+        }
+
+        private async Task<(bool validated, string failureReason)> ValidateSyncComponentImplementation(
+            JObject content,
+            IValidateAndRepairContext context)
+        {
             (bool validated, string failureReason) =
                 await _embeddedContentItemsGraphSyncer.ValidateSyncComponent(
                     (JArray?)content[ContainerName], context);

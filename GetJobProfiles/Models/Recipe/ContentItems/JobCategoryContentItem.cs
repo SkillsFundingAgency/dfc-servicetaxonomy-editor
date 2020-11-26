@@ -5,8 +5,8 @@ namespace GetJobProfiles.Models.Recipe.ContentItems
 {
     public class JobCategoryContentItem : ContentItem
     {
-        public JobCategoryContentItem(string title, string timestamp)
-            : base("JobCategory", title, timestamp)
+        public JobCategoryContentItem(string title, string timestamp, string contentItemId = null)
+            : base("JobCategory", title, timestamp, contentItemId)
         {
             TitlePart = new TitlePart(title);
             GraphSyncPart = new GraphSyncPart("JobCategory");
@@ -14,6 +14,7 @@ namespace GetJobProfiles.Models.Recipe.ContentItems
         }
 
         public TitlePart TitlePart { get; set; }
+        public PageLocationPart PageLocationPart { get; set; }
         public JobCategoryPart EponymousPart { get; set; }
         public GraphSyncPart GraphSyncPart { get; set; }
     }

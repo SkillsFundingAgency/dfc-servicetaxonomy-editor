@@ -86,8 +86,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.Neo4j.Queries.Models
             return commandRelationshipGroups.Select(g =>
             {
                 var toContentItemVersionIds = g
-                    .Select(fromContentItemVersionId => syncNameProvider.IdPropertyValueFromNodeValue(
-                        (string)fromContentItemVersionId, fromContentItemVersion, toContentItemVersion));
+                    .Select(fromContentItemVersionId => syncNameProvider.ConvertIdPropertyValue(
+                        (string)fromContentItemVersionId, toContentItemVersion, fromContentItemVersion));
                 g.Key.DestinationNodeIdPropertyValues.AddRange(toContentItemVersionIds);
                 return g.Key;
             });
@@ -109,10 +109,10 @@ namespace DFC.ServiceTaxonomy.GraphSync.Neo4j.Queries.Models
             IReplaceRelationshipsCommand replaceRelationshipsCommand = new ReplaceRelationshipsCommand
             {
                 SourceIdPropertyName = sourceIdPropertyName,
-                SourceIdPropertyValue = syncNameProvider.IdPropertyValueFromNodeValue(
+                SourceIdPropertyValue = syncNameProvider.ConvertIdPropertyValue(
                     (string)SourceNode.Properties[sourceIdPropertyName],
-                    fromContentItemVersion,
-                    toContentItemVersion),
+                    toContentItemVersion,
+                    fromContentItemVersion),
                 SourceNodeLabels = new HashSet<string>(SourceNode.Labels),
                 ReplaceExistingRelationships = replaceExistingRelationships
             };

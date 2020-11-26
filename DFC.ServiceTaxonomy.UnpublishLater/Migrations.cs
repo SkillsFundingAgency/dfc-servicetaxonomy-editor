@@ -3,6 +3,7 @@ using DFC.ServiceTaxonomy.UnpublishLater.Models;
 using OrchardCore.ContentManagement.Metadata;
 using OrchardCore.ContentManagement.Metadata.Settings;
 using OrchardCore.Data.Migration;
+using YesSql.Sql;
 
 namespace DFC.ServiceTaxonomy.UnpublishLater
 {
@@ -21,7 +22,7 @@ namespace DFC.ServiceTaxonomy.UnpublishLater
                 .Attachable()
                 .WithDescription("Adds the ability to schedule content items to be unpublished at a given future date and time."));
 
-            SchemaBuilder.CreateMapIndexTable(nameof(UnpublishLaterPartIndex), table => table
+            SchemaBuilder.CreateMapIndexTable<UnpublishLaterPartIndex>(table => table
                 .Column<string>(nameof(UnpublishLaterPartIndex.ScheduledUnpublishUtc))
             );
 

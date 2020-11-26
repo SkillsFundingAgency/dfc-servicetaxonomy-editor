@@ -1,0 +1,21 @@
+{
+    "name": "CreateSkillLabelNodes_79e9f26d-6152-4246-9dc1-3f7d289acb59",
+    "displayName": "CreateSkillLabelNodes_79e9f26d-6152-4246-9dc1-3f7d289acb59",
+    "description": "",
+    "author": "",
+    "website": "",
+    "version": "",
+    "issetuprecipe": false,
+    "categories": "",
+    "tags": [],
+    "steps": [
+        {
+            "name": "CypherCommand",
+            "commands": [
+                "with 4 as hexLength\r\nmatch (n:esco__Skill)\r\nwith distinct n, hexLength\r\nwith n, hexLength, '0x' + right( n.uri, hexLength) as baseHexCode\r\nwith n, hexLength, baseHexCode, toLower(apoc.text.hexValue( apoc.convert.toInteger(baseHexCode) + 1)) as replacementChars, left(right( n.uri, 36),36 - hexLength) as trimmedUri\r\nwith n, replacementChars, trimmedUri + right (replacementChars,hexLength ) as newUri\r\ncreate (l:SkillLabel:Resource {skos__prefLabel: n.skos__prefLabel, uri: \"<<contentapiprefix>>/SkillLabel/\" + newUri})\r\ncreate (n)-[:hasPrefLabel]->(l)",
+                "with 8 as hexLength\r\nmatch (n:esco__Skill) \r\nwith distinct n, hexLength\r\nunwind n.skos__altLabel as altLabels\r\nwith n, altLabels, hexLength, '0x' + right( n.uri, hexLength) as baseHexCode\r\nwith n, altLabels, hexLength, baseHexCode, toLower(apoc.text.hexValue( apoc.convert.toInteger(baseHexCode) + apoc.coll.indexOf(n.skos__altLabel,altLabels) + 2)) as replacementChars, left(right( n.uri, 36),36 - hexLength) as trimmedUri\r\nwith n, altLabels, replacementChars, trimmedUri + right (replacementChars,hexLength ) as newUri\r\ncreate (l:SkillLabel:Resource {skos__prefLabel: altLabels, uri: \"<<contentapiprefix>>/SkillLabel/\" + newUri})\r\ncreate (n)-[:hasAltLabel]->(l)",
+                "with 4 as hexLength, 500 as offset\r\nmatch (n:esco__Skill)\r\nwith distinct n, hexLength, offset\r\nunwind n.skos__hiddenLabel as altLabels\r\nwith n, altLabels, hexLength, offset, '0x' + right( n.uri, hexLength) as baseHexCode\r\nwith n, altLabels, hexLength, baseHexCode, toLower(apoc.text.hexValue( apoc.convert.toInteger(baseHexCode) + apoc.coll.indexOf(n.skos__hiddenLabel,altLabels) + offset)) as replacementChars, left(right( n.uri, 36),36 - hexLength) as trimmedUri\r\nwith n, altLabels, replacementChars, trimmedUri + right (replacementChars,hexLength ) as newUri\r\ncreate (l:SkillLabel:Resource {skos__prefLabel: altLabels, uri: \"<<contentapiprefix>>/SkillLabel/\" + newUri})\r\ncreate (n)-[:hasHiddenLabel]->(l)"
+            ]
+        }
+    ]
+}

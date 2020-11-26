@@ -6,7 +6,7 @@ using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Contexts;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Items;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Parts;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Results.AllowSync;
-using DFC.ServiceTaxonomy.GraphSync.Handlers.Orchestrators;
+using DFC.ServiceTaxonomy.GraphSync.Orchestrators;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json.Linq;
 using OrchardCore.ContentManagement;
@@ -34,17 +34,17 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Items
 
         public bool CanSync(ContentItem contentItem) => true;
 
-        public async Task AllowSync(IGraphMergeItemSyncContext context, IAllowSyncResult allowSyncResult)
+        public async Task AllowSync(IGraphMergeItemSyncContext context, IAllowSync allowSync)
         {
             await IteratePartSyncers(context,
-                async (partSyncer, partContent) => await partSyncer.AllowSync(partContent, context, allowSyncResult),
-                async (partSyncer, partContent) => await partSyncer.AllowSyncDetaching(context, allowSyncResult));
+                async (partSyncer, partContent) => await partSyncer.AllowSync(partContent, context, allowSync),
+                async (partSyncer, partContent) => await partSyncer.AllowSyncDetaching(context, allowSync));
         }
 
-        public async Task AllowDelete(IGraphDeleteItemSyncContext context, IAllowSyncResult allowSyncResult)
+        public async Task AllowDelete(IGraphDeleteItemSyncContext context, IAllowSync allowSync)
         {
             await IteratePartSyncers(context,
-                async (partSyncer, partContent) => await partSyncer.AllowDelete(partContent, context, allowSyncResult));
+                async (partSyncer, partContent) => await partSyncer.AllowDelete(partContent, context, allowSync));
         }
 
         public async Task AddSyncComponents(IGraphMergeItemSyncContext context)
@@ -66,6 +66,12 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Items
                 async (partSyncer, partContent) => await partSyncer.MutateOnClone(partContent, context));
         }
 
+        public async Task AddRelationship(IDescribeRelationshipsItemSyncContext context)
+        {
+            await IteratePartSyncers(context,
+                async (partSyncer, partContent) => await partSyncer.AddRelationship(partContent, context));
+        }
+
         private async Task IteratePartSyncers(
             IItemSyncContext context,
             Func<IContentPartGraphSyncer, JObject, Task> action,
@@ -75,7 +81,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Items
             {
                 // bag part has p.Name == <<name>>, p.PartDefinition.Name == "BagPart"
                 // (other non-named parts have the part name in both)
-
+                //todo: contentTypeDefinition can be moved outside of foreach
                 var contentTypeDefinition = _contentDefinitionManager.GetTypeDefinition(context.ContentItem.ContentType);
                 var contentTypePartDefinitions =
                     contentTypeDefinition.Parts.Where(p => partSync.CanSync(context.ContentItem.ContentType, p.PartDefinition));
@@ -164,28 +170,6 @@ properties:
 {string.Join(Environment.NewLine, context.NodeWithOutgoingRelationships.SourceNode.Properties.Select(p => $"{p.Key} = {(p.Value is IEnumerable<object> values ? string.Join(",", values.Select(v => v.ToString())) : p.Value)}"))}
 Relationships ----------------------------------
 {string.Join(Environment.NewLine, context.NodeWithOutgoingRelationships.OutgoingRelationships.Select(or => $"[:{or.Relationship.Type}]->({or.DestinationNode.Id})"))}";
-        }
-
-        public async Task AddRelationship(IDescribeRelationshipsContext context)
-        {
-            var contentTypeDefinition = _contentDefinitionManager.GetTypeDefinition(context.ContentItem.ContentType);
-
-            foreach (var partSync in _partSyncers)
-            {
-                foreach (var contentTypePartDefinition in contentTypeDefinition.Parts)
-                {
-                    string namedPartName = contentTypePartDefinition.Name;
-
-                    JObject? partContent = context.ContentItem.Content[namedPartName];
-                    if (partContent == null)
-                        continue;
-
-                    context.ContentTypePartDefinition = contentTypePartDefinition;
-
-                    context.SetContentField(partContent);
-                    await partSync.AddRelationship(context);
-                }
-            }
         }
     }
 }

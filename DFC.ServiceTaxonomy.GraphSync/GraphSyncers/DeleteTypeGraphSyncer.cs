@@ -48,7 +48,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             //todo: specify which exceptions to handle?
             catch
             {
-                //this forces a rollback of the current OC db transaction
+                // this forces a rollback of the current OC db transaction
                 _session.Cancel();
                 throw;
             }

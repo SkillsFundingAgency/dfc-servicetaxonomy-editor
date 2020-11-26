@@ -17,14 +17,14 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
             return contentPartDefinition.Name == PartName;
         }
 
-        public virtual Task AllowSync(JObject content, IGraphMergeContext context, IAllowSyncResult allowSyncResult)
+        public virtual Task AllowSync(JObject content, IGraphMergeContext context, IAllowSync allowSync)
         {
             return Task.CompletedTask;
         }
 
         public abstract Task AddSyncComponents(JObject content, IGraphMergeContext context);
 
-        public virtual Task AllowSyncDetaching(IGraphMergeContext context, IAllowSyncResult allowSyncResult)
+        public virtual Task AllowSyncDetaching(IGraphMergeContext context, IAllowSync allowSync)
         {
             return Task.CompletedTask;
         }
@@ -34,7 +34,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
             return Task.CompletedTask;
         }
 
-        public virtual Task AllowDelete(JObject content, IGraphDeleteContext context, IAllowSyncResult allowSyncResult)
+        public virtual Task AllowDelete(JObject content, IGraphDeleteContext context, IAllowSync allowSync)
         {
             return Task.CompletedTask;
         }
@@ -53,7 +53,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
             JObject content,
             IValidateAndRepairContext context);
 
-        public virtual Task AddRelationship(IDescribeRelationshipsContext context)
+        public virtual Task AddRelationship(JObject content, IDescribeRelationshipsContext context)
         {
             return Task.CompletedTask;
         }

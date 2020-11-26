@@ -14,8 +14,10 @@ using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using OrchardCore.ContentManagement.Records;
 using System;
+using DFC.ServiceTaxonomy.PageLocation.Constants;
 using DFC.ServiceTaxonomy.Taxonomies.Helper;
 using Newtonsoft.Json.Linq;
+using OrchardCore.ContentManagement.Utilities;
 
 namespace DFC.ServiceTaxonomy.PageLocation.Drivers
 {
@@ -43,6 +45,7 @@ namespace DFC.ServiceTaxonomy.PageLocation.Drivers
                 model.RedirectLocations = pageLocationPart.RedirectLocations;
                 model.PageLocationPart = pageLocationPart;
                 model.ContentItem = pageLocationPart.ContentItem;
+                model.Settings = context.TypePartDefinition.GetSettings<PageLocationPartSettings>();
             });
         }
 
@@ -71,35 +74,30 @@ namespace DFC.ServiceTaxonomy.PageLocation.Drivers
                 urlNameIsValid = false;
             }
 
-            if (urlNameIsValid && pageLocation.UrlName!.All(c => !char.IsLetter(c)))
-            {
-                updater.ModelState.AddModelError(Prefix, nameof(pageLocation.UrlName), $"'UrlName' must contain at least one letter.");
-                urlNameIsValid = false;
-            }
+            var otherContentItems = await _session.Query<ContentItem, PageLocationPartIndex>(x => x.ContentItemId != pageLocation.ContentItem.ContentItemId).ListAsync();
 
-            var otherPages = await _session.Query<ContentItem, PageLocationPartIndex>(x => x.ContentItemId != pageLocation.ContentItem.ContentItemId).ListAsync();
-
-            if (otherPages.Any(x => x.ContentItemId != pageLocation.ContentItem.ContentItemId && ((string)x.Content.PageLocationPart.FullUrl).Equals(pageLocation.FullUrl, StringComparison.OrdinalIgnoreCase)))
+            if (otherContentItems.Any(x => ((string)x.Content.PageLocationPart.FullUrl).Equals(pageLocation.FullUrl, StringComparison.OrdinalIgnoreCase)))
             {
-                updater.ModelState.AddModelError(Prefix, nameof(pageLocation.UrlName), "There is already a page with this URL Name at the same Page Location. Please choose a different URL Name, or change the Page Location.");
+                var duplicate = otherContentItems.First(x => ((string)x.Content.PageLocationPart.FullUrl).Equals(pageLocation.FullUrl, StringComparison.OrdinalIgnoreCase));
+                updater.ModelState.AddModelError(Prefix, nameof(pageLocation.UrlName), $"There is already a {duplicate.ContentType.CamelFriendly()} with this URL Name at the same Page Location. Please choose a different URL Name, or change the Page Location.");
             }
 
             var redirectLocations = pageLocation.RedirectLocations?.Split("\r\n").ToList();
 
             if (redirectLocations?.Any() ?? false)
             {
-                foreach (var otherPage in otherPages)
+                foreach (var otherContentItem in otherContentItems)
                 {
-                    List<string> otherPageRedirectLocations = ((string)otherPage.Content.PageLocationPart.RedirectLocations)?.Split("\r\n").ToList() ?? new List<string>();
+                    List<string> otherContentItemRedirectLocations = ((string)otherContentItem.Content.PageLocationPart.RedirectLocations)?.Split("\r\n").ToList() ?? new List<string>();
 
-                    var redirectConflict = otherPageRedirectLocations.FirstOrDefault(x => redirectLocations.Any(y => y.Equals(x, StringComparison.OrdinalIgnoreCase)));
+                    var redirectConflict = otherContentItemRedirectLocations.FirstOrDefault(x => redirectLocations.Any(y => y.Equals(x, StringComparison.OrdinalIgnoreCase)));
 
                     if (redirectConflict != null)
                     {
                         updater.ModelState.AddModelError(Prefix, nameof(pageLocation.RedirectLocations), $"'{redirectConflict}' has already been used as a redirect location for another page.'");
                     }
 
-                    var fullUrlConflict = redirectLocations.FirstOrDefault(x => x.Equals((string)otherPage.Content.PageLocationPart.FullUrl, StringComparison.OrdinalIgnoreCase));
+                    var fullUrlConflict = redirectLocations.FirstOrDefault(x => x.Equals((string)otherContentItem.Content.PageLocationPart.FullUrl, StringComparison.OrdinalIgnoreCase));
 
                     if (fullUrlConflict != null)
                     {
@@ -126,8 +124,14 @@ namespace DFC.ServiceTaxonomy.PageLocation.Drivers
 
             if (!string.IsNullOrWhiteSpace(pageLocation.FullUrl))
             {
+                if (otherContentItems.Any(x => ((string)x.Content.PageLocationPart.RedirectLocations)?.Split("\r\n").Any(r => r.Trim('/').Equals(pageLocation.FullUrl.Trim('/'), StringComparison.OrdinalIgnoreCase)) ?? false))
+                {
+                    updater.ModelState.AddModelError(Prefix, nameof(pageLocation.FullUrl), "Another page is already using this URL as a redirect location");
+                }
+
+                //todo: would be better to use ContentType to lookup PageLocations
                 ContentItem? taxonomy = await _session.Query<ContentItem, ContentItemIndex>(x =>
-                    x.ContentType == Constants.TaxonomyContentType && x.DisplayText == Constants.PageLocationsDisplayText && x.Latest && x.Published).FirstOrDefaultAsync();
+                    x.ContentType == ContentTypes.Taxonomy && x.DisplayText == DisplayTexts.PageLocations && x.Latest && x.Published).FirstOrDefaultAsync();
 
                 if (taxonomy != null)
                 {

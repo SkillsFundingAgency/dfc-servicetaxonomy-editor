@@ -19,7 +19,6 @@ using DFC.ServiceTaxonomy.GraphSync.Models;
 using DFC.ServiceTaxonomy.GraphSync.Neo4j.Queries.Interfaces;
 using DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces;
 using DFC.ServiceTaxonomy.Neo4j.Services.Interfaces;
-using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using MoreLinq;
@@ -28,13 +27,13 @@ using OrchardCore.ContentManagement;
 
 namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 {
+
     public class MergeGraphSyncer : IMergeGraphSyncer
     {
         private readonly IEnumerable<IContentItemGraphSyncer> _itemSyncers;
         private readonly IGraphSyncPartGraphSyncer _graphSyncPartGraphSyncer;
         private readonly ISyncNameProvider _syncNameProvider;
         private readonly IReplaceRelationshipsCommand _replaceRelationshipsCommand;
-        private readonly IMemoryCache _memoryCache;
         private readonly IContentItemVersionFactory _contentItemVersionFactory;
         private readonly IPublishedContentItemVersion _publishedContentItemVersion;
         private readonly IPreviewContentItemVersion _previewContentItemVersion;
@@ -60,7 +59,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             ISyncNameProvider syncNameProvider,
             IMergeNodeCommand mergeNodeCommand,
             IReplaceRelationshipsCommand replaceRelationshipsCommand,
-            IMemoryCache memoryCache,
             IContentItemVersionFactory contentItemVersionFactory,
             IPublishedContentItemVersion publishedContentItemVersion,
             IPreviewContentItemVersion previewContentItemVersion,
@@ -74,7 +72,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             _syncNameProvider = syncNameProvider;
             MergeNodeCommand = mergeNodeCommand;
             _replaceRelationshipsCommand = replaceRelationshipsCommand;
-            _memoryCache = memoryCache;
             _contentItemVersionFactory = contentItemVersionFactory;
             _publishedContentItemVersion = publishedContentItemVersion;
             _previewContentItemVersion = previewContentItemVersion;
@@ -87,21 +84,21 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             _incomingPreviewContentPickerRelationships = null;
         }
 
-        public async Task<IAllowSyncResult> SyncToGraphReplicaSetIfAllowed(
+        public async Task<IAllowSync> SyncToGraphReplicaSetIfAllowed(
             IGraphReplicaSet graphReplicaSet,
             ContentItem contentItem,
             IContentManager contentManager,
             IGraphMergeContext? parentGraphMergeContext = null)
         {
-            IAllowSyncResult allowSyncResult = await SyncAllowed(graphReplicaSet, contentItem, contentManager, parentGraphMergeContext);
+            IAllowSync allowSync = await SyncAllowed(graphReplicaSet, contentItem, contentManager, parentGraphMergeContext);
 
-            if (allowSyncResult.AllowSync == SyncStatus.Allowed)
+            if (allowSync.Result == AllowSyncResult.Allowed)
                 await SyncToGraphReplicaSet();
 
-            return allowSyncResult;
+            return allowSync;
         }
 
-        public async Task<IAllowSyncResult> SyncAllowed(
+        public async Task<IAllowSync> SyncAllowed(
             IGraphReplicaSet graphReplicaSet,
             ContentItem contentItem,
             IContentManager contentManager,
@@ -110,18 +107,12 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             _logger.LogDebug("SyncAllowed to {GraphReplicaSetName} for '{ContentItem}' {ContentType}?",
                 graphReplicaSet.Name, contentItem.ToString(), contentItem.ContentType);
 
+            _logger.LogDebug("ContentItem content: {Content}", ((JObject)contentItem.Content).ToString());
+
             // we use the existence of a GraphSync content part as a marker to indicate that the content item should be synced
             JObject? graphSyncPartContent = (JObject?)contentItem.Content[nameof(GraphSyncPart)];
             if (graphSyncPartContent == null)
-                return AllowSyncResult.NotRequired;
-
-            string? disableSyncContentItemVersionId = _memoryCache.Get<string>($"DisableSync_{contentItem.ContentItemVersionId}");
-            if (disableSyncContentItemVersionId != null)
-            {
-                _logger.LogInformation("Not syncing {ContentType}:{ContentItemId}, version {ContentItemVersionId} as syncing has been disabled for it.",
-                    contentItem.ContentType, contentItem.ContentItemId, disableSyncContentItemVersionId);
-                return AllowSyncResult.NotRequired;
-            }
+                return AllowSync.NotRequired;
 
             //todo: ContentType belongs in the context, either combine helper & context, or supply context to helper?
             _syncNameProvider.ContentType = contentItem.ContentType;
@@ -166,20 +157,20 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             await _graphSyncPartGraphSyncer.AddSyncComponents(graphSyncPartContent, _graphMergeContext!);
         }
 
-        private async Task<IAllowSyncResult> SyncAllowed()
+        private async Task<IAllowSync> SyncAllowed()
         {
-            IAllowSyncResult syncAllowedResult = new AllowSyncResult();
+            IAllowSync syncAllowed = new AllowSync();
 
             foreach (IContentItemGraphSyncer itemSyncer in _itemSyncers)
             {
                 //todo: allow syncers to chain or not? probably not
                 if (itemSyncer.CanSync(_graphMergeContext!.ContentItem))
                 {
-                    await itemSyncer.AllowSync(_graphMergeContext, syncAllowedResult);
+                    await itemSyncer.AllowSync(_graphMergeContext, syncAllowed);
                 }
             }
 
-            return syncAllowedResult;
+            return syncAllowed;
         }
 
         public async Task<IMergeNodeCommand?> SyncToGraphReplicaSet()
@@ -276,7 +267,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 
             getDraftRelationshipsQuery.NodeLabels = MergeNodeCommand.NodeLabels;
             getDraftRelationshipsQuery.IdPropertyName = MergeNodeCommand.IdPropertyName;
-            getDraftRelationshipsQuery.IdPropertyValue = _syncNameProvider.GetIdPropertyValue(
+            getDraftRelationshipsQuery.IdPropertyValue = _syncNameProvider.GetNodeIdPropertyValue(
                 graphSyncPartContent, _previewContentItemVersion);
 
             IEnumerable<INodeWithOutgoingRelationships?> incomingContentPickerRelationshipsOrDefault =

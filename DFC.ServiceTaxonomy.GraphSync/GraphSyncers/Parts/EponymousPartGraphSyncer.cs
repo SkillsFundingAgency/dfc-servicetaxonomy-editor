@@ -34,14 +34,19 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
                 || contentPartDefinition.Fields.Any(f => _groupingFields.Contains(f.FieldDefinition.Name));
         }
 
-        public override async Task AllowSync(JObject content, IGraphMergeContext context, IAllowSyncResult allowSyncResult)
+        public override async Task AllowSync(JObject content, IGraphMergeContext context, IAllowSync allowSync)
         {
-            await _contentFieldsGraphSyncer.AllowSync(content, context, allowSyncResult);
+            await _contentFieldsGraphSyncer.AllowSync(content, context, allowSync);
         }
 
         public override async Task AddSyncComponents(JObject content, IGraphMergeContext context)
         {
             await _contentFieldsGraphSyncer.AddSyncComponents(content, context);
+        }
+
+        public override async Task AddRelationship(JObject content, IDescribeRelationshipsContext context)
+        {
+            await _contentFieldsGraphSyncer.AddRelationship(content, context);
         }
 
         public override async Task<(bool validated, string failureReason)> ValidateSyncComponent(
@@ -50,11 +55,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
         {
             return await _contentFieldsGraphSyncer.ValidateSyncComponent(
                 content, context);
-        }
-
-        public override async Task AddRelationship(IDescribeRelationshipsContext context)
-        {
-            await _contentFieldsGraphSyncer.AddRelationship(context);
         }
     }
 }

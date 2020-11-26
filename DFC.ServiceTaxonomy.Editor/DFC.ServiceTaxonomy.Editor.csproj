@@ -7,6 +7,9 @@
     <PreserveCompilationReferences>true</PreserveCompilationReferences>
     <Nullable>enable</Nullable>
     <AddRazorSupportForMvc>true</AddRazorSupportForMvc>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <EnableNETAnalyzers>true</EnableNETAnalyzers>
+    <AnalysisLevel>latest</AnalysisLevel>
   </PropertyGroup>
 
   <ItemGroup>
@@ -42,12 +45,12 @@
 
   <ItemGroup>
     <PackageReference Include="Joonasw.AspNetCore.SecurityHeaders" Version="3.0.0" />
-    <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.13.1" />
-    <PackageReference Include="Microsoft.ApplicationInsights.NLogTarget" Version="2.13.1" />
-    <PackageReference Include="OrchardCore.Logging.NLog" Version="1.0.0-rc3" />
-    <PackageReference Include="OrchardCore.Application.Cms.Targets" Version="1.0.0-rc3" />
-    <PackageReference Include="OrchardCore.ContentManagement" Version="1.0.0-rc3" />
-    <PackageReference Include="SonarAnalyzer.CSharp" Version="8.8.0.18411">
+    <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.16.0" />
+    <PackageReference Include="Microsoft.ApplicationInsights.NLogTarget" Version="2.16.0" />
+    <PackageReference Include="OrchardCore.Logging.NLog" Version="1.0.0-rc6" />
+    <PackageReference Include="OrchardCore.Application.Cms.Targets" Version="1.0.0-rc6" />
+    <PackageReference Include="OrchardCore.ContentManagement" Version="1.0.0-rc6" />
+    <PackageReference Include="SonarAnalyzer.CSharp" Version="8.14.0.22654">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
@@ -66,6 +69,7 @@
     <ProjectReference Include="..\DFC.ServiceTaxonomy.Taxonomies\DFC.ServiceTaxonomy.Taxonomies.csproj" />
     <ProjectReference Include="..\DFC.ServiceTaxonomy.Theme\DFC.ServiceTaxonomy.Theme.csproj" />
     <ProjectReference Include="..\DFC.ServiceTaxonomy.UnpublishLater\DFC.ServiceTaxonomy.UnpublishLater.csproj" />
+    <ProjectReference Include="..\OrchardCore.AuditTrail\OrchardCore.AuditTrail.csproj" />
   </ItemGroup>
 
 </Project>

@@ -17,9 +17,9 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
             _embeddedContentItemsGraphSyncer = embeddedContentItemsGraphSyncer;
         }
 
-        public override async Task AllowSync(JObject content, IGraphMergeContext context, IAllowSyncResult allowSyncResult)
+        public override async Task AllowSync(JObject content, IGraphMergeContext context, IAllowSync allowSync)
         {
-            await _embeddedContentItemsGraphSyncer.AllowSync((JArray?)content[ContainerName], context, allowSyncResult);
+            await _embeddedContentItemsGraphSyncer.AllowSync((JArray?)content[ContainerName], context, allowSync);
         }
 
         public override async Task AddSyncComponents(JObject content, IGraphMergeContext context)
@@ -27,9 +27,9 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
             await _embeddedContentItemsGraphSyncer.AddSyncComponents((JArray?)content[ContainerName], context);
         }
 
-        public override async Task AllowSyncDetaching(IGraphMergeContext context, IAllowSyncResult allowSyncResult)
+        public override async Task AllowSyncDetaching(IGraphMergeContext context, IAllowSync allowSync)
         {
-            await _embeddedContentItemsGraphSyncer.AllowSyncDetaching(context, allowSyncResult);
+            await _embeddedContentItemsGraphSyncer.AllowSyncDetaching(context, allowSync);
         }
 
         public override async Task AddSyncComponentsDetaching(IGraphMergeContext context)
@@ -37,9 +37,9 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
             await _embeddedContentItemsGraphSyncer.AddSyncComponentsDetaching(context);
         }
 
-        public override async Task AllowDelete(JObject content, IGraphDeleteContext context, IAllowSyncResult allowSyncResult)
+        public override async Task AllowDelete(JObject content, IGraphDeleteContext context, IAllowSync allowSync)
         {
-            await _embeddedContentItemsGraphSyncer.AllowDelete((JArray?)content[ContainerName], context, allowSyncResult);
+            await _embeddedContentItemsGraphSyncer.AllowDelete((JArray?)content[ContainerName], context, allowSync);
         }
 
         public override async Task DeleteComponents(JObject content, IGraphDeleteContext context)
@@ -57,18 +57,17 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
             // context.ContentItem.Alter<FlowPart>(p => p.Widgets = mutatedContentItems.ToList());
         }
 
+        public override async Task AddRelationship(JObject content, IDescribeRelationshipsContext context)
+        {
+            await _embeddedContentItemsGraphSyncer.AddRelationship((JArray?)content[ContainerName], context);
+        }
+
         public override async Task<(bool validated, string failureReason)> ValidateSyncComponent(
             JObject content,
             IValidateAndRepairContext context)
         {
             return await _embeddedContentItemsGraphSyncer.ValidateSyncComponent(
                 (JArray?)content[ContainerName], context);
-        }
-
-        public override async Task AddRelationship(IDescribeRelationshipsContext context)
-        {
-            await _embeddedContentItemsGraphSyncer.AddRelationship(
-              (JArray?)context.ContentField?[ContainerName], context);
         }
     }
 }

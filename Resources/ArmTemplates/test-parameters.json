@@ -89,6 +89,9 @@
         "apimProxyAddress": {
             "value": "https://foo.api.nationalcareersservice.org.uk"
         },
+        "ContentApiAddress": {
+            "value": "https://foo.api.nationalcareersservice.org.uk"
+        },
         "EventGridTopicSku": {
             "value": "basic"
         },
@@ -102,6 +105,9 @@
             "value": "https://foo.api.nationalcareersservice.org.uk"
         },
         "PreviewAppPrefix": {
+            "value": "https://foo.api.nationalcareersservice.org.uk"
+        },
+        "PreviewContentApiPrefix": {
             "value": "https://foo.api.nationalcareersservice.org.uk"
         },
         "Neo4jEndpoints0Enabled": {

@@ -1,8 +1,10 @@
 ﻿using System;
-using DFC.ServiceTaxonomy.GraphSync.GraphSyncers;
-using OrchardCore.ContentManagement.Metadata.Settings;
+using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers;
+using DFC.ServiceTaxonomy.GraphSync.Indexes;
 using OrchardCore.ContentManagement.Metadata;
+using OrchardCore.ContentManagement.Metadata.Settings;
 using OrchardCore.Data.Migration;
+using YesSql.Sql;
 
 namespace DFC.ServiceTaxonomy.GraphSync
 {
@@ -31,6 +33,27 @@ namespace DFC.ServiceTaxonomy.GraphSync
             );
 
             return 2;
+        }
+
+        public int UpdateFrom2()
+        {
+            SchemaBuilder.CreateMapIndexTable<GraphSyncPartIndex>( table => table
+                .Column<string>("ContentItemId", c => c.WithLength(26))
+                .Column<string>("NodeId")
+            );
+
+            SchemaBuilder.AlterTable(nameof(GraphSyncPartIndex), table => table
+                .CreateIndex("IDX_GraphSyncPartIndex_NodeId", "NodeId")
+            );
+
+            return 3;
+        }
+
+        public int UpdateFrom3()
+        {
+            SchemaBuilder.DropTable(nameof(AuditSyncLog));
+
+            return 4;
         }
     }
 }

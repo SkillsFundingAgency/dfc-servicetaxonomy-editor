@@ -2,6 +2,7 @@
 using OrchardCore.ContentManagement.Metadata;
 using OrchardCore.ContentManagement.Metadata.Settings;
 using OrchardCore.Data.Migration;
+using YesSql.Sql;
 
 namespace DFC.ServiceTaxonomy.PageLocation
 {
@@ -25,7 +26,7 @@ namespace DFC.ServiceTaxonomy.PageLocation
 
         public int UpdateFrom1()
         {
-            SchemaBuilder.CreateMapIndexTable(nameof(PageLocationPartIndex), table => table
+            SchemaBuilder.CreateMapIndexTable<PageLocationPartIndex>(table => table
                 .Column<string>("ContentItemId", c => c.WithLength(26))
                 .Column<string>("Url")
             );

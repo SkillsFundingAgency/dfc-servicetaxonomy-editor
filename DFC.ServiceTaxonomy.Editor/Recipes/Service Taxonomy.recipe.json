@@ -43,7 +43,6 @@
                 "OrchardCore.ContentFields",
                 "OrchardCore.ContentPreview",
                 "OrchardCore.Contents",
-                "OrchardCore.Contents.FileContentDefinition",
                 "OrchardCore.ContentTypes",
                 "OrchardCore.CustomSettings",
                 "OrchardCore.Deployment",
@@ -82,7 +81,8 @@
                 "DFC.ServiceTaxonomy.Taxonomies",
                 "DFC.ServiceTaxonomy.Taxonomies.ContentsAdminList",
                 "DFC.ServiceTaxonomy.UnpublishLater",
-                "DFC.ServiceTaxonomy.PageLocation"
+                "DFC.ServiceTaxonomy.PageLocation",
+                "OrchardCore.AuditTrail"
             ]
         },
         {
@@ -188,6 +188,9 @@
                             "Settings": {
                                 "ContentTypePartSettings": {
                                     "Position": "1"
+                                },
+                                "PageLocationPartSettings": {
+                                    "DisplayRedirectLocationsAndDefaultPageForLocation": true
                                 }
                             }
                         }
@@ -447,7 +450,8 @@
                                     "PropertyNameTransform": "Value",
                                     "IdPropertyName": "uri",
                                     "GenerateIdPropertyValue": "$\"<<contentapiprefix>>/{ContentType}/{Value}\".ToLowerInvariant()",
-                                    "DisplayId": true
+                                    "DisplayId": true,
+                                    "VisualiserIncomingRelationshipsPathLength": 2
                                 },
                                 "ContentIndexSettings": {}
                             }
@@ -489,6 +493,57 @@
                                 "ContentTypePartSettings": {
                                     "Position": "1"
                                 }
+                            }
+                        },
+                        {
+                            "PartName": "TitlePart",
+                            "Name": "TitlePart",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "0"
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "Name": "Email",
+                    "DisplayName": "Email",
+                    "Settings": {
+                        "ContentTypeSettings": {
+                            "Creatable": true,
+                            "Listable": true,
+                            "Draftable": true,
+                            "Versionable": true,
+                            "Securable": true
+                        },
+                        "FullTextAspectSettings": {}
+                    },
+                    "ContentTypePartDefinitionRecords": [
+                        {
+                            "PartName": "Email",
+                            "Name": "Email",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "1"
+                                }
+                            }
+                        },
+                        {
+                            "PartName": "GraphSyncPart",
+                            "Name": "GraphSyncPart",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "2"
+                                },
+                                "GraphSyncPartSettings": {
+                                    "NodeNameTransform": "ContentType",
+                                    "PropertyNameTransform": "Value",
+                                    "IdPropertyName": "uri",
+                                    "GenerateIdPropertyValue": "$\"<<contentapiprefix>>/{ContentType}/{Value}\".ToLowerInvariant()",
+                                    "DisplayId": true
+                                },
+                                "ContentIndexSettings": {}
                             }
                         },
                         {
@@ -815,6 +870,58 @@
                         }
                     },
                     "ContentPartFieldDefinitionRecords": []
+                },
+                {
+                    "Name": "Email",
+                    "Settings": {},
+                    "ContentPartFieldDefinitionRecords": [
+                        {
+                            "FieldName": "TextField",
+                            "Name": "To",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "To",
+                                    "Position": "0"
+                                }
+                            }
+                        },
+                        {
+                            "FieldName": "TextField",
+                            "Name": "From",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "From",
+                                    "Position": "1"
+                                }
+                            }
+                        },
+                        {
+                            "FieldName": "TextField",
+                            "Name": "Subject",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Subject",
+                                    "Position": "2"
+                                }
+                            }
+                        },
+                        {
+                            "FieldName": "HtmlField",
+                            "Name": "Body",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Body",
+                                    "Editor": "Trumbowyg",
+                                    "Position": "3"
+                                },
+                                "HtmlFieldSettings": {},
+                                "HtmlFieldTrumbowygEditorSettings": {
+                                    "Options": "{\r\n  semantic: {\r\n        'div': 'div'\r\n    },\r\n    autogrow: true,\r\n    btns: [\r\n        [\"viewHTML\"],\r\n        [\"undo\", \"redo\"],\r\n        [\"formatting\"],\r\n        [\"strong\", \"em\", \"del\"],\r\n        [\"foreColor\", \"backColor\"],\r\n        [\"superscript\", \"subscript\"],\r\n        [\"link\"],\r\n        [\"image\"],\r\n        [\"align\"],\r\n        [\"unorderedList\", \"orderedList\"],\r\n        [\"horizontalRule\"],\r\n        [\"removeformat\"],\r\n        [\"fullscreen\"]\r\n    ],\r\n    btnsDef: {\r\n        align: {\r\n            dropdown: [\"justifyLeft\", \"justifyCenter\", \"justifyRight\", \"justifyFull\"],\r\n            ico: \"justifyLeft\"\r\n        },\r\n        image: {\r\n            dropdown: [\"insertImage\", \"base64\", \"noembed\"],\r\n            ico: \"insertImage\"\r\n        }\r\n    }\r\n}"
+                                },
+                                "ContentIndexSettings": {}
+                            }
+                        }
+                    ]
                 }
             ]
         },
@@ -823,7 +930,7 @@
             "data": [
                 {
                     "WorkflowTypeId": "4hw6br5f7fnkdv8syssnqedkcs",
-                    "Name": "Sync Validation",
+                    "Name": "Overnight Sync Validation",
                     "IsEnabled": true,
                     "IsSingleton": true,
                     "DeleteFinishedWorkflows": false,
@@ -850,7 +957,8 @@
                             "Properties": {
                                 "ActivityMetadata": {
                                     "Title": null
-                                }
+                                },
+                                "Scope": 0
                             }
                         }
                     ],
@@ -860,6 +968,49 @@
                             "SourceActivityId": "4ds5z2jqrskbhypepw3j11834k",
                             "SourceOutcomeName": "Done",
                             "DestinationActivityId": "4mvaxsfc5ntc90s0pbs7xtds4x"
+                        }
+                    ]
+                },
+                {
+                    "WorkflowTypeId": "4p7m8n8y2jj2n522d5chcs9t48",
+                    "Name": "Weekend Sync Validation",
+                    "IsEnabled": true,
+                    "IsSingleton": true,
+                    "DeleteFinishedWorkflows": false,
+                    "Activities": [
+                        {
+                            "ActivityId": "4zjhsyyzm6yrtzywrmyk0n375m",
+                            "Name": "TimerEvent",
+                            "X": 0,
+                            "Y": 0,
+                            "IsStart": true,
+                            "Properties": {
+                                "ActivityMetadata": {
+                                    "Title": "Every Sunday at Midnight"
+                                },
+                                "CronExpression": "0 0 * * 0"
+                            }
+                        },
+                        {
+                            "ActivityId": "4cwv5dfv47q8e72c0chw3tc05e",
+                            "Name": "AuditSyncIssuesTask",
+                            "X": 40,
+                            "Y": 180,
+                            "IsStart": false,
+                            "Properties": {
+                                "Scope": 1,
+                                "ActivityMetadata": {
+                                    "Title": null
+                                }
+                            }
+                        }
+                    ],
+                    "Transitions": [
+                        {
+                            "Id": 0,
+                            "SourceActivityId": "4zjhsyyzm6yrtzywrmyk0n375m",
+                            "SourceOutcomeName": "Done",
+                            "DestinationActivityId": "4cwv5dfv47q8e72c0chw3tc05e"
                         }
                     ]
                 }

@@ -13,22 +13,22 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Parts
 
         bool CanSync(string contentType, ContentPartDefinition contentPartDefinition);
 
-        Task AllowSync(JObject content, IGraphMergeContext context, IAllowSyncResult allowSyncResult);
+        Task AllowSync(JObject content, IGraphMergeContext context, IAllowSync allowSync);
         //todo: have new interface for IContainedContentPartGraphSyncer : IContentPartGraphSyncer?????
         Task AddSyncComponents(JObject content, IGraphMergeContext context);
 
-        Task AllowSyncDetaching(IGraphMergeContext context, IAllowSyncResult allowSyncResult);
+        Task AllowSyncDetaching(IGraphMergeContext context, IAllowSync allowSync);
         Task AddSyncComponentsDetaching(IGraphMergeContext context);
 
-        Task AllowDelete(JObject content, IGraphDeleteContext context, IAllowSyncResult allowSyncResult);
+        Task AllowDelete(JObject content, IGraphDeleteContext context, IAllowSync allowSync);
         Task DeleteComponents(JObject content, IGraphDeleteContext context);
 
         Task MutateOnClone(JObject content, ICloneContext context);
 
+        Task AddRelationship(JObject content, IDescribeRelationshipsContext context);
+
         Task<(bool validated, string failureReason)> ValidateSyncComponent(
             JObject content,
             IValidateAndRepairContext context);
-
-        Task AddRelationship(IDescribeRelationshipsContext context);
     }
 }

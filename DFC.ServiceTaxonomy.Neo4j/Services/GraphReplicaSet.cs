@@ -44,5 +44,10 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services
             var commandTasks = _graphInstances.Select(g => g.Run(commands));
             return Task.WhenAll(commandTasks);
         }
+
+        public override string ToString()
+        {
+            return Name;
+        }
     }
 }

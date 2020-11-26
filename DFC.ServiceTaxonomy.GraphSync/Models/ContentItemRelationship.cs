@@ -11,9 +11,9 @@ namespace DFC.ServiceTaxonomy.GraphSync.Models
             Destination = destination;
         }
 
-        public IEnumerable<string>? Source { get; set; }
-        public string? Relationship { get; set; }
-        public IEnumerable<string>? Destination { get; set; }
+        public IEnumerable<string> Source { get; }
+        public string Relationship { get; }
+        public IEnumerable<string> Destination { get; }
         public string? RelationshipPathString { get; set; }
     }
 }

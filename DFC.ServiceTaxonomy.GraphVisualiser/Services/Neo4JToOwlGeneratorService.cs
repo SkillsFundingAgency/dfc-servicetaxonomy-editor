@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Helpers;
 using DFC.ServiceTaxonomy.GraphVisualiser.Models;
 using DFC.ServiceTaxonomy.GraphVisualiser.Models.Configuration;
 using DFC.ServiceTaxonomy.GraphVisualiser.Models.Owl;
@@ -10,24 +11,27 @@ namespace DFC.ServiceTaxonomy.GraphVisualiser.Services
 {
     public class Neo4JToOwlGeneratorService : OwlDataGeneratorService, INeo4JToOwlGeneratorService
     {
-        private long minRelationshipId;
+        private readonly ISyncNameProvider _syncNameProvider;
 
-        public Neo4JToOwlGeneratorService(IOptionsMonitor<OwlDataGeneratorConfigModel> owlDataGeneratorConfigModel) : base(owlDataGeneratorConfigModel) { }
-
-        public OwlDataModel CreateOwlDataModels(long selectedNodeId, IEnumerable<INode> nodes, HashSet<IRelationship> relationships, string prefLabel)
+        public Neo4JToOwlGeneratorService(
+            IOptionsMonitor<OwlDataGeneratorConfigModel> owlDataGeneratorConfigModel,
+            ISyncNameProvider syncNameProvider)
+            : base(owlDataGeneratorConfigModel)
         {
-            //minNodeId = nodes.Keys.Min() - 1;
-            minRelationshipId = relationships.Count > 0 ? relationships.Min(r => r.Id) - 1 : 0;
+            _syncNameProvider = syncNameProvider;
+        }
 
-            TransformData(nodes, prefLabel);
-            TransformData(relationships);
+        public OwlDataModel CreateOwlDataModels(long? selectedNodeId, IEnumerable<INode> nodes, HashSet<IRelationship> relationships, string prefLabel)
+        {
+            TransformNodes(nodes, prefLabel);
+            TransformRelationships(relationships);
 
             var result = new OwlDataModel
             {
                 Namespace = CreateNamespaces(),
                 Header = CreateHeader(),
                 Settings = CreateSettings(),
-                Class = nodeDataModels.Select(n => CreateClass(n, $"{selectedNodeId}")).ToList(),
+                Class = nodeDataModels.Select(n => CreateClass(n, selectedNodeId?.ToString())).ToList(),
                 ClassAttribute = nodeDataModels.Select(CreateClassAttribute).ToList(),
                 Property = relationshipDataModels.Select(CreateProperty).ToList(),
                 PropertyAttribute = relationshipDataModels.Select(CreatePropertyAttribute).ToList(),
@@ -36,49 +40,23 @@ namespace DFC.ServiceTaxonomy.GraphVisualiser.Services
             return result;
         }
 
-        private void TransformData(IEnumerable<INode> nodes, string prefLabel)
+        private void TransformNodes(IEnumerable<INode> nodes, string prefLabel)
         {
-            nodeDataModels = (from a in nodes
-                              select new NodeDataModel
-                              {
-                                  Id = $"Class{a.Id}",
-                                  Key = 1,
-                                  Type = a.Labels.First(l => l != "Resource" || l == "esco__Occupation" || l == "esco__Skill"),
-                                  Label = GetPropertyValue(a, new[] { prefLabel, "Description", "FurtherInfo" }),
-                                  Comment = GetPropertyValue(a, new[] { "Description" }),
-                                  StaxProperties = a.Properties.Where(p => p.Key != prefLabel).Select(p => $"{p.Key}:{p.Value}").ToList()
-                              }
-            ).ToList();
+            nodeDataModels = nodes
+                .Select(node => new NodeDataModel(node, prefLabel, _syncNameProvider))
+                .ToList();
         }
 
-        private void TransformData(HashSet<IRelationship> relationships)
+        private void TransformRelationships(IEnumerable<IRelationship> relationships)
         {
-            relationshipDataModels = (from a in relationships
-                                      select new RelationshipDataModel
-                                      {
-                                          Id = $"{a.Id}",
-                                          Label = a.Type,
-                                          Domain = $"Class{a.StartNodeId}",
-                                          Range = $"Class{a.EndNodeId}"
-                                      }
-            ).ToList();
-        }
-
-        private string GetPropertyValue(INode node, string[] names)
-        {
-            foreach (string name in names)
-            {
-                string result = node.Properties.ContainsKey(name)
-                                ? (string)node.Properties[name]
-                                : string.Empty;
-
-                if (!string.IsNullOrWhiteSpace(result))
+            relationshipDataModels = relationships
+                .Select(a => new RelationshipDataModel
                 {
-                    return result;
-                }
-            }
-
-            return string.Empty;
+                    Id = $"{a.Id}",
+                    Label = a.Type,
+                    Domain = $"Class{a.StartNodeId}",
+                    Range = $"Class{a.EndNodeId}"
+                }).ToList();
         }
     }
 }

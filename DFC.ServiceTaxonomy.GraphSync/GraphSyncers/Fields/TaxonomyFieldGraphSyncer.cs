@@ -9,7 +9,6 @@ using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Fields;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Helpers;
 using DFC.ServiceTaxonomy.GraphSync.Models;
 using DFC.ServiceTaxonomy.GraphSync.Neo4j.Queries.Interfaces;
-using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json.Linq;
 using OrchardCore.ContentManagement;
 using DFC.ServiceTaxonomy.Taxonomies.Models;
@@ -55,10 +54,11 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
             //todo: share code with contentpickerfield?
 
             //todo: better error message to user if taxonomy is missing
-            ContentItem taxonomyContentItem = await GetTaxonomyContentItem(
+            //todo: check for null
+            ContentItem? taxonomyContentItem = await GetTaxonomyContentItem(
                 contentItemField, context.ContentItemVersion, context.ContentManager);
 
-            JObject taxonomyPartContent = taxonomyContentItem.Content[nameof(TaxonomyPart)];
+            JObject taxonomyPartContent = taxonomyContentItem!.Content[nameof(TaxonomyPart)];
             string termContentType = taxonomyPartContent[TermContentType]!.Value<string>();
 
             string termRelationshipType = TermRelationshipType(termContentType);
@@ -72,8 +72,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
 
             IEnumerable<string> contentItemIds = contentItemIdsJArray.Select(jtoken => jtoken.ToObject<string>()!);
 
-            ISyncNameProvider relatedSyncNameProvider = _serviceProvider.GetRequiredService<ISyncNameProvider>();
-            relatedSyncNameProvider.ContentType = termContentType;
+            ISyncNameProvider relatedSyncNameProvider = _serviceProvider.GetSyncNameProvider(termContentType);
 
             var flattenedTermsContentItems = GetFlattenedTermsContentItems(taxonomyPartContent);
 
@@ -94,7 +93,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
 
             relatedSyncNameProvider.ContentType = taxonomyContentItem.ContentType;
             destNodeLabels = await relatedSyncNameProvider.NodeLabels();
-            object taxonomyIdValue = relatedSyncNameProvider.GetIdPropertyValue(
+            object taxonomyIdValue = relatedSyncNameProvider.GetNodeIdPropertyValue(
                 taxonomyContentItem.Content[nameof(GraphSyncPart)], context.ContentItemVersion);
 
             context.ReplaceRelationshipsCommand.AddRelationshipsTo(
@@ -121,11 +120,12 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
             var taxonomyFieldSettings = context.ContentPartFieldDefinition!.GetSettings<TaxonomyFieldSettings>();
 
             //todo: factor out common code
-            ContentItem taxonomyContentItem =  await context.ContentItemVersion.GetContentItem(
+            //todo: check for null
+            ContentItem? taxonomyContentItem =  await context.ContentItemVersion.GetContentItem(
                 context.ContentManager,
                 taxonomyFieldSettings.TaxonomyContentItemId);
 
-            JObject taxonomyPartContent = taxonomyContentItem.Content[nameof(TaxonomyPart)];
+            JObject taxonomyPartContent = taxonomyContentItem!.Content[nameof(TaxonomyPart)];
             string termContentType = taxonomyPartContent[TermContentType]!.Value<string>();
 
             string termRelationshipType = TermRelationshipType(termContentType);
@@ -169,11 +169,11 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
             IContentItemVersion contentItemVersion)
         {
             ContentItem termContentItem = taxonomyTerms[termContentItemId];
-            return termSyncNameProvider.GetIdPropertyValue(
+            return termSyncNameProvider.GetNodeIdPropertyValue(
                 (JObject)termContentItem.Content[nameof(GraphSyncPart)]!, contentItemVersion);
         }
 
-        private async Task<ContentItem> GetTaxonomyContentItem(
+        private async Task<ContentItem?> GetTaxonomyContentItem(
             JObject contentItemField,
             IContentItemVersion contentItemVersion,
             IContentManager contentManager)
@@ -196,14 +196,69 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
             return $"has{taxonomyName}Taxonomy";
         }
 
+        public async Task AddRelationship(JObject contentItemField, IDescribeRelationshipsContext parentContext)
+        {
+            //todo: check for null
+            ContentItem? taxonomyContentItem = await GetTaxonomyContentItem(
+                contentItemField,
+                parentContext.ContentItemVersion,
+                parentContext.ContentManager);
+
+            JObject taxonomyPartContent = taxonomyContentItem!.Content[nameof(TaxonomyPart)];
+            string termContentType = taxonomyPartContent[TermContentType]!.Value<string>();
+
+            string termRelationshipType = TermRelationshipType(termContentType);
+
+            //todo: auto collect all taxonomy terms? or go through build relationships?
+
+            const int maxDepthFromHere = 0;
+
+            var sourceNodeLabels = await parentContext.SyncNameProvider.NodeLabels(parentContext.ContentItem.ContentType);
+
+            // gets auto-added to parent. better way though?
+#pragma warning disable S1848
+            new DescribeRelationshipsContext(
+                parentContext.SourceNodeIdPropertyName, parentContext.SourceNodeId, parentContext.SourceNodeLabels,
+                parentContext.ContentItem, maxDepthFromHere, parentContext.SyncNameProvider, parentContext.ContentManager,
+                parentContext.ContentItemVersion, parentContext, parentContext.ServiceProvider)
+            {
+                AvailableRelationships = new List<ContentItemRelationship>
+                {
+                    new ContentItemRelationship(
+                        sourceNodeLabels,
+                        termRelationshipType,
+                        await parentContext.SyncNameProvider.NodeLabels(termContentType))
+                }
+            };
+
+            string taxonomyRelationshipType = TaxonomyRelationshipType(taxonomyContentItem);
+
+            new DescribeRelationshipsContext(
+                parentContext.SourceNodeIdPropertyName, parentContext.SourceNodeId, parentContext.SourceNodeLabels,
+                parentContext.ContentItem, maxDepthFromHere, parentContext.SyncNameProvider, parentContext.ContentManager,
+                parentContext.ContentItemVersion, parentContext, parentContext.ServiceProvider)
+            {
+                AvailableRelationships = new List<ContentItemRelationship>
+                {
+                    new ContentItemRelationship(
+                        sourceNodeLabels,
+                        taxonomyRelationshipType,
+                        await parentContext.SyncNameProvider.NodeLabels(taxonomyContentItem.ContentType))
+                }
+            };
+
+#pragma warning restore S1848
+        }
+
         public async Task<(bool validated, string failureReason)> ValidateSyncComponent(
             JObject contentItemField,
             IValidateAndRepairContext context)
         {
-            ContentItem taxonomyContentItem = await GetTaxonomyContentItem(
+            //todo: check for null
+            ContentItem? taxonomyContentItem = await GetTaxonomyContentItem(
                 contentItemField, context.ContentItemVersion, context.ContentManager);
 
-            var taxonomyPartContent = taxonomyContentItem.Content[nameof(TaxonomyPart)];
+            var taxonomyPartContent = taxonomyContentItem!.Content[nameof(TaxonomyPart)];
             string termContentType = taxonomyPartContent[TermContentType];
 
             string termRelationshipType = TermRelationshipType(termContentType);
@@ -218,8 +273,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
                 return (false, $"expecting {contentItemIds.Count} relationships of type {termRelationshipType} in graph, but found {actualRelationships.Length}");
             }
 
-            ISyncNameProvider relatedSyncNameProvider = _serviceProvider.GetRequiredService<ISyncNameProvider>();
-            relatedSyncNameProvider.ContentType = termContentType;
+            ISyncNameProvider relatedSyncNameProvider = _serviceProvider.GetSyncNameProvider(termContentType);
 
             var flattenedTermsContentItems = GetFlattenedTermsContentItems(taxonomyPartContent);
 
@@ -250,22 +304,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
             //     context.NodeWithOutgoingRelationships.SourceNode);
 
             return (true, "");
-        }
-
-        public async Task AddRelationship(IDescribeRelationshipsContext parentContext)
-        { 
-                ContentItem taxonomyContentItem = await GetTaxonomyContentItem(
-                   (JObject)parentContext.ContentField![parentContext.ContentPartFieldDefinition!.Name!]!, parentContext.ContentItemVersion, parentContext.ContentManager);
-
-                JObject taxonomyPartContent = taxonomyContentItem.Content[nameof(TaxonomyPart)];
-                string termContentType = taxonomyPartContent[TermContentType]!.Value<string>();
-
-                string termRelationshipType = TermRelationshipType(termContentType);
-
-                var describeRelationshipsContext = new DescribeRelationshipsContext(parentContext.SourceNodeIdPropertyName, parentContext.SourceNodeId, parentContext.SourceNodeLabels, parentContext.ContentItem, parentContext.SyncNameProvider, parentContext.ContentManager, parentContext.ContentItemVersion, parentContext, parentContext.ServiceProvider, parentContext.RootContentItem) { AvailableRelationships = new List<ContentItemRelationship>() { new ContentItemRelationship(await parentContext.SyncNameProvider.NodeLabels(parentContext.ContentItem.ContentType), termRelationshipType, await parentContext.SyncNameProvider.NodeLabels(termContentType)) } };
-
-                parentContext.AddChildContext(describeRelationshipsContext);
-          
         }
     }
 }
