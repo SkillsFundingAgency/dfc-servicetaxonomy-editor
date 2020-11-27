@@ -35,7 +35,21 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="ContentRecipes\Alerts.recipe.json" />
+    <None Remove="ContentRecipes\Alerts.tecipe.json" />
+    <None Remove="ContentRecipes\SkillsToolkit2.Recipe.json" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\DFC.ServiceTaxonomy.GraphSync\DFC.ServiceTaxonomy.GraphSync.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="ContentRecipes\SkillsToolkit2.recipe.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
   </ItemGroup>
 
 </Project>

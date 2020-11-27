@@ -210,6 +210,10 @@ namespace GetJobProfiles
                 //      await CopyRecipe(contentRecipesPath, "SkillsToolKit");
                 //    await CopyRecipe(contentRecipesPath, "Taxonomies");
                 //    await CopyRecipe(contentRecipesPath, "TestPages");
+
+                //not sure why some of these are commented???
+                //await CopyRecipe(contentRecipesPath, "Alerts");
+                //await CopyRecipe(contentRecipesPath, "SkillsToolkit2");
             }
 
             await BatchSerializeToFiles(qcfLevelBuilder.QCFLevelContentItems, batchSize, $"{filenamePrefix}QCFLevels");
