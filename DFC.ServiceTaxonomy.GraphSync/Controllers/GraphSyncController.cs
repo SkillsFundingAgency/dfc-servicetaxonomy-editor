@@ -20,6 +20,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Controllers
         private readonly IValidateAndRepairGraph _validateAndRepairGraph;
         private readonly IAuthorizationService _authorizationService;
         private readonly IGraphSyncNotifier _notifier;
+        private readonly IGraphConsumerCommander _graphConsumerCommander;
         private readonly ILogger<GraphSyncController> _logger;
         private readonly ISynonymService _synonymService;
 
@@ -27,12 +28,14 @@ namespace DFC.ServiceTaxonomy.GraphSync.Controllers
             IValidateAndRepairGraph validateAndRepairGraph,
             IAuthorizationService authorizationService,
             IGraphSyncNotifier notifier,
+            IGraphConsumerCommander graphConsumerCommander,
             ILogger<GraphSyncController> logger,
             ISynonymService synonymService)
         {
             _validateAndRepairGraph = validateAndRepairGraph;
             _authorizationService = authorizationService;
             _notifier = notifier;
+            _graphConsumerCommander = graphConsumerCommander;
             _logger = logger;
             _synonymService = synonymService;
         }
@@ -104,6 +107,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Controllers
             try
             {
                 //todo:
+                await _graphConsumerCommander.GetGraphConsumers();
             }
             catch (Exception e)
             {

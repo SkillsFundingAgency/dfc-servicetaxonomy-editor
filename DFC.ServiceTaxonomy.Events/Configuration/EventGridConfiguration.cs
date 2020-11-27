@@ -9,6 +9,5 @@ namespace DFC.ServiceTaxonomy.Events.Configuration
         /// </summary>
         public bool PublishEvents { get; set; }
         public List<EventGridTopicConfiguration> Topics { get; set; } = new();
-        public string? SubscriptionsApiUrl { get; set; }
     }
 }

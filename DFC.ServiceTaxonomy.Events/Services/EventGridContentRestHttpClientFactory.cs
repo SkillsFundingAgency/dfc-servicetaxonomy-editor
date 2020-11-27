@@ -8,7 +8,7 @@ namespace DFC.ServiceTaxonomy.Events.Services
 {
     public class EventGridContentRestHttpClientFactory : IEventGridContentRestHttpClientFactory
     {
-        private static readonly ConcurrentDictionary<string, IRestHttpClient> _contentTypeRestClients = new ConcurrentDictionary<string, IRestHttpClient>();
+        private static readonly ConcurrentDictionary<string, IRestHttpClient> _contentTypeRestClients = new();
         private readonly IHttpClientFactory _httpClientFactory;
 
         public EventGridContentRestHttpClientFactory(IHttpClientFactory httpClientFactory)

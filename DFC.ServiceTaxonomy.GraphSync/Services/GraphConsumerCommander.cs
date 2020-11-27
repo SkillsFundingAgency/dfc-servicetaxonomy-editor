@@ -1,7 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using DFC.ServiceTaxonomy.Events.Configuration;
-using Microsoft.Extensions.Options;
+using System.Net.Http;
+using System.Linq;
+using System.Threading.Tasks;
+using DFC.ServiceTaxonomy.Events.Services;
+using DFC.ServiceTaxonomy.GraphSync.Services.Interface;
+using Microsoft.Azure.Management.EventGrid.Models;
 
 namespace DFC.ServiceTaxonomy.GraphSync.Services
 {
@@ -14,34 +18,54 @@ namespace DFC.ServiceTaxonomy.GraphSync.Services
 
     public class GraphConsumer
     {
+        public GraphConsumer(string name) => Name = name;
+
         // endpointBaseUrl
         public string? Name { get; set; }
+    }
+
+    public class GraphConsumerCommand
+    {
+        public string Id { get; set; }
+        public GraphConsumerCommand()
+        {
+            Id = Guid.NewGuid().ToString("D");
+        }
+
         public GraphConsumerStatus Status { get; set; }
     }
 
-    public class GraphConsumerCommander
+    public class GraphConsumerCommander : IGraphConsumerCommander
     {
-        private readonly IOptionsMonitor<EventGridConfiguration> _eventGridConfiguration;
-        private readonly List<GraphConsumer>? _graphConsumers;
+        public const string EventGridSubscriptionsHttpClientName = "EventGridSubscriptions";
+
+        private List<GraphConsumer>? _graphConsumers;
+        private readonly RestHttpClient _restHttpClient;
 
         public GraphConsumerCommander(
-            IOptionsMonitor<EventGridConfiguration> eventGridConfiguration)
+            IHttpClientFactory httpClientFactory)
         {
-            _eventGridConfiguration = eventGridConfiguration;
+            var httpClient = httpClientFactory.CreateClient(EventGridSubscriptionsHttpClientName);
+            _restHttpClient = new RestHttpClient(httpClient);
             _graphConsumers = null;
         }
 
-        public IEnumerable<GraphConsumer> GraphConsumers
+        public async Task<IEnumerable<GraphConsumer>> GetGraphConsumers()
         {
-            get
+            if (_graphConsumers == null)
             {
-                if (_graphConsumers == null)
-                {
-                    throw new NotImplementedException();
-                }
+                var allEventGridSubscriptions = await _restHttpClient.Get<IEnumerable<EventSubscription>>("");
 
-                return _graphConsumers;
+                _graphConsumers = allEventGridSubscriptions
+                    .Where(s => s.Filter.SubjectBeginsWith.StartsWith("")
+                                //todo: values
+                    || s.Filter.AdvancedFilters.Any(af => af.Key == "subject"))
+                    .Select(s => new GraphConsumer(s.Name))
+                    .ToList();
+
             }
+
+            return _graphConsumers;
         }
 
         public void InformConsumersGraphGoingDown()
