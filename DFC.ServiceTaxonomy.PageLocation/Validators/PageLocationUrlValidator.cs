@@ -25,19 +25,17 @@ namespace DFC.ServiceTaxonomy.PageLocation.Validators
             _taxonomyHelper = taxonomyHelper;
         }
 
-        public string? ErrorMessage { get; private set; }
-
-        public async Task<bool> Validate(JObject term, JObject taxonomy)
+        public async Task<(bool, string)> ValidateCreate(JObject term, JObject taxonomy)
         {
             if (!term.ContainsKey("PageLocation"))
             {
-                return true;
+                return (true, string.Empty);
             }
 
             string url = _taxonomyHelper.BuildTermUrl(term, taxonomy);
             //TODO: check whether or not we only care about published pages, but I think we care about both
             IEnumerable<ContentItem> contentItems = await _session.Query<ContentItem, PageLocationPartIndex>().ListAsync();
-            
+
             foreach (var contentItem in contentItems)
             {
                 ContentItem? draftContentItem = await _contentManager.GetAsync(contentItem.ContentItemId, VersionOptions.Draft);
@@ -52,18 +50,26 @@ namespace DFC.ServiceTaxonomy.PageLocation.Validators
 
                 if ((draftUrl?.Equals(url, StringComparison.OrdinalIgnoreCase) ?? false) || (pubUrl?.Equals(url, StringComparison.OrdinalIgnoreCase) ?? false))
                 {
-                    ErrorMessage = $"The generated URL for '{term["DisplayText"]}' has already been used as a {draftContentItem?.ContentType.CamelFriendly() ?? publishedContentItem!.ContentType.CamelFriendly()} URL.";
-                    return false;
+                    return (false, $"The generated URL for '{term["DisplayText"]}' has already been used as a {draftContentItem?.ContentType.CamelFriendly() ?? publishedContentItem!.ContentType.CamelFriendly()} URL.");
                 }
 
                 if ((draftRedirectLocations?.Any(x => x.Trim('/').Equals(url, StringComparison.OrdinalIgnoreCase)) ?? false) || (publishedRedirectLocations?.Any(x => x.Trim('/').Equals(url, StringComparison.OrdinalIgnoreCase)) ?? false))
                 {
-                    ErrorMessage = $"The generated URL for '{term["DisplayText"]}' has already been used as a {draftContentItem?.ContentType.CamelFriendly() ?? publishedContentItem!.ContentType.CamelFriendly()} Redirect Location";
-                    return false;
+                    return (false, $"The generated URL for '{term["DisplayText"]}' has already been used as a {draftContentItem?.ContentType.CamelFriendly() ?? publishedContentItem!.ContentType.CamelFriendly()} Redirect Location");
                 }
             }
 
-            return true;
+            return (true, string.Empty);
+        }
+
+        public Task<(bool, string)> ValidateUpdate(JObject term, JObject taxonomy)
+        {
+            return ValidateCreate(term, taxonomy);
+        }
+
+        public Task<(bool, string)> ValidateDelete(JObject term, JObject taxonomy)
+        {
+            return Task.FromResult((true, string.Empty));
         }
     }
 }
