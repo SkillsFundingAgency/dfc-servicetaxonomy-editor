@@ -1,11 +1,14 @@
-﻿using System;
+﻿#pragma warning disable
+using System;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Linq;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.Events.Services;
+using DFC.ServiceTaxonomy.GraphSync.Configuration;
 using DFC.ServiceTaxonomy.GraphSync.Services.Interface;
 using Microsoft.Azure.Management.EventGrid.Models;
+using Microsoft.Extensions.Options;
 
 namespace DFC.ServiceTaxonomy.GraphSync.Services
 {
@@ -43,27 +46,32 @@ namespace DFC.ServiceTaxonomy.GraphSync.Services
         private readonly RestHttpClient _restHttpClient;
 
         public GraphConsumerCommander(
-            IHttpClientFactory httpClientFactory)
+            IHttpClientFactory httpClientFactory,
+            IOptionsMonitor<EventGridSubscriptionsConfiguration> eventGridSubscriptionsConfiguration)
         {
+            //todo: not picking up the named instance...
             var httpClient = httpClientFactory.CreateClient(EventGridSubscriptionsHttpClientName);
+            // so need to do this
+            httpClient.BaseAddress = new Uri(eventGridSubscriptionsConfiguration.CurrentValue.SubscriptionsApiUrl!);
             _restHttpClient = new RestHttpClient(httpClient);
             _graphConsumers = null;
         }
 
         public async Task<IEnumerable<GraphConsumer>> GetGraphConsumers()
         {
-            if (_graphConsumers == null)
-            {
-                var allEventGridSubscriptions = await _restHttpClient.Get<IEnumerable<EventSubscription>>("");
+            //if (_graphConsumers == null)
+            //{
 
-                _graphConsumers = allEventGridSubscriptions
-                    .Where(s => s.Filter.SubjectBeginsWith.StartsWith("")
-                                //todo: values
-                    || s.Filter.AdvancedFilters.Any(af => af.Key == "subject"))
-                    .Select(s => new GraphConsumer(s.Name))
-                    .ToList();
+            var allEventGridSubscriptions = await _restHttpClient.GetUsingNewtonsoft<Page<EventSubscription>>("");
 
-            }
+            _graphConsumers = allEventGridSubscriptions
+                .Where(s => s.Filter.SubjectBeginsWith.StartsWith("")
+                //todo: values
+                || s.Filter.AdvancedFilters.Any(af => af.Key == "subject"))
+                .Select(s => new GraphConsumer(s.Name))
+                .ToList();
+
+            //}
 
             return _graphConsumers;
         }

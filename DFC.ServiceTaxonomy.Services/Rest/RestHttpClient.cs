@@ -44,6 +44,18 @@ namespace DFC.ServiceTaxonomy.Events.Services
             return Get(new Uri(uri, UriKind.RelativeOrAbsolute), queryData, cancellationToken);
         }
 
+        // we could add pluggable serializers/deserializers, but this will do the job for now
+        public async Task<T?> GetUsingNewtonsoft<T>(Uri uri, object? queryData = null, CancellationToken cancellationToken = default)
+        {
+            string contentJson = await Get(uri, queryData, cancellationToken).ConfigureAwait(false);
+            return Newtonsoft.Json.JsonConvert.DeserializeObject<T>(contentJson);
+        }
+
+        public Task<T?> GetUsingNewtonsoft<T>(string uri, object? queryData = null, CancellationToken cancellationToken = default)
+        {
+            return GetUsingNewtonsoft<T>(new Uri(uri, UriKind.RelativeOrAbsolute), queryData, cancellationToken);
+        }
+
         public async Task<TResponse?> PostAsJson<TResponse>(string uri, CancellationToken cancellationToken = default)
         {
             Stream result = await PostAsJson<object>(uri, null, cancellationToken).ConfigureAwait(false);

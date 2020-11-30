@@ -13,6 +13,12 @@ namespace DFC.ServiceTaxonomy.Services.Rest.Interfaces
         Task<T?> Get<T>(Uri uri, object? queryData = null, CancellationToken cancellationToken = default);
         Task<T?> Get<T>(string uri, object? queryData = null, CancellationToken cancellationToken = default);
 
+        Task<T?> GetUsingNewtonsoft<T>(Uri uri, object? queryData = null,
+            CancellationToken cancellationToken = default);
+
+        Task<T?> GetUsingNewtonsoft<T>(string uri, object? queryData = null,
+            CancellationToken cancellationToken = default);
+
         /// <summary>
         /// Post to an endpoint without a request body
         /// </summary>

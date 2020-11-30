@@ -1,5 +1,9 @@
 #ToDo
 
+* subscriptions api
+
+can we log when fails to start because cosmos (emulator) not running?
+
 * prod backup
 
 neo consumers subscribe to /graph/commands

@@ -7,7 +7,7 @@ namespace Microsoft.Extensions.DependencyInjection
 {
     public static class ServiceCollectionExtensions
     {
-
+        //todo: why is this called multiple times?
         public static void AddEventGridSubscriptionsApi(this IServiceCollection services, IConfiguration configuration)
         {
             var eventGridSection = configuration.GetSection("EventGridSubscriptions");
