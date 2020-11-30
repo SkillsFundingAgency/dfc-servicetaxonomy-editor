@@ -12,9 +12,10 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Helpers
 
         Task AddSyncComponents(JObject content, IGraphMergeContext context);
 
+        Task AddRelationship(JObject content, IDescribeRelationshipsContext context);
+
         Task<(bool validated, string failureReason)> ValidateSyncComponent(
             JObject content,
             IValidateAndRepairContext context);
-        Task AddRelationship(IDescribeRelationshipsContext context);
     }
 }

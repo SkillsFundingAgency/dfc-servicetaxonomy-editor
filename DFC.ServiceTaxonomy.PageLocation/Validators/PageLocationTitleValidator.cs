@@ -17,9 +17,7 @@ namespace DFC.ServiceTaxonomy.PageLocation.Validators
             _taxonomyHelper = taxonomyHelper;
         }
 
-        public string ErrorMessage => "'/' is not a valid Title for this page location";
-
-        public Task<bool> Validate(JObject term, JObject taxonomy)
+        public Task<(bool, string)> ValidateCreate(JObject term, JObject taxonomy)
         {
             ContentItem? termContentItem = term.ToObject<ContentItem>();
 
@@ -28,18 +26,31 @@ namespace DFC.ServiceTaxonomy.PageLocation.Validators
 
             if (termContentItem.Content.PageLocation == null)
             {
-                return Task.FromResult(true);
+                return Task.FromResult((true, string.Empty));
             }
 
             if (termContentItem.DisplayText.Trim() != "/")
-                return Task.FromResult(true);
+                return Task.FromResult((true, string.Empty));
 
             JObject? parent = _taxonomyHelper.FindParentTaxonomyTerm(term, taxonomy);
 
             if (parent == null)
                 throw new InvalidOperationException($"Could not find parent taxonomy term for {term}");
 
-            return Task.FromResult(parent.ToObject<ContentItem>()?.ContentType == ContentTypes.Taxonomy);
+            if (parent.ToObject<ContentItem>()?.ContentType == ContentTypes.Taxonomy)
+                return Task.FromResult((true, string.Empty));
+
+            return Task.FromResult((false, "'/' is not a valid Title for this page location"));
+        }
+
+        public Task<(bool, string)> ValidateUpdate(JObject term, JObject taxonomy)
+        {
+            return ValidateCreate(term, taxonomy);
+        }
+
+        public Task<(bool, string)> ValidateDelete(JObject term, JObject taxonomy)
+        {
+            return Task.FromResult((true, string.Empty));
         }
     }
 }

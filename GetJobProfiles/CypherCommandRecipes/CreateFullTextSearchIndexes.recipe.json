@@ -12,9 +12,10 @@
         {
             "name": "CypherCommand",
             "commands": [
-                "CALL db.index.fulltext.createNodeIndex(\"OccupationLabels\",[\"OccupationLabel\"],[\"skos__prefLabel\"], { analyzer: \"synonym-occupation\"})",
-                "CALL db.index.fulltext.createNodeIndex(\"SkillLabels\",[\"SkillLabel\"],[\"skos__prefLabel\"], { analyzer: \"synonym-skill\"})",
-                "CALL db.index.fulltext.createNodeIndex(\"JobProfiles\",[\"JobProfile\"],[\"skos__prefLabel\"], {analyser: \"english\"})"
+                "WITH 1 AS ignored WHERE NOT apoc.schema.node.indexExists(\"OccupationLabel\", [\"skos__prefLabel\"]) CALL db.index.fulltext.createNodeIndex(\"OccupationLabels\",[\"OccupationLabel\"],[\"skos__prefLabel\"], { analyzer: \"synonym-occupation\"}) return \"created\"",
+                "WITH 1 AS ignored WHERE NOT apoc.schema.node.indexExists(\"SkillLabel\", [\"skos__prefLabel\"]) CALL db.index.fulltext.createNodeIndex(\"SkillLabels\",[\"SkillLabel\"],[\"skos__prefLabel\"], { analyzer: \"synonym-skill\"}) return \"created\"",
+                "WITH 1 AS ignored WHERE NOT apoc.schema.node.indexExists(\"JobProfile\", [\"skos__prefLabel\"]) CALL db.index.fulltext.createNodeIndex(\"JobProfiles\",[\"JobProfile\"],[\"skos__prefLabel\"], {analyser: \"english\"}) return \"created\"",
+                "WITH 1 AS ignored WHERE NOT apoc.schema.node.indexExists(\"JobProfile\", [\"skos__prefLabel\",\"uri\"]) CALL db.index.fulltext.createNodeIndex(\"JobProfiles2\",[\"JobProfile\"],[\"skos__prefLabel\",\"uri\"]) return \"created\""
             ]
         }
     ]

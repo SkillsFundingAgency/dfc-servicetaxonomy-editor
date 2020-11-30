@@ -55,7 +55,7 @@
         {
             var updater = ModelUpdaterAccessor.ModelUpdater;
 
-            @foreach (JObject termObject in termsArray)
+            @foreach (JObject termObject in termsArray.OrderBy(term => (string)term["DisplayText"]))
             {
                 var term = termObject.ToObject<ContentItem>();
                 dynamic termShape = await ContentItemDisplayManager.BuildDisplayAsync(term, updater, "TermAdmin");

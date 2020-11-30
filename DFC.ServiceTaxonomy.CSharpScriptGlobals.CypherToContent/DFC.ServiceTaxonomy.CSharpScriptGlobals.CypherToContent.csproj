@@ -4,11 +4,13 @@
         <TargetFramework>netcoreapp3.1</TargetFramework>
         <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
         <Nullable>enable</Nullable>
+        <EnableNETAnalyzers>true</EnableNETAnalyzers>
+        <AnalysisLevel>latest</AnalysisLevel>
     </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="OrchardCore.ContentManagement" Version="1.0.0-rc4" />
-    <PackageReference Include="SonarAnalyzer.CSharp" Version="8.13.0.21683">
+    <PackageReference Include="OrchardCore.ContentManagement" Version="1.0.0-rc6" />
+    <PackageReference Include="SonarAnalyzer.CSharp" Version="8.14.0.22654">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>

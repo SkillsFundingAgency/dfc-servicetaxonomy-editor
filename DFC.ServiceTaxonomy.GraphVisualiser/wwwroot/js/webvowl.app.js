@@ -8588,7 +8588,11 @@ webvowl.app =
                                 }
                                 //todo: better handle error rather than just sit spinning
                             };
-                            xhttp.open("GET", "/visualise/data?contentItemId=" + contentItemId + "&graph=" + graph, true);
+                            let dataUrl = "/visualise/data";
+                            if (contentItemId!=null) {
+                                dataUrl += "?contentItemId=" + contentItemId + "&graph=" + graph;
+                            }
+                            xhttp.open("GET", dataUrl, true);
                             xhttp.send();
                         };
 

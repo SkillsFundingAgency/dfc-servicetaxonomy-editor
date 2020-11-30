@@ -30,7 +30,16 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Helpers
         string IdPropertyName();
         Task<string> GenerateIdPropertyValue();
 
+        object? GetNodeIdPropertyValue(
+            JObject graphSyncContent,
+            IContentItemVersion contentItemVersion);
+
+        string IdPropertyValueFromNodeValue(string nodeIdValue, IContentItemVersion contentItemVersion);
+
         // the following do not require ContentType to be set first
+        //todo: split up class into 2
+        #region stateless
+
         string IdPropertyName(string contentType);
         Task<string> GenerateIdPropertyValue(string contentType);
         string IdPropertyNameFromNodeLabels(IEnumerable<string> nodeLabels);
@@ -42,15 +51,21 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Helpers
 
         GraphSyncPartSettings GetGraphSyncPartSettings(string contentType);
 
-        object? GetIdPropertyValue(
+        object? GetAndConvertIdPropertyValue(
             JObject graphSyncContent,
             IContentItemVersion contentItemVersion,
             params IContentItemVersion[] fromContentItemVersions);
-        string IdPropertyValueFromNodeValue(string nodeIdValue, IContentItemVersion contentItemVersion);
-        string IdPropertyValueFromNodeValue(
+
+        object? GetEventIdPropertyValue(
+            JObject graphSyncContent,
+            IContentItemVersion contentItemVersion);
+
+        string ConvertIdPropertyValue(
             string nodeIdValue,
-            IContentItemVersion fromContentItemVersion,
-            IContentItemVersion toContentItemVersion);
+            IContentItemVersion toContentItemVersion,
+            params IContentItemVersion[] fromContentItemVersions);
+
+        #endregion stateless
     }
-    #pragma warning restore S4136
+#pragma warning restore S4136
 }

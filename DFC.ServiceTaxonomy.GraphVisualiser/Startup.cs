@@ -16,14 +16,19 @@ namespace DFC.ServiceTaxonomy.GraphVisualiser
 {
     public class Startup : StartupBase
     {
+        private readonly IConfiguration _configuration;
+
+        public Startup(IConfiguration configuration)
+        {
+            _configuration = configuration;
+        }
+
         public override void ConfigureServices(IServiceCollection services)
         {
-            // Configuration
-            var serviceProvider = services.BuildServiceProvider();
-            var configuration = serviceProvider.GetService<IConfiguration>();
-
+            // configuration
             //todo: extension method & move to editor startup
-            services.Configure<OwlDataGeneratorConfigModel>(configuration.GetSection(nameof(OwlDataGeneratorConfigModel)));
+            services.Configure<OwlDataGeneratorConfigModel>(_configuration.GetSection(nameof(OwlDataGeneratorConfigModel)));
+
             //todo:??
             //services.AddGraphCluster();
             services.AddTransient<INeo4JToOwlGeneratorService, Neo4JToOwlGeneratorService>();

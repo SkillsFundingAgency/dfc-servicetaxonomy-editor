@@ -6,6 +6,10 @@ namespace DFC.ServiceTaxonomy.GraphVisualiser.Services
 {
     public interface INeo4JToOwlGeneratorService
     {
-        OwlDataModel CreateOwlDataModels(long selectedNodeId, IEnumerable<INode> nodes, HashSet<IRelationship> relationships, string prefLabel);
+        OwlDataModel CreateOwlDataModels(
+            long? selectedNodeId,
+            IEnumerable<INode> nodes,
+            HashSet<IRelationship> relationships,
+            string prefLabel);
     }
 }

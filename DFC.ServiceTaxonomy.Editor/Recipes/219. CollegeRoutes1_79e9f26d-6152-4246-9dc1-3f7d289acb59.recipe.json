@@ -1,0 +1,679 @@
+{
+  "name": "CollegeRoutes1_79e9f26d-6152-4246-9dc1-3f7d289acb59",
+  "displayName": "CollegeRoutes1_79e9f26d-6152-4246-9dc1-3f7d289acb59",
+  "description": "",
+  "author": "",
+  "website": "",
+  "version": "",
+  "issetuprecipe": false,
+  "categories": "",
+  "tags": [],
+  "steps": [
+    {
+      "name": "ContentNoCache",
+      "data": [
+  {
+    "TitlePart": {
+      "Title": "Electronics engineering technician"
+    },
+    "CollegeRoute": {
+      "RelevantSubjects": {
+        "Html": "\u003Cp\u003EYou could take a college course, which would teach you some of the skills needed for this job. Relevant courses include:\u003Cul\u003E\u003Cli\u003ELevel 3 Diploma in Electrical and Electronic Engineering\u003C/li\u003E\u003Cli\u003ELevel 4 Higher National Certificate in Electronic Engineering\u003C/li\u003E\u003C/ul\u003E\u003C/p\u003E"
+      },
+      "FurtherInfo": {
+        "Html": ""
+      },
+      "RequirementsPrefix": {
+        "ContentItemIds": [
+          "4j77gj7pzcd980qapv1cb3r9mr"
+        ]
+      },
+      "Requirements": {
+        "ContentItemIds": [
+          "48ebq5bhmbaa27g8gw5vfnk35y",
+          "450hw1g71hx0grg26vk688cn5z"
+        ]
+      },
+      "Links": {
+        "ContentItemIds": [
+          "43tdxrbbxbdqp58z5yw3d7ehmq",
+          "4p7gcgfheazpa0pcpj25bhf04r",
+          "4nnzaavvaq6d35fypw4wbv5r5n"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/collegeroute/9d78f06f-edf1-4944-aafd-2d26d3e42c64"
+    },
+    "ContentItemId": "4qkswtyqmsy8hvnh6fxhebdext",
+    "ContentItemVersionId": "4gfcrrzcmd4wq62ap0phspx8mv",
+    "ContentType": "CollegeRoute",
+    "DisplayText": "Electronics engineering technician",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-11-16T14:29:58.9364270Z",
+    "PublishedUtc": "2020-11-16T14:29:58.9364270Z",
+    "CreatedUtc": "2020-11-16T14:29:58.9364270Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Film critic"
+    },
+    "CollegeRoute": {
+      "RelevantSubjects": {
+        "Html": "\u003Cp\u003EYou could do a college course, which would teach you some of the skills and knowledge you\u0027ll need for this job. Relevant courses include:\u003Cul\u003E\u003Cli\u003EA level Film Studies\u003C/li\u003E\u003Cli\u003ELevel 3 Certificate or Diploma in Journalism\u003C/li\u003E\u003C/ul\u003E\u003C/p\u003E"
+      },
+      "FurtherInfo": {
+        "Html": ""
+      },
+      "RequirementsPrefix": {
+        "ContentItemIds": [
+          "4cp30hhmesdx2t504a9vf4g64e"
+        ]
+      },
+      "Requirements": {
+        "ContentItemIds": [
+          "4ht9mbz67x7ayymdexzan64w4r"
+        ]
+      },
+      "Links": {
+        "ContentItemIds": [
+          "43tdxrbbxbdqp58z5yw3d7ehmq",
+          "4p7gcgfheazpa0pcpj25bhf04r",
+          "4nnzaavvaq6d35fypw4wbv5r5n"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/collegeroute/c18d3f3b-aef6-41c9-95c0-852a7d658244"
+    },
+    "ContentItemId": "4yyhqcx2t9dfdtg7mqfwz0tvnt",
+    "ContentItemVersionId": "4ee7tgz0wacbfvthkse87d7j4k",
+    "ContentType": "CollegeRoute",
+    "DisplayText": "Film critic",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-11-16T14:29:58.9364270Z",
+    "PublishedUtc": "2020-11-16T14:29:58.9364270Z",
+    "CreatedUtc": "2020-11-16T14:29:58.9364270Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Credit controller"
+    },
+    "CollegeRoute": {
+      "RelevantSubjects": {
+        "Html": "\u003Cp\u003EYou could do a Level 3 Certificate or Diploma in Financial Studies.\u003C/p\u003E"
+      },
+      "FurtherInfo": {
+        "Html": ""
+      },
+      "RequirementsPrefix": {
+        "ContentItemIds": [
+          "4nqzdnxbwv78byraq1mk2613nz"
+        ]
+      },
+      "Requirements": {
+        "ContentItemIds": []
+      },
+      "Links": {
+        "ContentItemIds": [
+          "4p7gcgfheazpa0pcpj25bhf04r",
+          "4nnzaavvaq6d35fypw4wbv5r5n"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/collegeroute/9afcd8cf-14f3-4bb3-abc1-38a3a152f278"
+    },
+    "ContentItemId": "4h0ypwk8qckcx688nd8wf8a6nt",
+    "ContentItemVersionId": "4rar77yy2zwc3ww34gv31g8rdn",
+    "ContentType": "CollegeRoute",
+    "DisplayText": "Credit controller",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-11-16T14:29:58.9364270Z",
+    "PublishedUtc": "2020-11-16T14:29:58.9364270Z",
+    "CreatedUtc": "2020-11-16T14:29:58.9364270Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Community development worker"
+    },
+    "CollegeRoute": {
+      "RelevantSubjects": {
+        "Html": "\u003Cp\u003EYou could take a college course, which may be useful when applying for a trainee development worker job. Courses include:\u003Cul\u003E\u003Cli\u003ELevel 2 and 3 Certificate in Community Development\u003C/li\u003E\u003Cli\u003ELevel 4 Higher National Certificate in Social and Community Work\u003C/li\u003E\u003C/ul\u003E\u003C/p\u003E"
+      },
+      "FurtherInfo": {
+        "Html": ""
+      },
+      "RequirementsPrefix": {
+        "ContentItemIds": [
+          "4nqzdnxbwv78byraq1mk2613nz"
+        ]
+      },
+      "Requirements": {
+        "ContentItemIds": []
+      },
+      "Links": {
+        "ContentItemIds": [
+          "4p7gcgfheazpa0pcpj25bhf04r",
+          "4nnzaavvaq6d35fypw4wbv5r5n"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/collegeroute/04db779b-06e2-4ec3-bb2b-75bd2e4e6e9b"
+    },
+    "ContentItemId": "4nzfqhrn7mvzg1bm003q9yby4f",
+    "ContentItemVersionId": "4p0qmrrpeaw1yzxhgry8yy5wn6",
+    "ContentType": "CollegeRoute",
+    "DisplayText": "Community development worker",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-11-16T14:29:58.9364270Z",
+    "PublishedUtc": "2020-11-16T14:29:58.9364270Z",
+    "CreatedUtc": "2020-11-16T14:29:58.9364270Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Local government administrative assistant"
+    },
+    "CollegeRoute": {
+      "RelevantSubjects": {
+        "Html": "\u003Cp\u003EYou could take a college course to learn some of the skills and knowledge needed in this job. Courses include:\u003Cul\u003E\u003Cli\u003ELevel 2 Certificate in the Principles of Business Administration\u003C/li\u003E\u003Cli\u003ELevel 3 Diploma in Business Administration\u003C/li\u003E\u003C/ul\u003E\u003C/p\u003E"
+      },
+      "FurtherInfo": {
+        "Html": ""
+      },
+      "RequirementsPrefix": {
+        "ContentItemIds": [
+          "4j77gj7pzcd980qapv1cb3r9mr"
+        ]
+      },
+      "Requirements": {
+        "ContentItemIds": [
+          "4ppgb2qh7ydt62mefy0bn7m3wh",
+          "48ebq5bhmbaa27g8gw5vfnk35y"
+        ]
+      },
+      "Links": {
+        "ContentItemIds": [
+          "43tdxrbbxbdqp58z5yw3d7ehmq",
+          "4p7gcgfheazpa0pcpj25bhf04r",
+          "4nnzaavvaq6d35fypw4wbv5r5n"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/collegeroute/7d2c2b96-438b-4d44-bf8e-95db61ef8abb"
+    },
+    "ContentItemId": "4rmhjq236y68x025a9g9t96tm0",
+    "ContentItemVersionId": "4rsej2hh1t6fmsfw1zn7cqn3d9",
+    "ContentType": "CollegeRoute",
+    "DisplayText": "Local government administrative assistant",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-11-16T14:29:58.9364270Z",
+    "PublishedUtc": "2020-11-16T14:29:58.9364270Z",
+    "CreatedUtc": "2020-11-16T14:29:58.9364270Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Healthcare assistant"
+    },
+    "CollegeRoute": {
+      "RelevantSubjects": {
+        "Html": "\u003Cp\u003EYou could do a college course, which may help you when looking for work. Courses include:\u003Cul\u003E\u003Cli\u003ELevel 2 Certificate in Work Preparation for Health and Social Care\u003C/li\u003E\u003Cli\u003ELevel 2 Diploma in Health and Social Care\u003C/li\u003E\u003Cli\u003ELevel 3 National Extended Diploma in Health and Social Care\u003C/li\u003E\u003C/ul\u003E\u003C/p\u003E\u003Cp\u003EMost health and social care courses include work placements, which is a good way to get experience.\u003C/p\u003E"
+      },
+      "FurtherInfo": {
+        "Html": ""
+      },
+      "RequirementsPrefix": {
+        "ContentItemIds": [
+          "4j77gj7pzcd980qapv1cb3r9mr"
+        ]
+      },
+      "Requirements": {
+        "ContentItemIds": [
+          "4ppgb2qh7ydt62mefy0bn7m3wh",
+          "48ebq5bhmbaa27g8gw5vfnk35y"
+        ]
+      },
+      "Links": {
+        "ContentItemIds": [
+          "43tdxrbbxbdqp58z5yw3d7ehmq",
+          "4p7gcgfheazpa0pcpj25bhf04r",
+          "4nnzaavvaq6d35fypw4wbv5r5n"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/collegeroute/d56f44e3-8067-44fe-9e2f-485203c04ac1"
+    },
+    "ContentItemId": "49v4rfetfb4q4wnxj0f6zmfx5e",
+    "ContentItemVersionId": "4pz6f089e2j9wv4rna07d0ajd4",
+    "ContentType": "CollegeRoute",
+    "DisplayText": "Healthcare assistant",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-11-16T14:29:58.9364270Z",
+    "PublishedUtc": "2020-11-16T14:29:58.9364270Z",
+    "CreatedUtc": "2020-11-16T14:29:58.9364270Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Market researcher"
+    },
+    "CollegeRoute": {
+      "RelevantSubjects": {
+        "Html": "\u003Cp\u003EYou could do a college course, which may be useful when looking for a job. Courses include:\u003Cul\u003E\u003Cli\u003ELevel 1 Certificate in Customer Service\u003C/li\u003E\u003Cli\u003ELevel 2 Certificate in Principles of Working in Customer Service\u003C/li\u003E\u003Cli\u003ELevel 2 Certificate in Principles of Marketing\u003C/li\u003E\u003C/ul\u003E\u003C/p\u003E"
+      },
+      "FurtherInfo": {
+        "Html": ""
+      },
+      "RequirementsPrefix": {
+        "ContentItemIds": [
+          "4j77gj7pzcd980qapv1cb3r9mr"
+        ]
+      },
+      "Requirements": {
+        "ContentItemIds": [
+          "4rzcymqtbt7g431phvqmckefct",
+          "4ppgb2qh7ydt62mefy0bn7m3wh"
+        ]
+      },
+      "Links": {
+        "ContentItemIds": [
+          "43tdxrbbxbdqp58z5yw3d7ehmq",
+          "4p7gcgfheazpa0pcpj25bhf04r",
+          "4nnzaavvaq6d35fypw4wbv5r5n"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/collegeroute/7e5865f3-526b-4344-b552-1357d3e7b2f2"
+    },
+    "ContentItemId": "4escgshf481jbvz2mq8mn45twk",
+    "ContentItemVersionId": "4mm8sbqvxavw65ysn37ytgz0w6",
+    "ContentType": "CollegeRoute",
+    "DisplayText": "Market researcher",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-11-16T14:29:58.9364270Z",
+    "PublishedUtc": "2020-11-16T14:29:58.9364270Z",
+    "CreatedUtc": "2020-11-16T14:29:58.9364270Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Foundry mould maker"
+    },
+    "CollegeRoute": {
+      "RelevantSubjects": {
+        "Html": "\u003Cp\u003EYou can do an engineering course at college, which may help when you start looking for work. Courses include:\u003Cul\u003E\u003Cli\u003ELevel 1 Certificate in Skills for Engineering\u003C/li\u003E\u003Cli\u003ELevel 1 Diploma in Engineering and Manufacturing\u003C/li\u003E\u003Cli\u003ELevel 2 Certificate in Engineering\u003C/li\u003E\u003C/ul\u003E\u003C/p\u003E"
+      },
+      "FurtherInfo": {
+        "Html": ""
+      },
+      "RequirementsPrefix": {
+        "ContentItemIds": [
+          "487e94bj40kyt0r6egfbknn34g"
+        ]
+      },
+      "Requirements": {
+        "ContentItemIds": [
+          "4rzcymqtbt7g431phvqmckefct",
+          "4ppgb2qh7ydt62mefy0bn7m3wh"
+        ]
+      },
+      "Links": {
+        "ContentItemIds": [
+          "43tdxrbbxbdqp58z5yw3d7ehmq",
+          "4p7gcgfheazpa0pcpj25bhf04r",
+          "4nnzaavvaq6d35fypw4wbv5r5n"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/collegeroute/3cb0f56f-943b-455b-a6ff-7a14e37cbfb5"
+    },
+    "ContentItemId": "4zw38fpbrrvvpz2q7cc2aejhdz",
+    "ContentItemVersionId": "43e3v4s32txg60jzyav15nmq4c",
+    "ContentType": "CollegeRoute",
+    "DisplayText": "Foundry mould maker",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-11-16T14:29:58.9364270Z",
+    "PublishedUtc": "2020-11-16T14:29:58.9364270Z",
+    "CreatedUtc": "2020-11-16T14:29:58.9364270Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Aerospace engineer"
+    },
+    "CollegeRoute": {
+      "RelevantSubjects": {
+        "Html": "\u003Cp\u003EYou can do a  higher national certificate (HNC) or diploma (HND) in engineering before applying for a job with an aerospace company. Subjects include:\u003Cul\u003E\u003Cli\u003ELevel 4 HNC Diploma in Mechanical Engineering\u003C/li\u003E\u003Cli\u003ELevel 5 HND Diploma in Aeronautical Engineering\u003C/li\u003E\u003Cli\u003ELevel 5 HND Diploma in Electrical Engineering\u003C/li\u003E\u003C/ul\u003E\u003C/p\u003E"
+      },
+      "FurtherInfo": {
+        "Html": ""
+      },
+      "RequirementsPrefix": {
+        "ContentItemIds": [
+          "487e94bj40kyt0r6egfbknn34g"
+        ]
+      },
+      "Requirements": {
+        "ContentItemIds": [
+          "450hw1g71hx0grg26vk688cn5z"
+        ]
+      },
+      "Links": {
+        "ContentItemIds": [
+          "43tdxrbbxbdqp58z5yw3d7ehmq",
+          "42qq7g46sz4t80ha4nq7mj1xdn",
+          "4nnzaavvaq6d35fypw4wbv5r5n"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/collegeroute/bccbf1f5-3a51-454a-bc50-636fb6eb9397"
+    },
+    "ContentItemId": "4rn0xkqrn83zp4mx16anvk2gxj",
+    "ContentItemVersionId": "45hxzeng4vcgz43zj2t0a3fjxq",
+    "ContentType": "CollegeRoute",
+    "DisplayText": "Aerospace engineer",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-11-16T14:29:58.9364270Z",
+    "PublishedUtc": "2020-11-16T14:29:58.9364270Z",
+    "CreatedUtc": "2020-11-16T14:29:58.9364270Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Online tutor"
+    },
+    "CollegeRoute": {
+      "RelevantSubjects": {
+        "Html": "\u003Cp\u003EYou could do a college course like the Level 3 Award in Education and Training to get some of the skills needed for this job. This is suitable if you\u0027re not yet in a teaching role or have limited teaching hours.\u003C/p\u003E"
+      },
+      "FurtherInfo": {
+        "Html": ""
+      },
+      "RequirementsPrefix": {
+        "ContentItemIds": [
+          "487e94bj40kyt0r6egfbknn34g"
+        ]
+      },
+      "Requirements": {
+        "ContentItemIds": [
+          "48ebq5bhmbaa27g8gw5vfnk35y"
+        ]
+      },
+      "Links": {
+        "ContentItemIds": [
+          "43tdxrbbxbdqp58z5yw3d7ehmq",
+          "4p7gcgfheazpa0pcpj25bhf04r",
+          "4nnzaavvaq6d35fypw4wbv5r5n"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/collegeroute/2ae2245c-9f89-48cf-854f-85c7f01b9e87"
+    },
+    "ContentItemId": "4nermczgewjwmrggdykanhe4dw",
+    "ContentItemVersionId": "4msscs6nwsdfbtnsw18b7883wj",
+    "ContentType": "CollegeRoute",
+    "DisplayText": "Online tutor",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-11-16T14:29:58.9364270Z",
+    "PublishedUtc": "2020-11-16T14:29:58.9364270Z",
+    "CreatedUtc": "2020-11-16T14:29:58.9364270Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Teaching assistant"
+    },
+    "CollegeRoute": {
+      "RelevantSubjects": {
+        "Html": "\u003Cp\u003EYou can take a college qualification to get started, for example:\u003Cul\u003E\u003Cli\u003ELevel 2 or 3 Certificate in Supporting Teaching and Learning in Schools\u003C/li\u003E\u003Cli\u003ELevel 3 Diploma in Childcare and Education\u003C/li\u003E\u003Cli\u003ET level in Education\u003C/li\u003E\u003C/ul\u003E\u003C/p\u003E"
+      },
+      "FurtherInfo": {
+        "Html": ""
+      },
+      "RequirementsPrefix": {
+        "ContentItemIds": [
+          "487e94bj40kyt0r6egfbknn34g"
+        ]
+      },
+      "Requirements": {
+        "ContentItemIds": [
+          "4ppgb2qh7ydt62mefy0bn7m3wh",
+          "48ebq5bhmbaa27g8gw5vfnk35y",
+          "48ge5dbqm69byygfd7y2k5gtxa"
+        ]
+      },
+      "Links": {
+        "ContentItemIds": [
+          "43tdxrbbxbdqp58z5yw3d7ehmq",
+          "43gx22r1scdcw0rebhvybhy74v",
+          "4p7gcgfheazpa0pcpj25bhf04r",
+          "4nnzaavvaq6d35fypw4wbv5r5n"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/collegeroute/0bbe08a8-4226-448e-b184-d5a902b3ed25"
+    },
+    "ContentItemId": "417ecxynkkzbs1nww2kfahs2m3",
+    "ContentItemVersionId": "4chayz1qngj90xnksz52q64ccs",
+    "ContentType": "CollegeRoute",
+    "DisplayText": "Teaching assistant",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-11-16T14:29:58.9364270Z",
+    "PublishedUtc": "2020-11-16T14:29:58.9364270Z",
+    "CreatedUtc": "2020-11-16T14:29:58.9364270Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Shopkeeper"
+    },
+    "CollegeRoute": {
+      "RelevantSubjects": {
+        "Html": "\u003Cp\u003EYou could do a college course, which may help if you\u0027re setting up your own business. Courses include:\u003Cul\u003E\u003Cli\u003ELevel 1 Business Start Up\u003C/li\u003E\u003Cli\u003ELevel 2 Certificate in Preparing to Set Up in a New Business\u003C/li\u003E\u003Cli\u003ELevel 3 Certificate in Business Essentials\u003C/li\u003E\u003C/ul\u003E\u003C/p\u003E"
+      },
+      "FurtherInfo": {
+        "Html": ""
+      },
+      "RequirementsPrefix": {
+        "ContentItemIds": [
+          "4nqzdnxbwv78byraq1mk2613nz"
+        ]
+      },
+      "Requirements": {
+        "ContentItemIds": []
+      },
+      "Links": {
+        "ContentItemIds": [
+          "4p7gcgfheazpa0pcpj25bhf04r",
+          "4nnzaavvaq6d35fypw4wbv5r5n"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/collegeroute/a8b9d6fa-c765-447e-8a1b-61565eeee132"
+    },
+    "ContentItemId": "4mh95yx2bv6me7ae4278mye7m1",
+    "ContentItemVersionId": "4nqmgrhz3f7121ey5t495eqddt",
+    "ContentType": "CollegeRoute",
+    "DisplayText": "Shopkeeper",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-11-16T14:29:58.9364270Z",
+    "PublishedUtc": "2020-11-16T14:29:58.9364270Z",
+    "CreatedUtc": "2020-11-16T14:29:58.9364270Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Audio-visual technician"
+    },
+    "CollegeRoute": {
+      "RelevantSubjects": {
+        "Html": "\u003Cp\u003EThere is no set entry route to become an audio-visual technician but it may be useful to do a college course like:Level 2 Technical Diploma in Digital Audio and Visual Production; Level 3 Diploma in Creative Media Production; Level 3 Certificate in Technical Theatre: Sound, Light and Stage\u003C/p\u003E\u003Cp\u003EThis would teach you some of the skills needed for the job. You could then try to find a trainee job with a theatre, college or events company. Some employers may prefer you to have experience of live events.\u003C/p\u003E"
+      },
+      "FurtherInfo": {
+        "Html": ""
+      },
+      "RequirementsPrefix": {
+        "ContentItemIds": [
+          "4j77gj7pzcd980qapv1cb3r9mr"
+        ]
+      },
+      "Requirements": {
+        "ContentItemIds": [
+          "4ppgb2qh7ydt62mefy0bn7m3wh",
+          "48ebq5bhmbaa27g8gw5vfnk35y"
+        ]
+      },
+      "Links": {
+        "ContentItemIds": [
+          "43tdxrbbxbdqp58z5yw3d7ehmq",
+          "4p7gcgfheazpa0pcpj25bhf04r",
+          "4nnzaavvaq6d35fypw4wbv5r5n"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/collegeroute/b90539d5-66b7-47df-af6b-14cb29d89395"
+    },
+    "ContentItemId": "4z0xazxt42c3pyqm664cym0sw0",
+    "ContentItemVersionId": "4jk7ykztg3z55wgh59w3qm9bdm",
+    "ContentType": "CollegeRoute",
+    "DisplayText": "Audio-visual technician",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-11-16T14:29:58.9364270Z",
+    "PublishedUtc": "2020-11-16T14:29:58.9364270Z",
+    "CreatedUtc": "2020-11-16T14:29:58.9364270Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Foster carer"
+    },
+    "CollegeRoute": {
+      "RelevantSubjects": {
+        "Html": "\u003Cp\u003EYou could prepare for foster work by taking a college qualification, though this is not essential. Courses include:\u003Cul\u003E\u003Cli\u003ELevel 1 Award in Introduction to Health, Social Care and Children\u0027s and Young People\u0027s Settings\u003C/li\u003E\u003Cli\u003ELevel 2 Award in Safeguarding and Protecting Children and Young People\u003C/li\u003E\u003Cli\u003ELevel 2 Certificate for the Children and Young People\u0027s Workforce\u003C/li\u003E\u003C/ul\u003E\u003C/p\u003E"
+      },
+      "FurtherInfo": {
+        "Html": ""
+      },
+      "RequirementsPrefix": {
+        "ContentItemIds": [
+          "4j77gj7pzcd980qapv1cb3r9mr"
+        ]
+      },
+      "Requirements": {
+        "ContentItemIds": [
+          "4rzcymqtbt7g431phvqmckefct",
+          "4ppgb2qh7ydt62mefy0bn7m3wh"
+        ]
+      },
+      "Links": {
+        "ContentItemIds": [
+          "43tdxrbbxbdqp58z5yw3d7ehmq",
+          "4p7gcgfheazpa0pcpj25bhf04r",
+          "4nnzaavvaq6d35fypw4wbv5r5n"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/collegeroute/426eb6e9-5e83-4f93-90ee-695fcc1e834e"
+    },
+    "ContentItemId": "4pb66agk0868ptnsyyxpcgyn48",
+    "ContentItemVersionId": "4p74bb5v6s9cww2pzeyhvgktwx",
+    "ContentType": "CollegeRoute",
+    "DisplayText": "Foster carer",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-11-16T14:29:58.9364270Z",
+    "PublishedUtc": "2020-11-16T14:29:58.9364270Z",
+    "CreatedUtc": "2020-11-16T14:29:58.9364270Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Engineering operative"
+    },
+    "CollegeRoute": {
+      "RelevantSubjects": {
+        "Html": "\u003Cp\u003EYou could take a college course to learn some of the skills needed for this job. Relevant courses include:\u003Cul\u003E\u003Cli\u003ELevel 2 Certificate in Engineering Operations\u003C/li\u003E\u003Cli\u003ELevel 2 Diploma in Engineering\u003C/li\u003E\u003Cli\u003ELevel 2 Diploma in Mechanical Engineering\u003C/li\u003E\u003C/ul\u003E\u003C/p\u003E\u003Cp\u003EYou could also do a qualification aimed at a particular industry, for example a Level 2 Diploma in Introduction to Renewable Energy Engineering.\u003C/p\u003E"
+      },
+      "FurtherInfo": {
+        "Html": ""
+      },
+      "RequirementsPrefix": {
+        "ContentItemIds": [
+          "487e94bj40kyt0r6egfbknn34g"
+        ]
+      },
+      "Requirements": {
+        "ContentItemIds": [
+          "4ppgb2qh7ydt62mefy0bn7m3wh"
+        ]
+      },
+      "Links": {
+        "ContentItemIds": [
+          "43tdxrbbxbdqp58z5yw3d7ehmq",
+          "4p7gcgfheazpa0pcpj25bhf04r",
+          "4nnzaavvaq6d35fypw4wbv5r5n"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/collegeroute/c498d8e8-5df7-46d1-8960-ef4c1597a485"
+    },
+    "ContentItemId": "4qyx6eyh0spj0s6kjcrmqd0kd1",
+    "ContentItemVersionId": "4sk1cy2k9y28n02tasae1fnjwy",
+    "ContentType": "CollegeRoute",
+    "DisplayText": "Engineering operative",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-11-16T14:29:58.9364270Z",
+    "PublishedUtc": "2020-11-16T14:29:58.9364270Z",
+    "CreatedUtc": "2020-11-16T14:29:58.9364270Z",
+    "Owner": "admin",
+    "Author": "admin"
+  }
+      ]
+    }
+  ]
+}

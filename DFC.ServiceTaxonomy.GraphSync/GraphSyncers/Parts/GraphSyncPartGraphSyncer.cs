@@ -3,7 +3,6 @@ using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Contexts;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Parts;
 using DFC.ServiceTaxonomy.GraphSync.Models;
 using Newtonsoft.Json.Linq;
-using OrchardCore.ContentManagement;
 
 namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
 {
@@ -14,7 +13,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
 
         public override Task AddSyncComponents(JObject content, IGraphMergeContext context)
         {
-            object? idValue = context.SyncNameProvider.GetIdPropertyValue(content, context.ContentItemVersion);
+            object? idValue = context.SyncNameProvider.GetNodeIdPropertyValue(content, context.ContentItemVersion);
             if (idValue != null)
             {
                 // id is added as a special case as part of SyncAllowed,
@@ -42,6 +41,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
             JObject content,
             IValidateAndRepairContext context)
         {
+            //todo: assumes string id
             return Task.FromResult(context.GraphValidationHelper.ContentPropertyMatchesNodeProperty(
                 context.SyncNameProvider.ContentIdPropertyName,
                 content,

@@ -3,6 +3,10 @@ using OrchardCore.ContentManagement.Metadata.Models;
 
 namespace DFC.ServiceTaxonomy.GraphSync.OrchardCore.Wrappers
 {
+    /// <summary>
+    /// Delegates everything to the wrapped ContentPartFieldDefinition.
+    /// Useful for unit testing.
+    /// </summary>
     public class ContentPartFieldDefinitionWrapper : IContentPartFieldDefinition
     {
         private readonly ContentPartFieldDefinition _contentPartFieldDefinition;
