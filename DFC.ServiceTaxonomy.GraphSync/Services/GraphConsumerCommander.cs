@@ -62,18 +62,33 @@ namespace DFC.ServiceTaxonomy.GraphSync.Services
             //if (_graphConsumers == null)
             //{
 
+            const string commandHandlerSubjectPrefix = "/graph/commands/handler/";
+
             var allEventGridSubscriptions = await _restHttpClient.GetUsingNewtonsoft<Page<EventSubscription>>("");
 
+            //todo: if multiple advanced filters, they are ANDed together, so how do we handle that?
+
             _graphConsumers = allEventGridSubscriptions
-                .Where(s => s.Filter.SubjectBeginsWith.StartsWith("")
-                //todo: values
-                || s.Filter.AdvancedFilters.Any(af => af.Key == "subject"))
+                .Where(s => IsHandler(commandHandlerSubjectPrefix, s.Filter.SubjectBeginsWith)
+                                                                  //todo: values
+                                                                  || s.Filter.AdvancedFilters.OfType<StringBeginsWithAdvancedFilter>().Any(af =>
+                                                                      af.Key == "subject"
+                                                                      && af.Values.Any(v => IsHandler(commandHandlerSubjectPrefix, v))))
                 .Select(s => new GraphConsumer(s.Name))
                 .ToList();
 
             //}
 
             return _graphConsumers;
+        }
+
+        //todo: unit test
+        private bool IsHandler(string commandHandlerSubjectPrefix, string filterValue)
+        {
+            if (commandHandlerSubjectPrefix.Length > filterValue.Length)
+                return commandHandlerSubjectPrefix.StartsWith(filterValue);
+
+            return filterValue.StartsWith(commandHandlerSubjectPrefix);
         }
 
         public void InformConsumersGraphGoingDown()

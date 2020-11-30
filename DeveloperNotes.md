@@ -6,7 +6,7 @@ can we log when fails to start because cosmos (emulator) not running?
 
 * prod backup
 
-neo consumers subscribe to /graph/commands
+neo consumers subscribe to /graph/commands/handler/
 
 admin menu ui: Graph Operations (or similar) with permissions
 
