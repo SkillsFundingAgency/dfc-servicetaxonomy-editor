@@ -1,10 +1,26 @@
 #ToDo
 
+* add version on front page
+
+* log event data
+
 * subscriptions api
 
 can we log when fails to start because cosmos (emulator) not running?
 
 * prod backup
+
+it's too fraught with difficulties and pitfalls to auto fetch all consumers who are subscribed to the graph control events
+e.g. they might be subscribed to /graph/control, but not interested in handling stop & start events (is that valid)
+also for AND advanced filters, how do we know if the other term is met?
+at least for MVP, config the consumers required to send a response before taking down the graph
+
+have graphwriteprotect singleton that neo library checks, and if protected throw (as a backup)
+but inject it into merge/verify etc to cut off the write asap
+check operation is cancelled
+would be better to redirect all but the control page to a maintenance page if possible/also
+
+once read replica message is received, set replica to disabled, and use multi-threaded reference count to wait for all in-flight reads to finish
 
 neo consumers subscribe to /graph/commands/handler/
 

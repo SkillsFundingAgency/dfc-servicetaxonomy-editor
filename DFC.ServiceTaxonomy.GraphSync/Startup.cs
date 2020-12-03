@@ -172,8 +172,7 @@ namespace DFC.ServiceTaxonomy.GraphSync
             services.AddSingleton<INeutralEventContentItemVersion>(new NeutralEventContentItemVersion());
             services.AddSingleton<ISuperpositionContentItemVersion>(new SuperpositionContentItemVersion());
             services.AddSingleton<IEscoContentItemVersion>(new EscoContentItemVersion());
-            services.AddEventGridSubscriptionsApi(_configuration);
-            services.AddSingleton<IGraphConsumerCommander, GraphConsumerCommander>();
+            services.AddGraphCommander(_configuration);
 
             // permissions
             services.AddScoped<IPermissionProvider, Permissions>();

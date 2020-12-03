@@ -1,12 +1,61 @@
 ﻿@using DFC.ServiceTaxonomy.GraphSync.Services
 @model DumpControlViewModel
 
-    <h1 class="text-center">Dump Control</h1>
+<h1 class="text-center">Dump Control</h1>
+
+@if (Model.GraphConsumers != null)
+{
+    <h2 class="mt-2"><strong>Graph Consumers</strong></h2>
+
+    <form>
+        <label>Graph Replica</label>
+
+        <div class="form-group">
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <label class="input-group-text" for="graphReplicaSet">Set</label>
+                </div>
+                <select class="custom-select" id="graphReplicaSet">
+                    <option value="published">Published</option>
+                    <option value="preview">Preview</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <label class="input-group-text" for="graphReplicaOrdinal">Ordinal</label>
+                </div>
+                <select class="custom-select" id="graphReplicaOrdinal">
+                    <option value="0">0</option>
+                    <option value="1">1</option>
+                </select>
+            </div>
+        </div>
+
+    </form>
+
+    <ul id="todo" class="list-group mb-3">
+    @foreach (var graphConsumer in Model.GraphConsumers)
+    {
+        <li class="list-group-item" style=" color: #495057; background-color: #e9ecef;">
+            <span>@graphConsumer.Name</span>
+            <span>
+                @{ ShowStatus(graphConsumer.Status); }
+            </span>
+        </li>
+    }
+    </ul>
+}
 
 @functions
 {
-    private void ShowStatus(GraphConsumerStatus status)
+    private void ShowStatus(GraphConsumerStatus? status)
     {
+        if (status == null)
+            return;
+
         switch (status)
         {
             case GraphConsumerStatus.InProgress:

@@ -104,17 +104,18 @@ namespace DFC.ServiceTaxonomy.GraphSync.Controllers
                 return Forbid();
             }
 
+            DumpControlViewModel viewModel = new DumpControlViewModel();
             try
             {
                 //todo:
-                await _graphConsumerCommander.GetGraphConsumers();
+                viewModel.GraphConsumers = _graphConsumerCommander.GraphConsumers;
             }
             catch (Exception e)
             {
                 _logger.LogWarning(e, "Dump cannot be controlled.");
                 await _notifier.Add("Unable to control dump.", exception: e);
             }
-            return View(new DumpControlViewModel());
+            return View(viewModel);
         }
     }
 }
