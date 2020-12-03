@@ -1,6 +1,6 @@
 ﻿{
-    "name": "",
-    "displayName": "",
+    "name": "01_DefaultHomePage",
+    "displayName": "01_DefaultHomePage",
     "description": "",
     "author": "",
     "website": "",
@@ -10,7 +10,7 @@
     "tags": [],
     "steps": [
         {
-            "name": "content",
+            "name": "contentnocache",
             "data": [
                 {
                     "ContentItemId": "48566466e5ne13m8htm8emacmx",
@@ -22,8 +22,8 @@
                     "ModifiedUtc": "2020-12-03T09:02:18.5872998Z",
                     "PublishedUtc": "2020-12-03T09:02:18.6648398Z",
                     "CreatedUtc": "2020-12-03T09:02:18.5872998Z",
-                    "Owner": "admin",
-                    "Author": "admin",
+                    "Owner": "StaxEditorAdmin",
+                    "Author": "StaxEditorAdmin",
                     "TitlePart": {
                         "Title": "Dummy Homepage"
                     },
