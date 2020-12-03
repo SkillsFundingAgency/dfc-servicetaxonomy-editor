@@ -4,7 +4,7 @@ using System.Net.Http;
 using System.Runtime.Serialization;
 using System.Security.Permissions;
 
-namespace DFC.ServiceTaxonomy.Events.Services.Exceptions
+namespace DFC.ServiceTaxonomy.Services.Rest.Exceptions
 {
 #pragma warning disable S3925
     [Serializable]

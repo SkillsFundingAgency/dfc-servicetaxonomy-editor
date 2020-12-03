@@ -14,6 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.Azure.Management.EventGrid" Version="6.0.0" />
     <PackageReference Include="Microsoft.CodeAnalysis.CSharp.Scripting" Version="3.8.0" />
     <PackageReference Include="morelinq" Version="3.3.2" />
     <PackageReference Include="OrchardCore.Alias" Version="1.0.0-rc6" />
@@ -50,10 +51,6 @@
     <ProjectReference Include="..\DFC.ServiceTaxonomy.Slack\DFC.ServiceTaxonomy.Slack.csproj" />
     <ProjectReference Include="..\DFC.ServiceTaxonomy.Taxonomies\DFC.ServiceTaxonomy.Taxonomies.csproj" />
     <ProjectReference Include="..\DFC.ServiceTaxonomy.UnpublishLater\DFC.ServiceTaxonomy.UnpublishLater.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Neo4j\Commands\Interfaces" />
   </ItemGroup>
 
 </Project>

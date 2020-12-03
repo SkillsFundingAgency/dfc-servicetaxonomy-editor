@@ -4,7 +4,7 @@ using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace DFC.ServiceTaxonomy.Events.Services.Interfaces
+namespace DFC.ServiceTaxonomy.Services.Rest.Interfaces
 {
     public interface IRestHttpClient
     {
@@ -12,6 +12,12 @@ namespace DFC.ServiceTaxonomy.Events.Services.Interfaces
         Task<string> Get(string uri, object? queryData = null, CancellationToken cancellationToken = default);
         Task<T?> Get<T>(Uri uri, object? queryData = null, CancellationToken cancellationToken = default);
         Task<T?> Get<T>(string uri, object? queryData = null, CancellationToken cancellationToken = default);
+
+        Task<T?> GetUsingNewtonsoft<T>(Uri uri, object? queryData = null,
+            CancellationToken cancellationToken = default);
+
+        Task<T?> GetUsingNewtonsoft<T>(string uri, object? queryData = null,
+            CancellationToken cancellationToken = default);
 
         /// <summary>
         /// Post to an endpoint without a request body

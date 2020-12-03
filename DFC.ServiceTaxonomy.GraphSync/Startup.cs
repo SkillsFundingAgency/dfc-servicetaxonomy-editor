@@ -70,7 +70,6 @@ namespace DFC.ServiceTaxonomy.GraphSync
 
         public override void ConfigureServices(IServiceCollection services)
         {
-
             services.Configure<GraphSyncSettings>(_configuration.GetSection(nameof(GraphSyncSettings)));
 
             // recipe steps
@@ -173,6 +172,7 @@ namespace DFC.ServiceTaxonomy.GraphSync
             services.AddSingleton<INeutralEventContentItemVersion>(new NeutralEventContentItemVersion());
             services.AddSingleton<ISuperpositionContentItemVersion>(new SuperpositionContentItemVersion());
             services.AddSingleton<IEscoContentItemVersion>(new EscoContentItemVersion());
+            services.AddGraphCommander(_configuration);
 
             // permissions
             services.AddScoped<IPermissionProvider, Permissions>();

@@ -2,12 +2,13 @@
 using System.Net.Http;
 using DFC.ServiceTaxonomy.Events.Services.Exceptions;
 using DFC.ServiceTaxonomy.Events.Services.Interfaces;
+using DFC.ServiceTaxonomy.Services.Rest.Interfaces;
 
 namespace DFC.ServiceTaxonomy.Events.Services
 {
     public class EventGridContentRestHttpClientFactory : IEventGridContentRestHttpClientFactory
     {
-        private static readonly ConcurrentDictionary<string, IRestHttpClient> _contentTypeRestClients = new ConcurrentDictionary<string, IRestHttpClient>();
+        private static readonly ConcurrentDictionary<string, IRestHttpClient> _contentTypeRestClients = new();
         private readonly IHttpClientFactory _httpClientFactory;
 
         public EventGridContentRestHttpClientFactory(IHttpClientFactory httpClientFactory)

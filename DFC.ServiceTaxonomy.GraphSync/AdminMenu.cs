@@ -37,6 +37,12 @@ namespace DFC.ServiceTaxonomy.GraphSync
                             area = typeof(Startup)!.Namespace,
                             scope = ValidationScope.ModifiedSinceLastValidation
                         }))
+                .Add(S["Dump Control"], "4", dumpControl => dumpControl
+                    .Permission(Permissions.AdministerGraphs)
+                    .Action("DumpControl", "GraphSync", new
+                    {
+                        area = typeof(Startup)!.Namespace
+                    }))
                 );
 
             return Task.CompletedTask;

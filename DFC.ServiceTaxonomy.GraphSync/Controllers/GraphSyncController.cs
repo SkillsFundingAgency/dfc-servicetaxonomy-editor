@@ -20,6 +20,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Controllers
         private readonly IValidateAndRepairGraph _validateAndRepairGraph;
         private readonly IAuthorizationService _authorizationService;
         private readonly IGraphSyncNotifier _notifier;
+        private readonly IGraphConsumerCommander _graphConsumerCommander;
         private readonly ILogger<GraphSyncController> _logger;
         private readonly ISynonymService _synonymService;
 
@@ -27,12 +28,14 @@ namespace DFC.ServiceTaxonomy.GraphSync.Controllers
             IValidateAndRepairGraph validateAndRepairGraph,
             IAuthorizationService authorizationService,
             IGraphSyncNotifier notifier,
+            IGraphConsumerCommander graphConsumerCommander,
             ILogger<GraphSyncController> logger,
             ISynonymService synonymService)
         {
             _validateAndRepairGraph = validateAndRepairGraph;
             _authorizationService = authorizationService;
             _notifier = notifier;
+            _graphConsumerCommander = graphConsumerCommander;
             _logger = logger;
             _synonymService = synonymService;
         }
@@ -91,6 +94,28 @@ namespace DFC.ServiceTaxonomy.GraphSync.Controllers
                 ValidateAndRepairResults = validateAndRepairResults,
                 Scope = scope
             });
+        }
+
+        [Admin]
+        public async Task<IActionResult> DumpControl()
+        {
+            if (!await _authorizationService.AuthorizeAsync(User, Permissions.AdministerGraphs))
+            {
+                return Forbid();
+            }
+
+            DumpControlViewModel viewModel = new DumpControlViewModel();
+            try
+            {
+                //todo:
+                viewModel.GraphConsumers = _graphConsumerCommander.GraphConsumers;
+            }
+            catch (Exception e)
+            {
+                _logger.LogWarning(e, "Dump cannot be controlled.");
+                await _notifier.Add("Unable to control dump.", exception: e);
+            }
+            return View(viewModel);
         }
     }
 }

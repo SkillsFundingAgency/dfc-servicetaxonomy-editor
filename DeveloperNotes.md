@@ -1,5 +1,65 @@
 #ToDo
 
+* add version on front page
+
+* log event data
+
+* subscriptions api
+
+can we log when fails to start because cosmos (emulator) not running?
+
+* prod backup
+
+it's too fraught with difficulties and pitfalls to auto fetch all consumers who are subscribed to the graph control events
+e.g. they might be subscribed to /graph/control, but not interested in handling stop & start events (is that valid)
+also for AND advanced filters, how do we know if the other term is met?
+at least for MVP, config the consumers required to send a response before taking down the graph
+
+have graphwriteprotect singleton that neo library checks, and if protected throw (as a backup)
+but inject it into merge/verify etc to cut off the write asap
+check operation is cancelled
+would be better to redirect all but the control page to a maintenance page if possible/also
+
+once read replica message is received, set replica to disabled, and use multi-threaded reference count to wait for all in-flight reads to finish
+
+neo consumers subscribe to /graph/commands/handler/
+
+admin menu ui: Graph Operations (or similar) with permissions
+
+get all subscribers to publish /graph/commands/handler/stop-replica
+
+subscribe to /graph/commands/reply/stop-replica
+
+user selects graph-replica, clicks stop button
+
+disable (at least) graph repairs and graph sync, but better to replace all page requests (except for graph operations page) with maintenance page
+
+publish /graph/commands/handler/stop-replica/published/0, with operation guid (tie into traceid?)
+
+consumers receive, disable replica and wait for all request to replica to finish
+
+consumers publish /graph/commands/reply/stop-replica/published/0
+
+wait for all subscribers to publish reply matching operation guid
+
+show ticks next to subscribers that have stopped (auto page refresh? let user refresh? signalr or equivalent probably overkill)
+
+once all ticked, let user know dump can be taken of graph (show instructions?)
+
+once user clicks backup taken
+
+publish /graph/commands/handler/start-replica/published/0
+
+wait for all replies, showing result to operator
+
+or cmd line (to do backup would need to be run inside noe container in k8s)
+
+publish /graph/commands/stop-replica
+
+show operation id to user - have facility to restart replicas, in case something goes wrong and they need to send out another start
+
+if the replica is running, that should be a no-op, apart from sending the reply
+
 * pre-populate custom graph sync settings to represent the real defaults
 * add visualisation settings into read only set
 * can't reset focus on a pagelocation, nor visualise it from the editor

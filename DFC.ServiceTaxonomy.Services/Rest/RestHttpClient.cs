@@ -7,8 +7,8 @@ using System.Net.Http.Json;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
-using DFC.ServiceTaxonomy.Events.Services.Exceptions;
-using DFC.ServiceTaxonomy.Events.Services.Interfaces;
+using DFC.ServiceTaxonomy.Services.Rest.Exceptions;
+using DFC.ServiceTaxonomy.Services.Rest.Interfaces;
 using Microsoft.AspNetCore.WebUtilities;
 
 namespace DFC.ServiceTaxonomy.Events.Services
@@ -42,6 +42,18 @@ namespace DFC.ServiceTaxonomy.Events.Services
         public Task<string> Get(string uri, object? queryData = null, CancellationToken cancellationToken = default)
         {
             return Get(new Uri(uri, UriKind.RelativeOrAbsolute), queryData, cancellationToken);
+        }
+
+        // we could add pluggable serializers/deserializers, but this will do the job for now
+        public async Task<T?> GetUsingNewtonsoft<T>(Uri uri, object? queryData = null, CancellationToken cancellationToken = default)
+        {
+            string contentJson = await Get(uri, queryData, cancellationToken).ConfigureAwait(false);
+            return Newtonsoft.Json.JsonConvert.DeserializeObject<T>(contentJson);
+        }
+
+        public Task<T?> GetUsingNewtonsoft<T>(string uri, object? queryData = null, CancellationToken cancellationToken = default)
+        {
+            return GetUsingNewtonsoft<T>(new Uri(uri, UriKind.RelativeOrAbsolute), queryData, cancellationToken);
         }
 
         public async Task<TResponse?> PostAsJson<TResponse>(string uri, CancellationToken cancellationToken = default)
