@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -34,13 +35,46 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services
 
         public Task<List<T>> Run<T>(params IQuery<T>[] queries)
         {
-            int instance = _limitToGraphInstance ?? unchecked(++_currentInstance) % InstanceCount;
+            Graph? graphInstance;
 
-            return _graphInstances[instance].Run(queries);
+            if (_limitToGraphInstance != null)
+            {
+                graphInstance = _graphInstances[_limitToGraphInstance.Value];
+                if (!graphInstance.Enabled)
+                    throw new InvalidOperationException($"GraphReplicaSet in single replica mode, but replica #{_limitToGraphInstance.Value} is disabled. ");
+            }
+            else if (EnabledInstanceCount < InstanceCount)
+            {
+                // should we even allow all replicas to be disabled?
+                if (EnabledInstanceCount == 0)
+                    throw new InvalidOperationException("No enabled replicas to run query against.");
+
+                //todo: do we set _currentInstance to 0 when any graph is enabled/disabled?
+                if (_currentInstance >= EnabledInstanceCount)
+                {
+                    _currentInstance = 0;
+                    graphInstance = _graphInstances[0];
+                }
+                else
+                {
+                    int instance = unchecked(++_currentInstance) % EnabledInstanceCount;
+                    //todo: how to do this safely without excessive locking
+                    graphInstance = _graphInstances.Where(g => g.Enabled).Skip(instance).First();
+                }
+            }
+            else
+            {
+                // fast path, simple round-robin read
+                graphInstance = _graphInstances[unchecked(++_currentInstance) % InstanceCount];
+            }
+
+            return graphInstance.Run(queries);
         }
 
         public Task Run(params ICommand[] commands)
         {
+            //todo: need to update run command too
+
             if (_limitToGraphInstance != null)
                 return _graphInstances[_limitToGraphInstance.Value].Run(commands);
 

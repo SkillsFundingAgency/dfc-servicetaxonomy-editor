@@ -61,6 +61,8 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services.Internal
         {
             try
             {
+                //todo: check here also if disabled and throw?
+
                 Interlocked.Increment(ref _inFlightCount);
                 return Endpoint.Run(queries, GraphName, DefaultGraph);
             }
@@ -74,6 +76,8 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services.Internal
         {
             try
             {
+                //todo: check here also if disabled and throw?
+
                 Interlocked.Increment(ref _inFlightCount);
                 return Endpoint.Run(commands, GraphName, DefaultGraph);
             }
