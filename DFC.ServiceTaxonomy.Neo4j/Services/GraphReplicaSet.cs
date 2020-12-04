@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces;
 using DFC.ServiceTaxonomy.Neo4j.Queries.Interfaces;
@@ -18,7 +19,7 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services
         {
             Name = name;
             _graphInstances = graphInstances.ToArray();
-            InstanceCount = _graphInstances.Length;
+            _enabledInstanceCount = InstanceCount = _graphInstances.Length;
             //todo: check in range
             _limitToGraphInstance = limitToGraphInstance;
             _currentInstance = -1;
@@ -26,7 +27,9 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services
 
         public string Name { get; }
         public int InstanceCount { get; }
+        public int EnabledInstanceCount => (int)Interlocked.Read(ref _enabledInstanceCount);
 
+        protected long _enabledInstanceCount;
         private int _currentInstance;
 
         public Task<List<T>> Run<T>(params IQuery<T>[] queries)

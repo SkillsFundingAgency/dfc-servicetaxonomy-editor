@@ -15,6 +15,7 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services.Internal
         public INeoEndpoint Endpoint { get; }
 
         private long _inFlightCount;
+        //todo: do we need thread safety for the bool?
         private bool _enabled;
 
         public bool Enabled
@@ -30,9 +31,13 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services.Internal
                 {
                     //todo: timeout?
                     //todo: best way to synchronise?
+                    //todo: exit loop if replica reenabled before all in-flight finished
                     // flush any in-flight commands/queries
                     while (Interlocked.Read(ref _inFlightCount) > 0)
                     {
+                        if (_enabled)
+                            break;
+
                         Thread.Sleep(100);
                     }
                 }
