@@ -76,10 +76,19 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services
             //todo: need to update run command too
 
             if (_limitToGraphInstance != null)
-                return _graphInstances[_limitToGraphInstance.Value].Run(commands);
+            {
+                Graph graph = _graphInstances[_limitToGraphInstance.Value];
+                if (!graph.Enabled)
+                    throw new InvalidOperationException($"GraphReplicaSet in single replica mode, but replica #{_limitToGraphInstance.Value} is disabled. ");
 
-            var commandTasks = _graphInstances.Select(g => g.Run(commands));
-            return Task.WhenAll(commandTasks);
+                return graph.Run(commands);
+            }
+
+            IEnumerable<Graph> commandGraphs = EnabledInstanceCount < InstanceCount
+                ? _graphInstances.Where(g => g.Enabled)
+                : _graphInstances;
+
+            return Task.WhenAll(commandGraphs.Select(g => g.Run(commands)));
         }
 
         public override string ToString()
