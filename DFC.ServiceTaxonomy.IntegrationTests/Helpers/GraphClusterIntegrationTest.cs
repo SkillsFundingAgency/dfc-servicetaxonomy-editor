@@ -12,21 +12,19 @@ namespace DFC.ServiceTaxonomy.IntegrationTests.Helpers
 {
     public class GraphClusterIntegrationTest
     {
-        public const int NumberOfReplicasConfiguredForPublishedSet = 2;
+        internal const int NumberOfReplicasConfiguredForPublishedSet = 2;
 
         internal GraphClusterLowLevel GraphClusterLowLevel { get; }
-
-        public ITestOutputHelper TestOutputHelper { get; }
-        private readonly GraphClusterCollectionFixture _graphClusterCollectionFixture;
+        internal ITestOutputHelper TestOutputHelper { get; }
 
         internal GraphClusterIntegrationTest(
             GraphClusterCollectionFixture graphClusterCollectionFixture,
             ITestOutputHelper testOutputHelper)
         {
             TestOutputHelper = testOutputHelper;
-            _graphClusterCollectionFixture = graphClusterCollectionFixture;
+            GraphClusterCollectionFixture graphClusterCollectionFixture1 = graphClusterCollectionFixture;
 
-            var neoEndpoints = _graphClusterCollectionFixture.Neo4jOptions.Endpoints
+            var neoEndpoints = graphClusterCollectionFixture1.Neo4jOptions.Endpoints
                 .Where(epc => epc.Enabled)
                 .Select(epc =>
                     new NeoEndpoint(epc.Name!,
@@ -34,9 +32,9 @@ namespace DFC.ServiceTaxonomy.IntegrationTests.Helpers
                             epc.Uri,
                             AuthTokens.Basic(epc.Username, epc.Password)),
 //                            o => o.WithLogger(_logger))));
-                        _graphClusterCollectionFixture.NLogLogger));
+                        graphClusterCollectionFixture1.NLogLogger));
 
-            var graphReplicaSets = _graphClusterCollectionFixture.Neo4jOptions.ReplicaSets
+            var graphReplicaSets = graphClusterCollectionFixture1.Neo4jOptions.ReplicaSets
                 .Select(rsc =>
                     new GraphReplicaSetLowLevel(rsc.ReplicaSetName!, ConstructGraphs(rsc, neoEndpoints)));
 
