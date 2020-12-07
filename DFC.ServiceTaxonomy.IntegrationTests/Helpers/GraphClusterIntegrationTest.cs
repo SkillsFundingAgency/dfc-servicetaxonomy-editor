@@ -10,7 +10,7 @@ using Xunit.Abstractions;
 
 namespace DFC.ServiceTaxonomy.IntegrationTests.Helpers
 {
-    public class GraphClusterIntegrationTest //: IAsyncLifetime
+    public class GraphClusterIntegrationTest
     {
         public const int NumberOfReplicasConfiguredForPublishedSet = 2;
 
@@ -55,14 +55,6 @@ namespace DFC.ServiceTaxonomy.IntegrationTests.Helpers
                         index));
         }
 
-        // internal GraphClusterLowLevel GraphClusterLowLevel
-        // {
-        //     get
-        //     {
-        //         return _graphClusterCollectionFixture.GraphClusterLowLevel;
-        //     }
-        // }
-
         protected void ReferenceCountTest(int parallelLoops)
         {
             const int replicaInstance = 0;
@@ -81,15 +73,5 @@ namespace DFC.ServiceTaxonomy.IntegrationTests.Helpers
             Assert.Equal(NumberOfReplicasConfiguredForPublishedSet, enabledInstanceCount);
             Assert.True(replicaSet.IsEnabled(replicaInstance));
         }
-
-        // public Task InitializeAsync()
-        // {
-        //     return Task.CompletedTask;
-        // }
-        //
-        // public Task DisposeAsync()
-        // {
-        //     return Task.CompletedTask;
-        // }
     }
 }
