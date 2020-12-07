@@ -18,5 +18,15 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services.Internal
         {
             return _graphReplicaSets[replicaSetName];
         }
+
+        // public DisabledStatus Disable(string replicaSetName, int instance)
+        // {
+        //     return GetGraphReplicaSetLowLevel(replicaSetName).Disable(instance);
+        // }
+        //
+        // public EnabledStatus Enable(string replicaSetName, int instance)
+        // {
+        //     return GetGraphReplicaSetLowLevel(replicaSetName).Enable(instance);
+        // }
     }
 }

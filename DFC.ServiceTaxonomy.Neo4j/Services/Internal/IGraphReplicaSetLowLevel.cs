@@ -7,5 +7,12 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services.Internal
         IGraph[] GraphInstances { get; }
 
         IGraphReplicaSetLowLevel CloneLimitedToGraphInstance(int instance);
+
+        int EnabledInstanceCount { get; }
+
+        DisabledStatus Disable(int instance);
+        EnabledStatus Enable(int instance);
+
+        bool IsEnabled(int instance);
     }
 }

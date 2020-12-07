@@ -43,6 +43,7 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services.Internal
             return new GraphReplicaSetLowLevel(Name, _graphInstances, instance);
         }
 
+        //todo: single status enum?
         public DisabledStatus Disable(int instance)
         {
             ValidateInstance(instance);
@@ -98,11 +99,16 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services.Internal
             return EnabledStatus.Enabled;
         }
 
-        public void EmergencyEnableAll()
+        public bool IsEnabled(int instance)
         {
-            //todo: emergency enable all reset,
-            // reset _enabledInstanceCount (safely!), enable all replicas
+            return _graphInstances[instance].Enabled;
         }
+
+        // public void EmergencyEnableAll()
+        // {
+        //     //todo: emergency enable all reset,
+        //     // reset _enabledInstanceCount (safely!), enable all replicas
+        // }
 
         private void ValidateInstance(int instance)
         {
