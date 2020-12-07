@@ -8,6 +8,7 @@ using Microsoft.Extensions.Options;
 
 namespace DFC.ServiceTaxonomy.IntegrationTests.Helpers
 {
+    //todo: rename GraphTestDatabase...
     public class GraphDatabaseCollectionFixture : IDisposable
     {
         public TestNeoGraphDatabase GraphTestDatabase { get; }
