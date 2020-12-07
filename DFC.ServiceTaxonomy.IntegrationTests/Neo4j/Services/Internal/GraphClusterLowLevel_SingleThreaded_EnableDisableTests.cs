@@ -17,12 +17,8 @@ namespace DFC.ServiceTaxonomy.IntegrationTests.Neo4j.Services.Internal
         {
         }
 
-        //todo: need proper tear down, as multi-threaded test is breaking single threaded test, 2 parts:
-        // 1) stop tests running in parallel with each other
-        // 2) ensure tests start with a clean graph cluster
-
         [Fact]
-        public void SingleThreaderReferenceCountTest()
+        public void SingleThreadedReferenceCountTest()
         {
             ReferenceCountTest(1);
         }

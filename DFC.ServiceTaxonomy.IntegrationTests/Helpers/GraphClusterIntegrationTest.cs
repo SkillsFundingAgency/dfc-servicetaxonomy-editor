@@ -1,6 +1,10 @@
-﻿using System.Threading;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
+using DFC.ServiceTaxonomy.Neo4j.Configuration;
 using DFC.ServiceTaxonomy.Neo4j.Services.Internal;
+using Neo4j.Driver;
 using Xunit;
 using Xunit.Abstractions;
 
@@ -9,6 +13,8 @@ namespace DFC.ServiceTaxonomy.IntegrationTests.Helpers
     public class GraphClusterIntegrationTest //: IAsyncLifetime
     {
         public const int NumberOfReplicasConfiguredForPublishedSet = 2;
+
+        internal GraphClusterLowLevel GraphClusterLowLevel { get; }
 
         public ITestOutputHelper TestOutputHelper { get; }
         private readonly GraphClusterCollectionFixture _graphClusterCollectionFixture;
@@ -19,15 +25,43 @@ namespace DFC.ServiceTaxonomy.IntegrationTests.Helpers
         {
             TestOutputHelper = testOutputHelper;
             _graphClusterCollectionFixture = graphClusterCollectionFixture;
+
+            var neoEndpoints = _graphClusterCollectionFixture.Neo4jOptions.Endpoints
+                .Where(epc => epc.Enabled)
+                .Select(epc =>
+                    new NeoEndpoint(epc.Name!,
+                        GraphDatabase.Driver(
+                            epc.Uri,
+                            AuthTokens.Basic(epc.Username, epc.Password)),
+//                            o => o.WithLogger(_logger))));
+                        _graphClusterCollectionFixture.NLogLogger));
+
+            var graphReplicaSets = _graphClusterCollectionFixture.Neo4jOptions.ReplicaSets
+                .Select(rsc =>
+                    new GraphReplicaSetLowLevel(rsc.ReplicaSetName!, ConstructGraphs(rsc, neoEndpoints)));
+
+            GraphClusterLowLevel = new GraphClusterLowLevel(graphReplicaSets);
         }
 
-        internal GraphClusterLowLevel GraphClusterLowLevel
+        private IEnumerable<Graph> ConstructGraphs(ReplicaSetConfiguration replicaSetConfiguration, IEnumerable<NeoEndpoint> neoEndpoints)
         {
-            get
-            {
-                return _graphClusterCollectionFixture.GraphClusterLowLevel;
-            }
+            return replicaSetConfiguration.GraphInstances
+                .Where(gic => gic.Enabled)
+                .Select((gic, index) =>
+                    new Graph(
+                        neoEndpoints.First(ep => ep.Name == gic.Endpoint),
+                        gic.GraphName!,
+                        gic.DefaultGraph,
+                        index));
         }
+
+        // internal GraphClusterLowLevel GraphClusterLowLevel
+        // {
+        //     get
+        //     {
+        //         return _graphClusterCollectionFixture.GraphClusterLowLevel;
+        //     }
+        // }
 
         protected void ReferenceCountTest(int parallelLoops)
         {
