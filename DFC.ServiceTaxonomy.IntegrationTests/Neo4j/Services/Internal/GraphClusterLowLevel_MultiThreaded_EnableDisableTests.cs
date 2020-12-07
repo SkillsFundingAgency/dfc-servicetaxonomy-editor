@@ -17,7 +17,7 @@ namespace DFC.ServiceTaxonomy.IntegrationTests.Neo4j.Services.Internal
         {
         }
 
-        //[Fact]
+        [Fact]
         public void MultiThreadedReferenceCountTest()
         {
             ReferenceCountTest(100);

@@ -62,12 +62,21 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services.Internal
 
             //todo: we want Disable on an already disabled graph to be a no-op
 
-            if (!_graphInstances[instance].Enabled)
+            // if (!_graphInstances[instance].Enabled)
+            //     return DisabledStatus.AlreadyDisabled;
+            //
+            // Interlocked.Decrement(ref _enabledInstanceCount);
+            // //_graphDisabled = true;
+            // _graphInstances[instance].Enabled = false;
+            //
+            // return DisabledStatus.Disabled;
+
+            if (!_graphInstances[instance].Disable())
                 return DisabledStatus.AlreadyDisabled;
 
+            //todo: just work off graph instances??
             Interlocked.Decrement(ref _enabledInstanceCount);
             //_graphDisabled = true;
-            _graphInstances[instance].Enabled = false;
 
             return DisabledStatus.Disabled;
         }
@@ -78,17 +87,15 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services.Internal
 
             // you could probably confuse enabling/disabling, but we want to avoid cluster wide locks waiting for
             // any in-flight commands/queries to finish
-            if (_graphInstances[instance].Enabled)
+            if (_graphInstances[instance].Enable())
                 return EnabledStatus.AlreadyEnabled;
 
-            _graphInstances[instance].Enabled = true;
+            //_graphInstances[instance].Enabled = true;
 
             //todo: we want Enable on an already enabled graph to be a no-op
             //todo: need lots of threaded unit tests to try and break this!
 
-
             Interlocked.Increment(ref _enabledInstanceCount);
-
 
             // it doesn't matter if _graphDisabled is true for a window where all graph instances in the replica are enabled
             // the replica code that checks the bool will handle that situation

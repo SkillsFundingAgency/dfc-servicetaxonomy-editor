@@ -16,33 +16,65 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services.Internal
 
         private long _inFlightCount;
         //todo: do we need thread safety for the bool?
-        private bool _enabled;
+        private long _enabled;
 
-        public bool Enabled
+        private const long _enabledValue = 1;
+        private const long _disabledValue = 0;
+
+        public bool Enabled => Interlocked.Read(ref _enabled) == _enabledValue;
+
+        public bool Enable()
         {
-            get
-            {
-                return _enabled;
-            }
-            set
-            {
-                _enabled = value;
-                if (!value)
-                {
-                    //todo: timeout?
-                    //todo: best way to synchronise?
-                    //todo: exit loop if replica reenabled before all in-flight finished
-                    // flush any in-flight commands/queries
-                    while (Interlocked.Read(ref _inFlightCount) > 0)
-                    {
-                        if (_enabled)
-                            break;
-
-                        Thread.Sleep(100);
-                    }
-                }
-            }
+            return Interlocked.Exchange(ref _enabled, _enabledValue) == _enabledValue;
         }
+
+        public bool Disable()
+        {
+            bool wasEnabled = Interlocked.Exchange(ref _enabled, _disabledValue) == _enabledValue;
+
+            if (!wasEnabled)
+                return wasEnabled;
+
+            //todo: timeout?
+            //todo: best way to synchronise?
+            //todo: exit loop if replica reenabled before all in-flight finished
+            // flush any in-flight commands/queries
+            while (Interlocked.Read(ref _inFlightCount) > 0)
+            {
+                if (Interlocked.Read(ref _enabled) == _enabledValue)
+                    break;
+
+                Thread.Sleep(100);
+            }
+
+            return wasEnabled;
+        }
+
+        // public bool Enabled
+        // {
+        //     get
+        //     {
+        //         return _enabled;
+        //     }
+        //     set
+        //     {
+        //         _enabled = value;
+        //         if (!value)
+        //         {
+        //             //todo: timeout?
+        //             //todo: best way to synchronise?
+        //             //todo: exit loop if replica reenabled before all in-flight finished
+        //             // flush any in-flight commands/queries
+        //             while (Interlocked.Read(ref _inFlightCount) > 0)
+        //             {
+        //                 if (_enabled)
+        //                     break;
+        //
+        //                 Thread.Sleep(100);
+        //             }
+        //         }
+        //     }
+        // }
 
         public Graph(INeoEndpoint endpoint, string graphName, bool defaultGraph, int instance)
         {
@@ -50,7 +82,8 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services.Internal
             GraphName = graphName;
             DefaultGraph = defaultGraph;
             Instance = instance;
-            _enabled = true;
+            //_enabled = true;
+            _enabled = _enabledValue;
             _inFlightCount = 0;
 
             // GraphReplicaSet will set this as part of the build process, before any consumer gets an instance of this class
