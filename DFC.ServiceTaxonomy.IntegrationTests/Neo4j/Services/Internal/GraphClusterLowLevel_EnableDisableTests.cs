@@ -21,19 +21,19 @@ namespace DFC.ServiceTaxonomy.IntegrationTests.Neo4j.Services.Internal
         {
             const int replicaInstance = 0;
 
+            var replicaSet = GraphClusterLowLevel.GetGraphReplicaSetLowLevel("published");
+
             Parallel.For(0, 100, (i, state) =>
             {
                 TestOutputHelper.WriteLine($"Thread id: {Thread.CurrentThread.ManagedThreadId}");
 
-                var replicaSet = GraphClusterLowLevel.GetGraphReplicaSetLowLevel("published");
-
                 replicaSet.Disable(replicaInstance);
                 replicaSet.Enable(replicaInstance);
-
-                int enabledInstanceCount = replicaSet.EnabledInstanceCount;
-                Assert.Equal(0, enabledInstanceCount);
-                Assert.False(replicaSet.IsEnabled(replicaInstance));
             });
+
+            int enabledInstanceCount = replicaSet.EnabledInstanceCount;
+            Assert.Equal(0, enabledInstanceCount);
+            Assert.False(replicaSet.IsEnabled(replicaInstance));
         }
     }
 }
