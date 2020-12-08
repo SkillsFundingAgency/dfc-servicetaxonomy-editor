@@ -5,12 +5,12 @@ using Xunit.Abstractions;
 namespace DFC.ServiceTaxonomy.IntegrationTests.Neo4j.Services.Internal
 {
     // assertions are in the base class methods
-#pragma warning disable S2699
+    #pragma warning disable S2699
 
     [Collection("GraphCluster Integration")]
-    public class GraphClusterLowLevel_MultiThreaded_EnableDisableTests : GraphClusterIntegrationTest
+    public class GraphReplicaSetLowLevel_SingleThreaded_EnableDisableTests : GraphClusterIntegrationTest
     {
-        public GraphClusterLowLevel_MultiThreaded_EnableDisableTests(
+        public GraphReplicaSetLowLevel_SingleThreaded_EnableDisableTests(
             GraphClusterCollectionFixture graphDatabaseCollectionFixture,
             ITestOutputHelper testOutputHelper)
             : base(graphDatabaseCollectionFixture, testOutputHelper)
@@ -18,11 +18,11 @@ namespace DFC.ServiceTaxonomy.IntegrationTests.Neo4j.Services.Internal
         }
 
         [Fact]
-        public void MultiThreadedReferenceCountTest()
+        public void SingleThreadedReferenceCountTest()
         {
-            ReferenceCountTest(100);
+            ReferenceCountTest(1);
         }
     }
 
-#pragma warning restore S2699
+    #pragma warning restore S2699
 }

@@ -4,7 +4,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.Neo4j.Configuration;
 using DFC.ServiceTaxonomy.Neo4j.Services.Internal;
-using Neo4j.Driver;
+using FakeItEasy;
 using Xunit;
 using Xunit.Abstractions;
 
@@ -27,12 +27,13 @@ namespace DFC.ServiceTaxonomy.IntegrationTests.Helpers
             var neoEndpoints = graphClusterCollectionFixture1.Neo4jOptions.Endpoints
                 .Where(epc => epc.Enabled)
                 .Select(epc =>
-                    new NeoEndpoint(epc.Name!,
-                        GraphDatabase.Driver(
-                            epc.Uri,
-                            AuthTokens.Basic(epc.Username, epc.Password)),
-//                            o => o.WithLogger(_logger))));
-                        graphClusterCollectionFixture1.NLogLogger));
+                    CreateFakeNeoEndpoint(epc.Name!));
+                    // new NeoEndpoint(epc.Name!,
+                    //     GraphDatabase.Driver(
+                    //         epc.Uri,
+                    //         AuthTokens.Basic(epc.Username, epc.Password)),
+                            // o => o.WithLogger(_logger))));
+                        //graphClusterCollectionFixture1.NLogLogger);
 
             var graphReplicaSets = graphClusterCollectionFixture1.Neo4jOptions.ReplicaSets
                 .Select(rsc =>
@@ -41,7 +42,17 @@ namespace DFC.ServiceTaxonomy.IntegrationTests.Helpers
             GraphClusterLowLevel = new GraphClusterLowLevel(graphReplicaSets);
         }
 
-        private IEnumerable<Graph> ConstructGraphs(ReplicaSetConfiguration replicaSetConfiguration, IEnumerable<NeoEndpoint> neoEndpoints)
+        private INeoEndpoint CreateFakeNeoEndpoint(string name)
+        {
+            var neoEndpoint = A.Fake<INeoEndpoint>();
+            A.CallTo(() => neoEndpoint.Name)
+                .Returns(name);
+            return neoEndpoint;
+        }
+
+        private IEnumerable<Graph> ConstructGraphs(
+            ReplicaSetConfiguration replicaSetConfiguration,
+            IEnumerable<INeoEndpoint> neoEndpoints)
         {
             return replicaSetConfiguration.GraphInstances
                 .Where(gic => gic.Enabled)
