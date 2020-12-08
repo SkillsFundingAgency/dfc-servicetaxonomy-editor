@@ -23,7 +23,7 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services
             _enabledInstanceCount = InstanceCount = _graphInstances.Length;
             //todo: check in range
             _limitToGraphInstance = limitToGraphInstance;
-            _currentInstance = -1;
+            _instanceCounter = -1;
         }
 
         public string Name { get; }
@@ -31,7 +31,7 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services
         public int EnabledInstanceCount => (int)Interlocked.Read(ref _enabledInstanceCount);
 
         protected long _enabledInstanceCount;
-        private int _currentInstance;
+        private int _instanceCounter;
 
         public Task<List<T>> Run<T>(params IQuery<T>[] queries)
         {
@@ -45,27 +45,18 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services
             }
             else if (EnabledInstanceCount < InstanceCount)
             {
-                // should we even allow all replicas to be disabled?
                 if (EnabledInstanceCount == 0)
                     throw new InvalidOperationException("No enabled replicas to run query against.");
 
-                //todo: do we set _currentInstance to 0 when any graph is enabled/disabled?
-                if (_currentInstance >= EnabledInstanceCount)
-                {
-                    _currentInstance = 0;
-                    graphInstance = _graphInstances[0];
-                }
-                else
-                {
-                    int instance = unchecked(++_currentInstance) % EnabledInstanceCount;
-                    //todo: how to do this safely without excessive locking
-                    graphInstance = _graphInstances.Where(g => g.Enabled).Skip(instance).First();
-                }
+                int enabledInstance = unchecked(++_instanceCounter) % EnabledInstanceCount;
+
+                //todo: how to do this safely without excessive locking
+                graphInstance = _graphInstances.Where(g => g.Enabled).Skip(enabledInstance).First();
             }
             else
             {
                 // fast path, simple round-robin read
-                graphInstance = _graphInstances[unchecked(++_currentInstance) % InstanceCount];
+                graphInstance = _graphInstances[unchecked(++_instanceCounter) % InstanceCount];
             }
 
             return graphInstance.Run(queries);

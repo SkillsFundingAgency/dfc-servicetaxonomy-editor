@@ -36,7 +36,10 @@ namespace DFC.ServiceTaxonomy.IntegrationTests.Neo4j.Services.Internal
             //}
         }
 
-        // manual test (todo: partly automated)
+        // manual test (todo: partly automate)
+        // checks: (might be a few stragglers, due to delay before trace lines are written)
+        //todo: check only enabled replica used after disable() has returned - could be automated?
+        //check any query run before disable() has returned is finished first
         //[Fact]
         public void DisableWaitsForInFlightQueriesTest()
         {
@@ -44,15 +47,17 @@ namespace DFC.ServiceTaxonomy.IntegrationTests.Neo4j.Services.Internal
 
             var replicaSet = GraphClusterLowLevel.GetGraphReplicaSetLowLevel("published");
 
-            Parallel.For(0, 20, async (i, state) =>
+            Parallel.For(0, 100, async (i, state) =>
             {
                 TestOutputHelper.WriteLine($"Iteration {i} on thread #{Thread.CurrentThread.ManagedThreadId}");
 
                 if (i == 5)
                 {
-                    TestOutputHelper.WriteLine($"Disabling on iteration {i}");
+                    TestOutputHelper.WriteLine($"Disabling replica #{replicaInstance}. Iteration #{i}. Thread #{Thread.CurrentThread.ManagedThreadId}");
+                    TestOutputHelper.WriteLine("----------------------------->>>-------------------------------");
                     replicaSet.Disable(replicaInstance);
-                    TestOutputHelper.WriteLine($"Disabled on iteration {i}");
+                    TestOutputHelper.WriteLine("-----------------------------<<<-------------------------------");
+                    TestOutputHelper.WriteLine($"Disabled replica #{replicaInstance}. Iteration #{i}. Thread #{Thread.CurrentThread.ManagedThreadId}");
                 }
                 else
                 {
