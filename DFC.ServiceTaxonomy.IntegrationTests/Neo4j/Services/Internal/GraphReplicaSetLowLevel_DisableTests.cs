@@ -40,7 +40,7 @@ namespace DFC.ServiceTaxonomy.IntegrationTests.Neo4j.Services.Internal
         // checks: (might be a few stragglers, due to delay before trace lines are written)
         //todo: check only enabled replica used after disable() has returned - could be automated?
         //check any query run before disable() has returned is finished first
-        //[Fact]
+        [Fact]
         public void DisableWaitsForInFlightQueriesTest()
         {
             const int replicaInstance = 0;

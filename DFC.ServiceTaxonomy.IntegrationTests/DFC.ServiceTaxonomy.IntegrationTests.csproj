@@ -10,6 +10,7 @@
 
   <ItemGroup>
     <PackageReference Include="CompareNETObjects" Version="4.67.0" />
+    <PackageReference Include="Divergic.Logging.Xunit" Version="3.6.0" />
     <PackageReference Include="FakeItEasy" Version="6.2.1" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.8.0" />
     <PackageReference Include="Neo4j.Driver" Version="4.1.1" />

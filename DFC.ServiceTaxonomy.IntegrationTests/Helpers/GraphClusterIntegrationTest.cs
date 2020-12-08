@@ -6,6 +6,7 @@ using DFC.ServiceTaxonomy.Neo4j.Configuration;
 using DFC.ServiceTaxonomy.Neo4j.Queries.Interfaces;
 using DFC.ServiceTaxonomy.Neo4j.Services.Internal;
 using FakeItEasy;
+using Microsoft.Extensions.Logging;
 using Xunit;
 using Xunit.Abstractions;
 
@@ -18,6 +19,7 @@ namespace DFC.ServiceTaxonomy.IntegrationTests.Helpers
         internal GraphClusterLowLevel GraphClusterLowLevel { get; }
         internal IEnumerable<INeoEndpoint> Endpoints { get; }
         internal ITestOutputHelper TestOutputHelper { get; }
+        internal ILogger<NeoEndpoint> NLogLogger { get; }
 
         internal GraphClusterIntegrationTest(
             GraphClusterCollectionFixture graphClusterCollectionFixture,
@@ -32,6 +34,8 @@ namespace DFC.ServiceTaxonomy.IntegrationTests.Helpers
             var graphReplicaSets = graphClusterCollectionFixture.Neo4jOptions.ReplicaSets
                 .Select(rsc =>
                     new GraphReplicaSetLowLevel(rsc.ReplicaSetName!, ConstructGraphs(rsc, Endpoints)));
+
+            NLogLogger = testOutputHelper.BuildLoggerFor<NeoEndpoint>();
 
             GraphClusterLowLevel = new GraphClusterLowLevel(graphReplicaSets);
         }
