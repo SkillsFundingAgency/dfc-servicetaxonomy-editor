@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.Neo4j.Configuration;
+using DFC.ServiceTaxonomy.Neo4j.Queries.Interfaces;
 using DFC.ServiceTaxonomy.Neo4j.Services.Internal;
 using FakeItEasy;
 using Xunit;
@@ -26,14 +27,7 @@ namespace DFC.ServiceTaxonomy.IntegrationTests.Helpers
 
             Endpoints = graphClusterCollectionFixture.Neo4jOptions.Endpoints
                 .Where(epc => epc.Enabled)
-                .Select(epc =>
-                    CreateFakeNeoEndpoint(epc.Name!));
-                    // new NeoEndpoint(epc.Name!,
-                    //     GraphDatabase.Driver(
-                    //         epc.Uri,
-                    //         AuthTokens.Basic(epc.Username, epc.Password)),
-                            // o => o.WithLogger(_logger))));
-                        //graphClusterCollectionFixture1.NLogLogger);
+                .Select(epc => CreateFakeNeoEndpoint(epc.Name!));
 
             var graphReplicaSets = graphClusterCollectionFixture.Neo4jOptions.ReplicaSets
                 .Select(rsc =>
@@ -42,11 +36,24 @@ namespace DFC.ServiceTaxonomy.IntegrationTests.Helpers
             GraphClusterLowLevel = new GraphClusterLowLevel(graphReplicaSets);
         }
 
+        //todo: can we trust TestOutputHelper.WriteLine to output in order?
+
         private INeoEndpoint CreateFakeNeoEndpoint(string name)
         {
             var neoEndpoint = A.Fake<INeoEndpoint>();
+
             A.CallTo(() => neoEndpoint.Name)
                 .Returns(name);
+
+            A.CallTo(() => neoEndpoint.Run(A<IQuery<int>[]>._, A<string>._, A<bool>._))
+                .Invokes((IQuery<int>[] queries, string databaseName, bool defaultDatabase) =>
+                {
+                    TestOutputHelper.WriteLine($"Run started on {databaseName}, thread #{Thread.CurrentThread.ManagedThreadId}.");
+                    Thread.Sleep(100);
+                    TestOutputHelper.WriteLine($"Run finished on {databaseName}, thread #{Thread.CurrentThread.ManagedThreadId}.");
+                })
+                .Returns(new List<int> { 69 });
+
             return neoEndpoint;
         }
 
@@ -62,6 +69,19 @@ namespace DFC.ServiceTaxonomy.IntegrationTests.Helpers
                         gic.GraphName!,
                         gic.DefaultGraph,
                         index));
+        }
+
+        internal void Trace(IGraphReplicaSetLowLevel replicaSet)
+        {
+            TestOutputHelper.WriteLine("replicaSet:");
+            TestOutputHelper.WriteLine($"  InstanceCount={replicaSet.InstanceCount}, EnabledInstanceCount={replicaSet.EnabledInstanceCount}");
+            for (int instance = 0; instance < replicaSet.InstanceCount; ++instance)
+            {
+                var graph = replicaSet.GraphInstances[instance];
+
+                TestOutputHelper.WriteLine($"    Graph #{instance}: {graph.GraphName}");
+                TestOutputHelper.WriteLine($"      IsEnabled()={replicaSet.IsEnabled(instance)}");
+            }
         }
 
         protected void ReferenceCountTest(int parallelLoops)
