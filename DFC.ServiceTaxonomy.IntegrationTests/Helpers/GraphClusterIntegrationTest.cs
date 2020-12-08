@@ -19,7 +19,8 @@ namespace DFC.ServiceTaxonomy.IntegrationTests.Helpers
         internal GraphClusterLowLevel GraphClusterLowLevel { get; }
         internal IEnumerable<INeoEndpoint> Endpoints { get; }
         internal ITestOutputHelper TestOutputHelper { get; }
-        internal ILogger<NeoEndpoint> NLogLogger { get; }
+        internal ILogger<GraphClusterLowLevel> GraphClusterLowLevelLogger { get; }
+        internal ILogger<Graph> GraphLogger { get; }
 
         internal GraphClusterIntegrationTest(
             GraphClusterCollectionFixture graphClusterCollectionFixture,
@@ -35,9 +36,10 @@ namespace DFC.ServiceTaxonomy.IntegrationTests.Helpers
                 .Select(rsc =>
                     new GraphReplicaSetLowLevel(rsc.ReplicaSetName!, ConstructGraphs(rsc, Endpoints)));
 
-            NLogLogger = testOutputHelper.BuildLoggerFor<NeoEndpoint>();
+            GraphClusterLowLevelLogger = testOutputHelper.BuildLoggerFor<GraphClusterLowLevel>();
+            GraphLogger = testOutputHelper.BuildLoggerFor<Graph>();
 
-            GraphClusterLowLevel = new GraphClusterLowLevel(graphReplicaSets);
+            GraphClusterLowLevel = new GraphClusterLowLevel(graphReplicaSets, GraphClusterLowLevelLogger);
         }
 
         //todo: can we trust TestOutputHelper.WriteLine to output in order?
@@ -72,7 +74,8 @@ namespace DFC.ServiceTaxonomy.IntegrationTests.Helpers
                         neoEndpoints.First(ep => ep.Name == gic.Endpoint),
                         gic.GraphName!,
                         gic.DefaultGraph,
-                        index));
+                        index,
+                        GraphLogger));
         }
 
         internal void Trace(IGraphReplicaSetLowLevel replicaSet)

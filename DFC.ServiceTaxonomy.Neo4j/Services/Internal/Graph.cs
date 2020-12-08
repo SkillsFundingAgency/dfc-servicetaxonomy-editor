@@ -3,11 +3,13 @@ using System.Threading;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces;
 using DFC.ServiceTaxonomy.Neo4j.Queries.Interfaces;
+using Microsoft.Extensions.Logging;
 
 namespace DFC.ServiceTaxonomy.Neo4j.Services.Internal
 {
     internal class Graph : IGraph
     {
+        private readonly ILogger<Graph> _logger;
         public string GraphName { get; }
         public bool DefaultGraph { get; }
         public int Instance { get; }
@@ -76,8 +78,9 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services.Internal
         //     }
         // }
 
-        public Graph(INeoEndpoint endpoint, string graphName, bool defaultGraph, int instance)
+        public Graph(INeoEndpoint endpoint, string graphName, bool defaultGraph, int instance, ILogger<Graph> logger)
         {
+            _logger = logger;
             Endpoint = endpoint;
             GraphName = graphName;
             DefaultGraph = defaultGraph;
