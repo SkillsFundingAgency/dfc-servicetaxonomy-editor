@@ -15,6 +15,7 @@ namespace DFC.ServiceTaxonomy.IntegrationTests.Helpers
         internal const int NumberOfReplicasConfiguredForPublishedSet = 2;
 
         internal GraphClusterLowLevel GraphClusterLowLevel { get; }
+        internal IEnumerable<INeoEndpoint> Endpoints { get; }
         internal ITestOutputHelper TestOutputHelper { get; }
 
         internal GraphClusterIntegrationTest(
@@ -22,9 +23,8 @@ namespace DFC.ServiceTaxonomy.IntegrationTests.Helpers
             ITestOutputHelper testOutputHelper)
         {
             TestOutputHelper = testOutputHelper;
-            GraphClusterCollectionFixture graphClusterCollectionFixture1 = graphClusterCollectionFixture;
 
-            var neoEndpoints = graphClusterCollectionFixture1.Neo4jOptions.Endpoints
+            Endpoints = graphClusterCollectionFixture.Neo4jOptions.Endpoints
                 .Where(epc => epc.Enabled)
                 .Select(epc =>
                     CreateFakeNeoEndpoint(epc.Name!));
@@ -35,9 +35,9 @@ namespace DFC.ServiceTaxonomy.IntegrationTests.Helpers
                             // o => o.WithLogger(_logger))));
                         //graphClusterCollectionFixture1.NLogLogger);
 
-            var graphReplicaSets = graphClusterCollectionFixture1.Neo4jOptions.ReplicaSets
+            var graphReplicaSets = graphClusterCollectionFixture.Neo4jOptions.ReplicaSets
                 .Select(rsc =>
-                    new GraphReplicaSetLowLevel(rsc.ReplicaSetName!, ConstructGraphs(rsc, neoEndpoints)));
+                    new GraphReplicaSetLowLevel(rsc.ReplicaSetName!, ConstructGraphs(rsc, Endpoints)));
 
             GraphClusterLowLevel = new GraphClusterLowLevel(graphReplicaSets);
         }
@@ -66,21 +66,21 @@ namespace DFC.ServiceTaxonomy.IntegrationTests.Helpers
 
         protected void ReferenceCountTest(int parallelLoops)
         {
-            const int replicaInstance = 0;
+                const int replicaInstance = 0;
 
-            var replicaSet = GraphClusterLowLevel.GetGraphReplicaSetLowLevel("published");
+                var replicaSet = GraphClusterLowLevel.GetGraphReplicaSetLowLevel("published");
 
-            Parallel.For(0, parallelLoops, (i, state) =>
-            {
-                TestOutputHelper.WriteLine($"Thread id: {Thread.CurrentThread.ManagedThreadId}");
+                Parallel.For(0, parallelLoops, (i, state) =>
+                {
+                    TestOutputHelper.WriteLine($"Thread id: {Thread.CurrentThread.ManagedThreadId}");
 
-                replicaSet.Disable(replicaInstance);
-                replicaSet.Enable(replicaInstance);
-            });
+                    replicaSet.Disable(replicaInstance);
+                    replicaSet.Enable(replicaInstance);
+                });
 
-            int enabledInstanceCount = replicaSet.EnabledInstanceCount;
-            Assert.Equal(NumberOfReplicasConfiguredForPublishedSet, enabledInstanceCount);
-            Assert.True(replicaSet.IsEnabled(replicaInstance));
+                int enabledInstanceCount = replicaSet.EnabledInstanceCount;
+                Assert.Equal(NumberOfReplicasConfiguredForPublishedSet, enabledInstanceCount);
+                Assert.True(replicaSet.IsEnabled(replicaInstance));
         }
     }
 }
