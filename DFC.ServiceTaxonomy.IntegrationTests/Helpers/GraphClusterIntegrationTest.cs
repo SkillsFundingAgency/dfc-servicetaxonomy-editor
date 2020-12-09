@@ -4,6 +4,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.Neo4j.Configuration;
 using DFC.ServiceTaxonomy.Neo4j.Queries.Interfaces;
+using DFC.ServiceTaxonomy.Neo4j.Services;
 using DFC.ServiceTaxonomy.Neo4j.Services.Internal;
 using FakeItEasy;
 using Microsoft.Extensions.Logging;
@@ -19,7 +20,7 @@ namespace DFC.ServiceTaxonomy.IntegrationTests.Helpers
         internal GraphClusterLowLevel GraphClusterLowLevel { get; }
         internal IEnumerable<INeoEndpoint> Endpoints { get; }
         internal ITestOutputHelper TestOutputHelper { get; }
-        internal ILogger<GraphClusterLowLevel> GraphClusterLowLevelLogger { get; }
+        internal ILogger<GraphClusterBuilder> GraphClusterLowLevelLogger { get; }
         internal ILogger<Graph> GraphLogger { get; }
 
         internal GraphClusterIntegrationTest(
@@ -36,7 +37,7 @@ namespace DFC.ServiceTaxonomy.IntegrationTests.Helpers
                 .Select(rsc =>
                     new GraphReplicaSetLowLevel(rsc.ReplicaSetName!, ConstructGraphs(rsc, Endpoints)));
 
-            GraphClusterLowLevelLogger = testOutputHelper.BuildLoggerFor<GraphClusterLowLevel>();
+            GraphClusterLowLevelLogger = testOutputHelper.BuildLoggerFor<GraphClusterBuilder>();
             GraphLogger = testOutputHelper.BuildLoggerFor<Graph>();
 
             GraphClusterLowLevel = new GraphClusterLowLevel(graphReplicaSets, GraphClusterLowLevelLogger);
