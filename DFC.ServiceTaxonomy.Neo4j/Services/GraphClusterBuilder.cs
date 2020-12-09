@@ -62,8 +62,8 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services
                 .Select(rsc =>
                     new GraphReplicaSetLowLevel(rsc.ReplicaSetName!, ConstructGraphs(rsc, neoEndpoints)));
 
-            //return new GraphClusterLowLevel(graphReplicaSets, _logger);
-            return ActivatorUtilities.CreateInstance<GraphClusterLowLevel>(_serviceProvider, graphReplicaSets);
+            return new GraphClusterLowLevel(graphReplicaSets, _logger);
+            //return ActivatorUtilities.CreateInstance<GraphClusterLowLevel>(_serviceProvider, graphReplicaSets);
         }
 
         private IEnumerable<Graph> ConstructGraphs(ReplicaSetConfiguration replicaSetConfiguration, IEnumerable<NeoEndpoint> neoEndpoints)

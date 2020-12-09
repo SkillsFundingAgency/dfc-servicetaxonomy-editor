@@ -7,7 +7,7 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services.Internal
     {
         internal GraphClusterLowLevel(
             IEnumerable<IGraphReplicaSetLowLevel> replicaSets,
-            ILogger<GraphClusterLowLevel> logger)
+            ILogger logger)
             : base(replicaSets, logger)
         {
         }
