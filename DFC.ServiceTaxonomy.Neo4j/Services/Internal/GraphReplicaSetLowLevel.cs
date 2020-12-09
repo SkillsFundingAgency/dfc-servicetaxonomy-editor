@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading;
+using Microsoft.Extensions.Logging;
 
 namespace DFC.ServiceTaxonomy.Neo4j.Services.Internal
 {
@@ -18,9 +19,16 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services.Internal
 
     internal class GraphReplicaSetLowLevel : GraphReplicaSet, IGraphReplicaSetLowLevel
     {
-        internal GraphReplicaSetLowLevel(string name, IEnumerable<Graph> graphInstances, int? limitToGraphInstance = null)
+        private readonly ILogger _logger;
+
+        internal GraphReplicaSetLowLevel(
+            string name,
+            IEnumerable<Graph> graphInstances,
+            ILogger logger,
+            int? limitToGraphInstance = null)
             : base(name, graphInstances, limitToGraphInstance)
         {
+            _logger = logger;
             //todo: looks like calling CloneLimitedToGraphInstance overwrites the pointer back to the graphreplicaset
             foreach (var graph in _graphInstances)
             {
@@ -28,14 +36,14 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services.Internal
             }
         }
 
-        public IGraph[] GraphInstances
+        public Graph[] GraphInstances
         {
             get => _graphInstances;
         }
 
         public IGraphReplicaSetLowLevel CloneLimitedToGraphInstance(int instance)
         {
-            return new GraphReplicaSetLowLevel(Name, _graphInstances, instance);
+            return new GraphReplicaSetLowLevel(Name, _graphInstances, _logger, instance);
         }
 
         //todo: single status enum?

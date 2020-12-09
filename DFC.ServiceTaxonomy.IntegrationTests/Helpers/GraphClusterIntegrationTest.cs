@@ -22,6 +22,7 @@ namespace DFC.ServiceTaxonomy.IntegrationTests.Helpers
         internal ITestOutputHelper TestOutputHelper { get; }
         internal ILogger<GraphClusterBuilder> GraphClusterLowLevelLogger { get; }
         internal ILogger<Graph> GraphLogger { get; }
+        internal ILogger<GraphReplicaSetLowLevel> GraphReplicaSetLowLevelLogger { get; }
 
         internal GraphClusterIntegrationTest(
             GraphClusterCollectionFixture graphClusterCollectionFixture,
@@ -33,12 +34,16 @@ namespace DFC.ServiceTaxonomy.IntegrationTests.Helpers
                 .Where(epc => epc.Enabled)
                 .Select(epc => CreateFakeNeoEndpoint(epc.Name!));
 
+            GraphReplicaSetLowLevelLogger = testOutputHelper.BuildLoggerFor<GraphReplicaSetLowLevel>();
+            GraphLogger = testOutputHelper.BuildLoggerFor<Graph>();
+
             var graphReplicaSets = graphClusterCollectionFixture.Neo4jOptions.ReplicaSets
-                .Select(rsc =>
-                    new GraphReplicaSetLowLevel(rsc.ReplicaSetName!, ConstructGraphs(rsc, Endpoints)));
+                .Select(rsc => new GraphReplicaSetLowLevel(
+                    rsc.ReplicaSetName!,
+                    ConstructGraphs(rsc, Endpoints, GraphLogger),
+                    GraphReplicaSetLowLevelLogger));
 
             GraphClusterLowLevelLogger = testOutputHelper.BuildLoggerFor<GraphClusterBuilder>();
-            GraphLogger = testOutputHelper.BuildLoggerFor<Graph>();
 
             GraphClusterLowLevel = new GraphClusterLowLevel(graphReplicaSets, GraphClusterLowLevelLogger);
         }
@@ -66,7 +71,8 @@ namespace DFC.ServiceTaxonomy.IntegrationTests.Helpers
 
         private IEnumerable<Graph> ConstructGraphs(
             ReplicaSetConfiguration replicaSetConfiguration,
-            IEnumerable<INeoEndpoint> neoEndpoints)
+            IEnumerable<INeoEndpoint> neoEndpoints,
+            ILogger<Graph> graphLogger)
         {
             return replicaSetConfiguration.GraphInstances
                 .Where(gic => gic.Enabled)
@@ -76,7 +82,7 @@ namespace DFC.ServiceTaxonomy.IntegrationTests.Helpers
                         gic.GraphName!,
                         gic.DefaultGraph,
                         index,
-                        GraphLogger));
+                        graphLogger));
         }
 
         internal void Trace(IGraphReplicaSetLowLevel replicaSet)

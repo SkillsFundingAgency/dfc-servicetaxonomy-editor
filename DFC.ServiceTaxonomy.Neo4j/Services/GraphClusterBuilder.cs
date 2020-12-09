@@ -58,9 +58,13 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services
             if (!currentConfig.ReplicaSets.Any())
                 throw new GraphClusterConfigurationErrorException("No replica sets configured.");
 
+            //todo: why is CreateInstance not finding the logger? it means the replica set and cluster logs as the builder
             var graphReplicaSets = currentConfig.ReplicaSets
-                .Select(rsc =>
-                    new GraphReplicaSetLowLevel(rsc.ReplicaSetName!, ConstructGraphs(rsc, neoEndpoints)));
+                .Select(rsc => new GraphReplicaSetLowLevel(
+                    rsc.ReplicaSetName!,
+                    ConstructGraphs(rsc, neoEndpoints),
+                    _logger));
+//                    ActivatorUtilities.CreateInstance<GraphReplicaSetLowLevel>(_serviceProvider, rsc.ReplicaSetName!, ConstructGraphs(rsc, neoEndpoints)));
 
             return new GraphClusterLowLevel(graphReplicaSets, _logger);
             //return ActivatorUtilities.CreateInstance<GraphClusterLowLevel>(_serviceProvider, graphReplicaSets);
