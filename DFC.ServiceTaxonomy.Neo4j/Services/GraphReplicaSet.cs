@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Microsoft.Extensions.Logging;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -14,14 +15,20 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services
     public class GraphReplicaSet : IGraphReplicaSet
     {
         private protected readonly Graph[] _graphInstances;
+        protected readonly ILogger _logger;
         private protected readonly int? _limitToGraphInstance;
 
-        internal GraphReplicaSet(string name, IEnumerable<Graph> graphInstances, int? limitToGraphInstance = null)
+        internal GraphReplicaSet(
+            string name,
+            IEnumerable<Graph> graphInstances,
+            ILogger logger,
+            int? limitToGraphInstance = null)
         {
             Name = name;
             _graphInstances = graphInstances.ToArray();
             _enabledInstanceCount = InstanceCount = _graphInstances.Length;
             //todo: check in range
+            _logger = logger;
             _limitToGraphInstance = limitToGraphInstance;
             _instanceCounter = -1;
         }

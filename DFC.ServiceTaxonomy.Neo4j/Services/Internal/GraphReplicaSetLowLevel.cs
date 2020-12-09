@@ -19,16 +19,13 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services.Internal
 
     internal class GraphReplicaSetLowLevel : GraphReplicaSet, IGraphReplicaSetLowLevel
     {
-        private readonly ILogger _logger;
-
         internal GraphReplicaSetLowLevel(
             string name,
             IEnumerable<Graph> graphInstances,
             ILogger logger,
             int? limitToGraphInstance = null)
-            : base(name, graphInstances, limitToGraphInstance)
+            : base(name, graphInstances, logger, limitToGraphInstance)
         {
-            _logger = logger;
             //todo: looks like calling CloneLimitedToGraphInstance overwrites the pointer back to the graphreplicaset
             foreach (var graph in _graphInstances)
             {

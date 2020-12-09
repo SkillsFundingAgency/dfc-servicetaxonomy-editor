@@ -33,7 +33,7 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services.Internal
         {
             _logger.LogInformation("Disabling graph #{Instance}.", Instance);
             bool wasEnabled = Interlocked.Exchange(ref _enabled, _disabledValue) == _enabledValue;
-            _logger.LogInformation("Disabling graph #{Instance} - Graph was previously {WasEnabled}.",
+            _logger.LogInformation("Disabled graph #{Instance} - Graph was previously {WasEnabled}.",
                 Instance, wasEnabled?"enabled":"disabled");
 
             if (!wasEnabled)
@@ -45,12 +45,12 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services.Internal
             // flush any in-flight commands/queries
             while (Interlocked.Read(ref _inFlightCount) > 0)
             {
-                _logger.LogInformation("Disabling graph #{Instance} - {InFlightCount} in-flight queries/commands.",
+                _logger.LogInformation("Disabled graph #{Instance} - {InFlightCount} in-flight queries/commands.",
                     Instance, _inFlightCount);
 
                 if (Interlocked.Read(ref _enabled) == _enabledValue)
                 {
-                    _logger.LogInformation("Disabling graph #{Instance} - Graph re-enabled.", Instance);
+                    _logger.LogInformation("Disabled graph #{Instance} - Graph re-enabled.", Instance);
                     break;
                 }
 
@@ -80,7 +80,11 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services.Internal
             {
                 //todo: check here also if disabled and throw?
 
-                Interlocked.Increment(ref _inFlightCount);
+                long newInFlightCount = Interlocked.Increment(ref _inFlightCount);
+
+                _logger.LogTrace("Running batch of {NumberOfQueries} queries on {GraphName}, instance #{Instance}. Now {InFlightCount} queries/commands in flight.",
+                    queries.Length, GraphName, Instance, newInFlightCount);
+
                 return Endpoint.Run(queries, GraphName, DefaultGraph);
             }
             finally
@@ -95,7 +99,11 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services.Internal
             {
                 //todo: check here also if disabled and throw?
 
-                Interlocked.Increment(ref _inFlightCount);
+                long newInFlightCount = Interlocked.Increment(ref _inFlightCount);
+
+                _logger.LogTrace("Running batch of {NumberOfQueries} commands on {GraphName}, instance #{Instance}. Now {InFlightCount} queries/commands in flight.",
+                    commands.Length, GraphName, Instance, newInFlightCount);
+
                 return Endpoint.Run(commands, GraphName, DefaultGraph);
             }
             finally
