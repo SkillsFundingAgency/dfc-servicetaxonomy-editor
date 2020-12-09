@@ -10,10 +10,10 @@ namespace DFC.ServiceTaxonomy.IntegrationTests.Neo4j.Commands
     //todo: when acting call on ValidateResults on command
 
     [Collection("Graph Test Database Integration")]
-    public class MergeNodeTests : GraphDatabaseIntegrationTest
+    public class MergeNodeTests : GraphTestDatabaseIntegrationTest
     {
-        public MergeNodeTests(GraphDatabaseCollectionFixture graphDatabaseCollectionFixture)
-            : base(graphDatabaseCollectionFixture)
+        public MergeNodeTests(GraphTestDatabaseCollectionFixture graphTestDatabaseCollectionFixture)
+            : base(graphTestDatabaseCollectionFixture)
         {
         }
 
