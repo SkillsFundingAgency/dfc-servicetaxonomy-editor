@@ -8,12 +8,12 @@ using Microsoft.Extensions.Options;
 
 namespace DFC.ServiceTaxonomy.IntegrationTests.Helpers
 {
-    public class GraphDatabaseCollectionFixture : IDisposable
+    public sealed class GraphTestDatabaseCollectionFixture : IDisposable
     {
         public TestNeoGraphDatabase GraphTestDatabase { get; }
         public CompareLogic CompareLogic { get; }
 
-        public GraphDatabaseCollectionFixture()
+        public GraphTestDatabaseCollectionFixture()
         {
             var configuration = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
