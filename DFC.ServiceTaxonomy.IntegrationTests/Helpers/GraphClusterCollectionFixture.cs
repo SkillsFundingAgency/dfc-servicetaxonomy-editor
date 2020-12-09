@@ -6,7 +6,7 @@ using Microsoft.Extensions.Configuration;
 
 namespace DFC.ServiceTaxonomy.IntegrationTests.Helpers
 {
-    public class GraphClusterCollectionFixture //: IDisposable
+    public class GraphClusterCollectionFixture
     {
         internal Neo4jOptions Neo4jOptions { get; }
 
@@ -26,10 +26,5 @@ namespace DFC.ServiceTaxonomy.IntegrationTests.Helpers
             if (!Neo4jOptions.ReplicaSets.Any())
                 throw new GraphClusterConfigurationErrorException("No replica sets configured.");
         }
-
-        // public void Dispose()
-        // {
-        //     GraphCluster?.Dispose();
-        // }
     }
 }
