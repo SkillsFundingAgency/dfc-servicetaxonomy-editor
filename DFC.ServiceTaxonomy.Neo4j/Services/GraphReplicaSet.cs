@@ -35,6 +35,7 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services
 
         public string Name { get; }
         public int InstanceCount { get; }
+        //todo: something wrong with this? check enabled on replicas? store enabled in here, rather than in replicas?
         public int EnabledInstanceCount => (int)Interlocked.Read(ref _enabledInstanceCount);
 
         protected long _enabledInstanceCount;

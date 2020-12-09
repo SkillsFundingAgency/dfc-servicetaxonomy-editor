@@ -63,6 +63,9 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services.Internal
             if (!_graphInstances[instance].Disable())
                 return DisabledStatus.AlreadyDisabled;
 
+            //todo: have long of enabled replica bits? enabled would be Interlocked.Or(1<<instance) etc.
+            // any disabled would be and(all instance bits)!= all instance bits
+
             //todo: just work off graph instances??
             Interlocked.Decrement(ref _enabledInstanceCount);
 
