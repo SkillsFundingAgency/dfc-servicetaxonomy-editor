@@ -18,9 +18,6 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services.Internal
 
     internal class GraphReplicaSetLowLevel : GraphReplicaSet, IGraphReplicaSetLowLevel
     {
-        //todo: thread-safety?
-        //private bool _graphDisabled;
-
         internal GraphReplicaSetLowLevel(string name, IEnumerable<Graph> graphInstances, int? limitToGraphInstance = null)
             : base(name, graphInstances, limitToGraphInstance)
         {
@@ -29,8 +26,6 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services.Internal
             {
                 graph.GraphReplicaSetLowLevel = this;
             }
-
-            //_graphDisabled = false;
         }
 
         public IGraph[] GraphInstances
@@ -60,23 +55,11 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services.Internal
             // it doesn't matter if _enabledInstanceCount is less that the actual number of enabled graph instances for a window
             // the replica code that checks if _enabledInstanceCount < InstanceCount will handle that situation
 
-            //todo: we want Disable on an already disabled graph to be a no-op
-
-            // if (!_graphInstances[instance].Enabled)
-            //     return DisabledStatus.AlreadyDisabled;
-            //
-            // Interlocked.Decrement(ref _enabledInstanceCount);
-            // //_graphDisabled = true;
-            // _graphInstances[instance].Enabled = false;
-            //
-            // return DisabledStatus.Disabled;
-
             if (!_graphInstances[instance].Disable())
                 return DisabledStatus.AlreadyDisabled;
 
             //todo: just work off graph instances??
             Interlocked.Decrement(ref _enabledInstanceCount);
-            //_graphDisabled = true;
 
             return DisabledStatus.Disabled;
         }
@@ -89,11 +72,6 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services.Internal
             // any in-flight commands/queries to finish
             if (_graphInstances[instance].Enable())
                 return EnabledStatus.AlreadyEnabled;
-
-            //_graphInstances[instance].Enabled = true;
-
-            //todo: we want Enable on an already enabled graph to be a no-op
-            //todo: need lots of threaded unit tests to try and break this!
 
             Interlocked.Increment(ref _enabledInstanceCount);
 
