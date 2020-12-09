@@ -71,7 +71,6 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services
             return replicaSetConfiguration.GraphInstances
                 .Where(gic => gic.Enabled)
                 .Select((gic, index) =>
-//                    new Graph(
                     ActivatorUtilities.CreateInstance<Graph>(_serviceProvider,
                     neoEndpoints.First(ep => ep.Name == gic.Endpoint),
                         gic.GraphName!,
