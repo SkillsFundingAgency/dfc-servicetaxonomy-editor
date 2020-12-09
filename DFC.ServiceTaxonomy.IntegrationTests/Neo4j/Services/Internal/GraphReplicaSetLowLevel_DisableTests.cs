@@ -19,21 +19,6 @@ namespace DFC.ServiceTaxonomy.IntegrationTests.Neo4j.Services.Internal
             : base(graphClusterCollectionFixture, testOutputHelper)
         {
             Query = A.Fake<IQuery<int>>();
-
-            // not sure why this doesn't work here?
-            // we could get a distinct set of endpoints from the cluster
-
-            //foreach (var endpoint in Endpoints)
-            //{
-            //    //A.CallTo(() => endpoint.Run(A<IQuery<int>[]>._, A<string>._, A<bool>._))
-            //    //    .Invokes(() =>
-            //    //    {
-            //    //        TestOutputHelper.WriteLine($"Run started on thread #{Thread.CurrentThread.ManagedThreadId}.");
-            //    //        Thread.Sleep(100);
-            //    //        TestOutputHelper.WriteLine($"Run finished on thread #{Thread.CurrentThread.ManagedThreadId}.");
-            //    //    })
-            //    //    .Returns(new List<int> { 69 });
-            //}
         }
 
         // manual test (todo: partly automate)
