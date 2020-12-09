@@ -22,7 +22,16 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services.Internal
         private const long _enabledValue = 1;
         private const long _disabledValue = 0;
 
-        public bool Enabled => Interlocked.Read(ref _enabled) == _enabledValue;
+        public bool Enabled
+        {
+            get
+            {
+                bool enabled = Interlocked.Read(ref _enabled) == _enabledValue;
+                _logger.LogTrace("Graph replica #{Instance} enabled check: {Enables}",
+                    Instance, enabled);
+                return enabled;
+            }
+        }
 
         public bool Enable()
         {

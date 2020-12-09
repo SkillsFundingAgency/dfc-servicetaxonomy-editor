@@ -11,7 +11,7 @@ using DFC.ServiceTaxonomy.Neo4j.Services.Internal;
 
 namespace DFC.ServiceTaxonomy.Neo4j.Services
 {
-    //todo: builder for just this for consumers that don't need multiple replicas
+    //todo: builder for just this for consumers that don't need multiple replicas?
     public class GraphReplicaSet : IGraphReplicaSet
     {
         private protected readonly Graph[] _graphInstances;
@@ -46,6 +46,8 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services
 
             if (_limitToGraphInstance != null)
             {
+                _logger.LogInformation("Running command on locked graph replica instance #{Instance}.", _limitToGraphInstance.Value);
+
                 graphInstance = _graphInstances[_limitToGraphInstance.Value];
                 if (!graphInstance.Enabled)
                     throw new InvalidOperationException($"GraphReplicaSet in single replica mode, but replica #{_limitToGraphInstance.Value} is disabled. ");
@@ -56,6 +58,9 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services
                     throw new InvalidOperationException("No enabled replicas to run query against.");
 
                 int enabledInstance = unchecked(++_instanceCounter) % EnabledInstanceCount;
+
+                _logger.LogInformation("{DisabledReplicaCount} graph replicas in the set are disabled. Running query on enabled replica #{Instance}.",
+                    InstanceCount-EnabledInstanceCount, enabledInstance);
 
                 //todo: how to do this safely without excessive locking
                 graphInstance = _graphInstances.Where(g => g.Enabled).Skip(enabledInstance).First();
