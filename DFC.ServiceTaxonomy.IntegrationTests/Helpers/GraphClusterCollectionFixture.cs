@@ -20,8 +20,6 @@ namespace DFC.ServiceTaxonomy.IntegrationTests.Helpers
 
             Neo4jOptions = configuration.GetSection("Neo4j").Get<Neo4jOptions>();
 
-            //NLogLogger = A.Fake<ILogger<NeoEndpoint>>();
-
             if (!Neo4jOptions.Endpoints.Any())
                 throw new GraphClusterConfigurationErrorException("No endpoints configured.");
 

@@ -64,8 +64,6 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services
 
         public Task Run(params ICommand[] commands)
         {
-            //todo: need to update run command too
-
             if (_limitToGraphInstance != null)
             {
                 Graph graph = _graphInstances[_limitToGraphInstance.Value];
