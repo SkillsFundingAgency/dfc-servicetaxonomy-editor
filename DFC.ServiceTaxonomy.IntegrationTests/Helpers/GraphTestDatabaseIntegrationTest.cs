@@ -9,26 +9,35 @@ using Xunit;
 
 namespace DFC.ServiceTaxonomy.IntegrationTests.Helpers
 {
-    public class GraphDatabaseIntegrationTest : IAsyncLifetime, IDisposable
+    public class GraphTestDatabaseIntegrationTest : IAsyncLifetime, IDisposable
     {
-        private readonly GraphDatabaseCollectionFixture _graphDatabaseCollectionFixture;
+        private readonly GraphTestDatabaseCollectionFixture _graphTestDatabaseCollectionFixture;
         private IGraphDatabaseTestRun? _graphDatabaseTestRun;
 
         protected IGraphDatabaseTestRun _graphDatabase => _graphDatabaseTestRun!;
 
-        protected GraphDatabaseIntegrationTest(GraphDatabaseCollectionFixture graphDatabaseCollectionFixture)
+        protected GraphTestDatabaseIntegrationTest(GraphTestDatabaseCollectionFixture graphTestDatabaseCollectionFixture)
         {
-            _graphDatabaseCollectionFixture = graphDatabaseCollectionFixture;
+            _graphTestDatabaseCollectionFixture = graphTestDatabaseCollectionFixture;
         }
 
         public async Task InitializeAsync()
         {
-            _graphDatabaseTestRun = await _graphDatabaseCollectionFixture.GraphTestDatabase.StartTestRun();
+            _graphDatabaseTestRun = await _graphTestDatabaseCollectionFixture.GraphTestDatabase.StartTestRun();
         }
 
         public Task DisposeAsync() => Task.CompletedTask;
 
-        public void Dispose() => _graphDatabaseTestRun?.Dispose();
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            _graphDatabaseTestRun?.Dispose();
+        }
 
         protected async Task<long> MergeNode(MergeNodeCommand mergeNodeCommand)
         {
@@ -92,7 +101,7 @@ namespace DFC.ServiceTaxonomy.IntegrationTests.Helpers
 
             IEnumerable<object> actualNodes = variableRecord.Values.Select(v => v.Value);
 
-            ComparisonResult comparisonResult = _graphDatabaseCollectionFixture.CompareLogic.Compare(expected, actualNodes);
+            ComparisonResult comparisonResult = _graphTestDatabaseCollectionFixture.CompareLogic.Compare(expected, actualNodes);
 
             Assert.True(comparisonResult.AreEqual, $"Returned nodes different to expected: {comparisonResult.DifferencesString}");
         }
