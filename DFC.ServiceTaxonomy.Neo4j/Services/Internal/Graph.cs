@@ -31,7 +31,10 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services.Internal
 
         public bool Disable()
         {
+            _logger.LogInformation("Disabling graph #{Instance}.", Instance);
             bool wasEnabled = Interlocked.Exchange(ref _enabled, _disabledValue) == _enabledValue;
+            _logger.LogInformation("Disabling graph #{Instance} - Graph was previously {WasEnabled}.",
+                Instance, wasEnabled?"enabled":"disabled");
 
             if (!wasEnabled)
                 return wasEnabled;
@@ -42,8 +45,14 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services.Internal
             // flush any in-flight commands/queries
             while (Interlocked.Read(ref _inFlightCount) > 0)
             {
+                _logger.LogInformation("Disabling graph #{Instance} - {InFlightCount} in-flight queries/commands.",
+                    Instance, _inFlightCount);
+
                 if (Interlocked.Read(ref _enabled) == _enabledValue)
+                {
+                    _logger.LogInformation("Disabling graph #{Instance} - Graph re-enabled.", Instance);
                     break;
+                }
 
                 Thread.Sleep(100);
             }
