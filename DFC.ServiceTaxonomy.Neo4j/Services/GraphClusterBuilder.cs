@@ -58,7 +58,8 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services
             if (!currentConfig.ReplicaSets.Any())
                 throw new GraphClusterConfigurationErrorException("No replica sets configured.");
 
-            //todo: why is CreateInstance not finding the logger? it means the replica set and cluster logs as the builder
+            //todo: why is CreateInstance not finding the logger? is it because the generic type isn't in the container yet
+            // it means the replica set and cluster logs as the builder
             var graphReplicaSets = currentConfig.ReplicaSets
                 .Select(rsc => new GraphReplicaSetLowLevel(
                     rsc.ReplicaSetName!,
