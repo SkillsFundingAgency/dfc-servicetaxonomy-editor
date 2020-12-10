@@ -8,12 +8,13 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services.Internal
 
         IGraphReplicaSetLowLevel CloneLimitedToGraphInstance(int instance);
 
-        //int EnabledInstanceCount { get; }
-
         DisabledStatus Disable(int instance);
         EnabledStatus Enable(int instance);
 
-        //todo: make public
+        //todo: make public here, rather than in IGraphReplicaSet
+        //int EnabledInstanceCount { get; }
         //bool IsEnabled(int instance);
+
+        string ToTraceString();
     }
 }
