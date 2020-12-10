@@ -17,7 +17,7 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services
         private protected readonly Graph[] _graphInstances;
         protected readonly ILogger _logger;
         private protected readonly int? _limitToGraphInstance;
-        private protected long _replicaEnabledFlags;
+        private protected ulong _replicaEnabledFlags;
 
         internal GraphReplicaSet(
             string name,
@@ -27,33 +27,28 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services
         {
             Name = name;
             _graphInstances = graphInstances.ToArray();
-            //_enabledInstanceCount =
             InstanceCount = _graphInstances.Length;
-            //todo: check in range
             _logger = logger;
+            //todo: check in range
             _limitToGraphInstance = limitToGraphInstance;
             _instanceCounter = -1;
         }
 
         public string Name { get; }
         public int InstanceCount { get; }
-        //todo: something wrong with this? check enabled on replicas? store enabled in here, rather than in replicas?
-        //public int EnabledInstanceCount => (int)Interlocked.Read(ref _enabledInstanceCount);
 
-        //protected long _enabledInstanceCount;
         private int _instanceCounter;
 
-        internal int EnabledInstanceCount(long replicaEnabledFlags)
+        internal int EnabledInstanceCount(ulong replicaEnabledFlags)
         {
-            //todo: check conversion
-            return (int)System.Runtime.Intrinsics.X86.Popcnt.X64.PopCount(unchecked((ulong)replicaEnabledFlags));
+            return (int)System.Runtime.Intrinsics.X86.Popcnt.X64.PopCount(replicaEnabledFlags);
         }
 
         public Task<List<T>> Run<T>(params IQuery<T>[] queries)
         {
             Graph? graphInstance;
 
-            long replicaEnabledFlags = ReplicaEnabledFlags;
+            ulong replicaEnabledFlags = ReplicaEnabledFlags;
             int enabledInstanceCount = EnabledInstanceCount(ReplicaEnabledFlags);
 
             if (_limitToGraphInstance != null)
@@ -72,21 +67,20 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services
 
                 int enabledInstance = unchecked(++_instanceCounter) % enabledInstanceCount;
 
-                long shiftingReplicaEnabledFlags = replicaEnabledFlags;
+                ulong shiftingReplicaEnabledFlags = replicaEnabledFlags;
 
-                long instance = 0;
+                int instance = 0;
                 while (enabledInstance > 0)
                 {
                     if ((shiftingReplicaEnabledFlags & 1) != 0)
                         --enabledInstance;
 
-                    //todo: need to swap to ulong, otherwise this will do an arithmetic shift rather than a logical shift
                     shiftingReplicaEnabledFlags >>= 1;
                     ++instance;
                 }
 
                 _logger.LogInformation("{DisabledReplicaCount} graph replicas in the set are disabled. Running query on enabled replica #{Instance}. Replica set enabled status: {ReplicaSetEnabledStatus}",
-                    InstanceCount-enabledInstanceCount, instance, Convert.ToString(replicaEnabledFlags, 2));
+                    InstanceCount-enabledInstanceCount, instance, Convert.ToString((long)replicaEnabledFlags, 2));
 
                 graphInstance = _graphInstances[instance];
             }
@@ -112,7 +106,7 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services
             }
 
             // we read flags just the once
-            long currentReplicaEnabledFlags = ReplicaEnabledFlags;
+            ulong currentReplicaEnabledFlags = ReplicaEnabledFlags;
 
             IEnumerable<Graph> commandGraphs = EnabledInstanceCount(currentReplicaEnabledFlags) < InstanceCount
                 ? _graphInstances.Where((_, instance) => IsEnabled(currentReplicaEnabledFlags, instance))
@@ -129,15 +123,13 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services
         protected bool IsEnabled(int instance)
         {
             return IsEnabled(ReplicaEnabledFlags, instance);
-            // long currentReplicaEnabledFlags = Interlocked.Read(ref _replicaEnabledFlags);
-            // return (currentReplicaEnabledFlags & (1 << instance)) != 0;
         }
 
-        private long ReplicaEnabledFlags => Interlocked.Read(ref _replicaEnabledFlags);
+        private ulong ReplicaEnabledFlags => Interlocked.Read(ref _replicaEnabledFlags);
 
-        private bool IsEnabled(long replicaEnabledFlags, int instance)
+        private bool IsEnabled(ulong replicaEnabledFlags, int instance)
         {
-            return (replicaEnabledFlags & (1 << instance)) != 0;
+            return (replicaEnabledFlags & (1ul << instance)) != 0;
         }
     }
 }

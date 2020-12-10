@@ -16,7 +16,7 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services.Internal
         public IGraphReplicaSetLowLevel GraphReplicaSetLowLevel { get; internal set; }
         public INeoEndpoint Endpoint { get; }
 
-        private long _inFlightCount;
+        private ulong _inFlightCount;
         // private long _enabled;
 
         // private const long _enabledValue = 1;
@@ -76,14 +76,13 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services.Internal
             GraphName = graphName;
             DefaultGraph = defaultGraph;
             Instance = instance;
-            // _enabled = _enabledValue;
             _inFlightCount = 0;
 
             // GraphReplicaSet will set this as part of the build process, before any consumer gets an instance of this class
             GraphReplicaSetLowLevel = default!;
         }
 
-        public long InFlightCount => Interlocked.Read(ref _inFlightCount);
+        public ulong InFlightCount => Interlocked.Read(ref _inFlightCount);
 
         public Task<List<T>> Run<T>(params IQuery<T>[] queries)
         {
@@ -91,7 +90,7 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services.Internal
             {
                 //todo: check here also if disabled and throw?
 
-                long newInFlightCount = Interlocked.Increment(ref _inFlightCount);
+                ulong newInFlightCount = Interlocked.Increment(ref _inFlightCount);
 
                 _logger.LogTrace("Running batch of {NumberOfQueries} queries on {GraphName}, instance #{Instance}. Now {InFlightCount} queries/commands in flight.",
                     queries.Length, GraphName, Instance, newInFlightCount);
@@ -110,7 +109,7 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services.Internal
             {
                 //todo: check here also if disabled and throw?
 
-                long newInFlightCount = Interlocked.Increment(ref _inFlightCount);
+                ulong newInFlightCount = Interlocked.Increment(ref _inFlightCount);
 
                 _logger.LogTrace("Running batch of {NumberOfQueries} commands on {GraphName}, instance #{Instance}. Now {InFlightCount} queries/commands in flight.",
                     commands.Length, GraphName, Instance, newInFlightCount);

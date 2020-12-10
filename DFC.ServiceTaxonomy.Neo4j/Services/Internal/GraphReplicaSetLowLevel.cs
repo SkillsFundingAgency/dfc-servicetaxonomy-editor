@@ -19,8 +19,6 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services.Internal
         ReEnabledDuringQuiesce
     }
 
-    //todo: switch flags and inflightcount to ulong
-
     internal class GraphReplicaSetLowLevel : GraphReplicaSet, IGraphReplicaSetLowLevel
     {
         internal GraphReplicaSetLowLevel(
@@ -39,7 +37,7 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services.Internal
             if (InstanceCount > 64)
                 throw new ArgumentException("A max of 64 graph instances in the replica set is supported.");
 
-            _replicaEnabledFlags = (long)BigInteger.Pow(2, InstanceCount) - 1;
+            _replicaEnabledFlags = (ulong)BigInteger.Pow(2, InstanceCount) - 1;
         }
 
         public Graph[] GraphInstances
@@ -69,10 +67,10 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services.Internal
             // it doesn't matter if _enabledInstanceCount is less that the actual number of enabled graph instances for a window
             // the replica code that checks if _enabledInstanceCount < InstanceCount will handle that situation
 
-            long replicaFlag = 1 << instance;
-            long replicaMask = ~replicaFlag;
+            ulong replicaFlag = 1ul << instance;
+            ulong replicaMask = ~replicaFlag;
 
-            long oldReplicaEnabledFlags = Interlocked.And(ref _replicaEnabledFlags, replicaMask);
+            ulong oldReplicaEnabledFlags = Interlocked.And(ref _replicaEnabledFlags, replicaMask);
 
             bool alreadyDisabled = (oldReplicaEnabledFlags & replicaFlag) == 0;
             if (alreadyDisabled)
@@ -116,7 +114,7 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services.Internal
             var graphInstance = _graphInstances[instance];
 
             // flush any in-flight commands/queries
-            long inFlightCount;
+            ulong inFlightCount;
             while ((inFlightCount = graphInstance.InFlightCount) > 0)
             {
                 _logger.LogInformation("Quiescing graph #{Instance} - {InFlightCount} in-flight queries/commands.",
@@ -138,9 +136,9 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services.Internal
         {
             ValidateInstance(instance);
 
-            long replicaFlag = 1 << instance;
+            ulong replicaFlag = 1ul << instance;
 
-            long oldReplicaEnabledFlags = Interlocked.Or(ref _replicaEnabledFlags, replicaFlag);
+            ulong oldReplicaEnabledFlags = Interlocked.Or(ref _replicaEnabledFlags, replicaFlag);
 
             return (oldReplicaEnabledFlags & replicaFlag) != 0 ? EnabledStatus.AlreadyEnabled : EnabledStatus.Enabled;
 
