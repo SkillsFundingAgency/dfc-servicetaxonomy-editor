@@ -50,7 +50,6 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services.Internal
             return new GraphReplicaSetLowLevel(Name, _graphInstances, _logger, instance);
         }
 
-        //todo: single status enum?
         public DisabledStatus Disable(int instance)
         {
             ValidateInstance(instance);
@@ -84,15 +83,6 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services.Internal
                 return DisabledStatus.ReEnabledDuringQuiesce;
 
             return DisabledStatus.Disabled;
-
-            // if (!_graphInstances[instance].Disable())
-            //     return DisabledStatus.AlreadyDisabled;
-
-            //todo: have long of enabled replica bits? enabled would be Interlocked.Or(1<<instance) etc.
-            // any disabled would be and(all instance bits)!= all instance bits
-
-            //todo: just work off graph instances??
-            //Interlocked.Decrement(ref _enabledInstanceCount);
         }
 
         enum QuiesceStatus
@@ -144,24 +134,11 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services.Internal
 
             // you could probably confuse enabling/disabling, but we want to avoid cluster wide locks waiting for
             // any in-flight commands/queries to finish
-            // if (_graphInstances[instance].Enable())
-            //     return EnabledStatus.AlreadyEnabled;
 
-            //Interlocked.Increment(ref _enabledInstanceCount);
 
             // it doesn't matter if _graphDisabled is true for a window where all graph instances in the replica are enabled
             // the replica code that checks the bool will handle that situation
-
-            // however, doing this seems dangerous, and we don't want to lock all replica's while a single replica is being enabled/disabled
-            //_graphDisabled = _graphInstances.Any(g => !g.Enabled);
-
-            //return EnabledStatus.Enabled;
         }
-
-        // public bool IsEnabled(int instance)
-        // {
-        //     return _graphInstances[instance].Enabled;
-        // }
 
         // public void EmergencyEnableAll()
         // {

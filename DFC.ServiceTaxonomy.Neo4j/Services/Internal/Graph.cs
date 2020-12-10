@@ -17,10 +17,6 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services.Internal
         public INeoEndpoint Endpoint { get; }
 
         private ulong _inFlightCount;
-        // private long _enabled;
-
-        // private const long _enabledValue = 1;
-        // private const long _disabledValue = 0;
 
         // public bool Enabled
         // {
