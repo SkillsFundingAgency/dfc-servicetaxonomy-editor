@@ -53,7 +53,6 @@ namespace DFC.ServiceTaxonomy.IntegrationTests.Neo4j.Services.Internal
 
             TestOutputHelper.WriteLine(replicaSet.ToTraceString());
 
-            Thread.Sleep(2000);
             // what can we check?, we can't assume all Run()'s before the disabled were started
             // and we can't assume Run()'s from later iteration's weren't started
             // int enabledInstanceCount = replicaSet.EnabledInstanceCount;
