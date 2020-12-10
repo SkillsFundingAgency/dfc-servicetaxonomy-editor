@@ -62,7 +62,7 @@ namespace DFC.ServiceTaxonomy.Cypher.Drivers
 
             if (string.IsNullOrWhiteSpace(model.Template))
             {
-                updater.ModelState.AddModelError(nameof(model.Template), S["The query field is required"]);
+                updater.ModelState.AddModelError(nameof(model.Template), S["The query field is required"]!);
             }
 
             return Edit(model, updater);

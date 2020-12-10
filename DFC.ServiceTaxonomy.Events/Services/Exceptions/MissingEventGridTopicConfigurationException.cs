@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Runtime.Serialization;
-using System.Security.Permissions;
 
 namespace DFC.ServiceTaxonomy.Events.Services.Exceptions
 {
@@ -12,13 +11,11 @@ namespace DFC.ServiceTaxonomy.Events.Services.Exceptions
         {
         }
 
-        [SecurityPermission(SecurityAction.Demand, SerializationFormatter = true)]
         protected MissingEventGridTopicConfigurationException(SerializationInfo info, StreamingContext context)
             : base(info, context)
         {
         }
 
-        [SecurityPermission(SecurityAction.Demand, SerializationFormatter = true)]
         public override void GetObjectData(SerializationInfo info, StreamingContext context)
         {
             if (info == null)

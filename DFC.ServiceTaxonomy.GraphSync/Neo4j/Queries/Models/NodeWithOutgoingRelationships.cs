@@ -17,7 +17,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Neo4j.Queries.Models
         public INode SourceNode { get; set; }
         public IEnumerable<IOutgoingRelationship> OutgoingRelationships { get; set; }
 
-        public NodeWithOutgoingRelationships(INode sourceNode, IEnumerable<(IRelationship relationship, INode destinationNode)>? outgoingRelationships)
+        public NodeWithOutgoingRelationships(INode sourceNode, IEnumerable<(IRelationship relationship, INode destinationNode)> outgoingRelationships)
         {
             SourceNode = sourceNode;
             //todo: can we get null?

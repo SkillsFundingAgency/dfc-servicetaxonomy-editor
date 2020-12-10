@@ -1,5 +1,7 @@
 #ToDo
 
+* sort out dev branch (the slack config changes went into dev!)
+
 * content api is not using curies, it is using relative urls: may be my config
 
 * generate job profiles recipes using prefix, e.g. 02_JobProfiles_

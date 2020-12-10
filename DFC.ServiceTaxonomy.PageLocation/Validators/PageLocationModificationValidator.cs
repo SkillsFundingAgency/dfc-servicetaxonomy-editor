@@ -36,7 +36,7 @@ namespace DFC.ServiceTaxonomy.PageLocation.Validators
             List<ContentItem> allPages = await _contentItemsService.GetActive(ContentTypes.Page);
 
             //find all child terms down the taxonomy tree
-            var childTermsFromTree = _taxonomyHelper.GetAllTerms(term);
+            JArray childTermsFromTree = _taxonomyHelper.GetAllTerms(term);
 
             if (allPages.Any(x => (string)x.Content.Page.PageLocations.TermContentItemIds[0] == (string)term["ContentItemId"]! || childTermsFromTree.Any(t => (string)t["ContentItemId"]! == (string)x.Content.Page.PageLocations.TermContentItemIds[0])))
             {

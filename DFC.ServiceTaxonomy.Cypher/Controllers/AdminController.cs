@@ -61,15 +61,15 @@ namespace DFC.ServiceTaxonomy.Cypher.Controllers
                 : new Dictionary<string, object>();
 
             var result = await _queryManager.ExecuteQueryAsync(query, queryParameters);
-            //todo: handle ResultModelType null
-            var mappedResults = TransformResults(cypherQuery.ResultModelType!, result.Items);
+            //todo: handle nulls in the rest of the method's code
+            IEnumerable<IQueryResultModel>? mappedResults = TransformResults(cypherQuery.ResultModelType!, result.Items);
             var filteredResults = string.IsNullOrWhiteSpace(options.Search)
                 ? mappedResults
-                : mappedResults.Where(w => w.Filter!.Contains(options.Search, System.StringComparison.OrdinalIgnoreCase)).ToList();
+                : mappedResults!.Where(w => w.Filter!.Contains(options.Search, StringComparison.OrdinalIgnoreCase)).ToList();
 
             var siteSettings = await _siteService.GetSiteSettingsAsync();
             var pager = new Pager(pagerParameters, siteSettings.PageSize);
-            var resultPage = filteredResults.Skip(pager.GetStartIndex()).Take(pager.PageSize).ToList();
+            var resultPage = filteredResults!.Skip(pager.GetStartIndex()).Take(pager.PageSize).ToList();
 
             options.ItemViewModel = $"_ResultItem_{cypherQuery.ResultModelType}";
             var routeData = new RouteData();

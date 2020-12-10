@@ -10,7 +10,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Neo4j.Queries.Models
         public INode SourceNode { get; set; }
         public IEnumerable<IOutgoingRelationship> IncomingRelationships { get; set; }
 
-        public NodeWithIncomingRelationships(INode sourceNode, IEnumerable<(IRelationship relationship, INode destinationNode)>? incomingRelationships)
+        public NodeWithIncomingRelationships(INode sourceNode, IEnumerable<(IRelationship relationship, INode destinationNode)> incomingRelationships)
         {
             SourceNode = sourceNode;
             //todo: can we get null?

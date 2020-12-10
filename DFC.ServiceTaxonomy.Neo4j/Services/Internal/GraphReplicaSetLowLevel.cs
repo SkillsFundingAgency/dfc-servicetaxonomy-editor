@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Numerics;
 using System.Threading;
 using Microsoft.Extensions.Logging;
 
@@ -19,6 +20,8 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services.Internal
 
     internal class GraphReplicaSetLowLevel : GraphReplicaSet, IGraphReplicaSetLowLevel
     {
+        internal long _replicaEnabledFlags;
+
         internal GraphReplicaSetLowLevel(
             string name,
             IEnumerable<Graph> graphInstances,
@@ -31,6 +34,11 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services.Internal
             {
                 graph.GraphReplicaSetLowLevel = this;
             }
+
+            if (InstanceCount > 64)
+                throw new ArgumentException("A max of 64 graph instances in the replica set is supported.");
+
+            _replicaEnabledFlags = (long)BigInteger.Pow(2, InstanceCount) - 1;
         }
 
         public Graph[] GraphInstances
@@ -59,6 +67,10 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services.Internal
 
             // it doesn't matter if _enabledInstanceCount is less that the actual number of enabled graph instances for a window
             // the replica code that checks if _enabledInstanceCount < InstanceCount will handle that situation
+
+            //long replicaFlag = 1 << instance;
+
+            //Interlocked.Or();
 
             if (!_graphInstances[instance].Disable())
                 return DisabledStatus.AlreadyDisabled;
