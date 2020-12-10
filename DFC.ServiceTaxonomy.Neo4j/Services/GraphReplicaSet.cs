@@ -122,7 +122,12 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services
 
         protected bool IsEnabled(int instance)
         {
-            return IsEnabled(ReplicaEnabledFlags, instance);
+            bool isEnabled = IsEnabled(ReplicaEnabledFlags, instance);
+
+            _logger.LogTrace("Graph replica #{Instance} enabled check: {Enabled}",
+                instance, isEnabled);
+
+            return isEnabled;
         }
 
         private ulong ReplicaEnabledFlags => Interlocked.Read(ref _replicaEnabledFlags);

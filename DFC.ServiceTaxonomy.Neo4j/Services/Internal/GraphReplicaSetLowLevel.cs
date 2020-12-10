@@ -50,6 +50,12 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services.Internal
             return new GraphReplicaSetLowLevel(Name, _graphInstances, _logger, instance);
         }
 
+        private enum QuiesceStatus
+        {
+            Quiesced,
+            QuiesceAbandonedAsReplicaEnabled
+        }
+
         public DisabledStatus Disable(int instance)
         {
             ValidateInstance(instance);
@@ -66,12 +72,17 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services.Internal
             // it doesn't matter if _enabledInstanceCount is less that the actual number of enabled graph instances for a window
             // the replica code that checks if _enabledInstanceCount < InstanceCount will handle that situation
 
+            _logger.LogInformation("Disabling graph #{Instance}.", instance);
+
             ulong replicaFlag = 1ul << instance;
             ulong replicaMask = ~replicaFlag;
 
             ulong oldReplicaEnabledFlags = Interlocked.And(ref _replicaEnabledFlags, replicaMask);
-
             bool alreadyDisabled = (oldReplicaEnabledFlags & replicaFlag) == 0;
+
+            _logger.LogInformation("Disabled graph #{Instance} - Graph was previously {OldEnabledStatus}.",
+                instance, alreadyDisabled?"disabled":"enabled");
+
             if (alreadyDisabled)
             {
                 return DisabledStatus.AlreadyDisabled;
@@ -83,12 +94,6 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services.Internal
                 return DisabledStatus.ReEnabledDuringQuiesce;
 
             return DisabledStatus.Disabled;
-        }
-
-        enum QuiesceStatus
-        {
-            Quiesced,
-            QuiesceAbandonedAsReplicaEnabled
         }
 
         private QuiesceStatus Quiesce(int instance)
