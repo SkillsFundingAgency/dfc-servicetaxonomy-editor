@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Numerics;
+using System.Text;
 using System.Threading;
 using Microsoft.Extensions.Logging;
 
@@ -155,6 +156,25 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services.Internal
         {
             if (instance < 0 || instance >= InstanceCount)
                 throw new ArgumentException($"{instance} is not a valid instance, it must be between 0 and {InstanceCount-1}.", nameof(instance));
+        }
+
+        public string ToTraceString()
+        {
+            StringBuilder trace = new();
+            trace.AppendLine("replicaSet:");
+
+            ulong replicaEnabledFlags = ReplicaEnabledFlags;
+
+            trace.AppendLine($"  InstanceCount={InstanceCount}, EnabledInstanceCount={EnabledInstanceCount(replicaEnabledFlags)}, ReplicaEnabledFlags={replicaEnabledFlags}");
+            for (int instance = 0; instance < InstanceCount; ++instance)
+            {
+                var graph = GraphInstances[instance];
+
+                trace.AppendLine($"    Graph #{instance}: {graph.GraphName}");
+                trace.AppendLine($"      IsEnabled()={IsEnabled(replicaEnabledFlags, instance)}");
+            }
+
+            return trace.ToString();
         }
     }
 }

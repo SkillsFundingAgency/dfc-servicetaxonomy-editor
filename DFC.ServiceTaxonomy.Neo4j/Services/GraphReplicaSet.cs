@@ -39,6 +39,11 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services
 
         private int _instanceCounter;
 
+        public int EnabledInstanceCount()
+        {
+            return EnabledInstanceCount(ReplicaEnabledFlags);
+        }
+
         internal int EnabledInstanceCount(ulong replicaEnabledFlags)
         {
             return (int)System.Runtime.Intrinsics.X86.Popcnt.X64.PopCount(replicaEnabledFlags);
@@ -120,7 +125,7 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services
             return Name;
         }
 
-        protected bool IsEnabled(int instance)
+        public bool IsEnabled(int instance)
         {
             bool isEnabled = IsEnabled(ReplicaEnabledFlags, instance);
 
@@ -130,9 +135,9 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services
             return isEnabled;
         }
 
-        private ulong ReplicaEnabledFlags => Interlocked.Read(ref _replicaEnabledFlags);
+        private protected ulong ReplicaEnabledFlags => Interlocked.Read(ref _replicaEnabledFlags);
 
-        private bool IsEnabled(ulong replicaEnabledFlags, int instance)
+        private protected bool IsEnabled(ulong replicaEnabledFlags, int instance)
         {
             return (replicaEnabledFlags & (1ul << instance)) != 0;
         }
