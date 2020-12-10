@@ -17,57 +17,57 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services.Internal
         public INeoEndpoint Endpoint { get; }
 
         private long _inFlightCount;
-        private long _enabled;
+        // private long _enabled;
 
-        private const long _enabledValue = 1;
-        private const long _disabledValue = 0;
+        // private const long _enabledValue = 1;
+        // private const long _disabledValue = 0;
 
-        public bool Enabled
-        {
-            get
-            {
-                bool enabled = Interlocked.Read(ref _enabled) == _enabledValue;
-                _logger.LogTrace("Graph replica #{Instance} enabled check: {Enables}",
-                    Instance, enabled);
-                return enabled;
-            }
-        }
-
-        public bool Enable()
-        {
-            return Interlocked.Exchange(ref _enabled, _enabledValue) == _enabledValue;
-        }
-
-        public bool Disable()
-        {
-            _logger.LogInformation("Disabling graph #{Instance}.", Instance);
-            bool wasEnabled = Interlocked.Exchange(ref _enabled, _disabledValue) == _enabledValue;
-            _logger.LogInformation("Disabled graph #{Instance} - Graph was previously {WasEnabled}.",
-                Instance, wasEnabled?"enabled":"disabled");
-
-            if (!wasEnabled)
-                return wasEnabled;
-
-            //todo: timeout?
-            //todo: best way to synchronise?
-
-            // flush any in-flight commands/queries
-            while (Interlocked.Read(ref _inFlightCount) > 0)
-            {
-                _logger.LogInformation("Disabled graph #{Instance} - {InFlightCount} in-flight queries/commands.",
-                    Instance, _inFlightCount);
-
-                if (Interlocked.Read(ref _enabled) == _enabledValue)
-                {
-                    _logger.LogInformation("Disabled graph #{Instance} - Graph re-enabled.", Instance);
-                    break;
-                }
-
-                Thread.Sleep(100);
-            }
-
-            return wasEnabled;
-        }
+        // public bool Enabled
+        // {
+        //     get
+        //     {
+        //         bool enabled = Interlocked.Read(ref _enabled) == _enabledValue;
+        //         _logger.LogTrace("Graph replica #{Instance} enabled check: {Enables}",
+        //             Instance, enabled);
+        //         return enabled;
+        //     }
+        // }
+        //
+        // public bool Enable()
+        // {
+        //     return Interlocked.Exchange(ref _enabled, _enabledValue) == _enabledValue;
+        // }
+        //
+        // public bool Disable()
+        // {
+        //     _logger.LogInformation("Disabling graph #{Instance}.", Instance);
+        //     bool wasEnabled = Interlocked.Exchange(ref _enabled, _disabledValue) == _enabledValue;
+        //     _logger.LogInformation("Disabled graph #{Instance} - Graph was previously {WasEnabled}.",
+        //         Instance, wasEnabled?"enabled":"disabled");
+        //
+        //     if (!wasEnabled)
+        //         return wasEnabled;
+        //
+        //     //todo: timeout?
+        //     //todo: best way to synchronise?
+        //
+        //     // flush any in-flight commands/queries
+        //     while (Interlocked.Read(ref _inFlightCount) > 0)
+        //     {
+        //         _logger.LogInformation("Disabled graph #{Instance} - {InFlightCount} in-flight queries/commands.",
+        //             Instance, _inFlightCount);
+        //
+        //         if (Interlocked.Read(ref _enabled) == _enabledValue)
+        //         {
+        //             _logger.LogInformation("Disabled graph #{Instance} - Graph re-enabled.", Instance);
+        //             break;
+        //         }
+        //
+        //         Thread.Sleep(100);
+        //     }
+        //
+        //     return wasEnabled;
+        // }
 
         public Graph(INeoEndpoint endpoint, string graphName, bool defaultGraph, int instance, ILogger<Graph> logger)
         {
@@ -76,12 +76,14 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services.Internal
             GraphName = graphName;
             DefaultGraph = defaultGraph;
             Instance = instance;
-            _enabled = _enabledValue;
+            // _enabled = _enabledValue;
             _inFlightCount = 0;
 
             // GraphReplicaSet will set this as part of the build process, before any consumer gets an instance of this class
             GraphReplicaSetLowLevel = default!;
         }
+
+        public long InFlightCount => Interlocked.Read(ref _inFlightCount);
 
         public Task<List<T>> Run<T>(params IQuery<T>[] queries)
         {
