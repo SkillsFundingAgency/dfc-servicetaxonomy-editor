@@ -74,11 +74,11 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services.Internal
             // it doesn't matter if _enabledInstanceCount is less that the actual number of enabled graph instances for a window
             // the replica code that checks if _enabledInstanceCount < InstanceCount will handle that situation
 
-            _logger.LogInformation("Disabling graph #{Instance} {GraphName}.",
-                instance, _graphInstances[instance].GraphName);
-
             ulong replicaFlag = 1ul << instance;
             ulong replicaMask = ~replicaFlag;
+
+            _logger.LogInformation("Disabling graph #{Instance} {GraphName}.",
+                instance, _graphInstances[instance].GraphName);
 
             ulong oldReplicaEnabledFlags = Interlocked.And(ref _replicaEnabledFlags, replicaMask);
             bool alreadyDisabled = (oldReplicaEnabledFlags & replicaFlag) == 0;
@@ -141,16 +141,19 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services.Internal
 
             ulong replicaFlag = 1ul << instance;
 
+            _logger.LogInformation("Enabling graph #{Instance} {GraphName}.",
+                instance, _graphInstances[instance].GraphName);
+
             ulong oldReplicaEnabledFlags = Interlocked.Or(ref _replicaEnabledFlags, replicaFlag);
 
-            return (oldReplicaEnabledFlags & replicaFlag) != 0 ? EnabledStatus.AlreadyEnabled : EnabledStatus.Enabled;
+            var alreadyEnabled = (oldReplicaEnabledFlags & replicaFlag) != 0
+                ? EnabledStatus.AlreadyEnabled
+                : EnabledStatus.Enabled;
 
-            // you could probably confuse enabling/disabling, but we want to avoid cluster wide locks waiting for
-            // any in-flight commands/queries to finish
+            _logger.LogInformation("<{LogId}> Enabled graph #{Instance} {GraphName} - Graph was previously {OldEnabledStatus}.",
+                LogId.GraphEnabled, instance, _graphInstances[instance].GraphName, alreadyEnabled == EnabledStatus.AlreadyEnabled?"enabled":"disabled");
 
-
-            // it doesn't matter if _graphDisabled is true for a window where all graph instances in the replica are enabled
-            // the replica code that checks the bool will handle that situation
+            return alreadyEnabled;
         }
 
         // public void EmergencyEnableAll()

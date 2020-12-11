@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.IntegrationTests.Helpers;
 using DFC.ServiceTaxonomy.Neo4j.Log;
-using DFC.ServiceTaxonomy.Neo4j.Queries.Interfaces;
 using Divergic.Logging.Xunit;
-using FakeItEasy;
 using Microsoft.Extensions.Logging;
 using Xunit;
 using Xunit.Abstractions;
@@ -16,14 +13,11 @@ namespace DFC.ServiceTaxonomy.IntegrationTests.Neo4j.Services.Internal
     [Collection("GraphCluster Integration")]
     public class GraphReplicaSetLowLevel_DisableTests : GraphClusterIntegrationTest
     {
-        public IQuery<int> Query { get; }
-
         public GraphReplicaSetLowLevel_DisableTests(
             GraphClusterCollectionFixture graphClusterCollectionFixture,
             ITestOutputHelper testOutputHelper)
             : base(graphClusterCollectionFixture, testOutputHelper)
         {
-            Query = A.Fake<IQuery<int>>();
         }
 
         // we could split this test out into multiple tests,
@@ -77,55 +71,6 @@ namespace DFC.ServiceTaxonomy.IntegrationTests.Neo4j.Services.Internal
 
             // check right number of In flight jobs finished after replica was disabled
             Assert.Equal(inFlightCount, jobsFinishedOnDisabledReplicaAfterReplicaDisabled);
-        }
-
-        private (int?, LogEntry?) GetLogEntry(List<LogEntry> log, LogId id)
-        {
-            return GetLogEntry(log, (int)id);
-        }
-
-        private (int?, LogEntry?) GetLogEntry(List<LogEntry> log, IntegrationTestLogId id)
-        {
-            return GetLogEntry(log, (int)id);
-        }
-
-        private (int?, LogEntry?) GetLogEntry(List<LogEntry> log, int logId)
-        {
-            int index = log.FindIndex(l => IsLog(l, logId));
-            if (index == -1)
-                return (null, null);
-
-            return (index, log[index]);
-        }
-
-        private bool IsLog(LogEntry logEntry, LogId logId, Func<KeyValuePair<string, object>, bool>? stateCheck = null)
-        {
-            return IsLog(logEntry, (int)logId, stateCheck);
-        }
-
-        private bool IsLog(LogEntry logEntry, IntegrationTestLogId logId, Func<KeyValuePair<string, object>, bool>? stateCheck = null)
-        {
-            return IsLog(logEntry, (int)logId, stateCheck);
-        }
-
-        private bool IsLog(LogEntry logEntry, int logId, Func<KeyValuePair<string, object>, bool>? stateCheck = null)
-        {
-            if (!(logEntry.State is IReadOnlyList<KeyValuePair<string, object>> state))
-                return false;
-
-            if (!state.Any(kv => kv.Key == "LogId" && (int)kv.Value == logId))
-                return false;
-
-            return stateCheck == null || state.Any(stateCheck);
-        }
-
-        private T? Get<T>(LogEntry logEntry, string key)
-        {
-            #pragma warning disable S1905
-            return (T?)((KeyValuePair<string, object>?)(logEntry.State as IReadOnlyList<KeyValuePair<string, object>>)?
-                .FirstOrDefault(kv => kv.Key == key))?
-                .Value;
-            #pragma warning restore S1905
         }
     }
 }

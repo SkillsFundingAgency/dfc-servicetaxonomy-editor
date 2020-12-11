@@ -1,8 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.Neo4j.Configuration;
+using DFC.ServiceTaxonomy.Neo4j.Log;
 using DFC.ServiceTaxonomy.Neo4j.Queries.Interfaces;
 using DFC.ServiceTaxonomy.Neo4j.Services;
 using DFC.ServiceTaxonomy.Neo4j.Services.Internal;
@@ -24,10 +26,14 @@ namespace DFC.ServiceTaxonomy.IntegrationTests.Helpers
         internal IEnumerable<INeoEndpoint> Endpoints { get; }
         internal ICacheLogger<GraphClusterBuilder> Logger { get; }
 
+        internal IQuery<int> Query { get; }
+
         internal GraphClusterIntegrationTest(
             GraphClusterCollectionFixture graphClusterCollectionFixture,
             ITestOutputHelper testOutputHelper)
         {
+            Query = A.Fake<IQuery<int>>();
+
             Endpoints = graphClusterCollectionFixture.Neo4jOptions.Endpoints
                 .Where(epc => epc.Enabled)
                 .Select(epc => CreateFakeNeoEndpoint(epc.Name!));
@@ -80,6 +86,55 @@ namespace DFC.ServiceTaxonomy.IntegrationTests.Helpers
                         gic.DefaultGraph,
                         index,
                         logger));
+        }
+
+        protected (int?, LogEntry?) GetLogEntry(List<LogEntry> log, LogId id)
+        {
+            return GetLogEntry(log, (int)id);
+        }
+
+        protected (int?, LogEntry?) GetLogEntry(List<LogEntry> log, IntegrationTestLogId id)
+        {
+            return GetLogEntry(log, (int)id);
+        }
+
+        protected (int?, LogEntry?) GetLogEntry(List<LogEntry> log, int logId)
+        {
+            int index = log.FindIndex(l => IsLog(l, logId));
+            if (index == -1)
+                return (null, null);
+
+            return (index, log[index]);
+        }
+
+        protected bool IsLog(LogEntry logEntry, LogId logId, Func<KeyValuePair<string, object>, bool>? stateCheck = null)
+        {
+            return IsLog(logEntry, (int)logId, stateCheck);
+        }
+
+        protected bool IsLog(LogEntry logEntry, IntegrationTestLogId logId, Func<KeyValuePair<string, object>, bool>? stateCheck = null)
+        {
+            return IsLog(logEntry, (int)logId, stateCheck);
+        }
+
+        protected bool IsLog(LogEntry logEntry, int logId, Func<KeyValuePair<string, object>, bool>? stateCheck = null)
+        {
+            if (!(logEntry.State is IReadOnlyList<KeyValuePair<string, object>> state))
+                return false;
+
+            if (!state.Any(kv => kv.Key == "LogId" && (int)kv.Value == logId))
+                return false;
+
+            return stateCheck == null || state.Any(stateCheck);
+        }
+
+        protected T? Get<T>(LogEntry logEntry, string key)
+        {
+#pragma warning disable S1905
+            return (T?)((KeyValuePair<string, object>?)(logEntry.State as IReadOnlyList<KeyValuePair<string, object>>)?
+                    .FirstOrDefault(kv => kv.Key == key))?
+                .Value;
+#pragma warning restore S1905
         }
 
         protected void ReferenceCountTest(int parallelLoops)
