@@ -1,7 +1,11 @@
-﻿using System.Linq;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.IntegrationTests.Helpers;
+using DFC.ServiceTaxonomy.Neo4j.Log;
 using DFC.ServiceTaxonomy.Neo4j.Queries.Interfaces;
+using Divergic.Logging.Xunit;
 using FakeItEasy;
 using Microsoft.Extensions.Logging;
 using Xunit;
@@ -22,11 +26,7 @@ namespace DFC.ServiceTaxonomy.IntegrationTests.Neo4j.Services.Internal
             Query = A.Fake<IQuery<int>>();
         }
 
-        // manual test (todo: partly automate)
-        // checks: (might be a few stragglers, due to delay before trace lines are written)
-        //todo: check only enabled replica used after disable() has returned - could be automated?
-        //check any query run before disable() has returned is finished first
-        //todo: out output helper loggers cache all lines, so we can use that in the assert phase
+        //todo: check any query run before disable() has returned is finished first
         [Fact]
         public void DisableWaitsForInFlightQueriesTest()
         {
@@ -50,17 +50,47 @@ namespace DFC.ServiceTaxonomy.IntegrationTests.Neo4j.Services.Internal
             Logger.LogTrace(replicaSet.ToTraceString());
 
             //todo: use tags so not coupled to log message?
-            var log = Logger.Entries.ToList();
+            List<LogEntry> log = Logger.Entries.ToList();
 
-            //todo: use state with enum
-            int disabledLogEntryIndex = log.FindIndex(l => l.Message.Contains("Disabled graph"));
-            Assert.True(log.Skip(disabledLogEntryIndex).All(l => l.Message != $"Run started on {replicaInstanceGraphName}"),
+            int disabledLogEntryIndex = GetLogIndex(log, LogId.GraphDisabled);
+            Assert.True(log
+                    .Skip(disabledLogEntryIndex+1)
+                    .All(l => !IsLog(l, IntegrationTestLogId.RunQueryStarted,
+                        kv => kv.Key == "DatabaseName" && (string)kv.Value == replicaInstanceGraphName)),
                 "No jobs were started on the disabled replica.");
+        }
 
-            // what can we check?, we can't assume all Run()'s before the disabled were started
-            // and we can't assume Run()'s from later iteration's weren't started
-            // int enabledInstanceCount = replicaSet.EnabledInstanceCount;
-            // Assert.Equal(NumberOfReplicasConfiguredForPublishedSet, enabledInstanceCount);
+        private int GetLogIndex(List<LogEntry> log, LogId id)
+        {
+            return GetLogIndex(log, (int)id);
+        }
+
+        private int GetLogIndex(List<LogEntry> log, IntegrationTestLogId id)
+        {
+            return GetLogIndex(log, (int)id);
+        }
+
+        private int GetLogIndex(List<LogEntry> log, int logId)
+        {
+            return log.FindIndex(l => IsLog(l, logId));
+        }
+
+        private bool IsLog(LogEntry logEntry, LogId logId, Func<KeyValuePair<string, object>, bool>? stateCheck = null)
+        {
+            return IsLog(logEntry, (int)logId, stateCheck);
+        }
+
+        private bool IsLog(LogEntry logEntry, IntegrationTestLogId logId, Func<KeyValuePair<string, object>, bool>? stateCheck = null)
+        {
+            return IsLog(logEntry, (int)logId, stateCheck);
+        }
+
+        private bool IsLog(LogEntry logEntry, int logId, Func<KeyValuePair<string, object>, bool>? stateCheck = null)
+        {
+            return (logEntry.State as IReadOnlyList<KeyValuePair<string, object>>)?
+                .Any(kv => kv.Key == "LogId" && (int)kv.Value == logId
+                && (stateCheck?.Invoke(kv) ?? true)) == true;
+
         }
     }
 }

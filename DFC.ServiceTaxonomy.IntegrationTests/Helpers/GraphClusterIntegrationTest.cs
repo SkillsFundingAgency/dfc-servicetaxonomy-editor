@@ -55,9 +55,11 @@ namespace DFC.ServiceTaxonomy.IntegrationTests.Helpers
             A.CallTo(() => neoEndpoint.Run(A<IQuery<int>[]>._, A<string>._, A<bool>._))
                 .Invokes((IQuery<int>[] queries, string databaseName, bool defaultDatabase) =>
                 {
-                    Logger.LogTrace($"Run started on {databaseName}, thread #{Thread.CurrentThread.ManagedThreadId}.");
+                    Logger.LogTrace("<{LogId}> Run started on {DatabaseName}, thread #{ThreadId}.",
+                        IntegrationTestLogId.RunQueryStarted, databaseName, Thread.CurrentThread.ManagedThreadId);
                     Thread.Sleep(100);
-                    Logger.LogTrace($"Run finished on {databaseName}, thread #{Thread.CurrentThread.ManagedThreadId}.");
+                    Logger.LogTrace("Run finished on {DatabaseName}, thread #{ThreadId}.",
+                        databaseName, Thread.CurrentThread.ManagedThreadId);
                 })
                 .Returns(new List<int> { 69 });
 

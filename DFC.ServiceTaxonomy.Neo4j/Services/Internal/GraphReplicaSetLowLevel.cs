@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Numerics;
 using System.Text;
 using System.Threading;
+using DFC.ServiceTaxonomy.Neo4j.Log;
 using Microsoft.Extensions.Logging;
 
 namespace DFC.ServiceTaxonomy.Neo4j.Services.Internal
@@ -82,8 +83,8 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services.Internal
             ulong oldReplicaEnabledFlags = Interlocked.And(ref _replicaEnabledFlags, replicaMask);
             bool alreadyDisabled = (oldReplicaEnabledFlags & replicaFlag) == 0;
 
-            _logger.LogInformation("Disabled graph #{Instance} {GraphName} - Graph was previously {OldEnabledStatus}.",
-                instance, _graphInstances[instance].GraphName, alreadyDisabled?"disabled":"enabled");
+            _logger.LogInformation("<{LogId}> Disabled graph #{Instance} {GraphName} - Graph was previously {OldEnabledStatus}.",
+                LogId.GraphDisabled, instance, _graphInstances[instance].GraphName, alreadyDisabled?"disabled":"enabled");
 
             if (alreadyDisabled)
             {
