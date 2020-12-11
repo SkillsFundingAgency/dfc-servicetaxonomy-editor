@@ -13,6 +13,9 @@ using Xunit.Abstractions;
 
 namespace DFC.ServiceTaxonomy.IntegrationTests.Helpers
 {
+    //todo: if use logger rather than helper, we can do checks like 'after disable no jobs started on disabled replica'
+    // 'after disable, all in flight jobs on disabled replica finish' etc. by checking the cache of logs
+    //todo: use interlocked for couter too, so round robin is more relicable
     public class GraphClusterIntegrationTest
     {
         internal const int NumberOfReplicasConfiguredForPublishedSet = 2;
@@ -84,19 +87,6 @@ namespace DFC.ServiceTaxonomy.IntegrationTests.Helpers
                         index,
                         graphLogger));
         }
-
-        // internal void Trace(IGraphReplicaSetLowLevel replicaSet)
-        // {
-        //     TestOutputHelper.WriteLine("replicaSet:");
-        //     TestOutputHelper.WriteLine($"  InstanceCount={replicaSet.InstanceCount}, EnabledInstanceCount={replicaSet.EnabledInstanceCount}");
-        //     for (int instance = 0; instance < replicaSet.InstanceCount; ++instance)
-        //     {
-        //         var graph = replicaSet.GraphInstances[instance];
-        //
-        //         TestOutputHelper.WriteLine($"    Graph #{instance}: {graph.GraphName}");
-        //         TestOutputHelper.WriteLine($"      IsEnabled()={replicaSet.IsEnabled(instance)}");
-        //     }
-        // }
 
         protected void ReferenceCountTest(int parallelLoops)
         {
