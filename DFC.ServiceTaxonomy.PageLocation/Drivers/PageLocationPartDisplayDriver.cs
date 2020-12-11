@@ -137,7 +137,7 @@ namespace DFC.ServiceTaxonomy.PageLocation.Drivers
                 {
                     RecursivelyBuildUrls(JObject.FromObject(taxonomy));
 
-                    if (PageLocations.Any(x => x.Equals(pageLocation.FullUrl.Trim('/'), StringComparison.OrdinalIgnoreCase)))
+                    if (_pageLocations.Any(x => x.Equals(pageLocation.FullUrl.Trim('/'), StringComparison.OrdinalIgnoreCase)))
                     {
                         updater.ModelState.AddModelError(Prefix, nameof(pageLocation.FullUrl), "This URL has already been used as a Page Location");
                     }
@@ -146,7 +146,7 @@ namespace DFC.ServiceTaxonomy.PageLocation.Drivers
                     {
                         foreach (var redirectLocation in redirectLocations)
                         {
-                            if (PageLocations.Any(x => x.Equals(redirectLocation.Trim('/'), StringComparison.OrdinalIgnoreCase)))
+                            if (_pageLocations.Any(x => x.Equals(redirectLocation.Trim('/'), StringComparison.OrdinalIgnoreCase)))
                             {
                                 updater.ModelState.AddModelError(Prefix, nameof(pageLocation.RedirectLocations), $"Redirect Location '{redirectLocation}' has already been used as a Page Location.");
                             }
@@ -156,19 +156,22 @@ namespace DFC.ServiceTaxonomy.PageLocation.Drivers
             }
         }
 
-        private List<string> PageLocations = new List<string>();
+        private readonly List<string> _pageLocations = new();
 
         private void RecursivelyBuildUrls(JObject taxonomy)
         {
             JArray? terms = _taxonomyHelper.GetTerms(taxonomy);
 
-            if (terms != null)
+            if (terms == null)
+                return;
+
+            //todo: look at this
+#pragma warning disable S3217
+            foreach (JObject term in terms)
+#pragma warning restore S3217
             {
-                foreach (JObject term in terms)
-                {
-                    PageLocations.Add(_taxonomyHelper.BuildTermUrl(term, taxonomy));
-                    RecursivelyBuildUrls(term);
-                }
+                _pageLocations.Add(_taxonomyHelper.BuildTermUrl(term, taxonomy));
+                RecursivelyBuildUrls(term);
             }
         }
     }
