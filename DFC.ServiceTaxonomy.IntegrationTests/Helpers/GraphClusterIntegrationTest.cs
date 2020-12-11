@@ -6,6 +6,7 @@ using DFC.ServiceTaxonomy.Neo4j.Configuration;
 using DFC.ServiceTaxonomy.Neo4j.Queries.Interfaces;
 using DFC.ServiceTaxonomy.Neo4j.Services;
 using DFC.ServiceTaxonomy.Neo4j.Services.Internal;
+using Divergic.Logging.Xunit;
 using FakeItEasy;
 using Microsoft.Extensions.Logging;
 using Xunit;
@@ -21,9 +22,7 @@ namespace DFC.ServiceTaxonomy.IntegrationTests.Helpers
 
         internal GraphClusterLowLevel GraphClusterLowLevel { get; }
         internal IEnumerable<INeoEndpoint> Endpoints { get; }
-        internal ILogger<GraphClusterBuilder> GraphClusterLowLevelLogger { get; }
-        internal ILogger<Graph> GraphLogger { get; }
-        internal ILogger<GraphReplicaSetLowLevel> GraphReplicaSetLowLevelLogger { get; }
+        internal ICacheLogger<GraphClusterBuilder> Logger { get; }
 
         internal GraphClusterIntegrationTest(
             GraphClusterCollectionFixture graphClusterCollectionFixture,
@@ -33,18 +32,15 @@ namespace DFC.ServiceTaxonomy.IntegrationTests.Helpers
                 .Where(epc => epc.Enabled)
                 .Select(epc => CreateFakeNeoEndpoint(epc.Name!));
 
-            GraphReplicaSetLowLevelLogger = testOutputHelper.BuildLoggerFor<GraphReplicaSetLowLevel>();
-            GraphLogger = testOutputHelper.BuildLoggerFor<Graph>();
+            Logger = testOutputHelper.BuildLoggerFor<GraphClusterBuilder>();
 
             var graphReplicaSets = graphClusterCollectionFixture.Neo4jOptions.ReplicaSets
                 .Select(rsc => new GraphReplicaSetLowLevel(
                     rsc.ReplicaSetName!,
-                    ConstructGraphs(rsc, Endpoints, GraphLogger),
-                    GraphReplicaSetLowLevelLogger));
+                    ConstructGraphs(rsc, Endpoints, Logger),
+                    Logger));
 
-            GraphClusterLowLevelLogger = testOutputHelper.BuildLoggerFor<GraphClusterBuilder>();
-
-            GraphClusterLowLevel = new GraphClusterLowLevel(graphReplicaSets, GraphClusterLowLevelLogger);
+            GraphClusterLowLevel = new GraphClusterLowLevel(graphReplicaSets, Logger);
         }
 
         //todo: can we trust TestOutputHelper.WriteLine to output in order?
@@ -59,9 +55,9 @@ namespace DFC.ServiceTaxonomy.IntegrationTests.Helpers
             A.CallTo(() => neoEndpoint.Run(A<IQuery<int>[]>._, A<string>._, A<bool>._))
                 .Invokes((IQuery<int>[] queries, string databaseName, bool defaultDatabase) =>
                 {
-                    GraphClusterLowLevelLogger.LogTrace($"Run started on {databaseName}, thread #{Thread.CurrentThread.ManagedThreadId}.");
+                    Logger.LogTrace($"Run started on {databaseName}, thread #{Thread.CurrentThread.ManagedThreadId}.");
                     Thread.Sleep(100);
-                    GraphClusterLowLevelLogger.LogTrace($"Run finished on {databaseName}, thread #{Thread.CurrentThread.ManagedThreadId}.");
+                    Logger.LogTrace($"Run finished on {databaseName}, thread #{Thread.CurrentThread.ManagedThreadId}.");
                 })
                 .Returns(new List<int> { 69 });
 
@@ -71,7 +67,7 @@ namespace DFC.ServiceTaxonomy.IntegrationTests.Helpers
         private IEnumerable<Graph> ConstructGraphs(
             ReplicaSetConfiguration replicaSetConfiguration,
             IEnumerable<INeoEndpoint> neoEndpoints,
-            ILogger<Graph> graphLogger)
+            ILogger logger)
         {
             return replicaSetConfiguration.GraphInstances
                 .Where(gic => gic.Enabled)
@@ -81,7 +77,7 @@ namespace DFC.ServiceTaxonomy.IntegrationTests.Helpers
                         gic.GraphName!,
                         gic.DefaultGraph,
                         index,
-                        graphLogger));
+                        logger));
         }
 
         protected void ReferenceCountTest(int parallelLoops)
@@ -92,7 +88,7 @@ namespace DFC.ServiceTaxonomy.IntegrationTests.Helpers
 
                 Parallel.For(0, parallelLoops, (i, state) =>
                 {
-                    GraphClusterLowLevelLogger.LogTrace($"Thread id: {Thread.CurrentThread.ManagedThreadId}");
+                    Logger.LogTrace($"Thread id: {Thread.CurrentThread.ManagedThreadId}");
 
                     replicaSet.Disable(replicaInstance);
                     replicaSet.Enable(replicaInstance);

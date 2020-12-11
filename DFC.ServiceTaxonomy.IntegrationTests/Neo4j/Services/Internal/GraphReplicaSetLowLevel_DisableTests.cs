@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Linq;
+using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.IntegrationTests.Helpers;
 using DFC.ServiceTaxonomy.Neo4j.Queries.Interfaces;
 using FakeItEasy;
@@ -30,6 +31,7 @@ namespace DFC.ServiceTaxonomy.IntegrationTests.Neo4j.Services.Internal
         public void DisableWaitsForInFlightQueriesTest()
         {
             const int replicaInstance = 0;
+            const string replicaInstanceGraphName = "neo4j";
 
             var replicaSet = GraphClusterLowLevel.GetGraphReplicaSetLowLevel("published");
 
@@ -45,13 +47,20 @@ namespace DFC.ServiceTaxonomy.IntegrationTests.Neo4j.Services.Internal
                 }
             });
 
-            GraphClusterLowLevelLogger.LogTrace(replicaSet.ToTraceString());
+            Logger.LogTrace(replicaSet.ToTraceString());
+
+            //todo: use tags so not coupled to log message?
+            var log = Logger.Entries.ToList();
+
+            //todo: use state with enum
+            int disabledLogEntryIndex = log.FindIndex(l => l.Message.Contains("Disabled graph"));
+            Assert.True(log.Skip(disabledLogEntryIndex).All(l => l.Message != $"Run started on {replicaInstanceGraphName}"),
+                "No jobs were started on the disabled replica.");
 
             // what can we check?, we can't assume all Run()'s before the disabled were started
             // and we can't assume Run()'s from later iteration's weren't started
             // int enabledInstanceCount = replicaSet.EnabledInstanceCount;
             // Assert.Equal(NumberOfReplicasConfiguredForPublishedSet, enabledInstanceCount);
-            Assert.True(true);
         }
     }
 }

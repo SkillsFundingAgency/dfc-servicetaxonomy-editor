@@ -9,7 +9,7 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services.Internal
 {
     internal class Graph : IGraph
     {
-        private readonly ILogger<Graph> _logger;
+        private readonly ILogger _logger;
         public string GraphName { get; }
         public bool DefaultGraph { get; }
         public int Instance { get; }
@@ -18,7 +18,7 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services.Internal
 
         private ulong _inFlightCount;
 
-        public Graph(INeoEndpoint endpoint, string graphName, bool defaultGraph, int instance, ILogger<Graph> logger)
+        public Graph(INeoEndpoint endpoint, string graphName, bool defaultGraph, int instance, ILogger logger)
         {
             _logger = logger;
             Endpoint = endpoint;
