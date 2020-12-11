@@ -73,7 +73,8 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services.Internal
             // it doesn't matter if _enabledInstanceCount is less that the actual number of enabled graph instances for a window
             // the replica code that checks if _enabledInstanceCount < InstanceCount will handle that situation
 
-            _logger.LogInformation("Disabling graph #{Instance}.", instance);
+            _logger.LogInformation("Disabling graph #{Instance} {GraphName}.",
+                instance, _graphInstances[instance].GraphName);
 
             ulong replicaFlag = 1ul << instance;
             ulong replicaMask = ~replicaFlag;
@@ -81,8 +82,8 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services.Internal
             ulong oldReplicaEnabledFlags = Interlocked.And(ref _replicaEnabledFlags, replicaMask);
             bool alreadyDisabled = (oldReplicaEnabledFlags & replicaFlag) == 0;
 
-            _logger.LogInformation("Disabled graph #{Instance} - Graph was previously {OldEnabledStatus}.",
-                instance, alreadyDisabled?"disabled":"enabled");
+            _logger.LogInformation("Disabled graph #{Instance} {GraphName} - Graph was previously {OldEnabledStatus}.",
+                instance, _graphInstances[instance].GraphName, alreadyDisabled?"disabled":"enabled");
 
             if (alreadyDisabled)
             {
@@ -103,7 +104,8 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services.Internal
 
             if (IsEnabled(instance))
             {
-                _logger.LogInformation("Quiescing graph #{Instance} - Graph enabled, abandoning quiesce.", instance);
+                _logger.LogInformation("Quiescing graph #{Instance} {GraphName} - Graph enabled, abandoning quiesce.",
+                    instance, _graphInstances[instance].GraphName);
                 return QuiesceStatus.QuiesceAbandonedAsReplicaEnabled;
             }
 
@@ -113,12 +115,13 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services.Internal
             ulong inFlightCount;
             while ((inFlightCount = graphInstance.InFlightCount) > 0)
             {
-                _logger.LogInformation("Quiescing graph #{Instance} - {InFlightCount} in-flight queries/commands.",
-                    instance, inFlightCount);
+                _logger.LogInformation("Quiescing graph #{Instance} {GraphName} - {InFlightCount} in-flight queries/commands.",
+                    instance, _graphInstances[instance].GraphName, inFlightCount);
 
                 if (IsEnabled(instance))
                 {
-                    _logger.LogInformation("Quiescing graph #{Instance} - Graph re-enabled, abandoning quiesce.", instance);
+                    _logger.LogInformation("Quiescing graph #{Instance} {GraphName} - Graph re-enabled, abandoning quiesce.",
+                        instance, _graphInstances[instance].GraphName);
                     return QuiesceStatus.QuiesceAbandonedAsReplicaEnabled;
                 }
 
@@ -165,7 +168,7 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services.Internal
 
             ulong replicaEnabledFlags = ReplicaEnabledFlags;
 
-            trace.AppendLine($"  InstanceCount={InstanceCount}, EnabledInstanceCount={EnabledInstanceCount(replicaEnabledFlags)}, ReplicaEnabledFlags={replicaEnabledFlags}");
+            trace.AppendLine($"  InstanceCount={InstanceCount}, EnabledInstanceCount={EnabledInstanceCount(replicaEnabledFlags)}, ReplicaEnabledFlags={Convert.ToString((long)replicaEnabledFlags, 2)}");
             for (int instance = 0; instance < InstanceCount; ++instance)
             {
                 var graph = GraphInstances[instance];

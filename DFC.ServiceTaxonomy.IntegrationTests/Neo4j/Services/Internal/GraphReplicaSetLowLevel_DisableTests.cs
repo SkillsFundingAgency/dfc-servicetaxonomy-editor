@@ -1,8 +1,8 @@
-﻿using System.Threading;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.IntegrationTests.Helpers;
 using DFC.ServiceTaxonomy.Neo4j.Queries.Interfaces;
 using FakeItEasy;
+using Microsoft.Extensions.Logging;
 using Xunit;
 using Xunit.Abstractions;
 
@@ -35,15 +35,9 @@ namespace DFC.ServiceTaxonomy.IntegrationTests.Neo4j.Services.Internal
 
             Parallel.For(0, 100, async (i, state) =>
             {
-                TestOutputHelper.WriteLine($"Iteration {i} on thread #{Thread.CurrentThread.ManagedThreadId}");
-
                 if (i == 5)
                 {
-                    TestOutputHelper.WriteLine($"Disabling replica #{replicaInstance}. Iteration #{i}. Thread #{Thread.CurrentThread.ManagedThreadId}");
-                    TestOutputHelper.WriteLine("----------------------------->>>-------------------------------");
                     replicaSet.Disable(replicaInstance);
-                    TestOutputHelper.WriteLine("-----------------------------<<<-------------------------------");
-                    TestOutputHelper.WriteLine($"Disabled replica #{replicaInstance}. Iteration #{i}. Thread #{Thread.CurrentThread.ManagedThreadId}");
                 }
                 else
                 {
@@ -51,7 +45,7 @@ namespace DFC.ServiceTaxonomy.IntegrationTests.Neo4j.Services.Internal
                 }
             });
 
-            TestOutputHelper.WriteLine(replicaSet.ToTraceString());
+            GraphClusterLowLevelLogger.LogTrace(replicaSet.ToTraceString());
 
             // what can we check?, we can't assume all Run()'s before the disabled were started
             // and we can't assume Run()'s from later iteration's weren't started

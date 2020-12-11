@@ -22,7 +22,6 @@ namespace DFC.ServiceTaxonomy.IntegrationTests.Helpers
 
         internal GraphClusterLowLevel GraphClusterLowLevel { get; }
         internal IEnumerable<INeoEndpoint> Endpoints { get; }
-        internal ITestOutputHelper TestOutputHelper { get; }
         internal ILogger<GraphClusterBuilder> GraphClusterLowLevelLogger { get; }
         internal ILogger<Graph> GraphLogger { get; }
         internal ILogger<GraphReplicaSetLowLevel> GraphReplicaSetLowLevelLogger { get; }
@@ -31,8 +30,6 @@ namespace DFC.ServiceTaxonomy.IntegrationTests.Helpers
             GraphClusterCollectionFixture graphClusterCollectionFixture,
             ITestOutputHelper testOutputHelper)
         {
-            TestOutputHelper = testOutputHelper;
-
             Endpoints = graphClusterCollectionFixture.Neo4jOptions.Endpoints
                 .Where(epc => epc.Enabled)
                 .Select(epc => CreateFakeNeoEndpoint(epc.Name!));
@@ -63,9 +60,9 @@ namespace DFC.ServiceTaxonomy.IntegrationTests.Helpers
             A.CallTo(() => neoEndpoint.Run(A<IQuery<int>[]>._, A<string>._, A<bool>._))
                 .Invokes((IQuery<int>[] queries, string databaseName, bool defaultDatabase) =>
                 {
-                    TestOutputHelper.WriteLine($"Run started on {databaseName}, thread #{Thread.CurrentThread.ManagedThreadId}.");
+                    GraphClusterLowLevelLogger.LogTrace($"Run started on {databaseName}, thread #{Thread.CurrentThread.ManagedThreadId}.");
                     Thread.Sleep(100);
-                    TestOutputHelper.WriteLine($"Run finished on {databaseName}, thread #{Thread.CurrentThread.ManagedThreadId}.");
+                    GraphClusterLowLevelLogger.LogTrace($"Run finished on {databaseName}, thread #{Thread.CurrentThread.ManagedThreadId}.");
                 })
                 .Returns(new List<int> { 69 });
 
@@ -96,7 +93,7 @@ namespace DFC.ServiceTaxonomy.IntegrationTests.Helpers
 
                 Parallel.For(0, parallelLoops, (i, state) =>
                 {
-                    TestOutputHelper.WriteLine($"Thread id: {Thread.CurrentThread.ManagedThreadId}");
+                    GraphClusterLowLevelLogger.LogTrace($"Thread id: {Thread.CurrentThread.ManagedThreadId}");
 
                     replicaSet.Disable(replicaInstance);
                     replicaSet.Enable(replicaInstance);

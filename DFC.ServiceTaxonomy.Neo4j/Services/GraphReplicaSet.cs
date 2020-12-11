@@ -61,7 +61,8 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services
                 if (!IsEnabled(_limitToGraphInstance.Value))
                     throw new InvalidOperationException($"GraphReplicaSet in single replica mode, but replica #{_limitToGraphInstance.Value} is disabled. ");
 
-                _logger.LogInformation("Running command on locked graph replica instance #{Instance}.", _limitToGraphInstance.Value);
+                _logger.LogInformation("Running command on locked graph replica instance #{Instance} {GraphName}.",
+                    _limitToGraphInstance.Value, _graphInstances[_limitToGraphInstance.Value].GraphName);
 
                 graphInstance = _graphInstances[_limitToGraphInstance.Value];
             }
@@ -85,8 +86,9 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services
                     ++instance;
                 }
 
-                _logger.LogInformation("{DisabledReplicaCount} graph replicas in the set are disabled. Running query on enabled replica #{Instance}. Replica set enabled status: {ReplicaSetEnabledStatus}",
-                    InstanceCount-enabledInstanceCount, instance, Convert.ToString((long)replicaEnabledFlags, 2));
+                _logger.LogInformation("{DisabledReplicaCount} graph replicas in the set are disabled. Running query on enabled replica #{Instance} {GraphName}. Replica set enabled status: {ReplicaSetEnabledStatus}",
+                    InstanceCount-enabledInstanceCount, instance, _graphInstances[instance].GraphName,
+                    Convert.ToString((long)replicaEnabledFlags, 2));
 
                 graphInstance = _graphInstances[instance];
             }
@@ -104,7 +106,7 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services
             if (_limitToGraphInstance != null)
             {
                 if (!IsEnabled(_limitToGraphInstance.Value))
-                    throw new InvalidOperationException($"GraphReplicaSet in single replica mode, but replica #{_limitToGraphInstance.Value} is disabled. ");
+                    throw new InvalidOperationException($"GraphReplicaSet in single replica mode, but replica #{_limitToGraphInstance.Value} {_graphInstances[_limitToGraphInstance.Value].GraphName} is disabled. ");
 
                 Graph graph = _graphInstances[_limitToGraphInstance.Value];
 
@@ -130,8 +132,8 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services
         {
             bool isEnabled = IsEnabled(ReplicaEnabledFlags, instance);
 
-            _logger.LogTrace("Graph replica #{Instance} enabled check: {Enabled}",
-                instance, isEnabled);
+            _logger.LogTrace("Graph replica #{Instance} {GraphName} enabled check: {Enabled}",
+                instance, _graphInstances[instance].GraphName, isEnabled);
 
             return isEnabled;
         }
