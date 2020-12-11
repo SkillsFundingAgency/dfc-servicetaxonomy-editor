@@ -15,7 +15,6 @@ namespace DFC.ServiceTaxonomy.IntegrationTests.Helpers
 {
     //todo: if use logger rather than helper, we can do checks like 'after disable no jobs started on disabled replica'
     // 'after disable, all in flight jobs on disabled replica finish' etc. by checking the cache of logs
-    //todo: use interlocked for couter too, so round robin is more relicable
     public class GraphClusterIntegrationTest
     {
         internal const int NumberOfReplicasConfiguredForPublishedSet = 2;

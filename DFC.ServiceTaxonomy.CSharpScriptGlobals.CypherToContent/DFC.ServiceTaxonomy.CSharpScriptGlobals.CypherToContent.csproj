@@ -10,7 +10,7 @@
 
   <ItemGroup>
     <PackageReference Include="OrchardCore.ContentManagement" Version="1.0.0-rc6" />
-    <PackageReference Include="SonarAnalyzer.CSharp" Version="8.14.0.22654">
+    <PackageReference Include="SonarAnalyzer.CSharp" Version="8.15.0.24505">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
