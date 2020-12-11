@@ -58,8 +58,8 @@ namespace DFC.ServiceTaxonomy.IntegrationTests.Helpers
                     Logger.LogTrace("<{LogId}> Run started on {DatabaseName}, thread #{ThreadId}.",
                         IntegrationTestLogId.RunQueryStarted, databaseName, Thread.CurrentThread.ManagedThreadId);
                     Thread.Sleep(100);
-                    Logger.LogTrace("Run finished on {DatabaseName}, thread #{ThreadId}.",
-                        databaseName, Thread.CurrentThread.ManagedThreadId);
+                    Logger.LogTrace("<{LogId}> Run finished on {DatabaseName}, thread #{ThreadId}.",
+                        IntegrationTestLogId.RunQueryFinished, databaseName, Thread.CurrentThread.ManagedThreadId);
                 })
                 .Returns(new List<int> { 69 });
 

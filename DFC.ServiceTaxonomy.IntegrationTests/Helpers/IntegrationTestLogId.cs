@@ -4,6 +4,7 @@ namespace DFC.ServiceTaxonomy.IntegrationTests.Helpers
 {
     public enum IntegrationTestLogId
     {
-        RunQueryStarted = LogId.IntegrationTestsStart
+        RunQueryStarted = LogId.IntegrationTestsStart,
+        RunQueryFinished
     }
 }

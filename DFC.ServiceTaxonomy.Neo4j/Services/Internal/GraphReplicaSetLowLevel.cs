@@ -112,12 +112,15 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services.Internal
 
             var graphInstance = _graphInstances[instance];
 
+            _logger.LogInformation("<{LogId}> Quiescing graph #{Instance} {GraphName} - {InFlightCount} in-flight queries/commands.",
+                LogId.QuiescingGraph, instance, _graphInstances[instance].GraphName, graphInstance.InFlightCount);
+
             // flush any in-flight commands/queries
             ulong inFlightCount;
             while ((inFlightCount = graphInstance.InFlightCount) > 0)
             {
-                _logger.LogInformation("Quiescing graph #{Instance} {GraphName} - {InFlightCount} in-flight queries/commands.",
-                    instance, _graphInstances[instance].GraphName, inFlightCount);
+                _logger.LogInformation("<{LogId}> Quiescing graph #{Instance} {GraphName} - {InFlightCount} in-flight queries/commands.",
+                    LogId.QuiescingGraph, instance, _graphInstances[instance].GraphName, inFlightCount);
 
                 if (IsEnabled(instance))
                 {

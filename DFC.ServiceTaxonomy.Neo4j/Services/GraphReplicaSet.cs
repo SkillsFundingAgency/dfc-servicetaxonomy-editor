@@ -75,8 +75,13 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services
 
                 ulong shiftingReplicaEnabledFlags = replicaEnabledFlags;
 
+                // Stopwatch stopwatch = Stopwatch.StartNew();
+                // //todo: from config
+                // var timeout = TimeSpan.Parse("00:02");
+
                 // assumes at least one enabled instance (handled by enabledInstanceCount == 0 check above)
                 int instance = 0;
+                //while (stopwatch.Elapsed < timeout)
                 while (true)
                 {
                     if ((shiftingReplicaEnabledFlags & 1ul) != 0 && enabledInstance-- == 0)

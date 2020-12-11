@@ -28,10 +28,11 @@ namespace DFC.ServiceTaxonomy.IntegrationTests.Neo4j.Services.Internal
 
         //todo: check any query run before disable() has returned is finished first
         [Fact]
-        public void DisableWaitsForInFlightQueriesTest()
+        //public void DisableWaitsForInFlightQueriesTest()
+        public void NoJobsAreStartedOnDisabledGraphReplica()
         {
-            const int replicaInstance = 0;
-            const string replicaInstanceGraphName = "neo4j";
+            const int disableReplicaInstance = 0;
+            const string disableReplicaInstanceGraphName = "neo4j";
 
             var replicaSet = GraphClusterLowLevel.GetGraphReplicaSetLowLevel("published");
 
@@ -39,7 +40,7 @@ namespace DFC.ServiceTaxonomy.IntegrationTests.Neo4j.Services.Internal
             {
                 if (i == 5)
                 {
-                    replicaSet.Disable(replicaInstance);
+                    replicaSet.Disable(disableReplicaInstance);
                 }
                 else
                 {
@@ -52,27 +53,51 @@ namespace DFC.ServiceTaxonomy.IntegrationTests.Neo4j.Services.Internal
             //todo: use tags so not coupled to log message?
             List<LogEntry> log = Logger.Entries.ToList();
 
-            int disabledLogEntryIndex = GetLogIndex(log, LogId.GraphDisabled);
+            (int? disabledLogEntryIndex, _) = GetLogEntry(log, LogId.GraphDisabled);
+
+            // checking replica was disabled
+            Assert.NotNull(disabledLogEntryIndex);
+
             Assert.True(log
-                    .Skip(disabledLogEntryIndex+1)
+                    .Skip(disabledLogEntryIndex!.Value+1)
                     .All(l => !IsLog(l, IntegrationTestLogId.RunQueryStarted,
-                        kv => kv.Key == "DatabaseName" && (string)kv.Value == replicaInstanceGraphName)),
+                        kv => kv.Key == "DatabaseName" && (string)kv.Value == disableReplicaInstanceGraphName)),
                 "No jobs were started on the disabled replica.");
+
+            //todo: return entry and index
+            (int? quiescingLogEntryIndex, LogEntry? quiescingLogEntry) = GetLogEntry(log, LogId.QuiescingGraph);
+
+            // checking replica started quiescing
+            Assert.NotNull(quiescingLogEntryIndex);
+
+            ulong inFlightCount = Get<ulong>(quiescingLogEntry!, "InFlightCount");
+
+            ulong jobsFinishedOnDisabledReplicaAfterReplicaDisabled = (ulong)log
+                .Skip(disabledLogEntryIndex!.Value + 1)
+                .Count(l => IsLog(l, IntegrationTestLogId.RunQueryFinished,
+                    kv => kv.Key == "DatabaseName" && (string)kv.Value == disableReplicaInstanceGraphName));
+
+            // check right number of In flight jobs finished after replica was disabled.
+            Assert.Equal(inFlightCount, jobsFinishedOnDisabledReplicaAfterReplicaDisabled);
         }
 
-        private int GetLogIndex(List<LogEntry> log, LogId id)
+        private (int?, LogEntry?) GetLogEntry(List<LogEntry> log, LogId id)
         {
-            return GetLogIndex(log, (int)id);
+            return GetLogEntry(log, (int)id);
         }
 
-        private int GetLogIndex(List<LogEntry> log, IntegrationTestLogId id)
+        private (int?, LogEntry?) GetLogEntry(List<LogEntry> log, IntegrationTestLogId id)
         {
-            return GetLogIndex(log, (int)id);
+            return GetLogEntry(log, (int)id);
         }
 
-        private int GetLogIndex(List<LogEntry> log, int logId)
+        private (int?, LogEntry?) GetLogEntry(List<LogEntry> log, int logId)
         {
-            return log.FindIndex(l => IsLog(l, logId));
+            int index = log.FindIndex(l => IsLog(l, logId));
+            if (index == -1)
+                return (null, null);
+
+            return (index, log[index]);
         }
 
         private bool IsLog(LogEntry logEntry, LogId logId, Func<KeyValuePair<string, object>, bool>? stateCheck = null)
@@ -87,10 +112,22 @@ namespace DFC.ServiceTaxonomy.IntegrationTests.Neo4j.Services.Internal
 
         private bool IsLog(LogEntry logEntry, int logId, Func<KeyValuePair<string, object>, bool>? stateCheck = null)
         {
-            return (logEntry.State as IReadOnlyList<KeyValuePair<string, object>>)?
-                .Any(kv => kv.Key == "LogId" && (int)kv.Value == logId
-                && (stateCheck?.Invoke(kv) ?? true)) == true;
+            if (!(logEntry.State is IReadOnlyList<KeyValuePair<string, object>> state))
+                return false;
 
+            if (!state.Any(kv => kv.Key == "LogId" && (int)kv.Value == logId))
+                return false;
+
+            return stateCheck == null || state.Any(stateCheck);
+        }
+
+        private T? Get<T>(LogEntry logEntry, string key)
+        {
+            #pragma warning disable S1905
+            return (T?)((KeyValuePair<string, object>?)(logEntry.State as IReadOnlyList<KeyValuePair<string, object>>)?
+                .FirstOrDefault(kv => kv.Key == key))?
+                .Value;
+            #pragma warning restore S1905
         }
     }
 }
