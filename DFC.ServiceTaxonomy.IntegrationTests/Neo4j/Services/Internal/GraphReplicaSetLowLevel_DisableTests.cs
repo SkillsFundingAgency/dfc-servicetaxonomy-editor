@@ -26,10 +26,10 @@ namespace DFC.ServiceTaxonomy.IntegrationTests.Neo4j.Services.Internal
             Query = A.Fake<IQuery<int>>();
         }
 
-        //todo: check any query run before disable() has returned is finished first
+        // we could split this test out into multiple tests,
+        // but it takes a while to run, so we combine multiple tests into one
         [Fact]
-        //public void DisableWaitsForInFlightQueriesTest()
-        public void NoJobsAreStartedOnDisabledGraphReplica()
+        public void DisableAndQuiecseReplicaTest()
         {
             const int disableReplicaInstance = 0;
             const string disableReplicaInstanceGraphName = "neo4j";
@@ -50,7 +50,6 @@ namespace DFC.ServiceTaxonomy.IntegrationTests.Neo4j.Services.Internal
 
             Logger.LogTrace(replicaSet.ToTraceString());
 
-            //todo: use tags so not coupled to log message?
             List<LogEntry> log = Logger.Entries.ToList();
 
             (int? disabledLogEntryIndex, _) = GetLogEntry(log, LogId.GraphDisabled);
@@ -64,7 +63,6 @@ namespace DFC.ServiceTaxonomy.IntegrationTests.Neo4j.Services.Internal
                         kv => kv.Key == "DatabaseName" && (string)kv.Value == disableReplicaInstanceGraphName)),
                 "No jobs were started on the disabled replica.");
 
-            //todo: return entry and index
             (int? quiescingLogEntryIndex, LogEntry? quiescingLogEntry) = GetLogEntry(log, LogId.QuiescingGraph);
 
             // checking replica started quiescing
@@ -77,7 +75,7 @@ namespace DFC.ServiceTaxonomy.IntegrationTests.Neo4j.Services.Internal
                 .Count(l => IsLog(l, IntegrationTestLogId.RunQueryFinished,
                     kv => kv.Key == "DatabaseName" && (string)kv.Value == disableReplicaInstanceGraphName));
 
-            // check right number of In flight jobs finished after replica was disabled.
+            // check right number of In flight jobs finished after replica was disabled
             Assert.Equal(inFlightCount, jobsFinishedOnDisabledReplicaAfterReplicaDisabled);
         }
 
