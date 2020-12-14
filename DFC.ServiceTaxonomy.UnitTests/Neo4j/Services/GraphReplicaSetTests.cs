@@ -113,13 +113,13 @@ namespace DFC.ServiceTaxonomy.UnitTests.Neo4j.Services
         [Fact]
         public void InstanceCount_MatchesNumberOfInstances()
         {
-            Assert.Equal(GraphReplicaSet.InstanceCount, NumberOfGraphInstances);
+            Assert.Equal(NumberOfGraphInstances, GraphReplicaSet.InstanceCount);
         }
 
         [Fact]
         public void EnabledInstanceCount_MatchesNumberOfInstances()
         {
-            Assert.Equal(GraphReplicaSet.EnabledInstanceCount(), NumberOfGraphInstances);
+            Assert.Equal(NumberOfGraphInstances, GraphReplicaSet.EnabledInstanceCount());
         }
 
         [Fact]
