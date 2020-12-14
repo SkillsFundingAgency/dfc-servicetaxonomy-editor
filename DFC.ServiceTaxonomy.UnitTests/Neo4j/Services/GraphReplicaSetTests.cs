@@ -1,42 +1,22 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces;
 using DFC.ServiceTaxonomy.Neo4j.Queries.Interfaces;
 using DFC.ServiceTaxonomy.Neo4j.Services;
-using DFC.ServiceTaxonomy.Neo4j.Services.Internal;
 using FakeItEasy;
-using Microsoft.Extensions.Logging;
 using Xunit;
 using Xunit.Abstractions;
 
 namespace DFC.ServiceTaxonomy.UnitTests.Neo4j.Services
 {
-    public class GraphReplicaSetTests
+    public class GraphReplicaSetTests : GraphReplicaSetTestsBase
     {
-        internal readonly ITestOutputHelper TestOutputHelper;
         internal GraphReplicaSet GraphReplicaSet { get; set; }
-        internal List<Graph> GraphInstances { get; set; }
-        internal ILogger Logger { get; set; }
-        internal IQuery<int> Query { get; set; }
-        internal ICommand Command { get; set; }
-
-        internal const string ReplicaSetName = "ReplicaSetName";
-        const int NumberOfGraphInstances = 10;
 
         public GraphReplicaSetTests(ITestOutputHelper testOutputHelper)
+            : base(testOutputHelper)
         {
-            TestOutputHelper = testOutputHelper;
-            GraphInstances = new List<Graph>();
-            for (int graphInstanceOrdinal = 0; graphInstanceOrdinal < NumberOfGraphInstances; ++graphInstanceOrdinal)
-            {
-                GraphInstances.Add(A.Fake<Graph>());
-            }
-            Logger = A.Fake<ILogger>();
             GraphReplicaSet = new GraphReplicaSet(ReplicaSetName, GraphInstances, Logger);
-
-            Query = A.Fake<IQuery<int>>();
-            Command = A.Fake<ICommand>();
         }
 
         [Fact]
