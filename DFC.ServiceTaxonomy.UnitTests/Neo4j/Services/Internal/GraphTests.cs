@@ -87,6 +87,40 @@ namespace DFC.ServiceTaxonomy.UnitTests.Neo4j.Services.Internal
         }
 
         [Fact]
+        public async Task InFlightCount_RunQueriesAndCommands_CountMatchesInFlightQueries()
+        {
+            // arrange
+            const int inFlightQueryRuns = 5;
+            const int inFlightCommandRuns = 5;
+
+            A.CallTo(() => NeoEndpoint.Run(Queries, GraphName, DefaultGraph))
+                .ReturnsLazily(() =>
+                {
+                    TestFinished.Wait();
+                    return new List<int>();
+                });
+
+            A.CallTo(() => NeoEndpoint.Run(Commands, GraphName, DefaultGraph))
+                .ReturnsLazily(() =>
+                {
+                    TestFinished.Wait();
+                    return Task.CompletedTask;
+                });
+
+            var queryTasks = Enumerable.Range(0, inFlightQueryRuns).Select(i => Task.Run(() => Graph.Run(Queries)));
+            var commandTasks = Enumerable.Range(0, inFlightCommandRuns).Select(i => Task.Run(() => Graph.Run(Commands)));
+
+            await Task.WhenAny(Task.WhenAll(queryTasks), Task.WhenAll(commandTasks), Task.Delay(2000));
+
+            // act + assert
+            Assert.Equal((ulong)inFlightQueryRuns + inFlightCommandRuns, Graph.InFlightCount);
+
+            // clean up
+            TestFinished.Set();
+            await Task.WhenAll(Task.WhenAll(queryTasks), Task.WhenAll(commandTasks));
+        }
+
+        [Fact]
         public void InFlightCount_RunQueriesThrewException_CountIs0()
         {
             A.CallTo(() => NeoEndpoint.Run(Queries, GraphName, DefaultGraph))
