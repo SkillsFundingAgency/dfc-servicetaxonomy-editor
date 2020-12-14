@@ -63,12 +63,31 @@ namespace DFC.ServiceTaxonomy.UnitTests.Neo4j.Services.Internal
         public void Run_Command_ReplicaIsDisabled_ExceptionThrown()
         {
             const int instanceToDisable = 2;
-
             GraphReplicaSet.Disable(instanceToDisable);
 
             Assert.ThrowsAsync<InvalidOperationException>(async () => await GraphReplicaSet.Run(Command));
         }
 
-        //todo: enabled count after disable
+        [Fact]
+        public void EnabledInstanceCount_ReplicaDisabled_CountAsExpected()
+        {
+            const int instanceToDisable = 2;
+            GraphReplicaSet.Disable(instanceToDisable);
+            int enabledInstances = GraphReplicaSet.EnabledInstanceCount();
+
+            Assert.Equal(NumberOfGraphInstances-1, enabledInstances);
+        }
+
+        [Fact]
+        public void EnabledInstanceCount_AllReplicaDisabled_CountIs0()
+        {
+            for (int instance = 0; instance < NumberOfGraphInstances; ++instance)
+            {
+                GraphReplicaSet.Disable(instance);
+            }
+            int enabledInstances = GraphReplicaSet.EnabledInstanceCount();
+
+            Assert.Equal(0, enabledInstances);
+        }
     }
 }
