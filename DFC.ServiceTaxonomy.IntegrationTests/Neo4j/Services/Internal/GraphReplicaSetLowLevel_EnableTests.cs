@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.IntegrationTests.Helpers;
@@ -30,6 +31,7 @@ namespace DFC.ServiceTaxonomy.IntegrationTests.Neo4j.Services.Internal
 
             const int reenableReplicaInstance = 0;
             const string disableReplicaInstanceGraphName = "neo4j";
+            const string untouchedReplicaInstanceGraphName = "published1";
 
             var replicaSet = GraphClusterLowLevel.GetGraphReplicaSetLowLevel("published");
 
@@ -63,13 +65,19 @@ namespace DFC.ServiceTaxonomy.IntegrationTests.Neo4j.Services.Internal
                 .Count(l => IsLog(l, IntegrationTestLogId.RunQueryStarted,
                     kv => kv.Key == "DatabaseName" && (string)kv.Value == disableReplicaInstanceGraphName));
 
-            //todo: how much can we tighten the check?
+            ulong jobsStartedOnUntouchedReplica = (ulong)log
+                .Skip(enabledLogEntryIndex!.Value + 1)
+                .Count(l => IsLog(l, IntegrationTestLogId.RunQueryStarted,
+                    kv => kv.Key == "DatabaseName" && (string)kv.Value == untouchedReplicaInstanceGraphName));
 
-            // test half of the jobs after reenabling the replica are run on the reenabled replica
-            // ulong halfOfRemainingRunsAfterReenabling = (totalIterations - reenableIteration) / 2;
-            // Assert.InRange(jobsStartedOnReEnabledReplica, halfOfRemainingRunsAfterReenabling-1, halfOfRemainingRunsAfterReenabling+1);
+            Logger.LogInformation(
+                $"Jobs started on replicas after reenable: reenabled={jobsStartedOnReEnabledReplica}, untouched={jobsStartedOnUntouchedReplica}.");
 
             Assert.True(jobsStartedOnReEnabledReplica > 0);
+            Assert.True(jobsStartedOnUntouchedReplica > 0);
+            const int allowableDifferenceBetweenJobStarts = 3;
+            Assert.True(Math.Abs((int)jobsStartedOnReEnabledReplica-(int)jobsStartedOnUntouchedReplica) <= allowableDifferenceBetweenJobStarts,
+                "Jobs started after replica reenable are roughly equal between the 2 replicas.");
         }
     }
 }
