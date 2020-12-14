@@ -16,6 +16,28 @@ namespace DFC.ServiceTaxonomy.UnitTests.Neo4j.Services.Internal
         }
 
         [Fact]
+        public void IsEnabled_InstanceDisabled_ReturnsFalse()
+        {
+            const int instanceToDisable = 4;
+            GraphReplicaSet.Disable(instanceToDisable);
+
+            Assert.False(GraphReplicaSet.IsEnabled(instanceToDisable));
+        }
+
+        [Fact]
+        public void IsEnabled_InstanceReenabled_ReturnsTrue()
+        {
+            const int instanceToDisable = 4;
+            GraphReplicaSet.Disable(instanceToDisable);
+            GraphReplicaSet.Enable(instanceToDisable);
+
+            Assert.True(GraphReplicaSet.IsEnabled(instanceToDisable));
+        }
+
+        // note: other related scenarios are covered in unit tests in GraphReplicaSetTests
+        // and in the integration tests
+
+        [Fact]
         public void Run_Query_LimitedToOneDisabledInstance_ExceptionThrown()
         {
             const int limitedToInstance = 2;
