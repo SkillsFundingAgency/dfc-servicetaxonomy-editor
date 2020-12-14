@@ -58,5 +58,17 @@ namespace DFC.ServiceTaxonomy.UnitTests.Neo4j.Services.Internal
 
             Assert.ThrowsAsync<InvalidOperationException>(async () => await GraphReplicaSet.Run(Command));
         }
+
+        [Fact]
+        public void Run_Command_ReplicaIsDisabled_ExceptionThrown()
+        {
+            const int instanceToDisable = 2;
+
+            GraphReplicaSet.Disable(instanceToDisable);
+
+            Assert.ThrowsAsync<InvalidOperationException>(async () => await GraphReplicaSet.Run(Command));
+        }
+
+        //todo: enabled count after disable
     }
 }
