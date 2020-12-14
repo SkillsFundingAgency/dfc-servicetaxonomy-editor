@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces;
 using DFC.ServiceTaxonomy.Neo4j.Queries.Interfaces;
 using DFC.ServiceTaxonomy.Neo4j.Services;
 using DFC.ServiceTaxonomy.Neo4j.Services.Internal;
@@ -18,6 +19,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.Neo4j.Services
         internal List<Graph> GraphInstances { get; set; }
         internal ILogger Logger { get; set; }
         internal IQuery<int> Query { get; set; }
+        internal ICommand Command { get; set; }
 
         internal const string ReplicaSetName = "ReplicaSetName";
         const int NumberOfGraphInstances = 10;
@@ -34,10 +36,11 @@ namespace DFC.ServiceTaxonomy.UnitTests.Neo4j.Services
             GraphReplicaSet = new GraphReplicaSet(ReplicaSetName, GraphInstances, Logger);
 
             Query = A.Fake<IQuery<int>>();
+            Command = A.Fake<ICommand>();
         }
 
         [Fact]
-        public void Run_EvenCallsAcrossReplicasTest()
+        public void Run_Query_EvenCallsAcrossReplicasTest()
         {
             const int iterationsPerGraphInstance = 5;
             const int numberOfIterations = NumberOfGraphInstances * iterationsPerGraphInstance;
@@ -60,6 +63,18 @@ namespace DFC.ServiceTaxonomy.UnitTests.Neo4j.Services
             {
                 A.CallTo(() => graph.Run(A<IQuery<int>[]>._))
                     .MustHaveHappened(iterationsPerGraphInstance, Times.Exactly);
+            }
+        }
+
+        [Fact]
+        public async Task Run_Command_CallsEveryReplica()
+        {
+            await GraphReplicaSet.Run(Command);
+
+            foreach (var graph in GraphInstances)
+            {
+                A.CallTo(() => graph.Run(A<ICommand[]>._))
+                    .MustHaveHappened(1, Times.Exactly);
             }
         }
     }
