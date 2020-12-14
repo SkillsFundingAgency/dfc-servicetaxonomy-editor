@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Microsoft.Extensions.Logging;
 using System.Linq;
+using System.Numerics;
 using System.Threading;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces;
@@ -18,6 +19,7 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services
         protected readonly ILogger _logger;
         private protected readonly int? _limitToGraphInstance;
         private protected ulong _replicaEnabledFlags;
+        private ulong _instanceCounter;
 
         internal GraphReplicaSet(
             string name,
@@ -31,30 +33,29 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services
             _logger = logger;
             //todo: check in range
             _limitToGraphInstance = limitToGraphInstance;
-            _instanceCounter = -1;
+            _instanceCounter = 0;
+            _replicaEnabledFlags = (ulong)BigInteger.Pow(2, InstanceCount) - 1;
         }
 
         public string Name { get; }
         public int InstanceCount { get; }
 
-        private int _instanceCounter;
-
         public int EnabledInstanceCount()
         {
-            return EnabledInstanceCount(ReplicaEnabledFlags);
+            return (int)EnabledInstanceCount(ReplicaEnabledFlags);
         }
 
-        internal int EnabledInstanceCount(ulong replicaEnabledFlags)
+        internal ulong EnabledInstanceCount(ulong replicaEnabledFlags)
         {
-            return (int)System.Runtime.Intrinsics.X86.Popcnt.X64.PopCount(replicaEnabledFlags);
+            return System.Runtime.Intrinsics.X86.Popcnt.X64.PopCount(replicaEnabledFlags);
         }
 
-        public Task<List<T>> Run<T>(params IQuery<T>[] queries)
+        public virtual Task<List<T>> Run<T>(params IQuery<T>[] queries)
         {
             Graph? graphInstance;
 
             ulong replicaEnabledFlags = ReplicaEnabledFlags;
-            int enabledInstanceCount = EnabledInstanceCount(ReplicaEnabledFlags);
+            ulong enabledInstanceCount = EnabledInstanceCount(ReplicaEnabledFlags);
 
             if (_limitToGraphInstance != null)
             {
@@ -66,12 +67,12 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services
 
                 graphInstance = _graphInstances[_limitToGraphInstance.Value];
             }
-            else if (enabledInstanceCount < InstanceCount)
+            else if ((int)enabledInstanceCount < InstanceCount)
             {
                 if (enabledInstanceCount == 0)
                     throw new InvalidOperationException("No enabled replicas to run query against.");
 
-                int enabledInstance = unchecked(++_instanceCounter) % enabledInstanceCount;
+                ulong enabledInstance = Interlocked.Increment(ref _instanceCounter) % enabledInstanceCount;
 
                 ulong shiftingReplicaEnabledFlags = replicaEnabledFlags;
 
@@ -92,7 +93,7 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services
                 }
 
                 _logger.LogInformation("{DisabledReplicaCount} graph replicas in the set are disabled. Running query on enabled replica #{Instance} {GraphName}. Replica set enabled status: {ReplicaSetEnabledStatus}",
-                    InstanceCount-enabledInstanceCount, instance, _graphInstances[instance].GraphName,
+                    InstanceCount-(int)enabledInstanceCount, instance, _graphInstances[instance].GraphName,
                     Convert.ToString((long)replicaEnabledFlags, 2));
 
                 graphInstance = _graphInstances[instance];
@@ -100,13 +101,13 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services
             else
             {
                 // fast path, simple round-robin read
-                graphInstance = _graphInstances[unchecked(++_instanceCounter) % InstanceCount];
+                graphInstance = _graphInstances[Interlocked.Increment(ref _instanceCounter) % (ulong)InstanceCount];
             }
 
             return graphInstance.Run(queries);
         }
 
-        public Task Run(params ICommand[] commands)
+        public virtual Task Run(params ICommand[] commands)
         {
             if (_limitToGraphInstance != null)
             {
@@ -123,7 +124,7 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services
 
             // disallow any commands (which can mutate the graphs) if we don't have a full replica set
             // at least until we can recreate any transaction on reenabled replicas (transaction log?)
-            if (EnabledInstanceCount(currentReplicaEnabledFlags) < InstanceCount)
+            if ((int)EnabledInstanceCount(currentReplicaEnabledFlags) < InstanceCount)
                 throw new InvalidOperationException($"Running commands when a replica is disabled is not allowed.");
 
             IEnumerable<Graph> commandGraphs = _graphInstances;

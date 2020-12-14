@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Numerics;
 using System.Text;
 using System.Threading;
 using DFC.ServiceTaxonomy.Neo4j.Log;
@@ -38,8 +37,6 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services.Internal
 
             if (InstanceCount > 64)
                 throw new ArgumentException("A max of 64 graph instances in the replica set is supported.");
-
-            _replicaEnabledFlags = (ulong)BigInteger.Pow(2, InstanceCount) - 1;
         }
 
         public Graph[] GraphInstances

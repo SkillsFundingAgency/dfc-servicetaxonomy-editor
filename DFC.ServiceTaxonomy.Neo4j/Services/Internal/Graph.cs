@@ -33,7 +33,7 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services.Internal
 
         public ulong InFlightCount => Interlocked.Read(ref _inFlightCount);
 
-        public Task<List<T>> Run<T>(params IQuery<T>[] queries)
+        public virtual Task<List<T>> Run<T>(params IQuery<T>[] queries)
         {
             try
             {
@@ -52,7 +52,7 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services.Internal
             }
         }
 
-        public Task Run(params ICommand[] commands)
+        public virtual Task Run(params ICommand[] commands)
         {
             try
             {
