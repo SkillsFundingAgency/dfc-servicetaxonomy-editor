@@ -77,5 +77,17 @@ namespace DFC.ServiceTaxonomy.UnitTests.Neo4j.Services
                     .MustHaveHappened(1, Times.Exactly);
             }
         }
+
+        [Fact]
+        public void InstanceCount_MatchesNumberOfInstances()
+        {
+            Assert.Equal(GraphReplicaSet.InstanceCount, NumberOfGraphInstances);
+        }
+
+        [Fact]
+        public void EnabledInstanceCount_MatchesNumberOfInstances()
+        {
+            Assert.Equal(GraphReplicaSet.EnabledInstanceCount(), NumberOfGraphInstances);
+        }
     }
 }
