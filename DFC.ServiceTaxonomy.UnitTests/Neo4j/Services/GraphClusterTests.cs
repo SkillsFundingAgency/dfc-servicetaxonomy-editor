@@ -1,5 +1,3 @@
-using System.Collections.Generic;
-using System.Linq;
 using DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces;
 using DFC.ServiceTaxonomy.Neo4j.Queries.Interfaces;
 using DFC.ServiceTaxonomy.Neo4j.Services;
@@ -13,7 +11,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.Neo4j.Services
     public class GraphClusterTests
     {
         internal GraphCluster GraphCluster { get; set; }
-        internal List<IGraphReplicaSetLowLevel> ReplicaSets { get; set; }
+        internal IGraphReplicaSetLowLevel[] ReplicaSets { get; set; }
         internal ILogger Logger { get; set; }
         internal IQuery<int>[] Queries { get; set; }
         internal ICommand[] Commands { get; set; }
@@ -21,12 +19,11 @@ namespace DFC.ServiceTaxonomy.UnitTests.Neo4j.Services
 
         public GraphClusterTests()
         {
-            ReplicaSets = new List<IGraphReplicaSetLowLevel>();
+            ReplicaSets = new IGraphReplicaSetLowLevel[NumberOfReplicaSets];
             for (int replicaSetOrdinal = 0; replicaSetOrdinal < NumberOfReplicaSets; ++replicaSetOrdinal)
             {
-                var replicaSet = A.Fake<IGraphReplicaSetLowLevel>();
+                var replicaSet = ReplicaSets[replicaSetOrdinal] = A.Fake<IGraphReplicaSetLowLevel>();
                 A.CallTo(() => replicaSet.Name).Returns(replicaSetOrdinal.ToString());
-                ReplicaSets.Add(replicaSet);
             }
 
             Logger = A.Fake<ILogger>();
@@ -38,14 +35,33 @@ namespace DFC.ServiceTaxonomy.UnitTests.Neo4j.Services
         }
 
         [Fact]
-        public void Run_Queries_RunOnNamedReplicaSet()
+        public void Run_Queries_OnlyRunsOnNamedReplicaSet()
         {
             const int replicaToRunOn = 5;
             GraphCluster.Run(replicaToRunOn.ToString(), Queries);
 
-            var expectedReplica = ReplicaSets.Skip(replicaToRunOn).First();
-            A.CallTo(() => expectedReplica.Run(Queries))
-                .MustHaveHappenedOnceExactly();
+            for (int replicaSetOrdinal = 0; replicaSetOrdinal < NumberOfReplicaSets; ++replicaSetOrdinal)
+            {
+                var expectedReplica = ReplicaSets[replicaSetOrdinal];
+
+                A.CallTo(() => expectedReplica.Run(Queries))
+                    .MustHaveHappened(replicaSetOrdinal == replicaToRunOn ? 1 : 0, Times.Exactly);
+            }
+        }
+
+        [Fact]
+        public void Run_Commands_OnlyRunsOnNamedReplicaSet()
+        {
+            const int replicaToRunOn = 5;
+            GraphCluster.Run(replicaToRunOn.ToString(), Commands);
+
+            for (int replicaSetOrdinal = 0; replicaSetOrdinal < NumberOfReplicaSets; ++replicaSetOrdinal)
+            {
+                var expectedReplica = ReplicaSets[replicaSetOrdinal];
+
+                A.CallTo(() => expectedReplica.Run(Commands))
+                    .MustHaveHappened(replicaSetOrdinal == replicaToRunOn ? 1 : 0, Times.Exactly);
+            }
         }
     }
 }
