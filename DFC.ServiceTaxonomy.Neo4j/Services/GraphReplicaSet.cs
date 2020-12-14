@@ -121,9 +121,16 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services
             // we read flags just the once
             ulong currentReplicaEnabledFlags = ReplicaEnabledFlags;
 
-            IEnumerable<Graph> commandGraphs = EnabledInstanceCount(currentReplicaEnabledFlags) < InstanceCount
-                ? _graphInstances.Where((_, instance) => IsEnabled(currentReplicaEnabledFlags, instance))
-                : _graphInstances;
+            // disallow any commands (which can mutate the graphs) if we don't have a full replica set
+            // at least until we can recreate any transaction on reenabled replicas (transaction log?)
+            if (EnabledInstanceCount(currentReplicaEnabledFlags) < InstanceCount)
+                throw new InvalidOperationException($"Running commands when a replica is disabled is not allowed.");
+
+            IEnumerable<Graph> commandGraphs = _graphInstances;
+
+            // IEnumerable<Graph> commandGraphs = EnabledInstanceCount(currentReplicaEnabledFlags) < InstanceCount
+            //     ? _graphInstances.Where((_, instance) => IsEnabled(currentReplicaEnabledFlags, instance))
+            //     : _graphInstances;
 
             return Task.WhenAll(commandGraphs.Select(g => g.Run(commands)));
         }
