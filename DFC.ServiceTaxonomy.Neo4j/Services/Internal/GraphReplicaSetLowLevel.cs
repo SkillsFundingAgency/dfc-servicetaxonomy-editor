@@ -62,18 +62,6 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services.Internal
         {
             ValidateInstance(instance);
 
-            // this is tricky to get right, but could have a large impact if it goes wrong (live service outage)
-            // so perhaps should...
-            // * have separate enable/disable and getstatus commands, and have 2 columns in the ui,
-            // one with the result from the enabled/disabled, but also a separate status column
-            // have an emergency re-enable all replicas button/command/graph control
-
-            // it doesn't matter if _graphDisabled is true for a window where all graph instances in the replica are enabled
-            // the replica code that checks the bool will handle that situation
-
-            // it doesn't matter if _enabledInstanceCount is less that the actual number of enabled graph instances for a window
-            // the replica code that checks if _enabledInstanceCount < InstanceCount will handle that situation
-
             ulong replicaFlag = 1ul << instance;
             ulong replicaMask = ~replicaFlag;
 
@@ -155,12 +143,6 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services.Internal
 
             return alreadyEnabled;
         }
-
-        // public void EmergencyEnableAll()
-        // {
-        //     //todo: emergency enable all reset,
-        //     // reset _enabledInstanceCount (safely!), enable all replicas
-        // }
 
         private void ValidateInstance(int instance)
         {
