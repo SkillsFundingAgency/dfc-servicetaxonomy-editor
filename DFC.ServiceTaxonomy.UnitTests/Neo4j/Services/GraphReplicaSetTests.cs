@@ -67,6 +67,32 @@ namespace DFC.ServiceTaxonomy.UnitTests.Neo4j.Services
         }
 
         [Fact]
+        public async Task Run_Query_LimitedToOneInstance_QueryIsRunOnCorrectInstance()
+        {
+            const int limitedToInstance = 2;
+            GraphReplicaSet = new GraphReplicaSet(ReplicaSetName, GraphInstances, Logger, limitedToInstance);
+
+            await GraphReplicaSet.Run(Query);
+
+            int index = 0;
+            foreach (var graph in GraphInstances)
+            {
+                var calls = Fake.GetCalls(graph).ToList();
+
+                TestOutputHelper.WriteLine($"Graph #{index}: Run() called x{calls.Count}.");
+                ++index;
+            }
+
+            index = 0;
+            foreach (var graph in GraphInstances)
+            {
+                A.CallTo(() => graph.Run(A<IQuery<int>[]>._))
+                    .MustHaveHappened(index == limitedToInstance ? 1 : 0, Times.Exactly);
+                ++index;
+            }
+        }
+
+        [Fact]
         public async Task Run_Command_CallsEveryReplica()
         {
             await GraphReplicaSet.Run(Command);
@@ -75,6 +101,32 @@ namespace DFC.ServiceTaxonomy.UnitTests.Neo4j.Services
             {
                 A.CallTo(() => graph.Run(A<ICommand[]>._))
                     .MustHaveHappened(1, Times.Exactly);
+            }
+        }
+
+        [Fact]
+        public async Task Run_Command_LimitedToOneInstance_CommandIsRunOnCorrectInstance()
+        {
+            const int limitedToInstance = 2;
+            GraphReplicaSet = new GraphReplicaSet(ReplicaSetName, GraphInstances, Logger, limitedToInstance);
+
+            await GraphReplicaSet.Run(Command);
+
+            int index = 0;
+            foreach (var graph in GraphInstances)
+            {
+                var calls = Fake.GetCalls(graph).ToList();
+
+                TestOutputHelper.WriteLine($"Graph #{index}: Run() called x{calls.Count}.");
+                ++index;
+            }
+
+            index = 0;
+            foreach (var graph in GraphInstances)
+            {
+                A.CallTo(() => graph.Run(A<ICommand>._))
+                    .MustHaveHappened(index == limitedToInstance ? 1 : 0, Times.Exactly);
+                ++index;
             }
         }
 
@@ -88,6 +140,15 @@ namespace DFC.ServiceTaxonomy.UnitTests.Neo4j.Services
         public void EnabledInstanceCount_MatchesNumberOfInstances()
         {
             Assert.Equal(GraphReplicaSet.EnabledInstanceCount(), NumberOfGraphInstances);
+        }
+
+        [Fact]
+        public void IsEnabled_AllGraphInstancesAreEnabled()
+        {
+            for (int instance = 0; instance < NumberOfGraphInstances; ++instance)
+            {
+                Assert.True(GraphReplicaSet.IsEnabled(instance));
+            }
         }
     }
 }
