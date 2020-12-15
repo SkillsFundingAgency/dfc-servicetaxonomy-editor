@@ -25,47 +25,47 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts.Taxonomy
             _embeddedContentItemsGraphSyncer = taxonomyPartEmbeddedContentItemsGraphSyncer;
         }
 
-        public override async Task AddSyncComponents(JObject content, IGraphMergeContext context)
+        public override Task AddSyncComponents(JObject content, IGraphMergeContext context)
         {
             context.MergeNodeCommand.AddProperty<string>(TermContentTypePropertyName, content);
 
             _embeddedContentItemsGraphSyncer.IsNonLeafEmbeddedTerm = false;
-            await _embeddedContentItemsGraphSyncer.AddSyncComponents((JArray?)content[ContainerName], context);
+            return _embeddedContentItemsGraphSyncer.AddSyncComponents((JArray?)content[ContainerName], context);
         }
 
-        public async Task AddSyncComponentsForNonLeafEmbeddedTerm(JObject content, IGraphMergeContext context)
+        public Task AddSyncComponentsForNonLeafEmbeddedTerm(JObject content, IGraphMergeContext context)
         {
             _embeddedContentItemsGraphSyncer.IsNonLeafEmbeddedTerm = true;
-            await _embeddedContentItemsGraphSyncer.AddSyncComponents((JArray?)content[ContainerName], context);
+            return _embeddedContentItemsGraphSyncer.AddSyncComponents((JArray?)content[ContainerName], context);
         }
 
-        public override async Task DeleteComponents(JObject content, IGraphDeleteContext context)
+        public override Task DeleteComponents(JObject content, IGraphDeleteContext context)
         {
             _embeddedContentItemsGraphSyncer.IsNonLeafEmbeddedTerm = false;
-            await _embeddedContentItemsGraphSyncer.DeleteComponents((JArray?)content[ContainerName], context);
+            return _embeddedContentItemsGraphSyncer.DeleteComponents((JArray?)content[ContainerName], context);
         }
 
-        public async Task DeleteComponentsForNonLeafEmbeddedTerm(JObject content, IGraphDeleteContext context)
+        public Task DeleteComponentsForNonLeafEmbeddedTerm(JObject content, IGraphDeleteContext context)
         {
             _embeddedContentItemsGraphSyncer.IsNonLeafEmbeddedTerm = true;
-            await _embeddedContentItemsGraphSyncer.DeleteComponents((JArray?)content[ContainerName], context);
+            return _embeddedContentItemsGraphSyncer.DeleteComponents((JArray?)content[ContainerName], context);
         }
 
         //todo: we now need to validate any 2 way incoming relationships we created
-        public override async Task<(bool validated, string failureReason)> ValidateSyncComponent(
+        public override Task<(bool validated, string failureReason)> ValidateSyncComponent(
             JObject content,
             IValidateAndRepairContext context)
         {
             _embeddedContentItemsGraphSyncer.IsNonLeafEmbeddedTerm = false;
-            return await ValidateSyncComponentImplementation(content, context);
+            return ValidateSyncComponentImplementation(content, context);
         }
 
-        public async Task<(bool validated, string failureReason)> ValidateSyncComponentForNonLeafEmbeddedTerm(
+        public Task<(bool validated, string failureReason)> ValidateSyncComponentForNonLeafEmbeddedTerm(
             JObject content,
             IValidateAndRepairContext context)
         {
             _embeddedContentItemsGraphSyncer.IsNonLeafEmbeddedTerm = true;
-            return await ValidateSyncComponentImplementation(content, context);
+            return ValidateSyncComponentImplementation(content, context);
         }
 
         private async Task<(bool validated, string failureReason)> ValidateSyncComponentImplementation(

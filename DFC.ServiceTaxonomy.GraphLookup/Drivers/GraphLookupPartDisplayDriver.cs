@@ -56,7 +56,7 @@ namespace DFC.ServiceTaxonomy.GraphLookup.Drivers
                 }
             }
 
-            return Edit(part, context);
+            return await EditAsync(part, context);
         }
 
         private GraphLookupPartSettings GetGraphLookupPartSettings(GraphLookupPart part)

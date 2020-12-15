@@ -30,43 +30,43 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Items
                    && contentItem.ContentType != Terms;
         }
 
-        public async Task AllowSync(IGraphMergeItemSyncContext context, IAllowSync allowSync)
+        public Task AllowSync(IGraphMergeItemSyncContext context, IAllowSync allowSync)
         {
-            await _taxonomyPartGraphSyncer.AllowSync(context.ContentItem.Content, context, allowSync);
+            return _taxonomyPartGraphSyncer.AllowSync(context.ContentItem.Content, context, allowSync);
         }
 
-        public async Task AddSyncComponents(IGraphMergeItemSyncContext context)
+        public Task AddSyncComponents(IGraphMergeItemSyncContext context)
         {
             //todo: concurrent?
-            await _taxonomyPartGraphSyncer.AddSyncComponentsForNonLeafEmbeddedTerm(context.ContentItem.Content, context);
+            return _taxonomyPartGraphSyncer.AddSyncComponentsForNonLeafEmbeddedTerm(context.ContentItem.Content, context);
             //todo: taxonomy isn't there yet, need to order
             //await _termPartGraphSyncer.AddSyncComponents(context.ContentItem.Content[_termPartGraphSyncer.PartName], context);
         }
 
-        public async Task AllowDelete(IGraphDeleteItemSyncContext context, IAllowSync allowSync)
+        public Task AllowDelete(IGraphDeleteItemSyncContext context, IAllowSync allowSync)
         {
-            await _taxonomyPartGraphSyncer.AllowDelete(context.ContentItem.Content, context, allowSync);
+            return _taxonomyPartGraphSyncer.AllowDelete(context.ContentItem.Content, context, allowSync);
         }
 
-        public async Task DeleteComponents(IGraphDeleteItemSyncContext context)
+        public Task DeleteComponents(IGraphDeleteItemSyncContext context)
         {
-            await _taxonomyPartGraphSyncer.DeleteComponentsForNonLeafEmbeddedTerm(context.ContentItem.Content, context);
+            return _taxonomyPartGraphSyncer.DeleteComponentsForNonLeafEmbeddedTerm(context.ContentItem.Content, context);
         }
 
-        public async Task MutateOnClone(ICloneItemSyncContext context)
+        public Task MutateOnClone(ICloneItemSyncContext context)
         {
-            await _taxonomyPartGraphSyncer.MutateOnClone(context.ContentItem.Content, context);
+            return _taxonomyPartGraphSyncer.MutateOnClone(context.ContentItem.Content, context);
         }
 
-        public async Task AddRelationship(IDescribeRelationshipsItemSyncContext context)
+        public Task AddRelationship(IDescribeRelationshipsItemSyncContext context)
         {
-            await _taxonomyPartGraphSyncer.AddRelationship(context.ContentItem.Content, context);
+            return _taxonomyPartGraphSyncer.AddRelationship(context.ContentItem.Content, context);
         }
 
-        public async Task<(bool validated, string failureReason)> ValidateSyncComponent(
+        public Task<(bool validated, string failureReason)> ValidateSyncComponent(
             IValidateAndRepairItemSyncContext context)
         {
-            return await _taxonomyPartGraphSyncer.ValidateSyncComponentForNonLeafEmbeddedTerm((JObject)context.ContentItem.Content, context);
+            return _taxonomyPartGraphSyncer.ValidateSyncComponentForNonLeafEmbeddedTerm((JObject)context.ContentItem.Content, context);
         }
     }
 }

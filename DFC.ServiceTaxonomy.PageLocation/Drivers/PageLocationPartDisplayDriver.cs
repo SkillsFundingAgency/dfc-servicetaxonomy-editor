@@ -55,7 +55,7 @@ namespace DFC.ServiceTaxonomy.PageLocation.Drivers
 
             await ValidateAsync(model, updater);
 
-            return Edit(model, context);
+            return await EditAsync(model, context);
         }
 
         private async Task ValidateAsync(PageLocationPart pageLocation, IUpdateModel updater)

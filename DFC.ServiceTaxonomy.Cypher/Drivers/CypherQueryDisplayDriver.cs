@@ -65,7 +65,7 @@ namespace DFC.ServiceTaxonomy.Cypher.Drivers
                 updater.ModelState.AddModelError(nameof(model.Template), S["The query field is required"]!);
             }
 
-            return Edit(model, updater);
+            return await EditAsync(model, updater);
         }
     }
 }
