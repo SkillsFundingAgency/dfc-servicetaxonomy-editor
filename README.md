@@ -208,21 +208,35 @@ The integration tests are run as part of a release.
 
 To run the integration tests locally, copy the `appsettings.Development_template.json` file in the `DFC.ServiceTaxonomy.IntegrationTests` folder to `appsettings.Development.json`, ensuring the settings file contains the correct config for the 'Published' graph.
 
-## Troubleshooting Builds
+## Update Orchard Core Packages
 
-We sometimes track the latest preview packages of Orchard Core (OC), so that we pick up new features and fixes straight away (Orchar Core nuget packages are referenced using `1.0.0-rc2-*`).
+Currently, we build and pack Orchard Core ourselves, so we can update to the latest OC in a controlled manner. We include the nuget packages in the repo (with a suitable reference in `NuGet.config`).
 
-The downside of this, is that occasionally, build or package issues and bugs are introduced in the OC package set. That means that any build can fail without being caused by any of our changes.
+To update the Orchard Core package set, note the current rc version of the packages in the `dfc-servicetaxonomy-editor\orchardcorepackages` folder, then delete them. Open a shell, `Cd` to the OC repo clone, and run the following command (assumes the Stax Editor and OC are cloned to the same folder), incrementing the `rc` version...
 
-When that happens, check the [recent checkins to OC](https://github.com/OrchardCMS/OrchardCore/commits/dev), and if there is a suspect checkin (or build failure, which is often a packaging issue), replace all occurrences of referencing the packages using `-rc2-*` to a previous version and retry. If there is an issue, it's a good idea to [report it to the OC developers](https://gitter.im/OrchardCMS/OrchardCore).
+```
+dotnet pack -o "..\dfc-servicetaxonomy-editor\orchardcorepackages" --version-suffix rc7
+```
 
-Currently, we build Orchard Core and include the nuget packages in the repo (with a suitable reference in `NuGet.config`). We need to do this because we need to apply a patch set on the 'dev' branch.
+Update all packages references in the Stax Editor csproj files to the new rc, fix any build issues, test the new version and then commit your changes.
+
+Note, we update the rc version each time to avoid version conflicts.
 
 ## Backups
 
 Neo4j supports online backup and restores, or offline dump and loads (file system backups are not supported).
 
 Online backup and restore is an Enterprise edition only feature, so is available locally when using Neo4j Desktop, but isn't available for our Kubernetes containers. The offline dump and load however, is the recommended way to copy data between environments.
+
+### Creating A Dump
+
+On-the-fly disabling of replica's is coming soon.TM
+
+Stopping and dumping of graphs in a Kubernetes cluster...
+
+https://docs.human-connection.org/human-connection/deployment/volumes/neo4j-offline-backup
+
+https://serverfault.com/questions/835092/how-do-you-perform-a-dump-of-a-neo4j-database-within-a-docker-container
 
 ### How To Restore Backups
 
@@ -241,9 +255,9 @@ We store content definitions in the SQL DB, so the restore should also give you 
 
 #### Restore Graphs
 
-Backups require the use of the `neo4j-admin.bat` utility. The utility is only installed with Neo4j if you install the Enterprise server edition, rather than the Desktop edition. However, it gets created when you create a graph using the Desktop edition.
+Restoring dumps requires the use of the `neo4j-admin.bat` utility. It gets created in the /bin folder, when you create a graph in the Desktop edition of Neo4j. (Alternatively, it's installed when the Enterprise server edition is installed).
 
-`neo4j-admin.bat` doesn't work out of the box, if you only have Neo4j Desktop installed. On Windows, it [requires OracleJDK11 or ZuluJDK11](https://neo4j.com/docs/operations-manual/current/installation/requirements/). As ZuluJDK is open and free, this guide uses that.
+TODO: Is this actually required: `neo4j-admin.bat` doesn't work out of the box, if you only have Neo4j Desktop installed. On Windows, it [requires OracleJDK11 or ZuluJDK11](https://neo4j.com/docs/operations-manual/current/installation/requirements/). As ZuluJDK is open and free, this guide uses that.
 
 ##### Install Compatible OpenJDK
 
