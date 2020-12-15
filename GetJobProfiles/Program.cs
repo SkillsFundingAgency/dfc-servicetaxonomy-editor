@@ -273,14 +273,14 @@ namespace GetJobProfiles
             await File.WriteAllTextAsync($"{OutputBasePath}missing_content_titles_{_executionId}.json", JsonSerializer.Serialize(_missingTitles));
         }
 
-        private static async Task CopyRecipe(string recipePath, string recipeName)
+        private static Task CopyRecipe(string recipePath, string recipeName)
         {
             var tokens = new Dictionary<string, string>
             {
                 {"recipeName", $"{recipeName}_{_executionId}"}
             };
 
-            await CopyRecipeWithTokenisation(recipePath, recipeName, tokens);
+            return CopyRecipeWithTokenisation(recipePath, recipeName, tokens);
         }
 
         private static void NewMasterRecipe(string name)
