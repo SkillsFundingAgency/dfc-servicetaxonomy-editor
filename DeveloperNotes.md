@@ -1,5 +1,7 @@
 #ToDo
 
+* add attributes to model classes for sync? auto work to/from json?
+
 * sort out dev branch (the slack config changes went into dev!)
 
 * content api is not using curies, it is using relative urls: may be my config

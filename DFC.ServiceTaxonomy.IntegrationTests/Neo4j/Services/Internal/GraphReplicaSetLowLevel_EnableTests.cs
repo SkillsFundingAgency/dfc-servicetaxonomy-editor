@@ -11,7 +11,6 @@ using Xunit.Abstractions;
 
 namespace DFC.ServiceTaxonomy.IntegrationTests.Neo4j.Services.Internal
 {
-    //todo: we need to unit test the neo services too
     [Collection("GraphCluster Integration")]
     public class GraphReplicaSetLowLevel_EnableTests : GraphClusterIntegrationTest
     {
