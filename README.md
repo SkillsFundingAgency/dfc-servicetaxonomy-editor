@@ -208,6 +208,10 @@ The integration tests are run as part of a release.
 
 To run the integration tests locally, copy the `appsettings.Development_template.json` file in the `DFC.ServiceTaxonomy.IntegrationTests` folder to `appsettings.Development.json`, ensuring the settings file contains the correct config for the 'Published' graph.
 
+### Set Up Event Grid
+
+If enabled, the Stax Editor publishes events to a configured topic. A topic can be [setup in an Azure subscription](https://docs.microsoft.com/en-us/azure/event-grid/custom-event-quickstart-portal), or an [event grid emulator](https://github.com/Azure/eventgrid-emulator) ([unofficial](https://github.com/ravinsp/eventgrid-emulator)) can be used.
+
 ## Update Orchard Core Packages
 
 Currently, we build and pack Orchard Core ourselves, so we can update to the latest OC in a controlled manner. We include the nuget packages in the repo (with a suitable reference in `NuGet.config`).
