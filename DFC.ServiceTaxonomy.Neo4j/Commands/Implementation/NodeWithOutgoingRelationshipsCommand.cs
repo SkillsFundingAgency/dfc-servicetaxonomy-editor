@@ -12,7 +12,7 @@ namespace DFC.ServiceTaxonomy.Neo4j.Commands.Implementation
     {
         public const string TwoWayRelationshipPropertyName = "twoWay";
 
-        public HashSet<string> SourceNodeLabels { get; set; } = new HashSet<string>();
+        public HashSet<string> SourceNodeLabels { get; set; } = new();
         public string? SourceIdPropertyName { get; set; }
         public object? SourceIdPropertyValue { get; set; }
 
@@ -21,7 +21,7 @@ namespace DFC.ServiceTaxonomy.Neo4j.Commands.Implementation
             get { return RelationshipsList; }
         }
 
-        protected List<CommandRelationship> RelationshipsList { get; set; } = new List<CommandRelationship>();
+        protected List<CommandRelationship> RelationshipsList { get; set; } = new();
 
         public void AddRelationshipsTo(
             string relationshipType,
