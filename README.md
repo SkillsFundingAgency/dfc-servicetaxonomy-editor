@@ -33,16 +33,28 @@ This project is a headless content management system (CMS), that synchronises co
 
 ## Resources
 
+### Documentation
+
 - [Orchard Core Github](https://github.com/OrchardCMS/OrchardCore)
 
 - [Orchard Core Documentation](https://docs.orchardcore.net/en/dev/)
 
 - [Orchard Core Dojo](https://orcharddojo.net/)
 
-- [Orchard Core Gitter Channel](https://gitter.im/OrchardCMS/OrchardCore)
-
 - [Neo4j Documentation](https://neo4j.com/docs/)
 
 - [Kubernetes Documentation](https://kubernetes.io/docs/home/)
 
 - [Docker Documentation](https://docs.docker.com/)
+
+### Tutorial Videos
+
+The two main provider of tutorial videos are [Orchard Skills](https://www.youtube.com/channel/UCOPLovO0E8kfliE5bF9Y2Yg) and [Lombiq](https://www.youtube.com/channel/UCDVUxCz2RvkgTbA0wAYKwRA).
+
+Tutorials of note include:
+
+- [Getting Started with Orchard Core CMS and Visual Studio](https://www.youtube.com/watch?v=3pPyNKJo1iU)
+
+### Chat
+
+- [Orchard Core Gitter Channel](https://gitter.im/OrchardCMS/OrchardCore)
