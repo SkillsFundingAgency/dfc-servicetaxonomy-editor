@@ -3,7 +3,7 @@
 
 ## Introduction
 
-This project is a headless content management system (CMS), that synchronises content into a graph database. It's being created by the [UK government's](https://www.gov.uk/) [National Careers Service](https://nationalcareers.service.gov.uk/) to manage careers related content.
+This project is a headless content management system (CMS), that synchronises content into a graph database. It builds on [Orchard Core](http://www.orchardcore.net/), and uses [Neo4j](https://neo4j.com/) for the graphs. It's being created by the [UK government's](https://www.gov.uk/) [National Careers Service](https://nationalcareers.service.gov.uk/) to manage careers related content.
 
 ## Documentation
 
