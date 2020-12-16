@@ -20,8 +20,3 @@ To view and edit existing 'Content Items you will need to select 'Content' -> 'C
 
 ![Enable Features](Images/ViewAndEditExistingContentItems.png)
 
-## Importing/Exporting Content
-
-### Master Recipes
-
-### Recipe Steps

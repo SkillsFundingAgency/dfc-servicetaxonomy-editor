@@ -222,6 +222,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documentation", "Documentat
 ProjectSection(SolutionItems) = preProject
 	Documentation\DevSetup.md = Documentation\DevSetup.md
 	Documentation\Ops.md = Documentation\Ops.md
+	Documentation\Content.md = Documentation\Content.md
 EndProjectSection
 EndProject
 Global
