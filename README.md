@@ -1,5 +1,5 @@
 
-# Service Taxonomy Editor
+# Service Taxonomy (Stax) Editor
 
 ## Introduction
 
@@ -7,11 +7,17 @@ This project is a headless content management system (CMS), that synchronises co
 
 ## Documentation
 
-- [Development environment setup](Documentation/DevSetup.md)
+- [Developer environment setup](Documentation/DevSetup.md)
 
 - [Operations](Documentation/Ops.md)
 
 - [User guide](Documentation/README.md)
+
+## Nuget Packages
+
+- [Neo4j Clustering and Client](DFC.ServiceTaxonomy.Neo4j/readme.md)
+- [Azure Event Grid Publishing](DFC.ServiceTaxonomy.Events/readme.md)
+- [Slack Publishing](DFC.ServiceTaxonomy.Slack/readme.md)
 
 ## Resources
 
