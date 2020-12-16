@@ -176,7 +176,7 @@ If you are using SQLite for local development, paste in the following, changing 
 
 Run or debug the `DFC.ServiceTaxonomy.Editor` project, which should launch the Setup page. Populate the page as follows, and click Finish Setup. (This runs the site using a local Sqlite database.)
 
-![Service Taxonomy Editor Setup](/Images/EditorSetup.png)
+![Service Taxonomy Editor Setup](Images/EditorSetup.png)
 *Note: this step will become unnecessary as the solution evolves.*
 
 You should then be directed to the log in page. Enter the username and password you've just set up. If you have the memory of a goldfish, delete the DFC.ServiceTaxonomy.Editor\App_Data folder and start again.
