@@ -69,6 +69,17 @@ C# snippets of code can be embedded in the recipe in the form of this example...
 
 There is a global variable available to the executed C# code, called `Content`, which currently has 1 method, as in the example, which get the ContentItemId for the supplied content item description and content type.
 
+##### CypherCommand
+
+The `CypherCommand` step will execute the supplied Cypher statement(s) on the graph replica set(s).
+
+It supports two properties/parameters:
+
+* `GraphReplicaSets` An optional array of graph replica set names to execute the Cypher statements on. If not supplied, the Cypher statements will be run on _all_ configured graph replica sets.
+* `Commands` An array of Cypher commands to run on the specified graph replica set(s).
+
+##### CypherToContent
+
 ### Content Type Definitions Storage
 
 Content type definitions have been [configured](https://docs.orchardcore.net/en/dev/docs/guides/content-definitions/) to live in the Orchard Core SQL database.
