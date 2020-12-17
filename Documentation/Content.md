@@ -39,9 +39,25 @@ The built-in OC recipe step used to import/export content is called 'Content'. H
 
 We need to use recipes using the content step to update content items that already exist within an environment. Content recipes are created by generating a 'Deployment Plan' from the UI, using either the 'All Content' or 'Content' steps.
 
+Content recipes can import an item in a published or draft state. Which state the item is imported in, is driven by the Published property on the item in the recipe (true for Published, false for Draft)...
+
+```
+          "Published": false,
+```
+
+If the recipe item is updating an existing version of the item, the recipe item replaces any existing published and/or draft version of the item, in the state specified in the recipe. (Overwritten versions can still be restored through the Audit Trail functionality.) There isn't a way currently to import a draft version of an item, alongside an existing published item.
+
 #### Stax Editor Recipe Types
 
+The Stax Editor supports additional recipe steps than are provided out-of-the-box from Orchard Core.
 
+##### ContentNoCache
+
+This content step is an item create-only step, that consumes little resources. It's required because using the built in `Content` step for the recipes imported by the Job Profile master recipe, causes the hosting App Service to run out of memory and stop working. It is also faster than the built in `Content` step, and significantly speeds up the long running Job Profile import process.
+
+##### CSharpContent
+
+This is also an item create-only step, but supports enbedded C# code, in a similar manner to how the built-in `Content` step supports embedding Javascript code.
 
 ### Content Type Definitions Storage
 
