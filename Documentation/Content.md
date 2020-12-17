@@ -27,6 +27,8 @@ There are two sets of recipe steps. Those provided by Orchard Core itself, and t
 
 Orchard Core supports many different types of [recipe](https://docs.orchardcore.net/en/dev/docs/reference/modules/Recipes/) steps.
 
+##### Content
+
 The built-in OC recipe step used to import/export content is called 'Content'. Here's a snippet from a recipe showing the content step:
 
 ```
@@ -57,7 +59,15 @@ This content step is an item create-only step, that consumes little resources. I
 
 ##### CSharpContent
 
-This is also an item create-only step, but supports enbedded C# code, in a similar manner to how the built-in `Content` step supports embedding Javascript code.
+This is also an item create-only step, but supports embedded C# code, in a similar manner to how the built-in `Content` step supports embedding Javascript code.
+
+C# snippets of code can be embedded in the recipe in the form of this example...
+
+```
+«c#: await Content.GetContentItemIdByDisplayText("Occupation", "MP")»
+```
+
+There is a global variable available to the executed C# code, called `Content`, which currently has 1 method, as in the example, which get the ContentItemId for the supplied content item description and content type.
 
 ### Content Type Definitions Storage
 
