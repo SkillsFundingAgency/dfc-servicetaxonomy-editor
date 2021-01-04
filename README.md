@@ -9,11 +9,11 @@ This project is a headless content management system (CMS), that synchronises co
 
 - [Developer Environment Setup](Documentation/DevSetup.md)
 
-- [Content Import/Export](Documentation/content.md)
+- [Content Import/Export](Documentation/Content.md)
 
 - [Operations](Documentation/Ops.md)
 
-- [User guide](Documentation/README.md)
+- [User guide](Documentation/UserGuide.md)
 
 ## Nuget Packages
 
