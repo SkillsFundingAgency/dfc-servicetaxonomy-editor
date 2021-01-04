@@ -1,4 +1,4 @@
-﻿# Neo4j Client Library
+﻿# Neo4j Clustering and Client Library
 
 Utility library to connect to Neo4j graph(s) and execute commands and queries.
 

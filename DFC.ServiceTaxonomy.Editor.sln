@@ -17,11 +17,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DFC.ServiceTaxonomy.UnitTests", "DFC.ServiceTaxonomy.UnitTests\DFC.ServiceTaxonomy.UnitTests.csproj", "{248782F2-4F59-4EC6-8403-7BC6235863E1}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "User Documentation", "User Documentation", "{3E0A29D0-0E0C-4289-8BD0-C7355D6EBFF9}"
-	ProjectSection(SolutionItems) = preProject
-		User Documentation\README.md = User Documentation\README.md
-	EndProjectSection
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DFC.ServiceTaxonomy.GraphLookup", "DFC.ServiceTaxonomy.GraphLookup\DFC.ServiceTaxonomy.GraphLookup.csproj", "{C8CB1064-2262-4DFE-9778-B76163DF0115}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DFC.ServiceTaxonomy.Neo4j", "DFC.ServiceTaxonomy.Neo4j\DFC.ServiceTaxonomy.Neo4j.csproj", "{C57D2E7F-F920-4D75-984E-7AE3F28E201A}"
@@ -63,6 +58,13 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OrchardCore.AuditTrail", "OrchardCore.AuditTrail\OrchardCore.AuditTrail.csproj", "{C2C7C180-F824-4C79-A573-B4D639A4A562}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DFC.ServiceTaxonomy.Slack", "DFC.ServiceTaxonomy.Slack\DFC.ServiceTaxonomy.Slack.csproj", "{D82B530E-8453-4963-8ABE-64947ED69A8F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documentation", "Documentation", "{01FC712E-9E3D-4690-81A0-E2EDD3B18697}"
+ProjectSection(SolutionItems) = preProject
+	Documentation\DevSetup.md = Documentation\DevSetup.md
+	Documentation\Ops.md = Documentation\Ops.md
+	Documentation\Content.md = Documentation\Content.md
+EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -160,7 +162,6 @@ Global
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{248782F2-4F59-4EC6-8403-7BC6235863E1} = {1C39E2DF-6511-4179-BA7C-2A12DBC963E3}
-		{3E0A29D0-0E0C-4289-8BD0-C7355D6EBFF9} = {16DF71DE-7DEE-4E45-B613-CABA378B6D14}
 		{E2592CC5-5E5C-4AB1-A4AC-55D82E3568FB} = {1C39E2DF-6511-4179-BA7C-2A12DBC963E3}
 		{8A6F690F-F0D5-4E81-A027-3053BFAC89AF} = {398B7C0B-0D07-4A9D-9765-D5A71941DEF6}
 	EndGlobalSection
