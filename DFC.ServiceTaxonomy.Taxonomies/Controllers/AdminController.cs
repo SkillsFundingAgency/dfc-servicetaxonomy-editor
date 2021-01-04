@@ -16,6 +16,7 @@ using OrchardCore.ContentManagement.Metadata;
 using OrchardCore.ContentManagement.Metadata.Settings;
 using OrchardCore.DisplayManagement.ModelBinding;
 using OrchardCore.DisplayManagement.Notify;
+using Org.BouncyCastle.Asn1.Esf;
 using YesSql;
 
 namespace DFC.ServiceTaxonomy.Taxonomies.Controllers
@@ -31,7 +32,6 @@ namespace DFC.ServiceTaxonomy.Taxonomies.Controllers
         private readonly INotifier _notifier;
         private readonly IUpdateModelAccessor _updateModelAccessor;
         private readonly IEnumerable<ITaxonomyTermValidator> _validators;
-        private readonly IEnumerable<ITaxonomyTermDeleteValidator> _deleteValidators;
         private readonly IEnumerable<ITaxonomyTermHandler> _handlers;
         private readonly ITaxonomyHelper _taxonomyHelper;
 
@@ -45,7 +45,6 @@ namespace DFC.ServiceTaxonomy.Taxonomies.Controllers
             IHtmlLocalizer<AdminController> localizer,
             IUpdateModelAccessor updateModelAccessor,
             IEnumerable<ITaxonomyTermValidator> validators,
-            IEnumerable<ITaxonomyTermDeleteValidator> deleteValidators,
             IEnumerable<ITaxonomyTermHandler> handlers,
             ITaxonomyHelper taxonomyHelper)
         {
@@ -58,7 +57,6 @@ namespace DFC.ServiceTaxonomy.Taxonomies.Controllers
             _updateModelAccessor = updateModelAccessor;
             H = localizer;
             _validators = validators;
-            _deleteValidators = deleteValidators;
             _handlers = handlers;
             _taxonomyHelper = taxonomyHelper;
         }
@@ -115,6 +113,7 @@ namespace DFC.ServiceTaxonomy.Taxonomies.Controllers
             }
 
             var contentItem = await _contentManager.NewAsync(id);
+            contentItem.Published = true;
             contentItem.Weld<TermPart>();
             contentItem.Alter<TermPart>(t => t.TaxonomyContentItemId = taxonomyContentItemId);
 
@@ -166,9 +165,12 @@ namespace DFC.ServiceTaxonomy.Taxonomies.Controllers
 
             foreach (var validator in _validators)
             {
-                if (!await validator.Validate(JObject.FromObject(contentItem), JObject.FromObject(taxonomy)))
+                (bool validated, string errorMessage) =
+                    await validator.ValidateCreate(JObject.FromObject(contentItem), JObject.FromObject(taxonomy));
+
+                if (!validated)
                 {
-                    return ValidationError(validator.ErrorMessage, model, taxonomyContentItemId, taxonomyItemId);
+                    return ValidationError(errorMessage, model, taxonomyContentItemId, taxonomyItemId);
                 }
             }
 
@@ -291,9 +293,12 @@ namespace DFC.ServiceTaxonomy.Taxonomies.Controllers
 
             foreach (var validator in _validators)
             {
-                if (!await validator.Validate(JObject.FromObject(contentItem), JObject.FromObject(taxonomy)))
+                (bool validated, string errorMessage) = await validator.ValidateUpdate(JObject.FromObject(contentItem),
+                    JObject.FromObject(taxonomy));
+
+                if (!validated)
                 {
-                    return ValidationError(validator.ErrorMessage, model, taxonomyContentItemId, taxonomyItemId);
+                    return ValidationError(errorMessage, model, taxonomyContentItemId, taxonomyItemId);
                 }
             }
 
@@ -349,11 +354,14 @@ namespace DFC.ServiceTaxonomy.Taxonomies.Controllers
                 return NotFound();
             }
 
-            foreach (var validator in _deleteValidators)
+            foreach (var validator in _validators)
             {
-                if (!await validator.Validate(taxonomyItem, JObject.FromObject(taxonomy)))
+                (bool validated, string errorMessage) =
+                    ((bool validated, string errorMessage))await validator.ValidateDelete(taxonomyItem, JObject.FromObject(taxonomy));
+
+                if (!validated)
                 {
-                    _notifier.Error(H[validator.ErrorMessage]);
+                    _notifier.Error(H[errorMessage]);
                     return RedirectToAction("Edit", "Admin", new { area = "OrchardCore.Contents", contentItemId = taxonomyContentItemId });
                 }
             }

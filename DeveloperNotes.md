@@ -1,5 +1,13 @@
 #ToDo
 
+* add help admin menu with links to embedded video tutorials
+
+* content api is not using curies, it is using relative urls: may be my config
+
+* generate job profiles recipes using prefix, e.g. 02_JobProfiles_
+
+have convention of 0x for release number
+
 * pre-populate custom graph sync settings to represent the real defaults
 * add visualisation settings into read only set
 * can't reset focus on a pagelocation, nor visualise it from the editor
