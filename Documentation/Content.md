@@ -95,8 +95,13 @@ An example query that returns items in the required format:
 
 The `CypherToContent` step is used to import ESCO data into the Stax Editor, that were previously imported into the graphs using the [Neosemantics plugin](https://github.com/neo4j-labs/neosemantics).
 
-### Content Type Definitions Storage
+### Content Type Definitions
+
+The two start up recipes already mentioned set up all the required content types.
+
+#### Storage
 
 Content type definitions have been [configured](https://docs.orchardcore.net/en/dev/docs/guides/content-definitions/) to live in the Orchard Core SQL database.
 
-The two start up recipes already mentioned set up all the required content types.
+##### Updating
+
