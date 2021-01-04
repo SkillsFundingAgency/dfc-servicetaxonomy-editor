@@ -80,8 +80,6 @@ jobs:
             deploymentMethod: zipDeploy
             RemoveAdditionalFilesFlag: false
             ExcludeFilesFromAppDataFlag: false
-        - powershell: Start-Sleep -Seconds 20
-          displayName: 'Pause deployment whilst app restarts'
         - task: ExtractFiles@1
           displayName: 'Extract OrchardCoreInitialiser files'
           inputs:
@@ -109,6 +107,17 @@ jobs:
           inputs:
             targetPath: $(Pipeline.Workspace)\OrchardCoreInitialiserOutput\ 
             artifactName: DFC.ServiceTaxonomy.OrchardCoreInitialiser.Output.${{ parameters.Environment }}
+        - task: AzureAppServiceManage@0
+          displayName: 'Restart Azure App Service: ${{ parameters.WebAppName }}'
+          inputs:
+            azureSubscription: '${{ parameters.AzureSubscription }}'
+            Action: 'Restart Azure App Service'
+            WebAppName: '${{ parameters.WebAppName }}'
+            SpecifySlotOrASE: true
+            Slot: production            
+            ResourceGroupName: '${{ parameters.ResourceGroup }}'            
+        - powershell: Start-Sleep -Seconds 20
+          displayName: 'Pause deployment whilst app restarts'
         - template: ..\StepTemplates\run-integration-tests.yml
           parameters:
             Environment: ${{ parameters.Environment }}
