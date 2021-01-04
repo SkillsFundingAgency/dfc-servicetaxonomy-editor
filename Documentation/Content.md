@@ -105,3 +105,20 @@ Content type definitions have been [configured](https://docs.orchardcore.net/en/
 
 ##### Updating
 
+The content definition recipes are discussed in this [blog](https://orcharddojo.net/blog/blazing-orchard-replace-and-delete-content-definition-deployment-steps-this-week-in-orchard-30-10-2020) post.
+
+Content type definitions can be manipulated by using the following recipe steps (UI name `JSON Recipe Step Name`)
+
+* Update Content Definitions `ContentDefinition`
+
+Update creates the definition if it isn't already in the environment. If the definition already exists, it merges the definition in the recipe with the definition already in the environment. For example, if a type definition has had a part added to it in an environment, and an update definition recipe is imported which doesn't contain the part, the definition will _still_ contain the added part after the import, even though it is not in the recipe.
+
+* Replace Content Definitions `ReplaceContentDefinition`
+
+Replace Content Definitions can be used to create or entirely replace the existing content definition. The definition after the import matches what is in the recipe.
+
+* Delete Content Definitions `DeleteContentDefinition`
+
+Delete Content Definitions is used to remove existing content definitions.
+
+Most of the time, you will use Replace and Delete.
