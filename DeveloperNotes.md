@@ -1,5 +1,7 @@
 #ToDo
 
+* add help admin menu with links to embedded video tutorials
+
 * content api is not using curies, it is using relative urls: may be my config
 
 * generate job profiles recipes using prefix, e.g. 02_JobProfiles_
