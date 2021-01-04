@@ -203,13 +203,20 @@ The integration tests are run as part of a release.
 
 To run the integration tests locally, copy the `appsettings.Development_template.json` file in the `DFC.ServiceTaxonomy.IntegrationTests` folder to `appsettings.Development.json`, ensuring the settings file contains the correct config for the 'Published' graph.
 
-## Troubleshooting Builds
+### Set Up Event Grid
 
-We sometimes track the latest preview packages of Orchard Core (OC), so that we pick up new features and fixes straight away (Orchar Core nuget packages are referenced using `1.0.0-rc2-*`).
+If enabled, the Stax Editor publishes events to a configured topic. A topic can be [setup in an Azure subscription](https://docs.microsoft.com/en-us/azure/event-grid/custom-event-quickstart-portal), or an [event grid emulator](https://github.com/Azure/eventgrid-emulator) ([unofficial](https://github.com/ravinsp/eventgrid-emulator)) can be used.
 
-The downside of this, is that occasionally, build or package issues and bugs are introduced in the OC package set. That means that any build can fail without being caused by any of our changes.
+## Update Orchard Core Packages
 
-When that happens, check the [recent checkins to OC](https://github.com/OrchardCMS/OrchardCore/commits/dev), and if there is a suspect checkin (or build failure, which is often a packaging issue), replace all occurrences of referencing the packages using `-rc2-*` to a previous version and retry. If there is an issue, it's a good idea to [report it to the OC developers](https://gitter.im/OrchardCMS/OrchardCore).
+Currently, we build and pack Orchard Core ourselves, so we can update to the latest OC in a controlled manner. We include the nuget packages in the repo (with a suitable reference in `NuGet.config`).
 
-Currently, we build Orchard Core and include the nuget packages in the repo (with a suitable reference in `NuGet.config`). We need to do this because we need to apply a patch set on the 'dev' branch.
+To update the Orchard Core package set, note the current rc version of the packages in the `dfc-servicetaxonomy-editor\orchardcorepackages` folder, then delete them. Open a shell, `Cd` to the OC repo clone, and run the following command (assumes the Stax Editor and OC are cloned to the same folder), incrementing the `rc` version...
 
+```
+dotnet pack -o "..\dfc-servicetaxonomy-editor\orchardcorepackages" --version-suffix rc7
+```
+
+Update all packages references in the Stax Editor csproj files to the new rc, fix any build issues, test the new version and then commit your changes.
+
+Note, we update the rc version each time to avoid version conflicts.
