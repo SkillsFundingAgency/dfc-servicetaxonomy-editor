@@ -117,6 +117,8 @@ Update creates the definition if it isn't already in the environment. If the def
 
 Replace Content Definitions can be used to create or entirely replace the existing content definition. The definition after the import matches what is in the recipe.
 
+Note: there seems to be an issue with `ReplaceContentDefinition` steps not working correctly. Further investigation is required.
+
 * Delete Content Definitions `DeleteContentDefinition`
 
 Delete Content Definitions is used to remove existing content definitions.
