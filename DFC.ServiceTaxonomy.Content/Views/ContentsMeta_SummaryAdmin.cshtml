@@ -1,28 +1,12 @@
 ﻿@using OrchardCore.ContentManagement
-
 @{
     ContentItem contentItem = Model.ContentItem;
-}
-
-<div>
-    @if (contentItem.ModifiedUtc.HasValue)
+    if (contentItem.ModifiedUtc.HasValue)
     {
-        var publishedDateString = $"{contentItem.PublishedUtc:dd/MM/yyyy HH:mm}";
-        var modifiedDateString = $"{contentItem.ModifiedUtc:dd/MM/yyyy HH:mm}";
-
-        <span class="hint">
-            @if (contentItem.Published && publishedDateString == modifiedDateString)
-            {
-                @T["Published {0} - Last modified by {1}", publishedDateString, contentItem.Author]
-            }
-            else if (contentItem.Published)
-            {
-                @T["Published {0} - Last modified {1} by {2}", publishedDateString, modifiedDateString, contentItem.Author]
-            }
-            else
-            {
-                @T["Last modified {0} by {1}", modifiedDateString, contentItem.Author]
-            }
-        </span>
+        <div class="tags mr-1">
+            <span class="badge ta-badge font-weight-normal align-text-top" data-toggle="tooltip" title="@T["Last modified"]">
+                <i class="far fa-clock"></i> @(T["{0} by {1}", $"{contentItem.ModifiedUtc:dd/MM/yyyy HH:mm}", contentItem.Author])
+            </span>
+        </div>
     }
-</div>
+}
