@@ -124,3 +124,9 @@ Note: there seems to be an issue with `ReplaceContentDefinition` steps not worki
 Delete Content Definitions is used to remove existing content definitions.
 
 Most of the time, you will use Replace and Delete.
+
+##### Placement Rules
+
+[Placement rules](https://docs.orchardcore.net/en/dev/docs/reference/core/Placement/) for parts and fields (shapes) on the editor page are configured using the `Placements` recipe step. Any placement properties for a shape in the recipe replace the existing placement rules for the shape, so any new recipe has to contain all previous rules for each shape.
+
+Shapes can be placed within tabs, cards and columns.
