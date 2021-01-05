@@ -4053,6 +4053,17 @@
             "Placements": {
                 "TitlePart_Edit": [
                     {
+                        "place": "Parts:0#Metadata;0",
+                        "displayType": null,
+                        "differentiator": null,
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null,
+                        "contentType": [
+                            "Page"
+                        ]
+                    },
+                    {
                         "place": "Parts:0#Content;0",
                         "displayType": null,
                         "differentiator": null,
@@ -4066,6 +4077,14 @@
                 ],
                 "TaxonomyField_Edit": [
                     {
+                        "place": "Parts:2#Metadata;0",
+                        "displayType": null,
+                        "differentiator": "Page-PageLocations",
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null
+                    },
+                    {
                         "place": "Parts:1#Content;0",
                         "displayType": null,
                         "differentiator": "JobProfile-PageLocations",
@@ -4075,6 +4094,17 @@
                     }
                 ],
                 "PageLocationPart_Edit": [
+                    {
+                        "place": "Parts:2#Metadata;0",
+                        "displayType": null,
+                        "differentiator": null,
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null,
+                        "contentType": [
+                            "Page"
+                        ]
+                    },
                     {
                         "place": "Parts:2#Content;0",
                         "contentType": [
@@ -4158,6 +4188,14 @@
                 ],
                 "TextField_Edit": [
                     {
+                        "place": "Parts:1#Metadata;0",
+                        "displayType": null,
+                        "differentiator": "Page-Description",
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null
+                    },
+                    {
                         "place": "Parts:5#Content;0",
                         "differentiator": "JobProfile-TitleOptions"
                     },
@@ -4194,6 +4232,17 @@
                 ],
                 "GraphSyncPart_Edit": [
                     {
+                        "place": "Parts:3#Metadata;0",
+                        "displayType": null,
+                        "differentiator": null,
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null,
+                        "contentType": [
+                            "Page"
+                        ]
+                    },
+                    {
                         "place": "Parts:15#Content;0",
                         "displayType": null,
                         "differentiator": null,
@@ -4205,10 +4254,24 @@
                         ]
                     }
                 ],
-                "HtmlField_Edit": [
+                "BooleanField_Edit": [
                     {
                         "place": "Parts:0#Content;1",
-                        "differentiator": "Page-Herobanner"
+                        "displayType": null,
+                        "differentiator": "Page-ShowHeroBanner",
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null
+                    }
+                ],
+                "HtmlField_Edit": [
+                    {
+                        "place": "Parts:1#Content;1",
+                        "displayType": null,
+                        "differentiator": "Page-Herobanner",
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null
                     },
                     {
                         "place": "Parts:4#Content;0",
@@ -4233,6 +4296,32 @@
                     {
                         "place": "Parts:0#Career Path;4",
                         "differentiator": "JobProfile-CareerPathAndProgression"
+                    }
+                ],
+                "FlowPart_Edit": [
+                    {
+                        "place": "Parts:2#Content;1",
+                        "displayType": null,
+                        "differentiator": null,
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null,
+                        "contentType": [
+                            "Page"
+                        ]
+                    }
+                ],
+                "SitemapPart_Edit": [
+                    {
+                        "place": "Parts:0#SEO;2",
+                        "displayType": null,
+                        "differentiator": null,
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null,
+                        "contentType": [
+                            "Page"
+                        ]
                     }
                 ]
             }

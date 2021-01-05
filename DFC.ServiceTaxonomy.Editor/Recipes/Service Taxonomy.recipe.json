@@ -966,9 +966,19 @@
                         "shape": null
                     }
                 ],
-                "PageLocationPart_Edit": [
+                "TaxonomyField_Edit": [
                     {
                         "place": "Parts:2#Metadata;0",
+                        "displayType": null,
+                        "differentiator": "Page-PageLocations",
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null
+                    }
+                ],
+                "PageLocationPart_Edit": [
+                    {
+                        "place": "Parts:3#Metadata;0",
                         "displayType": null,
                         "differentiator": null,
                         "alternates": null,
