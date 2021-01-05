@@ -115,7 +115,7 @@
             "site": "DFC.ServiceTaxonomy.Theme"
         },
         {
-            "name": "ContentDefinition",
+            "name": "ReplaceContentDefinition",
             "ContentTypes": [
                 {
                     "Name": "Page",
@@ -739,6 +739,20 @@
                                 },
                                 "ContentIndexSettings": {}
                             }
+                        },
+                        {
+                            "FieldName": "BooleanField",
+                            "Name": "ShowHeroBanner",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "ShowHeroBanner",
+                                    "Editor": "Switch"
+                                },
+                                "BooleanFieldSettings": {
+                                    "Label": "Show hero banner"
+                                },
+                                "ContentIndexSettings": {}
+                            }
                         }
                     ]
                 },
@@ -925,6 +939,106 @@
                     ]
                 }
             ]
+        },
+        {
+            "name": "Placements",
+            "Placements": {
+                "TitlePart_Edit": [
+                    {
+                        "place": "Parts:0#Metadata;0",
+                        "displayType": null,
+                        "differentiator": null,
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null,
+                        "contentType": [
+                            "Page"
+                        ]
+                    }
+                ],
+                "TextField_Edit": [
+                    {
+                        "place": "Parts:1#Metadata;0",
+                        "displayType": null,
+                        "differentiator": "Page-Description",
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null
+                    }
+                ],
+                "PageLocationPart_Edit": [
+                    {
+                        "place": "Parts:2#Metadata;0",
+                        "displayType": null,
+                        "differentiator": null,
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null,
+                        "contentType": [
+                            "Page"
+                        ]
+                    }
+                ],
+                "GraphSyncPart_Edit": [
+                    {
+                        "place": "Parts:3#Metadata;0",
+                        "displayType": null,
+                        "differentiator": null,
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null,
+                        "contentType": [
+                            "Page"
+                        ]
+                    }
+                ],
+                "BooleanField_Edit": [
+                    {
+                        "place": "Parts:0#Content;1",
+                        "displayType": null,
+                        "differentiator": "Page-ShowHeroBanner",
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null
+                    }
+                ],
+                "HtmlField_Edit": [
+                    {
+                        "place": "Parts:1#Content;1",
+                        "displayType": null,
+                        "differentiator": "Page-Herobanner",
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null
+                    }
+                ],
+                "FlowPart_Edit": [
+                    {
+                        "place": "Parts:2#Content;1",
+                        "displayType": null,
+                        "differentiator": null,
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null,
+                        "contentType": [
+                            "Page"
+                        ]
+                    }
+                ],
+                "SitemapPart_Edit": [
+                    {
+                        "place": "Parts:0#SEO;2",
+                        "displayType": null,
+                        "differentiator": null,
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null,
+                        "contentType": [
+                            "Page"
+                        ]
+                    }
+                ]
+            }
         },
         {
             "name": "WorkflowType",

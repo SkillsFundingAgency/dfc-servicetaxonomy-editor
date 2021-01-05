@@ -114,7 +114,7 @@
             "site": "DFC.ServiceTaxonomy.Theme"
         },
         {
-            "name": "ContentDefinition",
+            "name": "ReplaceContentDefinition",
             "ContentTypes": [
                 {
                     "Name": "PersonalityQuestionSet",
