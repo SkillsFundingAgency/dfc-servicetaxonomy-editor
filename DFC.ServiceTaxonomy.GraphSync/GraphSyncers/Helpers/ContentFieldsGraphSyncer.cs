@@ -53,13 +53,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
             _logger = logger;
         }
 
-        public async Task AddRelationship(IDescribeRelationshipsContext context)
+        public async Task AddRelationship(JObject content, IDescribeRelationshipsContext context)
         {
-            if (context.ContentField == null)
-            {
-                return;
-            }
-
             foreach (var contentFieldGraphSyncer in _contentFieldGraphSyncer)
             {
                 IEnumerable<ContentPartFieldDefinition> contentPartFieldDefinitions =
@@ -68,19 +63,20 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
 
                 foreach (ContentPartFieldDefinition contentPartFieldDefinition in contentPartFieldDefinitions)
                 {
-                    JObject? contentItemField = (JObject?)context.ContentField[contentPartFieldDefinition.Name];
+                    JObject? contentItemField = (JObject?)content[contentPartFieldDefinition.Name];
                     if (contentItemField == null)
                         continue;
 
                     context.SetContentPartFieldDefinition(contentPartFieldDefinition);
 
-                    await contentFieldGraphSyncer.AddRelationship(context);
+                    await contentFieldGraphSyncer.AddRelationship(contentItemField, context);
                 }
 
                 context.SetContentPartFieldDefinition(default);
             }
         }
 
+        //todo: share code with above
         public async Task AddSyncComponents(JObject content, IGraphMergeContext context)
         {
             foreach (var contentFieldGraphSyncer in _contentFieldGraphSyncer)
@@ -101,9 +97,16 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
                     }
                     else
                     {
-                        JObject? contentItemField = (JObject?)content[contentPartFieldDefinition.Name];
+                        JObject? contentItemField = content[contentPartFieldDefinition.Name] as JObject;
                         if (contentItemField == null)
+                        {
+                            _logger.LogWarning("The '{ContentItem}' {ContentType} is missing content for the {FieldName} {FieldType}.",
+                                context.ContentItem.DisplayText,
+                                context.ContentItem.ContentType,
+                                contentPartFieldDefinition.Name,
+                                contentPartFieldDefinition.FieldDefinition.Name);
                             continue;
+                        }
 
                         await contentFieldGraphSyncer.AddSyncComponents(contentItemField, context);
                     }

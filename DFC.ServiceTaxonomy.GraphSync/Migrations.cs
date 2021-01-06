@@ -48,5 +48,12 @@ namespace DFC.ServiceTaxonomy.GraphSync
 
             return 3;
         }
+
+        public int UpdateFrom3()
+        {
+            SchemaBuilder.DropTable(nameof(AuditSyncLog));
+
+            return 4;
+        }
     }
 }

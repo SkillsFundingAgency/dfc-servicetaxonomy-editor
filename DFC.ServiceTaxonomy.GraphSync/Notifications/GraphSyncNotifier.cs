@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Results.AllowSync;
 using DFC.ServiceTaxonomy.GraphSync.Services;
 using DFC.ServiceTaxonomy.GraphSync.Services.Interface;
+using DFC.ServiceTaxonomy.Slack;
 using Microsoft.AspNetCore.Html;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
@@ -35,13 +36,14 @@ namespace DFC.ServiceTaxonomy.GraphSync.Notifications
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly ILogger<GraphSyncNotifier> _logger;
         private readonly IList<NotifyEntry> _entries;
+        private readonly ISlackMessagePublisher _slackMessagePublisher;
 
         public GraphSyncNotifier(
             INodeContentItemLookup nodeContentItemLookup,
             IContentDefinitionManager contentDefinitionManager,
             LinkGenerator linkGenerator,
             IHttpContextAccessor httpContextAccessor,
-            ILogger<GraphSyncNotifier> logger)
+            ILogger<GraphSyncNotifier> logger, ISlackMessagePublisher slackMessagePublisher)
         {
             _nodeContentItemLookup = nodeContentItemLookup;
             _contentDefinitionManager = contentDefinitionManager;
@@ -49,6 +51,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Notifications
             _httpContextAccessor = httpContextAccessor;
             _logger = logger;
             _entries = new List<NotifyEntry>();
+            _slackMessagePublisher = slackMessagePublisher;
         }
 
         public async Task AddBlocked(
@@ -75,7 +78,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Notifications
             }
 
             //todo: need details of the content item with incoming relationships
-            Add($"{syncOperation} the '{contentItem.DisplayText}' {contentType} has been cancelled, due to an issue with graph syncing.",
+            await Add($"{syncOperation} the '{contentItem.DisplayText}' {contentType} has been cancelled, due to an issue with graph syncing.",
                 technicalMessage.ToString(),
                 technicalHtmlMessage: new HtmlString(technicalHtmlMessage.ToString()));
         }
@@ -118,7 +121,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Notifications
         }
 
         //todo: add custom styles via scss?
-        public void Add(
+        public async Task Add(
             string userMessage,
             string technicalMessage = "",
             Exception? exception = null,
@@ -128,19 +131,33 @@ namespace DFC.ServiceTaxonomy.GraphSync.Notifications
         {
             if (_logger.IsEnabled(LogLevel.Information))
             {
-                _logger.LogInformation(exception, "Notification '{NotificationType}' with user message '{NotificationUserMessage}' and technical message '{NotificationTechnicalMessage}' and exception '{Exception}'}.",
+                _logger.LogInformation(exception, "Notification '{NotificationType}' with user message '{NotificationUserMessage}' and technical message '{NotificationTechnicalMessage}' and exception '{Exception}'.",
                     type, userMessage, technicalMessage, exception?.ToString() ?? "None");
             }
 
+            string exceptionText = GetExceptionText(exception);
+            
             HtmlContentBuilder htmlContentBuilder = new HtmlContentBuilder();
 
+            string traceId = Activity.Current?.TraceId.ToString() ?? "N/A";
             string uniqueId = $"id{Guid.NewGuid():N}";
             string onClickFunction = $"click_{uniqueId}";
             string clipboardCopy = TechnicalClipboardCopy(
-                Activity.Current.TraceId.ToString(),
+                traceId,
                 userMessage,
                 technicalMessage,
-                exception);
+                exceptionText);
+
+            try
+            {
+                //publish to slack
+                string slackMessage = BuildSlackMessage(traceId, userMessage, technicalMessage, exception);
+                await _slackMessagePublisher.SendMessageAsync(slackMessage);
+            }
+            catch (Exception e)
+            {
+                _logger.LogError(e, e.Message);
+            }
 
             //fa-angle-double-down, hat-wizard, oil-can, fa-wrench?
             htmlContentBuilder
@@ -150,7 +167,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Notifications
                 .AppendHtml($"<a class=\"close\" style=\"right: 1.25em;\" data-toggle=\"collapse\" href=\"#{uniqueId}\" role=\"button\" aria-expanded=\"false\" aria-controls=\"{uniqueId}\"><i class=\"fas fa-wrench\"></i></a>")
                 .AppendHtml($"<div class=\"collapse\" id=\"{uniqueId}\">")
                 .AppendHtml($"<div class=\"card mt-2\"><div class=\"card-header\">Technical Details <button onclick=\"{onClickFunction}()\" style=\"float: right;\" type=\"button\"><i class=\"fas fa-copy\"></i></button></div><div class=\"card-body\">")
-                .AppendHtml($"<h5 class=\"card-title\">Trace ID</h5><h6 class=\"card-subtitle text-muted\">{Activity.Current.TraceId}</h6>")
+                .AppendHtml($"<h5 class=\"card-title\">Trace ID</h5><h6 class=\"card-subtitle text-muted\">{traceId}</h6>")
                 .AppendHtml("<div class=\"mt-3\">")
                 .AppendHtml(technicalHtmlMessage ?? new HtmlString(technicalMessage))
                 .AppendHtml("</div>");
@@ -159,12 +176,43 @@ namespace DFC.ServiceTaxonomy.GraphSync.Notifications
             {
                 //todo: we only include the exception's message (temporarily) to try to stop the notification message blowing up the page!
                 //htmlContentBuilder.AppendHtml($"<div class=\"card mt-3\"><div class=\"card-header\">Exception</div><div class=\"card-body\"><pre><code>{exception}</code></pre></div></div>");
-                htmlContentBuilder.AppendHtml($"<div class=\"card mt-3\"><div class=\"card-header\">Exception</div><div class=\"card-body\"><pre><code>{exception.Message}</code></pre></div></div>");
+                htmlContentBuilder.AppendHtml($"<div class=\"card mt-3\"><div class=\"card-header\">Exception</div><div class=\"card-body\"><pre><code>{exceptionText}</code></pre></div></div>");
             }
 
             htmlContentBuilder.AppendHtml("</div></div></div>");
 
             _entries.Add(new NotifyEntry { Type = type, Message = htmlContentBuilder });
+        }
+
+        private string BuildSlackMessage(string traceId, string userMessage, string technicalMessage, Exception? exception)
+        {
+            StringBuilder sb =
+                new StringBuilder(
+                    $"```Trace ID: {traceId}\r\nUser Message: {userMessage}\r\nTechnical Message: {technicalMessage}");
+
+            if (exception != null)
+            {
+                sb.Append($"\r\nException:\r\n\r\n{exception}");
+            }
+
+            sb.Append("```");
+
+            return sb.ToString();
+        }
+
+        private string GetExceptionText(Exception? exception)
+        {
+            const int maxExceptionTextLength = 200;
+
+            string exceptionMessage = exception?.Message ?? "";
+
+            // make sure the exception text doesn't take us over the max notification size
+            if (exceptionMessage.Length > maxExceptionTextLength)
+            {
+                exceptionMessage = $"{exceptionMessage.Substring(0, maxExceptionTextLength)} [truncated]";
+            }
+
+            return exceptionMessage;
         }
 
         //todo: add Trace Id to std notifications?
@@ -182,7 +230,9 @@ namespace DFC.ServiceTaxonomy.GraphSync.Notifications
         {
             if (_entries.Any(x => x.Type == NotifyType.Error))
             {
-                return _entries.Where(x => x.Type != NotifyType.Success).ToList();
+                // orchard core sometimes uses Information, where Success is more appropriate
+                // and all current Information notifiers seem to really be Success notifiers
+                return _entries.Where(x => !(x.Type == NotifyType.Success || x.Type == NotifyType.Information)).ToList();
             }
 
             return _entries;
@@ -205,13 +255,13 @@ function {onClickFunction}() {{
             );
         }
 
-        private string TechnicalClipboardCopy(string traceId, string userMessage, string technicalMessage, Exception? exception = null)
+        private string TechnicalClipboardCopy(string traceId, string userMessage, string technicalMessage, string exceptionText)
         {
             return
 @$"Trace ID          : {traceId}
 User Message      : {userMessage}
 Technical Message : {technicalMessage}
-Exception         : {exception?.Message}";
+Exception         : {exceptionText}";
             //todo: we want the full exception really!
 //Exception         : {exception}";
         }

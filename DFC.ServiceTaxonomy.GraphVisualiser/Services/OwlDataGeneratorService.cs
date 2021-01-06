@@ -139,13 +139,14 @@ namespace DFC.ServiceTaxonomy.GraphVisualiser.Services
                 : baseUrl.Replace("{NodeId}", nodeId);
         }
 
-        protected Class CreateClass(NodeDataModel nodeDataModel, string selectedNode)
+        protected Class CreateClass(NodeDataModel nodeDataModel, string? selectedNode)
         {
             var result = new Class
             {
                 Id = nodeDataModel.Id,
-                Type = $"owl:{(nodeDataModel.Id!.Equals("Class" + selectedNode) ? "equivalent" : string.Empty)}Class",
+                Type = $"owl:{(nodeDataModel.Id!.Equals($"Class{selectedNode}") ? "equivalent" : string.Empty)}Class",
                 ContentType = nodeDataModel.Type,
+                //todo: need to support contained items like taxonomy terms
                 EditUrl = CreateUrlFromContentItemId(nodeDataModel.NodeId, EditBaseUrl),
                 ResetFocusUrl = CreateUrlFromContentItemId(nodeDataModel.NodeId, ResetFocusBaseUrl)
             };

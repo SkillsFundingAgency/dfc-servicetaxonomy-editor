@@ -19,7 +19,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Items
 
         Task MutateOnClone(ICloneItemSyncContext context);
 
+        Task AddRelationship(IDescribeRelationshipsItemSyncContext context);
+
         Task<(bool validated, string failureReason)> ValidateSyncComponent(IValidateAndRepairItemSyncContext context);
-        Task AddRelationship(IDescribeRelationshipsContext context);
     }
 }

@@ -58,15 +58,15 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Items
             await _taxonomyPartGraphSyncer.MutateOnClone(context.ContentItem.Content, context);
         }
 
+        public async Task AddRelationship(IDescribeRelationshipsItemSyncContext context)
+        {
+            await _taxonomyPartGraphSyncer.AddRelationship(context.ContentItem.Content, context);
+        }
+
         public async Task<(bool validated, string failureReason)> ValidateSyncComponent(
             IValidateAndRepairItemSyncContext context)
         {
             return await _taxonomyPartGraphSyncer.ValidateSyncComponentForNonLeafEmbeddedTerm((JObject)context.ContentItem.Content, context);
-        }
-
-        public async Task AddRelationship(IDescribeRelationshipsContext context)
-        {
-            await _taxonomyPartGraphSyncer.AddRelationship(context);
         }
     }
 }

@@ -57,18 +57,17 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
             // context.ContentItem.Alter<FlowPart>(p => p.Widgets = mutatedContentItems.ToList());
         }
 
+        public override async Task AddRelationship(JObject content, IDescribeRelationshipsContext context)
+        {
+            await _embeddedContentItemsGraphSyncer.AddRelationship((JArray?)content[ContainerName], context);
+        }
+
         public override async Task<(bool validated, string failureReason)> ValidateSyncComponent(
             JObject content,
             IValidateAndRepairContext context)
         {
             return await _embeddedContentItemsGraphSyncer.ValidateSyncComponent(
                 (JArray?)content[ContainerName], context);
-        }
-
-        public override async Task AddRelationship(IDescribeRelationshipsContext context)
-        {
-            await _embeddedContentItemsGraphSyncer.AddRelationship(
-              (JArray?)context.ContentField?[ContainerName], context);
         }
     }
 }

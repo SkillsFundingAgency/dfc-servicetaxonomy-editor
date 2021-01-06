@@ -22,8 +22,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.Orchestrators
     {
         private readonly IGraphCluster _graphCluster;
         private readonly IPublishedContentItemVersion _publishedContentItemVersion;
-        private readonly IServiceProvider _serviceProvider;
-        private readonly IEnumerable<IContentOrchestrationHandler> _contentOrchestrationHandlers;
 
         public SyncOrchestrator(
             IContentDefinitionManager contentDefinitionManager,
@@ -33,12 +31,60 @@ namespace DFC.ServiceTaxonomy.GraphSync.Orchestrators
             ILogger<SyncOrchestrator> logger,
             IPublishedContentItemVersion publishedContentItemVersion,
             IEnumerable<IContentOrchestrationHandler> contentOrchestrationHandlers)
-            : base(contentDefinitionManager, notifier, logger)
+            : base(contentDefinitionManager, notifier, serviceProvider, contentOrchestrationHandlers, logger)
         {
             _graphCluster = graphCluster;
             _publishedContentItemVersion = publishedContentItemVersion;
-            _serviceProvider = serviceProvider;
-            _contentOrchestrationHandlers = contentOrchestrationHandlers;
+        }
+
+        public async Task<bool> Restore(ContentItem contentItem)
+        {
+            _logger.LogDebug("Restore: Syncing '{ContentItem}' {ContentType} to Preview and deleting from Published.",
+                contentItem.ToString(), contentItem.ContentType);
+
+            IContentManager contentManager = _serviceProvider.GetRequiredService<IContentManager>();
+
+            //todo: could/should we use WhenAll?
+
+            (IAllowSync previewAllowSync, IMergeGraphSyncer? previewMergeGraphSyncer) =
+                await GetMergeGraphSyncerIfSyncAllowed(
+                    SyncOperation.Restore,
+                    GraphReplicaSetNames.Preview,
+                    contentItem, contentManager);
+
+            if (previewAllowSync.Result == AllowSyncResult.Blocked)
+            {
+                await _notifier.AddBlocked(
+                    SyncOperation.Restore,
+                    contentItem,
+                    new[] { (GraphReplicaSetNames.Preview, previewAllowSync) });
+                return false;
+            }
+
+            (IAllowSync publishedAllowSync, IDeleteGraphSyncer? publishedDeleteGraphSyncer) =
+                await GetDeleteGraphSyncerIfDeleteAllowed(
+                    contentItem, _publishedContentItemVersion, SyncOperation.Restore);
+
+            if (publishedAllowSync.Result == AllowSyncResult.Blocked)
+            {
+                await _notifier.AddBlocked(
+                    SyncOperation.Restore,
+                    contentItem,
+                    new[] { (GraphReplicaSetNames.Published, publishedAllowSync) });
+                return false;
+            }
+
+            if (publishedAllowSync.Result == AllowSyncResult.Allowed
+                && previewAllowSync.Result == AllowSyncResult.Allowed)
+            {
+                await SyncToGraphReplicaSet(SyncOperation.Restore, previewMergeGraphSyncer!, contentItem);
+                await DeleteFromGraphReplicaSet(publishedDeleteGraphSyncer!, contentItem, SyncOperation.Restore);
+
+                await CallContentOrchestrationHandlers(contentItem,
+                    async (handler, context) => await handler.Restored(context));
+            }
+
+            return true;
         }
 
         /// <returns>false if saving draft to preview graph was blocked or failed.</returns>
@@ -49,21 +95,12 @@ namespace DFC.ServiceTaxonomy.GraphSync.Orchestrators
 
             IContentManager contentManager = _serviceProvider.GetRequiredService<IContentManager>();
 
-            if (!await SyncToGraphReplicaSetIfAllowed(
+            return await SyncToGraphReplicaSetIfAllowed(
                 SyncOperation.SaveDraft,
                 GraphReplicaSetNames.Preview,
                 contentItem,
-                contentManager))
-            {
-                return false;
-            }
-
-            foreach (var contentOrchestrationHandler in _contentOrchestrationHandlers)
-            {
-                await contentOrchestrationHandler.DraftSaved(contentItem);
-            }
-
-            return true;
+                contentManager,
+                async (handler, context) => await handler.DraftSaved(context));
         }
 
         /// <returns>false if publish to either graph was blocked or failed.</returns>
@@ -107,21 +144,15 @@ namespace DFC.ServiceTaxonomy.GraphSync.Orchestrators
                 return false;
             }
 
-            // again, not concurrent and published first (for recreating incoming relationships)
-
-            if (publishedAllowSync.Result == AllowSyncResult.Allowed)
+            if (publishedAllowSync.Result == AllowSyncResult.Allowed
+                && previewAllowSync.Result == AllowSyncResult.Allowed)
             {
+                // again, not concurrent and published first (for recreating incoming relationships)
                 await SyncToGraphReplicaSet(SyncOperation.Publish, publishedMergeGraphSyncer!, contentItem);
-            }
-
-            if (previewAllowSync.Result == AllowSyncResult.Allowed)
-            {
                 await SyncToGraphReplicaSet(SyncOperation.Publish, previewMergeGraphSyncer!, contentItem);
-            }
 
-            foreach (var contentOrchestrationHandler in _contentOrchestrationHandlers)
-            {
-                await contentOrchestrationHandler.Published(contentItem);
+                await CallContentOrchestrationHandlers(contentItem,
+                    async (handler, context) => await handler.Published(context));
             }
 
             return true;
@@ -161,26 +192,18 @@ namespace DFC.ServiceTaxonomy.GraphSync.Orchestrators
                 return false;
             }
 
-            // again, not concurrent and published first (for recreating incoming relationships)
-
-            if (publishedAllowSync.Result == AllowSyncResult.Allowed)
+            if (publishedAllowSync.Result == AllowSyncResult.Allowed
+                && previewAllowSync.Result == AllowSyncResult.Allowed)
             {
+                // again, not concurrent and published first (for recreating incoming relationships)
                 await SyncToGraphReplicaSet(SyncOperation.Update, publishedMergeGraphSyncer!, publishedContentItem);
-            }
-
-            if (previewAllowSync.Result == AllowSyncResult.Allowed)
-            {
                 await SyncToGraphReplicaSet(SyncOperation.Update, previewMergeGraphSyncer!, previewContentItem);
-            }
 
-            foreach (var contentOrchestrationHandler in _contentOrchestrationHandlers)
-            {
-                await contentOrchestrationHandler.DraftSaved(previewContentItem);
-            }
+                await CallContentOrchestrationHandlers(previewContentItem,
+                    async (handler, context) => await handler.DraftSaved(context));
 
-            foreach (var contentOrchestrationHandler in _contentOrchestrationHandlers)
-            {
-                await contentOrchestrationHandler.Published(publishedContentItem);
+                await CallContentOrchestrationHandlers(publishedContentItem,
+                    async (handler, context) => await handler.Published(context));
             }
 
             return true;
@@ -198,21 +221,12 @@ namespace DFC.ServiceTaxonomy.GraphSync.Orchestrators
             ContentItem? publishedContentItem =
                 await _publishedContentItemVersion.GetContentItem(contentManager, contentItem.ContentItemId);
 
-            if (!await SyncToGraphReplicaSetIfAllowed(
+            return await SyncToGraphReplicaSetIfAllowed(
                 SyncOperation.DiscardDraft,
                 GraphReplicaSetNames.Preview,
                 publishedContentItem!,
-                contentManager))
-            {
-                return false;
-            }
-
-            foreach (var contentOrchestrationHandler in _contentOrchestrationHandlers)
-            {
-                await contentOrchestrationHandler.DraftDiscarded(contentItem);
-            }
-
-            return true;
+                contentManager,
+                async (handler, context) => await handler.DraftDiscarded(context));
         }
 
         /// <returns>false if saving clone to preview graph was blocked or failed.</returns>
@@ -226,21 +240,12 @@ namespace DFC.ServiceTaxonomy.GraphSync.Orchestrators
 
             await cloneGraphSync.MutateOnClone(contentItem, contentManager);
 
-            if (!await SyncToGraphReplicaSetIfAllowed(
+            return await SyncToGraphReplicaSetIfAllowed(
                 SyncOperation.Clone,
                 GraphReplicaSetNames.Preview,
                 contentItem,
-                contentManager))
-            {
-                return false;
-            }
-
-            foreach (var contentOrchestrationHandler in _contentOrchestrationHandlers)
-            {
-                await contentOrchestrationHandler.Cloned(contentItem);
-            }
-
-            return true;
+                contentManager,
+                async (handler, context) => await handler.Cloned(context));
         }
 
         //todo: remove equivalent in mergegraphsyncer?
@@ -248,7 +253,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.Orchestrators
             SyncOperation syncOperation,
             string replicaSetName,
             ContentItem contentItem,
-            IContentManager contentManager)
+            IContentManager contentManager,
+            Func<IContentOrchestrationHandler, IOrchestrationContext, Task> callHandlerWhenAllowed)
         {
             (IAllowSync allowSync, IMergeGraphSyncer? mergeGraphSyncer) =
                 await GetMergeGraphSyncerIfSyncAllowed(syncOperation, replicaSetName, contentItem, contentManager);
@@ -260,12 +266,12 @@ namespace DFC.ServiceTaxonomy.GraphSync.Orchestrators
                     return false;
                 case AllowSyncResult.Allowed:
                     await SyncToGraphReplicaSet(syncOperation, mergeGraphSyncer!, contentItem);
+                    await CallContentOrchestrationHandlers(contentItem, callHandlerWhenAllowed);
                     break;
             }
             return true;
         }
 
-        #pragma warning disable S1172
         private async Task<(IAllowSync, IMergeGraphSyncer?)> GetMergeGraphSyncerIfSyncAllowed(
             SyncOperation syncOperation,
             string replicaSetName,
@@ -274,8 +280,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.Orchestrators
         {
             try
             {
-                // throw new GraphSyncException("Test esception");
-
                 IMergeGraphSyncer mergeGraphSyncer = _serviceProvider.GetRequiredService<IMergeGraphSyncer>();
 
                 IAllowSync allowSync = await mergeGraphSyncer.SyncAllowed(
@@ -293,7 +297,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Orchestrators
                     "Unable to check if {ContentItemDisplayText} {ContentType} can be synced to {ReplicaSetName} graph.",
                     contentItem.DisplayText, contentType, replicaSetName);
 
-                _notifier.Add(GetSyncOperationCancelledUserMessage(syncOperation, contentItem.DisplayText, contentType),
+                await _notifier.Add(GetSyncOperationCancelledUserMessage(syncOperation, contentItem.DisplayText, contentType),
                     $"Unable to check if the '{contentItem.DisplayText}' {contentType} can be synced to the {replicaSetName} graph, as {nameof(GetMergeGraphSyncerIfSyncAllowed)} threw an exception.",
                     exception: exception);
 
@@ -316,7 +320,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Orchestrators
 
                 _logger.LogError(exception, "Unable to sync '{ContentItemDisplayText}' {ContentType} to the {GraphReplicaSetName} graph.",
                     contentItem.DisplayText, contentType, mergeGraphSyncer.GraphMergeContext?.GraphReplicaSet.Name);
-                _notifier.Add(GetSyncOperationCancelledUserMessage(syncOperation, contentItem.DisplayText, contentType),
+                await _notifier.Add(GetSyncOperationCancelledUserMessage(syncOperation, contentItem.DisplayText, contentType),
                     $"Unable to sync '{contentItem.DisplayText}' {contentType} to the {mergeGraphSyncer.GraphMergeContext?.GraphReplicaSet.Name} graph.",
                     exception: exception);
                 throw;

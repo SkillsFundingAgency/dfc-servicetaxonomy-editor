@@ -1,5 +1,32 @@
 #ToDo
 
+* page location: is there a way to embed the taxonomy field in the part, rather than having a separate field and rejigging the dom?
+  if not, the taxonomy (location) label is in the previous form-group + there seems to an intermittent placement glitch (unless that's been sorted by the new placement)
+
+* add help admin menu with links to embedded video tutorials
+
+* content api is not using curies, it is using relative urls: may be my config
+
+* generate job profiles recipes using prefix, e.g. 02_JobProfiles_
+
+have convention of 0x for release number
+
+* pre-populate custom graph sync settings to represent the real defaults
+* add visualisation settings into read only set
+* can't reset focus on a pagelocation, nor visualise it from the editor
+
+* requirements prefix items have empty text
+
+* visualiser: right click menu
+https://developer.mozilla.org/en-US/docs/Web/API/DocumentOrShadowRoot/elementFromPoint
+https://stackoverflow.com/questions/4909167/how-to-add-a-custom-right-click-menu-to-a-webpage (Stephan Stanisic)
+
+* in the grand tradition of esco always having 1 exception to the rule, 'types of wood materials' is both a skill and knowledge
+  (http://data.europa.eu/esco/skill/fb6f5f61-f3b8-40ba-8363-c8d762325ff7)
+  guessing it shouldn't be a skill
+
+* separate out / show as a deleted item in validate results wwhen a deleted item is validates and don't make into a link that goes nowhere
+
 * use linkgenerator instead of hardcoding in visualiser and validate results, perhaps wrap in service
 
 * enhanced error notifications: publish to slack channel?
@@ -13,6 +40,7 @@ instructions on what to do / contact someone from appsettings / update the follo
 * add visualiser settings page to admin menu for things such as global max depth setting etc
 
 * need to test branch, not master!
+
 
 * visualiser..
 
@@ -172,6 +200,87 @@ generate multiple masters for local, with async createasyncs
 * when in graph repair mode, handle the replacerelationshipscommand sanity check failures, so that they don't halt the repair process
 
 * the build status badge is borked. add it back when it work (devops will probably need to fix)
+
+* investigate option b for simpler validation query, or use new Subgraph??
+
+  https://prezi.com/p/owhz2icrbmby/apoc-path-expander-procedures/
+  https://stackoverflow.com/questions/44248154/how-extract-the-complete-trees-in-order-with-cypher
+
+
+match (n:SharedContent)
+where n.uri = 'http://localhost:7071/api/execute/sharedcontent/0fc70da1-ed83-495d-8972-d9a78c1973c5'
+
+call apoc.path.expand(n, "<", null, 0, 2)
+yield path
+
+with apoc.path.elements(path) as elements
+return elements[0] as sourceNode, collect({firstHopRelationship: elements[1], firstHopNodes: elements[2], hop2Relationship: elements[3], hop2Nodes: elements[4]}) as incoming
+
+//todo: sourceNode, {rel, node, {rel, node, {rel, node, null}}}
+//rather than sourcenode {r1, n1, r2, n2}
+// how to return in the hierarchy we'd have to construct from the returns?
+
+
+
+Option A
+
+easier to generate cypher (but relationships and nodes not labelled)
+
+match (n:SharedContent)
+where n.uri = //'http://localhost:7071/api/execute/sharedcontent/dfde0410-b1ce-414e-ac2f-f3cffeac4f9b' // no incoming
+'http://localhost:7071/api/execute/sharedcontent/0fc70da1-ed83-495d-8972-d9a78c1973c5' // 2 degree incoming
+
+call apoc.path.expand(n, "<", null, 0, 2)
+yield path
+
+with apoc.path.elements(path) as elements
+return elements[0] as sourceNode, collect(elements[1..]) as incoming
+
+
+
+
+
+
+match (n:SharedContent)
+where n.uri = 'http://localhost:7071/api/execute/sharedcontent/0fc70da1-ed83-495d-8972-d9a78c1973c5'
+
+call apoc.path.expand(n, "<", null, 0, 2)
+yield path
+
+with apoc.path.elements(path) as elements
+with elements[0] as sourceNode, collect(distinct {firstHopRelationship: elements[1], firstHopNodes: elements[2]}) as level1, elements
+with sourceNode, [l1 in level1 | {rel: l1.firstHopRelationship, node: l1.firstHopNode, next: collect(distinct {rel: elements[3], nod: elements[4]}) where elements[1].uri = l1.firstHopNode.uri }]
+//  ^^^^ this bit
+return sourceNode, level1, xxx
+
+
+
+//spanning tree?
+
+match (n:SharedContent)
+where n.uri = 'http://localhost:7071/api/execute/sharedcontent/0fc70da1-ed83-495d-8972-d9a78c1973c5'
+
+call apoc.path.spanningTree(n, {maxLevel: 2, relationshipFilter: '<'})
+yield path
+
+with apoc.path.elements(path) as elements
+return elements
+
+
+// subgraphAll (option B)
+
+match (n:SharedContent)
+where n.uri = 'http://localhost:7071/api/execute/sharedcontent/0fc70da1-ed83-495d-8972-d9a78c1973c5'
+
+call apoc.path.subgraphAll(n, {maxLevel: 2, relationshipFilter: '<'})
+yield nodes, relationships
+
+return nodes, relationships
+
+
+Option A would be better to create a hierarchy for validation and such like
+
+Option B is probably beter for visualisation, as its what we massage the data into for the visualiser anyway
 
 ## Build Status
 
@@ -590,8 +699,11 @@ AltLabel is similar to prefLabel, in that there are nodes that follow the same p
 
 ##Delete Page related
 
+```
 :use neo4j;
 match (n:Page) detach delete n;
+match (n:ContentHelp) detach delete n;
+match (n:Email) detach delete n;
 match (n:SharedContent) detach delete n;
 match (n:PageLocation) detach delete n;
 match (n:Taxonomy) detach delete n;
@@ -599,6 +711,8 @@ match (n:HTML) detach delete n;
 match (n:HTMLShared) detach delete n;
 :use published1;
 match (n:Page) detach delete n;
+match (n:ContentHelp) detach delete n;
+match (n:Email) detach delete n;
 match (n:SharedContent) detach delete n;
 match (n:PageLocation) detach delete n;
 match (n:Taxonomy) detach delete n;
@@ -606,6 +720,8 @@ match (n:HTML) detach delete n;
 match (n:HTMLShared) detach delete n;
 :use preview0;
 match (n:Page) detach delete n;
+match (n:ContentHelp) detach delete n;
+match (n:Email) detach delete n;
 match (n:SharedContent) detach delete n;
 match (n:PageLocation) detach delete n;
 match (n:Taxonomy) detach delete n;
@@ -613,12 +729,173 @@ match (n:HTML) detach delete n;
 match (n:HTMLShared) detach delete n;
 :use preview1;
 match (n:Page) detach delete n;
+match (n:ContentHelp) detach delete n;
+match (n:Email) detach delete n;
 match (n:SharedContent) detach delete n;
 match (n:PageLocation) detach delete n;
 match (n:Taxonomy) detach delete n;
 match (n:HTML) detach delete n;
 match (n:HTMLShared) detach delete n;
 :use neo4j;
+```
+
+##Delete Job Profile Related
+
+```
+:use neo4j;
+match (n:OccupationLabel) detach delete n;
+match (n:SkillLabel) detach delete n;
+match (n:QCFLevel) detach delete n;
+match (n:ApprenticeshipStandardRoute) detach delete n;
+match (n:ApprenticeshipStandard) detach delete n;
+match (n:RequirementsPrefix) detach delete n;
+match (n:ApprenticeshipLink) detach delete n;
+match (n:ApprenticeshipRequirement) detach delete n;
+match (n:CollegeLink) detach delete n;
+match (n:CollegeRequirement) detach delete n;
+match (n:UniversityLink) detach delete n;
+match (n:UniversityRequirement) detach delete n;
+match (n:DayToDayTask) detach delete n;
+match (n:OtherRequirement) detach delete n;
+match (n:Registration) detach delete n;
+match (n:Restriction) detach delete n;
+match (n:SOCCode) detach delete n;
+match (n:ONetSkill) detach delete n;
+match (n:ONetOccupationalCode) detach delete n;
+match (n:WorkingEnvironment) detach delete n;
+match (n:WorkingLocation) detach delete n;
+match (n:WorkingUniform) detach delete n;
+match (n:ApprenticeshipRoute) detach delete n;
+match (n:CollegeRoute) detach delete n;
+match (n:UniversityRoute) detach delete n;
+match (n:DirectRoute) detach delete n;
+match (n:OtherRoute) detach delete n;
+match (n:VolunteeringRoute) detach delete n;
+match (n:WorkRoute) detach delete n;
+match (n:JobProfile) detach delete n;
+match (n:JobCategory) detach delete n;
+match (n:PersonalityTrait) detach delete n;
+match (n:PersonalityShortQuestion) detach delete n;
+match (n:PersonalityQuestionSet) detach delete n;
+match (n:PersonalityFilteringQuestion) detach delete n;
+
+:use published1;
+match (n:OccupationLabel) detach delete n;
+match (n:SkillLabel) detach delete n;
+match (n:QCFLevel) detach delete n;
+match (n:ApprenticeshipStandardRoute) detach delete n;
+match (n:ApprenticeshipStandard) detach delete n;
+match (n:RequirementsPrefix) detach delete n;
+match (n:ApprenticeshipLink) detach delete n;
+match (n:ApprenticeshipRequirement) detach delete n;
+match (n:CollegeLink) detach delete n;
+match (n:CollegeRequirement) detach delete n;
+match (n:UniversityLink) detach delete n;
+match (n:UniversityRequirement) detach delete n;
+match (n:DayToDayTask) detach delete n;
+match (n:OtherRequirement) detach delete n;
+match (n:Registration) detach delete n;
+match (n:Restriction) detach delete n;
+match (n:SOCCode) detach delete n;
+match (n:ONetSkill) detach delete n;
+match (n:ONetOccupationalCode) detach delete n;
+match (n:WorkingEnvironment) detach delete n;
+match (n:WorkingLocation) detach delete n;
+match (n:WorkingUniform) detach delete n;
+match (n:ApprenticeshipRoute) detach delete n;
+match (n:CollegeRoute) detach delete n;
+match (n:UniversityRoute) detach delete n;
+match (n:DirectRoute) detach delete n;
+match (n:OtherRoute) detach delete n;
+match (n:VolunteeringRoute) detach delete n;
+match (n:WorkRoute) detach delete n;
+match (n:JobProfile) detach delete n;
+match (n:JobCategory) detach delete n;
+match (n:PersonalityTrait) detach delete n;
+match (n:PersonalityShortQuestion) detach delete n;
+match (n:PersonalityQuestionSet) detach delete n;
+match (n:PersonalityFilteringQuestion) detach delete n;
+
+:use preview0;
+match (n:OccupationLabel) detach delete n;
+match (n:SkillLabel) detach delete n;
+match (n:QCFLevel) detach delete n;
+match (n:ApprenticeshipStandardRoute) detach delete n;
+match (n:ApprenticeshipStandard) detach delete n;
+match (n:RequirementsPrefix) detach delete n;
+match (n:ApprenticeshipLink) detach delete n;
+match (n:ApprenticeshipRequirement) detach delete n;
+match (n:CollegeLink) detach delete n;
+match (n:CollegeRequirement) detach delete n;
+match (n:UniversityLink) detach delete n;
+match (n:UniversityRequirement) detach delete n;
+match (n:DayToDayTask) detach delete n;
+match (n:OtherRequirement) detach delete n;
+match (n:Registration) detach delete n;
+match (n:Restriction) detach delete n;
+match (n:SOCCode) detach delete n;
+match (n:ONetSkill) detach delete n;
+match (n:ONetOccupationalCode) detach delete n;
+match (n:WorkingEnvironment) detach delete n;
+match (n:WorkingLocation) detach delete n;
+match (n:WorkingUniform) detach delete n;
+match (n:ApprenticeshipRoute) detach delete n;
+match (n:CollegeRoute) detach delete n;
+match (n:UniversityRoute) detach delete n;
+match (n:DirectRoute) detach delete n;
+match (n:OtherRoute) detach delete n;
+match (n:VolunteeringRoute) detach delete n;
+match (n:WorkRoute) detach delete n;
+match (n:JobProfile) detach delete n;
+match (n:JobCategory) detach delete n;
+match (n:PersonalityTrait) detach delete n;
+match (n:PersonalityShortQuestion) detach delete n;
+match (n:PersonalityQuestionSet) detach delete n;
+match (n:PersonalityFilteringQuestion) detach delete n;
+
+:use preview1;
+match (n:OccupationLabel) detach delete n;
+match (n:SkillLabel) detach delete n;
+match (n:QCFLevel) detach delete n;
+match (n:ApprenticeshipStandardRoute) detach delete n;
+match (n:ApprenticeshipStandard) detach delete n;
+match (n:RequirementsPrefix) detach delete n;
+match (n:ApprenticeshipLink) detach delete n;
+match (n:ApprenticeshipRequirement) detach delete n;
+match (n:CollegeLink) detach delete n;
+match (n:CollegeRequirement) detach delete n;
+match (n:UniversityLink) detach delete n;
+match (n:UniversityRequirement) detach delete n;
+match (n:DayToDayTask) detach delete n;
+match (n:OtherRequirement) detach delete n;
+match (n:Registration) detach delete n;
+match (n:Restriction) detach delete n;
+match (n:SOCCode) detach delete n;
+match (n:ONetSkill) detach delete n;
+match (n:ONetOccupationalCode) detach delete n;
+match (n:WorkingEnvironment) detach delete n;
+match (n:WorkingLocation) detach delete n;
+match (n:WorkingUniform) detach delete n;
+match (n:ApprenticeshipRoute) detach delete n;
+match (n:CollegeRoute) detach delete n;
+match (n:UniversityRoute) detach delete n;
+match (n:DirectRoute) detach delete n;
+match (n:OtherRoute) detach delete n;
+match (n:VolunteeringRoute) detach delete n;
+match (n:WorkRoute) detach delete n;
+match (n:JobProfile) detach delete n;
+match (n:JobCategory) detach delete n;
+match (n:PersonalityTrait) detach delete n;
+match (n:PersonalityShortQuestion) detach delete n;
+match (n:PersonalityQuestionSet) detach delete n;
+match (n:PersonalityFilteringQuestion) detach delete n;
+
+:use neo4j;
+```
+
+##Skills of type used by JP
+
+match (jp:JobProfile)-[ro:relatedOccupation]-(o:esco__Occupation)-[rs:esco__relatedOptionalSkill|esco__relatedEssentialSkill]-(s)-[rst:esco__skillType]-(st) where st.skos__prefLabel = 'skill' return count(distinct s)
 
 ##Testing graph validation
 

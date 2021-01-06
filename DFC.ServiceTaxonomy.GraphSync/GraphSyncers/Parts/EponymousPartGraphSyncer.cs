@@ -44,17 +44,17 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
             await _contentFieldsGraphSyncer.AddSyncComponents(content, context);
         }
 
+        public override async Task AddRelationship(JObject content, IDescribeRelationshipsContext context)
+        {
+            await _contentFieldsGraphSyncer.AddRelationship(content, context);
+        }
+
         public override async Task<(bool validated, string failureReason)> ValidateSyncComponent(
             JObject content,
             IValidateAndRepairContext context)
         {
             return await _contentFieldsGraphSyncer.ValidateSyncComponent(
                 content, context);
-        }
-
-        public override async Task AddRelationship(IDescribeRelationshipsContext context)
-        {
-            await _contentFieldsGraphSyncer.AddRelationship(context);
         }
     }
 }

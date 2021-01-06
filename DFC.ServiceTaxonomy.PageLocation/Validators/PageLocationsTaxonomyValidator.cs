@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.Content;
 using DFC.ServiceTaxonomy.Content.Services.Interface;
+using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Results.ValidateAndRepair;
 using DFC.ServiceTaxonomy.PageLocation.Constants;
 using DFC.ServiceTaxonomy.Taxonomies.Helper;
 using DFC.ServiceTaxonomy.Taxonomies.Models;
@@ -62,9 +63,12 @@ namespace DFC.ServiceTaxonomy.PageLocation.Validators
 
                         foreach (var validator in _validators)
                         {
-                            if (!await validator.Validate(term, JObject.FromObject(part)))
+                            (bool validated, string errorMessage) =
+                                await validator.ValidateUpdate(term, JObject.FromObject(part));
+
+                            if (!validated)
                             {
-                                errors.Add(validator.ErrorMessage);
+                                errors.Add(errorMessage);
                             }
                         }
 

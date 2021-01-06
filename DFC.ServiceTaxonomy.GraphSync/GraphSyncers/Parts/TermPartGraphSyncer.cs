@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Threading.Tasks;
+using DFC.ServiceTaxonomy.GraphSync.Extensions;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Exceptions;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Contexts;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Helpers;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Parts;
-using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json.Linq;
 using OrchardCore.ContentManagement;
 using DFC.ServiceTaxonomy.Taxonomies.Models;
@@ -33,8 +33,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
             //todo: check for null
             ContentItem? contentItem = await context.ContentItemVersion.GetContentItem(context.ContentManager, taxonomyContentItemId);
 
-            ISyncNameProvider termSyncNameProvider = _serviceProvider.GetRequiredService<ISyncNameProvider>();
-            termSyncNameProvider.ContentType = contentItem!.ContentType;
+            ISyncNameProvider termSyncNameProvider = _serviceProvider.GetSyncNameProvider(contentItem!.ContentType);
 
             //todo: override/extension that takes a contentitem
             context.ReplaceRelationshipsCommand.AddRelationshipsTo(
@@ -43,7 +42,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
                 null,
                 await termSyncNameProvider.NodeLabels(),
                 termSyncNameProvider.IdPropertyName(),
-                termSyncNameProvider.GetIdPropertyValue(contentItem.Content.GraphSyncPart, context.ContentItemVersion));
+                termSyncNameProvider.GetNodeIdPropertyValue(contentItem.Content.GraphSyncPart, context.ContentItemVersion));
         }
 
         //todo: would need to add AddSyncComponentsDetaching if we start using this

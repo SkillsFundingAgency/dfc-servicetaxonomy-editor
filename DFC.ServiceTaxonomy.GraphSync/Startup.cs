@@ -49,6 +49,7 @@ using DFC.ServiceTaxonomy.GraphSync.Orchestrators;
 using DFC.ServiceTaxonomy.GraphSync.Orchestrators.Interfaces;
 using DFC.ServiceTaxonomy.Neo4j.Services.Interfaces;
 using DFC.ServiceTaxonomy.Neo4j.Services.Internal;
+using DFC.ServiceTaxonomy.Slack;
 using Microsoft.Extensions.Configuration;
 using OrchardCore.ContentManagement.Handlers;
 using OrchardCore.ContentTypes.Events;
@@ -172,13 +173,15 @@ namespace DFC.ServiceTaxonomy.GraphSync
             services.AddSingleton<INeutralEventContentItemVersion>(new NeutralEventContentItemVersion());
             services.AddSingleton<ISuperpositionContentItemVersion>(new SuperpositionContentItemVersion());
             services.AddSingleton<IEscoContentItemVersion>(new EscoContentItemVersion());
-            services.AddSingleton<IPreExistingContentItemVersion>(new PreExistingContentItemVersion());
 
             // permissions
             services.AddScoped<IPermissionProvider, Permissions>();
 
             // navigation
             services.AddScoped<INavigationProvider, AdminMenu>();
+
+            //slack message publishing
+            services.AddSlackMessagePublishing(_configuration, true);
         }
 
         public override void Configure(IApplicationBuilder builder, IEndpointRouteBuilder routes, IServiceProvider serviceProvider)
