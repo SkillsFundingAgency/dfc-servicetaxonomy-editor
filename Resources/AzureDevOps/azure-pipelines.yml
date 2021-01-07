@@ -19,11 +19,13 @@ resources:
 trigger:
   branches:
     include:
+    - dev
     - master
 
 pr:
   branches:
     include:
+    - dev  
     - master
 
 stages:
@@ -199,7 +201,7 @@ stages:
       TestExclusionTag: 'NotSit'
 
 - stage: DeployToPP
-  condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'))
+  condition: and(eq(dependencies.Build.result,'Succeeded'), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
   displayName: Deploy to PP_SERVICETAXONOMY
   variables:
   - group: dfc-shared-all
@@ -233,7 +235,7 @@ stages:
       TestExclusionTag: 'NotPP'
 
 - stage: DeployToPrd
-  condition: succeeded()
+  condition: and(eq(dependencies.DeployToPP.result,'Succeeded'), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
   displayName: Deploy to PRD_SERVICETAXONOMY
   variables:
   - group: dfc-shared-all
