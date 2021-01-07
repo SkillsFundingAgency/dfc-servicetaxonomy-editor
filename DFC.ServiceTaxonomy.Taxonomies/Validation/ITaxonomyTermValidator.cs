@@ -5,7 +5,8 @@ namespace DFC.ServiceTaxonomy.Taxonomies.Validation
 {
     public interface ITaxonomyTermValidator
     {
-        Task<bool> Validate(JObject term, JObject taxonomy);
-        string ErrorMessage { get; }
+        Task<(bool, string)> ValidateCreate(JObject term, JObject taxonomy);
+        Task<(bool, string)> ValidateUpdate(JObject term, JObject taxonomy);
+        Task<(bool, string)> ValidateDelete(JObject term, JObject taxonomy);
     }
 }

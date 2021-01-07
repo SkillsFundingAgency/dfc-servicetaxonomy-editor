@@ -15,15 +15,18 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services
     {
         private readonly IOptionsMonitor<Neo4jOptions> _neo4JConfigurationOptions;
         private readonly IServiceProvider _serviceProvider;
-        private readonly ILogger _logger;
+        private readonly ILogger _neoLogger;
+        private readonly Microsoft.Extensions.Logging.ILogger _logger;
 
         public GraphClusterBuilder(
             IOptionsMonitor<Neo4jOptions> neo4jConfigurationOptions,
             IServiceProvider serviceProvider,
-            ILogger logger)
+            ILogger neoLogger,
+            Microsoft.Extensions.Logging.ILogger<GraphClusterBuilder> logger)
         {
             _neo4JConfigurationOptions = neo4jConfigurationOptions;
             _serviceProvider = serviceProvider;
+            _neoLogger = neoLogger;
             _logger = logger;
         }
 
@@ -50,16 +53,22 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services
                         GraphDatabase.Driver(
                             epc.Uri,
                             AuthTokens.Basic(epc.Username, epc.Password),
-                            o => o.WithLogger(_logger))));
+                            o => o.WithLogger(_neoLogger))));
 
             if (!currentConfig.ReplicaSets.Any())
                 throw new GraphClusterConfigurationErrorException("No replica sets configured.");
 
+            //todo: why is CreateInstance not finding the logger? is it because the generic type isn't in the container yet
+            // it means the replica set and cluster logs as the builder
             var graphReplicaSets = currentConfig.ReplicaSets
-                .Select(rsc =>
-                    new GraphReplicaSetLowLevel(rsc.ReplicaSetName!, ConstructGraphs(rsc, neoEndpoints)));
+                .Select(rsc => new GraphReplicaSetLowLevel(
+                    rsc.ReplicaSetName!,
+                    ConstructGraphs(rsc, neoEndpoints),
+                    _logger));
+//                    ActivatorUtilities.CreateInstance<GraphReplicaSetLowLevel>(_serviceProvider, rsc.ReplicaSetName!, ConstructGraphs(rsc, neoEndpoints)));
 
-            return new GraphClusterLowLevel(graphReplicaSets);
+            return new GraphClusterLowLevel(graphReplicaSets, _logger);
+            //return ActivatorUtilities.CreateInstance<GraphClusterLowLevel>(_serviceProvider, graphReplicaSets);
         }
 
         private IEnumerable<Graph> ConstructGraphs(ReplicaSetConfiguration replicaSetConfiguration, IEnumerable<NeoEndpoint> neoEndpoints)
@@ -67,8 +76,8 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services
             return replicaSetConfiguration.GraphInstances
                 .Where(gic => gic.Enabled)
                 .Select((gic, index) =>
-                    new Graph(
-                        neoEndpoints.First(ep => ep.Name == gic.Endpoint),
+                    ActivatorUtilities.CreateInstance<Graph>(_serviceProvider,
+                    neoEndpoints.First(ep => ep.Name == gic.Endpoint),
                         gic.GraphName!,
                         gic.DefaultGraph,
                         index));

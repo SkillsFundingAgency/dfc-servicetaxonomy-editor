@@ -2,12 +2,21 @@
 
 * need to import content & set up users as part of releases
 
-* why are some recipes in git, but not local?
-
 * add release AllContent recipes, e.g. 00_Pages_AllContent
   add an AllContent recipe, perhaps AllReleasedContent or AllContentProd, and AllContent?
   rename st defs recipe to 00_Pages_ContentDefinitions
   rename st2 recipe to fit in with content naming scheme also
+
+* page location: is there a way to embed the taxonomy field in the part, rather than having a separate field and rejigging the dom?
+  if not, the taxonomy (location) label is in the previous form-group + there seems to an intermittent placement glitch (unless that's been sorted by the new placement)
+
+* add help admin menu with links to embedded video tutorials
+
+* content api is not using curies, it is using relative urls: may be my config
+
+* generate job profiles recipes using prefix, e.g. 02_JobProfiles_
+
+have convention of 0x for release number
 
 * pre-populate custom graph sync settings to represent the real defaults
 * add visualisation settings into read only set
