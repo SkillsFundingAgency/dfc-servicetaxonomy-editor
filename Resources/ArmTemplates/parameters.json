@@ -133,6 +133,12 @@
         },
         "PreviewAppPrefix": {
             "value": "__PreviewAppPrefix__"
+        },
+        "PublishToSlack": {
+            "value": __PublishToSlack__
+        },
+        "SlackWebhookEndpoint": {
+            "value": "__SlackWebhookEndpoint__"
         }
     }
 }

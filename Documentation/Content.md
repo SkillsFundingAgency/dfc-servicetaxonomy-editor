@@ -117,8 +117,16 @@ Update creates the definition if it isn't already in the environment. If the def
 
 Replace Content Definitions can be used to create or entirely replace the existing content definition. The definition after the import matches what is in the recipe.
 
+Note: there seems to be an issue with `ReplaceContentDefinition` steps not working correctly. Further investigation is required.
+
 * Delete Content Definitions `DeleteContentDefinition`
 
 Delete Content Definitions is used to remove existing content definitions.
 
 Most of the time, you will use Replace and Delete.
+
+##### Placement Rules
+
+[Placement rules](https://docs.orchardcore.net/en/dev/docs/reference/core/Placement/) for parts and fields (shapes) on the editor page are configured using the `Placements` recipe step. Any placement properties for a shape in the recipe replace the existing placement rules for the shape, so any new recipe has to contain all previous rules for each shape.
+
+Shapes can be placed within tabs, cards and columns.

@@ -57,6 +57,7 @@
                 "OrchardCore.Markdown",
                 "OrchardCore.Media",
                 "OrchardCore.Menu",
+                "OrchardCore.Placements",
                 "OrchardCore.PublishLater",
                 "OrchardCore.Queries",
                 "OrchardCore.Sitemaps",
@@ -4046,6 +4047,284 @@
                     ]
                 }
             ]
+        },
+        {
+            "name": "Placements",
+            "Placements": {
+                "TitlePart_Edit": [
+                    {
+                        "place": "Parts:0#Metadata;0",
+                        "displayType": null,
+                        "differentiator": null,
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null,
+                        "contentType": [
+                            "Page"
+                        ]
+                    },
+                    {
+                        "place": "Parts:0#Content;0",
+                        "displayType": null,
+                        "differentiator": null,
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null,
+                        "contentType": [
+                            "JobProfile"
+                        ]
+                    }
+                ],
+                "TaxonomyField_Edit": [
+                    {
+                        "place": "Parts:2#Metadata;0",
+                        "displayType": null,
+                        "differentiator": "Page-PageLocations",
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null
+                    },
+                    {
+                        "place": "Parts:1#Content;0",
+                        "displayType": null,
+                        "differentiator": "JobProfile-PageLocations",
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null
+                    }
+                ],
+                "PageLocationPart_Edit": [
+                    {
+                        "place": "Parts:2#Metadata;0",
+                        "displayType": null,
+                        "differentiator": null,
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null,
+                        "contentType": [
+                            "Page"
+                        ]
+                    },
+                    {
+                        "place": "Parts:2#Content;0",
+                        "contentType": [
+                            "JobProfile"
+                        ]
+                    }
+                ],
+                "ContentPickerField_Edit": [
+                    {
+                        "place": "Parts:3#Content;0",
+                        "differentiator": "JobProfile-Occupation"
+                    },
+                    {
+                        "place": "Parts:6#Content;0",
+                        "differentiator": "JobProfile-SOCCode"
+                    },
+                    {
+                        "place": "Parts:7#Content;0",
+                        "differentiator": "JobProfile-ONetOccupationalCode"
+                    },
+                    {
+                        "place": "Parts:0#How to become;1",
+                        "differentiator": "JobProfile-ApprenticeshipRoute"
+                    },
+                    {
+                        "place": "Parts:1#How to become;1",
+                        "differentiator": "JobProfile-CollegeRoute"
+                    },
+                    {
+                        "place": "Parts:2#How to become;1",
+                        "differentiator": "JobProfile-DirectRoute"
+                    },
+                    {
+                        "place": "Parts:3#How to become;1",
+                        "differentiator": "JobProfile-OtherRoute"
+                    },
+                    {
+                        "place": "Parts:4#How to become;1",
+                        "differentiator": "JobProfile-UniversityRoute"
+                    },
+                    {
+                        "place": "Parts:5#How to become;1",
+                        "differentiator": "JobProfile-VolunteeringRoute"
+                    },
+                    {
+                        "place": "Parts:6#How to become;1",
+                        "differentiator": "JobProfile-WorkRoute"
+                    },
+                    {
+                        "place": "Parts:7#How to become;1",
+                        "differentiator": "JobProfile-HtbRegistrations"
+                    },
+                    {
+                        "place": "Parts:0#What it takes;2",
+                        "differentiator": "JobProfile-WitRestrictions"
+                    },
+                    {
+                        "place": "Parts:1#What it takes;2",
+                        "differentiator": "JobProfile-WitOtherRequirements"
+                    },
+                    {
+                        "place": "Parts:0#What you'll do;3",
+                        "differentiator": "JobProfile-DayToDayTasks"
+                    },
+                    {
+                        "place": "Parts:1#What you'll do;3",
+                        "differentiator": "JobProfile-WydWorkingEnvironment"
+                    },
+                    {
+                        "place": "Parts:2#What you'll do;3",
+                        "differentiator": "JobProfile-WydWorkingLocation"
+                    },
+                    {
+                        "place": "Parts:3#What you'll do;3",
+                        "differentiator": "JobProfile-WydWorkingUniform"
+                    },
+                    {
+                        "place": "Parts:1#Career Path;4",
+                        "differentiator": "JobProfile-ApprenticeshipStandards"
+                    }
+                ],
+                "TextField_Edit": [
+                    {
+                        "place": "Parts:1#Metadata;0",
+                        "displayType": null,
+                        "differentiator": "Page-Description",
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null
+                    },
+                    {
+                        "place": "Parts:5#Content;0",
+                        "differentiator": "JobProfile-TitleOptions"
+                    },
+                    {
+                        "place": "Parts:8#Content;0",
+                        "differentiator": "JobProfile-SalaryStarter"
+                    },
+                    {
+                        "place": "Parts:9#Content;0",
+                        "differentiator": "JobProfile-SalaryExperienced"
+                    },
+                    {
+                        "place": "Parts:12#Content;0",
+                        "differentiator": "JobProfile-WorkingHoursDetails"
+                    },
+                    {
+                        "place": "Parts:13#Content;0",
+                        "differentiator": "JobProfile-WorkingPattern"
+                    },
+                    {
+                        "place": "Parts:14#Content;0",
+                        "differentiator": "JobProfile-WorkingPatternDetails"
+                    }
+                ],
+                "NumericField_Edit": [
+                    {
+                        "place": "Parts:10#Content;0",
+                        "differentiator": "JobProfile-MinimumHours"
+                    },
+                    {
+                        "place": "Parts:11#Content;0",
+                        "differentiator": "JobProfile-MaximumHours"
+                    }
+                ],
+                "GraphSyncPart_Edit": [
+                    {
+                        "place": "Parts:4#Metadata;0",
+                        "displayType": null,
+                        "differentiator": null,
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null,
+                        "contentType": [
+                            "Page"
+                        ]
+                    },
+                    {
+                        "place": "Parts:15#Content;0",
+                        "displayType": null,
+                        "differentiator": null,
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null,
+                        "contentType": [
+                            "JobProfile"
+                        ]
+                    }
+                ],
+                "BooleanField_Edit": [
+                    {
+                        "place": "Parts:0#Content;1",
+                        "displayType": null,
+                        "differentiator": "Page-ShowHeroBanner",
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null
+                    }
+                ],
+                "HtmlField_Edit": [
+                    {
+                        "place": "Parts:1#Content;1",
+                        "displayType": null,
+                        "differentiator": "Page-Herobanner",
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null
+                    },
+                    {
+                        "place": "Parts:4#Content;0",
+                        "differentiator": "JobProfile-Description"
+                    },
+                    {
+                        "place": "Parts:8#How to become;0",
+                        "differentiator": "JobProfile-HtbCareerTips"
+                    },
+                    {
+                        "place": "Parts:9#How to become;0",
+                        "differentiator": "JobProfile-HtbBodies"
+                    },
+                    {
+                        "place": "Parts:10#How to become;0",
+                        "differentiator": "JobProfile-HtbFurtherInformation",
+                    },
+                    {
+                        "place": "Parts:2#What it takes;2",
+                        "differentiator": "JobProfile-WitDigitalSkillsLevel"
+                    },
+                    {
+                        "place": "Parts:0#Career Path;4",
+                        "differentiator": "JobProfile-CareerPathAndProgression"
+                    }
+                ],
+                "FlowPart_Edit": [
+                    {
+                        "place": "Parts:2#Content;1",
+                        "displayType": null,
+                        "differentiator": null,
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null,
+                        "contentType": [
+                            "Page"
+                        ]
+                    }
+                ],
+                "SitemapPart_Edit": [
+                    {
+                        "place": "Parts:0#SEO;2",
+                        "displayType": null,
+                        "differentiator": null,
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null,
+                        "contentType": [
+                            "Page"
+                        ]
+                    }
+                ]
+            }
         },
         {
             "name": "queries",

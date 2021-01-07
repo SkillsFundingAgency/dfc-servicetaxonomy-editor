@@ -4,6 +4,9 @@
 
 * sort out dev branch (the slack config changes went into dev!)
 
+* page location: is there a way to embed the taxonomy field in the part, rather than having a separate field and rejigging the dom?
+  if not, the taxonomy (location) label is in the previous form-group + there seems to an intermittent placement glitch (unless that's been sorted by the new placement)
+
 * add help admin menu with links to embedded video tutorials
 
 * content api is not using curies, it is using relative urls: may be my config

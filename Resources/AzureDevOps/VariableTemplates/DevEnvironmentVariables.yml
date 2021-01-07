@@ -15,3 +15,5 @@ variables:
   value: true
 - name: EventGridTopicSku
   value: basic
+- name: PublishToSlack
+  value: true
