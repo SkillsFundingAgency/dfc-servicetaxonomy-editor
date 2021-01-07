@@ -16,18 +16,6 @@ resources:
     ref: refs/tags/v1.11.2
     endpoint: 'GitHub (ESFA)'
 
-trigger:
-  branches:
-    include:
-    - dev
-    - master
-
-pr:
-  branches:
-    include:
-    - dev  
-    - master
-
 stages:
 - stage: Build
   jobs:
