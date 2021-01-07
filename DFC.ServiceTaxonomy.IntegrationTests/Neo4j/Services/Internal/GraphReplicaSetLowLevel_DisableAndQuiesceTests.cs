@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿#if REPLICA_DISABLING_NET5_ONLY
+
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.IntegrationTests.Helpers;
@@ -74,3 +76,4 @@ namespace DFC.ServiceTaxonomy.IntegrationTests.Neo4j.Services.Internal
         }
     }
 }
+#endif

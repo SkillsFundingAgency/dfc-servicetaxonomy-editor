@@ -128,6 +128,7 @@ namespace DFC.ServiceTaxonomy.IntegrationTests.Helpers
             return stateCheck == null || state.Any(stateCheck);
         }
 
+#if REPLICA_DISABLING_NET5_ONLY
         protected T? Get<T>(LogEntry logEntry, string key)
         {
 #pragma warning disable S1905
@@ -136,6 +137,7 @@ namespace DFC.ServiceTaxonomy.IntegrationTests.Helpers
                 .Value;
 #pragma warning restore S1905
         }
+#endif
 
         protected void ReferenceCountTest(int parallelLoops)
         {

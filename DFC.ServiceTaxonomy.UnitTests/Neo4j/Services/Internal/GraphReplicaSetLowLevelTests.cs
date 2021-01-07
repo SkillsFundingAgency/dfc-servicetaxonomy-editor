@@ -1,4 +1,6 @@
-﻿using System;
+﻿#if REPLICA_DISABLING_NET5_ONLY
+
+using System;
 using DFC.ServiceTaxonomy.Neo4j.Services.Internal;
 using Xunit;
 using Xunit.Abstractions;
@@ -91,3 +93,4 @@ namespace DFC.ServiceTaxonomy.UnitTests.Neo4j.Services.Internal
         }
     }
 }
+#endif

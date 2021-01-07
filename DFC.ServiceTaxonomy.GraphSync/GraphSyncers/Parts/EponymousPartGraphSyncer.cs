@@ -21,7 +21,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
 
         public override string PartName => "EponymousPart";
 
-        private static readonly List<string> _groupingFields = new()
+        private static readonly List<string> _groupingFields = new List<string>()
         {
             nameof(TabField),
             nameof(AccordionField)

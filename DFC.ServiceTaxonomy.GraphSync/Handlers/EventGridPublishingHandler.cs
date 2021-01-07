@@ -134,7 +134,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers
                     context.ContentItem.Content.GraphSyncPart,
                     contentItemVersion);
 
-                ContentEvent contentEvent = new(context.ContentItem, userId, eventType);
+                ContentEvent contentEvent = new ContentEvent(context.ContentItem, userId, eventType);
                 await _eventGridContentClient.Publish(contentEvent);
             }
             catch (Exception publishException)

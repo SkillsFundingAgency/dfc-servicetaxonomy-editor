@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+#if REPLICA_DISABLING_NET5_ONLY
 using System.Text;
 using System.Threading;
 using DFC.ServiceTaxonomy.Neo4j.Log;
+#endif
 using Microsoft.Extensions.Logging;
 
 namespace DFC.ServiceTaxonomy.Neo4j.Services.Internal
@@ -57,6 +59,7 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services.Internal
 
         public DisabledStatus Disable(int instance)
         {
+#if REPLICA_DISABLING_NET5_ONLY
             ValidateInstance(instance);
 
             ulong replicaFlag = 1ul << instance;
@@ -82,10 +85,14 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services.Internal
                 return DisabledStatus.ReEnabledDuringQuiesce;
 
             return DisabledStatus.Disabled;
+#else
+            throw new NotImplementedException("Replica disabling is not available. Compile for Net5.0 with REPLICA_DISABLING_NET5_ONLY defined.");
+#endif
         }
 
         private QuiesceStatus Quiesce(int instance)
         {
+#if REPLICA_DISABLING_NET5_ONLY
             //todo: timeout?
 
             if (IsEnabled(instance))
@@ -118,10 +125,14 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services.Internal
             }
 
             return QuiesceStatus.Quiesced;
+#else
+            throw new NotImplementedException("Replica disabling is not available. Compile for Net5.0 with REPLICA_DISABLING_NET5_ONLY defined.");
+#endif
         }
 
         public EnabledStatus Enable(int instance)
         {
+#if REPLICA_DISABLING_NET5_ONLY
             ValidateInstance(instance);
 
             ulong replicaFlag = 1ul << instance;
@@ -139,6 +150,9 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services.Internal
                 LogId.GraphEnabled, instance, _graphInstances[instance].GraphName, alreadyEnabled == EnabledStatus.AlreadyEnabled?"enabled":"disabled");
 
             return alreadyEnabled;
+#else
+            throw new NotImplementedException("Replica disabling is not available. Compile for Net5.0 with REPLICA_DISABLING_NET5_ONLY defined.");
+#endif
         }
 
         private void ValidateInstance(int instance)
@@ -149,6 +163,7 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services.Internal
 
         public string ToTraceString()
         {
+#if REPLICA_DISABLING_NET5_ONLY
             StringBuilder trace = new();
             trace.AppendLine("replicaSet:");
 
@@ -164,6 +179,9 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services.Internal
             }
 
             return trace.ToString();
+#else
+            return "Replica disabling is not compiled in.";
+#endif
         }
     }
 }

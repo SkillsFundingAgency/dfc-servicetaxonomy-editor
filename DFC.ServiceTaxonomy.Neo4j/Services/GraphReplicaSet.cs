@@ -19,7 +19,11 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services
         protected readonly ILogger _logger;
         private protected readonly int? _limitToGraphInstance;
         private protected ulong _replicaEnabledFlags;
+#if REPLICA_DISABLING_NET5_ONLY
         private ulong _instanceCounter;
+#else
+        private int _instanceCounter;
+#endif
 
         internal GraphReplicaSet(
             string name,
@@ -42,7 +46,11 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services
 
         public int EnabledInstanceCount()
         {
+#if REPLICA_DISABLING_NET5_ONLY
             return (int)EnabledInstanceCount(ReplicaEnabledFlags);
+#else
+            return InstanceCount;
+#endif
         }
 
         internal ulong EnabledInstanceCount(ulong replicaEnabledFlags)
@@ -54,8 +62,10 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services
         {
             Graph? graphInstance;
 
+#if REPLICA_DISABLING_NET5_ONLY
             ulong replicaEnabledFlags = ReplicaEnabledFlags;
             ulong enabledInstanceCount = EnabledInstanceCount(ReplicaEnabledFlags);
+#endif
 
             if (_limitToGraphInstance != null)
             {
@@ -67,6 +77,7 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services
 
                 graphInstance = _graphInstances[_limitToGraphInstance.Value];
             }
+#if REPLICA_DISABLING_NET5_ONLY
             else if ((int)enabledInstanceCount < InstanceCount)
             {
                 if (enabledInstanceCount == 0)
@@ -98,10 +109,15 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services
 
                 graphInstance = _graphInstances[instance];
             }
+#endif
             else
             {
                 // fast path, simple round-robin read
+#if REPLICA_DISABLING_NET5_ONLY
                 graphInstance = _graphInstances[Interlocked.Increment(ref _instanceCounter) % (ulong)InstanceCount];
+#else
+                graphInstance = _graphInstances[(ulong)Interlocked.Increment(ref _instanceCounter) % (ulong)InstanceCount];
+#endif
             }
 
             return graphInstance.Run(queries);
@@ -119,6 +135,7 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services
                 return graph.Run(commands);
             }
 
+#if REPLICA_DISABLING_NET5_ONLY
             // we read flags just the once
             ulong currentReplicaEnabledFlags = ReplicaEnabledFlags;
 
@@ -126,6 +143,7 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services
             // at least until we can recreate any transaction on reenabled replicas (transaction log?)
             if ((int)EnabledInstanceCount(currentReplicaEnabledFlags) < InstanceCount)
                 throw new InvalidOperationException("Running commands when a replica is disabled is not allowed.");
+#endif
 
             IEnumerable<Graph> commandGraphs = _graphInstances;
 
@@ -143,19 +161,25 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services
 
         public bool IsEnabled(int instance)
         {
+#if REPLICA_DISABLING_NET5_ONLY
             bool isEnabled = IsEnabled(ReplicaEnabledFlags, instance);
 
             _logger.LogTrace("Graph replica #{Instance} {GraphName} enabled check: {Enabled}",
                 instance, _graphInstances[instance].GraphName, isEnabled);
 
             return isEnabled;
+#else
+            return true;
+#endif
         }
 
+#if REPLICA_DISABLING_NET5_ONLY
         private protected ulong ReplicaEnabledFlags => Interlocked.Read(ref _replicaEnabledFlags);
 
         private protected bool IsEnabled(ulong replicaEnabledFlags, int instance)
         {
             return (replicaEnabledFlags & (1ul << instance)) != 0;
         }
+#endif
     }
 }

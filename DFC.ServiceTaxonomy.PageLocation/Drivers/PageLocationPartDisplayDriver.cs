@@ -156,7 +156,7 @@ namespace DFC.ServiceTaxonomy.PageLocation.Drivers
             }
         }
 
-        private readonly List<string> _pageLocations = new();
+        private readonly List<string> _pageLocations = new List<string>();
 
         private void RecursivelyBuildUrls(JObject taxonomy)
         {
