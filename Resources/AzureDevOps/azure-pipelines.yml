@@ -22,6 +22,18 @@ pool:
   - msbuild
   - visualstudio
 
+trigger: 
+  branches:
+    include: 
+    - dev
+    - master
+
+pr:
+  branches:
+    include: 
+    - dev
+    - master
+
 stages:
 - stage: Build
   jobs:
