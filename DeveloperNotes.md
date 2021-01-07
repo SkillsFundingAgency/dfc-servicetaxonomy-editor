@@ -37,6 +37,8 @@ Object name: 'IServiceProvider'.
    at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextExceptionFilterAsync>g__Awaited|25_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
 ```
 
+* check failing tests in dev (or run local)
+
 * add release AllContent recipes, e.g. 00_Pages_AllContent
   add an AllContent recipe, perhaps AllReleasedContent or AllContentProd, and AllContent?
   rename st defs recipe to 00_Pages_ContentDefinitions
