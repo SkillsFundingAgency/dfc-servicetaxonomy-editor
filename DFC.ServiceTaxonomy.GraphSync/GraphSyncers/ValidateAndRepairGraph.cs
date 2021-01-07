@@ -371,8 +371,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 
             var nodeLabels = await _syncNameProvider.NodeLabels();
 
-            //todo: atomic querying
-            //todo: one query to fetch outgoing and incoming
             // List<INodeWithOutgoingRelationships?> results = await _currentGraph!.Run(
             //     new NodeWithOutgoingRelationshipsQuery(
             //         nodeLabels,
@@ -439,12 +437,14 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 
             object nodeId = _syncNameProvider.GetNodeIdPropertyValue(contentItem.Content.GraphSyncPart, contentItemVersion);
 
+#pragma warning disable CS0618
             //todo: one query to fetch outgoing and incoming
             List<INodeWithOutgoingRelationships?> results = await _currentGraph!.Run(
                 new NodeWithOutgoingRelationshipsQuery(
                     await _syncNameProvider.NodeLabels(),
                     _syncNameProvider.IdPropertyName(),
                     nodeId));
+#pragma warning restore CS0618
 
             return results.Any()
                 ? (false, $"{contentTypeDefinition.DisplayName} {contentItem.ContentItemId} is still present in the graph.")

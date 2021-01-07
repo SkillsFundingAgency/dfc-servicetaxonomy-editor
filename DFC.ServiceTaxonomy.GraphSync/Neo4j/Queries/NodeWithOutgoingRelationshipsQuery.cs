@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using DFC.ServiceTaxonomy.GraphSync.Neo4j.Queries.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.Neo4j.Queries.Models;
@@ -10,6 +11,7 @@ using Neo4j.Driver;
 namespace DFC.ServiceTaxonomy.GraphSync.Neo4j.Queries
 {
     //todo: rename to NodeAndOutRelationships
+    [Obsolete("Use Subgraph instead.")]
     public class NodeWithOutgoingRelationshipsQuery : IQuery<INodeWithOutgoingRelationships?>
     {
         private IEnumerable<string> NodeLabels { get; }
