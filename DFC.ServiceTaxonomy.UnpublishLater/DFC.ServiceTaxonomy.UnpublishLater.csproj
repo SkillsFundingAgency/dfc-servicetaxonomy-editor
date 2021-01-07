@@ -14,13 +14,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="OrchardCore.ContentManagement.Abstractions" Version="1.0.0-rc7" />
-    <PackageReference Include="OrchardCore.ContentManagement.Display" Version="1.0.0-rc7" />
-    <PackageReference Include="OrchardCore.Data.Abstractions" Version="1.0.0-rc7" />
-    <PackageReference Include="OrchardCore.DisplayManagement" Version="1.0.0-rc7" />
-    <PackageReference Include="OrchardCore.Module.Targets" Version="1.0.0-rc7" />
-    <PackageReference Include="OrchardCore.Contents.Core" Version="1.0.0-rc7" />
-    <PackageReference Include="OrchardCore.Infrastructure" Version="1.0.0-rc7" />
+    <PackageReference Include="OrchardCore.ContentManagement.Abstractions" Version="1.0.0-rc8" />
+    <PackageReference Include="OrchardCore.ContentManagement.Display" Version="1.0.0-rc8" />
+    <PackageReference Include="OrchardCore.Data.Abstractions" Version="1.0.0-rc8" />
+    <PackageReference Include="OrchardCore.DisplayManagement" Version="1.0.0-rc8" />
+    <PackageReference Include="OrchardCore.Module.Targets" Version="1.0.0-rc8" />
+    <PackageReference Include="OrchardCore.Contents.Core" Version="1.0.0-rc8" />
+    <PackageReference Include="OrchardCore.Infrastructure" Version="1.0.0-rc8" />
   </ItemGroup>
 
 </Project>
