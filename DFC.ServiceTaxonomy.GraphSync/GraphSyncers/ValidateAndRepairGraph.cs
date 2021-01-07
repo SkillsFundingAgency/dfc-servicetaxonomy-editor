@@ -371,17 +371,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 
             var nodeLabels = await _syncNameProvider.NodeLabels();
 
-            // List<INodeWithOutgoingRelationships?> results = await _currentGraph!.Run(
-            //     new NodeWithOutgoingRelationshipsQuery(
-            //         nodeLabels,
-            //         _syncNameProvider.IdPropertyName(),
-            //         nodeId));
-            //
-            // //todo: does this belong in the query?
-            // INodeWithOutgoingRelationships? nodeWithOutgoingRelationships = results.FirstOrDefault();
-            // if (nodeWithOutgoingRelationships == null)
-            //     return (false, FailureContext("Node not found querying outgoing relationships.", contentItem));
-
             ISubgraph? nodeWithRelationships = (await _currentGraph!.Run(
                 new SubgraphQuery(nodeLabels, _syncNameProvider.IdPropertyName(), nodeId)))
                 .FirstOrDefault();
