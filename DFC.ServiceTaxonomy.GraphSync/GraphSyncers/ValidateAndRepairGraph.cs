@@ -83,7 +83,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             params string[] graphReplicaSetNames)
         {
             if (!await _serialValidation.WaitAsync(TimeSpan.Zero))
-                return ValidationAlreadyInProgressResult.Instance;
+                return ValidationAlreadyInProgressResult.EmptyInstance;
 
             try
             {
@@ -373,31 +373,27 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 
             //todo: atomic querying
             //todo: one query to fetch outgoing and incoming
-            List<INodeWithOutgoingRelationships?> results = await _currentGraph!.Run(
-                new NodeWithOutgoingRelationshipsQuery(
-                    nodeLabels,
-                    _syncNameProvider.IdPropertyName(),
-                    nodeId));
+            // List<INodeWithOutgoingRelationships?> results = await _currentGraph!.Run(
+            //     new NodeWithOutgoingRelationshipsQuery(
+            //         nodeLabels,
+            //         _syncNameProvider.IdPropertyName(),
+            //         nodeId));
+            //
+            // //todo: does this belong in the query?
+            // INodeWithOutgoingRelationships? nodeWithOutgoingRelationships = results.FirstOrDefault();
+            // if (nodeWithOutgoingRelationships == null)
+            //     return (false, FailureContext("Node not found querying outgoing relationships.", contentItem));
 
-            //todo: does this belong in the query?
-            INodeWithOutgoingRelationships? nodeWithOutgoingRelationships = results.FirstOrDefault();
-            if (nodeWithOutgoingRelationships == null)
-                return (false, FailureContext("Node not found querying outgoing relationships.", contentItem));
-
-            ISubgraph? nodeWithIncomingRelationships = (await _currentGraph!.Run(
-                new SubgraphQuery(
-                    nodeLabels,
-                    _syncNameProvider.IdPropertyName(),
-                    nodeId,
-                    SubgraphQuery.RelationshipFilterIncoming, 1)))
+            ISubgraph? nodeWithRelationships = (await _currentGraph!.Run(
+                new SubgraphQuery(nodeLabels, _syncNameProvider.IdPropertyName(), nodeId)))
                 .FirstOrDefault();
 
-            if (nodeWithIncomingRelationships?.SourceNode == null)
+            if (nodeWithRelationships?.SourceNode == null)
                 return (false, FailureContext("Node not found querying incoming relationships.", contentItem));
 
             ValidateAndRepairItemSyncContext context = new ValidateAndRepairItemSyncContext(
-                contentItem, _contentManager, contentItemVersion, nodeWithOutgoingRelationships,
-                nodeWithIncomingRelationships, _syncNameProvider, _graphValidationHelper, this,
+                contentItem, _contentManager, contentItemVersion, nodeWithRelationships,
+                _syncNameProvider, _graphValidationHelper, this,
                 contentTypeDefinition, nodeId, _serviceProvider);
 
             foreach (IContentItemGraphSyncer itemSyncer in _itemSyncers)
@@ -418,8 +414,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             foreach ((string relationshipType, int relationshipsInDbCount) in context.ExpectedRelationshipCounts)
             {
                 int relationshipsInGraphCount =
-                    nodeWithOutgoingRelationships.OutgoingRelationships.Count(r =>
-                        r.Relationship.Type == relationshipType);
+                    nodeWithRelationships.OutgoingRelationships.Count(r => r.Type == relationshipType);
 
                 if (relationshipsInDbCount != relationshipsInGraphCount)
                 {

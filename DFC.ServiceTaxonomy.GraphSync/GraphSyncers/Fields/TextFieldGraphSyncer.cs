@@ -43,14 +43,14 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
                     ContentKey,
                     contentItemField,
                     nodePropertyName,
-                    context.NodeWithOutgoingRelationships.SourceNode);
+                    context.NodeWithRelationships.SourceNode!);
             }
 
             return context.GraphValidationHelper.StringContentPropertyMatchesNodeProperty(
                 ContentKey,
                 contentItemField,
                 nodePropertyName,
-                context.NodeWithOutgoingRelationships.SourceNode);
+                context.NodeWithRelationships.SourceNode!);
         }
 
         private bool SyncMultilineToArray(IContentPartFieldDefinition contentPartFieldDefinition)

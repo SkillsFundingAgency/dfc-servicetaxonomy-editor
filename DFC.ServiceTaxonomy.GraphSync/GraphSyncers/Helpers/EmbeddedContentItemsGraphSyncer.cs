@@ -527,7 +527,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
                 ++relationshipOrdinal;
 
                 (validated, failureReason) = context.GraphValidationHelper.ValidateOutgoingRelationship(
-                    context.NodeWithOutgoingRelationships,
+                    context.NodeWithRelationships,
                     expectedRelationshipType,
                     embeddedContentIdPropertyName,
                     destinationId,
@@ -540,7 +540,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
                 if (twoWayRelationshipType != null)
                 {
                     (validated, failureReason) = context.GraphValidationHelper.ValidateIncomingRelationship(
-                        context.NodeWithIncomingRelationships,
+                        context.NodeWithRelationships,
                         twoWayRelationshipType,
                         embeddedContentIdPropertyName,
                         destinationId,

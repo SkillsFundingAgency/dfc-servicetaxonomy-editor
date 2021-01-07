@@ -8,7 +8,6 @@ using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Contexts;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Fields;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Helpers;
 using DFC.ServiceTaxonomy.GraphSync.Models;
-using DFC.ServiceTaxonomy.GraphSync.Neo4j.Queries.Interfaces;
 using Newtonsoft.Json.Linq;
 using OrchardCore.ContentFields.Settings;
 using OrchardCore.ContentManagement;
@@ -16,6 +15,7 @@ using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.ContentItemVersions;
 using System;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers;
 using Microsoft.Extensions.DependencyInjection;
+using Neo4j.Driver;
 
 namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
 {
@@ -140,8 +140,9 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
 
             string relationshipType = await RelationshipTypeContentPicker(contentPickerFieldSettings, context.SyncNameProvider);
 
-            IOutgoingRelationship[] actualRelationships = context.NodeWithOutgoingRelationships.OutgoingRelationships
-                .Where(r => r.Relationship.Type == relationshipType)
+//            IOutgoingRelationship[] actualRelationships = context.NodeWithRelationships.OutgoingRelationships
+            IRelationship[] actualRelationships = context.NodeWithRelationships.OutgoingRelationships
+                .Where(r => r.Type == relationshipType)
                 .ToArray();
 
             var contentItemIds = (JArray)contentItemField[ContentItemIdsKey]!;
@@ -178,7 +179,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
                 //todo: we might want to check that all the supplied relationship properties are there,
                 // whilst not failing validation if other properties are present?
                 (bool validated, string failureReason) = context.GraphValidationHelper.ValidateOutgoingRelationship(
-                    context.NodeWithOutgoingRelationships,
+                    context.NodeWithRelationships,
                     relationshipType,
                     destinationIdPropertyName,
                     destinationId,

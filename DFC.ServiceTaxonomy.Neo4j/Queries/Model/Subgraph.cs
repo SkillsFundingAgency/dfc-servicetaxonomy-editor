@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using DFC.ServiceTaxonomy.Neo4j.Queries.Interfaces;
 using Neo4j.Driver;
 
@@ -6,10 +7,15 @@ namespace DFC.ServiceTaxonomy.Neo4j.Queries.Model
 {
     public class Subgraph : ISubgraph
     {
+        //todo: immutable, with non-nullable sourcenode?
         public INode? SourceNode { get; set; }
-        public HashSet<INode> Nodes { get; set; }
-        public HashSet<IRelationship> Relationships { get; set; }
+        public HashSet<INode> Nodes { get; }
+        public HashSet<IRelationship> Relationships { get; }
 
+        private IRelationship[]? _outgoingRelationships;
+        private IRelationship[]? _incomingRelationships;
+
+        //todo: can we remove this ctor?
         public Subgraph()
         {
             SourceNode = null;
@@ -35,5 +41,43 @@ namespace DFC.ServiceTaxonomy.Neo4j.Queries.Model
             // set to null if different
             SourceNode = subgraph.SourceNode;
         }
+
+        public IEnumerable<IRelationship> OutgoingRelationships
+        {
+            get
+            {
+                if (_outgoingRelationships != null)
+                    return _outgoingRelationships;
+
+                //todo: null SourceNode
+                return _outgoingRelationships = Relationships
+                    .Where(r => r.StartNodeId == SourceNode!.Id)
+                    .ToArray();
+            }
+        }
+
+        public IEnumerable<IRelationship> IncomingRelationships
+        {
+            get
+            {
+                if (_incomingRelationships != null)
+                    return _incomingRelationships;
+
+                //todo: null SourceNode
+                return _incomingRelationships = Relationships
+                    .Where(r => r.EndNodeId == SourceNode!.Id)
+                    .ToArray();
+            }
+        }
+
+        //todo: ??
+        // public IEnumerable<IRelationship> OutgoingRelationships(string? relationshipType = null, string? destinationIdPropertyName = null, object? destinationId = null)
+        // {
+        //     IRelationship? incomingRelationship =
+        //         nodeWithIncomingRelationships.Relationships.SingleOrDefault(r =>
+        //             r.Type == relationshipType
+        //             && Equals(nodeWithIncomingRelationships.Nodes.First(n => n.Id == r.StartNodeId)
+        //                 .Properties[destinationIdPropertyName], destinationId));
+        // }
     }
 }

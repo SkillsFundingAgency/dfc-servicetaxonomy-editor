@@ -71,7 +71,7 @@ namespace DFC.ServiceTaxonomy.GraphLookup.GraphSyncers
                 string relationshipType = graphLookupPartSettings.RelationshipType!;
 
                 (bool validated, string failureReason) = context.GraphValidationHelper.ValidateOutgoingRelationship(
-                    context.NodeWithOutgoingRelationships,
+                    context.NodeWithRelationships,
                     relationshipType,
                     graphLookupPartSettings.ValueFieldName!,
                     node.Id);

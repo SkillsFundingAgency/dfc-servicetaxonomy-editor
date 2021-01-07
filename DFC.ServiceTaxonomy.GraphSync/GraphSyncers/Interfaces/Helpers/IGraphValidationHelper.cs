@@ -73,6 +73,13 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Helpers
             object destinationId,
             IEnumerable<KeyValuePair<string, object>>? properties = null);
 
+        public (bool validated, string failureReason) ValidateOutgoingRelationship(
+            ISubgraph nodeWithOutgoingRelationships,
+            string relationshipType,
+            string destinationIdPropertyName,
+            object destinationId,
+            IEnumerable<KeyValuePair<string, object>>? properties = null);
+
         (bool validated, string failureReason) ValidateIncomingRelationship(
             INodeWithIncomingRelationships nodeWithIncomingRelationships,
             string relationshipType,

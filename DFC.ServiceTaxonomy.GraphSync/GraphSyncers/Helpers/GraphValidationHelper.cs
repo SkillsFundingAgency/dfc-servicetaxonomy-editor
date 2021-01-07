@@ -266,6 +266,29 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
             return (true, "");
         }
 
+        public (bool validated, string failureReason) ValidateOutgoingRelationship(
+            ISubgraph nodeWithRelationships,
+            string relationshipType,
+            string destinationIdPropertyName,
+            object destinationId,
+            IEnumerable<KeyValuePair<string, object>>? properties = null)
+        {
+            IRelationship? outgoingRelationship =
+                nodeWithRelationships.OutgoingRelationships
+                    .SingleOrDefault(r =>
+                     r.Type == relationshipType
+                     && Equals(nodeWithRelationships.Nodes.First(n => n.Id == r.EndNodeId)
+                         .Properties[destinationIdPropertyName], destinationId));
+
+            if (outgoingRelationship == null)
+                return (false, $"{RelationshipDescription(relationshipType, destinationIdPropertyName, destinationId)} not found");
+
+            if (properties != null && !AreEqual(properties, outgoingRelationship.Properties))
+                return (false, $"{RelationshipDescription(relationshipType, destinationIdPropertyName, destinationId)} has incorrect properties. expecting {properties.ToCypherPropertiesString()}, found {outgoingRelationship.Properties.ToCypherPropertiesString()}");
+
+            return (true, "");
+        }
+
         public (bool validated, string failureReason) ValidateIncomingRelationship(
             INodeWithIncomingRelationships nodeWithIncomingRelationships,
             string relationshipType,
@@ -288,16 +311,16 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
         }
 
         public (bool validated, string failureReason) ValidateIncomingRelationship(
-            ISubgraph nodeWithIncomingRelationships,
+            ISubgraph nodeWithRelationships,
             string relationshipType,
             string destinationIdPropertyName,
             object destinationId,
             IEnumerable<KeyValuePair<string, object>>? properties = null)
         {
             IRelationship? incomingRelationship =
-                nodeWithIncomingRelationships.Relationships.SingleOrDefault(r =>
+                nodeWithRelationships.IncomingRelationships.SingleOrDefault(r =>
                     r.Type == relationshipType
-                    && Equals(nodeWithIncomingRelationships.Nodes.First(n => n.Id == r.StartNodeId)
+                    && Equals(nodeWithRelationships.Nodes.First(n => n.Id == r.StartNodeId)
                             .Properties[destinationIdPropertyName], destinationId));
 
             if (incomingRelationship == null)

@@ -1,5 +1,14 @@
 #ToDo
 
+* need to import content & set up users as part of releases
+
+* why are some recipes in git, but not local?
+
+* add release AllContent recipes, e.g. 00_Pages_AllContent
+  add an AllContent recipe, perhaps AllReleasedContent or AllContentProd, and AllContent?
+  rename st defs recipe to 00_Pages_ContentDefinitions
+  rename st2 recipe to fit in with content naming scheme also
+
 * pre-populate custom graph sync settings to represent the real defaults
 * add visualisation settings into read only set
 * can't reset focus on a pagelocation, nor visualise it from the editor

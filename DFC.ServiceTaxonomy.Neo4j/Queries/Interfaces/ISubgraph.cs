@@ -8,5 +8,8 @@ namespace DFC.ServiceTaxonomy.Neo4j.Queries.Interfaces
         INode? SourceNode { get; }
         HashSet<INode> Nodes { get; }
         HashSet<IRelationship> Relationships  { get; }
+
+        IEnumerable<IRelationship> OutgoingRelationships { get; }
+        IEnumerable<IRelationship> IncomingRelationships { get; }
     }
 }

@@ -83,7 +83,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts.Taxonomy
                 TermContentTypePropertyName,
                 content,
                 TermContentTypePropertyName,
-                context.NodeWithOutgoingRelationships.SourceNode);
+                context.NodeWithRelationships.SourceNode!);
         }
     }
 }

@@ -46,7 +46,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
                 context.SyncNameProvider.ContentIdPropertyName,
                 content,
                 context.SyncNameProvider.IdPropertyName(),
-                context.NodeWithOutgoingRelationships.SourceNode,
+                context.NodeWithRelationships.SourceNode!,
                 (contentValue, nodeValue) =>
                     nodeValue is string nodeValueString
                     && Equals((string)contentValue!,

@@ -9,6 +9,7 @@ namespace DFC.ServiceTaxonomy.Neo4j.Queries
     //todo: replace usage of NodeWithIncomingRelationshipsQuery with this more general case
     public class SubgraphQuery : IQuery<ISubgraph>
     {
+        public const string? RelationshipFilterNone = null;
         public const string RelationshipFilterIncoming = "<";
         public const string RelationshipFilterOutgoing = ">";
 
@@ -17,6 +18,12 @@ namespace DFC.ServiceTaxonomy.Neo4j.Queries
         private object IdPropertyValue { get; }
         private string? RelationshipFilter { get; }
         private int MaxPathLength { get; }
+
+        //todo: support separate maxPathLength for incoming and outgoing?
+        // options:
+        // post filtering? - could end up doing way too much work
+        // 2 calls? - not atomic, unless in single transaction
+        // leave to consumer??
 
         /// <summary>
         /// See https://neo4j.com/labs/apoc/4.1/graph-querying/expand-subgraph/ for underlying cypher.
@@ -41,7 +48,7 @@ namespace DFC.ServiceTaxonomy.Neo4j.Queries
             IEnumerable<string> nodeLabels,
             string idPropertyName,
             object idPropertyValue,
-            string? relationshipFilter = null,
+            string? relationshipFilter = RelationshipFilterNone,
             int maxPathLength = 1)
         {
             RelationshipFilter = relationshipFilter;

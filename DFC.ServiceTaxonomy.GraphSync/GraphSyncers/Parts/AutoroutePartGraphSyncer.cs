@@ -27,7 +27,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
                 _contentTitlePropertyName,
                 content,
                 NodeTitlePropertyName,
-                context.NodeWithOutgoingRelationships.SourceNode));
+                context.NodeWithRelationships.SourceNode!));
         }
     }
 }
