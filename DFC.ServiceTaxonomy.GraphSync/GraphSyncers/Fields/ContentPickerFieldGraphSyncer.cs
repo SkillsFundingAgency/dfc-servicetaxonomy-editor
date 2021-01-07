@@ -140,7 +140,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
 
             string relationshipType = await RelationshipTypeContentPicker(contentPickerFieldSettings, context.SyncNameProvider);
 
-//            IOutgoingRelationship[] actualRelationships = context.NodeWithRelationships.OutgoingRelationships
             IRelationship[] actualRelationships = context.NodeWithRelationships.OutgoingRelationships
                 .Where(r => r.Type == relationshipType)
                 .ToArray();

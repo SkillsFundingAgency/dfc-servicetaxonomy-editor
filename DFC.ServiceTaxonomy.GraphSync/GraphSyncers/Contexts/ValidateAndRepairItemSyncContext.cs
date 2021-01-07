@@ -20,7 +20,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Contexts
             ContentItem contentItem,
             IContentManager contentManager,
             IContentItemVersion contentItemVersion,
-            //INodeWithOutgoingRelationships nodeWithOutgoingRelationships,
             ISubgraph nodeWithRelationships,
             ISyncNameProvider syncNameProvider,
             IGraphValidationHelper graphValidationHelper,
