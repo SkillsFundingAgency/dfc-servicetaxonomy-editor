@@ -14,7 +14,13 @@ resources:
     type: github
     name: SkillsFundingAgency/dfc-devops
     ref: refs/tags/v1.11.2
-    endpoint: 'GitHub (ESFA)'
+    endpoint: 'SkillsFundingAgency'
+
+pool:
+  name: NCS - CI and CD
+  demands:
+  - msbuild
+  - visualstudio
 
 stages:
 - stage: Build
@@ -23,7 +29,6 @@ stages:
     displayName: "Build the ARM templates"
     workspace:
       clean: all
-    pool: 'NCS - CI and CD'
     steps:
     - template: /AzureDevOpsTemplates/Build/StepTemplates/dfc-arm-build.yml@dfc-devops
       parameters:
@@ -33,7 +38,6 @@ stages:
     displayName: "Build the dotnet core application"
     workspace:
       clean: all
-    pool: 'NCS - CI and CD'
     steps:
     - template: StepTemplates/dfc-dotnetcore-build.yml
       parameters:
@@ -102,11 +106,6 @@ stages:
     environment: SERVICETAXONOMY_NUGET
     workspace:
       clean: all
-    pool:
-      name: NCS - CI and CD
-      demands:
-      - msbuild
-      - visualstudio
     strategy:
       runOnce:
         deploy:
