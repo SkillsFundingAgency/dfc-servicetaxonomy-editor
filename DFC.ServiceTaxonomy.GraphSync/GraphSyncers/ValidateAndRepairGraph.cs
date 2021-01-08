@@ -14,10 +14,8 @@ using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Items;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Results.ValidateAndRepair;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Results.ValidateAndRepair;
 using DFC.ServiceTaxonomy.GraphSync.Models;
-using DFC.ServiceTaxonomy.GraphSync.Neo4j.Queries;
-using DFC.ServiceTaxonomy.GraphSync.Neo4j.Queries.Interfaces;
-using DFC.ServiceTaxonomy.GraphSync.Services;
 using DFC.ServiceTaxonomy.Neo4j.Queries;
+using DFC.ServiceTaxonomy.GraphSync.Services;
 using DFC.ServiceTaxonomy.Neo4j.Queries.Interfaces;
 using DFC.ServiceTaxonomy.Neo4j.Services.Interfaces;
 using DFC.ServiceTaxonomy.Neo4j.Services.Internal;
@@ -426,16 +424,24 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 
             object nodeId = _syncNameProvider.GetNodeIdPropertyValue(contentItem.Content.GraphSyncPart, contentItemVersion);
 
-#pragma warning disable CS0618
             //todo: one query to fetch outgoing and incoming
-            List<INodeWithOutgoingRelationships?> results = await _currentGraph!.Run(
-                new NodeWithOutgoingRelationshipsQuery(
-                    await _syncNameProvider.NodeLabels(),
-                    _syncNameProvider.IdPropertyName(),
-                    nodeId));
-#pragma warning restore CS0618
+            // ISubgraph? results = await _currentGraph!.Run(
+            //     new SubgraphQuery(
+            //         await _syncNameProvider.NodeLabels(),
+            //         _syncNameProvider.IdPropertyName(),
+            //         nodeId));
 
-            return results.Any()
+
+            // this is basically querying to see if the node's there or not - a simpler query might be better
+            ISubgraph? nodeWithRelationships = (await _currentGraph!.Run(
+                    new SubgraphQuery(
+                        await _syncNameProvider.NodeLabels(),
+                        _syncNameProvider.IdPropertyName(),
+                        nodeId,
+                        SubgraphQuery.RelationshipFilterNone, 0)))
+                .FirstOrDefault();
+
+            return nodeWithRelationships?.SourceNode != null
                 ? (false, $"{contentTypeDefinition.DisplayName} {contentItem.ContentItemId} is still present in the graph.")
                 : (true, "");
         }
