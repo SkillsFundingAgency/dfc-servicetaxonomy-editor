@@ -424,14 +424,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 
             object nodeId = _syncNameProvider.GetNodeIdPropertyValue(contentItem.Content.GraphSyncPart, contentItemVersion);
 
-            //todo: one query to fetch outgoing and incoming
-            // ISubgraph? results = await _currentGraph!.Run(
-            //     new SubgraphQuery(
-            //         await _syncNameProvider.NodeLabels(),
-            //         _syncNameProvider.IdPropertyName(),
-            //         nodeId));
-
-
             // this is basically querying to see if the node's there or not - a simpler query might be better
             ISubgraph? nodeWithRelationships = (await _currentGraph!.Run(
                     new SubgraphQuery(

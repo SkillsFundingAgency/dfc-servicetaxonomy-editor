@@ -92,7 +92,6 @@ namespace DFC.ServiceTaxonomy.Neo4j.Queries
                     @$"match (n:{string.Join(":", NodeLabels)} {{{IdPropertyName}:$idPropertyValue}})
 call apoc.path.subgraphAll(n, {{maxLevel: $maxLevel, relationshipFilter: $relationshipFilter}}) yield nodes, relationships
 return nodes, relationships", parameters);
-
             }
         }
 
