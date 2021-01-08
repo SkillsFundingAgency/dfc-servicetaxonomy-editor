@@ -9,7 +9,7 @@
       <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 
       <Authors>Education and Skills Funding Agency Team</Authors>
-      <Description>DFC.ServiceTaxonomy.Neo4j library</Description>
+      <Description>Execute commands and queries against Neo4j graph(s). Optionally layers a virtual cluster on top of individual graph instances.</Description>
       <PackageTags>Neo4j;Graph;Cypher;Cluster</PackageTags>
       <PackageLicenseExpression>MIT</PackageLicenseExpression>
       <PackageProjectUrl>https://github.com/SkillsFundingAgency/dfc-servicetaxonomy-editor</PackageProjectUrl>

@@ -26,8 +26,14 @@ namespace DFC.ServiceTaxonomy.Neo4j.Queries
         // leave to consumer??
 
         /// <summary>
-        /// See https://neo4j.com/labs/apoc/4.1/graph-querying/expand-subgraph/ for underlying cypher.
+        /// Retrieves a subgraph (a set of nodes and relationships) centered on a source node, defined by parameters.
+        /// The size and shape of the subgraph is defined by supplied relationship filters and max path size.
+        /// See the underlying procedure (https://neo4j.com/labs/apoc/4.1/graph-querying/expand-subgraph/) for more info.
         /// </summary>
+        /// <param name="nodeLabels">The set of labels that defines the source node.
+        /// The source node may have other labels, but to match, it must have all of the supplied labels.</param>
+        /// <param name="idPropertyName">The property name to use to match the source node.</param>
+        /// <param name="idPropertyValue">The value of the supplied property name used to match the source node.</param>
         /// <param name="relationshipFilter">Syntax: [&lt;]RELATIONSHIP_TYPE1[&gt;]|[&lt;]RELATIONSHIP_TYPE2[&gt;]|...
         /// <list type="table">
         /// <listheader>
