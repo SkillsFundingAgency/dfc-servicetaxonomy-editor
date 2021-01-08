@@ -10,6 +10,7 @@ using Newtonsoft.Json.Linq;
 using OrchardCore.ContentManagement;
 using OrchardCore.ContentManagement.Display.ContentDisplay;
 using OrchardCore.ContentManagement.Display.Models;
+using OrchardCore.ContentManagement.Metadata.Models;
 using OrchardCore.DisplayManagement.ModelBinding;
 using OrchardCore.DisplayManagement.Views;
 
@@ -75,7 +76,7 @@ namespace DFC.ServiceTaxonomy.Taxonomies.Drivers
                 {
                     updater.ModelState.AddModelError(
                         nameof(EditTaxonomyFieldViewModel.TermEntries),
-                        S["A value is required for '{0}'", context.PartFieldDefinition.Name]);
+                        S["A value is required for '{0}'", context.PartFieldDefinition.DisplayName()]);
                 }
 
                 // Update display text for tags.
