@@ -5,6 +5,7 @@ using Neo4j.Driver;
 
 namespace DFC.ServiceTaxonomy.Neo4j.Queries.Model
 {
+    /// <inheritdoc/>
     public class Subgraph : ISubgraph
     {
         //todo: immutable, with non-nullable sourcenode?
