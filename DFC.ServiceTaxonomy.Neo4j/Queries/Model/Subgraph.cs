@@ -70,15 +70,5 @@ namespace DFC.ServiceTaxonomy.Neo4j.Queries.Model
                     .ToArray();
             }
         }
-
-        //todo: ??
-        // public IEnumerable<IRelationship> OutgoingRelationships(string? relationshipType = null, string? destinationIdPropertyName = null, object? destinationId = null)
-        // {
-        //     IRelationship? incomingRelationship =
-        //         nodeWithIncomingRelationships.Relationships.SingleOrDefault(r =>
-        //             r.Type == relationshipType
-        //             && Equals(nodeWithIncomingRelationships.Nodes.First(n => n.Id == r.StartNodeId)
-        //                 .Properties[destinationIdPropertyName], destinationId));
-        // }
     }
 }
