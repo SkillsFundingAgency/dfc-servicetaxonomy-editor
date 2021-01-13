@@ -47,7 +47,7 @@ stages:
         ArmTemplateRoot: "$(System.DefaultWorkingDirectory)/Resources/ArmTemplates"
 
   - job: BuildDotNet
-    displayName: "Build the dotnet core applications"
+    displayName: "Build the dotnet core application"
     workspace:
       clean: all
     steps:
