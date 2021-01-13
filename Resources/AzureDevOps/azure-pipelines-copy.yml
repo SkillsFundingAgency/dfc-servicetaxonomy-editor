@@ -1,0 +1,267 @@
+parameters:
+  - name: DfcServiceTaxonomyTestBranch
+    type: string
+    default: refs/heads/master
+
+variables:
+  SolutionBaseName: 'DFC.ServiceTaxonomy' 
+  EditorAdminUserEmail: 'careersdevops@education.gov.uk' 
+
+resources:
+  repositories:
+  - repository: self
+  - repository: dfc-devops
+    type: github
+    name: SkillsFundingAgency/dfc-devops
+    ref: refs/tags/v1.11.2
+    endpoint: 'SkillsFundingAgency'
+
+trigger:
+  branches:
+    include:
+      - dev
+      - master
+
+pr:
+  branches:
+    include:
+      - dev
+      - master
+
+pool:
+  name: NCS - CI and CD
+  demands:
+  - msbuild
+  - visualstudio
+
+stages:
+- stage: Build
+  jobs:
+  - job: BuildArmTemplates
+    displayName: "Build the ARM templates"
+    workspace:
+      clean: all
+    steps:
+    - template: /AzureDevOpsTemplates/Build/StepTemplates/dfc-arm-build.yml@dfc-devops
+      parameters:
+        ArmTemplateRoot: "$(System.DefaultWorkingDirectory)/Resources/ArmTemplates"
+
+  - job: BuildDotNet
+    displayName: "Build the dotnet core application"
+    workspace:
+      clean: all
+    steps:
+    - template: StepTemplates/dfc-dotnetcore-build.yml
+      parameters:
+        SolutionBaseName: $(SolutionBaseName).Editor
+        BuildPlatform: 'any cpu'
+        BuildConfiguration: 'release'
+        DotNetCoreVersion: '3.1.201'
+    - template: AzureDevOpsTemplates\Build\StepTemplates\dfc-dotnetcore-build-notests.yml@dfc-devops
+      parameters:
+        SolutionBaseName: $(SolutionBaseName).OrchardCoreInitialiser
+        BuildPlatform: 'any cpu'
+        BuildConfiguration: 'release'
+        DotNetCoreVersion: '3.1.201'
+    - powershell: |
+        New-Item -Type Directory -Path $(SolutionBaseName).Editor\AppSettingsArtifact\App_Data\Sites\Default\ -Force
+        Copy-Item -Path $(SolutionBaseName).Editor\App_Data\Sites\Default\appsettings.template.json -Destination $(SolutionBaseName).Editor\AppSettingsArtifact\App_Data\Sites\Default\appsettings.json
+      displayName: 'PowerShell Script: Copy appsettings.template.json'
+    - task: PublishPipelineArtifact@1
+      inputs:
+        targetPath: $(SolutionBaseName).Editor\AppSettingsArtifact\ 
+        artifactName: $(SolutionBaseName).Editor.AppSettings
+    - template: AzureDevOpsTemplates\Build\StepTemplates\dfc-dotnetcore-build-notests.yml@dfc-devops
+      parameters:
+        SolutionBaseName: $(SolutionBaseName).IntegrationTests
+        BuildPlatform: 'any cpu'
+        BuildConfiguration: 'release'
+        DotNetCoreVersion: '3.1.201'
+
+    - task: NuGetToolInstaller@1
+      inputs:
+        versionSpec: '>=5.4.0'
+
+    - task: DotNetCoreCLI@2
+      displayName: 'dotnet pack - Neo4j'
+      inputs:
+        command: pack
+        packagesToPack: '**/DFC.ServiceTaxonomy.Neo4j.csproj'
+        configuration: Release
+        packDirectory: '$(build.artifactstagingdirectory)\DeploymentPackages\Nuget'
+        versioningScheme: byEnvVar
+        versionEnvVar: GitVersion.MajorMinorPatch
+
+    - task: DotNetCoreCLI@2
+      displayName: 'dotnet pack - Events'
+      inputs:
+        command: pack
+        packagesToPack: '**/DFC.ServiceTaxonomy.Events.csproj'
+        configuration: Release
+        packDirectory: '$(build.artifactstagingdirectory)\DeploymentPackages\Nuget'
+        versioningScheme: byEnvVar
+        versionEnvVar: GitVersion.MajorMinorPatch
+
+    - task: PublishPipelineArtifact@1
+      inputs:
+        targetPath: $(build.artifactstagingdirectory)\DeploymentPackages\Nuget
+        artifactName: $(SolutionBaseName).Nuget
+
+- stage: PublishPackage
+  displayName: Publish Package to NuGet
+  condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master')) 
+  jobs:  
+  - job: CleanArtifacts  
+    displayName: Clean artifacts directory
+  - deployment: PublishNugetPackage
+    dependsOn: CleanArtifacts
+    environment: SERVICETAXONOMY_NUGET
+    workspace:
+      clean: all
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - task: NuGetCommand@2
+            displayName: 'NuGet push'
+            inputs:
+              command: push
+              packagesToPush: '$(Pipeline.Workspace)\$(SolutionBaseName).Nuget\*.nupkg;!$(Pipeline.Workspace)\$(SolutionBaseName).Nuget\*.symbols.nupkg'
+              nuGetFeedType: external
+              publishFeedCredentials: 'DFC Nuget'
+
+- stage: DeployToDev
+  condition: and(eq(dependencies.Build.result,'Succeeded'), ne(variables['Build.Reason'], 'PullRequest'))
+  displayName: Deploy to DEV_SERVICETAXONOMY
+  variables:
+  - group: dfc-shared-all
+  - group: dfc-stax-shared-all
+  - group: dfc-shared-dev
+  - group: dfc-app-shared-dev
+  - group: dfc-stax-shared-dev
+  - group: 'KeyVault - dfc-dev-shared-kv'
+  - template: VariableTemplates/SharedEnvironmentVariables.yml
+  - template: VariableTemplates/DevEnvironmentVariables.yml
+  jobs:
+  - template: JobTemplates/deploy-environment.yml
+    parameters:
+      AzureSubscription: 'SFA-CDH-Dev/Test (962cae10-2950-412a-93e3-d8ae92b17896)'
+      Environment: DEV_SERVICETAXONOMY
+      EnvironmentRef: dev
+      PackageFile:  "$(Agent.BuildDirectory)/DFC.ServiceTaxonomy.Editor/DeploymentPackages/DFC.ServiceTaxonomy.Editor.zip"
+      ArmTemplateFolder: "$(Agent.BuildDirectory)/DFC.ServiceTaxonomy.Editor/Azure/ArmTemplates/"
+      Location: 'West Europe'
+      EnvironmentTag: '$(EnvironmentTag)'
+      ParentBusinessTag: '$(ParentBusiness)'
+      ServiceOfferingTag: '$(ServiceOffering)'
+      ResourceGroup: '$(ResourceGroup)'
+      WebAppName: '$(WebAppName)'
+      OrchardCoreUri: 'https://$(WebAppName).azurewebsites.net/'
+      EditorAdminUsername: $(OrchardEditorAdminUserName)
+      EditorAdminUserEmail: $(EditorAdminUserEmail)
+      EditorAdminUserPassword: $(OrchardEditorAdminPassword)
+      DFCAzureDevOpsProjectGuid: $(DFCAzureDevOpsProjectGuid)
+      DfcServiceTaxonomyTestsBuildId: $(DfcServiceTaxonomyTestsBuildId)
+      TestArtifactBranch: ${{ parameters.DfcServiceTaxonomyTestBranch }}
+      TestExclusionTag: 'NotDev'
+
+- stage: DeployToSit
+  condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'))
+  displayName: Deploy to SIT_SERVICETAXONOMY
+  variables:
+  - group: dfc-shared-all
+  - group: dfc-stax-shared-all
+  - group: dfc-shared-sit
+  - group: dfc-app-shared-sit
+  - group: dfc-stax-shared-sit
+  - group: 'KeyVault - dfc-sit-shared-kv'
+  - template: VariableTemplates/SharedEnvironmentVariables.yml
+  - template: VariableTemplates/SitEnvironmentVariables.yml
+  jobs:
+  - template: JobTemplates/deploy-environment.yml
+    parameters:
+      AzureSubscription: 'SFA-CDH-Dev/Test (962cae10-2950-412a-93e3-d8ae92b17896)'
+      Environment: SIT_SERVICETAXONOMY
+      PackageFile:  "$(Agent.BuildDirectory)/DFC.ServiceTaxonomy.Editor/DeploymentPackages/DFC.ServiceTaxonomy.Editor.zip"
+      ArmTemplateFolder: "$(Agent.BuildDirectory)/DFC.ServiceTaxonomy.Editor/Azure/ArmTemplates/"
+      Location: 'West Europe'
+      EnvironmentTag: '$(EnvironmentTag)'
+      ParentBusinessTag: '$(ParentBusiness)'
+      ServiceOfferingTag: '$(ServiceOffering)'
+      ResourceGroup: '$(ResourceGroup)'
+      WebAppName: '$(WebAppName)'
+      OrchardCoreUri: 'https://$(WebAppName).azurewebsites.net/'
+      EditorAdminUsername: $(OrchardEditorAdminUserName)
+      EditorAdminUserEmail: $(EditorAdminUserEmail)
+      EditorAdminUserPassword: $(OrchardEditorAdminPassword)
+      DFCAzureDevOpsProjectGuid: $(DFCAzureDevOpsProjectGuid)
+      DfcServiceTaxonomyTestsBuildId: $(DfcServiceTaxonomyTestsBuildId)
+      TestArtifactBranch: ${{ parameters.DfcServiceTaxonomyTestBranch }}
+      TestExclusionTag: 'NotSit'
+
+- stage: DeployToPP
+  condition: and(eq(dependencies.Build.result,'Succeeded'), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
+  displayName: Deploy to PP_SERVICETAXONOMY
+  variables:
+  - group: dfc-shared-all
+  - group: dfc-stax-shared-all
+  - group: dfc-shared-pp
+  - group: dfc-app-shared-pp
+  - group: dfc-stax-shared-pp
+  - group: 'KeyVault - dfc-pp-shared-kv'
+  - template: VariableTemplates/SharedEnvironmentVariables.yml
+  - template: VariableTemplates/PPEnvironmentVariables.yml
+  jobs:
+  - template: JobTemplates/deploy-environment.yml
+    parameters:
+      AzureSubscription: 'SFA-DIG-PreProd (931bc9f6-359c-4f65-a753-1ee191a1fd6c)'
+      Environment: PP_SERVICETAXONOMY
+      PackageFile:  "$(Agent.BuildDirectory)/DFC.ServiceTaxonomy.Editor/DeploymentPackages/DFC.ServiceTaxonomy.Editor.zip"
+      ArmTemplateFolder: "$(Agent.BuildDirectory)/DFC.ServiceTaxonomy.Editor/Azure/ArmTemplates/"
+      Location: 'West Europe'
+      EnvironmentTag: '$(EnvironmentTag)'
+      ParentBusinessTag: '$(ParentBusiness)'
+      ServiceOfferingTag: '$(ServiceOffering)'
+      ResourceGroup: '$(ResourceGroup)'
+      WebAppName: '$(WebAppName)'
+      OrchardCoreUri: 'https://$(WebAppName).$(FunctionAppDomain)/'
+      EditorAdminUsername: $(OrchardEditorAdminUserName)
+      EditorAdminUserEmail: $(EditorAdminUserEmail)
+      EditorAdminUserPassword: $(OrchardEditorAdminPassword)
+      DFCAzureDevOpsProjectGuid: $(DFCAzureDevOpsProjectGuid)
+      DfcServiceTaxonomyTestsBuildId: $(DfcServiceTaxonomyTestsBuildId)
+      TestArtifactBranch: ${{ parameters.DfcServiceTaxonomyTestBranch }}
+      TestExclusionTag: 'NotPP'
+
+- stage: DeployToPrd
+  condition: and(eq(dependencies.DeployToPP.result,'Succeeded'), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
+  displayName: Deploy to PRD_SERVICETAXONOMY
+  variables:
+  - group: dfc-shared-all
+  - group: dfc-stax-shared-all
+  - group: dfc-shared-prd
+  - group: dfc-app-shared-prd
+  - group: dfc-stax-shared-prd
+  - group: 'KeyVault - dfc-prd-shared-kv'
+  - template: VariableTemplates/SharedEnvironmentVariables.yml
+  - template: VariableTemplates/PRDEnvironmentVariables.yml
+  jobs:
+  - template: JobTemplates/deploy-environment.yml
+    parameters:
+      AzureSubscription: 'SFA-DIG-Prod (6c93f7dc-6c36-4ea6-8de3-3f4574f88027)'
+      Environment: PRD_SERVICETAXONOMY
+      PackageFile:  "$(Agent.BuildDirectory)/DFC.ServiceTaxonomy.Editor/DeploymentPackages/DFC.ServiceTaxonomy.Editor.zip"
+      ArmTemplateFolder: "$(Agent.BuildDirectory)/DFC.ServiceTaxonomy.Editor/Azure/ArmTemplates/"
+      Location: 'West Europe'
+      EnvironmentTag: '$(EnvironmentTag)'
+      ParentBusinessTag: '$(ParentBusiness)'
+      ServiceOfferingTag: '$(ServiceOffering)'
+      ResourceGroup: '$(ResourceGroup)'
+      WebAppName: '$(WebAppName)'
+      OrchardCoreUri: 'https://$(WebAppName).$(FunctionAppDomain)/'
+      EditorAdminUsername: $(OrchardEditorAdminUserName)
+      EditorAdminUserEmail: $(EditorAdminUserEmail)
+      EditorAdminUserPassword: $(OrchardEditorAdminPassword)
+      DFCAzureDevOpsProjectGuid: $(DFCAzureDevOpsProjectGuid)
+      DfcServiceTaxonomyTestsBuildId: $(DfcServiceTaxonomyTestsBuildId)
+      TestArtifactBranch: ${{ parameters.DfcServiceTaxonomyTestBranch }}
