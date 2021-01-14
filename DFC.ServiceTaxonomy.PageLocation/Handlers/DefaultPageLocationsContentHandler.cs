@@ -4,7 +4,6 @@ using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.ContentItemVersions;
-using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Helpers;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Results.AllowSync;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Results.AllowSync;
 using DFC.ServiceTaxonomy.Neo4j.Services.Interfaces;
@@ -92,6 +91,8 @@ namespace DFC.ServiceTaxonomy.PageLocation.Handlers
 
         private async Task SyncToPreviewGraph(ContentItem contentItem)
         {
+            // sonar can't see that the set value could be used in the event of an exception
+            #pragma warning disable S1854
             AllowSyncResult allowSyncResult = AllowSyncResult.Blocked;
             string message = $"Unable to sync '{contentItem.DisplayText}' Page to {GraphReplicaSetNames.Preview} graph(s).";
 
@@ -113,6 +114,7 @@ namespace DFC.ServiceTaxonomy.PageLocation.Handlers
             {
                 _notifier.Add(NotifyType.Error, new LocalizedHtmlString(nameof(DefaultPageLocationsContentHandler), message));
             }
+            #pragma warning restore S1854
         }
     }
 }

@@ -72,12 +72,12 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Fields
             A.CallTo(() => GraphMergeContext.ContentPartFieldDefinition).Returns(ContentPartFieldDefinition);
         }
 
-        public async Task CallAddSyncComponents()
+        public Task CallAddSyncComponents()
         {
             if (ContentFieldGraphSyncer == null)
                 throw new InvalidOperationException("You must set ContentFieldGraphSyncer to the IContentFieldGraphSyncer you want to test dummy.");
 
-            await ContentFieldGraphSyncer.AddSyncComponents(ContentItemField!, GraphMergeContext);
+            return ContentFieldGraphSyncer.AddSyncComponents(ContentItemField!, GraphMergeContext);
         }
     }
 }

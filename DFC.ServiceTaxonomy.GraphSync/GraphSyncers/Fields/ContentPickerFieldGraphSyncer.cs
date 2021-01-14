@@ -38,12 +38,12 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
             _serviceProvider = serviceProvider;
         }
 
-        public async Task AddSyncComponents(JObject contentItemField, IGraphMergeContext context)
+        public Task AddSyncComponents(JObject contentItemField, IGraphMergeContext context)
         {
             //todo requires 'picked' part has a graph sync part
             // add to docs & handle picked part not having graph sync part or throw exception
 
-            await AddSyncComponents(context, (JArray?)contentItemField[ContentItemIdsKey]);
+            return AddSyncComponents(context, (JArray?)contentItemField[ContentItemIdsKey]);
         }
 
         private async Task AddSyncComponents(IGraphMergeContext context, JArray? contentItemIdsJArray = null)
@@ -101,9 +101,9 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
             }
         }
 
-        public async Task AddSyncComponentsDetaching(IGraphMergeContext context)
+        public Task AddSyncComponentsDetaching(IGraphMergeContext context)
         {
-            await AddSyncComponents(context);
+            return AddSyncComponents(context);
         }
 
         public async Task AddRelationship(JObject contentItemField, IDescribeRelationshipsContext parentContext)

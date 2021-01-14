@@ -115,7 +115,7 @@ Call `AddGraphCluster()` on your `IServiceCollection`.
 
 ### IGraphCluster
 
-Inject `IGraphCluter` wherever you need access to the graph cluster.
+Inject `IGraphCluster` wherever you need access to the graph cluster.
 
 ## Usage
 

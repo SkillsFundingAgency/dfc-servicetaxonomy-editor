@@ -68,7 +68,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.Orchestrators.SyncOrchestrator
         }
 
         [Fact]
-        public async Task Clone_MergeGraphSyncerThrows_ExceptionPropagates()
+        public Task Clone_MergeGraphSyncerThrows_ExceptionPropagates()
         {
             A.CallTo(() => PreviewAllowSync.Result)
                 .Returns(AllowSyncResult.Allowed);
@@ -76,7 +76,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.Orchestrators.SyncOrchestrator
             A.CallTo(() => PreviewMergeGraphSyncer.SyncToGraphReplicaSet())
                 .Throws(() => new Exception());
 
-            await Assert.ThrowsAsync<Exception>(() => SyncOrchestrator.Clone(ContentItem));
+            return Assert.ThrowsAsync<Exception>(() => SyncOrchestrator.Clone(ContentItem));
         }
 
         [Theory]

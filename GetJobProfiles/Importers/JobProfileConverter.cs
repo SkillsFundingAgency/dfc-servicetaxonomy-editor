@@ -133,7 +133,7 @@ namespace GetJobProfiles.Importers
                     continue;
 
                 ColorConsole.WriteLine("Taking a nap");
-                Thread.Sleep(napTimeMs);
+                await Task.Delay(napTimeMs);
             }
         }
 

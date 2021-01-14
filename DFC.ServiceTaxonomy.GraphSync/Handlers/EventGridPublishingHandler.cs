@@ -72,14 +72,14 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers
             _logger = logger;
         }
 
-        public async Task DraftSaved(IOrchestrationContext context)
+        public Task DraftSaved(IOrchestrationContext context)
         {
-            await PublishContentEvent(context, ContentEventType.Draft);
+            return PublishContentEvent(context, ContentEventType.Draft);
         }
 
-        public async Task Published(IOrchestrationContext context)
+        public Task Published(IOrchestrationContext context)
         {
-            await PublishContentEvent(context, ContentEventType.Published);
+            return PublishContentEvent(context, ContentEventType.Published);
         }
 
         public async Task Unpublished(IOrchestrationContext context)
@@ -88,19 +88,19 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers
             await PublishContentEvent(context, ContentEventType.Draft);
         }
 
-        public async Task Cloned(IOrchestrationContext context)
+        public Task Cloned(IOrchestrationContext context)
         {
-            await PublishContentEvent(context, ContentEventType.Draft);
+            return PublishContentEvent(context, ContentEventType.Draft);
         }
 
-        public async Task Deleted(IOrchestrationContext context)
+        public Task Deleted(IOrchestrationContext context)
         {
-            await PublishContentEvent(context, ContentEventType.Deleted);
+            return PublishContentEvent(context, ContentEventType.Deleted);
         }
 
-        public async Task DraftDiscarded(IOrchestrationContext context)
+        public Task DraftDiscarded(IOrchestrationContext context)
         {
-            await PublishContentEvent(context, ContentEventType.DraftDiscarded);
+            return PublishContentEvent(context, ContentEventType.DraftDiscarded);
         }
 
         #pragma warning disable S4144

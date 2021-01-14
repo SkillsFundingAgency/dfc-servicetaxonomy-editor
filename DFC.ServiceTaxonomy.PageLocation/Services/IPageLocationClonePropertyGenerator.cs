@@ -16,11 +16,13 @@ namespace DFC.ServiceTaxonomy.PageLocation.Services
     {
         public string GenerateUrlSearchFragment(string url)
         {
+            #pragma warning disable S3358
             return url.EndsWith("-clone") ?
                 url :
                 url.Contains("-clone") ?
                     url.Substring(0, url.LastIndexOf("-")) :
                     $"{url}-clone";
+            #pragma warning restore S3358
         }
 
         public PageLocationPartCloneResult GenerateClonedPageLocationProperties(string urlName, string fullUrl, IEnumerable<ContentItem>? existingClones)

@@ -44,7 +44,7 @@ namespace DFC.ServiceTaxonomy.PageLocation.Drivers
                 DefaultPageLocationPath = model.DefaultPageLocationPath
             });
 
-            return Edit(contentTypePartDefinition, context.Updater);
+            return await EditAsync(contentTypePartDefinition, context.Updater);
         }
     }
 }

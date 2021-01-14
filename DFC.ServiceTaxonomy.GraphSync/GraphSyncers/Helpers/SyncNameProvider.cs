@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.CSharpScripting.Interfaces;
+using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Exceptions;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.ContentItemVersions;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Helpers;
 using DFC.ServiceTaxonomy.GraphSync.Models;
@@ -11,6 +12,7 @@ using Microsoft.CodeAnalysis.CSharp.Scripting;
 using Microsoft.CodeAnalysis.Scripting;
 using Newtonsoft.Json.Linq;
 using OrchardCore.ContentManagement.Metadata;
+using OrchardCore.ContentManagement.Metadata.Models;
 
 namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
 {
@@ -348,8 +350,13 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
 
         public GraphSyncPartSettings GetGraphSyncPartSettings(string contentType)
         {
-            var contentTypeDefinition = _contentDefinitionManager.GetTypeDefinition(contentType);
-            var contentTypePartDefinition = contentTypeDefinition.Parts.FirstOrDefault(p => p.PartDefinition.Name == nameof(GraphSyncPart));
+            ContentTypeDefinition contentTypeDefinition = _contentDefinitionManager.GetTypeDefinition(contentType);
+            ContentTypePartDefinition? contentTypePartDefinition =
+                contentTypeDefinition.Parts.FirstOrDefault(p => p.PartDefinition.Name == nameof(GraphSyncPart));
+
+            if (contentTypePartDefinition == null)
+                throw new GraphSyncException($"Attempt to get {nameof(GraphSyncPartSettings)} for {contentType}, but it doesn't have a {nameof(GraphSyncPart)}.");
+
             return contentTypePartDefinition.GetSettings<GraphSyncPartSettings>();
         }
     }

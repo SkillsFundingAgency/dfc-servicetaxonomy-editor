@@ -6,6 +6,16 @@ Neo4j supports online backup and restores, or offline dump and loads (file syste
 
 Online backup and restore is an Enterprise edition only feature, so is available locally when using Neo4j Desktop, but isn't available for our Kubernetes containers. The offline dump and load however, is the recommended way to copy data between environments.
 
+### Creating A Dump
+
+On-the-fly disabling of replica's is coming soon.TM
+
+Stopping and dumping of graphs in a Kubernetes cluster...
+
+https://docs.human-connection.org/human-connection/deployment/volumes/neo4j-offline-backup
+
+https://serverfault.com/questions/835092/how-do-you-perform-a-dump-of-a-neo4j-database-within-a-docker-container
+
 ### How To Restore Backups
 
 Backups consist of a backup of the Orchard Core SQL database, and also backups of the Published and Preview databases.
@@ -23,7 +33,7 @@ We store content definitions in the SQL DB, so the restore should also give you 
 
 #### Restore Graphs
 
-Backups require the use of the `neo4j-admin.bat` utility. The utility is only installed with Neo4j if you install the Enterprise server edition, rather than the Desktop edition. However, it gets created when you create a graph using the Desktop edition.
+Restoring dumps requires the use of the `neo4j-admin.bat` utility. It gets created in the /bin folder, when you create a graph in the Desktop edition of Neo4j. (Alternatively, it's installed when the Enterprise server edition is installed).
 
 `neo4j-admin.bat` doesn't work out of the box, if you only have Neo4j Desktop installed. On Windows, it [requires OracleJDK11 or ZuluJDK11](https://neo4j.com/docs/operations-manual/current/installation/requirements/). As ZuluJDK is open and free, this guide uses that.
 

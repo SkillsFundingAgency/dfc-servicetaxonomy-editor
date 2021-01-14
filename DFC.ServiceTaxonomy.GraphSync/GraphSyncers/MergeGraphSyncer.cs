@@ -294,7 +294,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 
         //todo: should we add a AddIdSyncComponents method?
 
-        private async Task SyncComponentsToGraphReplicaSet()
+        private Task SyncComponentsToGraphReplicaSet()
         {
             var commands = MoreEnumerable
                 .TraverseBreadthFirst((IGraphMergeContext)_graphMergeContext!, ctx => ctx!.ChildContexts)
@@ -316,7 +316,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
                 .Reverse()
                 .ToArray();
 
-            await _graphMergeContext!.GraphReplicaSet.Run(commands);
+            return _graphMergeContext!.GraphReplicaSet.Run(commands);
         }
 
         private void SetSourceNodeInReplaceRelationshipsCommand()

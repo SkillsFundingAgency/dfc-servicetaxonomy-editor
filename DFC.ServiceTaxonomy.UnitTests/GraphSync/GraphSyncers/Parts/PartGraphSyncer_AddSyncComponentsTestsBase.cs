@@ -61,12 +61,12 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Parts
             A.CallTo(() => GraphMergeContext.ContentTypePartDefinition).Returns(ContentTypePartDefinition);
         }
 
-        public async Task CallAddSyncComponents()
+        public Task CallAddSyncComponents()
         {
             if (ContentPartGraphSyncer == null)
                 throw new InvalidOperationException("You must set ContentPartGraphSyncer to the IContentPartGraphSyncer you want to test dummy.");
 
-            await ContentPartGraphSyncer.AddSyncComponents(Content!, GraphMergeContext);
+            return ContentPartGraphSyncer.AddSyncComponents(Content!, GraphMergeContext);
         }
     }
 }

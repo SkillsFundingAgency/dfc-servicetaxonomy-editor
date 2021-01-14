@@ -21,16 +21,16 @@ namespace DFC.ServiceTaxonomy.Events.Services
             _logger = logger;
         }
 
-        public async Task Publish(ContentEvent contentEvent, CancellationToken cancellationToken = default)
+        public Task Publish(ContentEvent contentEvent, CancellationToken cancellationToken = default)
         {
             //todo: log topic
             _logger.LogInformation("Publishing single event {ContentEvent}", contentEvent);
 
-            await _eventGridContentRestHttpClientFactory.CreateClient(contentEvent.Data.ContentType)
+            return _eventGridContentRestHttpClientFactory.CreateClient(contentEvent.Data.ContentType)
                 .PostAsJson("", new[] {contentEvent}, cancellationToken);
         }
 
-        public async Task Publish(IEnumerable<ContentEvent> contentEvents, CancellationToken cancellationToken = default)
+        public Task Publish(IEnumerable<ContentEvent> contentEvents, CancellationToken cancellationToken = default)
         {
             // only required if we have a topic for each content type and we get called with ContentEvents with different ContentTypes
             //IEnumerable<string> distinctContentTypes = contentEvents.Select(e => e.ContentType).Distinct();
@@ -42,7 +42,7 @@ namespace DFC.ServiceTaxonomy.Events.Services
             var postTasks = distinctEventGroups.Select(g =>
                 _eventGridContentRestHttpClientFactory.CreateClient(g.Key).PostAsJson("", g, cancellationToken));
 
-            await Task.WhenAll(postTasks);
+            return Task.WhenAll(postTasks);
         }
     }
 }

@@ -55,7 +55,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.Orchestrators.DeleteOrchestrat
         }
 
         [Fact]
-        public async Task DeleteDraft_MergeGraphSyncerThrows_ExceptionPropagates()
+        public Task DeleteDraft_MergeGraphSyncerThrows_ExceptionPropagates()
         {
             A.CallTo(() => PublishedAllowSync.Result)
                 .Returns(AllowSyncResult.Allowed);
@@ -63,7 +63,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.Orchestrators.DeleteOrchestrat
             A.CallTo(() => PublishedDeleteGraphSyncer.Delete())
                 .Throws(() => new Exception());
 
-            await Assert.ThrowsAsync<Exception>(() => DeleteOrchestrator.Unpublish(ContentItem));
+            return Assert.ThrowsAsync<Exception>(() => DeleteOrchestrator.Unpublish(ContentItem));
         }
 
         [Fact]

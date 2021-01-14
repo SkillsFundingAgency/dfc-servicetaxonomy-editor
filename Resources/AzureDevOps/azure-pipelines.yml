@@ -14,17 +14,25 @@ resources:
     type: github
     name: SkillsFundingAgency/dfc-devops
     ref: refs/tags/v1.11.2
-    endpoint: 'GitHub (ESFA)'
+    endpoint: 'SkillsFundingAgency'
 
 trigger:
   branches:
     include:
-    - master
+      - dev
+      - master
 
 pr:
   branches:
     include:
-    - master
+      - dev
+      - master
+
+pool:
+  name: NCS - CI and CD
+  demands:
+  - msbuild
+  - visualstudio
 
 stages:
 - stage: Build
@@ -33,17 +41,15 @@ stages:
     displayName: "Build the ARM templates"
     workspace:
       clean: all
-    pool: 'NCS - CI and CD'
     steps:
     - template: /AzureDevOpsTemplates/Build/StepTemplates/dfc-arm-build.yml@dfc-devops
       parameters:
         ArmTemplateRoot: "$(System.DefaultWorkingDirectory)/Resources/ArmTemplates"
 
   - job: BuildDotNet
-    displayName: "Build the dotnet core application"
+    displayName: "Build the dotnet core applications"
     workspace:
       clean: all
-    pool: 'NCS - CI and CD'
     steps:
     - template: StepTemplates/dfc-dotnetcore-build.yml
       parameters:
@@ -112,11 +118,6 @@ stages:
     environment: SERVICETAXONOMY_NUGET
     workspace:
       clean: all
-    pool:
-      name: NCS - CI and CD
-      demands:
-      - msbuild
-      - visualstudio
     strategy:
       runOnce:
         deploy:
@@ -199,7 +200,7 @@ stages:
       TestExclusionTag: 'NotSit'
 
 - stage: DeployToPP
-  condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'))
+  condition: and(eq(dependencies.Build.result,'Succeeded'), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
   displayName: Deploy to PP_SERVICETAXONOMY
   variables:
   - group: dfc-shared-all
@@ -233,7 +234,7 @@ stages:
       TestExclusionTag: 'NotPP'
 
 - stage: DeployToPrd
-  condition: succeeded()
+  condition: and(eq(dependencies.DeployToPP.result,'Succeeded'), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
   displayName: Deploy to PRD_SERVICETAXONOMY
   variables:
   - group: dfc-shared-all

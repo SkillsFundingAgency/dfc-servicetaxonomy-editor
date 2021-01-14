@@ -62,12 +62,12 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Parts
             A.CallTo(() => ValidateAndRepairContext.ValidateAndRepairGraph).Returns(ValidateAndRepairGraph);
         }
 
-        public async Task<(bool validated, string failureReason)> CallValidateSyncComponent()
+        public Task<(bool validated, string failureReason)> CallValidateSyncComponent()
         {
             if (ContentPartGraphSyncer == null)
                 throw new InvalidOperationException("You must set ContentPartGraphSyncer to the IContentPartGraphSyncer you want to test dummy.");
 
-            return await ContentPartGraphSyncer.ValidateSyncComponent(
+            return ContentPartGraphSyncer.ValidateSyncComponent(
                 Content,
                 ValidateAndRepairContext);
         }

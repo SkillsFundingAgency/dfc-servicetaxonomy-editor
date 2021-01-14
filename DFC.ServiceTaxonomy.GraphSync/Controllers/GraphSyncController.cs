@@ -60,7 +60,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Controllers
             }
             catch
             {
-                stream.Dispose();
+                await stream.DisposeAsync();
                 throw;
             }
         }

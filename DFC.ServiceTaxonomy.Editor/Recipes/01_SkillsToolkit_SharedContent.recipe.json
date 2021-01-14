@@ -1,0 +1,67 @@
+{
+    "name": "01_skillsToolKit_SharedContent",
+    "displayName": "01_skillsToolKit_SharedContent",
+    "description": "",
+    "author": "",
+    "website": "",
+    "version": "",
+    "issetuprecipe": false,
+    "categories": [],
+    "tags": [],
+    "steps": [
+        {
+            "name": "content",
+            "data": 
+            [
+                {
+                    "ContentItemId": "40w8mzcnvknysz6mvdah1mse4t",
+                    "ContentItemVersionId": "46qmx4xwb0fh7vp9h624trdg4k",
+                    "ContentType": "SharedContent",
+                    "DisplayText": "Support during Covid-19",
+                    "Latest": true,
+                    "Published": true,
+                    "ModifiedUtc": "2020-07-02T08:43:01.5354219Z",
+                    "PublishedUtc": "2020-07-02T08:43:01.5499142Z",
+                    "CreatedUtc": "2020-07-02T08:43:01.5354219Z",
+                    "Owner": "admin",
+                    "Author": "admin",
+                    "SharedContent": {
+                        "Content": {
+                            "Html": "<div class=\"app-related-items\">\n    <h2 class=\"govuk-heading-m\">Support during Covid-19<br></h2><ul class=\"govuk-list\">\n        <li><a class=\"govuk-link\" href=\"/get-a-job/advice-for-if-you-lose-your-job\">Advice for if you lose your job</a></li>\n    </ul>\n</div>"
+                        }
+                    },
+                    "GraphSyncPart": {
+                        "Text": "<<contentapiprefix>>/sharedcontent/dfde0410-b1ce-414e-ac2f-f3cffeac4f9b"
+                    },
+                    "TitlePart": {
+                        "Title": "Support during Covid-19"
+                    }
+                },
+                {
+                    "ContentItemId": "446qe5m9ntjhc1szc0pbsqy8n2",
+                    "ContentItemVersionId": "4vdcsnmzfe74xvb4p2nqkh7bwv",
+                    "ContentType": "SharedContent",
+                    "DisplayText": "For careers advice in other parts of the UK",
+                    "Latest": true,
+                    "Published": true,
+                    "ModifiedUtc": "2021-01-06T10:11:18.3854232Z",
+                    "PublishedUtc": "2021-01-06T10:11:18.39295Z",
+                    "CreatedUtc": "2021-01-06T10:11:18.3854232Z",
+                    "Author": "admin",
+                    "Owner": "admin",
+                    "SharedContent": {
+                    "Content": {
+                        "Html": "<p class=\"govuk-body-m\" style=\"font-family: nta, Arial, sans-serif; line-height: 1.31579; margin-bottom: 20px\">The National Careers Service offers advice about careers and skills in England. For careers advice in other parts of the UK visit:</p><ul class=\"govuk-list\" style=\"font-family: nta, Arial, sans-serif; font-size: 19px; line-height: 1.31579; margin-bottom: 20px\"><li><a class=\"govuk-link\" href=\"https://www.myworldofwork.co.uk/learn-and-train/find-free-online-courses/\" style=\"font-family: nta, Arial, sans-serif\">Skills Development Scotland -<br>My World of Work</a></li><li><a class=\"govuk-link\" href=\"https://workingwales.gov.wales/change-your-story/furlough-support\" style=\"font-family: nta, Arial, sans-serif\">Careers Wales</a></li><li><a class=\"govuk-link\" href=\"https://www.nidirect.gov.uk/articles/online-training-support\" style=\"font-family: nta, Arial, sans-serif\">Careers Service Northern Ireland</a></li></ul>"
+                    }
+                    },
+                    "GraphSyncPart": {
+                    "Text": "<<contentapiprefix>>/sharedcontent/b4f180a1-2c1a-4b65-8aa3-1c3135c7d14b"
+                    },
+                    "TitlePart": {
+                    "Title": "For careers advice in other parts of the UK"
+                    }
+                }
+            ]
+        }
+    ]
+}

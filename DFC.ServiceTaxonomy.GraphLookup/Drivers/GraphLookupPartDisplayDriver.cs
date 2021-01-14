@@ -4,11 +4,13 @@ using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphLookup.Models;
 using DFC.ServiceTaxonomy.GraphLookup.Queries;
 using DFC.ServiceTaxonomy.GraphLookup.ViewModels;
+using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Exceptions;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers;
 using DFC.ServiceTaxonomy.Neo4j.Services.Interfaces;
 using OrchardCore.ContentManagement.Display.ContentDisplay;
 using OrchardCore.ContentManagement.Display.Models;
 using OrchardCore.ContentManagement.Metadata;
+using OrchardCore.ContentManagement.Metadata.Models;
 using OrchardCore.DisplayManagement.ModelBinding;
 using OrchardCore.DisplayManagement.Views;
 using GraphLookupPartSettings = DFC.ServiceTaxonomy.GraphLookup.Settings.GraphLookupPartSettings;
@@ -54,13 +56,18 @@ namespace DFC.ServiceTaxonomy.GraphLookup.Drivers
                 }
             }
 
-            return Edit(part, context);
+            return await EditAsync(part, context);
         }
 
         private GraphLookupPartSettings GetGraphLookupPartSettings(GraphLookupPart part)
         {
-            var contentTypeDefinition = _contentDefinitionManager.GetTypeDefinition(part.ContentItem.ContentType);
-            var contentTypePartDefinition = contentTypeDefinition.Parts.FirstOrDefault(p => p.PartDefinition.Name == nameof(GraphLookupPart));
+            ContentTypeDefinition contentTypeDefinition = _contentDefinitionManager.GetTypeDefinition(part.ContentItem.ContentType);
+            ContentTypePartDefinition? contentTypePartDefinition =
+                contentTypeDefinition.Parts.FirstOrDefault(p => p.PartDefinition.Name == nameof(GraphLookupPart));
+
+            if (contentTypePartDefinition == null)
+                throw new GraphSyncException($"Attempt to get {nameof(GraphLookupPartSettings)} for {part.ContentItem.ContentType}, but it doesn't have a {nameof(GraphLookupPart)}.");
+
             return contentTypePartDefinition.GetSettings<GraphLookupPartSettings>();
         }
 
