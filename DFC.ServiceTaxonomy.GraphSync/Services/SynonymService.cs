@@ -7,6 +7,7 @@ using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Helpers;
 using DFC.ServiceTaxonomy.GraphSync.Neo4j.Queries;
 using DFC.ServiceTaxonomy.GraphSync.Services.Interface;
 using DFC.ServiceTaxonomy.Neo4j.Services.Interfaces;
+using Neo4j.Driver;
 
 namespace DFC.ServiceTaxonomy.GraphSync.Services
 {
@@ -46,12 +47,12 @@ namespace DFC.ServiceTaxonomy.GraphSync.Services
 
         private async Task<IEnumerable<string>> ExecuteSynonymQueryAsync(MatchSynonymsQuery query)
         {
-            var result = await _neoGraphCluster.Run(GraphReplicaSetNames.Published, query);
-            IReadOnlyDictionary<string, object> synonymResults = (IReadOnlyDictionary<string, object>)result.FirstOrDefault().Values["results"];
+            List<IRecord> result = await _neoGraphCluster.Run(GraphReplicaSetNames.Published, query);
+            //todo: (at least some of) this code belongs in the queries ProcessRecord()
+            //todo: revisit null handling
+            IReadOnlyDictionary<string, object>? synonymResults = (IReadOnlyDictionary<string, object>?)result.FirstOrDefault()?.Values["results"];
 
-            var synonymList = ((List<object>)synonymResults.Values.FirstOrDefault()).OfType<string>();
-
-            return synonymList;
+            return ((List<object>?)synonymResults?.Values.FirstOrDefault())?.OfType<string>() ?? Enumerable.Empty<string>();
         }
     }
 }

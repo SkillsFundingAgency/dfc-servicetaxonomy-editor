@@ -35,7 +35,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers
         public override async Task CreatingAsync(CreateContentContext context)
         {
             // the presence of this key indicates that a content item is being restored by the audit trail module
-            if (!_httpContextAccessor.HttpContext.Items.ContainsKey("OrchardCore.AuditTrail.Restored"))
+            if (_httpContextAccessor.HttpContext?.Items.ContainsKey("OrchardCore.AuditTrail.Restored") == false)
                 return;
 
             try

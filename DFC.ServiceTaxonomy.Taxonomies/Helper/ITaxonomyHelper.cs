@@ -6,7 +6,7 @@ namespace DFC.ServiceTaxonomy.Taxonomies.Helper
 {
     public interface ITaxonomyHelper
     {
-        JArray? GetAllTerms(JObject taxonomy);
+        JArray GetAllTerms(JObject taxonomy);
 
         JArray? GetTerms(JObject contentItem);
 

@@ -10,6 +10,11 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services.Interfaces
         string Name { get; }
         int InstanceCount { get; }
 
+        //todo: these 2 should only be public on IGraphReplicaSetLowLevel
+        bool IsEnabled(int instance);
+
+        int EnabledInstanceCount();
+
         /// <summary>
         /// Run a collection of queries against a replica
         /// </summary>

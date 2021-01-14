@@ -98,7 +98,7 @@ namespace DFC.ServiceTaxonomy.Events.Services
         private string AddQueryString(string uri, object queryData)
         {
             var queryDataDictionary = queryData.GetType().GetProperties()
-                .ToDictionary(x => x.Name, x => x.GetValue(queryData)?.ToString() ?? string.Empty);
+                .ToDictionary(x => x.Name, x => x.GetValue(queryData)?.ToString());
             return QueryHelpers.AddQueryString(uri, queryDataDictionary);
         }
     }

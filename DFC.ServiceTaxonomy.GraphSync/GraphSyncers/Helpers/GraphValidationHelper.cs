@@ -251,12 +251,12 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
             object destinationId,
             IEnumerable<KeyValuePair<string, object>>? properties = null)
         {
-            IOutgoingRelationship outgoingRelationship =
+            IOutgoingRelationship? outgoingRelationship =
                 nodeWithOutgoingRelationships.OutgoingRelationships.SingleOrDefault(or =>
                     or.Relationship.Type == relationshipType
                     && Equals(or.DestinationNode.Properties[destinationIdPropertyName], destinationId));
 
-            if (outgoingRelationship == default)
+            if (outgoingRelationship == null)
                 return (false, $"{RelationshipDescription(relationshipType, destinationIdPropertyName, destinationId)} not found");
 
             if (properties != null && !AreEqual(properties, outgoingRelationship.Relationship.Properties))
@@ -272,12 +272,12 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
             object destinationId,
             IEnumerable<KeyValuePair<string, object>>? properties = null)
         {
-            IOutgoingRelationship incomingRelationship =
+            IOutgoingRelationship? incomingRelationship =
                 nodeWithIncomingRelationships.IncomingRelationships.SingleOrDefault(or =>
                     or.Relationship.Type == relationshipType
                     && Equals(or.DestinationNode.Properties[destinationIdPropertyName], destinationId));
 
-            if (incomingRelationship == default)
+            if (incomingRelationship == null)
                 return (false, $"{IncomingRelationshipDescription(relationshipType, destinationIdPropertyName, destinationId)} not found");
 
             if (properties != null && !AreEqual(properties, incomingRelationship.Relationship.Properties))

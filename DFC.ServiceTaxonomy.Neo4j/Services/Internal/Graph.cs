@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
+#if REPLICA_DISABLING_NET5_ONLY
 using System.Threading;
+#endif
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces;
 using DFC.ServiceTaxonomy.Neo4j.Queries.Interfaces;
@@ -9,90 +11,84 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services.Internal
 {
     internal class Graph : IGraph
     {
-        private readonly ILogger<Graph> _logger;
+        private readonly ILogger _logger;
         public string GraphName { get; }
         public bool DefaultGraph { get; }
         public int Instance { get; }
         public IGraphReplicaSetLowLevel GraphReplicaSetLowLevel { get; internal set; }
         public INeoEndpoint Endpoint { get; }
 
-        private long _inFlightCount;
-        private long _enabled;
+#if REPLICA_DISABLING_NET5_ONLY
+        private ulong _inFlightCount;
+#endif
 
-        private const long _enabledValue = 1;
-        private const long _disabledValue = 0;
-
-        public bool Enabled => Interlocked.Read(ref _enabled) == _enabledValue;
-
-        public bool Enable()
-        {
-            return Interlocked.Exchange(ref _enabled, _enabledValue) == _enabledValue;
-        }
-
-        public bool Disable()
-        {
-            bool wasEnabled = Interlocked.Exchange(ref _enabled, _disabledValue) == _enabledValue;
-
-            if (!wasEnabled)
-                return wasEnabled;
-
-            //todo: timeout?
-            //todo: best way to synchronise?
-
-            // flush any in-flight commands/queries
-            while (Interlocked.Read(ref _inFlightCount) > 0)
-            {
-                if (Interlocked.Read(ref _enabled) == _enabledValue)
-                    break;
-
-                Thread.Sleep(100);
-            }
-
-            return wasEnabled;
-        }
-
-        public Graph(INeoEndpoint endpoint, string graphName, bool defaultGraph, int instance, ILogger<Graph> logger)
+        public Graph(INeoEndpoint endpoint, string graphName, bool defaultGraph, int instance, ILogger logger)
         {
             _logger = logger;
             Endpoint = endpoint;
             GraphName = graphName;
             DefaultGraph = defaultGraph;
             Instance = instance;
-            _enabled = _enabledValue;
+#if REPLICA_DISABLING_NET5_ONLY
             _inFlightCount = 0;
+#endif
 
             // GraphReplicaSet will set this as part of the build process, before any consumer gets an instance of this class
             GraphReplicaSetLowLevel = default!;
         }
 
-        public Task<List<T>> Run<T>(params IQuery<T>[] queries)
+        #if REPLICA_DISABLING_NET5_ONLY
+        public ulong InFlightCount => Interlocked.Read(ref _inFlightCount);
+        #endif
+
+        public virtual Task<List<T>> Run<T>(params IQuery<T>[] queries)
         {
+#if REPLICA_DISABLING_NET5_ONLY
             try
             {
                 //todo: check here also if disabled and throw?
 
-                Interlocked.Increment(ref _inFlightCount);
+                ulong newInFlightCount = Interlocked.Increment(ref _inFlightCount);
+#else
+                ulong newInFlightCount = 0;
+#endif
+
+                _logger.LogTrace("Running batch of {NumberOfQueries} queries on {GraphName}, instance #{Instance}. Now {InFlightCount} queries/commands in flight.",
+                    queries.Length, GraphName, Instance, newInFlightCount);
+
                 return Endpoint.Run(queries, GraphName, DefaultGraph);
+#if REPLICA_DISABLING_NET5_ONLY
             }
             finally
             {
                 Interlocked.Decrement(ref _inFlightCount);
             }
+#endif
         }
 
-        public Task Run(params ICommand[] commands)
+        public virtual Task Run(params ICommand[] commands)
         {
+#if REPLICA_DISABLING_NET5_ONLY
             try
             {
                 //todo: check here also if disabled and throw?
 
-                Interlocked.Increment(ref _inFlightCount);
+                ulong newInFlightCount = Interlocked.Increment(ref _inFlightCount);
+#else
+                ulong newInFlightCount = 0;
+#endif
+
+                _logger.LogTrace("Running batch of {NumberOfQueries} commands on {GraphName}, instance #{Instance}. Now {InFlightCount} queries/commands in flight.",
+                    commands.Length, GraphName, Instance, newInFlightCount);
+
                 return Endpoint.Run(commands, GraphName, DefaultGraph);
+#if REPLICA_DISABLING_NET5_ONLY
             }
             finally
             {
                 Interlocked.Decrement(ref _inFlightCount);
             }
+#endif
         }
 
         public IGraphReplicaSetLowLevel GetReplicaSetLimitedToThisGraph()
