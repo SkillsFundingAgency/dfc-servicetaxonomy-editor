@@ -8,6 +8,7 @@ using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Parts;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Results.AllowSync;
 using DFC.ServiceTaxonomy.GraphSync.Orchestrators;
 using Microsoft.Extensions.Logging;
+using Neo4j.Driver;
 using Newtonsoft.Json.Linq;
 using OrchardCore.ContentManagement;
 using OrchardCore.ContentManagement.Metadata;
@@ -163,13 +164,23 @@ part type name: '{partName}'
   part content:
 {partContent}
 Source Node ------------------------------------
-        ID: {context.NodeWithOutgoingRelationships.SourceNode.Id}
-   user ID: {context.NodeId}
-    labels: ':{string.Join(":", context.NodeWithOutgoingRelationships.SourceNode.Labels)}'
+{SourceNodeContext(context.NodeWithRelationships.SourceNode, context.NodeId)}
+Outgoing Relationships -------------------------
+{string.Join(Environment.NewLine, context.NodeWithRelationships.OutgoingRelationships.Select(or => $"[:{or.Type}]->({or.Id})"))}
+Incoming Relationships -------------------------
+{string.Join(Environment.NewLine, context.NodeWithRelationships.IncomingRelationships.Select(or => $"[:{or.Type}]->({or.Id})"))}";
+        }
+
+        private string SourceNodeContext(INode? sourceNode, object? nodeId)
+        {
+            if (sourceNode == null)
+                return "N/A";
+
+            return $@"        ID: {sourceNode.Id}
+   user ID: {nodeId}
+    labels: ':{string.Join(":", sourceNode.Labels)}'
 properties:
-{string.Join(Environment.NewLine, context.NodeWithOutgoingRelationships.SourceNode.Properties.Select(p => $"{p.Key} = {(p.Value is IEnumerable<object> values ? string.Join(",", values.Select(v => v.ToString())) : p.Value)}"))}
-Relationships ----------------------------------
-{string.Join(Environment.NewLine, context.NodeWithOutgoingRelationships.OutgoingRelationships.Select(or => $"[:{or.Relationship.Type}]->({or.DestinationNode.Id})"))}";
+{string.Join(Environment.NewLine, sourceNode.Properties.Select(p => $"{p.Key} = {(p.Value is IEnumerable<object> values ? string.Join(",", values.Select(v => v.ToString())) : p.Value)}"))}";
         }
     }
 }

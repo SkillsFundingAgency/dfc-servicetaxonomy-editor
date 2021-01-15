@@ -52,7 +52,7 @@ return sourceNodeWithOutgoingRelationships");
         {
             var results = (Dictionary<string, object>)record["sourceNodeWithOutgoingRelationships"];
             if (results == null)
-                throw new QueryResultException($"{nameof(NodeWithOutgoingRelationshipsQuery)} results not in expected format.");
+                throw new QueryResultException($"{nameof(GetIncomingContentPickerRelationshipsQuery)} results not in expected format.");
 
             if (!(results["sourceNode"] is INode sourceNode))
                 return null;

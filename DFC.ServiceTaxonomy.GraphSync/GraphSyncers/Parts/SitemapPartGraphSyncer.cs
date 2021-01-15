@@ -55,7 +55,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
                 OverrideSitemapConfigPropertyName,
                 content,
                 await context.SyncNameProvider.PropertyName(OverrideSitemapConfigPropertyName),
-                context.NodeWithOutgoingRelationships.SourceNode);
+                context.NodeWithRelationships.SourceNode!);
 
             if (!matched)
                 return (false, $"{OverrideSitemapConfigPropertyName} did not validate: {failureReason}");
@@ -64,7 +64,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
                 ChangeFrequencyPropertyName,
                 content,
                 await context.SyncNameProvider.PropertyName(ChangeFrequencyPropertyName),
-                context.NodeWithOutgoingRelationships.SourceNode);
+                context.NodeWithRelationships.SourceNode!);
 
             if (!matched)
                 return (false, $"{ChangeFrequencyPropertyName} did not validate: {failureReason}");
@@ -73,7 +73,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
                 PriorityPropertyName,
                 content,
                 await context.SyncNameProvider.PropertyName(PriorityPropertyName),
-                context.NodeWithOutgoingRelationships.SourceNode);
+                context.NodeWithRelationships.SourceNode!);
 
             if (!matched)
                 return (false, $"{PriorityPropertyName} did not validate: {failureReason}");
@@ -82,7 +82,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
                 ExcludePropertyName,
                 content,
                 await context.SyncNameProvider.PropertyName(ExcludePropertyName),
-                context.NodeWithOutgoingRelationships.SourceNode);
+                context.NodeWithRelationships.SourceNode!);
 
             return matched ? (true, "") : (false, $"{ExcludePropertyName} did not validate: {failureReason}");
         }

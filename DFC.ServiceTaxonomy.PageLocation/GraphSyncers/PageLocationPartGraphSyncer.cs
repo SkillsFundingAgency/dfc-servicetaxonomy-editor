@@ -68,7 +68,7 @@ namespace DFC.ServiceTaxonomy.PageLocation.GraphSyncers
                 UrlNamePropertyName,
                 content,
                 await context.SyncNameProvider.PropertyName(UrlNamePropertyName),
-                context.NodeWithOutgoingRelationships.SourceNode);
+                context.NodeWithRelationships.SourceNode!);
 
             if (!matched)
                 return (false, $"{UrlNamePropertyName} did not validate: {failureReason}");
@@ -77,7 +77,7 @@ namespace DFC.ServiceTaxonomy.PageLocation.GraphSyncers
                 FullUrlPropertyName,
                 content,
                 await context.SyncNameProvider.PropertyName(FullUrlPropertyName),
-                context.NodeWithOutgoingRelationships.SourceNode);
+                context.NodeWithRelationships.SourceNode!);
 
             if (!matched)
                 return (false, $"{FullUrlPropertyName} did not validate: {failureReason}");
@@ -90,7 +90,7 @@ namespace DFC.ServiceTaxonomy.PageLocation.GraphSyncers
                     DefaultPageForLocationPropertyName,
                     content,
                     await context.SyncNameProvider.PropertyName(DefaultPageForLocationPropertyName),
-                    context.NodeWithOutgoingRelationships.SourceNode);
+                    context.NodeWithRelationships.SourceNode!);
 
                 if (!matched)
                     return (false, $"{DefaultPageForLocationPropertyName} did not validate: {failureReason}");
@@ -99,7 +99,7 @@ namespace DFC.ServiceTaxonomy.PageLocation.GraphSyncers
                     RedirectLocationsPropertyName,
                     content,
                     await context.SyncNameProvider.PropertyName(RedirectLocationsPropertyName),
-                    context.NodeWithOutgoingRelationships.SourceNode);
+                    context.NodeWithRelationships.SourceNode!);
 
                 return matched ? (true, "") : (false, $"{RedirectLocationsPropertyName} did not validate: {failureReason}");
             }

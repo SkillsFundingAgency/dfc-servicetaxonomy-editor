@@ -37,7 +37,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
                 ScheduledPublishUtcPropertyName,
                 content,
                 await context.SyncNameProvider!.PropertyName(ScheduledPublishUtcPropertyName),
-                context.NodeWithOutgoingRelationships.SourceNode);
+                context.NodeWithRelationships.SourceNode!);
         }
     }
 #pragma warning restore S1481
