@@ -5,6 +5,7 @@ using OrchardCore.DisplayManagement.ModelBinding;
 using OrchardCore.DisplayManagement.Views;
 using DFC.ServiceTaxonomy.GraphSync.Models;
 using DFC.ServiceTaxonomy.GraphSync.ViewModels;
+using OrchardCore.ContentManagement.Display.Models;
 
 namespace DFC.ServiceTaxonomy.GraphSync.Drivers
 {
@@ -22,11 +23,21 @@ namespace DFC.ServiceTaxonomy.GraphSync.Drivers
         //     return Combine(
         //         Initialize<GraphSyncPartViewModel>("GraphSyncPart", m => BuildViewModel(m, GraphSyncPart))
         //             .Location("Detail", "Content:20"),
+        //         Initialize<GraphSyncPartViewModel>("GraphSyncPart_DetailAdmin", m => BuildViewModel(m, GraphSyncPart))
+        //             .Location("DetailAdmin", "Content:20"),
         //         Initialize<GraphSyncPartViewModel>("GraphSyncPart_Summary", m => BuildViewModel(m, GraphSyncPart))
         //             .Location("Summary", "Meta:5")
         //     );
         // }
 
+        public override IDisplayResult Display(GraphSyncPart GraphSyncPart, BuildPartDisplayContext context)
+        {
+            return Initialize<GraphSyncPartViewModel>(GetDisplayShapeType(context), async m => await BuildViewModel(m, GraphSyncPart)) //, context))
+                    .Location("Detail", "Content:5")
+                    .Location("Summary", "Content:10")
+                    .Location("DetailAdmin", "Content:10") // For dashboard widgets;
+                ;
+        }
         public override IDisplayResult Edit(GraphSyncPart graphSyncPart) //, BuildPartEditorContext context)
         {
             return Initialize<GraphSyncPartViewModel>("GraphSyncPart_Edit",
@@ -40,6 +51,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Drivers
             return Edit(model);
         }
 
+        //todo: ValueTask
         private async Task BuildViewModel(GraphSyncPartViewModel model, GraphSyncPart part)
         {
             //todo: pass content type instead?
