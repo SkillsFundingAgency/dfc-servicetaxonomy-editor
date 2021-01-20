@@ -88,7 +88,7 @@ namespace DFC.ServiceTaxonomy.IntegrationTests.Helpers
                         logger));
         }
 
-        protected (int?, LogEntry?) GetLogEntry(List<LogEntry> log, LogId id)
+        protected (int?, LogEntry?) GetLogEntry(List<LogEntry> log, DFC.ServiceTaxonomy.Neo4j.Log.LogId id)
         {
             return GetLogEntry(log, (int)id);
         }
@@ -107,7 +107,7 @@ namespace DFC.ServiceTaxonomy.IntegrationTests.Helpers
             return (index, log[index]);
         }
 
-        protected bool IsLog(LogEntry logEntry, LogId logId, Func<KeyValuePair<string, object>, bool>? stateCheck = null)
+        protected bool IsLog(LogEntry logEntry, DFC.ServiceTaxonomy.Neo4j.Log.LogId logId, Func<KeyValuePair<string, object>, bool>? stateCheck = null)
         {
             return IsLog(logEntry, (int)logId, stateCheck);
         }

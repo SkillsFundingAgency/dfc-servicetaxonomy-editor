@@ -4,7 +4,7 @@ namespace DFC.ServiceTaxonomy.IntegrationTests.Helpers
 {
     public enum IntegrationTestLogId
     {
-        RunQueryStarted = LogId.IntegrationTestsStart,
+        RunQueryStarted = DFC.ServiceTaxonomy.Neo4j.Log.LogId.IntegrationTestsStart,
         RunQueryFinished
     }
 }
