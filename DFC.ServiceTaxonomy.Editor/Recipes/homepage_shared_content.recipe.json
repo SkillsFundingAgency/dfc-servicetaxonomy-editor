@@ -1,0 +1,42 @@
+{
+    "name": "01_homepage_shared_content",
+    "displayName": "01_homepage_shared_content",
+    "description": "",
+    "author": "",
+    "website": "",
+    "version": "",
+    "issetuprecipe": false,
+    "categories": [],
+    "tags": [],
+    "steps": [
+        {
+            "name": "content",
+            "data": [
+                {
+                    "ContentItemId": "43mj84xpc3kpgycv11wb8pxqnz",
+                    "ContentItemVersionId": "4xne1j0whf2wg4f9j0rbgnpwnb",
+                    "ContentType": "SharedContent",
+                    "DisplayText": "green side bar",
+                    "Latest": true,
+                    "Published": true,
+                    "ModifiedUtc": "2021-01-11T15:18:24.501629Z",
+                    "PublishedUtc": "2021-01-11T15:18:24.5077276Z",
+                    "CreatedUtc": "2021-01-11T15:15:03.0890132Z",
+                    "Owner": "4na16vs5fp7c07zn8qhhx0tzmk",
+                    "Author": "admin",
+                    "SharedContent": {
+                        "Content": {
+                            "Html": "<div class=\"app-related-items\"></div>"
+                        }
+                    },
+                    "GraphSyncPart": {
+                        "Text": "<<contentapiprefix>>/sharedcontent/af7a2856-1876-454e-9db0-5f0b7c134c31"
+                    },
+                    "TitlePart": {
+                        "Title": "green side bar"
+                    }
+                }
+            ]
+        }
+    ]
+}

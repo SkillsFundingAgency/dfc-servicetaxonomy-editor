@@ -13,7 +13,8 @@
         "name": "recipes",
         "values": [
             { "executionid": "00_Pages", "name": "00_Pages_SharedContent" },
-            { "executionid": "01_skillsToolkit", "name": "01_SkillsToolkit_SharedContent" }
+            { "executionid": "01_skillsToolkit", "name": "01_SkillsToolkit_SharedContent" },
+            { "executionid": "01_homepage", "name": "01_homepage_shared_content" }
         ]
       }
     ]
