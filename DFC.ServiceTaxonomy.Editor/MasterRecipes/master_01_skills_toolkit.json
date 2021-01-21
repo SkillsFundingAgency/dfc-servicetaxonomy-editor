@@ -1,0 +1,21 @@
+{
+    "name": "01_skills_toolkit",
+    "displayName": "01_skills_toolkit",
+    "description": "",
+    "author": "",
+    "website": "",
+    "version": "",
+    "issetuprecipe": false,
+    "categories": "",
+    "tags": [],
+    "steps": [
+      {
+        "name": "recipes",
+        "values": [
+          { "executionid": "01_skills_toolkit", "name": "01_SkillsToolkit_SharedContent" },
+          { "executionid": "01_skills_toolkit", "name": "01_SkillsToolkit_Pages" }
+        ]
+      }
+    ]
+  }
+  
