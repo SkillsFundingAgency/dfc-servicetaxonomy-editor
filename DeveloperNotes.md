@@ -1,5 +1,11 @@
 #ToDo
 
+* add 'page link' to html editor. user can select a page and the link's url will come from the page. then when a page is relocated, page links can be automatically updated. if a page is deleted, we can either have a report on tge dashboard of borken links, or not let them delete the page until all referencing pages have been updated to remove the link (we'd still have to list referencing pages)
+
+* check out content approval : https://github.com/jeffolmstead/Rework.ContentApproval
+
+* check out monaco's diff facility (if any)
+
 * need to import content & set up users as part of releases
 
 * fix this error (update taxonomies from latest oc first to see if it fixes it)
