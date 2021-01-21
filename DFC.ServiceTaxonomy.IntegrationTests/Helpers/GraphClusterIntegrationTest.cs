@@ -4,7 +4,6 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.Neo4j.Configuration;
-using DFC.ServiceTaxonomy.Neo4j.Log;
 using DFC.ServiceTaxonomy.Neo4j.Queries.Interfaces;
 using DFC.ServiceTaxonomy.Neo4j.Services;
 using DFC.ServiceTaxonomy.Neo4j.Services.Internal;
@@ -88,10 +87,10 @@ namespace DFC.ServiceTaxonomy.IntegrationTests.Helpers
                         logger));
         }
 
-        protected (int?, LogEntry?) GetLogEntry(List<LogEntry> log, DFC.ServiceTaxonomy.Neo4j.Log.LogId id)
-        {
-            return GetLogEntry(log, (int)id);
-        }
+        // protected (int?, LogEntry?) GetLogEntry(List<LogEntry> log, DFC.ServiceTaxonomy.Neo4j.Log.LogId id)
+        // {
+        //     return GetLogEntry(log, (int)id);
+        // }
 
         protected (int?, LogEntry?) GetLogEntry(List<LogEntry> log, IntegrationTestLogId id)
         {
@@ -107,10 +106,10 @@ namespace DFC.ServiceTaxonomy.IntegrationTests.Helpers
             return (index, log[index]);
         }
 
-        protected bool IsLog(LogEntry logEntry, DFC.ServiceTaxonomy.Neo4j.Log.LogId logId, Func<KeyValuePair<string, object>, bool>? stateCheck = null)
-        {
-            return IsLog(logEntry, (int)logId, stateCheck);
-        }
+        // protected bool IsLog(LogEntry logEntry, LogId logId, Func<KeyValuePair<string, object>, bool>? stateCheck = null)
+        // {
+        //     return IsLog(logEntry, (int)logId, stateCheck);
+        // }
 
         protected bool IsLog(LogEntry logEntry, IntegrationTestLogId logId, Func<KeyValuePair<string, object>, bool>? stateCheck = null)
         {
