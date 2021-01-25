@@ -134,43 +134,43 @@
                 },
                 {
                     "ContentItemId": "42wca34q3qdpdr1jkmz9f3w4cb",
-                    "ContentItemVersionId": "48mb6maszq1gsy67f43xrpdbne",
+                    "ContentItemVersionId": "43kg1j79x9fkjwvkzhnbkc4z5q",
                     "ContentType": "SharedContent",
-                    "DisplayText": "Other opportunities",
+                    "DisplayText": "Other opportunities (for free online learning courses)",
                     "Latest": true,
                     "Published": true,
-                    "ModifiedUtc": "2020-07-02T08:55:15.4641925Z",
-                    "PublishedUtc": "2020-07-02T08:55:15.4783054Z",
+                    "ModifiedUtc": "2021-01-25T13:29:18.8880805Z",
+                    "PublishedUtc": "2021-01-25T13:29:19.033111Z",
                     "CreatedUtc": "2020-07-02T08:55:15.4641925Z",
                     "Owner": "admin",
                     "Author": "admin",
                     "SharedContent": {
                         "Content": {
-                            "Html": "<div class=\"govuk-!-margin-top-7\">\n    <h2 class=\"govuk-heading-m\">Other opportunities</h2>\n    <ul class=\"govuk-list\">\n        <li><a class=\"govuk-link\" href=\"/find-a-course/where-to-find-free-online-learning\">Where to find other online learning</a></li>\n        <li><a class=\"govuk-link\" href=\"/find-a-course/ways-to-develop-skills\">Other ways to develop skills</a></li>\n    </ul>\n</div>"
+                            "Html": "<div class=\"govuk-!-margin-top-7\">\n    <h2 class=\"govuk-heading-m\">Other opportunities</h2>\n    <ul class=\"govuk-list\">\n        <li><a class=\"govuk-link\" href=\"/find-a-course/search\">Search other courses</a></li>\n        <li><a class=\"govuk-link\" href=\"/careers-advice/ways-to-develop-skills\">Other ways to develop skills</a></li>\n    </ul>\n</div>"
                         }
                     },
                     "GraphSyncPart": {
                         "Text": "<<contentapiprefix>>/sharedcontent/5cb44bb4-7996-46cf-998a-897b429a6a82"
                     },
                     "TitlePart": {
-                        "Title": "Other opportunities"
+                        "Title": "Other opportunities (for free online learning courses)"
                     }
-                },
+                }
                 {
                     "ContentItemId": "4pbfhee3z7qjf6nxrt5nj1yynq",
-                    "ContentItemVersionId": "4hg7h05tdkxat3xga03z6txmn8",
+                    "ContentItemVersionId": "4ryqd7wetgedr4behevbzatxc2",
                     "ContentType": "SharedContent",
                     "DisplayText": "Skills assessment",
                     "Latest": true,
                     "Published": true,
-                    "ModifiedUtc": "2020-07-02T08:55:42.1978063Z",
-                    "PublishedUtc": "2020-07-02T08:55:42.2813994Z",
+                    "ModifiedUtc": "2021-01-25T08:12:22.4891094Z",
+                    "PublishedUtc": "2021-01-25T08:12:22.5394285Z",
                     "CreatedUtc": "2020-07-02T08:55:42.1978063Z",
                     "Owner": "admin",
                     "Author": "admin",
                     "SharedContent": {
                         "Content": {
-                            "Html": "<div class=\"govuk-!-margin-top-7\">\n    <h2 class=\"govuk-heading-m\">Skills assessment</h2>\n    <p class=\"govuk-body\"><a href=\"https://beta.nationalcareers.service.gov.uk\" class=\"govuk-link\">Take an assessment</a> to learn more about your skills and the careers that might suit you.</p>\n</div>"
+                            "Html": "<div class=\"govuk-!-margin-top-7\">\n    <h2 class=\"govuk-heading-m\">Skills assessment</h2>\n    <p class=\"govuk-body\"><a href=\"/skills-assessment\" class=\"govuk-link\">Take an assessment</a> to learn more about your skills and the careers that might suit you.</p>\n</div>"
                         }
                     },
                     "GraphSyncPart": {
@@ -254,19 +254,19 @@
                 },
                 {
                     "ContentItemId": "4ck9hm7xwdwdvr90w5813g3an5",
-                    "ContentItemVersionId": "48xnyr9gkrhzs0rfvfgcs5ren7",
+                    "ContentItemVersionId": "4mkxmtn514k9251v5h4vvt22cr",
                     "ContentType": "SharedContent",
                     "DisplayText": "Other opportunities for Skills Toolkit",
                     "Latest": true,
                     "Published": true,
-                    "ModifiedUtc": "2020-09-02T15:42:50.0149758Z",
-                    "PublishedUtc": "2020-09-02T15:42:50.0469287Z",
+                    "ModifiedUtc": "2021-01-25T08:29:18.2575496Z",
+                    "PublishedUtc": "2021-01-25T08:29:18.3026419Z",
                     "CreatedUtc": "2020-09-02T15:40:17.6784525Z",
                     "Owner": "admin",
                     "Author": "admin",
                     "SharedContent": {
                         "Content": {
-                            "Html": "<div class=\"govuk-!-margin-top-7\">\n    <h2 class=\"govuk-heading-m\">Other opportunities</h2>\n    <ul class=\"govuk-list\">\n        <li><a class=\"govuk-link\" href=\"/find-a-course/search\">Search other courses</a></li>\n        <li><a class=\"govuk-link\" href=\"/find-a-course/where-to-find-free-online-learning\">Where to find other online learning</a></li>\n        <li><a class=\"govuk-link\" href=\"/find-a-course/ways-to-develop-skills\">Other ways to develop skills</a></li>\n    </ul>\n</div>"
+                            "Html": "<div class=\"govuk-!-margin-top-7\">\n    <h2 class=\"govuk-heading-m\">Other opportunities</h2>\n    <ul class=\"govuk-list\">\n        <li><a class=\"govuk-link\" href=\"/find-a-course/search\">Search other courses</a></li>\n        <li><a class=\"govuk-link\" href=\"/find-a-course/where-to-find-free-online-learning\">Where to find other online learning</a></li>\n        <li><a class=\"govuk-link\" href=\"/careers-advice/ways-to-develop-skills\">Other ways to develop skills</a></li>\n    </ul>\n</div>"
                         }
                     },
                     "GraphSyncPart": {
