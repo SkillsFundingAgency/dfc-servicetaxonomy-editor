@@ -74,6 +74,7 @@
     <ProjectReference Include="..\DFC.ServiceTaxonomy.Theme\DFC.ServiceTaxonomy.Theme.csproj" />
     <ProjectReference Include="..\DFC.ServiceTaxonomy.UnpublishLater\DFC.ServiceTaxonomy.UnpublishLater.csproj" />
     <ProjectReference Include="..\OrchardCore.AuditTrail\OrchardCore.AuditTrail.csproj" />
+    <ProjectReference Include="..\Rework.ContentApproval\Rework.ContentApproval.csproj" />
   </ItemGroup>
 
 </Project>
