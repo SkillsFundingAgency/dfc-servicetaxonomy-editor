@@ -17,7 +17,7 @@
     <PackageReference Include="Microsoft.AspNetCore.WebUtilities" Version="2.2.0" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="5.0.0" />
     <PackageReference Include="morelinq" Version="3.3.2" />
-    <PackageReference Include="OrchardCore.Infrastructure" Version="1.0.0-rc8" />
+    <PackageReference Include="OrchardCore.Infrastructure" Version="1.0.0-rc9" />
   </ItemGroup>
 
   <ItemGroup>
