@@ -12,7 +12,7 @@ The feature is not self contained in a module. (`Drivers/HtmlBodyPartDisplayDriv
 
 ## Proof of concept
 
-The linked PR shows a proof of concept dashboard, with the current GraphSyncPart displaying markup into a dashboard widget.
+This branch contains a proof of concept dashboard, with the current GraphSyncPart displaying markup into a dashboard widget.
 
 The Orchard Core packages have been built from the Dashboard PR. The corresponding issue contains some useful info about the implementation.
 
