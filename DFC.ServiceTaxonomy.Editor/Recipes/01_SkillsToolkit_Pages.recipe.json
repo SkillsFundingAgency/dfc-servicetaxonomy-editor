@@ -14,16 +14,16 @@
             "data": [
                 {
                     "ContentItemId": "4hwjtp21da96pwgaz3rx6jv9c3",
-                    "ContentItemVersionId": "4zvb5v9gj4ws3681bc273yn6m5",
+                    "ContentItemVersionId": "4wr5426zmjpvez0yt68fz5pc5y",
                     "ContentType": "Page",
                     "DisplayText": "Find a course",
                     "Latest": true,
                     "Published": true,
-                    "ModifiedUtc": "2021-01-25T08:37:56.8788813Z",
-                    "PublishedUtc": "2021-01-25T08:37:57.0074858Z",
+                    "ModifiedUtc": "2021-01-26T09:26:43.6436021Z",
+                    "PublishedUtc": "2021-01-26T09:26:43.8024383Z",
                     "CreatedUtc": "2021-01-07T11:15:35.0681604Z",
                     "Owner": "4na16vs5fp7c07zn8qhhx0tzmk",
-                    "Author": "admin",
+                    "Author": "Ian",
                     "TitlePart": {
                         "Title": "Find a course"
                     },
@@ -38,7 +38,7 @@
                             "Text": null
                         },
                         "Herobanner": {
-                            "Html": "<div class=\"govuk-width-container\">\n<div id=\"ServiceBanner_T0499ABFB002_Col00\" class=\"sf_colsIn\" data-sf-element=\"Container\" data-placeholder-label=\"Hero banner content\">\n<div>\n<div class=\"sfContentBlock sf-Long-text\"><div class=\"govuk-grid-row\"><div class=\"govuk-grid-column-two-thirds\"><h1 class=\"govuk-heading-xl\">Find a course</h1><p class=\"govuk-body-lead\">Find a course to help you improve your current digital skills or study for your future.</p></div><div class=\"govuk-grid-column-one-third\"></div></div></div>    \n</div>            \n</div>\n</div>"
+                            "Html": "<div class=\"govuk-width-container\">\n<div class=\"govuk-grid-row\"><div class=\"govuk-grid-column-two-thirds\"><h1 class=\"govuk-heading-xl\">Find a course</h1><p class=\"govuk-body-lead\">Find a course to help you improve your current digital skills or study for your future.</p></div><div class=\"govuk-grid-column-one-third\"></div></div></div>    \n"
                         },
                         "ShowHeroBanner": {
                             "Value": true
@@ -59,14 +59,14 @@
                                 "DisplayText": "",
                                 "Latest": false,
                                 "Published": false,
-                                "ModifiedUtc": "2021-01-25T08:37:56.9102711Z",
+                                "ModifiedUtc": "2021-01-26T09:26:43.6674468Z",
                                 "PublishedUtc": null,
                                 "CreatedUtc": null,
                                 "Owner": "",
-                                "Author": "admin",
+                                "Author": "Ian",
                                 "HTML": {},
                                 "HtmlBodyPart": {
-                                    "Html": "<div>\n    <div class=\"sfContentBlock sf-Long-text\"><h2 class=\"govuk-heading-l\">The Skills Toolkit</h2><p class=\"govuk-body\">Free courses to help you learn new skills or change jobs. Including general skills that apply to all sectors and more specialised skills.</p><p class=\"govuk-body\">Learn about:</p><ul class=\"govuk-list govuk-list--bullet\"><li>practical maths</li><li>computer essentials</li><li>personal growth and wellbeing</li><li>professional development</li><li>business and finance</li><li>digital design and marketing</li><li>computer science</li><li>coding </li></ul><p class=\"govuk-body\">Our trusted course providers include The Open University, Google, Amazon and FutureLearn.</p><p class=\"govuk-body\"><a class=\"govuk-link govuk-button govuk-!-margin-bottom-0\" href=\"/find-a-course/the-skills-toolkit\">Explore free online courses</a></p><hr class=\"govuk-section-break govuk-section-break--l govuk-section-break--visible\"><h2 class=\"govuk-heading-l\">Search other courses</h2><p class=\"govuk-body\">Search for courses from learning providers, including colleges and local authority providers which may offer work-related courses on a wide range of topics.</p><p class=\"govuk-body\"><a class=\"govuk-link govuk-button govuk-!-margin-bottom-0\" href=\"/find-a-course/search\">Explore other courses</a></p></div>    \n</div>\n"
+                                    "Html": "<h2 class=\"govuk-heading-l\">The Skills Toolkit</h2><p class=\"govuk-body\">Free courses to help you learn new skills or change jobs. Including general skills that apply to all sectors and more specialised skills.</p><p class=\"govuk-body\">Learn about:</p><ul class=\"govuk-list govuk-list--bullet\"><li>practical maths</li><li>computer essentials</li><li>personal growth and wellbeing</li><li>professional development</li><li>business and finance</li><li>digital design and marketing</li><li>computer science</li><li>coding </li></ul><p class=\"govuk-body\">Our trusted course providers include The Open University, Google, Amazon and FutureLearn.</p><p class=\"govuk-body\"><a class=\"govuk-link govuk-button govuk-!-margin-bottom-0\" href=\"/find-a-course/the-skills-toolkit\">Explore free online courses</a></p><p></p><hr class=\"govuk-section-break govuk-section-break--l govuk-section-break--visible\"><p></p><h2 class=\"govuk-heading-l\">Search other courses</h2><p class=\"govuk-body\">Search for courses from learning providers, including colleges and local authority providers which may offer work-related courses on a wide range of topics.</p><p class=\"govuk-body\"><a class=\"govuk-link govuk-button govuk-!-margin-bottom-0\" href=\"/find-a-course/search\">Explore other courses</a></p>\n"
                                 },
                                 "GraphSyncPart": {
                                     "Text": "<<contentapiprefix>>/html/5ad45e92-e6f6-44c2-b5b0-6b916e46970f"
@@ -83,11 +83,11 @@
                                 "DisplayText": "",
                                 "Latest": false,
                                 "Published": false,
-                                "ModifiedUtc": "2021-01-25T08:37:56.9310171Z",
+                                "ModifiedUtc": "2021-01-26T09:26:43.6868394Z",
                                 "PublishedUtc": null,
                                 "CreatedUtc": null,
                                 "Owner": "",
-                                "Author": "admin",
+                                "Author": "Ian",
                                 "HTMLShared": {
                                     "SharedContent": {
                                         "ContentItemIds": [
@@ -117,7 +117,7 @@
                         "RedirectLocations": null,
                         "FullUrl": "/find-a-course/find-a-course"
                     }
-                },
+                }
                 {
                     "ContentItemId": "4wtxb5brkeyty2mzec9cnzyvdw",
                     "ContentItemVersionId": "4gcey0pesvw1ssfq06wdwc8snj",
