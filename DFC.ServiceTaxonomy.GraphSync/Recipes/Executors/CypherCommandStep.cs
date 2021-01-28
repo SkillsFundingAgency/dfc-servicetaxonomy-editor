@@ -80,14 +80,14 @@ namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
             }
         }
 
-        private async Task ExecuteCommand(IContentItemVersion contentItemVersion, string command)
+        private Task ExecuteCommand(IContentItemVersion contentItemVersion, string command)
         {
             ICustomCommand customCommand = CreateCustomCommand(command, contentItemVersion.ContentApiBaseUrl);
 
             _logger.LogInformation("Retrieved cypher command from recipe's {StepName} step. Executing {Command} on the {GraphReplicaSetName} graph replica set.",
                 StepName, customCommand.Command, contentItemVersion.GraphReplicaSetName);
 
-            await _graphCluster.Run(contentItemVersion.GraphReplicaSetName, customCommand);
+            return _graphCluster.Run(contentItemVersion.GraphReplicaSetName, customCommand);
         }
 
         private ICustomCommand CreateCustomCommand(string command, string contentApiBaseUrl)

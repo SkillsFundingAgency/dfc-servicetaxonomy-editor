@@ -9,7 +9,7 @@
       <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 
       <Authors>Education and Skills Funding Agency Team</Authors>
-      <Description>DFC.ServiceTaxonomy.Neo4j library</Description>
+      <Description>Execute commands and queries against Neo4j graph(s). Optionally layers a virtual cluster on top of individual graph instances.</Description>
       <PackageTags>Neo4j;Graph;Cypher;Cluster</PackageTags>
       <PackageLicenseExpression>MIT</PackageLicenseExpression>
       <PackageProjectUrl>https://github.com/SkillsFundingAgency/dfc-servicetaxonomy-editor</PackageProjectUrl>
@@ -22,11 +22,15 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <PackageReference Include="AsyncFixer" Version="1.3.0">
+        <PrivateAssets>all</PrivateAssets>
+        <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      </PackageReference>
       <PackageReference Include="Microsoft.Extensions.Options" Version="5.0.0" />
       <PackageReference Include="Microsoft.Extensions.Logging" Version="5.0.0" />
-      <PackageReference Include="Neo4j.Driver" Version="4.1.1" />
+      <PackageReference Include="Neo4j.Driver" Version="4.2.0" />
       <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="All" />
-      <PackageReference Include="SonarAnalyzer.CSharp" Version="8.14.0.22654">
+      <PackageReference Include="SonarAnalyzer.CSharp" Version="8.15.0.24505">
         <PrivateAssets>all</PrivateAssets>
         <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       </PackageReference>

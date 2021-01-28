@@ -11,8 +11,6 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services.Interfaces
 
         IGraphReplicaSet GetGraphReplicaSet(string replicaSetName);
 
-        Task<List<T>> Run<T>(string replicaSetName, IQuery<T> query);
-
         Task<List<T>> Run<T>(string replicaSetName, params IQuery<T>[] queries);
 
         Task Run(string replicaSetName, params ICommand[] commands);

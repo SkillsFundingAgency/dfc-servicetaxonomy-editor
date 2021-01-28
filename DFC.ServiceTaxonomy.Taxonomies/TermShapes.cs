@@ -55,12 +55,12 @@ namespace DFC.ServiceTaxonomy.Taxonomies
 
                     var shapeFactory = context.ServiceProvider.GetRequiredService<IShapeFactory>();
                     var contentManager = context.ServiceProvider.GetRequiredService<IContentManager>();
-                    var aliasManager = context.ServiceProvider.GetRequiredService<IContentHandleManager>();
+                    var handleManager = context.ServiceProvider.GetRequiredService<IContentHandleManager>();
                     // var orchardHelper = context.ServiceProvider.GetRequiredService<IOrchardHelper>();
                     // var contentDefinitionManager = context.ServiceProvider.GetRequiredService<IContentDefinitionManager>();
 
                     string taxonomyContentItemId = termShape.Alias != null
-                        ? await aliasManager.GetContentItemIdAsync(termShape.Alias)
+                        ? await handleManager.GetContentItemIdAsync(termShape.Alias)
                         : termShape.TaxonomyContentItemId;
 
                     if (taxonomyContentItemId == null)

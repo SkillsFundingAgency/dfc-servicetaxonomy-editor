@@ -8,12 +8,12 @@ using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Contexts;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Fields;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Helpers;
 using DFC.ServiceTaxonomy.GraphSync.Models;
-using DFC.ServiceTaxonomy.GraphSync.Neo4j.Queries.Interfaces;
 using Newtonsoft.Json.Linq;
 using OrchardCore.ContentManagement;
 using DFC.ServiceTaxonomy.Taxonomies.Models;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Contexts;
 using DFC.ServiceTaxonomy.Taxonomies.Settings;
+using Neo4j.Driver;
 
 namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
 {
@@ -263,8 +263,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
 
             string termRelationshipType = TermRelationshipType(termContentType);
 
-            IOutgoingRelationship[] actualRelationships = context.NodeWithOutgoingRelationships.OutgoingRelationships
-                .Where(r => r.Relationship.Type == termRelationshipType)
+            IRelationship[] actualRelationships = context.NodeWithRelationships.OutgoingRelationships
+                .Where(r => r.Type == termRelationshipType)
                 .ToArray();
 
             var contentItemIds = (JArray)contentItemField[TermContentItemIds]!;
@@ -285,7 +285,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
                     contentItemId, flattenedTermsContentItems, relatedSyncNameProvider, context.ContentItemVersion)!;
 
                 (bool validated, string failureReason) = context.GraphValidationHelper.ValidateOutgoingRelationship(
-                    context.NodeWithOutgoingRelationships,
+                    context.NodeWithRelationships,
                     termRelationshipType,
                     relatedSyncNameProvider!.IdPropertyName(),
                     destinationId);

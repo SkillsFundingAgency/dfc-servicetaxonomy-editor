@@ -37,7 +37,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
                 UrlFieldKey,
                 contentItemField,
                 nodeUrlPropertyName,
-                context.NodeWithOutgoingRelationships.SourceNode);
+                context.NodeWithRelationships.SourceNode!);
 
             if (!matched)
                 return (false, $"url did not validate: {failureReason}");
@@ -48,7 +48,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
                 TextFieldKey,
                 contentItemField,
                 nodeTextPropertyName,
-                context.NodeWithOutgoingRelationships.SourceNode);
+                context.NodeWithRelationships.SourceNode!);
 
             return (matched, matched ? "" : $"text did not validate: {failureReason}");
         }

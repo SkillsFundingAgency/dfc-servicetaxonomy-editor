@@ -6,7 +6,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Results.ValidateAndRepair
 {
     public class ValidationAlreadyInProgressResult : IValidateAndRepairResults
     {
-        public static readonly IValidateAndRepairResults Instance = new ValidationAlreadyInProgressResult();
+        public static readonly IValidateAndRepairResults EmptyInstance = new ValidationAlreadyInProgressResult();
 
         public bool Cancelled => true;
         public DateTime LastSync => throw new NotImplementedException();

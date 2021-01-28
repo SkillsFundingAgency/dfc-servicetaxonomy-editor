@@ -1,4 +1,6 @@
-﻿using DFC.ServiceTaxonomy.IntegrationTests.Helpers;
+﻿#if REPLICA_DISABLING_NET5_ONLY
+
+using DFC.ServiceTaxonomy.IntegrationTests.Helpers;
 using Xunit;
 using Xunit.Abstractions;
 
@@ -26,3 +28,4 @@ namespace DFC.ServiceTaxonomy.IntegrationTests.Neo4j.Services.Internal
 
 #pragma warning restore S2699
 }
+#endif

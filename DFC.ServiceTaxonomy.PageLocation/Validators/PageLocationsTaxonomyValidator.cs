@@ -2,9 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using DFC.ServiceTaxonomy.Content;
 using DFC.ServiceTaxonomy.Content.Services.Interface;
-using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Results.ValidateAndRepair;
 using DFC.ServiceTaxonomy.PageLocation.Constants;
 using DFC.ServiceTaxonomy.Taxonomies.Helper;
 using DFC.ServiceTaxonomy.Taxonomies.Models;
@@ -18,9 +16,12 @@ namespace DFC.ServiceTaxonomy.PageLocation.Validators
     {
         private readonly IContentItemsService _contentItemsService;
         private readonly ITaxonomyHelper _taxonomyHelper;
-        private IEnumerable<ITaxonomyTermValidator> _validators;
+        private readonly IEnumerable<ITaxonomyTermValidator> _validators;
 
-        public PageLocationsTaxonomyValidator(IContentItemsService contentItemsService, ITaxonomyHelper taxonomyHelper, IEnumerable<ITaxonomyTermValidator> validators)
+        public PageLocationsTaxonomyValidator(
+            IContentItemsService contentItemsService,
+            ITaxonomyHelper taxonomyHelper,
+            IEnumerable<ITaxonomyTermValidator> validators)
         {
             _contentItemsService = contentItemsService;
             _taxonomyHelper = taxonomyHelper;
@@ -43,7 +44,10 @@ namespace DFC.ServiceTaxonomy.PageLocation.Validators
 
             if (terms != null)
             {
+                //todo: look at this
+                #pragma warning disable S3217
                 foreach (JObject term in terms)
+                #pragma warning restore S3217
                 {
                     dynamic? originalParent = _taxonomyHelper.FindParentTaxonomyTerm(term, JObject.FromObject(part.ContentItem));
                     dynamic? newParent = _taxonomyHelper.FindParentTaxonomyTerm(term, JObject.FromObject(part));

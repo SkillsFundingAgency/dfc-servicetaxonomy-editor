@@ -7,12 +7,12 @@ namespace GetJobProfiles
 {
     public static class ImportRecipe
     {
-        public static async Task CreateRecipeFile(string filename, string contents)
+        public static Task CreateRecipeFile(string filename, string contents)
         {
-            await File.WriteAllTextAsync(filename, contents);
+            return File.WriteAllTextAsync(filename, contents);
         }
 
-        public static async Task CreateZipFile(string filename, string contents)
+        public static Task CreateZipFile(string filename, string contents)
         {
             var zip = GetZipArchive(new InMemoryFile
             {
@@ -20,7 +20,7 @@ namespace GetJobProfiles
                 Content = contents
             });
 
-            await File.WriteAllBytesAsync(filename, zip);
+            return File.WriteAllBytesAsync(filename, zip);
         }
 
         private static byte[] GetZipArchive(InMemoryFile file)

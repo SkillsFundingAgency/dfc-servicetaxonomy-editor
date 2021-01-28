@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Helpers;
-using DFC.ServiceTaxonomy.GraphSync.Neo4j.Queries.Interfaces;
 using DFC.ServiceTaxonomy.Neo4j.Extensions;
+using DFC.ServiceTaxonomy.Neo4j.Queries.Interfaces;
 using Neo4j.Driver;
 using Newtonsoft.Json.Linq;
 
@@ -245,43 +245,46 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
         }
 
         public (bool validated, string failureReason) ValidateOutgoingRelationship(
-            INodeWithOutgoingRelationships nodeWithOutgoingRelationships,
+            ISubgraph nodeWithRelationships,
             string relationshipType,
             string destinationIdPropertyName,
             object destinationId,
             IEnumerable<KeyValuePair<string, object>>? properties = null)
         {
-            IOutgoingRelationship outgoingRelationship =
-                nodeWithOutgoingRelationships.OutgoingRelationships.SingleOrDefault(or =>
-                    or.Relationship.Type == relationshipType
-                    && Equals(or.DestinationNode.Properties[destinationIdPropertyName], destinationId));
+            IRelationship? outgoingRelationship =
+                nodeWithRelationships.OutgoingRelationships
+                    .SingleOrDefault(r =>
+                     r.Type == relationshipType
+                     && Equals(nodeWithRelationships.Nodes.First(n => n.Id == r.EndNodeId)
+                         .Properties[destinationIdPropertyName], destinationId));
 
-            if (outgoingRelationship == default)
+            if (outgoingRelationship == null)
                 return (false, $"{RelationshipDescription(relationshipType, destinationIdPropertyName, destinationId)} not found");
 
-            if (properties != null && !AreEqual(properties, outgoingRelationship.Relationship.Properties))
-                return (false, $"{RelationshipDescription(relationshipType, destinationIdPropertyName, destinationId)} has incorrect properties. expecting {properties.ToCypherPropertiesString()}, found {outgoingRelationship.Relationship.Properties.ToCypherPropertiesString()}");
+            if (properties != null && !AreEqual(properties, outgoingRelationship.Properties))
+                return (false, $"{RelationshipDescription(relationshipType, destinationIdPropertyName, destinationId)} has incorrect properties. expecting {properties.ToCypherPropertiesString()}, found {outgoingRelationship.Properties.ToCypherPropertiesString()}");
 
             return (true, "");
         }
 
         public (bool validated, string failureReason) ValidateIncomingRelationship(
-            INodeWithIncomingRelationships nodeWithIncomingRelationships,
+            ISubgraph nodeWithRelationships,
             string relationshipType,
             string destinationIdPropertyName,
             object destinationId,
             IEnumerable<KeyValuePair<string, object>>? properties = null)
         {
-            IOutgoingRelationship incomingRelationship =
-                nodeWithIncomingRelationships.IncomingRelationships.SingleOrDefault(or =>
-                    or.Relationship.Type == relationshipType
-                    && Equals(or.DestinationNode.Properties[destinationIdPropertyName], destinationId));
+            IRelationship? incomingRelationship =
+                nodeWithRelationships.IncomingRelationships.SingleOrDefault(r =>
+                    r.Type == relationshipType
+                    && Equals(nodeWithRelationships.Nodes.First(n => n.Id == r.StartNodeId)
+                            .Properties[destinationIdPropertyName], destinationId));
 
-            if (incomingRelationship == default)
+            if (incomingRelationship == null)
                 return (false, $"{IncomingRelationshipDescription(relationshipType, destinationIdPropertyName, destinationId)} not found");
 
-            if (properties != null && !AreEqual(properties, incomingRelationship.Relationship.Properties))
-                return (false, $"{IncomingRelationshipDescription(relationshipType, destinationIdPropertyName, destinationId)} has incorrect properties. expecting {properties.ToCypherPropertiesString()}, found {incomingRelationship.Relationship.Properties.ToCypherPropertiesString()}");
+            if (properties != null && !AreEqual(properties, incomingRelationship.Properties))
+                return (false, $"{IncomingRelationshipDescription(relationshipType, destinationIdPropertyName, destinationId)} has incorrect properties. expecting {properties.ToCypherPropertiesString()}, found {incomingRelationship.Properties.ToCypherPropertiesString()}");
 
             return (true, "");
         }

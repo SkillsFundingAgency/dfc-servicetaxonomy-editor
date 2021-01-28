@@ -31,11 +31,6 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services
             return _graphReplicaSets[replicaSetName];
         }
 
-        public Task<List<T>> Run<T>(string replicaSetName, IQuery<T> query)
-        {
-            return _graphReplicaSets[replicaSetName].Run(query);
-        }
-
         public Task<List<T>> Run<T>(string replicaSetName, params IQuery<T>[] queries)
         {
             return _graphReplicaSets[replicaSetName].Run(queries);

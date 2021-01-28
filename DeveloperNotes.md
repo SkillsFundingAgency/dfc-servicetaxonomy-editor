@@ -1,5 +1,53 @@
 #ToDo
 
+* need to import content & set up users as part of releases
+
+* fix this error (update taxonomies from latest oc first to see if it fixes it)
+
+```
+System.ObjectDisposedException: Cannot access a disposed object.
+Object name: 'IServiceProvider'.
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.ThrowHelper.ThrowObjectDisposedException()
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.ServiceProviderEngineScope.GetService(Type serviceType)
+   at Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService(IServiceProvider provider, Type serviceType)
+   at Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService[T](IServiceProvider provider)
+   at DFC.ServiceTaxonomy.Taxonomies.Indexing.TaxonomyIndexProvider.<Describe>b__4_0(ContentItem contentItem) in E:\Build\_work\5\s\DFC.ServiceTaxonomy.Taxonomies\Indexing\TaxonomyIndex.cs:line 54
+   at YesSql.Indexes.IndexDescriptor`3.<>c__DisplayClass13_0.<Map>b__0(T x)
+   at YesSql.Indexes.IndexDescriptor`3.<YesSql.Indexes.IDescribeFor.GetMap>b__21_0(Object x)
+   at YesSql.Session.MapNew(Document document, Object obj, String collection)
+   at YesSql.Session.SaveEntityAsync(Object entity, String collection)
+   at YesSql.Session.FlushAsync()
+   at YesSql.Session.Dispose()
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.ServiceProviderEngineScope.Dispose()
+   at OrchardCore.Environment.Shell.Scope.ShellScope.Dispose()
+   at OrchardCore.Environment.Shell.Scope.ShellScope.UsingAsync(Func`2 execute, Boolean activateShell)
+   at OrchardCore.Recipes.Services.RecipeExecutor.ExecuteStepAsync(RecipeExecutionContext recipeStep)
+   at OrchardCore.Recipes.Services.RecipeExecutor.ExecuteAsync(String executionId, RecipeDescriptor recipeDescriptor, Object environment, CancellationToken cancellationToken)
+   at OrchardCore.Recipes.Services.RecipeExecutor.ExecuteAsync(String executionId, RecipeDescriptor recipeDescriptor, Object environment, CancellationToken cancellationToken)
+   at OrchardCore.Recipes.Services.RecipeExecutor.ExecuteAsync(String executionId, RecipeDescriptor recipeDescriptor, Object environment, CancellationToken cancellationToken)
+   at OrchardCore.Recipes.Services.RecipeDeploymentTargetHandler.ImportFromFileAsync(IFileProvider fileProvider)
+   at OrchardCore.Deployment.Core.Services.DeploymentManager.ImportDeploymentPackageAsync(IFileProvider deploymentPackage)
+   at OrchardCore.Deployment.Controllers.ImportController.Import(IFormFile importedPackage)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Logged|12_1(ControllerActionInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextExceptionFilterAsync>g__Awaited|25_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+```
+
+* check failing tests in dev (or run local)
+
+* add release AllContent recipes, e.g. 00_Pages_AllContent
+  add an AllContent recipe, perhaps AllReleasedContent or AllContentProd, and AllContent?
+  rename st defs recipe to 00_Pages_ContentDefinitions
+  rename st2 recipe to fit in with content naming scheme also
+
+* add attributes to model classes for sync? auto work to/from json?
+
+* sort out dev branch (the slack config changes went into dev!)
+
 * page location: is there a way to embed the taxonomy field in the part, rather than having a separate field and rejigging the dom?
   if not, the taxonomy (location) label is in the previous form-group + there seems to an intermittent placement glitch (unless that's been sorted by the new placement)
 

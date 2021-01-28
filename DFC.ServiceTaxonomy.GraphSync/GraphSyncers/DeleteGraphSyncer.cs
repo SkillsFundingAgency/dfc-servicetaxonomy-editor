@@ -186,7 +186,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             }
         }
 
-        private async Task DeleteFromGraphReplicaSet()
+        private Task DeleteFromGraphReplicaSet()
         {
             var breadthFirstContexts = MoreEnumerable
                 .TraverseBreadthFirst((IGraphDeleteContext)_graphDeleteItemSyncContext!, ctx => ctx!.ChildContexts)
@@ -194,7 +194,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
                 .Cast<ICommand>()
                 .ToArray();
 
-            await _graphCluster.Run(_graphDeleteItemSyncContext!.ContentItemVersion.GraphReplicaSetName, breadthFirstContexts);
+            return _graphCluster.Run(_graphDeleteItemSyncContext!.ContentItemVersion.GraphReplicaSetName, breadthFirstContexts);
         }
     }
 }

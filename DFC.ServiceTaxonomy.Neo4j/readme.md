@@ -115,7 +115,7 @@ Call `AddGraphCluster()` on your `IServiceCollection`.
 
 ### IGraphCluster
 
-Inject `IGraphCluter` wherever you need access to the graph cluster.
+Inject `IGraphCluster` wherever you need access to the graph cluster.
 
 ## Usage
 
@@ -149,6 +149,10 @@ TODO
 
 TODO
 
-## queries
+## Queries
 
-todo Move GenericCypher into lib and rename to Custom
+### SubgraphQuery
+
+Retrieves a subgraph (a set of nodes and relationships) centered on a source node, defined by parameters. The size and shape of the subgraph is defined by supplied relationship filters and max path size.
+
+See the [underlying procedure](https://neo4j.com/labs/apoc/4.1/graph-querying/expand-subgraph/) for more info.

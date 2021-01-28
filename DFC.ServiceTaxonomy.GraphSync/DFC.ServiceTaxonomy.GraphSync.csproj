@@ -14,6 +14,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="AsyncFixer" Version="1.3.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
     <PackageReference Include="Microsoft.CodeAnalysis.CSharp.Scripting" Version="3.8.0" />
     <PackageReference Include="morelinq" Version="3.3.2" />
     <PackageReference Include="OrchardCore.Alias" Version="1.0.0-rc8" />
@@ -33,7 +37,7 @@
     <PackageReference Include="OrchardCore.Workflows" Version="1.0.0-rc8" />
     <PackageReference Include="OrchardCore.Abstractions" Version="1.0.0-rc8" />
     <PackageReference Include="OrchardCore.Sitemaps" Version="1.0.0-rc8" />
-    <PackageReference Include="SonarAnalyzer.CSharp" Version="8.14.0.22654">
+    <PackageReference Include="SonarAnalyzer.CSharp" Version="8.15.0.24505">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
@@ -50,10 +54,6 @@
     <ProjectReference Include="..\DFC.ServiceTaxonomy.Slack\DFC.ServiceTaxonomy.Slack.csproj" />
     <ProjectReference Include="..\DFC.ServiceTaxonomy.Taxonomies\DFC.ServiceTaxonomy.Taxonomies.csproj" />
     <ProjectReference Include="..\DFC.ServiceTaxonomy.UnpublishLater\DFC.ServiceTaxonomy.UnpublishLater.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Neo4j\Commands\Interfaces" />
   </ItemGroup>
 
 </Project>

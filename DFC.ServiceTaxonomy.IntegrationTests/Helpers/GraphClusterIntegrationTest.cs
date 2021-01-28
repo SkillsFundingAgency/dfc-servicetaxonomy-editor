@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -6,6 +7,7 @@ using DFC.ServiceTaxonomy.Neo4j.Configuration;
 using DFC.ServiceTaxonomy.Neo4j.Queries.Interfaces;
 using DFC.ServiceTaxonomy.Neo4j.Services;
 using DFC.ServiceTaxonomy.Neo4j.Services.Internal;
+using Divergic.Logging.Xunit;
 using FakeItEasy;
 using Microsoft.Extensions.Logging;
 using Xunit;
@@ -13,39 +15,37 @@ using Xunit.Abstractions;
 
 namespace DFC.ServiceTaxonomy.IntegrationTests.Helpers
 {
+    //todo: if use logger rather than helper, we can do checks like 'after disable no jobs started on disabled replica'
+    // 'after disable, all in flight jobs on disabled replica finish' etc. by checking the cache of logs
     public class GraphClusterIntegrationTest
     {
         internal const int NumberOfReplicasConfiguredForPublishedSet = 2;
 
         internal GraphClusterLowLevel GraphClusterLowLevel { get; }
         internal IEnumerable<INeoEndpoint> Endpoints { get; }
-        internal ITestOutputHelper TestOutputHelper { get; }
-        internal ILogger<GraphClusterBuilder> GraphClusterLowLevelLogger { get; }
-        internal ILogger<Graph> GraphLogger { get; }
-        internal ILogger<GraphReplicaSetLowLevel> GraphReplicaSetLowLevelLogger { get; }
+        internal ICacheLogger<GraphClusterBuilder> Logger { get; }
+
+        internal IQuery<int> Query { get; }
 
         internal GraphClusterIntegrationTest(
             GraphClusterCollectionFixture graphClusterCollectionFixture,
             ITestOutputHelper testOutputHelper)
         {
-            TestOutputHelper = testOutputHelper;
+            Query = A.Fake<IQuery<int>>();
 
             Endpoints = graphClusterCollectionFixture.Neo4jOptions.Endpoints
                 .Where(epc => epc.Enabled)
                 .Select(epc => CreateFakeNeoEndpoint(epc.Name!));
 
-            GraphReplicaSetLowLevelLogger = testOutputHelper.BuildLoggerFor<GraphReplicaSetLowLevel>();
-            GraphLogger = testOutputHelper.BuildLoggerFor<Graph>();
+            Logger = testOutputHelper.BuildLoggerFor<GraphClusterBuilder>();
 
             var graphReplicaSets = graphClusterCollectionFixture.Neo4jOptions.ReplicaSets
                 .Select(rsc => new GraphReplicaSetLowLevel(
                     rsc.ReplicaSetName!,
-                    ConstructGraphs(rsc, Endpoints, GraphLogger),
-                    GraphReplicaSetLowLevelLogger));
+                    ConstructGraphs(rsc, Endpoints, Logger),
+                    Logger));
 
-            GraphClusterLowLevelLogger = testOutputHelper.BuildLoggerFor<GraphClusterBuilder>();
-
-            GraphClusterLowLevel = new GraphClusterLowLevel(graphReplicaSets, GraphClusterLowLevelLogger);
+            GraphClusterLowLevel = new GraphClusterLowLevel(graphReplicaSets, Logger);
         }
 
         //todo: can we trust TestOutputHelper.WriteLine to output in order?
@@ -60,9 +60,11 @@ namespace DFC.ServiceTaxonomy.IntegrationTests.Helpers
             A.CallTo(() => neoEndpoint.Run(A<IQuery<int>[]>._, A<string>._, A<bool>._))
                 .Invokes((IQuery<int>[] queries, string databaseName, bool defaultDatabase) =>
                 {
-                    TestOutputHelper.WriteLine($"Run started on {databaseName}, thread #{Thread.CurrentThread.ManagedThreadId}.");
+                    Logger.LogTrace("<{LogId}> Run started on {DatabaseName}, thread #{ThreadId}.",
+                        IntegrationTestLogId.RunQueryStarted, databaseName, Thread.CurrentThread.ManagedThreadId);
                     Thread.Sleep(100);
-                    TestOutputHelper.WriteLine($"Run finished on {databaseName}, thread #{Thread.CurrentThread.ManagedThreadId}.");
+                    Logger.LogTrace("<{LogId}> Run finished on {DatabaseName}, thread #{ThreadId}.",
+                        IntegrationTestLogId.RunQueryFinished, databaseName, Thread.CurrentThread.ManagedThreadId);
                 })
                 .Returns(new List<int> { 69 });
 
@@ -72,7 +74,7 @@ namespace DFC.ServiceTaxonomy.IntegrationTests.Helpers
         private IEnumerable<Graph> ConstructGraphs(
             ReplicaSetConfiguration replicaSetConfiguration,
             IEnumerable<INeoEndpoint> neoEndpoints,
-            ILogger<Graph> graphLogger)
+            ILogger logger)
         {
             return replicaSetConfiguration.GraphInstances
                 .Where(gic => gic.Enabled)
@@ -82,21 +84,59 @@ namespace DFC.ServiceTaxonomy.IntegrationTests.Helpers
                         gic.GraphName!,
                         gic.DefaultGraph,
                         index,
-                        graphLogger));
+                        logger));
         }
 
-        internal void Trace(IGraphReplicaSetLowLevel replicaSet)
+        // protected (int?, LogEntry?) GetLogEntry(List<LogEntry> log, DFC.ServiceTaxonomy.Neo4j.Log.LogId id)
+        // {
+        //     return GetLogEntry(log, (int)id);
+        // }
+
+        protected (int?, LogEntry?) GetLogEntry(List<LogEntry> log, IntegrationTestLogId id)
         {
-            TestOutputHelper.WriteLine("replicaSet:");
-            TestOutputHelper.WriteLine($"  InstanceCount={replicaSet.InstanceCount}, EnabledInstanceCount={replicaSet.EnabledInstanceCount}");
-            for (int instance = 0; instance < replicaSet.InstanceCount; ++instance)
-            {
-                var graph = replicaSet.GraphInstances[instance];
-
-                TestOutputHelper.WriteLine($"    Graph #{instance}: {graph.GraphName}");
-                TestOutputHelper.WriteLine($"      IsEnabled()={replicaSet.IsEnabled(instance)}");
-            }
+            return GetLogEntry(log, (int)id);
         }
+
+        protected (int?, LogEntry?) GetLogEntry(List<LogEntry> log, int logId)
+        {
+            int index = log.FindIndex(l => IsLog(l, logId));
+            if (index == -1)
+                return (null, null);
+
+            return (index, log[index]);
+        }
+
+        // protected bool IsLog(LogEntry logEntry, LogId logId, Func<KeyValuePair<string, object>, bool>? stateCheck = null)
+        // {
+        //     return IsLog(logEntry, (int)logId, stateCheck);
+        // }
+
+        protected bool IsLog(LogEntry logEntry, IntegrationTestLogId logId, Func<KeyValuePair<string, object>, bool>? stateCheck = null)
+        {
+            return IsLog(logEntry, (int)logId, stateCheck);
+        }
+
+        protected bool IsLog(LogEntry logEntry, int logId, Func<KeyValuePair<string, object>, bool>? stateCheck = null)
+        {
+            if (!(logEntry.State is IReadOnlyList<KeyValuePair<string, object>> state))
+                return false;
+
+            if (!state.Any(kv => kv.Key == "LogId" && (int)kv.Value == logId))
+                return false;
+
+            return stateCheck == null || state.Any(stateCheck);
+        }
+
+#if REPLICA_DISABLING_NET5_ONLY
+        protected T? Get<T>(LogEntry logEntry, string key)
+        {
+#pragma warning disable S1905
+            return (T?)((KeyValuePair<string, object>?)(logEntry.State as IReadOnlyList<KeyValuePair<string, object>>)?
+                    .FirstOrDefault(kv => kv.Key == key))?
+                .Value;
+#pragma warning restore S1905
+        }
+#endif
 
         protected void ReferenceCountTest(int parallelLoops)
         {
@@ -106,13 +146,13 @@ namespace DFC.ServiceTaxonomy.IntegrationTests.Helpers
 
                 Parallel.For(0, parallelLoops, (i, state) =>
                 {
-                    TestOutputHelper.WriteLine($"Thread id: {Thread.CurrentThread.ManagedThreadId}");
+                    Logger.LogTrace($"Thread id: {Thread.CurrentThread.ManagedThreadId}");
 
                     replicaSet.Disable(replicaInstance);
                     replicaSet.Enable(replicaInstance);
                 });
 
-                int enabledInstanceCount = replicaSet.EnabledInstanceCount;
+                int enabledInstanceCount = replicaSet.EnabledInstanceCount();
                 Assert.Equal(NumberOfReplicasConfiguredForPublishedSet, enabledInstanceCount);
                 Assert.True(replicaSet.IsEnabled(replicaInstance));
         }

@@ -58,14 +58,14 @@ namespace DFC.ServiceTaxonomy.Taxonomies.Drivers
                 {
                     var originalTaxonomyItems = part.ContentItem.As<TaxonomyPart>();
 
-                    var newHierarchy = JArray.Parse(model.Hierarchy);      
+                    var newHierarchy = JArray.Parse(model.Hierarchy);
 
                     var taxonomyItems = new JArray();
 
                     foreach (var item in newHierarchy)
                     {
                         taxonomyItems.Add(ProcessItem(originalTaxonomyItems, item as JObject));
-                    }                    
+                    }
 
                     part.Terms = taxonomyItems.ToObject<List<ContentItem>>();
 

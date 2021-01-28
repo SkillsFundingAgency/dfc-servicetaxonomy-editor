@@ -37,7 +37,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
                 HtmlPropertyName,
                 content,
                 await context.SyncNameProvider!.PropertyName(HtmlPropertyName),
-                context.NodeWithOutgoingRelationships.SourceNode);
+                context.NodeWithRelationships.SourceNode!);
         }
     }
 #pragma warning restore S1481

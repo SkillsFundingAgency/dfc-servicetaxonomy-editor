@@ -2,7 +2,6 @@
 using System.Net;
 using System.Net.Http;
 using System.Runtime.Serialization;
-using System.Security.Permissions;
 
 namespace DFC.ServiceTaxonomy.Events.Services.Exceptions
 {
@@ -20,17 +19,16 @@ namespace DFC.ServiceTaxonomy.Events.Services.Exceptions
         {
             StatusCode = httpResponseMessage.StatusCode;
             ReasonPhrase = httpResponseMessage.ReasonPhrase;
-            RequestUri = httpResponseMessage.RequestMessage.RequestUri;
+            //todo: when is RequestMessage null?
+            RequestUri = httpResponseMessage.RequestMessage!.RequestUri;
             ErrorResponse = errorResponse;
         }
 
-        [SecurityPermission(SecurityAction.Demand, SerializationFormatter = true)]
         protected RestHttpClientException(SerializationInfo info, StreamingContext context)
                   : base(info, context)
         {
         }
 
-        [SecurityPermission(SecurityAction.Demand, SerializationFormatter = true)]
         public override void GetObjectData(SerializationInfo info, StreamingContext context)
         {
             if (info == null)
@@ -39,7 +37,8 @@ namespace DFC.ServiceTaxonomy.Events.Services.Exceptions
 
         private static string GenerateMessage(HttpResponseMessage httpResponseMessage, string errorResponse)
         {
-            return $@"Request '{httpResponseMessage.RequestMessage.RequestUri}'
+            //todo: when is RequestMessage null?
+            return $@"Request '{httpResponseMessage.RequestMessage?.RequestUri}'
                     returned {(int)httpResponseMessage.StatusCode} {httpResponseMessage.ReasonPhrase}
                     Response: {errorResponse}";
         }

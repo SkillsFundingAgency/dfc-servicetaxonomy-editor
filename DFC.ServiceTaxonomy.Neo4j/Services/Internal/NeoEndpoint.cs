@@ -13,9 +13,9 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services.Internal
     {
         public string Name { get; }
         private readonly IDriver _driver;
-        private readonly ILogger<NeoEndpoint> _logger;
+        private readonly Microsoft.Extensions.Logging.ILogger _logger;
 
-        public NeoEndpoint(string endpointName, IDriver driver, ILogger<NeoEndpoint> logger)
+        public NeoEndpoint(string endpointName, IDriver driver, Microsoft.Extensions.Logging.ILogger logger)
         {
             _driver = driver;
             _logger = logger;

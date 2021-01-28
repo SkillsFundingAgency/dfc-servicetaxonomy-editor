@@ -16,7 +16,6 @@ using OrchardCore.ContentManagement.Metadata;
 using OrchardCore.ContentManagement.Metadata.Settings;
 using OrchardCore.DisplayManagement.ModelBinding;
 using OrchardCore.DisplayManagement.Notify;
-using Org.BouncyCastle.Asn1.Esf;
 using YesSql;
 
 namespace DFC.ServiceTaxonomy.Taxonomies.Controllers
@@ -257,7 +256,12 @@ namespace DFC.ServiceTaxonomy.Taxonomies.Controllers
                 return NotFound();
             }
 
-            var contentItem = taxonomyItem.ToObject<ContentItem>();
+            var existing = taxonomyItem.ToObject<ContentItem>();
+
+            // Create a new item to take into account the current type definition.
+            var contentItem = await _contentManager.NewAsync(existing.ContentType);
+
+            contentItem.Merge(existing);            
             contentItem.Weld<TermPart>();
             contentItem.Alter<TermPart>(t => t.TaxonomyContentItemId = taxonomyContentItemId);
 

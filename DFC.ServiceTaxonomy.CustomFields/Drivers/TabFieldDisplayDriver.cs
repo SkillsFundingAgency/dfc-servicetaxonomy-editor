@@ -28,9 +28,9 @@ namespace DFC.ServiceTaxonomy.CustomFields.Drivers
             });
         }
 
-        public override Task<IDisplayResult> UpdateAsync(TabField field, IUpdateModel updater, UpdateFieldEditorContext context)
+        public override async Task<IDisplayResult> UpdateAsync(TabField field, IUpdateModel updater, UpdateFieldEditorContext context)
         {
-            return Task.FromResult(Edit(field, context));
+            return await EditAsync(field, context);
         }
     }
 }

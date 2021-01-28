@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using DFC.ServiceTaxonomy.Content;
 using DFC.ServiceTaxonomy.Content.Services.Interface;
 using DFC.ServiceTaxonomy.GraphSync.Handlers.Contexts;
 using DFC.ServiceTaxonomy.GraphSync.Handlers.Interfaces;

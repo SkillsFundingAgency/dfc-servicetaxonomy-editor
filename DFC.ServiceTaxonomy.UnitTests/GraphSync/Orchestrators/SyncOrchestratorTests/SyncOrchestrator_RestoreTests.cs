@@ -122,7 +122,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.Orchestrators.SyncOrchestrator
         }
 
         [Fact]
-        public async Task Restore_PreviewSyncToGraphReplicaSetThrows_ExceptionPropagates()
+        public Task Restore_PreviewSyncToGraphReplicaSetThrows_ExceptionPropagates()
         {
             A.CallTo(() => PublishedAllowSync.Result)
                 .Returns(AllowSyncResult.Allowed);
@@ -133,11 +133,11 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.Orchestrators.SyncOrchestrator
             A.CallTo(() => PreviewMergeGraphSyncer.SyncToGraphReplicaSet())
                 .Throws(() => new Exception());
 
-            await Assert.ThrowsAsync<Exception>(() => SyncOrchestrator.Restore(ContentItem));
+            return Assert.ThrowsAsync<Exception>(() => SyncOrchestrator.Restore(ContentItem));
         }
 
         [Fact]
-        public async Task Restore_PublishedDeleteThrows_ExceptionPropagates()
+        public Task Restore_PublishedDeleteThrows_ExceptionPropagates()
         {
             A.CallTo(() => PublishedAllowSync.Result)
                 .Returns(AllowSyncResult.Allowed);
@@ -148,7 +148,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.Orchestrators.SyncOrchestrator
             A.CallTo(() => PublishedDeleteGraphSyncer.Delete())
                 .Throws(() => new Exception());
 
-            await Assert.ThrowsAsync<Exception>(() => SyncOrchestrator.Restore(ContentItem));
+            return Assert.ThrowsAsync<Exception>(() => SyncOrchestrator.Restore(ContentItem));
         }
 
         // we should only ever get NotRequired returned by both published and preview
