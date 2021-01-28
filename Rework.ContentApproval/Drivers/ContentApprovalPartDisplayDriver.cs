@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using System.Collections.Generic;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using OrchardCore.ContentManagement.Display.ContentDisplay;
 using OrchardCore.ContentManagement.Display.Models;
@@ -9,6 +10,7 @@ using Rework.ContentApproval.Models;
 using Rework.ContentApproval.ViewModels;
 using Rework.ContentApproval.Workflows.Activities;
 using System.Threading.Tasks;
+using MimeKit.Cryptography;
 
 namespace Rework.ContentApproval.Drivers
 {
@@ -30,23 +32,40 @@ namespace Rework.ContentApproval.Drivers
             var httpContext = _httpContextAccessor.HttpContext;
             var baseShapeName = GetEditorShapeType(context);
 
+            //todo: just create model once
+
+            var results = new List<IDisplayResult>();
+
             // Have to do Publish Content permissions first
             if (await _authorizationService.AuthorizeAsync(httpContext?.User, OrchardCore.Contents.Permissions.PublishContent, part.ContentItem))
             {
                 var shapeName = $"{ baseShapeName }_ApprovalResponse";
-                return Initialize<ApprovalResponseViewModel>(shapeName,
+                results.Add(Initialize<ApprovalResponseViewModel>(shapeName,
                     model => PopulateApprovalResponseViewModel(part, model))
-                .Location("Actions:First");
+                .Location("Actions:First"));
             }
             else if (await _authorizationService.AuthorizeAsync(httpContext?.User, Permissions.RequestApproval, part.ContentItem))
             {
                 var shapeName = $"{ baseShapeName }_ApprovalRequest";
-                return Initialize<ApprovalRequestViewModel>(shapeName,
+                results.Add(Initialize<ApprovalRequestViewModel>(shapeName,
                     model => PopulateApprovalRequestViewModel(part, model))
-                .Location("Actions:Last");
+                .Location("Actions:Last"));
             }
-            
-            return null;
+            else
+            {
+                return null;
+            }
+
+            // difference between above and below styles??
+            // dynamic with no view model vs strongly typed with viewmodel??
+            // results.Add(Dynamic("Content_PublishButton").Location("Actions:10")
+            //     .RenderWhen(() => _authorizationService.AuthorizeAsync(context.User, CommonPermissions.PublishContent, contentItem)));
+
+            results.Add(Initialize<ApprovalRequestViewModel>($"{ baseShapeName }_ForcePublish",
+                    model => PopulateApprovalRequestViewModel(part, model))
+                .Location("Actions:15"));
+
+            return Combine(results.ToArray());
         }
 
         public override async Task<IDisplayResult> UpdateAsync(ContentApprovalPart part, IUpdateModel updater)
@@ -88,7 +107,7 @@ namespace Rework.ContentApproval.Drivers
             else if (await _authorizationService.AuthorizeAsync(httpContext?.User, Permissions.RequestApproval, part.ContentItem))
             {
                 var viewModel = new ApprovalRequestViewModel();
-                
+
                 await updater.TryUpdateModelAsync(viewModel, Prefix);
 
                 if (httpContext.Request.Form["submit.Save"] == "submit.RequestApproval")
@@ -98,7 +117,7 @@ namespace Rework.ContentApproval.Drivers
                     part.NotificationNeeded = nameof(ApprovalRequestEvent);
                 }
             }
-            
+
 
             return Edit(part);
         }

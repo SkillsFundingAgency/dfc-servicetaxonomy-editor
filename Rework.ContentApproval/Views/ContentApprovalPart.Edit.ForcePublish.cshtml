@@ -1,0 +1,22 @@
+﻿@* @model ApprovalResponseViewModel *@
+
+@{
+    var returnUrl = Context.Request.Query["returnUrl"];
+}
+
+@if (String.IsNullOrWhiteSpace(returnUrl))
+{
+    <button type="submit" name="submit.ForcePublish" class="btn btn-success publish" value="submit.ForcePublish">@T["Force Publish"]</button>
+}
+else
+{
+    <div class="btn-group">
+        <button class="btn btn-success publish" type="submit" name="submit.ForcePublish" value="submit.ForcePublish">@T["Force Publish"]</button>
+        <button type="button" class="btn btn-success dropdown-toggle dropdown-toggle-split" data-reference="parent" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <span class="sr-only">@T["Toggle Dropdown"]</span>
+        </button>
+        <div class="dropdown-menu">
+            <button class="dropdown-item publish-continue" type="submit" name="submit.ForcePublish" value="submit.ForcePublishAndContinue">@T["and continue"]</button>
+        </div>
+    </div>
+}
