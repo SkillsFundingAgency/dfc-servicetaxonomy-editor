@@ -68,9 +68,13 @@ namespace Rework.ContentApproval.Drivers
             return Combine(results.ToArray());
         }
 
+        //    [FormValueRequired("submit.Publish")]
+
         public override async Task<IDisplayResult> UpdateAsync(ContentApprovalPart part, IUpdateModel updater)
         {
             var httpContext = _httpContextAccessor.HttpContext;
+
+            //todo: forcepublish (own/others) permission
 
             // Have to do Publish Content permissions first
             if (await _authorizationService.AuthorizeAsync(httpContext?.User, OrchardCore.Contents.Permissions.PublishContent, part.ContentItem))
