@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Metadata;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Localization;
 using Microsoft.AspNetCore.Routing;
+using Newtonsoft.Json.Linq;
 using OrchardCore.ContentManagement;
 using OrchardCore.ContentManagement.Display;
 using OrchardCore.ContentManagement.Metadata;
@@ -13,6 +15,7 @@ using OrchardCore.Contents;
 using OrchardCore.DisplayManagement.ModelBinding;
 using OrchardCore.DisplayManagement.Notify;
 using OrchardCore.Routing;
+using Shortcodes;
 using YesSql;
 
 namespace Rework.ContentApproval.Controllers
@@ -93,15 +96,55 @@ namespace Rework.ContentApproval.Controllers
         private async Task<IActionResult> EditPOST(string contentItemId, string returnUrl, bool stayOnSamePage, Func<ContentItem, Task> conditionallyPublish)
         {
             var contentItem = await _contentManager.GetAsync(contentItemId, VersionOptions.DraftRequired);
-if (contentItem == null)
-{
+            if (contentItem == null)
+            {
                 return NotFound();
             }
 
             if (!await _authorizationService.AuthorizeAsync(User, CommonPermissions.EditContent, contentItem))
-{
-return Forbid();
-}
+            {
+                return Forbid();
+            }
+
+            // need a copy / clone at this point
+            //var draftContentItem = await _contentManager.GetAsync(contentItemId, VersionOptions.DraftRequired);
+
+            //context.CloneContentItem.Data = contentItem.Data.DeepClone() as JObject;
+            //context.CloneContentItem.DisplayText = contentItem.DisplayText;
+
+            //todo:
+
+            /*
+             * use CloneAsync and patch up afterwards? do we want all the handlers to run?
+             *         public async Task<ContentItem> CloneAsync(ContentItem contentItem)
+                    {
+                        var cloneContentItem = await NewAsync(contentItem.ContentType);
+                        await CreateAsync(cloneContentItem, VersionOptions.Draft);
+
+                        var context = new CloneContentContext(contentItem, cloneContentItem);
+
+                        context.CloneContentItem.Data = contentItem.Data.DeepClone() as JObject;
+                        context.CloneContentItem.DisplayText = contentItem.DisplayText;
+
+                        await Handlers.InvokeAsync((handler, context) => handler.CloningAsync(context), context, _logger);
+
+                        _session.Save(context.CloneContentItem);
+
+                        await ReversedHandlers.InvokeAsync((handler, context) => handler.ClonedAsync(context), context, _logger);
+
+                        return context.CloneContentItem;
+                    }
+
+             */
+
+            //https://services.w3.org/htmldiff
+
+            //todo: would need to check if there was a draft version
+            var clonedDraftItem = await _contentManager.CloneAsync(contentItem);
+            //var clonedDraftId = contentItem.ContentItemId;
+            clonedDraftItem.ContentItemId = contentItem.ContentItemId;
+            clonedDraftItem.DisplayText = contentItem.DisplayText;
+            //todo: title part's title too
 
             var model = await _contentItemDisplayManager.UpdateEditorAsync(contentItem, _updateModelAccessor.ModelUpdater, false);
 
@@ -112,6 +155,11 @@ return Forbid();
             }
 
             await conditionallyPublish(contentItem);
+            // save session instead of invoking handlers?
+            //await _contentManager.SaveDraftAsync(clonedDraftItem);
+            _session.Save(clonedDraftItem);
+
+            //todo: then delete the cloned version - if this works its pretty yucky
 
             if (returnUrl == null)
             {
@@ -126,5 +174,15 @@ return Forbid();
                 return LocalRedirect(returnUrl);
             }
         }
+        // set using reflection? https://stackoverflow.com/questions/1565734/is-it-possible-to-set-private-property-via-reflection
+        // can't populate/construct Data/Content in ContentElement
+        //maybe .net serialize/deserialize (data/content has newtonsoft json ignore)
+        //private ContentItem SoftClone(ContentItem contentItem)
+        //{
+        //    ContentItem softClone = new ContentItem()
+        //    {
+
+        //    }
+        //}
     }
 }
