@@ -49,6 +49,19 @@ namespace Rework.ContentApproval.Controllers
             _updateModelAccessor = updateModelAccessor;
         }
 
+        //todo: change form action in front end from /Admin/Contents/ContentItems/4p3sfzpsb5gt8v9skfvfkb4c4f/Edit?returnUrl=%2FAdmin%2FContents%2FContentItems%3Fadmin%3D-88225418
+        // to /Admin/Contents/ContentItems/4p3sfzpsb5gt8v9skfvfkb4c4f/EditForcePublish ...
+
+
+        // use js to change form on submit (hijacking works when manually edit form attribute)
+
+
+        // this is currently required. can we remove it?
+        public Task<IActionResult> Edit(string contentItemId)
+        {
+            throw new NotImplementedException();
+        }
+
         [HttpPost, ActionName("Edit")]
         [FormValueRequired("submit.Publish")]
         public async Task<IActionResult> EditAndPublishPOST(string contentItemId, [Bind(Prefix = "submit.Publish")] string submitPublish, string returnUrl)
