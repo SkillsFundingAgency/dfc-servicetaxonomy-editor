@@ -76,6 +76,12 @@ namespace Rework.ContentApproval.Drivers
 
             //todo: forcepublish (own/others) permission
 
+            if (httpContext.Request.Form["submit.Publish"] == "submit.ForcePublish"
+                || httpContext.Request.Form["submit.Publish"] == "submit.ForcePublishAndContinue")
+            {
+
+            }
+
             // Have to do Publish Content permissions first
             if (await _authorizationService.AuthorizeAsync(httpContext?.User, OrchardCore.Contents.Permissions.PublishContent, part.ContentItem))
             {
@@ -137,5 +143,81 @@ namespace Rework.ContentApproval.Drivers
             viewModel.Status = part.Status;
             viewModel.Notes = part.Notes;
         }
+
+        // does the item get published anyway?
+        // is admincontroller partial
+        // can we have a completely separate action?
+        // can we get the previous version from history and resave it?
+        /*
+        [HttpPost, ActionName("Create")]
+        [FormValueRequired("submit.Publish")]
+        public async Task<IActionResult> CreateAndPublishPOST(string id, [Bind(Prefix = "submit.Publish")] string submitPublish, string returnUrl)
+        {
+            var stayOnSamePage = submitPublish == "submit.PublishAndContinue";
+            // pass a dummy content to the authorization check to check for "own" variations
+            var dummyContent = await _contentManager.NewAsync(id);
+
+            // Set the current user as the owner to check for ownership permissions on creation
+            dummyContent.Owner = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            if (!await _authorizationService.AuthorizeAsync(User, CommonPermissions.PublishContent, dummyContent))
+            {
+                return Forbid();
+            }
+
+            return await CreatePOST(id, returnUrl, stayOnSamePage, async contentItem =>
+            {
+                await _contentManager.PublishAsync(contentItem);
+
+                var typeDefinition = _contentDefinitionManager.GetTypeDefinition(contentItem.ContentType);
+
+                _notifier.Success(string.IsNullOrWhiteSpace(typeDefinition.DisplayName)
+                    ? H["Your content has been published."]
+                    : H["Your {0} has been published.", typeDefinition.DisplayName]);
+            });
+        }
+
+        private async Task<IActionResult> CreatePOST(string id, string returnUrl, bool stayOnSamePage, Func<ContentItem, Task> conditionallyPublish)
+        {
+            var contentItem = await _contentManager.NewAsync(id);
+
+            // Set the current user as the owner to check for ownership permissions on creation
+            contentItem.Owner = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            if (!await _authorizationService.AuthorizeAsync(User, CommonPermissions.EditContent, contentItem))
+            {
+                return Forbid();
+            }
+
+            var model = await _contentItemDisplayManager.UpdateEditorAsync(contentItem, _updateModelAccessor.ModelUpdater, true);
+
+            if (ModelState.IsValid)
+            {
+                await _contentManager.CreateAsync(contentItem, VersionOptions.Draft);
+            }
+
+            if (!ModelState.IsValid)
+            {
+                _session.Cancel();
+                return View(model);
+            }
+
+            await conditionallyPublish(contentItem);
+
+            if ((!string.IsNullOrEmpty(returnUrl)) && (!stayOnSamePage))
+            {
+                return LocalRedirect(returnUrl);
+            }
+
+            var adminRouteValues = (await _contentManager.PopulateAspectAsync<ContentItemMetadata>(contentItem)).AdminRouteValues;
+
+            if (!string.IsNullOrEmpty(returnUrl))
+            {
+                adminRouteValues.Add("returnUrl", returnUrl);
+            }
+
+            return RedirectToRoute(adminRouteValues);
+        }
+        */
     }
 }
