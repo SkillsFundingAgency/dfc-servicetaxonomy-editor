@@ -1,5 +1,7 @@
 #ToDo
 
+* add filter to content items : job profiles by selected job category
+
 * need to import content & set up users as part of releases
 
 * fix this error (update taxonomies from latest oc first to see if it fixes it)
