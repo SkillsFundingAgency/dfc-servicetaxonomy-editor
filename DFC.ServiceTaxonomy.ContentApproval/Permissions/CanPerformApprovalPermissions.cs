@@ -9,7 +9,7 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Permissions
 {
     public class CanPerformApprovalPermissions : IPermissionProvider
     {
-        public static readonly Permission CanPerformStakeholderApprovalPermission = new Permission(nameof(CanPerformStakeholderApprovalPermission), "Description");
+        public static readonly Permission CanPerformStakeholderApprovalPermission = new Permission(nameof(CanPerformStakeholderApprovalPermission), "Can perform stakeholder approval");
 
         public Task<IEnumerable<Permission>> GetPermissionsAsync() =>
             Task.FromResult(new[]
