@@ -9,7 +9,7 @@ steps:
     archiveFilePatterns: '$(Pipeline.Workspace)/DFC.ServiceTaxonomy.IntegrationTests.DeploymentPackages/DeploymentPackages/DFC.ServiceTaxonomy.IntegrationTests.zip' 
     destinationFolder: $(System.DefaultWorkingDirectory)/DFC.ServiceTaxonomy.IntegrationTests/
     cleanDestinationFolder: true
-- task: TotalALM.totalalm-tokenization.tokenization-build-task.Tokenization@2
+- task: esfadevops.Tokenization.custom-build-task.Tokenization@0
   displayName: 'Tokenization: Transform file appsettings.json'
   condition: in('${{ parameters.Environment }}', 'DEV_SERVICETAXONOMY', 'SIT_SERVICETAXONOMY')
   inputs:
