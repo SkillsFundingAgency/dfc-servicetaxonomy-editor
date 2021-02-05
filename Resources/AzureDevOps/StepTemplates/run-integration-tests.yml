@@ -23,9 +23,9 @@ steps:
       **\DFC.ServiceTaxonomy.IntegrationTests.dll
       !**\*TestAdapter.dll
       !**\obj\**
-#- task: DeleteFiles@1
-  #displayName: 'Delete tokenised parameters.json file'
-  #inputs:
-    #SourceFolder: $(System.DefaultWorkingDirectory)/DFC.ServiceTaxonomy.IntegrationTests
-    #Contents: appsettings.json
-  #condition: always()
+- task: DeleteFiles@1
+  displayName: 'Delete tokenised parameters.json file'
+  inputs:
+    SourceFolder: $(System.DefaultWorkingDirectory)/DFC.ServiceTaxonomy.IntegrationTests
+    Contents: appsettings.json
+  condition: always()
