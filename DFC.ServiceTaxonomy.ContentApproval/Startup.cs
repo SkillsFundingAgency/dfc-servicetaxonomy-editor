@@ -16,7 +16,7 @@ namespace DFC.ServiceTaxonomy.ContentApproval
             services.AddScoped<IPermissionProvider, CanPerformApprovalPermissions>();
         }
 
-        public override void Configure(IApplicationBuilder builder, IEndpointRouteBuilder routes, IServiceProvider serviceProvider)
+        public override void Configure(IApplicationBuilder app, IEndpointRouteBuilder routes, IServiceProvider serviceProvider)
         {
             routes.MapAreaControllerRoute(
                 name: "Home",
