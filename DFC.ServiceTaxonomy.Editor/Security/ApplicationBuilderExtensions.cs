@@ -41,6 +41,10 @@ namespace DFC.ServiceTaxonomy.Editor.Security
 
                     csp.AllowConnections
                         .ToSelf();
+
+                    csp.AllowFrames
+                        .FromSelf()
+                        .From("www.youtube-nocookie.com");
                 });
 
             return app;
