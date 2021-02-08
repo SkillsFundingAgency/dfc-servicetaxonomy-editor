@@ -30,6 +30,7 @@
                         "ViewContent",
                         "PreviewContent",
                         "PublishContent",
+                        "RequestReviewPermission",
                         "CanPerformContentDesignReviewPermission",
                         "CanPerformSMEReviewPermission",
                         "CanPerformUXReviewPermission",
@@ -50,6 +51,7 @@
                         "ViewContent",
                         "PreviewContent",
                         "CloneContent",
+                        "RequestReviewPermission",
                         "PublishContent",
                         "ManageTaxonomy"
                     ]
@@ -59,6 +61,7 @@
                     "Description": "Reviewer UX",
                     "Permissions": [
                         "PublishContent",
+                        "RequestReviewPermission",
                         "ViewContent",
                         "PreviewContent",
                         "CanPerformUXReviewPermission"
@@ -69,6 +72,7 @@
                     "Description": "Reviewer SME",
                     "Permissions": [
                         "PublishContent",
+                        "RequestReviewPermission",
                         "ViewContent",
                         "PreviewContent",
                         "CanPerformSMEReviewPermission"
@@ -79,6 +83,7 @@
                     "Description": "Reviewer Content Design",
                     "Permissions": [
                         "PublishContent",
+                        "RequestReviewPermission",
                         "ViewContent",
                         "PreviewContent",
                         "CanPerformContentDesignReviewPermission"
@@ -89,6 +94,7 @@
                     "Description": "Reviewer Stakeholder",
                     "Permissions": [
                         "PublishContent",
+                        "RequestReviewPermission",
                         "ViewContent",
                         "PreviewContent",
                         "CanPerformStakeholderApprovalPermission"

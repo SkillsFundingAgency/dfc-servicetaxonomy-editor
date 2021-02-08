@@ -14,6 +14,7 @@ namespace DFC.ServiceTaxonomy.ContentApproval
         {
             services.AddScoped<IPermissionProvider, CanPerformReviewPermissions>();
             services.AddScoped<IPermissionProvider, CanPerformApprovalPermissions>();
+            services.AddScoped<IPermissionProvider, RequestReviewPermissions>();
         }
 
         public override void Configure(IApplicationBuilder app, IEndpointRouteBuilder routes, IServiceProvider serviceProvider)
