@@ -57,6 +57,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\DFC.ServiceTaxonomy.ContentApproval\DFC.ServiceTaxonomy.ContentApproval.csproj" />
     <ProjectReference Include="..\DFC.ServiceTaxonomy.ContentPickerPreview\DFC.ServiceTaxonomy.ContentPickerPreview.csproj" />
     <ProjectReference Include="..\DFC.ServiceTaxonomy.Content\DFC.ServiceTaxonomy.Content.csproj" />
     <ProjectReference Include="..\DFC.ServiceTaxonomy.CustomEditor\DFC.ServiceTaxonomy.CustomEditor.csproj" />
