@@ -220,3 +220,9 @@ dotnet pack -o "..\dfc-servicetaxonomy-editor\orchardcorepackages" --version-suf
 Update all packages references in the Stax Editor csproj files to the new rc, fix any build issues, test the new version and then commit your changes.
 
 Note, we update the rc version each time to avoid version conflicts.
+
+### Package History
+
+| Version | Source | Notes | Contains |
+|---------|--------|-------|----------|
+| rc9 | https://github.com/SkillsFundingAgency/OrchardCore/tree/monaco_editor 4dfa209 : 9th Feb 21 | Forked MichaelPetrinolis/OrchardCore (itself a fork of OrchardCMS/OrchardCore) to SkillsFundingAgency/OrchardCore. Then merged the latest OrchardCMS/Orchard dev branch into SkillsFundingAgency/OrchardCore monaco_editor branch, up to commit afffff360ae5e7e7fbe32078a62aab3df0b5d576 (Feb 9, 2021 : Add @lampersky as a contributor)  | Latest Orchard Core @ afffff3 : 9 Feb 21 + [monaco_editor](https://github.com/OrchardCMS/OrchardCore/pull/8266) (wip) 31 Jan 21 : 8a44eb7 |
