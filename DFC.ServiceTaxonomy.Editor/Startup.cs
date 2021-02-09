@@ -29,6 +29,7 @@ namespace DFC.ServiceTaxonomy.Editor
                 sanitizer.AllowDataAttributes = true;
                 sanitizer.AllowedAttributes.Add("id");
                 sanitizer.AllowedAttributes.Add("aria-labelledby");
+                sanitizer.AllowedTags.Add("iframe");
             }));
 
             //todo: do this in each library??? if so, make sure it doesn't add services or config twice
