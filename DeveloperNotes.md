@@ -1,29 +1,5 @@
 #ToDo
 
-* site setup is now failing with...
-
-2021-02-10 10:25:18.2953||||OrchardCore.Modules.ModularBackgroundService|ERROR|Error while executing 'ModularBackgroundService' System.ArgumentNullException: Value cannot be null. (Parameter 'provider')
-at Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService[T](IServiceProvider provider)
-at OrchardCore.Settings.Services.SiteService.get_DocumentManager()
-at OrchardCore.Settings.Services.SiteService.GetSiteSettingsAsync()
-at OrchardCore.Settings.Services.DefaultTimeZoneSelector.<GetTimeZoneAsync>b__2_0()
-at OrchardCore.Modules.LocalClock.LoadLocalTimeZoneAsync()
-at OrchardCore.Modules.LocalClock.GetLocalTimeZoneAsync()
-at OrchardCore.Modules.LocalClock.ConvertToLocalAsync(DateTimeOffset dateTimeOffSet)    at Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService[T](IServiceProvider provider)
-at OrchardCore.Settings.Services.SiteService.get_DocumentManager()
-at OrchardCore.Settings.Services.SiteService.GetSiteSettingsAsync()
-at OrchardCore.Settings.Services.DefaultTimeZoneSelector.<GetTimeZoneAsync>b__2_0()
-at OrchardCore.Modules.LocalClock.LoadLocalTimeZoneAsync()
-at OrchardCore.Modules.LocalClock.GetLocalTimeZoneAsync()
-at OrchardCore.Modules.LocalClock.ConvertToLocalAsync(DateTimeOffset dateTimeOffSet)
-
-looks like it might be something to do with this checkin...
-
-https://github.com/OrchardCMS/OrchardCore/commit/a14d03487e3054088ab6c37feb36b3b20b208945
-
-regenerate packages
-
-
 * check out feature:
   Add Content To Deployment Plan
   Adds an add to deployment plan action to the content items list.
