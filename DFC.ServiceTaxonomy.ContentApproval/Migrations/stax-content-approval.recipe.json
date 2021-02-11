@@ -1,0 +1,180 @@
+{
+    "name": "01_content_approval",
+    "displayName": "Content approval",
+    "description": "Enables content approval with associated roles and permissions",
+    "author": "National Careers Service",
+    "website": "https://github.com/SkillsFundingAgency/dfc-servicetaxonomy-editor",
+    "version": "1.0",
+    "issetuprecipe": false,
+    "categories": ["default"],
+    "tags": ["ncs"],
+    "steps": [
+        {
+            "name": "Roles",
+            "Roles": [
+                {
+                    "Name": "ContentAdministrator",
+                    "Description": "Content administrator",
+                    "Permissions": [
+                        "ListContent",
+                        "DeleteContent",
+                        "EditContent",
+                        "CloneContent",
+                        "ViewContent",
+                        "PreviewContent",
+                        "PublishContent",
+                        "RequestReviewPermission",
+                        "CanPerformContentDesignReviewPermission",
+                        "CanPerformSMEReviewPermission",
+                        "CanPerformUXReviewPermission",
+                        "CanPerformStakeholderApprovalPermission",
+                        "AssignRoles",
+                        "ManageRoles",
+                        "ManageTaxonomy",
+                        "ManageUsers",
+                        "ManageOwnUserInformation"
+                    ]
+                },
+                {
+                    "Name": "Editor",
+                    "Description": "Editor",
+                    "Permissions": [
+                        "ListContent",
+                        "EditContent",
+                        "ViewContent",
+                        "PreviewContent",
+                        "CloneContent",
+                        "RequestReviewPermission",
+                        "PublishContent",
+                        "ManageTaxonomy"
+                    ]
+                },
+                {
+                    "Name": "Reviewer_UX",
+                    "Description": "Reviewer UX",
+                    "Permissions": [
+                        "PublishContent",
+                        "RequestReviewPermission",
+                        "ViewContent",
+                        "PreviewContent",
+                        "CanPerformUXReviewPermission"
+                    ]
+                },
+                {
+                    "Name": "Reviewer_SME",
+                    "Description": "Reviewer SME",
+                    "Permissions": [
+                        "PublishContent",
+                        "RequestReviewPermission",
+                        "ViewContent",
+                        "PreviewContent",
+                        "CanPerformSMEReviewPermission"
+                    ]
+                },
+                {
+                    "Name": "Reviewer_ContentDesign",
+                    "Description": "Reviewer Content Design",
+                    "Permissions": [
+                        "PublishContent",
+                        "RequestReviewPermission",
+                        "ViewContent",
+                        "PreviewContent",
+                        "CanPerformContentDesignReviewPermission"
+                    ]
+                },
+                {
+                    "Name": "Reviewer_Stakeholder",
+                    "Description": "Reviewer Stakeholder",
+                    "Permissions": [
+                        "PublishContent",
+                        "RequestReviewPermission",
+                        "ViewContent",
+                        "PreviewContent",
+                        "CanPerformStakeholderApprovalPermission"
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "ReplaceContentDefinition",
+            "ContentTypes": [
+                {
+                    "Name": "ContentApprovalDashboardCard",
+                    "DisplayName": "Content Approval Dashboard Card",
+                    "Settings": {
+                        "ContentTypeSettings": {
+                            "Stereotype": "DashboardWidget",
+                            "Securable": true
+                        },
+                        "FullTextAspectSettings": {}
+                    },
+                    "ContentTypePartDefinitionRecords": [
+                        {
+                            "PartName": "ContentApprovalDashboardCard",
+                            "Name": "ContentApprovalDashboardCard",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "0"
+                                }
+                            }
+                        },
+                        {
+                            "PartName": "ContentApprovalDashboardPart",
+                            "Name": "ContentApprovalDashboardPart",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "2"
+                                }
+                            }
+                        },
+                        {
+                            "PartName": "DashboardPart",
+                            "Name": "DashboardPart",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "3"
+                                }
+                            }
+                        },
+                        {
+                            "PartName": "TitlePart",
+                            "Name": "TitlePart",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "1"
+                                }
+                            }
+                        }
+                    ]
+                }
+            ],
+            "ContentParts": []
+        },
+        {
+            "name": "Content",
+            "data": [
+                {
+                    "ContentItemId": "4mmhd34qrhvygstebtm6fnpd5b",
+                    "ContentItemVersionId": "4nfdtbg8cqyv02vtv22nvwxg4g",
+                    "ContentType": "ContentApprovalDashboardCard",
+                    "DisplayText": "Content Approval",
+                    "Latest": true,
+                    "Published": true,
+                    "ModifiedUtc": "2021-02-11T12:53:42.7302174Z",
+                    "PublishedUtc": "2021-02-11T12:53:42.7429332Z",
+                    "CreatedUtc": "2021-02-11T12:30:53.749129Z",
+                    "Owner": null,
+                    "Author": "admin",
+                    "ContentApprovalDashboardCard": {},
+                    "ContentApprovalDashboardPart": {},
+                    "DashboardPart": {
+                        "Position": 10.0
+                    },
+                    "TitlePart": {
+                        "Title": "Content Approval"
+                    }
+                }
+            ]
+        }
+    ]
+}
