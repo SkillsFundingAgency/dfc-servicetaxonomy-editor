@@ -6,6 +6,7 @@
       <Nullable>enable</Nullable>
       <EnableNETAnalyzers>true</EnableNETAnalyzers>
       <AnalysisLevel>latest</AnalysisLevel>
+      <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
       <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 
       <Authors>Education and Skills Funding Agency Team</Authors>
