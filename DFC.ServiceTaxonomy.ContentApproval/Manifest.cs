@@ -7,5 +7,9 @@ using OrchardCore.Modules.Manifest;
     Version = "0.0.2",
     Description = "Enables a content approval workflow and related permissions",
     Category = "Content Management",
-    Dependencies = new[] { "OrchardCore.Contents" }
+    Dependencies = new[]
+    {
+        "OrchardCore.Contents",
+        "OrchardCore.ContentManagement"
+    }
 )]
