@@ -14,8 +14,8 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Drivers
             Initialize<ContentApprovalPartViewModel>(
                 GetDisplayShapeType(context),
                 viewModel => PopulateViewModel(part, viewModel))
-            .Location("Detail", "Content:5")
-            .Location("Summary", "Content:5");
+            //.Location("Detail", "Content:5")
+            .Location("Summary", "Actions:First");
 
 
         public override IDisplayResult Edit(ContentApprovalPart part, BuildPartEditorContext context)
@@ -32,7 +32,7 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Drivers
 
             await updater.TryUpdateModelAsync(viewModel, Prefix);
 
-            // Populate part from view model here.
+            // Populate part from view model here.Hi 
 
             return await EditAsync(part, context);
         }
