@@ -102,6 +102,110 @@
                     ]
                 }
             ]
+        },
+        {
+            "name": "ReplaceContentDefinition",
+            "ContentTypes": [
+                {
+                    "Name": "ContentApprovalDashboardCard",
+                    "DisplayName": "Content Approval Dashboard Card",
+                    "Settings": {
+                        "ContentTypeSettings": {
+                            "Stereotype": "DashboardWidget",
+                            "Securable": true
+                        },
+                        "FullTextAspectSettings": {}
+                    },
+                    "ContentTypePartDefinitionRecords": [
+                        {
+                            "PartName": "ContentApprovalDashboardCard",
+                            "Name": "ContentApprovalDashboardCard",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "0"
+                                }
+                            }
+                        },
+                        {
+                            "PartName": "ContentApprovalDashboardPart",
+                            "Name": "ContentApprovalDashboardPart",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "2"
+                                }
+                            }
+                        },
+                        {
+                            "PartName": "DashboardPart",
+                            "Name": "DashboardPart",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "3"
+                                }
+                            }
+                        },
+                        {
+                            "PartName": "TitlePart",
+                            "Name": "TitlePart",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "1"
+                                }
+                            }
+                        }
+                    ]
+                }
+            ],
+            "ContentParts": []
+        },
+        {
+            "name": "Content",
+            "data": [
+                {
+                    "ContentItemId": "4z4b7fd4jf17n38t042fh1ddmp",
+                    "ContentItemVersionId": "4sytd071trca7152md8bkx2qcm",
+                    "ContentType": "HtmlDashboardWidget",
+                    "DisplayText": "Orchard Core",
+                    "Latest": true,
+                    "Published": true,
+                    "ModifiedUtc": "2021-02-11T12:31:27.6477624Z",
+                    "PublishedUtc": "2021-02-11T12:31:28.1542868Z",
+                    "CreatedUtc": "2021-02-11T11:42:28.0862297Z",
+                    "Owner": null,
+                    "Author": "admin",
+                    "HtmlDashboardWidget": {},
+                    "DashboardPart": {
+                        "Position": 5.0
+                    },
+                    "HtmlBodyPart": {
+                        "Html": "<ul class=\"list-group list-group-flush\">\n\t<li class=\"list-group-item\"><a href=\"https://docs.orchardcore.net\" target=\"_blank\">Orchard Core documentation</a></li>\n\t<li class=\"list-group-item\"><a href=\"https://github.com/OrchardCMS/OrchardCore\" target=\"_blank\">Orchard Core GitHub repository</a></li>\n\t<li class=\"list-group-item\"><a href=\"https://gitter.im/OrchardCMS/OrchardCore\" target=\"_blank\">Orchard Core Gitter chat</a></li>\n</ul>"
+                    },
+                    "TitlePart": {
+                        "Title": "Orchard Core"
+                    }
+                },
+                {
+                    "ContentItemId": "4mmhd34qrhvygstebtm6fnpd5b",
+                    "ContentItemVersionId": "4nfdtbg8cqyv02vtv22nvwxg4g",
+                    "ContentType": "ContentApprovalDashboardCard",
+                    "DisplayText": "Content Approval",
+                    "Latest": true,
+                    "Published": true,
+                    "ModifiedUtc": "2021-02-11T12:53:42.7302174Z",
+                    "PublishedUtc": "2021-02-11T12:53:42.7429332Z",
+                    "CreatedUtc": "2021-02-11T12:30:53.749129Z",
+                    "Owner": null,
+                    "Author": "admin",
+                    "ContentApprovalDashboardCard": {},
+                    "ContentApprovalDashboardPart": {},
+                    "DashboardPart": {
+                        "Position": 10.0
+                    },
+                    "TitlePart": {
+                        "Title": "Content Approval"
+                    }
+                }
+            ]
         }
     ]
 }
