@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.DependencyInjection;
 using OrchardCore.ContentManagement;
 using OrchardCore.ContentManagement.Display.ContentDisplay;
+using OrchardCore.Data.Migration;
 using OrchardCore.Modules;
 using OrchardCore.Security.Permissions;
 
@@ -22,6 +23,8 @@ namespace DFC.ServiceTaxonomy.ContentApproval
 
             services.AddContentPart<ContentApprovalDashboardPart>()
                 .UseDisplayDriver<ContentApprovalDashboardPartDisplayDriver>();
+
+            services.AddScoped<IDataMigration, Migrations>();
         }
 
         public override void Configure(IApplicationBuilder app, IEndpointRouteBuilder routes, IServiceProvider serviceProvider)
