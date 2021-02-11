@@ -1,8 +1,12 @@
 using System;
+using DFC.ServiceTaxonomy.ContentApproval.Drivers;
+using DFC.ServiceTaxonomy.ContentApproval.Models;
 using DFC.ServiceTaxonomy.ContentApproval.Permissions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.DependencyInjection;
+using OrchardCore.ContentManagement;
+using OrchardCore.ContentManagement.Display.ContentDisplay;
 using OrchardCore.Modules;
 using OrchardCore.Security.Permissions;
 
@@ -15,6 +19,9 @@ namespace DFC.ServiceTaxonomy.ContentApproval
             services.AddScoped<IPermissionProvider, CanPerformReviewPermissions>();
             services.AddScoped<IPermissionProvider, CanPerformApprovalPermissions>();
             services.AddScoped<IPermissionProvider, RequestReviewPermissions>();
+
+            services.AddContentPart<ContentApprovalDashboardPart>()
+                .UseDisplayDriver<ContentApprovalDashboardPartDisplayDriver>();
         }
 
         public override void Configure(IApplicationBuilder app, IEndpointRouteBuilder routes, IServiceProvider serviceProvider)
