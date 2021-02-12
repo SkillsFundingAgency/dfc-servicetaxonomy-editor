@@ -2,6 +2,6 @@
 {
     public class ContentApprovalDashboardPartViewModel
     {
-        
+        // public int ViewType { get; set; }
     }
 }

@@ -17,25 +17,26 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Drivers
         {
             return Task.FromResult<IDisplayResult>(
                 Initialize<ContentApprovalDashboardPartViewModel>(
-                    GetDisplayShapeType(context), async m => await BuildViewModel()) //(m, part, context))
+                    GetDisplayShapeType(context), async m => await BuildViewModel()) //m, part)) //, context))
                     .Location("DetailAdmin", "Content:10"));
         }
 
-        // public override IDisplayResult Edit(ContentApprovalDashboardPart part, BuildPartEditorContext context)
+        // public override Task<IDisplayResult> EditAsync(ContentApprovalDashboardPart part, BuildPartEditorContext context)
         // {
-        //     return Initialize<ContentApprovalDashboardPartViewModel>(GetEditorShapeType(context), m => BuildViewModel(m, part));
+        //     return Task.FromResult<IDisplayResult>(
+        //         Initialize<ContentApprovalDashboardPartViewModel>(GetEditorShapeType(context), m => BuildViewModel(m, part)));
         // }
         //
         // public override async Task<IDisplayResult> UpdateAsync(ContentApprovalDashboardPart model, IUpdateModel updater, UpdatePartEditorContext context)
         // {
-        //     await updater.TryUpdateModelAsync(model, Prefix, t => t.Position);
+        //     await updater.TryUpdateModelAsync(model, Prefix, t => t.ViewType);
         //
-        //     return Edit(model, context);
+        //     return await EditAsync(model, context);
         // }
 
-        private ValueTask BuildViewModel()//ContentApprovalDashboardPartViewModel model, ContentApprovalDashboardPart part)
+        private ValueTask BuildViewModel() //ContentApprovalDashboardPartViewModel model, ContentApprovalDashboardPart part)
         {
-            // model.Position = part.Position;
+            // model.ViewType = part.ViewType;
             // model.DashboardPart = part;
             // model.ContentItem = part.ContentItem;
 
