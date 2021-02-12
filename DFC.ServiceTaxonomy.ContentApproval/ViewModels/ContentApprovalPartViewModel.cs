@@ -8,5 +8,6 @@ namespace DFC.ServiceTaxonomy.ContentApproval.ViewModels
         [Required]
         public ContentApprovalStatus ApprovalStatus { get; set; }
         public string? Comment { get; set; }
+        public string? ContentItemId { get; set; }
     }
 }
