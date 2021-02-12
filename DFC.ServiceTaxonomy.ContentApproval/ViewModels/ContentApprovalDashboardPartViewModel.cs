@@ -2,6 +2,7 @@
 {
     public class ContentApprovalDashboardPartViewModel
     {
-        // public int ViewType { get; set; }
+        //todo: string populated by select (and matching enum)
+        public int ViewType { get; set; }
     }
 }

@@ -11,6 +11,6 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Models
     public class ContentApprovalDashboardPart : ContentPart
     {
         //todo: use enum directly?
-        // public int ViewType { get; set; }
+        public int ViewType { get; set; }
     }
 }

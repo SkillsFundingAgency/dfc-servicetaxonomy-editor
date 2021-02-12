@@ -1,0 +1,7 @@
+﻿@model ContentApprovalDashboardPartViewModel
+
+<div class="form-group" asp-validation-class-for="ViewType">
+    <label asp-for="ViewType">@T["ViewType"] </label>
+    <input asp-for="ViewType" class="form-control" />
+    <span asp-validation-for="ViewType"></span>
+</div>

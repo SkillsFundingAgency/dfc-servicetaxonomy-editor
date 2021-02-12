@@ -13,3 +13,5 @@ content item per approval card type : dropdown to select type?
 todo query items and link to bring up content items page with filter pre-selected
 
 todo initially bring up dashboard rather than welcome message
+
+permission to view cards? don't think so
