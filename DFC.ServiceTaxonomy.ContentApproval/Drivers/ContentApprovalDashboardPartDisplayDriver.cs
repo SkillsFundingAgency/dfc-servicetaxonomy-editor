@@ -11,15 +11,11 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Drivers
     //todo DashboardItemStatusPart
     class ContentApprovalDashboardPartDisplayDriver : ContentPartDisplayDriver<ContentApprovalDashboardPart>
     {
-        public ContentApprovalDashboardPartDisplayDriver()
-        {
-        }
-
         public override Task<IDisplayResult> DisplayAsync(ContentApprovalDashboardPart part, BuildPartDisplayContext context)
         {
             return Task.FromResult<IDisplayResult>(
                 Initialize<ContentApprovalDashboardPartViewModel>(
-                    GetDisplayShapeType(context), async m => await BuildViewModel(m, part)) //, context))
+                    GetDisplayShapeType(context), async m => await BuildDisplayViewModel(m, part)) //, context))
                     .Location("DetailAdmin", "Content:10"));
         }
 
@@ -41,6 +37,17 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Drivers
             model.Card = part.Card;
             // model.DashboardPart = part;
             // model.ContentItem = part.ContentItem;
+
+            return default;
+        }
+
+        private ValueTask BuildDisplayViewModel(
+            ContentApprovalDashboardPartViewModel model,
+            ContentApprovalDashboardPart part)
+        {
+            BuildViewModel(model, part);
+
+            model.NumberOfContentItemsInState = 100;
 
             return default;
         }
