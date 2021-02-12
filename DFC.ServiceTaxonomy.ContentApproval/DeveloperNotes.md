@@ -8,3 +8,8 @@ but importing the recipe that enables the 2 features doesn't set up the modules 
 can we use Securable to control visibility to different roles??
 
 content item per approval card type : dropdown to select type?
+^^ widget per hard gives a better ui experience
+
+todo query items and link to bring up content items page with filter pre-selected
+
+todo initially bring up dashboard rather than welcome message

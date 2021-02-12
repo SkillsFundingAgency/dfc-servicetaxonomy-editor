@@ -24,6 +24,9 @@ namespace DFC.ServiceTaxonomy.ContentApproval
             services.AddContentPart<ContentApprovalDashboardPart>()
                 .UseDisplayDriver<ContentApprovalDashboardPartDisplayDriver>();
 
+            services.AddContentPart<InDraftCardPart>()
+                .UseDisplayDriver<InDraftCardPartDisplayDriver>();
+
             services.AddScoped<IDataMigration, Migrations>();
         }
 

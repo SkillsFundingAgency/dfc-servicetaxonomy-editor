@@ -29,6 +29,11 @@ namespace DFC.ServiceTaxonomy.ContentApproval
                 .Attachable()
                 .WithDescription("Adds content approval dashboard cards.")
             );
+//todo: dashboard in draft part (to group together in part list)
+            _contentDefinitionManager.AlterPartDefinition("InDraftCardPart", builder => builder
+                .Attachable()
+                .WithDescription("Adds in draft dashboard card.")
+            );
 
             return 1;
         }
