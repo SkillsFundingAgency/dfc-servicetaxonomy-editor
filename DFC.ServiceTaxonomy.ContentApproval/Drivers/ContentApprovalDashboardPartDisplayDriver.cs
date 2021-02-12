@@ -31,14 +31,14 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Drivers
 
         public override async Task<IDisplayResult> UpdateAsync(ContentApprovalDashboardPart model, IUpdateModel updater, UpdatePartEditorContext context)
         {
-            await updater.TryUpdateModelAsync(model, Prefix, t => t.ViewType);
+            await updater.TryUpdateModelAsync(model, Prefix, t => t.Card);
 
             return await EditAsync(model, context);
         }
 
         private ValueTask BuildViewModel(ContentApprovalDashboardPartViewModel model, ContentApprovalDashboardPart part)
         {
-            model.ViewType = part.ViewType;
+            model.Card = part.Card;
             // model.DashboardPart = part;
             // model.ContentItem = part.ContentItem;
 

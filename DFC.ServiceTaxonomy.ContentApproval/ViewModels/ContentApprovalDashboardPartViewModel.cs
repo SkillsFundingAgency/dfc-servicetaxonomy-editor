@@ -1,8 +1,9 @@
-﻿namespace DFC.ServiceTaxonomy.ContentApproval.ViewModels
+﻿using DFC.ServiceTaxonomy.ContentApproval.Models;
+
+namespace DFC.ServiceTaxonomy.ContentApproval.ViewModels
 {
     public class ContentApprovalDashboardPartViewModel
     {
-        //todo: string populated by select (and matching enum)
-        public int ViewType { get; set; }
+        public DashboardItemsStatusCard Card { get; set; }
     }
 }
