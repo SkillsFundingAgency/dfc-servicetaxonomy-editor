@@ -1,5 +1,6 @@
 using System;
 using DFC.ServiceTaxonomy.ContentApproval.Drivers;
+using DFC.ServiceTaxonomy.ContentApproval.Indexes;
 using DFC.ServiceTaxonomy.ContentApproval.Migrations;
 using DFC.ServiceTaxonomy.ContentApproval.Models;
 using DFC.ServiceTaxonomy.ContentApproval.Permissions;
@@ -13,6 +14,7 @@ using OrchardCore.Data.Migration;
 using OrchardCore.DisplayManagement.Descriptors;
 using OrchardCore.Modules;
 using OrchardCore.Security.Permissions;
+using YesSql.Indexes;
 
 namespace DFC.ServiceTaxonomy.ContentApproval
 {
@@ -22,15 +24,12 @@ namespace DFC.ServiceTaxonomy.ContentApproval
         {
             services.AddContentPart<ContentApprovalPart>()
                 .UseDisplayDriver<ContentApprovalPartDisplayDriver>();
-            
             services.AddScoped<IDataMigration, ContentApprovalPartMigrations>();
-
-            services.AddScoped<IShapeTableProvider, UserEditShapes>();
-
-
+            services.AddSingleton<IIndexProvider, ContentApprovalPartIndexProvider>();
             services.AddScoped<IPermissionProvider, CanPerformReviewPermissions>();
             services.AddScoped<IPermissionProvider, CanPerformApprovalPermissions>();
             services.AddScoped<IPermissionProvider, RequestReviewPermissions>();
+            services.AddScoped<IShapeTableProvider, UserEditShapes>();
         }
 
         public override void Configure(IApplicationBuilder app, IEndpointRouteBuilder routes, IServiceProvider serviceProvider)
