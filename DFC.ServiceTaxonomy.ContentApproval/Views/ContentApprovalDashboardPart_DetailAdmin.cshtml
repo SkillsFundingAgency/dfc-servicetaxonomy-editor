@@ -6,11 +6,11 @@
     switch (Model.Card)
     {
         case DashboardItemsStatusCard.InDraft:
+            <div>
             <a asp-route-area="OrchardCore.Contents" asp-controller="@(typeof(OrchardCore.Contents.Controllers.AdminController).ControllerName())" asp-action="List">
-                <i class="fas fa-pencil-alt"></i>
-                <h1 class="display-1">@(Model.NumberOfContentItemsInState)</h1>
-                <span>In Draft</span>
+                <span><i class="fas fa-pencil-alt display-4"></i><span class="display-3">@(Model.NumberOfContentItemsInState)</span><span class="display-4">In Draft</span></span>
             </a>
+            </div>
             break;
         case DashboardItemsStatusCard.WaitingForReview:
             <i class="far fa-hourglass"></i>
