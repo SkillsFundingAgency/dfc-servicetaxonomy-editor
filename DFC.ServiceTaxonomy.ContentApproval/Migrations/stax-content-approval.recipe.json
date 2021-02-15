@@ -10,7 +10,6 @@
     "tags": ["ncs"],
     "steps": [
         {
-            "name": "Roles",
             "Roles": [
                 {
                     "Name": "ContentAdministrator",
@@ -29,10 +28,11 @@
                         "CanPerformUXReviewPermission",
                         "CanPerformStakeholderApprovalPermission",
                         "AssignRoles",
-                        "ManageRoles",
                         "ManageTaxonomy",
                         "ManageUsers",
-                        "ManageOwnUserInformation"
+                        "ManageOwnUserInformation",
+                        "AccessAdminPanel",
+                        "ManageMediaContent"
                     ]
                 },
                 {
@@ -46,51 +46,66 @@
                         "CloneContent",
                         "RequestReviewPermission",
                         "PublishContent",
-                        "ManageTaxonomy"
+                        "ManageTaxonomy",
+                        "ManageOwnUserInformation",
+                        "AccessAdminPanel",
+                        "ManageMediaContent"
                     ]
                 },
                 {
                     "Name": "Reviewer_UX",
                     "Description": "Reviewer UX",
                     "Permissions": [
+                        "ListContent",
                         "PublishContent",
                         "RequestReviewPermission",
                         "ViewContent",
                         "PreviewContent",
-                        "CanPerformUXReviewPermission"
+                        "CanPerformUXReviewPermission",
+                        "ManageOwnUserInformation",
+                        "AccessAdminPanel"
                     ]
                 },
                 {
                     "Name": "Reviewer_SME",
                     "Description": "Reviewer SME",
                     "Permissions": [
+                        "ListContent",
                         "PublishContent",
                         "RequestReviewPermission",
                         "ViewContent",
                         "PreviewContent",
-                        "CanPerformSMEReviewPermission"
+                        "CanPerformSMEReviewPermission",
+                        "ManageOwnUserInformation",
+                        "AccessAdminPanel"
                     ]
                 },
                 {
                     "Name": "Reviewer_ContentDesign",
                     "Description": "Reviewer Content Design",
                     "Permissions": [
+                        "ListContent",
                         "PublishContent",
                         "RequestReviewPermission",
                         "ViewContent",
                         "PreviewContent",
-                        "CanPerformContentDesignReviewPermission"
+                        "CanPerformContentDesignReviewPermission",
+                        "ManageOwnUserInformation",
+                        "AccessAdminPanel"
                     ]
                 },
                 {
                     "Name": "Reviewer_Stakeholder",
                     "Description": "Reviewer Stakeholder",
                     "Permissions": [
+                        "ListContent",
                         "PublishContent",
                         "RequestReviewPermission",
                         "ViewContent",
                         "PreviewContent",
-                        "CanPerformStakeholderApprovalPermission"
+                        "CanPerformStakeholderApprovalPermission",
+                        "ManageOwnUserInformation",
+                        "AccessAdminPanel"
                     ]
                 }
             ]
