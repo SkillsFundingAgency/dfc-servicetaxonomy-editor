@@ -99,8 +99,8 @@
             "name": "ReplaceContentDefinition",
             "ContentTypes": [
                 {
-                    "Name": "ContentApprovalDashboardCard",
-                    "DisplayName": "Content Approval Dashboard Card",
+                    "Name": "ContentApprovalItemStatusDashboardWidget",
+                    "DisplayName": "Content Approval Item Status Dashboard Widget",
                     "Settings": {
                         "ContentTypeSettings": {
                             "Stereotype": "DashboardWidget",
@@ -110,20 +110,11 @@
                     },
                     "ContentTypePartDefinitionRecords": [
                         {
-                            "PartName": "ContentApprovalDashboardCard",
-                            "Name": "ContentApprovalDashboardCard",
+                            "PartName": "ContentApprovalItemStatusDashboardWidget",
+                            "Name": "ContentApprovalItemStatusDashboardWidget",
                             "Settings": {
                                 "ContentTypePartSettings": {
                                     "Position": "0"
-                                }
-                            }
-                        },
-                        {
-                            "PartName": "ContentApprovalDashboardPart",
-                            "Name": "ContentApprovalDashboardPart",
-                            "Settings": {
-                                "ContentTypePartSettings": {
-                                    "Position": "2"
                                 }
                             }
                         },
@@ -132,7 +123,16 @@
                             "Name": "DashboardPart",
                             "Settings": {
                                 "ContentTypePartSettings": {
-                                    "Position": "3"
+                                    "Position": "1"
+                                }
+                            }
+                        },
+                        {
+                            "PartName": "ContentApprovalItemStatusDashboardPart",
+                            "Name": "ContentApprovalItemStatusDashboardPart",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "2"
                                 }
                             }
                         }
@@ -147,7 +147,7 @@
                 {
                     "ContentItemId": "4mmhd34qrhvygstebtm6fnpd5b",
                     "ContentItemVersionId": "4nfdtbg8cqyv02vtv22nvwxg4g",
-                    "ContentType": "ContentApprovalDashboardCard",
+                    "ContentType": "ContentApprovalItemStatusDashboardWidget",
                     "DisplayText": null,
                     "Latest": true,
                     "Published": true,
@@ -156,8 +156,10 @@
                     "CreatedUtc": "2021-02-11T12:30:53.749129Z",
                     "Owner": null,
                     "Author": "admin",
-                    "ContentApprovalDashboardCard": {},
-                    "ContentApprovalDashboardPart": {},
+                    "ContentApprovalItemStatusDashboardWidget": {},
+                    "ContentApprovalItemStatusDashboardPart": {
+                        "Card": 0
+                    },
                     "DashboardPart": {
                         "Position": 10.0
                     }

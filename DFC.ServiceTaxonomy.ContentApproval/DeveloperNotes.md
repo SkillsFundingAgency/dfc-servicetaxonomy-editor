@@ -11,3 +11,6 @@ todo initially bring up dashboard rather than welcome message
 permission to view cards? don't think so
 
 try and extend funnel rather than adding new custom filter
+
+deleting dashboard widgets doesn't seem to work
+we probably want to hide the edit and delete for our widgets anyway

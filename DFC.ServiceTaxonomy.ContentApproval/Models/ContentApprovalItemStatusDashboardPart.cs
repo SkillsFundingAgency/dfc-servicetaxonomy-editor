@@ -30,7 +30,7 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Models
         Published
     }
 
-    public class ContentApprovalDashboardPart : ContentPart
+    public class ContentApprovalItemStatusDashboardPart : ContentPart
     {
         [DefaultValue(DashboardItemsStatusCard.InDraft)]
         public DashboardItemsStatusCard Card { get; set; } = DashboardItemsStatusCard.InDraft;

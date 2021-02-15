@@ -2,7 +2,7 @@
 
 namespace DFC.ServiceTaxonomy.ContentApproval.ViewModels
 {
-    public class ContentApprovalDashboardPartViewModel
+    public class ContentApprovalItemStatusDashboardPartViewModel
     {
         public DashboardItemsStatusCard Card { get; set; }
 

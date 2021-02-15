@@ -9,38 +9,37 @@ using OrchardCore.DisplayManagement.Views;
 
 namespace DFC.ServiceTaxonomy.ContentApproval.Drivers
 {
-    //todo DashboardItemStatusPart
-    class ContentApprovalDashboardPartDisplayDriver : ContentPartDisplayDriver<ContentApprovalDashboardPart>
+    class ContentApprovalItemStatusDashboardPartDisplayDriver : ContentPartDisplayDriver<ContentApprovalItemStatusDashboardPart>
     {
         private readonly IContentItemsApprovalService _contentItemsApprovalService;
 
-        public ContentApprovalDashboardPartDisplayDriver(IContentItemsApprovalService contentItemsApprovalService)
+        public ContentApprovalItemStatusDashboardPartDisplayDriver(IContentItemsApprovalService contentItemsApprovalService)
         {
             _contentItemsApprovalService = contentItemsApprovalService;
         }
 
-        public override Task<IDisplayResult> DisplayAsync(ContentApprovalDashboardPart part, BuildPartDisplayContext context)
+        public override Task<IDisplayResult> DisplayAsync(ContentApprovalItemStatusDashboardPart part, BuildPartDisplayContext context)
         {
             return Task.FromResult<IDisplayResult>(
-                Initialize<ContentApprovalDashboardPartViewModel>(
+                Initialize<ContentApprovalItemStatusDashboardPartViewModel>(
                     GetDisplayShapeType(context), async m => await BuildDisplayViewModel(m, part))
                     .Location("DetailAdmin", "Content:10"));
         }
 
-        public override Task<IDisplayResult> EditAsync(ContentApprovalDashboardPart part, BuildPartEditorContext context)
+        public override Task<IDisplayResult> EditAsync(ContentApprovalItemStatusDashboardPart part, BuildPartEditorContext context)
         {
             return Task.FromResult<IDisplayResult>(
-                Initialize<ContentApprovalDashboardPartViewModel>(GetEditorShapeType(context), m => BuildViewModel(m, part)));
+                Initialize<ContentApprovalItemStatusDashboardPartViewModel>(GetEditorShapeType(context), m => BuildViewModel(m, part)));
         }
 
-        public override async Task<IDisplayResult> UpdateAsync(ContentApprovalDashboardPart model, IUpdateModel updater, UpdatePartEditorContext context)
+        public override async Task<IDisplayResult> UpdateAsync(ContentApprovalItemStatusDashboardPart model, IUpdateModel updater, UpdatePartEditorContext context)
         {
             await updater.TryUpdateModelAsync(model, Prefix, t => t.Card);
 
             return await EditAsync(model, context);
         }
 
-        private ValueTask BuildViewModel(ContentApprovalDashboardPartViewModel model, ContentApprovalDashboardPart part)
+        private ValueTask BuildViewModel(ContentApprovalItemStatusDashboardPartViewModel model, ContentApprovalItemStatusDashboardPart part)
         {
             model.Card = part.Card;
 
@@ -48,8 +47,8 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Drivers
         }
 
         private ValueTask BuildDisplayViewModel(
-            ContentApprovalDashboardPartViewModel model,
-            ContentApprovalDashboardPart part)
+            ContentApprovalItemStatusDashboardPartViewModel model,
+            ContentApprovalItemStatusDashboardPart part)
         {
             BuildViewModel(model, part);
 

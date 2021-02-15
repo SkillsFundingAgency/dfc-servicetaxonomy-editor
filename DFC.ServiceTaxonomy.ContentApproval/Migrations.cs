@@ -6,8 +6,6 @@ using OrchardCore.Recipes.Services;
 
 namespace DFC.ServiceTaxonomy.ContentApproval
 {
-    //todo: DashboardPartIndex isn't being created, even though it's in the dashboard migration
-    // it works when enabled as a feature through the ui however!
     public class Migrations : DataMigration
     {
         private readonly IContentDefinitionManager _contentDefinitionManager;
@@ -21,18 +19,9 @@ namespace DFC.ServiceTaxonomy.ContentApproval
 
         public int Create()
         {
-            // SchemaBuilder.CreateMapIndexTable<DashboardPartIndex>(table => table
-            //     .Column<double>("Position")
-            // );
-
-            _contentDefinitionManager.AlterPartDefinition("ContentApprovalDashboardPart", builder => builder
+            _contentDefinitionManager.AlterPartDefinition("ContentApprovalItemStatusDashboardPart", builder => builder
                 .Attachable()
                 .WithDescription("Adds content approval dashboard cards.")
-            );
-//todo: dashboard in draft part (to group together in part list)
-            _contentDefinitionManager.AlterPartDefinition("InDraftCardPart", builder => builder
-                .Attachable()
-                .WithDescription("Adds in draft dashboard card.")
             );
 
             return 1;
