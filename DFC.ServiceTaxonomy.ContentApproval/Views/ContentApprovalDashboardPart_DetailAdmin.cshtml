@@ -1,9 +1,54 @@
-﻿@using OrchardCore.Mvc.Core.Utilities
-@model ContentApprovalDashboardPartViewModel
+﻿@model ContentApprovalDashboardPartViewModel
 
-<h1 class="display-1"><a asp-route-area="OrchardCore.Contents" asp-controller="@(typeof(OrchardCore.Contents.Controllers.AdminController).ControllerName())" asp-action="List">@(Model.NumberOfContentItemsInState)</a></h1>
 
-                                    @* <a class="list-group-item list-group-item-action" asp-action="Edit" asp-controller="Admin" asp-route-area="OrchardCore.Contents" asp-route-contentItemId="@culture.ContentItemId" title=@T["Edit {0}", culture.Culture.DisplayName]><i class="fa fa-edit"></i> @culture.Culture.DisplayName | @culture.Culture.Name </a> *@
+
+@{
+    switch (Model.Card)
+    {
+        case DashboardItemsStatusCard.InDraft:
+            <a asp-route-area="OrchardCore.Contents" asp-controller="@(typeof(OrchardCore.Contents.Controllers.AdminController).ControllerName())" asp-action="List">
+                <i class="fas fa-pencil-alt"></i>
+                <h1 class="display-1">@(Model.NumberOfContentItemsInState)</h1>
+                <span>In Draft</span>
+            </a>
+            break;
+        case DashboardItemsStatusCard.WaitingForReview:
+            <i class="far fa-hourglass"></i>
+            <h1 class="display-1">@(Model.NumberOfContentItemsInState)</h1>
+            <span>Waiting For Review</span>
+            <a asp-route-area="OrchardCore.Contents" asp-controller="@(typeof(OrchardCore.Contents.Controllers.AdminController).ControllerName())" asp-action="List">Content Design</a>
+            <a asp-route-area="OrchardCore.Contents" asp-controller="@(typeof(OrchardCore.Contents.Controllers.AdminController).ControllerName())" asp-action="List">SME</a>
+            <a asp-route-area="OrchardCore.Contents" asp-controller="@(typeof(OrchardCore.Contents.Controllers.AdminController).ControllerName())" asp-action="List">Stakeholder</a>
+            <a asp-route-area="OrchardCore.Contents" asp-controller="@(typeof(OrchardCore.Contents.Controllers.AdminController).ControllerName())" asp-action="List">UX</a>
+            break;
+        case DashboardItemsStatusCard.InReview:
+            <i class="fas fa-search"></i>
+            <h1 class="display-1">@(Model.NumberOfContentItemsInState)</h1>
+            <span>In Review</span>
+            <a asp-route-area="OrchardCore.Contents" asp-controller="@(typeof(OrchardCore.Contents.Controllers.AdminController).ControllerName())" asp-action="List">Content Design</a>
+            <a asp-route-area="OrchardCore.Contents" asp-controller="@(typeof(OrchardCore.Contents.Controllers.AdminController).ControllerName())" asp-action="List">SME</a>
+            <a asp-route-area="OrchardCore.Contents" asp-controller="@(typeof(OrchardCore.Contents.Controllers.AdminController).ControllerName())" asp-action="List">Stakeholder</a>
+            <a asp-route-area="OrchardCore.Contents" asp-controller="@(typeof(OrchardCore.Contents.Controllers.AdminController).ControllerName())" asp-action="List">UX</a>
+            break;
+        case DashboardItemsStatusCard.Published:
+            <a asp-route-area="OrchardCore.Contents" asp-controller="@(typeof(OrchardCore.Contents.Controllers.AdminController).ControllerName())" asp-action="List">
+                <i class="far fa-check-circle"></i>
+                <h1 class="display-1">@(Model.NumberOfContentItemsInState)</h1>
+                <span>Published</span>
+            </a>
+            break;
+    }
+}
+
+@* todo for draft and published, make whole clickable *@
+@* https://stackoverflow.com/questions/796087/make-a-div-into-a-link *@
+
+@* todo helpers/functions *@
+@* @helper ShowItemCount(ItemsStatus itemsStatus) { *@
+@*     <h1 class="display-1"><a asp-route-area="OrchardCore.Contents" asp-controller="@(typeof(OrchardCore.Contents.Controllers.AdminController).ControllerName())" asp-action="List">@(Model.NumberOfContentItemsInState)</a></h1> *@
+@* } *@
+
+@* <a class="list-group-item list-group-item-action" asp-action="Edit" asp-controller="Admin" asp-route-area="OrchardCore.Contents" asp-route-contentItemId="@culture.ContentItemId" title=@T["Edit {0}", culture.Culture.DisplayName]><i class="fa fa-edit"></i> @culture.Culture.DisplayName | @culture.Culture.Name </a> *@
 
 
 @* contentItems.Action(nameof(AdminController.List), typeof(AdminController).ControllerName(), new { area = "OrchardCore.Contents", contentTypeId = "" }); *@

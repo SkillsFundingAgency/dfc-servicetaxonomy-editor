@@ -6,17 +6,7 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Models
     public enum DashboardItemsStatusCard
     {
         InDraft,
-        // single WaitingForReview or one for each?
-        // WaitingForReview_UX,
-        // WaitingForReview_SME,
-        // WaitingForReview_Stakeholder,
-        // WaitingForReview_ContentDesign,
         WaitingForReview,
-        // single InReview or one for each?
-        // InReview_UX,
-        // InReview_SME,
-        // InReview_Stakeholder,
-        // InReview_ContentDesign,
         InReview,
         Published
         // these will be on a report card and may or may not be part of this part (probably not)
@@ -24,6 +14,20 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Models
         // EmergencyEdited,
         // Unpublished,
         // Deleted
+    }
+
+    public enum ItemsStatus
+    {
+        InDraft,
+        WaitingForReview_UX,
+        WaitingForReview_SME,
+        WaitingForReview_Stakeholder,
+        WaitingForReview_ContentDesign,
+        InReview_UX,
+        InReview_SME,
+        InReview_Stakeholder,
+        InReview_ContentDesign,
+        Published
     }
 
     public class ContentApprovalDashboardPart : ContentPart
