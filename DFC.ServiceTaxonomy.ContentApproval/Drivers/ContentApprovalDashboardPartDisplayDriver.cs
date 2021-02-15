@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.ContentApproval.Models;
+using DFC.ServiceTaxonomy.ContentApproval.Services;
 using DFC.ServiceTaxonomy.ContentApproval.ViewModels;
 using OrchardCore.ContentManagement.Display.ContentDisplay;
 using OrchardCore.ContentManagement.Display.Models;
@@ -11,6 +12,13 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Drivers
     //todo DashboardItemStatusPart
     class ContentApprovalDashboardPartDisplayDriver : ContentPartDisplayDriver<ContentApprovalDashboardPart>
     {
+        private readonly IContentItemsApprovalService _contentItemsApprovalService;
+
+        public ContentApprovalDashboardPartDisplayDriver(IContentItemsApprovalService contentItemsApprovalService)
+        {
+            _contentItemsApprovalService = contentItemsApprovalService;
+        }
+
         public override Task<IDisplayResult> DisplayAsync(ContentApprovalDashboardPart part, BuildPartDisplayContext context)
         {
             return Task.FromResult<IDisplayResult>(
@@ -45,7 +53,7 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Drivers
         {
             BuildViewModel(model, part);
 
-            model.NumberOfContentItemsInState = 100;
+            model.NumberOfContentItemsInState = _contentItemsApprovalService.ItemCount(part.Card);
 
             return default;
         }

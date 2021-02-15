@@ -11,6 +11,7 @@ using OrchardCore.Modules.Manifest;
     {
         "OrchardCore.Contents",
         "OrchardCore.ContentManagement",
-        "OrchardCore.AdminDashboard"
+        "OrchardCore.AdminDashboard",
+        "DFC.ServiceTaxonomy.Content"
     }
 )]
