@@ -10,6 +10,7 @@ using OrchardCore.Modules.Manifest;
     Dependencies = new[]
     {
         "OrchardCore.Contents",
-        "OrchardCore.ContentManagement"
+        "OrchardCore.ContentManagement",
+        "OrchardCore.AdminDashboard"
     }
 )]
