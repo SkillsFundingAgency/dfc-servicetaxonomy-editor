@@ -5,18 +5,21 @@
         <label asp-for="Card">@T["Item status"]</label>
         <select asp-for="Card" class="form-control">
             <option value="@DashboardItemsStatusCard.InDraft" selected="@(Model.Card == DashboardItemsStatusCard.InDraft)">@T["In Draft"]</option>
-            <option value="@DashboardItemsStatusCard.WaitingForReview_UX" selected="@(Model.Card == DashboardItemsStatusCard.WaitingForReview_UX)">@T["Waiting for UX review"]</option>
-            <option value="@DashboardItemsStatusCard.WaitingForReview_SME" selected="@(Model.Card == DashboardItemsStatusCard.WaitingForReview_SME)">@T["Waiting for SME review"]</option>
-            <option value="@DashboardItemsStatusCard.WaitingForReview_Stakeholder" selected="@(Model.Card == DashboardItemsStatusCard.WaitingForReview_Stakeholder)">@T["Waiting for stakeholder review"]</option>
-            <option value="@DashboardItemsStatusCard.WaitingForReview_ContentDesign" selected="@(Model.Card == DashboardItemsStatusCard.WaitingForReview_ContentDesign)">@T["Waiting for content design review"]</option>
-            <option value="@DashboardItemsStatusCard.InReview_UX" selected="@(Model.Card == DashboardItemsStatusCard.InReview_UX)">@T["In UX review"]</option>
-            <option value="@DashboardItemsStatusCard.InReview_SME" selected="@(Model.Card == DashboardItemsStatusCard.InReview_SME)">@T["In SME review"]</option>
-            <option value="@DashboardItemsStatusCard.InReview_Stakeholder" selected="@(Model.Card == DashboardItemsStatusCard.InReview_Stakeholder)">@T["In stakeholder review"]</option>
-            <option value="@DashboardItemsStatusCard.InReview_ContentDesign" selected="@(Model.Card == DashboardItemsStatusCard.InReview_ContentDesign)">@T["In content design review"]</option>
-            <option value="@DashboardItemsStatusCard.ForcePublished" selected="@(Model.Card == DashboardItemsStatusCard.ForcePublished)">@T["Force published"]</option>
-            <option value="@DashboardItemsStatusCard.EmergencyEdited" selected="@(Model.Card == DashboardItemsStatusCard.EmergencyEdited)">@T["Emergency edited"]</option>
-            <option value="@DashboardItemsStatusCard.Unpublished" selected="@(Model.Card == DashboardItemsStatusCard.Unpublished)">@T["Unpublished"]</option>
-            <option value="@DashboardItemsStatusCard.Deleted" selected="@(Model.Card == DashboardItemsStatusCard.Deleted)">@T["Deleted"]</option>
+            @* <option value="@DashboardItemsStatusCard.WaitingForReview_UX" selected="@(Model.Card == DashboardItemsStatusCard.WaitingForReview_UX)">@T["Waiting for UX review"]</option> *@
+            @* <option value="@DashboardItemsStatusCard.WaitingForReview_SME" selected="@(Model.Card == DashboardItemsStatusCard.WaitingForReview_SME)">@T["Waiting for SME review"]</option> *@
+            @* <option value="@DashboardItemsStatusCard.WaitingForReview_Stakeholder" selected="@(Model.Card == DashboardItemsStatusCard.WaitingForReview_Stakeholder)">@T["Waiting for stakeholder review"]</option> *@
+            @* <option value="@DashboardItemsStatusCard.WaitingForReview_ContentDesign" selected="@(Model.Card == DashboardItemsStatusCard.WaitingForReview_ContentDesign)">@T["Waiting for content design review"]</option> *@
+            <option value="@DashboardItemsStatusCard.WaitingForReview" selected="@(Model.Card == DashboardItemsStatusCard.WaitingForReview)">@T["Waiting for review"]</option>
+            @* <option value="@DashboardItemsStatusCard.InReview_UX" selected="@(Model.Card == DashboardItemsStatusCard.InReview_UX)">@T["In UX review"]</option> *@
+            @* <option value="@DashboardItemsStatusCard.InReview_SME" selected="@(Model.Card == DashboardItemsStatusCard.InReview_SME)">@T["In SME review"]</option> *@
+            @* <option value="@DashboardItemsStatusCard.InReview_Stakeholder" selected="@(Model.Card == DashboardItemsStatusCard.InReview_Stakeholder)">@T["In stakeholder review"]</option> *@
+            @* <option value="@DashboardItemsStatusCard.InReview_ContentDesign" selected="@(Model.Card == DashboardItemsStatusCard.InReview_ContentDesign)">@T["In content design review"]</option> *@
+            <option value="@DashboardItemsStatusCard.InReview" selected="@(Model.Card == DashboardItemsStatusCard.InReview)">@T["In review"]</option>
+            <option value="@DashboardItemsStatusCard.Published" selected="@(Model.Card == DashboardItemsStatusCard.Published)">@T["Published"]</option>
+            @* <option value="@DashboardItemsStatusCard.ForcePublished" selected="@(Model.Card == DashboardItemsStatusCard.ForcePublished)">@T["Force published"]</option> *@
+            @* <option value="@DashboardItemsStatusCard.EmergencyEdited" selected="@(Model.Card == DashboardItemsStatusCard.EmergencyEdited)">@T["Emergency edited"]</option> *@
+            @* <option value="@DashboardItemsStatusCard.Unpublished" selected="@(Model.Card == DashboardItemsStatusCard.Unpublished)">@T["Unpublished"]</option> *@
+            @* <option value="@DashboardItemsStatusCard.Deleted" selected="@(Model.Card == DashboardItemsStatusCard.Deleted)">@T["Deleted"]</option> *@
         </select>
         <span class="hint">The item status to summarise in this widget.</span>
     </div>
