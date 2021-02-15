@@ -15,3 +15,5 @@ todo query items and link to bring up content items page with filter pre-selecte
 todo initially bring up dashboard rather than welcome message
 
 permission to view cards? don't think so
+
+try and extend funnel rather than adding new custom filter

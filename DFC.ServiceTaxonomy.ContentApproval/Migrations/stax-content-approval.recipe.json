@@ -135,15 +135,6 @@
                                     "Position": "3"
                                 }
                             }
-                        },
-                        {
-                            "PartName": "TitlePart",
-                            "Name": "TitlePart",
-                            "Settings": {
-                                "ContentTypePartSettings": {
-                                    "Position": "1"
-                                }
-                            }
                         }
                     ]
                 }
@@ -157,7 +148,7 @@
                     "ContentItemId": "4mmhd34qrhvygstebtm6fnpd5b",
                     "ContentItemVersionId": "4nfdtbg8cqyv02vtv22nvwxg4g",
                     "ContentType": "ContentApprovalDashboardCard",
-                    "DisplayText": "Content Approval",
+                    "DisplayText": null,
                     "Latest": true,
                     "Published": true,
                     "ModifiedUtc": "2021-02-11T12:53:42.7302174Z",
@@ -169,9 +160,6 @@
                     "ContentApprovalDashboardPart": {},
                     "DashboardPart": {
                         "Position": 10.0
-                    },
-                    "TitlePart": {
-                        "Title": "Content Approval"
                     }
                 }
             ]
