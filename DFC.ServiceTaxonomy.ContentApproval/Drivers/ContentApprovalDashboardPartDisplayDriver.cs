@@ -15,7 +15,7 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Drivers
         {
             return Task.FromResult<IDisplayResult>(
                 Initialize<ContentApprovalDashboardPartViewModel>(
-                    GetDisplayShapeType(context), async m => await BuildDisplayViewModel(m, part)) //, context))
+                    GetDisplayShapeType(context), async m => await BuildDisplayViewModel(m, part))
                     .Location("DetailAdmin", "Content:10"));
         }
 
@@ -35,8 +35,6 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Drivers
         private ValueTask BuildViewModel(ContentApprovalDashboardPartViewModel model, ContentApprovalDashboardPart part)
         {
             model.Card = part.Card;
-            // model.DashboardPart = part;
-            // model.ContentItem = part.ContentItem;
 
             return default;
         }
