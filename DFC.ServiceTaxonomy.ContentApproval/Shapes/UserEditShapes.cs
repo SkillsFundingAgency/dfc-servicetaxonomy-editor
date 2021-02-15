@@ -1,37 +1,38 @@
-﻿//using Microsoft.AspNetCore.Authorization;
-//using Microsoft.AspNetCore.Http;
-//using OrchardCore.DisplayManagement.Descriptors;
+﻿using DFC.ServiceTaxonomy.ContentApproval.Models;
+using Microsoft.AspNetCore.Http;
+using OrchardCore.ContentManagement;
+using OrchardCore.DisplayManagement.Descriptors;
+using OrchardCore.DisplayManagement.Shapes;
 
-//namespace DFC.ServiceTaxonomy.ContentApproval.Shapes
-//{
-//    public class UserEditShapes : IShapeTableProvider
-//    {
-//        private readonly IAuthorizationService _authorizationService;
-//        private readonly IHttpContextAccessor _httpContextAccessor;
+namespace DFC.ServiceTaxonomy.ContentApproval.Shapes
+{
+    public class UserEditShapes : IShapeTableProvider
+    {
+        private readonly IHttpContextAccessor _httpContextAccessor;
 
-//        public UserEditShapes(IAuthorizationService authorizationService, IHttpContextAccessor httpContextAccessor)
-//        {
-//            _httpContextAccessor = httpContextAccessor;
-//            _authorizationService = authorizationService;
-//        }
-//        public void Discover(ShapeTableBuilder builder)
-//        {
-//            builder.Describe("UserFields_Edit").OnDisplaying(action =>
-//            {
-                
-//                var user = _httpContextAccessor.HttpContext?.User;
-//                if (user != null && !user.IsInRole("Administrator"))
-//                {
-//#pragma warning disable S1481 // Unused local variables should be removed
-//                    var value = action.DisplayContext.Value;
-//#pragma warning restore S1481 // Unused local variables should be removed
+        public UserEditShapes(IHttpContextAccessor httpContextAccessor)
+        {
+            _httpContextAccessor = httpContextAccessor;
+        }
 
-//#pragma warning disable S3626 // Jump statements should not be redundant
-//                    return;
-//#pragma warning restore S3626 // Jump statements should not be redundant
-//                }
-               
-//            });
-//        }
-//    }
-//}
+        public void Discover(ShapeTableBuilder builder)
+        {
+            builder.Describe("Content_SummaryAdmin").OnDisplaying(context =>
+            {
+                var currentUser = _httpContextAccessor.HttpContext?.User;
+                if (currentUser == null || !currentUser.IsInRole("Editor"))
+                {
+                    return;
+                }
+                dynamic shape = context.Shape;
+                var approvalStatus = (((ContentItem)shape.ContentItem).As<ContentApprovalPart>()?.ApprovalStatus) ??
+                                     ContentApprovalStatus.InDraft;
+                if (approvalStatus == ContentApprovalStatus.InReview)
+                {
+                    Shape actions = (Shape)shape.Actions;
+                    actions.Remove("ContentsButtonEdit_SummaryAdmin");
+                }
+            });
+        }
+    }
+}

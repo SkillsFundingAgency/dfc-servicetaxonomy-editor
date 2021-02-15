@@ -16,21 +16,21 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Drivers
     public class ContentApprovalPartDisplayDriver : ContentPartDisplayDriver<ContentApprovalPart>
     {
         private readonly IAuthorizationService _authorizationService;
-        private readonly HttpContext _httpContext;
+        private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly INotifier _notifier;
         private readonly IHtmlLocalizer<ContentApprovalPartDisplayDriver> H;
 
         public ContentApprovalPartDisplayDriver(IAuthorizationService authorizationService, IHttpContextAccessor httpContextAccessor, INotifier notifier, IHtmlLocalizer<ContentApprovalPartDisplayDriver> htmlLocalizer)
         {
             _authorizationService = authorizationService;
-            _httpContext = httpContextAccessor.HttpContext;
+            _httpContextAccessor = httpContextAccessor;
             _notifier = notifier;
             H = htmlLocalizer;
         }
 
         public override async Task<IDisplayResult?> DisplayAsync(ContentApprovalPart part, BuildPartDisplayContext context)
         {
-            var currentUser = _httpContext?.User;
+            var currentUser = _httpContextAccessor.HttpContext?.User;
             if (part.ApprovalStatus != ContentApprovalStatus.InDraft || currentUser == null || !(await _authorizationService.AuthorizeAsync(currentUser, Permissions.RequestReviewPermissions.RequestReviewPermission, part)))
             {
                 return null;
@@ -43,7 +43,7 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Drivers
 
         public override async Task<IDisplayResult?> EditAsync(ContentApprovalPart part, BuildPartEditorContext context)
         {
-            var currentUser = _httpContext?.User;
+            var currentUser = _httpContextAccessor.HttpContext?.User;
 
             if (currentUser == null || !(await _authorizationService.AuthorizeAsync(currentUser, Permissions.RequestReviewPermissions.RequestReviewPermission, part)))
             {

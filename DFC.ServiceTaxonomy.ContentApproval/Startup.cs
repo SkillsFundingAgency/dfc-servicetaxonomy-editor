@@ -3,12 +3,14 @@ using DFC.ServiceTaxonomy.ContentApproval.Drivers;
 using DFC.ServiceTaxonomy.ContentApproval.Migrations;
 using DFC.ServiceTaxonomy.ContentApproval.Models;
 using DFC.ServiceTaxonomy.ContentApproval.Permissions;
+using DFC.ServiceTaxonomy.ContentApproval.Shapes;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.DependencyInjection;
 using OrchardCore.ContentManagement;
 using OrchardCore.ContentManagement.Display.ContentDisplay;
 using OrchardCore.Data.Migration;
+using OrchardCore.DisplayManagement.Descriptors;
 using OrchardCore.Modules;
 using OrchardCore.Security.Permissions;
 
@@ -22,6 +24,9 @@ namespace DFC.ServiceTaxonomy.ContentApproval
                 .UseDisplayDriver<ContentApprovalPartDisplayDriver>();
             
             services.AddScoped<IDataMigration, ContentApprovalPartMigrations>();
+
+            services.AddScoped<IShapeTableProvider, UserEditShapes>();
+
 
             services.AddScoped<IPermissionProvider, CanPerformReviewPermissions>();
             services.AddScoped<IPermissionProvider, CanPerformApprovalPermissions>();
