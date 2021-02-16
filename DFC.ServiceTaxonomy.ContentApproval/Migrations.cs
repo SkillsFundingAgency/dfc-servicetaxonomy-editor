@@ -1,4 +1,5 @@
-﻿using OrchardCore.Data.Migration;
+﻿using System.Threading.Tasks;
+using OrchardCore.Data.Migration;
 using OrchardCore.ContentManagement.Metadata;
 using OrchardCore.ContentManagement.Metadata.Settings;
 using OrchardCore.Recipes.Services;
@@ -44,11 +45,11 @@ namespace DFC.ServiceTaxonomy.ContentApproval
             return 1;
         }
 
-        //public async Task<int> UpdateFrom1()
-        //{
-        //    await _recipeMigrator.ExecuteAsync("stax-content-approval.recipe.json", this);
+        public async Task<int> UpdateFrom1()
+        {
+            await _recipeMigrator.ExecuteAsync("stax-content-approval.recipe.json", this);
 
-        //    return 2;
-        //}
+            return 2;
+        }
     }
 }
