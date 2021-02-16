@@ -73,7 +73,7 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Drivers
                 else if (saveType.AttemptedValue.Contains("RequestApproval"))
                 {
                     part.ApprovalStatus = ContentApprovalStatus.ReadyForReview;
-                    _notifier.Success(H[$"{part.ContentItem.DisplayText} is now ready to be reviewed."]);
+                    _notifier.Success(H[$"{0} is now ready to be reviewed.", part.ContentItem.DisplayText]);
                 }
             }
             else if (keys.Contains("submit.Publish"))
