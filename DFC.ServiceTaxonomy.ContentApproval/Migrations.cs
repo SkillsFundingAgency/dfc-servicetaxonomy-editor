@@ -3,6 +3,9 @@ using OrchardCore.Data.Migration;
 using OrchardCore.ContentManagement.Metadata;
 using OrchardCore.ContentManagement.Metadata.Settings;
 using OrchardCore.Recipes.Services;
+using DFC.ServiceTaxonomy.ContentApproval.Models;
+using DFC.ServiceTaxonomy.ContentApproval.Indexes;
+using YesSql.Sql;
 
 namespace DFC.ServiceTaxonomy.ContentApproval
 {
@@ -19,22 +22,39 @@ namespace DFC.ServiceTaxonomy.ContentApproval
 
         public int Create()
         {
-            _contentDefinitionManager.AlterPartDefinition("ContentApprovalItemStatusDashboardPart", builder => builder
+            _contentDefinitionManager.AlterPartDefinition(nameof(ContentApprovalPart), part => part
                 .Attachable()
-                .WithDescription("Adds content approval dashboard cards.")
+                .WithDescription("Adds publishing status workflow properties to content items.")
             );
 
             return 1;
         }
 
-        //todo: do we need to migrate from roles?
-
-        public async Task<int> UpdateFrom1()
+        public int UpdateFrom1()
         {
-            // this conceptually should live in Create(), but Create() isn't async, so we have it as a update instead
-            await _recipeMigrator.ExecuteAsync("stax-content-approval.recipe.json", this);
+            SchemaBuilder.CreateMapIndexTable<ContentApprovalPartIndex>(table => table
+                .Column<string>(nameof(ContentApprovalPartIndex.ApprovalStatus))
+            );
+
+            SchemaBuilder.AlterTable(nameof(ContentApprovalPartIndex), table => table
+                .CreateIndex(
+                    $"IDX_{nameof(ContentApprovalPartIndex)}_{nameof(ContentApprovalPartIndex.ApprovalStatus)}",
+                    nameof(ContentApprovalPartIndex.ApprovalStatus))
+            );
 
             return 2;
+        }
+
+        public async Task<int> UpdateFrom2()
+        {
+            _contentDefinitionManager.AlterPartDefinition(nameof(ContentApprovalItemStatusDashboardPart), builder => builder
+                .Attachable()
+                .WithDescription("Adds content approval dashboard cards.")
+            );
+
+            await _recipeMigrator.ExecuteAsync("stax-content-approval.recipe.json", this);
+
+            return 3;
         }
     }
 }

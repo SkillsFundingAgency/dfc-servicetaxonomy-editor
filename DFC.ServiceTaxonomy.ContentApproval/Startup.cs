@@ -1,7 +1,6 @@
 using System;
 using DFC.ServiceTaxonomy.ContentApproval.Drivers;
 using DFC.ServiceTaxonomy.ContentApproval.Indexes;
-using DFC.ServiceTaxonomy.ContentApproval.Migrations;
 using DFC.ServiceTaxonomy.ContentApproval.Models;
 using DFC.ServiceTaxonomy.ContentApproval.Permissions;
 using DFC.ServiceTaxonomy.ContentApproval.Shapes;
@@ -25,7 +24,6 @@ namespace DFC.ServiceTaxonomy.ContentApproval
         {
             services.AddContentPart<ContentApprovalPart>()
                 .UseDisplayDriver<ContentApprovalPartDisplayDriver>();
-            services.AddScoped<IDataMigration, ContentApprovalPartMigrations>();
             services.AddSingleton<IIndexProvider, ContentApprovalPartIndexProvider>();
             services.AddScoped<IPermissionProvider, CanPerformReviewPermissions>();
             services.AddScoped<IPermissionProvider, CanPerformApprovalPermissions>();
