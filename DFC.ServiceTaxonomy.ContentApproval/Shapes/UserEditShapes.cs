@@ -1,5 +1,4 @@
-﻿using System.Threading.Tasks;
-using DFC.ServiceTaxonomy.ContentApproval.Models;
+﻿using DFC.ServiceTaxonomy.ContentApproval.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using OrchardCore.ContentManagement;
