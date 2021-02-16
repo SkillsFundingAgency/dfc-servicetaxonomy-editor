@@ -63,6 +63,13 @@
                     'bold': 'Bold',
                     'regular': 'Regular'
                 },
+                youtubeLink: 'Insert Youtube Link',
+                iframeSettings: {
+                    'url': 'URL',
+                    'title': 'Title',
+                    'width': 'Width',
+                    'height': 'Height'
+                }
             }
         },
         // Register plugin in Trumbowyg
@@ -164,6 +171,14 @@
                         text: 'Tab'
                     });
 
+                    trumbowyg.addBtnDef('youtubeLink', {
+                        ico: 'noembed',
+                        title: trumbowyg.lang.youtubeLink,
+                        fn: function () {
+                            youtubeLink(trumbowyg);
+                        }
+                    });
+
                     setColourTitles();
                 },
                 // Return a list of button names which are active on current element
@@ -259,6 +274,10 @@
         }
 
         trumbowyg.restoreRange();
+    }
+
+    function youtubeLink(trumbowyg) {
+
     }
 
     function createLink(trumbowyg, openInNewTab) {
@@ -730,7 +749,7 @@
     }
 
     function tabsBuilder() {
-        var tab1Id = Date.now()-1;
+        var tab1Id = Date.now() - 1;
         var tab2Id = Date.now();
         var divEnd = '</div>';
         var tab = '<div class="govuk-tabs" data-module="govuk-tabs"><h2 class="govuk-tabs__title">Contents</h2><ul class="govuk-tabs__list">';

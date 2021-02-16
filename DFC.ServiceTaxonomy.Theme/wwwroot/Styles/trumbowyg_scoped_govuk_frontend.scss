@@ -110,3 +110,9 @@
 
     @include meta.load-css("../../node_modules/nationalcareers_toolkit/assets/dist/css/all");
 }
+
+.trumbowyg-modal-box {
+    label {
+        width: calc(100% - 20px);
+    }
+}
