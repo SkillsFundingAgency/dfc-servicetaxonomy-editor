@@ -32,10 +32,10 @@ namespace DFC.ServiceTaxonomy.ContentApproval
             //        nameof(ContentApprovalPartIndex.ApprovalStatus))
             //);
 
-            //_contentDefinitionManager.AlterPartDefinition(nameof(ContentApprovalPart), part => part
-            //    .Attachable()
-            //    .WithDescription("Adds publishing status workflow properties to content items.")
-            //);
+            _contentDefinitionManager.AlterPartDefinition(nameof(ContentApprovalPart), part => part
+                .Attachable()
+                .WithDescription("Adds publishing status workflow properties to content items.")
+            );
 
             _contentDefinitionManager.AlterPartDefinition(nameof(ContentApprovalItemStatusDashboardPart), builder => builder
                 .Attachable()

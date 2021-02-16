@@ -24,8 +24,8 @@ namespace DFC.ServiceTaxonomy.ContentApproval
         {
             //services.AddSingleton<IIndexProvider, ContentApprovalPartIndexProvider>();
 
-            //services.AddContentPart<ContentApprovalPart>()
-            //    .UseDisplayDriver<ContentApprovalPartDisplayDriver>();
+            services.AddContentPart<ContentApprovalPart>()
+                .UseDisplayDriver<ContentApprovalPartDisplayDriver>();
 
             services.AddScoped<IPermissionProvider, CanPerformReviewPermissions>();
             services.AddScoped<IPermissionProvider, CanPerformApprovalPermissions>();
