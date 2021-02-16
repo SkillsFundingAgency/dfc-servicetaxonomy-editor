@@ -16,20 +16,6 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Models
         // Deleted
     }
 
-    public enum ItemsStatus
-    {
-        InDraft,
-        WaitingForReview_UX,
-        WaitingForReview_SME,
-        WaitingForReview_Stakeholder,
-        WaitingForReview_ContentDesign,
-        InReview_UX,
-        InReview_SME,
-        InReview_Stakeholder,
-        InReview_ContentDesign,
-        Published
-    }
-
     public class ContentApprovalItemStatusDashboardPart : ContentPart
     {
         [DefaultValue(DashboardItemsStatusCard.InDraft)]
