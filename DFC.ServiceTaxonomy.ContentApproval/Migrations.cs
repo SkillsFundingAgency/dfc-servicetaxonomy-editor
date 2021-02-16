@@ -1,11 +1,10 @@
-﻿using System.Threading.Tasks;
-using OrchardCore.Data.Migration;
+﻿using OrchardCore.Data.Migration;
 using OrchardCore.ContentManagement.Metadata;
 using OrchardCore.ContentManagement.Metadata.Settings;
 using OrchardCore.Recipes.Services;
 using DFC.ServiceTaxonomy.ContentApproval.Models;
-using DFC.ServiceTaxonomy.ContentApproval.Indexes;
-using YesSql.Sql;
+//using DFC.ServiceTaxonomy.ContentApproval.Indexes;
+//using YesSql.Sql;
 
 namespace DFC.ServiceTaxonomy.ContentApproval
 {
@@ -22,39 +21,34 @@ namespace DFC.ServiceTaxonomy.ContentApproval
 
         public int Create()
         {
-            _contentDefinitionManager.AlterPartDefinition(nameof(ContentApprovalPart), part => part
-                .Attachable()
-                .WithDescription("Adds publishing status workflow properties to content items.")
-            );
+            //SchemaBuilder.CreateMapIndexTable<ContentApprovalPartIndex>(table => table
+            //    .Column<string>(nameof(ContentApprovalPartIndex.ApprovalStatus))
+            //);
 
-            return 1;
-        }
+            //SchemaBuilder.AlterTable(nameof(ContentApprovalPartIndex), table => table
+            //    .CreateIndex(
+            //        $"IDX_{nameof(ContentApprovalPartIndex)}_{nameof(ContentApprovalPartIndex.ApprovalStatus)}",
+            //        nameof(ContentApprovalPartIndex.ApprovalStatus))
+            //);
 
-        public int UpdateFrom1()
-        {
-            SchemaBuilder.CreateMapIndexTable<ContentApprovalPartIndex>(table => table
-                .Column<string>(nameof(ContentApprovalPartIndex.ApprovalStatus))
-            );
+            //_contentDefinitionManager.AlterPartDefinition(nameof(ContentApprovalPart), part => part
+            //    .Attachable()
+            //    .WithDescription("Adds publishing status workflow properties to content items.")
+            //);
 
-            SchemaBuilder.AlterTable(nameof(ContentApprovalPartIndex), table => table
-                .CreateIndex(
-                    $"IDX_{nameof(ContentApprovalPartIndex)}_{nameof(ContentApprovalPartIndex.ApprovalStatus)}",
-                    nameof(ContentApprovalPartIndex.ApprovalStatus))
-            );
-
-            return 2;
-        }
-
-        public async Task<int> UpdateFrom2()
-        {
             _contentDefinitionManager.AlterPartDefinition(nameof(ContentApprovalItemStatusDashboardPart), builder => builder
                 .Attachable()
                 .WithDescription("Adds content approval dashboard cards.")
             );
 
-            await _recipeMigrator.ExecuteAsync("stax-content-approval.recipe.json", this);
-
-            return 3;
+            return 1;
         }
+
+        //public async Task<int> UpdateFrom1()
+        //{
+        //    await _recipeMigrator.ExecuteAsync("stax-content-approval.recipe.json", this);
+
+        //    return 2;
+        //}
     }
 }

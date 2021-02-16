@@ -13,7 +13,6 @@
             "name": "feature",
             "disable": [],
             "enable": [
-                "OrchardCore.AdminDashboard",
                 "DFC.ServiceTaxonomy.ContentApproval"
             ]
         }

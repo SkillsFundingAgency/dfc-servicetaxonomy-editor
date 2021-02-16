@@ -9,9 +9,9 @@ using OrchardCore.Modules.Manifest;
     Category = "Content Management",
     Dependencies = new[]
     {
+        "OrchardCore.AdminDashboard",
         "OrchardCore.Contents",
         "OrchardCore.ContentManagement",
-        "OrchardCore.AdminDashboard",
         "DFC.ServiceTaxonomy.Content"
     }
 )]
