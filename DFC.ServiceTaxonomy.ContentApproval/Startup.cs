@@ -1,6 +1,6 @@
 using System;
 using DFC.ServiceTaxonomy.ContentApproval.Drivers;
-//using DFC.ServiceTaxonomy.ContentApproval.Indexes;
+// using DFC.ServiceTaxonomy.ContentApproval.Indexes;
 using DFC.ServiceTaxonomy.ContentApproval.Models;
 using DFC.ServiceTaxonomy.ContentApproval.Permissions;
 using DFC.ServiceTaxonomy.ContentApproval.Shapes;
@@ -14,7 +14,7 @@ using OrchardCore.Data.Migration;
 using OrchardCore.DisplayManagement.Descriptors;
 using OrchardCore.Modules;
 using OrchardCore.Security.Permissions;
-//using YesSql.Indexes;
+// using YesSql.Indexes;
 
 namespace DFC.ServiceTaxonomy.ContentApproval
 {
@@ -22,7 +22,7 @@ namespace DFC.ServiceTaxonomy.ContentApproval
     {
         public override void ConfigureServices(IServiceCollection services)
         {
-            //services.AddSingleton<IIndexProvider, ContentApprovalPartIndexProvider>();
+            // services.AddSingleton<IIndexProvider, ContentApprovalPartIndexProvider>();
 
             services.AddContentPart<ContentApprovalPart>()
                 .UseDisplayDriver<ContentApprovalPartDisplayDriver>();

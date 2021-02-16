@@ -11,7 +11,7 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Indexes
             context.For<ContentApprovalPartIndex>()
                 .Map(contentItem =>
                 {
-                    var contentApprovalPart = contentItem.As<ContentApprovalPart>();
+                    ContentApprovalPart? contentApprovalPart = contentItem.As<ContentApprovalPart?>();
                     if (contentApprovalPart == null)
                     {
 #pragma warning disable CS8603 // Possible null reference return.
@@ -21,7 +21,7 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Indexes
 
                     return new ContentApprovalPartIndex
                     {
-                        ApprovalStatus = contentApprovalPart.ApprovalStatus
+                        ApprovalStatus = contentApprovalPart.ApprovalStatus.ToString()
                     };
                 });
         }

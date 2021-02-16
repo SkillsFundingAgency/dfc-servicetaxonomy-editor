@@ -1,10 +1,11 @@
-﻿using DFC.ServiceTaxonomy.ContentApproval.Models;
+﻿//using DFC.ServiceTaxonomy.ContentApproval.Models;
 using YesSql.Indexes;
 
 namespace DFC.ServiceTaxonomy.ContentApproval.Indexes
 {
     public class ContentApprovalPartIndex : MapIndex
     {
-        public ContentApprovalStatus ApprovalStatus { get; set; }
+        //        public ContentApprovalStatus ApprovalStatus { get; set; }
+        public string? ApprovalStatus { get; set; }
     }
 }

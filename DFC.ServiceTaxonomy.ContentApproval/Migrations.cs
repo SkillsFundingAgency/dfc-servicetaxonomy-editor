@@ -4,8 +4,8 @@ using OrchardCore.ContentManagement.Metadata;
 using OrchardCore.ContentManagement.Metadata.Settings;
 using OrchardCore.Recipes.Services;
 using DFC.ServiceTaxonomy.ContentApproval.Models;
-//using DFC.ServiceTaxonomy.ContentApproval.Indexes;
-//using YesSql.Sql;
+using DFC.ServiceTaxonomy.ContentApproval.Indexes;
+using YesSql.Sql;
 
 namespace DFC.ServiceTaxonomy.ContentApproval
 {
@@ -22,9 +22,8 @@ namespace DFC.ServiceTaxonomy.ContentApproval
 
         public int Create()
         {
-            //SchemaBuilder.CreateMapIndexTable<ContentApprovalPartIndex>(table => table
-            //    .Column<string>(nameof(ContentApprovalPartIndex.ApprovalStatus))
-            //);
+            SchemaBuilder.CreateMapIndexTable<ContentApprovalPartIndex>(table => table
+                .Column<string>("ApprovalStatus")); //nameof(ContentApprovalPartIndex.ApprovalStatus))
 
             //SchemaBuilder.AlterTable(nameof(ContentApprovalPartIndex), table => table
             //    .CreateIndex(
