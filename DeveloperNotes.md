@@ -1,5 +1,11 @@
 #ToDo
 
+* link to visitor graph (calculate url), then we can count visits (# of relationships)
+  that would allow us to easily do things such as....
+  order job profiles/pages by popularity in the content items list
+  show the number of visitors
+  etc
+
 * Make visit site button open the current environment's National Careers site
 
 * check out feature:
