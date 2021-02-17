@@ -45,14 +45,34 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Drivers
         {
             var currentUser = _httpContextAccessor.HttpContext?.User;
 
-            if (currentUser == null || !(await _authorizationService.AuthorizeAsync(currentUser, Permissions.RequestReviewPermissions.RequestReviewPermission, part)))
+            if (currentUser == null)
             {
                 return null;
             }
-            return Initialize<ContentApprovalPartViewModel>(
-                    GetEditorShapeType(context),
-                    viewModel => PopulateViewModel(part, viewModel))
-                .Location("Actions:First");
+
+            var editorShape = GetEditorShapeType(context);
+            var reviewStatuses = new[] {ContentApprovalStatus.ReadyForReview, ContentApprovalStatus.InReview};
+
+            // Show Request review option
+            if (reviewStatuses.All(p => part.ApprovalStatus != p) &&
+                await _authorizationService.AuthorizeAsync(currentUser, Permissions.RequestReviewPermissions.RequestReviewPermission))
+            {
+                return Initialize<ContentApprovalPartViewModel>(
+                        $"{editorShape}_RequestReview",
+                        viewModel => PopulateViewModel(part, viewModel))
+                    .Location("Actions:First");
+            }
+
+            // Show Approval option
+            if (reviewStatuses.Any(r => part.ApprovalStatus == r) && await _authorizationService.AuthorizeAsync(currentUser,Permissions.CanPerformReviewPermissions.CanPerformReviewPermission))
+            {
+                return Initialize<ContentApprovalPartViewModel>(
+                        $"{editorShape}_ApprovalResult",
+                        viewModel => PopulateViewModel(part, viewModel))
+                    .Location("Actions:First");
+            }
+
+            return null;
         }
 
         public override async Task<IDisplayResult?> UpdateAsync(ContentApprovalPart part, IUpdateModel updater, UpdatePartEditorContext context)

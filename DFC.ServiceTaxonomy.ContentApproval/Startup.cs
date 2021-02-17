@@ -24,12 +24,16 @@ namespace DFC.ServiceTaxonomy.ContentApproval
         {
             services.AddContentPart<ContentApprovalPart>()
                 .UseDisplayDriver<ContentApprovalPartDisplayDriver>();
+
             services.AddScoped<IDataMigration, ContentApprovalPartMigrations>();
             services.AddSingleton<IIndexProvider, ContentApprovalPartIndexProvider>();
+
             services.AddScoped<IPermissionProvider, CanPerformReviewPermissions>();
             services.AddScoped<IPermissionProvider, CanPerformApprovalPermissions>();
             services.AddScoped<IPermissionProvider, RequestReviewPermissions>();
-            services.AddScoped<IShapeTableProvider, UserEditShapes>();
+
+            services.AddScoped<IShapeTableProvider, SummaryAdminShapes>();
+            services.AddScoped<IShapeTableProvider, ContentEditShapes>();
         }
 
         public override void Configure(IApplicationBuilder app, IEndpointRouteBuilder routes, IServiceProvider serviceProvider)
