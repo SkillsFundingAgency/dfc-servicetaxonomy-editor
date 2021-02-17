@@ -2,12 +2,12 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
-    <AddRazorSupportForMvc>true</AddRazorSupportForMvc>    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <AddRazorSupportForMvc>true</AddRazorSupportForMvc>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <Nullable>enable</Nullable>
     <EnableNETAnalyzers>true</EnableNETAnalyzers>
     <AnalysisLevel>latest</AnalysisLevel>
-
-
+    <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
   </PropertyGroup>
 
   <ItemGroup>
@@ -19,7 +19,9 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="OrchardCore.Contents" Version="1.0.0-rc9" />
     <PackageReference Include="OrchardCore.Module.Targets" Version="1.0.0-rc9" />
+    <PackageReference Include="OrchardCore.Contents" Version="1.0.0-rc9" />
     <PackageReference Include="OrchardCore.ContentManagement" Version="1.0.0-rc9" />
     <PackageReference Include="OrchardCore.ContentTypes.Abstractions" Version="1.0.0-rc9" />
     <PackageReference Include="OrchardCore.DisplayManagement" Version="1.0.0-rc9" />
@@ -27,6 +29,10 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\DFC.ServiceTaxonomy.Content\DFC.ServiceTaxonomy.Content.csproj" />
   </ItemGroup>
 
 </Project>
