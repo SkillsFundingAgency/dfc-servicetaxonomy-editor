@@ -1,4 +1,4 @@
-{
+﻿{
     "name": "01_content_approval",
     "displayName": "Content approval",
     "description": "Enables content approval with associated roles and permissions",
@@ -15,108 +15,6 @@
             "enable": [
                 "DFC.ServiceTaxonomy.ContentApproval"
             ]
-        },
-        {
-            "name": "Roles",
-            "Roles": [
-                {
-                    "Name": "ContentAdministrator",
-                    "Description": "Content administrator",
-                    "Permissions": [
-                        "ListContent",
-                        "DeleteContent",
-                        "EditContent",
-                        "CloneContent",
-                        "ViewContent",
-                        "PreviewContent",
-                        "PublishContent",
-                        "RequestReviewPermission",
-                        "CanPerformContentDesignReviewPermission",
-                        "CanPerformSMEReviewPermission",
-                        "CanPerformUXReviewPermission",
-                        "CanPerformStakeholderApprovalPermission",
-                        "AssignRoles",
-                        "ManageTaxonomy",
-                        "ManageUsers",
-                        "ManageOwnUserInformation",
-                        "AccessAdminPanel",
-                        "ManageMediaContent"
-                    ]
-                },
-                {
-                    "Name": "Editor",
-                    "Description": "Editor",
-                    "Permissions": [
-                        "ListContent",
-                        "EditContent",
-                        "ViewContent",
-                        "DeleteContent",
-                        "PreviewContent",
-                        "CloneContent",
-                        "RequestReviewPermission",
-                        "ManageTaxonomy",
-                        "ManageOwnUserInformation",
-                        "AccessAdminPanel",
-                        "ManageMediaContent"
-                    ]
-                },
-                {
-                    "Name": "Reviewer_UX",
-                    "Description": "Reviewer UX",
-                    "Permissions": [
-                        "ListContent",
-                        "PublishContent",
-                        "RequestReviewPermission",
-                        "ViewContent",
-                        "PreviewContent",
-                        "CanPerformUXReviewPermission",
-                        "ManageOwnUserInformation",
-                        "AccessAdminPanel"
-                    ]
-                },
-                {
-                    "Name": "Reviewer_SME",
-                    "Description": "Reviewer SME",
-                    "Permissions": [
-                        "ListContent",
-                        "PublishContent",
-                        "RequestReviewPermission",
-                        "ViewContent",
-                        "PreviewContent",
-                        "CanPerformSMEReviewPermission",
-                        "ManageOwnUserInformation",
-                        "AccessAdminPanel"
-                    ]
-                },
-                {
-                    "Name": "Reviewer_ContentDesign",
-                    "Description": "Reviewer Content Design",
-                    "Permissions": [
-                        "ListContent",
-                        "PublishContent",
-                        "RequestReviewPermission",
-                        "ViewContent",
-                        "PreviewContent",
-                        "CanPerformContentDesignReviewPermission",
-                        "ManageOwnUserInformation",
-                        "AccessAdminPanel"
-                    ]
-                },
-                {
-                    "Name": "Reviewer_Stakeholder",
-                    "Description": "Reviewer Stakeholder",
-                    "Permissions": [
-                        "ListContent",
-                        "PublishContent",
-                        "RequestReviewPermission",
-                        "ViewContent",
-                        "PreviewContent",
-                        "CanPerformStakeholderApprovalPermission",
-                        "ManageOwnUserInformation",
-                        "AccessAdminPanel"
-                    ]
-                }
-            ] 
         }
     ]
 }
