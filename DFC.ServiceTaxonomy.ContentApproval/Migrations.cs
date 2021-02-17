@@ -23,7 +23,7 @@ namespace DFC.ServiceTaxonomy.ContentApproval
         public int Create()
         {
             SchemaBuilder.CreateMapIndexTable<ContentApprovalPartIndex>(table => table
-                .Column<string>("ApprovalStatus")); //nameof(ContentApprovalPartIndex.ApprovalStatus))
+                .Column<string>(nameof(ContentApprovalPartIndex.ApprovalStatus)));
 
             //SchemaBuilder.AlterTable(nameof(ContentApprovalPartIndex), table => table
             //    .CreateIndex(
@@ -44,7 +44,7 @@ namespace DFC.ServiceTaxonomy.ContentApproval
             return 1;
         }
 
-        public async Task<int> UpdateFrom1()
+        public async Task<int> UpdateFrom1Async()
         {
             await _recipeMigrator.ExecuteAsync("stax-content-approval.recipe.json", this);
 
