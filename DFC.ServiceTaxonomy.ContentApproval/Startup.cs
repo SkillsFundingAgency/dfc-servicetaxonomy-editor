@@ -1,10 +1,10 @@
 using System;
 using DFC.ServiceTaxonomy.ContentApproval.Drivers;
 using DFC.ServiceTaxonomy.ContentApproval.Indexes;
-using DFC.ServiceTaxonomy.ContentApproval.Migrations;
 using DFC.ServiceTaxonomy.ContentApproval.Models;
 using DFC.ServiceTaxonomy.ContentApproval.Permissions;
 using DFC.ServiceTaxonomy.ContentApproval.Shapes;
+using DFC.ServiceTaxonomy.ContentApproval.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.DependencyInjection;
@@ -22,13 +22,21 @@ namespace DFC.ServiceTaxonomy.ContentApproval
     {
         public override void ConfigureServices(IServiceCollection services)
         {
+            services.AddSingleton<IIndexProvider, ContentApprovalPartIndexProvider>();
+
             services.AddContentPart<ContentApprovalPart>()
                 .UseDisplayDriver<ContentApprovalPartDisplayDriver>();
-            services.AddScoped<IDataMigration, ContentApprovalPartMigrations>();
-            services.AddSingleton<IIndexProvider, ContentApprovalPartIndexProvider>();
+
             services.AddScoped<IPermissionProvider, CanPerformReviewPermissions>();
             services.AddScoped<IPermissionProvider, CanPerformApprovalPermissions>();
             services.AddScoped<IPermissionProvider, RequestReviewPermissions>();
+
+            services.AddScoped<IContentItemsApprovalService, ContentItemsApprovalService>();
+
+            services.AddContentPart<ContentApprovalItemStatusDashboardPart>()
+                .UseDisplayDriver<ContentApprovalItemStatusDashboardPartDisplayDriver>();
+
+            services.AddScoped<IDataMigration, Migrations>();
             services.AddScoped<IShapeTableProvider, UserEditShapes>();
         }
 

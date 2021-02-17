@@ -36,9 +36,9 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Controllers
                 return Forbid();
             }
 
-            contentItem.Alter<ContentApprovalPart>(p => p.ApprovalStatus = ContentApprovalStatus.ReadyForReview);
+            contentItem.Alter<ContentApprovalPart>(p => p.ApprovalStatus = ContentApprovalStatus.ReadyForReview_ContentDesign);
             await _contentManager.SaveDraftAsync(contentItem);
-            _notifier.Success(H[$"{contentItem.DisplayText} is now ready to be reviewed."]);
+            _notifier.Success(H[$"{0} is now ready to be reviewed.", contentItem.DisplayText]);
 
             return Redirect(returnUrl);
         }

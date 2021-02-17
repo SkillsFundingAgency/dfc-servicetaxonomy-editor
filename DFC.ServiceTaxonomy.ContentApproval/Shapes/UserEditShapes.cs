@@ -1,4 +1,5 @@
 ﻿using DFC.ServiceTaxonomy.ContentApproval.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using OrchardCore.ContentManagement;
 using OrchardCore.DisplayManagement.Descriptors;
@@ -8,10 +9,12 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Shapes
 {
     public class UserEditShapes : IShapeTableProvider
     {
+        private readonly IAuthorizationService _authorizationService;
         private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public UserEditShapes(IHttpContextAccessor httpContextAccessor)
+        public UserEditShapes(IAuthorizationService authorizationService, IHttpContextAccessor httpContextAccessor)
         {
+            _authorizationService = authorizationService;
             _httpContextAccessor = httpContextAccessor;
         }
 
@@ -20,14 +23,14 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Shapes
             builder.Describe("Content_SummaryAdmin").OnDisplaying(context =>
             {
                 var currentUser = _httpContextAccessor.HttpContext?.User;
-                if (currentUser == null || !currentUser.IsInRole("Editor"))
+                dynamic shape = context.Shape;
+                if (currentUser == null || !currentUser.HasClaim(claim => claim.Value == "EditContent"))
                 {
                     return;
                 }
-                dynamic shape = context.Shape;
                 var approvalStatus = (((ContentItem)shape.ContentItem).As<ContentApprovalPart>()?.ApprovalStatus) ??
                                      ContentApprovalStatus.InDraft;
-                if (approvalStatus == ContentApprovalStatus.InReview)
+                if (approvalStatus == ContentApprovalStatus.InReview_ContentDesign)
                 {
                     Shape actions = (Shape)shape.Actions;
                     actions.Remove("ContentsButtonEdit_SummaryAdmin");
