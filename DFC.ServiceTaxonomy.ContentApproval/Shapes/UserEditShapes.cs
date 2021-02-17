@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using OrchardCore.ContentManagement;
-using OrchardCore.Contents;
 using OrchardCore.DisplayManagement.Descriptors;
 using OrchardCore.DisplayManagement.Shapes;
 
@@ -25,13 +24,13 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Shapes
             {
                 var currentUser = _httpContextAccessor.HttpContext?.User;
                 dynamic shape = context.Shape;
-                if (currentUser == null || !(_authorizationService.AuthorizeAsync(currentUser, CommonPermissions.EditContent, shape)))
+                if (currentUser == null || !currentUser.HasClaim(claim => claim.Value == "EditContent"))
                 {
                     return;
                 }
                 var approvalStatus = (((ContentItem)shape.ContentItem).As<ContentApprovalPart>()?.ApprovalStatus) ??
                                      ContentApprovalStatus.InDraft;
-                if (approvalStatus == ContentApprovalStatus.InReview)
+                if (approvalStatus == ContentApprovalStatus.InReview_ContentDesign)
                 {
                     Shape actions = (Shape)shape.Actions;
                     actions.Remove("ContentsButtonEdit_SummaryAdmin");

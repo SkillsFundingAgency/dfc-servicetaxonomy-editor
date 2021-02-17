@@ -6,6 +6,7 @@
       <Nullable>enable</Nullable>
       <EnableNETAnalyzers>true</EnableNETAnalyzers>
       <AnalysisLevel>latest</AnalysisLevel>
+      <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
   </PropertyGroup>
 
   <ItemGroup>
