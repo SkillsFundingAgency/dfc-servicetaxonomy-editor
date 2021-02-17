@@ -30,7 +30,7 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Shapes
                 dynamic shape = context.Shape;
                 var approvalStatus = ((ContentItem)shape.ContentItem).As<ContentApprovalPart>()?.ApprovalStatus ??
                                      ContentApprovalStatus.InDraft;
-                if (approvalStatus == ContentApprovalStatus.InReview || approvalStatus == ContentApprovalStatus.ReadyForReview)
+                if (approvalStatus == ContentApprovalStatus.InReview_ContentDesign || approvalStatus == ContentApprovalStatus.ReadyForReview_ContentDesign)
                 {
                     Shape actions = (Shape)shape.Actions;
                     actions.Remove("Content_PublishButton");

@@ -51,7 +51,7 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Drivers
             }
 
             var editorShape = GetEditorShapeType(context);
-            var reviewStatuses = new[] {ContentApprovalStatus.ReadyForReview, ContentApprovalStatus.InReview};
+            var reviewStatuses = new[] {ContentApprovalStatus.ReadyForReview_ContentDesign, ContentApprovalStatus.InReview_ContentDesign};
 
             // Show Request review option
             if (reviewStatuses.All(p => part.ApprovalStatus != p) &&
@@ -92,7 +92,7 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Drivers
                 }
                 else if (saveType.AttemptedValue.Contains("RequestApproval"))
                 {
-                    part.ApprovalStatus = ContentApprovalStatus.ReadyForReview;
+                    part.ApprovalStatus = ContentApprovalStatus.ReadyForReview_ContentDesign;
                     _notifier.Success(H[$"{0} is now ready to be reviewed.", part.ContentItem.DisplayText]);
                 }
             }

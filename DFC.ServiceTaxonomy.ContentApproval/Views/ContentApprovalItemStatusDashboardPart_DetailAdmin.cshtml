@@ -1,0 +1,62 @@
+﻿@model ContentApprovalItemStatusDashboardPartViewModel
+
+@{
+    switch (Model.Card)
+    {
+        case DashboardItemsStatusCard.InDraft:
+            <div>
+            <a asp-route-area="OrchardCore.Contents" asp-controller="@(typeof(OrchardCore.Contents.Controllers.AdminController).ControllerName())" asp-action="List">
+                <span><i class="fas fa-pencil-alt display-4"></i><span class="display-3">@(Model.NumberOfContentItemsInState)</span><span class="display-4">In Draft</span></span>
+            </a>
+            </div>
+            break;
+        case DashboardItemsStatusCard.WaitingForReview:
+            <i class="far fa-hourglass"></i>
+            <h1 class="display-1">@(Model.NumberOfContentItemsInState)</h1>
+            <span>Waiting For Review</span>
+            <a asp-route-area="OrchardCore.Contents" asp-controller="@(typeof(OrchardCore.Contents.Controllers.AdminController).ControllerName())" asp-action="List">Content Design</a>
+            <a asp-route-area="OrchardCore.Contents" asp-controller="@(typeof(OrchardCore.Contents.Controllers.AdminController).ControllerName())" asp-action="List">SME</a>
+            <a asp-route-area="OrchardCore.Contents" asp-controller="@(typeof(OrchardCore.Contents.Controllers.AdminController).ControllerName())" asp-action="List">Stakeholder</a>
+            <a asp-route-area="OrchardCore.Contents" asp-controller="@(typeof(OrchardCore.Contents.Controllers.AdminController).ControllerName())" asp-action="List">UX</a>
+            break;
+        case DashboardItemsStatusCard.InReview:
+            <i class="fas fa-search"></i>
+            <h1 class="display-1">@(Model.NumberOfContentItemsInState)</h1>
+            <span>In Review</span>
+            <a asp-route-area="OrchardCore.Contents" asp-controller="@(typeof(OrchardCore.Contents.Controllers.AdminController).ControllerName())" asp-action="List">Content Design</a>
+            <a asp-route-area="OrchardCore.Contents" asp-controller="@(typeof(OrchardCore.Contents.Controllers.AdminController).ControllerName())" asp-action="List">SME</a>
+            <a asp-route-area="OrchardCore.Contents" asp-controller="@(typeof(OrchardCore.Contents.Controllers.AdminController).ControllerName())" asp-action="List">Stakeholder</a>
+            <a asp-route-area="OrchardCore.Contents" asp-controller="@(typeof(OrchardCore.Contents.Controllers.AdminController).ControllerName())" asp-action="List">UX</a>
+            break;
+        case DashboardItemsStatusCard.Published:
+            <a asp-route-area="OrchardCore.Contents" asp-controller="@(typeof(OrchardCore.Contents.Controllers.AdminController).ControllerName())" asp-action="List">
+                <i class="far fa-check-circle"></i>
+                <h1 class="display-1">@(Model.NumberOfContentItemsInState)</h1>
+                <span>Published</span>
+            </a>
+            break;
+    }
+}
+
+@* todo for draft and published, make whole clickable *@
+@* https://stackoverflow.com/questions/796087/make-a-div-into-a-link *@
+
+@* todo helpers/functions *@
+@* @helper ShowItemCount(ItemsStatus itemsStatus) { *@
+@*     <h1 class="display-1"><a asp-route-area="OrchardCore.Contents" asp-controller="@(typeof(OrchardCore.Contents.Controllers.AdminController).ControllerName())" asp-action="List">@(Model.NumberOfContentItemsInState)</a></h1> *@
+@* } *@
+
+@* <a class="list-group-item list-group-item-action" asp-action="Edit" asp-controller="Admin" asp-route-area="OrchardCore.Contents" asp-route-contentItemId="@culture.ContentItemId" title=@T["Edit {0}", culture.Culture.DisplayName]><i class="fa fa-edit"></i> @culture.Culture.DisplayName | @culture.Culture.Name </a> *@
+
+
+@* contentItems.Action(nameof(AdminController.List), typeof(AdminController).ControllerName(), new { area = "OrchardCore.Contents", contentTypeId = "" }); *@
+
+
+@* todo: looks like can call list with options (including custom) in url! *@
+@* means we need a filter control for any way we want the dashboard to filter items *@
+@* todo: more elegant url than Taxonomy4eembshqzx66drajtdten34tc8.SelectedContentItemId=Term%3A4fj8n537qn55d7q4kk6xxs3bn0 if possible *@
+
+@* are there tag helpers for content list like there is for contents? (ContentLinkTagHelper) *@
+
+@* https://dfc-sit-stax-editor-as.azurewebsites.net/Admin/Contents/ContentItems?Options.OrderBy=Modified&Options.ContentsStatus=Latest&Taxonomy4eembshqzx66drajtdten34tc8.SelectedContentItemId=Term%3A4fj8n537qn55d7q4kk6xxs3bn0 *@
+@* https://dfc-sit-stax-editor-as.azurewebsites.net/Admin/Contents/ContentItems?Options.OrderBy=Modified&Options.ContentsStatus=Latest&Taxonomy4eembshqzx66drajtdten34tc8.SelectedContentItemId=Term%3A4y3qc9f2r818z1df41a1yryvny *@
