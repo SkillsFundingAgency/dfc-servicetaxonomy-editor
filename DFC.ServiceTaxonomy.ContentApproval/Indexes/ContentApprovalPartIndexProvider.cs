@@ -21,7 +21,7 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Indexes
 
                     return new ContentApprovalPartIndex
                     {
-                        ApprovalStatus = contentApprovalPart.ApprovalStatus.ToString()
+                        ApprovalStatus = contentApprovalPart.ApprovalStatus
                     };
                 });
         }

@@ -25,11 +25,11 @@ namespace DFC.ServiceTaxonomy.ContentApproval
             SchemaBuilder.CreateMapIndexTable<ContentApprovalPartIndex>(table => table
                 .Column<string>(nameof(ContentApprovalPartIndex.ApprovalStatus)));
 
-            //SchemaBuilder.AlterTable(nameof(ContentApprovalPartIndex), table => table
-            //    .CreateIndex(
-            //        $"IDX_{nameof(ContentApprovalPartIndex)}_{nameof(ContentApprovalPartIndex.ApprovalStatus)}",
-            //        nameof(ContentApprovalPartIndex.ApprovalStatus))
-            //);
+            SchemaBuilder.AlterIndexTable<ContentApprovalPartIndex>(table => table
+                .CreateIndex(
+                    $"IDX_{nameof(ContentApprovalPartIndex)}_{nameof(ContentApprovalPartIndex.ApprovalStatus)}",
+                    "DocumentId",
+                    nameof(ContentApprovalPartIndex.ApprovalStatus)));
 
             _contentDefinitionManager.AlterPartDefinition(nameof(ContentApprovalPart), part => part
                 .Attachable()

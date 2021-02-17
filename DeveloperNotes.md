@@ -1,6 +1,6 @@
 #ToDo
 
-* make open site open site (for env)
+* Make visit site button open the current environment's National Careers site
 
 * check out feature:
   Add Content To Deployment Plan
