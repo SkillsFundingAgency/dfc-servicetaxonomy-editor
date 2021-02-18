@@ -278,6 +278,44 @@
 
     function youtubeLink(trumbowyg) {
 
+        var options = {
+            url: {
+                label: trumbowyg.lang.iframeSettings.url,
+                required: true
+            },
+            title: {
+                label: trumbowyg.lang.iframeSettings.title
+            },
+            height: {
+                label: trumbowyg.lang.iframeSettings.height,
+                required: true,
+                value: "360"
+            },
+            width: {
+                label: trumbowyg.lang.iframeSettings.width,
+                required: true,
+                value: "640"
+            },
+        };
+
+        trumbowyg.openModalInsert(
+            trumbowyg.lang.youtubeLink,
+            options,
+            function (data) {
+
+                var $linkToEmbed = $('<iframe>')
+                    .attr('src', data.url + '?rel=0')
+                    .attr('height', data.height)
+                    .attr('width', data.width)
+                    .attr('frameborder', "0")
+
+                if (data.title.length > 0)
+                    $linkToEmbed.attr('title', data.title + '(video)')
+
+                trumbowyg.execCmd('insertHTML', $linkToEmbed.get(0).outerHTML)
+
+                return true;
+            });
     }
 
     function createLink(trumbowyg, openInNewTab) {
