@@ -10,8 +10,11 @@ using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.DependencyInjection;
 using OrchardCore.ContentManagement;
 using OrchardCore.ContentManagement.Display.ContentDisplay;
+using OrchardCore.Contents.Services;
+using OrchardCore.Contents.ViewModels;
 using OrchardCore.Data.Migration;
 using OrchardCore.DisplayManagement.Descriptors;
+using OrchardCore.DisplayManagement.Handlers;
 using OrchardCore.Modules;
 using OrchardCore.Security.Permissions;
 using YesSql.Indexes;
@@ -38,6 +41,9 @@ namespace DFC.ServiceTaxonomy.ContentApproval
 
             services.AddScoped<IDataMigration, Migrations>();
             services.AddScoped<IShapeTableProvider, UserEditShapes>();
+
+            services.AddScoped<IContentsAdminListFilter, ContentApprovalContentsAdminListFilter>();
+            services.AddScoped<IDisplayDriver<ContentOptionsViewModel>, ContentApprovalContentsAdminListFilterDisplayDriver>();
         }
 
         public override void Configure(IApplicationBuilder app, IEndpointRouteBuilder routes, IServiceProvider serviceProvider)

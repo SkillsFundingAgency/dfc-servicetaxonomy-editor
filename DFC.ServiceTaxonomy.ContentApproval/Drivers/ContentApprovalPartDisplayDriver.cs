@@ -58,7 +58,7 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Drivers
         public override async Task<IDisplayResult?> UpdateAsync(ContentApprovalPart part, IUpdateModel updater, UpdatePartEditorContext context)
         {
             var viewModel = new ContentApprovalPartViewModel();
-            
+
             await updater.TryUpdateModelAsync(viewModel, Prefix);
 
             var keys = updater.ModelState.Keys;
@@ -72,7 +72,7 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Drivers
                 }
                 else if (saveType.AttemptedValue.Contains("RequestApproval"))
                 {
-                    part.ApprovalStatus = ContentApprovalStatus.ReadyForReview_ContentDesign;
+                    part.ApprovalStatus = ContentApprovalStatus.ReadyForReview;
                     _notifier.Success(H[$"{0} is now ready to be reviewed.", part.ContentItem.DisplayText]);
                 }
             }

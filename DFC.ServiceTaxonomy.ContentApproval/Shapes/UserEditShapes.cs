@@ -30,7 +30,7 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Shapes
                 }
                 var approvalStatus = (((ContentItem)shape.ContentItem).As<ContentApprovalPart>()?.ApprovalStatus) ??
                                      ContentApprovalStatus.InDraft;
-                if (approvalStatus == ContentApprovalStatus.InReview_ContentDesign)
+                if (approvalStatus == ContentApprovalStatus.InReview)
                 {
                     Shape actions = (Shape)shape.Actions;
                     actions.Remove("ContentsButtonEdit_SummaryAdmin");
