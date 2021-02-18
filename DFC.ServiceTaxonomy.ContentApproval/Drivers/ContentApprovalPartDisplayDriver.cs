@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.ContentApproval.Models;
 using DFC.ServiceTaxonomy.ContentApproval.ViewModels;
@@ -31,14 +32,26 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Drivers
         public override async Task<IDisplayResult?> DisplayAsync(ContentApprovalPart part, BuildPartDisplayContext context)
         {
             var currentUser = _httpContextAccessor.HttpContext?.User;
-            if (part.ApprovalStatus != ContentApprovalStatus.InDraft || currentUser == null || !(await _authorizationService.AuthorizeAsync(currentUser, Permissions.RequestReviewPermissions.RequestReviewPermission, part)))
+            var results = new List<IDisplayResult>();
+
+            if (part.InDraft && part.ApprovalStatus == null && await _authorizationService.AuthorizeAsync(currentUser, Permissions.RequestReviewPermissions.RequestReviewPermission, part))
             {
-                return null;
+                results.Add(Initialize<ContentApprovalPartViewModel>(
+                        "ContentApprovalPart_Admin_RequestReview",
+                        viewModel => PopulateViewModel(part, viewModel))
+                    .Location("SummaryAdmin", "Actions:First"));
             }
-            return Initialize<ContentApprovalPartViewModel>(
-                    "ContentApprovalPart_Admin",
-                    viewModel => PopulateViewModel(part, viewModel))
-                .Location("SummaryAdmin", "Actions:First");
+
+            if (part.ApprovalStatus == ContentApprovalStatus.ReadyForReview && await _authorizationService.AuthorizeAsync(currentUser,
+                Permissions.CanPerformReviewPermissions.CanPerformReviewPermission, part))
+            {
+                results.Add(Initialize<ContentApprovalPartViewModel>(
+                        "ContentApprovalPart_Admin_InReview",
+                        viewModel => PopulateViewModel(part, viewModel))
+                    .Location("SummaryAdmin", "Actions:First"));
+            }
+
+            return Combine(results.ToArray());
         }
 
         public override async Task<IDisplayResult?> EditAsync(ContentApprovalPart part, BuildPartEditorContext context)
@@ -51,10 +64,10 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Drivers
             }
 
             var editorShape = GetEditorShapeType(context);
-            var reviewStatuses = new[] {ContentApprovalStatus.ReadyForReview_ContentDesign, ContentApprovalStatus.InReview_ContentDesign};
+            var reviewStatuses = new[] {ContentApprovalStatus.ReadyForReview, ContentApprovalStatus.InReview};
 
             // Show Request review option
-            if (reviewStatuses.All(p => part.ApprovalStatus != p) &&
+            if (part.ApprovalStatus != ContentApprovalStatus.InReview &&
                 await _authorizationService.AuthorizeAsync(currentUser, Permissions.RequestReviewPermissions.RequestReviewPermission))
             {
                 return Initialize<ContentApprovalPartViewModel>(
@@ -88,17 +101,17 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Drivers
                 var saveType = updater.ModelState["submit.Save"];
                 if (saveType.AttemptedValue.Contains("Save"))
                 {
-                    part.ApprovalStatus = ContentApprovalStatus.InDraft;
+                    part.ApprovalStatus = null;
                 }
                 else if (saveType.AttemptedValue.Contains("RequestApproval"))
                 {
-                    part.ApprovalStatus = ContentApprovalStatus.ReadyForReview_ContentDesign;
+                    part.ApprovalStatus = ContentApprovalStatus.ReadyForReview;
                     _notifier.Success(H[$"{0} is now ready to be reviewed.", part.ContentItem.DisplayText]);
                 }
             }
             else if (keys.Contains("submit.Publish"))
             {
-                part.ApprovalStatus = ContentApprovalStatus.Published;
+                part.ApprovalStatus = null;
             }
 
             return await EditAsync(part, context);
