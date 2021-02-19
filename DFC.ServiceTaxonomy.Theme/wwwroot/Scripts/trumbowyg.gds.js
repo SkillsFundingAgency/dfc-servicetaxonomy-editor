@@ -303,19 +303,37 @@
             options,
             function (data) {
 
+                var srcUrl = insertQueryParamString(data.url,"rel", "?")
+
                 var $linkToEmbed = $('<iframe>')
-                    .attr('src', data.url + '?rel=0')
+                    .attr('src', srcUrl)
                     .attr('height', data.height)
                     .attr('width', data.width)
                     .attr('frameborder', "0")
 
                 if (data.title.length > 0)
-                    $linkToEmbed.attr('title', data.title + '(video)')
+                    $linkToEmbed.attr('title', data.title + ' (video)')
 
                 trumbowyg.execCmd('insertHTML', $linkToEmbed.get(0).outerHTML)
 
                 return true;
             });
+    }
+
+    function insertQueryParamString(url, queryParam, at) {
+
+        var position = url.indexOf(at);
+    
+        if (position !== -1) {
+            if (url.indexOf(queryParam) === -1) {
+                return url.substring(0, position + 1) + queryParam + '=0&' + url.substring(position + 1);
+            }
+            else {
+                return url;
+            }
+        } else {
+            return url + '?rel=0';
+        }
     }
 
     function createLink(trumbowyg, openInNewTab) {
