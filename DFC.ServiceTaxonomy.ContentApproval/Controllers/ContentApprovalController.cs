@@ -39,7 +39,7 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Controllers
                 return Forbid();
             }
 
-            contentItem.Alter<ContentApprovalPart>(p => p.ApprovalStatus = ContentApprovalStatus.ReadyForReview);
+            contentItem.Alter<ContentApprovalPart>(p => p.ReviewStatus = ContentReviewStatus.ReadyForReview);
             await _contentManager.SaveDraftAsync(contentItem);
             _notifier.Success(H[$"{0} is now ready to be reviewed.", contentItem.DisplayText]);
 
@@ -58,13 +58,13 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Controllers
                 return Forbid();
             }
 
-            if (contentItem.As<ContentApprovalPart>().ApprovalStatus != ContentApprovalStatus.ReadyForReview)
+            if (contentItem.As<ContentApprovalPart>().ReviewStatus != ContentReviewStatus.ReadyForReview)
             {
                 _notifier.Warning(H[$"This content item is not currently ready for review: {0}", contentItem.DisplayText]);
                 return Redirect(returnUrl);
             }
 
-            contentItem.Alter<ContentApprovalPart>(p => p.ApprovalStatus = ContentApprovalStatus.InReview);
+            contentItem.Alter<ContentApprovalPart>(p => p.ReviewStatus = ContentReviewStatus.InReview);
             await _contentManager.SaveDraftAsync(contentItem);
 
             var metadata = await _contentManager.PopulateAspectAsync<ContentItemMetadata>(contentItem);
@@ -72,6 +72,11 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Controllers
             {
                 _notifier.Error(H[$"Could not redirect for review: {0}", contentItem.DisplayText]);
                 return Redirect(returnUrl);
+            }
+
+            if (!string.IsNullOrWhiteSpace(returnUrl))
+            {
+                metadata.EditorRouteValues.Add("returnUrl", returnUrl);
             }
 
             var editLink = _urlHelperFactory.GetUrlHelper(Url.ActionContext).Action(metadata.EditorRouteValues["action"].ToString(),

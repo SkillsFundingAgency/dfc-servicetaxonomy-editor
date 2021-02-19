@@ -1,6 +1,6 @@
 ﻿namespace DFC.ServiceTaxonomy.ContentApproval.Models
 {
-    public enum ContentApprovalStatus
+    public enum ContentReviewStatus
     {
         ReadyForReview,
         InReview,
