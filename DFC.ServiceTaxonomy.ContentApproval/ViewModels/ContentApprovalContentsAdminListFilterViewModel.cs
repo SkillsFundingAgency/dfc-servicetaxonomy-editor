@@ -4,7 +4,7 @@ namespace DFC.ServiceTaxonomy.ContentApproval.ViewModels
 {
     public class ContentApprovalContentsAdminListFilterViewModel
     {
-        public ContentApprovalStatus? SelectedApprovalStatus { get; set; }
+        public ContentReviewStatus? SelectedApprovalStatus { get; set; }
 
         // [BindNever]
         // public List<SelectListItem> ApprovalStatuses { get; set; }

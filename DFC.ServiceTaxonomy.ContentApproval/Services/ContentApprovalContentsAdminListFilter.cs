@@ -47,7 +47,7 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Services
 
                     //
 
-                    query.With<ContentApprovalPartIndex>(i => i.ApprovalStatus == viewModel.SelectedApprovalStatus);
+                    query.With<ContentApprovalPartIndex>(i => i.ReviewStatus == viewModel.SelectedApprovalStatus);
                 // }
             }
         }

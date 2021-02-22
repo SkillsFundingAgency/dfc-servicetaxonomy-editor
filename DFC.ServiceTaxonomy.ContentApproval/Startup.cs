@@ -30,17 +30,20 @@ namespace DFC.ServiceTaxonomy.ContentApproval
             services.AddContentPart<ContentApprovalPart>()
                 .UseDisplayDriver<ContentApprovalPartDisplayDriver>();
 
+            services.AddSingleton<IIndexProvider, ContentApprovalPartIndexProvider>();
+
             services.AddScoped<IPermissionProvider, CanPerformReviewPermissions>();
             services.AddScoped<IPermissionProvider, CanPerformApprovalPermissions>();
             services.AddScoped<IPermissionProvider, RequestReviewPermissions>();
 
+            services.AddScoped<IShapeTableProvider, SummaryAdminShapes>();
+            services.AddScoped<IShapeTableProvider, ContentEditShapes>();
             services.AddScoped<IContentItemsApprovalService, ContentItemsApprovalService>();
 
             services.AddContentPart<ContentApprovalItemStatusDashboardPart>()
                 .UseDisplayDriver<ContentApprovalItemStatusDashboardPartDisplayDriver>();
 
             services.AddScoped<IDataMigration, Migrations>();
-            services.AddScoped<IShapeTableProvider, UserEditShapes>();
 
             services.AddScoped<IContentsAdminListFilter, ContentApprovalContentsAdminListFilter>();
             services.AddScoped<IDisplayDriver<ContentOptionsViewModel>, ContentApprovalContentsAdminListFilterDisplayDriver>();

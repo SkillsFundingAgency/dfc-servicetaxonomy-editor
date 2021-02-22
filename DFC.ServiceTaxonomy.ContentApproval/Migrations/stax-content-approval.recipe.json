@@ -10,6 +10,7 @@
     "tags": ["ncs"],
     "steps": [
         {
+            "name": "Roles",
             "Roles": [
                 {
                     "Name": "ContentAdministrator",

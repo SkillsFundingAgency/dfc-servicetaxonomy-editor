@@ -1,0 +1,3 @@
+﻿@model DFC.ServiceTaxonomy.ContentApproval.ViewModels.ContentApprovalPartViewModel
+
+<a asp-action="Review" asp-controller="ContentApproval" asp-route-area="DFC.ServiceTaxonomy.ContentApproval" asp-route-contentItemId="@Model.ContentItemId"  asp-route-returnUrl="@FullRequestPath" class="btn btn-sm btn-success btn-content-approval"><span>@T["Review"]</span></a>

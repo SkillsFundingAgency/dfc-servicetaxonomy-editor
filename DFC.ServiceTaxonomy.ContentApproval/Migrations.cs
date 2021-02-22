@@ -23,13 +23,13 @@ namespace DFC.ServiceTaxonomy.ContentApproval
         public int Create()
         {
             SchemaBuilder.CreateMapIndexTable<ContentApprovalPartIndex>(table => table
-                .Column<string>(nameof(ContentApprovalPartIndex.ApprovalStatus)));
+                .Column<string>(nameof(ContentApprovalPartIndex.ReviewStatus)));
 
             SchemaBuilder.AlterIndexTable<ContentApprovalPartIndex>(table => table
                 .CreateIndex(
-                    $"IDX_{nameof(ContentApprovalPartIndex)}_{nameof(ContentApprovalPartIndex.ApprovalStatus)}",
+                    $"IDX_{nameof(ContentApprovalPartIndex)}_{nameof(ContentApprovalPartIndex.ReviewStatus)}",
                     "DocumentId",
-                    nameof(ContentApprovalPartIndex.ApprovalStatus)));
+                    nameof(ContentApprovalPartIndex.ReviewStatus)));
 
             _contentDefinitionManager.AlterPartDefinition(nameof(ContentApprovalPart), part => part
                 .Attachable()
@@ -50,5 +50,30 @@ namespace DFC.ServiceTaxonomy.ContentApproval
 
             return 2;
         }
+
+        public  int UpdateFrom2()
+        {
+            SchemaBuilder.DropMapIndexTable<ContentApprovalPartIndex>();
+
+            _contentDefinitionManager.DeletePartDefinition(nameof(ContentApprovalPart));
+
+            SchemaBuilder.CreateMapIndexTable<ContentApprovalPartIndex>(table => table
+                .Column<string>(nameof(ContentApprovalPartIndex.ReviewStatus)));
+
+            SchemaBuilder.AlterIndexTable<ContentApprovalPartIndex>(table => table
+                .CreateIndex(
+                    $"IDX_{nameof(ContentApprovalPartIndex)}_{nameof(ContentApprovalPartIndex.ReviewStatus)}",
+                    "DocumentId",
+                    nameof(ContentApprovalPartIndex.ReviewStatus)));
+
+            _contentDefinitionManager.AlterPartDefinition(nameof(ContentApprovalPart), part => part
+                .Attachable()
+                .WithDescription("Adds publishing status workflow properties to content items.")
+            );
+
+
+            return 3;
+        }
+
     }
 }
