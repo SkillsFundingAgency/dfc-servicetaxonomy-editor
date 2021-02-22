@@ -1,5 +1,7 @@
 #ToDo
 
+* looks like now need to enable 'new' menu through settings
+
 * link to visitor graph (calculate url), then we can count visits (# of relationships)
   that would allow us to easily do things such as....
   order job profiles/pages by popularity in the content items list
