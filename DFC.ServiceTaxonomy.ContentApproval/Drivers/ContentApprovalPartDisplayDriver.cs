@@ -63,7 +63,7 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Drivers
                 return null;
             }
 
-            if (part.ReviewStatus == ContentReviewStatus.InReview && !context.Updater.ModelState.IsValid)
+            if (part.ReviewStatus == ContentReviewStatus.InReview && (!context.Updater.ModelState.IsValid || !await _authorizationService.AuthorizeAsync(currentUser, Permissions.CanPerformReviewPermissions.CanPerformReviewPermission)))
             {
                 _notifier.Warning(H["This content item is now under review and should not be modified."]);
             }

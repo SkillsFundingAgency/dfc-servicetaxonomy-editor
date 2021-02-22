@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Localization;
 using Microsoft.AspNetCore.Mvc.Routing;
 using OrchardCore.ContentManagement;
+using OrchardCore.Contents;
 using OrchardCore.DisplayManagement.Notify;
 
 namespace DFC.ServiceTaxonomy.ContentApproval.Controllers
@@ -77,6 +78,11 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Controllers
                 _notifier.Warning(H[$"This content item has already been selected for review."]);
             }
 
+            return await RedirectToEdit(returnUrl, contentItem);
+        }
+
+        private async Task<IActionResult> RedirectToEdit(string returnUrl, ContentItem contentItem)
+        {
             var metadata = await _contentManager.PopulateAspectAsync<ContentItemMetadata>(contentItem);
             if (metadata.EditorRouteValues == null)
             {
@@ -89,9 +95,31 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Controllers
                 metadata.EditorRouteValues.Add("returnUrl", returnUrl);
             }
 
-            var editLink = _urlHelperFactory.GetUrlHelper(Url.ActionContext).Action(metadata.EditorRouteValues["action"].ToString(),
+            var editLink = _urlHelperFactory.GetUrlHelper(Url.ActionContext).Action(
+                metadata.EditorRouteValues["action"].ToString(),
                 metadata.EditorRouteValues);
             return Redirect(editLink);
+        }
+
+        public async Task<IActionResult> Edit(string contentItemId, string returnUrl)
+        {
+            var contentItem = await _contentManager.GetAsync(contentItemId, VersionOptions.Latest);
+            if (contentItem == null)
+            {
+                return NotFound();
+            }
+            if (!await _authorizationService.AuthorizeAsync(User, CommonPermissions.EditContent, contentItem))
+            {
+                return Forbid();
+            }
+
+            var reviewStatus = contentItem.As<ContentApprovalPart>().ReviewStatus;
+            if(reviewStatus == ContentReviewStatus.InReview)
+            {
+                _notifier.Warning(H[$"This content item is now under review and should not be modified."]);
+                return Redirect(returnUrl);
+            }
+            return await RedirectToEdit(returnUrl, contentItem);
         }
     }
 }
