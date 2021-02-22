@@ -3,6 +3,7 @@
 @using DFC.ServiceTaxonomy.PageLocation.Models
 @using Microsoft.Extensions.Options
 @using DFC.ServiceTaxonomy.Editor.Configuration 
+@using DFC.ServiceTaxonomy.ContentApproval.Models
 @inject IContentManager ContentManager
 @inject IOptions<PagesConfiguration> Config
 
@@ -10,10 +11,13 @@
     ContentItem contentItem = Model.ContentItem;
     var hasPublished = await ContentManager.HasPublishedVersionAsync(contentItem);
     var PageConfig = Config.Value;
+    var isInReview = contentItem.As<ContentApprovalPart>().ReviewStatus == ContentReviewStatus.InReview;
 }
 
-<a edit-for="@contentItem" asp-route-returnUrl="@FullRequestPath" class="btn btn-primary btn-sm">@T["Edit"]</a>
-
+@if (!isInReview)
+{
+    <a edit-for="@contentItem" asp-route-returnUrl="@FullRequestPath" class="btn btn-primary btn-sm">@T["Edit"]</a>
+}
 @if (hasPublished && contentItem.ContentType != ContentTypes.JobProfile && contentItem.ContentType != ContentTypes.Page)
 {
     <a display-for="@contentItem" class="btn btn-success btn-sm" itemprop="">@T["View"]</a>

@@ -58,14 +58,24 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Controllers
                 return Forbid();
             }
 
-            if (contentItem.As<ContentApprovalPart>().ReviewStatus != ContentReviewStatus.ReadyForReview)
+            var reviewStatus = contentItem.As<ContentApprovalPart>().ReviewStatus;
+
+            if (reviewStatus == null)
             {
                 _notifier.Warning(H[$"This content item is not currently ready for review: {0}", contentItem.DisplayText]);
                 return Redirect(returnUrl);
             }
 
-            contentItem.Alter<ContentApprovalPart>(p => p.ReviewStatus = ContentReviewStatus.InReview);
-            await _contentManager.SaveDraftAsync(contentItem);
+            if (reviewStatus == ContentReviewStatus.ReadyForReview)
+            {
+                contentItem.Alter<ContentApprovalPart>(p => p.ReviewStatus = ContentReviewStatus.InReview);
+                await _contentManager.SaveDraftAsync(contentItem);
+            }
+
+            if (reviewStatus == ContentReviewStatus.InReview)
+            {
+                _notifier.Warning(H[$"This content item has already been selected for review."]);
+            }
 
             var metadata = await _contentManager.PopulateAspectAsync<ContentItemMetadata>(contentItem);
             if (metadata.EditorRouteValues == null)

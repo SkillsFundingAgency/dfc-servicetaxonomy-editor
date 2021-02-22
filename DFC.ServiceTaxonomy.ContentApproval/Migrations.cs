@@ -20,7 +20,7 @@ namespace DFC.ServiceTaxonomy.ContentApproval
             _recipeMigrator = recipeMigrator;
         }
 
-        public int Create()
+        public async Task<int> CreateAsync()
         {
             SchemaBuilder.CreateMapIndexTable<ContentApprovalPartIndex>(table => table
                 .Column<string>(nameof(ContentApprovalPartIndex.ReviewStatus)));
@@ -41,7 +41,9 @@ namespace DFC.ServiceTaxonomy.ContentApproval
                 .WithDescription("Adds content approval dashboard cards.")
             );
 
-            return 1;
+            await _recipeMigrator.ExecuteAsync("stax-content-approval.recipe.json", this);
+
+            return 3;
         }
 
         public async Task<int> UpdateFrom1Async()
@@ -70,7 +72,6 @@ namespace DFC.ServiceTaxonomy.ContentApproval
                 .Attachable()
                 .WithDescription("Adds publishing status workflow properties to content items.")
             );
-
 
             return 3;
         }
