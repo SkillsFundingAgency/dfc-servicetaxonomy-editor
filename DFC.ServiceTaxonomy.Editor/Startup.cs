@@ -6,6 +6,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.AspNetCore.Http;
+using OrchardCore.Media;
+using System.Collections.Generic;
 using DFC.ServiceTaxonomy.CustomEditor.Configuration;
 
 namespace DFC.ServiceTaxonomy.Editor
@@ -59,6 +61,16 @@ namespace DFC.ServiceTaxonomy.Editor
             {
                 options.Cookie.Name = "staxantiforgery_Default";
             }), order:10);
+
+            services.PostConfigure<MediaOptions>(o =>
+                o.AllowedFileExtensions = new HashSet<string>
+                {
+                    ".jpg",
+                    ".png",
+                    ".gif",
+                    ".ico",
+                    ".svg"
+                });
 
             services.Configure<PagesConfiguration>(Configuration.GetSection("Pages"));
         }
