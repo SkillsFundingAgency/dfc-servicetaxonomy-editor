@@ -303,7 +303,7 @@
             options,
             function (data) {
 
-                var srcUrl = insertQueryParamString(data.url,"rel", "?")
+                var srcUrl = setQueryParam(data.url, "rel", "0")
 
                 var $linkToEmbed = $('<iframe>')
                     .attr('src', srcUrl)
@@ -320,20 +320,10 @@
             });
     }
 
-    function insertQueryParamString(url, queryParam, at) {
-
-        var position = url.indexOf(at);
-    
-        if (position !== -1) {
-            if (url.indexOf(queryParam) === -1) {
-                return url.substring(0, position + 1) + queryParam + '=0&' + url.substring(position + 1);
-            }
-            else {
-                return url;
-            }
-        } else {
-            return url + '?rel=0';
-        }
+    function setQueryParam(sourceUrl, key, value) {
+        var url = new URL(sourceUrl);
+        url.searchParams.set(key, value);
+        return url;
     }
 
     function createLink(trumbowyg, openInNewTab) {
