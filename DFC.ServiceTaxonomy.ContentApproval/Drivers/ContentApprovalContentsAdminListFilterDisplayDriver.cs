@@ -1,5 +1,12 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Reflection;
+using System.Threading.Tasks;
+using DFC.ServiceTaxonomy.ContentApproval.Models;
 using DFC.ServiceTaxonomy.ContentApproval.ViewModels;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Localization;
 using OrchardCore.Contents.ViewModels;
 using OrchardCore.DisplayManagement.Handlers;
@@ -8,13 +15,23 @@ using OrchardCore.DisplayManagement.Views;
 
 namespace DFC.ServiceTaxonomy.ContentApproval.Drivers
 {
-    // public static class EnumExtensions
-    // {
-    //     public static string[] GetDescriptions(this Enum _, Type enumType)
-    //     {
-    //
-    //     }
-    // }
+    public static class EnumExtensions
+    {
+        public static string[] GetDisplayNames(Type enumType)
+        {
+            //FieldInfo[] enumFields = enumType.GetFields(BindingFlags.Static | BindingFlags.Public);
+            // we need to match Enum.GetNames (we combine the two results with zip)
+            FieldInfo[] enumFields = enumType.GetFields(BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic);
+            //FieldInfo[] flds = GetFields(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static);
+
+            return enumFields.Select(fi =>
+            {
+                DisplayAttribute? displayAttribute = fi.GetCustomAttribute<DisplayAttribute>();
+                return displayAttribute?.Name ?? fi.Name;
+            })
+            .ToArray();
+        }
+    }
 
 
     public class ContentApprovalContentsAdminListFilterDisplayDriver : DisplayDriver<ContentOptionsViewModel>
@@ -46,18 +63,19 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Drivers
 
             return Initialize<ContentApprovalContentsAdminListFilterViewModel>("ContentsAdminList__ContentApprovalPartFilter", m =>
                 {
-                    // have separate enum with All Approval Statuses??
+                    var approvalStatuses = new List<SelectListItem>
+                    {
+                        new SelectListItem { Text = S["All approval statuses"], Value = "" },
+                        //todo: add NotInReview to enum (rather than null, so null can be 'all')
+                        // new SelectListItem { Text = S["Not in approval"], Value = "None" }
+                    };
 
-                    // var approvalStatuses = new List<SelectListItem>
-                    // {
-                    //     new SelectListItem() { Text = S["All approval statuses"], Value = "" }
-                    // };
-                    //
-                    // Enum.GetNames()
-                    //
-                    // approvalStatuses.AddRange(supportedCultures.Select(culture => new SelectListItem() { Text = culture, Value = culture }));
-                    //
-                    // m.ApprovalStatuses = approvalStatuses;
+                    string[] displayNames = EnumExtensions.GetDisplayNames(typeof(ContentReviewStatus));
+                    string[] names = Enum.GetNames(typeof(ContentReviewStatus));
+
+                    approvalStatuses.AddRange(displayNames.Zip(names, (displayName, name) => new SelectListItem(displayName, name) ));
+
+                    m.ApprovalStatuses = approvalStatuses;
                 }).Location("Actions:20");
         }
         //todo: remove
