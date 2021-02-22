@@ -46,9 +46,13 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Services
                     //query.With<ContentApprovalPartIndex>(i => (i.Published || i.Latest) && i.Culture == viewModel.SelectedCulture);
 
                     //
+#pragma warning disable S1066
+                    if (viewModel.SelectedApprovalStatus.HasValue)
+                    {
+                        query.With<ContentApprovalPartIndex>(i => i.ReviewStatus == viewModel.SelectedApprovalStatus);
+                    }
 
-                    query.With<ContentApprovalPartIndex>(i => i.ReviewStatus == viewModel.SelectedApprovalStatus);
-                // }
+                    // }
             }
         }
     }
