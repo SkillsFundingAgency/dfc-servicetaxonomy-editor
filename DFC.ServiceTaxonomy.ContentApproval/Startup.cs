@@ -45,8 +45,12 @@ namespace DFC.ServiceTaxonomy.ContentApproval
 
             services.AddScoped<IDataMigration, Migrations>();
 
+            // contents admin list filters
             services.AddScoped<IContentsAdminListFilter, ContentApprovalContentsAdminListFilter>();
             services.AddScoped<IDisplayDriver<ContentOptionsViewModel>, ContentApprovalContentsAdminListFilterDisplayDriver>();
+
+            services.AddScoped<IContentsAdminListFilter, ReviewTypeContentsAdminListFilter>();
+            services.AddScoped<IDisplayDriver<ContentOptionsViewModel>, ReviewTypeContentsAdminListFilterDisplayDriver>();
         }
 
         public override void Configure(IApplicationBuilder app, IEndpointRouteBuilder routes, IServiceProvider serviceProvider)
