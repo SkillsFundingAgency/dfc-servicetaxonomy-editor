@@ -45,7 +45,7 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Drivers
                     approvalStatuses.AddRange(displayNames.Zip(names, (displayName, name) => new SelectListItem(displayName, name) ));
 
                     m.ApprovalStatuses = approvalStatuses;
-                }).Location("Actions:20");
+                }).Location("Actions:25");
         }
 
         public override async Task<IDisplayResult> UpdateAsync(ContentOptionsViewModel model, IUpdateModel updater)

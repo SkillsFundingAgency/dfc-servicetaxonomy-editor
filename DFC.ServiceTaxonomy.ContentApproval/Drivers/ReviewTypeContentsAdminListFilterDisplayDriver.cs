@@ -44,7 +44,7 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Drivers
                     reviewTypes.AddRange(displayNames.Zip(names, (displayName, name) => new SelectListItem(displayName, name) ));
 
                     m.ReviewTypes = reviewTypes;
-                }).Location("Actions:25");
+                }).Location("Actions:20");
         }
 
         public override async Task<IDisplayResult> UpdateAsync(ContentOptionsViewModel model, IUpdateModel updater)
