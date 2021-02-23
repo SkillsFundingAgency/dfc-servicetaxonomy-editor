@@ -15,7 +15,6 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Services
         public async Task FilterAsync(ContentOptionsViewModel model, IQuery<ContentItem> query, IUpdateModel updater)
         {
             var viewModel = new ReviewTypeContentsAdminListFilterViewModel();
-            //todo: do we need to set Prefix?
 
             if (await updater.TryUpdateModelAsync(viewModel, ContentApprovalPart.Prefix)
                 && viewModel.SelectedReviewType.HasValue)
