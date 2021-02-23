@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
-using System.Reflection;
 using System.Threading.Tasks;
+using DFC.ServiceTaxonomy.ContentApproval.Extensions;
 using DFC.ServiceTaxonomy.ContentApproval.Models;
 using DFC.ServiceTaxonomy.ContentApproval.ViewModels;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -15,25 +14,6 @@ using OrchardCore.DisplayManagement.Views;
 
 namespace DFC.ServiceTaxonomy.ContentApproval.Drivers
 {
-    public static class EnumExtensions
-    {
-        public static string[] GetDisplayNames(Type enumType)
-        {
-            //FieldInfo[] enumFields = enumType.GetFields(BindingFlags.Static | BindingFlags.Public);
-            // we need to match Enum.GetNames (we combine the two results with zip)
-            FieldInfo[] enumFields = enumType.GetFields(BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic);
-            //FieldInfo[] flds = GetFields(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static);
-
-            return enumFields.Select(fi =>
-            {
-                DisplayAttribute? displayAttribute = fi.GetCustomAttribute<DisplayAttribute>();
-                return displayAttribute?.Name ?? fi.Name;
-            })
-            .ToArray();
-        }
-    }
-
-
     public class ContentApprovalContentsAdminListFilterDisplayDriver : DisplayDriver<ContentOptionsViewModel>
     {
         private readonly IStringLocalizer S;
@@ -66,8 +46,6 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Drivers
                     var approvalStatuses = new List<SelectListItem>
                     {
                         new SelectListItem { Text = S["All approval statuses"], Value = "" },
-                        //todo: add NotInReview to enum (rather than null, so null can be 'all')
-                        // new SelectListItem { Text = S["Not in approval"], Value = "None" }
                     };
 
                     string[] displayNames = EnumExtensions.GetDisplayNames(typeof(ContentReviewStatus));
@@ -78,32 +56,19 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Drivers
                     m.ApprovalStatuses = approvalStatuses;
                 }).Location("Actions:20");
         }
-        //todo: remove
-#pragma warning disable
+
         public override async Task<IDisplayResult> UpdateAsync(ContentOptionsViewModel model, IUpdateModel updater)
         {
             var viewModel = new ContentApprovalContentsAdminListFilterViewModel();
             //todo: common const
-            if (await updater.TryUpdateModelAsync(viewModel, "ContentApproval"))
+            if (await updater.TryUpdateModelAsync(viewModel, "ContentApproval")
+                && viewModel.SelectedApprovalStatus != null)
             {
-                // if (viewModel.ShowLocalizedContentTypes)
-                // {
-                //     model.RouteValues.TryAdd("Localization.ShowLocalizedContentTypes", viewModel.ShowLocalizedContentTypes);
-                // }
-
-                // if (!string.IsNullOrEmpty(viewModel.SelectedCulture))
-                // {
-                //     model.RouteValues.TryAdd("Localization.SelectedCulture", viewModel.SelectedCulture);
-                // }
-
-                if (viewModel.SelectedApprovalStatus != null)
-                {
-                    //todo: common const
-                    model.RouteValues.TryAdd("ContentApproval.SelectedApprovalStatus", viewModel.SelectedApprovalStatus);
-                }
+                //todo: common const
+                model.RouteValues.TryAdd("ContentApproval.SelectedApprovalStatus", viewModel.SelectedApprovalStatus);
             }
 
-            return Edit(model, updater);
+            return await EditAsync(model, updater);
         }
     }
 }
