@@ -55,7 +55,6 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Drivers
             if (await updater.TryUpdateModelAsync(viewModel, ContentApprovalPart.Prefix)
                 && viewModel.SelectedApprovalStatus != null)
             {
-                //todo: common const
                 model.RouteValues.TryAdd($"{ContentApprovalPart.Prefix}.SelectedApprovalStatus", viewModel.SelectedApprovalStatus);
             }
 

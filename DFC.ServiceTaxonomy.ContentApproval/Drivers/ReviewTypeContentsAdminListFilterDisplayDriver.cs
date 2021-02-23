@@ -54,8 +54,7 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Drivers
             if (await updater.TryUpdateModelAsync(viewModel, ContentApprovalPart.Prefix)
                 && viewModel.SelectedReviewType != null)
             {
-                //todo: common const
-                model.RouteValues.TryAdd("ContentApproval.SelectedReviewType", viewModel.SelectedReviewType);
+                model.RouteValues.TryAdd($"{ContentApprovalPart.Prefix}.SelectedReviewType", viewModel.SelectedReviewType);
             }
 
             return await EditAsync(model, updater);
