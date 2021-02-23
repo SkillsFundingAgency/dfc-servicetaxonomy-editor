@@ -52,7 +52,7 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Drivers
             var viewModel = new ReviewTypeContentsAdminListFilterViewModel();
             //todo: common const
             if (await updater.TryUpdateModelAsync(viewModel, "ContentApproval")
-                && viewModel.ReviewTypes != null)
+                && viewModel.SelectedReviewType != null)
             {
                 //todo: common const
                 model.RouteValues.TryAdd("ContentApproval.SelectedReviewType", viewModel.SelectedReviewType);
