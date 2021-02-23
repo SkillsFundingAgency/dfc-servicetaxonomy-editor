@@ -56,7 +56,7 @@ namespace DFC.ServiceTaxonomy.ContentApproval
             return 2;
         }
 
-        public  int UpdateFrom2()
+        public int UpdateFrom2()
         {
             SchemaBuilder.DropMapIndexTable<ContentApprovalPartIndex>();
 
@@ -79,5 +79,12 @@ namespace DFC.ServiceTaxonomy.ContentApproval
             return 3;
         }
 
+        public int UpdateFrom3()
+        {
+            SchemaBuilder.AlterIndexTable<ContentApprovalPartIndex>(table => table
+                .AddColumn<string>(nameof(ContentApprovalPartIndex.ReviewType)));
+
+            return 4;
+        }
     }
 }

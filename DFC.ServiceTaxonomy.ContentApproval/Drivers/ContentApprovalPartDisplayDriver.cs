@@ -34,7 +34,7 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Drivers
             var currentUser = _httpContextAccessor.HttpContext?.User;
             var results = new List<IDisplayResult>();
 
-            if (part.InDraft && part.ReviewStatus == null && await _authorizationService.AuthorizeAsync(currentUser, Permissions.RequestReviewPermissions.RequestReviewPermission, part))
+            if (part.InDraft && part.ReviewStatus == ContentReviewStatus.NotInReview && await _authorizationService.AuthorizeAsync(currentUser, Permissions.RequestReviewPermissions.RequestReviewPermission, part))
             {
                 results.Add(Initialize<ContentApprovalPartViewModel>(
                         "ContentApprovalPart_Admin_RequestReview",
@@ -42,7 +42,7 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Drivers
                     .Location("SummaryAdmin", "Actions:First"));
             }
 
-            if (part.ReviewStatus != null && await _authorizationService.AuthorizeAsync(currentUser,
+            if (part.ReviewStatus != ContentReviewStatus.NotInReview && await _authorizationService.AuthorizeAsync(currentUser,
                 Permissions.CanPerformReviewPermissions.CanPerformReviewPermission, part))
             {
                 results.Add(Initialize<ContentApprovalPartViewModel>(
@@ -119,14 +119,14 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Drivers
                 }
                 else
                 {
-                    part.ReviewStatus = null;
+                    part.ReviewStatus = ContentReviewStatus.NotInReview;
                 }
             }
             else if (keys.Contains("submit.Publish"))
             {
-                part.ReviewStatus = null;
+                part.ReviewStatus = ContentReviewStatus.NotInReview;
             }
-            
+
             return await EditAsync(part, context);
         }
         private static void PopulateViewModel(ContentApprovalPart part, ContentApprovalPartViewModel viewModel)

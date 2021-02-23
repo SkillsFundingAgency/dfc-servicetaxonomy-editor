@@ -42,7 +42,7 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Controllers
 
             contentItem.Alter<ContentApprovalPart>(p => p.ReviewStatus = ContentReviewStatus.ReadyForReview);
             await _contentManager.SaveDraftAsync(contentItem);
-            _notifier.Success(H[$"{0} is now ready to be reviewed.", contentItem.DisplayText]);
+            _notifier.Success(H["{0} is now ready to be reviewed.", contentItem.DisplayText]);
 
             return Redirect(returnUrl);
         }
@@ -61,9 +61,9 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Controllers
 
             var contentApprovalPart = contentItem.As<ContentApprovalPart>();
             var reviewStatus = contentApprovalPart.ReviewStatus;
-            if (reviewStatus == null)
+            if (reviewStatus == ContentReviewStatus.NotInReview)
             {
-                _notifier.Warning(H[$"This item is currently in the '{0}' state and therefore is no longer available for review", contentApprovalPart.IsPublished ? "Published" : "In Draft"]);
+                _notifier.Warning(H["This item is currently in the '{0}' state and therefore is no longer available for review", contentApprovalPart.IsPublished ? "Published" : "In Draft"]);
                 return Redirect(returnUrl);
             }
 
@@ -75,7 +75,7 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Controllers
 
             if (reviewStatus == ContentReviewStatus.InReview)
             {
-                _notifier.Warning(H[$"This content item has already been selected for review."]);
+                _notifier.Warning(H["This content item has already been selected for review."]);
             }
 
             return await RedirectToEdit(returnUrl, contentItem);
@@ -86,7 +86,7 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Controllers
             var metadata = await _contentManager.PopulateAspectAsync<ContentItemMetadata>(contentItem);
             if (metadata.EditorRouteValues == null)
             {
-                _notifier.Error(H[$"Could not redirect for review: {0}", contentItem.DisplayText]);
+                _notifier.Error(H["Could not redirect for review: {0}", contentItem.DisplayText]);
                 return Redirect(returnUrl);
             }
 
@@ -116,7 +116,7 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Controllers
             var reviewStatus = contentItem.As<ContentApprovalPart>().ReviewStatus;
             if(reviewStatus == ContentReviewStatus.InReview)
             {
-                _notifier.Warning(H[$"This item is already in review with {0} and therefore cannot be edited.", contentItem.Author]);
+                _notifier.Warning(H["This item is already in review with {0} and therefore cannot be edited.", contentItem.Author]);
                 return Redirect(returnUrl);
             }
             return await RedirectToEdit(returnUrl, contentItem);
