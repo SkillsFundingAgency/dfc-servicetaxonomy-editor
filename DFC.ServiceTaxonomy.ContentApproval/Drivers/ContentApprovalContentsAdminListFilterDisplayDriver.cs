@@ -27,7 +27,7 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Drivers
 
         protected override void BuildPrefix(ContentOptionsViewModel model, string htmlFieldPrefix)
         {
-            Prefix = "ContentApproval";
+            Prefix = ContentApprovalPart.Prefix;
         }
 
         public override IDisplayResult Edit(ContentOptionsViewModel model, IUpdateModel updater)
@@ -51,12 +51,12 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Drivers
         public override async Task<IDisplayResult> UpdateAsync(ContentOptionsViewModel model, IUpdateModel updater)
         {
             var viewModel = new ContentApprovalContentsAdminListFilterViewModel();
-            //todo: common const
-            if (await updater.TryUpdateModelAsync(viewModel, "ContentApproval")
+
+            if (await updater.TryUpdateModelAsync(viewModel, ContentApprovalPart.Prefix)
                 && viewModel.SelectedApprovalStatus != null)
             {
                 //todo: common const
-                model.RouteValues.TryAdd("ContentApproval.SelectedApprovalStatus", viewModel.SelectedApprovalStatus);
+                model.RouteValues.TryAdd($"{ContentApprovalPart.Prefix}.SelectedApprovalStatus", viewModel.SelectedApprovalStatus);
             }
 
             return await EditAsync(model, updater);

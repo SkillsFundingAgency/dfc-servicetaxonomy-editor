@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.ContentApproval.Indexes;
+using DFC.ServiceTaxonomy.ContentApproval.Models;
 using DFC.ServiceTaxonomy.ContentApproval.ViewModels;
 using OrchardCore.ContentManagement;
 using OrchardCore.Contents.Services;
@@ -16,8 +17,7 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Services
             var viewModel = new ReviewTypeContentsAdminListFilterViewModel();
             //todo: do we need to set Prefix?
 
-            //todo: common const for prefix
-            if (await updater.TryUpdateModelAsync(viewModel, "ContentApproval")
+            if (await updater.TryUpdateModelAsync(viewModel, ContentApprovalPart.Prefix)
                 && viewModel.SelectedReviewType.HasValue)
             {
                 query.With<ContentApprovalPartIndex>(i => i.ReviewType == viewModel.SelectedReviewType);
