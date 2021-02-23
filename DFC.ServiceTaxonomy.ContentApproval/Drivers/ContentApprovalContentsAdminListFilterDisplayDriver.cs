@@ -36,7 +36,7 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Drivers
                 {
                     var approvalStatuses = new List<SelectListItem>
                     {
-                        new SelectListItem { Text = S["All approval statuses"], Value = "" },
+                        new SelectListItem { Text = S["All review statuses"], Value = "" },
                     };
 
                     string[] displayNames = EnumExtensions.GetDisplayNames(typeof(ContentReviewStatus));
