@@ -32,16 +32,6 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Drivers
 
         public override IDisplayResult Edit(ContentOptionsViewModel model, IUpdateModel updater)
         {
-            //todo: do we have 1 filter with eg waiting for ux approval, waiting for content design approval etc?
-            // do we have in draft and published in there too?
-            // do we have 2 filters, one for waiting/in review and one for the review type?
-            // what if have 2 and only one filter applied?
-            // waiting + not selected -> all waiting (of any type)
-            // not selected + UX -> all in ux waiting/ready
-            // leave draft and published out?
-            // have filter dropdown with combos in there .. eg. waiting for ux review? that selects both
-            // if we update the top left filter, do we hide the custom filters, or leave them visible?
-
             return Initialize<ContentApprovalContentsAdminListFilterViewModel>("ContentsAdminList__ContentApprovalPartFilter", m =>
                 {
                     var approvalStatuses = new List<SelectListItem>
