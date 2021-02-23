@@ -59,11 +59,11 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Controllers
                 return Forbid();
             }
 
-            var reviewStatus = contentItem.As<ContentApprovalPart>().ReviewStatus;
-
+            var contentApprovalPart = contentItem.As<ContentApprovalPart>();
+            var reviewStatus = contentApprovalPart.ReviewStatus;
             if (reviewStatus == null)
             {
-                _notifier.Warning(H[$"This content item is not currently ready for review: {0}", contentItem.DisplayText]);
+                _notifier.Warning(H[$"This item is currently in the '{0}' state and therefore is no longer available for review", contentApprovalPart.IsPublished ? "Published" : "In Draft"]);
                 return Redirect(returnUrl);
             }
 
@@ -116,7 +116,7 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Controllers
             var reviewStatus = contentItem.As<ContentApprovalPart>().ReviewStatus;
             if(reviewStatus == ContentReviewStatus.InReview)
             {
-                _notifier.Warning(H[$"This content item is now under review and should not be modified."]);
+                _notifier.Warning(H[$"This item is already in review with {0} and therefore cannot be edited.", contentItem.Author]);
                 return Redirect(returnUrl);
             }
             return await RedirectToEdit(returnUrl, contentItem);

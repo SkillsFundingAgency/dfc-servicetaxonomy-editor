@@ -22,10 +22,12 @@ namespace DFC.ServiceTaxonomy.ContentApproval
     {
         public override void ConfigureServices(IServiceCollection services)
         {
-            services.AddSingleton<IIndexProvider, ContentApprovalPartIndexProvider>();
-
             services.AddContentPart<ContentApprovalPart>()
                 .UseDisplayDriver<ContentApprovalPartDisplayDriver>();
+            services.AddContentPart<ContentApprovalItemStatusDashboardPart>()
+                .UseDisplayDriver<ContentApprovalItemStatusDashboardPartDisplayDriver>();
+
+            services.AddScoped<IDataMigration, Migrations>();
 
             services.AddSingleton<IIndexProvider, ContentApprovalPartIndexProvider>();
 
@@ -33,14 +35,9 @@ namespace DFC.ServiceTaxonomy.ContentApproval
             services.AddScoped<IPermissionProvider, CanPerformApprovalPermissions>();
             services.AddScoped<IPermissionProvider, RequestReviewPermissions>();
 
-            //services.AddScoped<IShapeTableProvider, SummaryAdminShapes>();
             services.AddScoped<IShapeTableProvider, ContentEditShapes>();
             services.AddScoped<IContentItemsApprovalService, ContentItemsApprovalService>();
 
-            services.AddContentPart<ContentApprovalItemStatusDashboardPart>()
-                .UseDisplayDriver<ContentApprovalItemStatusDashboardPartDisplayDriver>();
-
-            services.AddScoped<IDataMigration, Migrations>();
         }
 
         public override void Configure(IApplicationBuilder app, IEndpointRouteBuilder routes, IServiceProvider serviceProvider)

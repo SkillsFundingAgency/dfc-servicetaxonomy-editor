@@ -78,7 +78,7 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Drivers
                 return Initialize<ContentApprovalPartViewModel>(
                         $"{editorShape}_RequestReview",
                         viewModel => PopulateViewModel(part, viewModel))
-                    .Location("Actions:First");
+                    .Location("Actions:20");
             }
 
             // Show Approval option
