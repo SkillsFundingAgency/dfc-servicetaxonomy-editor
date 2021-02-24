@@ -66,8 +66,7 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Controllers
                 return Forbid();
             }
 
-            var contentApprovalPart = contentItem.As<ContentApprovalPart>();
-            var reviewStatus = contentApprovalPart.ReviewStatus;
+            var reviewStatus = contentItem.As<ContentApprovalPart>()?.ReviewStatus ?? ContentReviewStatus.NotInReview;
             if (reviewStatus == ContentReviewStatus.NotInReview)
             {
                 _notifier.Warning(H["This item is no longer available for review"]);
@@ -119,7 +118,7 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Controllers
                 return Forbid();
             }
 
-            var reviewStatus = contentItem.As<ContentApprovalPart>().ReviewStatus;
+            var reviewStatus = contentItem.As<ContentApprovalPart>()?.ReviewStatus ?? ContentReviewStatus.NotInReview;
             if(reviewStatus == ContentReviewStatus.InReview)
             {
                 _notifier.Warning(H["This item is already in review with {0} and therefore cannot be edited.", contentItem.Author]);
