@@ -5,7 +5,7 @@
     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="reviewbutton">
         @foreach (var reviewType in Model.ReviewTypes)
         {
-            <button class="dropdown-item" type="submit" name="submit.Save" value="submit.RequestApproval-@reviewType.Key">@T[reviewType.Value]</button>
+            <button class="dropdown-item" type="submit" name="@Constants.SubmitSaveKey" value="@(Constants.SubmitRequestApprovalValuePrefix + reviewType.Key)">@T[reviewType.Value]</button>
         }
     </div>
 </div>

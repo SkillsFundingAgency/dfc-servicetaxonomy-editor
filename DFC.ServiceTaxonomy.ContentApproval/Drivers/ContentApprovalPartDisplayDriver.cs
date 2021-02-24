@@ -110,21 +110,22 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Drivers
 
             var keys = updater.ModelState.Keys;
 
-            if (keys.Contains("submit.Save"))
+            if (keys.Contains(Constants.SubmitSaveKey))
             {
-                var saveType = updater.ModelState["submit.Save"].AttemptedValue;
-                if (saveType.StartsWith("submit.RequestApproval"))
+                var saveType = updater.ModelState[Constants.SubmitSaveKey].AttemptedValue;
+                if (saveType.StartsWith(Constants.SubmitRequestApprovalValuePrefix))
                 {
                     part.ReviewStatus = ContentReviewStatus.ReadyForReview;
-                    part.ReviewType = Enum.Parse<ReviewType>(saveType.Replace("submit.RequestApproval_", ""));
+                    part.ReviewType = Enum.Parse<ReviewType>(saveType.Replace(Constants.SubmitRequestApprovalValuePrefix, ""));
                     _notifier.Success(H["{0} is now ready to be reviewed.", part.ContentItem.DisplayText]);
                 }
-                else
+                else // implies a draft save or send back for revision
                 {
                     part.ReviewStatus = ContentReviewStatus.NotInReview;
+                    part.ReviewType = ReviewType.None;
                 }
             }
-            else if (keys.Contains("submit.Publish"))
+            else if (keys.Contains(Constants.SubmitPublishKey))
             {
                 part.ReviewStatus = ContentReviewStatus.NotInReview;
             }

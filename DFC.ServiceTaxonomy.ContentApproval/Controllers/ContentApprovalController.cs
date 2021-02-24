@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.ContentApproval.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -26,8 +27,13 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Controllers
             H = htmlLocalizer;
             _urlHelperFactory = urlHelperFactory;
         }
-        public async Task<IActionResult> RequestApproval(string contentItemId, string returnUrl)
+        public async Task<IActionResult> RequestApproval(string contentItemId, string returnUrl, string reviewType)
         {
+            if(string.IsNullOrWhiteSpace(contentItemId) || string.IsNullOrWhiteSpace(reviewType))
+            {
+                return BadRequest();
+            }
+
             var contentItem = await _contentManager.GetAsync(contentItemId, VersionOptions.Latest);
 
             if (contentItem == null)
@@ -41,6 +47,7 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Controllers
             }
 
             contentItem.Alter<ContentApprovalPart>(p => p.ReviewStatus = ContentReviewStatus.ReadyForReview);
+            contentItem.Alter<ContentApprovalPart>(p => p.ReviewType = Enum.Parse<ReviewType>(reviewType));
             await _contentManager.SaveDraftAsync(contentItem);
             _notifier.Success(H["{0} is now ready to be reviewed.", contentItem.DisplayText]);
 
