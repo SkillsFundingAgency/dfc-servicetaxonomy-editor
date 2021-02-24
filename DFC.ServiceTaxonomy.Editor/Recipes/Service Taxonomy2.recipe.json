@@ -65,7 +65,7 @@
                 "OrchardCore.Title",
                 "OrchardCore.Templates",
                 "OrchardCore.Widgets",
-                //"OrchardCore.Media.Azure",
+                // Hosting
                 "OrchardCore.Media.Azure.Storage",
                 // Workflows
                 "OrchardCore.Workflows",
