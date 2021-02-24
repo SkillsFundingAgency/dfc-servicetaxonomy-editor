@@ -19,7 +19,7 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Services
             if (await updater.TryUpdateModelAsync(viewModel, ContentApprovalPart.Prefix)
                 && viewModel.SelectedApprovalStatus.HasValue)
             {
-                query.With<ContentApprovalPartIndex>(i => i.ReviewStatus == viewModel.SelectedApprovalStatus);
+                query.With<ContentApprovalPartIndex>(i => i.ReviewStatus == viewModel.SelectedApprovalStatus.ToString());
             }
         }
     }

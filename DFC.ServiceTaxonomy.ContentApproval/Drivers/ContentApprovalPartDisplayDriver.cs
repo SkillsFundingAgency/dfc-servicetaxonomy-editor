@@ -42,7 +42,7 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Drivers
                     .Location("SummaryAdmin", "Actions:First"));
             }
 
-            if (part.ReviewStatus == ContentReviewStatus.ReadyForReview && await _authorizationService.AuthorizeAsync(currentUser,
+            if (part.ReviewStatus != ContentReviewStatus.NotInReview && await _authorizationService.AuthorizeAsync(currentUser,
                 Permissions.CanPerformReviewPermissions.CanPerformReviewPermission, part))
             {
                 results.Add(Initialize<ContentApprovalPartViewModel>(
@@ -63,6 +63,10 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Drivers
                 return null;
             }
 
+            if (part.ReviewStatus == ContentReviewStatus.InReview && (!context.Updater.ModelState.IsValid || !await _authorizationService.AuthorizeAsync(currentUser, Permissions.CanPerformReviewPermissions.CanPerformReviewPermission)))
+            {
+                _notifier.Warning(H["This content item is now under review and should not be modified."]);
+            }
 
             var editorShape = GetEditorShapeType(context);
             var reviewStatuses = new[] {ContentReviewStatus.ReadyForReview, ContentReviewStatus.InReview};
@@ -74,7 +78,7 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Drivers
                 return Initialize<ContentApprovalPartViewModel>(
                         $"{editorShape}_RequestReview",
                         viewModel => PopulateViewModel(part, viewModel))
-                    .Location("Actions:First");
+                    .Location("Actions:20");
             }
 
             // Show Approval option
@@ -88,6 +92,7 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Drivers
 
             return null;
         }
+
 
         public override async Task<IDisplayResult?> UpdateAsync(ContentApprovalPart part, IUpdateModel updater, UpdatePartEditorContext context)
         {
@@ -110,7 +115,7 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Drivers
                 if (saveType.AttemptedValue.Contains("RequestApproval"))
                 {
                     part.ReviewStatus = ContentReviewStatus.ReadyForReview;
-                    _notifier.Success(H[$"{0} is now ready to be reviewed.", part.ContentItem.DisplayText]);
+                    _notifier.Success(H["{0} is now ready to be reviewed.", part.ContentItem.DisplayText]);
                 }
                 else
                 {
