@@ -63,7 +63,7 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Controllers
             var reviewStatus = contentApprovalPart.ReviewStatus;
             if (reviewStatus == ContentReviewStatus.NotInReview)
             {
-                _notifier.Warning(H["This item is no longer available for review", contentApprovalPart.IsPublished ? "Published" : "In Draft"]);
+                _notifier.Warning(H["This item is no longer available for review"]);
                 return Redirect(returnUrl);
             }
 
