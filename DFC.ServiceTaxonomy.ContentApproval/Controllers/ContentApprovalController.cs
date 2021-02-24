@@ -63,7 +63,7 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Controllers
             var reviewStatus = contentApprovalPart.ReviewStatus;
             if (reviewStatus == ContentReviewStatus.NotInReview)
             {
-                _notifier.Warning(H["This item is currently in the '{0}' state and therefore is no longer available for review", contentApprovalPart.IsPublished ? "Published" : "In Draft"]);
+                _notifier.Warning(H["This item is no longer available for review", contentApprovalPart.IsPublished ? "Published" : "In Draft"]);
                 return Redirect(returnUrl);
             }
 
@@ -72,8 +72,7 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Controllers
                 contentItem.Alter<ContentApprovalPart>(p => p.ReviewStatus = ContentReviewStatus.InReview);
                 await _contentManager.SaveDraftAsync(contentItem);
             }
-
-            if (reviewStatus == ContentReviewStatus.InReview)
+            else if (reviewStatus == ContentReviewStatus.InReview)
             {
                 _notifier.Warning(H["This content item has already been selected for review."]);
             }
