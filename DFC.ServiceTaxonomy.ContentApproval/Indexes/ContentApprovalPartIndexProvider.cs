@@ -21,8 +21,8 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Indexes
 
                     return new ContentApprovalPartIndex
                     {
-                        ReviewStatus = contentApprovalPart.ReviewStatus.ToString(),
-                        ReviewType = contentApprovalPart.ReviewType.ToString()
+                        ReviewStatus = (int)contentApprovalPart.ReviewStatus,
+                        ReviewType = (int)contentApprovalPart.ReviewType
                     };
                 });
         }

@@ -35,8 +35,8 @@ namespace DFC.ServiceTaxonomy.ContentApproval
             );
 
             SchemaBuilder.CreateMapIndexTable<ContentApprovalPartIndex>(table => table
-                .Column<string>(nameof(ContentApprovalPartIndex.ReviewStatus))
-                .Column<string>(nameof(ContentApprovalPartIndex.ReviewType)));
+                .Column<int>(nameof(ContentApprovalPartIndex.ReviewStatus))
+                .Column<int>(nameof(ContentApprovalPartIndex.ReviewType)));
 
             SchemaBuilder.AlterIndexTable<ContentApprovalPartIndex>(table => table
                 .CreateIndex(
@@ -65,8 +65,8 @@ namespace DFC.ServiceTaxonomy.ContentApproval
             _contentDefinitionManager.DeletePartDefinition(nameof(ContentApprovalPart));
 
             SchemaBuilder.CreateMapIndexTable<ContentApprovalPartIndex>(table => table
-                .Column<string>(nameof(ContentApprovalPartIndex.ReviewStatus))
-                .Column<string>(nameof(ContentApprovalPartIndex.ReviewType)));
+                .Column<int>(nameof(ContentApprovalPartIndex.ReviewStatus))
+                .Column<int>(nameof(ContentApprovalPartIndex.ReviewType)));
 
             SchemaBuilder.AlterIndexTable<ContentApprovalPartIndex>(table => table
                 .CreateIndex(
