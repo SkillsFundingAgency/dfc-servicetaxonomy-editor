@@ -56,6 +56,7 @@
                 "OrchardCore.Liquid",
                 "OrchardCore.Markdown",
                 "OrchardCore.Media",
+                "OrchardCore.Media.Slugify",
                 "OrchardCore.Menu",
                 "OrchardCore.Placements",
                 "OrchardCore.PublishLater",
@@ -64,6 +65,8 @@
                 "OrchardCore.Title",
                 "OrchardCore.Templates",
                 "OrchardCore.Widgets",
+                //"OrchardCore.Media.Azure",
+                "OrchardCore.Media.Azure.Storage",
                 // Workflows
                 "OrchardCore.Workflows",
                 "OrchardCore.Workflows.Http",
