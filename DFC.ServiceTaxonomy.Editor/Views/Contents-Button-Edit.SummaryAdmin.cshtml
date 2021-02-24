@@ -11,7 +11,7 @@
     ContentItem contentItem = Model.ContentItem;
     var hasPublished = await ContentManager.HasPublishedVersionAsync(contentItem);
     var PageConfig = Config.Value;
-    var isInReview = contentItem.As<ContentApprovalPart>().ReviewStatus == ContentReviewStatus.InReview;
+    var isInReview = contentItem.As<ContentApprovalPart>()?.ReviewStatus == ContentReviewStatus.InReview;
 }
 
 @if (!isInReview)

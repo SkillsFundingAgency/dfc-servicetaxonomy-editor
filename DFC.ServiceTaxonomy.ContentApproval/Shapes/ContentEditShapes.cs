@@ -12,7 +12,7 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Shapes
             builder.Describe("Content_Edit").OnDisplaying(context =>
             {
                 dynamic shape = context.Shape;
-                var approvalStatus = ((ContentItem)shape.ContentItem).As<ContentApprovalPart>()?.ReviewStatus;
+                var approvalStatus = ((ContentItem)shape.ContentItem).As<ContentApprovalPart>()?.ReviewStatus ?? ContentReviewStatus.NotInReview;
                 if (approvalStatus == ContentReviewStatus.InReview)
                 {
                     Shape actions = (Shape)shape.Actions;
