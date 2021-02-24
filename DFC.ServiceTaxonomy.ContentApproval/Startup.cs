@@ -10,8 +10,11 @@ using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.DependencyInjection;
 using OrchardCore.ContentManagement;
 using OrchardCore.ContentManagement.Display.ContentDisplay;
+using OrchardCore.Contents.Services;
+using OrchardCore.Contents.ViewModels;
 using OrchardCore.Data.Migration;
 using OrchardCore.DisplayManagement.Descriptors;
+using OrchardCore.DisplayManagement.Handlers;
 using OrchardCore.Modules;
 using OrchardCore.Security.Permissions;
 using YesSql.Indexes;
@@ -22,22 +25,29 @@ namespace DFC.ServiceTaxonomy.ContentApproval
     {
         public override void ConfigureServices(IServiceCollection services)
         {
-            services.AddSingleton<IIndexProvider, ContentApprovalPartIndexProvider>();
-
             services.AddContentPart<ContentApprovalPart>()
                 .UseDisplayDriver<ContentApprovalPartDisplayDriver>();
+            services.AddContentPart<ContentApprovalItemStatusDashboardPart>()
+                .UseDisplayDriver<ContentApprovalItemStatusDashboardPartDisplayDriver>();
+
+            services.AddScoped<IDataMigration, Migrations>();
+
+            services.AddSingleton<IIndexProvider, ContentApprovalPartIndexProvider>();
 
             services.AddScoped<IPermissionProvider, CanPerformReviewPermissions>();
             services.AddScoped<IPermissionProvider, CanPerformApprovalPermissions>();
             services.AddScoped<IPermissionProvider, RequestReviewPermissions>();
 
+            services.AddScoped<IShapeTableProvider, ContentEditShapes>();
             services.AddScoped<IContentItemsApprovalService, ContentItemsApprovalService>();
 
-            services.AddContentPart<ContentApprovalItemStatusDashboardPart>()
-                .UseDisplayDriver<ContentApprovalItemStatusDashboardPartDisplayDriver>();
 
-            services.AddScoped<IDataMigration, Migrations>();
-            services.AddScoped<IShapeTableProvider, UserEditShapes>();
+            // contents admin list filters
+            services.AddScoped<IContentsAdminListFilter, ContentApprovalContentsAdminListFilter>();
+            services.AddScoped<IDisplayDriver<ContentOptionsViewModel>, ContentApprovalContentsAdminListFilterDisplayDriver>();
+
+            services.AddScoped<IContentsAdminListFilter, ReviewTypeContentsAdminListFilter>();
+            services.AddScoped<IDisplayDriver<ContentOptionsViewModel>, ReviewTypeContentsAdminListFilterDisplayDriver>();
         }
 
         public override void Configure(IApplicationBuilder app, IEndpointRouteBuilder routes, IServiceProvider serviceProvider)

@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.ContentApproval.Models;
 using DFC.ServiceTaxonomy.ContentApproval.ViewModels;
@@ -31,34 +32,79 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Drivers
         public override async Task<IDisplayResult?> DisplayAsync(ContentApprovalPart part, BuildPartDisplayContext context)
         {
             var currentUser = _httpContextAccessor.HttpContext?.User;
-            if (part.ApprovalStatus != ContentApprovalStatus.InDraft || currentUser == null || !(await _authorizationService.AuthorizeAsync(currentUser, Permissions.RequestReviewPermissions.RequestReviewPermission, part)))
+            var results = new List<IDisplayResult>();
+
+            if (part.InDraft && part.ReviewStatus == ContentReviewStatus.NotInReview && await _authorizationService.AuthorizeAsync(currentUser, Permissions.RequestReviewPermissions.RequestReviewPermission, part))
             {
-                return null;
+                results.Add(Initialize<ContentApprovalPartViewModel>(
+                        "ContentApprovalPart_Admin_RequestReview",
+                        viewModel => PopulateViewModel(part, viewModel))
+                    .Location("SummaryAdmin", "Actions:First"));
             }
-            return Initialize<ContentApprovalPartViewModel>(
-                    "ContentApprovalPart_Admin",
-                    viewModel => PopulateViewModel(part, viewModel))
-                .Location("SummaryAdmin", "Actions:First");
+
+            if (part.ReviewStatus != ContentReviewStatus.NotInReview && await _authorizationService.AuthorizeAsync(currentUser,
+                Permissions.CanPerformReviewPermissions.CanPerformReviewPermission, part))
+            {
+                results.Add(Initialize<ContentApprovalPartViewModel>(
+                        "ContentApprovalPart_Admin_InReview",
+                        viewModel => PopulateViewModel(part, viewModel))
+                    .Location("SummaryAdmin", "Actions:First"));
+            }
+
+            return Combine(results.ToArray());
         }
 
         public override async Task<IDisplayResult?> EditAsync(ContentApprovalPart part, BuildPartEditorContext context)
         {
             var currentUser = _httpContextAccessor.HttpContext?.User;
 
-            if (currentUser == null || !(await _authorizationService.AuthorizeAsync(currentUser, Permissions.RequestReviewPermissions.RequestReviewPermission, part)))
+            if (currentUser == null)
             {
                 return null;
             }
-            return Initialize<ContentApprovalPartViewModel>(
-                    GetEditorShapeType(context),
-                    viewModel => PopulateViewModel(part, viewModel))
-                .Location("Actions:First");
+
+            if (part.ReviewStatus == ContentReviewStatus.InReview && (!context.Updater.ModelState.IsValid || !await _authorizationService.AuthorizeAsync(currentUser, Permissions.CanPerformReviewPermissions.CanPerformReviewPermission)))
+            {
+                _notifier.Warning(H["This content item is now under review and should not be modified."]);
+            }
+
+            var editorShape = GetEditorShapeType(context);
+            var reviewStatuses = new[] {ContentReviewStatus.ReadyForReview, ContentReviewStatus.InReview};
+
+            // Show Request review option
+            if (part.ReviewStatus != ContentReviewStatus.InReview &&
+                await _authorizationService.AuthorizeAsync(currentUser, Permissions.RequestReviewPermissions.RequestReviewPermission))
+            {
+                return Initialize<ContentApprovalPartViewModel>(
+                        $"{editorShape}_RequestReview",
+                        viewModel => PopulateViewModel(part, viewModel))
+                    .Location("Actions:20");
+            }
+
+            // Show Approval option
+            if (reviewStatuses.Any(r => part.ReviewStatus == r) && await _authorizationService.AuthorizeAsync(currentUser,Permissions.CanPerformReviewPermissions.CanPerformReviewPermission))
+            {
+                return Initialize<ContentApprovalPartViewModel>(
+                        $"{editorShape}_ApprovalResult",
+                        viewModel => PopulateViewModel(part, viewModel))
+                    .Location("Actions:First");
+            }
+
+            return null;
         }
+
 
         public override async Task<IDisplayResult?> UpdateAsync(ContentApprovalPart part, IUpdateModel updater, UpdatePartEditorContext context)
         {
             var viewModel = new ContentApprovalPartViewModel();
-            
+            var currentUser = _httpContextAccessor.HttpContext?.User;
+
+            if (part.ReviewStatus == ContentReviewStatus.InReview && !await _authorizationService.AuthorizeAsync(currentUser, Permissions.CanPerformReviewPermissions.CanPerformReviewPermission))
+            {
+                updater.ModelState.AddModelError("ReviewStatus", "This item is currently under review and cannot be modified at this time.");
+                return await EditAsync(part, context);
+            }
+
             await updater.TryUpdateModelAsync(viewModel, Prefix);
 
             var keys = updater.ModelState.Keys;
@@ -66,19 +112,19 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Drivers
             if (keys.Contains("submit.Save"))
             {
                 var saveType = updater.ModelState["submit.Save"];
-                if (saveType.AttemptedValue.Contains("Save"))
+                if (saveType.AttemptedValue.Contains("RequestApproval"))
                 {
-                    part.ApprovalStatus = ContentApprovalStatus.InDraft;
+                    part.ReviewStatus = ContentReviewStatus.ReadyForReview;
+                    _notifier.Success(H["{0} is now ready to be reviewed.", part.ContentItem.DisplayText]);
                 }
-                else if (saveType.AttemptedValue.Contains("RequestApproval"))
+                else
                 {
-                    part.ApprovalStatus = ContentApprovalStatus.ReadyForReview_ContentDesign;
-                    _notifier.Success(H[$"{0} is now ready to be reviewed.", part.ContentItem.DisplayText]);
+                    part.ReviewStatus = ContentReviewStatus.NotInReview;
                 }
             }
             else if (keys.Contains("submit.Publish"))
             {
-                part.ApprovalStatus = ContentApprovalStatus.Published;
+                part.ReviewStatus = ContentReviewStatus.NotInReview;
             }
 
             return await EditAsync(part, context);
@@ -86,7 +132,7 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Drivers
         private static void PopulateViewModel(ContentApprovalPart part, ContentApprovalPartViewModel viewModel)
         {
             viewModel.ContentItemId = part.ContentItem.ContentItemId;
-            viewModel.ApprovalStatus = part.ApprovalStatus;
+            viewModel.ReviewStatus = part.ReviewStatus;
             viewModel.Comment = part.Comment;
         }
     }

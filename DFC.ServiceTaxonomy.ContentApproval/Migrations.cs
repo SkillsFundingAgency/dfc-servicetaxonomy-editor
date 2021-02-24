@@ -5,10 +5,12 @@ using OrchardCore.ContentManagement.Metadata.Settings;
 using OrchardCore.Recipes.Services;
 using DFC.ServiceTaxonomy.ContentApproval.Models;
 using DFC.ServiceTaxonomy.ContentApproval.Indexes;
+using OrchardCore.Modules;
 using YesSql.Sql;
 
 namespace DFC.ServiceTaxonomy.ContentApproval
 {
+    [Feature("DFC.ServiceTaxonomy.ContentApproval")]
     public class Migrations : DataMigration
     {
         private readonly IContentDefinitionManager _contentDefinitionManager;
@@ -20,28 +22,33 @@ namespace DFC.ServiceTaxonomy.ContentApproval
             _recipeMigrator = recipeMigrator;
         }
 
-        public int Create()
+        public async Task<int> CreateAsync()
         {
-            SchemaBuilder.CreateMapIndexTable<ContentApprovalPartIndex>(table => table
-                .Column<string>(nameof(ContentApprovalPartIndex.ApprovalStatus)));
-
-            SchemaBuilder.AlterIndexTable<ContentApprovalPartIndex>(table => table
-                .CreateIndex(
-                    $"IDX_{nameof(ContentApprovalPartIndex)}_{nameof(ContentApprovalPartIndex.ApprovalStatus)}",
-                    "DocumentId",
-                    nameof(ContentApprovalPartIndex.ApprovalStatus)));
+            _contentDefinitionManager.AlterPartDefinition(nameof(ContentApprovalItemStatusDashboardPart), builder => builder
+                .Attachable()
+                .WithDescription("Adds content approval dashboard cards.")
+            );
 
             _contentDefinitionManager.AlterPartDefinition(nameof(ContentApprovalPart), part => part
                 .Attachable()
                 .WithDescription("Adds publishing status workflow properties to content items.")
             );
 
-            _contentDefinitionManager.AlterPartDefinition(nameof(ContentApprovalItemStatusDashboardPart), builder => builder
-                .Attachable()
-                .WithDescription("Adds content approval dashboard cards.")
-            );
+            SchemaBuilder.CreateMapIndexTable<ContentApprovalPartIndex>(table => table
+                .Column<int>(nameof(ContentApprovalPartIndex.ReviewStatus))
+                .Column<int>(nameof(ContentApprovalPartIndex.ReviewType)));
 
-            return 1;
+            SchemaBuilder.AlterIndexTable<ContentApprovalPartIndex>(table => table
+                .CreateIndex(
+                    $"IDX_{nameof(ContentApprovalPartIndex)}_{nameof(ContentApprovalPartIndex.ReviewStatus)}",
+                    "DocumentId",
+                    nameof(ContentApprovalPartIndex.ReviewStatus),
+                    nameof(ContentApprovalPartIndex.ReviewType)));
+
+
+            await _recipeMigrator.ExecuteAsync("stax-content-approval.recipe.json", this);
+
+            return await Task.FromResult(3);
         }
 
         public async Task<int> UpdateFrom1Async()
@@ -49,6 +56,31 @@ namespace DFC.ServiceTaxonomy.ContentApproval
             await _recipeMigrator.ExecuteAsync("stax-content-approval.recipe.json", this);
 
             return 2;
+        }
+
+        public int UpdateFrom2()
+        {
+            SchemaBuilder.DropMapIndexTable<ContentApprovalPartIndex>();
+
+            _contentDefinitionManager.DeletePartDefinition(nameof(ContentApprovalPart));
+
+            SchemaBuilder.CreateMapIndexTable<ContentApprovalPartIndex>(table => table
+                .Column<int>(nameof(ContentApprovalPartIndex.ReviewStatus))
+                .Column<int>(nameof(ContentApprovalPartIndex.ReviewType)));
+
+            SchemaBuilder.AlterIndexTable<ContentApprovalPartIndex>(table => table
+                .CreateIndex(
+                    $"IDX_{nameof(ContentApprovalPartIndex)}_{nameof(ContentApprovalPartIndex.ReviewStatus)}",
+                    "DocumentId",
+                    nameof(ContentApprovalPartIndex.ReviewStatus),
+                    nameof(ContentApprovalPartIndex.ReviewType)));
+
+            _contentDefinitionManager.AlterPartDefinition(nameof(ContentApprovalPart), part => part
+                .Attachable()
+                .WithDescription("Adds publishing status workflow properties to content items.")
+            );
+
+            return 3;
         }
     }
 }

@@ -1,5 +1,13 @@
 #ToDo
 
+* looks like now need to enable 'new' menu through settings
+
+* link to visitor graph (calculate url), then we can count visits (# of relationships)
+  that would allow us to easily do things such as....
+  order job profiles/pages by popularity in the content items list
+  show the number of visitors
+  etc
+
 * Make visit site button open the current environment's National Careers site
 
 * check out feature:
@@ -1357,6 +1365,16 @@ Here are some useful workflows:
           ]
         },
 ```
+
+# reset migration in environment
+
+disable features
+remove migration records from Document: OrchardCore.Data.Migration.Records.DataMigrationRecord, OrchardCore.Data
+remove parts from OrchardCore.ContentManagement.Metadata.Records.ContentDefinitionRecord, OrchardCore.ContentManagement.Abstractions
+remove index tables
+restart app service
+enable features
+
 
 # decision log
 
