@@ -5,31 +5,31 @@
     {
         case DashboardItemsStatusCard.InDraft:
             <div>
-            <a asp-route-area="OrchardCore.Contents" asp-controller="@(typeof(OrchardCore.Contents.Controllers.AdminController).ControllerName())" asp-action="List">
-                <span><i class="fas fa-pencil-alt display-4"></i><span class="display-3">@(Model.NumberOfContentItemsInState)</span><span class="display-4">In Draft</span></span>
-            </a>
+                <a asp-route-area="OrchardCore.Contents" asp-controller="@(typeof(OrchardCore.Contents.Controllers.AdminController).ControllerName())" asp-action="List" asp-route-Options.ContentsStatus="Draft">
+                    <span><i class="fas fa-pencil-alt display-4"></i><span class="display-3">@(Model.NumberOfContentItemsInState)</span><span class="display-4">In Draft</span></span>
+                </a>
             </div>
             break;
         case DashboardItemsStatusCard.WaitingForReview:
             <i class="far fa-hourglass"></i>
             <h1 class="display-1">@(Model.NumberOfContentItemsInState)</h1>
             <span>Waiting For Review</span>
-            <a asp-route-area="OrchardCore.Contents" asp-controller="@(typeof(OrchardCore.Contents.Controllers.AdminController).ControllerName())" asp-action="List">Content Design</a>
-            <a asp-route-area="OrchardCore.Contents" asp-controller="@(typeof(OrchardCore.Contents.Controllers.AdminController).ControllerName())" asp-action="List">SME</a>
-            <a asp-route-area="OrchardCore.Contents" asp-controller="@(typeof(OrchardCore.Contents.Controllers.AdminController).ControllerName())" asp-action="List">Stakeholder</a>
-            <a asp-route-area="OrchardCore.Contents" asp-controller="@(typeof(OrchardCore.Contents.Controllers.AdminController).ControllerName())" asp-action="List">UX</a>
+            <a asp-route-area="OrchardCore.Contents" asp-controller="@(typeof(OrchardCore.Contents.Controllers.AdminController).ControllerName())" asp-action="List" asp-route-ContentApproval.SelectedApprovalStatus="ReadyForReview">Content Design</a>
+            <a asp-route-area="OrchardCore.Contents" asp-controller="@(typeof(OrchardCore.Contents.Controllers.AdminController).ControllerName())" asp-action="List" asp-route-ContentApproval.SelectedApprovalStatus="ReadyForReview">SME</a>
+            <a asp-route-area="OrchardCore.Contents" asp-controller="@(typeof(OrchardCore.Contents.Controllers.AdminController).ControllerName())" asp-action="List" asp-route-ContentApproval.SelectedApprovalStatus="ReadyForReview">Stakeholder</a>
+            <a asp-route-area="OrchardCore.Contents" asp-controller="@(typeof(OrchardCore.Contents.Controllers.AdminController).ControllerName())" asp-action="List" asp-route-ContentApproval.SelectedApprovalStatus="ReadyForReview">UX</a>
             break;
         case DashboardItemsStatusCard.InReview:
             <i class="fas fa-search"></i>
             <h1 class="display-1">@(Model.NumberOfContentItemsInState)</h1>
             <span>In Review</span>
-            <a asp-route-area="OrchardCore.Contents" asp-controller="@(typeof(OrchardCore.Contents.Controllers.AdminController).ControllerName())" asp-action="List">Content Design</a>
-            <a asp-route-area="OrchardCore.Contents" asp-controller="@(typeof(OrchardCore.Contents.Controllers.AdminController).ControllerName())" asp-action="List">SME</a>
-            <a asp-route-area="OrchardCore.Contents" asp-controller="@(typeof(OrchardCore.Contents.Controllers.AdminController).ControllerName())" asp-action="List">Stakeholder</a>
-            <a asp-route-area="OrchardCore.Contents" asp-controller="@(typeof(OrchardCore.Contents.Controllers.AdminController).ControllerName())" asp-action="List">UX</a>
+            <a asp-route-area="OrchardCore.Contents" asp-controller="@(typeof(OrchardCore.Contents.Controllers.AdminController).ControllerName())" asp-action="List" asp-route-ContentApproval.SelectedApprovalStatus="InReview">Content Design</a>
+            <a asp-route-area="OrchardCore.Contents" asp-controller="@(typeof(OrchardCore.Contents.Controllers.AdminController).ControllerName())" asp-action="List" asp-route-ContentApproval.SelectedApprovalStatus="InReview">SME</a>
+            <a asp-route-area="OrchardCore.Contents" asp-controller="@(typeof(OrchardCore.Contents.Controllers.AdminController).ControllerName())" asp-action="List" asp-route-ContentApproval.SelectedApprovalStatus="InReview">Stakeholder</a>
+            <a asp-route-area="OrchardCore.Contents" asp-controller="@(typeof(OrchardCore.Contents.Controllers.AdminController).ControllerName())" asp-action="List" asp-route-ContentApproval.SelectedApprovalStatus="InReview">UX</a>
             break;
         case DashboardItemsStatusCard.Published:
-            <a asp-route-area="OrchardCore.Contents" asp-controller="@(typeof(OrchardCore.Contents.Controllers.AdminController).ControllerName())" asp-action="List">
+            <a asp-route-area="OrchardCore.Contents" asp-controller="@(typeof(OrchardCore.Contents.Controllers.AdminController).ControllerName())" asp-action="List" asp-route-Options.ContentsStatus="Published">
                 <i class="far fa-check-circle"></i>
                 <h1 class="display-1">@(Model.NumberOfContentItemsInState)</h1>
                 <span>Published</span>
