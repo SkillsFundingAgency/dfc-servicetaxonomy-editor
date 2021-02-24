@@ -1,5 +1,11 @@
 ﻿@model DFC.ServiceTaxonomy.ContentApproval.ViewModels.ContentApprovalPartViewModel
 
 <div class="btn-group btn-group-approval">
-    <button class="btn btn-success btn-content-approval" type="submit" name="submit.Save" value="submit.RequestApproval">@T["Request review"]</button>
+    <button class="btn btn-success btn-content-approval dropdown-toggle" id="reviewbutton" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">@T["Request review"]</button>
+    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="reviewbutton">
+        <button class="dropdown-item" type="submit" name="submit.Save" value="submit.RequestApproval-UX">@T["UX"]</button>
+        <button class="dropdown-item" type="submit" name="submit.Save" value="submit.RequestApproval-SME">@T["SME"]</button>
+        <button class="dropdown-item" type="submit" name="submit.Save" value="submit.RequestApproval-ContentDesign">@T["Content design"]</button>
+        <button class="dropdown-item" type="submit" name="submit.Save" value="submit.RequestApproval-Stakeholder">@T["Stakeholder approval"]</button>
+    </div>
 </div>

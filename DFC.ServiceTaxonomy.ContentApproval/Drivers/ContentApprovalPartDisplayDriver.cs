@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.ContentApproval.Models;
@@ -111,10 +112,11 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Drivers
 
             if (keys.Contains("submit.Save"))
             {
-                var saveType = updater.ModelState["submit.Save"];
-                if (saveType.AttemptedValue.Contains("RequestApproval"))
+                var saveType = updater.ModelState["submit.Save"].AttemptedValue;
+                if (saveType.StartsWith("submit.RequestApproval"))
                 {
                     part.ReviewStatus = ContentReviewStatus.ReadyForReview;
+                    part.ReviewType = Enum.Parse<ReviewType>(saveType.Replace("submit.RequestApproval_", ""));
                     _notifier.Success(H["{0} is now ready to be reviewed.", part.ContentItem.DisplayText]);
                 }
                 else
