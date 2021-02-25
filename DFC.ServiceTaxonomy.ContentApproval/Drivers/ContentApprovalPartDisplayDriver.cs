@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using DFC.ServiceTaxonomy.ContentApproval.Extensions;
 using DFC.ServiceTaxonomy.ContentApproval.Models;
 using DFC.ServiceTaxonomy.ContentApproval.ViewModels;
 using Microsoft.AspNetCore.Authorization;
@@ -43,8 +44,7 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Drivers
                     .Location("SummaryAdmin", "Actions:First"));
             }
 
-            if (part.ReviewStatus != ContentReviewStatus.NotInReview && await _authorizationService.AuthorizeAsync(currentUser,
-                Permissions.CanPerformReviewPermissions.CanPerformReviewPermission, part))
+            if (part.ReviewStatus != ContentReviewStatus.NotInReview && await _authorizationService.AuthorizeAsync(currentUser, part.ReviewType.GetRelatedPermission(), part))
             {
                 results.Add(Initialize<ContentApprovalPartViewModel>(
                         "ContentApprovalPart_Admin_InReview",
@@ -64,7 +64,8 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Drivers
                 return null;
             }
 
-            if (part.ReviewStatus == ContentReviewStatus.InReview && (!context.Updater.ModelState.IsValid || !await _authorizationService.AuthorizeAsync(currentUser, Permissions.CanPerformReviewPermissions.CanPerformReviewPermission)))
+            var reviewPermission = part.ReviewType.GetRelatedPermission();
+            if (part.ReviewStatus == ContentReviewStatus.InReview && (!context.Updater.ModelState.IsValid || !await _authorizationService.AuthorizeAsync(currentUser, reviewPermission)))
             {
                 _notifier.Warning(H["This content item is now under review and should not be modified."]);
             }
@@ -72,26 +73,33 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Drivers
             var editorShape = GetEditorShapeType(context);
             var reviewStatuses = new[] {ContentReviewStatus.ReadyForReview, ContentReviewStatus.InReview};
 
+            var results = new List<IDisplayResult>();
             // Show Request review option
-            if (part.ReviewStatus != ContentReviewStatus.InReview &&
-                await _authorizationService.AuthorizeAsync(currentUser, Permissions.RequestReviewPermissions.RequestReviewPermission))
+            if (part.ReviewStatus != ContentReviewStatus.InReview && await _authorizationService.AuthorizeAsync(currentUser, Permissions.RequestReviewPermissions.RequestReviewPermission))
             {
-                return Initialize<ContentApprovalPartViewModel>(
+                results.Add(Initialize<ContentApprovalPartViewModel>(
                         $"{editorShape}_RequestReview",
                         viewModel => PopulateViewModel(part, viewModel))
-                    .Location("Actions:20");
+                    .Location("Actions:20"));
             }
-
-            // Show Approval option
-            if (reviewStatuses.Any(r => part.ReviewStatus == r) && await _authorizationService.AuthorizeAsync(currentUser,Permissions.CanPerformReviewPermissions.CanPerformReviewPermission))
+            else if (part.ReviewStatus == ContentReviewStatus.InReview && await _authorizationService.AuthorizeAsync(currentUser, reviewPermission))
             {
-                return Initialize<ContentApprovalPartViewModel>(
-                        $"{editorShape}_ApprovalResult",
-                        viewModel => PopulateViewModel(part, viewModel))
-                    .Location("Actions:First");
+                results.Add(Initialize<ContentApprovalPartViewModel>(
+                        $"{editorShape}_RequestReview",
+                        viewModel => PopulateViewModel(part, viewModel, true))
+                    .Location("Actions:20"));
             }
 
-            return null;
+            // Show Request revision option
+            if (reviewStatuses.Any(r => part.ReviewStatus == r) && await _authorizationService.AuthorizeAsync(currentUser, reviewPermission))
+            {
+                results.Add(Initialize<ContentApprovalPartViewModel>(
+                        $"{editorShape}_RequestRevision",
+                        viewModel => PopulateViewModel(part, viewModel))
+                    .Location("Actions:First"));
+            }
+
+            return Combine(results.ToArray());
         }
 
 
@@ -100,7 +108,7 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Drivers
             var viewModel = new ContentApprovalPartViewModel();
             var currentUser = _httpContextAccessor.HttpContext?.User;
 
-            if (part.ReviewStatus == ContentReviewStatus.InReview && !await _authorizationService.AuthorizeAsync(currentUser, Permissions.CanPerformReviewPermissions.CanPerformReviewPermission))
+            if (part.ReviewStatus == ContentReviewStatus.InReview && !await _authorizationService.AuthorizeAsync(currentUser, part.ReviewType.GetRelatedPermission()))
             {
                 updater.ModelState.AddModelError("ReviewStatus", "This item is currently under review and cannot be modified at this time.");
                 return await EditAsync(part, context);
@@ -128,15 +136,18 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Drivers
             else if (keys.Contains(Constants.SubmitPublishKey))
             {
                 part.ReviewStatus = ContentReviewStatus.NotInReview;
+                part.ReviewType = ReviewType.None;
             }
 
             return await EditAsync(part, context);
         }
-        private static void PopulateViewModel(ContentApprovalPart part, ContentApprovalPartViewModel viewModel)
+        private static void PopulateViewModel(ContentApprovalPart part, ContentApprovalPartViewModel viewModel, bool isInReviewView = false)
         {
             viewModel.ContentItemId = part.ContentItem.ContentItemId;
             viewModel.ReviewStatus = part.ReviewStatus;
             viewModel.Comment = part.Comment;
+            var reviewTypes = EnumExtensions.GetEnumNameAndDisplayNameDictionary(typeof(ReviewType)).Where(rt => rt.Key != ReviewType.None.ToString());
+            viewModel.ReviewTypes = isInReviewView ? reviewTypes.Where(rt => rt.Key != part.ReviewType.ToString()) : reviewTypes;
         }
     }
 }

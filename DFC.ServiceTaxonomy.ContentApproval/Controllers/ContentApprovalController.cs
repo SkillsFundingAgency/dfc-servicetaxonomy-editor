@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using DFC.ServiceTaxonomy.ContentApproval.Extensions;
 using DFC.ServiceTaxonomy.ContentApproval.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -57,28 +58,37 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Controllers
         public async Task<IActionResult> Review(string contentItemId, string returnUrl)
         {
             var contentItem = await _contentManager.GetAsync(contentItemId, VersionOptions.Latest);
-            if (contentItem == null)
+            var contentApprovalPart = contentItem?.As<ContentApprovalPart>();
+            if (contentItem == null || contentApprovalPart == null)
             {
                 return NotFound();
             }
-            if (!await _authorizationService.AuthorizeAsync(User, Permissions.CanPerformReviewPermissions.CanPerformReviewPermission, contentItem))
-            {
-                return Forbid();
-            }
 
-            var reviewStatus = contentItem.As<ContentApprovalPart>()?.ReviewStatus ?? ContentReviewStatus.NotInReview;
-            if (reviewStatus == ContentReviewStatus.NotInReview)
+            if (contentApprovalPart.ReviewStatus == ContentReviewStatus.ReadyForReview && contentApprovalPart.ReviewType == ReviewType.None)
             {
-                _notifier.Warning(H["This item is no longer available for review"]);
+                _notifier.Warning(H["An appropriate review type hasn't been selected. Please resubmit for review."]);
+                contentItem.Alter<ContentApprovalPart>(p => p.ReviewStatus = ContentReviewStatus.NotInReview);
+                await _contentManager.SaveDraftAsync(contentItem);
                 return Redirect(returnUrl);
             }
 
-            if (reviewStatus == ContentReviewStatus.ReadyForReview)
+            if (!await _authorizationService.AuthorizeAsync(User, contentApprovalPart.ReviewType.GetRelatedPermission(), contentItem))
+            { 
+                return Forbid();
+            }
+
+            if (contentApprovalPart.ReviewStatus == ContentReviewStatus.NotInReview)
+            {
+                _notifier.Warning(H["This item is no longer available for review."]);
+                return Redirect(returnUrl);
+            }
+
+            if (contentApprovalPart.ReviewStatus == ContentReviewStatus.ReadyForReview)
             {
                 contentItem.Alter<ContentApprovalPart>(p => p.ReviewStatus = ContentReviewStatus.InReview);
                 await _contentManager.SaveDraftAsync(contentItem);
             }
-            else if (reviewStatus == ContentReviewStatus.InReview)
+            else if (contentApprovalPart.ReviewStatus == ContentReviewStatus.InReview)
             {
                 _notifier.Warning(H["This content item has already been selected for review."]);
             }
