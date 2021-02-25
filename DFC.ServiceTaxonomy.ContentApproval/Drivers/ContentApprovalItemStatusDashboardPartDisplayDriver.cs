@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using DFC.ServiceTaxonomy.Content.Services.Interface;
 using DFC.ServiceTaxonomy.ContentApproval.Models;
 using DFC.ServiceTaxonomy.ContentApproval.Services;
 using DFC.ServiceTaxonomy.ContentApproval.ViewModels;
@@ -11,10 +12,14 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Drivers
 {
     class ContentApprovalItemStatusDashboardPartDisplayDriver : ContentPartDisplayDriver<ContentApprovalItemStatusDashboardPart>
     {
+        private readonly IContentItemsService _contentItemsService;
         private readonly IContentItemsApprovalService _contentItemsApprovalService;
 
-        public ContentApprovalItemStatusDashboardPartDisplayDriver(IContentItemsApprovalService contentItemsApprovalService)
+        public ContentApprovalItemStatusDashboardPartDisplayDriver(
+            IContentItemsService contentItemsService,
+            IContentItemsApprovalService contentItemsApprovalService)
         {
+            _contentItemsService = contentItemsService;
             _contentItemsApprovalService = contentItemsApprovalService;
         }
 
@@ -51,6 +56,12 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Drivers
             ContentApprovalItemStatusDashboardPart part)
         {
             BuildViewModel(model, part);
+
+            model.NumberOfContentItemsInState = part.Card switch
+            {
+                // DashboardItemsStatusCard.InDraft => _contentItemsService.GetDraft(),
+                _ => 98
+            };
 
             model.NumberOfContentItemsInState = _contentItemsApprovalService.ItemCount(part.Card);
 

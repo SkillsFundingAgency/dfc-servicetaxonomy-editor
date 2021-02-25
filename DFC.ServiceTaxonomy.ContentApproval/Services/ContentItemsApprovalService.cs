@@ -14,7 +14,8 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Services
             _contentItemsService = contentItemsService;
         }
 
-        //todo: remove card from enum?
+        // don't have knowledge of dashboard statuses in here
+        // in driver inject this and IContentItemsService
         public int ItemCount(DashboardItemsStatusCard itemStatus)
         {
             //todo: maybe not have switch - named instances or something?

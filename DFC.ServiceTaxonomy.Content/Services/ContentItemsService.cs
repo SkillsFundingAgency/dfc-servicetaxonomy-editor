@@ -113,6 +113,57 @@ namespace DFC.ServiceTaxonomy.Content.Services
                 .ListAsync();
         }
 
+        //todo: return count
+        public async Task<IEnumerable<ContentItem>> GetCount(
+            bool? latest = null,
+            bool? published = null)
+        {
+            // this works when using sqlite, but it seems there's a bug in yessql when executing the query against azure sql
+            // if this worked we could have contentType and since as optional too
+
+            // return await _session
+            //     .Query<ContentItem, ContentItemIndex>(x =>
+            //         x.ContentType == contentTypeDefinition.Name
+            //         && (latest == null || x.Latest == latest)
+            //         && (published == null || x.Published == published)
+            //         && (x.CreatedUtc >= lastSynced || x.ModifiedUtc >= lastSynced))
+            //     .ListAsync();
+
+            // so instead we pick one of 4 different queries depending on whether latest or published is null
+
+            if (latest != null && published != null)
+            {
+                return await _session
+                    .Query<ContentItem, ContentItemIndex>(x =>
+                        x.Latest == latest && x.Published == published)
+                    .ListAsync();
+            }
+
+            if (latest == null && published != null)
+            {
+                return await _session
+                    .Query<ContentItem, ContentItemIndex>(x =>
+                        x.Published == published)
+                    .ListAsync();
+            }
+
+            if (latest != null && published == null)
+            {
+                return await _session
+                    .Query<ContentItem, ContentItemIndex>(x =>
+                        x.Latest == latest)
+                    .ListAsync();
+            }
+
+            // latest == null && published == null
+
+            //todo:
+            // return await _session
+            //     .Query<ContentItem, ContentItemIndex>(x => { })
+            //     .ListAsync();
+            throw new NotImplementedException();
+        }
+
         public async Task<IEnumerable<ContentItem>> GetDeleted(
             string contentType,
             DateTime since)
