@@ -59,7 +59,7 @@ jobs:
         - task: AzureFileCopy@2
           displayName: 'AzureBlob File Copy media'
           inputs:
-            SourcePath: '$(System.DefaultWorkingDirectory)/media/'
+            SourcePath: '$(Pipeline.Workspace)\media'
             azureSubscription: '${{ parameters.AzureSubscription }}'
             Destination: AzureBlob
             storage: ${{ parameters.MediaStorageAccountName }}
