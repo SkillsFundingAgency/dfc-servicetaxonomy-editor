@@ -33,6 +33,16 @@ namespace DFC.ServiceTaxonomy.Content.Services
             return await Get(contentType, true, false);
         }
 
+        public Task<int> GetDraftCount()
+        {
+            return GetCount(true, false);
+        }
+
+        public Task<int> GetPublishedCount()
+        {
+            return GetCount(null, true);
+        }
+
         public async Task<List<ContentItem>> GetActive(string contentType)
         {
             return (await _session
@@ -113,8 +123,7 @@ namespace DFC.ServiceTaxonomy.Content.Services
                 .ListAsync();
         }
 
-        //todo: return count
-        public async Task<IEnumerable<ContentItem>> GetCount(
+        public Task<int> GetCount(
             bool? latest = null,
             bool? published = null)
         {
@@ -133,35 +142,36 @@ namespace DFC.ServiceTaxonomy.Content.Services
 
             if (latest != null && published != null)
             {
-                return await _session
+                return _session
                     .Query<ContentItem, ContentItemIndex>(x =>
                         x.Latest == latest && x.Published == published)
-                    .ListAsync();
+                    .CountAsync();
             }
 
             if (latest == null && published != null)
             {
-                return await _session
+                return _session
                     .Query<ContentItem, ContentItemIndex>(x =>
                         x.Published == published)
-                    .ListAsync();
+                    .CountAsync();
             }
 
             if (latest != null && published == null)
             {
-                return await _session
+                return _session
                     .Query<ContentItem, ContentItemIndex>(x =>
                         x.Latest == latest)
-                    .ListAsync();
+                    .CountAsync();
             }
 
             // latest == null && published == null
 
-            //todo:
-            // return await _session
-            //     .Query<ContentItem, ContentItemIndex>(x => { })
-            //     .ListAsync();
+            //todo: when/if we need it
             throw new NotImplementedException();
+
+            // return await _session
+            //     .Query<ContentItem, ContentItemIndex>(x => true)
+            //     .CountAsync();
         }
 
         public async Task<IEnumerable<ContentItem>> GetDeleted(

@@ -51,21 +51,19 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Drivers
             return default;
         }
 
-        private ValueTask BuildDisplayViewModel(
+        private async Task BuildDisplayViewModel(
             ContentApprovalItemStatusDashboardPartViewModel model,
             ContentApprovalItemStatusDashboardPart part)
         {
-            BuildViewModel(model, part);
+            await BuildViewModel(model, part);
 
+            //todo: exclude non listable?
             model.NumberOfContentItemsInState = part.Card switch
             {
-                // DashboardItemsStatusCard.InDraft => _contentItemsService.GetDraft(),
-                _ => 98
+                DashboardItemsStatusCard.InDraft => await _contentItemsService.GetDraftCount(),
+                DashboardItemsStatusCard.Published => await _contentItemsService.GetPublishedCount(),
+                _ => 99
             };
-
-            model.NumberOfContentItemsInState = _contentItemsApprovalService.ItemCount(part.Card);
-
-            return default;
         }
     }
 }
