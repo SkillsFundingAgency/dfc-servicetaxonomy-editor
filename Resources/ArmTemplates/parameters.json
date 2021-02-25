@@ -139,6 +139,15 @@
         },
         "SlackWebhookEndpoint": {
             "value": "__SlackWebhookEndpoint__"
+        },
+        "MediaAzureBlobConnectionString": {
+            "value": "__MediaAzureBlobConnectionString__"
+        },
+        "MediaContainerName":{
+            "value": "__MediaContainerName__"
+        },
+        "MediaBasePath": {
+            "value": "__MediaBasePath__"
         }
     }
 }

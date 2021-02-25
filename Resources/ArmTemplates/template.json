@@ -145,6 +145,15 @@
             "metadata": {
                 "description": "the token (everything after https://hooks.slack.com/services/) for an incoming webhook in slack"
             }
+        },
+        "MediaAzureBlobConnectionString": {
+            "type": "securestring"
+        },
+        "MediaContainerName":{
+            "type": "string"
+        },
+        "MediaBasePath": {
+            "type": "string"
         }
     },
     "variables": {
@@ -380,6 +389,22 @@
                             {
                                 "name": "SlackMessagePublishingConfiguration__SlackWebhookEndpoint",
                                 "value": "[parameters('SlackWebhookEndpoint')]"
+                            },
+                            {
+                                "name": "OrchardCore__OrchardCore_Media_Azure__ConnectionString",
+                                "value": "[parameters('MediaAzureBlobConnectionString')]"
+                            },
+                            {
+                                "name": "OrchardCore__OrchardCore_Media_Azure__ContainerName",
+                                "value": "[parameters('MediaContainerName')]"
+                            },
+                            {
+                                "name": "OrchardCore__OrchardCore_Media_Azure__BasePath",
+                                "value": "[parameters('MediaBasePath')]"
+                            },
+                            {
+                                "name": "OrchardCore__OrchardCore_Media_Azure__CreateContainer",
+                                "value": false
                             }
                         ]
                     }
