@@ -205,6 +205,8 @@ stages:
       DfcServiceTaxonomyTestsBuildId: $(DfcServiceTaxonomyTestsBuildId)
       TestArtifactBranch: ${{ parameters.DfcServiceTaxonomyTestBranch }}
       TestExclusionTag: 'NotSit'
+      MediaStorageAccountName: $(MediaStorageAccountName)
+
 
 - stage: DeployToPP
   condition: and(eq(dependencies.Build.result,'Succeeded'), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
@@ -239,6 +241,7 @@ stages:
       DfcServiceTaxonomyTestsBuildId: $(DfcServiceTaxonomyTestsBuildId)
       TestArtifactBranch: ${{ parameters.DfcServiceTaxonomyTestBranch }}
       TestExclusionTag: 'NotPP'
+      MediaStorageAccountName: $(MediaStorageAccountName)
 
 - stage: DeployToPrd
   condition: and(eq(dependencies.Build.result,'Succeeded'), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
@@ -272,3 +275,4 @@ stages:
       DFCAzureDevOpsProjectGuid: $(DFCAzureDevOpsProjectGuid)
       DfcServiceTaxonomyTestsBuildId: $(DfcServiceTaxonomyTestsBuildId)
       TestArtifactBranch: ${{ parameters.DfcServiceTaxonomyTestBranch }}
+      MediaStorageAccountName: $(MediaStorageAccountName)
