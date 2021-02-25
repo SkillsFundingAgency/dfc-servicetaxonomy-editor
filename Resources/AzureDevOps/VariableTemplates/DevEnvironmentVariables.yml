@@ -19,7 +19,3 @@ variables:
   value: true
 - name: MediaStorageAccountName
   value: dfcdevdigstr
-
-
-
-steps:
