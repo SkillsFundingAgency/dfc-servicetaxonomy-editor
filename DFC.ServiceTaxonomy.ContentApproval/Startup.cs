@@ -41,6 +41,7 @@ namespace DFC.ServiceTaxonomy.ContentApproval
             services.AddScoped<IShapeTableProvider, ContentEditShapes>();
             services.AddScoped<IContentItemsApprovalService, ContentItemsApprovalService>();
 
+            services.AddScoped<DefaultContentsAdminListFilter>();
 
             // contents admin list filters
             services.AddScoped<IContentsAdminListFilter, ContentApprovalContentsAdminListFilter>();

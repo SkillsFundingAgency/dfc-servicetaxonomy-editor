@@ -1,26 +1,37 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.Content.Services.Interface;
 using DFC.ServiceTaxonomy.ContentApproval.Models;
 using DFC.ServiceTaxonomy.ContentApproval.Services;
 using DFC.ServiceTaxonomy.ContentApproval.ViewModels;
+using OrchardCore.ContentManagement;
 using OrchardCore.ContentManagement.Display.ContentDisplay;
 using OrchardCore.ContentManagement.Display.Models;
+using OrchardCore.Contents.Services;
+using OrchardCore.Contents.ViewModels;
 using OrchardCore.DisplayManagement.ModelBinding;
 using OrchardCore.DisplayManagement.Views;
+using YesSql;
 
 namespace DFC.ServiceTaxonomy.ContentApproval.Drivers
 {
     class ContentApprovalItemStatusDashboardPartDisplayDriver : ContentPartDisplayDriver<ContentApprovalItemStatusDashboardPart>
     {
+        private readonly ISession _session;
         private readonly IContentItemsService _contentItemsService;
         private readonly IContentItemsApprovalService _contentItemsApprovalService;
+        private readonly DefaultContentsAdminListFilter _defaultContentsAdminListFilter;
 
         public ContentApprovalItemStatusDashboardPartDisplayDriver(
+            ISession session,
             IContentItemsService contentItemsService,
-            IContentItemsApprovalService contentItemsApprovalService)
+            IContentItemsApprovalService contentItemsApprovalService,
+            DefaultContentsAdminListFilter defaultContentsAdminListFilter)
         {
+            _session = session;
             _contentItemsService = contentItemsService;
             _contentItemsApprovalService = contentItemsApprovalService;
+            _defaultContentsAdminListFilter = defaultContentsAdminListFilter;
         }
 
         public override Task<IDisplayResult> DisplayAsync(ContentApprovalItemStatusDashboardPart part, BuildPartDisplayContext context)
@@ -57,13 +68,38 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Drivers
         {
             await BuildViewModel(model, part);
 
+            //todo: move out of here into a service
+
+            var filterOptions = new ContentOptionsViewModel();
+
             //todo: exclude non listable?
-            model.NumberOfContentItemsInState = part.Card switch
+            //todo: only items user has permission for?
+            // use DefaultContentsAdminListFilter instead and count??
+            // might be less performant, but at least the count should match what's shown
+            // model.NumberOfContentItemsInState = part.Card switch
+            // {
+            //     DashboardItemsStatusCard.InDraft => await _contentItemsService.GetDraftCount(),
+            //     DashboardItemsStatusCard.Published => await _contentItemsService.GetPublishedCount(),
+            //     _ => 99
+            // };
+
+            switch (part.Card)
             {
-                DashboardItemsStatusCard.InDraft => await _contentItemsService.GetDraftCount(),
-                DashboardItemsStatusCard.Published => await _contentItemsService.GetPublishedCount(),
-                _ => 99
-            };
+                case DashboardItemsStatusCard.InDraft:
+                    filterOptions.ContentsStatus = ContentsStatus.Draft;
+                    break;
+                case DashboardItemsStatusCard.Published:
+                    filterOptions.ContentsStatus = ContentsStatus.Published;
+                    break;
+                default:
+                    throw new NotImplementedException();
+            }
+
+            var query = _session.Query<ContentItem>();
+
+            await _defaultContentsAdminListFilter.FilterAsync(filterOptions, query, null);
+
+            model.NumberOfContentItemsInState = await query.CountAsync();
         }
     }
 }
