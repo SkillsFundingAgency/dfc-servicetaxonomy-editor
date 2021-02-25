@@ -654,7 +654,6 @@ dotnet new -i OrchardCore.ProjectTemplates::1.0.0-rc1-12019 --nuget-source https
 | not published        | publish                  |
 | published            | n/a                      |
 
-
 each event comes through as a separate workflow instance. can we 'collate' them into single task call?
 or do we publish multiple events?
 versioning: https://stackoverflow.com/questions/60308183/orchard-core-cms-content-versioning-scheduling-and-audit-trail
