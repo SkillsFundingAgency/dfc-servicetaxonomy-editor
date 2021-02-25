@@ -107,6 +107,12 @@ stages:
         targetPath: $(build.artifactstagingdirectory)\DeploymentPackages\Nuget
         artifactName: $(SolutionBaseName).Nuget
 
+    - task: PublishBuildArtifacts@1
+      displayName: 'Publish media folder'
+      inputs:
+        PathtoPublish: 'media'
+        artifactName: media
+
 - stage: PublishPackage
   displayName: Publish Package to NuGet
   condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/dev')) 
