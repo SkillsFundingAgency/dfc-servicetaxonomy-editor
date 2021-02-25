@@ -170,6 +170,7 @@ stages:
       DfcServiceTaxonomyTestsBuildId: $(DfcServiceTaxonomyTestsBuildId)
       TestArtifactBranch: ${{ parameters.DfcServiceTaxonomyTestBranch }}
       TestExclusionTag: 'NotDev'
+      MediaStorageAccountName: $(MediaStorageAccountName)
 
 - stage: DeployToSit
   condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'))
