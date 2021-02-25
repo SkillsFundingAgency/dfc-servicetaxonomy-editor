@@ -9,8 +9,7 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Models
 
         public ContentReviewStatus ReviewStatus { get; set; }
         public ReviewType ReviewType { get; set; }
-        public bool InDraft => this.ContentItem != null && this.ContentItem.Latest && !this.ContentItem.Published;
-        public bool IsPublished => this.ContentItem != null && this.ContentItem.Latest && this.ContentItem.Published;
+        public bool IsInDraft() => this.ContentItem != null && this.ContentItem.Latest && !this.ContentItem.Published;
         public string? Comment { get; set; }
     }
 }

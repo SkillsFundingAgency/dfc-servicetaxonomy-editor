@@ -36,7 +36,7 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Drivers
             var currentUser = _httpContextAccessor.HttpContext?.User;
             var results = new List<IDisplayResult>();
 
-            if (part.InDraft && part.ReviewStatus == ContentReviewStatus.NotInReview && await _authorizationService.AuthorizeAsync(currentUser, Permissions.RequestReviewPermissions.RequestReviewPermission, part))
+            if (part.IsInDraft() && part.ReviewStatus == ContentReviewStatus.NotInReview && await _authorizationService.AuthorizeAsync(currentUser, Permissions.RequestReviewPermissions.RequestReviewPermission, part))
             {
                 results.Add(Initialize<ContentApprovalPartViewModel>(
                         "ContentApprovalPart_Admin_RequestReview",
