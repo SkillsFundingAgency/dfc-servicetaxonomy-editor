@@ -3,6 +3,7 @@ using DFC.ServiceTaxonomy.ContentApproval.Indexes;
 using DFC.ServiceTaxonomy.ContentApproval.Models;
 using DFC.ServiceTaxonomy.ContentApproval.ViewModels;
 using OrchardCore.ContentManagement;
+using OrchardCore.ContentManagement.Records;
 using OrchardCore.Contents.Services;
 using OrchardCore.Contents.ViewModels;
 using OrchardCore.DisplayManagement.ModelBinding;
@@ -19,6 +20,10 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Services
             if (await updater.TryUpdateModelAsync(viewModel, ContentApprovalPart.Prefix)
                 && viewModel.SelectedApprovalStatus.HasValue)
             {
+                if (viewModel.SelectedApprovalStatus == ContentReviewStatus.NotInReview)
+                {
+                    query.With<ContentItemIndex>(x => x.Latest && !x.Published);
+                }
                 query.With<ContentApprovalPartIndex>(i => i.ReviewStatus == (int?)viewModel.SelectedApprovalStatus);
             }
         }
