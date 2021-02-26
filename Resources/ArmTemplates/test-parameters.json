@@ -139,6 +139,15 @@
         },
         "SlackWebhookEndpoint": {
             "value": "not-a-real-endpoint"
+        },
+        "MediaAzureBlobConnectionString": {
+            "value": "my-string"
+        },
+        "MediaContainerName":{
+            "value": "my-string"
+        },
+        "MediaBasePath": {
+            "value": "my-string"
         }
     }
 }
