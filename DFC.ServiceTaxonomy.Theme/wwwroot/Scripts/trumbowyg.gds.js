@@ -69,7 +69,8 @@
                     'title': 'Title',
                     'width': 'Width',
                     'height': 'Height'
-                }
+                },
+                insertMedia: 'Insert Media'
             }
         },
         // Register plugin in Trumbowyg
@@ -176,6 +177,14 @@
                         title: trumbowyg.lang.youtubeLink,
                         fn: function () {
                             youtubeLink(trumbowyg);
+                        }
+                    });
+
+                    trumbowyg.addBtnDef('insertMedia', {
+                        ico: 'insertImage',
+                        title: trumbowyg.lang.insertMedia,
+                        fn: function () {
+                            insertMedia(trumbowyg);
                         }
                     });
 
@@ -297,7 +306,6 @@
                 value: "640"
             },
         };
-
         trumbowyg.openModalInsert(
             trumbowyg.lang.youtubeLink,
             options,
@@ -318,6 +326,39 @@
 
                 return true;
             });
+    }
+
+    function insertMedia(trumbowyg) {
+        trumbowyg.saveRange();
+        $("#mediaApp").detach().appendTo('#mediaModalHtmlField .modal-body');
+        $("#mediaApp").show();
+        mediaApp.selectedMedias = [];
+        var modal = $('#mediaModalHtmlField').modal();
+        //disable an reset on click event over the button to avoid issue if press button multiple times or have multiple editor
+        $('#mediaHtmlFieldSelectButton').off('click');
+        $('#mediaHtmlFieldSelectButton').on('click', function (v) {
+            //avoid multiple image insert
+            trumbowyg.restoreRange();
+            trumbowyg.range.deleteContents();
+
+            $(window).trigger('scroll');
+            var dateTimeStamp = new Date().toISOString().slice(0, -8).replace(/[-:T]/g, "");
+
+            for (i = 0; i < mediaApp.selectedMedias.length; i++) {
+                var img = document.createElement("img");
+                img.src = mediaApp.selectedMedias[i].url + '?' + dateTimeStamp;
+                img.alt = mediaApp.selectedMedias[i].name;
+                img.dataset.source = 'CDN';
+                trumbowyg.range.insertNode(img);
+            }
+            trumbowyg.syncCode();
+            trumbowyg.$c.trigger('tbwchange');
+            //avoid image to be selected after add it
+            trumbowyg.$c.focus();
+
+            $('#mediaModalHtmlField').modal('hide');
+            return true;
+        });
     }
 
     function setQueryParam(sourceUrl, key, value) {
