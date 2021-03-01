@@ -33,16 +33,6 @@ namespace DFC.ServiceTaxonomy.Content.Services
             return await Get(contentType, true, false);
         }
 
-        public Task<int> GetDraftCount()
-        {
-            return GetCount(true, false);
-        }
-
-        public Task<int> GetPublishedCount()
-        {
-            return GetCount(null, true);
-        }
-
         public async Task<List<ContentItem>> GetActive(string contentType)
         {
             return (await _session
@@ -121,57 +111,6 @@ namespace DFC.ServiceTaxonomy.Content.Services
                     x.ContentType == contentType
                     && (x.CreatedUtc >= since || x.ModifiedUtc >= since))
                 .ListAsync();
-        }
-
-        public Task<int> GetCount(
-            bool? latest = null,
-            bool? published = null)
-        {
-            // this works when using sqlite, but it seems there's a bug in yessql when executing the query against azure sql
-            // if this worked we could have contentType and since as optional too
-
-            // return await _session
-            //     .Query<ContentItem, ContentItemIndex>(x =>
-            //         x.ContentType == contentTypeDefinition.Name
-            //         && (latest == null || x.Latest == latest)
-            //         && (published == null || x.Published == published)
-            //         && (x.CreatedUtc >= lastSynced || x.ModifiedUtc >= lastSynced))
-            //     .ListAsync();
-
-            // so instead we pick one of 4 different queries depending on whether latest or published is null
-
-            if (latest != null && published != null)
-            {
-                return _session
-                    .Query<ContentItem, ContentItemIndex>(x =>
-                        x.Latest == latest && x.Published == published)
-                    .CountAsync();
-            }
-
-            if (latest == null && published != null)
-            {
-                return _session
-                    .Query<ContentItem, ContentItemIndex>(x =>
-                        x.Published == published)
-                    .CountAsync();
-            }
-
-            if (latest != null && published == null)
-            {
-                return _session
-                    .Query<ContentItem, ContentItemIndex>(x =>
-                        x.Latest == latest)
-                    .CountAsync();
-            }
-
-            // latest == null && published == null
-
-            //todo: when/if we need it
-            throw new NotImplementedException();
-
-            // return await _session
-            //     .Query<ContentItem, ContentItemIndex>(x => true)
-            //     .CountAsync();
         }
 
         public async Task<IEnumerable<ContentItem>> GetDeleted(

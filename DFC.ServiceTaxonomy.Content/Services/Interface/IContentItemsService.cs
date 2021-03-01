@@ -12,17 +12,10 @@ namespace DFC.ServiceTaxonomy.Content.Services.Interface
         Task<List<ContentItem>> GetDraft(string contentType);
         Task<List<ContentItem>> GetActive(string contentType);
 
-        Task<int> GetDraftCount();
-        Task<int> GetPublishedCount();
-
         Task<bool> HasExistingPublishedVersion(string contentItemId);
 
         Task<IEnumerable<ContentItem>> Get(string contentType,
             DateTime since,
-            bool? latest = null,
-            bool? published = null);
-
-        Task<int> GetCount(
             bool? latest = null,
             bool? published = null);
 
