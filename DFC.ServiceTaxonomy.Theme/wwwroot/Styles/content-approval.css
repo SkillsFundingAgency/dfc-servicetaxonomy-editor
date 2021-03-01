@@ -1,0 +1,10 @@
+.dashboard-item-status a:hover {
+  text-decoration: none;
+}
+.dashboard-item-status i {
+  margin-right: 0.5rem;
+}
+.dashboard-item-status .dashboard-item-status-count {
+  margin-right: 0.5rem;
+}
+/*# sourceMappingURL=data:application/json;charset=utf8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImNvbnRlbnQtYXBwcm92YWwuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFHSTtFQUNJOztBQUdKO0VBQ0k7O0FBR0o7RUFDSSIsImZpbGUiOiJjb250ZW50LWFwcHJvdmFsLmNzcyIsInNvdXJjZXNDb250ZW50IjpbIi8vdG9kbzogdGhpcyBiZWxvbmdzIGluIGFuIEFzc2V0cyBmb2xkZXIgaW4gdGhlIGNvbnRlbnQgYXBwcm92YWwgcHJvamVjdFxyXG5cclxuLmRhc2hib2FyZC1pdGVtLXN0YXR1cyB7XHJcbiAgICBhOmhvdmVyIHtcclxuICAgICAgICB0ZXh0LWRlY29yYXRpb246IG5vbmU7XHJcbiAgICB9XHJcblxyXG4gICAgaSB7XHJcbiAgICAgICAgbWFyZ2luLXJpZ2h0OiAwLjVyZW07XHJcbiAgICB9XHJcblxyXG4gICAgLmRhc2hib2FyZC1pdGVtLXN0YXR1cy1jb3VudCB7XHJcbiAgICAgICAgbWFyZ2luLXJpZ2h0OiAwLjVyZW07XHJcbiAgICB9XHJcbn1cclxuXHJcbiJdfQ== */

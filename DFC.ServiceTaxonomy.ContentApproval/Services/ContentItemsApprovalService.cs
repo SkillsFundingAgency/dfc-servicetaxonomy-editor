@@ -1,31 +1,69 @@
-﻿using DFC.ServiceTaxonomy.Content.Services.Interface;
+﻿
+using System;
+using System.Threading.Tasks;
+using DFC.ServiceTaxonomy.ContentApproval.Indexes;
 using DFC.ServiceTaxonomy.ContentApproval.Models;
+using OrchardCore.ContentManagement;
+using OrchardCore.Contents.Services;
+using OrchardCore.Contents.ViewModels;
+using YesSql;
 
 namespace DFC.ServiceTaxonomy.ContentApproval.Services
 {
-    //todo: add counts for standard statuses into IContentItemsService
-    // and add counts (fetches too?) for content approval only statuses in here
     public class ContentItemsApprovalService : IContentItemsApprovalService
     {
-        private readonly IContentItemsService _contentItemsService;
+        private readonly ISession _session;
+        private readonly DefaultContentsAdminListFilter _defaultContentsAdminListFilter;
 
-        public ContentItemsApprovalService(IContentItemsService contentItemsService)
+        public ContentItemsApprovalService(
+            ISession session,
+            DefaultContentsAdminListFilter defaultContentsAdminListFilter)
         {
-            _contentItemsService = contentItemsService;
+            _session = session;
+            _defaultContentsAdminListFilter = defaultContentsAdminListFilter;
         }
 
-        //todo: remove card from enum?
-        public int ItemCount(DashboardItemsStatusCard itemStatus)
+        public async Task<int> GetManageContentItemCount(DashboardItemsStatusCard card)
         {
-            //todo: maybe not have switch - named instances or something?
-            switch (itemStatus)
+            var filterOptions = new ContentOptionsViewModel();
+
+            switch (card)
             {
                 case DashboardItemsStatusCard.InDraft:
-                    //todo:
-                    return 72;
+                    filterOptions.ContentsStatus = ContentsStatus.Draft;
+                    break;
+                case DashboardItemsStatusCard.Published:
+                    filterOptions.ContentsStatus = ContentsStatus.Published;
+                    break;
+                case DashboardItemsStatusCard.WaitingForReview:
+                    filterOptions.ContentsStatus = ContentsStatus.AllVersions;
+                    break;
+                case DashboardItemsStatusCard.InReview:
+                    //todo: we'll have to filter 'will need review' items according to if there's a draft version
+                    // can we do that using With<> ? or do apply custom c# filtering after FilterAsync on the items before count??
+                    // or generate a sql query, but then can't reuse _defaultContentsAdminListFilter (so easily)
+                    filterOptions.ContentsStatus = ContentsStatus.AllVersions;
+                    break;
                 default:
-                    return 98;
+                    throw new NotImplementedException();
             }
+
+            var query = _session.Query<ContentItem>();
+
+            switch (card)
+            {
+                case DashboardItemsStatusCard.WaitingForReview:
+                    query.With<ContentApprovalPartIndex>(i => i.ReviewStatus == (int?)ContentReviewStatus.ReadyForReview);
+                    break;
+                case DashboardItemsStatusCard.InReview:
+                    query.With<ContentApprovalPartIndex>(i => i.ReviewStatus == (int?)ContentReviewStatus.InReview);
+                    break;
+            }
+
+            // we have the option to c&p and change _defaultContentsAdminListFilter if necessary
+            await _defaultContentsAdminListFilter.FilterAsync(filterOptions, query, null);
+
+            return await query.CountAsync();
         }
     }
 }
