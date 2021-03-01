@@ -7,5 +7,7 @@
         public const string SubmitRequiresRevisionValue = "submit.RequiresRevision";
         
         public const string SubmitRequestApprovalValuePrefix = "submit.RequestApproval-";
+
+        public const string ContentApprovalCommentFieldKey = "ContentApprovalPart.Comment";
     }
 }
