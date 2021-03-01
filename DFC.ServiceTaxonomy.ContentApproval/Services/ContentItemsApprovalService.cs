@@ -26,6 +26,7 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Services
         public async Task<int> GetManageContentItemCount(DashboardItemsStatusCard card)
         {
             var filterOptions = new ContentOptionsViewModel();
+            var query = _session.Query<ContentItem>();
 
             switch (card)
             {
@@ -37,27 +38,17 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Services
                     break;
                 case DashboardItemsStatusCard.WaitingForReview:
                     filterOptions.ContentsStatus = ContentsStatus.AllVersions;
+                    query.With<ContentApprovalPartIndex>(i => i.ReviewStatus == (int?)ContentReviewStatus.ReadyForReview);
                     break;
                 case DashboardItemsStatusCard.InReview:
                     //todo: we'll have to filter 'will need review' items according to if there's a draft version
                     // can we do that using With<> ? or do apply custom c# filtering after FilterAsync on the items before count??
                     // or generate a sql query, but then can't reuse _defaultContentsAdminListFilter (so easily)
                     filterOptions.ContentsStatus = ContentsStatus.AllVersions;
+                    query.With<ContentApprovalPartIndex>(i => i.ReviewStatus == (int?)ContentReviewStatus.InReview);
                     break;
                 default:
                     throw new NotImplementedException();
-            }
-
-            var query = _session.Query<ContentItem>();
-
-            switch (card)
-            {
-                case DashboardItemsStatusCard.WaitingForReview:
-                    query.With<ContentApprovalPartIndex>(i => i.ReviewStatus == (int?)ContentReviewStatus.ReadyForReview);
-                    break;
-                case DashboardItemsStatusCard.InReview:
-                    query.With<ContentApprovalPartIndex>(i => i.ReviewStatus == (int?)ContentReviewStatus.InReview);
-                    break;
             }
 
             // we have the option to c&p and change _defaultContentsAdminListFilter if necessary
