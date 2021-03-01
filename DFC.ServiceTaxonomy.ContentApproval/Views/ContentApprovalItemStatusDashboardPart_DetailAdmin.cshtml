@@ -1,14 +1,17 @@
 ﻿@model ContentApprovalItemStatusDashboardPartViewModel
 
 @{
+@*    todo remove edit & delete - wait until we have d&d and resize in*@
+@*todo better to set size once resizable dashboard is in?*@
+
     switch (Model.Card)
     {
         case DashboardItemsStatusCard.InDraft:
             <div class="dashboard-item-status">
                 <a asp-route-area="OrchardCore.Contents" asp-controller="@(typeof(OrchardCore.Contents.Controllers.AdminController).ControllerName())" asp-action="List" asp-route-Options.ContentsStatus="Draft">
-                    <span class="dashboard-item-status-icon"><i class="fas fa-pencil-alt display-4"></i></span>
-                    <span class="dashboard-item-status-count display-3">@(Model.NumberOfContentItemsInState)</span>
-                    <span class="display-4">In Draft</span>
+                    <span class="dashboard-item-status-icon"><i class="fas fa-pencil-alt"></i></span>
+                    <span class="dashboard-item-status-count">@(Model.NumberOfContentItemsInState)</span>
+                    <span class="dashboard-item-status-type">In Draft</span>
                 </a>
             </div>
             break;

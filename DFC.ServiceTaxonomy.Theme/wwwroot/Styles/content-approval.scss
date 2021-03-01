@@ -1,17 +1,50 @@
 //todo: this belongs in an Assets folder in the content approval project
 
 .dashboard-item-status {
+    //todo: switch to target .card using js instead? https://stackoverflow.com/questions/3662645/select-element-based-on-child-class
+    // options to fill card: https://stackoverflow.com/questions/5581799/how-to-stretch-div-height-to-fill-parent-div-css
+    //todo: remove !important
+
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: #f88b6f;
+    border-radius: 15px 0;
+
+    a {
+        color: #315095 !important;
+    }
 
     a:hover {
-        text-decoration: none;
+        text-decoration: none !important;
     }
 
     .dashboard-item-status-icon {
-        margin-right: 0.5rem;
+        font-size: 3.5rem;
+        /*        font-weight: 300;
+        line-height: 1.2;
+*/
+        margin-left: 1rem;
+        margin-right: 0.75rem;
     }
 
     .dashboard-item-status-count {
-        margin-right: 1rem;
+        font-size: 2.5rem;
+        font-weight: 700;
+        line-height: 1.2;
+        margin-right: 0.75rem;
+        position: relative;
+        bottom: 0.3rem;
+    }
+
+    .dashboard-item-status-type {
+        font-size: 2rem;
+        font-weight: 600;
+        line-height: 1.2;
+        position: relative;
+        bottom: 0.3rem;
     }
 }
 
