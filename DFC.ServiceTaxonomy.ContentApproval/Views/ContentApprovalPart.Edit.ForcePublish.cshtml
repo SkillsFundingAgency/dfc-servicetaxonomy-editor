@@ -1,0 +1,11 @@
+﻿@model DFC.ServiceTaxonomy.ContentApproval.ViewModels.ContentApprovalPartViewModel
+
+<div class="btn-group btn-group-approval">
+    <button class="btn btn-success btn-content-approval dropdown-toggle" id="forcepublishbutton" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">@T["Force publish"]</button>
+    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="forcepublishbutton">
+        @foreach (var reviewType in Model.ReviewTypes)
+        {
+            <button class="dropdown-item" type="submit" name="@Constants.SubmitSaveKey" value="@(Constants.SubmitRequestApprovalValuePrefix + reviewType.Key)">@T[reviewType.Value]</button>
+        }
+    </div>
+</div>

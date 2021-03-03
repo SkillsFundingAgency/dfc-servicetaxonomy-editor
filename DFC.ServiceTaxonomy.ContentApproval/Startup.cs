@@ -37,6 +37,7 @@ namespace DFC.ServiceTaxonomy.ContentApproval
             services.AddScoped<IPermissionProvider, CanPerformReviewPermissions>();
             services.AddScoped<IPermissionProvider, CanPerformApprovalPermissions>();
             services.AddScoped<IPermissionProvider, RequestReviewPermissions>();
+            services.AddScoped<IPermissionProvider, ForcePublishPermissions>();
 
             services.AddScoped<IShapeTableProvider, ContentEditShapes>();
             services.AddScoped<IContentItemsApprovalService, ContentItemsApprovalService>();

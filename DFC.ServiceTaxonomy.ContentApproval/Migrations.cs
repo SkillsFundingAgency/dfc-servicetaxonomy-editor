@@ -48,7 +48,7 @@ namespace DFC.ServiceTaxonomy.ContentApproval
 
             await _recipeMigrator.ExecuteAsync("stax-content-approval.recipe.json", this);
 
-            return await Task.FromResult(3);
+            return await Task.FromResult(4);
         }
 
         public async Task<int> UpdateFrom1Async()
@@ -81,6 +81,13 @@ namespace DFC.ServiceTaxonomy.ContentApproval
             );
 
             return 3;
+        }
+
+        public async Task<int> UpdateFrom3Async()
+        {
+            await _recipeMigrator.ExecuteAsync("stax-content-approval-amendment-01.recipe.json", this);
+
+            return 4;
         }
     }
 }
