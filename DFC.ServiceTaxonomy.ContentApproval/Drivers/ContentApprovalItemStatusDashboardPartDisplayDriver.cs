@@ -13,7 +13,8 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Drivers
     {
         private readonly IContentItemsApprovalService _contentItemsApprovalService;
 
-        public ContentApprovalItemStatusDashboardPartDisplayDriver(IContentItemsApprovalService contentItemsApprovalService)
+        public ContentApprovalItemStatusDashboardPartDisplayDriver(
+            IContentItemsApprovalService contentItemsApprovalService)
         {
             _contentItemsApprovalService = contentItemsApprovalService;
         }
@@ -46,15 +47,13 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Drivers
             return default;
         }
 
-        private ValueTask BuildDisplayViewModel(
+        private async Task BuildDisplayViewModel(
             ContentApprovalItemStatusDashboardPartViewModel model,
             ContentApprovalItemStatusDashboardPart part)
         {
-            BuildViewModel(model, part);
+            await BuildViewModel(model, part);
 
-            model.NumberOfContentItemsInState = _contentItemsApprovalService.ItemCount(part.Card);
-
-            return default;
+            model.NumberOfContentItemsInState = await _contentItemsApprovalService.GetManageContentItemCount(part.Card);
         }
     }
 }
