@@ -36,13 +36,14 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Drivers
             var currentUser = _httpContextAccessor.HttpContext?.User;
             var results = new List<IDisplayResult>();
 
-            if (part.IsInDraft() && part.ReviewStatus == ContentReviewStatus.NotInReview && await _authorizationService.AuthorizeAsync(currentUser, Permissions.RequestReviewPermissions.RequestReviewPermission, part))
-            {
-                results.Add(Initialize<ContentApprovalPartViewModel>(
-                        "ContentApprovalPart_Admin_RequestReview",
-                        viewModel => PopulateViewModel(part, viewModel))
-                    .Location("SummaryAdmin", "Actions:First"));
-            }
+            // Todo: removed this for the time being due to the requirement for commenting which needs to be defined in this view first.
+            //if (part.IsInDraft() && part.ReviewStatus == ContentReviewStatus.NotInReview && await _authorizationService.AuthorizeAsync(currentUser, Permissions.RequestReviewPermissions.RequestReviewPermission, part))
+            //{
+            //    results.Add(Initialize<ContentApprovalPartViewModel>(
+            //            "ContentApprovalPart_Admin_RequestReview",
+            //            viewModel => PopulateViewModel(part, viewModel))
+            //        .Location("SummaryAdmin", "Actions:First"));
+            //}
 
             if (part.ReviewStatus != ContentReviewStatus.NotInReview && await _authorizationService.AuthorizeAsync(currentUser, part.ReviewType.GetRelatedPermission(), part))
             {
@@ -51,6 +52,13 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Drivers
                         viewModel => PopulateViewModel(part, viewModel))
                     .Location("SummaryAdmin", "Actions:First"));
             }
+
+            // Todo: see above, hidden for time being.
+            // Show comment field
+            //results.Add(Initialize<ContentApprovalPartViewModel>(
+            //        $"ContentApprovalPart_Edit_Comment",
+            //        viewModel => PopulateViewModel(part, viewModel))
+            //    .Location("SummaryAdmin", "Content"));
 
             return Combine(results.ToArray());
         }
@@ -99,13 +107,21 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Drivers
                     .Location("Actions:First"));
             }
 
+
+            // Show comment field
+            results.Add(Initialize<ContentApprovalPartViewModel>(
+                    $"{editorShape}_Comment",
+                    viewModel => PopulateViewModel(part, viewModel))
+                .Location("Actions:after"));
+
             return Combine(results.ToArray());
         }
 
-
         public override async Task<IDisplayResult?> UpdateAsync(ContentApprovalPart part, IUpdateModel updater, UpdatePartEditorContext context)
         {
+
             var viewModel = new ContentApprovalPartViewModel();
+
             var currentUser = _httpContextAccessor.HttpContext?.User;
 
             if (part.ReviewStatus == ContentReviewStatus.InReview && !await _authorizationService.AuthorizeAsync(currentUser, part.ReviewType.GetRelatedPermission()))
@@ -115,6 +131,11 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Drivers
             }
 
             await updater.TryUpdateModelAsync(viewModel, Prefix);
+
+            if (!updater.ModelState.IsValid)
+            {
+               return await EditAsync(part, context);
+            }
 
             var keys = updater.ModelState.Keys;
 
@@ -139,15 +160,18 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Drivers
                 part.ReviewType = ReviewType.None;
             }
 
+            part.Comment = viewModel.Comment;
+
             return await EditAsync(part, context);
         }
+
         private static void PopulateViewModel(ContentApprovalPart part, ContentApprovalPartViewModel viewModel, bool isInReviewView = false)
         {
             viewModel.ContentItemId = part.ContentItem.ContentItemId;
             viewModel.ReviewStatus = part.ReviewStatus;
-            viewModel.Comment = part.Comment;
             var reviewTypes = EnumExtensions.GetEnumNameAndDisplayNameDictionary(typeof(ReviewType)).Where(rt => rt.Key != ReviewType.None.ToString());
             viewModel.ReviewTypes = isInReviewView ? reviewTypes.Where(rt => rt.Key != part.ReviewType.ToString()) : reviewTypes;
+            viewModel.Comment = part.Comment;
         }
     }
 }
