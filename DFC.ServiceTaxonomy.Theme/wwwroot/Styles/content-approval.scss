@@ -1,0 +1,52 @@
+//todo: this belongs in an Assets folder in the content approval project
+
+a.dashboard-item-status:hover {
+    text-decoration: none !important;
+    }
+
+.dashboard-item-status {
+    //todo: switch to target .card using js instead? https://stackoverflow.com/questions/3662645/select-element-based-on-child-class
+    // options to fill card: https://stackoverflow.com/questions/5581799/how-to-stretch-div-height-to-fill-parent-div-css
+    //todo: remove !important
+    //todo: if 'in draft' wraps, make it wrap to the right of the count
+    //todo: remove border of containing box
+
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    color: #315095 !important;
+    background-color: #f88b6f !important;
+    border-radius: 15px 0;
+    border-style: solid;
+
+    .dashboard-item-status-icon {
+        font-size: 3.5rem;
+        margin-left: 1rem;
+        margin-right: 0.75rem;
+    }
+
+    .dashboard-item-status-count {
+        font-size: 2.5rem;
+        font-weight: 700;
+        line-height: 1.2;
+        margin-right: 0.75rem;
+        position: relative;
+        bottom: 0.3rem;
+    }
+
+    .dashboard-item-status-type {
+        font-size: 2rem;
+        font-weight: 600;
+        line-height: 1.2;
+        position: relative;
+        bottom: 0.3rem;
+    }
+}
+
+.content-approval-comments-group {
+    position: absolute;
+    padding: 10px 0;
+}
+
