@@ -214,7 +214,7 @@ Currently, we build and pack Orchard Core ourselves, so we can update to the lat
 To update the Orchard Core package set, note the current rc version of the packages in the `dfc-servicetaxonomy-editor\orchardcorepackages` folder, then delete them. Open a shell, `Cd` to the OC repo clone, and run the following command (assumes the Stax Editor and OC are cloned to the same folder), incrementing the `rc` version...
 
 ```
-dotnet pack -o "..\dfc-servicetaxonomy-editor\orchardcorepackages" --version-suffix rc7
+dotnet pack -o "..\..\dfc-servicetaxonomy-editor\orchardcorepackages" --version-suffix rc10
 ```
 
 Update all packages references in the Stax Editor csproj files to the new rc, fix any build issues, test the new version and then commit your changes.
@@ -223,6 +223,9 @@ Note, we update the rc version each time to avoid version conflicts.
 
 ### Package History
 
+Local Orchard Core package history, as stored in OrchardCorePackages folder.
+
 | Version | Source | Notes | Contains |
 |---------|--------|-------|----------|
-| rc9 | https://github.com/SkillsFundingAgency/OrchardCore/tree/monaco_editor ab93361 : 10 Feb 21 | Forked MichaelPetrinolis/OrchardCore (itself a fork of OrchardCMS/OrchardCore) to SkillsFundingAgency/OrchardCore. Then merged the latest OrchardCMS/Orchard dev branch into SkillsFundingAgency/OrchardCore monaco_editor branch, up to commit 7526024 (10 Feb 21 : .NET SDK 3.1.406) | Latest Orchard Core @ 7526024 : 10 Feb 21 + [monaco_editor](https://github.com/OrchardCMS/OrchardCore/pull/8266) (wip) 31 Jan 21 : 8a44eb7 |
+| rc9  | https://github.com/SkillsFundingAgency/OrchardCore/tree/monaco_editor ab93361 : 10 Feb 21 | Forked MichaelPetrinolis/OrchardCore (itself a fork of OrchardCMS/OrchardCore) to SkillsFundingAgency/OrchardCore. Then merged the latest OrchardCMS/Orchard dev branch into SkillsFundingAgency/OrchardCore monaco_editor branch, up to commit 7526024 (10 Feb 21 : .NET SDK 3.1.406) | Latest Orchard Core @ 7526024 : 10 Feb 21 + [monaco_editor](https://github.com/OrchardCMS/OrchardCore/pull/8266) (wip) 31 Jan 21 : 8a44eb7 |
+| rc10 | https://github.com/SkillsFundingAgency/OrchardCore/tree/dev 25ef9ddf13d3b79d8bbb41e1e3b4053712e483f6 : 3 Mar 21 | Vanilla OC dev branch (although still forked from MichaelPetrinolis/OrchardCore) | |
