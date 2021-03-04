@@ -96,7 +96,8 @@
                 "Area": "OrchardCore.Admin"
             },
             "AdminSettings": {
-                "DisplayMenuFilter": true
+                "DisplayMenuFilter": true,
+                "DisplayNewMenu": true
             },
             "HttpsSettings": {
                 "EnableStrictTransportSecurity": true,
