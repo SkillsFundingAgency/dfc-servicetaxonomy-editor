@@ -12,8 +12,8 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Models
         [Display(Name="Ready for review")]
         ReadyForReview,
         [Display(Name="In review")]
-        InReview
-        // [Display(Name="Force published")]
-        // ForcePublished
+        InReview,
+        //[Display(Name = "Force published")]
+        //ForcePublished
     }
 }

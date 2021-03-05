@@ -1,5 +1,6 @@
 using System;
 using DFC.ServiceTaxonomy.ContentApproval.Drivers;
+using DFC.ServiceTaxonomy.ContentApproval.Handlers;
 using DFC.ServiceTaxonomy.ContentApproval.Indexes;
 using DFC.ServiceTaxonomy.ContentApproval.Models;
 using DFC.ServiceTaxonomy.ContentApproval.Permissions;
@@ -26,7 +27,9 @@ namespace DFC.ServiceTaxonomy.ContentApproval
         public override void ConfigureServices(IServiceCollection services)
         {
             services.AddContentPart<ContentApprovalPart>()
+                .AddHandler<ContentApprovalContentHandler>()
                 .UseDisplayDriver<ContentApprovalPartDisplayDriver>();
+
             services.AddContentPart<ContentApprovalItemStatusDashboardPart>()
                 .UseDisplayDriver<ContentApprovalItemStatusDashboardPartDisplayDriver>();
 

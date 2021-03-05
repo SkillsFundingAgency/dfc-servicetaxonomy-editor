@@ -107,6 +107,14 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Drivers
                     .Location("Actions:First"));
             }
 
+            // Show force publish
+            if(part.ReviewStatus == ContentReviewStatus.NotInReview && await _authorizationService.AuthorizeAsync(currentUser, Permissions.ForcePublishPermissions.ForcePublishPermission))
+            {
+                results.Add(Initialize<ContentApprovalPartViewModel>(
+                        $"{editorShape}_ForcePublish",
+                        viewModel => PopulateViewModel(part, viewModel))
+                    .Location("Actions:15"));
+            }
 
             // Show comment field
             results.Add(Initialize<ContentApprovalPartViewModel>(
@@ -157,7 +165,17 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Drivers
             else if (keys.Contains(Constants.SubmitPublishKey))
             {
                 part.ReviewStatus = ContentReviewStatus.NotInReview;
-                part.ReviewType = ReviewType.None;
+                var publishType = updater.ModelState[Constants.SubmitPublishKey].AttemptedValue;
+                if (publishType.StartsWith(Constants.SubmitRequestApprovalValuePrefix))
+                {
+                    part.IsForcePublished = true;
+                    part.ReviewType = Enum.Parse<ReviewType>(publishType.Replace(Constants.SubmitRequestApprovalValuePrefix, ""));
+                }
+                else
+                {
+                    part.IsForcePublished = false;
+                    part.ReviewType = ReviewType.None;
+                }
             }
 
             part.Comment = viewModel.Comment;
