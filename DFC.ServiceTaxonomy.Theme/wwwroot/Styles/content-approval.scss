@@ -45,6 +45,18 @@ a.dashboard-item-status:hover {
     }
 }
 
+.dashboard-handle {
+    z-index: 100;
+    position: relative;
+}
+
+.card-header {
+    div[title="Actions"] {
+        z-index: 100;
+        position: relative;
+    }
+}
+
 .content-approval-comments-group {
     position: absolute;
     padding: 10px 0;
