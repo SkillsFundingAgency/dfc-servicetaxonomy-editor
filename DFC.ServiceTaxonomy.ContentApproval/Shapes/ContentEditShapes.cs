@@ -1,6 +1,5 @@
 ﻿using System.Linq;
 using DFC.ServiceTaxonomy.ContentApproval.Models;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using OrchardCore.ContentManagement;
 using OrchardCore.DisplayManagement.Descriptors;
@@ -10,12 +9,10 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Shapes
 {
     public class ContentEditShapes : IShapeTableProvider
     {
-        private readonly IAuthorizationService _authorizationService;
         private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public ContentEditShapes(IAuthorizationService authorizationService, IHttpContextAccessor httpContextAccessor)
+        public ContentEditShapes(IHttpContextAccessor httpContextAccessor)
         {
-            _authorizationService = authorizationService;
             _httpContextAccessor = httpContextAccessor;
         }
 
@@ -31,7 +28,8 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Shapes
                 {
                     actions.Remove("Content_SaveDraftButton");
                 }
-                // Use must have review permissions to be able to publish 
+                // Use must have review permissions to be able to publish
+                // TODO: ideally would use the authorize service here however there are issues with dependent objects already having been disposed of
                 var currentUser = _httpContextAccessor.HttpContext?.User;
                 if (currentUser == null || !currentUser.HasClaim(c =>
                     Permissions.CanPerformReviewPermissions.CanPerformReviewPermission.ImpliedBy.Any(p =>

@@ -11,7 +11,7 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Permissions
         public Task<IEnumerable<Permission>> GetPermissionsAsync() =>
             Task.FromResult(new[]
             {
-                ForcePublishPermission,
+                ForcePublishPermission
             }
             .AsEnumerable());
 
@@ -22,7 +22,7 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Permissions
                 {
                     Name = "Administrator",
                     Permissions = GetPermissionsAsync().Result
-                },
+                }
             };
     }
 }
