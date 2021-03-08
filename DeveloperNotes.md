@@ -1369,7 +1369,7 @@ Here are some useful workflows:
 
 disable features
 remove migration records from Document: OrchardCore.Data.Migration.Records.DataMigrationRecord, OrchardCore.Data
-remove parts from OrchardCore.ContentManagement.Metadata.Records.ContentDefinitionRecord, OrchardCore.ContentManagement.Abstractions
+not-required: remove parts from OrchardCore.ContentManagement.Metadata.Records.ContentDefinitionRecord, OrchardCore.ContentManagement.Abstractions
 remove index tables
 restart app service
 enable features
