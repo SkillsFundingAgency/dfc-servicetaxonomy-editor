@@ -3,6 +3,7 @@
 <div class="btn-group btn-group-approval">
     <button class="btn btn-success btn-content-approval dropdown-toggle" id="reviewbutton" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">@T["Request review"]</button>
     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="reviewbutton">
+        <div class="content-approval-review-type-header">Select review type:</div>
         @foreach (var reviewType in Model.ReviewTypes)
         {
             <button class="dropdown-item" type="submit" name="@Constants.SubmitSaveKey" value="@(Constants.SubmitRequestApprovalValuePrefix + reviewType.Key)">@T[reviewType.Value]</button>
