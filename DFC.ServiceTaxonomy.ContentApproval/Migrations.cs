@@ -36,14 +36,16 @@ namespace DFC.ServiceTaxonomy.ContentApproval
 
             SchemaBuilder.CreateMapIndexTable<ContentApprovalPartIndex>(table => table
                 .Column<int>(nameof(ContentApprovalPartIndex.ReviewStatus))
-                .Column<int>(nameof(ContentApprovalPartIndex.ReviewType)));
+                .Column<int>(nameof(ContentApprovalPartIndex.ReviewType))
+                .Column<bool>(nameof(ContentApprovalPart.IsForcePublished)));
 
             SchemaBuilder.AlterIndexTable<ContentApprovalPartIndex>(table => table
                 .CreateIndex(
                     $"IDX_{nameof(ContentApprovalPartIndex)}_{nameof(ContentApprovalPartIndex.ReviewStatus)}",
                     "DocumentId",
                     nameof(ContentApprovalPartIndex.ReviewStatus),
-                    nameof(ContentApprovalPartIndex.ReviewType)));
+                    nameof(ContentApprovalPartIndex.ReviewType),
+                    nameof(ContentApprovalPart.IsForcePublished)));
 
 
             await _recipeMigrator.ExecuteAsync("stax-content-approval.recipe.json", this);
@@ -85,6 +87,21 @@ namespace DFC.ServiceTaxonomy.ContentApproval
 
         public async Task<int> UpdateFrom3Async()
         {
+            SchemaBuilder.DropMapIndexTable<ContentApprovalPartIndex>();
+
+            SchemaBuilder.CreateMapIndexTable<ContentApprovalPartIndex>(table => table
+                .Column<int>(nameof(ContentApprovalPartIndex.ReviewStatus))
+                .Column<int>(nameof(ContentApprovalPartIndex.ReviewType))
+                .Column<bool>(nameof(ContentApprovalPart.IsForcePublished)));
+
+            SchemaBuilder.AlterIndexTable<ContentApprovalPartIndex>(table => table
+                .CreateIndex(
+                    $"IDX_{nameof(ContentApprovalPartIndex)}_{nameof(ContentApprovalPartIndex.ReviewStatus)}",
+                    "DocumentId",
+                    nameof(ContentApprovalPartIndex.ReviewStatus),
+                    nameof(ContentApprovalPartIndex.ReviewType),
+                    nameof(ContentApprovalPart.IsForcePublished)));
+
             await _recipeMigrator.ExecuteAsync("stax-content-approval-amendment-01.recipe.json", this);
 
             return 4;

@@ -6,5 +6,6 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Indexes
     {
         public int ReviewStatus { get; set; }
         public int ReviewType { get; set; }
+        public bool IsForcePublished { get; set; }
     }
 }
