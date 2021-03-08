@@ -17,7 +17,7 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Services
         {
             var viewModel = new ContentApprovalContentsAdminListFilterViewModel();
 
-            if (await updater.TryUpdateModelAsync(viewModel, ContentApprovalPart.Prefix)
+            if (await updater.TryUpdateModelAsync(viewModel, Constants.ContentApprovalPartPrefix)
                 && viewModel.SelectedApprovalStatus.HasValue)
             {
                 if (viewModel.SelectedApprovalStatus == ContentReviewStatus.NotInReview)
