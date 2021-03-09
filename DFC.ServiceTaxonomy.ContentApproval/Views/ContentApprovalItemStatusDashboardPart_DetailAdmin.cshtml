@@ -21,10 +21,12 @@
                     <span class="dashboard-item-status-icon"><i class="far fa-hourglass"></i></span>
                     <span class="dashboard-item-status-count">@(Model.NumberOfContentItemsInState)</span>
                     <span class="dashboard-item-status-type">Waiting For Review</span>
-                    <a asp-route-area="OrchardCore.Contents" asp-controller="@(typeof(OrchardCore.Contents.Controllers.AdminController).ControllerName())" asp-action="List" asp-route-ContentApproval.SelectedApprovalStatus="ReadyForReview">Content Design</a>
-                    <a asp-route-area="OrchardCore.Contents" asp-controller="@(typeof(OrchardCore.Contents.Controllers.AdminController).ControllerName())" asp-action="List" asp-route-ContentApproval.SelectedApprovalStatus="ReadyForReview">SME</a>
-                    <a asp-route-area="OrchardCore.Contents" asp-controller="@(typeof(OrchardCore.Contents.Controllers.AdminController).ControllerName())" asp-action="List" asp-route-ContentApproval.SelectedApprovalStatus="ReadyForReview">Stakeholder</a>
-                    <a asp-route-area="OrchardCore.Contents" asp-controller="@(typeof(OrchardCore.Contents.Controllers.AdminController).ControllerName())" asp-action="List" asp-route-ContentApproval.SelectedApprovalStatus="ReadyForReview">UX</a>
+                    <div class="dashboard-item-status-review-types">
+                        <a class="dashboard-item-status-review-type" asp-route-area="OrchardCore.Contents" asp-controller="@(typeof(OrchardCore.Contents.Controllers.AdminController).ControllerName())" asp-action="List" asp-route-ContentApproval.SelectedApprovalStatus="ReadyForReview">Content Design</a>
+                        <a class="dashboard-item-status-review-type" asp-route-area="OrchardCore.Contents" asp-controller="@(typeof(OrchardCore.Contents.Controllers.AdminController).ControllerName())" asp-action="List" asp-route-ContentApproval.SelectedApprovalStatus="ReadyForReview">SME</a>
+                        <a class="dashboard-item-status-review-type" asp-route-area="OrchardCore.Contents" asp-controller="@(typeof(OrchardCore.Contents.Controllers.AdminController).ControllerName())" asp-action="List" asp-route-ContentApproval.SelectedApprovalStatus="ReadyForReview">Stakeholder</a>
+                        <a class="dashboard-item-status-review-type" asp-route-area="OrchardCore.Contents" asp-controller="@(typeof(OrchardCore.Contents.Controllers.AdminController).ControllerName())" asp-action="List" asp-route-ContentApproval.SelectedApprovalStatus="ReadyForReview">UX</a>
+                    </div>
                 </div>
             </div>
 

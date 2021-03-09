@@ -36,6 +36,18 @@ a.dashboard-item-status:hover {
         pointer-events: all;
     }
 
+    .dashboard-item-status-review-types {
+        display: grid;
+        grid-template-columns: 10rem 10rem;
+        grid-row: auto;
+        grid-column-gap: 0.5rem;
+        grid-row-gap: 0.5rem;
+
+        .dashboard-item-status-review-type {
+            display:flex;
+        }
+    }
+
     .dashboard-item-status-icon {
         font-size: 3.5rem;
         margin-left: 1rem;
