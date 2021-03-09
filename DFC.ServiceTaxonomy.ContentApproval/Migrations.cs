@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using OrchardCore.Data.Migration;
 using OrchardCore.ContentManagement.Metadata;
 using OrchardCore.ContentManagement.Metadata.Settings;
@@ -34,6 +35,15 @@ namespace DFC.ServiceTaxonomy.ContentApproval
                 .WithDescription("Adds publishing status workflow properties to content items.")
             );
 
+            try
+            {
+                SchemaBuilder.DropMapIndexTable<ContentApprovalPartIndex>();
+            }
+            catch
+            {
+                // Going to ignore if this throws an error
+            }
+
             SchemaBuilder.CreateMapIndexTable<ContentApprovalPartIndex>(table => table
                 .Column<int>(nameof(ContentApprovalPartIndex.ReviewStatus))
                 .Column<int>(nameof(ContentApprovalPartIndex.ReviewType))
@@ -50,7 +60,7 @@ namespace DFC.ServiceTaxonomy.ContentApproval
 
             await _recipeMigrator.ExecuteAsync("stax-content-approval.recipe.json", this);
 
-            return await Task.FromResult(5);
+            return await Task.FromResult(4);
         }
 
         public async Task<int> UpdateFrom1Async()
@@ -105,16 +115,6 @@ namespace DFC.ServiceTaxonomy.ContentApproval
             await _recipeMigrator.ExecuteAsync("stax-content-approval-amendment-01.recipe.json", this);
 
             return 4;
-        }
-
-        public int UpdateFrom4()
-        {
-            _contentDefinitionManager.DeletePartDefinition(nameof(ContentApprovalPart));
-            _contentDefinitionManager.AlterPartDefinition(nameof(ContentApprovalPart), part => part
-                .Attachable()
-                .WithDescription("Adds publishing status workflow properties to content items.")
-            );
-            return 5;
         }
     }
 }
