@@ -45,6 +45,10 @@ a.dashboard-item-status:hover {
 
         .dashboard-item-status-review-type {
             display:flex;
+            background-color: #acd18c !important;
+            justify-content: center;
+            border-radius: 0.3rem;
+            border: 0.18rem solid white;
         }
     }
 

@@ -1,5 +1,5 @@
-﻿
-using System;
+﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.ContentApproval.Indexes;
 using DFC.ServiceTaxonomy.ContentApproval.Models;
@@ -10,6 +10,13 @@ using YesSql;
 
 namespace DFC.ServiceTaxonomy.ContentApproval.Services
 {
+    public class ContentItemsApprovalCounts
+    {
+        public int Count { get; set; }
+        public int[]? ReviewTypeCounts { get; set; }
+    }
+
+    //todo: one method to return all count types?
     public class ContentItemsApprovalService : IContentItemsApprovalService
     {
         private readonly ISession _session;
@@ -23,7 +30,7 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Services
             _defaultContentsAdminListFilter = defaultContentsAdminListFilter;
         }
 
-        public async Task<int> GetManageContentItemCount(DashboardItemsStatusCard card)
+        public async Task<ContentItemsApprovalCounts> GetManageContentItemCount(DashboardItemsStatusCard card)
         {
             var filterOptions = new ContentOptionsViewModel();
             var query = _session.Query<ContentItem>();
@@ -54,7 +61,44 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Services
             // we have the option to c&p and change _defaultContentsAdminListFilter if necessary
             await _defaultContentsAdminListFilter.FilterAsync(filterOptions, query, null);
 
-            return await query.CountAsync();
+            ContentItemsApprovalCounts counts = new ContentItemsApprovalCounts();
+
+            //todo: if we always show the review cards with the draft & published cards
+            // it would make sense to have a running count for all types, and cache it, so it's only done once per refresh
+
+            if (card != DashboardItemsStatusCard.WaitingForReview
+                && card != DashboardItemsStatusCard.InReview)
+            {
+                counts.Count = await query.CountAsync();
+                return counts;
+            }
+
+            //what's faster? do we run 5 separate queries for the 2 reviews, and all the review types,
+            //or 1 query, and count all the items after?
+
+            int lastReviewType = (int)Enum.GetValues(typeof(ReviewType)).Cast<ReviewType>().Max();
+
+            // assumes non-sparse enum values starting at 0!
+            counts.ReviewTypeCounts = new int[lastReviewType + 1];
+            Array.Fill(counts.ReviewTypeCounts, 0);
+
+            //todo: we only need to know for each type if there is >0 items, so we could use bools
+            // and stop counting when we encounter 1 of each
+
+            //todo: will need to check responsiveness when 100k+ items, and maybe even make the count async??
+            var contentItems = query.ToAsyncEnumerable();
+            await foreach (ContentItem contentItem in contentItems)
+            {
+                ++counts.Count;
+                ReviewType? reviewStatus = contentItem.As<ContentApprovalPart>()?.ReviewType;
+                if (reviewStatus != null)
+                {
+                    //todo: bounds check?
+                    ++counts.ReviewTypeCounts[(int)reviewStatus];
+                }
+            }
+
+            return counts;
         }
     }
 }

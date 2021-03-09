@@ -2,6 +2,7 @@
 
 namespace DFC.ServiceTaxonomy.ContentApproval.Models
 {
+    // ContentItemsApprovalService assumes non-sparse enum values starting at 0!
     public enum ReviewType
     {
         [Display(Name="None")]

@@ -53,7 +53,8 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Drivers
         {
             await BuildViewModel(model, part);
 
-            model.NumberOfContentItemsInState = await _contentItemsApprovalService.GetManageContentItemCount(part.Card);
+            var counts = await _contentItemsApprovalService.GetManageContentItemCount(part.Card);
+            model.NumberOfContentItemsInState = counts.Count;
         }
     }
 }
