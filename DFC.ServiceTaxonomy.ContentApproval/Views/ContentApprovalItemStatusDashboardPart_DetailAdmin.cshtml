@@ -9,7 +9,7 @@
         case DashboardItemsStatusCard.InDraft:
             <a class="dashboard-item-status" asp-route-area="OrchardCore.Contents" asp-controller="@(typeof(OrchardCore.Contents.Controllers.AdminController).ControllerName())" asp-action="List" asp-route-Options.ContentsStatus="Draft">
                 <span class="dashboard-item-status-icon"><i class="fas fa-pencil-alt"></i></span>
-                <span class="dashboard-item-status-count">@(Model.NumberOfContentItemsInState)</span>
+                <span class="dashboard-item-status-count">@(Model.ContentItemsApprovalCounts?.Count)</span>
                 <span class="dashboard-item-status-type">In Draft</span>
             </a>
             break;
@@ -19,9 +19,10 @@
                 <a class="overlay" asp-route-area="OrchardCore.Contents" asp-controller="@(typeof(OrchardCore.Contents.Controllers.AdminController).ControllerName())" asp-action="List" asp-route-ContentApproval.SelectedApprovalStatus="ReadyForReview"></a>
                 <div class="inner">
                     <span class="dashboard-item-status-icon"><i class="far fa-hourglass"></i></span>
-                    <span class="dashboard-item-status-count">@(Model.NumberOfContentItemsInState)</span>
+                    <span class="dashboard-item-status-count">@(Model.ContentItemsApprovalCounts?.Count)</span>
                     <span class="dashboard-item-status-type">Waiting For Review</span>
                     <div class="dashboard-item-status-review-types">
+                        @{ ReviewTypeLink(ContentReviewStatus.ReadyForReview); }
                         <a class="dashboard-item-status-review-type" asp-route-area="OrchardCore.Contents" asp-controller="@(typeof(OrchardCore.Contents.Controllers.AdminController).ControllerName())" asp-action="List" asp-route-ContentApproval.SelectedApprovalStatus="ReadyForReview">Content Design</a>
                         <a class="dashboard-item-status-review-type" asp-route-area="OrchardCore.Contents" asp-controller="@(typeof(OrchardCore.Contents.Controllers.AdminController).ControllerName())" asp-action="List" asp-route-ContentApproval.SelectedApprovalStatus="ReadyForReview">SME</a>
                         <a class="dashboard-item-status-review-type" asp-route-area="OrchardCore.Contents" asp-controller="@(typeof(OrchardCore.Contents.Controllers.AdminController).ControllerName())" asp-action="List" asp-route-ContentApproval.SelectedApprovalStatus="ReadyForReview">Stakeholder</a>
@@ -33,7 +34,7 @@
             break;
         case DashboardItemsStatusCard.InReview:
             <i class="fas fa-search"></i>
-            <h1 class="display-1">@(Model.NumberOfContentItemsInState)</h1>
+            <h1 class="display-1">@(Model.ContentItemsApprovalCounts?.Count)</h1>
             <span>In Review</span>
             <a asp-route-area="OrchardCore.Contents" asp-controller="@(typeof(OrchardCore.Contents.Controllers.AdminController).ControllerName())" asp-action="List" asp-route-ContentApproval.SelectedApprovalStatus="InReview">Content Design</a>
             <a asp-route-area="OrchardCore.Contents" asp-controller="@(typeof(OrchardCore.Contents.Controllers.AdminController).ControllerName())" asp-action="List" asp-route-ContentApproval.SelectedApprovalStatus="InReview">SME</a>
@@ -43,10 +44,24 @@
         case DashboardItemsStatusCard.Published:
             <a asp-route-area="OrchardCore.Contents" asp-controller="@(typeof(OrchardCore.Contents.Controllers.AdminController).ControllerName())" asp-action="List" asp-route-Options.ContentsStatus="Published">
                 <i class="far fa-check-circle"></i>
-                <h1 class="display-1">@(Model.NumberOfContentItemsInState)</h1>
+                <h1 class="display-1">@(Model.ContentItemsApprovalCounts?.Count)</h1>
                 <span>Published</span>
             </a>
             break;
+    }
+
+// https://stackoverflow.com/questions/60792542/errors-and-warnings-using-functions-block-in-razor-pages
+
+@*    void ReviewTypeLink(ContentReviewStatus status)
+    {
+        <a class="dashboard-item-status-review-type" asp-route-area="OrchardCore.Contents" asp-controller="@(typeof(OrchardCore.Contents.Controllers.AdminController).ControllerName())" asp-action="List" asp-route-ContentApproval.SelectedApprovalStatus="ReadyForReview">Content Design</a>
+    }*@
+}
+
+@functions {
+    void ReviewTypeLink(ContentReviewStatus status)
+    {
+        <a class="dashboard-item-status-review-type" asp-route-area="OrchardCore.Contents" asp-controller="@(typeof(OrchardCore.Contents.Controllers.AdminController).ControllerName())" asp-action="List" asp-route-ContentApproval.SelectedApprovalStatus="ReadyForReview">Content Design</a>
     }
 }
 

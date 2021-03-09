@@ -10,12 +10,6 @@ using YesSql;
 
 namespace DFC.ServiceTaxonomy.ContentApproval.Services
 {
-    public class ContentItemsApprovalCounts
-    {
-        public int Count { get; set; }
-        public int[]? ReviewTypeCounts { get; set; }
-    }
-
     //todo: one method to return all count types?
     public class ContentItemsApprovalService : IContentItemsApprovalService
     {
