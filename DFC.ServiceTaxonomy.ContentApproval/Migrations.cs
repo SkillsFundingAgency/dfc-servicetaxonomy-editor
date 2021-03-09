@@ -50,7 +50,7 @@ namespace DFC.ServiceTaxonomy.ContentApproval
 
             await _recipeMigrator.ExecuteAsync("stax-content-approval.recipe.json", this);
 
-            return await Task.FromResult(4);
+            return await Task.FromResult(5);
         }
 
         public async Task<int> UpdateFrom1Async()
@@ -105,6 +105,16 @@ namespace DFC.ServiceTaxonomy.ContentApproval
             await _recipeMigrator.ExecuteAsync("stax-content-approval-amendment-01.recipe.json", this);
 
             return 4;
+        }
+
+        public int UpdateFrom4()
+        {
+            _contentDefinitionManager.DeletePartDefinition(nameof(ContentApprovalPart));
+            _contentDefinitionManager.AlterPartDefinition(nameof(ContentApprovalPart), part => part
+                .Attachable()
+                .WithDescription("Adds publishing status workflow properties to content items.")
+            );
+            return 5;
         }
     }
 }
