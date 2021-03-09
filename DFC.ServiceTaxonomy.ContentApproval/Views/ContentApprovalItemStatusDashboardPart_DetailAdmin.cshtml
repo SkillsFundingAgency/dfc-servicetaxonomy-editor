@@ -15,9 +15,8 @@
             break;
         case DashboardItemsStatusCard.WaitingForReview:
 
-            <div class="block">
-                @* <a class="overlay" href="#overlay-link"></a> *@
-                <a class="dashboard-item-status overlay" asp-route-area="OrchardCore.Contents" asp-controller="@(typeof(OrchardCore.Contents.Controllers.AdminController).ControllerName())" asp-action="List" asp-route-ContentApproval.SelectedApprovalStatus="ReadyForReview"></a>
+            <div class="dashboard-item-status">
+                <a class="overlay" asp-route-area="OrchardCore.Contents" asp-controller="@(typeof(OrchardCore.Contents.Controllers.AdminController).ControllerName())" asp-action="List" asp-route-ContentApproval.SelectedApprovalStatus="ReadyForReview"></a>
                 <div class="inner">
                     <span class="dashboard-item-status-icon"><i class="far fa-hourglass"></i></span>
                     <span class="dashboard-item-status-count">@(Model.NumberOfContentItemsInState)</span>

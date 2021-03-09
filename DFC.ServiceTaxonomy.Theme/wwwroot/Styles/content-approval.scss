@@ -4,25 +4,6 @@ a.dashboard-item-status:hover {
     text-decoration: none !important;
     }
 
-.block {
-    position:relative;
-}
-
-.block .overlay {
-    position:absolute;
-    left:0; top:0; bottom:0; right:0;
-}
-
-.block .inner {
-    position:relative;
-    pointer-events: none;
-    z-index: 1;
-}
-
-.block .inner a {
-    pointer-events: all;
-}
-
 .dashboard-item-status {
     //todo: switch to target .card using js instead? https://stackoverflow.com/questions/3662645/select-element-based-on-child-class
     // options to fill card: https://stackoverflow.com/questions/5581799/how-to-stretch-div-height-to-fill-parent-div-css
@@ -39,6 +20,21 @@ a.dashboard-item-status:hover {
     background-color: #f88b6f !important;
     border-radius: 15px 0;
     border-style: solid;
+
+    .overlay {
+        position:absolute;
+        left:0; top:0; bottom:0; right:0;
+    }
+
+    .inner {
+        position:relative;
+        pointer-events: none;
+        z-index: 1;
+    }
+
+    .inner a {
+        pointer-events: all;
+    }
 
     .dashboard-item-status-icon {
         font-size: 3.5rem;
