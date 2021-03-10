@@ -154,6 +154,9 @@
         },
         "MediaBasePath": {
             "type": "string"
+        },
+        "DigitalAssetsCdn": {
+            "type": "string"
         }
     },
     "variables": {
@@ -405,6 +408,10 @@
                             {
                                 "name": "OrchardCore__OrchardCore_Media_Azure__CreateContainer",
                                 "value": false
+                            },
+                            {
+                                "name": "DigitalAssetsCdn",
+                                "value": "[parameters('DigitalAssetsCdn')]"
                             }
                         ]
                     }
