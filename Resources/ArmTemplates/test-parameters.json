@@ -148,6 +148,9 @@
         },
         "MediaBasePath": {
             "value": "my-string"
+        },
+        "DigitalAssetsCdn": {
+            "value": "my-string"
         }
     }
 }
