@@ -34,14 +34,7 @@ namespace DFC.ServiceTaxonomy.ContentApproval
                 .WithDescription("Adds publishing status workflow properties to content items.")
             );
 
-            try
-            {
-                SchemaBuilder.DropMapIndexTable<ContentApprovalPartIndex>();
-            }
-            catch
-            {
-                // Going to ignore if this throws an error
-            }
+            SchemaBuilder.DropMapIndexTable<ContentApprovalPartIndex>();
 
             SchemaBuilder.CreateMapIndexTable<ContentApprovalPartIndex>(table => table
                 .Column<int>(nameof(ContentApprovalPartIndex.ReviewStatus))
