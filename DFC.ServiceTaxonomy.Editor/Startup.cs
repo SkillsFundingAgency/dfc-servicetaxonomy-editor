@@ -36,6 +36,7 @@ namespace DFC.ServiceTaxonomy.Editor
                 sanitizer.AllowedAttributes.Add("d");
                 sanitizer.AllowedAttributes.Add("xmlns");
                 sanitizer.AllowedAttributes.Add("viewBox");
+                sanitizer.AllowedAttributes.Add("allowfullscreen");
 
             }));
 
