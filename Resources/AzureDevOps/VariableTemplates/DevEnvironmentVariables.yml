@@ -19,3 +19,9 @@ variables:
   value: true
 - name: MediaStorageAccountName
   value: dfcdevdigstr
+- name: ServicePrincipalName
+  value: dfc-dev-stax-editor
+- name: CdnProfileName
+  value: dfc-dev-shared-cdn
+- name: cdnEndpointName
+  value: dfc-dev-digital-assets
