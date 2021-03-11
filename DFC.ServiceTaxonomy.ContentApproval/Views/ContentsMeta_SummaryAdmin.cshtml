@@ -1,22 +1,24 @@
-﻿@{
+﻿@using DFC.ServiceTaxonomy.ContentApproval.Extensions
+@{
     ContentItem contentItem = Model.ContentItem;
 }
 <div class="tags mr-1">
     @if (contentItem.Has<ContentApprovalPart>())
     {
         ContentApprovalPart contentApprovalPart = contentItem.As<ContentApprovalPart>();
+        var reviewTypeLookUp = EnumExtensions.GetEnumNameAndDisplayNameDictionary(typeof(ReviewType));
 
         if (contentApprovalPart.ReviewStatus == ContentReviewStatus.ReadyForReview)
         {
-            <span class="badge ta-badge font-weight-normal align-text-top" data-toggle="tooltip" title="@(T["Waiting for review"])">
-                <i class="far fa-hourglass text-primary"></i>
-            </span>
+        <span class="badge ta-badge font-weight-normal align-text-top" data-toggle="tooltip" title="@(T["Waiting for review - {0}", reviewTypeLookUp[contentApprovalPart.ReviewType.ToString()]])">
+            <i class="far fa-hourglass text-primary"></i>
+        </span>
         }
         if (contentApprovalPart.ReviewStatus == ContentReviewStatus.InReview)
         {
-            <span class="badge ta-badge font-weight-normal align-text-top" data-toggle="tooltip" title="@(T["In review"])">
-                <i class="fas fa-search text-primary"></i>
-            </span>
+        <span class="badge ta-badge font-weight-normal align-text-top" data-toggle="tooltip" title="@(T["In review - {0}", reviewTypeLookUp[contentApprovalPart.ReviewType.ToString()]])">
+            <i class="fas fa-search text-primary"></i>
+        </span>
         }
     }
 
