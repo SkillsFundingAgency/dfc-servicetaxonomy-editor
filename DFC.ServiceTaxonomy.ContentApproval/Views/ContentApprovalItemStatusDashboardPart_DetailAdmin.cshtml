@@ -22,7 +22,7 @@
                     <span class="dashboard-item-status-count">@(Model.ContentItemsApprovalCounts?.Count)</span>
                     <span class="dashboard-item-status-type">Waiting For Review</span>
                     <div class="dashboard-item-status-review-types">
-                        @{ ReviewTypeLink(ContentReviewStatus.ReadyForReview); }
+                        @* @{ ReviewTypeLink(ContentReviewStatus.ReadyForReview); } *@
                         <a class="dashboard-item-status-review-type" asp-route-area="OrchardCore.Contents" asp-controller="@(typeof(OrchardCore.Contents.Controllers.AdminController).ControllerName())" asp-action="List" asp-route-ContentApproval.SelectedApprovalStatus="ReadyForReview">Content Design</a>
                         <a class="dashboard-item-status-review-type" asp-route-area="OrchardCore.Contents" asp-controller="@(typeof(OrchardCore.Contents.Controllers.AdminController).ControllerName())" asp-action="List" asp-route-ContentApproval.SelectedApprovalStatus="ReadyForReview">SME</a>
                         <a class="dashboard-item-status-review-type" asp-route-area="OrchardCore.Contents" asp-controller="@(typeof(OrchardCore.Contents.Controllers.AdminController).ControllerName())" asp-action="List" asp-route-ContentApproval.SelectedApprovalStatus="ReadyForReview">Stakeholder</a>
@@ -58,12 +58,12 @@
     }*@
 }
 
-@functions {
-    void ReviewTypeLink(ContentReviewStatus status)
-    {
-        <a class="dashboard-item-status-review-type" asp-route-area="OrchardCore.Contents" asp-controller="@(typeof(OrchardCore.Contents.Controllers.AdminController).ControllerName())" asp-action="List" asp-route-ContentApproval.SelectedApprovalStatus="ReadyForReview">Content Design</a>
-    }
-}
+@* @functions { *@
+@*     void ReviewTypeLink(ContentReviewStatus status) *@
+@*     { *@
+@*         <a class="dashboard-item-status-review-type" asp-route-area="OrchardCore.Contents" asp-controller="@(typeof(OrchardCore.Contents.Controllers.AdminController).ControllerName())" asp-action="List" asp-route-ContentApproval.SelectedApprovalStatus="ReadyForReview">Content Design</a> *@
+@*     } *@
+@* } *@
 
 @* todo for draft and published, make whole clickable *@
 @* https://stackoverflow.com/questions/796087/make-a-div-into-a-link *@

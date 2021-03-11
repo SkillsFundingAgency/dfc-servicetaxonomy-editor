@@ -5,6 +5,6 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Services
 {
     public interface IContentItemsApprovalService
     {
-        Task<ContentItemsApprovalCounts> GetManageContentItemCount(DashboardItemsStatusCard card);
+        Task<ContentItemsApprovalCounts> GetManageContentItemCounts(DashboardItemsStatusCard card);
     }
 }
