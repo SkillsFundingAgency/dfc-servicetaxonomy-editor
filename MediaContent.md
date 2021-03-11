@@ -8,7 +8,7 @@
     ".ico",
     ".svg",
 
-#### CDNBaseUrl 
+#### CDNBaseUrl : __CdnUrl__
 A CDN base url that will be prefixed to the request path when serving images.
 
 Example: CDNBaseurl for Dev environment: https://dev-cdn.nationalcareersservice.org.uk. if we set CDNBaseUrl then 'insert media' in html editor
