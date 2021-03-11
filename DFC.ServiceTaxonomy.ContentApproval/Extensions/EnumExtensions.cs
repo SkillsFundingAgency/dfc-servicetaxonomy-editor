@@ -31,5 +31,11 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Extensions
             FieldInfo[] enumFields = enumType.GetFields(BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic);
             return enumFields.ToDictionary(k => k.Name, v => v.GetCustomAttribute<DisplayAttribute>()?.Name ?? v.Name);
         }
+
+        public static string GetDisplayName(this Enum enumValue)
+        {
+            MemberInfo? enumValueMemberInfo = enumValue.GetType().GetMember(enumValue.ToString()).First();
+            return enumValueMemberInfo.GetCustomAttribute<DisplayAttribute>()?.GetName() ?? enumValueMemberInfo.Name;
+        }
     }
 }
