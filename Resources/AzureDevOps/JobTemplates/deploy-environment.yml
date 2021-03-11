@@ -131,7 +131,6 @@ jobs:
                   -RepoName dfc-servicetaxonomy-editor  `
                   -KeyVaultName "$(sharedKeyVaultName)"  `
                   -TenantId "$(Authentication_Tenant)"  `
-                  -SharedResourceGroupName "$(SharedResourceGroup)"  `
                   -CdnEndpointName "$(CdnEndpointName)" -Verbose
             azurePowerShellVersion: LatestVersion
         
