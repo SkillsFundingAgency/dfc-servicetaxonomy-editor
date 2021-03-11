@@ -128,12 +128,13 @@ jobs:
             ScriptArguments: -SharedResourceGroupName "$(SharedResourceGroup)" `
                   -CdnProfileName "$(CdnProfileName)"  `
                   -ServicePrincipalName "$(ServicePrincipalName)"  `
-                  -RepoName dfc-servicetaxonomy.editor  `
+                  -RepoName dfc-servicetaxonomy-editor  `
                   -KeyVaultName "$(sharedKeyVaultName)"  `
                   -TenantId "$(Authentication_Tenant)"  `
                   -SharedResourceGroupName "$(SharedResourceGroup)"  `
                   -CdnEndpointName "$(CdnEndpointName)" -Verbose
             azurePowerShellVersion: LatestVersion
+        
         - task: AzurePowerShell@5
           displayName: 'Azure PowerShell script: Keyvault permissions'
           inputs:
