@@ -78,20 +78,11 @@
     async Task ReviewTypeLink(ContentReviewStatus status, ReviewType reviewType)
     {
         int count = Model?.ContentItemsApprovalCounts?.ReviewTypeCounts?[(int)reviewType] ?? 0;
+        string hasItems = (count > 0) ? "dashboard-item-status-has-items" : "";
 
-        if (count > 0)
-        {
-            <a class="dashboard-item-status-review-type dashboard-item-status-has-items"
-               asp-route-area="OrchardCore.Contents" asp-controller="@(typeof(OrchardCore.Contents.Controllers.AdminController).ControllerName())" asp-action="List"
-               asp-route-ContentApproval.SelectedApprovalStatus="@status" asp-route-ContentApproval.SelectedReviewType="@reviewType">@reviewType.GetDisplayName()</a>
-        }
-        else
-        {
-            // have review types with zero count as non-clickable <a>'s.
-            // if we have them as spans, they're clickable as part of the whole widget, which is confusing
-            // as it brings up the manage content page without review type selected
-            <a class="dashboard-item-status-review-type">@reviewType.GetDisplayName()</a>
-        }
+        <a class="dashboard-item-status-review-type @hasItems"
+           asp-route-area="OrchardCore.Contents" asp-controller="@(typeof(OrchardCore.Contents.Controllers.AdminController).ControllerName())" asp-action="List"
+           asp-route-ContentApproval.SelectedApprovalStatus="@status" asp-route-ContentApproval.SelectedReviewType="@reviewType">@reviewType.GetDisplayName()</a>
     }
     #pragma warning restore CS1998
 }
