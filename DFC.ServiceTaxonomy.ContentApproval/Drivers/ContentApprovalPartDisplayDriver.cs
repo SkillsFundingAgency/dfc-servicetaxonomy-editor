@@ -139,10 +139,10 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Drivers
             }
 
             await updater.TryUpdateModelAsync(viewModel, Prefix);
-
-            if (!updater.ModelState.IsValid)
+            if (string.IsNullOrWhiteSpace(viewModel.Comment) || viewModel.Comment.Equals(part.Comment))
             {
-               return await EditAsync(part, context);
+                updater.ModelState.AddModelError("Comment", "Please update the comment field before submitting.");
+                return await EditAsync(part, context);
             }
 
             var keys = updater.ModelState.Keys;
