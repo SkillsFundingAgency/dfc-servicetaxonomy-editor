@@ -63,6 +63,14 @@
                     'bold': 'Bold',
                     'regular': 'Regular'
                 },
+                youtubeLink: 'Insert Youtube Link',
+                iframeSettings: {
+                    'url': 'URL',
+                    'title': 'Title',
+                    'width': 'Width',
+                    'height': 'Height'
+                },
+                insertMedia: 'Insert Media'
             }
         },
         // Register plugin in Trumbowyg
@@ -164,6 +172,22 @@
                         text: 'Tab'
                     });
 
+                    trumbowyg.addBtnDef('youtubeLink', {
+                        ico: 'noembed',
+                        title: trumbowyg.lang.youtubeLink,
+                        fn: function () {
+                            youtubeLink(trumbowyg);
+                        }
+                    });
+
+                    trumbowyg.addBtnDef('insertMedia', {
+                        ico: 'insertImage',
+                        title: trumbowyg.lang.insertMedia,
+                        fn: function () {
+                            insertMedia(trumbowyg);
+                        }
+                    });
+
                     setColourTitles();
                 },
                 // Return a list of button names which are active on current element
@@ -259,6 +283,88 @@
         }
 
         trumbowyg.restoreRange();
+    }
+
+    function youtubeLink(trumbowyg) {
+
+        var options = {
+            url: {
+                label: trumbowyg.lang.iframeSettings.url,
+                required: true
+            },
+            title: {
+                label: trumbowyg.lang.iframeSettings.title
+            },
+            height: {
+                label: trumbowyg.lang.iframeSettings.height,
+                required: true,
+                value: "360"
+            },
+            width: {
+                label: trumbowyg.lang.iframeSettings.width,
+                required: true,
+                value: "640"
+            },
+        };
+        trumbowyg.openModalInsert(
+            trumbowyg.lang.youtubeLink,
+            options,
+            function (data) {
+
+                var srcUrl = setQueryParam(data.url, "rel", "0")
+
+                var $linkToEmbed = $('<iframe>')
+                    .attr('src', srcUrl)
+                    .attr('height', data.height)
+                    .attr('width', data.width)
+                    .attr('frameborder', "0")
+
+                if (data.title.length > 0)
+                    $linkToEmbed.attr('title', data.title + ' (video)')
+
+                trumbowyg.execCmd('insertHTML', $linkToEmbed.get(0).outerHTML)
+
+                return true;
+            });
+    }
+
+    function insertMedia(trumbowyg) {
+        trumbowyg.saveRange();
+        $("#mediaApp").detach().appendTo('#mediaModalHtmlField .modal-body');
+        $("#mediaApp").show();
+        mediaApp.selectedMedias = [];
+        var modal = $('#mediaModalHtmlField').modal();
+        //disable an reset on click event over the button to avoid issue if press button multiple times or have multiple editor
+        $('#mediaHtmlFieldSelectButton').off('click');
+        $('#mediaHtmlFieldSelectButton').on('click', function (v) {
+            //avoid multiple image insert
+            trumbowyg.restoreRange();
+            trumbowyg.range.deleteContents();
+
+            $(window).trigger('scroll');
+            var dateTimeStamp = new Date().toISOString().slice(0, -8).replace(/[-:T]/g, "");
+
+            for (i = 0; i < mediaApp.selectedMedias.length; i++) {
+                var img = document.createElement("img");
+                img.src = mediaApp.selectedMedias[i].url + '?' + dateTimeStamp;
+                img.alt = mediaApp.selectedMedias[i].name;
+                img.dataset.source = 'CDN';
+                trumbowyg.range.insertNode(img);
+            }
+            trumbowyg.syncCode();
+            trumbowyg.$c.trigger('tbwchange');
+            //avoid image to be selected after add it
+            trumbowyg.$c.focus();
+
+            $('#mediaModalHtmlField').modal('hide');
+            return true;
+        });
+    }
+
+    function setQueryParam(sourceUrl, key, value) {
+        var url = new URL(sourceUrl);
+        url.searchParams.set(key, value);
+        return url;
     }
 
     function createLink(trumbowyg, openInNewTab) {
@@ -730,7 +836,7 @@
     }
 
     function tabsBuilder() {
-        var tab1Id = Date.now()-1;
+        var tab1Id = Date.now() - 1;
         var tab2Id = Date.now();
         var divEnd = '</div>';
         var tab = '<div class="govuk-tabs" data-module="govuk-tabs"><h2 class="govuk-tabs__title">Contents</h2><ul class="govuk-tabs__list">';

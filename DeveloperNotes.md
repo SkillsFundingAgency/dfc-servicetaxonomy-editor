@@ -1,5 +1,38 @@
 #ToDo
 
+* looks like now need to enable 'new' menu through settings
+
+* link to visitor graph (calculate url), then we can count visits (# of relationships)
+  that would allow us to easily do things such as....
+  order job profiles/pages by popularity in the content items list
+  show the number of visitors
+  etc
+
+* Make visit site button open the current environment's National Careers site
+
+* check out feature:
+  Add Content To Deployment Plan
+  Adds an add to deployment plan action to the content items list.
+
+does it mean you can add individual items to a recipe?
+
+yes! add to features
+
+also... check out
+
+Export Content To Deployment Target
+Adds an export to deployment target action to the content items list.
+
+also.. add this...
+
+View Or Download Content As JSON
+
+*dashboard
+add what's new card
+add help card
+
+* add filter to content items : job profiles by selected job category
+
 * need to import content & set up users as part of releases
 
 * fix this error (update taxonomies from latest oc first to see if it fixes it)
@@ -620,8 +653,6 @@ dotnet new -i OrchardCore.ProjectTemplates::1.0.0-rc1-12019 --nuget-source https
 |----------------------|--------------------------|
 | not published        | publish                  |
 | published            | n/a                      |
-
-
 
 each event comes through as a separate workflow instance. can we 'collate' them into single task call?
 or do we publish multiple events?
@@ -1333,6 +1364,16 @@ Here are some useful workflows:
           ]
         },
 ```
+
+# reset migration in environment
+
+disable features
+remove migration records from Document: OrchardCore.Data.Migration.Records.DataMigrationRecord, OrchardCore.Data
+not-required: remove parts from OrchardCore.ContentManagement.Metadata.Records.ContentDefinitionRecord, OrchardCore.ContentManagement.Abstractions
+remove index tables
+restart app service
+enable features
+
 
 # decision log
 

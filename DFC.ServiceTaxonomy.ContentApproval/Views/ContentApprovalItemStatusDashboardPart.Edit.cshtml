@@ -1,0 +1,14 @@
+﻿@model ContentApprovalItemStatusDashboardPartViewModel
+
+<div class="row mb-3">
+    <div class="col-sm-6">
+        <label asp-for="Card">@T["Item status"]</label>
+        <select asp-for="Card" class="form-control">
+            <option value="@DashboardItemsStatusCard.InDraft" selected="@(Model.Card == DashboardItemsStatusCard.InDraft)">@T["In Draft"]</option>
+            <option value="@DashboardItemsStatusCard.WaitingForReview" selected="@(Model.Card == DashboardItemsStatusCard.WaitingForReview)">@T["Waiting for Review"]</option>
+            <option value="@DashboardItemsStatusCard.InReview" selected="@(Model.Card == DashboardItemsStatusCard.InReview)">@T["In Review"]</option>
+            <option value="@DashboardItemsStatusCard.Published" selected="@(Model.Card == DashboardItemsStatusCard.Published)">@T["Published"]</option>
+        </select>
+        <span class="hint">The item status to summarise in this widget.</span>
+    </div>
+</div>

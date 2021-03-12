@@ -20,6 +20,7 @@ parameters:
   DfcServiceTaxonomyTestsBuildId: ''
   TestArtifactBranch: ''
   TestExclusionTag: ''
+  MediaStorageAccountName: ''
  
 jobs:    
 - deployment: DeployArmTemplateTo_${{ parameters.Environment }}
@@ -55,6 +56,15 @@ jobs:
     runOnce:
       deploy:
         steps:
+        - task: AzureFileCopy@2
+          displayName: 'AzureBlob File Copy media'
+          inputs:
+            SourcePath: '$(Pipeline.Workspace)\media'
+            azureSubscription: '${{ parameters.AzureSubscription }}'
+            Destination: AzureBlob
+            storage: ${{ parameters.MediaStorageAccountName }}
+            ContainerName: '$web'
+            blobPrefix: media
         - task: AzureRmWebAppDeployment@4
           displayName: 'Azure App Service Deploy: ${{ parameters.WebAppName }}'
           inputs:

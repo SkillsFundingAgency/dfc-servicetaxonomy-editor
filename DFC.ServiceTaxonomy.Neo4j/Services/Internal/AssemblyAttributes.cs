@@ -1,3 +1,0 @@
-﻿//todo: move core of validation into a validation service in the neo project
-// but for now...
-[assembly: System.Runtime.CompilerServices.InternalsVisibleTo("DFC.ServiceTaxonomy.GraphSync")]

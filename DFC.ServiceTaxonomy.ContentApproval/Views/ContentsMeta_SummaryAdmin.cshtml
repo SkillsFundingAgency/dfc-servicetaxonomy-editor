@@ -1,0 +1,31 @@
+﻿@using DFC.ServiceTaxonomy.ContentApproval.Extensions
+@{
+    ContentItem contentItem = Model.ContentItem;
+}
+<div class="tags mr-1">
+    @if (contentItem.Has<ContentApprovalPart>())
+    {
+        ContentApprovalPart contentApprovalPart = contentItem.As<ContentApprovalPart>();
+        var reviewTypeLookUp = EnumExtensions.GetEnumNameAndDisplayNameDictionary(typeof(ReviewType));
+
+        if (contentApprovalPart.ReviewStatus == ContentReviewStatus.ReadyForReview)
+        {
+        <span class="badge ta-badge font-weight-normal align-text-top" data-toggle="tooltip" title="@(T["Waiting for review - {0}", reviewTypeLookUp[contentApprovalPart.ReviewType.ToString()]])">
+            <i class="far fa-hourglass text-primary"></i>
+        </span>
+        }
+        if (contentApprovalPart.ReviewStatus == ContentReviewStatus.InReview)
+        {
+        <span class="badge ta-badge font-weight-normal align-text-top" data-toggle="tooltip" title="@(T["In review - {0}", reviewTypeLookUp[contentApprovalPart.ReviewType.ToString()]])">
+            <i class="fas fa-search text-primary"></i>
+        </span>
+        }
+    }
+
+    @if (contentItem.ModifiedUtc.HasValue)
+    {
+        <span class="badge ta-badge font-weight-normal align-text-top" data-toggle="tooltip" title="@(T["{0} by {1}", $"{contentItem.ModifiedUtc:dd/MM/yyyy HH:mm}", contentItem.Author])">
+            <i class="far fa-clock text-primary"></i>
+        </span>
+    }
+</div>
