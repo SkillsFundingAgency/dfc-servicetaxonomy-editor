@@ -25,10 +25,4 @@
     </PackageReference>
   </ItemGroup>
 
-  <ItemGroup>
-    <EmbeddedResource Update="Views\ContentsMeta_SummaryAdmin.cshtml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
-  </ItemGroup>
-
 </Project>

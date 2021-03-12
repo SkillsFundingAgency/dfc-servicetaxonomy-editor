@@ -40,6 +40,7 @@ namespace DFC.ServiceTaxonomy.Editor
                 sanitizer.AllowedAttributes.Add("d");
                 sanitizer.AllowedAttributes.Add("xmlns");
                 sanitizer.AllowedAttributes.Add("viewBox");
+                sanitizer.AllowedAttributes.Add("allowfullscreen");
 
             }));
 
@@ -96,7 +97,7 @@ namespace DFC.ServiceTaxonomy.Editor
                         ".ico",
                         ".svg"
                 };
-                o.CdnBaseUrl = Configuration.GetValue<string>(Constants.Common.DigitalAssetsCdnKey);
+                o.CdnBaseUrl = Configuration.GetValue<string>(Constants.Common.DigitalAssetsCdnKey).TrimEnd('/');
             };
 
         }
