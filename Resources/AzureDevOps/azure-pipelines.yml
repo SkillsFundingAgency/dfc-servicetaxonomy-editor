@@ -58,13 +58,12 @@ stages:
       inputs:
         targetPath: $(Build.ArtifactStagingDirectory)/Resources/PSScripts
         artifactName: DFC.ServiceTaxonomy.Editor.PSScripts
-
   - job: BuildDotNet
     displayName: "Build the dotnet core applications"
     workspace:
       clean: all
     steps:
-    - template: ..\StepTemplates\dfc-dotnetcore-build.yml
+    - template: StepTemplates/dfc-dotnetcore-build.yml
       parameters:
         SolutionBaseName: $(SolutionBaseName).Editor
         BuildPlatform: 'any cpu'
