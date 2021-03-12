@@ -1,9 +1,5 @@
 //todo: this belongs in an Assets folder in the content approval project
 
-a.dashboard-item-status:hover {
-    text-decoration: none !important;
-    }
-
 .dashboard-item-status {
     //todo: switch to target .card using js instead? https://stackoverflow.com/questions/3662645/select-element-based-on-child-class
     // options to fill card: https://stackoverflow.com/questions/5581799/how-to-stretch-div-height-to-fill-parent-div-css
@@ -20,6 +16,10 @@ a.dashboard-item-status:hover {
     background-color: #f88b6f !important;
     border-radius: 15px 0;
     border-style: solid;
+
+    a:hover {
+        text-decoration: none !important;
+    }
 
     .overlay {
         position:absolute;
@@ -50,6 +50,14 @@ a.dashboard-item-status:hover {
             justify-content: center;
             border-radius: 0.3rem;
             border: 0.18rem solid white;
+        }
+
+        a.dashboard-item-status-review-type:hover {
+            color: #e4e4e4;
+        }
+
+        a.dashboard-item-status-has-items:hover {
+            color: #315095 !important;
         }
 
         .dashboard-item-status-has-items {
