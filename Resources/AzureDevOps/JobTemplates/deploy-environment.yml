@@ -41,6 +41,28 @@ jobs:
             EnvironmentTag: '${{ parameters.EnvironmentTag }}'
             ParentBusinessTag: '${{ parameters.ParentBusinessTag }}'            
             ServiceOfferingTag: '${{ parameters.ServiceOfferingTag }}'
+            
+       - task: AzurePowerShell@5
+          displayName: 'Azure PowerShell script: Creation of Service Principal'
+          inputs:
+            azureSubscription: '${{ parameters.AzureSubscription }}'
+            ScriptPath: "$(Pipeline.Workspace)/DFC.ServiceTaxonomy.Editor.PSScripts/New-ServicePrincipalAndStoreSecrets.ps1"
+            ScriptArguments: -SharedResourceGroupName "$(SharedResourceGroup)" `
+                  -CdnProfileName "$(CdnProfileName)"  `
+                  -ServicePrincipalName "$(ServicePrincipalName)"  `
+                  -RepoName dfc-servicetaxonomy-editor  `
+                  -KeyVaultName "$(sharedKeyVaultName)"  `
+                  -TenantId "$(Authentication_Tenant)"  `
+                  -CdnEndpointName "$(CdnEndpointName)" -Verbose
+            azurePowerShellVersion: LatestVersion
+        
+        - task: AzurePowerShell@5
+          displayName: 'Azure PowerShell script: Keyvault permissions'
+          inputs:
+            azureSubscription: '${{ parameters.AzureSubscription }}'
+            ScriptPath: "$(Pipeline.Workspace)/DFC.ServiceTaxonomy.Editor.PSScripts/Assign-KeyVault-Permissions-To-Identity.ps1"
+            ScriptArguments: "-KeyVaultName  $(sharedKeyVaultName) -ResourceGroupName $(sharedResourceGroup) -ServicePrincipalName '$(ServicePrincipalName)-as' -Verbose"
+            azurePowerShellVersion: LatestVersion
 
 - deployment: DeployEditorTo_${{ parameters.Environment }}
   workspace:
@@ -120,27 +142,6 @@ jobs:
           inputs:
             targetPath: $(Pipeline.Workspace)\OrchardCoreInitialiserOutput\ 
             artifactName: DFC.ServiceTaxonomy.OrchardCoreInitialiser.Output.${{ parameters.Environment }}
-        - task: AzurePowerShell@5
-          displayName: 'Azure PowerShell script: Creation of Service Principal'
-          inputs:
-            azureSubscription: '${{ parameters.AzureSubscription }}'
-            ScriptPath: "$(Pipeline.Workspace)/DFC.ServiceTaxonomy.Editor.PSScripts/New-ServicePrincipalAndStoreSecrets.ps1"
-            ScriptArguments: -SharedResourceGroupName "$(SharedResourceGroup)" `
-                  -CdnProfileName "$(CdnProfileName)"  `
-                  -ServicePrincipalName "$(ServicePrincipalName)"  `
-                  -RepoName dfc-servicetaxonomy-editor  `
-                  -KeyVaultName "$(sharedKeyVaultName)"  `
-                  -TenantId "$(Authentication_Tenant)"  `
-                  -CdnEndpointName "$(CdnEndpointName)" -Verbose
-            azurePowerShellVersion: LatestVersion
-        
-        - task: AzurePowerShell@5
-          displayName: 'Azure PowerShell script: Keyvault permissions'
-          inputs:
-            azureSubscription: '${{ parameters.AzureSubscription }}'
-            ScriptPath: "$(Pipeline.Workspace)/DFC.ServiceTaxonomy.Editor.PSScripts/Assign-KeyVault-Permissions-To-Identity.ps1"
-            ScriptArguments: "-KeyVaultName  $(sharedKeyVaultName) -ResourceGroupName $(sharedResourceGroup) -ServicePrincipalName '$(ServicePrincipalName)-as' -Verbose"
-            azurePowerShellVersion: LatestVersion
 
         - template: ..\StepTemplates\run-integration-tests.yml
           parameters:
