@@ -45,10 +45,16 @@ a.dashboard-item-status:hover {
 
         .dashboard-item-status-review-type {
             display:flex;
-            background-color: #acd18c !important;
+            color: #e4e4e4;
+            background-color: #55596b !important;
             justify-content: center;
             border-radius: 0.3rem;
             border: 0.18rem solid white;
+        }
+
+        .dashboard-item-status-has-items {
+            color: #315095 !important;
+            background-color: #acd18c !important;
         }
     }
 

@@ -69,7 +69,10 @@
     #pragma warning disable CS1998
     async Task ReviewTypeLink(ContentReviewStatus status, ReviewType reviewType)
     {
-        <a class="dashboard-item-status-review-type"
+        int count = Model?.ContentItemsApprovalCounts?.ReviewTypeCounts?[(int)reviewType] ?? 0;
+        string itemsClass = count > 0 ? "dashboard-item-status-has-items" : "";
+
+        <a class="dashboard-item-status-review-type @itemsClass"
            asp-route-area="OrchardCore.Contents" asp-controller="@(typeof(OrchardCore.Contents.Controllers.AdminController).ControllerName())" asp-action="List"
            asp-route-ContentApproval.SelectedApprovalStatus="@status" asp-route-ContentApproval.SelectedReviewType="@reviewType">@reviewType.GetDisplayName()</a>
     }
