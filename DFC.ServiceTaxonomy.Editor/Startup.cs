@@ -10,6 +10,7 @@ using DFC.ServiceTaxonomy.Editor.Configuration;
 using OrchardCore.Media;
 using System.Collections.Generic;
 using System;
+using DFC.ServiceTaxonomy.Media.Configuration;
 
 namespace DFC.ServiceTaxonomy.Editor
 {
@@ -65,6 +66,8 @@ namespace DFC.ServiceTaxonomy.Editor
             services.PostConfigure(SetupMediaConfig());
 
             services.Configure<PagesConfiguration>(Configuration.GetSection("Pages"));
+
+            services.Configure<AzureAdSettings>(Configuration.GetSection("AzureAdSettings"));
         }
 
         public void Configure(IApplicationBuilder app, IHostEnvironment env)
