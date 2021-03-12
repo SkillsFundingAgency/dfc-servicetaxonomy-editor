@@ -19,16 +19,18 @@
             <div class="dashboard-item-status">
                 <a class="overlay" asp-route-area="OrchardCore.Contents" asp-controller="@(typeof(OrchardCore.Contents.Controllers.AdminController).ControllerName())" asp-action="List" asp-route-ContentApproval.SelectedApprovalStatus="ReadyForReview"></a>
                 <div class="inner">
-                    <span class="dashboard-item-status-icon"><i class="far fa-hourglass"></i></span>
-                    <span class="dashboard-item-status-count">@(Model.ContentItemsApprovalCounts?.Count)</span>
-                    <span class="dashboard-item-status-type">Waiting For Review</span>
-                    <div class="dashboard-item-status-review-types">
-                    @{
-                        await ReviewTypeLink(ContentReviewStatus.ReadyForReview, ReviewType.ContentDesign);
-                        await ReviewTypeLink(ContentReviewStatus.ReadyForReview, ReviewType.SME);
-                        await ReviewTypeLink(ContentReviewStatus.ReadyForReview, ReviewType.Stakeholder);
-                        await ReviewTypeLink(ContentReviewStatus.ReadyForReview, ReviewType.UX);
-                    }
+                    <div class="dashboard-item-status-icon"><i class="far fa-hourglass"></i></div>
+                    <div>
+                        <span class="dashboard-item-status-count">@(Model.ContentItemsApprovalCounts?.Count)</span>
+                        <span class="dashboard-item-status-type">Waiting For Review</span>
+                        <div class="dashboard-item-status-review-types">
+                            @{
+                            await ReviewTypeLink(ContentReviewStatus.ReadyForReview, ReviewType.ContentDesign);
+                            await ReviewTypeLink(ContentReviewStatus.ReadyForReview, ReviewType.SME);
+                            await ReviewTypeLink(ContentReviewStatus.ReadyForReview, ReviewType.Stakeholder);
+                            await ReviewTypeLink(ContentReviewStatus.ReadyForReview, ReviewType.UX);
+                            }
+                        </div>
                     </div>
                 </div>
             </div>
