@@ -94,7 +94,7 @@ namespace DFC.ServiceTaxonomy.Editor
                         ".ico",
                         ".svg"
                 };
-                o.CdnBaseUrl = Configuration.GetValue<string>(Constants.Common.DigitalAssetsCdnKey);
+                o.CdnBaseUrl = Configuration.GetValue<string>(Constants.Common.DigitalAssetsCdnKey).TrimEnd('/');
             };
 
         }
