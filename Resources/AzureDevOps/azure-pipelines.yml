@@ -45,19 +45,6 @@ stages:
     - template: /AzureDevOpsTemplates/Build/StepTemplates/dfc-arm-build.yml@dfc-devops
       parameters:
         ArmTemplateRoot: "$(System.DefaultWorkingDirectory)/Resources/ArmTemplates"
-    
-    - task: CopyFiles@2
-      displayName: 'Copy PSScripts Files to: $(Build.ArtifactStagingDirectory)'
-      inputs:
-        Contents: 'PSScripts/**/*.ps1'
-        TargetFolder: '$(Build.ArtifactStagingDirectory)/Resources/PSScripts'
-        flattenFolders: true
-
-    - task: PublishPipelineArtifact@0
-      displayName: Publish PSScripts Pipeline Artifact
-      inputs:
-        targetPath: $(Build.ArtifactStagingDirectory)/Resources/PSScripts
-        artifactName: DFC.ServiceTaxonomy.Editor.PSScripts
 
   - job: BuildDotNet
     displayName: "Build the dotnet core applications"
@@ -119,6 +106,19 @@ stages:
       inputs:
         targetPath: $(build.artifactstagingdirectory)\DeploymentPackages\Nuget
         artifactName: $(SolutionBaseName).Nuget
+        
+    - task: CopyFiles@2
+      displayName: 'Copy PSScripts Files to: $(Build.ArtifactStagingDirectory)'
+      inputs:
+        Contents: 'PSScripts/**/*.ps1'
+        TargetFolder: '$(Build.ArtifactStagingDirectory)/Resources/PSScripts'
+        flattenFolders: true
+
+    - task: PublishPipelineArtifact@1
+      displayName: Publish PSScripts Pipeline Artifact
+      inputs:
+        targetPath: $(Build.ArtifactStagingDirectory)/Resources/PSScripts
+        artifactName: DFC.ServiceTaxonomy.Editor.PSScripts
 
     - task: PublishBuildArtifacts@1
       displayName: 'Publish media folder'

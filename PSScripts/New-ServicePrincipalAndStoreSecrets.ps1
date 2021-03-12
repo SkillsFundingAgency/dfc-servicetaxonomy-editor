@@ -167,6 +167,7 @@ IF (!$vaultKey){
 
 $roleAssignment = Get-AzRoleAssignment `
     -ResourceType "Microsoft.Cdn/profiles"  `
+    -A
     -ResourceName $CdnProfileName  `
     -ResourceGroupName $SharedResourceGroupName  `
     -RoleDefinitionName "Contributor" | Where-Object {$_.DisplayName -eq "$($AdServicePrincipal.DisplayName)"}
