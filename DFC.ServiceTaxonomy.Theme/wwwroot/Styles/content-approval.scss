@@ -1,5 +1,21 @@
 //todo: this belongs in an Assets folder in the content approval project
 
+.dashboard-item-status-in-draft {
+    background-color: #e79795 !important;
+}
+
+.dashboard-item-status-waiting-for-review {
+    background-color: #ffc988 !important;
+}
+
+.dashboard-item-status-in-review {
+    background-color: #ffb284 !important;
+}
+
+.dashboard-item-status-published {
+    background-color: #c6c09c !important;
+}
+
 .dashboard-item-status {
     //todo: switch to target .card using js instead? https://stackoverflow.com/questions/3662645/select-element-based-on-child-class
     // options to fill card: https://stackoverflow.com/questions/5581799/how-to-stretch-div-height-to-fill-parent-div-css
@@ -12,8 +28,8 @@
     top: 0;
     left: 0;
     width: 100%;
+    padding: 1rem 0;
     color: #315095 !important;
-    background-color: #f88b6f !important;
     border-radius: 15px 0;
     border-style: solid;
 
