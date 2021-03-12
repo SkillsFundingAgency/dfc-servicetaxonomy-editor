@@ -64,7 +64,7 @@ stages:
     workspace:
       clean: all
     steps:
-    - template: StepTemplates/dfc-dotnetcore-build.yml
+    - template: ..\StepTemplates\dfc-dotnetcore-build.yml
       parameters:
         SolutionBaseName: $(SolutionBaseName).Editor
         BuildPlatform: 'any cpu'
