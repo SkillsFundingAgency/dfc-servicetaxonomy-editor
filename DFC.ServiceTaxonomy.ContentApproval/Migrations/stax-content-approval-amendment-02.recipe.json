@@ -1,7 +1,7 @@
 {
-    "name": "01_content_approval",
+    "name": "03_content_approval",
     "displayName": "Content approval",
-    "description": "Enables content approval with associated roles and permissions",
+    "description": "Updates users with admin dashboard permission",
     "author": "National Careers Service",
     "website": "https://github.com/SkillsFundingAgency/dfc-servicetaxonomy-editor",
     "version": "1.0",
@@ -117,77 +117,6 @@
                         "AccessAdminPanel",
                         "AccessAdminDashboard"
                     ]
-                }
-            ]
-        },
-        {
-            "name": "ReplaceContentDefinition",
-            "ContentTypes": [
-                {
-                    "Name": "ContentApprovalItemStatusDashboardWidget",
-                    "DisplayName": "Content Approval Item Status Dashboard Widget",
-                    "Settings": {
-                        "ContentTypeSettings": {
-                            "Stereotype": "DashboardWidget",
-                            "Securable": true
-                        },
-                        "FullTextAspectSettings": {}
-                    },
-                    "ContentTypePartDefinitionRecords": [
-                        {
-                            "PartName": "ContentApprovalItemStatusDashboardWidget",
-                            "Name": "ContentApprovalItemStatusDashboardWidget",
-                            "Settings": {
-                                "ContentTypePartSettings": {
-                                    "Position": "0"
-                                }
-                            }
-                        },
-                        {
-                            "PartName": "DashboardPart",
-                            "Name": "DashboardPart",
-                            "Settings": {
-                                "ContentTypePartSettings": {
-                                    "Position": "1"
-                                }
-                            }
-                        },
-                        {
-                            "PartName": "ContentApprovalItemStatusDashboardPart",
-                            "Name": "ContentApprovalItemStatusDashboardPart",
-                            "Settings": {
-                                "ContentTypePartSettings": {
-                                    "Position": "2"
-                                }
-                            }
-                        }
-                    ]
-                }
-            ],
-            "ContentParts": []
-        },
-        {
-            "name": "Content",
-            "data": [
-                {
-                    "ContentItemId": "4mmhd34qrhvygstebtm6fnpd5b",
-                    "ContentItemVersionId": "4nfdtbg8cqyv02vtv22nvwxg4g",
-                    "ContentType": "ContentApprovalItemStatusDashboardWidget",
-                    "DisplayText": null,
-                    "Latest": true,
-                    "Published": true,
-                    "ModifiedUtc": "2021-02-11T12:53:42.7302174Z",
-                    "PublishedUtc": "2021-02-11T12:53:42.7429332Z",
-                    "CreatedUtc": "2021-02-11T12:30:53.749129Z",
-                    "Owner": null,
-                    "Author": "admin",
-                    "ContentApprovalItemStatusDashboardWidget": {},
-                    "ContentApprovalItemStatusDashboardPart": {
-                        "Card": 0
-                    },
-                    "DashboardPart": {
-                        "Position": 10.0
-                    }
                 }
             ]
         }
