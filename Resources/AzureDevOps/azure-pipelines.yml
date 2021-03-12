@@ -106,25 +106,25 @@ stages:
       inputs:
         targetPath: $(build.artifactstagingdirectory)\DeploymentPackages\Nuget
         artifactName: $(SolutionBaseName).Nuget
-        
-    - task: CopyFiles@2
-      displayName: 'Copy PSScripts Files to: $(Build.ArtifactStagingDirectory)'
-      inputs:
-        Contents: 'PSScripts/**/*.ps1'
-        TargetFolder: '$(Build.ArtifactStagingDirectory)/Resources/PSScripts'
-        flattenFolders: true
-
-    - task: PublishPipelineArtifact@1
-      displayName: Publish PSScripts Pipeline Artifact
-      inputs:
-        targetPath: $(Build.ArtifactStagingDirectory)/Resources/PSScripts
-        artifactName: DFC.ServiceTaxonomy.Editor.PSScripts
 
     - task: PublishBuildArtifacts@1
       displayName: 'Publish media folder'
       inputs:
         PathtoPublish: 'media'
         artifactName: media
+
+    - task: CopyFiles@2
+      displayName: 'Copy PSScripts Files to: $(Build.ArtifactStagingDirectory)'
+      inputs:
+        Contents: 'PSScripts/**/*.ps1'
+        TargetFolder: '$(Build.ArtifactStagingDirectory)\PSScripts'
+        flattenFolders: true
+
+    - task: PublishPipelineArtifact@1
+      displayName: Publish PSScripts Pipeline Artifact
+      inputs:
+        targetPath: $(Build.ArtifactStagingDirectory)\PSScripts
+        artifactName: DFC.ServiceTaxonomy.Editor.PSScripts
 
 - stage: PublishPackage
   displayName: Publish Package to NuGet
