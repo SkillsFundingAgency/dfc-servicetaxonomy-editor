@@ -120,7 +120,7 @@ stages:
         TargetFolder: '$(Build.ArtifactStagingDirectory)\PSScripts'
         flattenFolders: true
 
-    - task: PublishPipelineArtifact@1
+    - task: PublishPipelineArtifact@0
       displayName: Publish PSScripts Pipeline Artifact
       inputs:
         targetPath: $(Build.ArtifactStagingDirectory)\PSScripts
