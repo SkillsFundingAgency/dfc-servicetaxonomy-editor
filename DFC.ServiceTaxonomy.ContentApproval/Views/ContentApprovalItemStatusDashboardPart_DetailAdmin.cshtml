@@ -8,14 +8,18 @@
     switch (Model.Card)
     {
         case DashboardItemsStatusCard.InDraft:
-            <a class="dashboard-item-status" asp-route-area="OrchardCore.Contents" asp-controller="@(typeof(OrchardCore.Contents.Controllers.AdminController).ControllerName())" asp-action="List" asp-route-Options.ContentsStatus="Draft">
-                <span class="dashboard-item-status-icon"><i class="fas fa-pencil-alt"></i></span>
-                <span class="dashboard-item-status-count">@(Model.ContentItemsApprovalCounts?.Count)</span>
-                <span class="dashboard-item-status-type">In Draft</span>
-            </a>
+            <div class="dashboard-item-status">
+                <a class="overlay" asp-route-area="OrchardCore.Contents" asp-controller="@(typeof(OrchardCore.Contents.Controllers.AdminController).ControllerName())" asp-action="List" asp-route-Options.ContentsStatus="Draft"></a>
+                <div class="inner">
+                    <div class="dashboard-item-status-icon"><i class="fas fa-pencil-alt"></i></div>
+                    <div>
+                        <span class="dashboard-item-status-count">@(Model.ContentItemsApprovalCounts?.Count)</span>
+                        <span class="dashboard-item-status-type">In Draft</span>
+                    </div>
+                </div>
+            </div>
             break;
         case DashboardItemsStatusCard.WaitingForReview:
-
             <div class="dashboard-item-status">
                 <a class="overlay" asp-route-area="OrchardCore.Contents" asp-controller="@(typeof(OrchardCore.Contents.Controllers.AdminController).ControllerName())" asp-action="List" asp-route-ContentApproval.SelectedApprovalStatus="ReadyForReview"></a>
                 <div class="inner">
