@@ -42,7 +42,7 @@ jobs:
             ParentBusinessTag: '${{ parameters.ParentBusinessTag }}'            
             ServiceOfferingTag: '${{ parameters.ServiceOfferingTag }}'
             
-       - task: AzurePowerShell@5
+        - task: AzurePowerShell@5
           displayName: 'Azure PowerShell script: Creation of Service Principal'
           inputs:
             azureSubscription: '${{ parameters.AzureSubscription }}'
