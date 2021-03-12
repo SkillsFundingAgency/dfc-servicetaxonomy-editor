@@ -33,7 +33,7 @@ jobs:
     runOnce:
       deploy:
         steps:
-        - template: ../StepTemplates/dfc-arm-template.yml
+        - template: ..\StepTemplates\deploy-arm-template.yml
           parameters:
             ArmTemplateRoot: '${{ parameters.ArmTemplateFolder }}'
             ResourceGroup: '${{ parameters.ResourceGroup }}'
