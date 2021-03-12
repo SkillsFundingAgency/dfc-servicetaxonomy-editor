@@ -16,7 +16,7 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Services
         {
             var viewModel = new ReviewTypeContentsAdminListFilterViewModel();
 
-            if (await updater.TryUpdateModelAsync(viewModel, ContentApprovalPart.Prefix)
+            if (await updater.TryUpdateModelAsync(viewModel, Constants.ContentApprovalPartPrefix)
                 && viewModel.SelectedReviewType.HasValue)
             {
                 query.With<ContentApprovalPartIndex>(i => i.ReviewType == (int?)viewModel.SelectedReviewType);

@@ -148,6 +148,9 @@
         },
         "MediaBasePath": {
             "value": "__MediaBasePath__"
+        },
+        "DigitalAssetsCdn": {
+            "value": "__CdnUrl__"
         }
     }
 }

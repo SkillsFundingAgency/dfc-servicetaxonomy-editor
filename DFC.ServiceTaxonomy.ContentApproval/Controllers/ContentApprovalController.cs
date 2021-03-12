@@ -86,6 +86,7 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Controllers
             if (contentApprovalPart.ReviewStatus == ContentReviewStatus.ReadyForReview)
             {
                 contentItem.Alter<ContentApprovalPart>(p => p.ReviewStatus = ContentReviewStatus.InReview);
+                contentItem.Author = User.Identity.Name;
                 await _contentManager.SaveDraftAsync(contentItem);
             }
             else if (contentApprovalPart.ReviewStatus == ContentReviewStatus.InReview)
