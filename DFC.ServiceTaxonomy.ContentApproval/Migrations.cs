@@ -115,5 +115,12 @@ namespace DFC.ServiceTaxonomy.ContentApproval
 
             return 5;
         }
+
+        public async Task<int> UpdateFrom5Async()
+        {
+            await _recipeMigrator.ExecuteAsync("stax-content-approval-amendment-03.recipe.json", this);
+
+            return 6;
+        }
     }
 }
