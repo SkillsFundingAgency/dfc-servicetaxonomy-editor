@@ -23,5 +23,3 @@ variables:
   value: dfc-dev-stax-editor
 - name: CdnProfileName
   value: dfc-dev-shared-cdn
-- name: cdnEndpointName
-  value: dfc-dev-digital-assets

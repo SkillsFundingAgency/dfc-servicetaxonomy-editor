@@ -184,26 +184,6 @@ if (!$roleAssignment) {
 }
 
 
-$roleAssignment = Get-AzRoleAssignment `
-    -ResourceType "Microsoft.Cdn/profiles/endpoints"  `
-    -ResourceName $CdnEndpointName  `
-    -ResourceGroupName $SharedResourceGroupName  `
-    -RoleDefinitionName "Contributor" | Where-Object {$_.DisplayName -eq "$($AdServicePrincipal.DisplayName)"}
-if (!$roleAssignment) {
-    Write-Verbose "'Contributor' Role assignment to $($AdServicePrincipal.ServicePrincipalNames) for $($CdnEndpointName) NOT FOUND"
-    Write-Verbose "Adding 'Contributor' Role assignment to $($AdServicePrincipal.ServicePrincipalNames) for $($CdnEndpointName)"
-    New-AzRoleAssignment -ApplicationId $AdServicePrincipal.ApplicationId  `
-        -ResourceType "Microsoft.Cdn/profiles/endpoint"  `
-        -ResourceName $CdnEndpointName  `
-        -ResourceGroupName $SharedResourceGroupName  `
-        -RoleDefinitionName "Contributor"
-    Write-Verbose "Added 'Contributor' Role assignment to $($AdServicePrincipal.ServicePrincipalNames) for $($CdnEndpointName)"
-} else {
-    Write-Verbose "$($roleAssignment.DisplayName) has CONTRIBUTOR permissions for $($CdnEndpointName)"   
-}
-    
-
-
 
 
 
