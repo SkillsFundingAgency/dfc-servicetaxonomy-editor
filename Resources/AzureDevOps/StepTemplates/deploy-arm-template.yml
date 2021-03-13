@@ -57,12 +57,11 @@ steps:
     azureSubscription: '${{ parameters.AzureSubscription }}'
     ScriptPath: "$(Pipeline.Workspace)/DFC.ServiceTaxonomy.Editor.PSScripts/New-ServicePrincipalAndStoreSecrets.ps1"
     ScriptArguments: -SharedResourceGroupName "$(SharedResourceGroup)" `
-          -CdnProfileName "$(CdnProfileName)"  `
           -ServicePrincipalName "$(ServicePrincipalName)"  `
           -RepoName dfc-servicetaxonomy-editor  `
           -KeyVaultName "$(sharedKeyVaultName)"  `
           -TenantId "$(Authentication_Tenant)"  `
-          -CdnEndpointName "$(CdnEndpointName)" -Verbose
+          -CdnProfileName "$(CdnProfileName)"  -Verbose
     azurePowerShellVersion: LatestVersion
         
 - task: AzurePowerShell@5
