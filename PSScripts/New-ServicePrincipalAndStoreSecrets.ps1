@@ -40,9 +40,7 @@ param(
     [Parameter(Mandatory=$true)]
     [string]$KeyVaultName,
     [Parameter(Mandatory=$true)]
-    [string]$TenantId,
-    [Parameter(Mandatory=$true)]
-    [string]$CdnEndpointName
+    [string]$TenantId
 )
 
 function New-Password{
