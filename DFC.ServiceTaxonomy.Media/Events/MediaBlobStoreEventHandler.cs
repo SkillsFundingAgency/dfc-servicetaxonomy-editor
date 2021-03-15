@@ -16,7 +16,7 @@ namespace DFC.ServiceTaxonomy.Media.Events
     public class MediaBlobStoreEventHandler : MediaEventHandlerBase
     {
         private const string Resource = "https://management.core.windows.net/";
-        private const string MediaContentPath = "/Media";
+        private const string AssetsRequestPath = "/media";
         private readonly ILogger<MediaBlobStoreEventHandler> _logger;
         private readonly AzureAdSettings _azureAdSettings;
 
@@ -28,7 +28,7 @@ namespace DFC.ServiceTaxonomy.Media.Events
 
         public override async Task MediaDeletedFileAsync(MediaDeletedContext context)
         {
-            await PurgeCdnAsync($"{MediaContentPath}/{context.Path}");
+            await PurgeCdnAsync($"{AssetsRequestPath}/{context.Path}");
         }
 
         private async Task<bool> PurgeCdnAsync(string contentPath)
@@ -46,6 +46,7 @@ namespace DFC.ServiceTaxonomy.Media.Events
                 {
                     SubscriptionId = _azureAdSettings.SubscriptionId
                 };
+
 
                 AzureOperationResponse azureOperationResponse = await cdnManagementClient.Endpoints
                                                                 .PurgeContentWithHttpMessagesAsync(_azureAdSettings.ResourceGroupName,
@@ -75,6 +76,7 @@ namespace DFC.ServiceTaxonomy.Media.Events
             try
             {
                 AuthenticationContext authContext = new AuthenticationContext(_azureAdSettings.Authority);
+
                 ClientCredential credential = new ClientCredential(_azureAdSettings.ClientId, _azureAdSettings.ClientSecret);
                 authenticationResult = await authContext.AcquireTokenAsync(Resource, credential);
             }
