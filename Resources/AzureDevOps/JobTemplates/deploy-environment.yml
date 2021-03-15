@@ -33,7 +33,7 @@ jobs:
     runOnce:
       deploy:
         steps:
-        - template: /AzureDevOpsTemplates/Deploy/StepTemplates/dfc-arm-deploy.yml@dfc-devops
+        - template: ..\StepTemplates\deploy-arm-template.yml
           parameters:
             ArmTemplateRoot: '${{ parameters.ArmTemplateFolder }}'
             ResourceGroup: '${{ parameters.ResourceGroup }}'
@@ -120,6 +120,7 @@ jobs:
           inputs:
             targetPath: $(Pipeline.Workspace)\OrchardCoreInitialiserOutput\ 
             artifactName: DFC.ServiceTaxonomy.OrchardCoreInitialiser.Output.${{ parameters.Environment }}
+
         - template: ..\StepTemplates\run-integration-tests.yml
           parameters:
             Environment: ${{ parameters.Environment }}
