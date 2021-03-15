@@ -17,9 +17,9 @@ variables:
   value: basic
 - name: PublishToSlack
   value: true
-- name: MediaStorageAccountName
-  value: dfcdevdigstr
 - name: ServicePrincipalName
-  value: dfc-dev-stax-editor
+  value: $(ServicePrincipalName)
+- name: MediaStorageAccountName
+  value: $(MediaStorageAccountName)
 - name: CdnProfileName
-  value: dfc-dev-shared-cdn
+  value: $(CdnProfileName)
