@@ -13,181 +13,183 @@
     "steps": [
         {
             "name": "Content",
-            "data": [{
-                "ContentItemId": "4jg4dmxxvyp9v5v6p3zjh9g74b",
-                "ContentItemVersionId": "4tmmhjfgp1hvxv0je6fzm6m2x4",
-                "ContentType": "Page",
-                "DisplayText": "About us",
-                "Latest": true,
-                "Published": true,
-                "ModifiedUtc": "2021-02-23T15:18:21.7495558Z",
-                "PublishedUtc": "2021-02-23T15:18:22.078328Z",
-                "CreatedUtc": "2021-02-22T14:17:14.7812362Z",
-                "Owner": "4y0s32jce0cnty5s1twd5837w2",
-                "Author": "stephen",
-                "TitlePart": {
-                  "Title": "About us"
-                },
-                "Page": {
-                  "PageLocations": {
-                    "TaxonomyContentItemId": "4eembshqzx66drajtdten34tc8",
-                    "TermContentItemIds": [
-                      "4fj8n537qn55d7q4kk6xxs3bn0"
-                    ]
-                  },
-                  "Description": {
-                    "Text": null
-                  },
-                  "Herobanner": {
-                    "Html": "<div class=\"govuk-width-container\">\n\n      <div class=\"govuk-grid-row\">\n\n        <div class=\"govuk-grid-column-two-thirds\">\n\n            <h1 class=\"govuk-heading-xl\">About us</h1><p><span style=\"font-size: 24px; font-family: &quot;GDS Transport&quot;, arial, sans-serif\">&nbsp;</span><font><span style=\"font-size: 24px\">Find out more about the services the National Careers Service offers and the different ways we can help&nbsp;</span></font></p>\n\n            </div></div></div>"
-                  },
-                  "ShowHeroBanner": {
-                    "Value": true
-                  }
-                },
-                "SitemapPart": {
-                  "Priority": 5,
-                  "OverrideSitemapConfig": false,
-                  "ChangeFrequency": 0,
-                  "Exclude": false
-                },
-                "FlowPart": {
-                  "Widgets": [
-                    {
-                      "ContentItemId": "49bceed70dae82m8z7pjkrsdm9",
-                      "ContentItemVersionId": null,
-                      "ContentType": "HTML",
-                      "DisplayText": "",
-                      "Latest": false,
-                      "Published": false,
-                      "ModifiedUtc": "2021-02-23T15:18:21.792032Z",
-                      "PublishedUtc": null,
-                      "CreatedUtc": null,
-                      "Owner": "",
-                      "Author": "stephen",
-                      "HTML": {},
-                      "HtmlBodyPart": {
-                        "Html": "<div class=\"wrapper\" id=\"wrapper\">\n  <section class=\"govuk-!-margin-top-5\" id=\"\">\n    <div class=\"govuk-width-container\">\n      <div class=\"govuk-grid-row\">\n        <div class=\"govuk-grid-column-one-half\">\n          <h2 class=\"govuk-heading-l\">Find out what we do</h2>\n          <p class=\"govuk-body\">The National Careers Service provides high quality, free and impartial careers advice, information and guidance. Our service is available to anyone aged 13+ no matter what stage of the careers journey you’re at. </p>\n          <p class=\"govuk-body\">The video will give you a brief overview of some of the work the National Careers Service does.</p>\n        </div>\n        <div class=\"govuk-grid-column-one-half card\">\n          <iframe id=\"\" width=\"100%\" height=\"315\" title=\"What National Careers Service do\" src=\"https://www.youtube-nocookie.com/embed/BN4rdE2HXaw?rel=0&amp;modestbranding=1&amp;autoplay=1&amp;origin=http://sddmgca.co.uk\"></iframe>\n          <details class=\"govuk-details govuk-!-margin-top-3\" data-module=\"govuk-details\">\n            <summary class=\"govuk-details__summary\"> <span class=\"govuk-details__summary-text\"> View transcript </span> </summary>\n            <div class=\"govuk-details__text\">\n              <p class=\"govuk-body\"><span class=\"govuk-body-s govuk-!-margin-right-5\">00:00</span>[Music]</p>\n              <p class=\"govuk-body\"><span class=\"govuk-body-s govuk-!-margin-right-5\">00:02</span> the national career service provides</p>\n              <p class=\"govuk-body\"><span class=\"govuk-body-s govuk-!-margin-right-5\">00:04</span> high quality free and impartial</p>\n              <p class=\"govuk-body\"><span class=\"govuk-body-s govuk-!-margin-right-5\">00:06</span> information advice and guidance to help</p>\n              <p class=\"govuk-body\"><span class=\"govuk-body-s govuk-!-margin-right-5\">00:09</span> citizens make decisions on learning</p>\n              <p class=\"govuk-body\"><span class=\"govuk-body-s govuk-!-margin-right-5\">00:11</span> training and work it is available to all</p>\n              <p class=\"govuk-body\"><span class=\"govuk-body-s govuk-!-margin-right-5\">00:15</span> adults in England over the age of 13 our</p>\n              <p class=\"govuk-body\"><span class=\"govuk-body-s govuk-!-margin-right-5\">00:18</span> universal service is primarily for</p>\n              <p class=\"govuk-body\"><span class=\"govuk-body-s govuk-!-margin-right-5\">00:21</span> citizens beneath somewhere to go that</p>\n              <p class=\"govuk-body\"><span class=\"govuk-body-s govuk-!-margin-right-5\">00:23</span> can provide comprehensive careers</p>\n              <p class=\"govuk-body\"><span class=\"govuk-body-s govuk-!-margin-right-5\">00:25</span> information advice or guidance for</p>\n              <p class=\"govuk-body\"><span class=\"govuk-body-s govuk-!-margin-right-5\">00:27</span> themselves additional users of our</p>\n              <p class=\"govuk-body\"><span class=\"govuk-body-s govuk-!-margin-right-5\">00:30</span> service are people who use it to support</p>\n              <p class=\"govuk-body\"><span class=\"govuk-body-s govuk-!-margin-right-5\">00:32</span> others this includes professional</p>\n              <p class=\"govuk-body\"><span class=\"govuk-body-s govuk-!-margin-right-5\">00:34</span> careers advisers and intermediaries such</p>\n              <p class=\"govuk-body\"><span class=\"govuk-body-s govuk-!-margin-right-5\">00:37</span> as employers teachers and parents our</p>\n              <p class=\"govuk-body\"><span class=\"govuk-body-s govuk-!-margin-right-5\">00:41</span> service is designed to enable users to</p>\n              <p class=\"govuk-body\"><span class=\"govuk-body-s govuk-!-margin-right-5\">00:43</span> self serve as much as possible however</p>\n              <p class=\"govuk-body\"><span class=\"govuk-body-s govuk-!-margin-right-5\">00:46</span> some of our users need more intensive</p>\n              <p class=\"govuk-body\"><span class=\"govuk-body-s govuk-!-margin-right-5\">00:48</span> support for self service our intuitive</p>\n              <p class=\"govuk-body\"><span class=\"govuk-body-s govuk-!-margin-right-5\">00:51</span> digital tools and smart use of data</p>\n              <p class=\"govuk-body\"><span class=\"govuk-body-s govuk-!-margin-right-5\">00:53</span> enable them to get a personalised</p>\n              <p class=\"govuk-body\"><span class=\"govuk-body-s govuk-!-margin-right-5\">00:55</span> service professional careers advisors</p>\n              <p class=\"govuk-body\"><span class=\"govuk-body-s govuk-!-margin-right-5\">00:58</span> will help provide users with additional</p>\n              <p class=\"govuk-body\"><span class=\"govuk-body-s govuk-!-margin-right-5\">01:00</span> advice and guidance specific to their</p>\n              <p class=\"govuk-body\"><span class=\"govuk-body-s govuk-!-margin-right-5\">01:03</span> personal</p>\n              <p class=\"govuk-body\"><span class=\"govuk-body-s govuk-!-margin-right-5\">01:03</span> circumstances if you want any more</p>\n              <p class=\"govuk-body\"><span class=\"govuk-body-s govuk-!-margin-right-5\">01:08</span> information about the national career</p>\n              <p class=\"govuk-body\"><span class=\"govuk-body-s govuk-!-margin-right-5\">01:10</span> service please get in touch</p>\n            </div>\n          </details>\n        </div>\n\n      </div>\n    </div>\n  </section>\n  <section class=\"brand--ncs brand__border-color organisation__brand-border-top organisation__section-wrap\" id=\"\">\n    <div class=\"govuk-grid-row govuk-!-margin-top-5\">\n      <div class=\"govuk-grid-column-two-thirds\">\n        <h3 class=\"govuk-heading-m govuk-!-font-size-27\">Who is the National Careers Service for?</h3>\n      </div>\n    </div>\n    <div class=\"govuk-grid-row\">\n      <div class=\"govuk-grid-column-one-third  govuk-!-margin-top-2\">\n        <h3 class=\"gem-c-heading govuk-heading-m   govuk-!-margin-bottom-3\">Citizens</h3>\n        <p class=\"govuk-body-m\"><span style=\"font-family: &quot;GDS Transport&quot;, arial, sans-serif\">We provide anyone aged 13+ with life long careers information, advice and guidance to help you make good career choices, no matter what point of your career journey you’re at.</span><br></p>\n      </div>\n      <div class=\"govuk-grid-column-one-third govuk-!-margin-top-2\">\n        <div>\n          <h2 class=\"govuk-heading-m\">Intermediaries</h2>\n          <p class=\"govuk-body\"><span style=\"font-family: &quot;GDS Transport&quot;, arial, sans-serif\">We provide information for parents, teachers, employers, coaches and advisers to support others in their career journey.</span><br></p>\n\n        </div>\n      </div>\n      <div class=\"govuk-grid-column-one-third  govuk-!-margin-top-2\">\n        <h3 class=\"gem-c-heading govuk-heading-m   govuk-!-margin-bottom-3\">Stakeholders</h3>\n        <p class=\"govuk-body\"><span style=\"font-family: &quot;GDS Transport&quot;, arial, sans-serif\">We work with organisations, employers and professional bodies to promote the importance of up to date careers guidance.</span><br></p>\n\n      </div>\n    </div>\n  </section>\n  <section class=\"brand--ncs brand__border-color organisation__brand-border-top organisation__section-wrap govuk-!-margin-top-5\" id=\"\">\n    <div class=\"govuk-grid-row govuk-!-margin-top-3 govuk-!-margin-bottom-2\">\n      <div class=\"govuk-grid-column-two-thirds govuk-!-margin-top-2\">\n        <div>\n          <h2 class=\"govuk-heading-m govuk-!-font-size-27\">Careers information and advice online</h2>\n          <p class=\"govuk-body\" style=\"font-family: &quot;GDS Transport&quot;, arial, sans-serif; font-size: 19px; line-height: 1.31579; margin-bottom: 20px; border: none\">The National Careers Service website is here to give you the tools to make decisions about your career at your own pace and in your own time. You can:</p><ul class=\"govuk-list govuk-list--bullet\" style=\"list-style-position: inherit; list-style-image: inherit; border: none; margin-bottom: 20px; font-family: &quot;GDS Transport&quot;, arial, sans-serif; font-size: 19px; line-height: 1.31579\"><li style=\"border: none\"><a href=\"https://nationalcareers.service.gov.uk/explore-careers\" style=\"font-family: &quot;GDS Transport&quot;, arial, sans-serif; border: none; margin: 0; padding: 0; color: rgba(0, 94, 165, 1)\">explore careers</a>&nbsp;to see what career options are out there</li><li style=\"border: none\">read&nbsp;<a href=\"https://nationalcareers.service.gov.uk/careers-advice\" style=\"font-family: &quot;GDS Transport&quot;, arial, sans-serif; border: none; margin: 0; padding: 0; color: rgba(0, 94, 165, 1)\">careers advice articles</a>&nbsp;for help to make good career decisions</li><li style=\"border: none\">take a&nbsp;<a href=\"https://nationalcareers.service.gov.uk/skills-assessment\" style=\"font-family: &quot;GDS Transport&quot;, arial, sans-serif; border: none; margin: 0; padding: 0; color: rgba(0, 94, 165, 1)\">skills assessment</a>&nbsp;to find out what you’re good at</li><li style=\"border: none\"><a href=\"https://nationalcareers.service.gov.uk/find-a-course\" style=\"font-family: &quot;GDS Transport&quot;, arial, sans-serif; border: none; margin: 0; padding: 0; color: rgba(0, 94, 165, 1)\">find a course</a>&nbsp;that will provide you with the training and qualifications you need</li><li style=\"border: none\"><a href=\"https://nationalcareers.service.gov.uk/find-a-course/the-skills-toolkit\" style=\"font-family: &quot;GDS Transport&quot;, arial, sans-serif; border: none; margin: 0; padding: 0; color: rgba(0, 94, 165, 1)\">update your skills</a>&nbsp;to help you do your job more effectively or support you in finding a new one</li></ul><ul class=\"govuk-list govuk-list--bullet\">\n          </ul>\n        </div>\n      </div>\n    </div>\n  </section>\n  <section class=\"\" id=\"\">\n    <div class=\"govuk-grid-row govuk-!-margin-top-6 govuk-!-margin-bottom-2\">\n      <div class=\"govuk-grid-column-two-thirds govuk-!-margin-top-2\">\n        <div>\n          <h2 class=\"govuk-heading-m govuk-!-font-size-27\" style=\"margin-bottom: 20px; vertical-align: baseline; border: none; font-family: &quot;GDS Transport&quot;, arial, sans-serif; line-height: 1.11111 !important\">Personalised careers guidance, telephone and web chat support</h2><h2 class=\"govuk-heading-m govuk-!-font-size-27\"><p class=\"govuk-body\" style=\"font-family: &quot;GDS Transport&quot;, arial, sans-serif; font-size: 19px; line-height: 1.31579; margin-bottom: 20px; border: none\">If you want some extra support on your career journey, you can&nbsp;<a href=\"https://nationalcareers.service.gov.uk/contact-us\" style=\"font-family: &quot;GDS Transport&quot;, arial, sans-serif; border: none; margin: 0; padding: 0; color: rgba(0, 94, 165, 1)\">contact us</a>&nbsp;to speak to an adviser or&nbsp;<a href=\"https://nationalcareers.service.gov.uk/webchat/chat\" style=\"font-family: &quot;GDS Transport&quot;, arial, sans-serif; border: none; margin: 0; padding: 0; color: rgba(0, 94, 165, 1)\">start a web chat</a>. Trained careers advisers can help you to build your confidence to take the next steps on your career journey.</p><p class=\"govuk-body\" style=\"font-family: &quot;GDS Transport&quot;, arial, sans-serif; font-size: 19px; line-height: 1.31579; margin-bottom: 20px; border: none\">Our careers advisers will provide you with careers information, advice and guidance that best reflects your needs and circumstances. This doesn’t look the same for everyone but may include:</p><ul class=\"govuk-list govuk-list--bullet\" style=\"list-style-position: inherit; list-style-image: inherit; border: none; margin-bottom: 20px; font-family: &quot;GDS Transport&quot;, arial, sans-serif; font-size: 19px; line-height: 1.31579\"><li style=\"border: none\">participation in webinars or group sessions</li><li style=\"border: none\">signposting towards specialist resources and support</li><li style=\"border: none\">individual guidance appointments, either online or at a local venue</li></ul></h2></div></div></div></section><section class=\"brand--ncs brand__border-color organisation__brand-border-top organisation__section-wrap organisation__margin-bottom govuk-!-margin-top-3 govuk-!-padding-top-3\" id=\"\">\n    <div class=\"govuk-grid-row\">\n      \n      \n      \n\n\n      \n    </div>\n  </section>\n</div>"
+            "data": [
+                {
+                    "ContentItemId": "4jg4dmxxvyp9v5v6p3zjh9g74b",
+                    "ContentItemVersionId": "499yrg9s6dra7tqrctx8jp4xd4",
+                    "ContentType": "Page",
+                    "DisplayText": "About us",
+                    "Latest": true,
+                    "Published": true,
+                    "ModifiedUtc": "2021-03-15T09:50:13.5946299Z",
+                    "PublishedUtc": "2021-03-15T09:50:13.6226712Z",
+                    "CreatedUtc": "2021-02-22T14:17:14.7812362Z",
+                    "Owner": "4y0s32jce0cnty5s1twd5837w2",
+                    "Author": "admin",
+                    "TitlePart": {
+                      "Title": "About us"
+                    },
+                    "Page": {
+                      "PageLocations": {
+                        "TaxonomyContentItemId": "4eembshqzx66drajtdten34tc8",
+                        "TermContentItemIds": [
+                          "4fj8n537qn55d7q4kk6xxs3bn0"
+                        ]
                       },
-                      "GraphSyncPart": {
-                        "Text": "<<contentapiprefix>>/html/df75b459-ac9d-4f08-949f-09dd36b8b773"
+                      "Description": {
+                        "Text": null
                       },
-                      "FlowMetadata": {
-                        "Alignment": 3,
-                        "Size": 100
+                      "Herobanner": {
+                        "Html": "<div class=\"govuk-width-container\">\n      <div class=\"govuk-grid-row\">\n        <div class=\"govuk-grid-column-two-thirds\">\n            <h1 class=\"govuk-heading-xl\">About us</h1>\n            <p class=\"govuk-body-lead\">Find out more about the services the National Careers Service offers and the different ways we can help you.</p>\n            </div>\n      </div>\n    </div>"
+                      },
+                      "ShowHeroBanner": {
+                        "Value": true
                       }
                     },
-                    {
-                      "ContentItemId": "4vxsht89ad7gbwgt4pg9x14751",
-                      "ContentItemVersionId": null,
-                      "ContentType": "HTML",
-                      "DisplayText": "",
-                      "Latest": false,
-                      "Published": false,
-                      "ModifiedUtc": "2021-02-23T15:18:21.8090153Z",
-                      "PublishedUtc": null,
-                      "CreatedUtc": null,
-                      "Owner": "",
-                      "Author": "stephen",
-                      "HTML": {},
-                      "HtmlBodyPart": {
-                        "Html": "        <h3 class=\"gem-c-heading govuk-heading-m   govuk-!-margin-bottom-3\">UK career services</h3>\n        <p class=\"govuk-body-m\">This service is available to people who live in England. Careers services are also available for:</p>\n        <ul class=\"govuk-list govuk-list--bullet govuk-body-m\">\n          <li class=\"brand--ncs\"><a href=\"https://www.myworldofwork.co.uk/\" class=\"brand__color\">Scotland</a></li>\n          <li class=\"brand--ncs\"><a href=\"https://www.nidirect.gov.uk/campaigns/careers\" class=\"brand__color\">Northern Ireland</a></li>\n          <li class=\"brand--ncs\"><a href=\"https://www.careerswales.com/en/\" class=\"brand__color\">Wales</a></li>\n        </ul>"
-                      },
-                      "GraphSyncPart": {
-                        "Text": "<<contentapiprefix>>/html/101ed8de-b428-4635-a13b-c15aa48edf70"
-                      },
-                      "FlowMetadata": {
-                        "Alignment": 3,
-                        "Size": 33
-                      }
+                    "SitemapPart": {
+                      "Priority": 5,
+                      "OverrideSitemapConfig": false,
+                      "ChangeFrequency": 0,
+                      "Exclude": false
                     },
-                    {
-                      "ContentItemId": "41bvfz1cw94g10k3zhqkwa2cc1",
-                      "ContentItemVersionId": null,
-                      "ContentType": "HTMLShared",
-                      "DisplayText": "",
-                      "Latest": false,
-                      "Published": false,
-                      "ModifiedUtc": "2021-02-23T15:18:21.8263442Z",
-                      "PublishedUtc": null,
-                      "CreatedUtc": null,
-                      "Owner": "",
-                      "Author": "stephen",
-                      "HTMLShared": {
-                        "SharedContent": {
-                          "ContentItemIds": [
-                            "4nyydyyta43vzxjk0b61sdmddr"
-                          ]
+                    "FlowPart": {
+                      "Widgets": [
+                        {
+                          "ContentItemId": "49bceed70dae82m8z7pjkrsdm9",
+                          "ContentItemVersionId": null,
+                          "ContentType": "HTML",
+                          "DisplayText": "",
+                          "Latest": false,
+                          "Published": false,
+                          "ModifiedUtc": "2021-03-15T09:50:13.5999462Z",
+                          "PublishedUtc": null,
+                          "CreatedUtc": null,
+                          "Owner": "",
+                          "Author": "admin",
+                          "HTML": {},
+                          "HtmlBodyPart": {
+                            "Html": "<section class=\"govuk-!-margin-top-5\">\n     <div class=\"govuk-grid-row\">\n        <div class=\"govuk-grid-column-one-half\">\n          <h2 class=\"govuk-heading-l\">Find out what we do</h2>\n          <p class=\"govuk-body\">The National Careers Service provides high quality, free and impartial careers advice, information and guidance. Our service is available to anyone aged 13+ no matter what stage of the careers journey you’re at. </p>\n          <p class=\"govuk-body\">The video will give you a brief overview of some of the work the National Careers Service does.</p>\n        </div>\n        <div class=\"govuk-grid-column-one-half card\">\n        <iframe id=\"\" width=\"100%\" height=\"315\" title=\"What National Careers Service do\" src=\"https://www.youtube-nocookie.com/embed/BN4rdE2HXaw?rel=0&amp;modestbranding=1&amp;autoplay=1&amp;origin=http://sddmgca.co.uk\" allowfullscreen=\"allowfullscreen\"></iframe>\n          <details class=\"govuk-details govuk-!-margin-top-3\" data-module=\"govuk-details\">\n            <summary class=\"govuk-details__summary\"> <span class=\"govuk-details__summary-text\"> View transcript </span> </summary>\n            <div class=\"govuk-details__text\">\n              <p class=\"govuk-body\">The National Careers Service provides high quality, free and impartial information advice and guidance to help citizens make decisions on learning, training and work. It is available to all adults in England over the age of 13.</p>\n              <p class=\"govuk-body\">Our universal service is primarily for citizens who need somewhere to go that can provide comprehensive careers information advice or guidance for themselves.</p>\n              <p class=\"govuk-body\">Additional users of our service are people who use it to support others. This includes professional careers advisers and intermediaries such as employers, teachers and parents.</p>\n              <p class=\"govuk-body\">Our service is designed to enable users to self serve as much as possible, however some of our users need more intensive support.</p>\n              <p class=\"govuk-body\">For self service, our intuitive digital tools and smart use of data enable them to get a personalised service. Professional careers advisers will help provide users with additional advice and guidance, specific to their personal circumstances.</p>\n              <p class=\"govuk-body\">If you want any more information about National Careers Service, please get in touch.</p>\n            </div>\n          </details>\n        </div>\n\n    </div>\n  </section>\n<section class=\"brand--ncs brand__border-color organisation__brand-border-top organisation__section-wrap\" id=\"\">\n    <div class=\"govuk-grid-row govuk-!-margin-top-5\">\n      <div class=\"govuk-grid-column-two-thirds\">\n        <h3 class=\"govuk-heading-m govuk-!-font-size-27\">Who is National Careers Service for?</h3>\n      </div>\n    </div>\n    <div class=\"govuk-grid-row\">\n      <div class=\"govuk-grid-column-one-third  govuk-!-margin-top-2\">\n        <h3 class=\"gem-c-heading govuk-heading-m   govuk-!-margin-bottom-3\">Citizens</h3>\n        <p class=\"govuk-body-m\">We provide anyone aged 13+ with life long careers information, advice and guidance to help you make good career choices, no matter what point of your career journey you’re at.</p>\n      </div>\n      <div class=\"govuk-grid-column-one-third govuk-!-margin-top-2\">\n        <div>\n          <h2 class=\"govuk-heading-m\">Intermediaries</h2>\n          <p class=\"govuk-body\">We provide information for parents, teachers, employers, coaches and advisers to support others in their career journey.</p>\n\n        </div>\n      </div>\n      <div class=\"govuk-grid-column-one-third  govuk-!-margin-top-2\">\n        <h3 class=\"gem-c-heading govuk-heading-m   govuk-!-margin-bottom-3\">Stakeholders</h3>\n        <p class=\"govuk-body\">We work with organisations, employers and professional bodies to promote the importance of up to date careers guidance.</p>\n      </div>\n    </div>\n  </section>\n<section class=\"brand--ncs brand__border-color organisation__brand-border-top organisation__section-wrap govuk-!-margin-top-5\" id=\"\">\n    <div class=\"govuk-grid-row govuk-!-margin-top-3 govuk-!-margin-bottom-2\">\n      <div class=\"govuk-grid-column-two-thirds govuk-!-margin-top-2\">\n        <div>\n          <h2 class=\"govuk-heading-m govuk-!-font-size-27\">Careers information and advice online</h2>\n          <p class=\"govuk-body\">The National Careers Service website is here to give you the tools to make decisions about your career at your own pace and in your own time. You can:</p>\n          <ul class=\"govuk-list govuk-list--bullet\">\n            <li><a href=\"/explore-careers\">explore careers</a> to see what career options are out there</li>\n            <li>read <a href=\"/careers-advice\">careers advice articles</a> for help to make good career decisions</li>\n            <li>take a <a href=\"skills-assessment\">skills assessment</a> to find out what you’re good at </li>\n            <li><a href=\"/find-a-course\">find a course</a> that will provide you with the training and qualifications you need</li>\n            <li><a href=\"/find-a-course/the-skills-toolkit\">update your skills</a> to help you do your job more effectively or support you in finding a new one</li>\n          </ul>\n        </div>\n      </div>\n    </div>\n  </section>\n<section class=\"\" id=\"\">\n    <div class=\"govuk-grid-row govuk-!-margin-top-6 govuk-!-margin-bottom-2\">\n      <div class=\"govuk-grid-column-two-thirds govuk-!-margin-top-2\">\n        <div>\n          <h2 class=\"govuk-heading-m govuk-!-font-size-27\">Personalised careers guidance, telephone and web chat support</h2>\n          <p class=\"govuk-body\">If you want some extra support on your career journey, you can <a href=\"/contact-us\">contact us</a> to speak to an adviser or <a href=\"/webchat/chat\">start a web chat</a>. Trained careers advisers can help you to build your confidence to take the next steps on your career journey.</p>\n\n          <p class=\"govuk-body\">Our careers advisers will provide you with careers information, advice and guidance that best reflects your needs and circumstances. This doesn’t look the same for everyone but may include:</p>\n\n          <ul class=\"govuk-list govuk-list--bullet\">\n            <li>participation in webinars or group sessions</li>\n              <li>signposting towards specialist resources and support</li>\n                <li>individual guidance appointments, either online or at a local venue</li>\n            </ul>\n        </div>\n      </div>\n    </div></section><section class=\"brand--ncs brand__border-color organisation__brand-border-top organisation__section-wrap organisation__margin-bottom govuk-!-margin-top-3 govuk-!-padding-top-3\" id=\"\"><div class=\"govuk-grid-row\"></div></section>"
+                          },
+                          "GraphSyncPart": {
+                            "Text": "<<contentapiprefix>>/html/df75b459-ac9d-4f08-949f-09dd36b8b773"
+                          },
+                          "FlowMetadata": {
+                            "Alignment": 0,
+                            "Size": 100
+                          }
+                        },
+                        {
+                          "ContentItemId": "4vxsht89ad7gbwgt4pg9x14751",
+                          "ContentItemVersionId": null,
+                          "ContentType": "HTML",
+                          "DisplayText": "",
+                          "Latest": false,
+                          "Published": false,
+                          "ModifiedUtc": "2021-03-15T09:50:13.6037272Z",
+                          "PublishedUtc": null,
+                          "CreatedUtc": null,
+                          "Owner": "",
+                          "Author": "admin",
+                          "HTML": {},
+                          "HtmlBodyPart": {
+                            "Html": "        <h3 class=\"gem-c-heading govuk-heading-m   govuk-!-margin-bottom-3\">UK career services</h3>\n        <p class=\"govuk-body-m\">This service is available to people who live in England. Careers services are also available for:</p>\n        <ul class=\"govuk-list govuk-list--bullet govuk-body-m\">\n          <li class=\"brand--ncs\"><a href=\"https://www.myworldofwork.co.uk/\" class=\"brand__color\">Scotland</a></li>\n          <li class=\"brand--ncs\"><a href=\"https://www.nidirect.gov.uk/campaigns/careers\" class=\"brand__color\">Northern Ireland</a></li>\n          <li class=\"brand--ncs\"><a href=\"https://www.careerswales.com/en/\" class=\"brand__color\">Wales</a></li>\n        </ul>"
+                          },
+                          "GraphSyncPart": {
+                            "Text": "<<contentapiprefix>>/html/101ed8de-b428-4635-a13b-c15aa48edf70"
+                          },
+                          "FlowMetadata": {
+                            "Alignment": 0,
+                            "Size": 33
+                          }
+                        },
+                        {
+                          "ContentItemId": "41bvfz1cw94g10k3zhqkwa2cc1",
+                          "ContentItemVersionId": null,
+                          "ContentType": "HTMLShared",
+                          "DisplayText": "",
+                          "Latest": false,
+                          "Published": false,
+                          "ModifiedUtc": "2021-03-15T09:50:13.6067488Z",
+                          "PublishedUtc": null,
+                          "CreatedUtc": null,
+                          "Owner": "",
+                          "Author": "admin",
+                          "HTMLShared": {
+                            "SharedContent": {
+                              "ContentItemIds": [
+                                "4nyydyyta43vzxjk0b61sdmddr"
+                              ]
+                            }
+                          },
+                          "GraphSyncPart": {
+                            "Text": "<<contentapiprefix>>/htmlshared/0cd163e8-13da-46d5-b460-8b8e19440818"
+                          },
+                          "FlowMetadata": {
+                            "Alignment": 0,
+                            "Size": 33
+                          }
+                        },
+                        {
+                          "ContentItemId": "4frnmsh4m3bkavwfvescstcc5g",
+                          "ContentItemVersionId": null,
+                          "ContentType": "HTML",
+                          "DisplayText": "",
+                          "Latest": false,
+                          "Published": false,
+                          "ModifiedUtc": "2021-03-15T09:50:13.6098033Z",
+                          "PublishedUtc": null,
+                          "CreatedUtc": null,
+                          "Owner": "",
+                          "Author": "admin",
+                          "HTML": {},
+                          "HtmlBodyPart": {
+                            "Html": "   <h3 class=\"gem-c-heading govuk-heading-m   govuk-!-margin-bottom-3\">Follow us</h3>\n        <div lang=\"en\">\n          <div class=\"gem-c-share-links gem-c-share-links--stacked brand--ncs\" data-module=\"track-click\">\n            <ul class=\"gem-c-share-links__list\">\n              <li class=\"gem-c-share-links__list-item\"> <a target=\"_blank\" rel=\"noopener noreferrer external\" data-track-category=\"social media\" data-track-action=\"twitter\" class=\"gem-c-share-links__link brand__color\" href=\"https://twitter.com/NationalCareers\"> <span class=\"gem-c-share-links__link-icon\">\n                <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"32\" height=\"32\">\n                  <path fill=\"currentColor\" d=\"M31.007 0H.993A.999.999 0 0 0 0 .993v30.014c0 .55.452.993.993.993h30.014a.997.997 0 0 0 .993-.993V.993A.998.998 0 0 0 31.007 0z\"></path>\n                  <path fill=\"#FFF\" d=\"M8 21.027a9.286 9.286 0 0 0 5.032 1.475c6.038 0 9.34-5.002 9.34-9.339 0-.143-.004-.284-.012-.425a6.619 6.619 0 0 0 1.639-1.699c-.6.265-1.234.439-1.885.516a3.287 3.287 0 0 0 1.443-1.816 6.571 6.571 0 0 1-2.086.797 3.28 3.28 0 0 0-5.592 2.993 9.311 9.311 0 0 1-6.766-3.43 3.294 3.294 0 0 0-.443 1.651 3.28 3.28 0 0 0 1.46 2.732 3.278 3.278 0 0 1-1.488-.411v.041a3.288 3.288 0 0 0 2.633 3.22 3.28 3.28 0 0 1-1.481.055 3.285 3.285 0 0 0 3.065 2.281 6.59 6.59 0 0 1-4.076 1.404A6.76 6.76 0 0 1 8 21.027z\"></path>\n                </svg>\n                </span> <span class=\"govuk-visually-hidden\"> Follow on </span> Twitter </a> </li>\n              <li class=\"gem-c-share-links__list-item\"> <a target=\"_blank\" rel=\"noopener noreferrer external\" data-track-category=\"social media\" data-track-action=\"facebook\" class=\"gem-c-share-links__link brand__color\" href=\"https://www.facebook.com/NationalCareersService/\"> <span class=\"gem-c-share-links__link-icon\">\n                <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"32\" height=\"32\">\n                  <path fill=\"currentColor\" d=\"M31.006 0H.993A.997.997 0 0 0 0 .993v30.014c0 .55.452.993.993.993h30.013a.998.998 0 0 0 .994-.993V.993A.999.999 0 0 0 31.006 0z\"></path>\n                  <path fill=\"#FFF\" d=\"M17.892 10.751h1.787V8.009L17.216 8c-2.73 0-3.352 2.045-3.352 3.353v1.828h-1.581v2.824h1.581V24h3.322v-7.995h2.242l.291-2.824h-2.533V11.52c.001-.623.415-.769.706-.769z\"></path>\n                </svg>\n                </span> <span class=\"govuk-visually-hidden\"> Follow on </span> Facebook </a> </li>\n              <li class=\"gem-c-share-links__list-item\"> <a target=\"_blank\" rel=\"noopener noreferrer external\" data-track-category=\"social media\" data-track-action=\"linkedin\" class=\"gem-c-share-links__link brand__color\" href=\"https://www.linkedin.com/company/national-careers/\"> <span class=\"gem-c-share-links__link-icon\">\n                <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"32\" height=\"32\" viewBox=\"9 9 32 32\">\n                  <path fill=\"currentColor\" d=\"M9 9h32v32H9V9z\"></path>\n                  <path fill=\"#FFF\" d=\"M19.24 35.24V21.8h-4.48v13.44h4.48z\"></path>\n                  \n                  \n                  <path fill=\"#FFF\" d=\"M26.28 35.24V28.2c0-1.92.64-3.2 1.92-3.2h.64c1.28 0 1.92 1.28 1.92 4.48v5.76h4.48V28.2c0-4.48-1.28-6.4-4.48-6.4-3.84 0-4.479 1.92-4.479 1.92V21.8H21.8v13.44h4.48zm-6.72-17.92a2.56 2.56 0 1 1-5.12 0 2.56 2.56 0 0 1 5.12 0\"></path>\n                </svg>\n                </span> <span class=\"govuk-visually-hidden\"> Follow on </span> LinkedIn </a> </li>\n              <li class=\"gem-c-share-links__list-item\"> <a target=\"_blank\" rel=\"noopener noreferrer external\" data-track-category=\"social media\" data-track-action=\"youtube\" class=\"gem-c-share-links__link brand__color\" href=\"https://www.youtube.com/user/RightDirectionForYou\"> <span class=\"gem-c-share-links__link-icon\">\n                <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"32\" height=\"32\" viewBox=\"9 9 32 32\">\n                  <path fill=\"currentColor\" d=\"M9 9h32v32H9V9z\"></path>\n                  <path fill=\"#FFF\" d=\"M19.88 33.32V16.68L33.32 25l-13.44 8.32z\"></path>\n                </svg>\n                </span> <span class=\"govuk-visually-hidden\"> Follow on </span> YouTube </a> </li>\n            </ul>\n          </div>\n        </div>"
+                          },
+                          "GraphSyncPart": {
+                            "Text": "<<contentapiprefix>>/html/7f009d42-9efa-4045-8df7-ee7ce7433153"
+                          },
+                          "FlowMetadata": {
+                            "Alignment": 0,
+                            "Size": 33
+                          }
+                        },
+                        {
+                          "ContentItemId": "4qyy9vdmrygra4ty5j8awwk4cf",
+                          "ContentItemVersionId": null,
+                          "ContentType": "HTML",
+                          "DisplayText": "",
+                          "Latest": false,
+                          "Published": false,
+                          "ModifiedUtc": "2021-03-15T09:50:13.6132469Z",
+                          "PublishedUtc": null,
+                          "CreatedUtc": null,
+                          "Owner": "",
+                          "Author": "admin",
+                          "HTML": {},
+                          "HtmlBodyPart": {
+                            "Html": "<section class=\"brand--ncs brand__border-color organisation__brand-border-top organisation__section-wrap organisation__margin-bottom govuk-!-margin-top-3 govuk-!-padding-top-3\" id=\"\">\n    <div class=\"govuk-grid-row \">\n      <div class=\"govuk-grid-column-two-thirds\">\n        <h2 class=\"govuk-heading-m govuk-!-font-size-27 govuk-!-font-weight-bold\">Our policies</h2>\n      </div>\n    </div>\n    <div class=\"govuk-grid-row\">\n      <div class=\"govuk-grid-column-one-third govuk-!-margin-top-2\">\n        <h3 class=\"govuk-heading-m\">Accessibility statement</h3>\n        <p class=\"govuk-body\">The <a href=\"/help/accessibility\">accessibility statement</a> explains how we build your website to make sure you can use it.</p>\n      </div>\n      <div class=\"govuk-grid-column-one-third govuk-!-margin-top-2\">\n        <div>\n          <h2 class=\"govuk-heading-m\">Privacy and cookies</h2>\n          <p class=\"govuk-body\">We collect personal information from you when you use the National Careers Service. The <a href=\"/help/privacy-and-cookies\">cookie and privacy policy</a> explains how we use and protect your information. </p>\n\n        </div>\n      </div>\n      <div class=\"govuk-grid-column-one-third govuk-!-margin-top-2\">\n        <h3 class=\"govuk-heading-m\">Information sources</h3>\n        <p class=\"govuk-body\">The information presented on the National Careers Service website comes from <a href=\"/help/information-sources\"> different sources</a>. This page explains what those sources are and why you can trust them.</p>\n      </div>\n\n\n    </div>\n    <div class=\"govuk-grid-row\">\n      \n      \n      \n\n\n      \n    </div>\n  </section>"
+                          },
+                          "GraphSyncPart": {
+                            "Text": "<<contentapiprefix>>/html/b8715933-1d4c-4866-bc59-cf86b8c63617"
+                          },
+                          "FlowMetadata": {
+                            "Alignment": 0,
+                            "Size": 100
+                          }
                         }
-                      },
-                      "GraphSyncPart": {
-                        "Text": "<<contentapiprefix>>/htmlshared/0cd163e8-13da-46d5-b460-8b8e19440818"
-                      },
-                      "FlowMetadata": {
-                        "Alignment": 3,
-                        "Size": 33
-                      }
+                      ]
                     },
-                    {
-                      "ContentItemId": "4frnmsh4m3bkavwfvescstcc5g",
-                      "ContentItemVersionId": null,
-                      "ContentType": "HTML",
-                      "DisplayText": "",
-                      "Latest": false,
-                      "Published": false,
-                      "ModifiedUtc": "2021-02-23T15:18:21.8472666Z",
-                      "PublishedUtc": null,
-                      "CreatedUtc": null,
-                      "Owner": "",
-                      "Author": "stephen",
-                      "HTML": {},
-                      "HtmlBodyPart": {
-                        "Html": "   <h3 class=\"gem-c-heading govuk-heading-m   govuk-!-margin-bottom-3\">Follow us</h3>\n        <div lang=\"en\">\n          <div class=\"gem-c-share-links gem-c-share-links--stacked brand--ncs\" data-module=\"track-click\">\n            <ul class=\"gem-c-share-links__list\">\n              <li class=\"gem-c-share-links__list-item\"> <a target=\"_blank\" rel=\"noopener noreferrer external\" data-track-category=\"social media\" data-track-action=\"twitter\" class=\"gem-c-share-links__link brand__color\" href=\"https://twitter.com/NationalCareers\"> <span class=\"gem-c-share-links__link-icon\">\n                <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"32\" height=\"32\">\n                  <path fill=\"currentColor\" d=\"M31.007 0H.993A.999.999 0 0 0 0 .993v30.014c0 .55.452.993.993.993h30.014a.997.997 0 0 0 .993-.993V.993A.998.998 0 0 0 31.007 0z\"></path>\n                  <path fill=\"#FFF\" d=\"M8 21.027a9.286 9.286 0 0 0 5.032 1.475c6.038 0 9.34-5.002 9.34-9.339 0-.143-.004-.284-.012-.425a6.619 6.619 0 0 0 1.639-1.699c-.6.265-1.234.439-1.885.516a3.287 3.287 0 0 0 1.443-1.816 6.571 6.571 0 0 1-2.086.797 3.28 3.28 0 0 0-5.592 2.993 9.311 9.311 0 0 1-6.766-3.43 3.294 3.294 0 0 0-.443 1.651 3.28 3.28 0 0 0 1.46 2.732 3.278 3.278 0 0 1-1.488-.411v.041a3.288 3.288 0 0 0 2.633 3.22 3.28 3.28 0 0 1-1.481.055 3.285 3.285 0 0 0 3.065 2.281 6.59 6.59 0 0 1-4.076 1.404A6.76 6.76 0 0 1 8 21.027z\"></path>\n                </svg>\n                </span> <span class=\"govuk-visually-hidden\"> Follow on </span> Twitter </a> </li>\n              <li class=\"gem-c-share-links__list-item\"> <a target=\"_blank\" rel=\"noopener noreferrer external\" data-track-category=\"social media\" data-track-action=\"facebook\" class=\"gem-c-share-links__link brand__color\" href=\"https://www.facebook.com/NationalCareersService/\"> <span class=\"gem-c-share-links__link-icon\">\n                <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"32\" height=\"32\">\n                  <path fill=\"currentColor\" d=\"M31.006 0H.993A.997.997 0 0 0 0 .993v30.014c0 .55.452.993.993.993h30.013a.998.998 0 0 0 .994-.993V.993A.999.999 0 0 0 31.006 0z\"></path>\n                  <path fill=\"#FFF\" d=\"M17.892 10.751h1.787V8.009L17.216 8c-2.73 0-3.352 2.045-3.352 3.353v1.828h-1.581v2.824h1.581V24h3.322v-7.995h2.242l.291-2.824h-2.533V11.52c.001-.623.415-.769.706-.769z\"></path>\n                </svg>\n                </span> <span class=\"govuk-visually-hidden\"> Follow on </span> Facebook </a> </li>\n              <li class=\"gem-c-share-links__list-item\"> <a target=\"_blank\" rel=\"noopener noreferrer external\" data-track-category=\"social media\" data-track-action=\"linkedin\" class=\"gem-c-share-links__link brand__color\" href=\"https://www.linkedin.com/company/national-careers/\"> <span class=\"gem-c-share-links__link-icon\">\n                <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"32\" height=\"32\" viewBox=\"9 9 32 32\">\n                  <path fill=\"currentColor\" d=\"M9 9h32v32H9V9z\"></path>\n                  <path fill=\"#FFF\" d=\"M19.24 35.24V21.8h-4.48v13.44h4.48z\"></path>\n                  \n                  \n                  <path fill=\"#FFF\" d=\"M26.28 35.24V28.2c0-1.92.64-3.2 1.92-3.2h.64c1.28 0 1.92 1.28 1.92 4.48v5.76h4.48V28.2c0-4.48-1.28-6.4-4.48-6.4-3.84 0-4.479 1.92-4.479 1.92V21.8H21.8v13.44h4.48zm-6.72-17.92a2.56 2.56 0 1 1-5.12 0 2.56 2.56 0 0 1 5.12 0\"></path>\n                </svg>\n                </span> <span class=\"govuk-visually-hidden\"> Follow on </span> LinkedIn </a> </li>\n              <li class=\"gem-c-share-links__list-item\"> <a target=\"_blank\" rel=\"noopener noreferrer external\" data-track-category=\"social media\" data-track-action=\"youtube\" class=\"gem-c-share-links__link brand__color\" href=\"https://www.youtube.com/user/RightDirectionForYou\"> <span class=\"gem-c-share-links__link-icon\">\n                <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"32\" height=\"32\" viewBox=\"9 9 32 32\">\n                  <path fill=\"currentColor\" d=\"M9 9h32v32H9V9z\"></path>\n                  <path fill=\"#FFF\" d=\"M19.88 33.32V16.68L33.32 25l-13.44 8.32z\"></path>\n                </svg>\n                </span> <span class=\"govuk-visually-hidden\"> Follow on </span> YouTube </a> </li>\n            </ul>\n          </div>\n        </div>"
-                      },
-                      "GraphSyncPart": {
-                        "Text": "<<contentapiprefix>>/html/7f009d42-9efa-4045-8df7-ee7ce7433153"
-                      },
-                      "FlowMetadata": {
-                        "Alignment": 3,
-                        "Size": 33
-                      }
+                    "GraphSyncPart": {
+                      "Text": "<<contentapiprefix>>/page/d3256737-c35c-49fc-99f4-9418a6ff03a4"
                     },
-                    {
-                      "ContentItemId": "4qyy9vdmrygra4ty5j8awwk4cf",
-                      "ContentItemVersionId": null,
-                      "ContentType": "HTML",
-                      "DisplayText": "",
-                      "Latest": false,
-                      "Published": false,
-                      "ModifiedUtc": "2021-02-23T15:18:21.9012198Z",
-                      "PublishedUtc": null,
-                      "CreatedUtc": null,
-                      "Owner": "",
-                      "Author": "stephen",
-                      "HTML": {},
-                      "HtmlBodyPart": {
-                        "Html": "<section class=\"brand--ncs brand__border-color organisation__brand-border-top organisation__section-wrap organisation__margin-bottom govuk-!-margin-top-3 govuk-!-padding-top-3\" id=\"\">\n    <div class=\"govuk-grid-row \">\n      <div class=\"govuk-grid-column-two-thirds\">\n        <h2 class=\"govuk-heading-m govuk-!-font-size-27 govuk-!-font-weight-bold\">Our policies</h2>\n      </div>\n    </div>\n    <div class=\"govuk-grid-row\">\n      <div class=\"govuk-grid-column-one-third govuk-!-margin-top-2\">\n        <h3 class=\"govuk-heading-m\">Accessibility statement</h3>\n        <p class=\"govuk-body\">The <a href=\"https://nationalcareers.service.gov.uk/help/accessibility\">accessibility statement</a> explains how we build your website to make sure you can use it.</p>\n      </div>\n      <div class=\"govuk-grid-column-one-third govuk-!-margin-top-2\">\n        <div>\n          <h2 class=\"govuk-heading-m\">Privacy and cookies</h2>\n          <p class=\"govuk-body\">We collect personal information from you when you use the National Careers Service. The <a href=\"https://nationalcareers.service.gov.uk/help/privacy-and-cookies\">cookie and privacy policy</a> explains how we use and protect your information. </p>\n\n        </div>\n      </div>\n      <div class=\"govuk-grid-column-one-third govuk-!-margin-top-2\">\n        <h3 class=\"govuk-heading-m\">Information sources</h3>\n        <p class=\"govuk-body\">The information presented on the National Careers Service website comes from <a href=\"https://nationalcareers.service.gov.uk/help/information-sources\"> different sources</a>. This page explains what those sources are and why you can trust them.</p>\n      </div>\n\n\n    </div>\n    <div class=\"govuk-grid-row\">\n      \n      \n      \n\n\n      \n    </div>\n  </section>"
-                      },
-                      "GraphSyncPart": {
-                        "Text": "<<contentapiprefix>>/html/b8715933-1d4c-4866-bc59-cf86b8c63617"
-                      },
-                      "FlowMetadata": {
-                        "Alignment": 3,
-                        "Size": 100
-                      }
+                    "PageLocationPart": {
+                      "UrlName": "about-us",
+                      "DefaultPageForLocation": true,
+                      "RedirectLocations": null,
+                      "FullUrl": "/about-us/about-us"
                     }
-                  ]
-                },
-                "GraphSyncPart": {
-                  "Text": "<<contentapiprefix>>/page/d3256737-c35c-49fc-99f4-9418a6ff03a4"
-                },
-                "PageLocationPart": {
-                  "UrlName": "about-us",
-                  "DefaultPageForLocation": true,
-                  "RedirectLocations": null,
-                  "FullUrl": "/about-us/about-us"
-                }
-              }]
+                  }
+            ]
         }
     ]
 }
