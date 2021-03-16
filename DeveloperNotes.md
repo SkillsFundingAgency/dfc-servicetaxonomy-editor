@@ -1,5 +1,28 @@
 #ToDo
 
+* check out feature:
+  Add Content To Deployment Plan
+  Adds an add to deployment plan action to the content items list.
+
+does it mean you can add individual items to a recipe?
+
+yes! add to features
+
+also... check out
+
+Export Content To Deployment Target
+Adds an export to deployment target action to the content items list.
+
+also.. add this...
+
+View Or Download Content As JSON
+
+*dashboard
+add what's new card
+add help card
+
+* add filter to content items : job profiles by selected job category
+
 * need to import content & set up users as part of releases
 
 * fix this error (update taxonomies from latest oc first to see if it fixes it)

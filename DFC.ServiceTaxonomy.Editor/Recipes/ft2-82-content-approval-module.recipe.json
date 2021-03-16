@@ -1,0 +1,106 @@
+{
+    "name": "01_content_approval",
+    "displayName": "Content approval",
+    "description": "Enables content approval with associated roles and permissions",
+    "author": "National Careers Service",
+    "website": "https://github.com/SkillsFundingAgency/dfc-servicetaxonomy-editor",
+    "version": "1.0",
+    "issetuprecipe": false,
+    "categories": ["default"],
+    "tags": ["ncs"],
+    "steps": [
+        {
+            "name": "feature",
+            "disable": [],
+            "enable": [
+                "DFC.ServiceTaxonomy.ContentApproval"
+            ]
+        },
+        {
+            "name": "Roles",
+            "Roles": [
+                {
+                    "Name": "ContentAdministrator",
+                    "Description": "Content administrator",
+                    "Permissions": [
+                        "ListContent",
+                        "DeleteContent",
+                        "EditContent",
+                        "CloneContent",
+                        "ViewContent",
+                        "PreviewContent",
+                        "PublishContent",
+                        "RequestReviewPermission",
+                        "CanPerformContentDesignReviewPermission",
+                        "CanPerformSMEReviewPermission",
+                        "CanPerformUXReviewPermission",
+                        "CanPerformStakeholderApprovalPermission",
+                        "AssignRoles",
+                        "ManageRoles",
+                        "ManageTaxonomy",
+                        "ManageUsers",
+                        "ManageOwnUserInformation"
+                    ]
+                },
+                {
+                    "Name": "Editor",
+                    "Description": "Editor",
+                    "Permissions": [
+                        "ListContent",
+                        "EditContent",
+                        "ViewContent",
+                        "PreviewContent",
+                        "CloneContent",
+                        "RequestReviewPermission",
+                        "PublishContent",
+                        "ManageTaxonomy"
+                    ]
+                },
+                {
+                    "Name": "Reviewer_UX",
+                    "Description": "Reviewer UX",
+                    "Permissions": [
+                        "PublishContent",
+                        "RequestReviewPermission",
+                        "ViewContent",
+                        "PreviewContent",
+                        "CanPerformUXReviewPermission"
+                    ]
+                },
+                {
+                    "Name": "Reviewer_SME",
+                    "Description": "Reviewer SME",
+                    "Permissions": [
+                        "PublishContent",
+                        "RequestReviewPermission",
+                        "ViewContent",
+                        "PreviewContent",
+                        "CanPerformSMEReviewPermission"
+                    ]
+                },
+                {
+                    "Name": "Reviewer_ContentDesign",
+                    "Description": "Reviewer Content Design",
+                    "Permissions": [
+                        "PublishContent",
+                        "RequestReviewPermission",
+                        "ViewContent",
+                        "PreviewContent",
+                        "CanPerformContentDesignReviewPermission"
+                    ]
+                },
+                {
+                    "Name": "Reviewer_Stakeholder",
+                    "Description": "Reviewer Stakeholder",
+                    "Permissions": [
+                        "PublishContent",
+                        "RequestReviewPermission",
+                        "ViewContent",
+                        "PreviewContent",
+                        "CanPerformStakeholderApprovalPermission"
+                    ]
+                }
+            ] 
+        }
+    ]
+}
