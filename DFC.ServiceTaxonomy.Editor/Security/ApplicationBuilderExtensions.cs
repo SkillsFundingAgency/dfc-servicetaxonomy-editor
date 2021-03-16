@@ -37,10 +37,15 @@ namespace DFC.ServiceTaxonomy.Editor.Security
                         .DataScheme();
 
                     csp.AllowFonts.FromSelf()
-                        .From("fonts.gstatic.com");
+                        .From("fonts.gstatic.com")
+                        .From("cdn.jsdelivr.net");
 
                     csp.AllowConnections
                         .ToSelf();
+
+                    csp.AllowFrames
+                        .FromSelf()
+                        .From("www.youtube-nocookie.com");
                 });
 
             return app;
