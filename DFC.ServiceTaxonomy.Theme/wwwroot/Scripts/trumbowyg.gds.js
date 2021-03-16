@@ -330,7 +330,7 @@
     }
 
     function insertMedia(trumbowyg) {
-        trumbowyg.saveRange();
+
         $("#mediaApp").detach().appendTo('#mediaModalHtmlField .modal-body');
         $("#mediaApp").show();
         mediaApp.selectedMedias = [];
@@ -338,31 +338,49 @@
         //disable an reset on click event over the button to avoid issue if press button multiple times or have multiple editor
         $('#mediaHtmlFieldSelectButton').off('click');
         $('#mediaHtmlFieldSelectButton').on('click', function (v) {
-            //avoid multiple image insert
-            trumbowyg.restoreRange();
-            trumbowyg.range.deleteContents();
 
             $(window).trigger('scroll');
-            var dateTimeStamp = new Date().toISOString().slice(0, -8).replace(/[-:T]/g, "");
 
             for (i = 0; i < mediaApp.selectedMedias.length; i++) {
-                var img = document.createElement("img");
-                img.src = mediaApp.selectedMedias[i].url + '?' + dateTimeStamp;
-                img.alt = mediaApp.selectedMedias[i].name;
-                img.dataset.source = 'CDN';
-                trumbowyg.range.insertNode(img);
+                insertImageWithAltText(trumbowyg, mediaApp.selectedMedias[i].url, mediaApp.selectedMedias[i].name);
             }
-            trumbowyg.syncCode();
-            trumbowyg.$c.trigger('tbwchange');
-            //avoid image to be selected after add it
-            trumbowyg.$c.focus();
 
             $('#mediaModalHtmlField').modal('hide');
             return true;
         });
     }
 
-    function setQueryParam(sourceUrl) {
+    function insertImageWithAltText(trumbowyg, imageUrl, altText) {
+
+        var options = {
+            url: {
+                label: trumbowyg.lang.iframeSettings.url,
+                value: imageUrl,
+                required: true
+            },
+            alt: {
+                label: 'Alt text',
+                value: altText,
+                required: true
+            }
+        };
+        trumbowyg.openModalInsert(
+            trumbowyg.lang.insertMedia,
+            options,
+            function (data) {
+                var dateTimeStamp = new Date().toISOString().slice(0, -8).replace(/[-:T]/g, "");
+
+                var $mediaToInsert = $('<img>')
+                    .attr('src', data.url + '?' + dateTimeStamp)
+                    .attr('alt', data.alt)
+                    .attr('data-source', 'CDN')
+                trumbowyg.execCmd('insertHTML', $mediaToInsert.get(0).outerHTML)
+
+                return true;
+            });
+    }
+
+    function setQueryParam(sourceUrl, key, value) {
         var url = new URL(sourceUrl);
         let queryParams = new Map();
         queryParams.set("rel", "0");
