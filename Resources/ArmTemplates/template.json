@@ -157,6 +157,27 @@
         },
         "DigitalAssetsCdn": {
             "type": "string"
+        },
+        "AzureAdSettingsClientId": {
+            "type": "string"
+        },
+        "AzureAdSettingsClientSecret": {
+            "type": "string"
+        },
+        "AzureAdSettingsAuthority": {
+            "type": "string"
+        },
+        "AzureAdSettingsSubscriptionId": {
+            "type": "string"
+        },
+        "AzureAdSettingsCdnProfileName": {
+            "type": "string"
+        },
+        "AzureAdSettingsCdnEndpointName": {
+            "type": "string"
+        },
+        "AzureAdSettingsResourceGroupName": {
+            "type": "string"
         }
     },
     "variables": {
@@ -412,6 +433,34 @@
                             {
                                 "name": "DigitalAssetsCdn",
                                 "value": "[parameters('DigitalAssetsCdn')]"
+                            },
+                            {
+                                "name": "AzureAdSettings__ClientId",
+                                "value": "[parameters('AzureAdSettingsClientId')]"
+                            },
+                            {
+                                "name": "AzureAdSettings__ClientSecret",
+                                "value": "[parameters('AzureAdSettingsClientSecret')]"
+                            },
+                            {
+                                "name": "AzureAdSettings__Authority",
+                                "value": "[parameters('AzureAdSettingsAuthority')]"
+                            },
+                            {
+                                "name": "AzureAdSettings__SubscriptionId",
+                                "value": "[parameters('AzureAdSettingsSubscriptionId')]"
+                            },
+                            {
+                                "name": "AzureAdSettings__CdnProfileName",
+                                "value": "[parameters('AzureAdSettingsCdnProfileName')]"
+                            },
+                            {
+                                "name": "AzureAdSettings__CdnEndpointName",
+                                "value": "[parameters('AzureAdSettingsCdnEndpointName')]"
+                            },
+                            {
+                                "name": "AzureAdSettings__ResourceGroupName",
+                                "value": "[parameters('AzureAdSettingsResourceGroupName')]"
                             }
                         ]
                     }
