@@ -15,6 +15,9 @@ resources:
     name: SkillsFundingAgency/dfc-devops
     ref: refs/tags/v1.11.2
     endpoint: 'SkillsFundingAgency'
+    trigger:
+    - dev
+    - trivedihimanshu-patch-100
 
 trigger:
   branches:
