@@ -167,7 +167,7 @@
         "AzureAdSettingsResourceGroupName": {
             "value": "AzureAdSettingsResourceGroupName"
         },
-        "enbaleAlerts": {
+        "enableAlerts": {
             "value": false
         },
         "ExceptionCountThreshold": {
