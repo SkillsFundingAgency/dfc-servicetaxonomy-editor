@@ -56,8 +56,8 @@ stages:
     - task: PublishPipelineArtifact@0
       displayName: Publish PSScripts Pipeline Artifact
       inputs:
-        targetPath: "$(System.DefaultWorkingDirectory)/Resources/PSScripts"
-        artifactName: .Resources.PSScripts
+        targetPath: $(Build.ArtifactStagingDirectory)/Resources/PSScripts
+        artifactName: ${{ variables.SolutionBaseName }}.Editor.Resources.PSScripts
 
   - job: BuildDotNet
     displayName: "Build the dotnet core applications"
@@ -184,6 +184,7 @@ stages:
       TestArtifactBranch: ${{ parameters.DfcServiceTaxonomyTestBranch }}
       TestExclusionTag: 'NotDev'
       MediaStorageAccountName: $(MediaStorageAccountName)
+      PSScriptPath: "$(Pipeline.Workspace)/${{ variables.SolutionBaseName }}.Editor.Resources.PSScripts"
 
 - stage: DeployToSit
   condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'))
