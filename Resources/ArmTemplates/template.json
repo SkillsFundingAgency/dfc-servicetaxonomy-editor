@@ -682,10 +682,7 @@
                         "value": "[resourceId('Microsoft.Web/serverFarms', variables('AppServicePlanName'))]"
                     }
                 }
-            },
-            "dependsOn": [
-                "[variables('AppServicePlanName')]"
-            ]
+            }
         }
     ],
     "outputs": {}
