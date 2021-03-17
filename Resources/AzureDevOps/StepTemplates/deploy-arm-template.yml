@@ -55,7 +55,7 @@ steps:
   displayName: 'Azure PowerShell script: Creation of Service Principal'
   inputs:
     azureSubscription: '${{ parameters.AzureSubscription }}'
-    ScriptPath: "$(Pipeline.Workspace)/DFC.ServiceTaxonomy.Editor.PSScripts/New-ServicePrincipalAndStoreSecrets.ps1"
+    ScriptPath: "$(Pipeline.Workspace)/DFC.ServiceTaxonomy.Editor.Resources.PSScripts/New-ServicePrincipalAndStoreSecrets.ps1"
     ScriptArguments: -SharedResourceGroupName "$(SharedResourceGroup)" `
           -ServicePrincipalName "$(ServicePrincipalName)"  `
           -RepoName dfc-servicetaxonomy-editor  `
@@ -68,6 +68,6 @@ steps:
   displayName: 'Azure PowerShell script: Keyvault permissions'
   inputs:
     azureSubscription: '${{ parameters.AzureSubscription }}'
-    ScriptPath: "$(Pipeline.Workspace)/DFC.ServiceTaxonomy.Editor.PSScripts/Assign-KeyVault-Permissions-To-Identity.ps1"
+    ScriptPath: "$(Pipeline.Workspace)/DFC.ServiceTaxonomy.Editor.Resources.PSScripts/Assign-KeyVault-Permissions-To-Identity.ps1"
     ScriptArguments: "-KeyVaultName  $(sharedKeyVaultName) -ResourceGroupName $(sharedResourceGroup) -ServicePrincipalName '$(ServicePrincipalName)-as' -Verbose"
     azurePowerShellVersion: LatestVersion
