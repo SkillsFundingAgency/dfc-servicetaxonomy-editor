@@ -17,3 +17,11 @@ variables:
   value: basic
 - name: PublishToSlack
   value: true
+- name: ExceptionCountThreshold
+  value: 10
+- name: MemoryPercentageThreshold
+  value: 75
+- name: CPUPercentageThreshold
+  value: 75
+- name: EnableAzureMonitorAlerting
+  value: true
