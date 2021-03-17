@@ -166,6 +166,12 @@
         },
         "AzureAdSettingsResourceGroupName": {
             "value": "AzureAdSettingsResourceGroupName"
+        },
+        "enbaleAlerts": {
+            "value": false
+        },
+        "ExceptionCountThreshold": {
+            "value": "0"
         }
     }
 }
