@@ -172,6 +172,9 @@
         },
         "ExceptionCountThreshold": {
             "value": "__ExceptionCountThreshold__"
+        },
+        "CPUPercentageThreshold": {
+            "value": "__CPUPercentageThreshold__"
         }
     }
 }

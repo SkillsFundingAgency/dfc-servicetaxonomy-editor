@@ -181,6 +181,9 @@
         },
         "ExceptionCountThreshold": {
             "type": "string"
+        },
+        "CPUPercentageThreshold": {
+            "type": "string"
         }
     },
     "variables": {
@@ -630,6 +633,59 @@
                     }
                 }
             }
+        },
+        {
+            "apiVersion": "2019-05-01",
+            "name": "[concat(variables('AppServicePlanName'), '-CPUPercentage')]",
+            "type": "Microsoft.Resources/deployments",
+            "properties": {
+                "mode": "Incremental",
+                "templateLink": {
+                    "uri": "[concat(variables('BuildingBlocksDfcBaseUrl'), 'Application-Insights/metric-alerts.json')]",
+                    "contentVersion": "1.0.0.0"
+                },
+                "parameters": {
+                    "enabled": {
+                        "value": "[parameters('enableAlerts')]"
+                    },
+                    "alertName": {
+                        "value": "[concat(variables('AppServicePlanName'), '-metric-CPUPercentage')]"
+                    },
+                    "alertSeverity": {
+                        "value": 3
+                    },
+                    "metricName": {
+                        "value": "CpuPercentage"
+                    },
+                    "operator": {
+                        "value": "GreaterThanOrEqual"
+                    },
+                    "threshold": {
+                        "value": "[parameters('CPUPercentageThreshold')]"
+                    },
+                    "aggregation": {
+                        "value": "Average"
+                    },
+                    "windowSize": {
+                        "value": "PT5M"
+                    },
+                    "evaluationFrequency": {
+                        "value": "PT1M"
+                    },
+                    "actionGroupName": {
+                        "value": "[variables('ActionGroupName')]"
+                    },
+                    "actionGroupResourceGroup": {
+                        "value": "[variables('AppServicePlanResourceGroup')]"
+                    },
+                    "resourceId": {
+                        "value": "[resourceId('Microsoft.Web/serverFarms', variables('AppServicePlanName'))]"
+                    }
+                }
+            },
+            "dependsOn": [
+                "[variables('AppServicePlanName')]"
+            ]
         }
     ],
     "outputs": {}
