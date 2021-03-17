@@ -56,7 +56,7 @@ stages:
     - task: PublishPipelineArtifact@0
       displayName: Publish PSScripts Pipeline Artifact
       inputs:
-        targetPath: $(System.DefaultWorkingDirectory)/Resources/PSScripts
+        targetPath: "$(System.DefaultWorkingDirectory)/Resources/PSScripts"
 
   - job: BuildDotNet
     displayName: "Build the dotnet core applications"
