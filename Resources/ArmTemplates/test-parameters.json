@@ -152,12 +152,6 @@
         "DigitalAssetsCdn": {
             "value": "my-string"
         },
-        "AzureAdSettingsClientId": {
-            "value": "AzureAdSettingsClientId"
-        },
-        "AzureAdSettingsClientSecret": {
-            "value": "AzureAdSettingsClientSecret"
-        },
         "AzureAdSettingsAuthority": {
             "value": "AzureAdSettingsAuthority"
         },

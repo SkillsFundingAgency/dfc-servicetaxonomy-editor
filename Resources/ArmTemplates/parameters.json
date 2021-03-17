@@ -152,12 +152,6 @@
         "DigitalAssetsCdn": {
             "value": "__CdnUrl__"
         },
-        "AzureAdSettingsClientId": {
-            "value": "__dfc-servicetaxonomy-editor-appregistration-id__"
-        },
-        "AzureAdSettingsClientSecret": {
-            "value": "__dfc-servicetaxonomy-editor-appregistration-secret__"
-        },
         "AzureAdSettingsAuthority": {
             "value": "__AzureAdSettingsAuthority__"
         },
