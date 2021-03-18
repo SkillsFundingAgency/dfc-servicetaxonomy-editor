@@ -682,7 +682,7 @@
                         "value": "[variables('AppServicePlanResourceGroup')]"
                     },
                     "resourceId": {
-                        "value": "[resourceId('Microsoft.Web/serverFarms', parameters('SharedAppServicePlanName'))]"
+                        "value": "[resourceId('Microsoft.Web/serverFarms', variables('AppServicePlanName'))]"
                     }
                 }
             }
@@ -732,7 +732,7 @@
                         "value": "[variables('AppServicePlanResourceGroup')]"
                     },
                     "resourceId": {
-                        "value": "[resourceId('Microsoft.Web/serverFarms', parameters('SharedAppServicePlanName'))]"
+                        "value": "[resourceId('Microsoft.Web/serverFarms', variables('AppServicePlanName'))]"
                     }
                 }
             }
