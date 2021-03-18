@@ -380,7 +380,7 @@
             });
     }
 
-    function setQueryParam(sourceUrl, key, value) {
+    function setQueryParam(sourceUrl) {
         var url = new URL(sourceUrl);
         let queryParams = new Map();
         queryParams.set("rel", "0");
