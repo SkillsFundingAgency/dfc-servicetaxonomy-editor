@@ -181,12 +181,6 @@
         },
         "ExceptionCountThreshold": {
             "type": "string"
-        },
-        "CPUPercentageThreshold": {
-            "type": "string"
-        },
-        "MemoryPercentageThreshold": {
-            "type": "string"
         }
     },
     "variables": {
