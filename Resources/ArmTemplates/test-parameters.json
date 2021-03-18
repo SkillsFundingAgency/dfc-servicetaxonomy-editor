@@ -151,6 +151,21 @@
         },
         "DigitalAssetsCdn": {
             "value": "my-string"
+        },
+        "AzureAdSettingsAuthority": {
+            "value": "AzureAdSettingsAuthority"
+        },
+        "AzureAdSettingsSubscriptionId": {
+            "value": "AzureAdSettingsSubscriptionId"
+        },
+        "AzureAdSettingsCdnProfileName": {
+            "value": "AzureAdSettingsCdnProfileName"
+        },
+        "AzureAdSettingsCdnEndpointName": {
+            "value": "AzureAdSettingsCdnEndpointName"
+        },
+        "AzureAdSettingsResourceGroupName": {
+            "value": "AzureAdSettingsResourceGroupName"
         }
     }
 }

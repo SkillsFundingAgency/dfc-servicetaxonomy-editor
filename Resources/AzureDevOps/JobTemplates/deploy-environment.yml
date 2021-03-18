@@ -3,6 +3,7 @@ parameters:
   Environment: ''
   PackageFile:  ''
   ArmTemplateFolder: ''
+  PSScriptPath: ''
   Location: 'West Europe'
   EnvironmentTag: ''
   ParentBusinessTag: ''
@@ -41,6 +42,7 @@ jobs:
             EnvironmentTag: '${{ parameters.EnvironmentTag }}'
             ParentBusinessTag: '${{ parameters.ParentBusinessTag }}'            
             ServiceOfferingTag: '${{ parameters.ServiceOfferingTag }}'
+            PSScriptPath: '${{ parameters.PSScriptPath }}'
 
 - deployment: DeployEditorTo_${{ parameters.Environment }}
   workspace:
