@@ -7,6 +7,7 @@ parameters:
   EnvironmentTag: ''
   ParentBusinessTag: ''
   ResourceGroup: ''
+  PSScriptPath: ''
   ServiceOfferingTag: ''
   SetTagsScriptUrl: 'https://raw.githubusercontent.com/SkillsFundingAgency/dfc-devops/master/PSScripts/Set-EsfaResourceGroupTags.ps1'
   SetTagsScriptFilePath: '$(System.DefaultWorkingDirectory)\Set-EsfaResourceGroupTags.ps1'
@@ -55,7 +56,7 @@ steps:
   displayName: 'Azure PowerShell script: Creation of Service Principal'
   inputs:
     azureSubscription: '${{ parameters.AzureSubscription }}'
-    ScriptPath: "$(Pipeline.Workspace)/DFC.ServiceTaxonomy.Editor.PSScripts/New-ServicePrincipalAndStoreSecrets.ps1"
+    ScriptPath: '${{ parameters.PSScriptPath }}/New-ServicePrincipalAndStoreSecrets.ps1'
     ScriptArguments: -SharedResourceGroupName "$(SharedResourceGroup)" `
           -ServicePrincipalName "$(ServicePrincipalName)"  `
           -RepoName dfc-servicetaxonomy-editor  `
@@ -68,6 +69,6 @@ steps:
   displayName: 'Azure PowerShell script: Keyvault permissions'
   inputs:
     azureSubscription: '${{ parameters.AzureSubscription }}'
-    ScriptPath: "$(Pipeline.Workspace)/DFC.ServiceTaxonomy.Editor.PSScripts/Assign-KeyVault-Permissions-To-Identity.ps1"
+    ScriptPath: '${{ parameters.PSScriptPath }}/Assign-KeyVault-Permissions-To-Identity.ps1'
     ScriptArguments: "-KeyVaultName  $(sharedKeyVaultName) -ResourceGroupName $(sharedResourceGroup) -ServicePrincipalName '$(ServicePrincipalName)-as' -Verbose"
     azurePowerShellVersion: LatestVersion
