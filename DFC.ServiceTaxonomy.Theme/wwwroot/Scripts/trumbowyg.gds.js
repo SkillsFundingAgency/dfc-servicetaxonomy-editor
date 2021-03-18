@@ -70,7 +70,13 @@
                     'width': 'Width',
                     'height': 'Height'
                 },
-                insertMedia: 'Insert Media'
+                insertMedia: 'Insert Media',
+                mediaSettings: {
+                    'url': 'Url',
+                    'altText': 'Alternate text',
+                    'width': 'Width',
+                    'height': 'Height'
+                },
             }
         },
         // Register plugin in Trumbowyg
@@ -354,15 +360,25 @@
 
         var options = {
             url: {
-                label: trumbowyg.lang.iframeSettings.url,
+                label: trumbowyg.lang.mediaSettings.url,
                 value: imageUrl,
                 required: true
             },
             alt: {
-                label: 'Alt text',
+                label: trumbowyg.lang.mediaSettings.altText,
                 value: altText,
                 required: true
-            }
+            },
+            height: {
+                label: trumbowyg.lang.mediaSettings.height,
+                required: true,
+                value: "250"
+            },
+            width: {
+                label: trumbowyg.lang.mediaSettings.width,
+                required: true,
+                value: "400"
+            },
         };
         trumbowyg.openModalInsert(
             trumbowyg.lang.insertMedia,
@@ -374,8 +390,10 @@
                     .attr('src', data.url + '?' + dateTimeStamp)
                     .attr('alt', data.alt)
                     .attr('data-source', 'CDN')
-                trumbowyg.execCmd('insertHTML', $mediaToInsert.get(0).outerHTML)
+                    .attr('height', data.height)
+                    .attr('width', data.width)
 
+                trumbowyg.execCmd('insertHTML', $mediaToInsert.get(0).outerHTML)
                 return true;
             });
     }
