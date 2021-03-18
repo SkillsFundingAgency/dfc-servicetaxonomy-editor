@@ -17,9 +17,3 @@ variables:
   value: basic
 - name: PublishToSlack
   value: true
-- name: ServicePrincipalName
-  value: $(ServicePrincipalName)
-- name: MediaStorageAccountName
-  value: $(MediaStorageAccountName)
-- name: CdnProfileName
-  value: $(CdnProfileName)
