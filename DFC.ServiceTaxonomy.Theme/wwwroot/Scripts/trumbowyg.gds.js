@@ -293,17 +293,18 @@
                 required: true
             },
             title: {
-                label: trumbowyg.lang.iframeSettings.title
+                label: trumbowyg.lang.iframeSettings.title,
+                required: true
             },
             height: {
                 label: trumbowyg.lang.iframeSettings.height,
                 required: true,
-                value: "360"
+                value: "315"
             },
             width: {
                 label: trumbowyg.lang.iframeSettings.width,
                 required: true,
-                value: "640"
+                value: "630"
             },
         };
         trumbowyg.openModalInsert(
@@ -311,7 +312,7 @@
             options,
             function (data) {
 
-                var srcUrl = setQueryParam(data.url, "rel", "0")
+                var srcUrl = setQueryParam(data.url);
 
                 var $linkToEmbed = $('<iframe>')
                     .attr('src', srcUrl)
@@ -361,9 +362,17 @@
         });
     }
 
-    function setQueryParam(sourceUrl, key, value) {
+    function setQueryParam(sourceUrl) {
         var url = new URL(sourceUrl);
-        url.searchParams.set(key, value);
+        let queryParams = new Map();
+        queryParams.set("rel", "0");
+        queryParams.set("modestbranding", "1");
+        queryParams.set("autoplay", "0");
+        queryParams.set("origin", "https://nationalcareers.service.gov.uk");
+
+        for (let [key, value] of queryParams) {
+            url.searchParams.set(key, value);
+        }
         return url;
     }
 

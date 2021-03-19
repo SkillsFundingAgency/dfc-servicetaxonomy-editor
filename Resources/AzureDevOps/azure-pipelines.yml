@@ -220,6 +220,7 @@ stages:
       TestArtifactBranch: ${{ parameters.DfcServiceTaxonomyTestBranch }}
       TestExclusionTag: 'NotSit'
       MediaStorageAccountName: $(MediaStorageAccountName)
+      PSScriptPath: "$(Pipeline.Workspace)/${{ variables.SolutionBaseName }}.Editor.Resources.PSScripts"
 
 
 - stage: DeployToPP
@@ -256,6 +257,7 @@ stages:
       TestArtifactBranch: ${{ parameters.DfcServiceTaxonomyTestBranch }}
       TestExclusionTag: 'NotPP'
       MediaStorageAccountName: $(MediaStorageAccountName)
+      PSScriptPath: "$(Pipeline.Workspace)/${{ variables.SolutionBaseName }}.Editor.Resources.PSScripts"
 
 - stage: DeployToPrd
   condition: and(eq(dependencies.Build.result,'Succeeded'), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
@@ -290,3 +292,4 @@ stages:
       DfcServiceTaxonomyTestsBuildId: $(DfcServiceTaxonomyTestsBuildId)
       TestArtifactBranch: ${{ parameters.DfcServiceTaxonomyTestBranch }}
       MediaStorageAccountName: $(MediaStorageAccountName)
+      PSScriptPath: "$(Pipeline.Workspace)/${{ variables.SolutionBaseName }}.Editor.Resources.PSScripts"
