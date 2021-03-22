@@ -10,7 +10,6 @@ using YesSql;
 
 namespace DFC.ServiceTaxonomy.ContentApproval.Services
 {
-    //todo: one method to return all count types?
     public class ContentItemsApprovalService : IContentItemsApprovalService
     {
         private readonly ISession _session;
@@ -23,6 +22,9 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Services
             _session = session;
             _defaultContentsAdminListFilter = defaultContentsAdminListFilter;
         }
+
+#if might_need_if_need_to_investigate_optimisations
+        // alternatively write a sql query that gets all the counts in one gp
 
         public async Task<ContentItemsApprovalCounts> GetManageContentItemCountsSingleQuery(DashboardItemsStatusCard card)
         {
@@ -94,8 +96,7 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Services
 
             return counts;
         }
-
-        //todo: alternatively write a sql query that gets all the counts in one gp
+#endif
 
         public async Task<ContentItemsApprovalCounts> GetManageContentItemCounts(DashboardItemsStatusCard card)
         {
@@ -121,6 +122,10 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Services
             return counts;
         }
 
+        // if we need to count 'will need review' items, we'll have to also check for a draft version
+        // can we do that using With<> ? or do apply custom c# filtering after FilterAsync on the items before count??
+        // or generate a sql query, but then can't reuse _defaultContentsAdminListFilter (so easily)
+
         private async Task<int> GetManageContentItemCount(
             DashboardItemsStatusCard card,
             ReviewType? reviewType = null)
@@ -145,9 +150,6 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Services
                     }
                     break;
                 case DashboardItemsStatusCard.InReview:
-                    //todo: we'll have to filter 'will need review' items according to if there's a draft version
-                    // can we do that using With<> ? or do apply custom c# filtering after FilterAsync on the items before count??
-                    // or generate a sql query, but then can't reuse _defaultContentsAdminListFilter (so easily)
                     filterOptions.ContentsStatus = ContentsStatus.AllVersions;
                     query.With<ContentApprovalPartIndex>(i => i.ReviewStatus == (int?)ContentReviewStatus.InReview);
                     if (reviewType != null)
