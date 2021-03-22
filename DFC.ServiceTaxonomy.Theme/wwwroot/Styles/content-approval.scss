@@ -1,8 +1,24 @@
 //todo: this belongs in an Assets folder in the content approval project
 
-a.dashboard-item-status:hover {
-    text-decoration: none !important;
-    }
+.dashboard-item-status-in-draft {
+    background-color: #e79795 !important;
+}
+
+.dashboard-item-status-waiting-for-review {
+    background-color: #ffc988 !important;
+}
+
+.dashboard-item-status-in-review {
+    background-color: #ffb284 !important;
+}
+
+.dashboard-item-status-published {
+    background-color: #c6c09c !important;
+}
+
+.dashboard-container {
+    grid-template-rows: repeat(6, 152px) !important;
+}
 
 .dashboard-item-status {
     //todo: switch to target .card using js instead? https://stackoverflow.com/questions/3662645/select-element-based-on-child-class
@@ -16,10 +32,62 @@ a.dashboard-item-status:hover {
     top: 0;
     left: 0;
     width: 100%;
+    padding: 1rem 0;
     color: #315095 !important;
-    background-color: #f88b6f !important;
     border-radius: 15px 0;
     border-style: solid;
+
+    a:hover {
+        text-decoration: none !important;
+    }
+
+    .overlay {
+        position:absolute;
+        left:0; top:0; bottom:0; right:0;
+    }
+
+    .inner {
+        position:relative;
+        pointer-events: none;
+        z-index: 1;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+    }
+
+    .inner a {
+        pointer-events: all;
+    }
+
+    .dashboard-item-status-review-types {
+        display: grid;
+        grid-template-columns: 10rem 10rem;
+        grid-row: auto;
+        grid-column-gap: 0.5rem;
+        grid-row-gap: 0.5rem;
+
+        .dashboard-item-status-review-type {
+            display:flex;
+            color: #e4e4e4;
+            background-color: #55596b !important;
+            justify-content: center;
+            border-radius: 0.3rem;
+            border: 0.18rem solid white;
+        }
+
+        a.dashboard-item-status-review-type:hover {
+            color: #e4e4e4;
+        }
+
+        a.dashboard-item-status-has-items:hover {
+            color: #315095 !important;
+        }
+
+        .dashboard-item-status-has-items {
+            color: #315095 !important;
+            background-color: #acd18c !important;
+        }
+    }
 
     .dashboard-item-status-icon {
         font-size: 3.5rem;
