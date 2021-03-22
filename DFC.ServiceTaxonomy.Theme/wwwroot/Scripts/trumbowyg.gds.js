@@ -193,7 +193,6 @@
                             insertMedia(trumbowyg);
                         }
                     });
-
                     setColourTitles();
                 },
                 // Return a list of button names which are active on current element
@@ -347,8 +346,8 @@
 
             $(window).trigger('scroll');
 
-            for (i = 0; i < mediaApp.selectedMedias.length; i++) {
-                insertImageWithAltText(trumbowyg, mediaApp.selectedMedias[i].url, mediaApp.selectedMedias[i].name);
+            if (mediaApp.selectedMedias.length != 0) {
+                insertImageWithAltText(trumbowyg, mediaApp.selectedMedias[0].url, mediaApp.selectedMedias[0].name);
             }
 
             $('#mediaModalHtmlField').modal('hide');
@@ -366,24 +365,22 @@
             },
             alt: {
                 label: trumbowyg.lang.mediaSettings.altText,
-                value: altText,
                 required: true
             },
             height: {
                 label: trumbowyg.lang.mediaSettings.height,
-                required: true,
-                value: "250"
+                type: 'number'
             },
             width: {
                 label: trumbowyg.lang.mediaSettings.width,
-                required: true,
-                value: "400"
+                type: 'number'
             },
         };
         trumbowyg.openModalInsert(
             trumbowyg.lang.insertMedia,
             options,
             function (data) {
+
                 var dateTimeStamp = new Date().toISOString().slice(0, -8).replace(/[-:T]/g, "");
 
                 var $mediaToInsert = $('<img>')
