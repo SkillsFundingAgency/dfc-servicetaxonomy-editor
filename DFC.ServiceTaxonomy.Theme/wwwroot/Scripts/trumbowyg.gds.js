@@ -70,7 +70,13 @@
                     'width': 'Width',
                     'height': 'Height'
                 },
-                insertMedia: 'Insert Media'
+                insertMedia: 'Insert Media',
+                mediaSettings: {
+                    'url': 'Url',
+                    'altText': 'Alternate text',
+                    'width': 'Width',
+                    'height': 'Height'
+                },
             }
         },
         // Register plugin in Trumbowyg
@@ -187,7 +193,6 @@
                             insertMedia(trumbowyg);
                         }
                     });
-
                     setColourTitles();
                 },
                 // Return a list of button names which are active on current element
@@ -330,7 +335,7 @@
     }
 
     function insertMedia(trumbowyg) {
-        trumbowyg.saveRange();
+
         $("#mediaApp").detach().appendTo('#mediaModalHtmlField .modal-body');
         $("#mediaApp").show();
         mediaApp.selectedMedias = [];
@@ -338,28 +343,56 @@
         //disable an reset on click event over the button to avoid issue if press button multiple times or have multiple editor
         $('#mediaHtmlFieldSelectButton').off('click');
         $('#mediaHtmlFieldSelectButton').on('click', function (v) {
-            //avoid multiple image insert
-            trumbowyg.restoreRange();
-            trumbowyg.range.deleteContents();
 
             $(window).trigger('scroll');
-            var dateTimeStamp = new Date().toISOString().slice(0, -8).replace(/[-:T]/g, "");
 
-            for (i = 0; i < mediaApp.selectedMedias.length; i++) {
-                var img = document.createElement("img");
-                img.src = mediaApp.selectedMedias[i].url + '?' + dateTimeStamp;
-                img.alt = mediaApp.selectedMedias[i].name;
-                img.dataset.source = 'CDN';
-                trumbowyg.range.insertNode(img);
+            if (mediaApp.selectedMedias.length != 0) {
+                insertImageWithAltText(trumbowyg, mediaApp.selectedMedias[0].url, mediaApp.selectedMedias[0].name);
             }
-            trumbowyg.syncCode();
-            trumbowyg.$c.trigger('tbwchange');
-            //avoid image to be selected after add it
-            trumbowyg.$c.focus();
 
             $('#mediaModalHtmlField').modal('hide');
             return true;
         });
+    }
+
+    function insertImageWithAltText(trumbowyg, imageUrl, altText) {
+
+        var options = {
+            url: {
+                label: trumbowyg.lang.mediaSettings.url,
+                value: imageUrl,
+                required: true
+            },
+            alt: {
+                label: trumbowyg.lang.mediaSettings.altText,
+                required: true
+            },
+            height: {
+                label: trumbowyg.lang.mediaSettings.height,
+                type: 'number'
+            },
+            width: {
+                label: trumbowyg.lang.mediaSettings.width,
+                type: 'number'
+            },
+        };
+        trumbowyg.openModalInsert(
+            trumbowyg.lang.insertMedia,
+            options,
+            function (data) {
+
+                var dateTimeStamp = new Date().toISOString().slice(0, -8).replace(/[-:T]/g, "");
+
+                var $mediaToInsert = $('<img>')
+                    .attr('src', data.url + '?' + dateTimeStamp)
+                    .attr('alt', data.alt)
+                    .attr('data-source', 'CDN')
+                    .attr('height', data.height)
+                    .attr('width', data.width)
+
+                trumbowyg.execCmd('insertHTML', $mediaToInsert.get(0).outerHTML)
+                return true;
+            });
     }
 
     function setQueryParam(sourceUrl) {
