@@ -70,7 +70,13 @@
                     'width': 'Width',
                     'height': 'Height'
                 },
-                insertMedia: 'Insert Media'
+                insertMedia: 'Insert Media',
+                mediaSettings: {
+                    'url': 'Url',
+                    'altText': 'Alternate text',
+                    'width': 'Width',
+                    'height': 'Height'
+                },
             }
         },
         // Register plugin in Trumbowyg
@@ -187,7 +193,6 @@
                             insertMedia(trumbowyg);
                         }
                     });
-
                     setColourTitles();
                 },
                 // Return a list of button names which are active on current element
@@ -293,17 +298,18 @@
                 required: true
             },
             title: {
-                label: trumbowyg.lang.iframeSettings.title
+                label: trumbowyg.lang.iframeSettings.title,
+                required: true
             },
             height: {
                 label: trumbowyg.lang.iframeSettings.height,
                 required: true,
-                value: "360"
+                value: "315"
             },
             width: {
                 label: trumbowyg.lang.iframeSettings.width,
                 required: true,
-                value: "640"
+                value: "630"
             },
         };
         trumbowyg.openModalInsert(
@@ -311,7 +317,7 @@
             options,
             function (data) {
 
-                var srcUrl = setQueryParam(data.url, "rel", "0")
+                var srcUrl = setQueryParam(data.url);
 
                 var $linkToEmbed = $('<iframe>')
                     .attr('src', srcUrl)
@@ -329,7 +335,7 @@
     }
 
     function insertMedia(trumbowyg) {
-        trumbowyg.saveRange();
+
         $("#mediaApp").detach().appendTo('#mediaModalHtmlField .modal-body');
         $("#mediaApp").show();
         mediaApp.selectedMedias = [];
@@ -337,33 +343,69 @@
         //disable an reset on click event over the button to avoid issue if press button multiple times or have multiple editor
         $('#mediaHtmlFieldSelectButton').off('click');
         $('#mediaHtmlFieldSelectButton').on('click', function (v) {
-            //avoid multiple image insert
-            trumbowyg.restoreRange();
-            trumbowyg.range.deleteContents();
 
             $(window).trigger('scroll');
-            var dateTimeStamp = new Date().toISOString().slice(0, -8).replace(/[-:T]/g, "");
 
-            for (i = 0; i < mediaApp.selectedMedias.length; i++) {
-                var img = document.createElement("img");
-                img.src = mediaApp.selectedMedias[i].url + '?' + dateTimeStamp;
-                img.alt = mediaApp.selectedMedias[i].name;
-                img.dataset.source = 'CDN';
-                trumbowyg.range.insertNode(img);
+            if (mediaApp.selectedMedias.length != 0) {
+                insertImageWithAltText(trumbowyg, mediaApp.selectedMedias[0].url, mediaApp.selectedMedias[0].name);
             }
-            trumbowyg.syncCode();
-            trumbowyg.$c.trigger('tbwchange');
-            //avoid image to be selected after add it
-            trumbowyg.$c.focus();
 
             $('#mediaModalHtmlField').modal('hide');
             return true;
         });
     }
 
-    function setQueryParam(sourceUrl, key, value) {
+    function insertImageWithAltText(trumbowyg, imageUrl, altText) {
+
+        var options = {
+            url: {
+                label: trumbowyg.lang.mediaSettings.url,
+                value: imageUrl,
+                required: true
+            },
+            alt: {
+                label: trumbowyg.lang.mediaSettings.altText,
+                required: true
+            },
+            height: {
+                label: trumbowyg.lang.mediaSettings.height,
+                type: 'number'
+            },
+            width: {
+                label: trumbowyg.lang.mediaSettings.width,
+                type: 'number'
+            },
+        };
+        trumbowyg.openModalInsert(
+            trumbowyg.lang.insertMedia,
+            options,
+            function (data) {
+
+                var dateTimeStamp = new Date().toISOString().slice(0, -8).replace(/[-:T]/g, "");
+
+                var $mediaToInsert = $('<img>')
+                    .attr('src', data.url + '?' + dateTimeStamp)
+                    .attr('alt', data.alt)
+                    .attr('data-source', 'CDN')
+                    .attr('height', data.height)
+                    .attr('width', data.width)
+
+                trumbowyg.execCmd('insertHTML', $mediaToInsert.get(0).outerHTML)
+                return true;
+            });
+    }
+
+    function setQueryParam(sourceUrl) {
         var url = new URL(sourceUrl);
-        url.searchParams.set(key, value);
+        let queryParams = new Map();
+        queryParams.set("rel", "0");
+        queryParams.set("modestbranding", "1");
+        queryParams.set("autoplay", "0");
+        queryParams.set("origin", "https://nationalcareers.service.gov.uk");
+
+        for (let [key, value] of queryParams) {
+            url.searchParams.set(key, value);
+        }
         return url;
     }
 

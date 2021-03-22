@@ -3,6 +3,7 @@ parameters:
   Environment: ''
   PackageFile:  ''
   ArmTemplateFolder: ''
+  PSScriptPath: ''
   Location: 'West Europe'
   EnvironmentTag: ''
   ParentBusinessTag: ''
@@ -33,7 +34,7 @@ jobs:
     runOnce:
       deploy:
         steps:
-        - template: /AzureDevOpsTemplates/Deploy/StepTemplates/dfc-arm-deploy.yml@dfc-devops
+        - template: ..\StepTemplates\deploy-arm-template.yml
           parameters:
             ArmTemplateRoot: '${{ parameters.ArmTemplateFolder }}'
             ResourceGroup: '${{ parameters.ResourceGroup }}'
@@ -41,6 +42,7 @@ jobs:
             EnvironmentTag: '${{ parameters.EnvironmentTag }}'
             ParentBusinessTag: '${{ parameters.ParentBusinessTag }}'            
             ServiceOfferingTag: '${{ parameters.ServiceOfferingTag }}'
+            PSScriptPath: '${{ parameters.PSScriptPath }}'
 
 - deployment: DeployEditorTo_${{ parameters.Environment }}
   workspace:
@@ -120,6 +122,7 @@ jobs:
           inputs:
             targetPath: $(Pipeline.Workspace)\OrchardCoreInitialiserOutput\ 
             artifactName: DFC.ServiceTaxonomy.OrchardCoreInitialiser.Output.${{ parameters.Environment }}
+
         - template: ..\StepTemplates\run-integration-tests.yml
           parameters:
             Environment: ${{ parameters.Environment }}
