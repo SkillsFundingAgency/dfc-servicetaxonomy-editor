@@ -4,15 +4,15 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Models
 {
     public enum ReviewType
     {
-        [Display(Name="None")]
+        [Display(Name="None", Order = 0)]
         None,
-        [Display(Name="Content Design")]
+        [Display(Name="Content Design", Order = 1)]
         ContentDesign,
-        [Display(Name="Stakeholder")]
+        [Display(Name="Stakeholder", Order = 2)]
         Stakeholder,
-        [Display(Name="SME")]
+        [Display(Name="SME", Order = 3)]
         SME,
-        [Display(Name="UX")]
+        [Display(Name="UX", Order = 4)]
         UX
     }
 }
