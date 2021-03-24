@@ -1,4 +1,6 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
 using OrchardCore.Data.Migration;
 using OrchardCore.ContentManagement.Metadata;
 using OrchardCore.ContentManagement.Metadata.Settings;
@@ -15,11 +17,13 @@ namespace DFC.ServiceTaxonomy.ContentApproval
     {
         private readonly IContentDefinitionManager _contentDefinitionManager;
         private readonly IRecipeMigrator _recipeMigrator;
+        private readonly ILogger _logger;
 
-        public Migrations(IContentDefinitionManager contentDefinitionManager, IRecipeMigrator recipeMigrator)
+        public Migrations(IContentDefinitionManager contentDefinitionManager, IRecipeMigrator recipeMigrator, ILogger logger)
         {
             _contentDefinitionManager = contentDefinitionManager;
             _recipeMigrator = recipeMigrator;
+            _logger = logger;
         }
 
         public async Task<int> CreateAsync()
@@ -39,9 +43,10 @@ namespace DFC.ServiceTaxonomy.ContentApproval
             {
                 SchemaBuilder.DropMapIndexTable<ContentApprovalPartIndex>();
             }
-            catch
+            catch(Exception e)
             {
                 // Not required by SQLLite as no issue if index doesn't exist but maybe a problem in SQL
+                _logger.LogWarning(e, "ContentApprovalPartIndex could not be deleted");
             }
 
             SchemaBuilder.CreateMapIndexTable<ContentApprovalPartIndex>(table => table
@@ -76,9 +81,10 @@ namespace DFC.ServiceTaxonomy.ContentApproval
             {
                 SchemaBuilder.DropMapIndexTable<ContentApprovalPartIndex>();
             }
-            catch
+            catch(Exception e)
             {
                 // Not required by SQLLite as no issue if index doesn't exist but maybe a problem in SQL
+                _logger.LogWarning(e, "ContentApprovalPartIndex could not be deleted");
             }
 
             _contentDefinitionManager.DeletePartDefinition(nameof(ContentApprovalPart));
@@ -108,9 +114,10 @@ namespace DFC.ServiceTaxonomy.ContentApproval
             {
                 SchemaBuilder.DropMapIndexTable<ContentApprovalPartIndex>();
             }
-            catch
+            catch(Exception e)
             {
                 // Not required by SQLLite as no issue if index doesn't exist but maybe a problem in SQL
+                _logger.LogWarning(e, "ContentApprovalPartIndex could not be deleted");
             }
 
             SchemaBuilder.CreateMapIndexTable<ContentApprovalPartIndex>(table => table
