@@ -7,7 +7,6 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Clients.ActiveDirectory;
 using Microsoft.Rest;
-using Microsoft.Rest.Azure;
 using OrchardCore.Media.Core.Events;
 using OrchardCore.Media.Events;
 
@@ -47,22 +46,15 @@ namespace DFC.ServiceTaxonomy.Media.Events
                     SubscriptionId = _azureAdSettings.SubscriptionId
                 };
 
-
-                AzureOperationResponse azureOperationResponse = await cdnManagementClient.Endpoints
-                                                                .PurgeContentWithHttpMessagesAsync(_azureAdSettings.ResourceGroupName,
-                                                                _azureAdSettings.CdnProfileName,
-                                                                _azureAdSettings.CdnEndpointName,
-                                                                new List<string> { contentPath });
-
-                if (azureOperationResponse.Response.IsSuccessStatusCode)
-                {
-                    _logger.LogError($"Error purging media content:{azureOperationResponse.Response.ReasonPhrase}");
-                    hasErrors = true;
-                }
+                cdnManagementClient.Endpoints.PurgeContent(_azureAdSettings.ResourceGroupName,
+                                                           _azureAdSettings.CdnProfileName,
+                                                           _azureAdSettings.CdnEndpointName,
+                                                           new List<string>() { contentPath });
+                hasErrors = false;
             }
             catch (Exception exception)
             {
-                _logger.LogError(exception, "Error purging media content");
+                _logger.LogError(exception, $"Error purging media content:{contentPath}");
                 hasErrors = true;
             }
 
