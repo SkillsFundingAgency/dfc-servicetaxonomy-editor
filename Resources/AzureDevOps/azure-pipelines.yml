@@ -103,7 +103,7 @@ stages:
         configuration: Release
         packDirectory: '$(build.artifactstagingdirectory)\DeploymentPackages\Nuget'
         versioningScheme: byEnvVar
-        versionEnvVar: GitVersion.SemVer
+        versionEnvVar: GitVersion.NugetVersionV2
 
     - task: DotNetCoreCLI@2
       displayName: 'dotnet pack - Events'
