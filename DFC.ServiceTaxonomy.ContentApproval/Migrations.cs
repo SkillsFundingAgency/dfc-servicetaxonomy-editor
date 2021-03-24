@@ -34,7 +34,15 @@ namespace DFC.ServiceTaxonomy.ContentApproval
                 .WithDescription("Adds publishing status workflow properties to content items.")
             );
 
-            SchemaBuilder.DropMapIndexTable<ContentApprovalPartIndex>();
+
+            try
+            {
+                SchemaBuilder.DropMapIndexTable<ContentApprovalPartIndex>();
+            }
+            catch
+            {
+                // Not required by SQLLite as no issue if index doesn't exist but maybe a problem in SQL
+            }
 
             SchemaBuilder.CreateMapIndexTable<ContentApprovalPartIndex>(table => table
                 .Column<int>(nameof(ContentApprovalPartIndex.ReviewStatus))
@@ -64,7 +72,14 @@ namespace DFC.ServiceTaxonomy.ContentApproval
 
         public int UpdateFrom2()
         {
-            SchemaBuilder.DropMapIndexTable<ContentApprovalPartIndex>();
+            try
+            {
+                SchemaBuilder.DropMapIndexTable<ContentApprovalPartIndex>();
+            }
+            catch
+            {
+                // Not required by SQLLite as no issue if index doesn't exist but maybe a problem in SQL
+            }
 
             _contentDefinitionManager.DeletePartDefinition(nameof(ContentApprovalPart));
 
@@ -89,7 +104,14 @@ namespace DFC.ServiceTaxonomy.ContentApproval
 
         public async Task<int> UpdateFrom3Async()
         {
-            SchemaBuilder.DropMapIndexTable<ContentApprovalPartIndex>();
+            try
+            {
+                SchemaBuilder.DropMapIndexTable<ContentApprovalPartIndex>();
+            }
+            catch
+            {
+                // Not required by SQLLite as no issue if index doesn't exist but maybe a problem in SQL
+            }
 
             SchemaBuilder.CreateMapIndexTable<ContentApprovalPartIndex>(table => table
                 .Column<int>(nameof(ContentApprovalPartIndex.ReviewStatus))
