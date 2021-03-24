@@ -115,6 +115,7 @@ stages:
         versioningScheme: byEnvVar
         versionEnvVar: GitVersion.NugetVersionV2
 
+
     - task: PublishPipelineArtifact@1
       inputs:
         targetPath: $(build.artifactstagingdirectory)\DeploymentPackages\Nuget

@@ -6,6 +6,6 @@ namespace DFC.ServiceTaxonomy.ContentApproval.ViewModels
     {
         public DashboardItemsStatusCard Card { get; set; }
 
-        public int NumberOfContentItemsInState { get; set; }
+        public ContentItemsApprovalCounts? ContentItemsApprovalCounts { get; set; }
     }
 }
