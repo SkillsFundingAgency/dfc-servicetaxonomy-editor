@@ -103,7 +103,7 @@ stages:
         configuration: Release
         packDirectory: '$(build.artifactstagingdirectory)\DeploymentPackages\Nuget'
         versioningScheme: byEnvVar
-        versionEnvVar: GitVersion.NugetVersion
+        versionEnvVar: Build.BuildNumber
 
     - task: DotNetCoreCLI@2
       displayName: 'dotnet pack - Events'
@@ -113,7 +113,7 @@ stages:
         configuration: Release
         packDirectory: '$(build.artifactstagingdirectory)\DeploymentPackages\Nuget'
         versioningScheme: byEnvVar
-        versionEnvVar: GitVersion.NugetVersion
+        versionEnvVar: Build.BuildNumber
 
     - task: PublishPipelineArtifact@1
       inputs:
@@ -128,6 +128,7 @@ stages:
 
 - stage: PublishPackage
   displayName: Publish Package to NuGet
+  condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/dev'))
   jobs:  
   - job: CleanArtifacts  
     displayName: Clean artifacts directory
@@ -147,7 +148,6 @@ stages:
               packagesToPush: '$(Pipeline.Workspace)\$(SolutionBaseName).Nuget\*.nupkg;!$(Pipeline.Workspace)\$(SolutionBaseName).Nuget\*.symbols.nupkg'
               nuGetFeedType: external
               publishFeedCredentials: 'DFC Nuget'
-              versioningScheme: byBuildNumber
 
 - stage: DeployToDev
   condition: and(eq(dependencies.Build.result,'Succeeded'), ne(variables['Build.Reason'], 'PullRequest'))

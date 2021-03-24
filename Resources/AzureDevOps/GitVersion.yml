@@ -1,9 +1,1 @@
-mode: Mainline
-next-version: 0.9.0
-branches:
- dev:
-   tag: alpha
- master:
- tag: ''
-ignore:
- sha: []
+mode: ContinuousDelivery
