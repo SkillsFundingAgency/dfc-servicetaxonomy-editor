@@ -14,9 +14,7 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Indexes
                     ContentApprovalPart? contentApprovalPart = contentItem.As<ContentApprovalPart?>();
                     if (contentApprovalPart == null)
                     {
-#pragma warning disable CS8603 // Possible null reference return.
-                        return null;
-#pragma warning restore CS8603 // Possible null reference return.
+                        return new ContentApprovalPartIndex();
                     }
 
                     return new ContentApprovalPartIndex

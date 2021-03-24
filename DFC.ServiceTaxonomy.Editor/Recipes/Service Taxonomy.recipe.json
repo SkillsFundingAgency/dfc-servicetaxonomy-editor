@@ -36,6 +36,7 @@
                 "OrchardCore.Themes",
                 "OrchardCore.Users",
                 // Content Management
+                "OrchardCore.AdminDashboard",
                 "OrchardCore.Alias",
                 "OrchardCore.Autoroute",
                 "OrchardCore.Html",
@@ -67,27 +68,33 @@
                 "OrchardCore.Widgets",
                 // Hosting
                 "OrchardCore.Media.Azure.Storage",
-                // Workflows
-                "OrchardCore.Workflows",
-                "OrchardCore.Workflows.Http",
-                "OrchardCore.Workflows.Timers",
                 // Themes
                 "TheAdmin",
                 "DFC.ServiceTaxonomy.Theme",
                 // Service Taxonomy Editor
                 "DFC.ServiceTaxonomy.Content",
+                "DFC.ServiceTaxonomy.ContentApproval",
                 "DFC.ServiceTaxonomy.ContentPickerPreview",
+                "DFC.ServiceTaxonomy.CustomFields",
+                "DFC.ServiceTaxonomy.Taxonomies",
+                "DFC.ServiceTaxonomy.Taxonomies.ContentsAdminList",
+                "DFC.ServiceTaxonomy.UnpublishLater"
+            ]
+        },
+        {
+            "name": "feature",
+            "disable": [],
+            "enable": [
+                // Kept separately as OrchardCore.AdminDashboard doesn't play well with the OrchardCore.Workflows feature during setup
+                "OrchardCore.AuditTrail",
+                "OrchardCore.Workflows",
+                "OrchardCore.Workflows.Http",
+                "OrchardCore.Workflows.Timers",
                 "DFC.ServiceTaxonomy.GraphSync",
                 "DFC.ServiceTaxonomy.GraphLookup",
                 "DFC.ServiceTaxonomy.GraphVisualiser",
                 "DFC.ServiceTaxonomy.Cypher",
-                "DFC.ServiceTaxonomy.CustomFields",
-                "DFC.ServiceTaxonomy.Taxonomies",
-                "DFC.ServiceTaxonomy.Taxonomies.ContentsAdminList",
-                "DFC.ServiceTaxonomy.UnpublishLater",
-                "DFC.ServiceTaxonomy.PageLocation",
-                "OrchardCore.AuditTrail",
-                "DFC.ServiceTaxonomy.Media"
+                "DFC.ServiceTaxonomy.PageLocation"
             ]
         },
         {
@@ -199,6 +206,15 @@
                                     "DisplayRedirectLocationsAndDefaultPageForLocation": true
                                 }
                             }
+                        },
+                        {
+                            "PartName": "ContentApprovalPart",
+                            "Name": "ContentApprovalPart",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "6"
+                                }
+                            }
                         }
                     ]
                 },
@@ -273,6 +289,15 @@
                                     "DisplayId": true
                                 }
                             }
+                        },
+                        {
+                            "PartName": "ContentApprovalPart",
+                            "Name": "ContentApprovalPart",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "5"
+                                }
+                            }
                         }
                     ]
                 },
@@ -321,6 +346,15 @@
                                     "IdPropertyName": "uri",
                                     "GenerateIdPropertyValue": "$\"<<contentapiprefix>>/{ContentType}/{Value}\".ToLowerInvariant()",
                                     "DisplayId": true
+                                }
+                            }
+                        },
+                        {
+                            "PartName": "ContentApprovalPart",
+                            "Name": "ContentApprovalPart",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "3"
                                 }
                             }
                         }
@@ -378,6 +412,15 @@
                                     "DisplayId": false
                                 }
                             }
+                        },
+                        {
+                            "PartName": "ContentApprovalPart",
+                            "Name": "ContentApprovalPart",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "3"
+                                }
+                            }
                         }
                     ]
                 },
@@ -416,6 +459,15 @@
                                     "IdPropertyName": "uri",
                                     "GenerateIdPropertyValue": "$\"<<contentapiprefix>>/{ContentType}/{Value}\".ToLowerInvariant()",
                                     "DisplayId": false
+                                }
+                            }
+                        },
+                        {
+                            "PartName": "ContentApprovalPart",
+                            "Name": "ContentApprovalPart",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "2"
                                 }
                             }
                         }
@@ -475,6 +527,15 @@
                                     "RenderTitle": false
                                 }
                             }
+                        },
+                        {
+                            "PartName": "ContentApprovalPart",
+                            "Name": "ContentApprovalPart",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "3"
+                                }
+                            }
                         }
                     ]
                 },
@@ -507,6 +568,15 @@
                             "Settings": {
                                 "ContentTypePartSettings": {
                                     "Position": "0"
+                                }
+                            }
+                        },
+                        {
+                            "PartName": "ContentApprovalPart",
+                            "Name": "ContentApprovalPart",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "2"
                                 }
                             }
                         }
@@ -558,6 +628,15 @@
                             "Settings": {
                                 "ContentTypePartSettings": {
                                     "Position": "0"
+                                }
+                            }
+                        },
+                        {
+                            "PartName": "ContentApprovalPart",
+                            "Name": "ContentApprovalPart",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "3"
                                 }
                             }
                         }
@@ -887,6 +966,16 @@
                         "ContentPartSettings": {
                             "Attachable": true,
                             "Description": "Provides a way to define the url that is used to render your content item."
+                        }
+                    },
+                    "ContentPartFieldDefinitionRecords": []
+                },
+                {
+                    "Name": "ContentApprovalPart",
+                    "Settings": {
+                        "ContentPartSettings": {
+                            "Attachable": true,
+                            "Description": "Allows content items to require approval before publishing and adds item status dashboard widgets."
                         }
                     },
                     "ContentPartFieldDefinitionRecords": []

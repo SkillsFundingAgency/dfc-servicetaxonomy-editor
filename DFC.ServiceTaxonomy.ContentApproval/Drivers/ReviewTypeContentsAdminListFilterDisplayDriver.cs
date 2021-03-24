@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.ContentApproval.Extensions;
 using DFC.ServiceTaxonomy.ContentApproval.Models;
@@ -38,10 +36,7 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Drivers
                         new SelectListItem { Text = S["All review types"], Value = "" },
                     };
 
-                    string[] displayNames = EnumExtensions.GetDisplayNames(typeof(ReviewType));
-                    string[] names = Enum.GetNames(typeof(ReviewType));
-
-                    reviewTypes.AddRange(displayNames.Zip(names, (displayName, name) => new SelectListItem(displayName, name) ));
+                    reviewTypes.AddRange(EnumExtensions.GetSelectList(typeof(ReviewType)));
 
                     m.ReviewTypes = reviewTypes;
                 }).Location("Actions:20");
