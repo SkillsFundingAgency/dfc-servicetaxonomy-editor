@@ -25,7 +25,8 @@ steps:
    inputs:
      command: 'publish'
      projects: '${{ parameters.SolutionBaseName }}\${{ parameters.SolutionBaseName }}.csproj'
-     arguments: '--self-contained true -r win-x86 --configuration ${{ parameters.BuildConfiguration }} --output $(build.artifactstagingdirectory)\Artifact\${{ parameters.SolutionBaseName }}\DeploymentPackages\'
+     arguments: '--self-contained true -r win-x86 --configuration ${{ parameters.BuildConfiguration }} /p:Version=$(GitVersion.NuGetVersion)' --output $(build.artifactstagingdirectory)\Artifact\${{ parameters.SolutionBaseName }}\DeploymentPackages\'
+     versioningScheme: byBuildNumber
      publishWebProjects: false #set to false as this setting (which defaults to true) will parse the entire repo for web projects
 
  - task: DotNetCoreCLI@2
