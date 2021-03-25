@@ -15,6 +15,9 @@
         "KeyVaultName": {
             "type": "string"
         },
+        "KeyVaultAddress": {
+            "type": "string"
+        },
         "KeyVaultResourceGroup": {
             "type": "string"
         },
