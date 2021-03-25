@@ -14,7 +14,7 @@
         "KeyVaultName": {
             "value": "dfc-foo-shared-kv"
         },
-        "AzureAdSettingsKeyVaultAddress": {
+        "KeyVaultAddress": {
             "value": "https://some_endpoint/"
         },
         "KeyVaultResourceGroup": {
