@@ -23,7 +23,7 @@ namespace DFC.ServiceTaxonomy.Media.Services
 
         public async Task<string> GetSecrectAsync(string keyVaultKey)
         {
-            var vaultUri = new Uri(_azureAdSettings.KeyValutAddress);
+            var vaultUri = new Uri(_azureAdSettings.KeyVaultAddress);
 
             try
             {
