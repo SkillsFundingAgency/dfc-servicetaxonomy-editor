@@ -15,9 +15,6 @@
         "KeyVaultName": {
             "type": "string"
         },
-        "KeyVaultAddress": {
-            "type": "string"
-        },
         "KeyVaultResourceGroup": {
             "type": "string"
         },
@@ -165,6 +162,9 @@
             "type": "string"
         },
         "AzureAdSettingsSubscriptionId": {
+            "type": "string"
+        },
+         "AzureAdSettingsKeyVaultAddress": {
             "type": "string"
         },
         "AzureAdSettingsCdnProfileName": {
@@ -406,10 +406,6 @@
                                 "value": "[parameters('appSharedCosmosPrimaryKey')]"
                             },
                             {
-                                "name": "KeyVaultAddress",
-                                "value": "[parameters('KeyVaultAddress')]"
-                            },
-                            {
                                 "name": "Pages__PublishedAppPrefix",
                                 "value": "[parameters('PublishedAppPrefix')]"
                             },
@@ -456,6 +452,10 @@
                             {
                                 "name": "AzureAdSettings__Authority",
                                 "value": "[parameters('AzureAdSettingsAuthority')]"
+                            },
+                            {
+                                "name": "AzureAdSettings__KeyVaultAddress",
+                                "value": "[parameters('AzureAdSettingsKeyVaultAddress')]"
                             },
                             {
                                 "name": "AzureAdSettings__SubscriptionId",
