@@ -15,9 +15,6 @@
         "KeyVaultName": {
             "type": "string"
         },
-        "KeyVaultAddress": {
-            "type": "string"
-        },
         "KeyVaultResourceGroup": {
             "type": "string"
         },
@@ -406,10 +403,6 @@
                             {
                                 "name": "EventStoreKey",
                                 "value": "[parameters('appSharedCosmosPrimaryKey')]"
-                            },
-                            {
-                                "name": "KeyVaultAddress",
-                                "value": "[parameters('KeyVaultAddress')]"
                             },
                             {
                                 "name": "Pages__PublishedAppPrefix",

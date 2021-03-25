@@ -14,9 +14,6 @@
         "KeyVaultName": {
             "value": "__sharedKeyVaultName__"
         },
-        "KeyVaultAddress": {
-            "value": "__sharedKeyVaultUrl__"
-        },
         "KeyVaultResourceGroup": {
             "value": "__SharedResourceGroupName__"
         },
