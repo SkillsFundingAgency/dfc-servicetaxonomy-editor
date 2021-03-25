@@ -164,6 +164,9 @@
         "AzureAdSettingsSubscriptionId": {
             "type": "string"
         },
+         "AzureAdSettingsKeyVaultAddress": {
+            "type": "string"
+        },
         "AzureAdSettingsCdnProfileName": {
             "type": "string"
         },
@@ -449,6 +452,10 @@
                             {
                                 "name": "AzureAdSettings__Authority",
                                 "value": "[parameters('AzureAdSettingsAuthority')]"
+                            },
+                            {
+                                "name": "AzureAdSettings__KeyVaultAddress",
+                                "value": "[parameters('AzureAdSettingsKeyVaultAddress')]"
                             },
                             {
                                 "name": "AzureAdSettings__SubscriptionId",
