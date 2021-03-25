@@ -405,6 +405,10 @@
                                 "value": "[parameters('appSharedCosmosPrimaryKey')]"
                             },
                             {
+                                "name": "KeyVaultAddress",
+                                "value": "[parameters('KeyVaultAddress')]"
+                            },
+                            {
                                 "name": "Pages__PublishedAppPrefix",
                                 "value": "[parameters('PublishedAppPrefix')]"
                             },
