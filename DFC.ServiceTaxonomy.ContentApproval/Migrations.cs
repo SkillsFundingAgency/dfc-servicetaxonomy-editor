@@ -17,9 +17,9 @@ namespace DFC.ServiceTaxonomy.ContentApproval
     {
         private readonly IContentDefinitionManager _contentDefinitionManager;
         private readonly IRecipeMigrator _recipeMigrator;
-        private readonly ILogger _logger;
+        private readonly ILogger<Migrations> _logger;
 
-        public Migrations(IContentDefinitionManager contentDefinitionManager, IRecipeMigrator recipeMigrator, ILogger logger)
+        public Migrations(IContentDefinitionManager contentDefinitionManager, IRecipeMigrator recipeMigrator, ILogger<Migrations> logger)
         {
             _contentDefinitionManager = contentDefinitionManager;
             _recipeMigrator = recipeMigrator;
