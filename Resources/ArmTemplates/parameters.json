@@ -14,9 +14,6 @@
         "KeyVaultName": {
             "value": "__sharedKeyVaultName__"
         },
-        "KeyVaultAddress": {
-            "value": "__sharedKeyVaultUrl__"
-        },
         "KeyVaultResourceGroup": {
             "value": "__SharedResourceGroupName__"
         },
@@ -160,6 +157,9 @@
         },
         "AzureAdSettingsSubscriptionId": {
             "value": "__AzureSubscriptionId__"
+        },
+        "AzureAdSettingsKeyVaultAddress": {
+            "value": "__sharedKeyVaultUrl__"
         },
         "AzureAdSettingsCdnProfileName": {
             "value": "__CdnProfileName__"
