@@ -9,5 +9,6 @@
         public string CdnProfileName { get; set; }
         public string CdnEndpointName { get; set; }
         public string ResourceGroupName { get; set; }
+        public string KeyValutAddress { get; set; }
     }
 }

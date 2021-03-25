@@ -1,5 +1,6 @@
 using System;
 using DFC.ServiceTaxonomy.Media.Events;
+using DFC.ServiceTaxonomy.Media.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.DependencyInjection;
@@ -12,6 +13,9 @@ namespace DFC.ServiceTaxonomy.Media
     {
         public override void ConfigureServices(IServiceCollection services)
         {
+            services.AddSingleton<ITokenService, TokenService>();
+            services.AddSingleton<IKeyVaultService, KeyVaultService>();
+            services.AddSingleton<ICdnService, CdnService>();
             services.AddSingleton<IMediaEventHandler, MediaBlobStoreEventHandler>();
         }
 
