@@ -103,7 +103,7 @@ stages:
         configuration: Release
         packDirectory: '$(build.artifactstagingdirectory)\DeploymentPackages\Nuget'
         versioningScheme: byEnvVar
-        versionEnvVar: GitVersion.MajorMinorPatch
+        versionEnvVar: GitVersion.NugetVersionV2
 
     - task: DotNetCoreCLI@2
       displayName: 'dotnet pack - Events'
@@ -113,7 +113,8 @@ stages:
         configuration: Release
         packDirectory: '$(build.artifactstagingdirectory)\DeploymentPackages\Nuget'
         versioningScheme: byEnvVar
-        versionEnvVar: GitVersion.MajorMinorPatch
+        versionEnvVar: GitVersion.NugetVersionV2
+
 
     - task: PublishPipelineArtifact@1
       inputs:
@@ -128,7 +129,7 @@ stages:
 
 - stage: PublishPackage
   displayName: Publish Package to NuGet
-  condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/dev')) 
+  condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/dev'))
   jobs:  
   - job: CleanArtifacts  
     displayName: Clean artifacts directory

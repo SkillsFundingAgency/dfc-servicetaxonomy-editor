@@ -158,6 +158,9 @@
         "AzureAdSettingsSubscriptionId": {
             "value": "__AzureSubscriptionId__"
         },
+        "AzureAdSettingsKeyVaultAddress": {
+            "value": "__sharedKeyVaultUrl__"
+        },
         "AzureAdSettingsCdnProfileName": {
             "value": "__CdnProfileName__"
         },
