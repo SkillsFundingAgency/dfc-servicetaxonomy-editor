@@ -127,7 +127,6 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Drivers
 
         public override async Task<IDisplayResult?> UpdateAsync(ContentApprovalPart part, IUpdateModel updater, UpdatePartEditorContext context)
         {
-
             var viewModel = new ContentApprovalPartViewModel();
 
             var currentUser = _httpContextAccessor.HttpContext?.User;
@@ -139,7 +138,7 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Drivers
             }
 
             await updater.TryUpdateModelAsync(viewModel, Prefix);
-            if (string.IsNullOrWhiteSpace(viewModel.Comment) || viewModel.Comment.Equals(part.Comment))
+            if (!part.ContentItem.ContentType.Equals("HTMLShared") && (string.IsNullOrWhiteSpace(viewModel.Comment) || viewModel.Comment.Equals(part.Comment)))
             {
                 updater.ModelState.AddModelError("Comment", "Please update the comment field before submitting.");
                 return await EditAsync(part, context);
