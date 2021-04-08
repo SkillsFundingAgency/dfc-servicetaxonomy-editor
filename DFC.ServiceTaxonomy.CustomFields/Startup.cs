@@ -15,13 +15,14 @@ namespace DFC.ServiceTaxonomy.CustomFields
     {
         public Startup()
         {
-            TemplateContext.GlobalMemberAccessStrategy.Register<AccordionField>();
-            TemplateContext.GlobalMemberAccessStrategy.Register<TabField>();
-            TemplateContext.GlobalMemberAccessStrategy.Register<EmptyViewModel>();
+            TemplateOptions.Default.MemberAccessStrategy.Register<AccordionField>();
+            TemplateOptions.Default.MemberAccessStrategy.Register<TabField>();
+            TemplateOptions.Default.MemberAccessStrategy.Register<EmptyViewModel>();
         }
 
         public override void ConfigureServices(IServiceCollection services)
         {
+
             services.AddContentField<AccordionField>()
                 .UseDisplayDriver<AccordionFieldDisplayDriver>();
             services.AddScoped<IContentPartFieldDefinitionDisplayDriver, AccordionFieldSettingsDriver>();
