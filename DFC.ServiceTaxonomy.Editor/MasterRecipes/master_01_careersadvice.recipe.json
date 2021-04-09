@@ -1,0 +1,30 @@
+{
+    "name": "01_careersadvice",
+    "displayName": "01_careersadvice",
+    "description": "",
+    "author": "",
+    "website": "",
+    "version": "",
+    "issetuprecipe": false,
+    "categories": "",
+    "tags": [],
+    "steps": [
+        {
+            "name": "recipes",
+            "values": [
+                {
+                    "executionid": "01_careersadvice",
+                    "name": "01_careersadvice_taxonomies"
+                },
+                {
+                    "executionid": "01_careersadvice",
+                    "name": "01_careersadvice_sharedcontent"
+                },
+                {
+                    "executionid": "01_careersadvice",
+                    "name": "01_careersadvice_pages"
+                }
+            ]
+        }
+    ]
+}
