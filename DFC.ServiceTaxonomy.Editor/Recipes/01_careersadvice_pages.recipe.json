@@ -1,0 +1,1297 @@
+{
+    "name": "01_careersadvice_pages",
+    "displayName": "01_careersadvice_pages",
+    "description": "",
+    "author": "",
+    "website": "",
+    "version": "",
+    "issetuprecipe": false,
+    "categories": [],
+    "tags": [],
+    "steps": [
+        {
+            "name": "Content",
+            "data": [
+                {
+                    "ContentItemId": "49bg07qcvtbcttqwnvas4jhfc5",
+                    "ContentItemVersionId": "46am2jejnrzvfsv4zey921dhdy",
+                    "ContentType": "Page",
+                    "DisplayText": "Careers advice",
+                    "Latest": true,
+                    "Published": true,
+                    "ModifiedUtc": "2021-04-08T15:07:04.2142896Z",
+                    "PublishedUtc": "2021-04-08T15:07:04.6239604Z",
+                    "CreatedUtc": "2021-04-07T08:19:31.5911682Z",
+                    "Owner": "4s69p8vzbjd91zftn97xtkjhxp",
+                    "Author": "admin",
+                    "TitlePart": {
+                        "Title": "Careers advice"
+                    },
+                    "Page": {
+                        "PageLocations": {
+                            "TaxonomyContentItemId": "4eembshqzx66drajtdten34tc8",
+                            "TermContentItemIds": [
+                                "4e1d03ztjhb1f76bew09dessxv"
+                            ]
+                        },
+                        "Description": {
+                            "Text": null
+                        },
+                        "Herobanner": {
+                            "Html": ""
+                        },
+                        "ShowHeroBanner": {
+                            "Value": false
+                        }
+                    },
+                    "SitemapPart": {
+                        "Priority": 5,
+                        "OverrideSitemapConfig": false,
+                        "ChangeFrequency": 0,
+                        "Exclude": false
+                    },
+                    "FlowPart": {
+                        "Widgets": [
+                            {
+                                "ContentItemId": "4psehw9shh2gvyyp8p7vhhezdr",
+                                "ContentItemVersionId": null,
+                                "ContentType": "HTML",
+                                "DisplayText": "",
+                                "Latest": false,
+                                "Published": false,
+                                "ModifiedUtc": "2021-04-08T15:07:04.4546188Z",
+                                "PublishedUtc": null,
+                                "CreatedUtc": null,
+                                "Owner": "",
+                                "Author": "admin",
+                                "HTML": {},
+                                "HtmlBodyPart": {
+                                    "Html": "<h1 class=\"govuk-heading-xl\">Careers advice</h1>\n<p class=\"govuk-body-m\">The National Careers Service can help you make career decisions throughout your life. From deciding your education route, planning a career change at any age or getting the job that is right for you.</p>\n<div class=\"govuk-tabs govuk-!-margin-top-7\" data-module=\"tabs\">\n    <h2 class=\"govuk-tabs__title\">Contents </h2>\n    <ul class=\"govuk-tabs__list\">\n        <li class=\"govuk-tabs__list-item govuk-tabs__list-item--selected\"><a class=\"govuk-tabs__tab\" href=\"#making-career-choices\">Making career choices </a> </li>\n        <li class=\"govuk-tabs__list-item\"><a class=\"govuk-tabs__tab\" href=\"#getting-a-job\">Getting a job </a> </li>\n        <li class=\"govuk-tabs__list-item\"><a class=\"govuk-tabs__tab\" href=\"#progressing-your-career\">Progressing your career </a> </li>\n    </ul>\n    <div class=\"govuk-tabs__panel\" id=\"making-career-choices\">\n        <h2 class=\"govuk-heading-l\">Making career choices</h2>\n        <h3 class=\"govuk-heading-s\"><a class=\"govuk-link\" href=\"/careers-advice/career-choices-at-16\">Post 16 options</a></h3>\n        <p class=\"govuk-body-m\">Think about what your next step in education or training will be at 16.</p>\n        <h3 class=\"govuk-heading-s\"><a class=\"govuk-link\" href=\"/careers-advice/career-choices-at-18\">Post 18 options</a></h3>\n        <p class=\"govuk-body-m\">From 17 to 19, explore the education, work and study options available to you.</p>\n        <h3 class=\"govuk-heading-s\"><a class=\"govuk-link\" href=\"/careers-advice/options-with-education-health-and-care-plan/\">Options with an Education Health and Care (EHC) plan</a></h3>\n        <p class=\"govuk-body-m\">Find the right learning or training option available to you with an EHC plan.</p>\n        <h3 class=\"govuk-heading-s\"><a class=\"govuk-link\" href=\"/careers-advice/career-and-job-support-for-people-with-a-disability/\">Career and job support for people with a disability</a></h3>\n        <p class=\"govuk-body-m\">Help and advice for people with a disability or health condition to find and stay in work.</p>\n        <h3 class=\"govuk-heading-s\"><a class=\"govuk-link\" href=\"/careers-advice/advice-on-a-gap-year/\">Advice on a gap year</a></h3>\n        <p class=\"govuk-body-m\">Advice on taking time out of education before continuing your studies.</p>\n        <h3 class=\"govuk-heading-s\"><a class=\"govuk-link\" href=\"/careers-advice/advice-for-if-you-lose-your-job\">Advice for if you lose your job</a></h3>\n        <p class=\"govuk-body-m\">Find useful advice and resources for if you have recently been made redundant or become unemployed.</p>\n        <h3 class=\"govuk-heading-s\"><a class=\"govuk-link\" href=\"/careers-advice/advice-for-furloughed-workers\">Advice for furloughed workers</a></h3>\n        <p class=\"govuk-body-m\">Find out about your rights and get help when becoming furloughed.</p>\n        <h3 class=\"govuk-heading-s\"><a class=\"govuk-link\" href=\"/careers-advice/the-world-of-work-is-changing\">Understanding the working world during COVID-19</a></h3>\n        <p class=\"govuk-body-m\">See how Covid-19 is changing the way you find and get a job.<br></p>\n        <h3 class=\"govuk-heading-s\"><a class=\"govuk-link\" href=\"/careers-advice/advice-on-further-study-options\">Advice on further study options</a></h3>\n        <p class=\"govuk-body-m\">Consider and all the further study options available to you.<br></p>\n        <h3 class=\"govuk-heading-s\"><a class=\"govuk-link\" href=\"/careers-advice/how-to-bounce-back-in-a-tough-jobs-market\">How to bounce back in a tough jobs market</a></h3>\n        <p class=\"govuk-body-m\">Learn resilience and how to deal with difficult experiences.<br></p>\n    </div>\n    <div class=\"govuk-tabs__panel govuk-tabs__panel--hidden\" id=\"getting-a-job\">\n        <h2 class=\"govuk-heading-l\">Getting a job</h2>\n        <h3 class=\"govuk-heading-s\"><a class=\"govuk-link\" href=\"/careers-advice/advertised-job-vacancies\">How to find job vacancies</a></h3>\n        <p class=\"govuk-body-m\">Find out where to look for vacancies from recruitment agencies to social media sites.</p>\n        <h3 class=\"govuk-heading-s\"><a class=\"govuk-link\" href=\"/careers-advice/making-the-most-of-virtual-job-fairs/\">Making the most of virtual job fairs</a></h3>\n        <p class=\"govuk-body-m\">Prepare for a virtual job fair, where you can network and find a job online. </p>\n        <h3 class=\"govuk-heading-s\"><a class=\"govuk-link\" href=\"/careers-advice/careers-in-the-armed-forces/\">Careers in the armed forces</a></h3>\n        <p class=\"govuk-body-m\">Look into job roles in the British Army, Royal Air Force or Royal Navy.</p>\n        <h3 class=\"govuk-heading-s\"><a class=\"govuk-link\" href=\"/careers-advice/networking\">Find a job by networking</a></h3>\n        <p class=\"govuk-body-m\">Discover jobs through people you know.</p>\n        <h3 class=\"govuk-heading-s\"><a class=\"govuk-link\" href=\"/careers-advice/cv-sections\">How to write a CV</a></h3>\n        <p class=\"govuk-body-m\">Check our CV advice on what to include and how to make it stand out.</p>\n        <h3 class=\"govuk-heading-s\"><a class=\"govuk-link\" href=\"/careers-advice/covering-letter\">How to write a cover letter</a></h3>\n        <p class=\"govuk-body-m\">Learn more about cover letters, why they're important and how to use them.</p>\n        <h3 class=\"govuk-heading-s\"><a class=\"govuk-link\" href=\"/careers-advice/application-forms\">How to fill in an application form</a></h3>\n        <p class=\"govuk-body-m\">Get help to complete paper and online application forms.</p>\n        <h3 class=\"govuk-heading-s\"><a class=\"govuk-link\" href=\"/careers-advice/interview-advice\">Interview advice</a></h3>\n        <p class=\"govuk-body-m\">Find out about the different types of interviews and how to do well in them.</p>\n        <h3 class=\"govuk-heading-s\"><a class=\"govuk-link\" href=\"/careers-advice/top-10-interview-questions\">How to answer common interview questions</a></h3>\n        <p class=\"govuk-body-m\">Learn how to answer interview questions confidently and make a good impression.</p>\n        <h3 class=\"govuk-heading-s\"><a class=\"govuk-link\" href=\"/careers-advice/how-to-do-well-in-telephone-interviews/\">How to do well in telephone interviews</a></h3>\n        <p class=\"govuk-body-m\">Follow our advice on how to prepare and succeed in telephone interviews.</p>\n        <h3 class=\"govuk-heading-s\"><a class=\"govuk-link\" href=\"/careers-advice/how-to-do-well-in-video-interviews/\">How to do well in video interviews </a></h3>\n        <p class=\"govuk-body-m\">Follow our advice on how to well in live or pre-recorded video interviews.</p>\n        <h3 class=\"govuk-heading-s\"><a class=\"govuk-link\" href=\"/careers-advice/create-a-linkedin-profile/\">How to create a Linkedin profile</a></h3>\n        <p class=\"govuk-body-m\">Develop your job search and network by creating an online Linkedin profile.</p>\n        <h3 class=\"govuk-heading-s\"><a class=\"govuk-link\" href=\"/careers-advice/how-to-find-graduate-schemes/\">How to find graduate schemes </a></h3>\n        <p class=\"govuk-body-m\">Develop your talent on a graduate scheme.</p>\n        <h3 class=\"govuk-heading-s\"><a class=\"govuk-link\" href=\"/careers-advice/how-to-prepare-for-psychometric-tests/\">How to prepare for psychometric tests</a></h3>\n        <p class=\"govuk-body-m\">Learn how to be successful in psychometric tests.</p>\n        <h3 class=\"govuk-heading-s\"><a class=\"govuk-link\" href=\"/careers-advice/how-to-find-a-virtual-internships/\">How to find a virtual internship</a></h3>\n        <p class=\"govuk-body-m\">Get remote work experience with companies in the UK or abroad.</p>\n    </div>\n    <div class=\"govuk-tabs__panel govuk-tabs__panel--hidden\" id=\"progressing-your-career\">\n        <h2 class=\"govuk-heading-l\">Progressing your career</h2>\n        <h3 class=\"govuk-heading-s\"><a class=\"govuk-link\" href=\"/careers-advice/how-to-develop-your-soft-skills\">Develop your soft skills</a></h3>\n        <p class=\"govuk-body-m\">Learn to develop your soft skills, like communication and leadership skills.</p>\n        <h3 class=\"govuk-heading-s\"><a class=\"govuk-link\" href=\"/careers-advice/advice-on-volunteering/\">Advice on volunteering</a></h3>\n        <p class=\"govuk-body-m\">Advice on how to choose volunteering positions for your future career choices.</p>\n        <h3 class=\"govuk-heading-s\"><a class=\"govuk-link\" href=\"/careers-advice/getting-the-most-out-of-mentoring/\">Getting the most out of mentoring</a></h3>\n        <p class=\"govuk-body-m\">Consider a mentor that can support, advise and guide you in your career.</p>\n        <h3 class=\"govuk-heading-s\"><a class=\"govuk-link\" href=\"/careers-advice/ways-to-develop-skills/\">Ways to develop skills</a></h3>\n        <p class=\"govuk-body-m\">You could develop the soft skills you need for your future jobs and career.</p>\n        <h3 class=\"govuk-heading-s\"><a class=\"govuk-link\" href=\"/careers-advice/identifying-skills-and-upskilling/\">Identifying skills and upskilling</a></h3>\n        <p class=\"govuk-body-m\">Identify the skills you have, how you can improve them and develop new ones.</p>\n        <h3 class=\"govuk-heading-s\"><a class=\"govuk-link\" href=\"/careers-advice/how-digital-skills-can-help-you/\">How digital skills can help you</a></h3>\n        <p class=\"govuk-body-m\">Learn digital skills to improve your confidence in using technology for work, learning and daily life.</p>\n        <h3 class=\"govuk-heading-s\"><a class=\"govuk-link\" href=\"/careers-advice/build-foundation-digital-skills-to-help-your-career/\">Build foundation digital skills to help your career</a></h3>\n        <p class=\"govuk-body-m\">Learn the foundation digital skills you will need for the workplace.</p>\n        <h3 class=\"govuk-heading-s\"><a class=\"govuk-link\" href=\"/careers-advice/choosing-online-learning\">Choosing online learning</a></h3>\n        <p class=\"govuk-body-m\">Online learning is a way to improve your skills without leaving your home.</p>\n        <h3 class=\"govuk-heading-s\"><a class=\"govuk-link\" href=\"/careers-advice/getting-the-most-out-of-online-learning\">Getting the most out of online learning</a></h3>\n        <p class=\"govuk-body-m\">Make online learning a fun and rewarding experience.</p>\n        <h3 class=\"govuk-heading-s\"><a class=\"govuk-link\" href=\"/careers-advice/how-work-experience-can-help-you\">How work experience can help you</a></h3>\n        <p class=\"govuk-body-m\">Understand why work experience is important and how it can help you develop.</p>\n        <h3 class=\"govuk-heading-s\"><a class=\"govuk-link\" href=\"/careers-advice/types-of-work-experience\">Types of work experience</a></h3>\n        <p class=\"govuk-body-m\">Look at the different ways to try out different careers to see whether they're right for you.</p>\n    </div>\n</div>"
+                                },
+                                "GraphSyncPart": {
+                                    "Text": "<<contentapiprefix>>/html/df7fa0a0-22cd-433d-be67-b38049283568"
+                                },
+                                "FlowMetadata": {
+                                    "Alignment": 3,
+                                    "Size": 100
+                                }
+                            }
+                        ]
+                    },
+                    "GraphSyncPart": {
+                        "Text": "<<contentapiprefix>>/page/f1bd6148-5556-486f-8f74-b4ee3c0301aa"
+                    },
+                    "PageLocationPart": {
+                        "UrlName": "careers-advice",
+                        "DefaultPageForLocation": true,
+                        "RedirectLocations": null,
+                        "FullUrl": "/careers-advice/careers-advice"
+                    }
+                },
+                {
+                    "ContentItemId": "4ydf724wqg339vndrnkf3hav5j",
+                    "ContentItemVersionId": "4mjp4gqg07pb12t0vkxb7vz5dd",
+                    "ContentType": "Page",
+                    "DisplayText": "Post 16 options",
+                    "Latest": true,
+                    "Published": true,
+                    "ModifiedUtc": "2021-04-08T16:24:52.5562267Z",
+                    "PublishedUtc": "2021-04-08T16:24:52.6287349Z",
+                    "CreatedUtc": "2021-04-07T10:19:31.0135185Z",
+                    "Owner": "4s69p8vzbjd91zftn97xtkjhxp",
+                    "Author": "admin",
+                    "TitlePart": {
+                        "Title": "Post 16 options"
+                    },
+                    "Page": {
+                        "PageLocations": {
+                            "TaxonomyContentItemId": "4eembshqzx66drajtdten34tc8",
+                            "TermContentItemIds": [
+                                "4e1d03ztjhb1f76bew09dessxv"
+                            ]
+                        },
+                        "Description": {
+                            "Text": null
+                        },
+                        "Herobanner": {
+                            "Html": ""
+                        },
+                        "ShowHeroBanner": {
+                            "Value": false
+                        }
+                    },
+                    "SitemapPart": {
+                        "Priority": 5,
+                        "OverrideSitemapConfig": false,
+                        "ChangeFrequency": 0,
+                        "Exclude": false
+                    },
+                    "FlowPart": {
+                        "Widgets": [
+                            {
+                                "ContentItemId": "49ny2stx9pk2r1cvkthfp2d9mx",
+                                "ContentItemVersionId": null,
+                                "ContentType": "HTML",
+                                "DisplayText": "",
+                                "Latest": false,
+                                "Published": false,
+                                "ModifiedUtc": "2021-04-08T16:24:52.570937Z",
+                                "PublishedUtc": null,
+                                "CreatedUtc": null,
+                                "Owner": "",
+                                "Author": "admin",
+                                "HTML": {},
+                                "HtmlBodyPart": {
+                                    "Html": "<h1 class=\"govuk-heading-xl\">Post 16 options</h1>\n\n<p class=\"govuk-body-m\">You must stay in some type of education or training until you are 18. There are many options available when you turn 16, look at what option best suits you and your situation, strengths and interests. </p>\n<p class=\"govuk-body-m\">You may be eligible for the <a class=\"govuk-link\" href=\"https://www.gov.uk/1619-bursary-fund\">16 to 19 Bursary Fund</a>, which can help with things like books, travel or equipment if you will struggle with education or training costs.</p>\n<p class=\"govuk-body-m\">If you have an&nbsp;<a class=\"govuk-link\" href=\"/careers-advice/options-with-education-health-and-care-plan\">Education Health and Care (EHC) plan</a> there may be different and more suitable options available to you.</p>\n<h3 class=\"govuk-heading-m\">Continue your studies</h3>\n<p class=\"govuk-body\">You could take a work-related course that will give you skills and work experience. Some courses keep your options open by giving you the chance to study different subjects. You may need specific qualifications for your career choice, so always do some\n    research. </p>\n\n<nav>\n    <ul class=\"govuk-list govuk-list--bullet\">\n        <li><a class=\"govuk-link\" href=\"#a-levels\">A levels</a></li>\n        <li><a class=\"govuk-link\" href=\"#t-levels\">T Levels</a></li>\n        <li><a class=\"govuk-link\" href=\"#technical-vocational-qualifications\">Technical and vocational qualifications</a></li>\n        <li><a class=\"govuk-link\" href=\"#applied-qualifications\">Applied qualifications</a></li>\n        <li><a class=\"govuk-link\" href=\"#exam-retakes\">Exam retakes</a></li>\n    </ul>\n</nav>\n<h3 class=\"govuk-heading-m\">Combine work and study</h3>\n<p class=\"govuk-body-m\">Improve your skills, get work experience and gain the qualifications that employers need.</p>\n\n<nav>\n    <ul class=\"govuk-list govuk-list--bullet\">\n        <li><a class=\"govuk-link\" href=\"#traineeships\">Traineeships</a></li>\n        <li><a class=\"govuk-link\" href=\"#supported-internships\">Supported internships</a></li>\n        <li><a class=\"govuk-link\" href=\"#apprenticeships\">Apprenticeships</a></li>\n        <li><a class=\"govuk-link\" href=\"#school-leavers\">School leaver schemes</a></li>\n    </ul>\n</nav>\n\n<p></p><hr class=\"govuk-section-break govuk-section-break--m govuk-section-break--visible\"><p></p>\n<h2 class=\"govuk-heading-l\">Continue your studies</h2>\n\n<section id=\"a-levels\">\n    <div class=\"govuk-!-margin-top-6 govuk-!-margin-bottom-6\">\n        <h2 class=\"govuk-heading-m\">A levels</h2>\n        <ul class=\"govuk-list\">\n            <li class=\"govuk-!-margin-top-3\"><span class=\"govuk-secondary-colour\">Description:&nbsp;</span>Study a subject you took at GCSE in greater depth or choose a new one like economics, law or psychology. You could take 3 broad subjects you are interested in to keep your career\n                options open or choose ones you need for a specific career.</li>\n            <li><span class=\"govuk-secondary-colour\">Duration:&nbsp;</span>2 years</li>\n            <li><span class=\"govuk-secondary-colour\">Assessment:&nbsp;</span>Mostly exams at the end of the course</li>\n            <li><span class=\"govuk-secondary-colour\"><a class=\"govuk-link\" href=\"https://www.gov.uk/what-different-qualification-levels-mean/list-of-qualification-levels\">Level of study:</a>&nbsp;</span>3</li>\n            <li><span class=\"govuk-secondary-colour\">Entry requirements: </span>Course dependent, typically 5 GCSEs Grade 9-4 (usually including English and maths)</li>\n            <li><span class=\"govuk-secondary-colour\">Work experience:&nbsp;</span>Usually 1 week during year 12</li>\n            <li><span class=\"govuk-secondary-colour\">Leads to:&nbsp;</span>University/college, higher and degree apprenticeships, work</li>\n            <li><span class=\"govuk-secondary-colour\">Find out more:</span> <a class=\"govuk-link\" href=\"https://www.ucas.com/further-education/post-16-qualifications/qualifications-you-can-take/levels\">UCAS Information about A levels</a></li>\n        </ul>\n    </div>\n</section>\n\n<section id=\"t-levels\">\n    <hr class=\"govuk-section-break govuk-section-break--visible\">\n    <div class=\"govuk-!-margin-top-6 govuk-!-margin-bottom-6\">\n        <h2 class=\"govuk-heading-m\">T Levels</h2>\n        <ul class=\"govuk-list\">\n            <li class=\"govuk-!-margin-top-3\"><span class=\"govuk-secondary-colour\">Description:&nbsp;</span>Designed in partnership with employers to give you the skills and knowledge to get on in the workplace. Combines classroom learning with industry placements to prepare you for skilled\n                work or higher level study. 1 T Level is the equivalent of 3 A levels.</li>\n            <li><span class=\"govuk-secondary-colour\">Duration:&nbsp;</span>2 years</li>\n            <li><span class=\"govuk-secondary-colour\">Assessment:&nbsp;</span>Exams, projects and practical assignments</li>\n            <li><span class=\"govuk-secondary-colour\"><a class=\"govuk-link\" href=\"https://www.gov.uk/what-different-qualification-levels-mean/list-of-qualification-levels\">Level of study:</a>&nbsp;</span>3</li>\n            <li><span class=\"govuk-secondary-colour\">Entry requirements:&nbsp;</span>Course dependent</li>\n            <li><span class=\"govuk-secondary-colour\">Work experience:</span> At least 45 days on industry placement</li>\n            <li><span class=\"govuk-secondary-colour\">Leads to:&nbsp;</span>University/college, higher and degree apprenticeships, work</li>\n            <li><span class=\"govuk-secondary-colour\">Find out more:</span> <a class=\"govuk-link\" href=\"https://www.tlevels.gov.uk/students\">Gov.uk information about T Levels</a></li>\n        </ul>\n    </div>\n</section>\n\n<section id=\"technical-vocational-qualifications\">\n    <hr class=\"govuk-section-break govuk-section-break--visible\">\n    <div class=\"govuk-!-margin-top-6 govuk-!-margin-bottom-6\">\n        <h2 class=\"govuk-heading-m\">Technical and vocational qualifications</h2>\n        <ul class=\"govuk-list\">\n            <li class=\"govuk-!-margin-top-3\"><span class=\"govuk-secondary-colour\">Description:&nbsp;</span>Qualifications which teach you how to do tasks specifically related to the industry and role you want to be involved in.</li>\n            <li><span class=\"govuk-secondary-colour\">Duration:&nbsp;</span>Course dependent</li>\n            <li><span class=\"govuk-secondary-colour\">Assessment:&nbsp;</span>Can include coursework, skills tests and exams</li>\n            <li><span class=\"govuk-secondary-colour\"><a class=\"govuk-link\" href=\"https://www.gov.uk/what-different-qualification-levels-mean/list-of-qualification-levels\">Level of study:</a>&nbsp;</span>1+</li>\n            <li><span class=\"govuk-secondary-colour\">Entry requirements:&nbsp;</span>Course dependent</li>\n            <li><span class=\"govuk-secondary-colour\">Work experience:&nbsp;</span>Course dependent</li>\n            <li><span class=\"govuk-secondary-colour\">Leads to:&nbsp;</span>Apprenticeship, work, college or university</li>\n            <li><span class=\"govuk-secondary-colour\">Find out more:</span> Speak to your local provider or talk to an adviser\n                \n            </li>\n        </ul>\n    </div>\n</section>\n\n<section id=\"applied-qualifications\">\n    <hr class=\"govuk-section-break govuk-section-break--visible\">\n    <div class=\"govuk-!-margin-top-6 govuk-!-margin-bottom-6\">\n        <h2 class=\"govuk-heading-m\">Applied qualifications</h2>\n        <ul class=\"govuk-list\">\n            <li class=\"govuk-!-margin-top-3\"><span class=\"govuk-secondary-colour\">Description:&nbsp;</span>Qualifications that give you a broad overview of working in a specific sector, like business, media, engineering, leisure or science and technology. A mix of classroom-based learning\n                with the chance to get some practical skills. </li>\n            <li><span class=\"govuk-secondary-colour\">Duration:&nbsp;</span>Course dependent</li>\n            <li><span class=\"govuk-secondary-colour\">Assessment:&nbsp;</span>Course dependent (coursework and exams)</li>\n            <li><span class=\"govuk-secondary-colour\"><a class=\"govuk-link\" href=\"https://www.gov.uk/what-different-qualification-levels-mean/list-of-qualification-levels\">Level of study:</a></span> 3</li>\n            <li><span class=\"govuk-secondary-colour\">Entry requirements:&nbsp;</span>Yes</li>\n            <li><span class=\"govuk-secondary-colour\">Work experience:&nbsp;</span>Course dependent</li>\n            <li><span class=\"govuk-secondary-colour\">Leads to:&nbsp;</span>University/college, apprenticeship, work</li>\n            <li><span class=\"govuk-secondary-colour\">Find out more:</span> <a class=\"govuk-link\" href=\"https://www.aqa.org.uk/applied-general\">Gov.uk information about applied qualifications</a></li>\n        </ul>\n    </div>\n</section>\n<p></p><hr class=\"govuk-section-break govuk-section-break--m govuk-section-break--visible\"><p></p>\n"
+                                },
+                                "GraphSyncPart": {
+                                    "Text": "<<contentapiprefix>>/html/b9d9a462-efab-42f9-b652-6e05cffb1611"
+                                },
+                                "FlowMetadata": {
+                                    "Alignment": 3,
+                                    "Size": 66
+                                }
+                            },
+                            {
+                                "ContentItemId": "4ysxps4ap2jft3v131gjcbsqwr",
+                                "ContentItemVersionId": null,
+                                "ContentType": "HTMLShared",
+                                "DisplayText": "",
+                                "Latest": false,
+                                "Published": false,
+                                "ModifiedUtc": "2021-04-08T16:24:52.5835501Z",
+                                "PublishedUtc": null,
+                                "CreatedUtc": null,
+                                "Owner": "",
+                                "Author": "admin",
+                                "HTMLShared": {
+                                    "SharedContent": {
+                                        "ContentItemIds": [
+                                            "43mj84xpc3kpgycv11wb8pxqnz",
+                                            "4nyydyyta43vzxjk0b61sdmddr",
+                                            "46hvhgdpvg51r7w0cejd6q28xv"
+                                        ]
+                                    }
+                                },
+                                "GraphSyncPart": {
+                                    "Text": "<<contentapiprefix>>/htmlshared/39a32300-da6f-44a2-b970-1de52f1b53b7"
+                                },
+                                "FlowMetadata": {
+                                    "Alignment": 3,
+                                    "Size": 33
+                                }
+                            },
+                            {
+                                "ContentItemId": "4a6ngbp3s1pqc6s3jd1cv9apcq",
+                                "ContentItemVersionId": null,
+                                "ContentType": "HTMLShared",
+                                "DisplayText": null,
+                                "Latest": false,
+                                "Published": false,
+                                "ModifiedUtc": "2021-04-08T16:24:52.5943062Z",
+                                "PublishedUtc": null,
+                                "CreatedUtc": null,
+                                "Owner": null,
+                                "Author": "admin",
+                                "HTMLShared": {
+                                    "SharedContent": {
+                                        "ContentItemIds": [
+                                            "4bgr5xwt1dceb4j8pd3nfws74p"
+                                        ]
+                                    }
+                                },
+                                "GraphSyncPart": {
+                                    "Text": "<<contentapiprefix>>/htmlshared/09954cc5-9171-47d1-b4ab-ebe0304dc31d"
+                                },
+                                "FlowMetadata": {
+                                    "Alignment": 3,
+                                    "Size": 66
+                                }
+                            },
+                            {
+                                "ContentItemId": "49x0g6j2pstn71hhbg71vjhcd4",
+                                "ContentItemVersionId": null,
+                                "ContentType": "HTMLShared",
+                                "DisplayText": null,
+                                "Latest": false,
+                                "Published": false,
+                                "ModifiedUtc": "2021-04-08T16:24:52.6013715Z",
+                                "PublishedUtc": null,
+                                "CreatedUtc": null,
+                                "Owner": null,
+                                "Author": "admin",
+                                "HTMLShared": {
+                                    "SharedContent": {
+                                        "ContentItemIds": [
+                                            "45hmjm243bsbjvt9qrwpg5aemz"
+                                        ]
+                                    }
+                                },
+                                "GraphSyncPart": {
+                                    "Text": "<<contentapiprefix>>/htmlshared/926fe273-1885-40cd-b94b-55315e68e152"
+                                },
+                                "FlowMetadata": {
+                                    "Alignment": 3,
+                                    "Size": 66
+                                }
+                            }
+                        ]
+                    },
+                    "GraphSyncPart": {
+                        "Text": "<<contentapiprefix>>/page/9b8624f3-8cbb-4cfd-97a7-c93ec8578615"
+                    },
+                    "PageLocationPart": {
+                        "UrlName": "career-choices-at-16",
+                        "DefaultPageForLocation": false,
+                        "RedirectLocations": null,
+                        "FullUrl": "/careers-advice/career-choices-at-16"
+                    }
+                },
+                {
+                    "ContentItemId": "46mrj2qh7aqgk1fm1szxy3nkxy",
+                    "ContentItemVersionId": "4rjk1ta3z03r1vh0ky0efmvymq",
+                    "ContentType": "Page",
+                    "DisplayText": "Post 18 options",
+                    "Latest": true,
+                    "Published": true,
+                    "ModifiedUtc": "2021-04-09T10:04:53.9078004Z",
+                    "PublishedUtc": "2021-04-09T10:04:53.9984544Z",
+                    "CreatedUtc": "2021-04-07T15:47:55.4029309Z",
+                    "Owner": "4s69p8vzbjd91zftn97xtkjhxp",
+                    "Author": "admin",
+                    "TitlePart": {
+                        "Title": "Post 18 options"
+                    },
+                    "Page": {
+                        "PageLocations": {
+                            "TaxonomyContentItemId": "4eembshqzx66drajtdten34tc8",
+                            "TermContentItemIds": [
+                                "4e1d03ztjhb1f76bew09dessxv"
+                            ]
+                        },
+                        "Description": {
+                            "Text": null
+                        },
+                        "Herobanner": {
+                            "Html": ""
+                        },
+                        "ShowHeroBanner": {
+                            "Value": false
+                        }
+                    },
+                    "SitemapPart": {
+                        "Priority": 5,
+                        "OverrideSitemapConfig": false,
+                        "ChangeFrequency": 0,
+                        "Exclude": false
+                    },
+                    "FlowPart": {
+                        "Widgets": [
+                            {
+                                "ContentItemId": "4v8e8m7ysdwzywzp4tywas8tne",
+                                "ContentItemVersionId": null,
+                                "ContentType": "HTML",
+                                "DisplayText": "",
+                                "Latest": false,
+                                "Published": false,
+                                "ModifiedUtc": "2021-04-09T10:04:53.9263291Z",
+                                "PublishedUtc": null,
+                                "CreatedUtc": null,
+                                "Owner": "",
+                                "Author": "admin",
+                                "HTML": {},
+                                "HtmlBodyPart": {
+                                    "Html": "<h1 class=\"govuk-heading-xl\">Post 18 options</h1>\n\n<p class=\"govuk-body\">There are a lot of options to choose from at 18. What’s right for you will depend on your situation and the career or job you have in mind.&nbsp;</p>\n<p class=\"govuk-body-m\">You may be eligible for the <a class=\"govuk-link\" href=\"https://www.gov.uk/1619-bursary-fund\">16 to 19 Bursary Fund</a>, which can help with things like books, travel or equipment if you will struggle with education or training costs.</p>\n<p class=\"govuk-body-m\">If you have an&nbsp;<a class=\"govuk-link\" href=\"/careers-advice/options-with-education-health-and-care-plan\">Education Health and Care (EHC) plan</a> there may be different and more suitable options available to you.</p>\n<p class=\"govuk-body-m\">You can find out about financial support for university from <a class=\"govuk-link\" href=\"https://www.gov.uk/browse/education/student-finance\">Student Finance</a>.\n</p>\n<h3 class=\"govuk-heading-m\">Combine work and study</h3>\n<p class=\"govuk-body\">Improve your skills and get work experience. Some options allow you to earn while you learn. Spend time in a real workplace while working towards a qualification that employers need.</p>\n\n<nav>\n    <ul class=\"govuk-list govuk-list--bullet\">\n        <li><a class=\"govuk-link\" href=\"#traineeships\">Traineeships</a></li>\n        <li><a class=\"govuk-link\" href=\"#supported-internships\">Supported internships</a></li>\n        <li><a class=\"govuk-link\" href=\"#apprenticeships\">Apprenticeships</a></li>\n        <li><a class=\"govuk-link\" href=\"#school-leavers\">School Leavers Schemes</a></li>\n    </ul>\n</nav>\n<h3 class=\"govuk-heading-m\">Continue your studies</h3>\n<p class=\"govuk-body\">You may need to improve your results before taking your next step. You could do a course that gives you time to explore your options or get a work-related qualification. </p>\n<p class=\"govuk-body-m\">If you want to move on to a higher level of learning, you could study at a <a class=\"govuk-link\" href=\"https://www.ucas.com/\">university</a>, college, <a class=\"govuk-link\" href=\"https://www.gov.uk/government/publications/institutes-of-technology--2\">Institute of Technology (IoT)</a>    or a National College. There are opportunities to learn online as well as to study part- time.</p>\n<nav>\n    <ul class=\"govuk-list govuk-list--bullet\">\n        <li><a class=\"govuk-link\" href=\"#exam-retakes\">Exam retakes</a></li>\n        <li><a class=\"govuk-link\" href=\"#funded-course\">1 year funded course for ages 18 to 19</a></li>\n        <li><a class=\"govuk-link\" href=\"#technical-education\">Higher technical skills courses</a></li>\n        <li><a class=\"govuk-link\" href=\"#university\">University degree</a></li>\n    </ul>\n</nav>\n<h3 class=\"govuk-heading-m\">Get straight into work</h3>\n<p class=\"govuk-body-m\">Earn a wage, try out a job and start networking. You could even get the skills to start your own business.</p>\n<nav>\n    <ul class=\"govuk-list govuk-list--bullet\">\n        <li><a class=\"govuk-link\" href=\"#internship\">Internships</a></li>\n        <li><a class=\"govuk-link\" href=\"#business\">Start a business</a></li>\n        <li><a class=\"govuk-link\" href=\"#kickstart\">Get a kickstart job</a></li>\n        <li><a class=\"govuk-link\" href=\"#get-a-job\">Get a job</a></li>\n    </ul>\n</nav>\n<p class=\"govuk-body-m\">You may also want to take a <a class=\"govuk-link\" href=\"/careers-advice/advice-on-a-gap-year\">gap year</a> before continuing with your studies or getting into work.</p>\n<p></p><hr class=\"govuk-section-break govuk-section-break--m govuk-section-break--visible\"><p></p>\n\n<section id=\"continue-your-studies\">\n    <h2 class=\"govuk-heading-l\">Continue your studies</h2>\n</section>"
+                                },
+                                "GraphSyncPart": {
+                                    "Text": "<<contentapiprefix>>/html/0e02cab2-d185-4efb-9d60-acf70617eb52"
+                                },
+                                "FlowMetadata": {
+                                    "Alignment": 3,
+                                    "Size": 66
+                                }
+                            },
+                            {
+                                "ContentItemId": "40g0ndmpv8r8k1j1pbrwd6mkmz",
+                                "ContentItemVersionId": null,
+                                "ContentType": "HTMLShared",
+                                "DisplayText": "",
+                                "Latest": false,
+                                "Published": false,
+                                "ModifiedUtc": "2021-04-09T10:04:53.9335689Z",
+                                "PublishedUtc": null,
+                                "CreatedUtc": null,
+                                "Owner": "",
+                                "Author": "admin",
+                                "HTMLShared": {
+                                    "SharedContent": {
+                                        "ContentItemIds": [
+                                            "43mj84xpc3kpgycv11wb8pxqnz",
+                                            "4nyydyyta43vzxjk0b61sdmddr",
+                                            "4yw42egc3y5na4gya26sfy3qd5"
+                                        ]
+                                    }
+                                },
+                                "GraphSyncPart": {
+                                    "Text": "<<contentapiprefix>>/htmlshared/0e0a1181-2ac4-4293-9a67-64898fc13644"
+                                },
+                                "FlowMetadata": {
+                                    "Alignment": 3,
+                                    "Size": 33
+                                }
+                            },
+                            {
+                                "ContentItemId": "4vsvwgkwgpbntyz4sdk3fr0nd1",
+                                "ContentItemVersionId": null,
+                                "ContentType": "HTMLShared",
+                                "DisplayText": "",
+                                "Latest": false,
+                                "Published": false,
+                                "ModifiedUtc": "2021-04-09T10:04:53.9445982Z",
+                                "PublishedUtc": null,
+                                "CreatedUtc": null,
+                                "Owner": "",
+                                "Author": "admin",
+                                "HTMLShared": {
+                                    "SharedContent": {
+                                        "ContentItemIds": [
+                                            "4bgr5xwt1dceb4j8pd3nfws74p"
+                                        ]
+                                    }
+                                },
+                                "GraphSyncPart": {
+                                    "Text": "<<contentapiprefix>>/htmlshared/155a2efb-6190-480e-aabd-399447cc1942"
+                                },
+                                "FlowMetadata": {
+                                    "Alignment": 3,
+                                    "Size": 66
+                                }
+                            },
+                            {
+                                "ContentItemId": "4tgb0aww1yxda2zzhkj6annn5q",
+                                "ContentItemVersionId": null,
+                                "ContentType": "HTML",
+                                "DisplayText": "",
+                                "Latest": false,
+                                "Published": false,
+                                "ModifiedUtc": "2021-04-09T10:04:53.9542344Z",
+                                "PublishedUtc": null,
+                                "CreatedUtc": null,
+                                "Owner": "",
+                                "Author": "admin",
+                                "HTML": {},
+                                "HtmlBodyPart": {
+                                    "Html": "\n<section id=\"funded-course\">\n    <hr class=\"govuk-section-break govuk-section-break--visible\">\n    <div class=\"govuk-!-margin-top-6 govuk-!-margin-bottom-6\">\n        <h3 class=\"govuk-heading-m\">1 year funded course for ages 18 to 19</h3>\n        <ul class=\"govuk-list\">\n            <li class=\"govuk-!-margin-top-3\"><span class=\"govuk-secondary-colour\">Description:&nbsp;</span>If you can't access work or work-based training in September 2020, you can take a free course to gain work related or technical skills needed by employers. Subjects include engineering,\n                construction, health and social care, and ICT. You can also resit maths and English GCSE if you do not already have a grade 4 or above.</li>\n            <li><span class=\"govuk-secondary-colour\">Location:&nbsp;</span>With a college or training provider</li>\n            <li><span class=\"govuk-secondary-colour\">Duration:&nbsp;</span>Up to 1 year</li>\n            <li><span class=\"govuk-secondary-colour\">Entry requirements:&nbsp;</span>Age 18-19</li>\n            <li><span class=\"govuk-secondary-colour\">Qualifications: </span>Level 2 and 3 high value qualifications needed for specific employment sectors</li>\n            <li><span class=\"govuk-secondary-colour\">Leads to:&nbsp;</span>Work, higher level or degree apprenticeship</li>\n            <li><span class=\"govuk-secondary-colour\">Find out more:</span> By calling our advisers\n                or speaking to your local provider</li>\n        </ul>\n    </div>\n</section>\n\n<section id=\"technical-education\">\n    <hr class=\"govuk-section-break govuk-section-break--visible\">\n    <div class=\"govuk-!-margin-top-6 govuk-!-margin-bottom-6\">\n        <h3 class=\"govuk-heading-m\">Higher technical skills courses</h3>\n        <ul class=\"govuk-list\">\n            <li class=\"govuk-!-margin-top-3\"><span class=\"govuk-secondary-colour\">Description:&nbsp;</span>Learn the higher level skills that employers want in sectors like finance, engineering, management and scientific jobs on a classroom-taught course.\n            </li>\n            <li><span class=\"govuk-secondary-colour\">Location:&nbsp;</span>College or university, some of which specialise in subjects as part of an Institute of Technology or National College</li>\n            <li><span class=\"govuk-secondary-colour\">Duration:</span> 1 to 2 years</li>\n            <li><span class=\"govuk-secondary-colour\">Entry requirements:&nbsp;</span>Varies by course</li>\n            <li><span class=\"govuk-secondary-colour\">Qualifications:&nbsp;</span>Higher Nationals (HNC/Ds), foundation degrees, certificate/diploma of higher education and various other technical qualifications</li>\n            <li><span class=\"govuk-secondary-colour\">Leads to:&nbsp;</span>Skilled employment in higher technical job or higher levels of study</li>\n            <li><span class=\"govuk-secondary-colour\">Find out more:</span> By calling our advisers\n                or speaking to your local provider</li>\n        </ul>\n    </div>\n</section>\n\n<section id=\"university\">\n    <hr class=\"govuk-section-break govuk-section-break--visible\">\n    <div class=\"govuk-!-margin-top-6 govuk-!-margin-bottom-6\">\n        <h3 class=\"govuk-heading-m\">University degree</h3>\n        <ul class=\"govuk-list\">\n            <li class=\"govuk-!-margin-top-3\"><span class=\"govuk-secondary-colour\">Description: </span>An academic course that's usually studied at a higher education institution. Learn through lectures, seminars, group projects and independent study. There's <a class=\"govuk-link\" href=\"https://www.gov.uk/student-finance\">funding</a>&nbsp;available\n                to support you and you can study full or part- time.</li>\n            <li><span class=\"govuk-secondary-colour\">Location:&nbsp;</span>At a university, college or online. You could go away to study, stay local or go abroad.</li>\n            <li><span class=\"govuk-secondary-colour\">Duration:&nbsp;</span>3 to 4 years</li>\n            <li><span class=\"govuk-secondary-colour\">Entry requirements:&nbsp;</span>Universities set their own entry requirements. You'll usually need A Levels or equivalent qualifications</li>\n            <li><span class=\"govuk-secondary-colour\">Qualifications: O</span>rdinary or honours degree</li>\n            <li><span class=\"govuk-secondary-colour\">Leads to:&nbsp;</span>Postgraduate taught or research degrees, professional qualifications, graduate employment</li>\n            <li><span class=\"govuk-secondary-colour\">Find out more:</span> <a class=\"govuk-link\" href=\"https://www.ucas.com\">UCAS information about undergraduate degrees</a></li>\n        </ul>\n    </div>\n</section>\n<p></p><hr class=\"govuk-section-break govuk-section-break--m govuk-section-break--visible\"><p></p>\n\n<section id=\"get-straight-into-work\">\n    <h2 class=\"govuk-heading-l\">Get straight into work</h2>\n    \n    <section id=\"internship\">\n        <div class=\"govuk-!-margin-top-6 govuk-!-margin-bottom-6\">\n            <h3 class=\"govuk-heading-m\">Internships</h3>\n            <ul class=\"govuk-list\">\n                <li class=\"govuk-!-margin-top-3\"><span class=\"govuk-secondary-colour\">Description: </span>A period of work experience where you can try out a job and get to know an industry.</li>\n                <li><span class=\"govuk-secondary-colour\">Location:&nbsp;</span>Workplace</li>\n                <li><span class=\"govuk-secondary-colour\">Duration:&nbsp;</span>1 week to 1 year</li>\n                <li><span class=\"govuk-secondary-colour\">Entry requirements:&nbsp;</span>Age 16+ </li>\n                <li><span class=\"govuk-secondary-colour\">Qualifications:&nbsp;</span>N/A </li>\n                <li><span class=\"govuk-secondary-colour\">Leads to:&nbsp;</span>Work, university/college, traineeships, apprenticeship</li>\n                <li><span class=\"govuk-secondary-colour\">Find out more:</span> <a class=\"govuk-link\" href=\"https://www.careerpilot.org.uk/information/your-choices-at-18/internships-and-work-placements\">Information about internships</a></li>\n            </ul>\n        </div>\n    </section>\n    \n    <section id=\"business\">\n        <hr class=\"govuk-section-break govuk-section-break--visible\">\n        <div class=\"govuk-!-margin-top-6 govuk-!-margin-bottom-6\">\n            <h3 class=\"govuk-heading-m\">Start a business</h3>\n            <ul class=\"govuk-list\">\n                <li class=\"govuk-!-margin-top-3\"><span class=\"govuk-secondary-colour\">Description:&nbsp;</span>Becoming an entrepreneur can be exciting, but think carefully about your ideas and make a solid business plan.</li>\n                <li><span class=\"govuk-secondary-colour\">Location:&nbsp;</span>Likely to start at home or shared office</li>\n                <li><span class=\"govuk-secondary-colour\">Duration: N/A</span></li>\n                <li><span class=\"govuk-secondary-colour\">Entry requirements:&nbsp;</span>You may need special skills, qualifications or experience before you can start a business. There may also be start-up costs.</li>\n                <li><span class=\"govuk-secondary-colour\">Qualifications:&nbsp;</span>N/A</li>\n                <li><span class=\"govuk-secondary-colour\">Leads to:&nbsp;</span>Work</li>\n                <li><span class=\"govuk-secondary-colour\">Find out more:</span> <a class=\"govuk-link\" href=\"https://www.princes-trust.org.uk/help-for-young-people/tools-resources/business-tools/self-employment\">Information about setting up a business</a></li>\n            </ul>\n        </div>\n    </section>\n    \n    <section id=\"kickstart\">\n        <hr class=\"govuk-section-break govuk-section-break--visible\">\n        <div class=\"govuk-!-margin-top-6 govuk-!-margin-bottom-6\">\n            <h3 class=\"govuk-heading-m\">Get a kickstart job</h3>\n            <ul class=\"govuk-list\">\n                <li class=\"govuk-!-margin-top-3\"><span class=\"govuk-secondary-colour\">Description:&nbsp;</span>Get a 6 month paid Kickstart job with a local employer funded by the Government.</li>\n                <li><span class=\"govuk-secondary-colour\">Location:&nbsp;</span>Workplace or from home</li>\n                <li><span class=\"govuk-secondary-colour\">Duration: 6 months</span></li>\n                <li><span class=\"govuk-secondary-colour\">Entry requirements:&nbsp;</span>Must be aged 16 to 24, in receipt of Universal Credit and at risk of long term unemployment.</li>\n                <li><span class=\"govuk-secondary-colour\">Qualifications:&nbsp;</span>N/A</li>\n                <li><span class=\"govuk-secondary-colour\">Leads to:&nbsp;</span>A stronger CV and better chance of securing your next job</li>\n                <li><span class=\"govuk-secondary-colour\">Find out more:</span> Talk to your Universal Credit Work Coach or check the <a class=\"govuk-link\" href=\"https://jobhelp.campaign.gov.uk/kickstart/\">jobhelp site</a></li>\n            </ul>\n        </div>\n    </section>\n    \n    <section id=\"get-a-job\">\n        <hr class=\"govuk-section-break govuk-section-break--visible\">\n        <div class=\"govuk-!-margin-top-6 govuk-!-margin-bottom-6\">\n            <h3 class=\"govuk-heading-m\">Get a job</h3>\n            <ul class=\"govuk-list\">\n                <li class=\"govuk-!-margin-top-3\"><span class=\"govuk-secondary-colour\">Description:&nbsp;</span>Get straight into the working world to start earning. You'll need an up-to-date <a class=\"govuk-link\" href=\"/get-a-job/cv-sections\">CV</a> and <a class=\"govuk-link\" href=\"/get-a-job/covering-letter\">cover letter</a>.</li>\n                <li><span class=\"govuk-secondary-colour\">Location:&nbsp;</span>Workplace or from home</li>\n                <li><span class=\"govuk-secondary-colour\">Duration:&nbsp;</span>Dependent on job offer </li>\n                <li><span class=\"govuk-secondary-colour\">Entry requirements:&nbsp;</span>Requirements differ between employers. You may need qualifications or experience for some jobs.</li>\n                <li><span class=\"govuk-secondary-colour\">Qualifications:&nbsp;</span>N/A</li>\n                <li><span class=\"govuk-secondary-colour\">Leads to:&nbsp;</span>Work</li>\n                <li><span class=\"govuk-secondary-colour\">Find out more:</span> <a class=\"govuk-link\" href=\"https://findajob.dwp.gov.uk/\">Search for vacancies and advice on applying for jobs</a></li>\n            </ul>\n        </div>\n    </section>\n</section>"
+                                },
+                                "GraphSyncPart": {
+                                    "Text": "<<contentapiprefix>>/html/24bf40bb-2eee-4133-aa13-19b3bcc1d017"
+                                },
+                                "FlowMetadata": {
+                                    "Alignment": 3,
+                                    "Size": 66
+                                }
+                            }
+                        ]
+                    },
+                    "GraphSyncPart": {
+                        "Text": "<<contentapiprefix>>/page/b62d8c17-7b14-4b15-86a1-2e11560172da"
+                    },
+                    "PageLocationPart": {
+                        "UrlName": "career-choices-at-18",
+                        "DefaultPageForLocation": false,
+                        "RedirectLocations": null,
+                        "FullUrl": "/careers-advice/career-choices-at-18"
+                    }
+                },
+                {
+                    "ContentItemId": "4k9121z3nqea839ec98rkb1px8",
+                    "ContentItemVersionId": "4cq0zzekfpbtz0t4wtjkgsbvdn",
+                    "ContentType": "Page",
+                    "DisplayText": "Options with an Education Health and Care plan",
+                    "Latest": true,
+                    "Published": true,
+                    "ModifiedUtc": "2021-04-09T10:10:41.9937041Z",
+                    "PublishedUtc": "2021-04-09T10:10:42.0613271Z",
+                    "CreatedUtc": "2021-04-08T16:58:29.0843081Z",
+                    "Owner": "4s69p8vzbjd91zftn97xtkjhxp",
+                    "Author": "admin",
+                    "TitlePart": {
+                        "Title": "Options with an Education Health and Care plan"
+                    },
+                    "Page": {
+                        "PageLocations": {
+                            "TaxonomyContentItemId": "4eembshqzx66drajtdten34tc8",
+                            "TermContentItemIds": [
+                                "4e1d03ztjhb1f76bew09dessxv"
+                            ]
+                        },
+                        "Description": {
+                            "Text": null
+                        },
+                        "Herobanner": {
+                            "Html": ""
+                        },
+                        "ShowHeroBanner": {
+                            "Value": false
+                        }
+                    },
+                    "SitemapPart": {
+                        "Priority": 5,
+                        "OverrideSitemapConfig": false,
+                        "ChangeFrequency": 0,
+                        "Exclude": false
+                    },
+                    "FlowPart": {
+                        "Widgets": [
+                            {
+                                "ContentItemId": "4gfb4wqajcxp6yr4y28vgfarws",
+                                "ContentItemVersionId": null,
+                                "ContentType": "HTML",
+                                "DisplayText": "",
+                                "Latest": false,
+                                "Published": false,
+                                "ModifiedUtc": "2021-04-09T10:10:42.0066693Z",
+                                "PublishedUtc": null,
+                                "CreatedUtc": null,
+                                "Owner": "",
+                                "Author": "admin",
+                                "HTML": {},
+                                "HtmlBodyPart": {
+                                    "Html": "<h1 class=\"govuk-heading-xl\">Options with an Education Health and Care (EHC) plan</h1>\n<p class=\"govuk-body-m\">16 to 18 year olds with an Education Health and Care (EHC) plan should think about their options.</p>\n<nav>\n    <div class=\"govuk-grid-row\">\n        <div class=\"govuk-grid-column-full\">\n            <ul class=\"govuk-list govuk-list--bullet\">\n                <li><a class=\"govuk-link\" href=\"#preparing\">Preparing for what happens in year 11</a></li>\n                <li><a class=\"govuk-link\" href=\"#during\">During year 11</a></li>\n                <li><a class=\"govuk-link\" href=\"#options\">Your options at 16</a></li>\n                <li><a class=\"govuk-link\" href=\"#support-for-education\">Support you can get in education and training</a></li>\n                <li><a class=\"govuk-link\" href=\"#support-for-work\">Support you can get at work</a></li>\n                <li><a class=\"govuk-link\" href=\"#other\">Other options</a></li>\n            </ul>\n        </div>\n    </div>\n</nav>\n<hr class=\"govuk-section-break govuk-section-break--m govuk-section-break--visible\">\n\n<section id=\"preparing\">\n    <h2 class=\"govuk-heading-l\">Preparing for what happens in year 11</h2>\n    <p class=\"govuk-body-m\">Your year 10 <a class=\"govuk-link\" href=\"https://contact.org.uk/advice-and-support/education-learning/ehc-plans-assessments/annual-reviews\">Annual Review</a> will help you to start thinking about your next steps after year 11.</p>\n    <p class=\"govuk-body-m\">You will have to stay in education or training until you are 18. Young people with special educational needs can continue to get free education and training up to the age of 25.</p>\n    <p class=\"govuk-body-m\">If you have special educational needs and do not have an EHC plan, you can request an assessment through your <a class=\"govuk-link\" href=\"https://www.gov.uk/find-local-council\"> local council's special educational needs and disabilities service</a>.</p>\n    <hr class=\"govuk-section-break govuk-section-break--m govuk-section-break--visible\">\n    \n    <section id=\"during\">\n        <h2 class=\"govuk-heading-l\">During year 11</h2>\n        <p class=\"govuk-body-m\">In year 11, your school will arrange for you to:</p>\n        <ul class=\"govuk-list govuk-list--bullet\">\n            <li>talk to a careers adviser about what you can do after school</li>\n            <li>go to open days to explore your options</li>\n            <li>apply for education or training at places you would like to go</li>\n            <li>have a meeting with your school to talk about what you'll do next</li>\n            <li>tell your local council the options that you would prefer</li>\n        </ul>\n        <p class=\"govuk-body-m\">Your local council will try to make sure that you get the right education or training for you, near to home if that's possible. You can appeal if you feel the offer they make is not right for you. Your EHC plan will be updated when you have agreed\n            your next steps.</p>\n    </section>\n    <hr class=\"govuk-section-break govuk-section-break--m govuk-section-break--visible\">\n    \n    <section id=\"options\">\n        <h2 class=\"govuk-heading-l\">Your options at 16</h2>\n        <p class=\"govuk-body-m\">At 16 your main options are to:</p>\n        <nav>\n            <div class=\"govuk-grid-row\">\n                <div class=\"govuk-grid-column-full\">\n                    <ul class=\"govuk-list govuk-list--bullet\">\n                        <li><a class=\"govuk-link\" href=\"#education\">stay in full-time education</a></li>\n                        <li><a class=\"govuk-link\" href=\"#traineeships\">combine work and study</a></li>\n                        <li><a class=\"govuk-link\" href=\"#volunteer\">volunteer or work part-time and study</a></li>\n                    </ul>\n                </div>\n            </div>\n        </nav>\n    </section>\n    <hr class=\"govuk-section-break govuk-section-break--m govuk-section-break--visible\">\n    \n    <section id=\"education\">\n        <h2 class=\"govuk-heading-l\">Stay in full-time education</h2>\n        <p class=\"govuk-body-m\">You could carry on learning through a full-time study programme. This could be made up of different qualifications and include things like:</p>\n        <ul class=\"govuk-list govuk-list--bullet\">\n            <li>courses that prepare you for adult life, work and taking part in the community</li>\n            <li>English and maths skills</li>\n            <li>academic subjects leading to GCSEs or A levels</li>\n            <li>work-related courses like T Levels or BTECs</li>\n        </ul>\n        <p class=\"govuk-body-m\">You can do a study programme at a:</p>\n        <ul class=\"govuk-list govuk-list--bullet\">\n            <li>mainstream or special school sixth form</li>\n            <li>sixth form college</li>\n            <li>college of further education</li>\n            <li><a class=\"govuk-link\" href=\"https://natspec.org.uk/colleges/\">specialist college </a> for students with special educational needs</li>\n        </ul>\n        <p class=\"govuk-body-m\">You can ask to study or train at a specialist college if this is the best place to meet your needs. Your council may refuse your request on the grounds of cost, so you may need to show that there are no other suitable, cheaper options available.\n        </p>\n    </section>\n</section>"
+                                },
+                                "GraphSyncPart": {
+                                    "Text": "<<contentapiprefix>>/html/6d77b768-e2d3-490a-837c-ae2d237ecf24"
+                                },
+                                "FlowMetadata": {
+                                    "Alignment": 3,
+                                    "Size": 66
+                                }
+                            },
+                            {
+                                "ContentItemId": "4my3qhtj006377qvkdjj5cy1c3",
+                                "ContentItemVersionId": null,
+                                "ContentType": "HTMLShared",
+                                "DisplayText": "",
+                                "Latest": false,
+                                "Published": false,
+                                "ModifiedUtc": "2021-04-09T10:10:42.0139053Z",
+                                "PublishedUtc": null,
+                                "CreatedUtc": null,
+                                "Owner": "",
+                                "Author": "admin",
+                                "HTMLShared": {
+                                    "SharedContent": {
+                                        "ContentItemIds": [
+                                            "43mj84xpc3kpgycv11wb8pxqnz",
+                                            "4nyydyyta43vzxjk0b61sdmddr",
+                                            "4cx26nrgn8et2trgsckk5n4qdj"
+                                        ]
+                                    }
+                                },
+                                "GraphSyncPart": {
+                                    "Text": "<<contentapiprefix>>/htmlshared/f2fd5f37-0d90-4d8a-be51-07e4b7cc6733"
+                                },
+                                "FlowMetadata": {
+                                    "Alignment": 3,
+                                    "Size": 33
+                                }
+                            },
+                            {
+                                "ContentItemId": "4ywk0tn7pvbssyvz7bx5z2qrmf",
+                                "ContentItemVersionId": null,
+                                "ContentType": "HTMLShared",
+                                "DisplayText": "",
+                                "Latest": false,
+                                "Published": false,
+                                "ModifiedUtc": "2021-04-09T10:10:42.0227263Z",
+                                "PublishedUtc": null,
+                                "CreatedUtc": null,
+                                "Owner": "",
+                                "Author": "admin",
+                                "HTMLShared": {
+                                    "SharedContent": {
+                                        "ContentItemIds": [
+                                            "45hmjm243bsbjvt9qrwpg5aemz"
+                                        ]
+                                    }
+                                },
+                                "GraphSyncPart": {
+                                    "Text": "<<contentapiprefix>>/htmlshared/5b59890a-91ec-4495-bac8-60ed4f5d529f"
+                                },
+                                "FlowMetadata": {
+                                    "Alignment": 3,
+                                    "Size": 66
+                                }
+                            },
+                            {
+                                "ContentItemId": "4xqrhznnwhvs50svh7xb1vtfxf",
+                                "ContentItemVersionId": null,
+                                "ContentType": "HTML",
+                                "DisplayText": "",
+                                "Latest": false,
+                                "Published": false,
+                                "ModifiedUtc": "2021-04-09T10:10:42.0307377Z",
+                                "PublishedUtc": null,
+                                "CreatedUtc": null,
+                                "Owner": "",
+                                "Author": "admin",
+                                "HTML": {},
+                                "HtmlBodyPart": {
+                                    "Html": "<hr class=\"govuk-section-break govuk-section-break--m govuk-section-break--visible\">\n\n<section id=\"volunteer\">\n    <h2 class=\"govuk-heading-l\">Work or volunteer and study part-time</h2>\n    <p class=\"govuk-body-m\">Between 16 and 18 you can work or volunteer for 20 hours or more if you combine it with part-time study or training. There are schemes to help you to find the best places to look for jobs and get support in the workplace.</p>\n    <p class=\"govuk-body-m\">For more information on where and how to look, you can:</p>\n    <ul class=\"govuk-list govuk-list--bullet\">\n        <li>see our <a class=\"govuk-link\" href=\"/get-a-job/advice-on-volunteering\">volunteering vacancies</a> information</li>\n        <li>contact your local <a class=\"govuk-link\" href=\"https://www.gov.uk/looking-for-work-if-disabled\">Jobcentre</a> for advice on looking for work when you have a disability</li>\n    </ul>\n    <p class=\"govuk-body-m\">You may also be able to combine lots of different types of activities, like a part-time college course to improve your English and maths, volunteering in a charity shop and getting skills to take care of yourself and travel independently.</p>\n</section>\n<hr class=\"govuk-section-break govuk-section-break--m govuk-section-break--visible\">\n\n<section id=\"support-for-education\">\n    <h2 class=\"govuk-heading-l\">Support you can get in education and training</h2>\n    <p class=\"govuk-body-m\">As in school, you can carry on getting help with things you need, like:</p>\n    <ul class=\"govuk-list govuk-list--bullet\">\n        <li>a specialist tutor or note-taker</li>\n        <li>learning in a small group or through one-to one teaching</li>\n        <li>access to information in different ways like sign language, braille or using symbols </li>\n        <li>assistive technology like a tablet, reading pen, voice recognition or screen reading software</li>\n        <li>the support of a mentor or an advocate</li>\n        <li>access to therapies, like speech and language or support from mental health services</li>\n        <li>training in skills to live more independently</li>\n    </ul>\n    <p class=\"govuk-body-m\">You may also be able to get some health care and social care support to help you with your learning and development. Your school's Special Educational Needs Coordinator (SENCO) can help you to find out if this applies to you. </p>\n</section>\n<hr class=\"govuk-section-break govuk-section-break--m govuk-section-break--visible\">\n\n<section id=\"support-for-work\">\n    <h2 class=\"govuk-heading-l\">Support at work</h2>\n    <p class=\"govuk-body-m\">If you get a job, you may be able to get help through <a class=\"govuk-link\" href=\"https://www.gov.uk/access-to-work\"> Access to Work</a> for things like:</p>\n    <ul class=\"govuk-list govuk-list--bullet\">\n        <li>special equipment</li>\n        <li>adaptations to the workplace</li>\n        <li>a support worker</li>\n    </ul>\n</section>\n<hr class=\"govuk-section-break govuk-section-break--m govuk-section-break--visible\">\n\n<section id=\"other\">\n    <h2 class=\"govuk-heading-l\">Other options</h2>\n    <p class=\"govuk-body-m\">If none of these options are suitable, you may be able to get help to make a package of support that is tailored just for you. Your school careers adviser, disability charities or a parent support network can help you to ask for this.</p>\n    <p class=\"govuk-body-m\">You can also speak to your <a class=\"govuk-link\" href=\"https://www.gov.uk/find-local-council\"> local council's special educational needs and disabilities service</a>.</p>\n</section>"
+                                },
+                                "GraphSyncPart": {
+                                    "Text": "<<contentapiprefix>>/html/f7624a72-a4dd-43ee-8709-8806203277e0"
+                                },
+                                "FlowMetadata": {
+                                    "Alignment": 3,
+                                    "Size": 66
+                                }
+                            }
+                        ]
+                    },
+                    "GraphSyncPart": {
+                        "Text": "<<contentapiprefix>>/page/53c42218-cb87-49cc-9841-31f6a014831d"
+                    },
+                    "PageLocationPart": {
+                        "UrlName": "options-with-education-health-and-care-plan",
+                        "DefaultPageForLocation": false,
+                        "RedirectLocations": null,
+                        "FullUrl": "/careers-advice/options-with-education-health-and-care-plan"
+                    }
+                },
+                {
+                    "ContentItemId": "4112axg01vb0s7cmmyrzchhgmr",
+                    "ContentItemVersionId": "472z9ht1qke0k1y78y6shpkcwz",
+                    "ContentType": "Page",
+                    "DisplayText": "Career and job support for people with a disability",
+                    "Latest": true,
+                    "Published": true,
+                    "ModifiedUtc": "2021-04-09T10:13:02.7797333Z",
+                    "PublishedUtc": "2021-04-09T10:13:02.8316225Z",
+                    "CreatedUtc": "2021-04-08T17:06:57.6152087Z",
+                    "Owner": "4s69p8vzbjd91zftn97xtkjhxp",
+                    "Author": "admin",
+                    "TitlePart": {
+                        "Title": "Career and job support for people with a disability"
+                    },
+                    "Page": {
+                        "PageLocations": {
+                            "TaxonomyContentItemId": "4eembshqzx66drajtdten34tc8",
+                            "TermContentItemIds": [
+                                "4e1d03ztjhb1f76bew09dessxv"
+                            ]
+                        },
+                        "Description": {
+                            "Text": null
+                        },
+                        "Herobanner": {
+                            "Html": ""
+                        },
+                        "ShowHeroBanner": {
+                            "Value": false
+                        }
+                    },
+                    "SitemapPart": {
+                        "Priority": 5,
+                        "OverrideSitemapConfig": false,
+                        "ChangeFrequency": 0,
+                        "Exclude": false
+                    },
+                    "FlowPart": {
+                        "Widgets": [
+                            {
+                                "ContentItemId": "456zcxkzhy2r72tr5nh0hbmwn0",
+                                "ContentItemVersionId": null,
+                                "ContentType": "HTML",
+                                "DisplayText": "",
+                                "Latest": false,
+                                "Published": false,
+                                "ModifiedUtc": "2021-04-09T10:13:02.7992514Z",
+                                "PublishedUtc": null,
+                                "CreatedUtc": null,
+                                "Owner": "",
+                                "Author": "admin",
+                                "HTML": {},
+                                "HtmlBodyPart": {
+                                    "Html": "<h1 class=\"govuk-heading-xl\">Career and job support for people with a disability</h1>\n<p class=\"govuk-body-m\">Help and advice to find and stay in work, for people with a disability or health condition.</p>\n<nav>\n    <div class=\"govuk-grid-row\">\n        <div class=\"govuk-grid-column-full\">\n            <ul class=\"govuk-list govuk-list--bullet\">\n                <li><a class=\"govuk-link\" href=\"#specialist\">How specialist advice can help</a></li>\n                <li><a class=\"govuk-link\" href=\"#types\">Types of help available</a></li>\n                <li><a class=\"govuk-link\" href=\"#resources\">General help and resources</a></li>\n                <li><a class=\"govuk-link\" href=\"#help\">Help for different stages or specific disabilities</a></li>\n            </ul>\n        </div>\n    </div>\n</nav>\n<p></p><hr class=\"govuk-section-break govuk-section-break--m govuk-section-break--visible\"><p></p>\n<section id=\"specialist\">\n    <h2 class=\"govuk-heading-l\">How specialist advice can help</h2>\n    <p class=\"govuk-body-m\">If you feel you are facing difficulties as a result of a disability or health condition, having specialist advice may help you to understand your rights and get support to reach your career goals.</p>\n    <p class=\"govuk-body-m\">It is illegal to discriminate against someone with a disability. In spite of this many disabled people still face challenges getting into and staying in the workplace. Schemes like <a class=\"govuk-link\" href=\"https://disabilityconfident.campaign.gov.uk/\">Disability Confident</a>&nbsp;can\n        help you explore&nbsp;companies that are showing a commitment to hiring people with a disability and creating more inclusive work places.</p>\n    <p>&nbsp;</p>\n    <hr class=\"govuk-section-break govuk-section-break--m govuk-section-break--visible\">\n    <section id=\"types\">\n        <h2 class=\"govuk-heading-l\">Types of help available</h2>\n        <p class=\"govuk-body-m\">Organisations offering specialist advice can help you to:</p>\n        <ul class=\"govuk-list govuk-list--bullet\">\n            <li>explore your options</li>\n            <li>understand your legal rights at work</li>\n            <li>find out about funding and specialist support like <a class=\"govuk-link\" href=\"https://www.gov.uk/access-to-work\">Access to Work</a></li>\n            <li>get advice that meets your specific needs</li>\n            <li>access professionals like mentors, advocates and specialist advisers</li>\n        </ul>\n        <p class=\"govuk-body-m\">Many charities are experts in understanding the challenges of a specific disability. They may be able to give you practical support to:</p>\n        <ul class=\"govuk-list govuk-list--bullet\">\n            <li>find <a class=\"govuk-link\" href=\"https://www.gov.uk/government/publications/disability-confident-employers-that-have-signed-up\">Disability Confident</a> employers near you</li>\n            <li>search for job opportunities and get help with the recruitment process</li>\n            <li>disclose your disability during the job application process, at the best time for you</li>\n            <li>ask for <a class=\"govuk-link\" href=\"https://www.gov.uk/reasonable-adjustments-for-disabled-workers\">reasonable adjustments</a> in the workplace</li>\n        </ul>\n    </section>\n    <hr class=\"govuk-section-break govuk-section-break--m govuk-section-break--visible\">\n    <section id=\"resources\">\n        <h2 class=\"govuk-heading-l\">General help and resources</h2>\n        <p class=\"govuk-body-m\">Organisations that can offer a broad range of support include:</p>\n        <ul class=\"govuk-list govuk-list--bullet\">\n            <li><a class=\"govuk-link\" href=\"https://jobhelp.campaign.gov.uk/looking-for-work-if-youre-disabled/\">Job Help campaign</a>&nbsp;from the Department for Work and Pensions (DWP)</li>\n            <li><a class=\"govuk-link\" href=\"https://www.disabilityrightsuk.org/careers-and-work-disabled-people\">Disability Rights UK</a> helpline and online careers advice support </li>\n            <li><a class=\"govuk-link\" href=\"https://www.remploy.co.uk/about-us/current-programmes/partnership-networks/sectors-we-work/employment-support\">Remploy</a> employment and skills support for people with disabilities and health conditions</li>\n            <li><a class=\"govuk-link\" href=\"https://www.shaw-trust.org.uk/en-GB/I%E2%80%99m-an-individual\">The Shaw Trust</a> information and advice to find and keep a job and develop your career</li>\n        </ul>\n    </section>\n    <hr class=\"govuk-section-break govuk-section-break--m govuk-section-break--visible\">\n    <section id=\"help\">\n        <h2 class=\"govuk-heading-l\">Help at different stages or for specific disabilities</h2>\n        <p class=\"govuk-body-m\">Some organisations offer support to you at different ages and stages of your career. You can find tailored help for your circumstances or the challenges of a particular disability or health condition. The following are some of the more well known\n            organisations who can help with advice on:</p>\n        <nav>\n            <div class=\"govuk-grid-row\">\n                <div class=\"govuk-grid-column-full\">\n                    <ul class=\"govuk-list govuk-list--bullet\">\n                        <li><a class=\"govuk-link\" href=\"#school\">school and college leavers</a></li>\n                        <li><a class=\"govuk-link\" href=\"#students\">students and graduates</a></li>\n                        <li><a class=\"govuk-link\" href=\"#learning\">learning disabilities</a></li>\n                        <li><a class=\"govuk-link\" href=\"#sensory\">sensory disabilities</a></li>\n                        <li><a class=\"govuk-link\" href=\"#specific\">specific learning disabilities</a></li>\n                        <li><a class=\"govuk-link\" href=\"#mental\">mental health</a></li>\n                        <li><a class=\"govuk-link\" href=\"#physical\">physical health conditions</a></li>\n                    </ul>\n                </div>\n            </div>\n        </nav>\n        <section id=\"school\">\n            <h3 class=\"govuk-heading-m\">School and college leavers</h3>\n            <ul class=\"govuk-list govuk-list--bullet\">\n                <li><a class=\"govuk-link\" href=\"https://contact.org.uk/advice-and-support/education-learning/education-beyond-16/\">Contact for families with disabled children</a> - further education advice for families with disabled children</li>\n                <li><a class=\"govuk-link\" href=\"https://www.ucas.com/undergraduate/applying-university/individual-needs/disabled-students\">UCAS</a> – advice for disabled students on applying to university</li>\n                <li><a class=\"govuk-link\" href=\"https://www.gov.uk/government/publications/help-and-support-for-young-disabled-people-to-find-and-stay-in-work/help-and-support-for-young-disabled-people-to-find-and-stay-in-work\">Gov.uk advice for young people with disabilities</a>                    - to find and stay in work</li>\n            </ul>\n        </section>\n        <section id=\"students\">\n            <h3 class=\"govuk-heading-m\">Students and graduates</h3>\n            <ul class=\"govuk-list govuk-list--bullet\">\n                <li><a class=\"govuk-link\" href=\"https://www.adp.org.uk/\">The Association of Disabled Professionals</a> – employment and self-employment advice</li>\n                <li><a class=\"govuk-link\" href=\"https://blindinbusiness.org.uk/students\">Blind in Business</a> - help for blind and partially sighted students to prepare for and find jobs </li>\n                <li><a class=\"govuk-link\" href=\"https://www.employ-ability.org.uk/\">EmployAbility</a> – student and graduate job seeking advice, internships and graduate schemes for people with a disability</li>\n            </ul>\n        </section>\n        <section id=\"learning\">\n            <h3 class=\"govuk-heading-m\">Learning disabilities</h3>\n            <ul class=\"govuk-list govuk-list--bullet\">\n                <li><a class=\"govuk-link\" href=\"https://www.scope.org.uk/employment-services/support-to-work-register/?utm_source=Google&amp;utm_medium=CPC&amp;utm_campaign=tailored_ppc&amp;utm_content=looking_for_work&amp;gclid=EAIaIQobChMI_63K3Zfo6wIVVe3tCh0thgRvEAAYASAAEgLZZfD_BwE\">Scope support to work</a>                    - advice for every stage of your job search</li>\n                <li><a class=\"govuk-link\" href=\"https://www.mencap.org.uk/advice-and-support/employment-services?gclid=EAIaIQobChMIzau-gJjo6wIVia3tCh3E5gFIEAAYASAAEgI4G_D_BwE\">Mencap</a> - support to access and stay in work</li>\n            </ul>\n        </section>\n        <section id=\"sensory\">\n            <h3 class=\"govuk-heading-m\">Sensory disabilities</h3>\n            <ul class=\"govuk-list govuk-list--bullet\">\n                <li><a class=\"govuk-link\" href=\"https://actiononhearingloss.org.uk/information-and-support/work/\">Action on hearing loss</a> - help to find a job or get support at work, if you are deaf or have hearing loss</li>\n                <li><a class=\"govuk-link\" href=\"https://www.rnib.org.uk/advice/equality-rights-employment\">RNIB equality rights and employment advice</a> - for blind and partially sighted people</li>\n                <li><a class=\"govuk-link\" href=\"https://www.sense.org.uk/get-support/information-and-advice/employment/\">Sense</a> - support for people with sensory impairments who want to get into work</li>\n            </ul>\n        </section>\n        <section id=\"specific\">\n            <h3 class=\"govuk-heading-m\">Specific learning disabilities</h3>\n            <ul class=\"govuk-list govuk-list--bullet\">\n                <li><a class=\"govuk-link\" href=\"https://www.autism.org.uk/advice-and-guidance/topics/employment/seeking-work\">Autism UK</a> - advice for people with autism to find and stay in work</li>\n                <li><a class=\"govuk-link\" href=\"https://www.ambitiousaboutautism.org.uk/what-we-do/employment?gclid=EAIaIQobChMI6NXMlZjo6wIVh6ztCh32GgIKEAAYBCAAEgJpHPD_BwE\">Ambitious about autism</a> - breaking down barriers at work for autistic people</li>\n                <li><a class=\"govuk-link\" href=\"https://www.bdadyslexia.org.uk/advice/adults/looking-for-work\">British Dyslexia Association</a> – looking for work advice if you have dyslexia</li>\n                <li><a class=\"govuk-link\" href=\"https://dyspraxiafoundation.org.uk/dyspraxia-adults/workplace-employees/\">The Dyspraxia Society</a> - guidance on coping with dyspraxia in the workplace</li>\n            </ul>\n        </section>\n        <section id=\"mental\">\n            <h3 class=\"govuk-heading-m\">Mental health</h3>\n            <ul class=\"govuk-list govuk-list--bullet\">\n                <li><a class=\"govuk-link\" href=\"https://www.mind.org.uk/news-campaigns/campaigns/benefits/back-to-work/\">Mind Back to work support</a> - help managing your money and bills when you're too unwell, and the advice to find a supportive employer\n                    when you feel ready to return to work</li>\n            </ul>\n        </section>\n        <section id=\"physical\">\n            <h3 class=\"govuk-heading-m\">Physical health conditions</h3>\n            <ul class=\"govuk-list govuk-list--bullet\">\n                <li><a class=\"govuk-link\" href=\"https://www.macmillan.org.uk/cancer-information-and-support/get-help/help-with-work\">MacMillan Cancer support</a> - help with work if you have or have had cancer</li>\n                <li><a class=\"govuk-link\" href=\"https://www.mssociety.org.uk/care-and-support/everyday-living/working-and-ms/work-ms-and-you\">MS Society</a> – employment and skills advice for living and working with MS</li>\n            </ul>\n            <p class=\"govuk-body-m\">There are many other organisations that may be able to help you in your particular circumstances. If you need help to find the right kind of support, <a class=\"govuk-link\" href=\"https://nationalcareers.service.gov.uk/contact-us\"> speak to one of our advisers.</a></p>\n        </section>\n    </section>\n</section>"
+                                },
+                                "GraphSyncPart": {
+                                    "Text": "<<contentapiprefix>>/html/f3ee2b6d-56e3-4661-a1fd-2fb5020ad36b"
+                                },
+                                "FlowMetadata": {
+                                    "Alignment": 3,
+                                    "Size": 66
+                                }
+                            },
+                            {
+                                "ContentItemId": "48f74d08qnz6yz770rq4cp58wb",
+                                "ContentItemVersionId": null,
+                                "ContentType": "HTMLShared",
+                                "DisplayText": "",
+                                "Latest": false,
+                                "Published": false,
+                                "ModifiedUtc": "2021-04-09T10:13:02.8090195Z",
+                                "PublishedUtc": null,
+                                "CreatedUtc": null,
+                                "Owner": "",
+                                "Author": "admin",
+                                "HTMLShared": {
+                                    "SharedContent": {
+                                        "ContentItemIds": [
+                                            "43mj84xpc3kpgycv11wb8pxqnz",
+                                            "48c0q34718gv86pmqhjh2mq05z"
+                                        ]
+                                    }
+                                },
+                                "GraphSyncPart": {
+                                    "Text": "<<contentapiprefix>>/htmlshared/a1343f2e-354a-4824-945f-81c97e7922ed"
+                                },
+                                "FlowMetadata": {
+                                    "Alignment": 3,
+                                    "Size": 33
+                                }
+                            }
+                        ]
+                    },
+                    "GraphSyncPart": {
+                        "Text": "<<contentapiprefix>>/page/3bb8cac9-18e2-4e74-acfb-bddf8570b0bc"
+                    },
+                    "PageLocationPart": {
+                        "UrlName": "career-and-job-support-for-people-with-a-disability",
+                        "DefaultPageForLocation": false,
+                        "RedirectLocations": null,
+                        "FullUrl": "/careers-advice/career-and-job-support-for-people-with-a-disability"
+                    }
+                },
+                {
+                    "ContentItemId": "4zjr6aaex1wgbtfvd205wt57wf",
+                    "ContentItemVersionId": "4yh3zvxxabcm97yt4rc82rb8cf",
+                    "ContentType": "Page",
+                    "DisplayText": "Advice on a gap year",
+                    "Latest": true,
+                    "Published": true,
+                    "ModifiedUtc": "2021-04-09T10:14:13.3845418Z",
+                    "PublishedUtc": "2021-04-09T10:14:13.4504841Z",
+                    "CreatedUtc": "2021-04-09T07:28:57.1195821Z",
+                    "Owner": "4s69p8vzbjd91zftn97xtkjhxp",
+                    "Author": "admin",
+                    "TitlePart": {
+                        "Title": "Advice on a gap year"
+                    },
+                    "Page": {
+                        "PageLocations": {
+                            "TaxonomyContentItemId": "4eembshqzx66drajtdten34tc8",
+                            "TermContentItemIds": [
+                                "4e1d03ztjhb1f76bew09dessxv"
+                            ]
+                        },
+                        "Description": {
+                            "Text": null
+                        },
+                        "Herobanner": {
+                            "Html": ""
+                        },
+                        "ShowHeroBanner": {
+                            "Value": false
+                        }
+                    },
+                    "SitemapPart": {
+                        "Priority": 5,
+                        "OverrideSitemapConfig": false,
+                        "ChangeFrequency": 0,
+                        "Exclude": false
+                    },
+                    "FlowPart": {
+                        "Widgets": [
+                            {
+                                "ContentItemId": "4zqy5q674sq6bsfxa908260xc5",
+                                "ContentItemVersionId": null,
+                                "ContentType": "HTML",
+                                "DisplayText": "",
+                                "Latest": false,
+                                "Published": false,
+                                "ModifiedUtc": "2021-04-09T10:14:13.4002755Z",
+                                "PublishedUtc": null,
+                                "CreatedUtc": null,
+                                "Owner": "",
+                                "Author": "admin",
+                                "HTML": {},
+                                "HtmlBodyPart": {
+                                    "Html": "<h1 class=\"govuk-heading-xl\">Advice on a gap year</h1>\n<nav>\n    <div class=\"govuk-grid-row\">\n        <div class=\"govuk-grid-column-full\">\n            <ul class=\"govuk-list govuk-list--bullet\">\n                <li><a class=\"govuk-link\" href=\"#why\">Reasons to take a gap year </a></li>\n                <li><a class=\"govuk-link\" href=\"#how-to\">How to spend your gap year </a></li>\n                <li><a class=\"govuk-link\" href=\"#gain\">What you'll gain from a gap year</a></li>\n                <li><a class=\"govuk-link\" href=\"#consider\">Gap year-things to consider</a></li>\n                <li><a class=\"govuk-link\" href=\"#tips\">Gap year tips</a></li>\n            </ul>\n        </div>\n    </div>\n</nav>\n<p></p><hr class=\"govuk-section-break govuk-section-break--m govuk-section-break--visible\"><p></p>\n<p class=\"govuk-body-m\">Your plans to take a gap year may be affected by the Coronavirus pandemic. It could even be the reason why you’re thinking about taking time out from further study or starting a career. Before you decide if it’s the right option for you, check\n    the <a class=\"govuk-link\" href=\"https://www.gov.uk/coronavirus\">government's Coronavirus advice</a> on what is safe to do and where is safe to go.</p>\n<p></p><hr class=\"govuk-section-break govuk-section-break--m govuk-section-break--visible\"><p></p>\n<section id=\"why\">\n    <h2 class=\"govuk-heading-l\">Reasons to take a gap year</h2>\n    <p class=\"govuk-body-m\">A gap year can be good way to develop yourself and your skills while deciding your next step. A well-planned gap year is not just a break from study or getting into work. It can help you to:</p>\n    <ul class=\"govuk-list govuk-list--bullet\">\n        <li>improve your CV with work experience</li>\n        <li>have time to think about your long-term career plans </li>\n        <li>learn something new to support your future goal</li>\n        <li>travel and experience other cultures</li>\n        <li>mature and focus – an advantage in career areas like healthcare and teaching</li>\n        <li>earn money to support yourself in future study</li>\n    </ul>\n    <p class=\"govuk-body-m\">You may have had a sudden change of plan. Exam results and changes in your circumstances sometimes mean that you have to rethink your next steps. Taking a gap year could give you time to pause and reflect.</p>\n    <p class=\"govuk-body-m\">During a gap year you can focus on exploring all of your options, without rushing into anything. You can take time to get get advice. If you're a school leaver and want to improve your awarded grades you can also schedule in autumn or summer exams\n        during your year out.</p>\n    <hr class=\"govuk-section-break govuk-section-break--m govuk-section-break--visible\">\n    <section id=\"how-to\">\n        <h2 class=\"govuk-heading-l\">How to spend your gap year</h2>\n        <p class=\"govuk-body-m\">What you can do will depend on your situation and your long-term goal. You might need to learn skills or get experience to get into a specific career. Depending on your circumstances you could:</p>\n        <ul class=\"govuk-list govuk-list--bullet\">\n            <li>get a <a class=\"govuk-link\" href=\"https://findajob.dwp.gov.uk/\">paid job</a></li>\n            <li><a class=\"govuk-link\" href=\"https://do-it.org/opportunities/search\">volunteer</a>\n            </li>\n            <li>do some work experience or an internship including <a class=\"govuk-link\" href=\"/careers-advice/how-to-find-a-virtual-internships\">virtual internships</a> </li>\n            <li>travel - you could organise it yourself or go through a gap year company</li>\n            <li>do an <a class=\"govuk-link\" href=\"/find-a-course\">online course</a>, learn a language, develop study or work-related skills like IT, or business </li>\n        </ul>\n    </section>\n    <hr class=\"govuk-section-break govuk-section-break--m govuk-section-break--visible\">\n    <section id=\"gain\">\n        <h2 class=\"govuk-heading-l\">What you'll gain from a gap year</h2>\n        <p class=\"govuk-body-m\">How you ‘sell’ the experience you have during your gap year will be important to employers and higher education providers. From their viewpoint, a good gap year experience is one where you spend your time productively.</p>\n        <p class=\"govuk-body-m\">Time spent on a gap year can help you to develop your <a class=\"govuk-link\" href=\"/get-a-job/how-to-develop-your-soft-skills/\">soft skills</a> like:</p>\n        <ul class=\"govuk-list govuk-list--bullet\">\n            <li>time management</li>\n            <li>organisation</li>\n            <li>problem solving</li>\n            <li>financial management</li>\n            <li>being able to take on new challenges</li>\n            <li>creativity</li>\n            <li>people skills</li>\n        </ul>\n    </section>\n    <hr class=\"govuk-section-break govuk-section-break--m govuk-section-break--visible\">\n    <section id=\"consider\">\n        <h2 class=\"govuk-heading-l\">Gap year-things to consider</h2>\n        <p class=\"govuk-body-m\">You may be thinking that you should wait until next year to go to university because teaching might be virtual this year. This could be a feature of university life for some time in the future and not just this year.</p>\n        <p class=\"govuk-body-m\">You should remember that:</p>\n        <ul class=\"govuk-list govuk-list--bullet\">\n            <li>competition next year may be greater if more people defer this year</li>\n            <li>the jobs market is now more competitive so finding work might be challenging</li>\n            <li>travel abroad may be restricted </li>\n            <li>a year out can be expensive</li>\n            <li>without careful planning, you could lose your pace, study skills and focus\n            </li>\n        </ul>\n        <p class=\"govuk-body-m\">You may be having difficulty getting your first job as a school or college leaver. If you're a graduate, you may be facing fewer opportunities because of the sudden changes in the world of work. Taking a year out may help you to develop your skills\n            and build your resilience as well as allowing time for the jobs market to improve.\n        </p>\n    </section>\n    <hr class=\"govuk-section-break govuk-section-break--m govuk-section-break--visible\">\n    <section id=\"tips\">\n        <h2 class=\"govuk-heading-l\">Gap year tips</h2>\n        <p class=\"govuk-body-m\">When you are preparing for a gap year, you should make sure to:</p>\n        <ul class=\"govuk-list govuk-list--bullet\">\n            <li>plan well in advance– speak to a careers adviser if you don’t know where to start</li>\n            <li>sort out your finances – think about how you’re going to support yourself</li>\n            <li>think about skills and qualifications you’ll need for your future career goal and make a plan for how to develop them</li>\n            <li>keep your CV up-to-date </li>\n            <li>make a note of important university or job recruitment application deadlines so you don’t miss them (particularly if you’re planning to travel abroad)</li>\n        </ul>\n    </section>\n</section>"
+                                },
+                                "GraphSyncPart": {
+                                    "Text": "<<contentapiprefix>>/html/92965fc8-7b0f-4b46-80b6-3b45baceac24"
+                                },
+                                "FlowMetadata": {
+                                    "Alignment": 3,
+                                    "Size": 66
+                                }
+                            },
+                            {
+                                "ContentItemId": "4mq6hzjfsetxry2hxk979n2tw1",
+                                "ContentItemVersionId": null,
+                                "ContentType": "HTMLShared",
+                                "DisplayText": "",
+                                "Latest": false,
+                                "Published": false,
+                                "ModifiedUtc": "2021-04-09T10:14:13.4094204Z",
+                                "PublishedUtc": null,
+                                "CreatedUtc": null,
+                                "Owner": "",
+                                "Author": "admin",
+                                "HTMLShared": {
+                                    "SharedContent": {
+                                        "ContentItemIds": [
+                                            "43mj84xpc3kpgycv11wb8pxqnz",
+                                            "4nyydyyta43vzxjk0b61sdmddr",
+                                            "4cx26nrgn8et2trgsckk5n4qdj"
+                                        ]
+                                    }
+                                },
+                                "GraphSyncPart": {
+                                    "Text": "<<contentapiprefix>>/htmlshared/35eab5ed-c359-4d91-b464-6dc31523e46c"
+                                },
+                                "FlowMetadata": {
+                                    "Alignment": 3,
+                                    "Size": 33
+                                }
+                            }
+                        ]
+                    },
+                    "GraphSyncPart": {
+                        "Text": "<<contentapiprefix>>/page/813e97b6-6741-426b-af0c-4b447e35ea6a"
+                    },
+                    "PageLocationPart": {
+                        "UrlName": "advice-on-a-gap-year",
+                        "DefaultPageForLocation": false,
+                        "RedirectLocations": null,
+                        "FullUrl": "/careers-advice/advice-on-a-gap-year"
+                    }
+                },
+                {
+                    "ContentItemId": "4ejpgnwrjg14c55ngrtadpw5nv",
+                    "ContentItemVersionId": "43ej4bf2xghjd7gvs0tzvnn9mf",
+                    "ContentType": "Page",
+                    "DisplayText": "Advice for if you lose your job",
+                    "Latest": true,
+                    "Published": true,
+                    "ModifiedUtc": "2021-04-09T10:18:28.3479525Z",
+                    "PublishedUtc": "2021-04-09T10:18:28.3934861Z",
+                    "CreatedUtc": "2021-04-09T07:42:31.5093708Z",
+                    "Owner": "4s69p8vzbjd91zftn97xtkjhxp",
+                    "Author": "admin",
+                    "TitlePart": {
+                        "Title": "Advice for if you lose your job"
+                    },
+                    "Page": {
+                        "PageLocations": {
+                            "TaxonomyContentItemId": "4eembshqzx66drajtdten34tc8",
+                            "TermContentItemIds": [
+                                "4e1d03ztjhb1f76bew09dessxv"
+                            ]
+                        },
+                        "Description": {
+                            "Text": null
+                        },
+                        "Herobanner": {
+                            "Html": ""
+                        },
+                        "ShowHeroBanner": {
+                            "Value": false
+                        }
+                    },
+                    "SitemapPart": {
+                        "Priority": 5,
+                        "OverrideSitemapConfig": false,
+                        "ChangeFrequency": 0,
+                        "Exclude": false
+                    },
+                    "FlowPart": {
+                        "Widgets": [
+                            {
+                                "ContentItemId": "4jdeps815yfjg2gmjp2qy457ne",
+                                "ContentItemVersionId": null,
+                                "ContentType": "HTML",
+                                "DisplayText": "",
+                                "Latest": false,
+                                "Published": false,
+                                "ModifiedUtc": "2021-04-09T10:18:28.360919Z",
+                                "PublishedUtc": null,
+                                "CreatedUtc": null,
+                                "Owner": "",
+                                "Author": "admin",
+                                "HTML": {},
+                                "HtmlBodyPart": {
+                                    "Html": "<h1 class=\"govuk-heading-xl\">Advice for if you lose your job</h1>\n<nav>\n    <div class=\"govuk-grid-row\">\n        <div class=\"govuk-grid-column-full\">\n            <ul class=\"govuk-list govuk-list--bullet\">\n                <li><a class=\"govuk-link\" href=\"#redundancy-advice\">Redundancy advice</a></li>\n                <li><a class=\"govuk-link\" href=\"#redundancy-furlough\">Redundancy and furlough</a></li>\n                <li><a class=\"govuk-link\" href=\"#manage-your-money\">Manage your money</a></li>\n                <li><a class=\"govuk-link\" href=\"#improve-your-skills\">Retrain or improve your skills</a></li>\n                <li><a class=\"govuk-link\" href=\"#look-for-work\">Look for work</a></li>\n                <li><a class=\"govuk-link\" href=\"#help-support\">Help and support</a></li>\n            </ul>\n        </div>\n    </div>\n</nav>\n<p class=\"govuk-body-m\">Losing your job can affect many parts of your life and make you feel anxious about the future. Whether you’ve lost your job or been made redundant, you may find it difficult to:</p>\n<ul class=\"govuk-list govuk-list--bullet\">\n    <li>pay your bills</li>\n    <li>maintain the skills you need to do your job</li>\n    <li>look after your <a href=\"https://www.gov.uk/government/publications/covid-19-guidance-for-the-public-on-mental-health-and-wellbeing\" class=\"govuk-link\">wellbeing and mental health</a></li>\n    <li>take care of your family or <a href=\"https://www.carersuk.org/help-and-advice/coronavirus-covid-19/coronavirus-covid-19\" class=\"govuk-link\">caring responsibilities</a></li>\n</ul>\n<p></p><hr class=\"govuk-section-break govuk-section-break--m govuk-section-break--visible\"><p></p>\n<section id=\"redundancy-advice\">\n    <h2 class=\"govuk-heading-l\">Redundancy advice</h2>\n    <p class=\"govuk-body-m\">Redundancy is a type of dismissal from your job. It happens when your employer needs to reduce the workforce. </p>\n    <p class=\"govuk-body-m\">You have <a href=\"https://www.gov.uk/redundancy-your-rights\" class=\"govuk-link\">rights in redundancy</a> that may make the process easier. If you are a member of a union, they could: </p>\n    <ul class=\"govuk-list govuk-list--bullet\">\n        <li>support you</li>\n        <li>provide information and advice</li>\n        <li>advocate for you if necessary</li>\n    </ul>\n    <p class=\"govuk-body-m\">If you're facing redundancy because your employer can’t pay their debts, this is known as insolvency. You can <a href=\"https://www.insolvencydirect.bis.gov.uk/ExternalOnlineForms/GeneralEnquiry.aspx\" class=\"govuk-link\">contact the insolvency helpline</a>        for advice specific to this type of redundancy. <a href=\"http://www.acas.org.uk/\" class=\"govuk-link\">ACAS</a> (Advice, Conciliation and Arbitration Service) are also able to provide you with support during your redundancy.</p>\n</section>\n<p></p><hr class=\"govuk-section-break govuk-section-break--m govuk-section-break--visible\"><p></p>\n<section id=\"redundancy-furlough\">\n    <h2 class=\"govuk-heading-l\">Redundancy and furlough</h2>\n    <p class=\"govuk-body-m\">If you were made redundant after the 28 February 2020 because of COVID-19, your employer might be able to <a href=\"https://www.gov.uk/guidance/check-if-you-could-be-covered-by-the-coronavirus-job-retention-scheme\" class=\"govuk-link\">rehire and furlough you </a>and\n        pay 80% of your wages.\n        \n    </p>\n</section>\n<p></p><hr class=\"govuk-section-break govuk-section-break--m govuk-section-break--visible\"><p></p>\n<section id=\"manage-your-money\">\n    <h2 class=\"govuk-heading-l\">Manage your money</h2>\n    <p class=\"govuk-body-m\">If you have lost your job, money can often be the cause of stress and worry. There are some simple things you can do that will help, including:</p>\n    <ul class=\"govuk-list govuk-list--bullet\">\n        <li>see if you’re <a href=\"https://www.understandinguniversalcredit.gov.uk/employment-and-benefits-support/\" class=\"govuk-link\">eligible for benefits</a></li>\n        <li><a href=\"https://www.citizensadvice.org.uk/debt-and-money/if-you-cant-pay-your-bills-because-of-coronavirus\" class=\"govuk-link\">get help if you can't pay your bills</a> or learn how to make a payment plan</li>\n        <li>learn how to <a href=\"https://www.stepchange.org/how-we-help/reduced-income-guide.aspx\" class=\"govuk-link\">manage your money</a> on a reduced income</li>\n        <li>find out how <a href=\"https://www.moneyadviceservice.org.uk/en/articles/coronavirus-and-your-money\" class=\"govuk-link\">financial planning</a> can help you to become financially resilient</li>\n    </ul>\n</section>\n<p></p><hr class=\"govuk-section-break govuk-section-break--m govuk-section-break--visible\"><p></p>\n<section id=\"improve-your-skills\">\n    <h2 class=\"govuk-heading-l\">Retrain or improve your skills</h2>\n    <p class=\"govuk-body-m\">Being unemployed can be a very stressful time. You may find it helpful to:</p>\n    <ul class=\"govuk-list govuk-list--bullet\">\n        <li>maintain a daily routine</li>\n        <li>learn a new skill or improve an old one</li>\n        <li>stay in touch with old friends and colleagues</li>\n        <li>separate out a work and a home space while you’re applying for job</li>\n    </ul>\n    <p class=\"govuk-body-m\">Unemployment may also provide you with an opportunity to keep your skills up to date or learn a new skill. <a href=\"../find-a-course/the-skills-toolkit\" class=\"govuk-link\">The Skills Toolkit</a> offers courses in numeracy and digital skills.\n    </p>\n    <p class=\"govuk-body-m\">You could take the opportunity to change your career. Find out if you’re <a href=\"https://www.nrs-ghtr.org.uk/\" class=\"govuk-link\">eligible for the National Retraining Scheme</a> or explore courses and apprenticeships for the future with\n        <a href=\"https://nationalcareers.service.gov.uk/find-a-course\" class=\"govuk-link\">find a course</a>.</p>\n</section>\n<p></p><hr class=\"govuk-section-break govuk-section-break--m govuk-section-break--visible\"><p></p>\n<section id=\"look-for-work\">\n    <h2 class=\"govuk-heading-l\">Look for work</h2>\n    <p class=\"govuk-body-m\">You may want to <a href=\"https://www.gov.uk/find-a-job\" class=\"govuk-link\">find a job</a> as soon as possible, which may be difficult when self-isolating. There are several things you may want to consider when looking for work now:\n    </p>\n    <ul class=\"govuk-list govuk-list--bullet\">\n        <li>there are many <a href=\"/careers-advice/advertised-job-vacancies\" class=\"govuk-link\">jobs advertised</a> online that you can explore</li><li>you could also <a href=\"/careers-advice/networking \" class=\"govuk-link\n                \">network online</a> to help you find a job</li><li>use social media to find a job</li></ul></section><h3 class=\"govuk-heading-m \">Job applications and interviews</h3>\n            <p class=\"govuk-body-m\">If you’ve been made redundant due to COVID-19, you may need to <a href=\"/careers-advice/cv-sections\" class=\"govuk-link\">update your CV</a> to reflect this. Employers may want to know that you were not made redundant due to your performance.\n                There are different ways you can do this:</p>\n            <ul class=\"govuk-list govuk-list--bullet\">\n                <li>under the job title of your most recent job, you can describe why you were dismissed e.g. “While I worked in this role, I increased the efficiency of my team by 20%. The role was discontinued due to COVID-19.” You may also\n                    want to mention this in your covering letter to make sure that an employer sees it</li>\n                <li>it may also be helpful to use it to gives examples of skills or training you’ve learned since becoming unemployed e.g. “since being laid off from my last role due to COVID-19, I have taken the opportunity to increase my digital\n                    skills by taking courses in digital content and presentation skills”\n                </li>\n            </ul>\n            <p class=\"govuk-body-m\">Many interviews are taking place remotely; over the phone or through video conferencing. Following <a href=\"/careers-advice/interview-advice\" class=\"govuk-link\">interview advice</a> and researching <a href=\"/careers-advice/top-10-interview-questions\" class=\"govuk-link\">common interview questions</a> can help you to prepare so that you feel confident during the interview.</p>\n            <p></p><hr class=\"govuk-section-break govuk-section-break--m govuk-section-break--visible\"><p></p>\n            <section id=\"help-support\">\n                <h2 class=\"govuk-heading-l\">Help and support</h2>\n                <p class=\"govuk-body-m\">If you’re not sure about your next steps for getting back into employment, you can <a href=\"/contact-us\" class=\"govuk-link\">speak to an adviser</a>.</p>\n            </section>"
+                                },
+                                "GraphSyncPart": {
+                                    "Text": "<<contentapiprefix>>/html/b09393cc-793f-4413-bf28-11cdb9bc22c5"
+                                },
+                                "FlowMetadata": {
+                                    "Alignment": 3,
+                                    "Size": 66
+                                }
+                            },
+                            {
+                                "ContentItemId": "4mqnrg0m6y7pvwkmje9b8kahch",
+                                "ContentItemVersionId": null,
+                                "ContentType": "HTMLShared",
+                                "DisplayText": "",
+                                "Latest": false,
+                                "Published": false,
+                                "ModifiedUtc": "2021-04-09T10:18:28.368245Z",
+                                "PublishedUtc": null,
+                                "CreatedUtc": null,
+                                "Owner": "",
+                                "Author": "admin",
+                                "HTMLShared": {
+                                    "SharedContent": {
+                                        "ContentItemIds": [
+                                            "43mj84xpc3kpgycv11wb8pxqnz",
+                                            "40w8mzcnvknysz6mvdah1mse4t",
+                                            "42wca34q3qdpdr1jkmz9f3w4cb",
+                                            "4pbfhee3z7qjf6nxrt5nj1yynq",
+                                            "4nyydyyta43vzxjk0b61sdmddr"
+                                        ]
+                                    }
+                                },
+                                "GraphSyncPart": {
+                                    "Text": "<<contentapiprefix>>/htmlshared/502da90f-67d5-4f65-9f4a-c9e940a3d9a0"
+                                },
+                                "FlowMetadata": {
+                                    "Alignment": 3,
+                                    "Size": 33
+                                }
+                            }
+                        ]
+                    },
+                    "GraphSyncPart": {
+                        "Text": "<<contentapiprefix>>/page/2cfa7f42-cca8-4e9e-9718-a52d36a623bb"
+                    },
+                    "PageLocationPart": {
+                        "UrlName": "advice-for-if-you-lose-your-job",
+                        "DefaultPageForLocation": false,
+                        "RedirectLocations": null,
+                        "FullUrl": "/careers-advice/advice-for-if-you-lose-your-job"
+                    }
+                },
+                {
+                    "ContentItemId": "40gvy6msg24rfty6b1e9kf1jd4",
+                    "ContentItemVersionId": "41dqqs730w1tc7ntkzttyrnk4p",
+                    "ContentType": "Page",
+                    "DisplayText": "Understanding the working world during COVID-19",
+                    "Latest": true,
+                    "Published": true,
+                    "ModifiedUtc": "2021-04-09T10:26:10.2879282Z",
+                    "PublishedUtc": "2021-04-09T10:26:10.3387186Z",
+                    "CreatedUtc": "2021-04-09T07:49:01.7762893Z",
+                    "Owner": "4s69p8vzbjd91zftn97xtkjhxp",
+                    "Author": "admin",
+                    "TitlePart": {
+                        "Title": "Understanding the working world during COVID-19"
+                    },
+                    "Page": {
+                        "PageLocations": {
+                            "TaxonomyContentItemId": "4eembshqzx66drajtdten34tc8",
+                            "TermContentItemIds": [
+                                "4e1d03ztjhb1f76bew09dessxv"
+                            ]
+                        },
+                        "Description": {
+                            "Text": null
+                        },
+                        "Herobanner": {
+                            "Html": ""
+                        },
+                        "ShowHeroBanner": {
+                            "Value": false
+                        }
+                    },
+                    "SitemapPart": {
+                        "Priority": 5,
+                        "OverrideSitemapConfig": false,
+                        "ChangeFrequency": 0,
+                        "Exclude": false
+                    },
+                    "FlowPart": {
+                        "Widgets": [
+                            {
+                                "ContentItemId": "4xv1ygjnza6w10hqsn2e1x7445",
+                                "ContentItemVersionId": null,
+                                "ContentType": "HTML",
+                                "DisplayText": "",
+                                "Latest": false,
+                                "Published": false,
+                                "ModifiedUtc": "2021-04-09T10:26:10.3008448Z",
+                                "PublishedUtc": null,
+                                "CreatedUtc": null,
+                                "Owner": "",
+                                "Author": "admin",
+                                "HTML": {},
+                                "HtmlBodyPart": {
+                                    "Html": "<h1 class=\"govuk-heading-xl\">Understanding the working world during COVID-19</h1>\n<nav>\n    <div class=\"govuk-grid-row\">\n        <div class=\"govuk-grid-column-full\">\n            <ul class=\"govuk-list govuk-list--bullet\">\n                <li><a class=\"govuk-link\" href=\"#impact\">The impact of COVID-19 on jobs</a></li>\n                <li><a class=\"govuk-link\" href=\"#recruitment\">How Covid-19 is affecting recruitment</a></li>\n                <li><a class=\"govuk-link\" href=\"#coping\">Coping with change</a></li>\n                <li><a class=\"govuk-link\" href=\"#next-steps\">Helping you to take your next steps</a></li>\n            </ul>\n        </div>\n    </div>\n</nav>\n<p></p><hr class=\"govuk-section-break govuk-section-break--m govuk-section-break--visible\"><p></p>\n<section id=\"impact\">\n    <h2 class=\"govuk-heading-l\">The impact of COVID-19 on jobs</h2>\n    <p class=\"govuk-body\">Around 8 million people in the UK are now working from home. Businesses have furloughed a large number of their employees in sectors like:</p>\n    <ul class=\"govuk-list govuk-list--bullet\">\n        <li>accommodation and food services </li>\n        <li>tourism and leisure</li>\n        <li>construction</li>\n        <li>creative arts </li>\n        <li>non-food retail</li>\n    </ul>\n    <p class=\"govuk-body\">People in all sectors, on the lowest incomes, are most at risk of becoming unemployed. </p>\n    <p class=\"govuk-body\">There is a growing demand for people to work in sectors like IT, logistics and food sales.</p>\n    <p class=\"govuk-body\">Employers are also looking for workers with good digital skills. You are more likely to bounce back from any setbacks in the labour market if you have <a class=\"govuk-link\" href=\"https://nationalcareers.service.gov.uk/careers-advice/how-to-develop-your-soft-skills\">transferable skills</a>.</p>\n    <p class=\"govuk-body\">You can check how the skills you have might match to new career opportunities using our <a class=\"govuk-link\" href=\"https://nationalcareers.service.gov.uk/skills-assessment\">skills assessment tools</a>.</p>\n</section>\n<p></p><hr class=\"govuk-section-break govuk-section-break--m govuk-section-break--visible\"><p></p>\n<section id=\"recruitment\">\n    <h2 class=\"govuk-heading-l\">How Covid-19 is affecting recruitment </h2>\n    <p class=\"govuk-body\">To get a new job, you’ll need to know about virtual recruitment methods. This includes things like: </p>\n    <ul class=\"govuk-list govuk-list--bullet\">\n        <li><a class=\"govuk-link\" href=\"https://nationalcareers.service.gov.uk/careers-advice/application-forms\">online applications</a></li>\n        <li>video interviews</li>\n        <li>telephone interviews</li>\n    </ul>\n    <p class=\"govuk-body\">You might need to <a class=\"govuk-link\" href=\"/careers-advice/how-digital-skills-can-help-you\">learn new digital skills</a> for your current job, like:</p>\n    <ul class=\"govuk-list govuk-list--bullet\">\n        <li>remote team leading</li>\n        <li>team working online</li>\n        <li>video conferencing</li>\n        <li>online selling</li>\n    </ul>\n    <p class=\"govuk-body\">Find out about online learning opportunities using <a class=\"govuk-link\" href=\"/find-a-course\">The Skills Toolkit</a>.</p>\n</section>\n<p></p><hr class=\"govuk-section-break govuk-section-break--m govuk-section-break--visible\"><p></p>\n<section id=\"coping\">\n    <h2 class=\"govuk-heading-l\">Coping with change</h2>\n    <p class=\"govuk-body\">As a <a class=\"govuk-link\" href=\"/careers-advice\">young person at 16 or 18</a>, you may have to rethink your next steps. If you're an experienced worker you might be <a class=\"govuk-link\" href=\"/careers-advice/advice-for-if-you-lose-your-job\">facing redundancy</a>        or thinking about a career change.</p>\n    <p class=\"govuk-body\">Sudden changes can be unsettling. We can help you understand what's going on in the labour market. This, in turn, can help you to think about what might lie ahead and plan for your future.</p>\n</section>\n<p></p><hr class=\"govuk-section-break govuk-section-break--m govuk-section-break--visible\"><p></p>\n<section id=\"next-steps\">\n    <h2 class=\"govuk-heading-l\">Helping you take your next steps</h2>\n    <p class=\"govuk-body\">The National Careers Service can support you to put <a class=\"govuk-link\" href=\"/skills-assessment\">the skills you have</a> to good use. We can also help you gain new skills to begin or get on in your career.</p>\n    <p class=\"govuk-body\">Our support is available to you at any stage of your career. You can use our online resources or <a class=\"govuk-link\" href=\"/webchat/chat/\">speak to our advisers</a>.</p>\n</section>"
+                                },
+                                "GraphSyncPart": {
+                                    "Text": "<<contentapiprefix>>/html/0fa6c31c-2b11-484b-a4fc-97195b488bab"
+                                },
+                                "FlowMetadata": {
+                                    "Alignment": 3,
+                                    "Size": 66
+                                }
+                            },
+                            {
+                                "ContentItemId": "48dv99kadsp6fy42awz0b1grdg",
+                                "ContentItemVersionId": null,
+                                "ContentType": "HTMLShared",
+                                "DisplayText": "",
+                                "Latest": false,
+                                "Published": false,
+                                "ModifiedUtc": "2021-04-09T10:26:10.309374Z",
+                                "PublishedUtc": null,
+                                "CreatedUtc": null,
+                                "Owner": "",
+                                "Author": "admin",
+                                "HTMLShared": {
+                                    "SharedContent": {
+                                        "ContentItemIds": [
+                                            "43mj84xpc3kpgycv11wb8pxqnz",
+                                            "4nyydyyta43vzxjk0b61sdmddr"
+                                        ]
+                                    }
+                                },
+                                "GraphSyncPart": {
+                                    "Text": "<<contentapiprefix>>/htmlshared/429e30ac-3a7d-4c11-8766-c133aefcc035"
+                                },
+                                "FlowMetadata": {
+                                    "Alignment": 3,
+                                    "Size": 33
+                                }
+                            }
+                        ]
+                    },
+                    "GraphSyncPart": {
+                        "Text": "<<contentapiprefix>>/page/a908392b-dc04-46c6-8926-e6f5e092f010"
+                    },
+                    "PageLocationPart": {
+                        "UrlName": "the-world-of-work-is-changing",
+                        "DefaultPageForLocation": false,
+                        "RedirectLocations": null,
+                        "FullUrl": "/careers-advice/the-world-of-work-is-changing"
+                    }
+                },
+                {
+                    "ContentItemId": "4hyw561df73e0vmy4hr01fxam9",
+                    "ContentItemVersionId": "45xt8ts9vffw8w79qawdnk925g",
+                    "ContentType": "Page",
+                    "DisplayText": "Advice on further study options",
+                    "Latest": true,
+                    "Published": true,
+                    "ModifiedUtc": "2021-04-09T10:28:05.1364368Z",
+                    "PublishedUtc": "2021-04-09T10:28:05.1956341Z",
+                    "CreatedUtc": "2021-04-09T09:19:19.7895778Z",
+                    "Owner": "4s69p8vzbjd91zftn97xtkjhxp",
+                    "Author": "admin",
+                    "TitlePart": {
+                        "Title": "Advice on further study options"
+                    },
+                    "Page": {
+                        "PageLocations": {
+                            "TaxonomyContentItemId": "4eembshqzx66drajtdten34tc8",
+                            "TermContentItemIds": [
+                                "4e1d03ztjhb1f76bew09dessxv"
+                            ]
+                        },
+                        "Description": {
+                            "Text": null
+                        },
+                        "Herobanner": {
+                            "Html": ""
+                        },
+                        "ShowHeroBanner": {
+                            "Value": false
+                        }
+                    },
+                    "SitemapPart": {
+                        "Priority": 5,
+                        "OverrideSitemapConfig": false,
+                        "ChangeFrequency": 0,
+                        "Exclude": false
+                    },
+                    "FlowPart": {
+                        "Widgets": [
+                            {
+                                "ContentItemId": "48dxdc5gsgnpy61bf9ty8wczmd",
+                                "ContentItemVersionId": null,
+                                "ContentType": "HTML",
+                                "DisplayText": "",
+                                "Latest": false,
+                                "Published": false,
+                                "ModifiedUtc": "2021-04-09T10:28:05.1538027Z",
+                                "PublishedUtc": null,
+                                "CreatedUtc": null,
+                                "Owner": "",
+                                "Author": "admin",
+                                "HTML": {},
+                                "HtmlBodyPart": {
+                                    "Html": "<h1 class=\"govuk-heading-xl\">Advice on further study options</h1>\n<p class=\"govuk-body-m\">There are 2 main types of postgraduate study:</p>\n<ul class=\"govuk-list govuk-list--bullet\">\n    <li>taught courses leading to postgraduate certificates, diplomas or master's qualifications</li>\n    <li>research degrees leading to master's or a PhD</li>\n</ul>\n<p class=\"govuk-body-m\">On taught courses you learn through lectures, seminars and tutorials. Some include work placements. You may have the flexibility to tailor modules to fit your interests or career goals.</p>\n<p class=\"govuk-body-m\">On research degrees you work independently on a research topic, under an academic supervisor who guides you and helps you develop your investigative skills. You get to work with other research students and academic staff and have access to university\n    resources like labs and equipment.</p>\n<p class=\"govuk-body-m\">For both options there are opportunities to study full-time, part-time as well as through flexible and distance learning. Follow our tips and advice including:</p>\n<nav>\n    <div class=\"govuk-grid-row\">\n        <div class=\"govuk-grid-column-full\">\n            <ul class=\"govuk-list govuk-list--bullet\">\n                <li><a class=\"govuk-link\" href=\"#further-study\">Reasons for further study</a></li>\n                <li><a class=\"govuk-link\" href=\"#find-and-apply\">How to find and apply for courses</a></li>\n                <li><a class=\"govuk-link\" href=\"#funding\">Funding opportunities for further study</a></li>\n                <li><a class=\"govuk-link\" href=\"#other-ways\">Other ways to learn</a></li>\n                <li><a class=\"govuk-link\" href=\"#top-tips\">Top tips for deciding and finding further study</a></li>\n            </ul>\n        </div>\n    </div>\n</nav>\n<p></p><hr class=\"govuk-section-break govuk-section-break--m govuk-section-break--visible\"><p></p>\n<section id=\"further-study\">\n    <h2 class=\"govuk-heading-l\">Reasons for further study</h2>\n    <p class=\"govuk-body-m\">There are many valid reasons for continuing your studies after a degree. They include to:</p>\n    <ul class=\"govuk-list govuk-list--bullet\">\n        <li>study a subject you enjoy in more depth</li>\n        <li>get a postgraduate qualification you need for your career choice - like <a class=\"govuk-link\" href=\"https://getintoteaching.education.gov.uk/how-to-apply/apply-for-teacher-training\"> teaching </a> or <a class=\"govuk-link\" href=\"https://www.bps.org.uk/public/become-psychologist/accredited-courses\">psychology</a></li>\n        <li>change career direction- like <a class=\"govuk-link\" href=\"https://www.lawcareers.net/Courses/GDL\">conversion to law</a>, <a class=\"govuk-link\" href=\"https://www.bps.org.uk/public/become-psychologist/accredited-courses?type=CONV\">psychology</a>            or <a class=\"govuk-link\" href=\"https://www.medschools.ac.uk/studying-medicine/course-types\">graduate entry to medicine</a></li>\n        <li>cover additional topics if you need them for professional recognition of your degree</li>\n        <li>develop skills that add to your degree subject and are likely to improve your job prospects</li>\n        <li>give yourself time to develop your career ideas</li>\n    </ul>\n    <p class=\"govuk-body-m\">Your university careers service can give you help and advice on your further study options. </p>\n</section>\n<p></p><hr class=\"govuk-section-break govuk-section-break--m govuk-section-break--visible\"><p></p>\n<section id=\"find-and-apply\">\n    <h2 class=\"govuk-heading-l\">Finding courses</h2>\n    <h3 class=\"govuk-heading-m\">Exploring your study options</h3>\n    <p class=\"govuk-body-m\">To find a further study course, you can use sites like: </p>\n    <ul class=\"govuk-list govuk-list--bullet\">\n        <li><a class=\"govuk-link\" href=\"https://www.ucas.com/postgraduate\">UCAS</a></li>\n        <li><a class=\"govuk-link\" href=\"https://www.prospects.ac.uk/postgraduate-courses\">Prospects</a></li>\n        <li><a class=\"govuk-link\" href=\"http://www.postgrad.com\">Postgrad.com</a></li>\n        <li><a class=\"govuk-link\" href=\"http://www.open.ac.uk/postgraduate/\">Open University</a></li>\n        <li><a class=\"govuk-link\" href=\"https://www.postgraduatesearch.com/\">Postgraduate Search</a> </li>\n    </ul>\n    <p class=\"govuk-body-m\">For international students <a class=\"govuk-link\" href=\"https://study-uk.britishcouncil.org/find/study-options/postgraduate\">Study UK</a> from the British Council has information on courses, funding and visa arrangements.</p>\n    <p class=\"govuk-body-m\">You can also look on university websites. Look out for further study open days or virtual open day events. </p>\n    <h3 class=\"govuk-heading-m\">Entry requirements</h3>\n    <p class=\"govuk-body-m\">Entry requirements will vary at each institution. Use <a class=\"govuk-link\" href=\"https://www.ucas.com/postgraduate\">UCAS</a> or individual university websites to check them. </p>\n    <p class=\"govuk-body-m\">For some courses you'll need a minimum of a 2:2 in your undergraduate degree. Others may expect a first-class honours degree. You can be accepted with less if you can show that you have other things to offer like relevant work experience. Sometimes\n        offers are lowered if you stay at the university you gained your undergraduate degree.</p>\n    <h3 class=\"govuk-heading-m\">Applying for further study</h3>\n    <p class=\"govuk-body-m\">As with undergraduate degree courses you’ll need a personal statement and references. For some courses like art and design you will also need a portfolio of your work.</p>\n    <p class=\"govuk-body-m\">You should start thinking and planning up to a year ahead particularly if you need to put together a portfolio or do some relevant work experience before you make your application. Deadlines vary so you should check with individual universities. </p>\n    <p class=\"govuk-body-m\">For most courses you will apply to universities directly. For some you may have to apply through <a class=\"govuk-link\" href=\"https://digital.ucas.com/coursedisplay/results/providers?studyYear=2020&amp;destination=Postgraduate&amp;postcodeDistanceSystem=imperial&amp;pageNumber=1&amp;sort=MostRelevant&amp;clearingPreference=None\">UCAS</a>.\n        </p>\n        <p class=\"govuk-body-m\">For postgraduate teacher training you can apply through <a class=\"govuk-link\" href=\"https://getintoteaching.education.gov.uk/how-to-apply/apply-for-teacher-training\">UCAS or the Gov.UK Apply service</a>. </p>\n</section>\n<p></p><hr class=\"govuk-section-break govuk-section-break--m govuk-section-break--visible\"><p></p>\n<section id=\"funding\">\n    <h2 class=\"govuk-heading-l\">Funding for further study</h2>\n    <p class=\"govuk-body-m\">You can take out a <a class=\"govuk-link\" href=\"https://www.gov.uk/funding-for-postgraduate-study\">postgraduate master’s or doctoral study loan</a> to pay towards fees and living costs. </p>\n    <p class=\"govuk-body-m\">There may also be scholarships, stipends or bursaries available in some subjects paid by the university, a sponsor or research awarding body. </p>\n    <p class=\"govuk-body-m\">Some universities offer reduced fees for postgraduate study if you gained your undergraduate degree with them. </p>\n    <p class=\"govuk-body-m\">If you’re an international student you can find out more about student finance from the <a class=\"govuk-link\" href=\"https://www.ukcisa.org.uk/Information--Advice/Fees-and-Money/Scholarships-and-funding-your-studies\">UK Council for International Student Affairs (UKCISA)</a>.</p>\n    <hr class=\"govuk-section-break govuk-section-break--m govuk-section-break--visible\">\n    <section id=\"other-ways\">\n        <h2 class=\"govuk-heading-l\">Other ways to learn</h2>\n        <p class=\"govuk-body-m\">You can combine working and studying through online learning. Take a look at what’s on offer in <a class=\"govuk-link\" href=\"/find-a-course/the-skills-toolkit\">The Skills Toolkit</a> and from sites such as <a class=\"govuk-link\" href=\"https://www.futurelearn.com/\">Future Learn</a>.</p>\n        <p class=\"govuk-body-m\">Your local adult education service and further education colleges run professional and vocational courses that may improve your job prospects.</p>\n            <p class=\"govuk-body-m\">You could also check out professional organisations in our <a class=\"govuk-link\" href=\"https://nationalcareers.service.gov.uk/explore-careers\">job profiles</a> for the career area you want to get into. They may also offer training, online\n                and short courses for student members.</p>\n            <hr class=\"govuk-section-break govuk-section-break--m govuk-section-break--visible\">\n            <section id=\"top-tips\">\n                <h2 class=\"govuk-heading-l\">Top tips for deciding and finding further study</h2>\n                <ul class=\"govuk-list govuk-list--bullet\">\n                    <li>start exploring your options early - as much as 1 year ahead if you can</li>\n                    <li>go to postgraduate study fairs-some may be virtual</li>\n                    <li>look at the careers support services on offer for postgrads and ask what previous students have gone on to do</li>\n                    <li>make sure the course is officially recognised if you need it for entry to a profession</li>\n                    <li>check out your funding options</li>\n                    <li>have someone check your personal statement and application form</li>\n                    <li>get permission from academic staff to use them as a reference</li>\n                    <li>make a note of important deadlines and make sure you get your applications in on time</li>\n                    <li>keep in touch with your university careers service for regular postgraduate study updates</li>\n                </ul>\n            </section>\n    </section>\n</section>"
+                                },
+                                "GraphSyncPart": {
+                                    "Text": "<<contentapiprefix>>/html/27cb228e-a364-4b18-b31d-00957d318a7f"
+                                },
+                                "FlowMetadata": {
+                                    "Alignment": 3,
+                                    "Size": 66
+                                }
+                            },
+                            {
+                                "ContentItemId": "42et8wwvm25k2vqwsx5p5b4ym7",
+                                "ContentItemVersionId": null,
+                                "ContentType": "HTMLShared",
+                                "DisplayText": "",
+                                "Latest": false,
+                                "Published": false,
+                                "ModifiedUtc": "2021-04-09T10:28:05.1653251Z",
+                                "PublishedUtc": null,
+                                "CreatedUtc": null,
+                                "Owner": "",
+                                "Author": "admin",
+                                "HTMLShared": {
+                                    "SharedContent": {
+                                        "ContentItemIds": [
+                                            "43mj84xpc3kpgycv11wb8pxqnz",
+                                            "4nyydyyta43vzxjk0b61sdmddr"
+                                        ]
+                                    }
+                                },
+                                "GraphSyncPart": {
+                                    "Text": "<<contentapiprefix>>/htmlshared/d0b2e405-ef62-467d-8c68-2f7f6c4bd270"
+                                },
+                                "FlowMetadata": {
+                                    "Alignment": 3,
+                                    "Size": 33
+                                }
+                            }
+                        ]
+                    },
+                    "GraphSyncPart": {
+                        "Text": "<<contentapiprefix>>/page/f4aae181-e231-4413-a32d-e4316de0216e"
+                    },
+                    "PageLocationPart": {
+                        "UrlName": "advice-on-further-study-options",
+                        "DefaultPageForLocation": false,
+                        "RedirectLocations": null,
+                        "FullUrl": "/careers-advice/advice-on-further-study-options"
+                    }
+                },
+                {
+                    "ContentItemId": "45pvecx33brj15ws13zp6dv8xp",
+                    "ContentItemVersionId": "4qadb2r9ak49vwgmj412mwsb4q",
+                    "ContentType": "Page",
+                    "DisplayText": "How to bounce back in a tough jobs market",
+                    "Latest": true,
+                    "Published": true,
+                    "ModifiedUtc": "2021-04-09T10:35:35.9529615Z",
+                    "PublishedUtc": "2021-04-09T10:35:35.9818216Z",
+                    "CreatedUtc": "2021-04-09T09:23:07.1598048Z",
+                    "Owner": "4s69p8vzbjd91zftn97xtkjhxp",
+                    "Author": "admin",
+                    "TitlePart": {
+                        "Title": "How to bounce back in a tough jobs market"
+                    },
+                    "Page": {
+                        "PageLocations": {
+                            "TaxonomyContentItemId": "4eembshqzx66drajtdten34tc8",
+                            "TermContentItemIds": [
+                                "4e1d03ztjhb1f76bew09dessxv"
+                            ]
+                        },
+                        "Description": {
+                            "Text": null
+                        },
+                        "Herobanner": {
+                            "Html": "<p><br></p>"
+                        },
+                        "ShowHeroBanner": {
+                            "Value": false
+                        }
+                    },
+                    "SitemapPart": {
+                        "Priority": 5,
+                        "OverrideSitemapConfig": false,
+                        "ChangeFrequency": 0,
+                        "Exclude": false
+                    },
+                    "FlowPart": {
+                        "Widgets": [
+                            {
+                                "ContentItemId": "4spemre04e7zh62z95k5mc3k58",
+                                "ContentItemVersionId": null,
+                                "ContentType": "HTML",
+                                "DisplayText": "",
+                                "Latest": false,
+                                "Published": false,
+                                "ModifiedUtc": "2021-04-09T10:35:35.9626427Z",
+                                "PublishedUtc": null,
+                                "CreatedUtc": null,
+                                "Owner": "",
+                                "Author": "admin",
+                                "HTML": {},
+                                "HtmlBodyPart": {
+                                    "Html": "<h1 class=\"govuk-heading-xl\">How to bounce back in a tough jobs market</h1>\n<p class=\"govuk-body-m\">Resilience is the ability to ‘bounce back’ from or adapt to difficult experiences. It’s a skill that can help you cope with all of life’s setbacks including those in your career. </p>\n<p class=\"govuk-body-m\">Being resilient will make sure that you are able to deal positively with challenging situations like:</p>\n<ul class=\"govuk-list govuk-list--bullet\">\n    <li>interview rejection </li>\n    <li>exam failure</li>\n    <li>redundancy</li>\n    <li>not getting a promotion</li>\n    <li>unexpected life events </li>\n</ul>\n<p class=\"govuk-body-m\">Like all skills, resilience can be learned. With practice you can develop the thought processes and behaviours that make it possible to recover quickly or more easily adapt to change.</p>\n<nav>\n    <div class=\"govuk-grid-row\">\n        <div class=\"govuk-grid-column-full\">\n            <ul class=\"govuk-list govuk-list--bullet\">\n                <li><a class=\"govuk-link\" href=\"#resilience\">Build your resilience</a></li>\n                <li><a class=\"govuk-link\" href=\"#experiences\">Learn from your own experiences</a></li>\n                <li><a class=\"govuk-link\" href=\"#tips\">Tips to become more resilient</a></li>\n                <li><a class=\"govuk-link\" href=\"#resources\">Find resources and further help</a></li>\n            </ul>\n        </div>\n    </div>\n</nav>\n<p></p><hr class=\"govuk-section-break govuk-section-break--m govuk-section-break--visible\"><p></p>\n<section id=\"resilience\">\n    <h2 class=\"govuk-heading-l\">Build your resilience</h2>\n    <p class=\"govuk-body-m\">There are some typical characteristics of truly resilient people. These include:</p>\n    <ul class=\"govuk-list govuk-list--bullet\">\n        <li>having a positive frame of mind and a willingness to try new things</li>\n        <li>being keen to meet new people and making them part of a support network of trusted friends and colleagues</li>\n        <li>knowing who to turn to and having the courage to ask for help and advice</li>\n    </ul>\n    <p class=\"govuk-body-m\">Trying to boost your resilience and build a support network can feel daunting. To help with this you could:</p>\n    <ul class=\"govuk-list govuk-list--bullet\">\n        <li>start a course - even online courses give you the chance to meet and chat with other learners</li>\n        <li>join a local or online interest group</li>\n        <li>take up a new hobby you can do with others</li>\n        <li>join a sports team or do something active </li>\n        <li>stay in regular contact with friends, family and work colleagues</li>\n    </ul>\n    <p class=\"govuk-body-m\">If you’re in school, college or university remember that there are professionals like teachers, mentors and careers advisers who can help you. </p>\n    <p class=\"govuk-body-m\">In the workplace you can draw on the support of a manager or get help from human resources professionals. </p>\n    <p class=\"govuk-body-m\">If you're out of work you could speak to a <a class=\"govuk-link\" href=\"https://gov.uk/moving-from-benefits-to-work\">Jobcentre work coach</a></p>\n</section>\n<p></p><hr class=\"govuk-section-break govuk-section-break--m govuk-section-break--visible\"><p></p>\n<section id=\"experiences\">\n    <h2 class=\"govuk-heading-l\">Learn from your own experiences</h2>\n    <p class=\"govuk-body-m\">When things don’t go as planned it can be a great learning opportunity. Use your past experience to identify ways of coping that worked for you in other situations. For example:</p>\n    <p class=\"govuk-body-m\">Think of a time when you:</p>\n    <ul class=\"govuk-list govuk-list--bullet\">\n        <li>achieved a goal - what were the steps that you went through and why did it turn out well?</li>\n        <li>had a setback that led to a change of plan – how did you feel? What did you do? If you were experiencing that now, what might you do differently?</li>\n        <li>asked for feedback from others – how did you respond? What did you do as a result?</li>\n    </ul>\n    <p class=\"govuk-body-m\">When thinking about these experiences try to:</p>\n    <ul class=\"govuk-list govuk-list--bullet\">\n        <li>focus on how you got there, rather than the end result - this will help you understand the right steps to take to be more adaptable in the future</li>\n        <li>explore your feelings to help you ‘reframe’ negative thoughts about a problem - this will help you to develop a more positive ‘can do’ attitude</li>\n        <li>think about how you react to and use criticism - this will help you to learn how to make the most of the advice others can give\n        </li>\n    </ul>\n    <hr class=\"govuk-section-break govuk-section-break--m govuk-section-break--visible\">\n    <section id=\"tips\">\n        <h2 class=\"govuk-heading-l\">Tips to become more resilient</h2>\n        <p class=\"govuk-body-m\">When things don’t go to plan try to:</p>\n        <ul class=\"govuk-list govuk-list--bullet\">\n            <li>make a list of all the times you have adapted well – remind yourself that you have coped before and you can do so again</li>\n            <li>see your experience as a chance to grow and improve</li>\n            <li>ask for constructive feedback – for example, after an interview, following an exam or a work appraisal</li>\n            <li>have a positive outlook – you may not be able to alter the situation but you can change the way you think about it </li>\n            <li>connect with others and ask for help </li>\n            <li>focus on the things you can change and accept those you cannot</li>\n            <li>set yourself small goals and celebrate your achievements as you go</li>\n            <li>be kind to yourself – not always succeeding is a part of life</li>\n            <li>reflect on your experience and try to learn from it – it will make you stronger in the long term</li>\n        </ul>\n    </section>\n    <hr class=\"govuk-section-break govuk-section-break--m govuk-section-break--visible\">\n    <section id=\"resources\">\n        <h2 class=\"govuk-heading-l\">Find resources and further help</h2>\n        <p class=\"govuk-body-m\">Find further help from organisations, like:</p>\n        <ul class=\"govuk-list govuk-list--bullet\">\n            <li>Mind: <a class=\"govuk-link\" href=\"https://www.mind.org.uk/information-support/types-of-mental-health-problems/stress/developing-resilience/#collapseb86ac\">How can I be more resilient?</a></li>\n            <li>Open University: <a class=\"govuk-link\" href=\"https://www.open.edu/openlearn/ocw/mod/oucontent/view.php?id=64961&amp;section=3\">Developing career resilience</a></li>\n            <li>FutureLearn: <a class=\"govuk-link\" href=\"https://www.futurelearn.com/courses/wellbeing-and-resilience-at-work\">Wellbeing and resilience at work</a></li>\n        </ul>\n    </section>\n</section>"
+                                },
+                                "GraphSyncPart": {
+                                    "Text": "<<contentapiprefix>>/html/f198c8e7-293a-4bf8-9389-98877cb5307c"
+                                },
+                                "FlowMetadata": {
+                                    "Alignment": 3,
+                                    "Size": 66
+                                }
+                            },
+                            {
+                                "ContentItemId": "4gqkexqmd9t0q7ngsngt1gv3x7",
+                                "ContentItemVersionId": null,
+                                "ContentType": "HTMLShared",
+                                "DisplayText": "",
+                                "Latest": false,
+                                "Published": false,
+                                "ModifiedUtc": "2021-04-09T10:35:35.9671158Z",
+                                "PublishedUtc": null,
+                                "CreatedUtc": null,
+                                "Owner": "",
+                                "Author": "admin",
+                                "HTMLShared": {
+                                    "SharedContent": {
+                                        "ContentItemIds": [
+                                            "43mj84xpc3kpgycv11wb8pxqnz",
+                                            "4nyydyyta43vzxjk0b61sdmddr"
+                                        ]
+                                    }
+                                },
+                                "GraphSyncPart": {
+                                    "Text": "<<contentapiprefix>>/htmlshared/f295106c-ccd4-480e-b3b7-e549956fa0fd"
+                                },
+                                "FlowMetadata": {
+                                    "Alignment": 3,
+                                    "Size": 33
+                                }
+                            }
+                        ]
+                    },
+                    "GraphSyncPart": {
+                        "Text": "<<contentapiprefix>>/page/7adc06f6-0a71-4433-b0c9-1253ce121ac9"
+                    },
+                    "PageLocationPart": {
+                        "UrlName": "how-to-bounce-back-in-a-tough-jobs-market",
+                        "DefaultPageForLocation": false,
+                        "RedirectLocations": null,
+                        "FullUrl": "/careers-advice/how-to-bounce-back-in-a-tough-jobs-market"
+                    }
+                },
+                {
+                    "ContentItemId": "40r7bgkfv0y8q1y3e6th06thcm",
+                    "ContentItemVersionId": "4sqdtcdr10mnh3wmsngatastx1",
+                    "ContentType": "Page",
+                    "DisplayText": "Careers in the armed forces",
+                    "Latest": true,
+                    "Published": true,
+                    "ModifiedUtc": "2021-04-09T10:38:44.2159253Z",
+                    "PublishedUtc": "2021-04-09T10:38:44.2754735Z",
+                    "CreatedUtc": "2021-04-09T09:26:27.4158094Z",
+                    "Owner": "4s69p8vzbjd91zftn97xtkjhxp",
+                    "Author": "admin",
+                    "TitlePart": {
+                        "Title": "Careers in the armed forces"
+                    },
+                    "Page": {
+                        "PageLocations": {
+                            "TaxonomyContentItemId": "4eembshqzx66drajtdten34tc8",
+                            "TermContentItemIds": [
+                                "4e1d03ztjhb1f76bew09dessxv"
+                            ]
+                        },
+                        "Description": {
+                            "Text": null
+                        },
+                        "Herobanner": {
+                            "Html": ""
+                        },
+                        "ShowHeroBanner": {
+                            "Value": false
+                        }
+                    },
+                    "SitemapPart": {
+                        "Priority": 5,
+                        "OverrideSitemapConfig": false,
+                        "ChangeFrequency": 0,
+                        "Exclude": false
+                    },
+                    "FlowPart": {
+                        "Widgets": [
+                            {
+                                "ContentItemId": "4yhaw7e4wqah3z4ydr11bxkncf",
+                                "ContentItemVersionId": null,
+                                "ContentType": "HTML",
+                                "DisplayText": "",
+                                "Latest": false,
+                                "Published": false,
+                                "ModifiedUtc": "2021-04-09T10:38:44.2313962Z",
+                                "PublishedUtc": null,
+                                "CreatedUtc": null,
+                                "Owner": "",
+                                "Author": "admin",
+                                "HTML": {},
+                                "HtmlBodyPart": {
+                                    "Html": "<h1 class=\"govuk-heading-xl\">Careers in the armed forces</h1>\n<p class=\"govuk-body-m\">There are hundreds of different armed forces careers. Explore what’s on offer to see if a challenging and rewarding life in the British Army, Royal Air Force or Royal Navy is for you.</p>\n<nav>\n    <div class=\"govuk-grid-row\">\n        <div class=\"govuk-grid-column-full\">\n            <ul class=\"govuk-list govuk-list--bullet\">\n                <li><a class=\"govuk-link\" href=\"#opportunities\">Career opportunities in the armed forces</a></li>\n                <li><a class=\"govuk-link\" href=\"#young\">Starting your forces career as a young person</a></li>\n                <li><a class=\"govuk-link\" href=\"#university\">Starting your forces career at university</a></li>\n                <li><a class=\"govuk-link\" href=\"#adult\">Starting your forces career as an adult</a></li>\n                <li><a class=\"govuk-link\" href=\"#joining\">Joining the forces at any stage of your career</a></li>\n                <li><a class=\"govuk-link\" href=\"#recruitment\">How to go through the recruitment process </a></li>\n            </ul>\n        </div>\n    </div>\n</nav>\n<p></p><hr class=\"govuk-section-break govuk-section-break--m govuk-section-break--visible\"><p></p>\n<section id=\"opportunities\">\n    <h2 class=\"govuk-heading-l\">Career opportunities in the armed forces</h2>\n    <p class=\"govuk-body-m\">The British armed forces are responsible for the safety and security of the UK. They are involved in combat and peacekeeping duties as well as things like providing humanitarian aid.</p>\n    <p class=\"govuk-body-m\">They offer the chance to see the world in many jobs you could choose to do in civilian life, like being a chef, a nurse or an engineer. They also have lots of roles that you'll only find in the forces, like tank crew or military intelligence specialists.</p>\n    <p class=\"govuk-body-m\">For some jobs, you do not need a lot of qualifications. Wherever you start, you'll have the chance to build a career, get more qualifications, and move up through the ranks. </p>\n        <p class=\"govuk-body-m\">You'll have to commit to a minimum length of service which can be from 3.5 to 6 years depending on which of the forces you want to join.</p>\n</section>\n<p></p><hr class=\"govuk-section-break govuk-section-break--m govuk-section-break--visible\"><p></p>\n<section id=\"young\">\n    <h2 class=\"govuk-heading-l\">Starting your forces career as a young person</h2>\n    <p class=\"govuk-body-m\">There are opportunities including: </p>\n    <ul class=\"govuk-list govuk-list--bullet\">\n        <li>apprenticeships\n        </li>\n        <li>sponsorships while you are at school</li>\n        <li><a class=\"govuk-link\" href=\"#university\">sponsorships for undergraduates</a> </li>\n        <li>graduate entry schemes</li>\n    </ul>\n    <p class=\"govuk-body-m\">While you're still at school, cadet schemes can be a great way to get some experience, show commitment and find out about life in the military. You can find out more from the:</p>\n    <ul class=\"govuk-list govuk-list--bullet\">\n        <li><a class=\"govuk-link\" href=\"https://armycadets.com/join-cadets/\">Army cadets</a></li>\n        <li><a class=\"govuk-link\" href=\"https://www.raf.mod.uk/aircadets/\">Royal Air Force (RAF) cadets</a></li>\n        <li><a class=\"govuk-link\" href=\"https://www.royalnavy.mod.uk/our-organisation/cadets-and-youth\">Royal Navy cadets</a></li>\n    </ul>\n    <p class=\"govuk-body-m\">The forces provide funding to support A level or equivalent students who want to become an officer. For information see the:</p>\n    <ul class=\"govuk-list govuk-list--bullet\">\n        <li><a class=\"govuk-link\" href=\"https://apply.army.mod.uk/what-we-offer/regular-officer/officer-funding\">Army Officer Scholarship Scheme</a></li>\n        <li><a class=\"govuk-link\" href=\"https://www.raf.mod.uk/recruitment/sponsorship\">Royal Air Force scholarships</a></li>\n        <li><a class=\"govuk-link\" href=\"https://www.royalnavy.mod.uk/careers/joining/funding-and-scholarships/a-level-scholarship\">Royal Navy Scholarship </a></li>\n    </ul>\n</section>\n<p></p><hr class=\"govuk-section-break govuk-section-break--m govuk-section-break--visible\"><p></p>\n<section id=\"university\">\n    <h2 class=\"govuk-heading-l\">Starting your forces career at university</h2>\n    <p class=\"govuk-body-m\">The armed forces offer sponsorships and bursaries for university students in subjects like:</p>\n    <ul class=\"govuk-list govuk-list--bullet\">\n        <li>science</li>\n        <li>technology</li>\n        <li>engineering </li>\n        <li>maths </li>\n        <li>healthcare</li>\n    </ul>\n    <p class=\"govuk-body-m\">You can see full details on their recruitment websites. While you’re at university, there are exciting ways to get experience and a taste of military life during your degree. You could:</p>\n    <ul class=\"govuk-list govuk-list--bullet\">\n        <li>join an <a class=\"govuk-link\" href=\"https://www.army.mod.uk/who-we-are/corps-regiments-and-units/university-officers-training-corps/\">Army Officer Training Corps</a></li>\n        <li>be part of a <a class=\"govuk-link\" href=\"https://www.raf.mod.uk/recruitment/university-air-squadrons\">University Air Squadron</a></li>\n        <li>get involved with the <a class=\"govuk-link\" href=\"https://www.royalnavy.mod.uk/our-organisation/bases-and-stations/training-establishments/university-royal-naval-units\">University Royal Navy Unit</a></li>\n    </ul>\n</section>\n<p></p><hr class=\"govuk-section-break govuk-section-break--m govuk-section-break--visible\"><p></p>\n<section id=\"adult\">\n    <h2 class=\"govuk-heading-l\">Starting your forces career as an adult</h2>\n    <p class=\"govuk-body-m\">You may be an adult with work experience looking to get into the Army, Navy or Air Force. There are lots of opportunities for adults though you will need to check age restrictions for the role you want to do. You can check these on the forces' own\n        careers websites.\n    </p>\n    <p class=\"govuk-body-m\">If you are working and have time to spare, you could join on a part-time basis in paid roles as a reserve. You train and serve alongside regular recruits and it can be a great way to build your skills, travel and meet new people.</p>\n    <p class=\"govuk-body-m\">Find out more about reserve schemes at:</p>\n    <ul class=\"govuk-list govuk-list--bullet\">\n        <li><a class=\"govuk-link\" href=\"https://apply.army.mod.uk/what-we-offer/reserve-soldier\">Army reserves</a></li>\n        <li><a class=\"govuk-link\" href=\"https://www.raf.mod.uk/recruitment/reserves\">RAF reserves</a></li>\n        <li><a class=\"govuk-link\" href=\"https://www.royalnavy.mod.uk/our-organisation/maritime-reserves\">Royal Navy Maritime reserves </a></li>\n    </ul>\n    <h3 class=\"govuk-heading-m\">Restarting your forces career </h3>\n    <p class=\"govuk-body-m\">If you have previously been in the Army, Royal Navy or the RAF and want to return to the forces, there are rejoiner schemes to help you pick up your career.</p>\n</section>\n<p></p><hr class=\"govuk-section-break govuk-section-break--m govuk-section-break--visible\"><p></p>\n<section id=\"joining\">\n    <h2 class=\"govuk-heading-l\">Joining the forces at any stage of your career</h2>\n    <p class=\"govuk-body-m\">Each of the armed forces has its own careers information website. You can find information on the different roles you can train to do, what’s involved and their entry requirements.</p>\n    <p class=\"govuk-body-m\">You’ll also find expert advice on the recruitment and selection process and tips on how to prepare.</p>\n    <p class=\"govuk-body-m\">Explore all of the opportunities available at:</p>\n    <ul class=\"govuk-list govuk-list--bullet\">\n        <li><a class=\"govuk-link\" href=\"https://apply.army.mod.uk/what-we-offer\">Army careers</a></li>\n        <li><a class=\"govuk-link\" href=\"https://www.raf.mod.uk/recruitment/career-and-benefits\">Royal Air Force (RAF) careers</a></li>\n        <li><a class=\"govuk-link\" href=\"https://www.royalnavy.mod.uk/careers\">Royal Navy</a> </li>\n    </ul>\n</section>\n<p></p><hr class=\"govuk-section-break govuk-section-break--m govuk-section-break--visible\"><p></p>\n<section id=\"recruitment\">\n    <h2 class=\"govuk-heading-l\">How to go through the recruitment process</h2>\n    <p class=\"govuk-body-m\">You can contact an Army, RAF or Royal Navy careers centre to get specialist careers advice. Look out for their recruitment experts at <a class=\"govuk-link\" href=\"/careers-advice/making-the-most-of-virtual-job-fairs/\">careers fairs</a> too. </p>\n    <p class=\"govuk-body-m\">Before you start an application, read information on the armed forces websites to make sure that you understand the values and standards expected of you in military life, like:</p>\n        <ul class=\"govuk-list govuk-list--bullet\">\n            <li>discipline</li>\n            <li>courage</li>\n            <li>respect</li>\n            <li>teamwork</li>\n            <li>integrity</li>\n        </ul>\n        <p class=\"govuk-body-m\">It can take quite a long time from application to acceptance, so make sure you understand the timescale involved. The process will include an online application, security, fitness and health checks, psychometric assessment tests as well as a selection\n            interview. Find out more about what to expect from the:</p>\n        <ul class=\"govuk-list govuk-list--bullet\">\n            <li><a class=\"govuk-link\" href=\"https://youtu.be/YUuqmwkJSNE\">Army selection process</a></li>\n            <li><a class=\"govuk-link\" href=\"https://www.raf.mod.uk/recruitment/how-to-apply/application-process?gclid=EAIaIQobChMI08GxrdCO7AIVjM_tCh2tQgPhEAAYASABEgKDqPD_BwE\">RAF applications process</a> </li>\n            <li><a class=\"govuk-link\" href=\"https://www.royalnavy.mod.uk/careers/joining/get-ready-to-join/royal-navy-rating/whats-the-joining-process?gclid=EAIaIQobChMIwtiW2NCO7AIVTM3tCh2m3gPNEAAYASAAEgKwGPD_BwE\">Royal Navy joining process</a></li>\n        </ul>\n        <p class=\"govuk-body-m\">You can find out more about the fitness standards you'll need to meet from:</p>\n        <ul class=\"govuk-list govuk-list--bullet\">\n            <li><a class=\"govuk-link\" href=\"https://youtu.be/8QzdhQEdl40\">Army</a></li>\n            <li><a class=\"govuk-link\" href=\"https://youtu.be/Cl1ERFtqmW8\">Royal Air Force</a> </li>\n            <li><a class=\"govuk-link\" href=\"https://www.royalnavy.mod.uk/careers/joining/get-fit-to-join?gclid=EAIaIQobChMIxdCmpsOO7AIVS-btCh0vEQVlEAAYASAAEgKAZPD_BwE\">Royal Navy</a></li>\n        </ul>\n</section>\n<p></p><hr class=\"govuk-section-break govuk-section-break--m govuk-section-break--visible\"><p></p>"
+                                },
+                                "GraphSyncPart": {
+                                    "Text": "<<contentapiprefix>>/html/a62f049d-1401-4840-aa4c-20a6b9d8d049"
+                                },
+                                "FlowMetadata": {
+                                    "Alignment": 3,
+                                    "Size": 66
+                                }
+                            },
+                            {
+                                "ContentItemId": "4t987beem01cm0xwrnedd2a3d6",
+                                "ContentItemVersionId": null,
+                                "ContentType": "HTMLShared",
+                                "DisplayText": "",
+                                "Latest": false,
+                                "Published": false,
+                                "ModifiedUtc": "2021-04-09T10:38:44.2415829Z",
+                                "PublishedUtc": null,
+                                "CreatedUtc": null,
+                                "Owner": "",
+                                "Author": "admin",
+                                "HTMLShared": {
+                                    "SharedContent": {
+                                        "ContentItemIds": [
+                                            "43mj84xpc3kpgycv11wb8pxqnz",
+                                            "4nyydyyta43vzxjk0b61sdmddr"
+                                        ]
+                                    }
+                                },
+                                "GraphSyncPart": {
+                                    "Text": "<<contentapiprefix>>/htmlshared/59a7d790-6258-43df-b74e-ab0109f87426"
+                                },
+                                "FlowMetadata": {
+                                    "Alignment": 3,
+                                    "Size": 33
+                                }
+                            }
+                        ]
+                    },
+                    "GraphSyncPart": {
+                        "Text": "<<contentapiprefix>>/page/09c75ecf-0d09-4dfe-b3f4-5015c99068f4"
+                    },
+                    "PageLocationPart": {
+                        "UrlName": "careers-in-the-armed-forces",
+                        "DefaultPageForLocation": false,
+                        "RedirectLocations": null,
+                        "FullUrl": "/careers-advice/careers-in-the-armed-forces"
+                    }
+                }
+            ]
+        }
+    ]
+}
