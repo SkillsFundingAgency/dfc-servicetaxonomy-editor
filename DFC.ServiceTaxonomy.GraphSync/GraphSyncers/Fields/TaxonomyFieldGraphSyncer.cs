@@ -59,54 +59,51 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
                 contentItemField, context.ContentItemVersion, context.ContentManager);
 
             JObject taxonomyPartContent = taxonomyContentItem!.Content[nameof(TaxonomyPart)];
-#pragma warning disable CS8600 // Converting null literal or possible null value to non-nullable type.
-            string termContentType = taxonomyPartContent[TermContentType]!.Value<string>();
-#pragma warning restore CS8600 // Converting null literal or possible null value to non-nullable type.
+            string? termContentType = taxonomyPartContent[TermContentType]?.Value<string>();
+            if (!string.IsNullOrEmpty(termContentType))
+            {
+                string termRelationshipType = TermRelationshipType(termContentType);
 
-#pragma warning disable CS8604 // Possible null reference argument.
-            string termRelationshipType = TermRelationshipType(termContentType);
-#pragma warning restore CS8604 // Possible null reference argument.
+                //todo requires 'picked' part has a graph sync part
+                // add to docs & handle picked part not having graph sync part or throw exception
 
-            //todo requires 'picked' part has a graph sync part
-            // add to docs & handle picked part not having graph sync part or throw exception
+                JArray? contentItemIdsJArray = (JArray?)contentItemField[TermContentItemIds];
+                if (contentItemIdsJArray == null || !contentItemIdsJArray.HasValues)
+                    return; //todo:
 
-            JArray? contentItemIdsJArray = (JArray?)contentItemField[TermContentItemIds];
-            if (contentItemIdsJArray == null || !contentItemIdsJArray.HasValues)
-                return; //todo:
+                IEnumerable<string> contentItemIds = contentItemIdsJArray.Select(jtoken => jtoken.ToObject<string>()!);
 
-            IEnumerable<string> contentItemIds = contentItemIdsJArray.Select(jtoken => jtoken.ToObject<string>()!);
+                ISyncNameProvider relatedSyncNameProvider = _serviceProvider.GetSyncNameProvider(termContentType);
 
-            ISyncNameProvider relatedSyncNameProvider = _serviceProvider.GetSyncNameProvider(termContentType);
+                var flattenedTermsContentItems = GetFlattenedTermsContentItems(taxonomyPartContent);
 
-            var flattenedTermsContentItems = GetFlattenedTermsContentItems(taxonomyPartContent);
+                IEnumerable<object> foundDestinationNodeIds = contentItemIds.Select(tid =>
+                    GetNodeId(tid, flattenedTermsContentItems, relatedSyncNameProvider, context.ContentItemVersion)!);
 
-            IEnumerable<object> foundDestinationNodeIds = contentItemIds.Select(tid =>
-                GetNodeId(tid, flattenedTermsContentItems, relatedSyncNameProvider, context.ContentItemVersion)!);
+                IEnumerable<string> destNodeLabels = await relatedSyncNameProvider.NodeLabels();
 
-            IEnumerable<string> destNodeLabels = await relatedSyncNameProvider.NodeLabels();
+                context.ReplaceRelationshipsCommand.AddRelationshipsTo(
+                    termRelationshipType,
+                    null,
+                    destNodeLabels,
+                    relatedSyncNameProvider!.IdPropertyName(),
+                    foundDestinationNodeIds.ToArray());
 
-            context.ReplaceRelationshipsCommand.AddRelationshipsTo(
-                termRelationshipType,
-                null,
-                destNodeLabels,
-                relatedSyncNameProvider!.IdPropertyName(),
-                foundDestinationNodeIds.ToArray());
+                // add relationship to taxonomy
+                string taxonomyRelationshipType = TaxonomyRelationshipType(taxonomyContentItem);
 
-            // add relationship to taxonomy
-            string taxonomyRelationshipType = TaxonomyRelationshipType(taxonomyContentItem);
+                relatedSyncNameProvider.ContentType = taxonomyContentItem.ContentType;
+                destNodeLabels = await relatedSyncNameProvider.NodeLabels();
+                object taxonomyIdValue = relatedSyncNameProvider.GetNodeIdPropertyValue(
+                    taxonomyContentItem.Content[nameof(GraphSyncPart)], context.ContentItemVersion);
 
-            relatedSyncNameProvider.ContentType = taxonomyContentItem.ContentType;
-            destNodeLabels = await relatedSyncNameProvider.NodeLabels();
-            object taxonomyIdValue = relatedSyncNameProvider.GetNodeIdPropertyValue(
-                taxonomyContentItem.Content[nameof(GraphSyncPart)], context.ContentItemVersion);
-
-            context.ReplaceRelationshipsCommand.AddRelationshipsTo(
-                taxonomyRelationshipType,
-                null,
-                destNodeLabels,
-                relatedSyncNameProvider!.IdPropertyName(),
-                taxonomyIdValue);
-
+                context.ReplaceRelationshipsCommand.AddRelationshipsTo(
+                    taxonomyRelationshipType,
+                    null,
+                    destNodeLabels,
+                    relatedSyncNameProvider!.IdPropertyName(),
+                    taxonomyIdValue);
+            }
             // add tagnames
             //using var _ = s  yncNameProvider.PushPropertyNameTransform(_taxonomyPropertyNameTransform);
 
@@ -130,29 +127,28 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
                 taxonomyFieldSettings.TaxonomyContentItemId);
 
             JObject taxonomyPartContent = taxonomyContentItem!.Content[nameof(TaxonomyPart)];
-#pragma warning disable CS8600 // Converting null literal or possible null value to non-nullable type.
-            string termContentType = taxonomyPartContent[TermContentType]!.Value<string>();
-#pragma warning restore CS8600 // Converting null literal or possible null value to non-nullable type.
+            string? termContentType = taxonomyPartContent[TermContentType]?.Value<string>();
+            if (!string.IsNullOrEmpty(termContentType))
+            {
+                string termRelationshipType = TermRelationshipType(termContentType);
 
-#pragma warning disable CS8604 // Possible null reference argument.
-            string termRelationshipType = TermRelationshipType(termContentType);
-#pragma warning restore CS8604 // Possible null reference argument.
+                //todo: split into stefull and stateless and put both in the context
+                // then can stop stateful contenttype being reset
+                IEnumerable<string> destNodeLabels = await context.SyncNameProvider.NodeLabels(termContentType);
 
-            //todo: split into stefull and stateless and put both in the context
-            // then can stop stateful contenttype being reset
-            IEnumerable<string> destNodeLabels = await context.SyncNameProvider.NodeLabels(termContentType);
+                context.ReplaceRelationshipsCommand.RemoveAnyRelationshipsTo(
+                    termRelationshipType,
+                    destNodeLabels);
 
-            context.ReplaceRelationshipsCommand.RemoveAnyRelationshipsTo(
-                termRelationshipType,
-                destNodeLabels);
 
-            string taxonomyRelationshipType = TaxonomyRelationshipType(taxonomyContentItem);
+                string taxonomyRelationshipType = TaxonomyRelationshipType(taxonomyContentItem);
 
-            destNodeLabels = await context.SyncNameProvider.NodeLabels(taxonomyContentItem.ContentType);
+                destNodeLabels = await context.SyncNameProvider.NodeLabels(taxonomyContentItem.ContentType);
 
-            context.ReplaceRelationshipsCommand.RemoveAnyRelationshipsTo(
-                taxonomyRelationshipType,
-                destNodeLabels);
+                context.ReplaceRelationshipsCommand.RemoveAnyRelationshipsTo(
+                    taxonomyRelationshipType,
+                    destNodeLabels);
+            }
         }
 
         private static Dictionary<string, ContentItem> GetFlattenedTermsContentItems(JObject taxonomyPartContent)
@@ -213,51 +209,52 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
                 parentContext.ContentManager);
 
             JObject taxonomyPartContent = taxonomyContentItem!.Content[nameof(TaxonomyPart)];
-#pragma warning disable CS8600 // Converting null literal or possible null value to non-nullable type.
-            string termContentType = taxonomyPartContent[TermContentType]!.Value<string>();
-#pragma warning restore CS8600 // Converting null literal or possible null value to non-nullable type.
+            string? termContentType = taxonomyPartContent[TermContentType]?.Value<string>();
+            if (!string.IsNullOrEmpty(termContentType))
+            {
+                string termRelationshipType = TermRelationshipType(termContentType);
 
-#pragma warning disable CS8604 // Possible null reference argument.
-            string termRelationshipType = TermRelationshipType(termContentType);
-#pragma warning restore CS8604 // Possible null reference argument.
+                //todo: auto collect all taxonomy terms? or go through build relationships?
 
-            //todo: auto collect all taxonomy terms? or go through build relationships?
+                const int maxDepthFromHere = 0;
 
-            const int maxDepthFromHere = 0;
+                var sourceNodeLabels =
+                    await parentContext.SyncNameProvider.NodeLabels(parentContext.ContentItem.ContentType);
 
-            var sourceNodeLabels = await parentContext.SyncNameProvider.NodeLabels(parentContext.ContentItem.ContentType);
-
-            // gets auto-added to parent. better way though?
+                // gets auto-added to parent. better way though?
 #pragma warning disable S1848
-            new DescribeRelationshipsContext(
-                parentContext.SourceNodeIdPropertyName, parentContext.SourceNodeId, parentContext.SourceNodeLabels,
-                parentContext.ContentItem, maxDepthFromHere, parentContext.SyncNameProvider, parentContext.ContentManager,
-                parentContext.ContentItemVersion, parentContext, parentContext.ServiceProvider)
-            {
-                AvailableRelationships = new List<ContentItemRelationship>
+                new DescribeRelationshipsContext(
+                    parentContext.SourceNodeIdPropertyName, parentContext.SourceNodeId, parentContext.SourceNodeLabels,
+                    parentContext.ContentItem, maxDepthFromHere, parentContext.SyncNameProvider,
+                    parentContext.ContentManager,
+                    parentContext.ContentItemVersion, parentContext, parentContext.ServiceProvider)
                 {
-                    new ContentItemRelationship(
-                        sourceNodeLabels,
-                        termRelationshipType,
-                        await parentContext.SyncNameProvider.NodeLabels(termContentType))
-                }
-            };
+                    AvailableRelationships = new List<ContentItemRelationship>
+                    {
+                        new ContentItemRelationship(
+                            sourceNodeLabels,
+                            termRelationshipType,
+                            await parentContext.SyncNameProvider.NodeLabels(termContentType))
+                    }
+                };
 
-            string taxonomyRelationshipType = TaxonomyRelationshipType(taxonomyContentItem);
+                string taxonomyRelationshipType = TaxonomyRelationshipType(taxonomyContentItem);
 
-            new DescribeRelationshipsContext(
-                parentContext.SourceNodeIdPropertyName, parentContext.SourceNodeId, parentContext.SourceNodeLabels,
-                parentContext.ContentItem, maxDepthFromHere, parentContext.SyncNameProvider, parentContext.ContentManager,
-                parentContext.ContentItemVersion, parentContext, parentContext.ServiceProvider)
-            {
-                AvailableRelationships = new List<ContentItemRelationship>
+                new DescribeRelationshipsContext(
+                    parentContext.SourceNodeIdPropertyName, parentContext.SourceNodeId, parentContext.SourceNodeLabels,
+                    parentContext.ContentItem, maxDepthFromHere, parentContext.SyncNameProvider,
+                    parentContext.ContentManager,
+                    parentContext.ContentItemVersion, parentContext, parentContext.ServiceProvider)
                 {
-                    new ContentItemRelationship(
-                        sourceNodeLabels,
-                        taxonomyRelationshipType,
-                        await parentContext.SyncNameProvider.NodeLabels(taxonomyContentItem.ContentType))
-                }
-            };
+                    AvailableRelationships = new List<ContentItemRelationship>
+                    {
+                        new ContentItemRelationship(
+                            sourceNodeLabels,
+                            taxonomyRelationshipType,
+                            await parentContext.SyncNameProvider.NodeLabels(taxonomyContentItem.ContentType))
+                    }
+                };
+            }
 
 #pragma warning restore S1848
         }
