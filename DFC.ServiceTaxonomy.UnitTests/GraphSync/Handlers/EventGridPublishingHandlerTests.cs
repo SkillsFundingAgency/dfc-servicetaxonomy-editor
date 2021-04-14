@@ -69,8 +69,11 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.Handlers
                 DisplayText = "DisplayText",
                 Author = "Author"
             };
+            this.ContentItem.Content.GraphSyncPart = new JObject();
+
             A.CallTo(() => OrchestrationContext.ContentItem)
                 .Returns(ContentItem);
+
         }
 
         [Fact]

@@ -121,6 +121,12 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers
                 return;
             }
 
+            if (context.ContentItem.Content.GraphSyncPart == null)
+            {
+                _logger.LogInformation("Event grid publishing is disabled. No events will be published.");
+                return;
+            }
+
             try
             {
                 IContentItemVersion contentItemVersion = eventType switch
