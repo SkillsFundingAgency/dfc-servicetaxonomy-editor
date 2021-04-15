@@ -105,8 +105,12 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Services
             switch (card)
             {
                 case DashboardItemsStatusCard.InDraft:
+                    counts.Count = await GetManageContentItemCount(card);
+                    break;
                 case DashboardItemsStatusCard.Published:
                     counts.Count = await GetManageContentItemCount(card);
+                    var forcePublishedCount = await GetManageContentItemCount(card, null, true);
+                    counts.ReviewTypeCounts = new[] {counts.Count, forcePublishedCount };
                     break;
                 case DashboardItemsStatusCard.WaitingForReview:
                 case DashboardItemsStatusCard.InReview:
@@ -128,7 +132,7 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Services
 
         private async Task<int> GetManageContentItemCount(
             DashboardItemsStatusCard card,
-            ReviewType? reviewType = null)
+            ReviewType? reviewType = null, bool isForcePublished = false)
         {
             var filterOptions = new ContentOptionsViewModel();
             var query = _session.Query<ContentItem>();
@@ -140,6 +144,10 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Services
                     break;
                 case DashboardItemsStatusCard.Published:
                     filterOptions.ContentsStatus = ContentsStatus.Published;
+                    if (isForcePublished)
+                    {
+                        query.With<ContentApprovalPartIndex>(i => i.IsForcePublished);
+                    }
                     break;
                 case DashboardItemsStatusCard.WaitingForReview:
                     filterOptions.ContentsStatus = ContentsStatus.AllVersions;

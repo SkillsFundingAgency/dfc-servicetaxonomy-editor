@@ -13,7 +13,7 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Models
         ReadyForReview,
         [Display(Name="In review", Order = 2)]
         InReview,
-        //[Display(Name = "Force published")]
-        //ForcePublished
+        [Display(Name = "Force published", Order = 3)]
+        ForcePublished
     }
 }

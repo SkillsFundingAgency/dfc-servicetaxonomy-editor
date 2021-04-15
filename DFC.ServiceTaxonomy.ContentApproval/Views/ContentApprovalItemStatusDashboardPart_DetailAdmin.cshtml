@@ -58,19 +58,26 @@
             break;
         case DashboardItemsStatusCard.Published:
             <div class="dashboard-item-status dashboard-item-status-published">
-                <a class="overlay" asp-route-area="OrchardCore.Contents" asp-controller="@(typeof(OrchardCore.Contents.Controllers.AdminController).ControllerName())" asp-action="List" asp-route-Options.ContentsStatus="Published"></a>
                 <div class="inner">
                     <div class="dashboard-item-status-icon"><i class="far fa-check-circle"></i></div>
-                    <div>
-                        <span class="dashboard-item-status-count">@(Model.ContentItemsApprovalCounts?.Count)</span>
-                        <span class="dashboard-item-status-type">Published</span>
-                    </div>
+                    <a class="" asp-route-area="OrchardCore.Contents" asp-controller="@(typeof(OrchardCore.Contents.Controllers.AdminController).ControllerName())" asp-action="List" asp-route-Options.ContentsStatus="Published">
+                        <div>
+                            <span class="dashboard-item-status-count">@(Model.ContentItemsApprovalCounts?.Count)</span>
+                            <span class="dashboard-item-status-type">Published</span>
+                        </div>
+                    </a>
+                    <a class="" asp-route-area="OrchardCore.Contents" asp-controller="@(typeof(OrchardCore.Contents.Controllers.AdminController).ControllerName())" asp-action="List" asp-route-ContentApproval.SelectedApprovalStatus="@ContentReviewStatus.ForcePublished">
+                        <div>
+                            <span class="dashboard-item-status-count">@(Model.ContentItemsApprovalCounts?.ReviewTypeCounts?[1] ?? 0)</span>
+                            <span class="dashboard-item-status-type">Force published</span>
+                        </div>
+                    </a>
                 </div>
             </div>
             break;
-    }
+   }
 
-// https://stackoverflow.com/questions/60792542/errors-and-warnings-using-functions-block-in-razor-pages
+    // https://stackoverflow.com/questions/60792542/errors-and-warnings-using-functions-block-in-razor-pages
 }
 
 @functions {

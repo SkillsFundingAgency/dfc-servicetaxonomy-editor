@@ -24,7 +24,15 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Services
                 {
                     query.With<ContentItemIndex>(x => x.Latest && !x.Published);
                 }
-                query.With<ContentApprovalPartIndex>(i => i.ReviewStatus == (int?)viewModel.SelectedApprovalStatus);
+
+                if (viewModel.SelectedApprovalStatus == ContentReviewStatus.ForcePublished)
+                {
+                    query.With<ContentApprovalPartIndex>(i => i.IsForcePublished);
+                }
+                else
+                {
+                    query.With<ContentApprovalPartIndex>(i => i.ReviewStatus == (int?)viewModel.SelectedApprovalStatus);
+                }
             }
         }
     }
