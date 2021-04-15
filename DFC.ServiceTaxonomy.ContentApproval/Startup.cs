@@ -48,8 +48,8 @@ namespace DFC.ServiceTaxonomy.ContentApproval
             services.AddScoped<DefaultContentsAdminListFilter>();
 
             // contents admin list filters
-            services.AddScoped<IContentsAdminListFilter, ContentApprovalContentsAdminListFilter>();
-            services.AddScoped<IDisplayDriver<ContentOptionsViewModel>, ContentApprovalContentsAdminListFilterDisplayDriver>();
+            services.AddScoped<IContentsAdminListFilter, ReviewStatusContentsAdminListFilter>();
+            services.AddScoped<IDisplayDriver<ContentOptionsViewModel>, ReviewStatusContentsAdminListFilterDisplayDriver>();
 
             services.AddScoped<IContentsAdminListFilter, ReviewTypeContentsAdminListFilter>();
             services.AddScoped<IDisplayDriver<ContentOptionsViewModel>, ReviewTypeContentsAdminListFilterDisplayDriver>();

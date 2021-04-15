@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using DFC.ServiceTaxonomy.ContentApproval.Models;
+using DFC.ServiceTaxonomy.ContentApproval.Models.Enums;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
