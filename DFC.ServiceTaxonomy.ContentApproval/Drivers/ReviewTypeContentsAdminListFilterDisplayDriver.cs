@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.ContentApproval.Extensions;
 using DFC.ServiceTaxonomy.ContentApproval.Models;
+using DFC.ServiceTaxonomy.ContentApproval.Models.Enums;
 using DFC.ServiceTaxonomy.ContentApproval.ViewModels;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Localization;
@@ -17,7 +18,7 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Drivers
         private readonly IStringLocalizer S;
 
         public ReviewTypeContentsAdminListFilterDisplayDriver(
-            IStringLocalizer<ContentApprovalContentsAdminListFilterDisplayDriver> stringLocalizer)
+            IStringLocalizer<ReviewStatusContentsAdminListFilterDisplayDriver> stringLocalizer)
         {
             S = stringLocalizer;
         }

@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace DFC.ServiceTaxonomy.ContentApproval.Models
+namespace DFC.ServiceTaxonomy.ContentApproval.Models.Enums
 {
     public enum ReviewType
     {

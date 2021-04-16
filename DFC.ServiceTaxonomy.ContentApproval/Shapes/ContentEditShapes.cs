@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using DFC.ServiceTaxonomy.ContentApproval.Models;
+using DFC.ServiceTaxonomy.ContentApproval.Models.Enums;
 using Microsoft.AspNetCore.Http;
 using OrchardCore.ContentManagement;
 using OrchardCore.DisplayManagement.Descriptors;
@@ -26,8 +27,8 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Shapes
                 {
                     Shape actions = (Shape)shape.Actions;
                     // Hide draft button is item is in review
-                    var approvalStatus = contentItem.As<ContentApprovalPart>()?.ReviewStatus ?? ContentReviewStatus.NotInReview;
-                    if (approvalStatus == ContentReviewStatus.InReview)
+                    var approvalStatus = contentItem.As<ContentApprovalPart>()?.ReviewStatus ?? ReviewStatus.NotInReview;
+                    if (approvalStatus == ReviewStatus.InReview)
                     {
                         actions.Remove("Content_SaveDraftButton");
                     }

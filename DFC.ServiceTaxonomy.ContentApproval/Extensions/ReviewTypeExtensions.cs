@@ -1,4 +1,4 @@
-﻿using DFC.ServiceTaxonomy.ContentApproval.Models;
+﻿using DFC.ServiceTaxonomy.ContentApproval.Models.Enums;
 using DFC.ServiceTaxonomy.ContentApproval.Permissions;
 using OrchardCore.Security.Permissions;
 
