@@ -84,18 +84,11 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Drivers
 
             var results = new List<IDisplayResult>();
             // Show Request review option
-            if (part.ReviewStatus != ReviewStatus.InReview && await _authorizationService.AuthorizeAsync(currentUser, Permissions.RequestReviewPermissions.RequestReviewPermission))
+            if (await _authorizationService.AuthorizeAsync(currentUser, Permissions.RequestReviewPermissions.RequestReviewPermission))
             {
                 results.Add(Initialize<ContentApprovalPartViewModel>(
                         $"{editorShape}_RequestReview",
                         viewModel => PopulateViewModel(part, viewModel))
-                    .Location("Actions:20"));
-            }
-            else if (part.ReviewStatus == ReviewStatus.InReview && await _authorizationService.AuthorizeAsync(currentUser, reviewPermission))
-            {
-                results.Add(Initialize<ContentApprovalPartViewModel>(
-                        $"{editorShape}_RequestReview",
-                        viewModel => PopulateViewModel(part, viewModel, true))
                     .Location("Actions:20"));
             }
 
@@ -183,12 +176,11 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Drivers
             return await EditAsync(part, context);
         }
 
-        private static void PopulateViewModel(ContentApprovalPart part, ContentApprovalPartViewModel viewModel, bool isInReviewView = false)
+        private static void PopulateViewModel(ContentApprovalPart part, ContentApprovalPartViewModel viewModel)
         {
             viewModel.ContentItemId = part.ContentItem.ContentItemId;
             viewModel.ReviewStatus = part.ReviewStatus;
-            var reviewTypes = EnumExtensions.GetEnumNameAndDisplayNameDictionary(typeof(ReviewType)).Where(rt => rt.Key != ReviewType.None.ToString());
-            viewModel.ReviewTypes = isInReviewView ? reviewTypes.Where(rt => rt.Key != part.ReviewType.ToString()) : reviewTypes;
+            viewModel.ReviewTypes = EnumExtensions.GetEnumNameAndDisplayNameDictionary(typeof(ReviewType)).Where(rt => rt.Key != ReviewType.None.ToString());
             viewModel.Comment = part.Comment;
         }
     }
