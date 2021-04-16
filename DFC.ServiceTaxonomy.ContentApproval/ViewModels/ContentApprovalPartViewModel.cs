@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using DFC.ServiceTaxonomy.ContentApproval.Models;
+using DFC.ServiceTaxonomy.ContentApproval.Models.Enums;
 
 namespace DFC.ServiceTaxonomy.ContentApproval.ViewModels
 {
@@ -10,7 +10,7 @@ namespace DFC.ServiceTaxonomy.ContentApproval.ViewModels
             ReviewTypes = new Dictionary<string, string>();
         }
 
-        public ContentReviewStatus? ReviewStatus { get; set; }
+        public ReviewStatus? ReviewStatus { get; set; }
         public string? Comment { get; set; }
         public string? ContentItemId { get; set; }
         public IEnumerable<KeyValuePair<string, string>> ReviewTypes { get; set; }

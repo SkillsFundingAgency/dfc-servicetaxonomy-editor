@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.ContentApproval.Indexes;
 using DFC.ServiceTaxonomy.ContentApproval.Models;
+using DFC.ServiceTaxonomy.ContentApproval.Models.Enums;
 using OrchardCore.ContentManagement;
 using OrchardCore.Contents.Services;
 using OrchardCore.Contents.ViewModels;
@@ -41,14 +42,14 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Services
                     break;
                 case DashboardItemsStatusCard.WaitingForReview:
                     filterOptions.ContentsStatus = ContentsStatus.AllVersions;
-                    query.With<ContentApprovalPartIndex>(i => i.ReviewStatus == (int?)ContentReviewStatus.ReadyForReview);
+                    query.With<ContentApprovalPartIndex>(i => i.ReviewStatus == (int?)ReviewStatus.ReadyForReview);
                     break;
                 case DashboardItemsStatusCard.InReview:
                     //todo: we'll have to filter 'will need review' items according to if there's a draft version
                     // can we do that using With<> ? or do apply custom c# filtering after FilterAsync on the items before count??
                     // or generate a sql query, but then can't reuse _defaultContentsAdminListFilter (so easily)
                     filterOptions.ContentsStatus = ContentsStatus.AllVersions;
-                    query.With<ContentApprovalPartIndex>(i => i.ReviewStatus == (int?)ContentReviewStatus.InReview);
+                    query.With<ContentApprovalPartIndex>(i => i.ReviewStatus == (int?)ReviewStatus.InReview);
                     break;
                 default:
                     throw new NotImplementedException();
@@ -75,8 +76,8 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Services
             int lastReviewType = (int)Enum.GetValues(typeof(ReviewType)).Cast<ReviewType>().Max();
 
             // assumes non-sparse enum values starting at 0!
-            counts.ReviewTypeCounts = new int[lastReviewType + 1];
-            Array.Fill(counts.ReviewTypeCounts, 0);
+            counts.SubCounts = new int[lastReviewType + 1];
+            Array.Fill(counts.SubCounts, 0);
 
             //todo: we only need to know for each type if there is >0 items, so we could use bools
             // and stop counting when we encounter 1 of each
@@ -90,7 +91,7 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Services
                 if (reviewStatus != null)
                 {
                     //todo: bounds check?
-                    ++counts.ReviewTypeCounts[(int)reviewStatus];
+                    ++counts.SubCounts[(int)reviewStatus];
                 }
             }
 
@@ -105,8 +106,12 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Services
             switch (card)
             {
                 case DashboardItemsStatusCard.InDraft:
+                    counts.Count = await GetManageContentItemCount(card);
+                    break;
                 case DashboardItemsStatusCard.Published:
                     counts.Count = await GetManageContentItemCount(card);
+                    var forcePublishedCount = await GetManageContentItemCount(card, null, true);
+                    counts.SubCounts = new[] {counts.Count, forcePublishedCount };
                     break;
                 case DashboardItemsStatusCard.WaitingForReview:
                 case DashboardItemsStatusCard.InReview:
@@ -115,7 +120,7 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Services
 
                     int[] reviewTypeCounts = await Task.WhenAll(reviewTypeCountTasks);
                     counts.Count = reviewTypeCounts[0];
-                    counts.ReviewTypeCounts = reviewTypeCounts.ToArray();
+                    counts.SubCounts = reviewTypeCounts.ToArray();
                     break;
             }
 
@@ -128,7 +133,7 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Services
 
         private async Task<int> GetManageContentItemCount(
             DashboardItemsStatusCard card,
-            ReviewType? reviewType = null)
+            ReviewType? reviewType = null, bool isForcePublished = false)
         {
             var filterOptions = new ContentOptionsViewModel();
             var query = _session.Query<ContentItem>();
@@ -140,10 +145,14 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Services
                     break;
                 case DashboardItemsStatusCard.Published:
                     filterOptions.ContentsStatus = ContentsStatus.Published;
+                    if (isForcePublished)
+                    {
+                        query.With<ContentApprovalPartIndex>(i => i.IsForcePublished);
+                    }
                     break;
                 case DashboardItemsStatusCard.WaitingForReview:
                     filterOptions.ContentsStatus = ContentsStatus.AllVersions;
-                    query.With<ContentApprovalPartIndex>(i => i.ReviewStatus == (int?)ContentReviewStatus.ReadyForReview);
+                    query.With<ContentApprovalPartIndex>(i => i.ReviewStatus == (int?)ReviewStatus.ReadyForReview);
                     if (reviewType != null)
                     {
                         query.With<ContentApprovalPartIndex>( i => i.ReviewType == (int)reviewType);
@@ -151,7 +160,7 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Services
                     break;
                 case DashboardItemsStatusCard.InReview:
                     filterOptions.ContentsStatus = ContentsStatus.AllVersions;
-                    query.With<ContentApprovalPartIndex>(i => i.ReviewStatus == (int?)ContentReviewStatus.InReview);
+                    query.With<ContentApprovalPartIndex>(i => i.ReviewStatus == (int?)ReviewStatus.InReview);
                     if (reviewType != null)
                     {
                         query.With<ContentApprovalPartIndex>( i => i.ReviewType == (int)reviewType);
