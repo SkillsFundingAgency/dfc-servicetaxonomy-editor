@@ -13,6 +13,7 @@ using DFC.ServiceTaxonomy.Taxonomies.Validation;
 using Fluid;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
 using OrchardCore.ContentManagement;
 using OrchardCore.ContentManagement.Display.ContentDisplay;
 using OrchardCore.ContentManagement.Handlers;
@@ -28,8 +29,8 @@ namespace DFC.ServiceTaxonomy.PageLocation
     {
         static Startup()
         {
-            TemplateContext.GlobalMemberAccessStrategy.Register<PageLocationPartViewModel>();
-            TemplateContext.GlobalMemberAccessStrategy.Register<PageLocationPartSettingsViewModel>();
+            TemplateOptions.Default.MemberAccessStrategy.Register<PageLocationPartViewModel>();
+            TemplateOptions.Default.MemberAccessStrategy.Register<PageLocationPartSettingsViewModel>();
         }
 
         public override void ConfigureServices(IServiceCollection services)
@@ -55,7 +56,7 @@ namespace DFC.ServiceTaxonomy.PageLocation
 
             services.AddTransient<ITaxonomyTermHandler, PageLocationTaxonomyTermHandler>();
 
-            services.AddScoped<IResourceManifestProvider, ResourceManifest>();
+            services.AddTransient<IConfigureOptions<ResourceManagementOptions>, ResourceManagementOptionsConfiguration>();
 
             services.Configure<MvcOptions>(options =>
             {

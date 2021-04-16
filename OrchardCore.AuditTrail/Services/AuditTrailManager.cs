@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
@@ -103,7 +104,9 @@ namespace OrchardCore.AuditTrail.Services
             Filters filters = null,
             AuditTrailOrderBy orderBy = AuditTrailOrderBy.DateDescending)
         {
-            var session = _session.Store.CreateSession(System.Data.IsolationLevel.ReadUncommitted);
+
+            var session = _session.Store.CreateSession();
+            
             var query = session.Query<AuditTrailEvent>();
 
             if (filters != null)
