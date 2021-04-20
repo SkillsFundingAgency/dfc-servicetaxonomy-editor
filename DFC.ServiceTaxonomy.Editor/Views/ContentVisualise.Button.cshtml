@@ -1,0 +1,63 @@
+﻿@namespace DFC.ServiceTaxonomy.Editor._Views_ContentPreview_Button
+
+@using OrchardCore.ContentManagement
+@using DFC.ServiceTaxonomy.GraphSync.Models
+@using DFC.ServiceTaxonomy.Taxonomies.Models
+@using Newtonsoft.Json.Linq
+@inject IContentManager ContentManager
+
+@{
+#nullable enable
+
+    ContentItem contentItem = Model.ContentItem;
+    string? graphSyncPartText = contentItem.Content[nameof(GraphSyncPart)]?[nameof(GraphSyncPart.Text)]?.Value;
+
+    //todo: need to support all containable items, so need to get part graph syncers to participate
+    // e.g. add GetContainingContentItem on all graph syncers, or similar
+    JToken? termPart = ((JObject) contentItem.Content)[nameof(TermPart)];
+
+    //string? containingContentItemId = null;
+    //if (termPart != null)
+    //{
+    //    containingContentItemId = (string?) termPart["TaxonomyContentItemId"];
+    //}
+
+    string? contentItemId = (termPart == null) ? contentItem.ContentItemId : (string?)termPart["TaxonomyContentItemId"];
+
+    // bit of a hack: if item is a taxonomy term, then allow the published version to be visualised
+    //todo: real fix is to ensure terms are marked as published when the taxonomy is published
+    var hasPublished = termPart != null || await ContentManager.HasPublishedVersionAsync(contentItem);
+}
+
+@if (graphSyncPartText != null)
+{
+    <div class="btn-group">
+        <button class="btn btn-info @(!Model.EditMode ? "btn-sm" : "") dropdown-toggle" type="button" id="visualiseButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            @T["Visualise"]
+        </button>
+        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="visualiseButton">
+            <a asp-action="@nameof(DFC.ServiceTaxonomy.GraphVisualiser.Controllers.VisualiseController.Viewer)"
+               asp-controller="Visualise"
+               asp-area="@typeof(DFC.ServiceTaxonomy.GraphVisualiser.Startup)!.Namespace"
+               asp-route-contentItemId="@contentItemId"
+               asp-route-graph="preview"
+               target="_blank"
+               class="dropdown-item @(!Model.EditMode ? "btn-sm" : "")">@T["Visualise draft graph"]</a>
+
+            @*asp-route-containingContentItemId="@containingContentItemId"*@
+
+            @if (hasPublished)
+            {
+                <a asp-action="@nameof(DFC.ServiceTaxonomy.GraphVisualiser.Controllers.VisualiseController.Viewer)"
+                   asp-controller="Visualise"
+                   asp-area="@typeof(DFC.ServiceTaxonomy.GraphVisualiser.Startup)!.Namespace"
+                   asp-route-contentItemId="@contentItemId"
+                   asp-route-graph="published"
+                   target="_blank"
+                   class="dropdown-item @(!Model.EditMode ? "btn-sm" : "")">@T["Visualise published graph"]</a>
+
+                @*asp-route-containingContentItemId="@containingContentItemId"*@
+            }
+        </div>
+    </div>
+}
