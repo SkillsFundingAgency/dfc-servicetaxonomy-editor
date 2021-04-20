@@ -126,11 +126,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
                 //todo: do we need each child, or can we just have a hashset of types
                 foreach (var nestedItem in contentItemIdsJArray)
                 {
-                    var contentItemId = nestedItem.Value<string>();
-                    if (!string.IsNullOrWhiteSpace(contentItemId))
-                    {
-                        await describeContentItemHelper.BuildRelationships(contentItemId, parentContext);
-                    }
+                    await describeContentItemHelper.BuildRelationships(nestedItem.Value<string>(), parentContext);
                 }
             }
         }

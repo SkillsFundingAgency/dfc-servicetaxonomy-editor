@@ -59,13 +59,9 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
                 contentItemField, context.ContentItemVersion, context.ContentManager);
 
             JObject taxonomyPartContent = taxonomyContentItem!.Content[nameof(TaxonomyPart)];
-#pragma warning disable CS8600 // Converting null literal or possible null value to non-nullable type.
             string termContentType = taxonomyPartContent[TermContentType]!.Value<string>();
-#pragma warning restore CS8600 // Converting null literal or possible null value to non-nullable type.
 
-#pragma warning disable CS8604 // Possible null reference argument.
             string termRelationshipType = TermRelationshipType(termContentType);
-#pragma warning restore CS8604 // Possible null reference argument.
 
             //todo requires 'picked' part has a graph sync part
             // add to docs & handle picked part not having graph sync part or throw exception
@@ -130,13 +126,9 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
                 taxonomyFieldSettings.TaxonomyContentItemId);
 
             JObject taxonomyPartContent = taxonomyContentItem!.Content[nameof(TaxonomyPart)];
-#pragma warning disable CS8600 // Converting null literal or possible null value to non-nullable type.
             string termContentType = taxonomyPartContent[TermContentType]!.Value<string>();
-#pragma warning restore CS8600 // Converting null literal or possible null value to non-nullable type.
 
-#pragma warning disable CS8604 // Possible null reference argument.
             string termRelationshipType = TermRelationshipType(termContentType);
-#pragma warning restore CS8604 // Possible null reference argument.
 
             //todo: split into stefull and stateless and put both in the context
             // then can stop stateful contenttype being reset
@@ -213,13 +205,9 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
                 parentContext.ContentManager);
 
             JObject taxonomyPartContent = taxonomyContentItem!.Content[nameof(TaxonomyPart)];
-#pragma warning disable CS8600 // Converting null literal or possible null value to non-nullable type.
             string termContentType = taxonomyPartContent[TermContentType]!.Value<string>();
-#pragma warning restore CS8600 // Converting null literal or possible null value to non-nullable type.
 
-#pragma warning disable CS8604 // Possible null reference argument.
             string termRelationshipType = TermRelationshipType(termContentType);
-#pragma warning restore CS8604 // Possible null reference argument.
 
             //todo: auto collect all taxonomy terms? or go through build relationships?
 
