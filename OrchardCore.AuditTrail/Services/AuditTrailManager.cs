@@ -107,6 +107,7 @@ namespace OrchardCore.AuditTrail.Services
 
             var session = _session.Store.CreateSession();
             
+            //var session = _session.Store.CreateSession(System.Data.IsolationLevel.ReadUncommitted);
             var query = session.Query<AuditTrailEvent>();
 
             if (filters != null)
