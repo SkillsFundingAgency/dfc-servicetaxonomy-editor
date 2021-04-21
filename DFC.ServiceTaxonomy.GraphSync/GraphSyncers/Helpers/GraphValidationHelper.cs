@@ -152,7 +152,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
                 return (bothEmpty, bothEmpty?"":"content multiline string was null, but node property array had value(s)");
             }
 
-            string[] contentStrings = contentMultilineString.Value<string>().Split("\r\n");
+            string[] contentStrings = contentMultilineString.Value<string>()?.Split("\r\n") ?? new string[0];
 
             if (contentStrings.Count() != nodeStrings.Count())
             {

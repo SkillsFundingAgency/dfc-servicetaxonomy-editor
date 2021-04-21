@@ -14,9 +14,9 @@ namespace DFC.ServiceTaxonomy.Taxonomies.Liquid
 {
     public class TaxonomyTermsFilter : ILiquidFilter
     {
-        public async ValueTask<FluidValue> ProcessAsync(FluidValue input, FilterArguments arguments, TemplateContext ctx)
+        public async ValueTask<FluidValue> ProcessAsync(FluidValue input, FilterArguments arguments, LiquidTemplateContext context)
         {
-            if (!ctx.AmbientValues.TryGetValue("Services", out var services))
+            if (!context.AmbientValues.TryGetValue("Services", out var services))
             {
                 throw new ArgumentException("Services missing while invoking 'taxonomy_terms'");
             }
@@ -68,7 +68,7 @@ namespace DFC.ServiceTaxonomy.Taxonomies.Liquid
                 }
             }
 
-            return FluidValue.Create(terms);
+            return FluidValue.Create(terms, new TemplateOptions());
         }
     }
 }

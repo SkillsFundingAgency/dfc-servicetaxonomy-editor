@@ -19,7 +19,7 @@ namespace DFC.ServiceTaxonomy.UnpublishLater
     {
         static Startup()
         {
-            TemplateContext.GlobalMemberAccessStrategy.Register<UnpublishLaterPartViewModel>();
+            TemplateOptions.Default.MemberAccessStrategy.Register<UnpublishLaterPartViewModel>();
         }
 
         public override void ConfigureServices(IServiceCollection services)

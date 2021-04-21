@@ -171,7 +171,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers
         // so we handle them at the base context level by cancelling the session
         private void Cancel(ContentContextBase context)
         {
-            _session.Cancel();
+            _session.CancelAsync().Wait();
         }
 
 #pragma warning restore S1172
@@ -179,7 +179,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers
         private void Cancel(PublishContentContext context)
         {
             // the oc code checks Cancel in the context, but the item is still published (unpublished?) when you set it
-            _session.Cancel();
+            _session.CancelAsync().Wait();
             context.Cancel = true;
         }
     }
