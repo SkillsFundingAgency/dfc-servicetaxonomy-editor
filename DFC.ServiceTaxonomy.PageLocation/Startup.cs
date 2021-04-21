@@ -56,7 +56,7 @@ namespace DFC.ServiceTaxonomy.PageLocation
 
             services.AddTransient<ITaxonomyTermHandler, PageLocationTaxonomyTermHandler>();
 
-            services.AddScoped<IConfigureOptions<ResourceManagementOptions>, ResourceManagementOptionsConfiguration>();
+            services.AddTransient<IConfigureOptions<ResourceManagementOptions>, ResourceManagementOptionsConfiguration>();
 
             services.Configure<MvcOptions>(options =>
             {

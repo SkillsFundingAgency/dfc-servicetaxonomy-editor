@@ -11,7 +11,7 @@ namespace DFC.ServiceTaxonomy.Theme
     {
         public override void ConfigureServices(IServiceCollection services)
         {
-            services.AddScoped<IConfigureOptions<ResourceManagementOptions>, ResourceManagementOptionsConfiguration>();
+            services.AddTransient<IConfigureOptions<ResourceManagementOptions>, ResourceManagementOptionsConfiguration>();
 
             //todo: use extension?
             services.Configure<MvcOptions>(options =>

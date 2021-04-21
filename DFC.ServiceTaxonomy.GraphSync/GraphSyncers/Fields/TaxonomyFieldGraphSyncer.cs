@@ -59,8 +59,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
                 contentItemField, context.ContentItemVersion, context.ContentManager);
 
             JObject taxonomyPartContent = taxonomyContentItem!.Content[nameof(TaxonomyPart)];
-            string termContentType = taxonomyPartContent[TermContentType]?.Value<string>() ?? string.Empty;
-            if (!string.IsNullOrWhiteSpace(termContentType))
+            string? termContentType = taxonomyPartContent[TermContentType]?.Value<string>();
+            if (!string.IsNullOrEmpty(termContentType))
             {
                 string termRelationshipType = TermRelationshipType(termContentType);
 
