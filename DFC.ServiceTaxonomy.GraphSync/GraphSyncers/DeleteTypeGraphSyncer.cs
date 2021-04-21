@@ -49,7 +49,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             catch
             {
                 // this forces a rollback of the current OC db transaction
-                await _session.CancelAsync();
+                _session.Cancel();
                 throw;
             }
         }

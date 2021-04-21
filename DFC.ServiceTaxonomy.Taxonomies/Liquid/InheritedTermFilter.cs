@@ -12,9 +12,9 @@ namespace DFC.ServiceTaxonomy.Taxonomies.Liquid
 {
     public class InheritedTermsFilter : ILiquidFilter
     {
-        public async ValueTask<FluidValue> ProcessAsync(FluidValue input, FilterArguments arguments, LiquidTemplateContext context)
+        public async ValueTask<FluidValue> ProcessAsync(FluidValue input, FilterArguments arguments, TemplateContext ctx)
         {
-            if (!context.AmbientValues.TryGetValue("Services", out var services))
+            if (!ctx.AmbientValues.TryGetValue("Services", out var services))
             {
                 throw new ArgumentException("Services missing while invoking 'inherited_terms'");
             }
@@ -53,7 +53,7 @@ namespace DFC.ServiceTaxonomy.Taxonomies.Liquid
 
             TaxonomyOrchardHelperExtensions.FindTermHierarchy(taxonomy.Content.TaxonomyPart.Terms as JArray, termContentItemId, terms);
 
-            return FluidValue.Create(terms, context.Options);
+            return FluidValue.Create(terms);
         }
     }
 }

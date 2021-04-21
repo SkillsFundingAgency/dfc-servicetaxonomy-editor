@@ -19,12 +19,11 @@ namespace DFC.ServiceTaxonomy.UnpublishLater
     {
         static Startup()
         {
-            TemplateOptions.Default.MemberAccessStrategy.Register<UnpublishLaterPartViewModel>();
+            TemplateContext.GlobalMemberAccessStrategy.Register<UnpublishLaterPartViewModel>();
         }
 
         public override void ConfigureServices(IServiceCollection services)
         {
-            
             services
                 .AddContentPart<UnpublishLaterPart>()
                 .UseDisplayDriver<UnpublishLaterPartDisplayDriver>()

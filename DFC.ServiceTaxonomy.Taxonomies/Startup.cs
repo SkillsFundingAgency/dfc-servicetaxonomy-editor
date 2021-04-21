@@ -49,9 +49,10 @@ namespace DFC.ServiceTaxonomy.Taxonomies
         {
             // Registering both field types and shape types are necessary as they can
             // be accessed from inner properties.
-            TemplateOptions.Default.MemberAccessStrategy.Register<TaxonomyField>();
-            TemplateOptions.Default.MemberAccessStrategy.Register<DisplayTaxonomyFieldViewModel>();
-            TemplateOptions.Default.MemberAccessStrategy.Register<DisplayTaxonomyFieldTagsViewModel>();
+
+            TemplateContext.GlobalMemberAccessStrategy.Register<TaxonomyField>();
+            TemplateContext.GlobalMemberAccessStrategy.Register<DisplayTaxonomyFieldViewModel>();
+            TemplateContext.GlobalMemberAccessStrategy.Register<DisplayTaxonomyFieldTagsViewModel>();
         }
 
         public Startup(IOptions<AdminOptions> adminOptions)

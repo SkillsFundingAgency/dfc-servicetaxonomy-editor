@@ -93,7 +93,7 @@ namespace DFC.ServiceTaxonomy.PageLocation.Handlers
 
                         if (!await _syncOrchestrator.Update(publishedPage, draftPage))
                         {
-                            await _session.CancelAsync();
+                            _session.Cancel();
                         }
                     }
                     else
@@ -102,17 +102,17 @@ namespace DFC.ServiceTaxonomy.PageLocation.Handlers
 
                         if (page.Published && !await _syncOrchestrator.Publish(page))
                         {
-                            await _session.CancelAsync();
+                            _session.Cancel();
                         }
                         else if (!page.Published && !await _syncOrchestrator.SaveDraft(page))
                         {
-                            await _session.CancelAsync();
+                            _session.Cancel();
                         }
                     }
                 }
                 catch (Exception)
                 {
-                    await _session.CancelAsync();
+                    _session.Cancel();
                     return false;
                 }
             }
