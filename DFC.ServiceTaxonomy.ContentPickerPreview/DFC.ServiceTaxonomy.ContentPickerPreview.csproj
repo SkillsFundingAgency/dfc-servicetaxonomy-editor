@@ -33,9 +33,4 @@
     </PackageReference>
   </ItemGroup>
 
-  <ItemGroup>
-    <Content Include="Views\ContentPickerField-Preview.Edit.cshtml" />
-    <Content Include="Views\ContentPickerField-Preview.Option.cshtml" />
-  </ItemGroup>
-
 </Project>
