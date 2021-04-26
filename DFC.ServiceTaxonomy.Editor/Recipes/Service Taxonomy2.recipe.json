@@ -4262,6 +4262,14 @@
                     {
                         "place": "Parts:0#Content;1",
                         "displayType": null,
+                        "differentiator": "Page-ShowBreadcrumb",
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null
+                    },
+                    {
+                        "place": "Parts:1#Content;1",
+                        "displayType": null,
                         "differentiator": "Page-ShowHeroBanner",
                         "alternates": null,
                         "wrappers": null,
@@ -4270,7 +4278,7 @@
                 ],
                 "HtmlField_Edit": [
                     {
-                        "place": "Parts:1#Content;1",
+                        "place": "Parts:2#Content;1",
                         "displayType": null,
                         "differentiator": "Page-Herobanner",
                         "alternates": null,
@@ -4291,7 +4299,7 @@
                     },
                     {
                         "place": "Parts:10#How to become;0",
-                        "differentiator": "JobProfile-HtbFurtherInformation",
+                        "differentiator": "JobProfile-HtbFurtherInformation"
                     },
                     {
                         "place": "Parts:2#What it takes;2",
