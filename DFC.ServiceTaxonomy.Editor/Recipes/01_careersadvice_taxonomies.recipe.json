@@ -1,6 +1,6 @@
 {
-    "name": "01_careersadvice_sharedcontent",
-    "displayName": "01_careersadvice_sharedcontent",
+    "name": "01_careersadvice_taxonomies",
+    "displayName": "01_careersadvice_taxonomies",
     "description": "",
     "author": "",
     "website": "",
@@ -20,7 +20,7 @@
                     "Latest": true,
                     "Published": true,
                     "ModifiedUtc": "2021-04-07T08:08:10.1154261Z",
-                    "PublishedUtc": "2021-04-07T08:08:10.1449518Z",
+                    "PublishedUtc": "2021-04-16T16:21:49.446353Z",
                     "CreatedUtc": "2020-06-16T13:16:27.1642618Z",
                     "Owner": "admin",
                     "Author": "admin",
@@ -308,7 +308,39 @@
                                         },
                                         "@WeldedPartSettings": {
                                             "TermPart": {}
-                                        }
+                                        },
+                                        "Terms": [
+                                            {
+                                                "ContentItemId": "44caqga4ypenf7455y8ykynj5x",
+                                                "ContentItemVersionId": null,
+                                                "ContentType": "PageLocation",
+                                                "DisplayText": "interview-advice",
+                                                "Latest": false,
+                                                "Published": true,
+                                                "ModifiedUtc": "2021-04-16T16:21:49.4151081Z",
+                                                "PublishedUtc": null,
+                                                "CreatedUtc": null,
+                                                "Owner": null,
+                                                "Author": "admin",
+                                                "TitlePart": {
+                                                    "Title": "interview-advice"
+                                                },
+                                                "PageLocation": {
+                                                    "BreadcrumbText": {
+                                                        "Text": "Interview advice"
+                                                    }
+                                                },
+                                                "GraphSyncPart": {
+                                                    "Text": "<<contentapiprefix>>/pagelocation/723f73fa-c289-42a5-84fa-c14a4670e96c"
+                                                },
+                                                "TermPart": {
+                                                    "TaxonomyContentItemId": "4eembshqzx66drajtdten34tc8"
+                                                },
+                                                "@WeldedPartSettings": {
+                                                    "TermPart": {}
+                                                }
+                                            }
+                                        ]
                                     }
                                 ]
                             }

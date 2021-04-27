@@ -13,30 +13,6 @@
       "name": "Content",
       "data": [
         {
-          "ContentItemId": "46hvhgdpvg51r7w0cejd6q28xv",
-          "ContentItemVersionId": "42t5s7mm5p33tzg42cvenmzdd4",
-          "ContentType": "SharedContent",
-          "DisplayText": "Other opportunities extended careers advice",
-          "Latest": true,
-          "Published": true,
-          "ModifiedUtc": "2021-04-08T10:38:54.6317599Z",
-          "PublishedUtc": "2021-04-08T10:38:55.3169014Z",
-          "CreatedUtc": "2021-04-07T10:32:30.9611217Z",
-          "Owner": "4s69p8vzbjd91zftn97xtkjhxp",
-          "Author": "admin",
-          "SharedContent": {
-            "Content": {
-              "Html": "<div class=\"app-related-items\"><h2 class=\"govuk-heading-m\">Other opportunities</h2><p class=\"govuk-body\">You could look at what <a class=\"govuk-link\" href=\"/careers-advice/career-choices-at-18\">work and study options</a> will be available to you at 18.</p><p class=\"govuk-body\">You could also consider&nbsp;<a class=\"govuk-link\" href=\"/careers-advice/advice-on-volunteering\">volunteering</a> to strengthen your job and study opportunities.</p></div>"
-            }
-          },
-          "GraphSyncPart": {
-            "Text": "<<contentapiprefix>>/sharedcontent/f6c2aa0d-d59e-443d-8ca5-04f499966156"
-          },
-          "TitlePart": {
-            "Title": "Other opportunities extended careers advice"
-          }
-        },
-        {
           "ContentItemId": "4yw42egc3y5na4gya26sfy3qd5",
           "ContentItemVersionId": "4y2k4425dgw1mw74hh028jevdk",
           "ContentType": "SharedContent",
@@ -58,54 +34,6 @@
           },
           "TitlePart": {
             "Title": "Other opportunities for post 18 options"
-          }
-        },
-        {
-          "ContentItemId": "4bgr5xwt1dceb4j8pd3nfws74p",
-          "ContentItemVersionId": "41xpjfdsr0j1arqj7y0vv5en55",
-          "ContentType": "SharedContent",
-          "DisplayText": "Exam retakes",
-          "Latest": true,
-          "Published": true,
-          "ModifiedUtc": "2021-04-08T15:52:27.377671Z",
-          "PublishedUtc": "2021-04-08T15:52:27.4007672Z",
-          "CreatedUtc": "2021-04-08T15:52:27.377671Z",
-          "Owner": "4s69p8vzbjd91zftn97xtkjhxp",
-          "Author": "admin",
-          "SharedContent": {
-            "Content": {
-              "Html": "\n<section id=\"exam-retakes\">\n    <div class=\"govuk-!-margin-top-6 govuk-!-margin-bottom-6\">\n        <h3 class=\"govuk-heading-m\">Exam retakes</h3>\n        <ul class=\"govuk-list\">\n            <li class=\"govuk-!-margin-top-3\"><span class=\"govuk-secondary-colour\">Description:&nbsp;</span>If you didn't get the results you wanted, you can resit some of your courses or sign up for some new qualifications.</li>\n            <li><span class=\"govuk-secondary-colour\">Location: </span>School sixth form, sixth form college or further education college</li>\n            <li><span class=\"govuk-secondary-colour\">Duration:&nbsp;</span>1 year</li>\n            <li><span class=\"govuk-secondary-colour\">Entry requirements:&nbsp;</span>16+</li>\n            <li><span class=\"govuk-secondary-colour\">Qualifications: </span><a class=\"govuk-link\" href=\"https://www.gov.uk/what-different-qualification-levels-mean/list-of-qualification-levels\">Level 2 and 3 qualifications</a> like GCSE, A level and BTEC</li>\n            <li><span class=\"govuk-secondary-colour\">Leads to:&nbsp;</span>Higher level or degree apprenticeship, further education, higher education, work </li>\n            <li><span class=\"govuk-secondary-colour\">Find out more: </span> Speak to your school or college careers leader or careers adviser or our careers advisers\n                \n            </li>\n        </ul>\n    </div>\n</section>"
-            }
-          },
-          "GraphSyncPart": {
-            "Text": "<<contentapiprefix>>/sharedcontent/19f4c003-9574-40a5-b2e2-e511d7461ca6"
-          },
-          "TitlePart": {
-            "Title": "Exam retakes"
-          }
-        },
-        {
-          "ContentItemId": "45hmjm243bsbjvt9qrwpg5aemz",
-          "ContentItemVersionId": "4d0jhekv0g2ffr7chd8q7mcz5j",
-          "ContentType": "SharedContent",
-          "DisplayText": "Combine work and study",
-          "Latest": true,
-          "Published": true,
-          "ModifiedUtc": "2021-04-08T15:56:03.0973964Z",
-          "PublishedUtc": "2021-04-08T15:56:03.1105508Z",
-          "CreatedUtc": "2021-04-08T15:56:03.0973964Z",
-          "Owner": "4s69p8vzbjd91zftn97xtkjhxp",
-          "Author": "admin",
-          "SharedContent": {
-            "Content": {
-              "Html": "<p></p><hr class=\"govuk-section-break govuk-section-break--m govuk-section-break--visible\"><p></p>\n<h2 class=\"govuk-heading-l\">Combine work and study</h2>\n<section id=\"traineeships\">\n    \n    <div class=\"govuk-!-margin-top-6 govuk-!-margin-bottom-6\">\n        <h3 class=\"govuk-heading-m\">Traineeships</h3>\n        <ul class=\"govuk-list\">\n            <li class=\"govuk-!-margin-top-3\"><span class=\"govuk-secondary-colour\">Description:&nbsp;</span>A course that includes a work placement that will get you ready for an apprenticeship or a job. You’ll get work experience and some help to apply for your next steps. You\n                can also improve your maths and English skills. You’ll get work experience and some help to apply for whatever you do next.</li>\n            <li><span class=\"govuk-secondary-colour\">Location:</span>&nbsp;You’ll spend a minimum of 70 hours in a work placement with the rest of your time in college or a training centre</li>\n            <li><span class=\"govuk-secondary-colour\">Duration:&nbsp;</span>6 weeks to 1 year</li>\n            <li><span class=\"govuk-secondary-colour\">Entry requirements:&nbsp;</span> You need to be aged between 16 to 24 or up to 25 with an\n                <a class=\"govuk-link\" href=\"https://www.gov.uk/children-with-special-educational-needs/extra-SEN-help\">Education Health and Care Plan</a>&nbsp;with no higher than a <a class=\"govuk-link\" href=\"https://www.gov.uk/what-different-qualification-levels-mean/list-of-qualification-levels#level-3\"> level 3 qualification </a></li>\n            <li><span class=\"govuk-secondary-colour\">Qualifications:&nbsp;</span>English, maths, digital and work-related qualifications</li>\n            <li><span class=\"govuk-secondary-colour\">Leads to:&nbsp;</span>Apprenticeship, further education, work </li>\n            <li><span class=\"govuk-secondary-colour\">Find out more:</span>\n                <ul>\n                    <li>ask your local college or training provider</li>\n                    <li>speak to your school careers adviser</li>\n                    <li>speak to your Jobcentre Plus adviser if you receive benefits</li>\n                    <li><a class=\"govuk-link\" href=\"https://www.gov.uk/find-traineeship\">find a traineeship</a> in your area</li>\n                </ul>\n            </li>\n        </ul>\n    </div>\n</section>\n\n<section id=\"supported-internships\">\n    <hr class=\"govuk-section-break govuk-section-break--visible\">\n    <div class=\"govuk-!-margin-top-6 govuk-!-margin-bottom-6\">\n        <h3 class=\"govuk-heading-m\">Supported internships</h3>\n        <ul class=\"govuk-list\">\n            <li class=\"govuk-!-margin-top-3\"><span class=\"govuk-secondary-colour\">Description:&nbsp;</span>Supported internships are for young people with learning difficulties or learning disabilities, who need extra support to get a job. </li>\n            <li><span class=\"govuk-secondary-colour\">Location:&nbsp;</span>You'll spend most of your time on placements with an employer, learning skills for work. You'll also get help from a tutor and a job coach in college or with a specialist provider.</li>\n            <li><span class=\"govuk-secondary-colour\">Duration:</span> A minimum of 6 months</li>\n            <li><span class=\"govuk-secondary-colour\">Entry requirements:&nbsp;</span>Aged 16-24 with an <a class=\"govuk-link\" href=\"https://www.gov.uk/children-with-special-educational-needs/extra-SEN-help\">Education Health and Care Plan</a></li>\n            <li><span class=\"govuk-secondary-colour\">Qualifications:&nbsp;</span>GCSE English and maths</li>\n            <li><span class=\"govuk-secondary-colour\">Leads to:&nbsp;</span>Work, traineeship, apprenticeship</li>\n            <li><span class=\"govuk-secondary-colour\">Find out more:</span>\n                <ul>\n                    <li>from your school or local college</li>\n                    <li>speak to your social worker or a transition worker</li>\n                    <li>speak to your Jobcentre Plus adviser</li>\n                </ul>\n            </li>\n        </ul>\n    </div>\n</section>\n\n<section id=\"apprenticeships\">\n    <hr class=\"govuk-section-break govuk-section-break--visible\">\n    <div class=\"govuk-!-margin-top-6 govuk-!-margin-bottom-6\">\n        <h3 class=\"govuk-heading-m\">Apprenticeships</h3>\n        <ul class=\"govuk-list\">\n            <li class=\"govuk-!-margin-top-3\"><span class=\"govuk-secondary-colour\">Description:&nbsp;</span>Intermediate, advanced higher and degree apprenticeships combine practical on-the-job skills training with off-the-job learning. You'll get training that is relevant to your job\n                and be paid a salary. Start at a level to suit you, with support if you have special needs or a disability.</li>\n            <li><span class=\"govuk-secondary-colour\">Location:&nbsp;</span>You’ll spend 80% of your time in the workplace and 20% off-the-job with some study in a college, training centre or Institute of Technology (IoT)</li>\n            <li><span class=\"govuk-secondary-colour\">Duration: A&nbsp;</span>minimum of 1 year</li>\n            <li><span class=\"govuk-secondary-colour\">Entry requirements:&nbsp;</span> Will be dependent on the industry, job role and apprenticeship level</li>\n            <li><span class=\"govuk-secondary-colour\">Qualifications: </span>apprenticeship certificate, diploma, degree and masters depending on level</li>\n            <li><span class=\"govuk-secondary-colour\">Leads to: </span>Work, next level of apprenticeship, further education, higher education</li>\n            <li><span class=\"govuk-secondary-colour\">Find out more:</span> <a class=\"govuk-link\" href=\"https://www.apprenticeships.gov.uk\">Gov.uk information about Apprenticeships</a></li>\n        </ul>\n    </div>\n</section>\n\n<section id=\"school-leavers\">\n    <hr class=\"govuk-section-break govuk-section-break--visible\">\n    <div class=\"govuk-!-margin-top-6 govuk-!-margin-bottom-6\">\n        <h3 class=\"govuk-heading-m\">School leaver schemes</h3>\n        <ul class=\"govuk-list\">\n            <li class=\"govuk-!-margin-top-3\"><span class=\"govuk-secondary-colour\">Description:&nbsp;</span>A chance to learn and train with a large company while earning a wage. Offered in sectors like accountancy, engineering, finance, IT, law, leisure and retail. Similar to graduate\n                employment schemes run over a longer period of time.</li>\n            <li><span class=\"govuk-secondary-colour\">Location:&nbsp;</span>You'll often rotate between different locations with the same company to get experience and it can include distance learning or time in college or university</li>\n            <li><span class=\"govuk-secondary-colour\">Duration: </span>3 to 7 years</li>\n            <li><span class=\"govuk-secondary-colour\">Entry requirements:&nbsp;</span>Usually high grade A levels or equivalent and a keen interest in the sector you want to work in</li>\n            <li><span class=\"govuk-secondary-colour\">Qualifications: </span>A university degree and/or professional qualification</li>\n            <li><span class=\"govuk-secondary-colour\">Leads to: </span>Professional employment</li>\n            <li><span class=\"govuk-secondary-colour\">Find out more:</span> Directly from company websites </li>\n        </ul>\n    </div>\n</section>"
-            }
-          },
-          "GraphSyncPart": {
-            "Text": "<<contentapiprefix>>/sharedcontent/81782d06-277f-471a-a36c-46b076e407e3"
-          },
-          "TitlePart": {
-            "Title": "Combine work and study"
           }
         },
         {
@@ -133,20 +61,119 @@
           }
         },
         {
+          "ContentItemId": "4bgr5xwt1dceb4j8pd3nfws74p",
+          "ContentItemVersionId": "4azjqfn0qj2wqxadq5svc1kcw2",
+          "ContentType": "SharedContent",
+          "DisplayText": "Exam retakes",
+          "Latest": true,
+          "Published": true,
+          "ModifiedUtc": "2021-04-13T12:46:54.6322034Z",
+          "PublishedUtc": "2021-04-13T12:46:55.4723764Z",
+          "CreatedUtc": "2021-04-08T15:52:27.377671Z",
+          "Owner": "4s69p8vzbjd91zftn97xtkjhxp",
+          "Author": "admin",
+          "SharedContent": {
+            "Content": {
+              "Html": "\n<section id=\"exam-retakes\">\n<div class=\"govuk-!-margin-top-6 govuk-!-margin-bottom-6\">\n<h3 class=\"govuk-heading-m\">Exam retakes</h3>\n<ul class=\"govuk-list\">\n    <li class=\"govuk-!-margin-top-3\"><span class=\"govuk-secondary-colour\">Description:&nbsp;</span>If you didn't get the results you wanted, you can resit some of your courses or sign up for some new qualifications.</li>\n    <li><span class=\"govuk-secondary-colour\">Location: </span>School sixth form, sixth form college or further education college</li>\n    <li><span class=\"govuk-secondary-colour\">Duration:&nbsp;</span>1 year</li>\n    <li><span class=\"govuk-secondary-colour\">Entry requirements:&nbsp;</span>16+</li>\n    <li><span class=\"govuk-secondary-colour\">Qualifications: </span><a class=\"govuk-link\" href=\"https://www.gov.uk/what-different-qualification-levels-mean/list-of-qualification-levels\">Level 2 and 3 qualifications</a> like GCSE, A level and BTEC</li>\n    <li><span class=\"govuk-secondary-colour\">Leads to:&nbsp;</span>Higher level or degree apprenticeship, further education, higher education, work </li>\n    <li><span class=\"govuk-secondary-colour\">Find out more: </span> Speak to your school or college careers leader or careers adviser or our careers advisers</li>\n</ul>\n</div>\n</section>"
+            }
+          },
+          "GraphSyncPart": {
+            "Text": "<<contentapiprefix>>/sharedcontent/19f4c003-9574-40a5-b2e2-e511d7461ca6"
+          },
+          "TitlePart": {
+            "Title": "Exam retakes"
+          }
+        },
+        {
+          "ContentItemId": "45hmjm243bsbjvt9qrwpg5aemz",
+          "ContentItemVersionId": "4ks8vmhxydrhayxzx58h9253nx",
+          "ContentType": "SharedContent",
+          "DisplayText": "Combine work and study",
+          "Latest": true,
+          "Published": true,
+          "ModifiedUtc": "2021-04-13T12:50:02.3939359Z",
+          "PublishedUtc": "2021-04-13T12:50:02.4244676Z",
+          "CreatedUtc": "2021-04-08T15:56:03.0973964Z",
+          "Owner": "4s69p8vzbjd91zftn97xtkjhxp",
+          "Author": "admin",
+          "SharedContent": {
+            "Content": {
+              "Html": "<p></p><hr class=\"govuk-section-break govuk-section-break--m govuk-section-break--visible\"><p></p>\n<h2 class=\"govuk-heading-l\">Combine work and study</h2>\n<section id=\"traineeships\">\n<div class=\"govuk-!-margin-top-6 govuk-!-margin-bottom-6\">\n<h3 class=\"govuk-heading-m\">Traineeships</h3>\n<ul class=\"govuk-list\">\n    <li class=\"govuk-!-margin-top-3\"><span class=\"govuk-secondary-colour\">Description:&nbsp;</span>A course that includes a work placement that will get you ready for an apprenticeship or a job. You’ll get work experience and some help to apply for your next steps. You\n    can also improve your maths and English skills. You’ll get work experience and some help to apply for whatever you do next.</li>\n    <li><span class=\"govuk-secondary-colour\">Location:</span>&nbsp;You’ll spend a minimum of 70 hours in a work placement with the rest of your time in college or a training centre</li>\n    <li><span class=\"govuk-secondary-colour\">Duration:&nbsp;</span>6 weeks to 1 year</li>\n    <li><span class=\"govuk-secondary-colour\">Entry requirements:&nbsp;</span> You need to be aged between 16 to 24 or up to 25 with an\n    <a class=\"govuk-link\" href=\"https://www.gov.uk/children-with-special-educational-needs/extra-SEN-help\">Education Health and Care Plan</a>&nbsp;with no higher than a <a class=\"govuk-link\" href=\"https://www.gov.uk/what-different-qualification-levels-mean/list-of-qualification-levels#level-3\"> level 3 qualification </a></li>\n    <li><span class=\"govuk-secondary-colour\">Qualifications:&nbsp;</span>English, maths, digital and work-related qualifications</li>\n    <li><span class=\"govuk-secondary-colour\">Leads to:&nbsp;</span>Apprenticeship, further education, work </li>\n    <li><span class=\"govuk-secondary-colour\">Find out more:</span>\n    <ul>\n        <li>ask your local college or training provider</li>\n        <li>speak to your school careers adviser</li>\n        <li>speak to your Jobcentre Plus adviser if you receive benefits</li>\n        <li><a class=\"govuk-link\" href=\"https://www.gov.uk/find-traineeship\">find a traineeship</a> in your area</li>\n    </ul>\n    </li>\n</ul>\n</div>\n</section>\n<section id=\"supported-internships\"><hr class=\"govuk-section-break govuk-section-break--visible\">\n<div class=\"govuk-!-margin-top-6 govuk-!-margin-bottom-6\">\n<h3 class=\"govuk-heading-m\">Supported internships</h3>\n<ul class=\"govuk-list\">\n    <li class=\"govuk-!-margin-top-3\"><span class=\"govuk-secondary-colour\">Description:&nbsp;</span>Supported internships are for young people with learning difficulties or learning disabilities, who need extra support to get a job. </li>\n    <li><span class=\"govuk-secondary-colour\">Location:&nbsp;</span>You'll spend most of your time on placements with an employer, learning skills for work. You'll also get help from a tutor and a job coach in college or with a specialist provider.</li>\n    <li><span class=\"govuk-secondary-colour\">Duration:</span> A minimum of 6 months</li>\n    <li><span class=\"govuk-secondary-colour\">Entry requirements:&nbsp;</span>Aged 16-24 with an <a class=\"govuk-link\" href=\"https://www.gov.uk/children-with-special-educational-needs/extra-SEN-help\">Education Health and Care Plan</a></li>\n    <li><span class=\"govuk-secondary-colour\">Qualifications:&nbsp;</span>GCSE English and maths</li>\n    <li><span class=\"govuk-secondary-colour\">Leads to:&nbsp;</span>Work, traineeship, apprenticeship</li>\n    <li><span class=\"govuk-secondary-colour\">Find out more:</span>\n    <ul>\n        <li>from your school or local college</li>\n        <li>speak to your social worker or a transition worker</li>\n        <li>speak to your Jobcentre Plus adviser</li>\n    </ul>\n    </li>\n</ul>\n</div>\n</section>\n<section id=\"apprenticeships\"><hr class=\"govuk-section-break govuk-section-break--visible\">\n<div class=\"govuk-!-margin-top-6 govuk-!-margin-bottom-6\">\n<h3 class=\"govuk-heading-m\">Apprenticeships</h3>\n<ul class=\"govuk-list\">\n    <li class=\"govuk-!-margin-top-3\"><span class=\"govuk-secondary-colour\">Description:&nbsp;</span>Intermediate, advanced higher and degree apprenticeships combine practical on-the-job skills training with off-the-job learning. You'll get training that is relevant to your job\n    and be paid a salary. Start at a level to suit you, with support if you have special needs or a disability.</li>\n    <li><span class=\"govuk-secondary-colour\">Location:&nbsp;</span>You’ll spend 80% of your time in the workplace and 20% off-the-job with some study in a college, training centre or Institute of Technology (IoT)</li>\n    <li><span class=\"govuk-secondary-colour\">Duration: A&nbsp;</span>minimum of 1 year</li>\n    <li><span class=\"govuk-secondary-colour\">Entry requirements:&nbsp;</span> Will be dependent on the industry, job role and apprenticeship level</li>\n    <li><span class=\"govuk-secondary-colour\">Qualifications: </span>apprenticeship certificate, diploma, degree and masters depending on level</li>\n    <li><span class=\"govuk-secondary-colour\">Leads to: </span>Work, next level of apprenticeship, further education, higher education</li>\n    <li><span class=\"govuk-secondary-colour\">Find out more:</span> <a class=\"govuk-link\" href=\"https://www.apprenticeships.gov.uk\">Gov.uk information about Apprenticeships</a></li>\n</ul>\n</div>\n</section>\n<section id=\"school-leavers\"><hr class=\"govuk-section-break govuk-section-break--visible\">\n<div class=\"govuk-!-margin-top-6 govuk-!-margin-bottom-6\">\n<h3 class=\"govuk-heading-m\">School leaver schemes</h3>\n<ul class=\"govuk-list\">\n    <li class=\"govuk-!-margin-top-3\"><span class=\"govuk-secondary-colour\">Description:&nbsp;</span>A chance to learn and train with a large company while earning a wage. Offered in sectors like accountancy, engineering, finance, IT, law, leisure and retail. Similar to graduate\n    employment schemes run over a longer period of time.</li>\n    <li><span class=\"govuk-secondary-colour\">Location:&nbsp;</span>You'll often rotate between different locations with the same company to get experience and it can include distance learning or time in college or university</li>\n    <li><span class=\"govuk-secondary-colour\">Duration: </span>3 to 7 years</li>\n    <li><span class=\"govuk-secondary-colour\">Entry requirements:&nbsp;</span>Usually high grade A levels or equivalent and a keen interest in the sector you want to work in</li>\n    <li><span class=\"govuk-secondary-colour\">Qualifications: </span>A university degree and/or professional qualification</li>\n    <li><span class=\"govuk-secondary-colour\">Leads to: </span>Professional employment</li>\n    <li><span class=\"govuk-secondary-colour\">Find out more:</span> Directly from company websites </li>\n</ul>\n</div>\n</section>"
+            }
+          },
+          "GraphSyncPart": {
+            "Text": "<<contentapiprefix>>/sharedcontent/81782d06-277f-471a-a36c-46b076e407e3"
+          },
+          "TitlePart": {
+            "Title": "Combine work and study"
+          }
+        },
+        {
+          "ContentItemId": "46hvhgdpvg51r7w0cejd6q28xv",
+          "ContentItemVersionId": "4gar65v1gxxqf51zwg8g33cb4h",
+          "ContentType": "SharedContent",
+          "DisplayText": "Other opportunities for post 16 options",
+          "Latest": true,
+          "Published": true,
+          "ModifiedUtc": "2021-04-19T12:31:05.7655832Z",
+          "PublishedUtc": "2021-04-19T12:31:05.7779116Z",
+          "CreatedUtc": "2021-04-07T10:32:30.9611217Z",
+          "Owner": "4s69p8vzbjd91zftn97xtkjhxp",
+          "Author": "admin",
+          "SharedContent": {
+            "Content": {
+              "Html": "<div class=\"app-related-items\"><h2 class=\"govuk-heading-m\">Other opportunities</h2><p class=\"govuk-body\">You could look at what <a class=\"govuk-link\" href=\"/careers-advice/career-choices-at-18\">work and study options</a> will be available to you at 18.</p><p class=\"govuk-body\">You could also consider&nbsp;<a class=\"govuk-link\" href=\"/careers-advice/advice-on-volunteering\">volunteering</a> to strengthen your job and study opportunities.</p></div>"
+            },
+            "HTML1": {
+              "Html": ""
+            }
+          },
+          "GraphSyncPart": {
+            "Text": "<<contentapiprefix>>/sharedcontent/f6c2aa0d-d59e-443d-8ca5-04f499966156"
+          },
+          "TitlePart": {
+            "Title": "Other opportunities for post 16 options"
+          }
+        },
+        {
+          "ContentItemId": "4ec1ya4zq1vv0wgmwskcbnc9ma",
+          "ContentItemVersionId": "4qn8xnmj3qq7kwj6yrn8nswrwf",
+          "ContentType": "SharedContent",
+          "DisplayText": "Other opportunities for Ways to develop skills",
+          "Latest": true,
+          "Published": true,
+          "ModifiedUtc": "2021-04-19T12:36:11.477049Z",
+          "PublishedUtc": "2021-04-19T12:36:11.4974909Z",
+          "CreatedUtc": "2021-04-19T12:36:11.477049Z",
+          "Owner": "4s69p8vzbjd91zftn97xtkjhxp",
+          "Author": "admin",
+          "SharedContent": {
+            "Content": {
+              "Html": "<div class=\"govuk-!-margin-top-7\">\n    <h2 class=\"govuk-heading-m\">Other opportunities</h2>\n    <ul class=\"govuk-list\">\n        <li><a class=\"govuk-link\" href=\"/find-a-course/search\">Search other courses</a></li>\n        <li><a class=\"govuk-link\" href=\"/find-a-course/where-to-find-free-online-learning\">Where to find other online learning</a></li>\n    </ul>\n</div>"
+            }
+          },
+          "GraphSyncPart": {
+            "Text": "<<contentapiprefix>>/sharedcontent/41368510-6deb-4b1d-8fbb-bc3b332069e3"
+          },
+          "TitlePart": {
+            "Title": "Other opportunities for Ways to develop skills"
+          }
+        },
+        {
           "ContentItemId": "48c0q34718gv86pmqhjh2mq05z",
-          "ContentItemVersionId": "4gm4csc7ehkz237vzjs0ns1dxn",
+          "ContentItemVersionId": "49a3mr06zjfnxze6wk3pz275x8",
           "ContentType": "SharedContent",
           "DisplayText": "Do you need more help",
           "Latest": true,
           "Published": true,
-          "ModifiedUtc": "2021-04-08T17:02:48.0623299Z",
-          "PublishedUtc": "2021-04-08T17:02:48.0722233Z",
+          "ModifiedUtc": "2021-04-19T13:24:03.9424274Z",
+          "PublishedUtc": "2021-04-19T13:24:03.9676103Z",
           "CreatedUtc": "2021-04-08T17:02:48.0623299Z",
           "Owner": "4s69p8vzbjd91zftn97xtkjhxp",
           "Author": "admin",
           "SharedContent": {
             "Content": {
-              "Html": "<div class=\"app-related-items\">\n    <h2 class=\"govuk-heading-m\">Do you need more help?</h2>\n    <p class=\"govuk-body-m\">Our advisers could help you with career issues face regarding a disability or health condition and put you in touch with many other organisations in your area.</p>\n    <p class=\"govuk-body-m\" style=\"margin-bottom: 0\"><span class=\"govuk-body govuk-!-font-weight-bold\">Call</span> 0800 100 900 or <a class=\"govuk-link\" href=\"/webchat/chat/\" rel=\"external\" target=\"'_blank'\">use webchat</a></p>\n    <p class=\"govuk-caption-m\">8am to 10pm, 7 days a week</p>\n</div>"
+              "Html": "<div class=\"app-related-items\">\n    <h2 class=\"govuk-heading-m\">Do you need more help?</h2>\n    <p class=\"govuk-body-m\">Our advisers could help you with career issues face regarding a disability or health condition and put you in touch with many other organisations in your area.</p>\n    <p class=\"govuk-body\"><span class=\"govuk-body govuk-!-font-weight-bold\">Call</span> 0800 100 900 or <a class=\"govuk-link\" href=\"/webchat/chat/\" rel=\"external\" target=\"'_blank'\">use webchat</a></p>\n    <ul class=\"govuk-list\">\n        <li>8am - 8pm Monday - Friday </li>\n        <li>10am - 5pm Saturday </li>\n    </ul>\n</div>"
             }
           },
           "GraphSyncPart": {
@@ -157,27 +184,27 @@
           }
         },
         {
-          "ContentItemId": "42wca34q3qdpdr1jkmz9f3w4cb",
-          "ContentItemVersionId": "4p4px5fm5f4c34tbrq8qvxatcp",
+          "ContentItemId": "4a7wtf4zn9j510mbbxcvca995y",
+          "ContentItemVersionId": "4pwy2jemsxwfh2bmgeqg2p55n3",
           "ContentType": "SharedContent",
-          "DisplayText": "Other opportunities",
+          "DisplayText": "Support during Covid-19 for online networking",
           "Latest": true,
           "Published": true,
-          "ModifiedUtc": "2021-04-09T07:44:36.2868111Z",
-          "PublishedUtc": "2021-04-09T07:44:36.3121847Z",
-          "CreatedUtc": "2020-07-02T08:55:15.4641925Z",
-          "Owner": "admin",
+          "ModifiedUtc": "2021-04-19T14:11:25.6641364Z",
+          "PublishedUtc": "2021-04-19T14:11:25.7030093Z",
+          "CreatedUtc": "2021-04-19T14:11:25.6641364Z",
+          "Owner": "4s69p8vzbjd91zftn97xtkjhxp",
           "Author": "admin",
           "SharedContent": {
             "Content": {
-              "Html": "<div class=\"govuk-!-margin-top-7\">\n    <h2 class=\"govuk-heading-m\">Other opportunities</h2>\n    <ul class=\"govuk-list\">\n        <li><a class=\"govuk-link\" href=\"/find-a-course/search\">Search other courses </a></li>\n        <li><a class=\"govuk-link\" href=\"/find-a-course/where-to-find-free-online-learning\">Where to find other online learning</a></li>\n        <li><a class=\"govuk-link\" href=\"https://nationalcareers.service.gov.uk/careers-advice/ways-to-develop-skills/\">Other ways to develop skills</a></li>\n    </ul>\n</div>"
+              "Html": "<div class=\"app-related-items\">\n        <h2 class=\"govuk-heading-m\">Support during Covid-19<br></h2>\n        <ul class=\"govuk-list\">\n                <li><a class=\"govuk-link\" href=\"/careers-advice/networking#online-networking\">Online networking</a></li>\n        </ul>\n</div>"
             }
           },
           "GraphSyncPart": {
-            "Text": "<<contentapiprefix>>/sharedcontent/5cb44bb4-7996-46cf-998a-897b429a6a82"
+            "Text": "<<contentapiprefix>>/sharedcontent/c2950f97-2090-42ed-8385-1f073dc23b7d"
           },
           "TitlePart": {
-            "Title": "Other opportunities"
+            "Title": "Support during Covid-19 for online networking"
           }
         }
       ]
