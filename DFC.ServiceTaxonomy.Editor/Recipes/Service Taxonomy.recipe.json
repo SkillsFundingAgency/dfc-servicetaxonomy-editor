@@ -757,6 +757,21 @@
                                 },
                                 "ContentIndexSettings": {}
                             }
+                        },
+                        {
+                            "FieldName": "BooleanField",
+                            "Name": "ShowBreadcrumb",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Show breadcrumb",
+                                    "Editor": "Switch"
+                                },
+                                "BooleanFieldSettings": {
+                                    "Label": "Show breadcrumb",
+                                    "DefaultValue": true
+                                },
+                                "ContentIndexSettings": {}
+                            }
                         }
                     ]
                 },
@@ -1010,6 +1025,14 @@
                     {
                         "place": "Parts:0#Content;1",
                         "displayType": null,
+                        "differentiator": "Page-ShowBreadcrumb",
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null
+                    },
+                    {
+                        "place": "Parts:1#Content;1",
+                        "displayType": null,
                         "differentiator": "Page-ShowHeroBanner",
                         "alternates": null,
                         "wrappers": null,
@@ -1018,7 +1041,7 @@
                 ],
                 "HtmlField_Edit": [
                     {
-                        "place": "Parts:1#Content;1",
+                        "place": "Parts:2#Content;1",
                         "displayType": null,
                         "differentiator": "Page-Herobanner",
                         "alternates": null,

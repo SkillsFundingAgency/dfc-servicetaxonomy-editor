@@ -1,10 +1,11 @@
-﻿using OrchardCore.ContentManagement;
+﻿using DFC.ServiceTaxonomy.ContentApproval.Models.Enums;
+using OrchardCore.ContentManagement;
 
 namespace DFC.ServiceTaxonomy.ContentApproval.Models
 {
     public class ContentApprovalPart : ContentPart
     {
-        public ContentReviewStatus ReviewStatus { get; set; }
+        public ReviewStatus ReviewStatus { get; set; }
         public ReviewType ReviewType { get; set; }
         public bool IsForcePublished { get; set; }
         public string? Comment { get; set; }
