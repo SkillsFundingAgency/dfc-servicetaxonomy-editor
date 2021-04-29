@@ -10,8 +10,11 @@ using OrchardCore.Modules.Manifest;
     Dependencies = new[]
     {
         "OrchardCore.AdminDashboard",
-        "OrchardCore.Contents",
         "OrchardCore.ContentManagement",
+        "OrchardCore.ContentPreview",
+        "OrchardCore.Contents",
+        "OrchardCore.ContentTypes.Abstractions",
+        "OrchardCore.ContentDisplayManagement",
         "DFC.ServiceTaxonomy.Content"
     }
 )]
