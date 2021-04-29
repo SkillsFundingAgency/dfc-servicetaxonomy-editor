@@ -5,11 +5,10 @@ using Neo4j.Driver;
 using Newtonsoft.Json.Linq;
 using OrchardCore.Forms.Models;
 
-
-namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
+namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts.Form
 {
-#pragma warning disable S1481 // need the variable for the new using syntax, see https://github.com/dotnet/csharplang/issues/2235
-    class FormPartGraphSyncer : ContentPartGraphSyncer
+
+   public class FormPartGraphSyncer : ContentPartGraphSyncer
     {
         public override string PartName => nameof(FormPart);
         private static readonly Func<string, string> _formFieldsPropertyNameTransform = n => $"form_{n}";
@@ -18,8 +17,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
         private const string EncTypePropertyName = "EncType";
         private const string EnableAntiForgeryTokenPropertyName = "EnableAntiForgeryToken";
         private const string WorkflowTypeIdPropertyName = "WorkflowTypeId";
-
-
 
         public override async Task AddSyncComponents(JObject content, IGraphMergeContext context)
         {
