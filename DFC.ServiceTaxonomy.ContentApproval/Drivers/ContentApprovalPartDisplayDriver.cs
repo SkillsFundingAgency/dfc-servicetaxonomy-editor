@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Localization;
 using OrchardCore.ContentManagement.Display.ContentDisplay;
 using OrchardCore.ContentManagement.Display.Models;
+using OrchardCore.ContentPreview;
 using OrchardCore.DisplayManagement.ModelBinding;
 using OrchardCore.DisplayManagement.Notify;
 using OrchardCore.DisplayManagement.Views;
@@ -121,6 +122,12 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Drivers
 
         public override async Task<IDisplayResult?> UpdateAsync(ContentApprovalPart part, IUpdateModel updater, UpdatePartEditorContext context)
         {
+            var isPreview = _httpContextAccessor.HttpContext?.Features.Get<ContentPreviewFeature>()?.Previewing ?? false;
+            if(isPreview)
+            {
+                return await EditAsync(part, context);
+            }
+
             var viewModel = new ContentApprovalPartViewModel();
 
             var currentUser = _httpContextAccessor.HttpContext?.User;
