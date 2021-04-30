@@ -51,7 +51,16 @@ namespace DFC.ServiceTaxonomy.Taxonomies.Indexing
                     }
 
                     // Lazy initialization because of ISession cyclic dependency
-                    _contentDefinitionManager = _contentDefinitionManager ?? _serviceProvider.GetRequiredService<IContentDefinitionManager>();
+                    try
+                    {
+                        // work-around for exception from accessing a disposed opject (_contentDefinitionManager is not null but has been disposed)
+                        _contentDefinitionManager = _contentDefinitionManager ?? _serviceProvider.GetRequiredService<IContentDefinitionManager>();
+                    }
+                    catch
+                    {
+                        // catch the accessing disposed object and get the service again
+                        _serviceProvider.GetRequiredService<IContentDefinitionManager>();
+                    }
 
                     // Search for Taxonomy fields
                     var contentTypeDefinition = _contentDefinitionManager.GetTypeDefinition(contentItem.ContentType);
