@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using GetJobProfiles.Importers;
+using GetJobProfiles.Builders;
 
 namespace GetJobProfiles.Models.Recipe.Fields.Factories
 {
@@ -15,7 +15,7 @@ namespace GetJobProfiles.Models.Recipe.Fields.Factories
         public ContentPicker Create(string socCode)
         {
             if (!_socCodeDictionary.TryGetValue(socCode, out string contentItemId))
-                contentItemId = _socCodeDictionary[SocCodeConverter.UnknownSocCode];
+                contentItemId = _socCodeDictionary[SocCodeContentItemBuilder.UnknownSocCode];
 
             return new ContentPicker {ContentItemIds = new[] {contentItemId}};
         }

@@ -1,0 +1,3409 @@
+{
+  "name": "ONetOccupationalCodes1_9fe00965-66da-4be5-b015-af3e164dc7f0",
+  "displayName": "ONetOccupationalCodes1_9fe00965-66da-4be5-b015-af3e164dc7f0",
+  "description": "",
+  "author": "",
+  "website": "",
+  "version": "",
+  "issetuprecipe": false,
+  "categories": "",
+  "tags": [],
+  "steps": [
+    {
+      "name": "CSharpContent",
+      "data": [
+  {
+    "TitlePart": {
+      "Title": "19-1013.00"
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/onetoccupationalcode/935f97c2-56dc-479a-a7c0-0d334d3428ec"
+    },
+    "ONetOccupationalCode": {
+      "ONetSkills": {
+        "ContentItemIds": [
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Speaking, Verbal Abilities\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Analytical Thinking\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Initiative\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Quantitative Abilities, Mathematics Knowledge\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Reading Comprehension\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Cooperation\u0022)\u00BB"
+        ]
+      }
+    },
+    "ContentItemId": "41ypvaagp8z5rwhj340wdt525j",
+    "ContentItemVersionId": "4cnkr686hhe1pzt2c77wtx14xt",
+    "ContentType": "ONetOccupationalCode",
+    "DisplayText": "19-1013.00",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-03-19T17:00:54.8467600Z",
+    "PublishedUtc": "2021-03-19T17:00:54.8467600Z",
+    "CreatedUtc": "2021-03-19T17:00:54.8467600Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "19-3022.00"
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/onetoccupationalcode/66bb5bb7-0c35-4880-b80c-1bd3ae5fa7ae"
+    },
+    "ONetOccupationalCode": {
+      "ONetSkills": {
+        "ContentItemIds": [
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Initiative\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Analytical Thinking\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Adaptability/Flexibility\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Cooperation\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Quantitative Abilities, Mathematics Knowledge\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Speaking, Verbal Abilities\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Reading Comprehension\u0022)\u00BB"
+        ]
+      }
+    },
+    "ContentItemId": "4s19yac7889cbzz5t2xcgtw0nq",
+    "ContentItemVersionId": "4dntjhpxtdy446y8p3herr7axt",
+    "ContentType": "ONetOccupationalCode",
+    "DisplayText": "19-3022.00",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-03-19T17:00:54.8467600Z",
+    "PublishedUtc": "2021-03-19T17:00:54.8467600Z",
+    "CreatedUtc": "2021-03-19T17:00:54.8467600Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "13-1041.01"
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/onetoccupationalcode/a1b74cb2-3781-4f76-9a45-d5671c68d494"
+    },
+    "ONetOccupationalCode": {
+      "ONetSkills": {
+        "ContentItemIds": [
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Quantitative Abilities, Mathematics Knowledge\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Reading Comprehension\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Analytical Thinking\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Self Control\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Stress Tolerance\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Speaking, Verbal Abilities\u0022)\u00BB"
+        ]
+      }
+    },
+    "ContentItemId": "4q8yreey0xtpw3srn064vt3acr",
+    "ContentItemVersionId": "4dbee00856ey72jtbv07g2h2x8",
+    "ContentType": "ONetOccupationalCode",
+    "DisplayText": "13-1041.01",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-03-19T17:00:54.8467600Z",
+    "PublishedUtc": "2021-03-19T17:00:54.8467600Z",
+    "CreatedUtc": "2021-03-19T17:00:54.8467600Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "19-2043.00"
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/onetoccupationalcode/be0f6934-fc3b-4b5e-8c1b-a8808c33b14d"
+    },
+    "ONetOccupationalCode": {
+      "ONetSkills": {
+        "ContentItemIds": [
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Initiative\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Speaking, Verbal Abilities\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Quantitative Abilities, Mathematics Knowledge\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Cooperation\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Analytical Thinking\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Reading Comprehension\u0022)\u00BB"
+        ]
+      }
+    },
+    "ContentItemId": "48bmmb7yk244jra2kestmedn55",
+    "ContentItemVersionId": "4n365wrd7at8b4w2c1cvzyr4d9",
+    "ContentType": "ONetOccupationalCode",
+    "DisplayText": "19-2043.00",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-03-19T17:00:54.8467600Z",
+    "PublishedUtc": "2021-03-19T17:00:54.8467600Z",
+    "CreatedUtc": "2021-03-19T17:00:54.8467600Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "51-9023.00"
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/onetoccupationalcode/b635f762-7633-485b-97b5-e4076c17581b"
+    },
+    "ONetOccupationalCode": {
+      "ONetSkills": {
+        "ContentItemIds": [
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Self Control\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Fine Manipulative Abilities\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Cooperation\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Verbal Abilities\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Concern for Others\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Stress Tolerance\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Reading Comprehension\u0022)\u00BB"
+        ]
+      }
+    },
+    "ContentItemId": "47twt00rbraff40emdrsb743cd",
+    "ContentItemVersionId": "4yzb6k11p9gsa54m93nf2674mq",
+    "ContentType": "ONetOccupationalCode",
+    "DisplayText": "51-9023.00",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-03-19T17:00:54.8467600Z",
+    "PublishedUtc": "2021-03-19T17:00:54.8467600Z",
+    "CreatedUtc": "2021-03-19T17:00:54.8467600Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "39-9031.00"
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/onetoccupationalcode/3972869a-6451-4187-a012-634f81bc7b5c"
+    },
+    "ONetOccupationalCode": {
+      "ONetSkills": {
+        "ContentItemIds": [
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Fine Manipulative Abilities\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Concern for Others\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Cooperation\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Self Control\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Speaking, Verbal Abilities\u0022)\u00BB"
+        ]
+      }
+    },
+    "ContentItemId": "48vaew55pkzejv4aeya2yhq4wz",
+    "ContentItemVersionId": "4dqx1sx6a7g4s3a1wbearwjwc3",
+    "ContentType": "ONetOccupationalCode",
+    "DisplayText": "39-9031.00",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-03-19T17:00:54.8467600Z",
+    "PublishedUtc": "2021-03-19T17:00:54.8467600Z",
+    "CreatedUtc": "2021-03-19T17:00:54.8467600Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "13-2021.01"
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/onetoccupationalcode/da0ea420-8e6e-4b8c-a91b-dcd396958627"
+    },
+    "ONetOccupationalCode": {
+      "ONetSkills": {
+        "ContentItemIds": [
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Speaking, Verbal Abilities\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Reading Comprehension\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Self Control\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Quantitative Abilities, Mathematics Knowledge\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Analytical Thinking\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Stress Tolerance\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Cooperation\u0022)\u00BB"
+        ]
+      }
+    },
+    "ContentItemId": "4dxcf0be1p414zsf0rxhbf3351",
+    "ContentItemVersionId": "46q9mxra5svjbz1vxqfntng55z",
+    "ContentType": "ONetOccupationalCode",
+    "DisplayText": "13-2021.01",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-03-19T17:00:54.8467600Z",
+    "PublishedUtc": "2021-03-19T17:00:54.8467600Z",
+    "CreatedUtc": "2021-03-19T17:00:54.8467600Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "29-2056.00"
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/onetoccupationalcode/ce88973a-f049-40e9-be67-4136b934b665"
+    },
+    "ONetOccupationalCode": {
+      "ONetSkills": {
+        "ContentItemIds": [
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Quantitative Abilities, Mathematics Knowledge\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Fine Manipulative Abilities\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Initiative\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Stress Tolerance\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Self Control\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Cooperation\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Reading Comprehension\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Speaking, Verbal Abilities\u0022)\u00BB"
+        ]
+      }
+    },
+    "ContentItemId": "4t3mtq6gw9rh432qz2wqva8vc8",
+    "ContentItemVersionId": "4zhz6mtp6b91qxvz17xv30q7cn",
+    "ContentType": "ONetOccupationalCode",
+    "DisplayText": "29-2056.00",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-03-19T17:00:54.8467600Z",
+    "PublishedUtc": "2021-03-19T17:00:54.8467600Z",
+    "CreatedUtc": "2021-03-19T17:00:54.8467600Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "29-1125.02"
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/onetoccupationalcode/f0eecea0-0d39-42d0-a1c4-1d22dcf2ab43"
+    },
+    "ONetOccupationalCode": {
+      "ONetSkills": {
+        "ContentItemIds": [
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Fine Manipulative Abilities\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Concern for Others\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Adaptability/Flexibility\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Cooperation\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Self Control\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Speaking, Verbal Abilities\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Reading Comprehension\u0022)\u00BB"
+        ]
+      }
+    },
+    "ContentItemId": "46asdm6s595rf2j01bwwkyy4wg",
+    "ContentItemVersionId": "4hftyx7k8gxsx6yv2mpbdsn0mn",
+    "ContentType": "ONetOccupationalCode",
+    "DisplayText": "29-1125.02",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-03-19T17:00:54.8467600Z",
+    "PublishedUtc": "2021-03-19T17:00:54.8467600Z",
+    "CreatedUtc": "2021-03-19T17:00:54.8467600Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "17-3029.01"
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/onetoccupationalcode/7d7875f6-61dd-4ede-b3b0-d3074fed17de"
+    },
+    "ONetOccupationalCode": {
+      "ONetSkills": {
+        "ContentItemIds": [
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Cooperation\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Verbal Abilities\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Quantitative Abilities, Mathematics Knowledge\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Adaptability/Flexibility\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Analytical Thinking\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Self Control\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Reading Comprehension\u0022)\u00BB"
+        ]
+      }
+    },
+    "ContentItemId": "4bwx57140hwnx0dq2qx6nhpdn1",
+    "ContentItemVersionId": "46c182d01gwhk02nxbeatgamxm",
+    "ContentType": "ONetOccupationalCode",
+    "DisplayText": "17-3029.01",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-03-19T17:00:54.8467600Z",
+    "PublishedUtc": "2021-03-19T17:00:54.8467600Z",
+    "CreatedUtc": "2021-03-19T17:00:54.8467600Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "43-3051.00"
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/onetoccupationalcode/57cfec7d-d834-4666-988b-bfeec78bef57"
+    },
+    "ONetOccupationalCode": {
+      "ONetSkills": {
+        "ContentItemIds": [
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Concern for Others\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Speaking, Verbal Abilities\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Quantitative Abilities, Mathematics Knowledge\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Self Control\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Reading Comprehension\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Fine Manipulative Abilities\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Cooperation\u0022)\u00BB"
+        ]
+      }
+    },
+    "ContentItemId": "4wr7eha592qwpwkgqf9n4b3kc5",
+    "ContentItemVersionId": "4jjxcwym4vjs0s7s603ye4xknq",
+    "ContentType": "ONetOccupationalCode",
+    "DisplayText": "43-3051.00",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-03-19T17:00:54.8467600Z",
+    "PublishedUtc": "2021-03-19T17:00:54.8467600Z",
+    "CreatedUtc": "2021-03-19T17:00:54.8467600Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "19-2021.00"
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/onetoccupationalcode/4efdc17d-d05a-4ded-96e3-794e85bec896"
+    },
+    "ONetOccupationalCode": {
+      "ONetSkills": {
+        "ContentItemIds": [
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Quantitative Abilities, Mathematics Knowledge\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Analytical Thinking\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Speaking, Verbal Abilities\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Reading Comprehension\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Stress Tolerance\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Cooperation\u0022)\u00BB"
+        ]
+      }
+    },
+    "ContentItemId": "4s7d95vgbfzeqr3kpxgphpt5cb",
+    "ContentItemVersionId": "48dv86m6kjvja0wb053z74645e",
+    "ContentType": "ONetOccupationalCode",
+    "DisplayText": "19-2021.00",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-03-19T17:00:54.8467600Z",
+    "PublishedUtc": "2021-03-19T17:00:54.8467600Z",
+    "CreatedUtc": "2021-03-19T17:00:54.8467600Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "29-1081.00"
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/onetoccupationalcode/38d350dc-e704-4fda-8771-fbd24c760d37"
+    },
+    "ONetOccupationalCode": {
+      "ONetSkills": {
+        "ContentItemIds": [
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Self Control\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Concern for Others\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Speaking, Verbal Abilities\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Fine Manipulative Abilities\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Initiative\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Reading Comprehension\u0022)\u00BB"
+        ]
+      }
+    },
+    "ContentItemId": "46ab29vkvcxyh4vp1c7qqdh0xf",
+    "ContentItemVersionId": "47g0ksyc4xezbtvqf7erkge1w1",
+    "ContentType": "ONetOccupationalCode",
+    "DisplayText": "29-1081.00",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-03-19T17:00:54.8467600Z",
+    "PublishedUtc": "2021-03-19T17:00:54.8467600Z",
+    "CreatedUtc": "2021-03-19T17:00:54.8467600Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "51-4192.00"
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/onetoccupationalcode/b19b085d-0126-4445-94b1-0bd8948784a5"
+    },
+    "ONetOccupationalCode": {
+      "ONetSkills": {
+        "ContentItemIds": [
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Fine Manipulative Abilities\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Verbal Abilities\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Initiative\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Stress Tolerance\u0022)\u00BB"
+        ]
+      }
+    },
+    "ContentItemId": "4zk8b78d5bdtw2y0sqmq35aymg",
+    "ContentItemVersionId": "4y8xvpvzcwvpwxxv55890thkck",
+    "ContentType": "ONetOccupationalCode",
+    "DisplayText": "51-4192.00",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-03-19T17:00:54.8467600Z",
+    "PublishedUtc": "2021-03-19T17:00:54.8467600Z",
+    "CreatedUtc": "2021-03-19T17:00:54.8467600Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "29-2091.00"
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/onetoccupationalcode/415e99b7-8955-424e-bcba-3a2b34843585"
+    },
+    "ONetOccupationalCode": {
+      "ONetSkills": {
+        "ContentItemIds": [
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Reading Comprehension\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Concern for Others\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Speaking, Verbal Abilities\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Self Control\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Initiative\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Fine Manipulative Abilities\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Cooperation\u0022)\u00BB"
+        ]
+      }
+    },
+    "ContentItemId": "4e3dpgcpep45wwvdp8w62dd6wd",
+    "ContentItemVersionId": "4smzkc44gtsx8zbsjnndfdcm5n",
+    "ContentType": "ONetOccupationalCode",
+    "DisplayText": "29-2091.00",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-03-19T17:00:54.8467600Z",
+    "PublishedUtc": "2021-03-19T17:00:54.8467600Z",
+    "CreatedUtc": "2021-03-19T17:00:54.8467600Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "51-4012.00"
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/onetoccupationalcode/de1899bd-b11d-4cf3-9495-47b1d4ac3bc4"
+    },
+    "ONetOccupationalCode": {
+      "ONetSkills": {
+        "ContentItemIds": [
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Analytical Thinking\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Quantitative Abilities, Mathematics Knowledge\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Verbal Abilities\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Reading Comprehension\u0022)\u00BB"
+        ]
+      }
+    },
+    "ContentItemId": "4kf1my4r2dr08xgjcrz5z8d5xj",
+    "ContentItemVersionId": "4bd2vm09g4gjs5jpx0e98c1ac8",
+    "ContentType": "ONetOccupationalCode",
+    "DisplayText": "51-4012.00",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-03-19T17:00:54.8467600Z",
+    "PublishedUtc": "2021-03-19T17:00:54.8467600Z",
+    "CreatedUtc": "2021-03-19T17:00:54.8467600Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "31-2011.00"
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/onetoccupationalcode/27240876-15db-4827-9d70-ce7610612a23"
+    },
+    "ONetOccupationalCode": {
+      "ONetSkills": {
+        "ContentItemIds": [
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Concern for Others\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Cooperation\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Fine Manipulative Abilities\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Adaptability/Flexibility\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Self Control\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Reading Comprehension\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Speaking, Verbal Abilities\u0022)\u00BB"
+        ]
+      }
+    },
+    "ContentItemId": "4s8zenw3334zcvwanvfg8kwxn8",
+    "ContentItemVersionId": "4dmkhzx72psm0r1tqqajvm74da",
+    "ContentType": "ONetOccupationalCode",
+    "DisplayText": "31-2011.00",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-03-19T17:00:54.8467600Z",
+    "PublishedUtc": "2021-03-19T17:00:54.8467600Z",
+    "CreatedUtc": "2021-03-19T17:00:54.8467600Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "27-2023.00"
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/onetoccupationalcode/89a9ef7b-2e90-411e-ae9c-69c9bb75e3e4"
+    },
+    "ONetOccupationalCode": {
+      "ONetSkills": {
+        "ContentItemIds": [
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Cooperation\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Stress Tolerance\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Reading Comprehension\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Self Control\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Speaking, Verbal Abilities\u0022)\u00BB"
+        ]
+      }
+    },
+    "ContentItemId": "4889vt1ypcqdx21ztwhb20k1nc",
+    "ContentItemVersionId": "40hjzwynqyz2g56368kpj1y2xs",
+    "ContentType": "ONetOccupationalCode",
+    "DisplayText": "27-2023.00",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-03-19T17:00:54.8467600Z",
+    "PublishedUtc": "2021-03-19T17:00:54.8467600Z",
+    "CreatedUtc": "2021-03-19T17:00:54.8467600Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "33-3051.01"
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/onetoccupationalcode/7df51644-74b7-4cc6-b9ce-75e1bb6506eb"
+    },
+    "ONetOccupationalCode": {
+      "ONetSkills": {
+        "ContentItemIds": [
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Stress Tolerance\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Concern for Others\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Fine Manipulative Abilities\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Speaking, Verbal Abilities\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Self Control\u0022)\u00BB"
+        ]
+      }
+    },
+    "ContentItemId": "4xgevrthafgr60kaat6mrefz5w",
+    "ContentItemVersionId": "4kj790gtraebr1e1chep38t15z",
+    "ContentType": "ONetOccupationalCode",
+    "DisplayText": "33-3051.01",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-03-19T17:00:54.8467600Z",
+    "PublishedUtc": "2021-03-19T17:00:54.8467600Z",
+    "CreatedUtc": "2021-03-19T17:00:54.8467600Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "49-9064.00"
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/onetoccupationalcode/4443a99f-d94a-4483-97a1-b04fae25ee2e"
+    },
+    "ONetOccupationalCode": {
+      "ONetSkills": {
+        "ContentItemIds": [
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Cooperation\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Analytical Thinking\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Verbal Abilities\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Fine Manipulative Abilities\u0022)\u00BB"
+        ]
+      }
+    },
+    "ContentItemId": "4v95hjjmj8pam05r9qjk27qawn",
+    "ContentItemVersionId": "44gt1bfb75gxnzkr4jnxawc8dr",
+    "ContentType": "ONetOccupationalCode",
+    "DisplayText": "49-9064.00",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-03-19T17:00:54.8467600Z",
+    "PublishedUtc": "2021-03-19T17:00:54.8467600Z",
+    "CreatedUtc": "2021-03-19T17:00:54.8467600Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "41-9022.00"
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/onetoccupationalcode/04969f05-78b5-4578-a2cc-f518444ca9f8"
+    },
+    "ONetOccupationalCode": {
+      "ONetSkills": {
+        "ContentItemIds": [
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Stress Tolerance\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Quantitative Abilities, Mathematics Knowledge\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Self Control\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Reading Comprehension\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Speaking, Verbal Abilities\u0022)\u00BB"
+        ]
+      }
+    },
+    "ContentItemId": "4g92fd8ajrgvh2etn1wpzcdkm2",
+    "ContentItemVersionId": "4p9sf07fzm1xz50jtm0sa1kq5c",
+    "ContentType": "ONetOccupationalCode",
+    "DisplayText": "41-9022.00",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-03-19T17:00:54.8467600Z",
+    "PublishedUtc": "2021-03-19T17:00:54.8467600Z",
+    "CreatedUtc": "2021-03-19T17:00:54.8467600Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "53-1021.01"
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/onetoccupationalcode/e1a48fca-2b6e-4d33-950f-702114142322"
+    },
+    "ONetOccupationalCode": {
+      "ONetSkills": {
+        "ContentItemIds": [
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Self Control\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Quantitative Abilities, Mathematics Knowledge\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Adaptability/Flexibility\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Cooperation\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Speaking, Verbal Abilities\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Reading Comprehension\u0022)\u00BB"
+        ]
+      }
+    },
+    "ContentItemId": "44g2fpfwty6yfw6mks0hrsr8w9",
+    "ContentItemVersionId": "4gppeyj1yh93kre5sxtemnyknc",
+    "ContentType": "ONetOccupationalCode",
+    "DisplayText": "53-1021.01",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-03-19T17:00:54.8467600Z",
+    "PublishedUtc": "2021-03-19T17:00:54.8467600Z",
+    "CreatedUtc": "2021-03-19T17:00:54.8467600Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "27-3042.00"
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/onetoccupationalcode/4e92c862-e595-442b-837e-9bb28b166700"
+    },
+    "ONetOccupationalCode": {
+      "ONetSkills": {
+        "ContentItemIds": [
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Speaking, Verbal Abilities\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Reading Comprehension\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Self Control\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Cooperation\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Fine Manipulative Abilities\u0022)\u00BB"
+        ]
+      }
+    },
+    "ContentItemId": "41bh4q6b7k1fayg5yy0xt5rgdk",
+    "ContentItemVersionId": "4t34hyf189xg0ysarq94h7s4c6",
+    "ContentType": "ONetOccupationalCode",
+    "DisplayText": "27-3042.00",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-03-19T17:00:54.8467600Z",
+    "PublishedUtc": "2021-03-19T17:00:54.8467600Z",
+    "CreatedUtc": "2021-03-19T17:00:54.8467600Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "43-4051.03"
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/onetoccupationalcode/14ad0ee0-a058-4cea-a368-104a72df1bf3"
+    },
+    "ONetOccupationalCode": {
+      "ONetSkills": {
+        "ContentItemIds": [
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Reading Comprehension\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Stress Tolerance\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Self Control\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Concern for Others\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Speaking, Verbal Abilities\u0022)\u00BB"
+        ]
+      }
+    },
+    "ContentItemId": "4wn9aj1e4cx5t5w4bmw6ywbmmq",
+    "ContentItemVersionId": "4hkfah8zs55pryjzjzjyc9fndg",
+    "ContentType": "ONetOccupationalCode",
+    "DisplayText": "43-4051.03",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-03-19T17:00:54.8467600Z",
+    "PublishedUtc": "2021-03-19T17:00:54.8467600Z",
+    "CreatedUtc": "2021-03-19T17:00:54.8467600Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "17-3021.00"
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/onetoccupationalcode/a7857c6b-4587-4e69-a86f-6710c3428b22"
+    },
+    "ONetOccupationalCode": {
+      "ONetSkills": {
+        "ContentItemIds": [
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Cooperation\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Fine Manipulative Abilities\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Adaptability/Flexibility\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Initiative\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Reading Comprehension\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Speaking, Verbal Abilities\u0022)\u00BB"
+        ]
+      }
+    },
+    "ContentItemId": "4emkd04b7v50q096wxxpv438d7",
+    "ContentItemVersionId": "4dyh7tyy23183rhp3ykts1gb51",
+    "ContentType": "ONetOccupationalCode",
+    "DisplayText": "17-3021.00",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-03-19T17:00:54.8467600Z",
+    "PublishedUtc": "2021-03-19T17:00:54.8467600Z",
+    "CreatedUtc": "2021-03-19T17:00:54.8467600Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "17-2141.00"
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/onetoccupationalcode/91a122ac-c928-48f5-b8e1-81a29ea906e2"
+    },
+    "ONetOccupationalCode": {
+      "ONetSkills": {
+        "ContentItemIds": [
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Analytical Thinking\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Verbal Abilities\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Quantitative Abilities, Mathematics Knowledge\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Adaptability/Flexibility\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Reading Comprehension\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Cooperation\u0022)\u00BB"
+        ]
+      }
+    },
+    "ContentItemId": "4thrt54m3nymgrh2y164j7yt43",
+    "ContentItemVersionId": "4s4qte8kfv9kmw9aarjzxt1e53",
+    "ContentType": "ONetOccupationalCode",
+    "DisplayText": "17-2141.00",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-03-19T17:00:54.8467600Z",
+    "PublishedUtc": "2021-03-19T17:00:54.8467600Z",
+    "CreatedUtc": "2021-03-19T17:00:54.8467600Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "11-9039.01"
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/onetoccupationalcode/a81ef752-715c-47d5-8697-c9f49e1fe730"
+    },
+    "ONetOccupationalCode": {
+      "ONetSkills": {
+        "ContentItemIds": [
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Initiative\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Adaptability/Flexibility\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Reading Comprehension\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Speaking, Verbal Abilities\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Cooperation\u0022)\u00BB"
+        ]
+      }
+    },
+    "ContentItemId": "46nma01skd2gf2g96sxjangbw9",
+    "ContentItemVersionId": "409bz90axmj55x0kvsdt2eqkwz",
+    "ContentType": "ONetOccupationalCode",
+    "DisplayText": "11-9039.01",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-03-19T17:00:54.8467600Z",
+    "PublishedUtc": "2021-03-19T17:00:54.8467600Z",
+    "CreatedUtc": "2021-03-19T17:00:54.8467600Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "39-5011.00"
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/onetoccupationalcode/a7317e77-600f-4d1c-ae6a-972ebad0e5b1"
+    },
+    "ONetOccupationalCode": {
+      "ONetSkills": {
+        "ContentItemIds": [
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Speaking, Verbal Abilities\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Concern for Others\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Cooperation\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Self Control\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Fine Manipulative Abilities\u0022)\u00BB"
+        ]
+      }
+    },
+    "ContentItemId": "4q6kafn3w7fqytb64bqthx9hcj",
+    "ContentItemVersionId": "4j9dc68vgcbtsxbsw1vtnb1cmh",
+    "ContentType": "ONetOccupationalCode",
+    "DisplayText": "39-5011.00",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-03-19T17:00:54.8467600Z",
+    "PublishedUtc": "2021-03-19T17:00:54.8467600Z",
+    "CreatedUtc": "2021-03-19T17:00:54.8467600Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "51-8031.00"
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/onetoccupationalcode/014e7d93-a7b8-4f86-a1a2-3e87b734bdd4"
+    },
+    "ONetOccupationalCode": {
+      "ONetSkills": {
+        "ContentItemIds": [
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Verbal Abilities\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Reading Comprehension\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Stress Tolerance\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Analytical Thinking\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Adaptability/Flexibility\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Fine Manipulative Abilities\u0022)\u00BB"
+        ]
+      }
+    },
+    "ContentItemId": "4fwegttwa33wm74pxd8h818zc9",
+    "ContentItemVersionId": "4kvcmhscjdvhww6yw6zj1sda5y",
+    "ContentType": "ONetOccupationalCode",
+    "DisplayText": "51-8031.00",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-03-19T17:00:54.8467600Z",
+    "PublishedUtc": "2021-03-19T17:00:54.8467600Z",
+    "CreatedUtc": "2021-03-19T17:00:54.8467600Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "29-1141.02"
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/onetoccupationalcode/d4255417-ba64-4441-aa1c-75e99e56a231"
+    },
+    "ONetOccupationalCode": {
+      "ONetSkills": {
+        "ContentItemIds": [
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Adaptability/Flexibility\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Self Control\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Concern for Others\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Stress Tolerance\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Reading Comprehension\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Cooperation\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Speaking, Verbal Abilities\u0022)\u00BB"
+        ]
+      }
+    },
+    "ContentItemId": "49qt91zdg6zsgvwq2qr3tdypdj",
+    "ContentItemVersionId": "4yz2v4bamqk4cyyr3d2nw6xgdb",
+    "ContentType": "ONetOccupationalCode",
+    "DisplayText": "29-1141.02",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-03-19T17:00:54.8467600Z",
+    "PublishedUtc": "2021-03-19T17:00:54.8467600Z",
+    "CreatedUtc": "2021-03-19T17:00:54.8467600Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "29-1127.00"
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/onetoccupationalcode/d8a74edc-b4ba-477a-9f7c-92aeebb121f2"
+    },
+    "ONetOccupationalCode": {
+      "ONetSkills": {
+        "ContentItemIds": [
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Adaptability/Flexibility\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Cooperation\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Concern for Others\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Speaking, Verbal Abilities\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Reading Comprehension\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Self Control\u0022)\u00BB"
+        ]
+      }
+    },
+    "ContentItemId": "4425k27cd5c59rr6pb2v8qaj59",
+    "ContentItemVersionId": "45z5dmp4ejsd21nx2rr7acmawm",
+    "ContentType": "ONetOccupationalCode",
+    "DisplayText": "29-1127.00",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-03-19T17:00:54.8467600Z",
+    "PublishedUtc": "2021-03-19T17:00:54.8467600Z",
+    "CreatedUtc": "2021-03-19T17:00:54.8467600Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "13-2099.02"
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/onetoccupationalcode/4fc12422-abc3-44be-880a-75ebeac56b67"
+    },
+    "ONetOccupationalCode": {
+      "ONetSkills": {
+        "ContentItemIds": [
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Initiative\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Verbal Abilities\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Quantitative Abilities, Mathematics Knowledge\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Analytical Thinking\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Fine Manipulative Abilities\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Cooperation\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Reading Comprehension\u0022)\u00BB"
+        ]
+      }
+    },
+    "ContentItemId": "4a361mv3qcczeswa0js4xhqvdy",
+    "ContentItemVersionId": "492vee7k1ptk26byjcvjyb9ext",
+    "ContentType": "ONetOccupationalCode",
+    "DisplayText": "13-2099.02",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-03-19T17:00:54.8467600Z",
+    "PublishedUtc": "2021-03-19T17:00:54.8467600Z",
+    "CreatedUtc": "2021-03-19T17:00:54.8467600Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "27-3031.00"
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/onetoccupationalcode/0d14314a-c154-4fe9-b3a0-9eb5e010fc03"
+    },
+    "ONetOccupationalCode": {
+      "ONetSkills": {
+        "ContentItemIds": [
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Initiative\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Reading Comprehension\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Stress Tolerance\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Cooperation\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Speaking, Verbal Abilities\u0022)\u00BB"
+        ]
+      }
+    },
+    "ContentItemId": "41k5549y54x54tjam5f1h8rhxm",
+    "ContentItemVersionId": "41f7mzz4qc0dnzb39a0p2mw8xn",
+    "ContentType": "ONetOccupationalCode",
+    "DisplayText": "27-3031.00",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-03-19T17:00:54.8467600Z",
+    "PublishedUtc": "2021-03-19T17:00:54.8467600Z",
+    "CreatedUtc": "2021-03-19T17:00:54.8467600Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "29-1161.00"
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/onetoccupationalcode/851267a1-7de0-4a0a-b144-6748b98fbfbd"
+    },
+    "ONetOccupationalCode": {
+      "ONetSkills": {
+        "ContentItemIds": [
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Fine Manipulative Abilities\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Speaking, Verbal Abilities\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Concern for Others\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Self Control\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Stress Tolerance\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Cooperation\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Reading Comprehension\u0022)\u00BB"
+        ]
+      }
+    },
+    "ContentItemId": "4f2g1vhzpxjxrx4t58ac68r7d9",
+    "ContentItemVersionId": "4pw9h93mgzqzyy31w3ehdqz75b",
+    "ContentType": "ONetOccupationalCode",
+    "DisplayText": "29-1161.00",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-03-19T17:00:54.8467600Z",
+    "PublishedUtc": "2021-03-19T17:00:54.8467600Z",
+    "CreatedUtc": "2021-03-19T17:00:54.8467600Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "47-4031.00"
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/onetoccupationalcode/29912640-236b-4486-8909-099a4fcd87b0"
+    },
+    "ONetOccupationalCode": {
+      "ONetSkills": {
+        "ContentItemIds": [
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Fine Manipulative Abilities\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Verbal Abilities\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Adaptability/Flexibility\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Self Control\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Cooperation\u0022)\u00BB"
+        ]
+      }
+    },
+    "ContentItemId": "4y4h5pq37zx4z09xewrda1kt40",
+    "ContentItemVersionId": "4fes2ceywgb1et8gnpkr94ha51",
+    "ContentType": "ONetOccupationalCode",
+    "DisplayText": "47-4031.00",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-03-19T17:00:54.8467600Z",
+    "PublishedUtc": "2021-03-19T17:00:54.8467600Z",
+    "CreatedUtc": "2021-03-19T17:00:54.8467600Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "53-5031.00"
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/onetoccupationalcode/06ac9050-b18e-464b-8728-1b73f22e77ed"
+    },
+    "ONetOccupationalCode": {
+      "ONetSkills": {
+        "ContentItemIds": [
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Verbal Abilities\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Stress Tolerance\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Analytical Thinking\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Self Control\u0022)\u00BB"
+        ]
+      }
+    },
+    "ContentItemId": "46vzy8dpz3dn8v1v9840xz2swh",
+    "ContentItemVersionId": "4cvbmprbxh6xwrhy3zk9846rn6",
+    "ContentType": "ONetOccupationalCode",
+    "DisplayText": "53-5031.00",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-03-19T17:00:54.8467600Z",
+    "PublishedUtc": "2021-03-19T17:00:54.8467600Z",
+    "CreatedUtc": "2021-03-19T17:00:54.8467600Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "49-3091.00"
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/onetoccupationalcode/8a3ae61a-a1c3-430e-8b97-f991e85420fc"
+    },
+    "ONetOccupationalCode": {
+      "ONetSkills": {
+        "ContentItemIds": [
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Adaptability/Flexibility\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Fine Manipulative Abilities\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Speaking, Verbal Abilities\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Self Control\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Analytical Thinking\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Cooperation\u0022)\u00BB"
+        ]
+      }
+    },
+    "ContentItemId": "4cy5krt3qs4qc69ezm5a6fh4dk",
+    "ContentItemVersionId": "4chtb0rgqcnveraaw5vae9q3x6",
+    "ContentType": "ONetOccupationalCode",
+    "DisplayText": "49-3091.00",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-03-19T17:00:54.8467600Z",
+    "PublishedUtc": "2021-03-19T17:00:54.8467600Z",
+    "CreatedUtc": "2021-03-19T17:00:54.8467600Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "17-2072.00"
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/onetoccupationalcode/696a2ff5-89d0-4c3d-bff8-61968ffad516"
+    },
+    "ONetOccupationalCode": {
+      "ONetSkills": {
+        "ContentItemIds": [
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Initiative\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Analytical Thinking\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Quantitative Abilities, Mathematics Knowledge\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Adaptability/Flexibility\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Fine Manipulative Abilities\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Reading Comprehension\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Cooperation\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Speaking, Verbal Abilities\u0022)\u00BB"
+        ]
+      }
+    },
+    "ContentItemId": "47nrg0nznmyqttxg62jhnnt0wz",
+    "ContentItemVersionId": "45r07w0dny2021nf8p3wxcrp4z",
+    "ContentType": "ONetOccupationalCode",
+    "DisplayText": "17-2072.00",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-03-19T17:00:54.8467600Z",
+    "PublishedUtc": "2021-03-19T17:00:54.8467600Z",
+    "CreatedUtc": "2021-03-19T17:00:54.8467600Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "51-4011.00"
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/onetoccupationalcode/ba5e7695-2bc7-4d30-8f82-c7e1d9a75441"
+    },
+    "ONetOccupationalCode": {
+      "ONetSkills": {
+        "ContentItemIds": [
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Verbal Abilities\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Analytical Thinking\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Fine Manipulative Abilities\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Cooperation\u0022)\u00BB"
+        ]
+      }
+    },
+    "ContentItemId": "4tttc9px10y67tcjjpxs642dmj",
+    "ContentItemVersionId": "4yeepsyb976fs6rmz6y7xzhm55",
+    "ContentType": "ONetOccupationalCode",
+    "DisplayText": "51-4011.00",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-03-19T17:00:54.8467600Z",
+    "PublishedUtc": "2021-03-19T17:00:54.8467600Z",
+    "CreatedUtc": "2021-03-19T17:00:54.8467600Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "11-2031.00"
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/onetoccupationalcode/728a890f-c9fb-4bd5-bd51-9eafc855db9c"
+    },
+    "ONetOccupationalCode": {
+      "ONetSkills": {
+        "ContentItemIds": [
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Adaptability/Flexibility\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Initiative\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Cooperation\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Reading Comprehension\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Speaking, Verbal Abilities\u0022)\u00BB"
+        ]
+      }
+    },
+    "ContentItemId": "45m41enbs9sft528xthqxpc15y",
+    "ContentItemVersionId": "43x366y3s5qbwre50sbv7d4a4f",
+    "ContentType": "ONetOccupationalCode",
+    "DisplayText": "11-2031.00",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-03-19T17:00:54.8467600Z",
+    "PublishedUtc": "2021-03-19T17:00:54.8467600Z",
+    "CreatedUtc": "2021-03-19T17:00:54.8467600Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "31-9091.00"
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/onetoccupationalcode/6065b8d2-a01f-4fd8-85f4-22c677a359eb"
+    },
+    "ONetOccupationalCode": {
+      "ONetSkills": {
+        "ContentItemIds": [
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Concern for Others\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Reading Comprehension\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Speaking, Verbal Abilities\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Cooperation\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Fine Manipulative Abilities\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Self Control\u0022)\u00BB"
+        ]
+      }
+    },
+    "ContentItemId": "4wkq47mhtmcj075wdjs7fdakn3",
+    "ContentItemVersionId": "4y8ch2zj6sh0153rkd01xemc4g",
+    "ContentType": "ONetOccupationalCode",
+    "DisplayText": "31-9091.00",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-03-19T17:00:54.8467600Z",
+    "PublishedUtc": "2021-03-19T17:00:54.8467600Z",
+    "CreatedUtc": "2021-03-19T17:00:54.8467600Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "41-9012.00"
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/onetoccupationalcode/e814bf17-9ef8-4746-864a-cb574e198d3b"
+    },
+    "ONetOccupationalCode": {
+      "ONetSkills": {
+        "ContentItemIds": [
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Fine Manipulative Abilities\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Initiative\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Reading Comprehension\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Adaptability/Flexibility\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Self Control\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Speaking, Verbal Abilities\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Cooperation\u0022)\u00BB"
+        ]
+      }
+    },
+    "ContentItemId": "4rwc7pawhhmbx5an0443tjpxxm",
+    "ContentItemVersionId": "462j6w0nwpjh0saj9qgck8cb4t",
+    "ContentType": "ONetOccupationalCode",
+    "DisplayText": "41-9012.00",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-03-19T17:00:54.8467600Z",
+    "PublishedUtc": "2021-03-19T17:00:54.8467600Z",
+    "CreatedUtc": "2021-03-19T17:00:54.8467600Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "19-1021.00"
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/onetoccupationalcode/422c4f4f-a2b4-4d3c-a614-ca35ca20d78a"
+    },
+    "ONetOccupationalCode": {
+      "ONetSkills": {
+        "ContentItemIds": [
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Analytical Thinking\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Quantitative Abilities, Mathematics Knowledge\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Verbal Abilities\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Reading Comprehension\u0022)\u00BB"
+        ]
+      }
+    },
+    "ContentItemId": "4mky4tzgww0dtyqdmash57qkms",
+    "ContentItemVersionId": "4y2ts7kh20s8sx9xsx28y7ez56",
+    "ContentType": "ONetOccupationalCode",
+    "DisplayText": "19-1021.00",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-03-19T17:00:54.8467600Z",
+    "PublishedUtc": "2021-03-19T17:00:54.8467600Z",
+    "CreatedUtc": "2021-03-19T17:00:54.8467600Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "39-6011.00"
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/onetoccupationalcode/ebd1a6eb-ea69-4860-8da8-51c76613cc9f"
+    },
+    "ONetOccupationalCode": {
+      "ONetSkills": {
+        "ContentItemIds": [
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Stress Tolerance\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Fine Manipulative Abilities\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Speaking, Verbal Abilities\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Concern for Others\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Self Control\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Cooperation\u0022)\u00BB"
+        ]
+      }
+    },
+    "ContentItemId": "46jcdhar3w493shx1j9kwcdwma",
+    "ContentItemVersionId": "47wpp5npzazez4d5z49wn7npxx",
+    "ContentType": "ONetOccupationalCode",
+    "DisplayText": "39-6011.00",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-03-19T17:00:54.8467600Z",
+    "PublishedUtc": "2021-03-19T17:00:54.8467600Z",
+    "CreatedUtc": "2021-03-19T17:00:54.8467600Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "13-2021.02"
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/onetoccupationalcode/59f67f5b-87cc-49e8-aba5-39ca47bd55ab"
+    },
+    "ONetOccupationalCode": {
+      "ONetSkills": {
+        "ContentItemIds": [
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Quantitative Abilities, Mathematics Knowledge\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Verbal Abilities\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Stress Tolerance\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Analytical Thinking\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Reading Comprehension\u0022)\u00BB"
+        ]
+      }
+    },
+    "ContentItemId": "47j6taz7jq6aexeqd5ck49jdxb",
+    "ContentItemVersionId": "43vas3vgcp4y3vh9a1pwta2t4z",
+    "ContentType": "ONetOccupationalCode",
+    "DisplayText": "13-2021.02",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-03-19T17:00:54.8467600Z",
+    "PublishedUtc": "2021-03-19T17:00:54.8467600Z",
+    "CreatedUtc": "2021-03-19T17:00:54.8467600Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "49-3093.00"
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/onetoccupationalcode/c2bc6ca4-5ded-48b8-9ff4-5ddc894a05af"
+    },
+    "ONetOccupationalCode": {
+      "ONetSkills": {
+        "ContentItemIds": [
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Verbal Abilities\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Fine Manipulative Abilities\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Stress Tolerance\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Self Control\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Adaptability/Flexibility\u0022)\u00BB"
+        ]
+      }
+    },
+    "ContentItemId": "4rtan90qs8qcy2963g36h0gcmp",
+    "ContentItemVersionId": "46e3gwegfrsz50v7wvkb13y2n3",
+    "ContentType": "ONetOccupationalCode",
+    "DisplayText": "49-3093.00",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-03-19T17:00:54.8467600Z",
+    "PublishedUtc": "2021-03-19T17:00:54.8467600Z",
+    "CreatedUtc": "2021-03-19T17:00:54.8467600Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "13-2011.02"
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/onetoccupationalcode/72be06e2-c83e-4eff-af6c-acea027bb39f"
+    },
+    "ONetOccupationalCode": {
+      "ONetSkills": {
+        "ContentItemIds": [
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Quantitative Abilities, Mathematics Knowledge\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Analytical Thinking\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Initiative\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Stress Tolerance\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Reading Comprehension\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Cooperation\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Speaking, Verbal Abilities\u0022)\u00BB"
+        ]
+      }
+    },
+    "ContentItemId": "4en7sbn8gjya92408qr61pzcdp",
+    "ContentItemVersionId": "4zm2gs0pffxamyh4yvykekqpmf",
+    "ContentType": "ONetOccupationalCode",
+    "DisplayText": "13-2011.02",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-03-19T17:00:54.8467600Z",
+    "PublishedUtc": "2021-03-19T17:00:54.8467600Z",
+    "CreatedUtc": "2021-03-19T17:00:54.8467600Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "17-3023.01"
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/onetoccupationalcode/17188aac-89a4-461a-b8b2-1555e5ebdc03"
+    },
+    "ONetOccupationalCode": {
+      "ONetSkills": {
+        "ContentItemIds": [
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Analytical Thinking\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Fine Manipulative Abilities\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Quantitative Abilities, Mathematics Knowledge\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Verbal Abilities\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Adaptability/Flexibility\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Cooperation\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Reading Comprehension\u0022)\u00BB"
+        ]
+      }
+    },
+    "ContentItemId": "4dxwjdr66vg8x1dsgnw0v7kscr",
+    "ContentItemVersionId": "4pn3rt2as8ekxyxcaes0z61cdd",
+    "ContentType": "ONetOccupationalCode",
+    "DisplayText": "17-3023.01",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-03-19T17:00:54.8467600Z",
+    "PublishedUtc": "2021-03-19T17:00:54.8467600Z",
+    "CreatedUtc": "2021-03-19T17:00:54.8467600Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "13-1041.06"
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/onetoccupationalcode/518adcd1-ce67-422c-a893-3aee334222ab"
+    },
+    "ONetOccupationalCode": {
+      "ONetSkills": {
+        "ContentItemIds": [
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Concern for Others\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Stress Tolerance\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Fine Manipulative Abilities\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Cooperation\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Self Control\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Speaking, Verbal Abilities\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Reading Comprehension\u0022)\u00BB"
+        ]
+      }
+    },
+    "ContentItemId": "4n66rbcrw2cez5s9my9etwar44",
+    "ContentItemVersionId": "4exsppf75v1axv2k9d5ajes1w5",
+    "ContentType": "ONetOccupationalCode",
+    "DisplayText": "13-1041.06",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-03-19T17:00:54.8467600Z",
+    "PublishedUtc": "2021-03-19T17:00:54.8467600Z",
+    "CreatedUtc": "2021-03-19T17:00:54.8467600Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "49-2096.00"
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/onetoccupationalcode/c85e503f-19a4-412c-b5b8-32ac4420560e"
+    },
+    "ONetOccupationalCode": {
+      "ONetSkills": {
+        "ContentItemIds": [
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Self Control\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Verbal Abilities\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Initiative\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Fine Manipulative Abilities\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Cooperation\u0022)\u00BB"
+        ]
+      }
+    },
+    "ContentItemId": "42vvpx1hczz8rvk3jsm1n9xjxz",
+    "ContentItemVersionId": "4hn6ghgd6swz2393558r7phjnc",
+    "ContentType": "ONetOccupationalCode",
+    "DisplayText": "49-2096.00",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-03-19T17:00:54.8467600Z",
+    "PublishedUtc": "2021-03-19T17:00:54.8467600Z",
+    "CreatedUtc": "2021-03-19T17:00:54.8467600Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "39-4011.00"
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/onetoccupationalcode/c256d779-4e88-404d-908a-a1d97378f30d"
+    },
+    "ONetOccupationalCode": {
+      "ONetSkills": {
+        "ContentItemIds": [
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Cooperation\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Concern for Others\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Initiative\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Fine Manipulative Abilities\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Speaking, Verbal Abilities\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Stress Tolerance\u0022)\u00BB"
+        ]
+      }
+    },
+    "ContentItemId": "4a6k8xeq9z7km615cc72e6eada",
+    "ContentItemVersionId": "48wrhr78t3nx33hfbrsdpyarc5",
+    "ContentType": "ONetOccupationalCode",
+    "DisplayText": "39-4011.00",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-03-19T17:00:54.8467600Z",
+    "PublishedUtc": "2021-03-19T17:00:54.8467600Z",
+    "CreatedUtc": "2021-03-19T17:00:54.8467600Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "15-1111.00"
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/onetoccupationalcode/e3f15048-66b1-4ead-8e1b-3d48dc5dcfd0"
+    },
+    "ONetOccupationalCode": {
+      "ONetSkills": {
+        "ContentItemIds": [
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Adaptability/Flexibility\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Cooperation\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Reading Comprehension\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Quantitative Abilities, Mathematics Knowledge\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Verbal Abilities\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Stress Tolerance\u0022)\u00BB"
+        ]
+      }
+    },
+    "ContentItemId": "4n3t5trrg9ge82nbh10s56phnw",
+    "ContentItemVersionId": "4gdgt7yhaee5x2vrs93k1ve9me",
+    "ContentType": "ONetOccupationalCode",
+    "DisplayText": "15-1111.00",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-03-19T17:00:54.8467600Z",
+    "PublishedUtc": "2021-03-19T17:00:54.8467600Z",
+    "CreatedUtc": "2021-03-19T17:00:54.8467600Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "13-1071.00"
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/onetoccupationalcode/f18baca2-0d01-4e10-8ca1-acd2ed653da2"
+    },
+    "ONetOccupationalCode": {
+      "ONetSkills": {
+        "ContentItemIds": [
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Concern for Others\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Reading Comprehension\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Self Control\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Cooperation\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Speaking, Verbal Abilities\u0022)\u00BB"
+        ]
+      }
+    },
+    "ContentItemId": "4mnavxkf7b071zf2wcptejcadh",
+    "ContentItemVersionId": "4nkjmaz0eq8trtqnmdxjpd5y5v",
+    "ContentType": "ONetOccupationalCode",
+    "DisplayText": "13-1071.00",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-03-19T17:00:54.8467600Z",
+    "PublishedUtc": "2021-03-19T17:00:54.8467600Z",
+    "CreatedUtc": "2021-03-19T17:00:54.8467600Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "35-9031.00"
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/onetoccupationalcode/d52c1074-ebf4-490a-a1ea-4b45bc1ba786"
+    },
+    "ONetOccupationalCode": {
+      "ONetSkills": {
+        "ContentItemIds": [
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Self Control\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Fine Manipulative Abilities\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Concern for Others\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Stress Tolerance\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Cooperation\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Speaking, Verbal Abilities\u0022)\u00BB"
+        ]
+      }
+    },
+    "ContentItemId": "4m56y9586bc1j23c8xa1qgppcp",
+    "ContentItemVersionId": "4ba778mtpr7gr01s6axtv475da",
+    "ContentType": "ONetOccupationalCode",
+    "DisplayText": "35-9031.00",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-03-19T17:00:54.8467600Z",
+    "PublishedUtc": "2021-03-19T17:00:54.8467600Z",
+    "CreatedUtc": "2021-03-19T17:00:54.8467600Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "11-9199.04"
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/onetoccupationalcode/084742e2-e959-4110-b023-c18aa2d074ef"
+    },
+    "ONetOccupationalCode": {
+      "ONetSkills": {
+        "ContentItemIds": [
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Speaking, Verbal Abilities\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Analytical Thinking\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Initiative\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Cooperation\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Stress Tolerance\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Reading Comprehension\u0022)\u00BB"
+        ]
+      }
+    },
+    "ContentItemId": "4xmmg3pvz9jzb2afvvbfy7h3cq",
+    "ContentItemVersionId": "4wppenkwa24a515ndswhhh7hxb",
+    "ContentType": "ONetOccupationalCode",
+    "DisplayText": "11-9199.04",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-03-19T17:00:54.8467600Z",
+    "PublishedUtc": "2021-03-19T17:00:54.8467600Z",
+    "CreatedUtc": "2021-03-19T17:00:54.8467600Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "11-3071.02"
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/onetoccupationalcode/b9580c8f-f0cc-41c9-a099-6586793ba573"
+    },
+    "ONetOccupationalCode": {
+      "ONetSkills": {
+        "ContentItemIds": [
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Quantitative Abilities, Mathematics Knowledge\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Initiative\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Adaptability/Flexibility\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Stress Tolerance\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Reading Comprehension\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Cooperation\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Speaking, Verbal Abilities\u0022)\u00BB"
+        ]
+      }
+    },
+    "ContentItemId": "46t1bshq35g3e16w6a5za0ctdm",
+    "ContentItemVersionId": "4ebqjc6cc1kfe337khfn3vcacc",
+    "ContentType": "ONetOccupationalCode",
+    "DisplayText": "11-3071.02",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-03-19T17:00:54.8467600Z",
+    "PublishedUtc": "2021-03-19T17:00:54.8467600Z",
+    "CreatedUtc": "2021-03-19T17:00:54.8467600Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "15-1199.05"
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/onetoccupationalcode/51753315-e021-4cbf-b3a7-aef1591ea035"
+    },
+    "ONetOccupationalCode": {
+      "ONetSkills": {
+        "ContentItemIds": [
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Analytical Thinking\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Speaking, Verbal Abilities\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Adaptability/Flexibility\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Quantitative Abilities, Mathematics Knowledge\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Reading Comprehension\u0022)\u00BB"
+        ]
+      }
+    },
+    "ContentItemId": "42e0nvzac1zn9zxtzskvhx1wd8",
+    "ContentItemVersionId": "4yqv5gh7tdzbr58kdq5h1w83n0",
+    "ContentType": "ONetOccupationalCode",
+    "DisplayText": "15-1199.05",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-03-19T17:00:54.8467600Z",
+    "PublishedUtc": "2021-03-19T17:00:54.8467600Z",
+    "CreatedUtc": "2021-03-19T17:00:54.8467600Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "25-4021.00"
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/onetoccupationalcode/f457a2f7-9a94-4457-af09-8dbb5162aac7"
+    },
+    "ONetOccupationalCode": {
+      "ONetSkills": {
+        "ContentItemIds": [
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Cooperation\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Self Control\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Speaking, Verbal Abilities\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Initiative\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Concern for Others\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Adaptability/Flexibility\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Fine Manipulative Abilities\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Reading Comprehension\u0022)\u00BB"
+        ]
+      }
+    },
+    "ContentItemId": "46he0wmfarf9e704h4ywf8a4wc",
+    "ContentItemVersionId": "4tqw3wjt7a4m8wc0fdaybjqz4p",
+    "ContentType": "ONetOccupationalCode",
+    "DisplayText": "25-4021.00",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-03-19T17:00:54.8467600Z",
+    "PublishedUtc": "2021-03-19T17:00:54.8467600Z",
+    "CreatedUtc": "2021-03-19T17:00:54.8467600Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "15-2011.00"
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/onetoccupationalcode/4c0fcf06-67b2-449f-93c0-26925212bdad"
+    },
+    "ONetOccupationalCode": {
+      "ONetSkills": {
+        "ContentItemIds": [
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Reading Comprehension\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Initiative\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Quantitative Abilities, Mathematics Knowledge\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Analytical Thinking\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Verbal Abilities\u0022)\u00BB"
+        ]
+      }
+    },
+    "ContentItemId": "49nw4j7f8xyd0wjctqfjc5endm",
+    "ContentItemVersionId": "41mzr63hvzz0w2e5dxdyqg3y5n",
+    "ContentType": "ONetOccupationalCode",
+    "DisplayText": "15-2011.00",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-03-19T17:00:54.8467600Z",
+    "PublishedUtc": "2021-03-19T17:00:54.8467600Z",
+    "CreatedUtc": "2021-03-19T17:00:54.8467600Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "25-4011.00"
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/onetoccupationalcode/67e4eb52-df15-497a-9061-9c4e2a59ab0f"
+    },
+    "ONetOccupationalCode": {
+      "ONetSkills": {
+        "ContentItemIds": [
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Reading Comprehension\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Speaking, Verbal Abilities\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Cooperation\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Initiative\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Analytical Thinking\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Fine Manipulative Abilities\u0022)\u00BB"
+        ]
+      }
+    },
+    "ContentItemId": "4gcz5sa7pxnhh65cbt29c1aedm",
+    "ContentItemVersionId": "44mpx9sdfech438by52nvfx5wm",
+    "ContentType": "ONetOccupationalCode",
+    "DisplayText": "25-4011.00",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-03-19T17:00:54.8467600Z",
+    "PublishedUtc": "2021-03-19T17:00:54.8467600Z",
+    "CreatedUtc": "2021-03-19T17:00:54.8467600Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "51-3092.00"
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/onetoccupationalcode/f04fe27f-4337-46bd-af04-9efd3d850101"
+    },
+    "ONetOccupationalCode": {
+      "ONetSkills": {
+        "ContentItemIds": [
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Fine Manipulative Abilities\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Verbal Abilities\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Reading Comprehension\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Stress Tolerance\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Self Control\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Cooperation\u0022)\u00BB"
+        ]
+      }
+    },
+    "ContentItemId": "4cm7eb6r3pzch1sz69vk6ez95j",
+    "ContentItemVersionId": "4nmjt3y1xsyff7bbhmkvf4eama",
+    "ContentType": "ONetOccupationalCode",
+    "DisplayText": "51-3092.00",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-03-19T17:00:54.8467600Z",
+    "PublishedUtc": "2021-03-19T17:00:54.8467600Z",
+    "CreatedUtc": "2021-03-19T17:00:54.8467600Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "51-8012.00"
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/onetoccupationalcode/3a0d60f0-9d6e-4029-a58a-f0e56b3a8f98"
+    },
+    "ONetOccupationalCode": {
+      "ONetSkills": {
+        "ContentItemIds": [
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Reading Comprehension\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Fine Manipulative Abilities\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Verbal Abilities\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Quantitative Abilities, Mathematics Knowledge\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Stress Tolerance\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Self Control\u0022)\u00BB"
+        ]
+      }
+    },
+    "ContentItemId": "4fp1rn26tgag63erfn9j3nefnj",
+    "ContentItemVersionId": "4v8qa281a5vnq3hktf4t7gpfn0",
+    "ContentType": "ONetOccupationalCode",
+    "DisplayText": "51-8012.00",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-03-19T17:00:54.8467600Z",
+    "PublishedUtc": "2021-03-19T17:00:54.8467600Z",
+    "CreatedUtc": "2021-03-19T17:00:54.8467600Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "13-1074.00"
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/onetoccupationalcode/0185a41d-afc8-4e39-a1a8-f66be858a6d6"
+    },
+    "ONetOccupationalCode": {
+      "ONetSkills": {
+        "ContentItemIds": [
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Concern for Others\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Initiative\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Quantitative Abilities, Mathematics Knowledge\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Cooperation\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Speaking, Verbal Abilities\u0022)\u00BB"
+        ]
+      }
+    },
+    "ContentItemId": "4vabajqjct19zx9sg4b3r3zswc",
+    "ContentItemVersionId": "4n5s4ea3m731zzcvyk0r9pzgne",
+    "ContentType": "ONetOccupationalCode",
+    "DisplayText": "13-1074.00",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-03-19T17:00:54.8467600Z",
+    "PublishedUtc": "2021-03-19T17:00:54.8467600Z",
+    "CreatedUtc": "2021-03-19T17:00:54.8467600Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "51-3022.00"
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/onetoccupationalcode/e8b2bf03-83d5-424f-a15d-fdb8173ece4c"
+    },
+    "ONetOccupationalCode": {
+      "ONetSkills": {
+        "ContentItemIds": [
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Stress Tolerance\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Speaking, Verbal Abilities\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Fine Manipulative Abilities\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Cooperation\u0022)\u00BB"
+        ]
+      }
+    },
+    "ContentItemId": "4645m260sajxeyjd3cx3psr7xq",
+    "ContentItemVersionId": "4yzs877rncvmwxc6hmbk9bq7wh",
+    "ContentType": "ONetOccupationalCode",
+    "DisplayText": "51-3022.00",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-03-19T17:00:54.8467600Z",
+    "PublishedUtc": "2021-03-19T17:00:54.8467600Z",
+    "CreatedUtc": "2021-03-19T17:00:54.8467600Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "13-1131.00"
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/onetoccupationalcode/a7f8fdb1-9ea6-40f9-88da-a3b923244b63"
+    },
+    "ONetOccupationalCode": {
+      "ONetSkills": {
+        "ContentItemIds": [
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Reading Comprehension\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Quantitative Abilities, Mathematics Knowledge\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Initiative\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Concern for Others\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Speaking, Verbal Abilities\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Cooperation\u0022)\u00BB"
+        ]
+      }
+    },
+    "ContentItemId": "404bbfjjfhhw5zvrht0aqf4zna",
+    "ContentItemVersionId": "4g16bvtdk44t56nayz53jy8px4",
+    "ContentType": "ONetOccupationalCode",
+    "DisplayText": "13-1131.00",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-03-19T17:00:54.8467600Z",
+    "PublishedUtc": "2021-03-19T17:00:54.8467600Z",
+    "CreatedUtc": "2021-03-19T17:00:54.8467600Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "35-3031.00"
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/onetoccupationalcode/4181fa70-454f-43ae-abed-48e4afe8622a"
+    },
+    "ONetOccupationalCode": {
+      "ONetSkills": {
+        "ContentItemIds": [
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Verbal Abilities\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Concern for Others\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Fine Manipulative Abilities\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Stress Tolerance\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Self Control\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Cooperation\u0022)\u00BB"
+        ]
+      }
+    },
+    "ContentItemId": "4d8n4rbmktrd54f7xhsrr5ee54",
+    "ContentItemVersionId": "4n6pb2xjecq7n5eex29t221vxr",
+    "ContentType": "ONetOccupationalCode",
+    "DisplayText": "35-3031.00",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-03-19T17:00:54.8467600Z",
+    "PublishedUtc": "2021-03-19T17:00:54.8467600Z",
+    "CreatedUtc": "2021-03-19T17:00:54.8467600Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "29-2099.07"
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/onetoccupationalcode/ddbe5530-6803-4716-86c0-93e784af0d78"
+    },
+    "ONetOccupationalCode": {
+      "ONetSkills": {
+        "ContentItemIds": [
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Reading Comprehension\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Concern for Others\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Adaptability/Flexibility\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Fine Manipulative Abilities\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Speaking, Verbal Abilities\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Self Control\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Stress Tolerance\u0022)\u00BB"
+        ]
+      }
+    },
+    "ContentItemId": "4mwys6spn19h62a9mt4cazs4cs",
+    "ContentItemVersionId": "40wp3vghb61ttxdt8djpcxmqns",
+    "ContentType": "ONetOccupationalCode",
+    "DisplayText": "29-2099.07",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-03-19T17:00:54.8467600Z",
+    "PublishedUtc": "2021-03-19T17:00:54.8467600Z",
+    "CreatedUtc": "2021-03-19T17:00:54.8467600Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "29-2052.00"
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/onetoccupationalcode/0f66c3d2-ded3-414c-85e2-a5b4ecb74cda"
+    },
+    "ONetOccupationalCode": {
+      "ONetSkills": {
+        "ContentItemIds": [
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Reading Comprehension\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Concern for Others\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Quantitative Abilities, Mathematics Knowledge\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Fine Manipulative Abilities\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Cooperation\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Stress Tolerance\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Self Control\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Speaking, Verbal Abilities\u0022)\u00BB"
+        ]
+      }
+    },
+    "ContentItemId": "4hv5y01fhmwvj1rx1zxexe79cg",
+    "ContentItemVersionId": "40fq7ytvnv95ty9w7mqwbfpw5h",
+    "ContentType": "ONetOccupationalCode",
+    "DisplayText": "29-2052.00",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-03-19T17:00:54.8467600Z",
+    "PublishedUtc": "2021-03-19T17:00:54.8467600Z",
+    "CreatedUtc": "2021-03-19T17:00:54.8467600Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "37-2021.00"
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/onetoccupationalcode/dddc875c-3445-4592-97ae-c1bf679c3e7c"
+    },
+    "ONetOccupationalCode": {
+      "ONetSkills": {
+        "ContentItemIds": [
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Cooperation\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Speaking, Verbal Abilities\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Stress Tolerance\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Fine Manipulative Abilities\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Self Control\u0022)\u00BB"
+        ]
+      }
+    },
+    "ContentItemId": "44vnwdf76pfwgxe3bxzhkvcsch",
+    "ContentItemVersionId": "445435xdfg8wr64t8qd7z9ttcb",
+    "ContentType": "ONetOccupationalCode",
+    "DisplayText": "37-2021.00",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-03-19T17:00:54.8467600Z",
+    "PublishedUtc": "2021-03-19T17:00:54.8467600Z",
+    "CreatedUtc": "2021-03-19T17:00:54.8467600Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "21-1022.00"
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/onetoccupationalcode/1a9c830d-5d79-4822-9b48-7845b946e465"
+    },
+    "ONetOccupationalCode": {
+      "ONetSkills": {
+        "ContentItemIds": [
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Speaking, Verbal Abilities\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Concern for Others\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Stress Tolerance\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Self Control\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Cooperation\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Reading Comprehension\u0022)\u00BB"
+        ]
+      }
+    },
+    "ContentItemId": "4xg7p69xs3tvty5cjfhbxt9wxy",
+    "ContentItemVersionId": "4s7zsa59n9z836jhne1datem5h",
+    "ContentType": "ONetOccupationalCode",
+    "DisplayText": "21-1022.00",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-03-19T17:00:54.8467600Z",
+    "PublishedUtc": "2021-03-19T17:00:54.8467600Z",
+    "CreatedUtc": "2021-03-19T17:00:54.8467600Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "49-9031.00"
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/onetoccupationalcode/45b0fdc3-994e-4d25-a6be-ce33e4c22b0c"
+    },
+    "ONetOccupationalCode": {
+      "ONetSkills": {
+        "ContentItemIds": [
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Cooperation\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Stress Tolerance\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Analytical Thinking\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Verbal Abilities\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Fine Manipulative Abilities\u0022)\u00BB"
+        ]
+      }
+    },
+    "ContentItemId": "4xpxjtrm2dvfmycrgc8t7aw1mm",
+    "ContentItemVersionId": "439bpf64bhwaesw6f24h5x254f",
+    "ContentType": "ONetOccupationalCode",
+    "DisplayText": "49-9031.00",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-03-19T17:00:54.8467600Z",
+    "PublishedUtc": "2021-03-19T17:00:54.8467600Z",
+    "CreatedUtc": "2021-03-19T17:00:54.8467600Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "27-1014.00"
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/onetoccupationalcode/e582d96d-8790-40ce-b874-e2980185f3c2"
+    },
+    "ONetOccupationalCode": {
+      "ONetSkills": {
+        "ContentItemIds": [
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Adaptability/Flexibility\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Cooperation\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Initiative\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Fine Manipulative Abilities\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Reading Comprehension\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Speaking, Verbal Abilities\u0022)\u00BB"
+        ]
+      }
+    },
+    "ContentItemId": "4gss8rx18yp5nrbvexn46q0kcp",
+    "ContentItemVersionId": "4k5j4f62hg0dv0t11yrh50xz57",
+    "ContentType": "ONetOccupationalCode",
+    "DisplayText": "27-1014.00",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-03-19T17:00:54.8467600Z",
+    "PublishedUtc": "2021-03-19T17:00:54.8467600Z",
+    "CreatedUtc": "2021-03-19T17:00:54.8467600Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "19-4099.01"
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/onetoccupationalcode/293ab8d2-7cb5-43a6-b341-1c0fcf3b19f5"
+    },
+    "ONetOccupationalCode": {
+      "ONetSkills": {
+        "ContentItemIds": [
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Quantitative Abilities, Mathematics Knowledge\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Adaptability/Flexibility\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Self Control\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Fine Manipulative Abilities\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Reading Comprehension\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Speaking, Verbal Abilities\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Cooperation\u0022)\u00BB"
+        ]
+      }
+    },
+    "ContentItemId": "4f28xjp15hhhd5cv6qv57wx9c8",
+    "ContentItemVersionId": "4q519m72mkxry1428sk8sja0nr",
+    "ContentType": "ONetOccupationalCode",
+    "DisplayText": "19-4099.01",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-03-19T17:00:54.8467600Z",
+    "PublishedUtc": "2021-03-19T17:00:54.8467600Z",
+    "CreatedUtc": "2021-03-19T17:00:54.8467600Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "43-3041.00"
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/onetoccupationalcode/c3e72af0-2be9-47f9-8060-60f9f796baaf"
+    },
+    "ONetOccupationalCode": {
+      "ONetSkills": {
+        "ContentItemIds": [
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Reading Comprehension\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Quantitative Abilities, Mathematics Knowledge\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Adaptability/Flexibility\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Stress Tolerance\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Cooperation\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Self Control\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Speaking, Verbal Abilities\u0022)\u00BB"
+        ]
+      }
+    },
+    "ContentItemId": "4dc7w4yrp3f7w6g5y8mam6brw3",
+    "ContentItemVersionId": "4xx2dz84jab04xnbv1z7hyqpwj",
+    "ContentType": "ONetOccupationalCode",
+    "DisplayText": "43-3041.00",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-03-19T17:00:54.8467600Z",
+    "PublishedUtc": "2021-03-19T17:00:54.8467600Z",
+    "CreatedUtc": "2021-03-19T17:00:54.8467600Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "33-2011.01"
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/onetoccupationalcode/0659dd76-91b7-4742-a0b6-641f8521fef2"
+    },
+    "ONetOccupationalCode": {
+      "ONetSkills": {
+        "ContentItemIds": [
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Verbal Abilities\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Cooperation\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Concern for Others\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Stress Tolerance\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Fine Manipulative Abilities\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Self Control\u0022)\u00BB"
+        ]
+      }
+    },
+    "ContentItemId": "4pq4k01qypw2c6h26a8zx1g5n5",
+    "ContentItemVersionId": "4stzyj433rbrgtd3rbw8a5m3wy",
+    "ContentType": "ONetOccupationalCode",
+    "DisplayText": "33-2011.01",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-03-19T17:00:54.8467600Z",
+    "PublishedUtc": "2021-03-19T17:00:54.8467600Z",
+    "CreatedUtc": "2021-03-19T17:00:54.8467600Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "33-3021.06"
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/onetoccupationalcode/b6eed1d4-1194-49e1-8f00-cd9ac8d68473"
+    },
+    "ONetOccupationalCode": {
+      "ONetSkills": {
+        "ContentItemIds": [
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Analytical Thinking\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Initiative\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Reading Comprehension\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Adaptability/Flexibility\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Speaking, Verbal Abilities\u0022)\u00BB"
+        ]
+      }
+    },
+    "ContentItemId": "4gq2k9wrc4wgdyxbynzz4n0h4q",
+    "ContentItemVersionId": "4ybbsv4ewaqqkt1wk2sjsdd9wz",
+    "ContentType": "ONetOccupationalCode",
+    "DisplayText": "33-3021.06",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-03-19T17:00:54.8467600Z",
+    "PublishedUtc": "2021-03-19T17:00:54.8467600Z",
+    "CreatedUtc": "2021-03-19T17:00:54.8467600Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "13-1151.00"
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/onetoccupationalcode/e2b85c78-f242-4e96-a28b-1383c1bbbef9"
+    },
+    "ONetOccupationalCode": {
+      "ONetSkills": {
+        "ContentItemIds": [
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Self Control\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Adaptability/Flexibility\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Reading Comprehension\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Cooperation\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Initiative\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Speaking, Verbal Abilities\u0022)\u00BB"
+        ]
+      }
+    },
+    "ContentItemId": "4vmbp4s8z3te6xxr3cxc7vme4a",
+    "ContentItemVersionId": "4d0ww0wxdge6w1m10mg1d3fjdj",
+    "ContentType": "ONetOccupationalCode",
+    "DisplayText": "13-1151.00",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-03-19T17:00:54.8467600Z",
+    "PublishedUtc": "2021-03-19T17:00:54.8467600Z",
+    "CreatedUtc": "2021-03-19T17:00:54.8467600Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "43-5031.00"
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/onetoccupationalcode/7861030b-3e7e-4bee-83cf-429aa3892d82"
+    },
+    "ONetOccupationalCode": {
+      "ONetSkills": {
+        "ContentItemIds": [
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Concern for Others\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Speaking, Verbal Abilities\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Self Control\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Fine Manipulative Abilities\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Stress Tolerance\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Reading Comprehension\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Cooperation\u0022)\u00BB"
+        ]
+      }
+    },
+    "ContentItemId": "490c4ba2x14fw7xn1ptajbcjng",
+    "ContentItemVersionId": "4hhrc74np7khv1a0wb4he6jg4a",
+    "ContentType": "ONetOccupationalCode",
+    "DisplayText": "43-5031.00",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-03-19T17:00:54.8467600Z",
+    "PublishedUtc": "2021-03-19T17:00:54.8467600Z",
+    "CreatedUtc": "2021-03-19T17:00:54.8467600Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "25-4031.00"
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/onetoccupationalcode/89ac6eeb-136b-4930-ad69-5e2a4b8f7a1d"
+    },
+    "ONetOccupationalCode": {
+      "ONetSkills": {
+        "ContentItemIds": [
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Adaptability/Flexibility\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Concern for Others\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Cooperation\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Self Control\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Fine Manipulative Abilities\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Speaking, Verbal Abilities\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Reading Comprehension\u0022)\u00BB"
+        ]
+      }
+    },
+    "ContentItemId": "48n2jerv5hsec1tjgg0j8sdcmc",
+    "ContentItemVersionId": "4q9qfv1q79d9z5wq5vgzkbmedw",
+    "ContentType": "ONetOccupationalCode",
+    "DisplayText": "25-4031.00",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-03-19T17:00:54.8467600Z",
+    "PublishedUtc": "2021-03-19T17:00:54.8467600Z",
+    "CreatedUtc": "2021-03-19T17:00:54.8467600Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "31-1011.00"
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/onetoccupationalcode/83c51dad-b43a-474e-8212-63dec2fa80df"
+    },
+    "ONetOccupationalCode": {
+      "ONetSkills": {
+        "ContentItemIds": [
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Fine Manipulative Abilities\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Cooperation\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Concern for Others\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Verbal Abilities\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Stress Tolerance\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Self Control\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Reading Comprehension\u0022)\u00BB"
+        ]
+      }
+    },
+    "ContentItemId": "4tbh0jp4dp5a13t9mfn39ss7wf",
+    "ContentItemVersionId": "4093pfvh541st5e89cqwfqjq5c",
+    "ContentType": "ONetOccupationalCode",
+    "DisplayText": "31-1011.00",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-03-19T17:00:54.8467600Z",
+    "PublishedUtc": "2021-03-19T17:00:54.8467600Z",
+    "CreatedUtc": "2021-03-19T17:00:54.8467600Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "41-3031.02"
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/onetoccupationalcode/ec8f6462-40c1-47c3-b48d-b4f06ae18c0d"
+    },
+    "ONetOccupationalCode": {
+      "ONetSkills": {
+        "ContentItemIds": [
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Quantitative Abilities, Mathematics Knowledge\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Stress Tolerance\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Self Control\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Speaking, Verbal Abilities\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Cooperation\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Reading Comprehension\u0022)\u00BB"
+        ]
+      }
+    },
+    "ContentItemId": "4qf9ark4exqw25gcmkwxg2z3wp",
+    "ContentItemVersionId": "4rtjcd7h39r9sv873byp26acce",
+    "ContentType": "ONetOccupationalCode",
+    "DisplayText": "41-3031.02",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-03-19T17:00:54.8467600Z",
+    "PublishedUtc": "2021-03-19T17:00:54.8467600Z",
+    "CreatedUtc": "2021-03-19T17:00:54.8467600Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "19-1022.00"
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/onetoccupationalcode/de1f46de-7037-4a5b-af60-7f09135d506c"
+    },
+    "ONetOccupationalCode": {
+      "ONetSkills": {
+        "ContentItemIds": [
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Initiative\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Quantitative Abilities, Mathematics Knowledge\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Verbal Abilities\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Cooperation\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Reading Comprehension\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Analytical Thinking\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Fine Manipulative Abilities\u0022)\u00BB"
+        ]
+      }
+    },
+    "ContentItemId": "444mpyq9z3w2268ya97bap705a",
+    "ContentItemVersionId": "43gsdxp6j5q9z7fm6dna2s4m4x",
+    "ContentType": "ONetOccupationalCode",
+    "DisplayText": "19-1022.00",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-03-19T17:00:54.8467600Z",
+    "PublishedUtc": "2021-03-19T17:00:54.8467600Z",
+    "CreatedUtc": "2021-03-19T17:00:54.8467600Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "17-3023.03"
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/onetoccupationalcode/114531c6-1f70-4e82-88cf-a8f6db3565f3"
+    },
+    "ONetOccupationalCode": {
+      "ONetSkills": {
+        "ContentItemIds": [
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Analytical Thinking\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Adaptability/Flexibility\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Verbal Abilities\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Reading Comprehension\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Fine Manipulative Abilities\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Cooperation\u0022)\u00BB"
+        ]
+      }
+    },
+    "ContentItemId": "4zgdf2jp42vk35hfafp3hkvsw9",
+    "ContentItemVersionId": "4cqtj0qymqacfsayh50sfnzf59",
+    "ContentType": "ONetOccupationalCode",
+    "DisplayText": "17-3023.03",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-03-19T17:00:54.8467600Z",
+    "PublishedUtc": "2021-03-19T17:00:54.8467600Z",
+    "CreatedUtc": "2021-03-19T17:00:54.8467600Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "53-7021.00"
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/onetoccupationalcode/952422b8-c02f-4df8-880a-b02381bd26cf"
+    },
+    "ONetOccupationalCode": {
+      "ONetSkills": {
+        "ContentItemIds": [
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Self Control\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Verbal Abilities\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Cooperation\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Concern for Others\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Stress Tolerance\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Fine Manipulative Abilities\u0022)\u00BB"
+        ]
+      }
+    },
+    "ContentItemId": "4vf0nd7369vw3wysqv9phtmgx7",
+    "ContentItemVersionId": "40dmjr4ypatjttq8f39ctym7cz",
+    "ContentType": "ONetOccupationalCode",
+    "DisplayText": "53-7021.00",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-03-19T17:00:54.8467600Z",
+    "PublishedUtc": "2021-03-19T17:00:54.8467600Z",
+    "CreatedUtc": "2021-03-19T17:00:54.8467600Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "43-4121.00"
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/onetoccupationalcode/4135d94d-8c8b-46dd-925f-2f97c60292c9"
+    },
+    "ONetOccupationalCode": {
+      "ONetSkills": {
+        "ContentItemIds": [
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Adaptability/Flexibility\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Speaking, Verbal Abilities\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Concern for Others\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Cooperation\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Reading Comprehension\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Fine Manipulative Abilities\u0022)\u00BB"
+        ]
+      }
+    },
+    "ContentItemId": "4vwbfbkv5ykw47p5r3j0xgvewp",
+    "ContentItemVersionId": "40am9tmh0n74nym49dn8ftnk53",
+    "ContentType": "ONetOccupationalCode",
+    "DisplayText": "43-4121.00",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-03-19T17:00:54.8467600Z",
+    "PublishedUtc": "2021-03-19T17:00:54.8467600Z",
+    "CreatedUtc": "2021-03-19T17:00:54.8467600Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "53-3031.00"
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/onetoccupationalcode/56bf1f52-c1ec-4012-b5d6-3b6d57f43be2"
+    },
+    "ONetOccupationalCode": {
+      "ONetSkills": {
+        "ContentItemIds": [
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Stress Tolerance\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Speaking, Verbal Abilities\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Cooperation\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Fine Manipulative Abilities\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Self Control\u0022)\u00BB"
+        ]
+      }
+    },
+    "ContentItemId": "4xyqsa5kaeqft0r4k3j70q1rm4",
+    "ContentItemVersionId": "4qwyhe4cxjqjay5str2w2k14w0",
+    "ContentType": "ONetOccupationalCode",
+    "DisplayText": "53-3031.00",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-03-19T17:00:54.8467600Z",
+    "PublishedUtc": "2021-03-19T17:00:54.8467600Z",
+    "CreatedUtc": "2021-03-19T17:00:54.8467600Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "47-2081.00"
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/onetoccupationalcode/494ac2c8-3039-4996-8ab6-5ab34bb25dd1"
+    },
+    "ONetOccupationalCode": {
+      "ONetSkills": {
+        "ContentItemIds": [
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Fine Manipulative Abilities\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Verbal Abilities\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Cooperation\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Stress Tolerance\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Reading Comprehension\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Self Control\u0022)\u00BB"
+        ]
+      }
+    },
+    "ContentItemId": "4ea6n56vp4jg5wskq5wyshsjck",
+    "ContentItemVersionId": "4dgq8z928pvhb0r260415517wq",
+    "ContentType": "ONetOccupationalCode",
+    "DisplayText": "47-2081.00",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-03-19T17:00:54.8467600Z",
+    "PublishedUtc": "2021-03-19T17:00:54.8467600Z",
+    "CreatedUtc": "2021-03-19T17:00:54.8467600Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "43-5011.01"
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/onetoccupationalcode/8cb2d66c-4023-4146-8ef9-37d014f6fe03"
+    },
+    "ONetOccupationalCode": {
+      "ONetSkills": {
+        "ContentItemIds": [
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Quantitative Abilities, Mathematics Knowledge\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Speaking, Verbal Abilities\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Initiative\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Cooperation\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Stress Tolerance\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Reading Comprehension\u0022)\u00BB"
+        ]
+      }
+    },
+    "ContentItemId": "4s9kyhgkeaffa2v6brc0d1x34w",
+    "ContentItemVersionId": "4mx3fbehvf1v5x1gay14c8bxxv",
+    "ContentType": "ONetOccupationalCode",
+    "DisplayText": "43-5011.01",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-03-19T17:00:54.8467600Z",
+    "PublishedUtc": "2021-03-19T17:00:54.8467600Z",
+    "CreatedUtc": "2021-03-19T17:00:54.8467600Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "39-1021.01"
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/onetoccupationalcode/a765ec8e-1cda-4e23-856e-691157fcec2a"
+    },
+    "ONetOccupationalCode": {
+      "ONetSkills": {
+        "ContentItemIds": [
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Quantitative Abilities, Mathematics Knowledge\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Cooperation\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Concern for Others\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Initiative\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Self Control\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Stress Tolerance\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Speaking, Verbal Abilities\u0022)\u00BB"
+        ]
+      }
+    },
+    "ContentItemId": "4rq1v5w0g3x9ks9jzknqk5454r",
+    "ContentItemVersionId": "4tzgzds55d930rrkadybdaq4dy",
+    "ContentType": "ONetOccupationalCode",
+    "DisplayText": "39-1021.01",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-03-19T17:00:54.8467600Z",
+    "PublishedUtc": "2021-03-19T17:00:54.8467600Z",
+    "CreatedUtc": "2021-03-19T17:00:54.8467600Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "47-2131.00"
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/onetoccupationalcode/602c5798-fc36-47c7-a6d4-581a7b7e0532"
+    },
+    "ONetOccupationalCode": {
+      "ONetSkills": {
+        "ContentItemIds": [
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Verbal Abilities\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Self Control\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Fine Manipulative Abilities\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Cooperation\u0022)\u00BB"
+        ]
+      }
+    },
+    "ContentItemId": "45rar9w4gxywa17armm80kggdn",
+    "ContentItemVersionId": "4f6p96g5emez64h1pq8e1jpp4e",
+    "ContentType": "ONetOccupationalCode",
+    "DisplayText": "47-2131.00",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-03-19T17:00:54.8467600Z",
+    "PublishedUtc": "2021-03-19T17:00:54.8467600Z",
+    "CreatedUtc": "2021-03-19T17:00:54.8467600Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "31-9093.00"
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/onetoccupationalcode/be92a303-856b-4061-9e53-459f9ca0918f"
+    },
+    "ONetOccupationalCode": {
+      "ONetSkills": {
+        "ContentItemIds": [
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Verbal Abilities\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Concern for Others\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Stress Tolerance\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Fine Manipulative Abilities\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Cooperation\u0022)\u00BB"
+        ]
+      }
+    },
+    "ContentItemId": "4xxqrv28bwbcrsyt8qwd7bp6c1",
+    "ContentItemVersionId": "4vzz4x8xycc6167hn6wefv7e4x",
+    "ContentType": "ONetOccupationalCode",
+    "DisplayText": "31-9093.00",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-03-19T17:00:54.8467600Z",
+    "PublishedUtc": "2021-03-19T17:00:54.8467600Z",
+    "CreatedUtc": "2021-03-19T17:00:54.8467600Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "35-9021.00"
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/onetoccupationalcode/6095bd17-0bb6-49a0-b776-16605108508e"
+    },
+    "ONetOccupationalCode": {
+      "ONetSkills": {
+        "ContentItemIds": [
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Speaking, Verbal Abilities\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Self Control\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Fine Manipulative Abilities\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Stress Tolerance\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Cooperation\u0022)\u00BB"
+        ]
+      }
+    },
+    "ContentItemId": "4xsvk0pqc11ew134vsmj7cb6m6",
+    "ContentItemVersionId": "43khd0chsxe7r3bd2wewfwm6wz",
+    "ContentType": "ONetOccupationalCode",
+    "DisplayText": "35-9021.00",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-03-19T17:00:54.8467600Z",
+    "PublishedUtc": "2021-03-19T17:00:54.8467600Z",
+    "CreatedUtc": "2021-03-19T17:00:54.8467600Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "29-2099.06"
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/onetoccupationalcode/b949db6a-1a0f-49c5-ba00-523aefae5f84"
+    },
+    "ONetOccupationalCode": {
+      "ONetSkills": {
+        "ContentItemIds": [
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Reading Comprehension\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Concern for Others\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Adaptability/Flexibility\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Speaking, Verbal Abilities\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Fine Manipulative Abilities\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Self Control\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Cooperation\u0022)\u00BB"
+        ]
+      }
+    },
+    "ContentItemId": "4jw68wbexc82cza6qzz05gvqx2",
+    "ContentItemVersionId": "4de6a1h8kfrqrz1h1zmtdz4jdd",
+    "ContentType": "ONetOccupationalCode",
+    "DisplayText": "29-2099.06",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-03-19T17:00:54.8467600Z",
+    "PublishedUtc": "2021-03-19T17:00:54.8467600Z",
+    "CreatedUtc": "2021-03-19T17:00:54.8467600Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "39-7012.00"
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/onetoccupationalcode/ee5c4cd5-d3c4-4912-afdf-429ccf917b62"
+    },
+    "ONetOccupationalCode": {
+      "ONetSkills": {
+        "ContentItemIds": [
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Adaptability/Flexibility\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Speaking, Verbal Abilities\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Stress Tolerance\u0022)\u00BB"
+        ]
+      }
+    },
+    "ContentItemId": "4086e2gxbc2ms564vx91m12jcq",
+    "ContentItemVersionId": "4rnh1xd8bycs36h2sv2hh8eqds",
+    "ContentType": "ONetOccupationalCode",
+    "DisplayText": "39-7012.00",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-03-19T17:00:54.8467600Z",
+    "PublishedUtc": "2021-03-19T17:00:54.8467600Z",
+    "CreatedUtc": "2021-03-19T17:00:54.8467600Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "27-3043.04"
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/onetoccupationalcode/9809e5db-2454-48a8-a36a-659052a1ffce"
+    },
+    "ONetOccupationalCode": {
+      "ONetSkills": {
+        "ContentItemIds": [
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Speaking, Verbal Abilities\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Cooperation\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Initiative\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Adaptability/Flexibility\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Reading Comprehension\u0022)\u00BB"
+        ]
+      }
+    },
+    "ContentItemId": "4g34jdq6szh2b414g1vzzkf8wv",
+    "ContentItemVersionId": "4fqpnjap1pczv4v2h505ybcawe",
+    "ContentType": "ONetOccupationalCode",
+    "DisplayText": "27-3043.04",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-03-19T17:00:54.8467600Z",
+    "PublishedUtc": "2021-03-19T17:00:54.8467600Z",
+    "CreatedUtc": "2021-03-19T17:00:54.8467600Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "45-3011.00"
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/onetoccupationalcode/a5e7dea1-d52a-4100-a15a-a70d6bd63a94"
+    },
+    "ONetOccupationalCode": {
+      "ONetSkills": {
+        "ContentItemIds": [
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Initiative\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Self Control\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Fine Manipulative Abilities\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Speaking, Verbal Abilities\u0022)\u00BB"
+        ]
+      }
+    },
+    "ContentItemId": "4yas9x7vjnn8y6h14zakgyftds",
+    "ContentItemVersionId": "4hjqcxn7x7ybc2knkcjgc9t1wx",
+    "ContentType": "ONetOccupationalCode",
+    "DisplayText": "45-3011.00",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-03-19T17:00:54.8467600Z",
+    "PublishedUtc": "2021-03-19T17:00:54.8467600Z",
+    "CreatedUtc": "2021-03-19T17:00:54.8467600Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "43-5021.00"
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/onetoccupationalcode/265ef667-bff0-4711-896e-f81a9425c7b1"
+    },
+    "ONetOccupationalCode": {
+      "ONetSkills": {
+        "ContentItemIds": [
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Concern for Others\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Fine Manipulative Abilities\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Speaking, Verbal Abilities\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Reading Comprehension\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Cooperation\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Self Control\u0022)\u00BB"
+        ]
+      }
+    },
+    "ContentItemId": "43703915bryry412gqswn6khma",
+    "ContentItemVersionId": "4xraxmnmdnvjtx6rvkpnn4ae4z",
+    "ContentType": "ONetOccupationalCode",
+    "DisplayText": "43-5021.00",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-03-19T17:00:54.8467600Z",
+    "PublishedUtc": "2021-03-19T17:00:54.8467600Z",
+    "CreatedUtc": "2021-03-19T17:00:54.8467600Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "17-2161.00"
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/onetoccupationalcode/0f829858-c48c-47f3-b8b8-888a356fafbc"
+    },
+    "ONetOccupationalCode": {
+      "ONetSkills": {
+        "ContentItemIds": [
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Cooperation\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Quantitative Abilities, Mathematics Knowledge\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Analytical Thinking\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Verbal Abilities\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Stress Tolerance\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Initiative\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Reading Comprehension\u0022)\u00BB"
+        ]
+      }
+    },
+    "ContentItemId": "4b57fvhj29x2qtshc5hb2z88w3",
+    "ContentItemVersionId": "41fh1gntev69940frnh7reegxn",
+    "ContentType": "ONetOccupationalCode",
+    "DisplayText": "17-2161.00",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-03-19T17:00:54.8467600Z",
+    "PublishedUtc": "2021-03-19T17:00:54.8467600Z",
+    "CreatedUtc": "2021-03-19T17:00:54.8467600Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "11-9061.00"
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/onetoccupationalcode/5d89d6c1-3afb-4d4c-992a-eb23004dfeb0"
+    },
+    "ONetOccupationalCode": {
+      "ONetSkills": {
+        "ContentItemIds": [
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Concern for Others\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Reading Comprehension\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Self Control\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Speaking, Verbal Abilities\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Stress Tolerance\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Cooperation\u0022)\u00BB"
+        ]
+      }
+    },
+    "ContentItemId": "44gbm39drff4tyn3me548e0r5e",
+    "ContentItemVersionId": "4ynqjs5q6gndgx4nzer0h5bsmw",
+    "ContentType": "ONetOccupationalCode",
+    "DisplayText": "11-9061.00",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-03-19T17:00:54.8467600Z",
+    "PublishedUtc": "2021-03-19T17:00:54.8467600Z",
+    "CreatedUtc": "2021-03-19T17:00:54.8467600Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "47-1011.00"
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/onetoccupationalcode/145e2846-b264-4144-88ef-03af2ad19cf0"
+    },
+    "ONetOccupationalCode": {
+      "ONetSkills": {
+        "ContentItemIds": [
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Quantitative Abilities, Mathematics Knowledge\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Adaptability/Flexibility\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Stress Tolerance\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Cooperation\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Reading Comprehension\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Speaking, Verbal Abilities\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Self Control\u0022)\u00BB"
+        ]
+      }
+    },
+    "ContentItemId": "44hh17c12x4zx09t5sv5j9hn59",
+    "ContentItemVersionId": "4xjzv1hg5qwgz4cf40927htsmr",
+    "ContentType": "ONetOccupationalCode",
+    "DisplayText": "47-1011.00",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-03-19T17:00:54.8467600Z",
+    "PublishedUtc": "2021-03-19T17:00:54.8467600Z",
+    "CreatedUtc": "2021-03-19T17:00:54.8467600Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "35-3021.00"
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/onetoccupationalcode/cee4a48a-bcd3-4b24-83c7-bc0c92dacec5"
+    },
+    "ONetOccupationalCode": {
+      "ONetSkills": {
+        "ContentItemIds": [
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Self Control\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Stress Tolerance\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Quantitative Abilities, Mathematics Knowledge\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Cooperation\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Fine Manipulative Abilities\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Adaptability/Flexibility\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Speaking, Verbal Abilities\u0022)\u00BB"
+        ]
+      }
+    },
+    "ContentItemId": "48qjtjj47t17w2s7y72tf2xqch",
+    "ContentItemVersionId": "4xwvrhjbwt77f6483srrdrn5dg",
+    "ContentType": "ONetOccupationalCode",
+    "DisplayText": "35-3021.00",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-03-19T17:00:54.8467600Z",
+    "PublishedUtc": "2021-03-19T17:00:54.8467600Z",
+    "CreatedUtc": "2021-03-19T17:00:54.8467600Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "13-1041.04"
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/onetoccupationalcode/0be386e0-8857-4d4c-adec-a17c63638f24"
+    },
+    "ONetOccupationalCode": {
+      "ONetSkills": {
+        "ContentItemIds": [
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Stress Tolerance\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Adaptability/Flexibility\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Speaking, Verbal Abilities\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Reading Comprehension\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Cooperation\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Self Control\u0022)\u00BB"
+        ]
+      }
+    },
+    "ContentItemId": "4k4jpqx4v5s0mr1qk9jpmchy48",
+    "ContentItemVersionId": "491nx47dbj4wnr5gzx2by089mw",
+    "ContentType": "ONetOccupationalCode",
+    "DisplayText": "13-1041.04",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-03-19T17:00:54.8467600Z",
+    "PublishedUtc": "2021-03-19T17:00:54.8467600Z",
+    "CreatedUtc": "2021-03-19T17:00:54.8467600Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "29-2011.03"
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/onetoccupationalcode/b12c9047-51af-47db-a866-6b4cac8e89bc"
+    },
+    "ONetOccupationalCode": {
+      "ONetSkills": {
+        "ContentItemIds": [
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Fine Manipulative Abilities\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Cooperation\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Adaptability/Flexibility\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Reading Comprehension\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Verbal Abilities\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Stress Tolerance\u0022)\u00BB"
+        ]
+      }
+    },
+    "ContentItemId": "4vzqkaks9p0sk2ypvp8h88am57",
+    "ContentItemVersionId": "4mh0tjfdvnkr6tzw5dknpyjenk",
+    "ContentType": "ONetOccupationalCode",
+    "DisplayText": "29-2011.03",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-03-19T17:00:54.8467600Z",
+    "PublishedUtc": "2021-03-19T17:00:54.8467600Z",
+    "CreatedUtc": "2021-03-19T17:00:54.8467600Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "13-1031.02"
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/onetoccupationalcode/153a7c51-0fd3-49d6-84bb-ea5a8b8da610"
+    },
+    "ONetOccupationalCode": {
+      "ONetSkills": {
+        "ContentItemIds": [
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Cooperation\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Initiative\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Self Control\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Speaking, Verbal Abilities\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Stress Tolerance\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Fine Manipulative Abilities\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Reading Comprehension\u0022)\u00BB"
+        ]
+      }
+    },
+    "ContentItemId": "467kqe3j0jhmx7ecf803g88p5x",
+    "ContentItemVersionId": "4w52zfx8g9hjsyh42a7fh4wrc1",
+    "ContentType": "ONetOccupationalCode",
+    "DisplayText": "13-1031.02",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-03-19T17:00:54.8467600Z",
+    "PublishedUtc": "2021-03-19T17:00:54.8467600Z",
+    "CreatedUtc": "2021-03-19T17:00:54.8467600Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "11-3131.00"
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/onetoccupationalcode/be7ba0e1-84ce-4ede-a6cf-459e943839b3"
+    },
+    "ONetOccupationalCode": {
+      "ONetSkills": {
+        "ContentItemIds": [
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Speaking, Verbal Abilities\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Self Control\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Reading Comprehension\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Adaptability/Flexibility\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Initiative\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Cooperation\u0022)\u00BB"
+        ]
+      }
+    },
+    "ContentItemId": "4n6ccjyry30y77ame7jqb5dvxe",
+    "ContentItemVersionId": "46r9vef2cef3ny9z2e50zrfqcs",
+    "ContentType": "ONetOccupationalCode",
+    "DisplayText": "11-3131.00",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-03-19T17:00:54.8467600Z",
+    "PublishedUtc": "2021-03-19T17:00:54.8467600Z",
+    "CreatedUtc": "2021-03-19T17:00:54.8467600Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "15-1121.00"
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/onetoccupationalcode/b7c47fe8-8ae2-40fc-bcce-07531199a9cd"
+    },
+    "ONetOccupationalCode": {
+      "ONetSkills": {
+        "ContentItemIds": [
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Reading Comprehension\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Stress Tolerance\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Adaptability/Flexibility\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Analytical Thinking\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Quantitative Abilities, Mathematics Knowledge\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Speaking, Verbal Abilities\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Cooperation\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Fine Manipulative Abilities\u0022)\u00BB"
+        ]
+      }
+    },
+    "ContentItemId": "4kfgrvmhbcs5666a5gvdrjk25w",
+    "ContentItemVersionId": "4wtdgn22sqdscymdexad7qqbwq",
+    "ContentType": "ONetOccupationalCode",
+    "DisplayText": "15-1121.00",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-03-19T17:00:54.8467600Z",
+    "PublishedUtc": "2021-03-19T17:00:54.8467600Z",
+    "CreatedUtc": "2021-03-19T17:00:54.8467600Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "27-1025.00"
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/onetoccupationalcode/898a36fc-2da9-4853-b301-1a79c41d17f9"
+    },
+    "ONetOccupationalCode": {
+      "ONetSkills": {
+        "ContentItemIds": [
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Initiative\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Speaking, Verbal Abilities\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Stress Tolerance\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Reading Comprehension\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Cooperation\u0022)\u00BB"
+        ]
+      }
+    },
+    "ContentItemId": "4c6060nfbpfe11myseccbgs8xk",
+    "ContentItemVersionId": "4jjdjp95tg4ar7mffd2xdt57ws",
+    "ContentType": "ONetOccupationalCode",
+    "DisplayText": "27-1025.00",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-03-19T17:00:54.8467600Z",
+    "PublishedUtc": "2021-03-19T17:00:54.8467600Z",
+    "CreatedUtc": "2021-03-19T17:00:54.8467600Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "19-3011.00"
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/onetoccupationalcode/cf247cf8-83f2-4efc-8781-58be617ccc29"
+    },
+    "ONetOccupationalCode": {
+      "ONetSkills": {
+        "ContentItemIds": [
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Analytical Thinking\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Speaking, Verbal Abilities\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Quantitative Abilities, Mathematics Knowledge\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Reading Comprehension\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Initiative\u0022)\u00BB"
+        ]
+      }
+    },
+    "ContentItemId": "4d36f4e8g2g3m25m95endxkfck",
+    "ContentItemVersionId": "4dn8wkg2vr3arwt5kft2pcrbck",
+    "ContentType": "ONetOccupationalCode",
+    "DisplayText": "19-3011.00",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-03-19T17:00:54.8467600Z",
+    "PublishedUtc": "2021-03-19T17:00:54.8467600Z",
+    "CreatedUtc": "2021-03-19T17:00:54.8467600Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "49-3042.00"
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/onetoccupationalcode/81a91c8e-a896-4b3d-a787-2bce6acc2d98"
+    },
+    "ONetOccupationalCode": {
+      "ONetSkills": {
+        "ContentItemIds": [
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Verbal Abilities\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Fine Manipulative Abilities\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Analytical Thinking\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Stress Tolerance\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022ONetSkill\u0022, \u0022Self Control\u0022)\u00BB"
+        ]
+      }
+    },
+    "ContentItemId": "4f57nxbxfjmyhteq6mvbxwtsn6",
+    "ContentItemVersionId": "4dwatfdxh50841018qxffphf5m",
+    "ContentType": "ONetOccupationalCode",
+    "DisplayText": "49-3042.00",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-03-19T17:00:54.8467600Z",
+    "PublishedUtc": "2021-03-19T17:00:54.8467600Z",
+    "CreatedUtc": "2021-03-19T17:00:54.8467600Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "00-0000.00"
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/onetoccupationalcode/b3ab6c63-471e-440c-a53c-ce5f0e347acd"
+    },
+    "ONetOccupationalCode": {
+      "ONetSkills": null
+    },
+    "ContentItemId": "4karmc7p5rh61786d03wsb79nd",
+    "ContentItemVersionId": "4trghxcp3w3v060sntppwq6amg",
+    "ContentType": "ONetOccupationalCode",
+    "DisplayText": "00-0000.00",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-03-19T17:00:54.8467600Z",
+    "PublishedUtc": "2021-03-19T17:00:54.8467600Z",
+    "CreatedUtc": "2021-03-19T17:00:54.8467600Z",
+    "Owner": "admin",
+    "Author": "admin"
+  }
+      ]
+    }
+  ]
+}

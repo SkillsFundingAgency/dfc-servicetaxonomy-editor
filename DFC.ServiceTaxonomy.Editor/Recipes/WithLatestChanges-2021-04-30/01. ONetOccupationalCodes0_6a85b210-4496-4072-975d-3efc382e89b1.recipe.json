@@ -1,0 +1,254 @@
+{
+  "name": "ONetOccupationalCodes0_6a85b210-4496-4072-975d-3efc382e89b1",
+  "displayName": "ONetOccupationalCodes0_6a85b210-4496-4072-975d-3efc382e89b1",
+  "description": "",
+  "author": "",
+  "website": "",
+  "version": "",
+  "issetuprecipe": false,
+  "categories": "",
+  "tags": [],
+  "steps": [
+    {
+      "name": "CSharpContent",
+      "data": [
+  {
+    "TitlePart": {
+      "Title": "21-1011.00"
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/onetoccupationalcode/32816aeb-2a41-458c-b016-46609b1ed948"
+    },
+    "ONetOccupationalCode": {
+      "ONetSkills": null
+    },
+    "ContentItemId": "4zthtxrggzmr70x8cvsz5k7554",
+    "ContentItemVersionId": "466s5qydzbfmk151rcf3bzfzm6",
+    "ContentType": "ONetOccupationalCode",
+    "DisplayText": "21-1011.00",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-04-28T16:28:53.5332676Z",
+    "PublishedUtc": "2021-04-28T16:28:53.5332676Z",
+    "CreatedUtc": "2021-04-28T16:28:53.5332676Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "53-7051.00"
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/onetoccupationalcode/afa15d40-e268-4c1d-a4ea-45f459b3846b"
+    },
+    "ONetOccupationalCode": {
+      "ONetSkills": null
+    },
+    "ContentItemId": "4ptnbcgzajxz56bkbcxev55dnp",
+    "ContentItemVersionId": "4fncb1xwvzb4kr78gn4tzjjwma",
+    "ContentType": "ONetOccupationalCode",
+    "DisplayText": "53-7051.00",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-04-28T16:28:53.5332676Z",
+    "PublishedUtc": "2021-04-28T16:28:53.5332676Z",
+    "CreatedUtc": "2021-04-28T16:28:53.5332676Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "25-4012.00"
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/onetoccupationalcode/09c3680b-23da-4a30-9009-a54b9e1e65ec"
+    },
+    "ONetOccupationalCode": {
+      "ONetSkills": null
+    },
+    "ContentItemId": "45esnvwxxy5n31mycpdnwwdqc2",
+    "ContentItemVersionId": "40k0n8ysv1kgawehs6tpy8vm5a",
+    "ContentType": "ONetOccupationalCode",
+    "DisplayText": "25-4012.00",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-04-28T16:28:53.5332676Z",
+    "PublishedUtc": "2021-04-28T16:28:53.5332676Z",
+    "CreatedUtc": "2021-04-28T16:28:53.5332676Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "37-2011.00"
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/onetoccupationalcode/ddd3ce6c-2580-45c6-957e-fa0c84e71c5e"
+    },
+    "ONetOccupationalCode": {
+      "ONetSkills": null
+    },
+    "ContentItemId": "466k11630hmtxrhfxmnswv91wz",
+    "ContentItemVersionId": "4159cdqhm328264169bfq39r5v",
+    "ContentType": "ONetOccupationalCode",
+    "DisplayText": "37-2011.00",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-04-28T16:28:53.5332676Z",
+    "PublishedUtc": "2021-04-28T16:28:53.5332676Z",
+    "CreatedUtc": "2021-04-28T16:28:53.5332676Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "27-2032.00"
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/onetoccupationalcode/ce8dc445-397a-4e03-aaf2-8e7e441f9068"
+    },
+    "ONetOccupationalCode": {
+      "ONetSkills": null
+    },
+    "ContentItemId": "43mcz958xgdcr36h56fdpa2snz",
+    "ContentItemVersionId": "4ds3850tm67q5thz18tzb7y8nd",
+    "ContentType": "ONetOccupationalCode",
+    "DisplayText": "27-2032.00",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-04-28T16:28:53.5332676Z",
+    "PublishedUtc": "2021-04-28T16:28:53.5332676Z",
+    "CreatedUtc": "2021-04-28T16:28:53.5332676Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "51-8091.00"
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/onetoccupationalcode/2c7f1a8f-c8dc-415c-b12f-c747da8a7f11"
+    },
+    "ONetOccupationalCode": {
+      "ONetSkills": null
+    },
+    "ContentItemId": "4s85b58f6122asvvs55wj9jqnc",
+    "ContentItemVersionId": "4ndzxst5vbp2h0vskfn7sd8cdk",
+    "ContentType": "ONetOccupationalCode",
+    "DisplayText": "51-8091.00",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-04-28T16:28:53.5332676Z",
+    "PublishedUtc": "2021-04-28T16:28:53.5332676Z",
+    "CreatedUtc": "2021-04-28T16:28:53.5332676Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "27-2021.00"
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/onetoccupationalcode/1ef19e7d-6b2a-4443-91a6-c2d15c9de4f1"
+    },
+    "ONetOccupationalCode": {
+      "ONetSkills": null
+    },
+    "ContentItemId": "48zqgv9dqqsc4533dxwxek78m0",
+    "ContentItemVersionId": "4bttqh3yc2z7g7yzfa03brzacz",
+    "ContentType": "ONetOccupationalCode",
+    "DisplayText": "27-2021.00",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-04-28T16:28:53.5332676Z",
+    "PublishedUtc": "2021-04-28T16:28:53.5332676Z",
+    "CreatedUtc": "2021-04-28T16:28:53.5332676Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "39-5094.00"
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/onetoccupationalcode/d1b396cc-ef2d-431d-8618-cf134e8dc1e6"
+    },
+    "ONetOccupationalCode": {
+      "ONetSkills": null
+    },
+    "ContentItemId": "4xcdkb0btht8r5cyg6msgt1sdv",
+    "ContentItemVersionId": "40nk8agr7s1mt485p52h7qc2xw",
+    "ContentType": "ONetOccupationalCode",
+    "DisplayText": "39-5094.00",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-04-28T16:28:53.5332676Z",
+    "PublishedUtc": "2021-04-28T16:28:53.5332676Z",
+    "CreatedUtc": "2021-04-28T16:28:53.5332676Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": ""
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/onetoccupationalcode/bac22410-f454-45e3-83da-106fd87137c7"
+    },
+    "ONetOccupationalCode": {
+      "ONetSkills": null
+    },
+    "ContentItemId": "4vz698pk2570n44m49s53mnmcg",
+    "ContentItemVersionId": "4z8a2zthbm4sms4fe20cf7hs4v",
+    "ContentType": "ONetOccupationalCode",
+    "DisplayText": "",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-04-28T16:28:53.5332676Z",
+    "PublishedUtc": "2021-04-28T16:28:53.5332676Z",
+    "CreatedUtc": "2021-04-28T16:28:53.5332676Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "45-2093.00"
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/onetoccupationalcode/ccf46deb-bde2-43b4-9a7d-a3823265f051"
+    },
+    "ONetOccupationalCode": {
+      "ONetSkills": null
+    },
+    "ContentItemId": "44ytrwz0nm2rdsfh0pszaq6m5z",
+    "ContentItemVersionId": "4c6g5dn4k50cs6g1k22gkfn5wb",
+    "ContentType": "ONetOccupationalCode",
+    "DisplayText": "45-2093.00",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-04-28T16:28:53.5332676Z",
+    "PublishedUtc": "2021-04-28T16:28:53.5332676Z",
+    "CreatedUtc": "2021-04-28T16:28:53.5332676Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "11-3071.01"
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/onetoccupationalcode/4a874208-cd63-48fb-8838-be85a06f6f6e"
+    },
+    "ONetOccupationalCode": {
+      "ONetSkills": null
+    },
+    "ContentItemId": "42mpcmamamywq3npvfahw6np44",
+    "ContentItemVersionId": "4a3t9q58839bpw0bsnc0mb1xdx",
+    "ContentType": "ONetOccupationalCode",
+    "DisplayText": "11-3071.01",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-04-28T16:28:53.5332676Z",
+    "PublishedUtc": "2021-04-28T16:28:53.5332676Z",
+    "CreatedUtc": "2021-04-28T16:28:53.5332676Z",
+    "Owner"

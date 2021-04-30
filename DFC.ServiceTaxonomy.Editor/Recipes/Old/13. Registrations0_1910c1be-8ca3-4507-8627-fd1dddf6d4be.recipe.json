@@ -1,0 +1,90 @@
+{
+  "name": "Registrations0_1910c1be-8ca3-4507-8627-fd1dddf6d4be",
+  "displayName": "Registrations0_1910c1be-8ca3-4507-8627-fd1dddf6d4be",
+  "description": "",
+  "author": "",
+  "website": "",
+  "version": "",
+  "issetuprecipe": false,
+  "categories": "",
+  "tags": [],
+  "steps": [
+    {
+      "name": "ContentNoCache",
+      "data": [
+  {
+    "TitlePart": {
+      "Title": "Social Work England"
+    },
+    "Registration": {
+      "Description": {
+        "Html": "\u003Cp\u003Eyou\u0027ll need to register with \u003Ca href=\u0022https://www.socialworkengland.org.uk/registration/apply-to-register/\u0022\u003ESocial Work England\u003C/a\u003E\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/registration/0d3d7e73-0b72-4aeb-9e12-9b26b3ce92c9"
+    },
+    "ContentItemId": "41t97dpma6kbm5bt747a1s4fmw",
+    "ContentItemVersionId": "4r8kss2ne6d3m0gtvwexf6a0wk",
+    "ContentType": "Registration",
+    "DisplayText": "Social Work England",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-03-19T16:56:15.3939892Z",
+    "PublishedUtc": "2021-03-19T16:56:15.3939892Z",
+    "CreatedUtc": "2021-03-19T16:56:15.3939892Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "CSCS"
+    },
+    "Registration": {
+      "Description": {
+        "Html": "\u003Cp\u003Eyou\u0027ll need a \u003Ca href=\u0022https://www.cscs.uk.com\u0022\u003EConstruction Skills Certification Scheme\u003C/a\u003E (CSCS) card or equivalent to train and work on a construction site\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/registration/ff9c14b4-3936-4622-b597-e5630ee0fdc5"
+    },
+    "ContentItemId": "4g6b5555bj2mtt9wxwewjrhyxf",
+    "ContentItemVersionId": "4q7nka32qegp2wnah4v0wtc75j",
+    "ContentType": "Registration",
+    "DisplayText": "CSCS",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-03-19T16:56:15.3939892Z",
+    "PublishedUtc": "2021-03-19T16:56:15.3939892Z",
+    "CreatedUtc": "2021-03-19T16:56:15.3939892Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "QTS"
+    },
+    "Registration": {
+      "Description": {
+        "Html": "\u003Cp\u003Eyou\u0027ll usually need \u003Ca href=\u0022https://www.gov.uk/guidance/qualified-teacher-status-qts\u0022\u003Equalified teacher status\u003C/a\u003E (QTS) to teach in a state school in England\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/registration/df143ff1-31ab-467e-98f2-be0b23143a74"
+    },
+    "ContentItemId": "4vby7hmq5hg77xeq6vfs9m8yn3",
+    "ContentItemVersionId": "49kz0102qm3wbtfqxr43v32vn5",
+    "ContentType": "Registration",
+    "DisplayText": "QTS",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-03-19T16:56:15.3939892Z",
+    "PublishedUtc": "2021-03-19T16:56:15.3939892Z",
+    "CreatedUtc": "2021-03-19T16:56:15.3939892Z",
+    "Owner": "admin",
+    "Author": "admin"
+  }
+      ]
+    }
+  ]
+}

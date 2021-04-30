@@ -6,9 +6,9 @@ using GetJobProfiles.Models.Recipe.Parts;
 
 namespace GetJobProfiles.Models.Recipe.ContentItems
 {
-    public class QCFLevelContentItem : ContentItem
+    public class QcfLevelContentItem : ContentItem
     {
-        public QCFLevelContentItem(string title, string timestamp, string contentItemId = null)
+        public QcfLevelContentItem(string title, string timestamp, string contentItemId = null)
             : base("QCFLevel", title, timestamp, contentItemId)
         {
             TitlePart = new TitlePart(title);

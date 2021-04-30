@@ -1,0 +1,1506 @@
+{
+  "name": "JobProfiles0_407044ef-beae-42e7-b648-6a27013a360d",
+  "displayName": "JobProfiles0_407044ef-beae-42e7-b648-6a27013a360d",
+  "description": "",
+  "author": "",
+  "website": "",
+  "version": "",
+  "issetuprecipe": false,
+  "categories": "",
+  "tags": [],
+  "steps": [
+    {
+      "name": "CSharpContent",
+      "data": [
+  {
+    "TitlePart": {
+      "Title": "3D printing technician"
+    },
+    "PageLocationPart": {
+      "UrlName": "3d-printing-technician",
+      "FullUrl": "/job-profiles/3d-printing-technician",
+      "DefaultPageForLocation": false,
+      "RedirectLocations": null
+    },
+    "JobProfile": {
+      "AlternativeTitle": {
+        "Text": ""
+      },
+      "HiddenAlternativeTitle": {
+        "Text": "additive manufacturing engineer"
+      },
+      "PageLocations": {
+        "TaxonomyContentItemId": "4eembshqzx66drajtdten34tc8",
+        "TermContentItemIds": [
+          "4x352kh85x7894jr7yqbt0z34b"
+        ]
+      },
+      "Description": {
+        "Html": "\u003Cp\u003E3D printing technicians manufacture products, including biomedical implants, car parts, aerospace components and fashion accessories.\u003C/p\u003E"
+      },
+      "TitleOptions": {
+        "Text": "As Defined"
+      },
+      "SOCCode": {
+        "ContentItemIds": [
+          "47ca0dybvgn8b699pbpavrj1xj"
+        ]
+      },
+      "ONetOccupationalCode": {
+        "ContentItemIds": [
+          "4ytwwprh7m9a6x5gf86d1kgvwb"
+        ]
+      },
+      "SalaryStarter": {
+        "Text": "18000"
+      },
+      "SalaryExperienced": {
+        "Text": "33000"
+      },
+      "MinimumHours": {
+        "Value": 37.0
+      },
+      "MaximumHours": {
+        "Value": 42.0
+      },
+      "WorkingHoursDetails": {
+        "Text": "a week"
+      },
+      "WorkingPattern": {
+        "Text": "between 8am and 6pm"
+      },
+      "WorkingPatternDetails": {
+        "Text": "on a rota"
+      },
+      "ApprenticeshipRoute": {
+        "ContentItemIds": [
+          "40rrjs4hjy7davq4w6wzce5knj"
+        ]
+      },
+      "CollegeRoute": {
+        "ContentItemIds": [
+          "41sd23w4f8xza073eqgbwjj3dk"
+        ]
+      },
+      "UniversityRoute": {
+        "ContentItemIds": [
+          "44ng38nvh4x6csh49er1hm0anz"
+        ]
+      },
+      "DirectRoute": {
+        "ContentItemIds": []
+      },
+      "OtherRoute": {
+        "ContentItemIds": []
+      },
+      "VolunteeringRoute": {
+        "ContentItemIds": []
+      },
+      "WorkRoute": {
+        "ContentItemIds": [
+          "48344bhrdswthrnc6q0s2mjtmm"
+        ]
+      },
+      "HtbProfessionalBodies": {
+        "Html": ""
+      },
+      "HtbCareerTips": {
+        "Html": "\u003Cp\u003ELearn more about the \u003Ca href=\u0022https://3dprintingindustry.com/3d-printing-basics-free-beginners-guide\u0022\u003Ebasics of 3D printing\u003C/a\u003E.\u003C/p\u003E"
+      },
+      "HtbFurtherInformation": {
+        "Html": "\u003Cp\u003EYou can get details about working in 3D printing and design engineering from the\n\u003Ca href=\u0022https://www.britishprint.com\u0022\u003EBritish Printing Industries Federation\u003C/a\u003E and\n\u003Ca href=\u0022https://www.tomorrowsengineers.org.uk/students/why-should-i-become-an-engineer/\u0022\u003ETomorrow\u0027s Engineers\u003C/a\u003E.\u003C/p\u003E"
+      },
+      "HtbRegistrations": {
+        "ContentItemIds": []
+      },
+      "WitRestrictions": {
+        "ContentItemIds": []
+      },
+      "WitOtherRequirements": {
+        "ContentItemIds": []
+      },
+      "WitDigitalSkillsLevel": {
+        "ContentItemIds": [
+          "4afjy3x17vjdk4qm2nt6g6vbnb"
+        ]
+      },
+      "WydDayToDayTasks": {
+        "Html": "\u003Cp\u003E\u003Cp\u003EYour day-to-day duties may include:\u003C/p\u003E\n\u003Cul\u003E\n    \u003Cli\u003Etaking customer orders and giving job quotes\u003C/li\u003E\n    \u003Cli\u003Eadvising customers on which materials to use\u003C/li\u003E\n    \u003Cli\u003Ecreating digital models and prototypes based on customer requirements\u003C/li\u003E\n    \u003Cli\u003Eoperating 3D scanning and printing machinery\u003C/li\u003E\n    \u003Cli\u003Eapplying finishes to products\u003C/li\u003E\n    \u003Cli\u003Echecking quality\u003C/li\u003E\n    \u003Cli\u003Eservicing and repairing equipment\u003C/li\u003E\n\u003C/ul\u003E\u003C/p\u003E"
+      },
+      "WydWorkingEnvironment": {
+        "ContentItemIds": [
+          "4dafbg28acjdm4vcxtr1v77p5v"
+        ]
+      },
+      "WydWorkingLocation": {
+        "ContentItemIds": [
+          "42tgn82tabbz4tebwx1zg4jcwp"
+        ]
+      },
+      "WydWorkingUniform": {
+        "ContentItemIds": [
+          "4vy6t4qvqqvyf6qhypn04w65wq"
+        ]
+      },
+      "CareerPathAndProgression": {
+        "Html": "\u003Cp\u003EYou could move into research, investigating new materials for use in 3D printing and how to make them commercially workable. You could also train to work in 3D printing software and hardware development.\u003C/p\u003E\u003Cp\u003EYou might work for a company that specialises in printing particular items, for example custom-made prosthetics, construction prototypes, or models of archaeological remains and historical buildings.\u003C/p\u003E\u003Cp\u003EThere are also opportunities in print equipment sales and training.\u003C/p\u003E"
+      },
+      "ApprenticeshipStandards": null,
+      "RelatedCareers": null
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/jobprofile/1b653f4f-1375-4d8d-a35d-595db80fc2f4"
+    },
+    "ContentItemId": "4batdadyn5tgywrnvv2k77gwxw",
+    "ContentItemVersionId": "4vqyg86gv902qzqcw2yvwkw7n4",
+    "ContentType": "JobProfile",
+    "DisplayText": "3D printing technician",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-04-29T19:25:19.0484610Z",
+    "PublishedUtc": "2021-04-29T19:25:19.0484610Z",
+    "CreatedUtc": "2021-04-29T19:25:19.0484610Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Accommodation warden"
+    },
+    "PageLocationPart": {
+      "UrlName": "accommodation-warden",
+      "FullUrl": "/job-profiles/accommodation-warden",
+      "DefaultPageForLocation": false,
+      "RedirectLocations": null
+    },
+    "JobProfile": {
+      "AlternativeTitle": {
+        "Text": "Property manager, hall manager"
+      },
+      "HiddenAlternativeTitle": {
+        "Text": ""
+      },
+      "PageLocations": {
+        "TaxonomyContentItemId": "4eembshqzx66drajtdten34tc8",
+        "TermContentItemIds": [
+          "4x352kh85x7894jr7yqbt0z34b"
+        ]
+      },
+      "Description": {
+        "Html": "\u003Cp\u003EAccommodation wardens manage the day-to-day running of services like sheltered housing, youth hostels and student flats.\u003C/p\u003E"
+      },
+      "TitleOptions": {
+        "Text": "As Defined"
+      },
+      "SOCCode": {
+        "ContentItemIds": [
+          "40yht5m86kak0r85y5wsag9y50"
+        ]
+      },
+      "ONetOccupationalCode": {
+        "ContentItemIds": [
+          "4pqp40kbn63dtvgppb1848yf5s"
+        ]
+      },
+      "SalaryStarter": {
+        "Text": "15000"
+      },
+      "SalaryExperienced": {
+        "Text": "40000"
+      },
+      "MinimumHours": {
+        "Value": 38.0
+      },
+      "MaximumHours": {
+        "Value": 40.0
+      },
+      "WorkingHoursDetails": {
+        "Text": "a week"
+      },
+      "WorkingPattern": {
+        "Text": "evenings / weekends"
+      },
+      "WorkingPatternDetails": {
+        "Text": "at short notice"
+      },
+      "ApprenticeshipRoute": {
+        "ContentItemIds": [
+          "4d5ek37wp2m3xt5zn7d53p8rcq"
+        ]
+      },
+      "CollegeRoute": {
+        "ContentItemIds": [
+          "4e3jstwaq2acz001axh97p8ym2"
+        ]
+      },
+      "UniversityRoute": {
+        "ContentItemIds": []
+      },
+      "DirectRoute": {
+        "ContentItemIds": [
+          "4a31hz1qg2fx1xw2yamsdzhfxp"
+        ]
+      },
+      "OtherRoute": {
+        "ContentItemIds": []
+      },
+      "VolunteeringRoute": {
+        "ContentItemIds": [
+          "4d3ajde0xrx3k5166wt5kn3m44"
+        ]
+      },
+      "WorkRoute": {
+        "ContentItemIds": [
+          "4j7g9jg94kms96eynpjkja7w4x"
+        ]
+      },
+      "HtbProfessionalBodies": {
+        "Html": ""
+      },
+      "HtbCareerTips": {
+        "Html": ""
+      },
+      "HtbFurtherInformation": {
+        "Html": "\u003Cp\u003EYou can find out more about working as a warden from the \u003Ca href=\u0022http://www.cih.org/\u0022\u003EChartered Institute of Housing\u003C/a\u003E.\u003C/p\u003E"
+      },
+      "HtbRegistrations": {
+        "ContentItemIds": []
+      },
+      "WitRestrictions": {
+        "ContentItemIds": [
+          "42gydgm35h43czy9s0gpdspxxf"
+        ]
+      },
+      "WitOtherRequirements": {
+        "ContentItemIds": []
+      },
+      "WitDigitalSkillsLevel": {
+        "ContentItemIds": [
+          "453nx1v634h5t05zq501shc4mp"
+        ]
+      },
+      "WydDayToDayTasks": {
+        "Html": "\u003Cp\u003E\u003Cp\u003EYour day-to-day duties could include:\u003C/p\u003E\n\u003Cul\u003E\n    \u003Cli\u003Eallocating and managing accommodation\u003C/li\u003E\n    \u003Cli\u003Econtrolling rent arrears\u003C/li\u003E\n    \u003Cli\u003Einspecting property and arranging for repairs to be carried out\u003C/li\u003E\n    \u003Cli\u003Esupervising catering, cleaning and maintenance staff\u003C/li\u003E\n    \u003Cli\u003Elooking after the welfare of residents\u003C/li\u003E\n    \u003Cli\u003Echecking on health and safety, and conducting risk assessments\u003C/li\u003E\n    \u003Cli\u003Eworking with outside agencies, carers and parents\u003C/li\u003E\n    \u003Cli\u003Edealing with emergencies\u003C/li\u003E\n\u003C/ul\u003E\u003C/p\u003E"
+      },
+      "WydWorkingEnvironment": {
+        "ContentItemIds": []
+      },
+      "WydWorkingLocation": {
+        "ContentItemIds": [
+          "48pmaa0g1x3s6s2wmqr9zm064c"
+        ]
+      },
+      "WydWorkingUniform": {
+        "ContentItemIds": []
+      },
+      "CareerPathAndProgression": {
+        "Html": "\u003Cp\u003EWith experience, you could become an accommodation manager with responsibility for several centres and wardens. You could also work in housing or block management.\u003C/p\u003E\u003Cp\u003EWith further study, you could also work in a related field like social work or counselling.\u003C/p\u003E"
+      },
+      "ApprenticeshipStandards": null,
+      "RelatedCareers": null
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/jobprofile/6addb57a-2c96-466b-a5ce-153e821b6cf1"
+    },
+    "ContentItemId": "4vzw67avh8y3gt1kpnv3y85nm0",
+    "ContentItemVersionId": "4dd7m44b7r3ea3mm75pqjgc4mr",
+    "ContentType": "JobProfile",
+    "DisplayText": "Accommodation warden",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-04-29T19:25:19.0484610Z",
+    "PublishedUtc": "2021-04-29T19:25:19.0484610Z",
+    "CreatedUtc": "2021-04-29T19:25:19.0484610Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Accounting technician"
+    },
+    "PageLocationPart": {
+      "UrlName": "accounting-technician",
+      "FullUrl": "/job-profiles/accounting-technician",
+      "DefaultPageForLocation": false,
+      "RedirectLocations": null
+    },
+    "JobProfile": {
+      "AlternativeTitle": {
+        "Text": ""
+      },
+      "HiddenAlternativeTitle": {
+        "Text": ""
+      },
+      "PageLocations": {
+        "TaxonomyContentItemId": "4eembshqzx66drajtdten34tc8",
+        "TermContentItemIds": [
+          "4x352kh85x7894jr7yqbt0z34b"
+        ]
+      },
+      "Description": {
+        "Html": "\u003Cp\u003EAccounting technicians handle day-to-day financial matters in all types of business.\u003C/p\u003E"
+      },
+      "TitleOptions": {
+        "Text": "As Defined"
+      },
+      "SOCCode": {
+        "ContentItemIds": [
+          "4gbhbhh130ag5xx14bjv3q3gc4"
+        ]
+      },
+      "ONetOccupationalCode": {
+        "ContentItemIds": [
+          "402tgney4txyt12w3t8vjs92n3"
+        ]
+      },
+      "SalaryStarter": {
+        "Text": "18000"
+      },
+      "SalaryExperienced": {
+        "Text": "32000"
+      },
+      "MinimumHours": {
+        "Value": 37.0
+      },
+      "MaximumHours": {
+        "Value": 39.0
+      },
+      "WorkingHoursDetails": {
+        "Text": "a week"
+      },
+      "WorkingPattern": {
+        "Text": "between 8am and 6pm"
+      },
+      "WorkingPatternDetails": {
+        "Text": null
+      },
+      "ApprenticeshipRoute": {
+        "ContentItemIds": [
+          "4vqxwzzbvv8p24vea3n6svc7xt"
+        ]
+      },
+      "CollegeRoute": {
+        "ContentItemIds": [
+          "4w7c85cpnmb5bvg6e7pp090849"
+        ]
+      },
+      "UniversityRoute": {
+        "ContentItemIds": []
+      },
+      "DirectRoute": {
+        "ContentItemIds": [
+          "4vh9rf6hw4j6j3jqp25h7g0fc6"
+        ]
+      },
+      "OtherRoute": {
+        "ContentItemIds": []
+      },
+      "VolunteeringRoute": {
+        "ContentItemIds": []
+      },
+      "WorkRoute": {
+        "ContentItemIds": [
+          "48kw00rb34dv743mjx5qb9phwx"
+        ]
+      },
+      "HtbProfessionalBodies": {
+        "Html": ""
+      },
+      "HtbCareerTips": {
+        "Html": ""
+      },
+      "HtbFurtherInformation": {
+        "Html": "\u003Cp\u003EYou can find out more about careers in accountancy from the\u00A0\u003Ca href=\u0022https://yourfuture.accaglobal.com/global/en/your-career/sectors-industries-roles.html/\u0022\u003EAssociation of Chartered Certified Accountants\u003C/a\u003E.\u003C/p\u003E"
+      },
+      "HtbRegistrations": {
+        "ContentItemIds": []
+      },
+      "WitRestrictions": {
+        "ContentItemIds": []
+      },
+      "WitOtherRequirements": {
+        "ContentItemIds": []
+      },
+      "WitDigitalSkillsLevel": {
+        "ContentItemIds": [
+          "4afjy3x17vjdk4qm2nt6g6vbnb"
+        ]
+      },
+      "WydDayToDayTasks": {
+        "Html": "\u003Cp\u003E\u003Cp\u003EYour day-to-day tasks may include:\n\u003C/p\u003E\n\u003Cul\u003E\n    \u003Cli\u003Eprocessing and paying invoices\u003C/li\u003E\n    \u003Cli\u003Erecording receipts and payments\u003C/li\u003E\n    \u003Cli\u003Epreparing and checking ledger balances and other monthly accounts\u003C/li\u003E\n    \u003Cli\u003Ecompleting and submitting tax returns, VAT returns and National Insurance contributions\u003C/li\u003E\n    \u003Cli\u003Ehandling company expenses\u003C/li\u003E\n    \u003Cli\u003Eupdating computerised accounting systems\u003C/li\u003E\n\u003C/ul\u003E\u003C/p\u003E"
+      },
+      "WydWorkingEnvironment": {
+        "ContentItemIds": []
+      },
+      "WydWorkingLocation": {
+        "ContentItemIds": [
+          "47yd7z4mdy7tgx2zbtagykbpc0"
+        ]
+      },
+      "WydWorkingUniform": {
+        "ContentItemIds": []
+      },
+      "CareerPathAndProgression": {
+        "Html": "\u003Cp\u003EWith experience, you could move into management or become self-employed and work on accounts for small businesses. You could also study to become a qualified accountant.\u003C/p\u003E\u003Cp\u003E\u003Ca href=\u0022https://www.aat.org.uk/\u0022\u003EAAT\u003C/a\u003E and \u003Ca href=\u0022http://www.accaglobal.com/uk/en.html\u0022\u003EACCA\u003C/a\u003E qualifications are recognised across the world, so you could work overseas.\u003C/p\u003E"
+      },
+      "ApprenticeshipStandards": null,
+      "RelatedCareers": null
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/jobprofile/4e9a3bed-929e-42f4-a025-d59204c74bb2"
+    },
+    "ContentItemId": "49bj73rnaxtf1sy2j1veg9974h",
+    "ContentItemVersionId": "44myryka3r5j0we58j6kntg0wz",
+    "ContentType": "JobProfile",
+    "DisplayText": "Accounting technician",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-04-29T19:25:19.0484610Z",
+    "PublishedUtc": "2021-04-29T19:25:19.0484610Z",
+    "CreatedUtc": "2021-04-29T19:25:19.0484610Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Acoustics consultant"
+    },
+    "PageLocationPart": {
+      "UrlName": "acoustics-consultant",
+      "FullUrl": "/job-profiles/acoustics-consultant",
+      "DefaultPageForLocation": false,
+      "RedirectLocations": null
+    },
+    "JobProfile": {
+      "AlternativeTitle": {
+        "Text": "Acoustician, acoustics engineer"
+      },
+      "HiddenAlternativeTitle": {
+        "Text": ""
+      },
+      "PageLocations": {
+        "TaxonomyContentItemId": "4eembshqzx66drajtdten34tc8",
+        "TermContentItemIds": [
+          "4x352kh85x7894jr7yqbt0z34b"
+        ]
+      },
+      "Description": {
+        "Html": "\u003Cp\u003EAcoustics consultants help manage and control noise and vibrations in homes, workplaces and other environments.\u003C/p\u003E"
+      },
+      "TitleOptions": {
+        "Text": "As Defined"
+      },
+      "SOCCode": {
+        "ContentItemIds": [
+          "41x07bx3g8hz81sy0086qbv1wm"
+        ]
+      },
+      "ONetOccupationalCode": {
+        "ContentItemIds": [
+          "4gkyq4s1amg7q28kx2t6c8hkmf"
+        ]
+      },
+      "SalaryStarter": {
+        "Text": "18000"
+      },
+      "SalaryExperienced": {
+        "Text": "50000"
+      },
+      "MinimumHours": {
+        "Value": 39.0
+      },
+      "MaximumHours": {
+        "Value": 41.0
+      },
+      "WorkingHoursDetails": {
+        "Text": "variable"
+      },
+      "WorkingPattern": {
+        "Text": "evenings / weekends"
+      },
+      "WorkingPatternDetails": {
+        "Text": "away from home"
+      },
+      "ApprenticeshipRoute": {
+        "ContentItemIds": [
+          "4p565dn69vjz41pdbnsj9g73c7"
+        ]
+      },
+      "CollegeRoute": {
+        "ContentItemIds": []
+      },
+      "UniversityRoute": {
+        "ContentItemIds": [
+          "4ej9zzjz3xmhc4q03w6djc0awt"
+        ]
+      },
+      "DirectRoute": {
+        "ContentItemIds": []
+      },
+      "OtherRoute": {
+        "ContentItemIds": []
+      },
+      "VolunteeringRoute": {
+        "ContentItemIds": []
+      },
+      "WorkRoute": {
+        "ContentItemIds": [
+          "4g8q7zv2840va0hzexxy4y8bms"
+        ]
+      },
+      "HtbProfessionalBodies": {
+        "Html": ""
+      },
+      "HtbCareerTips": {
+        "Html": ""
+      },
+      "HtbFurtherInformation": {
+        "Html": "\u003Cp\u003EYou can find out more about becoming an acoustics consultant from the \u003Ca href=\u0022https://www.ioa.org.uk/careers\u0022\u003EInstitute of Acoustics\u003C/a\u003E.\u003C/p\u003E"
+      },
+      "HtbRegistrations": {
+        "ContentItemIds": []
+      },
+      "WitRestrictions": {
+        "ContentItemIds": []
+      },
+      "WitOtherRequirements": {
+        "ContentItemIds": []
+      },
+      "WitDigitalSkillsLevel": {
+        "ContentItemIds": [
+          "4afjy3x17vjdk4qm2nt6g6vbnb"
+        ]
+      },
+      "WydDayToDayTasks": {
+        "Html": "\u003Cp\u003E\u003Cp\u003EYour day-to-day duties could include:\u003C/p\u003E\n\u003Cul\u003E\n    \u003Cli\u003Ecarrying out noise assessments on buildings to make sure they meet building regulations \u003C/li\u003E\n    \u003Cli\u003Echecking noise levels are within legal limits \u003C/li\u003E\n    \u003Cli\u003Etesting how changes to a building\u0026rsquo;s design affects sound levels and quality \u003C/li\u003E\n    \u003Cli\u003Eusing computers to find ways of reducing machinery noise and vibration in the workplace \u003C/li\u003E\n    \u003Cli\u003Egiving specialist advice in legal cases \u003C/li\u003E\n    \u003Cli\u003Eexploring how sound vibrations affect machinery and structures \u003C/li\u003E\n    \u003Cli\u003Edesigning and working with recording studio and broadcast sound equipment \u003C/li\u003E\n    \u003Cli\u003Edesigning medical equipment, like ultrasound, to help doctors diagnose and treat patients \u003C/li\u003E\n    \u003Cli\u003Eproducing reports, sharing your findings and making recommendations for action\u003C/li\u003E\n\u003C/ul\u003E\u003C/p\u003E"
+      },
+      "WydWorkingEnvironment": {
+        "ContentItemIds": []
+      },
+      "WydWorkingLocation": {
+        "ContentItemIds": [
+          "4vj8xpjgz38nszafpdfm4b6rn3"
+        ]
+      },
+      "WydWorkingUniform": {
+        "ContentItemIds": [
+          "4sexrv66y62kgt9dftqc4ft7nz"
+        ]
+      },
+      "CareerPathAndProgression": {
+        "Html": "\u003Cp\u003EYou could become a project leader, managing the design and development of new products. You might also specialise in a particular area, for example architectural, medical or underwater acoustics technology.\u003C/p\u003E\u003Cp\u003EWith experience, you could become a senior acoustics engineering consultant and register for chartered status through the \u003Ca href=\u0022https://www.ioa.org.uk/engineering\u0022\u003EInstitute of Acoustics\u003C/a\u003E.\u003C/p\u003E"
+      },
+      "ApprenticeshipStandards": null,
+      "RelatedCareers": null
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/jobprofile/2abe0a40-eb5b-43f3-b393-1c91ea5b19f2"
+    },
+    "ContentItemId": "438zyz8qttasc0bts3hpg9ftxe",
+    "ContentItemVersionId": "4s5exxf2j5k4q6kv1t44sdcsds",
+    "ContentType": "JobProfile",
+    "DisplayText": "Acoustics consultant",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-04-29T19:25:19.0484610Z",
+    "PublishedUtc": "2021-04-29T19:25:19.0484610Z",
+    "CreatedUtc": "2021-04-29T19:25:19.0484610Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Actor"
+    },
+    "PageLocationPart": {
+      "UrlName": "actor",
+      "FullUrl": "/job-profiles/actor",
+      "DefaultPageForLocation": false,
+      "RedirectLocations": null
+    },
+    "JobProfile": {
+      "AlternativeTitle": {
+        "Text": ""
+      },
+      "HiddenAlternativeTitle": {
+        "Text": ""
+      },
+      "PageLocations": {
+        "TaxonomyContentItemId": "4eembshqzx66drajtdten34tc8",
+        "TermContentItemIds": [
+          "4x352kh85x7894jr7yqbt0z34b"
+        ]
+      },
+      "Description": {
+        "Html": "\u003Cp\u003EActors use speech, movement and expression to bring characters to life in theatre, film, television and radio.\u003C/p\u003E"
+      },
+      "TitleOptions": {
+        "Text": "As Defined"
+      },
+      "SOCCode": {
+        "ContentItemIds": [
+          "406avk986b12nxeszg91wmt6wa"
+        ]
+      },
+      "ONetOccupationalCode": {
+        "ContentItemIds": [
+          "41vy0hzacxb4x1kzrz5qq2x55w"
+        ]
+      },
+      "SalaryStarter": {
+        "Text": "variable"
+      },
+      "SalaryExperienced": {
+        "Text": "variable"
+      },
+      "MinimumHours": {
+        "Value": 45.0
+      },
+      "MaximumHours": {
+        "Value": 47.0
+      },
+      "WorkingHoursDetails": {
+        "Text": "irregular"
+      },
+      "WorkingPattern": {
+        "Text": "evenings / weekends / bank holidays"
+      },
+      "WorkingPatternDetails": {
+        "Text": "away from home"
+      },
+      "ApprenticeshipRoute": {
+        "ContentItemIds": []
+      },
+      "CollegeRoute": {
+        "ContentItemIds": [
+          "4t46t6vnw7q5zt3h2ex7t3gcma"
+        ]
+      },
+      "UniversityRoute": {
+        "ContentItemIds": [
+          "4te492z317ea4tey126gjz40wd"
+        ]
+      },
+      "DirectRoute": {
+        "ContentItemIds": [
+          "48422h641sg23sxc842f7s52xa"
+        ]
+      },
+      "OtherRoute": {
+        "ContentItemIds": [
+          "4fhwjfw8sbtrss0z6mb6qnfsm5"
+        ]
+      },
+      "VolunteeringRoute": {
+        "ContentItemIds": [
+          "487ep86rpbg6qr0xqy2qk33td9"
+        ]
+      },
+      "WorkRoute": {
+        "ContentItemIds": []
+      },
+      "HtbProfessionalBodies": {
+        "Html": "\u003Cp\u003EYou can join \u003Ca href=\u0022https://www.equity.org.uk/getting-involved/\u0022\u003EEquity\u003C/a\u003E for professional recognition, training opportunities and to make industry contacts.\u003C/p\u003E"
+      },
+      "HtbCareerTips": {
+        "Html": "\u003Cp\u003EYou\u0027ll need to get as much practical experience of acting as you can, and create a showreel to demonstrate your acting skills to agents and casting directors.\u003C/p\u003E"
+      },
+      "HtbFurtherInformation": {
+        "Html": "\u003Cp\u003EYou can find out more about becoming an actor through \u003Ca href=\u0022https://getintotheatre.org/\u0022\u003EGet into Theatre\u003C/a\u003E and \u003Ca href=\u0022https://discovercreative.careers/#/\u0022\u003EDiscover Creative Careers\u003C/a\u003E.\u003C/p\u003E\u003Cp\u003EYou can also get extra support from organisations like \u003Ca href=\u0022https://www.shapearts.org.uk/\u0022\u003EShape Arts\u003C/a\u003E, if you have a disability or special learning need.\u003C/p\u003E"
+      },
+      "HtbRegistrations": {
+        "ContentItemIds": []
+      },
+      "WitRestrictions": {
+        "ContentItemIds": []
+      },
+      "WitOtherRequirements": {
+        "ContentItemIds": []
+      },
+      "WitDigitalSkillsLevel": {
+        "ContentItemIds": [
+          "4qgzhjzjmjtcmykt1g75pc19m6"
+        ]
+      },
+      "WydDayToDayTasks": {
+        "Html": "\u003Cp\u003E\u003Cp\u003EYou\u0026rsquo;ll spend a lot of time:\u003C/p\u003E\n\u003Cul\u003E\n    \u003Cli\u003Eresearching your role\u003C/li\u003E\n    \u003Cli\u003Elearning your lines\u003C/li\u003E\n    \u003Cli\u003Erehearsing\u003C/li\u003E\n    \u003Cli\u003Eattending fittings for costumes\u003C/li\u003E\n    \u003Cli\u003Epreparing for and going to auditions\u003C/li\u003E\n    \u003Cli\u003Econtacting actors\u0026rsquo; agents and finding the next job\u003C/li\u003E\n\u003C/ul\u003E\u003C/p\u003E"
+      },
+      "WydWorkingEnvironment": {
+        "ContentItemIds": [
+          "44r1qkrjf7e9dzzmfw8cwffbmm"
+        ]
+      },
+      "WydWorkingLocation": {
+        "ContentItemIds": [
+          "4p3k5e8d63e990yvh2av3g5qc1"
+        ]
+      },
+      "WydWorkingUniform": {
+        "ContentItemIds": []
+      },
+      "CareerPathAndProgression": {
+        "Html": "\u003Cp\u003EIf you can show an agent you have potential they may put you forward for auditions and castings. Agents usually take a fee of about 10% to 25% from your earnings.\u003C/p\u003E\u003Cp\u003EYou could take further training and move into directing, scriptwriting, drama therapy or teaching.\u003C/p\u003E"
+      },
+      "ApprenticeshipStandards": null,
+      "RelatedCareers": null
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/jobprofile/e26a3213-9119-42bd-941e-0126e6d371f1"
+    },
+    "ContentItemId": "4t14p7ehwg4rj79c6z5xxmavc1",
+    "ContentItemVersionId": "4xz3jhqpkst580pqwasrbw1d5q",
+    "ContentType": "JobProfile",
+    "DisplayText": "Actor",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-04-29T19:25:19.0484610Z",
+    "PublishedUtc": "2021-04-29T19:25:19.0484610Z",
+    "CreatedUtc": "2021-04-29T19:25:19.0484610Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Actuary"
+    },
+    "PageLocationPart": {
+      "UrlName": "actuary",
+      "FullUrl": "/job-profiles/actuary",
+      "DefaultPageForLocation": false,
+      "RedirectLocations": null
+    },
+    "JobProfile": {
+      "AlternativeTitle": {
+        "Text": "Actuarial analyst"
+      },
+      "HiddenAlternativeTitle": {
+        "Text": ""
+      },
+      "PageLocations": {
+        "TaxonomyContentItemId": "4eembshqzx66drajtdten34tc8",
+        "TermContentItemIds": [
+          "4x352kh85x7894jr7yqbt0z34b"
+        ]
+      },
+      "Description": {
+        "Html": "\u003Cp\u003EActuaries work with companies and government departments, to help them forecast long-term financial costs and investment risks.\u003C/p\u003E"
+      },
+      "TitleOptions": {
+        "Text": "As Defined"
+      },
+      "SOCCode": {
+        "ContentItemIds": [
+          "4zk6ha5k07p2p32qp4a53pdjm3"
+        ]
+      },
+      "ONetOccupationalCode": {
+        "ContentItemIds": [
+          "4wss47nb0epq20yytmae9pyy43"
+        ]
+      },
+      "SalaryStarter": {
+        "Text": "30000"
+      },
+      "SalaryExperienced": {
+        "Text": "70000"
+      },
+      "MinimumHours": {
+        "Value": 37.0
+      },
+      "MaximumHours": {
+        "Value": 39.0
+      },
+      "WorkingHoursDetails": {
+        "Text": "a week"
+      },
+      "WorkingPattern": {
+        "Text": "between 8am and 6pm"
+      },
+      "WorkingPatternDetails": {
+        "Text": null
+      },
+      "ApprenticeshipRoute": {
+        "ContentItemIds": [
+          "490rpejbdq3x9zrmy7g112ezd4"
+        ]
+      },
+      "CollegeRoute": {
+        "ContentItemIds": []
+      },
+      "UniversityRoute": {
+        "ContentItemIds": [
+          "4384qjkxnr4f06zz0nq9ffkkcn"
+        ]
+      },
+      "DirectRoute": {
+        "ContentItemIds": [
+          "4af18521ndarax703zq631fcch"
+        ]
+      },
+      "OtherRoute": {
+        "ContentItemIds": []
+      },
+      "VolunteeringRoute": {
+        "ContentItemIds": [
+          "4pctbgf1zsxk0rzft5fqacdmcx"
+        ]
+      },
+      "WorkRoute": {
+        "ContentItemIds": []
+      },
+      "HtbProfessionalBodies": {
+        "Html": "\u003Cp\u003EYou can join the \u003Ca href=\u0022https://www.actuaries.org.uk/membership/types-membership\u0022\u003EInstitute and Faculty of Actuaries\u003C/a\u003E to begin training and to take professional exams as you progress.\u003C/p\u003E"
+      },
+      "HtbCareerTips": {
+        "Html": ""
+      },
+      "HtbFurtherInformation": {
+        "Html": "\u003Cp\u003EYou\u0027ll find more details about careers in the actuarial profession, training and case studies from the \u003Ca href=\u0022https://www.actuaries.org.uk/become-actuary\u0022\u003EInstitute and Faculty of Actuaries\u003C/a\u003E.\u003C/p\u003E"
+      },
+      "HtbRegistrations": {
+        "ContentItemIds": []
+      },
+      "WitRestrictions": {
+        "ContentItemIds": []
+      },
+      "WitOtherRequirements": {
+        "ContentItemIds": []
+      },
+      "WitDigitalSkillsLevel": {
+        "ContentItemIds": [
+          "4qgzhjzjmjtcmykt1g75pc19m6"
+        ]
+      },
+      "WydDayToDayTasks": {
+        "Html": "\u003Cp\u003E\u003Cp\u003E Your day-to-day tasks may include:\n\u003C/p\u003E\n\u003Cul\u003E\n    \u003Cli\u003Eanalysing statistics\u003C/li\u003E\n    \u003Cli\u003Eforecasting finances\u003C/li\u003E\n    \u003Cli\u003Etesting financial options\u003C/li\u003E\n    \u003Cli\u003Eassessing risks\u003C/li\u003E\n    \u003Cli\u003Eusing computers to build mathematical and statistical models\u003C/li\u003E\n    \u003Cli\u003Eexplaining findings to managers, government ministers or business clients\u003C/li\u003E\n\u003C/ul\u003E\u003C/p\u003E"
+      },
+      "WydWorkingEnvironment": {
+        "ContentItemIds": []
+      },
+      "WydWorkingLocation": {
+        "ContentItemIds": [
+          "47yd7z4mdy7tgx2zbtagykbpc0"
+        ]
+      },
+      "WydWorkingUniform": {
+        "ContentItemIds": []
+      },
+      "CareerPathAndProgression": {
+        "Html": "\u003Cp\u003EWith experience, you could become a department manager and then a partner with a financial firm.\u003C/p\u003E\u003Cp\u003EYou could also specialise in a particular field, like life insurance or healthcare, or move into consultancy work, accountancy or banking.\u003C/p\u003E"
+      },
+      "ApprenticeshipStandards": null,
+      "RelatedCareers": null
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/jobprofile/96594085-fec9-44ef-aa3b-adf542cfdd35"
+    },
+    "ContentItemId": "4wph1bhr745pesywmvxwkb6td8",
+    "ContentItemVersionId": "4v67jd9mdg98315knr3bd3m54p",
+    "ContentType": "JobProfile",
+    "DisplayText": "Actuary",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-04-29T19:25:19.0484610Z",
+    "PublishedUtc": "2021-04-29T19:25:19.0484610Z",
+    "CreatedUtc": "2021-04-29T19:25:19.0484610Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Acupuncturist"
+    },
+    "PageLocationPart": {
+      "UrlName": "acupuncturist",
+      "FullUrl": "/job-profiles/acupuncturist",
+      "DefaultPageForLocation": false,
+      "RedirectLocations": null
+    },
+    "JobProfile": {
+      "AlternativeTitle": {
+        "Text": ""
+      },
+      "HiddenAlternativeTitle": {
+        "Text": ""
+      },
+      "PageLocations": {
+        "TaxonomyContentItemId": "4eembshqzx66drajtdten34tc8",
+        "TermContentItemIds": [
+          "4x352kh85x7894jr7yqbt0z34b"
+        ]
+      },
+      "Description": {
+        "Html": "\u003Cp\u003EAcupuncturists insert needles into pressure points on clients\u0027 bodies to help relieve everyday stresses, and improve their wellbeing.\u003C/p\u003E"
+      },
+      "TitleOptions": {
+        "Text": "As Defined"
+      },
+      "SOCCode": {
+        "ContentItemIds": [
+          "4x4sstqy0jbxs7m69z45d35mce"
+        ]
+      },
+      "ONetOccupationalCode": {
+        "ContentItemIds": [
+          "4a5xp6kgrrdx7y70h1vzx27xnw"
+        ]
+      },
+      "SalaryStarter": {
+        "Text": "variable"
+      },
+      "SalaryExperienced": {
+        "Text": "variable"
+      },
+      "MinimumHours": {
+        "Value": 37.0
+      },
+      "MaximumHours": {
+        "Value": 39.0
+      },
+      "WorkingHoursDetails": {
+        "Text": "variable"
+      },
+      "WorkingPattern": {
+        "Text": "freelance / self-employed test"
+      },
+      "WorkingPatternDetails": {
+        "Text": "managing your own hours"
+      },
+      "ApprenticeshipRoute": {
+        "ContentItemIds": []
+      },
+      "CollegeRoute": {
+        "ContentItemIds": []
+      },
+      "UniversityRoute": {
+        "ContentItemIds": []
+      },
+      "DirectRoute": {
+        "ContentItemIds": []
+      },
+      "OtherRoute": {
+        "ContentItemIds": [
+          "45kqvf81wxegt1ts9qner3tzm7"
+        ]
+      },
+      "VolunteeringRoute": {
+        "ContentItemIds": []
+      },
+      "WorkRoute": {
+        "ContentItemIds": []
+      },
+      "HtbProfessionalBodies": {
+        "Html": "\u003Cp\u003EWork is currently ongoing for the statutory regulation of acupuncturists.\u003C/p\u003E\u003Cp\u003EYou may find it useful to join organisations like the \u003Ca href=\u0022https://admissions.acupuncture.org.uk/\u0022\u003EBritish Acupuncture Council\u003C/a\u003E and \u003Ca href=\u0022https://www.cnhc.org.uk/\u0022\u003EComplementary and Natural Healthcare Council\u003C/a\u003E, for professional recognition, training opportunities and to make industry contacts.\u003C/p\u003E"
+      },
+      "HtbCareerTips": {
+        "Html": ""
+      },
+      "HtbFurtherInformation": {
+        "Html": "\u003Cp\u003EYou can find out more about acupuncture careers from the \u003Ca href=\u0022https://www.baab.co.uk/studying-acupuncture/acupuncture-as-a-career.html\u0022\u003EBritish Acupuncture Accreditation Board\u003C/a\u003E and the \u003Ca href=\u0022http://www.acupuncture.org.uk/\u0022\u003EBritish Acupuncture Council\u003C/a\u003E.\u003C/p\u003E"
+      },
+      "HtbRegistrations": {
+        "ContentItemIds": []
+      },
+      "WitRestrictions": {
+        "ContentItemIds": [
+          "49v79szx6t5wkzvhczc82tvs50"
+        ]
+      },
+      "WitOtherRequirements": {
+        "ContentItemIds": []
+      },
+      "WitDigitalSkillsLevel": {
+        "ContentItemIds": [
+          "4qgzhjzjmjtcmykt1g75pc19m6"
+        ]
+      },
+      "WydDayToDayTasks": {
+        "Html": "\u003Cp\u003E\u003Cp\u003EYour day-to-day duties could include:\u003C/p\u003E\n\u003Cul\u003E\n    \u003Cli\u003Etaking a detailed history from clients\u003C/li\u003E\n    \u003Cli\u003Etalking about issues surrounding a client\u0027s symptoms, like lifestyle, diet and emotions\u003C/li\u003E\n    \u003Cli\u003Ediagnosing problems and deciding what action to take\u003C/li\u003E\n    \u003Cli\u003Eselecting points on the body to be treated\u003C/li\u003E\n    \u003Cli\u003Einserting needles\u003C/li\u003E\n    \u003Cli\u003Ekeeping records\u003C/li\u003E\n    \u003Cli\u003Ereferring clients to medical practitioners\u003C/li\u003E\n\u003C/ul\u003E\u003C/p\u003E"
+      },
+      "WydWorkingEnvironment": {
+        "ContentItemIds": []
+      },
+      "WydWorkingLocation": {
+        "ContentItemIds": [
+          "4rnpmgj0p939xtbd1p5y0972m7"
+        ]
+      },
+      "WydWorkingUniform": {
+        "ContentItemIds": []
+      },
+      "CareerPathAndProgression": {
+        "Html": "\u003Cp\u003EWith experience you could move into teaching or research.\u003C/p\u003E"
+      },
+      "ApprenticeshipStandards": null,
+      "RelatedCareers": null
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/jobprofile/38e4fc2f-0892-4866-b697-ed636699fbdd"
+    },
+    "ContentItemId": "4kzh6dpqcncq7x0zbp1q8ztf55",
+    "ContentItemVersionId": "4ezkk76s44evr6f5hmkf4bwq5x",
+    "ContentType": "JobProfile",
+    "DisplayText": "Acupuncturist",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-04-29T19:25:19.0484610Z",
+    "PublishedUtc": "2021-04-29T19:25:19.0484610Z",
+    "CreatedUtc": "2021-04-29T19:25:19.0484610Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Admin assistant"
+    },
+    "PageLocationPart": {
+      "UrlName": "admin-assistant",
+      "FullUrl": "/job-profiles/admin-assistant",
+      "DefaultPageForLocation": false,
+      "RedirectLocations": null
+    },
+    "JobProfile": {
+      "AlternativeTitle": {
+        "Text": "Office administrator, clerical assistant, administrative assistant"
+      },
+      "HiddenAlternativeTitle": {
+        "Text": ""
+      },
+      "PageLocations": {
+        "TaxonomyContentItemId": "4eembshqzx66drajtdten34tc8",
+        "TermContentItemIds": [
+          "4x352kh85x7894jr7yqbt0z34b"
+        ]
+      },
+      "Description": {
+        "Html": "\u003Cp\u003EAdmin assistants give support to offices by organising meetings, typing documents and updating computer records.\u003C/p\u003E"
+      },
+      "TitleOptions": {
+        "Text": "As Defined"
+      },
+      "SOCCode": {
+        "ContentItemIds": [
+          "4jyc9hwwb86y2snn9fessgdf4x"
+        ]
+      },
+      "ONetOccupationalCode": {
+        "ContentItemIds": [
+          "4gs832sf2dx9cw7cd4xdv5arc7"
+        ]
+      },
+      "SalaryStarter": {
+        "Text": "14000"
+      },
+      "SalaryExperienced": {
+        "Text": "30000"
+      },
+      "MinimumHours": {
+        "Value": 38.0
+      },
+      "MaximumHours": {
+        "Value": 40.0
+      },
+      "WorkingHoursDetails": {
+        "Text": "a week"
+      },
+      "WorkingPattern": {
+        "Text": "between 8am and 6pm"
+      },
+      "WorkingPatternDetails": {
+        "Text": null
+      },
+      "ApprenticeshipRoute": {
+        "ContentItemIds": [
+          "4b4wacarf5mh6vszb6g1wvx4xa"
+        ]
+      },
+      "CollegeRoute": {
+        "ContentItemIds": [
+          "499pxwxqfaryf5ye62nzw42gmb"
+        ]
+      },
+      "UniversityRoute": {
+        "ContentItemIds": []
+      },
+      "DirectRoute": {
+        "ContentItemIds": [
+          "45g93za422ya8xq139zvx9k0m2"
+        ]
+      },
+      "OtherRoute": {
+        "ContentItemIds": []
+      },
+      "VolunteeringRoute": {
+        "ContentItemIds": [
+          "4nke0t0vfppjjxx98f2jeb8n57"
+        ]
+      },
+      "WorkRoute": {
+        "ContentItemIds": [
+          "4j5wq27c2f3jtw9kdhyqz3snwp"
+        ]
+      },
+      "HtbProfessionalBodies": {
+        "Html": ""
+      },
+      "HtbCareerTips": {
+        "Html": "\u003Cp\u003ETime management and the ability to prioritise tasks is really important in administration. This could be tested at interview. For example, you might be given some tasks to complete and asked to arrange them in order of importance.\u003C/p\u003E"
+      },
+      "HtbFurtherInformation": {
+        "Html": ""
+      },
+      "HtbRegistrations": {
+        "ContentItemIds": []
+      },
+      "WitRestrictions": {
+        "ContentItemIds": []
+      },
+      "WitOtherRequirements": {
+        "ContentItemIds": []
+      },
+      "WitDigitalSkillsLevel": {
+        "ContentItemIds": [
+          "453nx1v634h5t05zq501shc4mp"
+        ]
+      },
+      "WydDayToDayTasks": {
+        "Html": "\u003Cp\u003E\u003Cp\u003EIn this role you could:\u003C/p\u003E\n\u003Cul\u003E\n    \u003Cli\u003Edeal with queries on the phone, by email and on social media\u003C/li\u003E\n    \u003Cli\u003Egreet visitors at reception\u003C/li\u003E\n    \u003Cli\u003Etype letters, reports and other business documents\u003C/li\u003E\n    \u003Cli\u003Eupdate computer records\u003C/li\u003E\n    \u003Cli\u003Eprint and photocopy items\u003C/li\u003E\n    \u003Cli\u003Eorder office supplies\u003C/li\u003E\n    \u003Cli\u003Eset up meetings and take notes during them\u003C/li\u003E\n    \u003Cli\u003Emake travel arrangements for staff\u003C/li\u003E\n\u003C/ul\u003E\u003C/p\u003E"
+      },
+      "WydWorkingEnvironment": {
+        "ContentItemIds": []
+      },
+      "WydWorkingLocation": {
+        "ContentItemIds": [
+          "47yd7z4mdy7tgx2zbtagykbpc0"
+        ]
+      },
+      "WydWorkingUniform": {
+        "ContentItemIds": []
+      },
+      "CareerPathAndProgression": {
+        "Html": "\u003Cp\u003EWith experience, you could progress from admin assistant to supervisor or office manager. You could also move into other departments, like IT, payroll or accounting.\u003C/p\u003E\u003Cp\u003EWith further training, you could specialise in an area like legal, financial or medical administration.\u003C/p\u003E"
+      },
+      "ApprenticeshipStandards": null,
+      "RelatedCareers": null
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/jobprofile/7ea71f68-433d-4580-a89e-6ae83fe44991"
+    },
+    "ContentItemId": "43cnhe6mqc0q24f113s166smm5",
+    "ContentItemVersionId": "4qkp4bspk2a2ezb95tzjrzw7cw",
+    "ContentType": "JobProfile",
+    "DisplayText": "Admin assistant",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-04-29T19:25:19.0484610Z",
+    "PublishedUtc": "2021-04-29T19:25:19.0484610Z",
+    "CreatedUtc": "2021-04-29T19:25:19.0484610Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Advertising account executive"
+    },
+    "PageLocationPart": {
+      "UrlName": "advertising-account-executive",
+      "FullUrl": "/job-profiles/advertising-account-executive",
+      "DefaultPageForLocation": false,
+      "RedirectLocations": null
+    },
+    "JobProfile": {
+      "AlternativeTitle": {
+        "Text": "Account handler"
+      },
+      "HiddenAlternativeTitle": {
+        "Text": "publicist"
+      },
+      "PageLocations": {
+        "TaxonomyContentItemId": "4eembshqzx66drajtdten34tc8",
+        "TermContentItemIds": [
+          "4x352kh85x7894jr7yqbt0z34b"
+        ]
+      },
+      "Description": {
+        "Html": "\u003Cp\u003EAdvertising account executives provide the link between an advertising agency and its clients.\u003C/p\u003E"
+      },
+      "TitleOptions": {
+        "Text": "As Defined"
+      },
+      "SOCCode": {
+        "ContentItemIds": [
+          "409bbf2pfrx896y9kzawr082dz"
+        ]
+      },
+      "ONetOccupationalCode": {
+        "ContentItemIds": [
+          "48rxnzmynwvtm65kbjq90gdjxc"
+        ]
+      },
+      "SalaryStarter": {
+        "Text": "18000"
+      },
+      "SalaryExperienced": {
+        "Text": "60000"
+      },
+      "MinimumHours": {
+        "Value": 37.0
+      },
+      "MaximumHours": {
+        "Value": 39.0
+      },
+      "WorkingHoursDetails": {
+        "Text": "a week"
+      },
+      "WorkingPattern": {
+        "Text": "evenings"
+      },
+      "WorkingPatternDetails": {
+        "Text": "occasionally"
+      },
+      "ApprenticeshipRoute": {
+        "ContentItemIds": [
+          "4wsjqe9pz23rvr6g5fabsqc0m4"
+        ]
+      },
+      "CollegeRoute": {
+        "ContentItemIds": [
+          "4x73cpfss9yc64ysefe7tkermc"
+        ]
+      },
+      "UniversityRoute": {
+        "ContentItemIds": [
+          "4vjkm1fmzyzdj3tmwj61kn5j5m"
+        ]
+      },
+      "DirectRoute": {
+        "ContentItemIds": []
+      },
+      "OtherRoute": {
+        "ContentItemIds": [
+          "4fbxcmsbe8j9jttc0s2ckazpn2"
+        ]
+      },
+      "VolunteeringRoute": {
+        "ContentItemIds": [
+          "43smx3n45gq1ry35jem4eb2t46"
+        ]
+      },
+      "WorkRoute": {
+        "ContentItemIds": [
+          "4c95w74etkpf4w8ma1kpgqbmnz"
+        ]
+      },
+      "HtbProfessionalBodies": {
+        "Html": ""
+      },
+      "HtbCareerTips": {
+        "Html": "\u003Cp\u003EIt\u0027s a good idea to have a presence on social networking sites. You could also show your creative and communication skills to employers through your own blog or website.\u003C/p\u003E"
+      },
+      "HtbFurtherInformation": {
+        "Html": "\u003Cp\u003EYou can find out more about a career in advertising from the \u003Ca href=\u0022https://ipa.co.uk/knowledge/careers-in-advertising/\u0022\u003EInstitute of Practitioners in Advertising\u003C/a\u003E.\u003C/p\u003E"
+      },
+      "HtbRegistrations": {
+        "ContentItemIds": []
+      },
+      "WitRestrictions": {
+        "ContentItemIds": []
+      },
+      "WitOtherRequirements": {
+        "ContentItemIds": []
+      },
+      "WitDigitalSkillsLevel": {
+        "ContentItemIds": [
+          "4qgzhjzjmjtcmykt1g75pc19m6"
+        ]
+      },
+      "WydDayToDayTasks": {
+        "Html": "\u003Cp\u003E\u003Cp\u003E Your day-to-day duties may include:\u003C/p\u003E\n\u003Cul\u003E\n    \u003Cli\u003Emeeting clients to discuss their needs \u003C/li\u003E\n    \u003Cli\u003Eworking with account planners \u003C/li\u003E\n    \u003Cli\u003Ecoming up with campaigns that meet the client\u0027s needs and budget \u003C/li\u003E\n    \u003Cli\u003Epresenting campaign ideas and costs to clients \u003C/li\u003E\n    \u003Cli\u003Ebriefing the creative team that produces the words and artwork \u003C/li\u003E\n    \u003Cli\u003Echecking and reporting on the campaign\u0026rsquo;s progress \u003C/li\u003E\n    \u003Cli\u003Ekeeping in contact with the client at all stages of the campaign \u003C/li\u003E\n    \u003Cli\u003Emanaging the account\u0026rsquo;s budget and invoicing the client \u003C/li\u003E\n    \u003Cli\u003Etrying to win new business for the agency\u003C/li\u003E\n\u003C/ul\u003E\u003C/p\u003E"
+      },
+      "WydWorkingEnvironment": {
+        "ContentItemIds": []
+      },
+      "WydWorkingLocation": {
+        "ContentItemIds": [
+          "47yd7z4mdy7tgx2zbtagykbpc0"
+        ]
+      },
+      "WydWorkingUniform": {
+        "ContentItemIds": []
+      },
+      "CareerPathAndProgression": {
+        "Html": "\u003Cp\u003EWith experience, you could progress to account manager, become an agency director, or set up your own agency.\u003C/p\u003E"
+      },
+      "ApprenticeshipStandards": null,
+      "RelatedCareers": null
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/jobprofile/d0201b90-020b-4a6f-9a7f-6ec9daa4632d"
+    },
+    "ContentItemId": "4sxx0nsmrz91s5d4p6t5kdgqch",
+    "ContentItemVersionId": "4kn9sn67yke4vwzqhwjx09734m",
+    "ContentType": "JobProfile",
+    "DisplayText": "Advertising account executive",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-04-29T19:25:19.0484610Z",
+    "PublishedUtc": "2021-04-29T19:25:19.0484610Z",
+    "CreatedUtc": "2021-04-29T19:25:19.0484610Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Advertising account planner"
+    },
+    "PageLocationPart": {
+      "UrlName": "advertising-account-planner",
+      "FullUrl": "/job-profiles/advertising-account-planner",
+      "DefaultPageForLocation": false,
+      "RedirectLocations": null
+    },
+    "JobProfile": {
+      "AlternativeTitle": {
+        "Text": "Strategic planner"
+      },
+      "HiddenAlternativeTitle": {
+        "Text": ""
+      },
+      "PageLocations": {
+        "TaxonomyContentItemId": "4eembshqzx66drajtdten34tc8",
+        "TermContentItemIds": [
+          "4x352kh85x7894jr7yqbt0z34b"
+        ]
+      },
+      "Description": {
+        "Html": "\u003Cp\u003EAdvertising account planners develop and plan advertising campaigns to make sure they reach the right audience.\u003C/p\u003E"
+      },
+      "TitleOptions": {
+        "Text": "As Defined"
+      },
+      "SOCCode": {
+        "ContentItemIds": [
+          "409bbf2pfrx896y9kzawr082dz"
+        ]
+      },
+      "ONetOccupationalCode": {
+        "ContentItemIds": [
+          "4p6nzqe17vgwby6tz1w8afwdn3"
+        ]
+      },
+      "SalaryStarter": {
+        "Text": "18000"
+      },
+      "SalaryExperienced": {
+        "Text": "45000"
+      },
+      "MinimumHours": {
+        "Value": 39.0
+      },
+      "MaximumHours": {
+        "Value": 41.0
+      },
+      "WorkingHoursDetails": {
+        "Text": "a week"
+      },
+      "WorkingPattern": {
+        "Text": "9am to 5pm"
+      },
+      "WorkingPatternDetails": {
+        "Text": "attending events or appointments"
+      },
+      "ApprenticeshipRoute": {
+        "ContentItemIds": [
+          "4jkgz6k4jjdnrxgehxc5mc8gnt"
+        ]
+      },
+      "CollegeRoute": {
+        "ContentItemIds": []
+      },
+      "UniversityRoute": {
+        "ContentItemIds": [
+          "4emdrg8xkv4mdxcc2xz220yz45"
+        ]
+      },
+      "DirectRoute": {
+        "ContentItemIds": []
+      },
+      "OtherRoute": {
+        "ContentItemIds": [
+          "42vtbhj15a8q843nc9deeb7jmh"
+        ]
+      },
+      "VolunteeringRoute": {
+        "ContentItemIds": [
+          "43smx3n45gq1ry35jem4eb2t46"
+        ]
+      },
+      "WorkRoute": {
+        "ContentItemIds": [
+          "4hw097nvgmh506y8y2q52gq6m4"
+        ]
+      },
+      "HtbProfessionalBodies": {
+        "Html": "\u003Cp\u003EYou could join the \u003Ca href=\u0022https://www.apg.org.uk/apg-membership\u0022\u003EAPG\u003C/a\u003E for professional development, training opportunities and to make industry contacts.\u003C/p\u003E"
+      },
+      "HtbCareerTips": {
+        "Html": ""
+      },
+      "HtbFurtherInformation": {
+        "Html": "\u003Cp\u003EYou can find out more about careers in advertising from the \u003Ca href=\u0022https://ipa.co.uk/knowledge/careers-in-advertising/\u0022\u003EIPA\u003C/a\u003E, the \u003Ca href=\u0022https://www.apg.org.uk/knowledge-planningandstrategy\u0022\u003EAPG\u003C/a\u003E and \u003Ca href=\u0022https://discovercreative.careers/#/\u0022\u003EDiscover Creative Careers\u003C/a\u003E.\u003C/p\u003E"
+      },
+      "HtbRegistrations": {
+        "ContentItemIds": []
+      },
+      "WitRestrictions": {
+        "ContentItemIds": []
+      },
+      "WitOtherRequirements": {
+        "ContentItemIds": []
+      },
+      "WitDigitalSkillsLevel": {
+        "ContentItemIds": [
+          "453nx1v634h5t05zq501shc4mp"
+        ]
+      },
+      "WydDayToDayTasks": {
+        "Html": "\u003Cp\u003E\u003Cp\u003EYour day-to-day duties may include:\u003C/p\u003E\n\u003Cul\u003E\n    \u003Cli\u003Emeeting clients to find out about their products or services\u003C/li\u003E\n    \u003Cli\u003Eanalysing data from past market reports and campaigns\u003C/li\u003E\n    \u003Cli\u003Ecarrying out market research, or employing a market research agency to do it\u003C/li\u003E\n    \u003Cli\u003Edeveloping an advertising strategy to reach the target audience\u003C/li\u003E\n    \u003Cli\u003Epresenting the strategy to the client\u003C/li\u003E\n    \u003Cli\u003Eworking with the project team, including art directors and copywriters\u003C/li\u003E\n    \u003Cli\u003Ebriefing the agency\u0027s creative team about the client\u0027s product or message\u003C/li\u003E\n    \u003Cli\u003Emonitoring audience response and sales figures and assessing the success of the campaign\u003C/li\u003E\n\u003C/ul\u003E\u003C/p\u003E"
+      },
+      "WydWorkingEnvironment": {
+        "ContentItemIds": []
+      },
+      "WydWorkingLocation": {
+        "ContentItemIds": [
+          "4dk384z5b6da5160gy5gnwkamy"
+        ]
+      },
+      "WydWorkingUniform": {
+        "ContentItemIds": [
+          "4w9y9mneb4208ry846ty9hsqmy"
+        ]
+      },
+      "CareerPathAndProgression": {
+        "Html": "\u003Cp\u003EYou could become a senior account planner or move into management.\u003C/p\u003E\u003Cp\u003EYou may choose to work as a freelance planning consultant, or set up your own agency.\u003C/p\u003E"
+      },
+      "ApprenticeshipStandards": null,
+      "RelatedCareers": null
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/jobprofile/1fd0972f-09fe-4a48-a9dc-fcefd8ea22ce"
+    },
+    "ContentItemId": "4pvepc7zrg3b83fg2gmpsfrdw3",
+    "ContentItemVersionId": "4kg0yj9b2pg6v0beqw2xczx5ns",
+    "ContentType": "JobProfile",
+    "DisplayText": "Advertising account planner",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-04-29T19:25:19.0484610Z",
+    "PublishedUtc": "2021-04-29T19:25:19.0484610Z",
+    "CreatedUtc": "2021-04-29T19:25:19.0484610Z",
+    "Owner": "admin",
+    "Author": "admin"
+  }
+      ]
+    }
+  ]
+}

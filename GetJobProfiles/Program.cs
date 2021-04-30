@@ -7,8 +7,9 @@ using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.Recipes.Executors;
-using GetJobProfiles.Importers;
+using GetJobProfiles.Builders;
 using GetJobProfiles.JsonHelpers;
+using GetJobProfiles.Models.Containers;
 using GetJobProfiles.Models.Recipe.ContentItems;
 using GetJobProfiles.Models.Recipe.ContentItems.Base;
 using GetJobProfiles.Models.Recipe.ContentItems.EntryRoutes;
@@ -61,113 +62,79 @@ namespace GetJobProfiles
             RecipeSteps = new StringBuilder();
         }
     }
+
     static class Program
     {
-        private static string OutputBasePath = @"..\..\..\..\DFC.ServiceTaxonomy.Editor\Recipes\";
+        // Constants
+        private static string appSettingsFilename = "appsettings.Development.json";
+        private static string RecipeOutputBasePath = @"..\..\..\..\DFC.ServiceTaxonomy.Editor\Recipes\";
         private static string MasterRecipeOutputBasePath = @"..\..\..\..\DFC.ServiceTaxonomy.Editor\MasterRecipes\";
+        private const string cypherCommandRecipesPath = "CypherCommandRecipes";
+        private const string contentRecipesPath = "ContentRecipes";
+        private const string cypherToContentRecipesPath = "CypherToContentRecipes";
         private const bool _zip = false;
-
         private static int _fileIndex = 1;
+
+        // Member initialisation
         private static readonly StringBuilder _importFilesReport = new StringBuilder();
         private static readonly StringBuilder _importTotalsReport = new StringBuilder();
         private static readonly string _executionId = Guid.NewGuid().ToString();
         private static readonly List<MasterRecipe> _masterRecipes = new List<MasterRecipe>();
         private static StringBuilder _recipesStep;
-
         private static readonly string _recipesStepExecutionId = $"Import_{_executionId}";
-
-        private static readonly Dictionary<string, List<Tuple<string, string>>> _contentItemTitles = new Dictionary<string, List<Tuple<string, string>>>();
+        private static readonly Dictionary<string, List<Tuple<string, string>>> _jobProfileSpreadSheetContentItemTitles = new Dictionary<string, List<Tuple<string, string>>>();
         private static readonly List<object> _matchingTitles = new List<object>();
         private static readonly List<object> _missingTitles = new List<object>();
 
-        static async Task Main(string[] args)
+        //static async Task Main(string[] args)
+        static void Main(string[] args)
         {
-            string timestamp = $"{DateTime.UtcNow:O}";
+            // As of 22/4/21 the JobProfile content type consists of the following content types
+            //                                                                                                                                     JobCategory
+            //                                                                                                                                          |
+            //                                                                                                                                     JobProfile
+            //                                                                                                                                          |
+            //    +-------------+-----------------+----------------------+-------------------------+-------------+-------------+--------------+---------+-------+-----------------+-------------+-------------+-------------+-------------+-------------+-------------+-------------+
+            //    |             |                 |                      |                         |             |             |              |                 |                 |             |             |             |             |             |             |             |
+            // SOCCode        ONet           University               College                Apprenticeship    Work      Volunteering     DirectRoute         Other          Registration   Restriction     Other         Digital       Working       Working       Working   Apprenticeship
+            //            Occupational          Route                  Route                     Route         Route         Route          Route             Route                                      Requirement      Skills       Environment    Location      Uniform      Standard
+            //                Code                |                      |                         |                                                   (SpecialistTraining)                                                Level                                                    |
+            //                  |           +-----+-----+          +-----+-----+            +------+------+                                                                                                                                                                   +-----+-----+
+            //                  |           |           |          |           |            |             |                                                                                                                                                                   |           |
+            //             ONetSkill   University  University   College      College  Apprenticeship  Apprenticeship                                                                                                                                                    Apprenticeship  QCFLevel
+            //                         Requirement    Link    Requirement     Link     Requirement         Link                                                                                                                                                           Standard
+            //                                                                                                                                                                                                                                                              Route
+            // Need to be mindful of the dependencies and generate the recipe files from the bottom up
 
-            IConfigurationRoot config = new ConfigurationBuilder()
-                .AddJsonFile($"appsettings.Development.json", optional: true)
-                .Build();
+            // -------------------------------------------------------------------------------------------------------------------------
+            // Get the job profile dependent data
+            // -------------------------------------------------------------------------------------------------------------------------
 
-            string jobProfilesToImport = config["JobProfilesToImport"];
-            bool createTestFiles = bool.Parse(config["CreateTestFiles"] ?? "False");
-            string[] socCodeList = !createTestFiles ? new string[] { } : config["TestSocCodes"].Split(',');
-            string[] oNetCodeList = !createTestFiles ? new string[] { } : config["TestONetCodes"].Split(',');
-            string[] apprenticeshipStandardsRefList = !createTestFiles ? new string[] { } : config["TestApprenticeshipStandardReferences"].Split(',');
-            string filenamePrefix = createTestFiles ? "TestData_" : "";
+            // config info (appsettings)
+            var appSettings = GetAppSettingsConfigurationData(appSettingsFilename);
 
-            var socCodeConverter = new SocCodeConverter(socCodeList);
-            var socCodeDictionary = socCodeConverter.Go(timestamp);
+            // Get the other settings (Paths, batch sizes etc)
+            var jobProfileSettingsDataModel = GetJobProfileSettingsDataModel(appSettings);
 
-            using var reader = new StreamReader(@"SeedData\job_profiles_updated.xlsx");
-            var jobProfileWorkbook = new XSSFWorkbook(reader.BaseStream);
+            // Get the job profile data that isn't available on the JobProfile API from exported Excel workbook/csv files
+            var referenceData = new ReferenceData().Build(jobProfileSettingsDataModel);
 
-            var oNetConverter = new ONetConverter(oNetCodeList);
-            var oNetDictionary = oNetConverter.Go(jobProfileWorkbook, timestamp);
+            // Populate the _jobProfileSpreadSheetContentItemTitles Dictionary (TODO: refactor at some point)
+            ProcessJobProfileSpreadsheet(referenceData.JobProfileExcelWorkbook);
 
-            var titleOptionsLookup = new TitleOptionsImporter().Import(jobProfileWorkbook);
-
-            //use these knobs to work around rate - limiting
-            const int skip = 0;
-            const int take = 0;
-            const int napTimeMs = 5500;
-            // max number of contentitems in an import recipe
-            const int batchSize = 400;
-            const int jobProfileBatchSize = 200;
-            const int occupationLabelsBatchSize = 1000;
-            const int occupationsBatchSize = 400;
-            const int skillBatchSize = 400;
-            const int skillLabelsBatchSize = 1000;
-
-            var httpClient = new HttpClient
-            {
-                BaseAddress = new Uri("https://pp.api.nationalcareers.service.gov.uk/job-profiles/"),
-                DefaultRequestHeaders =
-                {
-                    {"version", "v1"},
-                    {"Ocp-Apim-Subscription-Key", config["Ocp-Apim-Subscription-Key"]}
-                }
-            };
-
-            var dysacImporter = new DysacImporter(oNetConverter.ONetOccupationalCodeToSocCodeDictionary, oNetConverter.ONetOccupationalCodeContentItems);
-            using var dysacJobProfileReader = new StreamReader(@"SeedData\dysac_job_profile_mappings.xlsx");
-            var dysacJobProfileWorkbook = new XSSFWorkbook(dysacJobProfileReader.BaseStream);
-
-            var client = new RestHttpClient.RestHttpClient(httpClient);
-            var converter = new JobProfileConverter(client, socCodeDictionary, oNetDictionary, titleOptionsLookup, timestamp);
-            await converter.Go(skip, take, napTimeMs, jobProfilesToImport);
-
-            var jobProfiles = converter.JobProfiles.ToArray();
-
-            List<string> mappedOccupationUris = new EscoJobProfileMapper().Map(jobProfiles);
-
-            var jobCategoryImporter = new JobCategoryImporter();
-            jobCategoryImporter.Import(jobProfileWorkbook, timestamp, jobProfiles);
-
-            var qcfLevelBuilder = new QCFLevelBuilder();
-            qcfLevelBuilder.Build(timestamp);
-
-            var apprenticeshipStandardImporter = new ApprenticeshipStandardImporter(apprenticeshipStandardsRefList);
-            apprenticeshipStandardImporter.Import(jobProfileWorkbook, timestamp, qcfLevelBuilder.QCFLevelDictionary, jobProfiles);
-
-            using var dysacReader = new StreamReader(@"SeedData\dysac.xlsx");
-            var dysacWorkbook = new XSSFWorkbook(dysacReader.BaseStream);
-
-            dysacImporter.ImportONetSkillRank(jobProfileWorkbook);
-            dysacImporter.ImportTraits(jobCategoryImporter.JobCategoryContentItemIdDictionary, dysacWorkbook, timestamp);
-            dysacImporter.ImportShortQuestions(dysacWorkbook, timestamp);
-            dysacImporter.ImportQuestionSet(timestamp);
-            dysacImporter.BuildONetOccupationalSkills(dysacJobProfileWorkbook);
-
-            const string cypherCommandRecipesPath = "CypherCommandRecipes";
-
+            // Legacy code (TODO: refactor at some point)
             string whereClause = "";
             string occupationMatch = "";
             int totalOccupations = 2942;
-            int totalOccupationLabels = int.Parse(config["totalOccupationLabels"] ?? "33036");
-            int totalSkillLabels = int.Parse(config["totalSkillLabels"] ?? "97816");
-            int totalSkills = int.Parse(config["totalSkills"] ?? "13485");
+            int totalOccupationLabels = int.Parse(appSettings["totalOccupationLabels"] ?? "33036");
+            int totalSkillLabels = int.Parse(appSettings["totalSkillLabels"] ?? "97816");
+            int totalSkills = int.Parse(appSettings["totalSkills"] ?? "13485");
 
-            if (!string.IsNullOrWhiteSpace(jobProfilesToImport) && jobProfilesToImport != "*")
+            // ESCO not used as of Feb 2021, Occupation type removed but this code left just in case ESCO is reinstated.
+            List<string> mappedOccupationUris = new EscoJobProfileMapper().Map(referenceData.JobProfileContentItemBuilder.jobProfileContentItems);
+
+
+            if (!string.IsNullOrWhiteSpace(jobProfileSettingsDataModel.JobProfileToImport) && jobProfileSettingsDataModel.JobProfileToImport != "*")
             {
                 string uriList = string.Join(',', mappedOccupationUris.Select(u => $"'{u}'"));
                 whereClause = $"where o.uri in [{uriList}]";
@@ -182,95 +149,791 @@ namespace GetJobProfiles
 
             NewMasterRecipe("main");
 
-            bool excludeGraphContentMutators = bool.Parse(config["ExcludeGraphContentMutators"] ?? "False");
-            if (!(excludeGraphContentMutators || createTestFiles))
+            CreateRecipeFiles(jobProfileSettingsDataModel, referenceData);
+
+            bool excludeGraphContentMutators = bool.Parse(appSettings["ExcludeGraphContentMutators"] ?? "False");
+            if (!(excludeGraphContentMutators || jobProfileSettingsDataModel.CreateTestFilesBool))
             {
-                await CopyRecipeWithTokenisation(cypherCommandRecipesPath, "CreateOccupationLabelNodes", tokens);
-                await CopyRecipeWithTokenisation(cypherCommandRecipesPath, "CreateOccupationPrefLabelNodes", tokens);
-                await CopyRecipeWithTokenisation(cypherCommandRecipesPath, "CreateSkillLabelNodes", tokens);
-                await CopyRecipe(cypherCommandRecipesPath, "CleanUpEscoData");
+                CopyRecipeWithTokenisation(cypherCommandRecipesPath, "CreateOccupationLabelNodes", tokens).GetAwaiter().GetResult();
+                CopyRecipeWithTokenisation(cypherCommandRecipesPath, "CreateOccupationPrefLabelNodes", tokens).GetAwaiter().GetResult();
+                CopyRecipeWithTokenisation(cypherCommandRecipesPath, "CreateSkillLabelNodes", tokens).GetAwaiter().GetResult();
+                CopyRecipe(cypherCommandRecipesPath, "CleanUpEscoData").GetAwaiter().GetResult();
             }
 
-            bool excludeGraphIndexMutators = bool.Parse(config["ExcludeGraphIndexMutators"] ?? "False");
-            if (!(excludeGraphIndexMutators || createTestFiles))
+            bool excludeGraphIndexMutators = bool.Parse(appSettings["ExcludeGraphIndexMutators"] ?? "False");
+            if (!(excludeGraphIndexMutators || jobProfileSettingsDataModel.CreateTestFilesBool))
             {
-                await CopyRecipe(cypherCommandRecipesPath, "CreateFullTextSearchIndexes");
+                CopyRecipe(cypherCommandRecipesPath, "CreateFullTextSearchIndexes").GetAwaiter().GetResult();
             }
+        }
 
-            const string cypherToContentRecipesPath = "CypherToContentRecipes";
+        private static void OldStuff()
+        {
+            //ProcessJobProfileSpreadsheet(jobProfileSpreadSheet);
 
-            await BatchRecipes(cypherToContentRecipesPath, "CreateOccupationLabelContentItems", occupationLabelsBatchSize, "OccupationLabels", totalOccupationLabels, tokens);
-            await BatchRecipes(cypherToContentRecipesPath, "CreateSkillLabelContentItems", skillLabelsBatchSize, "SkillLabels", totalSkillLabels, tokens);
 
-            await BatchRecipes(cypherToContentRecipesPath, "CreateSkillContentItems", skillBatchSize, "Skills", totalSkills, tokens);
-            await BatchRecipes(cypherToContentRecipesPath, "CreateOccupationContentItems", occupationsBatchSize, "Occupations", totalOccupations, tokens);
 
-            ProcessJobProfileSpreadsheet(jobProfileWorkbook);
+            // ESCO not used as of Feb 2021, Occupation type removed but this code left just in case ESCO is reinstated.
+            //const int occupationLabelsBatchSize = 1000;
+            //const int occupationsBatchSize = 400;
+            //const int skillBatchSize = 400;
+            //const int skillLabelsBatchSize = 1000;
 
-            converter.UpdateRouteItemsWithSharedNames();
+            //var jobProfileApiHttpClient = new HttpClient
+            //{
+            //    BaseAddress = new Uri("https://pp.api.nationalcareers.service.gov.uk/job-profiles/"),
+            //    DefaultRequestHeaders =
+            //    {
+            //        {"version", "v1"},
+            //        {"Ocp-Apim-Subscription-Key", config["Ocp-Apim-Subscription-Key"]}
+            //    }
+            //};
+
+            //var dysacImporter = new DysacImporter(oNetConverter.ONetOccupationalCodeToSocCodeDictionary, oNetConverter.ONetOccupationalCodeContentItems);
+            //using var dysacJobProfileReader = new StreamReader(@"SeedData\dysac_job_profile_mappings.xlsx");
+            //var dysacJobProfileWorkbook = new XSSFWorkbook(dysacJobProfileReader.BaseStream);
+
+            //var jobProfileApiRestHttpClient = new RestHttpClient.RestHttpClient(jobProfileApiHttpClient);
+            //var jobProfileConverter = new JobProfileConverter(jobProfileApiRestHttpClient, socCodeDictionary, oNetDictionary, titleOptionsLookup, _jobProfileSpreadSheetContentItemTitles, timestamp);
+            //await jobProfileConverter.Go(skip, take, napTimeMs, jobProfilesToImport);
+
+
+
+
+            //var jobProfiles = jobProfileConverter.jobProfileContentItems.ToArray();
+
+            // ESCO not used as of Feb 2021, Occupation type removed but this code left just in case ESCO is reinstated.
+            //List<string> mappedOccupationUris = new EscoJobProfileMapper().Map(jobProfiles);
+
+
+
+            //using var dysacReader = new StreamReader(@"SeedData\dysac.xlsx");
+            //var dysacWorkbook = new XSSFWorkbook(dysacReader.BaseStream);
+
+            //dysacImporter.ImportONetSkillRank(jobProfileSpreadSheet);
+            //dysacImporter.ImportTraits(jobCategoryImporter.JobCategoryContentItemIdDictionary, dysacWorkbook, timestamp);
+            //dysacImporter.ImportShortQuestions(dysacWorkbook, timestamp);
+            //dysacImporter.ImportQuestionSet(timestamp);
+            //dysacImporter.BuildONetOccupationalSkills(dysacJobProfileWorkbook);
+
+            //const string cypherCommandRecipesPath = "CypherCommandRecipes";
+
+            // ESCO not used as of Feb 2021 but this code left just in case ESCO is reinstated.
+            //string whereClause = "";
+            //string occupationMatch = "";
+            //int totalOccupations = 2942;
+            //int totalOccupationLabels = int.Parse(appSettings["totalOccupationLabels"] ?? "33036");
+            //int totalSkillLabels = int.Parse(appSettings["totalSkillLabels"] ?? "97816");
+            //int totalSkills = int.Parse(appSettings["totalSkills"] ?? "13485");
+
+            // ESCO not used as of Feb 2021 but this code left just in case ESCO is reinstated.
+            //if (!string.IsNullOrWhiteSpace(jobProfilesToImport) && jobProfilesToImport != "*")
+            //{
+            //    string uriList = string.Join(',', mappedOccupationUris.Select(u => $"'{u}'"));
+            //    whereClause = $"where o.uri in [{uriList}]";
+            //    totalOccupations = mappedOccupationUris.Count;
+            //    occupationMatch = " (o:esco__Occupation) --> ";
+            //}
+            //IDictionary<string, string> tokens = new Dictionary<string, string>
+            //{
+            //    {"whereClause", whereClause},
+            //    {"occupationMatch", occupationMatch }
+            //};
+
+            //NewMasterRecipe("main");
+
+            //bool excludeGraphContentMutators = bool.Parse(appSettings["ExcludeGraphContentMutators"] ?? "False");
+            // ESCO not used as of Feb 2021 but this code left just in case ESCO is reinstated.
+            //if (!(excludeGraphContentMutators || createTestFiles))
+            //{
+            //    await CopyRecipeWithTokenisation(cypherCommandRecipesPath, "CreateOccupationLabelNodes", tokens);
+            //    await CopyRecipeWithTokenisation(cypherCommandRecipesPath, "CreateOccupationPrefLabelNodes", tokens);
+            //    await CopyRecipeWithTokenisation(cypherCommandRecipesPath, "CreateSkillLabelNodes", tokens);
+            //    await CopyRecipe(cypherCommandRecipesPath, "CleanUpEscoData");
+            //}
+
+            //bool excludeGraphIndexMutators = bool.Parse(appSettings["ExcludeGraphIndexMutators"] ?? "False");
+            //if (!(excludeGraphIndexMutators || createTestFiles))
+            //{
+            //    await CopyRecipe(cypherCommandRecipesPath, "CreateFullTextSearchIndexes");
+            //}
+
+            //const string cypherToContentRecipesPath = "CypherToContentRecipes";
+
+            // ESCO not used as of Feb 2021 but this code left just in case ESCO is reinstated.
+            //await BatchRecipes(cypherToContentRecipesPath, "CreateOccupationLabelContentItems", occupationLabelsBatchSize, "OccupationLabels", totalOccupationLabels, tokens);
+            //await BatchRecipes(cypherToContentRecipesPath, "CreateSkillLabelContentItems", skillLabelsBatchSize, "SkillLabels", totalSkillLabels, tokens);
+
+            //await BatchRecipes(cypherToContentRecipesPath, "CreateSkillContentItems", skillBatchSize, "Skills", totalSkills, tokens);
+            //await BatchRecipes(cypherToContentRecipesPath, "CreateOccupationContentItems", occupationsBatchSize, "Occupations", totalOccupations, tokens);
+
+
+
+            //jobProfileConverter.UpdateRouteItemsWithSharedNames();
 
 
 
             // remove calls to pages related recipe file generation
             // comment out as may need to re-generate later
 
-            const string contentRecipesPath = "ContentRecipes";
 
-            await BatchSerializeToFiles(qcfLevelBuilder.QCFLevelContentItems, batchSize, $"{filenamePrefix}QCFLevels");
-            await BatchSerializeToFiles(apprenticeshipStandardImporter.ApprenticeshipStandardRouteContentItems, batchSize, $"{filenamePrefix}ApprenticeshipStandardRoutes");
-            await BatchSerializeToFiles(apprenticeshipStandardImporter.ApprenticeshipStandardContentItems, batchSize, $"{filenamePrefix}ApprenticeshipStandards");
-            await BatchSerializeToFiles(RouteFactory.RequirementsPrefixes.IdLookup.Select(r => new RequirementsPrefixContentItem(r.Key, timestamp, r.Key, r.Value)), batchSize, $"{filenamePrefix}RequirementsPrefixes");
-            await BatchSerializeToFiles(converter.ApprenticeshipRoutes.Links.IdLookup.Select(r => new ApprenticeshipLinkContentItem(GetTitle("ApprenticeshipLink", r.Key), r.Key, timestamp, r.Value)), batchSize, $"{filenamePrefix}ApprenticeshipLinks");
-            await BatchSerializeToFiles(converter.ApprenticeshipRoutes.Requirements.IdLookup.Select(r => new ApprenticeshipRequirementContentItem(GetTitle("ApprenticeshipRequirement", r.Key), timestamp, r.Key, r.Value)), batchSize, $"{filenamePrefix}ApprenticeshipRequirements");
-            await BatchSerializeToFiles(converter.CollegeRoutes.Links.IdLookup.Select(r => new CollegeLinkContentItem(GetTitle("CollegeLink", r.Key), r.Key, timestamp, r.Value)), batchSize, $"{filenamePrefix}CollegeLinks");
-            await BatchSerializeToFiles(converter.CollegeRoutes.Requirements.IdLookup.Select(r => new CollegeRequirementContentItem(GetTitle("CollegeRequirement", r.Key), timestamp, r.Key, r.Value)), batchSize, $"{filenamePrefix}CollegeRequirements");
-            await BatchSerializeToFiles(converter.UniversityRoutes.Links.IdLookup.Select(r => new UniversityLinkContentItem(GetTitle("UniversityLink", r.Key), r.Key, timestamp, r.Value)), batchSize, $"{filenamePrefix}UniversityLinks");
-            await BatchSerializeToFiles(converter.UniversityRoutes.Requirements.IdLookup.Select(r => new UniversityRequirementContentItem(GetTitle("UniversityRequirement", r.Key), timestamp, r.Key, r.Value)), batchSize, $"{filenamePrefix}UniversityRequirements");
-            await BatchSerializeToFiles(converter.DayToDayTasks.Select(x => new DayToDayTaskContentItem(x.Key, timestamp, x.Key, x.Value.id)), batchSize, $"{filenamePrefix}DayToDayTasks");
-            await BatchSerializeToFiles(converter.OtherRequirements.IdLookup.Select(r => new OtherRequirementContentItem(r.Key, timestamp, r.Key, r.Value)), batchSize, $"{filenamePrefix}OtherRequirements");
-            await BatchSerializeToFiles(converter.Registrations.IdLookup.Select(r => new RegistrationContentItem(GetTitle("Registration", r.Key), timestamp, r.Key, r.Value)), batchSize, $"{filenamePrefix}Registrations");
-            await BatchSerializeToFiles(converter.Restrictions.IdLookup.Select(r => new RestrictionContentItem(GetTitle("Restriction", r.Key), timestamp, r.Key, r.Value)), batchSize, $"{filenamePrefix}Restrictions");
-            await BatchSerializeToFiles(socCodeConverter.SocCodeContentItems, batchSize, $"{filenamePrefix}SocCodes");
 
-            await CopyRecipe(contentRecipesPath, "ONetSkill");
-            await BatchSerializeToFiles(oNetConverter.ONetOccupationalCodeContentItems, batchSize, $"{filenamePrefix}ONetOccupationalCodes", CSharpContentStep.StepName);
+            //await BatchSerializeToFiles(qcfLevelBuilder.QCFLevelContentItems, recipeBatchSize, $"{filenamePrefix}QCFLevels");
+            //await BatchSerializeToFiles(apprenticeshipStandardImporter.ApprenticeshipStandardRouteContentItems, recipeBatchSize, $"{filenamePrefix}ApprenticeshipStandardRoutes");
+            //await BatchSerializeToFiles(apprenticeshipStandardImporter.ApprenticeshipStandardContentItems, recipeBatchSize, $"{filenamePrefix}ApprenticeshipStandards");
+            //await BatchSerializeToFiles(RouteFactory.RequirementsPrefixes.IdLookup.Select(r => new RequirementsPrefixContentItem(r.Key, timestamp, r.Key, r.Value)), recipeBatchSize, $"{filenamePrefix}RequirementsPrefixes");
+            //await BatchSerializeToFiles(jobProfileConverter.ApprenticeshipRoutes.Links.IdLookup.Select(r => new ApprenticeshipLinkContentItem(GetTitle("ApprenticeshipLink", r.Key), r.Key, timestamp, r.Value)), recipeBatchSize, $"{filenamePrefix}ApprenticeshipLinks");
+            //await BatchSerializeToFiles(jobProfileConverter.ApprenticeshipRoutes.Requirements.IdLookup.Select(r => new ApprenticeshipRequirementContentItem(GetTitle("ApprenticeshipRequirement", r.Key), timestamp, r.Key, r.Value)), recipeBatchSize, $"{filenamePrefix}ApprenticeshipRequirements");
+            //await BatchSerializeToFiles(jobProfileConverter.CollegeRoutes.Links.IdLookup.Select(r => new CollegeLinkContentItem(GetTitle("CollegeLink", r.Key), r.Key, timestamp, r.Value)), recipeBatchSize, $"{filenamePrefix}CollegeLinks");
+            //await BatchSerializeToFiles(jobProfileConverter.CollegeRoutes.Requirements.IdLookup.Select(r => new CollegeRequirementContentItem(GetTitle("CollegeRequirement", r.Key), timestamp, r.Key, r.Value)), recipeBatchSize, $"{filenamePrefix}CollegeRequirements");
+            //await BatchSerializeToFiles(jobProfileConverter.UniversityRoutes.Links.IdLookup.Select(r => new UniversityLinkContentItem(GetTitle("UniversityLink", r.Key), r.Key, timestamp, r.Value)), recipeBatchSize, $"{filenamePrefix}UniversityLinks");
+            //await BatchSerializeToFiles(jobProfileConverter.UniversityRoutes.Requirements.IdLookup.Select(r => new UniversityRequirementContentItem(GetTitle("UniversityRequirement", r.Key), timestamp, r.Key, r.Value)), recipeBatchSize, $"{filenamePrefix}UniversityRequirements");
+            ////await BatchSerializeToFiles(jobProfileConverter.DayToDayTasks.Select(x => new DayToDayTaskContentItem(x.Key, timestamp, x.Key, x.Value.id)), batchSize, $"{filenamePrefix}DayToDayTasks");
+            //await BatchSerializeToFiles(jobProfileConverter.OtherRequirements.IdLookup.Select(r => new OtherRequirementContentItem(r.Key, timestamp, r.Key, r.Value)), recipeBatchSize, $"{filenamePrefix}OtherRequirements");
+            //await BatchSerializeToFiles(jobProfileConverter.Registrations.IdLookup.Select(r => new RegistrationContentItem(GetTitle("Registration", r.Key), timestamp, r.Key, r.Value)), recipeBatchSize, $"{filenamePrefix}Registrations");
+            //await BatchSerializeToFiles(jobProfileConverter.Restrictions.IdLookup.Select(r => new RestrictionContentItem(GetTitle("Restriction", r.Key), timestamp, r.Key, r.Value)), recipeBatchSize, $"{filenamePrefix}Restrictions");
+            //await BatchSerializeToFiles(socCodeConverter.SocCodeContentItems, recipeBatchSize, $"{filenamePrefix}SocCodes");
 
-            await CopyRecipeWithTokenisation(cypherCommandRecipesPath, "ONetSkillMappings", new Dictionary<string, string>
+            //await CopyRecipe(contentRecipesPath, "ONetSkill");
+            //await BatchSerializeToFiles(oNetConverter.ONetOccupationalCodeContentItems, recipeBatchSize, $"{filenamePrefix}ONetOccupationalCodes", CSharpContentStep.StepName);
+
+            //await CopyRecipeWithTokenisation(cypherCommandRecipesPath, "ONetSkillMappings", new Dictionary<string, string>
+            //{
+            //    {"commandText", string.Join($"{Environment.NewLine},", dysacImporter.ONetSkillCypherCommands) }
+
+            //});
+
+            //await BatchSerializeToFiles(jobProfileConverter.WorkingEnvironments.IdLookup.Select(x => new WorkingEnvironmentContentItem(GetTitle("Environment", x.Key), timestamp, x.Key, x.Value)), recipeBatchSize, $"{filenamePrefix}WorkingEnvironments");
+            //await BatchSerializeToFiles(jobProfileConverter.WorkingLocations.IdLookup.Select(x => new WorkingLocationContentItem(GetTitle("Location", x.Key), timestamp, x.Key, x.Value)), recipeBatchSize, $"{filenamePrefix}WorkingLocations");
+            //await BatchSerializeToFiles(jobProfileConverter.WorkingUniforms.IdLookup.Select(x => new WorkingUniformContentItem(GetTitle("Uniform", x.Key), timestamp, x.Key, x.Value)), recipeBatchSize, $"{filenamePrefix}WorkingUniforms");
+
+            //await BatchSerializeToFiles(jobProfileConverter.ApprenticeshipRoute.ItemToCompositeName.Keys, recipeBatchSize, $"{filenamePrefix}ApprenticeshipRoutes");
+            //await BatchSerializeToFiles(jobProfileConverter.CollegeRoute.ItemToCompositeName.Keys, recipeBatchSize, $"{filenamePrefix}CollegeRoutes");
+            //await BatchSerializeToFiles(jobProfileConverter.UniversityRoute.ItemToCompositeName.Keys, recipeBatchSize, $"{filenamePrefix}UniversityRoutes");
+            //await BatchSerializeToFiles(jobProfileConverter.DirectRoute.ItemToCompositeName.Keys, recipeBatchSize, $"{filenamePrefix}DirectRoutes");
+            //await BatchSerializeToFiles(jobProfileConverter.OtherRoute.ItemToCompositeName.Keys, recipeBatchSize, $"{filenamePrefix}OtherRoutes");
+            //await BatchSerializeToFiles(jobProfileConverter.VolunteeringRoute.ItemToCompositeName.Keys, recipeBatchSize, $"{filenamePrefix}VolunteeringRoutes");
+            //await BatchSerializeToFiles(jobProfileConverter.WorkRoute.ItemToCompositeName.Keys, recipeBatchSize, $"{filenamePrefix}WorkRoutes");
+
+            //await BatchSerializeToFiles(jobProfiles, jobProfileBatchSize, $"{filenamePrefix}JobProfiles", CSharpContentStep.StepName);
+            //await BatchSerializeToFiles(jobCategoryImporter.JobCategoryContentItems, recipeBatchSize, $"{filenamePrefix}JobCategories");
+
+            // Not required for job profiles
+            //await BatchSerializeToFiles(dysacImporter.PersonalityTraitContentItems, batchSize, $"{filenamePrefix}PersonalityTrait", CSharpContentStep.StepName);
+            //await BatchSerializeToFiles(dysacImporter.PersonalityShortQuestionContentItems, batchSize, $"{filenamePrefix}PersonalityShortQuestion", CSharpContentStep.StepName);
+            //await BatchSerializeToFiles(dysacImporter.PersonalityQuestionSetContentItems, batchSize, $"{filenamePrefix}PersonalityQuestionSet", CSharpContentStep.StepName);
+
+            //await CopyRecipe(contentRecipesPath, "PersonalityFilteringQuestion");
+
+            //string masterRecipeName = appSettings["MasterRecipeName"] ?? "master";
+
+            //await WriteMasterRecipesFiles(masterRecipeName);
+            //await File.WriteAllTextAsync($"{RecipeOutputBasePath}content items count_{_executionId}.txt", @$"{_importFilesReport}# Totals {_importTotalsReport}");
+            //await File.WriteAllTextAsync($"{RecipeOutputBasePath}manual_activity_mapping_{_executionId}.json", JsonSerializer.Serialize(jobProfileConverter.DayToDayTaskExclusions));
+            //await File.WriteAllTextAsync($"{RecipeOutputBasePath}content_titles_summary_{_executionId}.json", JsonSerializer.Serialize(new { Matches = _matchingTitles.Count, Failures = _missingTitles.Count }));
+            //await File.WriteAllTextAsync($"{RecipeOutputBasePath}matching_content_titles_{_executionId}.json", JsonSerializer.Serialize(_matchingTitles));
+            //await File.WriteAllTextAsync($"{RecipeOutputBasePath}missing_content_titles_{_executionId}.json", JsonSerializer.Serialize(_missingTitles));
+        }
+
+        private static void CreateRecipeFiles(
+            JobProfileSettingsDataModel jobProfileSettingsDataModel,
+            ReferenceData jobProfileReferenceDataModel)
+        {
+            // ---------------------------------
+            // Create the level 3 recipe files
+            // ---------------------------------
+
+            // University Requirements
+            CreateUniversityRequirementContentItemsRecipes(
+                jobProfileSettingsDataModel.RecipeBatchSize,
+                jobProfileSettingsDataModel.FilenamePrefix,
+                jobProfileReferenceDataModel.JobProfileContentItemBuilder,
+                jobProfileSettingsDataModel.Timestamp);
+
+            // University Links
+            CreateUniversityLinkContentItemsRecipe(
+                jobProfileSettingsDataModel.RecipeBatchSize,
+                jobProfileSettingsDataModel.FilenamePrefix,
+                jobProfileReferenceDataModel.JobProfileContentItemBuilder,
+                jobProfileSettingsDataModel.Timestamp);
+
+            // College Requirements
+            CreateCollegeRequirementContentItemsRecipe(
+                jobProfileSettingsDataModel.RecipeBatchSize,
+                jobProfileSettingsDataModel.FilenamePrefix,
+                jobProfileReferenceDataModel.JobProfileContentItemBuilder,
+                jobProfileSettingsDataModel.Timestamp);
+
+            // College Links
+            CreateCollegeLinkContentItemsRecipe(
+                jobProfileSettingsDataModel.RecipeBatchSize,
+                jobProfileSettingsDataModel.FilenamePrefix,
+                jobProfileReferenceDataModel.JobProfileContentItemBuilder,
+                jobProfileSettingsDataModel.Timestamp);
+
+            // Apprenticeship Requirements
+            CreateApprenticeshipRequirementContentItemsRecipe(
+                jobProfileSettingsDataModel.RecipeBatchSize,
+                jobProfileSettingsDataModel.FilenamePrefix,
+                jobProfileReferenceDataModel.JobProfileContentItemBuilder,
+                jobProfileSettingsDataModel.Timestamp);
+
+            // Apprenticeship Links
+            CreateApprenticeshipLinkContentItemsRecipe(
+                jobProfileSettingsDataModel.RecipeBatchSize,
+                jobProfileSettingsDataModel.FilenamePrefix,
+                jobProfileReferenceDataModel.JobProfileContentItemBuilder,
+                jobProfileSettingsDataModel.Timestamp);
+
+            // Apprenticeship Standards
+            CreateApprenticeshipStandardRouteContentItemsRecipe(
+                jobProfileSettingsDataModel.RecipeBatchSize,
+                jobProfileSettingsDataModel.FilenamePrefix,
+                jobProfileReferenceDataModel.ApprenticeshipStandardContentItemBuilder);
+
+            // QCF Levels
+            CreateQcfLevelContentItemsRecipe(
+                jobProfileSettingsDataModel.RecipeBatchSize,
+                jobProfileSettingsDataModel.FilenamePrefix,
+                jobProfileReferenceDataModel.QcfLevelContentItemBuilder);
+
+            // -------------------------------
+            // create the level 2 recipe files
+            // -------------------------------
+
+            // SOC Codes
+            CreateSOCCodeContentItemsRecipe(
+                jobProfileSettingsDataModel.RecipeBatchSize,
+                jobProfileSettingsDataModel.FilenamePrefix,
+                jobProfileReferenceDataModel.SocCodeContentItemBuilder);
+
+            // ONet Occupational Codes
+            CreateONetOccupationalCodeContentItemsRecipe(
+                jobProfileSettingsDataModel.RecipeBatchSize,
+                jobProfileSettingsDataModel.FilenamePrefix,
+                jobProfileReferenceDataModel.ONetOccupationalCodeContentItemBuilder);
+
+            // University Routes
+            CreateUniversityRouteContentItemsRecipe(
+                jobProfileSettingsDataModel.RecipeBatchSize,
+                jobProfileSettingsDataModel.FilenamePrefix,
+                jobProfileReferenceDataModel.JobProfileContentItemBuilder);
+
+            // College Routes
+            CreateCollegeRouteContentItemsRecipe(
+                jobProfileSettingsDataModel.RecipeBatchSize,
+                jobProfileSettingsDataModel.FilenamePrefix,
+                jobProfileReferenceDataModel.JobProfileContentItemBuilder);
+
+            // Apprenticeship Routes
+            CreateApprencticeshipRouteContentItemsRecipe(
+                jobProfileSettingsDataModel.RecipeBatchSize,
+                jobProfileSettingsDataModel.FilenamePrefix,
+                jobProfileReferenceDataModel.JobProfileContentItemBuilder);
+
+            // Work Routes
+            CreateWorkRouteContentItemsRecipe(
+                jobProfileSettingsDataModel.RecipeBatchSize,
+                jobProfileSettingsDataModel.FilenamePrefix,
+                jobProfileReferenceDataModel.JobProfileContentItemBuilder);
+
+            // Volunteering Routes
+            CreateVolunteeringRouteContentItemsRecipe(
+                jobProfileSettingsDataModel.RecipeBatchSize,
+                jobProfileSettingsDataModel.FilenamePrefix,
+                jobProfileReferenceDataModel.JobProfileContentItemBuilder);
+
+            // Direct Routes
+            CreateDirecRouteContentItemsRecipe(
+                jobProfileSettingsDataModel.RecipeBatchSize,
+                jobProfileSettingsDataModel.FilenamePrefix,
+                jobProfileReferenceDataModel.JobProfileContentItemBuilder);
+
+            // Other Routes
+            CreateOtherRouteContentItemsRecipe(
+                jobProfileSettingsDataModel.RecipeBatchSize,
+                jobProfileSettingsDataModel.FilenamePrefix,
+                jobProfileReferenceDataModel.JobProfileContentItemBuilder);
+
+            // Registrations
+            CreateRegistrationContentItemsRecipe(
+                jobProfileSettingsDataModel.RecipeBatchSize,
+                jobProfileSettingsDataModel.FilenamePrefix,
+                jobProfileReferenceDataModel.JobProfileContentItemBuilder,
+                jobProfileSettingsDataModel.Timestamp);
+
+            // Restrictions
+            CreateRestrictionContentItemsRecipe(
+                jobProfileSettingsDataModel.RecipeBatchSize,
+                jobProfileSettingsDataModel.FilenamePrefix,
+                jobProfileReferenceDataModel.JobProfileContentItemBuilder,
+                jobProfileSettingsDataModel.Timestamp);
+
+            // Other Requirements
+            CreateOtherRequirementContentItemsRecipe(
+                jobProfileSettingsDataModel.RecipeBatchSize,
+                jobProfileSettingsDataModel.FilenamePrefix,
+                jobProfileReferenceDataModel.JobProfileContentItemBuilder,
+                jobProfileSettingsDataModel.Timestamp);
+
+            // Digital Skills Levels
+            CreateDigitalSkillsLevelContentItemsRecipe(
+                jobProfileSettingsDataModel.RecipeBatchSize,
+                jobProfileSettingsDataModel.FilenamePrefix,
+                jobProfileReferenceDataModel.JobProfileContentItemBuilder,
+                jobProfileSettingsDataModel.Timestamp);
+
+            // Working Environments
+            CreateWorkingEnvironmentContentItemsRecipe(
+                jobProfileSettingsDataModel.RecipeBatchSize,
+                jobProfileSettingsDataModel.FilenamePrefix,
+                jobProfileReferenceDataModel.JobProfileContentItemBuilder,
+                jobProfileSettingsDataModel.Timestamp);
+
+            // Working Locations
+            CreateWorkingLocationContentItemsRecipe(
+                jobProfileSettingsDataModel.RecipeBatchSize,
+                jobProfileSettingsDataModel.FilenamePrefix,
+                jobProfileReferenceDataModel.JobProfileContentItemBuilder,
+                jobProfileSettingsDataModel.Timestamp);
+
+            // Working Uniforms
+            CreateWorkingUniformContentItemsRecipe(
+                jobProfileSettingsDataModel.RecipeBatchSize,
+                jobProfileSettingsDataModel.FilenamePrefix,
+                jobProfileReferenceDataModel.JobProfileContentItemBuilder,
+                jobProfileSettingsDataModel.Timestamp);
+
+            // Apprenticeship Standards
+            CreateApprenticeshipStandardContentItemsRecipe(
+                jobProfileSettingsDataModel.RecipeBatchSize,
+                jobProfileSettingsDataModel.FilenamePrefix,
+                jobProfileReferenceDataModel.ApprenticeshipStandardContentItemBuilder);
+
+            // -------------------------------
+            // create the level 1 recipe files
+            // -------------------------------
+
+            // Job Profiles
+            CreateJobProfileContentItemsRecipe(
+                jobProfileSettingsDataModel.RecipeBatchSize,
+                jobProfileSettingsDataModel.FilenamePrefix,
+                jobProfileReferenceDataModel.JobProfileContentItemBuilder);
+
+            // Job Categories
+            CreateJobCategoryContentItemsRecipe(
+                jobProfileSettingsDataModel.RecipeBatchSize,
+                jobProfileSettingsDataModel.FilenamePrefix,
+                jobProfileReferenceDataModel.JobCategoryBuilder);
+
+            // ONet Skills (this is a level 3 item but it's created by copying an existing recipe and modifying it)
+            CreateONetSkillContentItemsRecipe(
+                contentRecipesPath,
+                jobProfileSettingsDataModel,
+                jobProfileReferenceDataModel);
+
+            // ONet Skill Mappings (this is a level 3 item but it's created by copying an existing recipe and modifying it)
+            CreateONetSkillMappingContentItemsRecipe(
+                contentRecipesPath,
+                jobProfileSettingsDataModel,
+                jobProfileReferenceDataModel);
+        }
+
+        private static JobProfileSettingsDataModel GetJobProfileSettingsDataModel(IConfiguration appSettings)
+        {
+            var jobProfileSettingsDataModel = new JobProfileSettingsDataModel();
+
+            jobProfileSettingsDataModel.AppSettings = appSettings;
+
+            //private static string RecipeOutputBasePath = @"..\..\..\..\DFC.ServiceTaxonomy.Editor\Recipes\";
+            //private static string MasterRecipeOutputBasePath = @"..\..\..\..\DFC.ServiceTaxonomy.Editor\MasterRecipes\";
+            //private static string JobProfileExcelWorkbookPath = @"SeedData\job_profiles_updated.xlsx";
+            //private static string DysacJobProfileMappingExcelWorkbookPath = @"SeedData\dysac_job_profile_mappings.xlsx";
+            //private static string appSettingsFilename = "appsettings.Development.json";
+            //private static string jobProfileApiUri = "https://pp.api.nationalcareers.service.gov.uk/job-profiles/";
+            //private const bool _zip = false;
+            //private static int _fileIndex = 1;
+
+            jobProfileSettingsDataModel.RecipeOutputBasePath = @"..\..\..\..\DFC.ServiceTaxonomy.Editor\Recipes\";
+            jobProfileSettingsDataModel.MasterRecipeOutputBasePath = @"..\..\..\..\DFC.ServiceTaxonomy.Editor\MasterRecipes\";
+            jobProfileSettingsDataModel.JobProfileExcelWorkbookPath = @"SeedData\job_profiles_updated.xlsx";
+            jobProfileSettingsDataModel.DysacExcelWorkbookPath = @"SeedData\dysac.xlsx";
+            jobProfileSettingsDataModel.DysacJobProfileMappingExcelWorkbookPath = @"SeedData\dysac_job_profile_mappings.xlsx";
+            jobProfileSettingsDataModel.AppSettingsFilename = "appsettings.Development.json";
+            jobProfileSettingsDataModel.JobProfileApiUri = "https://pp.api.nationalcareers.service.gov.uk/job-profiles/";
+            jobProfileSettingsDataModel.Zip = false;
+            jobProfileSettingsDataModel.FileIndex = 1;
+
+
+            jobProfileSettingsDataModel.Timestamp = $"{DateTime.UtcNow:O}";
+            jobProfileSettingsDataModel.JobProfileToImport = appSettings["JobProfilesToImport"];
+            jobProfileSettingsDataModel.MasterRecipeName = appSettings["MasterRecipeName"] ?? "master";
+            jobProfileSettingsDataModel.CreateTestFilesBool = bool.Parse(appSettings["CreateTestFiles"] ?? "False");
+            jobProfileSettingsDataModel.SocCodeDictionary = !jobProfileSettingsDataModel.CreateTestFilesBool ? new string[] { } : appSettings["TestSocCodes"].Split(',');
+            jobProfileSettingsDataModel.OnetCodeDictionary = !jobProfileSettingsDataModel.CreateTestFilesBool ? new string[] { } : appSettings["TestONetCodes"].Split(',');
+            jobProfileSettingsDataModel.ApprenticeshipStandardsRefDictionary = !jobProfileSettingsDataModel.CreateTestFilesBool ? new string[] { } : appSettings["TestApprenticeshipStandardReferences"].Split(',');
+            jobProfileSettingsDataModel.FilenamePrefix = jobProfileSettingsDataModel.CreateTestFilesBool ? "TestData_" : "";
+            jobProfileSettingsDataModel.RecipeBatchSize = 400;
+            jobProfileSettingsDataModel.JobProfileBatchSize = 200;
+
+            return jobProfileSettingsDataModel;
+        }
+
+        private static void CreateJobCategoryContentItemsRecipe(int recipeBatchSize, string filenamePrefix, JobCategoryBuilder jobCategoryImporter)
+        {
+            BatchSerializeToFiles(jobCategoryImporter.JobCategoryContentItems, recipeBatchSize, $"{filenamePrefix}JobCategories").GetAwaiter();
+        }
+
+        private static void CreateJobProfileContentItemsRecipe(int jobProfileBatchSize, string filenamePrefix, JobProfileContentItemBuilder jobProfileConverter)
+        {
+            BatchSerializeToFiles(jobProfileConverter.jobProfileContentItems.ToArray(), jobProfileBatchSize, $"{filenamePrefix}JobProfiles", CSharpContentStep.StepName).GetAwaiter();
+        }
+
+        private static void CreateApprenticeshipStandardContentItemsRecipe(int recipeBatchSize, string filenamePrefix, ApprenticeshipStandardContentItemBuilder apprenticeshipStandardImporter)
+        {
+            BatchSerializeToFiles(apprenticeshipStandardImporter.ApprenticeshipStandardContentItems, recipeBatchSize, $"{filenamePrefix}ApprenticeshipStandards").GetAwaiter();
+        }
+
+        private static void CreateWorkingUniformContentItemsRecipe(int recipeBatchSize, string filenamePrefix, JobProfileContentItemBuilder jobProfileConverter, string timestamp)
+        {
+            BatchSerializeToFiles(jobProfileConverter.WorkingUniforms.IdLookup.Select(x => new WorkingUniformContentItem(GetTitle("Uniform", x.Key), timestamp, x.Key, x.Value)), recipeBatchSize, $"{filenamePrefix}WorkingUniforms").GetAwaiter();
+        }
+
+        private static void CreateWorkingLocationContentItemsRecipe(int recipeBatchSize, string filenamePrefix, JobProfileContentItemBuilder jobProfileConverter, string timestamp)
+        {
+            BatchSerializeToFiles(jobProfileConverter.WorkingLocations.IdLookup.Select(x => new WorkingLocationContentItem(GetTitle("Location", x.Key), timestamp, x.Key, x.Value)), recipeBatchSize, $"{filenamePrefix}WorkingLocations").GetAwaiter();
+        }
+
+        private static void CreateWorkingEnvironmentContentItemsRecipe(int recipeBatchSize, string filenamePrefix, JobProfileContentItemBuilder jobProfileConverter, string timestamp)
+        {
+            BatchSerializeToFiles(jobProfileConverter.WorkingEnvironments.IdLookup.Select(x => new WorkingEnvironmentContentItem(GetTitle("Environment", x.Key), timestamp, x.Key, x.Value)), recipeBatchSize, $"{filenamePrefix}WorkingEnvironments").GetAwaiter();
+        }
+
+        private static void CreateDigitalSkillsLevelContentItemsRecipe(int recipeBatchSize, string filenamePrefix, JobProfileContentItemBuilder jobProfileConverter, string timestamp)
+        {
+            string[] digitalSkillLevels =
             {
-                {"commandText", string.Join($"{Environment.NewLine},", dysacImporter.ONetSkillCypherCommands) }
+                "to have a thorough understanding of computer systems and applications",
+                "to be able to use acomputer and the main software packages confidently",
+                "to be able to use acomputer and the main software packages competently",
+                "to be able to carry out basic tasks on a computer or hand-held device"
+            };
 
-            });
+            List<DigitalSkillsLevelContentItem> digitalSkillLevelContentItems = new List<DigitalSkillsLevelContentItem>
+            {
+                new DigitalSkillsLevelContentItem(digitalSkillLevels[0], timestamp, digitalSkillLevels[0]),
+                new DigitalSkillsLevelContentItem(digitalSkillLevels[1], timestamp, digitalSkillLevels[1]),
+                new DigitalSkillsLevelContentItem(digitalSkillLevels[2], timestamp, digitalSkillLevels[2]),
+                new DigitalSkillsLevelContentItem(digitalSkillLevels[3], timestamp, digitalSkillLevels[3]),
+            };
 
-            await BatchSerializeToFiles(converter.WorkingEnvironments.IdLookup.Select(x => new WorkingEnvironmentContentItem(GetTitle("Environment", x.Key), timestamp, x.Key, x.Value)), batchSize, $"{filenamePrefix}WorkingEnvironments");
-            await BatchSerializeToFiles(converter.WorkingLocations.IdLookup.Select(x => new WorkingLocationContentItem(GetTitle("Location", x.Key), timestamp, x.Key, x.Value)), batchSize, $"{filenamePrefix}WorkingLocations");
-            await BatchSerializeToFiles(converter.WorkingUniforms.IdLookup.Select(x => new WorkingUniformContentItem(GetTitle("Uniform", x.Key), timestamp, x.Key, x.Value)), batchSize, $"{filenamePrefix}WorkingUniforms");
+            BatchSerializeToFiles(digitalSkillLevelContentItems, recipeBatchSize, $"{filenamePrefix}OtherRequirements").GetAwaiter();
+        }
 
-            await BatchSerializeToFiles(converter.ApprenticeshipRoute.ItemToCompositeName.Keys, batchSize, $"{filenamePrefix}ApprenticeshipRoutes");
-            await BatchSerializeToFiles(converter.CollegeRoute.ItemToCompositeName.Keys, batchSize, $"{filenamePrefix}CollegeRoutes");
-            await BatchSerializeToFiles(converter.UniversityRoute.ItemToCompositeName.Keys, batchSize, $"{filenamePrefix}UniversityRoutes");
-            await BatchSerializeToFiles(converter.DirectRoute.ItemToCompositeName.Keys, batchSize, $"{filenamePrefix}DirectRoutes");
-            await BatchSerializeToFiles(converter.OtherRoute.ItemToCompositeName.Keys, batchSize, $"{filenamePrefix}OtherRoutes");
-            await BatchSerializeToFiles(converter.VolunteeringRoute.ItemToCompositeName.Keys, batchSize, $"{filenamePrefix}VolunteeringRoutes");
-            await BatchSerializeToFiles(converter.WorkRoute.ItemToCompositeName.Keys, batchSize, $"{filenamePrefix}WorkRoutes");
+        private static void CreateOtherRequirementContentItemsRecipe(int recipeBatchSize, string filenamePrefix, JobProfileContentItemBuilder jobProfileConverter, string timestamp)
+        {
+            BatchSerializeToFiles(jobProfileConverter.OtherRequirements.IdLookup.Select(r => new OtherRequirementContentItem(r.Key, timestamp, r.Key, r.Value)), recipeBatchSize, $"{filenamePrefix}OtherRequirements").GetAwaiter();
+        }
 
-            await BatchSerializeToFiles(jobProfiles, jobProfileBatchSize, $"{filenamePrefix}JobProfiles", CSharpContentStep.StepName);
-            await BatchSerializeToFiles(jobCategoryImporter.JobCategoryContentItems, batchSize, $"{filenamePrefix}JobCategories");
+        private static void CreateRestrictionContentItemsRecipe(int recipeBatchSize, string filenamePrefix, JobProfileContentItemBuilder jobProfileConverter, string timestamp)
+        {
+            BatchSerializeToFiles(jobProfileConverter.Restrictions.IdLookup.Select(r => new RestrictionContentItem(GetTitle("Restriction", r.Key), timestamp, r.Key, r.Value)), recipeBatchSize, $"{filenamePrefix}Restrictions").GetAwaiter();
+        }
 
-            await BatchSerializeToFiles(dysacImporter.PersonalityTraitContentItems, batchSize, $"{filenamePrefix}PersonalityTrait", CSharpContentStep.StepName);
-            await BatchSerializeToFiles(dysacImporter.PersonalityShortQuestionContentItems, batchSize, $"{filenamePrefix}PersonalityShortQuestion", CSharpContentStep.StepName);
-            await BatchSerializeToFiles(dysacImporter.PersonalityQuestionSetContentItems, batchSize, $"{filenamePrefix}PersonalityQuestionSet", CSharpContentStep.StepName);
+        private static void CreateRegistrationContentItemsRecipe(int recipeBatchSize, string filenamePrefix, JobProfileContentItemBuilder jobProfileConverter, string timestamp)
+        {
+            BatchSerializeToFiles(jobProfileConverter.Registrations.IdLookup.Select(r => new RegistrationContentItem(GetTitle("Registration", r.Key), timestamp, r.Key, r.Value)), recipeBatchSize, $"{filenamePrefix}Registrations").GetAwaiter();
+        }
 
-            await CopyRecipe(contentRecipesPath, "PersonalityFilteringQuestion");
+        private static void CreateOtherRouteContentItemsRecipe(int recipeBatchSize, string filenamePrefix, JobProfileContentItemBuilder jobProfileConverter)
+        {
+            BatchSerializeToFiles(jobProfileConverter.OtherRoute.ItemToCompositeName.Keys, recipeBatchSize, $"{filenamePrefix}OtherRoutes").GetAwaiter();
+        }
 
-            string masterRecipeName = config["MasterRecipeName"] ?? "master";
+        private static void CreateDirecRouteContentItemsRecipe(int recipeBatchSize, string filenamePrefix, JobProfileContentItemBuilder jobProfileConverter)
+        {
+            BatchSerializeToFiles(jobProfileConverter.DirectRoute.ItemToCompositeName.Keys, recipeBatchSize, $"{filenamePrefix}DirectRoutes").GetAwaiter();
+        }
 
-            await WriteMasterRecipesFiles(masterRecipeName);
-            await File.WriteAllTextAsync($"{OutputBasePath}content items count_{_executionId}.txt", @$"{_importFilesReport}# Totals
-    {_importTotalsReport}");
-            await File.WriteAllTextAsync($"{OutputBasePath}manual_activity_mapping_{_executionId}.json", JsonSerializer.Serialize(converter.DayToDayTaskExclusions));
-            await File.WriteAllTextAsync($"{OutputBasePath}content_titles_summary_{_executionId}.json", JsonSerializer.Serialize(new { Matches = _matchingTitles.Count, Failures = _missingTitles.Count }));
-            await File.WriteAllTextAsync($"{OutputBasePath}matching_content_titles_{_executionId}.json", JsonSerializer.Serialize(_matchingTitles));
-            await File.WriteAllTextAsync($"{OutputBasePath}missing_content_titles_{_executionId}.json", JsonSerializer.Serialize(_missingTitles));
+        private static void CreateVolunteeringRouteContentItemsRecipe(int recipeBatchSize, string filenamePrefix, JobProfileContentItemBuilder jobProfileConverter)
+        {
+            BatchSerializeToFiles(jobProfileConverter.WorkRoute.ItemToCompositeName.Keys, recipeBatchSize, $"{filenamePrefix}WorkRoutes").GetAwaiter();
+        }
+
+        private static void CreateWorkRouteContentItemsRecipe(int recipeBatchSize, string filenamePrefix, JobProfileContentItemBuilder jobProfileConverter)
+        {
+            BatchSerializeToFiles(jobProfileConverter.WorkRoute.ItemToCompositeName.Keys, recipeBatchSize, $"{filenamePrefix}WorkRoutes").GetAwaiter();
+        }
+
+        private static void CreateApprencticeshipRouteContentItemsRecipe(int recipeBatchSize, string filenamePrefix, JobProfileContentItemBuilder jobProfileConverter)
+        {
+            BatchSerializeToFiles(jobProfileConverter.ApprenticeshipRoute.ItemToCompositeName.Keys, recipeBatchSize, $"{filenamePrefix}ApprenticeshipRoutes").GetAwaiter();
+        }
+
+        private static void CreateCollegeRouteContentItemsRecipe(int recipeBatchSize, string filenamePrefix, JobProfileContentItemBuilder jobProfileConverter)
+        {
+            BatchSerializeToFiles(jobProfileConverter.CollegeRoute.ItemToCompositeName.Keys, recipeBatchSize, $"{filenamePrefix}CollegeRoutes").GetAwaiter();
+        }
+
+        private static void CreateUniversityRouteContentItemsRecipe(int recipeBatchSize, string filenamePrefix, JobProfileContentItemBuilder jobProfileConverter)
+        {
+            BatchSerializeToFiles(jobProfileConverter.UniversityRoute.ItemToCompositeName.Keys, recipeBatchSize, $"{filenamePrefix}UniversityRoutes").GetAwaiter();
+        }
+
+        private static void CreateONetOccupationalCodeContentItemsRecipe(int recipeBatchSize, string filenamePrefix, ONetOccupationalCodeContentItemBuilder oNetOccupationalCodeContentItemBuilder)
+        {
+            BatchSerializeToFiles(oNetOccupationalCodeContentItemBuilder.ONetOccupationalCodeContentItems,
+                recipeBatchSize,
+                $"{filenamePrefix}ONetOccupationalCodes",
+                CSharpContentStep.StepName).GetAwaiter();
+        }
+
+        private static void CreateSOCCodeContentItemsRecipe(int recipeBatchSize, string filenamePrefix, SocCodeContentItemBuilder socCodeConverter)
+        {
+            BatchSerializeToFiles(socCodeConverter.SocCodeContentItemsList, recipeBatchSize, $"{filenamePrefix}SocCodes").GetAwaiter();
+        }
+
+        private static void CreateQcfLevelContentItemsRecipe(int recipeBatchSize, string filenamePrefix, QcfLevelContentItemBuilder qcfLevelContentItemBuilder)
+        {
+            BatchSerializeToFiles(qcfLevelContentItemBuilder.QcfLevelContentItems, recipeBatchSize, $"{filenamePrefix}QCFLevels").GetAwaiter();
+        }
+
+        private static void CreateApprenticeshipStandardRouteContentItemsRecipe(int recipeBatchSize, string filenamePrefix, ApprenticeshipStandardContentItemBuilder apprenticeshipStandardImporter)
+        {
+            BatchSerializeToFiles(apprenticeshipStandardImporter.ApprenticeshipStandardRouteContentItems, recipeBatchSize, $"{filenamePrefix}ApprenticeshipStandardRoutes").GetAwaiter();
+        }
+
+        private static void CreateApprenticeshipLinkContentItemsRecipe(int recipeBatchSize, string filenamePrefix, JobProfileContentItemBuilder jobProfileConverter, string timestamp)
+        {
+            var apprenticeshipRouteLinkContentItems = jobProfileConverter
+                .ApprenticeshipRoutes
+                .Links
+                .IdLookup
+                .Select(r => new ApprenticeshipLinkContentItem(GetTitle("ApprenticeshipLink", r.Key), r.Key, timestamp, r.Value));
+
+            if (apprenticeshipRouteLinkContentItems == null)
+            {
+                throw new Exception("apprenticeshipRapprenticeshipRouteLinkContentItemsouteRequirementContentItems is null");
+            }
+
+            BatchSerializeToFiles(apprenticeshipRouteLinkContentItems, recipeBatchSize, $"{filenamePrefix}ApprenticeshipLinks").GetAwaiter();
+        }
+
+        private static void CreateApprenticeshipRequirementContentItemsRecipe(int recipeBatchSize, string filenamePrefix, JobProfileContentItemBuilder jobProfileConverter, string timestamp)
+        {
+            var apprenticeshipRouteRequirementContentItems = jobProfileConverter
+                .ApprenticeshipRoutes
+                .Requirements
+                .IdLookup
+                .Select(r => new ApprenticeshipRequirementContentItem(GetTitle("ApprenticeshipRequirement", r.Key), timestamp, r.Key, r.Value));
+
+            if (apprenticeshipRouteRequirementContentItems == null)
+            {
+                throw new Exception("apprenticeshipRouteRequirementContentItems is null");
+            }
+
+            BatchSerializeToFiles(apprenticeshipRouteRequirementContentItems, recipeBatchSize, $"{filenamePrefix}ApprenticeshipRequirements").GetAwaiter();
+        }
+
+        private static void CreateCollegeLinkContentItemsRecipe(int recipeBatchSize, string filenamePrefix, JobProfileContentItemBuilder jobProfileConverter, string timestamp)
+        {
+            var collegeRouteLinkContentItems = jobProfileConverter
+                .CollegeRoutes
+                .Links
+                .IdLookup.Select(r => new CollegeLinkContentItem(GetTitle("CollegeLink", r.Key), r.Key, timestamp, r.Value));
+
+            if (collegeRouteLinkContentItems == null)
+            {
+                throw new Exception("collegeRouteLinkContentItems is null");
+            }
+
+            BatchSerializeToFiles(collegeRouteLinkContentItems, recipeBatchSize, $"{filenamePrefix}CollegeLinks").GetAwaiter();
+        }
+
+        private static void CreateCollegeRequirementContentItemsRecipe(int recipeBatchSize, string filenamePrefix, JobProfileContentItemBuilder jobProfileConverter, string timestamp)
+        {
+            var collegeRouteRequirementContentItems = jobProfileConverter
+                .CollegeRoutes
+                .Requirements
+                .IdLookup.Select(r => new CollegeRequirementContentItem(GetTitle("CollegeRequirement", r.Key), timestamp, r.Key, r.Value));
+
+            if (collegeRouteRequirementContentItems == null)
+            {
+                throw new Exception("collegeRouteRequirementContentItems is null");
+            }
+
+            BatchSerializeToFiles(collegeRouteRequirementContentItems, recipeBatchSize, $"{filenamePrefix}CollegeRequirements").GetAwaiter();
+        }
+
+        private static void CreateUniversityLinkContentItemsRecipe(int recipeBatchSize, string filenamePrefix, JobProfileContentItemBuilder jobProfileConverter, string timestamp)
+        {
+            var universitRouteLinkContentItems = jobProfileConverter
+                .UniversityRoutes
+                .Links
+                .IdLookup.Select(r => new UniversityLinkContentItem(GetTitle("UniversityLink", r.Key), r.Key, timestamp, r.Value));
+
+            if (universitRouteLinkContentItems == null)
+            {
+                throw new Exception("universitLinkContentItems is null");
+            }
+
+            BatchSerializeToFiles(universitRouteLinkContentItems, recipeBatchSize, $"{filenamePrefix}UniversityLinks").GetAwaiter();
+        }
+
+        private static void CreateUniversityRequirementContentItemsRecipes(int recipeBatchSize, string filenamePrefix, JobProfileContentItemBuilder jobProfileContentItemBuilder, string timestamp)
+        {
+            var universityRouteRequirementContentItems = jobProfileContentItemBuilder
+                .UniversityRoutes
+                .Requirements
+                .IdLookup
+                .Select(r => new UniversityRequirementContentItem(GetTitle("UniversityRequirement", r.Key), timestamp, r.Key, r.Value));
+
+            if (universityRouteRequirementContentItems == null)
+            {
+                throw new Exception("universityRouteRequirementContentItems is null");
+            }
+
+            BatchSerializeToFiles(universityRouteRequirementContentItems, recipeBatchSize, $"{filenamePrefix}UniversityRequirements").GetAwaiter();
+        }
+
+        private static void CreateONetSkillContentItemsRecipe(
+            string contentRecipesPath,
+            JobProfileSettingsDataModel jobProfileSettingsDataModel,
+            ReferenceData jobProfileReferenceDataModel)
+        {
+            CopyRecipe(contentRecipesPath, "ONetSkill");
+        }
+
+        private static void CreateONetSkillMappingContentItemsRecipe(
+            string contentRecipesPath,
+            JobProfileSettingsDataModel jobProfileSettingsDataModel,
+            ReferenceData jobProfileReferenceDataModel)
+        {
+            var onetSkillCypherCommandsDictionary = new Dictionary<string, string>
+            {
+                {
+                    "commandText",
+                    string.Join($"{Environment.NewLine},",
+                    jobProfileReferenceDataModel.OnetSkillContentItemBuilder.ONetSkillCypherCommands)
+                }
+            };
+
+            CopyRecipeWithTokenisation(cypherCommandRecipesPath, "ONetSkillMappings", onetSkillCypherCommandsDictionary).GetAwaiter().GetResult();
+        }
+
+
+        //private static XSSFWorkbook GetExcelWorkbook(string JobProfileWorkbookPath)
+        //{
+        //    if(JobProfileWorkbookPath == null)
+        //    {
+        //        throw new ArgumentNullException("JobProfileWorkbookPath is null");
+        //    }
+
+        //    using var jobProfileWorkbookStreamReader = new StreamReader(JobProfileWorkbookPath);
+
+        //    if (jobProfileWorkbookStreamReader == null)
+        //    {
+        //        throw new Exception("jobProfileWorkbookStreamReader is null");
+        //    }
+
+        //    var jobProfileWorkbook = new XSSFWorkbook(jobProfileWorkbookStreamReader.BaseStream);
+
+        //    if (jobProfileWorkbookStreamReader == null)
+        //    {
+        //        throw new Exception("jobProfileSpreadSheet is null");
+        //    }
+
+        //    return jobProfileWorkbook;
+        //}
+
+        private static ApprenticeshipStandardContentItemBuilder GetApprenticeshipStandardImporter(
+            string timestamp,
+            string[] apprenticeshipStandardsRefList,
+            JobProfileReferenceDataModelBuilder qcfLevelBuilder,
+            XSSFWorkbook jobProfileSpreadSheet,
+            JobProfileContentItemBuilder jobProfileConverter)
+        {
+            var apprenticeshipStandardImporter = new ApprenticeshipStandardContentItemBuilder(apprenticeshipStandardsRefList);
+
+            if(apprenticeshipStandardImporter == null)
+            {
+                throw new ArgumentNullException("apprenticeshipStandardImporter is null");
+            }
+
+            var jobProfileContentItems = jobProfileConverter.jobProfileContentItems.ToArray();
+
+            if(jobProfileContentItems == null)
+            {
+                throw new Exception("jobProfileContentItems is null");
+            }
+
+            //apprenticeshipStandardImporter.Import(jobProfileSpreadSheet, timestamp, qcfLevelBuilder.QCFLevelDictionary, jobProfileContentItems);
+
+            //return apprenticeshipStandardImporter;
+
+            return null;
+        }
+
+        //private static JobProfileReferenceDataModelBuilder GetQcfLevelBuilder(string timestamp)
+        //{
+        //    var qcfLevelBuilder = new JobProfileReferenceDataModelBuilder();
+
+        //    if(qcfLevelBuilder == null)
+        //    {
+        //        throw new Exception("qcfLevelBuilder is null");
+        //    }
+
+        //    qcfLevelBuilder.Build(timestamp);
+
+        //    return qcfLevelBuilder;
+        //}
+
+        private static ONetOccupationalCodeContentItemBuilder GetONetConverter(string[] oNetCodeList)
+        {
+            if (oNetCodeList == null)
+            {
+                throw new ArgumentNullException("oNetCodeList is null");
+            }
+
+            var oNetConverter = new ONetOccupationalCodeContentItemBuilder(oNetCodeList);
+
+            if (oNetConverter == null)
+            {
+                throw new Exception("Failed to get ONetConverter");
+            }
+
+            return oNetConverter;
+        }
+
+        //private static SocCodeContentItemBuilder GetSocCodeConverter(string[] socCodeList)
+        //{
+        //    if (socCodeList == null)
+        //    {
+        //        throw new ArgumentNullException("socCodeList is null");
+        //    }
+
+        //    var socCodeConverter = new SocCodeContentItemBuilder(socCodeList);
+
+        //    if (socCodeConverter == null)
+        //    {
+        //        throw new Exception($"Failed to get SocCodeConverter");
+        //    }
+
+        //    return socCodeConverter;
+        //}
+
+        private static IConfigurationRoot GetAppSettingsConfigurationData(string appSettingsFilename)
+        {
+            IConfigurationRoot config = new ConfigurationBuilder()
+                .AddJsonFile(appSettingsFilename, optional: true)
+                .Build();
+
+            if(config == null)
+            {
+                throw new Exception($"Failed to get appsettings configuration data for the file {appSettingsFilename}.");
+            }
+
+            return config;
         }
 
         private static Task CopyRecipe(string recipePath, string recipeName)
@@ -353,7 +1016,7 @@ namespace GetJobProfiles
             _importFilesReport.AppendLine($"{destFilename}: {tokens.FirstOrDefault(x => x.Key == "limit").Value}");
             AddRecipeToRecipesStep(recipeName);
 
-            await File.WriteAllTextAsync($"{OutputBasePath}{destFilename}", recipe);
+            await File.WriteAllTextAsync($"{RecipeOutputBasePath}{destFilename}", recipe);
         }
 
         private static async Task BatchSerializeToFiles<T>(
@@ -378,12 +1041,12 @@ namespace GetJobProfiles
                 if (_zip)
                 {
                     filename = $"{_fileIndex++:00}. {batchRecipeName}_{_executionId}.zip";
-                    await ImportRecipe.CreateZipFile($"{OutputBasePath}{filename}", WrapInNonSetupRecipe(serializedContentItemBatch, batchRecipeNameWithExecutionId, stepName));
+                    await ImportRecipe.CreateZipFile($"{RecipeOutputBasePath}{filename}", WrapInNonSetupRecipe(serializedContentItemBatch, batchRecipeNameWithExecutionId, stepName));
                 }
                 else
                 {
                     filename = $"{_fileIndex++:00}. {batchRecipeName}_{_executionId}.recipe.json";
-                    await ImportRecipe.CreateRecipeFile($"{OutputBasePath}{filename}", WrapInNonSetupRecipe(serializedContentItemBatch, batchRecipeNameWithExecutionId, stepName));
+                    await ImportRecipe.CreateRecipeFile($"{RecipeOutputBasePath}{filename}", WrapInNonSetupRecipe(serializedContentItemBatch, batchRecipeNameWithExecutionId, stepName));
                 }
 
                 _importFilesReport.AppendLine($"{filename}: {batchContentItems.Count()}");
@@ -464,7 +1127,7 @@ namespace GetJobProfiles
                 title = HtmlField.ConvertLinks(title);
             }
 
-            var matchingTitle = _contentItemTitles[key].SingleOrDefault(x => x.Item2.Trim().Equals(title.Trim(), StringComparison.InvariantCultureIgnoreCase));
+            var matchingTitle = _jobProfileSpreadSheetContentItemTitles[key].SingleOrDefault(x => x.Item2.Trim().Equals(title.Trim(), StringComparison.InvariantCultureIgnoreCase));
 
             if (matchingTitle == null)
             {
@@ -481,17 +1144,19 @@ namespace GetJobProfiles
         private static void ProcessJobProfileSpreadsheet(XSSFWorkbook workbook)
         {
             //todo: does each of these need it's own titles?
-            _contentItemTitles.Add("Uniform", ProcessContentType(workbook, "Uniform", "Title", "Description"));
-            _contentItemTitles.Add("Location", ProcessContentType(workbook, "Location", "Title", "Description"));
-            _contentItemTitles.Add("Environment", ProcessContentType(workbook, "Environment", "Title", "Description"));
-            _contentItemTitles.Add("ApprenticeshipLink", ProcessContentType(workbook, "ApprenticeshipLink", "Title", "Text"));
-            _contentItemTitles.Add("ApprenticeshipRequirement", ProcessContentType(workbook, "ApprenticeshipRequirement", "Title", "Info"));
-            _contentItemTitles.Add("CollegeLink", ProcessContentType(workbook, "CollegeLink", "Title", "Text"));
-            _contentItemTitles.Add("CollegeRequirement", ProcessContentType(workbook, "CollegeRequirement", "Title", "Info"));
-            _contentItemTitles.Add("UniversityLink", ProcessContentType(workbook, "UniversityLink", "Title", "Text"));
-            _contentItemTitles.Add("UniversityRequirement", ProcessContentType(workbook, "UniversityRequirement", "Title", "Info"));
-            _contentItemTitles.Add("Restriction", ProcessContentType(workbook, "Restriction", "Title", "Info"));
-            _contentItemTitles.Add("Registration", ProcessContentType(workbook, "Registration", "Title", "Info"));
+            _jobProfileSpreadSheetContentItemTitles.Add("Uniform", ProcessContentType(workbook, "Uniform", "Title", "Description"));
+            _jobProfileSpreadSheetContentItemTitles.Add("Location", ProcessContentType(workbook, "Location", "Title", "Description"));
+            _jobProfileSpreadSheetContentItemTitles.Add("Environment", ProcessContentType(workbook, "Environment", "Title", "Description"));
+            _jobProfileSpreadSheetContentItemTitles.Add("ApprenticeshipLink", ProcessContentType(workbook, "ApprenticeshipLink", "Title", "Text"));
+            _jobProfileSpreadSheetContentItemTitles.Add("ApprenticeshipRequirement", ProcessContentType(workbook, "ApprenticeshipRequirement", "Title", "Info"));
+            _jobProfileSpreadSheetContentItemTitles.Add("CollegeLink", ProcessContentType(workbook, "CollegeLink", "Title", "Text"));
+            _jobProfileSpreadSheetContentItemTitles.Add("CollegeRequirement", ProcessContentType(workbook, "CollegeRequirement", "Title", "Info"));
+            _jobProfileSpreadSheetContentItemTitles.Add("UniversityLink", ProcessContentType(workbook, "UniversityLink", "Title", "Text"));
+            _jobProfileSpreadSheetContentItemTitles.Add("UniversityRequirement", ProcessContentType(workbook, "UniversityRequirement", "Title", "Info"));
+            _jobProfileSpreadSheetContentItemTitles.Add("Restriction", ProcessContentType(workbook, "Restriction", "Title", "Info"));
+            _jobProfileSpreadSheetContentItemTitles.Add("Registration", ProcessContentType(workbook, "Registration", "Title", "Info"));
+            _jobProfileSpreadSheetContentItemTitles.Add("DayToDayTasks", ProcessContentType(workbook, "JobProfile", "Title", "WYDDayToDayTasks"));
+            _jobProfileSpreadSheetContentItemTitles.Add("HiddenAlternativeTitles", ProcessContentType(workbook, "JobProfile", "Title", "HiddenAlternativeTitle"));
         }
 
         private static List<Tuple<string, string>> ProcessContentType(XSSFWorkbook workbook, string excelSheet,

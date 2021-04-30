@@ -1,0 +1,59 @@
+{
+  "name": "CollegeRoutes0_7267fbf3-f15d-4acf-83f8-3d627784d1f2",
+  "displayName": "CollegeRoutes0_7267fbf3-f15d-4acf-83f8-3d627784d1f2",
+  "description": "",
+  "author": "",
+  "website": "",
+  "version": "",
+  "issetuprecipe": false,
+  "categories": "",
+  "tags": [],
+  "steps": [
+    {
+      "name": "ContentNoCache",
+      "data": [
+  {
+    "TitlePart": {
+      "Title": "Actor"
+    },
+    "CollegeRoute": {
+      "RelevantSubjects": {
+        "Html": "\u003Cp\u003EThere is no set entry route to become an actor but it may be useful to do a relevant subject like:\u003Cul\u003E\u003Cli\u003ELevel 2 Technical Certificate in Performing Arts\u003C/li\u003E\u003Cli\u003ELevel 3 Extended Diploma in Performing Arts - Acting\u003C/li\u003E\u003Cli\u003EA level in Drama and Theatre\u003C/li\u003E\u003Cli\u003ELevel 4 Diploma in Speech and Drama\u003C/li\u003E\u003C/ul\u003E\u003C/p\u003E"
+      },
+      "FurtherInfo": {
+        "Html": ""
+      },
+      "Requirements": {
+        "ContentItemIds": [
+          "4x8n7c239tjv56yq4wawwcdxxn",
+          "49321cbsdaakayqhp7pfz4a2w2",
+          "494s6p0xbksc0y8gbfksnwhwwq"
+        ]
+      },
+      "Links": {
+        "ContentItemIds": [
+          "4k4mht2rese1pxstjt8bjyxr5a",
+          "4atwq6b0y4x95tcd2axvt8zdxx",
+          "4fffrk1baxnb32tnvhzwkq6hcp"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/collegeroute/e4c7a5e2-2e01-41c0-8cdd-d69c931ccfe1"
+    },
+    "ContentItemId": "45dwrpzab8aqvw5n4mfetkx5cj",
+    "ContentItemVersionId": "4k5c06j5g1v09txryfw45pff4f",
+    "ContentType": "CollegeRoute",
+    "DisplayText": "Actor",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-03-22T13:15:44.3619295Z",
+    "PublishedUtc": "2021-03-22T13:15:44.3619295Z",
+    "CreatedUtc": "2021-03-22T13:15:44.3619295Z",
+    "Owner": "admin",
+    "Author": "admin"
+  }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,65 @@
+01. QCFLevels0_1910c1be-8ca3-4507-8627-fd1dddf6d4be.recipe.json: 10
+02. ApprenticeshipStandardRoutes0_1910c1be-8ca3-4507-8627-fd1dddf6d4be.recipe.json: 18
+03. ApprenticeshipStandards0_1910c1be-8ca3-4507-8627-fd1dddf6d4be.recipe.json: 400
+04. ApprenticeshipStandards1_1910c1be-8ca3-4507-8627-fd1dddf6d4be.recipe.json: 181
+05. RequirementsPrefixes0_1910c1be-8ca3-4507-8627-fd1dddf6d4be.recipe.json: 6
+06. ApprenticeshipLinks0_1910c1be-8ca3-4507-8627-fd1dddf6d4be.recipe.json: 3
+07. ApprenticeshipRequirements0_1910c1be-8ca3-4507-8627-fd1dddf6d4be.recipe.json: 9
+08. CollegeLinks0_1910c1be-8ca3-4507-8627-fd1dddf6d4be.recipe.json: 5
+09. CollegeRequirements0_1910c1be-8ca3-4507-8627-fd1dddf6d4be.recipe.json: 5
+10. UniversityLinks0_1910c1be-8ca3-4507-8627-fd1dddf6d4be.recipe.json: 6
+11. UniversityRequirements0_1910c1be-8ca3-4507-8627-fd1dddf6d4be.recipe.json: 8
+12. OtherRequirements0_1910c1be-8ca3-4507-8627-fd1dddf6d4be.recipe.json: 13
+13. Registrations0_1910c1be-8ca3-4507-8627-fd1dddf6d4be.recipe.json: 3
+14. Restrictions0_1910c1be-8ca3-4507-8627-fd1dddf6d4be.recipe.json: 15
+15. SocCodes0_1910c1be-8ca3-4507-8627-fd1dddf6d4be.recipe.json: 370
+16. ONetSkill_1910c1be-8ca3-4507-8627-fd1dddf6d4be.recipe.json: 
+17. ONetOccupationalCodes0_1910c1be-8ca3-4507-8627-fd1dddf6d4be.recipe.json: 400
+18. ONetOccupationalCodes1_1910c1be-8ca3-4507-8627-fd1dddf6d4be.recipe.json: 110
+19. ONetSkillMappings_1910c1be-8ca3-4507-8627-fd1dddf6d4be.recipe.json: 
+20. WorkingEnvironments0_1910c1be-8ca3-4507-8627-fd1dddf6d4be.recipe.json: 14
+21. WorkingLocations0_1910c1be-8ca3-4507-8627-fd1dddf6d4be.recipe.json: 17
+22. WorkingUniforms0_1910c1be-8ca3-4507-8627-fd1dddf6d4be.recipe.json: 3
+23. ApprenticeshipRoutes0_1910c1be-8ca3-4507-8627-fd1dddf6d4be.recipe.json: 19
+24. CollegeRoutes0_1910c1be-8ca3-4507-8627-fd1dddf6d4be.recipe.json: 14
+25. UniversityRoutes0_1910c1be-8ca3-4507-8627-fd1dddf6d4be.recipe.json: 8
+26. DirectRoutes0_1910c1be-8ca3-4507-8627-fd1dddf6d4be.recipe.json: 14
+27. OtherRoutes0_1910c1be-8ca3-4507-8627-fd1dddf6d4be.recipe.json: 6
+28. VolunteeringRoutes0_1910c1be-8ca3-4507-8627-fd1dddf6d4be.recipe.json: 10
+29. WorkRoutes0_1910c1be-8ca3-4507-8627-fd1dddf6d4be.recipe.json: 11
+30. JobProfiles0_1910c1be-8ca3-4507-8627-fd1dddf6d4be.recipe.json: 21
+31. JobCategories0_1910c1be-8ca3-4507-8627-fd1dddf6d4be.recipe.json: 25
+32. PersonalityTrait0_1910c1be-8ca3-4507-8627-fd1dddf6d4be.recipe.json: 8
+33. PersonalityShortQuestion0_1910c1be-8ca3-4507-8627-fd1dddf6d4be.recipe.json: 40
+34. PersonalityQuestionSet0_1910c1be-8ca3-4507-8627-fd1dddf6d4be.recipe.json: 1
+35. PersonalityFilteringQuestion_1910c1be-8ca3-4507-8627-fd1dddf6d4be.recipe.json: 
+# Totals QCFLevels: 10
+ApprenticeshipStandardRoutes: 18
+ApprenticeshipStandards: 581
+RequirementsPrefixes: 6
+ApprenticeshipLinks: 3
+ApprenticeshipRequirements: 9
+CollegeLinks: 5
+CollegeRequirements: 5
+UniversityLinks: 6
+UniversityRequirements: 8
+OtherRequirements: 13
+Registrations: 3
+Restrictions: 15
+SocCodes: 370
+ONetOccupationalCodes: 510
+WorkingEnvironments: 14
+WorkingLocations: 17
+WorkingUniforms: 3
+ApprenticeshipRoutes: 19
+CollegeRoutes: 14
+UniversityRoutes: 8
+DirectRoutes: 14
+OtherRoutes: 6
+VolunteeringRoutes: 10
+WorkRoutes: 11
+JobProfiles: 21
+JobCategories: 25
+PersonalityTrait: 8
+PersonalityShortQuestion: 40
+PersonalityQuestionSet: 1

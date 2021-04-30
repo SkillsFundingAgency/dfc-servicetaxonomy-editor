@@ -1,0 +1,53 @@
+{
+  "name": "Import_1910c1be-8ca3-4507-8627-fd1dddf6d4be",
+  "displayName": "Import_1910c1be-8ca3-4507-8627-fd1dddf6d4be",
+  "description": "",
+  "author": "",
+  "website": "",
+  "version": "",
+  "issetuprecipe": false,
+  "categories": "",
+  "tags": [],
+  "steps": [
+    {
+      "name": "recipes",
+      "values": [
+{ "executionid": "Import_1910c1be-8ca3-4507-8627-fd1dddf6d4be", name:"QCFLevels0_1910c1be-8ca3-4507-8627-fd1dddf6d4be" },
+{ "executionid": "Import_1910c1be-8ca3-4507-8627-fd1dddf6d4be", name:"ApprenticeshipStandardRoutes0_1910c1be-8ca3-4507-8627-fd1dddf6d4be" },
+{ "executionid": "Import_1910c1be-8ca3-4507-8627-fd1dddf6d4be", name:"ApprenticeshipStandards0_1910c1be-8ca3-4507-8627-fd1dddf6d4be" },
+{ "executionid": "Import_1910c1be-8ca3-4507-8627-fd1dddf6d4be", name:"ApprenticeshipStandards1_1910c1be-8ca3-4507-8627-fd1dddf6d4be" },
+{ "executionid": "Import_1910c1be-8ca3-4507-8627-fd1dddf6d4be", name:"RequirementsPrefixes0_1910c1be-8ca3-4507-8627-fd1dddf6d4be" },
+{ "executionid": "Import_1910c1be-8ca3-4507-8627-fd1dddf6d4be", name:"ApprenticeshipLinks0_1910c1be-8ca3-4507-8627-fd1dddf6d4be" },
+{ "executionid": "Import_1910c1be-8ca3-4507-8627-fd1dddf6d4be", name:"ApprenticeshipRequirements0_1910c1be-8ca3-4507-8627-fd1dddf6d4be" },
+{ "executionid": "Import_1910c1be-8ca3-4507-8627-fd1dddf6d4be", name:"CollegeLinks0_1910c1be-8ca3-4507-8627-fd1dddf6d4be" },
+{ "executionid": "Import_1910c1be-8ca3-4507-8627-fd1dddf6d4be", name:"CollegeRequirements0_1910c1be-8ca3-4507-8627-fd1dddf6d4be" },
+{ "executionid": "Import_1910c1be-8ca3-4507-8627-fd1dddf6d4be", name:"UniversityLinks0_1910c1be-8ca3-4507-8627-fd1dddf6d4be" },
+{ "executionid": "Import_1910c1be-8ca3-4507-8627-fd1dddf6d4be", name:"UniversityRequirements0_1910c1be-8ca3-4507-8627-fd1dddf6d4be" },
+{ "executionid": "Import_1910c1be-8ca3-4507-8627-fd1dddf6d4be", name:"OtherRequirements0_1910c1be-8ca3-4507-8627-fd1dddf6d4be" },
+{ "executionid": "Import_1910c1be-8ca3-4507-8627-fd1dddf6d4be", name:"Registrations0_1910c1be-8ca3-4507-8627-fd1dddf6d4be" },
+{ "executionid": "Import_1910c1be-8ca3-4507-8627-fd1dddf6d4be", name:"Restrictions0_1910c1be-8ca3-4507-8627-fd1dddf6d4be" },
+{ "executionid": "Import_1910c1be-8ca3-4507-8627-fd1dddf6d4be", name:"SocCodes0_1910c1be-8ca3-4507-8627-fd1dddf6d4be" },
+{ "executionid": "Import_1910c1be-8ca3-4507-8627-fd1dddf6d4be", name:"ONetSkill_1910c1be-8ca3-4507-8627-fd1dddf6d4be" },
+{ "executionid": "Import_1910c1be-8ca3-4507-8627-fd1dddf6d4be", name:"ONetOccupationalCodes0_1910c1be-8ca3-4507-8627-fd1dddf6d4be" },
+{ "executionid": "Import_1910c1be-8ca3-4507-8627-fd1dddf6d4be", name:"ONetOccupationalCodes1_1910c1be-8ca3-4507-8627-fd1dddf6d4be" },
+{ "executionid": "Import_1910c1be-8ca3-4507-8627-fd1dddf6d4be", name:"ONetSkillMappings_1910c1be-8ca3-4507-8627-fd1dddf6d4be" },
+{ "executionid": "Import_1910c1be-8ca3-4507-8627-fd1dddf6d4be", name:"WorkingEnvironments0_1910c1be-8ca3-4507-8627-fd1dddf6d4be" },
+{ "executionid": "Import_1910c1be-8ca3-4507-8627-fd1dddf6d4be", name:"WorkingLocations0_1910c1be-8ca3-4507-8627-fd1dddf6d4be" },
+{ "executionid": "Import_1910c1be-8ca3-4507-8627-fd1dddf6d4be", name:"WorkingUniforms0_1910c1be-8ca3-4507-8627-fd1dddf6d4be" },
+{ "executionid": "Import_1910c1be-8ca3-4507-8627-fd1dddf6d4be", name:"ApprenticeshipRoutes0_1910c1be-8ca3-4507-8627-fd1dddf6d4be" },
+{ "executionid": "Import_1910c1be-8ca3-4507-8627-fd1dddf6d4be", name:"CollegeRoutes0_1910c1be-8ca3-4507-8627-fd1dddf6d4be" },
+{ "executionid": "Import_1910c1be-8ca3-4507-8627-fd1dddf6d4be", name:"UniversityRoutes0_1910c1be-8ca3-4507-8627-fd1dddf6d4be" },
+{ "executionid": "Import_1910c1be-8ca3-4507-8627-fd1dddf6d4be", name:"DirectRoutes0_1910c1be-8ca3-4507-8627-fd1dddf6d4be" },
+{ "executionid": "Import_1910c1be-8ca3-4507-8627-fd1dddf6d4be", name:"OtherRoutes0_1910c1be-8ca3-4507-8627-fd1dddf6d4be" },
+{ "executionid": "Import_1910c1be-8ca3-4507-8627-fd1dddf6d4be", name:"VolunteeringRoutes0_1910c1be-8ca3-4507-8627-fd1dddf6d4be" },
+{ "executionid": "Import_1910c1be-8ca3-4507-8627-fd1dddf6d4be", name:"WorkRoutes0_1910c1be-8ca3-4507-8627-fd1dddf6d4be" },
+{ "executionid": "Import_1910c1be-8ca3-4507-8627-fd1dddf6d4be", name:"JobProfiles0_1910c1be-8ca3-4507-8627-fd1dddf6d4be" },
+{ "executionid": "Import_1910c1be-8ca3-4507-8627-fd1dddf6d4be", name:"JobCategories0_1910c1be-8ca3-4507-8627-fd1dddf6d4be" },
+{ "executionid": "Import_1910c1be-8ca3-4507-8627-fd1dddf6d4be", name:"PersonalityTrait0_1910c1be-8ca3-4507-8627-fd1dddf6d4be" },
+{ "executionid": "Import_1910c1be-8ca3-4507-8627-fd1dddf6d4be", name:"PersonalityShortQuestion0_1910c1be-8ca3-4507-8627-fd1dddf6d4be" },
+{ "executionid": "Import_1910c1be-8ca3-4507-8627-fd1dddf6d4be", name:"PersonalityQuestionSet0_1910c1be-8ca3-4507-8627-fd1dddf6d4be" },
+{ "executionid": "Import_1910c1be-8ca3-4507-8627-fd1dddf6d4be", name:"PersonalityFilteringQuestion_1910c1be-8ca3-4507-8627-fd1dddf6d4be" }
+      ]
+    }
+  ]
+}

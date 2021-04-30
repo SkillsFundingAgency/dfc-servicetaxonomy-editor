@@ -1,0 +1,61 @@
+{
+  "name": "UniversityRoutes0_7267fbf3-f15d-4acf-83f8-3d627784d1f2",
+  "displayName": "UniversityRoutes0_7267fbf3-f15d-4acf-83f8-3d627784d1f2",
+  "description": "",
+  "author": "",
+  "website": "",
+  "version": "",
+  "issetuprecipe": false,
+  "categories": "",
+  "tags": [],
+  "steps": [
+    {
+      "name": "ContentNoCache",
+      "data": [
+  {
+    "TitlePart": {
+      "Title": "Actor"
+    },
+    "UniversityRoute": {
+      "RelevantSubjects": {
+        "Html": "\u003Cp\u003EYou could do a foundation degree, degree or postgraduate diploma in drama, or other relevant subject like:\u003Cul\u003E\u003Cli\u003Eperformance studies\u003C/li\u003E\u003Cli\u003Econtemporary theatre and performance\u003C/li\u003E\u003Cli\u003Eacting\u003C/li\u003E\u003Cli\u003Emusical theatre\u003C/li\u003E\u003C/ul\u003E\u003C/p\u003E"
+      },
+      "FurtherInfo": {
+        "Html": ""
+      },
+      "Requirements": {
+        "ContentItemIds": [
+          "4fp2dz1tcj8bexdty0afa0tz4r",
+          "4100jx8ecbt602kvx1brn0q1mt",
+          "43exh647fhabdswd29vvbrdt5x",
+          "4v8c95qds06vfrn26t5s8zfwwh"
+        ]
+      },
+      "Links": {
+        "ContentItemIds": [
+          "4jpz70rcs87qxvnqg62z1ax24g",
+          "4c74g2t6z0heyym3bb496hx8ch",
+          "404v8jf77q3c66ecvsc9hhrnw9",
+          "4brfyx3wxm7ye6man0a23y225h"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/universityroute/e06e0424-37ad-4150-9573-e42e8499a774"
+    },
+    "ContentItemId": "4rjfccwvr7an10wpr9n8fjsdx4",
+    "ContentItemVersionId": "45nn6bfexns50sqec7c40nc4wc",
+    "ContentType": "UniversityRoute",
+    "DisplayText": "Actor",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-03-22T13:15:44.3619295Z",
+    "PublishedUtc": "2021-03-22T13:15:44.3619295Z",
+    "CreatedUtc": "2021-03-22T13:15:44.3619295Z",
+    "Owner": "admin",
+    "Author": "admin"
+  }
+      ]
+    }
+  ]
+}

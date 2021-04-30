@@ -5,6 +5,7 @@ using System.Text.Json.Serialization;
 namespace GetJobProfiles.JsonHelpers
 {
     // https://github.com/dotnet/runtime/issues/30425
+    // https://github.com/dotnet/runtime/issues/29937
     class PolymorphicWriteOnlyJsonConverter<T> : JsonConverter<T>
     {
         public override T Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)

@@ -1,0 +1,171 @@
+{
+  "name": "JobProfiles0_7267fbf3-f15d-4acf-83f8-3d627784d1f2",
+  "displayName": "JobProfiles0_7267fbf3-f15d-4acf-83f8-3d627784d1f2",
+  "description": "",
+  "author": "",
+  "website": "",
+  "version": "",
+  "issetuprecipe": false,
+  "categories": "",
+  "tags": [],
+  "steps": [
+    {
+      "name": "CSharpContent",
+      "data": [
+  {
+    "TitlePart": {
+      "Title": "Actor"
+    },
+    "PageLocationPart": {
+      "UrlName": "actor",
+      "FullUrl": "/job-profiles/actor",
+      "DefaultPageForLocation": false,
+      "RedirectLocations": null
+    },
+    "JobProfile": {
+      "AlternativeTitle": {
+        "Text": ""
+      },
+      "HiddenAlternativeTitle": {
+        "Text": ""
+      },
+      "PageLocations": {
+        "TaxonomyContentItemId": "4eembshqzx66drajtdten34tc8",
+        "TermContentItemIds": [
+          "4x352kh85x7894jr7yqbt0z34b"
+        ]
+      },
+      "Description": {
+        "Html": "\u003Cp\u003EActors use speech, movement and expression to bring characters to life in theatre, film, television and radio.\u003C/p\u003E"
+      },
+      "TitleOptions": {
+        "Text": "as_defined"
+      },
+      "SOCCode": {
+        "ContentItemIds": [
+          "43qwqenq4jhj8twrtrc7zas4dg"
+        ]
+      },
+      "ONetOccupationalCode": {
+        "ContentItemIds": [
+          "4ztdsbt4dvp941bhxa4kde39mp"
+        ]
+      },
+      "SalaryStarter": {
+        "Text": "variable"
+      },
+      "SalaryExperienced": {
+        "Text": "variable"
+      },
+      "MinimumHours": {
+        "Value": 45.0
+      },
+      "MaximumHours": {
+        "Value": 47.0
+      },
+      "WorkingHoursDetails": {
+        "Text": "irregular"
+      },
+      "WorkingPattern": {
+        "Text": "evenings / weekends / bank holidays"
+      },
+      "WorkingPatternDetails": {
+        "Text": "away from home"
+      },
+      "ApprenticeshipRoute": {
+        "ContentItemIds": []
+      },
+      "CollegeRoute": {
+        "ContentItemIds": [
+          "45dwrpzab8aqvw5n4mfetkx5cj"
+        ]
+      },
+      "UniversityRoute": {
+        "ContentItemIds": [
+          "4rjfccwvr7an10wpr9n8fjsdx4"
+        ]
+      },
+      "DirectRoute": {
+        "ContentItemIds": [
+          "4mkctbgbbvvpsxqkm2n5fj72x2"
+        ]
+      },
+      "OtherRoute": {
+        "ContentItemIds": [
+          "423by157xw6c8y333n719r6qx1"
+        ]
+      },
+      "VolunteeringRoute": {
+        "ContentItemIds": [
+          "407jed45ejf5n7j4qa4mp598wy"
+        ]
+      },
+      "WorkRoute": {
+        "ContentItemIds": []
+      },
+      "HtbProfessionalBodies": {
+        "Html": "\u003Cp\u003EYou can join \u003Ca href=\u0022https://www.equity.org.uk/getting-involved/\u0022\u003EEquity\u003C/a\u003E for professional recognition, training opportunities and to make industry contacts.\u003C/p\u003E"
+      },
+      "HtbCareerTips": {
+        "Html": "\u003Cp\u003EYou\u0027ll need to get as much practical experience of acting as you can, and create a showreel to demonstrate your acting skills to agents and casting directors.\u003C/p\u003E"
+      },
+      "HtbFurtherInformation": {
+        "Html": "\u003Cp\u003EYou can find out more about becoming an actor through \u003Ca href=\u0022https://getintotheatre.org/\u0022\u003EGet into Theatre\u003C/a\u003E and \u003Ca href=\u0022https://discovercreative.careers/#/\u0022\u003EDiscover Creative Careers\u003C/a\u003E.\u003C/p\u003E\u003Cp\u003EYou can also get extra support from organisations like \u003Ca href=\u0022https://www.shapearts.org.uk/\u0022\u003EShape Arts\u003C/a\u003E, if you have a disability or special learning need.\u003C/p\u003E"
+      },
+      "HtbRegistrations": {
+        "ContentItemIds": []
+      },
+      "WitRestrictions": {
+        "ContentItemIds": []
+      },
+      "WitOtherRequirements": {
+        "ContentItemIds": []
+      },
+      "WitDigitalSkillsLevel": {
+        "ContentItemIds": [
+          "4s8gp1ew7kvv17cwbh4s1m4rd2"
+        ]
+      },
+      "WydDayToDayTasks": {
+        "Html": "\u003Cp\u003E\u003Cp\u003EYou\u0026rsquo;ll spend a lot of time:\u003C/p\u003E\n\u003Cul\u003E\n    \u003Cli\u003Eresearching your role\u003C/li\u003E\n    \u003Cli\u003Elearning your lines\u003C/li\u003E\n    \u003Cli\u003Erehearsing\u003C/li\u003E\n    \u003Cli\u003Eattending fittings for costumes\u003C/li\u003E\n    \u003Cli\u003Epreparing for and going to auditions\u003C/li\u003E\n    \u003Cli\u003Econtacting actors\u0026rsquo; agents and finding the next job\u003C/li\u003E\n\u003C/ul\u003E\u003C/p\u003E"
+      },
+      "WydWorkingEnvironment": {
+        "ContentItemIds": [
+          "4xqzp3cb6n3fgy13d0pdcvammk"
+        ]
+      },
+      "WydWorkingLocation": {
+        "ContentItemIds": [
+          "41rym5mhnkwjq7hw1jetfqw3mf"
+        ]
+      },
+      "WydWorkingUniform": {
+        "ContentItemIds": []
+      },
+      "CareerPathAndProgression": {
+        "Html": "\u003Cp\u003EIf you can show an agent you have potential they may put you forward for auditions and castings. Agents usually take a fee of about 10% to 25% from your earnings.\u003C/p\u003E\u003Cp\u003EYou could take further training and move into directing, scriptwriting, drama therapy or teaching.\u003C/p\u003E"
+      },
+      "ApprenticeshipStandards": {
+        "ContentItemIds": []
+      },
+      "RelatedCareers": null
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/jobprofile/9e33f49c-fdff-46ee-a989-4746b79182e0"
+    },
+    "ContentItemId": "4ehpttm9wsm5j7ghyrv35jnv4e",
+    "ContentItemVersionId": "4hmfs7pejes73zdpd2qswg3fnb",
+    "ContentType": "JobProfile",
+    "DisplayText": "Actor",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-03-22T13:15:44.3619295Z",
+    "PublishedUtc": "2021-03-22T13:15:44.3619295Z",
+    "CreatedUtc": "2021-03-22T13:15:44.3619295Z",
+    "Owner": "admin",
+    "Author": "admin"
+  }
+      ]
+    }
+  ]
+}

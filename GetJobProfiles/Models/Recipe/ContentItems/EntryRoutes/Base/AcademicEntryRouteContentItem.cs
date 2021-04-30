@@ -7,8 +7,13 @@ namespace GetJobProfiles.Models.Recipe.ContentItems.EntryRoutes.Base
 {
     public class AcademicEntryRouteContentItem : ContentItem
     {
-        public AcademicEntryRouteContentItem(string contentType, string title, AcademicEntryRoute entryRoute, string timestamp, string contentItemId = null)
-            : base(contentType, null, timestamp, contentItemId)
+        public AcademicEntryRouteContentItem(
+            string contentType,
+            string title,
+            AcademicEntryRoute entryRoute,
+            string timestamp,
+            string contentItemId = null)
+                : base(contentType, null, timestamp, contentItemId)
         {
             TitlePart = new TitlePart(title);
             DisplayText = TitlePart.Title;
@@ -22,7 +27,9 @@ namespace GetJobProfiles.Models.Recipe.ContentItems.EntryRoutes.Base
         }
 
         public TitlePart TitlePart { get; set; }
+
         public AcademicEntryRoutePart EponymousPart { get; set; }
+
         public GraphSyncPart GraphSyncPart { get; set; }
     }
 
@@ -30,7 +37,8 @@ namespace GetJobProfiles.Models.Recipe.ContentItems.EntryRoutes.Base
     {
         public HtmlField RelevantSubjects { get; set; }
         public HtmlField FurtherInfo { get; set; }
-        public ContentPicker RequirementsPrefix { get; set; }
+        // The prefix is now static text in the Job Profile CompUI but this is left here in case it's reinstated
+        //public ContentPicker RequirementsPrefix { get; set; }
         public ContentPicker Requirements { get; set; }
         public ContentPicker Links { get; set; }
     }

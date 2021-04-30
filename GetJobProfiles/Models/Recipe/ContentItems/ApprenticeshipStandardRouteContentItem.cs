@@ -5,8 +5,15 @@ namespace GetJobProfiles.Models.Recipe.ContentItems
 {
     public class ApprenticeshipStandardRouteContentItem : ContentItem
     {
-        public ApprenticeshipStandardRouteContentItem(string title, string timestamp, string contentItemId = null)
-            : base("ApprenticeshipStandardRoute", title, timestamp, contentItemId)
+        public ApprenticeshipStandardRouteContentItem(
+            string title,
+            string timestamp,
+            string contentItemId = null)
+            : base(
+                "ApprenticeshipStandardRoute",
+                title,
+                timestamp,
+                contentItemId)
         {
             TitlePart = new TitlePart(title);
             GraphSyncPart = new GraphSyncPart("ApprenticeshipStandardRoute");
@@ -15,6 +22,7 @@ namespace GetJobProfiles.Models.Recipe.ContentItems
         }
 
         public TitlePart TitlePart { get; set; }
+
         public GraphSyncPart GraphSyncPart { get; set; }
     }
 }

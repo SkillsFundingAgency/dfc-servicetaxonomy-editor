@@ -1,0 +1,53 @@
+{
+  "name": "Import_eeb750a2-ee31-431c-9f86-ade86c11903e",
+  "displayName": "Import_eeb750a2-ee31-431c-9f86-ade86c11903e",
+  "description": "",
+  "author": "",
+  "website": "",
+  "version": "",
+  "issetuprecipe": false,
+  "categories": "",
+  "tags": [],
+  "steps": [
+    {
+      "name": "recipes",
+      "values": [
+{ "executionid": "Import_eeb750a2-ee31-431c-9f86-ade86c11903e", name:"QCFLevels0_eeb750a2-ee31-431c-9f86-ade86c11903e" },
+{ "executionid": "Import_eeb750a2-ee31-431c-9f86-ade86c11903e", name:"ApprenticeshipStandardRoutes0_eeb750a2-ee31-431c-9f86-ade86c11903e" },
+{ "executionid": "Import_eeb750a2-ee31-431c-9f86-ade86c11903e", name:"ApprenticeshipStandards0_eeb750a2-ee31-431c-9f86-ade86c11903e" },
+{ "executionid": "Import_eeb750a2-ee31-431c-9f86-ade86c11903e", name:"ApprenticeshipStandards1_eeb750a2-ee31-431c-9f86-ade86c11903e" },
+{ "executionid": "Import_eeb750a2-ee31-431c-9f86-ade86c11903e", name:"RequirementsPrefixes0_eeb750a2-ee31-431c-9f86-ade86c11903e" },
+{ "executionid": "Import_eeb750a2-ee31-431c-9f86-ade86c11903e", name:"ApprenticeshipLinks0_eeb750a2-ee31-431c-9f86-ade86c11903e" },
+{ "executionid": "Import_eeb750a2-ee31-431c-9f86-ade86c11903e", name:"ApprenticeshipRequirements0_eeb750a2-ee31-431c-9f86-ade86c11903e" },
+{ "executionid": "Import_eeb750a2-ee31-431c-9f86-ade86c11903e", name:"CollegeLinks0_eeb750a2-ee31-431c-9f86-ade86c11903e" },
+{ "executionid": "Import_eeb750a2-ee31-431c-9f86-ade86c11903e", name:"CollegeRequirements0_eeb750a2-ee31-431c-9f86-ade86c11903e" },
+{ "executionid": "Import_eeb750a2-ee31-431c-9f86-ade86c11903e", name:"UniversityLinks0_eeb750a2-ee31-431c-9f86-ade86c11903e" },
+{ "executionid": "Import_eeb750a2-ee31-431c-9f86-ade86c11903e", name:"UniversityRequirements0_eeb750a2-ee31-431c-9f86-ade86c11903e" },
+{ "executionid": "Import_eeb750a2-ee31-431c-9f86-ade86c11903e", name:"OtherRequirements0_eeb750a2-ee31-431c-9f86-ade86c11903e" },
+{ "executionid": "Import_eeb750a2-ee31-431c-9f86-ade86c11903e", name:"Registrations0_eeb750a2-ee31-431c-9f86-ade86c11903e" },
+{ "executionid": "Import_eeb750a2-ee31-431c-9f86-ade86c11903e", name:"Restrictions0_eeb750a2-ee31-431c-9f86-ade86c11903e" },
+{ "executionid": "Import_eeb750a2-ee31-431c-9f86-ade86c11903e", name:"SocCodes0_eeb750a2-ee31-431c-9f86-ade86c11903e" },
+{ "executionid": "Import_eeb750a2-ee31-431c-9f86-ade86c11903e", name:"ONetSkill_eeb750a2-ee31-431c-9f86-ade86c11903e" },
+{ "executionid": "Import_eeb750a2-ee31-431c-9f86-ade86c11903e", name:"ONetOccupationalCodes0_eeb750a2-ee31-431c-9f86-ade86c11903e" },
+{ "executionid": "Import_eeb750a2-ee31-431c-9f86-ade86c11903e", name:"ONetOccupationalCodes1_eeb750a2-ee31-431c-9f86-ade86c11903e" },
+{ "executionid": "Import_eeb750a2-ee31-431c-9f86-ade86c11903e", name:"ONetSkillMappings_eeb750a2-ee31-431c-9f86-ade86c11903e" },
+{ "executionid": "Import_eeb750a2-ee31-431c-9f86-ade86c11903e", name:"WorkingEnvironments0_eeb750a2-ee31-431c-9f86-ade86c11903e" },
+{ "executionid": "Import_eeb750a2-ee31-431c-9f86-ade86c11903e", name:"WorkingLocations0_eeb750a2-ee31-431c-9f86-ade86c11903e" },
+{ "executionid": "Import_eeb750a2-ee31-431c-9f86-ade86c11903e", name:"WorkingUniforms0_eeb750a2-ee31-431c-9f86-ade86c11903e" },
+{ "executionid": "Import_eeb750a2-ee31-431c-9f86-ade86c11903e", name:"ApprenticeshipRoutes0_eeb750a2-ee31-431c-9f86-ade86c11903e" },
+{ "executionid": "Import_eeb750a2-ee31-431c-9f86-ade86c11903e", name:"CollegeRoutes0_eeb750a2-ee31-431c-9f86-ade86c11903e" },
+{ "executionid": "Import_eeb750a2-ee31-431c-9f86-ade86c11903e", name:"UniversityRoutes0_eeb750a2-ee31-431c-9f86-ade86c11903e" },
+{ "executionid": "Import_eeb750a2-ee31-431c-9f86-ade86c11903e", name:"DirectRoutes0_eeb750a2-ee31-431c-9f86-ade86c11903e" },
+{ "executionid": "Import_eeb750a2-ee31-431c-9f86-ade86c11903e", name:"OtherRoutes0_eeb750a2-ee31-431c-9f86-ade86c11903e" },
+{ "executionid": "Import_eeb750a2-ee31-431c-9f86-ade86c11903e", name:"VolunteeringRoutes0_eeb750a2-ee31-431c-9f86-ade86c11903e" },
+{ "executionid": "Import_eeb750a2-ee31-431c-9f86-ade86c11903e", name:"WorkRoutes0_eeb750a2-ee31-431c-9f86-ade86c11903e" },
+{ "executionid": "Import_eeb750a2-ee31-431c-9f86-ade86c11903e", name:"JobProfiles0_eeb750a2-ee31-431c-9f86-ade86c11903e" },
+{ "executionid": "Import_eeb750a2-ee31-431c-9f86-ade86c11903e", name:"JobCategories0_eeb750a2-ee31-431c-9f86-ade86c11903e" },
+{ "executionid": "Import_eeb750a2-ee31-431c-9f86-ade86c11903e", name:"PersonalityTrait0_eeb750a2-ee31-431c-9f86-ade86c11903e" },
+{ "executionid": "Import_eeb750a2-ee31-431c-9f86-ade86c11903e", name:"PersonalityShortQuestion0_eeb750a2-ee31-431c-9f86-ade86c11903e" },
+{ "executionid": "Import_eeb750a2-ee31-431c-9f86-ade86c11903e", name:"PersonalityQuestionSet0_eeb750a2-ee31-431c-9f86-ade86c11903e" },
+{ "executionid": "Import_eeb750a2-ee31-431c-9f86-ade86c11903e", name:"PersonalityFilteringQuestion_eeb750a2-ee31-431c-9f86-ade86c11903e" }
+      ]
+    }
+  ]
+}

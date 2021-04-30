@@ -8,7 +8,8 @@ namespace GetJobProfiles.Models.Recipe.ContentItems.EntryRoutes.Factories
     {
         protected void AddContentPickers(AcademicEntryRoute entryRoute, AcademicEntryRouteContentItem contentItem)
         {
-            contentItem.EponymousPart.RequirementsPrefix = RequirementsPrefixes.CreateContentPicker(entryRoute.EntryRequirementPreface);
+            // requirements prefix is now static text on the Job Profile CompUI
+            //contentItem.EponymousPart.RequirementsPrefix = RequirementsPrefixes.CreateContentPicker(entryRoute.EntryRequirementPreface);
             contentItem.EponymousPart.Requirements = Requirements.CreateContentPicker(entryRoute.EntryRequirements);
             contentItem.EponymousPart.Links = Links.CreateContentPicker(entryRoute.AdditionalInformation);
         }

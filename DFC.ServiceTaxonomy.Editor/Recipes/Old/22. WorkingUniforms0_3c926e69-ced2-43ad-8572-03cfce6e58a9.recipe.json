@@ -1,0 +1,90 @@
+{
+  "name": "WorkingUniforms0_3c926e69-ced2-43ad-8572-03cfce6e58a9",
+  "displayName": "WorkingUniforms0_3c926e69-ced2-43ad-8572-03cfce6e58a9",
+  "description": "",
+  "author": "",
+  "website": "",
+  "version": "",
+  "issetuprecipe": false,
+  "categories": "",
+  "tags": [],
+  "steps": [
+    {
+      "name": "ContentNoCache",
+      "data": [
+  {
+    "TitlePart": {
+      "Title": "a sports kit and a uniform test"
+    },
+    "WorkingUniform": {
+      "Description": {
+        "Html": "\u003Cp\u003Ea sports kit and a uniform test\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/workinguniform/595a63bb-1be9-4b7b-a47b-a1fcdce7178a"
+    },
+    "ContentItemId": "4wvgy0cf4t21y5559hcs6qfeme",
+    "ContentItemVersionId": "4efkhhs0ryccwrppp8b0agn1dt",
+    "ContentType": "WorkingUniform",
+    "DisplayText": "a sports kit and a uniform test",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-03-19T15:12:21.1281353Z",
+    "PublishedUtc": "2021-03-19T15:12:21.1281353Z",
+    "CreatedUtc": "2021-03-19T15:12:21.1281353Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "a uniform test"
+    },
+    "WorkingUniform": {
+      "Description": {
+        "Html": "\u003Cp\u003Ea uniform test\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/workinguniform/6bfc5d01-e90f-45ef-ad80-b00ceca5f4b3"
+    },
+    "ContentItemId": "4pwckpa44qm9j2qrt8ycb8yqcr",
+    "ContentItemVersionId": "41p2tzfgd7naywz8ncwmfkkxdv",
+    "ContentType": "WorkingUniform",
+    "DisplayText": "a uniform test",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-03-19T15:12:21.1281353Z",
+    "PublishedUtc": "2021-03-19T15:12:21.1281353Z",
+    "CreatedUtc": "2021-03-19T15:12:21.1281353Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Protective Clothing"
+    },
+    "WorkingUniform": {
+      "Description": {
+        "Html": "\u003Cp\u003Eprotective clothing\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/workinguniform/cbd694e3-1484-4267-8379-f6fd2239ec25"
+    },
+    "ContentItemId": "4h17s1patxhv56xjbnc3wc3wcw",
+    "ContentItemVersionId": "4c6z77txvf2spxfwfc56kadjnj",
+    "ContentType": "WorkingUniform",
+    "DisplayText": "Protective Clothing",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-03-19T15:12:21.1281353Z",
+    "PublishedUtc": "2021-03-19T15:12:21.1281353Z",
+    "CreatedUtc": "2021-03-19T15:12:21.1281353Z",
+    "Owner": "admin",
+    "Author": "admin"
+  }
+      ]
+    }
+  ]
+}

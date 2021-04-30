@@ -17,8 +17,8 @@ namespace GetJobProfiles.Models.Recipe.ContentItems.EntryRoutes.EqualityComparer
             return r1.EponymousPart.FurtherInfo.Html == r2.EponymousPart.FurtherInfo.Html &&
                    r1.EponymousPart.RelevantSubjects.Html == r2.EponymousPart.RelevantSubjects.Html &&
                    r1.EponymousPart.Links.ContentItemIds.SequenceEqual(r2.EponymousPart.Links.ContentItemIds) &&
-                   r1.EponymousPart.Requirements.ContentItemIds.SequenceEqual(r2.EponymousPart.Requirements.ContentItemIds) &&
-                   r1.EponymousPart.RequirementsPrefix.ContentItemIds.SequenceEqual(r2.EponymousPart.RequirementsPrefix.ContentItemIds);
+                   r1.EponymousPart.Requirements.ContentItemIds.SequenceEqual(r2.EponymousPart.Requirements.ContentItemIds); /* no longer used. &&
+                   r1.EponymousPart.RequirementsPrefix.ContentItemIds.SequenceEqual(r2.EponymousPart.RequirementsPrefix.ContentItemIds); */
         }
 
         public override int GetHashCode(AcademicEntryRouteContentItem item)
@@ -26,9 +26,9 @@ namespace GetJobProfiles.Models.Recipe.ContentItems.EntryRoutes.EqualityComparer
             return item.EponymousPart.FurtherInfo.Html.GetHashCode()
                    ^ item.EponymousPart.RelevantSubjects.Html.GetHashCode()
                    ^ item.EponymousPart.Links.ContentItemIds.GetHashCode()
-                   ^ item.EponymousPart.Requirements.ContentItemIds.GetHashCode()
-                   ^ item.EponymousPart.RequirementsPrefix.ContentItemIds.GetHashCode();
-
+                   ^ item.EponymousPart.Requirements.ContentItemIds.GetHashCode();
+                    // prefix is now static text on the Job Profile CompUI app
+                   //^ item.EponymousPart.RequirementsPrefix.ContentItemIds.GetHashCode();
         }
     }
 }

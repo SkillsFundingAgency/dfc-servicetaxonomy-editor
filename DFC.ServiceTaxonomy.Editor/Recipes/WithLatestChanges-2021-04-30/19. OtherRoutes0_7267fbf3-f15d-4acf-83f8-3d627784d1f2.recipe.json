@@ -1,0 +1,42 @@
+{
+  "name": "OtherRoutes0_7267fbf3-f15d-4acf-83f8-3d627784d1f2",
+  "displayName": "OtherRoutes0_7267fbf3-f15d-4acf-83f8-3d627784d1f2",
+  "description": "",
+  "author": "",
+  "website": "",
+  "version": "",
+  "issetuprecipe": false,
+  "categories": "",
+  "tags": [],
+  "steps": [
+    {
+      "name": "ContentNoCache",
+      "data": [
+  {
+    "TitlePart": {
+      "Title": "Actor"
+    },
+    "OtherRoute": {
+      "Description": {
+        "Html": "\u003Cp\u003EYou can study with a private \u003Ca href=\u0022http://www.federationofdramaschools.co.uk/member-schools/4593600509\u0022\u003Edrama school\u003C/a\u003E or conservatoire. Many offer full-time courses, as well as short courses and summer schools.\u003C/p\u003E\u003Cp\u003EYou\u0027ll need to pass an audition to get into a drama school. You may also need A levels or a Level 3 Diploma in Performing Arts, though this is not always essential if you can show enough talent and commitment.\u003C/p\u003E\u003Cp\u003EYou may be able to get \u003Ca href=\u0022https://www.gov.uk/dance-drama-awards\u0022\u003Efunding\u003C/a\u003E to help with fees and living costs at a private drama school.\u003C/p\u003E\u003Cp\u003EYou could also take graded exams in acting, musical theatre and performance art through \u003Ca href=\u0022https://www.trinitycollege.com/site/?id=198\u0022\u003ETrinity College London\u003C/a\u003E, \u003Ca href=\u0022https://lcme.uwl.ac.uk/exams/drama/acting\u0022\u003EUniversity of West London\u003C/a\u003E or \u003Ca href=\u0022https://www.lamda.ac.uk/our-exams/all-examinations/performance-examinations/acting\u0022\u003ELondon Academy of Music and Dramatic Art\u003C/a\u003E (LAMDA).\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/otherroute/6ad31fff-619d-47bc-8c4e-8acc3109b028"
+    },
+    "ContentItemId": "423by157xw6c8y333n719r6qx1",
+    "ContentItemVersionId": "4trfmtda4a9mrs30vgb64gfvdx",
+    "ContentType": "OtherRoute",
+    "DisplayText": "Actor",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-03-22T13:15:44.3619295Z",
+    "PublishedUtc": "2021-03-22T13:15:44.3619295Z",
+    "CreatedUtc": "2021-03-22T13:15:44.3619295Z",
+    "Owner": "admin",
+    "Author": "admin"
+  }
+      ]
+    }
+  ]
+}

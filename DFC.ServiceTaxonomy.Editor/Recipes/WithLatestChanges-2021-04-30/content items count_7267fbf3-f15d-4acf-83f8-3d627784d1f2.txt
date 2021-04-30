@@ -1,0 +1,49 @@
+01. QCFLevels0_7267fbf3-f15d-4acf-83f8-3d627784d1f2.recipe.json: 10
+02. ApprenticeshipStandardRoutes0_7267fbf3-f15d-4acf-83f8-3d627784d1f2.recipe.json: 18
+03. ApprenticeshipStandards0_7267fbf3-f15d-4acf-83f8-3d627784d1f2.recipe.json: 400
+04. ApprenticeshipStandards1_7267fbf3-f15d-4acf-83f8-3d627784d1f2.recipe.json: 181
+05. CollegeLinks0_7267fbf3-f15d-4acf-83f8-3d627784d1f2.recipe.json: 3
+06. CollegeRequirements0_7267fbf3-f15d-4acf-83f8-3d627784d1f2.recipe.json: 3
+07. UniversityLinks0_7267fbf3-f15d-4acf-83f8-3d627784d1f2.recipe.json: 4
+08. UniversityRequirements0_7267fbf3-f15d-4acf-83f8-3d627784d1f2.recipe.json: 4
+09. SocCodes0_7267fbf3-f15d-4acf-83f8-3d627784d1f2.recipe.json: 370
+10. ONetSkill_7267fbf3-f15d-4acf-83f8-3d627784d1f2.recipe.json: 
+11. ONetOccupationalCodes0_7267fbf3-f15d-4acf-83f8-3d627784d1f2.recipe.json: 400
+12. ONetOccupationalCodes1_7267fbf3-f15d-4acf-83f8-3d627784d1f2.recipe.json: 110
+13. ONetSkillMappings_7267fbf3-f15d-4acf-83f8-3d627784d1f2.recipe.json: 
+14. WorkingEnvironments0_7267fbf3-f15d-4acf-83f8-3d627784d1f2.recipe.json: 1
+15. WorkingLocations0_7267fbf3-f15d-4acf-83f8-3d627784d1f2.recipe.json: 1
+16. CollegeRoutes0_7267fbf3-f15d-4acf-83f8-3d627784d1f2.recipe.json: 1
+17. UniversityRoutes0_7267fbf3-f15d-4acf-83f8-3d627784d1f2.recipe.json: 1
+18. DirectRoutes0_7267fbf3-f15d-4acf-83f8-3d627784d1f2.recipe.json: 1
+19. OtherRoutes0_7267fbf3-f15d-4acf-83f8-3d627784d1f2.recipe.json: 1
+20. VolunteeringRoutes0_7267fbf3-f15d-4acf-83f8-3d627784d1f2.recipe.json: 1
+21. JobProfiles0_7267fbf3-f15d-4acf-83f8-3d627784d1f2.recipe.json: 1
+22. JobCategories0_7267fbf3-f15d-4acf-83f8-3d627784d1f2.recipe.json: 25
+# Totals QCFLevels: 10
+ApprenticeshipStandardRoutes: 18
+ApprenticeshipStandards: 581
+RequirementsPrefixes: 0
+ApprenticeshipLinks: 0
+ApprenticeshipRequirements: 0
+CollegeLinks: 3
+CollegeRequirements: 3
+UniversityLinks: 4
+UniversityRequirements: 4
+OtherRequirements: 0
+Registrations: 0
+Restrictions: 0
+SocCodes: 370
+ONetOccupationalCodes: 510
+WorkingEnvironments: 1
+WorkingLocations: 1
+WorkingUniforms: 0
+ApprenticeshipRoutes: 0
+CollegeRoutes: 1
+UniversityRoutes: 1
+DirectRoutes: 1
+OtherRoutes: 1
+VolunteeringRoutes: 1
+WorkRoutes: 0
+JobProfiles: 1
+JobCategories: 25

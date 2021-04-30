@@ -23,8 +23,9 @@ namespace GetJobProfiles.Models.Recipe.ContentItems
 
     public class JobProfilePart
     {
+        public TextField AlternativeTitle { get; set; }
+        public TextField HiddenAlternativeTitle { get; set; }
         public TaxonomyField PageLocations { get; set; }
-        public ContentPicker Occupation { get; set; }
         public HtmlField Description { get; set; }
         public TextField TitleOptions { get; set; }
         public ContentPicker SOCCode { get; set; }
@@ -45,19 +46,18 @@ namespace GetJobProfiles.Models.Recipe.ContentItems
         public ContentPicker OtherRoute { get; set; }
         public ContentPicker VolunteeringRoute { get; set; }
         public ContentPicker WorkRoute { get; set; }
-        public HtmlField HtbBodies { get; set; }
-        // public HtmlField HtbOtherRequirements { get; set; }
+        public HtmlField HtbProfessionalBodies { get; set; }
         public HtmlField HtbCareerTips { get; set; }
         public HtmlField HtbFurtherInformation { get; set; }
         public ContentPicker HtbRegistrations { get; set; }
 
         //What it takes
-        public HtmlField WitDigitalSkillsLevel { get; set; }
         public ContentPicker WitRestrictions { get; set; }
         public ContentPicker WitOtherRequirements { get; set; }
+        public ContentPicker WitDigitalSkillsLevel { get; set; }
 
-        //What you'll do
-        public ContentPicker DayToDayTasks { get; set; }
+        //What you will do
+        public HtmlField WydDayToDayTasks { get; set; }
         public ContentPicker WydWorkingEnvironment { get; set; }
         public ContentPicker WydWorkingLocation { get; set; }
         public ContentPicker WydWorkingUniform { get; set; }
@@ -65,5 +65,6 @@ namespace GetJobProfiles.Models.Recipe.ContentItems
         //Career path
         public HtmlField CareerPathAndProgression { get; set; }
         public ContentPicker ApprenticeshipStandards { get; set; }
+        public ContentPicker RelatedCareers { get; set; }
     }
 }
