@@ -1,13 +1,13 @@
 ﻿using System.Collections.Generic;
-using DFC.ServiceTaxonomy.ContentApproval.Models;
+using DFC.ServiceTaxonomy.ContentApproval.Models.Enums;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace DFC.ServiceTaxonomy.ContentApproval.ViewModels
 {
-    public class ContentApprovalContentsAdminListFilterViewModel
+    public class ReviewStatusContentsAdminListFilterViewModel
     {
-        public ContentReviewStatus? SelectedApprovalStatus { get; set; }
+        public ReviewStatusFilterOptions? SelectedApprovalStatus { get; set; }
 
         [BindNever]
         public List<SelectListItem>? ApprovalStatuses { get; set; }

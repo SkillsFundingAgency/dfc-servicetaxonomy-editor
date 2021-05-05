@@ -1,0 +1,597 @@
+﻿{
+    "name": "Forms_Taxonomy",
+    "displayName": "forms Content Types",
+    "description": "Sets up the Service Taxonomy Editor with Form content types",
+    "author": "National Careers Service",
+    "website": "https://github.com/SkillsFundingAgency/dfc-servicetaxonomy-editor",
+    "version": "1.0",
+    "issetuprecipe": true,
+    "categories": [
+        "default"
+    ],
+    "tags": [
+        "ncs"
+    ],
+    // The variables are evaluated the first time they are accessed, and reused across steps
+    "variables": {
+        // "now": "[js: new Date().toISOString()]"
+    },
+    "steps": [
+        {
+            "name": "feature",
+            "disable": [],
+            "enable": [
+                // SaaS
+                "OrchardCore.HomeRoute",
+                "OrchardCore.Admin",
+                "OrchardCore.Diagnostics",
+                "OrchardCore.DynamicCache",
+                "OrchardCore.Features",
+                "OrchardCore.Localization",
+                "OrchardCore.Navigation",
+                "OrchardCore.Recipes",
+                "OrchardCore.Resources",
+                "OrchardCore.Roles",
+                "OrchardCore.Settings",
+                "OrchardCore.Themes",
+                "OrchardCore.Users",
+                // Content Management
+                "OrchardCore.Alias",
+                "OrchardCore.Autoroute",
+                "OrchardCore.Html",
+                "OrchardCore.Https",
+                "OrchardCore.ContentFields",
+                "OrchardCore.ContentPreview",
+                "OrchardCore.Contents",
+                "OrchardCore.ContentTypes",
+                "OrchardCore.CustomSettings",
+                "OrchardCore.Deployment",
+                "OrchardCore.Deployment.Remote",
+                "OrchardCore.Feeds",
+                "OrchardCore.Flows",
+                "OrchardCore.Forms",
+                "OrchardCore.Indexing",
+                "OrchardCore.Layers",
+                "OrchardCore.Lucene",
+                "OrchardCore.Lists",
+                "OrchardCore.Liquid",
+                "OrchardCore.Markdown",
+                "OrchardCore.Media",
+                "OrchardCore.Media.Slugify",
+                "OrchardCore.Menu",
+                "OrchardCore.Placements",
+                "OrchardCore.PublishLater",
+                "OrchardCore.Queries",
+                "OrchardCore.Sitemaps",
+                "OrchardCore.Title",
+                "OrchardCore.Templates",
+                "OrchardCore.Widgets",
+                // Hosting
+                "OrchardCore.Media.Azure.Storage",
+                // Workflows
+                "OrchardCore.Workflows",
+                "OrchardCore.Workflows.Http",
+                "OrchardCore.Workflows.Timers",
+                // Themes
+                "TheAdmin",
+                "DFC.ServiceTaxonomy.Theme",
+                // Service Taxonomy Editor
+                "DFC.ServiceTaxonomy.ContentPickerPreview",
+                "DFC.ServiceTaxonomy.GraphSync",
+                "DFC.ServiceTaxonomy.GraphLookup",
+                "DFC.ServiceTaxonomy.GraphVisualiser",
+                "DFC.ServiceTaxonomy.Cypher",
+                "DFC.ServiceTaxonomy.CustomFields",
+                "DFC.ServiceTaxonomy.Taxonomies",
+                "DFC.ServiceTaxonomy.Taxonomies.ContentsAdminList",
+                "DFC.ServiceTaxonomy.UnpublishLater",
+                "DFC.ServiceTaxonomy.PageLocation",
+                "OrchardCore.AuditTrail"
+            ]
+        },
+        {
+            "name": "ContentDefinition",
+            "ContentTypes": [
+              {
+                "Name": "Page",
+                "DisplayName": "Page",
+                "Settings": {
+                  "ContentTypeSettings": {
+                    "Creatable": true,
+                    "Listable": true,
+                    "Draftable": true,
+                    "Versionable": true,
+                    "Securable": true
+                  },
+                  "FullTextAspectSettings": {}
+                },
+                "ContentTypePartDefinitionRecords": [
+                  {
+                    "PartName": "TitlePart",
+                    "Name": "TitlePart",
+                    "Settings": {
+                      "ContentTypePartSettings": {
+                        "Position": "0"
+                      }
+                    }
+                  },
+                  {
+                    "PartName": "Page",
+                    "Name": "Page",
+                    "Settings": {
+                      "ContentTypePartSettings": {
+                        "Position": "2"
+                      }
+                    }
+                  },
+                  {
+                    "PartName": "SitemapPart",
+                    "Name": "SitemapPart",
+                    "Settings": {
+                      "ContentTypePartSettings": {
+                        "Position": "3"
+                      }
+                    }
+                  },
+                  {
+                    "PartName": "FlowPart",
+                    "Name": "FlowPart",
+                    "Settings": {
+                      "ContentTypePartSettings": {
+                        "Position": "4"
+                      },
+                      "FlowPartSettings": {
+                        "ContainedContentTypes": [
+                          "Form",
+                          "HTML",
+                          "HTMLShared"
+                        ]
+                      },
+                      "ContentIndexSettings": {}
+                    }
+                  },
+                  {
+                    "PartName": "GraphSyncPart",
+                    "Name": "GraphSyncPart",
+                    "Settings": {
+                      "ContentTypePartSettings": {
+                        "Position": "5"
+                      },
+                      "GraphSyncPartSettings": {
+                        "NodeNameTransform": "ContentType",
+                        "PropertyNameTransform": "Value",
+                        "IdPropertyName": "uri",
+                        "GenerateIdPropertyValue": "$\"<<contentapiprefix>>/{ContentType}/{Value}\".ToLowerInvariant()",
+                        "DisplayId": true
+                      }
+                    }
+                  },
+                  {
+                    "PartName": "PageLocationPart",
+                    "Name": "PageLocationPart",
+                    "Settings": {
+                      "ContentTypePartSettings": {
+                        "Position": "1"
+                      },
+                      "PageLocationPartSettings": {
+                        "DisplayRedirectLocationsAndDefaultPageForLocation": true
+                      }
+                    }
+                  }
+                ]
+              },
+              {
+                "Name": "Form",
+                "DisplayName": "Form",
+                "Settings": {
+                  "ContentTypeSettings": {
+                    "Stereotype": "Widget"
+                  },
+                  "FullTextAspectSettings": {}
+                },
+                "ContentTypePartDefinitionRecords": [
+                  {
+                    "PartName": "TitlePart",
+                    "Name": "TitlePart",
+                    "Settings": {
+                      "TitlePartSettings": {
+                        "RenderTitle": false
+                      },
+                      "ContentTypePartSettings": {
+                        "Position": "0"
+                      }
+                    }
+                  },
+                  {
+                    "PartName": "FormElementPart",
+                    "Name": "FormElementPart",
+                    "Settings": {
+                      "ContentTypePartSettings": {
+                        "Position": "1"
+                      }
+                    }
+                  },
+                  {
+                    "PartName": "FormPart",
+                    "Name": "FormPart",
+                    "Settings": {
+                      "ContentTypePartSettings": {
+                        "Position": "2"
+                      }
+                    }
+                  },
+                  {
+                    "PartName": "FlowPart",
+                    "Name": "FlowPart",
+                    "Settings": {
+                      "ContentTypePartSettings": {
+                        "Position": "3"
+                      },
+                      "FlowPartSettings": {
+                        "ContainedContentTypes": [
+                          "HTML",
+                          "HTMLShared"
+                        ]
+                      },
+                      "ContentIndexSettings": {}
+                    }
+                  },
+                  {
+                    "PartName": "GraphSyncPart",
+                    "Name": "GraphSyncPart",
+                    "Settings": {
+                      "ContentTypePartSettings": {
+                        "Position": "4"
+                      },
+                      "GraphSyncPartSettings": {
+                        "NodeNameTransform": "ContentType",
+                        "PropertyNameTransform": "Value",
+                        "IdPropertyName": "uri",
+                        "GenerateIdPropertyValue": "$\"<<contentapiprefix>>/{ContentType}/{Value}\".ToLowerInvariant()"
+                      },
+                      "ContentIndexSettings": {}
+                    }
+                  }
+                ]
+              },
+              {
+                "Name": "Label",
+                "DisplayName": "Label",
+                "Settings": {
+                  "ContentTypeSettings": {
+                    "Stereotype": "Widget"
+                  }
+                },
+                "ContentTypePartDefinitionRecords": [
+                  {
+                    "PartName": "TitlePart",
+                    "Name": "TitlePart",
+                    "Settings": {
+                      "TitlePartSettings": {
+                        "RenderTitle": false
+                      }
+                    }
+                  },
+                  {
+                    "PartName": "FormElementPart",
+                    "Name": "FormElementPart",
+                    "Settings": {}
+                  },
+                  {
+                    "PartName": "LabelPart",
+                    "Name": "LabelPart",
+                    "Settings": {}
+                  },
+                  {
+                    "PartName": "GraphSyncPart",
+                    "Name": "GraphSyncPart",
+                    "Settings": {
+                      "ContentTypePartSettings": {},
+                      "GraphSyncPartSettings": {
+                        "NodeNameTransform": "ContentType",
+                        "PropertyNameTransform": "Value",
+                        "IdPropertyName": "uri",
+                        "GenerateIdPropertyValue": "$\"<<contentapiprefix>>/{ContentType}/{Value}\".ToLowerInvariant()"
+                      },
+                      "ContentIndexSettings": {}
+                    }
+                  }
+                ]
+              },
+              {
+                "Name": "Input",
+                "DisplayName": "Input",
+                "Settings": {
+                  "ContentTypeSettings": {
+                    "Stereotype": "Widget"
+                  }
+                },
+                "ContentTypePartDefinitionRecords": [
+                  {
+                    "PartName": "FormInputElementPart",
+                    "Name": "FormInputElementPart",
+                    "Settings": {}
+                  },
+                  {
+                    "PartName": "FormElementPart",
+                    "Name": "FormElementPart",
+                    "Settings": {}
+                  },
+                  {
+                    "PartName": "InputPart",
+                    "Name": "InputPart",
+                    "Settings": {}
+                  },
+                  {
+                    "PartName": "GraphSyncPart",
+                    "Name": "GraphSyncPart",
+                    "Settings": {
+                      "ContentTypePartSettings": {},
+                      "GraphSyncPartSettings": {
+                        "NodeNameTransform": "ContentType",
+                        "PropertyNameTransform": "Value",
+                        "IdPropertyName": "uri",
+                        "GenerateIdPropertyValue": "$\"<<contentapiprefix>>/{ContentType}/{Value}\".ToLowerInvariant()"
+                      },
+                      "ContentIndexSettings": {}
+                    }
+                  }
+                ]
+              },
+              {
+                "Name": "Select",
+                "DisplayName": "Select",
+                "Settings": {
+                  "ContentTypeSettings": {
+                    "Stereotype": "Widget"
+                  }
+                },
+                "ContentTypePartDefinitionRecords": [
+                  {
+                    "PartName": "FormInputElementPart",
+                    "Name": "FormInputElementPart",
+                    "Settings": {}
+                  },
+                  {
+                    "PartName": "FormElementPart",
+                    "Name": "FormElementPart",
+                    "Settings": {}
+                  },
+                  {
+                    "PartName": "SelectPart",
+                    "Name": "SelectPart",
+                    "Settings": {}
+                  },
+                  {
+                    "PartName": "GraphSyncPart",
+                    "Name": "GraphSyncPart",
+                    "Settings": {
+                      "ContentTypePartSettings": {},
+                      "GraphSyncPartSettings": {
+                        "NodeNameTransform": "ContentType",
+                        "PropertyNameTransform": "Value",
+                        "IdPropertyName": "uri",
+                        "GenerateIdPropertyValue": "$\"<<contentapiprefix>>/{ContentType}/{Value}\".ToLowerInvariant()"
+                      },
+                      "ContentIndexSettings": {}
+                    }
+                  }
+                ]
+              },
+              {
+                "Name": "Button",
+                "DisplayName": "Button",
+                "Settings": {
+                  "ContentTypeSettings": {
+                    "Stereotype": "Widget"
+                  },
+                  "FullTextAspectSettings": {}
+                },
+                "ContentTypePartDefinitionRecords": [
+                  {
+                    "PartName": "FormInputElementPart",
+                    "Name": "FormInputElementPart",
+                    "Settings": {
+                      "ContentTypePartSettings": {
+                        "Position": "0"
+                      }
+                    }
+                  },
+                  {
+                    "PartName": "FormElementPart",
+                    "Name": "FormElementPart",
+                    "Settings": {
+                      "ContentTypePartSettings": {
+                        "Position": "1"
+                      }
+                    }
+                  },
+                  {
+                    "PartName": "ButtonPart",
+                    "Name": "ButtonPart",
+                    "Settings": {
+                      "ContentTypePartSettings": {
+                        "Position": "2"
+                      }
+                    }
+                  },
+                  {
+                    "PartName": "GraphSyncPart",
+                    "Name": "GraphSyncPart",
+                    "Settings": {
+                      "ContentTypePartSettings": {
+                        "Position": "3"
+                      },
+                      "GraphSyncPartSettings": {
+                        "NodeNameTransform": "ContentType",
+                        "PropertyNameTransform": "Value",
+                        "IdPropertyName": "uri",
+                        "GenerateIdPropertyValue": "$\"<<contentapiprefix>>/{ContentType}/{Value}\".ToLowerInvariant()"
+                      },
+                      "ContentIndexSettings": {}
+                    }
+                  }
+                ]
+              },
+              {
+                "Name": "ValidationSummary",
+                "DisplayName": "Validation Summary",
+                "Settings": {
+                  "ContentTypeSettings": {
+                    "Stereotype": "Widget"
+                  },
+                  "FullTextAspectSettings": {}
+                },
+                "ContentTypePartDefinitionRecords": [
+                  {
+                    "PartName": "ValidationSummaryPart",
+                    "Name": "ValidationSummaryPart",
+                    "Settings": {
+                      "ContentTypePartSettings": {
+                        "Position": "0"
+                      }
+                    }
+                  },
+                  {
+                    "PartName": "GraphSyncPart",
+                    "Name": "GraphSyncPart",
+                    "Settings": {
+                      "ContentTypePartSettings": {
+                        "Position": "1"
+                      },
+                      "GraphSyncPartSettings": {
+                        "NodeNameTransform": "ContentType",
+                        "PropertyNameTransform": "Value",
+                        "IdPropertyName": "uri",
+                        "GenerateIdPropertyValue": "$\"<<contentapiprefix>>/{ContentType}/{Value}\".ToLowerInvariant()"
+                      },
+                      "ContentIndexSettings": {}
+                    }
+                  }
+                ]
+              },
+              {
+                "Name": "Validation",
+                "DisplayName": "Validation",
+                "Settings": {
+                  "ContentTypeSettings": {
+                    "Stereotype": "Widget"
+                  },
+                  "FullTextAspectSettings": {}
+                },
+                "ContentTypePartDefinitionRecords": [
+                  {
+                    "PartName": "ValidationPart",
+                    "Name": "ValidationPart",
+                    "Settings": {
+                      "ContentTypePartSettings": {
+                        "Position": "0"
+                      }
+                    }
+                  },
+                  {
+                    "PartName": "GraphSyncPart",
+                    "Name": "GraphSyncPart",
+                    "Settings": {
+                      "ContentTypePartSettings": {
+                        "Position": "1"
+                      },
+                      "GraphSyncPartSettings": {
+                        "NodeNameTransform": "ContentType",
+                        "PropertyNameTransform": "Value",
+                        "IdPropertyName": "uri",
+                        "GenerateIdPropertyValue": "$\"<<contentapiprefix>>/{ContentType}/{Value}\".ToLowerInvariant()"
+                      },
+                      "ContentIndexSettings": {}
+                    }
+                  }
+                ]
+              }
+            ],
+            "ContentParts": [
+              {
+                "Name": "FormPart",
+                "Settings": {
+                  "ContentPartSettings": {
+                    "Attachable": true,
+                    "Description": "Turns your content item into a form."
+                  }
+                },
+                "ContentPartFieldDefinitionRecords": []
+              },
+              {
+                "Name": "FormElementPart",
+                "Settings": {
+                  "ContentPartSettings": {
+                    "Description": "Provides attributes common to all form elements."
+                  }
+                },
+                "ContentPartFieldDefinitionRecords": []
+              },
+              {
+                "Name": "FormInputElementPart",
+                "Settings": {
+                  "ContentPartSettings": {
+                    "Description": "Provides attributes common to all input form elements."
+                  }
+                },
+                "ContentPartFieldDefinitionRecords": []
+              },
+              {
+                "Name": "LabelPart",
+                "Settings": {
+                  "ContentPartSettings": {
+                    "Description": "Provides label properties."
+                  }
+                },
+                "ContentPartFieldDefinitionRecords": []
+              },
+              {
+                "Name": "InputPart",
+                "Settings": {
+                  "ContentPartSettings": {
+                    "Description": "Provides input field properties."
+                  }
+                },
+                "ContentPartFieldDefinitionRecords": []
+              },
+              {
+                "Name": "SelectPart",
+                "Settings": {
+                  "ContentPartSettings": {
+                    "Description": "Provides select field properties."
+                  }
+                },
+                "ContentPartFieldDefinitionRecords": []
+              },
+              {
+                "Name": "ButtonPart",
+                "Settings": {
+                  "ContentPartSettings": {
+                    "Description": "Provides button properties."
+                  }
+                },
+                "ContentPartFieldDefinitionRecords": []
+              },
+              {
+                "Name": "ValidationSummaryPart",
+                "Settings": {
+                  "ContentPartSettings": {
+                    "Description": "Displays a validation summary."
+                  }
+                },
+                "ContentPartFieldDefinitionRecords": []
+              },
+              {
+                "Name": "ValidationPart",
+                "Settings": {
+                  "ContentPartSettings": {
+                    "Description": "Displays a field validation error."
+                  }
+                },
+                "ContentPartFieldDefinitionRecords": []
+              }
+            ]
+          }
+     ]
+}

@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.ContentApproval.Models;
+using DFC.ServiceTaxonomy.ContentApproval.Models.Enums;
 using OrchardCore.ContentManagement;
 using OrchardCore.ContentManagement.Handlers;
 
@@ -21,7 +22,7 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Handlers
                 var newDraftItem = await _contentManager.GetAsync(context.PublishingItem.ContentItemId,
                     VersionOptions.DraftRequired);
                 newDraftItem.Author = context.PublishingItem.Author;
-                newDraftItem.Alter<ContentApprovalPart>(c => c.ReviewStatus = ContentReviewStatus.ReadyForReview);
+                newDraftItem.Alter<ContentApprovalPart>(c => c.ReviewStatus = ReviewStatus.ReadyForReview);
                 await _contentManager.SaveDraftAsync(newDraftItem);
             }
         }

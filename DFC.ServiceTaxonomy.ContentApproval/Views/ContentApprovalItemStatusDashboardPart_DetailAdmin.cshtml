@@ -1,4 +1,5 @@
 ﻿@using DFC.ServiceTaxonomy.ContentApproval.Extensions
+@using DFC.ServiceTaxonomy.ContentApproval.Models.Enums
 @model ContentApprovalItemStatusDashboardPartViewModel
 
 @{
@@ -26,10 +27,10 @@
                         <span class="dashboard-item-status-type">Waiting For Review</span>
                         <div class="dashboard-item-status-review-types">
                             @{
-                            await ReviewTypeLink(ContentReviewStatus.ReadyForReview, ReviewType.ContentDesign);
-                            await ReviewTypeLink(ContentReviewStatus.ReadyForReview, ReviewType.SME);
-                            await ReviewTypeLink(ContentReviewStatus.ReadyForReview, ReviewType.Stakeholder);
-                            await ReviewTypeLink(ContentReviewStatus.ReadyForReview, ReviewType.UX);
+                            await ReviewTypeLink(ReviewStatusFilterOptions.ReadyForReview, ReviewType.ContentDesign);
+                            await ReviewTypeLink(ReviewStatusFilterOptions.ReadyForReview, ReviewType.SME);
+                            await ReviewTypeLink(ReviewStatusFilterOptions.ReadyForReview, ReviewType.Stakeholder);
+                            await ReviewTypeLink(ReviewStatusFilterOptions.ReadyForReview, ReviewType.UX);
                             }
                         </div>
                     </div>
@@ -46,10 +47,10 @@
                         <span class="dashboard-item-status-type">In Review</span>
                         <div class="dashboard-item-status-review-types">
                             @{
-                            await ReviewTypeLink(ContentReviewStatus.InReview, ReviewType.ContentDesign);
-                            await ReviewTypeLink(ContentReviewStatus.InReview, ReviewType.SME);
-                            await ReviewTypeLink(ContentReviewStatus.InReview, ReviewType.Stakeholder);
-                            await ReviewTypeLink(ContentReviewStatus.InReview, ReviewType.UX);
+                            await ReviewTypeLink(ReviewStatusFilterOptions.InReview, ReviewType.ContentDesign);
+                            await ReviewTypeLink(ReviewStatusFilterOptions.InReview, ReviewType.SME);
+                            await ReviewTypeLink(ReviewStatusFilterOptions.InReview, ReviewType.Stakeholder);
+                            await ReviewTypeLink(ReviewStatusFilterOptions.InReview, ReviewType.UX);
                             }
                         </div>
                     </div>
@@ -58,26 +59,33 @@
             break;
         case DashboardItemsStatusCard.Published:
             <div class="dashboard-item-status dashboard-item-status-published">
-                <a class="overlay" asp-route-area="OrchardCore.Contents" asp-controller="@(typeof(OrchardCore.Contents.Controllers.AdminController).ControllerName())" asp-action="List" asp-route-Options.ContentsStatus="Published"></a>
                 <div class="inner">
                     <div class="dashboard-item-status-icon"><i class="far fa-check-circle"></i></div>
-                    <div>
-                        <span class="dashboard-item-status-count">@(Model.ContentItemsApprovalCounts?.Count)</span>
-                        <span class="dashboard-item-status-type">Published</span>
-                    </div>
+                    <a class="" asp-route-area="OrchardCore.Contents" asp-controller="@(typeof(OrchardCore.Contents.Controllers.AdminController).ControllerName())" asp-action="List" asp-route-Options.ContentsStatus="Published">
+                        <div>
+                            <span class="dashboard-item-status-count">@(Model.ContentItemsApprovalCounts?.Count)</span>
+                            <span class="dashboard-item-status-type">Published</span>
+                        </div>
+                    </a>
+                    <a class="" asp-route-area="OrchardCore.Contents" asp-controller="@(typeof(OrchardCore.Contents.Controllers.AdminController).ControllerName())" asp-action="List" asp-route-ContentApproval.SelectedApprovalStatus="@ReviewStatusFilterOptions.ForcePublished">
+                        <div>
+                            <span class="dashboard-item-status-count">@(Model.ContentItemsApprovalCounts?.SubCounts?[1] ?? 0)</span>
+                            <span class="dashboard-item-status-type">Force published</span>
+                        </div>
+                    </a>
                 </div>
             </div>
             break;
-    }
+   }
 
-// https://stackoverflow.com/questions/60792542/errors-and-warnings-using-functions-block-in-razor-pages
+    // https://stackoverflow.com/questions/60792542/errors-and-warnings-using-functions-block-in-razor-pages
 }
 
 @functions {
     #pragma warning disable CS1998
-    async Task ReviewTypeLink(ContentReviewStatus status, ReviewType reviewType)
+    async Task ReviewTypeLink(ReviewStatusFilterOptions status, ReviewType reviewType)
     {
-        int count = Model?.ContentItemsApprovalCounts?.ReviewTypeCounts?[(int)reviewType] ?? 0;
+        int count = Model?.ContentItemsApprovalCounts?.SubCounts?[(int)reviewType] ?? 0;
         string hasItems = (count > 0) ? "dashboard-item-status-has-items" : "";
 
         <a class="dashboard-item-status-review-type @hasItems"
