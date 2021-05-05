@@ -86,7 +86,8 @@
                 "DFC.ServiceTaxonomy.Taxonomies.ContentsAdminList",
                 "DFC.ServiceTaxonomy.UnpublishLater",
                 "DFC.ServiceTaxonomy.PageLocation",
-                "OrchardCore.AuditTrail"
+                "OrchardCore.AuditTrail",
+                "DFC.ServiceTaxonomy.Media"
             ]
         },
         {
