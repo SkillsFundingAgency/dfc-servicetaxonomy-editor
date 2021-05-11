@@ -16,8 +16,12 @@
     background-color: #E5F1D9 !important;
 }
 
+.dashboard-item-my-workspace {
+    background-color: #FFFFFF !important;
+}
+
 .dashboard-container {
-    grid-template-rows: repeat(6, 152px) !important;
+    grid-template-rows: repeat(6, 110px) !important;
 }
 
 .dashboard-item-status {
