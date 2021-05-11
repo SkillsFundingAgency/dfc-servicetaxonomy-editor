@@ -1,10 +1,12 @@
-﻿namespace DFC.ServiceTaxonomy.ContentApproval.Models
+﻿using System.Collections.Generic;
+using OrchardCore.ContentManagement;
+
+namespace DFC.ServiceTaxonomy.ContentApproval.Models
 {
     public class ContentItemsApprovalCounts
     {
         public int Count { get; set; }
-
-        // reviewTypeCounts[ReviewType.None] currently contains the total count, rather than the count of None
         public int[]? SubCounts { get; set; }
+        public List<ContentItem>? MyItems { get; set; }
     }
 }
