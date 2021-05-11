@@ -1,13 +1,18 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.ContentApproval.Indexes;
 using DFC.ServiceTaxonomy.ContentApproval.Models;
 using DFC.ServiceTaxonomy.ContentApproval.Models.Enums;
+using Microsoft.AspNetCore.Http;
 using OrchardCore.ContentManagement;
+using OrchardCore.ContentManagement.Records;
 using OrchardCore.Contents.Services;
 using OrchardCore.Contents.ViewModels;
 using YesSql;
+using ISession = YesSql.ISession;
 
 namespace DFC.ServiceTaxonomy.ContentApproval.Services
 {
@@ -15,13 +20,16 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Services
     {
         private readonly ISession _session;
         private readonly DefaultContentsAdminListFilter _defaultContentsAdminListFilter;
+        private readonly IHttpContextAccessor _httpContextAccessor;
 
         public ContentItemsApprovalService(
             ISession session,
-            DefaultContentsAdminListFilter defaultContentsAdminListFilter)
+            DefaultContentsAdminListFilter defaultContentsAdminListFilter,
+            IHttpContextAccessor httpContextAccessor)
         {
             _session = session;
             _defaultContentsAdminListFilter = defaultContentsAdminListFilter;
+            _httpContextAccessor = httpContextAccessor;
         }
 
 #if might_need_if_need_to_investigate_optimisations
@@ -122,9 +130,26 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Services
                     counts.Count = reviewTypeCounts[0];
                     counts.SubCounts = reviewTypeCounts.ToArray();
                     break;
+                case DashboardItemsStatusCard.MyWorkItems:
+                    counts.MyItems = await GetMyContent();
+                    break;
             }
 
             return counts;
+        }
+
+        private async Task<List<ContentItem>> GetMyContent()
+        {
+            var myContent = new List<ContentItem>();
+            var user = _httpContextAccessor.HttpContext?.User.Identity.Name ?? string.Empty;
+            //var userNameIdentifier = user.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            var query = _session.Query<ContentItem>().With<ContentItemIndex>(i => i.Author == user && i.Latest);
+            await foreach (var item in  query.OrderByDescending(c => c.ModifiedUtc).Take(10).ToAsyncEnumerable())
+            {
+                myContent.Add(item);
+            }
+            return myContent;
         }
 
         // if we need to count 'will need review' items, we'll have to also check for a draft version

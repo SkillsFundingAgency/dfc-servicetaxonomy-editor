@@ -183,11 +183,11 @@
                     "Author": "admin",
                     "ContentApprovalItemStatusDashboardWidget": {},
                     "ContentApprovalItemStatusDashboardPart": {
-                        "Card": 0
+                        "Card": 1
                     },
                     "DashboardPart": {
                         "Width": 2.0,
-                        "Height": 1.0,
+                        "Height": 3.0,
                         "Position": 10.0
                     }
                 },
@@ -205,11 +205,11 @@
                     "Author": "admin",
                     "ContentApprovalItemStatusDashboardWidget": {},
                     "ContentApprovalItemStatusDashboardPart": {
-                        "Card": 1
+                        "Card": 2
                     },
                     "DashboardPart": {
                         "Width": 2.0,
-                        "Height": 1.0,
+                        "Height": 3.0,
                         "Position": 200.0
                     }
                 },
@@ -227,11 +227,11 @@
                     "Author": "admin",
                     "ContentApprovalItemStatusDashboardWidget": {},
                     "ContentApprovalItemStatusDashboardPart": {
-                        "Card": 2
+                        "Card": 4
                     },
                     "DashboardPart": {
                         "Width": 2.0,
-                        "Height": 1.0,
+                        "Height": 7.0,
                         "Position": 300.0
                     }
                 },
@@ -253,8 +253,30 @@
                     },
                     "DashboardPart": {
                         "Width": 2.0,
-                        "Height": 1.0,
+                        "Height": 2.0,
                         "Position": 400.0
+                    }
+                },
+                {
+                    "ContentItemId": "fa06db3108d04ede9f063f5f80b14159",
+                    "ContentItemVersionId": "dccec6723a67400e8031e26337bd156e",
+                    "ContentType": "ContentApprovalItemStatusDashboardWidget",
+                    "DisplayText": null,
+                    "Latest": true,
+                    "Published": true,
+                    "ModifiedUtc": "2021-02-11T12:53:42.7302174Z",
+                    "PublishedUtc": "2021-02-11T12:53:42.7429332Z",
+                    "CreatedUtc": "2021-02-11T12:30:53.749129Z",
+                    "Owner": null,
+                    "Author": "admin",
+                    "ContentApprovalItemStatusDashboardWidget": {},
+                    "ContentApprovalItemStatusDashboardPart": {
+                        "Card": 0
+                    },
+                    "DashboardPart": {
+                        "Width": 2.0,
+                        "Height": 2.0,
+                        "Position": 500.0
                     }
                 }
             ]

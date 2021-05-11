@@ -92,6 +92,28 @@
                 </li>
             </ul>
             break;
+        case DashboardItemsStatusCard.MyWorkItems:
+            <div class="card-body py-3 dashboard-item-my-workspace">
+                <span class="lead mb-0">My workspace</span>
+                @*<a asp-route-area="OrchardCore.Contents" asp-controller="@(typeof(OrchardCore.Contents.Controllers.AdminController).ControllerName())" asp-action="List" asp-route-Options.ContentsStatus="Owner" target="_self" class="mt-1 float-right">View all</a>*@
+            </div>
+            <ul class="list-group list-group-flush">
+                @if (Model.ContentItemsApprovalCounts?.MyItems != null)
+                {
+                    foreach (var contentItem in Model.ContentItemsApprovalCounts.MyItems)
+                    {
+                        <li class="list-group-item">
+                            <a admin-for="@contentItem" asp-route-returnUrl="@FullRequestPath">@contentItem.DisplayText</a><br>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clock" viewBox="0 0 16 16">
+                                <path d="M8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71V3.5z"></path>
+                                <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm7-8A7 7 0 1 1 1 8a7 7 0 0 1 14 0z"></path>
+                            </svg>
+                            <span class="pl-1 small">Last modified on @(contentItem.ModifiedUtc?.ToString("F"))</span>
+                        </li>
+                    }
+                }
+            </ul>
+            break;
     }
 
     // https://stackoverflow.com/questions/60792542/errors-and-warnings-using-functions-block-in-razor-pages
