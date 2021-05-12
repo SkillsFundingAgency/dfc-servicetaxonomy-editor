@@ -34,9 +34,13 @@
 
   <ItemGroup>
     <ProjectReference Include="..\DFC.ServiceTaxonomy.Content\DFC.ServiceTaxonomy.Content.csproj" />
+    <ProjectReference Include="..\DFC.ServiceTaxonomy.PageLocation\DFC.ServiceTaxonomy.PageLocation.csproj" />
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Update="Views\ContentsButtonEdit_SummaryAdmin.cshtml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
     <EmbeddedResource Update="Views\ContentsMeta_SummaryAdmin.cshtml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
