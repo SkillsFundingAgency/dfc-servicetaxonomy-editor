@@ -4,14 +4,18 @@
 @using DFC.ServiceTaxonomy.PageLocation.Constants
 @using OrchardCore.Contents
 @using DFC.ServiceTaxonomy.ContentApproval.Configuration
+@using Microsoft.Extensions.Configuration
 @inject IContentManager ContentManager
-@inject IOptions<PagesConfiguration> Config
+@inject IOptions<Pages> Config
+@inject IConfiguration Configuration
 @inject IAuthorizationService AuthorizationService
 
 
 @{
     ContentItem contentItem = Model.ContentItem;
     var PageConfig = Config.Value;
+    var publishURL = Configuration.GetValue<string>("Pages:PublishedAppPrefix");
+
     var hasPublished = await ContentManager.HasPublishedVersionAsync(contentItem);
     var hasDraft = contentItem.HasDraft();
     var hasViewPermission = await AuthorizationService.AuthorizeAsync(User, CommonPermissions.ViewContent, contentItem);
@@ -60,7 +64,7 @@ else
 
             @if (hasPublished)
             {
-                <a href="@($"{PageConfig.PublishedAppPrefix}{url}")"
+                <a href="@($"{publishURL}{url}")"
                    target="_blank"
                    class="dropdown-item btn-sm">@T["View published content"]</a>
             }
