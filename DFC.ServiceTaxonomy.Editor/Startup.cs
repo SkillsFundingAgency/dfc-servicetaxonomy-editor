@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Http;
 using OrchardCore.Media;
 using System.Collections.Generic;
 using System;
-using DFC.ServiceTaxonomy.ContentApproval.Configuration;
+using DFC.ServiceTaxonomy.CustomEditor.Configuration;
 
 namespace DFC.ServiceTaxonomy.Editor
 {
@@ -65,7 +65,7 @@ namespace DFC.ServiceTaxonomy.Editor
 
             services.PostConfigure(SetupMediaConfig());
 
-            services.Configure<Pages>(Configuration.GetSection("Pages"));
+            services.Configure<PagesConfiguration>(Configuration.GetSection("Pages"));
         }
 
         public void Configure(IApplicationBuilder app, IHostEnvironment env)

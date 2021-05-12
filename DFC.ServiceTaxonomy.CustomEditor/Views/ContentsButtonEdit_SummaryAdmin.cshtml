@@ -1,26 +1,26 @@
-﻿@using DFC.ServiceTaxonomy.PageLocation.Models
-@using Microsoft.Extensions.Options
+﻿@using OrchardCore.ContentManagement
+@using DFC.ServiceTaxonomy.ContentApproval.Models
 @using DFC.ServiceTaxonomy.ContentApproval.Models.Enums
-@using DFC.ServiceTaxonomy.PageLocation.Constants
+@using DFC.ServiceTaxonomy.CustomEditor.Configuration
+@using DFC.ServiceTaxonomy.CustomEditor.Constants
+@using DFC.ServiceTaxonomy.PageLocation.Models
+@using Microsoft.AspNetCore.Authorization
+@using Microsoft.Extensions.Options
 @using OrchardCore.Contents
-@using DFC.ServiceTaxonomy.ContentApproval.Configuration
-@using Microsoft.Extensions.Configuration
 @inject IContentManager ContentManager
-@inject IOptions<Pages> Config
-@inject IConfiguration Configuration
+@inject IOptions<PagesConfiguration> Config
 @inject IAuthorizationService AuthorizationService
 
 
 @{
     ContentItem contentItem = Model.ContentItem;
     var PageConfig = Config.Value;
-    var publishURL = Configuration.GetValue<string>("Pages:PublishedAppPrefix");
 
     var hasPublished = await ContentManager.HasPublishedVersionAsync(contentItem);
     var hasDraft = contentItem.HasDraft();
     var hasViewPermission = await AuthorizationService.AuthorizeAsync(User, CommonPermissions.ViewContent, contentItem);
     var hasPreviewPermission = await AuthorizationService.AuthorizeAsync(User, CommonPermissions.PreviewContent, contentItem);
-    var previewContentTypes = contentItem.ContentType == "JobProfile" || contentItem.ContentType == ContentTypes.Page;
+    var previewContentTypes = contentItem.ContentType == ContentTypes.Page || contentItem.ContentType == ContentTypes.Page;
 }
 
 @if (contentItem.Has<ContentApprovalPart>())
@@ -64,7 +64,7 @@ else
 
             @if (hasPublished)
             {
-                <a href="@($"{publishURL}{url}")"
+                <a href="@($"{PageConfig.PublishedAppPrefix}{url}")"
                    target="_blank"
                    class="dropdown-item btn-sm">@T["View published content"]</a>
             }
