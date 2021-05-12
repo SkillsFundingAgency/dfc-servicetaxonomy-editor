@@ -20,7 +20,7 @@
     var hasDraft = contentItem.HasDraft();
     var hasViewPermission = await AuthorizationService.AuthorizeAsync(User, CommonPermissions.ViewContent, contentItem);
     var hasPreviewPermission = await AuthorizationService.AuthorizeAsync(User, CommonPermissions.PreviewContent, contentItem);
-    var previewContentTypes = contentItem.ContentType == ContentTypes.Page || contentItem.ContentType == ContentTypes.Page;
+    var previewContentTypes = contentItem.ContentType == ContentTypes.JobProfile || contentItem.ContentType == ContentTypes.Page;
 }
 
 @if (contentItem.Has<ContentApprovalPart>())
@@ -49,7 +49,7 @@ else
 
 @if (previewContentTypes)
 {
-    string url = contentItem.ContentType == "JobProfile"
+    string url = contentItem.ContentType == ContentTypes.JobProfile
         ? $"/job-profiles/{contentItem.Content["JobProfileHeader"]["JobProfileWebsiteUrl"]["Text"]}"
         : contentItem.Content[nameof(PageLocationPart)][nameof(PageLocationPart.FullUrl)];
 
