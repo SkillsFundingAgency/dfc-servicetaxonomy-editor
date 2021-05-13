@@ -1,6 +1,6 @@
 ﻿@using OrchardCore.ContentManagement
 @*@using DFC.ServiceTaxonomy.ContentApproval.Models
-  @using DFC.ServiceTaxonomy.ContentApproval.Models.Enums*@
+@using DFC.ServiceTaxonomy.ContentApproval.Models.Enums*@
 @using DFC.ServiceTaxonomy.CustomEditor.Configuration
 @using DFC.ServiceTaxonomy.CustomEditor.Constants
 @using DFC.ServiceTaxonomy.PageLocation.Models
@@ -11,6 +11,7 @@
 @inject IOptions<PagesConfiguration> Config
 @inject IAuthorizationService AuthorizationService
 
+
 @{
     ContentItem contentItem = Model.ContentItem;
     var PageConfig = Config.Value;
@@ -19,28 +20,28 @@
     var hasDraft = contentItem.HasDraft();
     var hasViewPermission = await AuthorizationService.AuthorizeAsync(User, CommonPermissions.ViewContent, contentItem);
     var hasPreviewPermission = await AuthorizationService.AuthorizeAsync(User, CommonPermissions.PreviewContent, contentItem);
-    var previewContentTypes = contentItem.ContentType == ContentTypes.Page; //contentItem.ContentType == ContentTypes.JobProfile ||
+    var previewContentTypes = contentItem.ContentType == ContentTypes.JobProfile || contentItem.ContentType == ContentTypes.Page;
 }
 
 @*@if (contentItem.Has<ContentApprovalPart>())
+{
+    var isInReview = contentItem.As<ContentApprovalPart>()?.ReviewStatus == ReviewStatus.InReview;
+    var hasEditPermission = await AuthorizationService.AuthorizeAsync(User, CommonPermissions.EditContent, contentItem) && User.HasClaim(c => c.Value == CommonPermissions.EditContent.Name);
+    if (!isInReview && hasEditPermission)
     {
-        var isInReview = contentItem.As<ContentApprovalPart>()?.ReviewStatus == ReviewStatus.InReview;
-        var hasEditPermission = await AuthorizationService.AuthorizeAsync(User, CommonPermissions.EditContent, contentItem) && User.HasClaim(c => c.Value == CommonPermissions.EditContent.Name);
-        if (!isInReview && hasEditPermission)
-        {
-            <a asp-action="Edit" asp-controller="ContentApproval" asp-route-area="DFC.ServiceTaxonomy.ContentApproval" asp-route-contentItemId="@contentItem.ContentItemId" asp-route-returnUrl="@FullRequestPath" class="btn btn-sm btn-primary edit"><span>@T["Edit"]</span></a>
-        }
+        <a asp-action="Edit" asp-controller="ContentApproval" asp-route-area="DFC.ServiceTaxonomy.ContentApproval" asp-route-contentItemId="@contentItem.ContentItemId" asp-route-returnUrl="@FullRequestPath" class="btn btn-sm btn-primary edit"><span>@T["Edit"]</span></a>
     }
-    else
-    {
-        <a edit-for="@contentItem" asp-route-returnUrl="@FullRequestPath" class="btn btn-primary btn-sm">@T["Edit"]</a>
-    }*@
+}
+else
+{
+    <a edit-for="@contentItem" asp-route-returnUrl="@FullRequestPath" class="btn btn-primary btn-sm">@T["Edit"]</a>
+}*@
 
 <a edit-for="@contentItem" asp-route-returnUrl="@FullRequestPath" class="btn btn-primary btn-sm">@T["Edit"]</a>
 
 @if (hasPublished && hasViewPermission && !previewContentTypes)
 {
-    <a display-for="@contentItem" target="_blank" class="btn btn-success btn-sm" itemprop="">@T["View"]</a>
+    <a display-for="@contentItem" class="btn btn-success btn-sm" itemprop="">@T["View"]</a>
 }
 
 @if (hasDraft && hasPreviewPermission && !previewContentTypes)
@@ -50,11 +51,9 @@
 
 @if (previewContentTypes)
 {
-    //string url = contentItem.ContentType == ContentTypes.JobProfile
-    //    ? $"/job-profiles/{contentItem.Content["JobProfileHeader"]["JobProfileWebsiteUrl"]["Text"]}"
-    //    : contentItem.Content[nameof(PageLocationPart)][nameof(PageLocationPart.FullUrl)];
-    // The code below will likely work for the current Job Profiles content type however best to remove Job Profiles until the full stax/cui implementation is fully grounded.
-    string url = contentItem.Content[nameof(PageLocationPart)][nameof(PageLocationPart.FullUrl)];
+    string url = contentItem.ContentType == ContentTypes.JobProfile
+        ? $"/job-profiles/{contentItem.Content["JobProfileHeader"]["JobProfileWebsiteUrl"]["Text"]}"
+        : contentItem.Content[nameof(PageLocationPart)][nameof(PageLocationPart.FullUrl)];
 
     <div class="btn-group">
         <button class="btn btn-success btn-sm dropdown-toggle" type="button" id="@($"viewButton-{contentItem.ContentItemId}")" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
