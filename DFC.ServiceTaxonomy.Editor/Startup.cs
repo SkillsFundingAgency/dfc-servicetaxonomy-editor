@@ -6,10 +6,10 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.AspNetCore.Http;
-using DFC.ServiceTaxonomy.Editor.Configuration;
 using OrchardCore.Media;
 using System.Collections.Generic;
 using System;
+using DFC.ServiceTaxonomy.CustomEditor.Configuration;
 
 namespace DFC.ServiceTaxonomy.Editor
 {
