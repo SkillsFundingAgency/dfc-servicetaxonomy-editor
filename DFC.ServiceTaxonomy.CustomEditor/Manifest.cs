@@ -7,5 +7,5 @@ using OrchardCore.Modules.Manifest;
     Version = "0.0.1",
     Description = "Enables custom overrides of standard orchard core controls.",
     Category = "Content Management",
-    Dependencies = new[] { "OrchardCore.Contents", "DFC.ServiceTaxonomy.ContentApproval", "DFC.ServiceTaxonomy.PageLocation" }
+    Dependencies = new[] { "OrchardCore.Contents", "DFC.ServiceTaxonomy.PageLocation" }
 )]
