@@ -225,6 +225,8 @@ ProjectSection(SolutionItems) = preProject
 	Documentation\Content.md = Documentation\Content.md
 EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DFC.ServiceTaxonomy.CustomEditor", "DFC.ServiceTaxonomy.CustomEditor\DFC.ServiceTaxonomy.CustomEditor.csproj", "{468C9CC3-F912-4207-B9E9-AE3BE8AF8B1C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -315,6 +317,10 @@ Global
 		{D82B530E-8453-4963-8ABE-64947ED69A8F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D82B530E-8453-4963-8ABE-64947ED69A8F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D82B530E-8453-4963-8ABE-64947ED69A8F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{468C9CC3-F912-4207-B9E9-AE3BE8AF8B1C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{468C9CC3-F912-4207-B9E9-AE3BE8AF8B1C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{468C9CC3-F912-4207-B9E9-AE3BE8AF8B1C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{468C9CC3-F912-4207-B9E9-AE3BE8AF8B1C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

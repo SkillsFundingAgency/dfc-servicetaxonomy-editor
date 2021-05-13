@@ -72,16 +72,18 @@
                 "TheAdmin",
                 "DFC.ServiceTaxonomy.Theme",
                 // Service Taxonomy Editor
+                "DFC.ServiceTaxonomy.Content",
                 "DFC.ServiceTaxonomy.ContentPickerPreview",
-                "DFC.ServiceTaxonomy.GraphSync",
-                "DFC.ServiceTaxonomy.GraphLookup",
-                "DFC.ServiceTaxonomy.GraphVisualiser",
-                "DFC.ServiceTaxonomy.Cypher",
+                "DFC.ServiceTaxonomy.CustomEditor",
                 "DFC.ServiceTaxonomy.CustomFields",
+                "DFC.ServiceTaxonomy.Cypher",
+                "DFC.ServiceTaxonomy.GraphLookup",
+                "DFC.ServiceTaxonomy.GraphSync",
+                "DFC.ServiceTaxonomy.GraphVisualiser",
+                "DFC.ServiceTaxonomy.PageLocation",
                 "DFC.ServiceTaxonomy.Taxonomies",
                 "DFC.ServiceTaxonomy.Taxonomies.ContentsAdminList",
                 "DFC.ServiceTaxonomy.UnpublishLater",
-                "DFC.ServiceTaxonomy.PageLocation",
                 "OrchardCore.AuditTrail"
             ]
         },
