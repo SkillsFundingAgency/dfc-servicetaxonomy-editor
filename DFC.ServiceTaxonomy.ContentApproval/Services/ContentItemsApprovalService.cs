@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Claims;
+//using System.Security.Claims;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.ContentApproval.Indexes;
 using DFC.ServiceTaxonomy.ContentApproval.Models;
 using DFC.ServiceTaxonomy.ContentApproval.Models.Enums;
 using Microsoft.AspNetCore.Http;
+//using Microsoft.Extensions.Primitives;
 using OrchardCore.ContentManagement;
 using OrchardCore.ContentManagement.Records;
 using OrchardCore.Contents.Services;
@@ -142,12 +143,20 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Services
         {
             var myContent = new List<ContentItem>();
             var user = _httpContextAccessor.HttpContext?.User.Identity.Name ?? string.Empty;
-            //var userNameIdentifier = user.FindFirstValue(ClaimTypes.NameIdentifier);
 
-            var query = _session.Query<ContentItem>().With<ContentItemIndex>(i => i.Author == user && !string.IsNullOrWhiteSpace(i.DisplayText) && i.Latest);
-            await foreach (var item in  query.OrderByDescending(c => c.ModifiedUtc).Take(10).ToAsyncEnumerable())
+            var query = _session.Query<ContentItem>().With<ContentItemIndex>(i => i.Author == user && i.Latest);
+            await foreach (var item in  query.OrderByDescending(c => c.ModifiedUtc).ToAsyncEnumerable())
             {
-                myContent.Add(item);
+                // For some reason can't filter DisplayText in the query so having to check here and enforce the count limit
+                if (!string.IsNullOrWhiteSpace(item.DisplayText))
+                {
+                    myContent.Add(item);
+                }
+
+                if (myContent.Count == 10)
+                {
+                    break;
+                }
             }
             return myContent;
         }
