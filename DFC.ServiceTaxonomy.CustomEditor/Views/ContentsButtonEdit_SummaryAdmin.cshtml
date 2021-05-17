@@ -20,7 +20,7 @@
     var hasDraft = contentItem.HasDraft();
     var hasViewPermission = await AuthorizationService.AuthorizeAsync(User, CommonPermissions.ViewContent, contentItem);
     var hasPreviewPermission = await AuthorizationService.AuthorizeAsync(User, CommonPermissions.PreviewContent, contentItem);
-    var previewContentTypes = contentItem.ContentType == ContentTypes.JobProfile || contentItem.ContentType == ContentTypes.Page;
+    var previewContentTypes = contentItem.ContentType == ContentTypes.Page; //contentItem.ContentType == ContentTypes.JobProfile ||
 }
 
 @*@if (contentItem.Has<ContentApprovalPart>())
@@ -51,9 +51,11 @@ else
 
 @if (previewContentTypes)
 {
-    string url = contentItem.ContentType == ContentTypes.JobProfile
-        ? $"/job-profiles/{contentItem.Content["JobProfileHeader"]["JobProfileWebsiteUrl"]["Text"]}"
-        : contentItem.Content[nameof(PageLocationPart)][nameof(PageLocationPart.FullUrl)];
+    //string url = contentItem.ContentType == ContentTypes.JobProfile
+    //    ? $"/job-profiles/{contentItem.Content["JobProfileHeader"]["JobProfileWebsiteUrl"]["Text"]}"
+    //    : contentItem.Content[nameof(PageLocationPart)][nameof(PageLocationPart.FullUrl)];
+    // The code below will likely work for the current Job Profiles content type however best to remove Job Profiles until the full stax/cui implementation is fully grounded.
+    string url = contentItem.Content[nameof(PageLocationPart)][nameof(PageLocationPart.FullUrl)];
 
     <div class="btn-group">
         <button class="btn btn-success btn-sm dropdown-toggle" type="button" id="@($"viewButton-{contentItem.ContentItemId}")" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
