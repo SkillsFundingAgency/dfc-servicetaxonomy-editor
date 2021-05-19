@@ -1,0 +1,1572 @@
+﻿{
+    "name": "triage-tool-iniital-environment-load",
+    "displayName": "Triage Tool - initial environment load",
+    "description": "Sets up the Triage Tool with baseline content type and content",
+    "author": "National Careers Service",
+    "website": "https://github.com/SkillsFundingAgency/dfc-servicetaxonomy-editor",
+    "version": "1.0",
+    "issetuprecipe": true,
+    "categories": [
+        "default"
+    ],
+    "tags": [
+        "ncs"
+    ],
+    "steps": [
+        {
+            "name": "Placements",
+            "Placements": {
+                "TitlePart_Edit": [
+                    {
+                        "place": "Parts:0#Metadata;0",
+                        "displayType": null,
+                        "differentiator": null,
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null,
+                        "contentType": [
+                            "Page"
+                        ]
+                    }
+                ],
+                "FlowPart_Edit": [
+                    {
+                        "place": "Parts:2#Content;1",
+                        "displayType": null,
+                        "differentiator": null,
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null,
+                        "contentType": [
+                            "Page"
+                        ]
+                    }
+                ],
+                "SitemapPart_Edit": [
+                    {
+                        "place": "Parts:0#SEO;2",
+                        "displayType": null,
+                        "differentiator": null,
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null,
+                        "contentType": [
+                            "Page"
+                        ]
+                    }
+                ],
+                "BooleanField_Edit": [
+                    {
+                        "place": "Parts:0#Content;1",
+                        "displayType": null,
+                        "differentiator": "Page-ShowBreadcrumb",
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null
+                    },
+                    {
+                        "place": "Parts:1#Content;1",
+                        "displayType": null,
+                        "differentiator": "Page-ShowHeroBanner",
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null
+                    },
+                    {
+                        "place": "Parts:0#Triage Tool;3",
+                        "displayType": null,
+                        "differentiator": "Page-UseInTriageTool",
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null
+                    }
+                ],
+                "HtmlField_Edit": [
+                    {
+                        "place": "Parts:2#Content;1",
+                        "displayType": null,
+                        "differentiator": "Page-Herobanner",
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null
+                    },
+                    {
+                        "place": "Parts:1#Triage Tool;3",
+                        "displayType": null,
+                        "differentiator": "Page-TriageToolSummary",
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null
+                    }
+                ],
+                "ShowHeroBanner_Edit": [
+                    {
+                        "place": "Parts:1#Content;1",
+                        "displayType": null,
+                        "differentiator": "Page-ShowHeroBanner",
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null
+                    }
+                ],
+                "PageLocationPart_Edit": [
+                    {
+                        "place": "Parts:3#Metadata;0",
+                        "displayType": null,
+                        "differentiator": null,
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null,
+                        "contentType": [
+                            "Page"
+                        ]
+                    }
+                ],
+                "GraphSyncPart_Edit": [
+                    {
+                        "place": "Parts:4#Metadata;0",
+                        "displayType": null,
+                        "differentiator": null,
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null,
+                        "contentType": [
+                            "Page"
+                        ]
+                    }
+                ],
+                "ShowBreadcrumb_Edit": [
+                    {
+                        "place": "Parts:0#Content;1",
+                        "displayType": null,
+                        "differentiator": "Page-ShowBreadcrumb",
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null
+                    }
+                ],
+                "TextField_Edit": [
+                    {
+                        "place": "Parts:1#Metadata;0",
+                        "displayType": null,
+                        "differentiator": "Page-Description",
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null
+                    }
+                ],
+                "TaxonomyField_Edit": [
+                    {
+                        "place": "Parts:2#Metadata;0",
+                        "displayType": null,
+                        "differentiator": "Page-PageLocations",
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null
+                    }
+                ],
+                "TriageToolFilters_Edit": [
+                    {
+                        "place": "Parts:2#Triage Tool;3",
+                        "displayType": null,
+                        "differentiator": null,
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null
+                    }
+                ],
+                "ContentPickerField_Edit": [
+                    {
+                        "place": "Parts:3#Content;0",
+                        "displayType": null,
+                        "differentiator": "JobProfile-Occupation",
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null
+                    },
+                    {
+                        "place": "Parts:6#Content;0",
+                        "displayType": null,
+                        "differentiator": "JobProfile-SOCCode",
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null
+                    },
+                    {
+                        "place": "Parts:7#Content;0",
+                        "displayType": null,
+                        "differentiator": "JobProfile-ONetOccupationalCode",
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null
+                    },
+                    {
+                        "place": "Parts:0#How to become;1",
+                        "displayType": null,
+                        "differentiator": "JobProfile-ApprenticeshipRoute",
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null
+                    },
+                    {
+                        "place": "Parts:1#How to become;1",
+                        "displayType": null,
+                        "differentiator": "JobProfile-CollegeRoute",
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null
+                    },
+                    {
+                        "place": "Parts:2#How to become;1",
+                        "displayType": null,
+                        "differentiator": "JobProfile-DirectRoute",
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null
+                    },
+                    {
+                        "place": "Parts:3#How to become;1",
+                        "displayType": null,
+                        "differentiator": "JobProfile-OtherRoute",
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null
+                    },
+                    {
+                        "place": "Parts:4#How to become;1",
+                        "displayType": null,
+                        "differentiator": "JobProfile-UniversityRoute",
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null
+                    },
+                    {
+                        "place": "Parts:5#How to become;1",
+                        "displayType": null,
+                        "differentiator": "JobProfile-VolunteeringRoute",
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null
+                    },
+                    {
+                        "place": "Parts:6#How to become;1",
+                        "displayType": null,
+                        "differentiator": "JobProfile-WorkRoute",
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null
+                    },
+                    {
+                        "place": "Parts:7#How to become;1",
+                        "displayType": null,
+                        "differentiator": "JobProfile-HtbRegistrations",
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null
+                    },
+                    {
+                        "place": "Parts:0#What it takes;2",
+                        "displayType": null,
+                        "differentiator": "JobProfile-WitRestrictions",
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null
+                    },
+                    {
+                        "place": "Parts:1#What it takes;2",
+                        "displayType": null,
+                        "differentiator": "JobProfile-WitOtherRequirements",
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null
+                    },
+                    {
+                        "place": "Parts:0#What you'll do;3",
+                        "displayType": null,
+                        "differentiator": "JobProfile-DayToDayTasks",
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null
+                    },
+                    {
+                        "place": "Parts:1#What you'll do;3",
+                        "displayType": null,
+                        "differentiator": "JobProfile-WydWorkingEnvironment",
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null
+                    },
+                    {
+                        "place": "Parts:2#What you'll do;3",
+                        "displayType": null,
+                        "differentiator": "JobProfile-WydWorkingLocation",
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null
+                    },
+                    {
+                        "place": "Parts:3#What you'll do;3",
+                        "displayType": null,
+                        "differentiator": "JobProfile-WydWorkingUniform",
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null
+                    },
+                    {
+                        "place": "Parts:1#Career Path;4",
+                        "displayType": null,
+                        "differentiator": "JobProfile-ApprenticeshipStandards",
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null
+                    },
+                    {
+                        "place": "Parts:2#Triage Tool;3",
+                        "displayType": null,
+                        "differentiator": "Page-TriageToolFilters",
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null
+                    }
+                ],
+                "NumericField_Edit": [
+                    {
+                        "place": "Parts:10#Content;0",
+                        "displayType": null,
+                        "differentiator": "JobProfile-MinimumHours",
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null
+                    },
+                    {
+                        "place": "Parts:11#Content;0",
+                        "displayType": null,
+                        "differentiator": "JobProfile-MaximumHours",
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null
+                    }
+                ]
+            }
+        },
+        {
+            "name": "ContentDefinition",
+            "ContentTypes": [
+                {
+                    "Name": "Page",
+                    "DisplayName": "Page",
+                    "Settings": {
+                        "ContentTypeSettings": {
+                            "Creatable": true,
+                            "Listable": true,
+                            "Draftable": true,
+                            "Versionable": true,
+                            "Securable": true
+                        },
+                        "FullTextAspectSettings": {}
+                    },
+                    "ContentTypePartDefinitionRecords": [
+                        {
+                            "PartName": "TitlePart",
+                            "Name": "TitlePart",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "0"
+                                }
+                            }
+                        },
+                        {
+                            "PartName": "Page",
+                            "Name": "Page",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "2"
+                                }
+                            }
+                        },
+                        {
+                            "PartName": "SitemapPart",
+                            "Name": "SitemapPart",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "3"
+                                }
+                            }
+                        },
+                        {
+                            "PartName": "FlowPart",
+                            "Name": "FlowPart",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "4"
+                                },
+                                "FlowPartSettings": {
+                                    "ContainedContentTypes": [
+                                        "Form",
+                                        "HTML",
+                                        "HTMLShared"
+                                    ]
+                                },
+                                "ContentIndexSettings": {}
+                            }
+                        },
+                        {
+                            "PartName": "GraphSyncPart",
+                            "Name": "GraphSyncPart",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "5"
+                                },
+                                "GraphSyncPartSettings": {
+                                    "NodeNameTransform": "ContentType",
+                                    "PropertyNameTransform": "Value",
+                                    "IdPropertyName": "uri",
+                                    "GenerateIdPropertyValue": "$\"<<contentapiprefix>>/{ContentType}/{Value}\".ToLowerInvariant()",
+                                    "DisplayId": true
+                                }
+                            }
+                        },
+                        {
+                            "PartName": "PageLocationPart",
+                            "Name": "PageLocationPart",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "1"
+                                },
+                                "PageLocationPartSettings": {
+                                    "DisplayRedirectLocationsAndDefaultPageForLocation": true
+                                }
+                            }
+                        }
+                    ]
+                }
+            ],
+            "ContentParts": [
+                {
+                    "Name": "Page",
+                    "Settings": {},
+                    "ContentPartFieldDefinitionRecords": [
+                        {
+                            "FieldName": "TaxonomyField",
+                            "Name": "PageLocations",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Page Locations",
+                                    "Position": "0"
+                                },
+                                "ContentIndexSettings": {},
+                                "TaxonomyFieldSettings": {
+                                    "Required": true,
+                                    "TaxonomyContentItemId": "4eembshqzx66drajtdten34tc8",
+                                    "Unique": true
+                                },
+                                "TaxonomyFieldTagsEditorSettings": {
+                                    "Open": false
+                                }
+                            }
+                        },
+                        {
+                            "FieldName": "TextField",
+                            "Name": "Description",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Description",
+                                    "Position": "5"
+                                }
+                            }
+                        },
+                        {
+                            "FieldName": "HtmlField",
+                            "Name": "Herobanner",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Hero banner",
+                                    "Editor": "Trumbowyg",
+                                    "Position": "7"
+                                },
+                                "HtmlFieldSettings": {},
+                                "HtmlFieldTrumbowygEditorSettings": {
+                                    "Options": "{\r\n    semantic: {\r\n        'b': 'strong',\r\n        'i': 'em',\r\n        's': 'del',\r\n        'strike': 'del',\r\n        'div': 'div'\r\n    },\r\n    tagsToKeep: [\r\n      \"area\",\r\n      \"base\",\r\n      \"br\",\r\n      \"col\",\r\n      \"embed\",\r\n      \"hr\",\r\n      \"img\",\r\n      \"input\",\r\n      \"param\",\r\n      \"source\",\r\n      \"track\",\r\n      \"wbr\",\r\n\r\n      \"div\",\r\n      \"iframe\"\r\n    ],\r\n    autogrow: true,\r\n    btns: [\r\n        [\"viewHTML\"],\r\n        [\"undo\", \"redo\"],\r\n        [\"heading\", \"paragraph\", \"fontSize\"],\r\n        [\"fontWeight\"],\r\n        [\"foreColor\", \"backColor\"],\r\n        [\"links\"],\r\n        [\"image\"],\r\n        [\"align\"],\r\n        [\"list\", \"bulletList\", \"numberList\"],\r\n        [\"sectionBreak\"],\r\n        [\"removeformat\"],\r\n        [\"fullscreen\"],\r\n        [\"accordion\"],\r\n        [\"tabs\"]\r\n    ],\r\n    btnsDef: {\r\n        align: {\r\n            dropdown: [\"justifyLeft\", \"justifyCenter\", \"justifyRight\", \"justifyFull\"],\r\n            ico: \"justifyLeft\"\r\n        },\r\n        image: {\r\n            dropdown: [\"insertMedia\", \"base64\",\"youtubeLink\"],\r\n            ico: \"insertImage\"\r\n        }\r\n    },\r\n    plugins: {\r\n      colors: {\r\n          colorList: [\r\n            '0b0c0c',\r\n            '626a6e',\r\n            '1d70b8',\r\n            '003078',\r\n            '4c2c92',\r\n            'b1b4b6',\r\n            'ffdd00',\r\n            'd4351c',\r\n            \r\n            '003a69',\r\n            '347ca9',\r\n            \r\n            '00703c',\r\n            '5694ca',\r\n            'f3f2f1',\r\n            'ffffff',\r\n            '6f72af',\r\n            '912b88',\r\n            'd53880',\r\n            'f499be',\r\n            'f47738',\r\n            'b58840',\r\n            '85994b',\r\n            '28a197',\r\n          ]\r\n      }\r\n  }\r\n}"
+                                },
+                                "ContentIndexSettings": {}
+                            }
+                        },
+                        {
+                            "FieldName": "BooleanField",
+                            "Name": "ShowHeroBanner",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "ShowHeroBanner",
+                                    "Editor": "Switch",
+                                    "Position": "6"
+                                },
+                                "BooleanFieldSettings": {
+                                    "Label": "Show hero banner"
+                                },
+                                "ContentIndexSettings": {}
+                            }
+                        },
+                        {
+                            "FieldName": "BooleanField",
+                            "Name": "ShowBreadcrumb",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Show breadcrumb",
+                                    "Editor": "Switch",
+                                    "Position": "4"
+                                },
+                                "BooleanFieldSettings": {
+                                    "Label": "Show breadcrumb",
+                                    "DefaultValue": true
+                                },
+                                "ContentIndexSettings": {}
+                            }
+                        },
+                        {
+                            "FieldName": "HtmlField",
+                            "Name": "TriageToolSummary",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Triage Tool Summary",
+                                    "Editor": "Trumbowyg",
+                                    "Position": "3"
+                                },
+                                "HtmlFieldSettings": {},
+                                "ContentIndexSettings": {},
+                                "HtmlFieldTrumbowygEditorSettings": {
+                                    "Options": "{\r\n    autogrow: true,\r\n    btns: [\r\n        [\"viewHTML\"],\r\n        [\"undo\", \"redo\"],\r\n        [\"formatting\"],\r\n        [\"strong\", \"em\", \"del\"],\r\n        [\"foreColor\", \"backColor\"],\r\n        [\"superscript\", \"subscript\"],\r\n        [\"link\"],\r\n        [\"insertShortcode\"],\r\n        [\"image\"],\r\n        [\"align\"],\r\n        [\"unorderedList\", \"orderedList\"],\r\n        [\"horizontalRule\"],\r\n        [\"removeformat\"],\r\n        [\"fullscreen\"]\r\n    ],\r\n    btnsDef: {\r\n        align: {\r\n            dropdown: [\"justifyLeft\", \"justifyCenter\", \"justifyRight\", \"justifyFull\"],\r\n            ico: \"justifyLeft\"\r\n        },\r\n        image: {\r\n            dropdown: [\"insertImage\", \"base64\", \"noembed\"],\r\n            ico: \"insertImage\"\r\n        }\r\n    }\r\n}"
+                                }
+                            }
+                        },
+                        {
+                            "FieldName": "BooleanField",
+                            "Name": "UseInTriageTool",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Use In Triage Tool",
+                                    "Editor": "Switch",
+                                    "Position": "2"
+                                },
+                                "BooleanFieldSettings": {},
+                                "ContentIndexSettings": {}
+                            }
+                        },
+                        {
+                            "FieldName": "ContentPickerField",
+                            "Name": "TriageToolFilters",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Triage Tool Filters",
+                                    "Position": "1"
+                                },
+                                "ContentPickerFieldSettings": {
+                                    "Multiple": true,
+                                    "DisplayedContentTypes": [
+                                        "TriageToolFilter"
+                                    ]
+                                },
+                                "ContentIndexSettings": {}
+                            }
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "ContentDefinition",
+            "ContentTypes": [
+                {
+                    "Name": "TriageToolFilter",
+                    "DisplayName": "Triage Tool Filter",
+                    "Settings": {
+                        "ContentTypeSettings": {
+                            "Creatable": true,
+                            "Listable": true,
+                            "Draftable": true
+                        },
+                        "FullTextAspectSettings": {}
+                    },
+                    "ContentTypePartDefinitionRecords": [
+                        {
+                            "PartName": "TriageToolFilter",
+                            "Name": "TriageToolFilter",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "1"
+                                }
+                            }
+                        },
+                        {
+                            "PartName": "GraphSyncPart",
+                            "Name": "GraphSyncPart",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "2"
+                                },
+                                "GraphSyncPartSettings": {
+                                    "NodeNameTransform": "ContentType",
+                                    "PropertyNameTransform": "Value",
+                                    "IdPropertyName": "uri",
+                                    "GenerateIdPropertyValue": "$\"<<contentapiprefix>>/{ContentType}/{Value}\".ToLowerInvariant()",
+                                    "DisplayId": true
+                                },
+                                "ContentIndexSettings": {}
+                            }
+                        },
+                        {
+                            "PartName": "TitlePart",
+                            "Name": "TitlePart",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "0"
+                                },
+                                "ContentIndexSettings": {},
+                                "TitlePartSettings": {}
+                            }
+                        }
+                    ]
+                },
+                {
+                    "Name": "TriageToolOption",
+                    "DisplayName": "Triage Tool Option",
+                    "Settings": {
+                        "ContentTypeSettings": {
+                            "Creatable": true,
+                            "Listable": true,
+                            "Draftable": true
+                        },
+                        "FullTextAspectSettings": {}
+                    },
+                    "ContentTypePartDefinitionRecords": [
+                        {
+                            "PartName": "TriageToolOption",
+                            "Name": "TriageToolOption",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "1"
+                                }
+                            }
+                        },
+                        {
+                            "PartName": "GraphSyncPart",
+                            "Name": "GraphSyncPart",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "2"
+                                },
+                                "GraphSyncPartSettings": {
+                                    "NodeNameTransform": "ContentType",
+                                    "PropertyNameTransform": "Value",
+                                    "IdPropertyName": "uri",
+                                    "GenerateIdPropertyValue": "$\"<<contentapiprefix>>/{ContentType}/{Value}\".ToLowerInvariant()",
+                                    "DisplayId": true
+                                },
+                                "ContentIndexSettings": {}
+                            }
+                        },
+                        {
+                            "PartName": "TitlePart",
+                            "Name": "TitlePart",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "0"
+                                }
+                            }
+                        }
+                    ]
+                }
+            ],
+            "ContentParts": [
+                {
+                    "Name": "TriageToolOption",
+                    "Settings": {},
+                    "ContentPartFieldDefinitionRecords": [
+                        {
+                            "FieldName": "ContentPickerField",
+                            "Name": "TriageToolFilters",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Triage Tool Filters",
+                                    "Position": "0"
+                                },
+                                "ContentPickerFieldSettings": {
+                                    "Multiple": true,
+                                    "DisplayedContentTypes": [
+                                        "TriageToolFilter"
+                                    ]
+                                },
+                                "ContentIndexSettings": {}
+                            }
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "content",
+            "data": [
+                {
+                    "ContentItemId": "4cz9zj2pt5bq04ex3xa0dcm2dz",
+                    "ContentItemVersionId": "4fj5187rxdkzmv0rzzxvw50gny",
+                    "ContentType": "TriageToolFilter",
+                    "DisplayText": "Find out how to get into a career",
+                    "Latest": true,
+                    "Published": true,
+                    "ModifiedUtc": "2021-05-04T15:03:39.4085174Z",
+                    "PublishedUtc": "2021-05-04T15:03:39.4125124Z",
+                    "CreatedUtc": "2021-05-04T15:03:39.4085174Z",
+                    "Owner": "4c0dn95m0jzd15fm01m6c13awt",
+                    "Author": "admin",
+                    "TriageToolFilter": {},
+                    "GraphSyncPart": {
+                        "Text": "<<contentapiprefix>>/triagetoolfilter/b93c3aba-cb45-4a4d-9fdb-8ae8d5e29e0b"
+                    },
+                    "TitlePart": {
+                        "Title": "Find out how to get into a career"
+                    }
+                },
+                {
+                    "ContentItemId": "4hzce8szbqmqhyz5aq91mpd25z",
+                    "ContentItemVersionId": "4esed4m0xejn9x1yt6ggv749wa",
+                    "ContentType": "TriageToolFilter",
+                    "DisplayText": "Bouncing back in a tough jobs market",
+                    "Latest": true,
+                    "Published": true,
+                    "ModifiedUtc": "2021-05-18T05:49:23.6406066Z",
+                    "PublishedUtc": "2021-05-18T05:49:23.6559259Z",
+                    "CreatedUtc": "2021-05-18T05:49:23.6406066Z",
+                    "Owner": "4c0dn95m0jzd15fm01m6c13awt",
+                    "Author": "admin",
+                    "TriageToolFilter": {},
+                    "GraphSyncPart": {
+                        "Text": "<<contentapiprefix>>/triagetoolfilter/80ec18c4-d337-48fc-9322-9f51966281ed"
+                    },
+                    "TitlePart": {
+                        "Title": "Bouncing back in a tough jobs market"
+                    }
+                },
+                {
+                    "ContentItemId": "4vwkbebr5182t4gykp3e2k31cz",
+                    "ContentItemVersionId": "477fz9d7s8vnv7xvnbffe5rq55",
+                    "ContentType": "TriageToolFilter",
+                    "DisplayText": "Choose what to study",
+                    "Latest": true,
+                    "Published": true,
+                    "ModifiedUtc": "2021-05-18T05:49:48.5500712Z",
+                    "PublishedUtc": "2021-05-18T05:49:48.5599467Z",
+                    "CreatedUtc": "2021-05-18T05:49:45.3995843Z",
+                    "Owner": "4c0dn95m0jzd15fm01m6c13awt",
+                    "Author": "admin",
+                    "TriageToolFilter": {},
+                    "GraphSyncPart": {
+                        "Text": "<<contentapiprefix>>/triagetoolfilter/030eb1b0-def9-44d0-935e-7e7669601454"
+                    },
+                    "TitlePart": {
+                        "Title": "Choose what to study"
+                    }
+                },
+                {
+                    "ContentItemId": "4vf7ajs7a6cdk6kkjwzd7hc15m",
+                    "ContentItemVersionId": "4vv5tfrcaxxzpwbkjvatntwgm0",
+                    "ContentType": "TriageToolFilter",
+                    "DisplayText": "Develop your skills",
+                    "Latest": true,
+                    "Published": true,
+                    "ModifiedUtc": "2021-05-18T05:50:04.009444Z",
+                    "PublishedUtc": "2021-05-18T05:50:04.0167279Z",
+                    "CreatedUtc": "2021-05-18T05:50:04.009444Z",
+                    "Owner": "4c0dn95m0jzd15fm01m6c13awt",
+                    "Author": "admin",
+                    "TriageToolFilter": {},
+                    "GraphSyncPart": {
+                        "Text": "<<contentapiprefix>>/triagetoolfilter/5c1887a9-f3bf-4de0-9db1-ee02a156b87a"
+                    },
+                    "TitlePart": {
+                        "Title": "Develop your skills"
+                    }
+                },
+                {
+                    "ContentItemId": "4vk6nf6p6cd1jy5s8r8ez7prcr",
+                    "ContentItemVersionId": "40f7t24d3xhhdxsh0mab76nrnm",
+                    "ContentType": "TriageToolFilter",
+                    "DisplayText": "Filling out application forms",
+                    "Latest": true,
+                    "Published": true,
+                    "ModifiedUtc": "2021-05-18T05:50:14.9791564Z",
+                    "PublishedUtc": "2021-05-18T05:50:14.9844251Z",
+                    "CreatedUtc": "2021-05-18T05:50:14.9791564Z",
+                    "Owner": "4c0dn95m0jzd15fm01m6c13awt",
+                    "Author": "admin",
+                    "TriageToolFilter": {},
+                    "GraphSyncPart": {
+                        "Text": "<<contentapiprefix>>/triagetoolfilter/957f18fd-45a8-42eb-85a5-9876a104d2f4"
+                    },
+                    "TitlePart": {
+                        "Title": "Filling out application forms"
+                    }
+                },
+                {
+                    "ContentItemId": "4d9a0vcs44r3h2rj7b3yam9cm1",
+                    "ContentItemVersionId": "49fbwbn49ma11vj2d81k2dj5xw",
+                    "ContentType": "TriageToolFilter",
+                    "DisplayText": "Find a course",
+                    "Latest": true,
+                    "Published": true,
+                    "ModifiedUtc": "2021-05-18T05:50:25.1338155Z",
+                    "PublishedUtc": "2021-05-18T05:50:25.1418162Z",
+                    "CreatedUtc": "2021-05-18T05:50:25.1338155Z",
+                    "Owner": "4c0dn95m0jzd15fm01m6c13awt",
+                    "Author": "admin",
+                    "TriageToolFilter": {},
+                    "GraphSyncPart": {
+                        "Text": "<<contentapiprefix>>/triagetoolfilter/61d76f2e-3712-4a2e-98a4-4555d99c18fc"
+                    },
+                    "TitlePart": {
+                        "Title": "Find a course"
+                    }
+                },
+                {
+                    "ContentItemId": "4egr0kve45j9d1tvy3sdba4fcg",
+                    "ContentItemVersionId": "4vm0kp73tzsh9tmdy55spzspx2",
+                    "ContentType": "TriageToolFilter",
+                    "DisplayText": "Find a traineeship",
+                    "Latest": true,
+                    "Published": true,
+                    "ModifiedUtc": "2021-05-18T05:50:37.6351499Z",
+                    "PublishedUtc": "2021-05-18T05:50:37.6430701Z",
+                    "CreatedUtc": "2021-05-18T05:50:37.6351499Z",
+                    "Owner": "4c0dn95m0jzd15fm01m6c13awt",
+                    "Author": "admin",
+                    "TriageToolFilter": {},
+                    "GraphSyncPart": {
+                        "Text": "<<contentapiprefix>>/triagetoolfilter/92303b2d-ade3-472b-acc9-ff06c51a3996"
+                    },
+                    "TitlePart": {
+                        "Title": "Find a traineeship"
+                    }
+                },
+                {
+                    "ContentItemId": "4z5ms9q6n232by7pgbhthd3ex4",
+                    "ContentItemVersionId": "4ekfjj8an78jt64cz69acta2dt",
+                    "ContentType": "TriageToolFilter",
+                    "DisplayText": "Find an apprenticeship",
+                    "Latest": true,
+                    "Published": true,
+                    "ModifiedUtc": "2021-05-18T05:50:47.7451955Z",
+                    "PublishedUtc": "2021-05-18T05:50:47.7499635Z",
+                    "CreatedUtc": "2021-05-18T05:50:47.7451955Z",
+                    "Owner": "4c0dn95m0jzd15fm01m6c13awt",
+                    "Author": "admin",
+                    "TriageToolFilter": {},
+                    "GraphSyncPart": {
+                        "Text": "<<contentapiprefix>>/triagetoolfilter/7c1bd84d-9390-47e2-a017-f675a5cfc711"
+                    },
+                    "TitlePart": {
+                        "Title": "Find an apprenticeship"
+                    }
+                },
+                {
+                    "ContentItemId": "4nm282s1a4e2s1w6hsdsvs3zd2",
+                    "ContentItemVersionId": "4vd9kghz8e1xhw7ewqtmpk3fwd",
+                    "ContentType": "TriageToolFilter",
+                    "DisplayText": "Gain qualifications",
+                    "Latest": true,
+                    "Published": true,
+                    "ModifiedUtc": "2021-05-18T05:50:57.9615344Z",
+                    "PublishedUtc": "2021-05-18T05:50:57.966055Z",
+                    "CreatedUtc": "2021-05-18T05:50:57.9615344Z",
+                    "Owner": "4c0dn95m0jzd15fm01m6c13awt",
+                    "Author": "admin",
+                    "TriageToolFilter": {},
+                    "GraphSyncPart": {
+                        "Text": "<<contentapiprefix>>/triagetoolfilter/3f197079-e6ee-4412-8a4a-b93bd6d5f399"
+                    },
+                    "TitlePart": {
+                        "Title": "Gain qualifications"
+                    }
+                },
+                {
+                    "ContentItemId": "460gfbvpd8fmn67qxg8dsb89m7",
+                    "ContentItemVersionId": "4w00zwzctj5v12jvz16e7rxvmv",
+                    "ContentType": "TriageToolFilter",
+                    "DisplayText": "How to find vacancies",
+                    "Latest": true,
+                    "Published": true,
+                    "ModifiedUtc": "2021-05-18T05:51:09.4318886Z",
+                    "PublishedUtc": "2021-05-18T05:51:09.4385371Z",
+                    "CreatedUtc": "2021-05-18T05:51:09.4318886Z",
+                    "Owner": "4c0dn95m0jzd15fm01m6c13awt",
+                    "Author": "admin",
+                    "TriageToolFilter": {},
+                    "GraphSyncPart": {
+                        "Text": "<<contentapiprefix>>/triagetoolfilter/803b516e-bee3-4606-a447-247ca9bc462c"
+                    },
+                    "TitlePart": {
+                        "Title": "How to find vacancies"
+                    }
+                },
+                {
+                    "ContentItemId": "4ysg36ed7btsc73mhgfdwc46mw",
+                    "ContentItemVersionId": "4th0t8cak3h6f4jq1v1xmwr2nw",
+                    "ContentType": "TriageToolFilter",
+                    "DisplayText": "Learn about postgraduate studies",
+                    "Latest": true,
+                    "Published": true,
+                    "ModifiedUtc": "2021-05-18T05:51:23.0286136Z",
+                    "PublishedUtc": "2021-05-18T05:51:23.0328281Z",
+                    "CreatedUtc": "2021-05-18T05:51:23.0286136Z",
+                    "Owner": "4c0dn95m0jzd15fm01m6c13awt",
+                    "Author": "admin",
+                    "TriageToolFilter": {},
+                    "GraphSyncPart": {
+                        "Text": "<<contentapiprefix>>/triagetoolfilter/f9b2a493-a51c-4a1f-9b73-0aea555d06c5"
+                    },
+                    "TitlePart": {
+                        "Title": "Learn about postgraduate studies"
+                    }
+                },
+                {
+                    "ContentItemId": "46y6w0ey1eg35y2x4nxvtnn756",
+                    "ContentItemVersionId": "4189f7wxa7rc4xgbjmttp2j85j",
+                    "ContentType": "TriageToolFilter",
+                    "DisplayText": "Learning online",
+                    "Latest": true,
+                    "Published": true,
+                    "ModifiedUtc": "2021-05-18T05:51:34.2610228Z",
+                    "PublishedUtc": "2021-05-18T05:51:34.2984516Z",
+                    "CreatedUtc": "2021-05-18T05:51:34.2610228Z",
+                    "Owner": "4c0dn95m0jzd15fm01m6c13awt",
+                    "Author": "admin",
+                    "TriageToolFilter": {},
+                    "GraphSyncPart": {
+                        "Text": "<<contentapiprefix>>/triagetoolfilter/226f9c72-45db-4c5d-b632-6757092cede7"
+                    },
+                    "TitlePart": {
+                        "Title": "Learning online"
+                    }
+                },
+                {
+                    "ContentItemId": "4e28d6fapmst01j9z67wkrgnm8",
+                    "ContentItemVersionId": "4xf8qe4fdw93s04kct9ngh0md1",
+                    "ContentType": "TriageToolFilter",
+                    "DisplayText": "Options with an Education Health and Care plan",
+                    "Latest": true,
+                    "Published": true,
+                    "ModifiedUtc": "2021-05-18T05:51:45.7514378Z",
+                    "PublishedUtc": "2021-05-18T05:51:45.7589643Z",
+                    "CreatedUtc": "2021-05-18T05:51:45.7514378Z",
+                    "Owner": "4c0dn95m0jzd15fm01m6c13awt",
+                    "Author": "admin",
+                    "TriageToolFilter": {},
+                    "GraphSyncPart": {
+                        "Text": "<<contentapiprefix>>/triagetoolfilter/c73bb969-3faf-4e95-8a54-d918b58608b5"
+                    },
+                    "TitlePart": {
+                        "Title": "Options with an Education Health and Care plan"
+                    }
+                },
+                {
+                    "ContentItemId": "4damkxgbkc69p65rxb87224f4f",
+                    "ContentItemVersionId": "4fgkjqm0va5b21zfhkng2era5j",
+                    "ContentType": "TriageToolFilter",
+                    "DisplayText": "Prepare for a job interview",
+                    "Latest": true,
+                    "Published": true,
+                    "ModifiedUtc": "2021-05-18T05:51:57.0800073Z",
+                    "PublishedUtc": "2021-05-18T05:51:57.0867523Z",
+                    "CreatedUtc": "2021-05-18T05:51:57.0800073Z",
+                    "Owner": "4c0dn95m0jzd15fm01m6c13awt",
+                    "Author": "admin",
+                    "TriageToolFilter": {},
+                    "GraphSyncPart": {
+                        "Text": "<<contentapiprefix>>/triagetoolfilter/18fd95ee-4c23-43ef-bd81-357ad7f39ef9"
+                    },
+                    "TitlePart": {
+                        "Title": "Prepare for a job interview"
+                    }
+                },
+                {
+                    "ContentItemId": "4jxxqaapbw13kt93mm9c5604mx",
+                    "ContentItemVersionId": "4spzcc4s8sqqk4zvd5sx3xxpmq",
+                    "ContentType": "TriageToolFilter",
+                    "DisplayText": "See careers in a specific sector",
+                    "Latest": true,
+                    "Published": true,
+                    "ModifiedUtc": "2021-05-18T05:52:07.6556238Z",
+                    "PublishedUtc": "2021-05-18T05:52:07.6617205Z",
+                    "CreatedUtc": "2021-05-18T05:52:07.6556238Z",
+                    "Owner": "4c0dn95m0jzd15fm01m6c13awt",
+                    "Author": "admin",
+                    "TriageToolFilter": {},
+                    "GraphSyncPart": {
+                        "Text": "<<contentapiprefix>>/triagetoolfilter/08c98412-0075-4c60-8377-fe3eb191e48a"
+                    },
+                    "TitlePart": {
+                        "Title": "See careers in a specific sector"
+                    }
+                },
+                {
+                    "ContentItemId": "4zg80m0ac1h2n2hdyj9p7mgcxy",
+                    "ContentItemVersionId": "4j3cagber8xdd23q5dc4qhh5x6",
+                    "ContentType": "TriageToolFilter",
+                    "DisplayText": "Take a gap year",
+                    "Latest": true,
+                    "Published": true,
+                    "ModifiedUtc": "2021-05-18T05:52:18.4472903Z",
+                    "PublishedUtc": "2021-05-18T05:52:18.4528204Z",
+                    "CreatedUtc": "2021-05-18T05:52:18.4472903Z",
+                    "Owner": "4c0dn95m0jzd15fm01m6c13awt",
+                    "Author": "admin",
+                    "TriageToolFilter": {},
+                    "GraphSyncPart": {
+                        "Text": "<<contentapiprefix>>/triagetoolfilter/0f074352-a335-41b7-af0f-463e41ae7f5c"
+                    },
+                    "TitlePart": {
+                        "Title": "Take a gap year"
+                    }
+                },
+                {
+                    "ContentItemId": "4ymt2zkbz41n2s9xyk9a27efnk",
+                    "ContentItemVersionId": "42024agc8y8kz6a392xxwcksw8",
+                    "ContentType": "TriageToolFilter",
+                    "DisplayText": "Understand the recruitment process",
+                    "Latest": true,
+                    "Published": true,
+                    "ModifiedUtc": "2021-05-18T05:52:30.1884163Z",
+                    "PublishedUtc": "2021-05-18T05:52:30.1931774Z",
+                    "CreatedUtc": "2021-05-18T05:52:30.1884163Z",
+                    "Owner": "4c0dn95m0jzd15fm01m6c13awt",
+                    "Author": "admin",
+                    "TriageToolFilter": {},
+                    "GraphSyncPart": {
+                        "Text": "<<contentapiprefix>>/triagetoolfilter/8a00011e-d37c-4b86-a879-3428b3d92f61"
+                    },
+                    "TitlePart": {
+                        "Title": "Understand the recruitment process"
+                    }
+                },
+                {
+                    "ContentItemId": "42sfd1bda1fh2xbtkswtpx0kwt",
+                    "ContentItemVersionId": "434z41pfg2bgd2s3jew54r0k59",
+                    "ContentType": "TriageToolFilter",
+                    "DisplayText": "Understanding the working world during COVID-19",
+                    "Latest": true,
+                    "Published": true,
+                    "ModifiedUtc": "2021-05-18T05:52:41.5540166Z",
+                    "PublishedUtc": "2021-05-18T05:52:41.5590957Z",
+                    "CreatedUtc": "2021-05-18T05:52:41.5540166Z",
+                    "Owner": "4c0dn95m0jzd15fm01m6c13awt",
+                    "Author": "admin",
+                    "TriageToolFilter": {},
+                    "GraphSyncPart": {
+                        "Text": "<<contentapiprefix>>/triagetoolfilter/9650e721-9dd1-4a95-8566-434068fc5564"
+                    },
+                    "TitlePart": {
+                        "Title": "Understanding the working world during COVID-19"
+                    }
+                },
+                {
+                    "ContentItemId": "45xhwc1ahwfkd11b7ffneg8dd4",
+                    "ContentItemVersionId": "4bwsdc6drahapvtm0zd1gr6vcm",
+                    "ContentType": "TriageToolFilter",
+                    "DisplayText": "Volunteering",
+                    "Latest": true,
+                    "Published": true,
+                    "ModifiedUtc": "2021-05-18T05:52:50.2978784Z",
+                    "PublishedUtc": "2021-05-18T05:52:50.3051945Z",
+                    "CreatedUtc": "2021-05-18T05:52:50.2978784Z",
+                    "Owner": "4c0dn95m0jzd15fm01m6c13awt",
+                    "Author": "admin",
+                    "TriageToolFilter": {},
+                    "GraphSyncPart": {
+                        "Text": "<<contentapiprefix>>/triagetoolfilter/4273f4a4-e417-420d-9461-2abe3726176b"
+                    },
+                    "TitlePart": {
+                        "Title": "Volunteering"
+                    }
+                },
+                {
+                    "ContentItemId": "46d3bfbtzt8mr7ff9p70qes2nh",
+                    "ContentItemVersionId": "4z1js00qs5rgm5m107c33vppw3",
+                    "ContentType": "TriageToolFilter",
+                    "DisplayText": "Working with a disability or health condition",
+                    "Latest": true,
+                    "Published": true,
+                    "ModifiedUtc": "2021-05-18T05:53:07.7309963Z",
+                    "PublishedUtc": "2021-05-18T05:53:07.7359959Z",
+                    "CreatedUtc": "2021-05-18T05:53:07.7309963Z",
+                    "Owner": "4c0dn95m0jzd15fm01m6c13awt",
+                    "Author": "admin",
+                    "TriageToolFilter": {},
+                    "GraphSyncPart": {
+                        "Text": "<<contentapiprefix>>/triagetoolfilter/9fb9f950-1336-4302-a3e8-d977634322eb"
+                    },
+                    "TitlePart": {
+                        "Title": "Working with a disability or health condition"
+                    }
+                },
+                {
+                    "ContentItemId": "4jwsttn5pzfcy277bbbnsvg4xr",
+                    "ContentItemVersionId": "4fk23wrpgxxkqwcb8zm6evavdn",
+                    "ContentType": "TriageToolFilter",
+                    "DisplayText": "Write or update your CV",
+                    "Latest": true,
+                    "Published": true,
+                    "ModifiedUtc": "2021-05-18T05:53:19.3832441Z",
+                    "PublishedUtc": "2021-05-18T05:53:19.3897797Z",
+                    "CreatedUtc": "2021-05-18T05:53:19.3832441Z",
+                    "Owner": "4c0dn95m0jzd15fm01m6c13awt",
+                    "Author": "admin",
+                    "TriageToolFilter": {},
+                    "GraphSyncPart": {
+                        "Text": "<<contentapiprefix>>/triagetoolfilter/83505f8e-676c-4dc7-8d0c-78f113c00a89"
+                    },
+                    "TitlePart": {
+                        "Title": "Write or update your CV"
+                    }
+                },
+                {
+                    "ContentItemId": "4vw3zfe67cafr590t9ff7v3jm6",
+                    "ContentItemVersionId": "4qn9x6q9dyy3rr69bbsa5djbne",
+                    "ContentType": "TriageToolFilter",
+                    "DisplayText": "Understand your skills",
+                    "Latest": true,
+                    "Published": true,
+                    "ModifiedUtc": "2021-05-04T14:33:21.4151676Z",
+                    "PublishedUtc": "2021-05-04T14:33:21.4371666Z",
+                    "CreatedUtc": "2021-05-04T14:33:13.7045687Z",
+                    "Owner": "4c0dn95m0jzd15fm01m6c13awt",
+                    "Author": "admin",
+                    "TriageToolFilter": {},
+                    "GraphSyncPart": {
+                        "Text": "<<contentapiprefix>>/triagetoolfilter/d3a4589b-5df7-49e9-8cea-971483a87074"
+                    },
+                    "TitlePart": {
+                        "Title": "Understand your skills"
+                    }
+                },
+                {
+                    "ContentItemId": "4fstdnjr95bbh6sthnb2vjrens",
+                    "ContentItemVersionId": "4ay0b0k95wfj51h7w3g1zba9dm",
+                    "ContentType": "TriageToolFilter",
+                    "DisplayText": "Find careers that suit your skills",
+                    "Latest": true,
+                    "Published": true,
+                    "ModifiedUtc": "2021-05-04T14:33:56.1113759Z",
+                    "PublishedUtc": "2021-05-04T14:33:56.1175839Z",
+                    "CreatedUtc": "2021-05-04T14:33:56.1113759Z",
+                    "Owner": "4c0dn95m0jzd15fm01m6c13awt",
+                    "Author": "admin",
+                    "TriageToolFilter": {},
+                    "GraphSyncPart": {
+                        "Text": "<<contentapiprefix>>/triagetoolfilter/3ee26594-c4a4-489a-8414-58b26109dc44"
+                    },
+                    "TitlePart": {
+                        "Title": "Find careers that suit your skills"
+                    }
+                },
+                {
+                    "ContentItemId": "4enyfx09j8crsrgdtsmc20mmdn",
+                    "ContentItemVersionId": "4v6r9s4m5ta7rv4ymv914qpfnx",
+                    "ContentType": "TriageToolFilter",
+                    "DisplayText": "Work experience",
+                    "Latest": true,
+                    "Published": true,
+                    "ModifiedUtc": "2021-05-04T14:34:04.0274648Z",
+                    "PublishedUtc": "2021-05-04T14:34:04.0347668Z",
+                    "CreatedUtc": "2021-05-04T14:34:04.0274648Z",
+                    "Owner": "4c0dn95m0jzd15fm01m6c13awt",
+                    "Author": "admin",
+                    "TriageToolFilter": {},
+                    "GraphSyncPart": {
+                        "Text": "<<contentapiprefix>>/triagetoolfilter/565a5c9e-7786-45b8-b817-62ac2fe012a5"
+                    },
+                    "TitlePart": {
+                        "Title": "Work experience"
+                    }
+                },
+                {
+                    "ContentItemId": "41rjzp7pecftm0ad7cawz753cs",
+                    "ContentItemVersionId": "4vx58jrr1mcdp00qzaw1efn5mx",
+                    "ContentType": "TriageToolFilter",
+                    "DisplayText": "Options at age 16",
+                    "Latest": true,
+                    "Published": true,
+                    "ModifiedUtc": "2021-05-04T14:34:10.7100187Z",
+                    "PublishedUtc": "2021-05-04T14:34:10.71666Z",
+                    "CreatedUtc": "2021-05-04T14:34:10.7100187Z",
+                    "Owner": "4c0dn95m0jzd15fm01m6c13awt",
+                    "Author": "admin",
+                    "TriageToolFilter": {},
+                    "GraphSyncPart": {
+                        "Text": "<<contentapiprefix>>/triagetoolfilter/57ecca6d-f0a4-4816-8244-7ee451f0ee88"
+                    },
+                    "TitlePart": {
+                        "Title": "Options at age 16"
+                    }
+                },
+                {
+                    "ContentItemId": "4b9z5pyav7hecy1j828d4h89dc",
+                    "ContentItemVersionId": "4wnqjdazmqq0h1dpgqds7vkqw0",
+                    "ContentType": "TriageToolFilter",
+                    "DisplayText": "Options at age 18",
+                    "Latest": true,
+                    "Published": true,
+                    "ModifiedUtc": "2021-05-04T14:34:17.6748984Z",
+                    "PublishedUtc": "2021-05-04T14:34:17.6837592Z",
+                    "CreatedUtc": "2021-05-04T14:34:17.6748984Z",
+                    "Owner": "4c0dn95m0jzd15fm01m6c13awt",
+                    "Author": "admin",
+                    "TriageToolFilter": {},
+                    "GraphSyncPart": {
+                        "Text": "<<contentapiprefix>>/triagetoolfilter/c3cf1043-3292-4885-adf7-076b7cbc6d28"
+                    },
+                    "TitlePart": {
+                        "Title": "Options at age 18"
+                    }
+                },
+                {
+                    "ContentItemId": "4k89msc07n55r0yyxeevgjd34q",
+                    "ContentItemVersionId": "41eamp3t6mq22rxwhk5vz8bd4p",
+                    "ContentType": "TriageToolFilter",
+                    "DisplayText": "Options after university",
+                    "Latest": true,
+                    "Published": true,
+                    "ModifiedUtc": "2021-05-04T14:34:28.0050697Z",
+                    "PublishedUtc": "2021-05-04T14:34:28.0100627Z",
+                    "CreatedUtc": "2021-05-04T14:34:28.0050697Z",
+                    "Owner": "4c0dn95m0jzd15fm01m6c13awt",
+                    "Author": "admin",
+                    "TriageToolFilter": {},
+                    "GraphSyncPart": {
+                        "Text": "<<contentapiprefix>>/triagetoolfilter/bbdafd17-10d4-4faf-9d09-cfec814d8632"
+                    },
+                    "TitlePart": {
+                        "Title": "Options after university"
+                    }
+                },
+                {
+                    "ContentItemId": "4as6xq8jzxrgxwtn6kv53gm6wr",
+                    "ContentItemVersionId": "4fjwt9dprz3pg6bwq93qgtdaxg",
+                    "ContentType": "TriageToolFilter",
+                    "DisplayText": "Find information about a specific job",
+                    "Latest": true,
+                    "Published": true,
+                    "ModifiedUtc": "2021-05-04T15:03:32.7953753Z",
+                    "PublishedUtc": "2021-05-04T15:03:32.8047398Z",
+                    "CreatedUtc": "2021-05-04T14:34:35.8037886Z",
+                    "Owner": "4c0dn95m0jzd15fm01m6c13awt",
+                    "Author": "admin",
+                    "TriageToolFilter": {},
+                    "GraphSyncPart": {
+                        "Text": "<<contentapiprefix>>/triagetoolfilter/230c75f6-ce35-4301-8631-939970066d23"
+                    },
+                    "TitlePart": {
+                        "Title": "Find information about a specific job"
+                    }
+                },
+                {
+                    "ContentItemId": "4ggccyqe5a3dwybnaye633evng",
+                    "ContentItemVersionId": "4p8yy4mbjbsn6znkdhdw90h6cq",
+                    "ContentType": "TriageToolOption",
+                    "DisplayText": "planning or starting your career",
+                    "Latest": true,
+                    "Published": true,
+                    "ModifiedUtc": "2021-05-18T05:58:05.9908932Z",
+                    "PublishedUtc": "2021-05-18T05:58:06.005229Z",
+                    "CreatedUtc": "2021-05-04T14:37:28.179883Z",
+                    "Owner": "4c0dn95m0jzd15fm01m6c13awt",
+                    "Author": "admin",
+                    "TriageToolOption": {
+                        "TriageToolFilters": {
+                            "ContentItemIds": [
+                                "4vw3zfe67cafr590t9ff7v3jm6",
+                                "4fstdnjr95bbh6sthnb2vjrens",
+                                "4enyfx09j8crsrgdtsmc20mmdn",
+                                "41rjzp7pecftm0ad7cawz753cs",
+                                "4b9z5pyav7hecy1j828d4h89dc",
+                                "4k89msc07n55r0yyxeevgjd34q",
+                                "4as6xq8jzxrgxwtn6kv53gm6wr",
+                                "4cz9zj2pt5bq04ex3xa0dcm2dz",
+                                "4jwsttn5pzfcy277bbbnsvg4xr",
+                                "4jxxqaapbw13kt93mm9c5604mx",
+                                "46y6w0ey1eg35y2x4nxvtnn756",
+                                "4ysg36ed7btsc73mhgfdwc46mw",
+                                "46d3bfbtzt8mr7ff9p70qes2nh",
+                                "4e28d6fapmst01j9z67wkrgnm8"
+                            ]
+                        }
+                    },
+                    "GraphSyncPart": {
+                        "Text": "<<contentapiprefix>>/triagetooloption/a0c3c7b6-a7f4-41e8-af37-ca20f5b69a81"
+                    },
+                    "TitlePart": {
+                        "Title": "planning or starting your career"
+                    }
+                },
+                {
+                    "ContentItemId": "4j2n9jpexjj276gnq0g91h1bnn",
+                    "ContentItemVersionId": "4s6j1dvze53cc064bjp9cxmnwg",
+                    "ContentType": "TriageToolOption",
+                    "DisplayText": "moving up in your career",
+                    "Latest": true,
+                    "Published": true,
+                    "ModifiedUtc": "2021-05-18T06:01:23.2486225Z",
+                    "PublishedUtc": "2021-05-18T06:01:23.2591654Z",
+                    "CreatedUtc": "2021-05-04T14:37:39.6214635Z",
+                    "Owner": "4c0dn95m0jzd15fm01m6c13awt",
+                    "Author": "admin",
+                    "TriageToolOption": {
+                        "TriageToolFilters": {
+                            "ContentItemIds": [
+                                "4vw3zfe67cafr590t9ff7v3jm6",
+                                "4fstdnjr95bbh6sthnb2vjrens",
+                                "4vf7ajs7a6cdk6kkjwzd7hc15m",
+                                "4nm282s1a4e2s1w6hsdsvs3zd2",
+                                "45xhwc1ahwfkd11b7ffneg8dd4",
+                                "4z5ms9q6n232by7pgbhthd3ex4",
+                                "4d9a0vcs44r3h2rj7b3yam9cm1",
+                                "4vwkbebr5182t4gykp3e2k31cz",
+                                "4as6xq8jzxrgxwtn6kv53gm6wr",
+                                "4ymt2zkbz41n2s9xyk9a27efnk",
+                                "460gfbvpd8fmn67qxg8dsb89m7",
+                                "4damkxgbkc69p65rxb87224f4f",
+                                "4jwsttn5pzfcy277bbbnsvg4xr",
+                                "46y6w0ey1eg35y2x4nxvtnn756",
+                                "4hzce8szbqmqhyz5aq91mpd25z"
+                            ]
+                        }
+                    },
+                    "GraphSyncPart": {
+                        "Text": "<<contentapiprefix>>/triagetooloption/81e9f88d-9e88-4eaf-86b3-9ab5befa85d6"
+                    },
+                    "TitlePart": {
+                        "Title": "moving up in your career"
+                    }
+                },
+                {
+                    "ContentItemId": "42h2gb2011e9d048nskbbjj0we",
+                    "ContentItemVersionId": "47fnpf7w2024f6bmvcbqq7c6n4",
+                    "ContentType": "TriageToolOption",
+                    "DisplayText": "changing your career",
+                    "Latest": true,
+                    "Published": true,
+                    "ModifiedUtc": "2021-05-18T06:03:39.8615389Z",
+                    "PublishedUtc": "2021-05-18T06:03:39.8786829Z",
+                    "CreatedUtc": "2021-05-04T14:37:51.0127351Z",
+                    "Owner": "4c0dn95m0jzd15fm01m6c13awt",
+                    "Author": "admin",
+                    "TriageToolOption": {
+                        "TriageToolFilters": {
+                            "ContentItemIds": [
+                                "4vw3zfe67cafr590t9ff7v3jm6",
+                                "4fstdnjr95bbh6sthnb2vjrens",
+                                "4vf7ajs7a6cdk6kkjwzd7hc15m",
+                                "4nm282s1a4e2s1w6hsdsvs3zd2",
+                                "45xhwc1ahwfkd11b7ffneg8dd4",
+                                "4z5ms9q6n232by7pgbhthd3ex4",
+                                "4d9a0vcs44r3h2rj7b3yam9cm1",
+                                "4vwkbebr5182t4gykp3e2k31cz",
+                                "4as6xq8jzxrgxwtn6kv53gm6wr",
+                                "4cz9zj2pt5bq04ex3xa0dcm2dz",
+                                "4damkxgbkc69p65rxb87224f4f",
+                                "4jwsttn5pzfcy277bbbnsvg4xr"
+                            ]
+                        }
+                    },
+                    "GraphSyncPart": {
+                        "Text": "<<contentapiprefix>>/triagetooloption/3695846f-38c2-4f0c-a677-23a7311023cb"
+                    },
+                    "TitlePart": {
+                        "Title": "changing your career"
+                    }
+                },
+                {
+                    "ContentItemId": "4x6jbexmyzn5z0tqpk460pk9db",
+                    "ContentItemVersionId": "4kfj8zyq0njzf6xkb4wasy4rnb",
+                    "ContentType": "TriageToolOption",
+                    "DisplayText": "returning to work",
+                    "Latest": true,
+                    "Published": true,
+                    "ModifiedUtc": "2021-05-18T06:06:32.6919642Z",
+                    "PublishedUtc": "2021-05-18T06:06:32.7088967Z",
+                    "CreatedUtc": "2021-05-04T14:38:01.4480918Z",
+                    "Owner": "4c0dn95m0jzd15fm01m6c13awt",
+                    "Author": "admin",
+                    "TriageToolOption": {
+                        "TriageToolFilters": {
+                            "ContentItemIds": [
+                                "4vw3zfe67cafr590t9ff7v3jm6",
+                                "4fstdnjr95bbh6sthnb2vjrens",
+                                "4vf7ajs7a6cdk6kkjwzd7hc15m",
+                                "4nm282s1a4e2s1w6hsdsvs3zd2",
+                                "4z5ms9q6n232by7pgbhthd3ex4",
+                                "4d9a0vcs44r3h2rj7b3yam9cm1",
+                                "4ymt2zkbz41n2s9xyk9a27efnk",
+                                "460gfbvpd8fmn67qxg8dsb89m7",
+                                "4vk6nf6p6cd1jy5s8r8ez7prcr",
+                                "4damkxgbkc69p65rxb87224f4f",
+                                "4jwsttn5pzfcy277bbbnsvg4xr",
+                                "46y6w0ey1eg35y2x4nxvtnn756",
+                                "4hzce8szbqmqhyz5aq91mpd25z",
+                                "46d3bfbtzt8mr7ff9p70qes2nh"
+                            ]
+                        }
+                    },
+                    "GraphSyncPart": {
+                        "Text": "<<contentapiprefix>>/triagetooloption/179d6185-e383-46bf-9214-98af0ed82b2e"
+                    },
+                    "TitlePart": {
+                        "Title": "returning to work"
+                    }
+                },
+                {
+                    "ContentItemId": "4dr1ycj652yfrsj4kby88qf9dj",
+                    "ContentItemVersionId": "4hmw3bh2mdx7j42kah0fwr375c",
+                    "ContentType": "TriageToolOption",
+                    "DisplayText": "understanding your options",
+                    "Latest": true,
+                    "Published": true,
+                    "ModifiedUtc": "2021-05-18T06:08:55.2445783Z",
+                    "PublishedUtc": "2021-05-18T06:08:55.2619665Z",
+                    "CreatedUtc": "2021-05-04T14:38:11.7783473Z",
+                    "Owner": "4c0dn95m0jzd15fm01m6c13awt",
+                    "Author": "admin",
+                    "TriageToolOption": {
+                        "TriageToolFilters": {
+                            "ContentItemIds": [
+                                "45xhwc1ahwfkd11b7ffneg8dd4",
+                                "4enyfx09j8crsrgdtsmc20mmdn",
+                                "4z5ms9q6n232by7pgbhthd3ex4",
+                                "4d9a0vcs44r3h2rj7b3yam9cm1",
+                                "4egr0kve45j9d1tvy3sdba4fcg",
+                                "4vwkbebr5182t4gykp3e2k31cz",
+                                "4zg80m0ac1h2n2hdyj9p7mgcxy",
+                                "41rjzp7pecftm0ad7cawz753cs",
+                                "4b9z5pyav7hecy1j828d4h89dc",
+                                "4k89msc07n55r0yyxeevgjd34q",
+                                "4as6xq8jzxrgxwtn6kv53gm6wr",
+                                "46d3bfbtzt8mr7ff9p70qes2nh",
+                                "4e28d6fapmst01j9z67wkrgnm8"
+                            ]
+                        }
+                    },
+                    "GraphSyncPart": {
+                        "Text": "<<contentapiprefix>>/triagetooloption/f0b344d1-5f48-4d19-b8ce-84647454fbeb"
+                    },
+                    "TitlePart": {
+                        "Title": "understanding your options"
+                    }
+                },
+                {
+                    "ContentItemId": "4170eh4x0fzrtsk9frmscj77mz",
+                    "ContentItemVersionId": "47xvwsvp291rv7ggczwyq2wn4k",
+                    "ContentType": "TriageToolOption",
+                    "DisplayText": "identifying and building your skills",
+                    "Latest": true,
+                    "Published": true,
+                    "ModifiedUtc": "2021-05-18T06:12:51.7672599Z",
+                    "PublishedUtc": "2021-05-18T06:12:51.77824Z",
+                    "CreatedUtc": "2021-05-04T14:38:24.3831275Z",
+                    "Owner": "4c0dn95m0jzd15fm01m6c13awt",
+                    "Author": "admin",
+                    "TriageToolOption": {
+                        "TriageToolFilters": {
+                            "ContentItemIds": [
+                                "4vw3zfe67cafr590t9ff7v3jm6",
+                                "4fstdnjr95bbh6sthnb2vjrens",
+                                "4vf7ajs7a6cdk6kkjwzd7hc15m",
+                                "4nm282s1a4e2s1w6hsdsvs3zd2",
+                                "45xhwc1ahwfkd11b7ffneg8dd4",
+                                "4enyfx09j8crsrgdtsmc20mmdn",
+                                "4z5ms9q6n232by7pgbhthd3ex4",
+                                "4d9a0vcs44r3h2rj7b3yam9cm1",
+                                "4egr0kve45j9d1tvy3sdba4fcg",
+                                "46y6w0ey1eg35y2x4nxvtnn756"
+                            ]
+                        }
+                    },
+                    "GraphSyncPart": {
+                        "Text": "<<contentapiprefix>>/triagetooloption/4a3c1af2-1ee1-4c21-94f8-db42afb58688"
+                    },
+                    "TitlePart": {
+                        "Title": "identifying and building your skills"
+                    }
+                },
+                {
+                    "ContentItemId": "48v17c874cfee0x91jaqys6kmm",
+                    "ContentItemVersionId": "4r95tkk9k83vs61x1ycn4w5wx3",
+                    "ContentType": "TriageToolOption",
+                    "DisplayText": "understanding the recruitment process",
+                    "Latest": true,
+                    "Published": true,
+                    "ModifiedUtc": "2021-05-18T06:14:04.7572276Z",
+                    "PublishedUtc": "2021-05-18T06:14:04.7717031Z",
+                    "CreatedUtc": "2021-05-04T14:38:34.3604366Z",
+                    "Owner": "4c0dn95m0jzd15fm01m6c13awt",
+                    "Author": "admin",
+                    "TriageToolOption": {
+                        "TriageToolFilters": {
+                            "ContentItemIds": [
+                                "460gfbvpd8fmn67qxg8dsb89m7",
+                                "4vk6nf6p6cd1jy5s8r8ez7prcr",
+                                "4damkxgbkc69p65rxb87224f4f",
+                                "4jwsttn5pzfcy277bbbnsvg4xr"
+                            ]
+                        }
+                    },
+                    "GraphSyncPart": {
+                        "Text": "<<contentapiprefix>>/triagetooloption/6155621d-48b1-4aa3-843e-25a03f8d6712"
+                    },
+                    "TitlePart": {
+                        "Title": "understanding the recruitment process"
+                    }
+                },
+                {
+                    "ContentItemId": "4pbq2tthzjjyvz7qj2b78f1d4d",
+                    "ContentItemVersionId": "4sf46z1nk14072vbnr3pa2vpcn",
+                    "ContentType": "TriageToolOption",
+                    "DisplayText": "working with a health condition or disability",
+                    "Latest": true,
+                    "Published": true,
+                    "ModifiedUtc": "2021-05-18T06:15:01.1031386Z",
+                    "PublishedUtc": "2021-05-18T06:15:01.1118929Z",
+                    "CreatedUtc": "2021-05-04T14:38:45.0264225Z",
+                    "Owner": "4c0dn95m0jzd15fm01m6c13awt",
+                    "Author": "admin",
+                    "TriageToolOption": {
+                        "TriageToolFilters": {
+                            "ContentItemIds": [
+                                "46d3bfbtzt8mr7ff9p70qes2nh",
+                                "4e28d6fapmst01j9z67wkrgnm8"
+                            ]
+                        }
+                    },
+                    "GraphSyncPart": {
+                        "Text": "<<contentapiprefix>>/triagetooloption/2c9d402f-b3a1-4660-99b4-8a398bac1c3d"
+                    },
+                    "TitlePart": {
+                        "Title": "working with a health condition or disability"
+                    },
+                    "BagPart": {
+                        "ContentItems": []
+                    },
+                    "FlowPart": {
+                        "Widgets": []
+                    },
+                    "TriageToolFilters": {
+                        "TriageToolFilters": {
+                            "ContentItemIds": [
+                                "4as6xq8jzxrgxwtn6kv53gm6wr",
+                                "41rjzp7pecftm0ad7cawz753cs",
+                                "4cz9zj2pt5bq04ex3xa0dcm2dz",
+                                "4b9z5pyav7hecy1j828d4h89dc",
+                                "4vw3zfe67cafr590t9ff7v3jm6"
+                            ]
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}
