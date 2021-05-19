@@ -56,7 +56,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
             }
             set
             {
-                _contentType = value ?? throw new ArgumentNullException($"Null is not an acceptable value for {nameof(ContentType)}.");
+                _contentType = value ?? throw new ArgumentNullException("value");
                 _graphSyncPartSettings = GetGraphSyncPartSettings(value);
             }
         }
