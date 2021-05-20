@@ -1,0 +1,357 @@
+{
+    "name": "01_careersadvice_taxonomies",
+    "displayName": "01_careersadvice_taxonomies",
+    "description": "",
+    "author": "",
+    "website": "",
+    "version": "",
+    "issetuprecipe": false,
+    "categories": [],
+    "tags": [],
+    "steps": [
+        {
+            "name": "Content",
+            "data": [
+                {
+                    "ContentItemId": "4eembshqzx66drajtdten34tc8",
+                    "ContentItemVersionId": "415erye21mz2k0ayxp9br5cpdr",
+                    "ContentType": "Taxonomy",
+                    "DisplayText": "Page Locations",
+                    "Latest": true,
+                    "Published": true,
+                    "ModifiedUtc": "2021-04-07T08:08:10.1154261Z",
+                    "PublishedUtc": "2021-04-16T16:21:49.446353Z",
+                    "CreatedUtc": "2020-06-16T13:16:27.1642618Z",
+                    "Owner": "admin",
+                    "Author": "admin",
+                    "TitlePart": {
+                        "Title": "Page Locations"
+                    },
+                    "AliasPart": {
+                        "Alias": "page-locations"
+                    },
+                    "AutoroutePart": {
+                        "Path": "page-locations",
+                        "SetHomepage": false,
+                        "Disabled": false,
+                        "RouteContainedItems": false,
+                        "Absolute": false
+                    },
+                    "TaxonomyPart": {
+                        "Terms": [
+                            {
+                                "ContentItemId": "4y3qc9f2r818z1df41a1yryvny",
+                                "ContentItemVersionId": null,
+                                "ContentType": "PageLocation",
+                                "DisplayText": "/",
+                                "Latest": false,
+                                "Published": false,
+                                "ModifiedUtc": "2020-07-10T09:21:37.9873898Z",
+                                "PublishedUtc": null,
+                                "CreatedUtc": null,
+                                "Owner": null,
+                                "Author": "admin",
+                                "TitlePart": {
+                                    "Title": "/"
+                                },
+                                "PageLocation": {
+                                    "BreadcrumbText": {
+                                        "Text": "Home"
+                                    }
+                                },
+                                "GraphSyncPart": {
+                                    "Text": "<<contentapiprefix>>/pagelocation/48b3f8cb-27c5-4e3a-9a53-69b6cfe8e408"
+                                },
+                                "TermPart": {
+                                    "TaxonomyContentItemId": "4eembshqzx66drajtdten34tc8"
+                                },
+                                "@WeldedPartSettings": {
+                                    "TermPart": {}
+                                },
+                                "Terms": [
+                                    {
+                                        "ContentItemId": "4fj8n537qn55d7q4kk6xxs3bn0",
+                                        "ContentItemVersionId": null,
+                                        "ContentType": "PageLocation",
+                                        "DisplayText": "about-us",
+                                        "Latest": false,
+                                        "Published": false,
+                                        "ModifiedUtc": "2020-07-16T13:43:01.3440699Z",
+                                        "PublishedUtc": null,
+                                        "CreatedUtc": null,
+                                        "Owner": null,
+                                        "Author": "admin",
+                                        "TitlePart": {
+                                            "Title": "about-us"
+                                        },
+                                        "PageLocation": {
+                                            "BreadcrumbText": {
+                                                "Text": "About Us"
+                                            }
+                                        },
+                                        "GraphSyncPart": {
+                                            "Text": "<<contentapiprefix>>/pagelocation/15711982-9609-41d6-a022-acd9cb4d199f"
+                                        },
+                                        "TermPart": {
+                                            "TaxonomyContentItemId": "4eembshqzx66drajtdten34tc8"
+                                        },
+                                        "@WeldedPartSettings": {
+                                            "TermPart": {}
+                                        }
+                                    },
+                                    {
+                                        "ContentItemId": "4pksnz9106ngbwq74w66snan5x",
+                                        "ContentItemVersionId": null,
+                                        "ContentType": "PageLocation",
+                                        "DisplayText": "contact-us",
+                                        "Latest": false,
+                                        "Published": false,
+                                        "ModifiedUtc": "2020-07-10T09:22:06.4433322Z",
+                                        "PublishedUtc": null,
+                                        "CreatedUtc": null,
+                                        "Owner": null,
+                                        "Author": "admin",
+                                        "TitlePart": {
+                                            "Title": "contact-us"
+                                        },
+                                        "PageLocation": {
+                                            "BreadcrumbText": {
+                                                "Text": "Contact Us"
+                                            }
+                                        },
+                                        "GraphSyncPart": {
+                                            "Text": "<<contentapiprefix>>/pagelocation/370851eb-1185-48b5-8422-23f4afdde06e"
+                                        },
+                                        "TermPart": {
+                                            "TaxonomyContentItemId": "4eembshqzx66drajtdten34tc8"
+                                        },
+                                        "@WeldedPartSettings": {
+                                            "TermPart": {}
+                                        },
+                                        "Terms": []
+                                    },
+                                    {
+                                        "ContentItemId": "4bj8dac5hskh76gp82ncd1hkx7",
+                                        "ContentItemVersionId": null,
+                                        "ContentType": "PageLocation",
+                                        "DisplayText": "explore-careers",
+                                        "Latest": false,
+                                        "Published": false,
+                                        "ModifiedUtc": "2020-07-16T13:44:11.1555899Z",
+                                        "PublishedUtc": null,
+                                        "CreatedUtc": null,
+                                        "Owner": null,
+                                        "Author": "admin",
+                                        "TitlePart": {
+                                            "Title": "explore-careers"
+                                        },
+                                        "PageLocation": {
+                                            "BreadcrumbText": {
+                                                "Text": "Explore Careers"
+                                            }
+                                        },
+                                        "GraphSyncPart": {
+                                            "Text": "<<contentapiprefix>>/pagelocation/ca050db2-a967-4ddf-8c6b-287739696616"
+                                        },
+                                        "TermPart": {
+                                            "TaxonomyContentItemId": "4eembshqzx66drajtdten34tc8"
+                                        },
+                                        "@WeldedPartSettings": {
+                                            "TermPart": {}
+                                        }
+                                    },
+                                    {
+                                        "ContentItemId": "4adkbgv2ceg0ew44w9xcqc26cg",
+                                        "ContentItemVersionId": null,
+                                        "ContentType": "PageLocation",
+                                        "DisplayText": "find-a-course",
+                                        "Latest": false,
+                                        "Published": false,
+                                        "ModifiedUtc": "2020-07-16T13:43:39.2189373Z",
+                                        "PublishedUtc": null,
+                                        "CreatedUtc": null,
+                                        "Owner": null,
+                                        "Author": "admin",
+                                        "TitlePart": {
+                                            "Title": "find-a-course"
+                                        },
+                                        "PageLocation": {
+                                            "BreadcrumbText": {
+                                                "Text": "Find a Course"
+                                            }
+                                        },
+                                        "GraphSyncPart": {
+                                            "Text": "<<contentapiprefix>>/pagelocation/78a04973-b9c0-4410-9018-9ef04db951c6"
+                                        },
+                                        "TermPart": {
+                                            "TaxonomyContentItemId": "4eembshqzx66drajtdten34tc8"
+                                        },
+                                        "@WeldedPartSettings": {
+                                            "TermPart": {}
+                                        }
+                                    },
+                                    {
+                                        "ContentItemId": "4y9c37rra2k0x6dhqg796akwxk",
+                                        "ContentItemVersionId": null,
+                                        "ContentType": "PageLocation",
+                                        "DisplayText": "job-categories",
+                                        "Latest": false,
+                                        "Published": false,
+                                        "ModifiedUtc": "2020-07-16T13:43:53.6627996Z",
+                                        "PublishedUtc": null,
+                                        "CreatedUtc": null,
+                                        "Owner": null,
+                                        "Author": "admin",
+                                        "TitlePart": {
+                                            "Title": "job-categories"
+                                        },
+                                        "PageLocation": {
+                                            "BreadcrumbText": {
+                                                "Text": "Job Categories"
+                                            }
+                                        },
+                                        "GraphSyncPart": {
+                                            "Text": "<<contentapiprefix>>/pagelocation/e7cfa73a-9488-4f52-8ed0-3053f9df7127"
+                                        },
+                                        "TermPart": {
+                                            "TaxonomyContentItemId": "4eembshqzx66drajtdten34tc8"
+                                        },
+                                        "@WeldedPartSettings": {
+                                            "TermPart": {}
+                                        }
+                                    },
+                                    {
+                                        "ContentItemId": "4x352kh85x7894jr7yqbt0z34b",
+                                        "ContentItemVersionId": null,
+                                        "ContentType": "PageLocation",
+                                        "DisplayText": "job-profiles",
+                                        "Latest": false,
+                                        "Published": false,
+                                        "ModifiedUtc": "2020-07-16T13:43:53.6627996Z",
+                                        "PublishedUtc": null,
+                                        "CreatedUtc": null,
+                                        "Owner": null,
+                                        "Author": "admin",
+                                        "TitlePart": {
+                                            "Title": "job-profiles"
+                                        },
+                                        "PageLocation": {
+                                            "BreadcrumbText": {
+                                                "Text": "Job Profiles"
+                                            }
+                                        },
+                                        "GraphSyncPart": {
+                                            "Text": "<<contentapiprefix>>/pagelocation/b95bfc51-9d16-4cb7-836b-fef79a6e899a"
+                                        },
+                                        "TermPart": {
+                                            "TaxonomyContentItemId": "4eembshqzx66drajtdten34tc8"
+                                        },
+                                        "@WeldedPartSettings": {
+                                            "TermPart": {}
+                                        }
+                                    },
+                                    {
+                                        "ContentItemId": "4rk5qs3dmjc22t2wfvnvwe1p4x",
+                                        "ContentItemVersionId": null,
+                                        "ContentType": "PageLocation",
+                                        "DisplayText": "skills-assessment",
+                                        "Latest": false,
+                                        "Published": false,
+                                        "ModifiedUtc": "2020-07-16T13:43:53.6627996Z",
+                                        "PublishedUtc": null,
+                                        "CreatedUtc": null,
+                                        "Owner": null,
+                                        "Author": "admin",
+                                        "TitlePart": {
+                                            "Title": "skills-assessment"
+                                        },
+                                        "PageLocation": {
+                                            "BreadcrumbText": {
+                                                "Text": "Skills Assessment"
+                                            }
+                                        },
+                                        "GraphSyncPart": {
+                                            "Text": "<<contentapiprefix>>/pagelocation/3d54a890-4660-49ea-83d5-5a350e0bf177"
+                                        },
+                                        "TermPart": {
+                                            "TaxonomyContentItemId": "4eembshqzx66drajtdten34tc8"
+                                        },
+                                        "@WeldedPartSettings": {
+                                            "TermPart": {}
+                                        }
+                                    },
+                                    {
+                                        "ContentItemId": "4e1d03ztjhb1f76bew09dessxv",
+                                        "ContentItemVersionId": null,
+                                        "ContentType": "PageLocation",
+                                        "DisplayText": "careers-advice",
+                                        "Latest": false,
+                                        "Published": true,
+                                        "ModifiedUtc": "2021-04-07T08:06:37.6718972Z",
+                                        "PublishedUtc": null,
+                                        "CreatedUtc": null,
+                                        "Owner": null,
+                                        "Author": "admin",
+                                        "TitlePart": {
+                                            "Title": "careers-advice"
+                                        },
+                                        "PageLocation": {
+                                            "BreadcrumbText": {
+                                                "Text": "Careers advice"
+                                            }
+                                        },
+                                        "GraphSyncPart": {
+                                            "Text": "<<contentapiprefix>>/pagelocation/ec332576-6b05-4567-9d7d-376d64e65799"
+                                        },
+                                        "TermPart": {
+                                            "TaxonomyContentItemId": "4eembshqzx66drajtdten34tc8"
+                                        },
+                                        "@WeldedPartSettings": {
+                                            "TermPart": {}
+                                        },
+                                        "Terms": [
+                                            {
+                                                "ContentItemId": "44caqga4ypenf7455y8ykynj5x",
+                                                "ContentItemVersionId": null,
+                                                "ContentType": "PageLocation",
+                                                "DisplayText": "interview-advice",
+                                                "Latest": false,
+                                                "Published": true,
+                                                "ModifiedUtc": "2021-04-16T16:21:49.4151081Z",
+                                                "PublishedUtc": null,
+                                                "CreatedUtc": null,
+                                                "Owner": null,
+                                                "Author": "admin",
+                                                "TitlePart": {
+                                                    "Title": "interview-advice"
+                                                },
+                                                "PageLocation": {
+                                                    "BreadcrumbText": {
+                                                        "Text": "Interview advice"
+                                                    }
+                                                },
+                                                "GraphSyncPart": {
+                                                    "Text": "<<contentapiprefix>>/pagelocation/723f73fa-c289-42a5-84fa-c14a4670e96c"
+                                                },
+                                                "TermPart": {
+                                                    "TaxonomyContentItemId": "4eembshqzx66drajtdten34tc8"
+                                                },
+                                                "@WeldedPartSettings": {
+                                                    "TermPart": {}
+                                                }
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ],
+                        "TermContentType": "PageLocation"
+                    },
+                    "GraphSyncPart": {
+                        "Text": "<<contentapiprefix>>/taxonomy/9a9e10ca-7102-49bc-a792-74d131bf58fb"
+                    }
+                }
+            ]
+        }
+    ]
+}

@@ -1,4 +1,4 @@
-﻿namespace DFC.ServiceTaxonomy.Editor.Constants
+﻿namespace DFC.ServiceTaxonomy.CustomEditor.Constants
 {
     public static class ContentTypes
     {

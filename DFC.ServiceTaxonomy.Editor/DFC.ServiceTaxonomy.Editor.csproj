@@ -13,7 +13,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Remove="Views\Contents-Button-Edit.SummaryAdmin.cshtml" />
     <Content Remove="Views\ContentVisualise.Button.cshtml" />
     <Content Remove="Views\_ViewImports.cshtml" />
   </ItemGroup>
@@ -38,9 +37,6 @@
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
       <CopyToPublishDirectory>Never</CopyToPublishDirectory>
     </None>
-    <EmbeddedResource Include="Views\Contents-Button-Edit.SummaryAdmin.cshtml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
   </ItemGroup>
 
   <ItemGroup>
@@ -63,6 +59,7 @@
   <ItemGroup>
     <ProjectReference Include="..\DFC.ServiceTaxonomy.ContentPickerPreview\DFC.ServiceTaxonomy.ContentPickerPreview.csproj" />
     <ProjectReference Include="..\DFC.ServiceTaxonomy.Content\DFC.ServiceTaxonomy.Content.csproj" />
+    <ProjectReference Include="..\DFC.ServiceTaxonomy.CustomEditor\DFC.ServiceTaxonomy.CustomEditor.csproj" />
     <ProjectReference Include="..\DFC.ServiceTaxonomy.Cypher\DFC.ServiceTaxonomy.Cypher.csproj" />
     <ProjectReference Include="..\DFC.ServiceTaxonomy.CustomFields\DFC.ServiceTaxonomy.CustomFields.csproj" />
     <ProjectReference Include="..\DFC.ServiceTaxonomy.Events\DFC.ServiceTaxonomy.Events.csproj" />

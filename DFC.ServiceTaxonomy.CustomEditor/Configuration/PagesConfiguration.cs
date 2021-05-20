@@ -1,4 +1,4 @@
-﻿namespace DFC.ServiceTaxonomy.Editor.Configuration
+﻿namespace DFC.ServiceTaxonomy.CustomEditor.Configuration
 {
     public class PagesConfiguration
     {
