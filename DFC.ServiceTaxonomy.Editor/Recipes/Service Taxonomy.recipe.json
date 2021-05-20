@@ -562,6 +562,106 @@
                             }
                         }
                     ]
+                },
+                {
+                    "Name": "TriageToolFilter",
+                    "DisplayName": "Triage Tool Filter",
+                    "Settings": {
+                        "ContentTypeSettings": {
+                            "Creatable": true,
+                            "Listable": true,
+                            "Draftable": true
+                        },
+                        "FullTextAspectSettings": {}
+                    },
+                    "ContentTypePartDefinitionRecords": [
+                        {
+                            "PartName": "TriageToolFilter",
+                            "Name": "TriageToolFilter",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "1"
+                                }
+                            }
+                        },
+                        {
+                            "PartName": "GraphSyncPart",
+                            "Name": "GraphSyncPart",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "2"
+                                },
+                                "GraphSyncPartSettings": {
+                                    "NodeNameTransform": "ContentType",
+                                    "PropertyNameTransform": "Value",
+                                    "IdPropertyName": "uri",
+                                    "GenerateIdPropertyValue": "$\"<<contentapiprefix>>/{ContentType}/{Value}\".ToLowerInvariant()",
+                                    "DisplayId": true
+                                },
+                                "ContentIndexSettings": {}
+                            }
+                        },
+                        {
+                            "PartName": "TitlePart",
+                            "Name": "TitlePart",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "0"
+                                },
+                                "ContentIndexSettings": {},
+                                "TitlePartSettings": {}
+                            }
+                        }
+                    ]
+                },
+                {
+                    "Name": "TriageToolOption",
+                    "DisplayName": "Triage Tool Option",
+                    "Settings": {
+                        "ContentTypeSettings": {
+                            "Creatable": true,
+                            "Listable": true,
+                            "Draftable": true
+                        },
+                        "FullTextAspectSettings": {}
+                    },
+                    "ContentTypePartDefinitionRecords": [
+                        {
+                            "PartName": "TriageToolOption",
+                            "Name": "TriageToolOption",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "1"
+                                }
+                            }
+                        },
+                        {
+                            "PartName": "GraphSyncPart",
+                            "Name": "GraphSyncPart",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "2"
+                                },
+                                "GraphSyncPartSettings": {
+                                    "NodeNameTransform": "ContentType",
+                                    "PropertyNameTransform": "Value",
+                                    "IdPropertyName": "uri",
+                                    "GenerateIdPropertyValue": "$\"<<contentapiprefix>>/{ContentType}/{Value}\".ToLowerInvariant()",
+                                    "DisplayId": true
+                                },
+                                "ContentIndexSettings": {}
+                            }
+                        },
+                        {
+                            "PartName": "TitlePart",
+                            "Name": "TitlePart",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "0"
+                                }
+                            }
+                        }
+                    ]
                 }
             ],
             "ContentParts": [
@@ -773,6 +873,52 @@
                                 },
                                 "ContentIndexSettings": {}
                             }
+                        },
+                        {
+                            "FieldName": "HtmlField",
+                            "Name": "TriageToolSummary",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Triage Tool Summary",
+                                    "Editor": "Trumbowyg",
+                                    "Position": "3"
+                                },
+                                "HtmlFieldSettings": {},
+                                "ContentIndexSettings": {},
+                                "HtmlFieldTrumbowygEditorSettings": {
+                                    "Options": "{\r\n    autogrow: true,\r\n    btns: [\r\n        [\"viewHTML\"],\r\n        [\"undo\", \"redo\"],\r\n        [\"formatting\"],\r\n        [\"strong\", \"em\", \"del\"],\r\n        [\"foreColor\", \"backColor\"],\r\n        [\"superscript\", \"subscript\"],\r\n        [\"link\"],\r\n        [\"insertShortcode\"],\r\n        [\"image\"],\r\n        [\"align\"],\r\n        [\"unorderedList\", \"orderedList\"],\r\n        [\"horizontalRule\"],\r\n        [\"removeformat\"],\r\n        [\"fullscreen\"]\r\n    ],\r\n    btnsDef: {\r\n        align: {\r\n            dropdown: [\"justifyLeft\", \"justifyCenter\", \"justifyRight\", \"justifyFull\"],\r\n            ico: \"justifyLeft\"\r\n        },\r\n        image: {\r\n            dropdown: [\"insertImage\", \"base64\", \"noembed\"],\r\n            ico: \"insertImage\"\r\n        }\r\n    }\r\n}"
+                                }
+                            }
+                        },
+                        {
+                            "FieldName": "BooleanField",
+                            "Name": "UseInTriageTool",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Use In Triage Tool",
+                                    "Editor": "Switch",
+                                    "Position": "2"
+                                },
+                                "BooleanFieldSettings": {},
+                                "ContentIndexSettings": {}
+                            }
+                        },
+                        {
+                            "FieldName": "ContentPickerField",
+                            "Name": "TriageToolFilters",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Triage Tool Filters",
+                                    "Position": "1"
+                                },
+                                "ContentPickerFieldSettings": {
+                                    "Multiple": true,
+                                    "DisplayedContentTypes": [
+                                        "TriageToolFilter"
+                                    ]
+                                },
+                                "ContentIndexSettings": {}
+                            }
                         }
                     ]
                 },
@@ -957,6 +1103,29 @@
                             }
                         }
                     ]
+                },
+                {
+                    "Name": "TriageToolOption",
+                    "Settings": {},
+                    "ContentPartFieldDefinitionRecords": [
+                        {
+                            "FieldName": "ContentPickerField",
+                            "Name": "TriageToolFilters",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Triage Tool Filters",
+                                    "Position": "0"
+                                },
+                                "ContentPickerFieldSettings": {
+                                    "Multiple": true,
+                                    "DisplayedContentTypes": [
+                                        "TriageToolFilter"
+                                    ]
+                                },
+                                "ContentIndexSettings": {}
+                            }
+                        }
+                    ]
                 }
             ]
         },
@@ -976,21 +1145,81 @@
                         ]
                     }
                 ],
-                "TextField_Edit": [
+                "FlowPart_Edit": [
                     {
-                        "place": "Parts:1#Metadata;0",
+                        "place": "Parts:2#Content;1",
                         "displayType": null,
-                        "differentiator": "Page-Description",
+                        "differentiator": null,
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null,
+                        "contentType": [
+                            "Page"
+                        ]
+                    }
+                ],
+                "SitemapPart_Edit": [
+                    {
+                        "place": "Parts:0#SEO;2",
+                        "displayType": null,
+                        "differentiator": null,
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null,
+                        "contentType": [
+                            "Page"
+                        ]
+                    }
+                ],
+                "BooleanField_Edit": [
+                    {
+                        "place": "Parts:0#Content;1",
+                        "displayType": null,
+                        "differentiator": "Page-ShowBreadcrumb",
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null
+                    },
+                    {
+                        "place": "Parts:1#Content;1",
+                        "displayType": null,
+                        "differentiator": "Page-ShowHeroBanner",
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null
+                    },
+                    {
+                        "place": "Parts:0#Triage Tool;3",
+                        "displayType": null,
+                        "differentiator": "Page-UseInTriageTool",
                         "alternates": null,
                         "wrappers": null,
                         "shape": null
                     }
                 ],
-                "TaxonomyField_Edit": [
+                "HtmlField_Edit": [
                     {
-                        "place": "Parts:2#Metadata;0",
+                        "place": "Parts:2#Content;1",
                         "displayType": null,
-                        "differentiator": "Page-PageLocations",
+                        "differentiator": "Page-Herobanner",
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null
+                    },
+                    {
+                        "place": "Parts:1#Triage Tool;3",
+                        "displayType": null,
+                        "differentiator": "Page-TriageToolSummary",
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null
+                    }
+                ],
+                "ShowHeroBanner_Edit": [
+                    {
+                        "place": "Parts:1#Content;1",
+                        "displayType": null,
+                        "differentiator": "Page-ShowHeroBanner",
                         "alternates": null,
                         "wrappers": null,
                         "shape": null
@@ -1022,7 +1251,7 @@
                         ]
                     }
                 ],
-                "BooleanField_Edit": [
+                "ShowBreadcrumb_Edit": [
                     {
                         "place": "Parts:0#Content;1",
                         "displayType": null,
@@ -1030,50 +1259,64 @@
                         "alternates": null,
                         "wrappers": null,
                         "shape": null
+                    }
+                ],
+                "TextField_Edit": [
+                    {
+                        "place": "Parts:1#Metadata;0",
+                        "displayType": null,
+                        "differentiator": "Page-Description",
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null
+                    }
+                ],
+                "TaxonomyField_Edit": [
+                    {
+                        "place": "Parts:2#Metadata;0",
+                        "displayType": null,
+                        "differentiator": "Page-PageLocations",
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null
+                    }
+                ],
+                "TriageToolFilters_Edit": [
+                    {
+                        "place": "Parts:2#Triage Tool;3",
+                        "displayType": null,
+                        "differentiator": null,
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null
+                    }
+                ],
+                "ContentPickerField_Edit": [
+                    {
+                        "place": "Parts:2#Triage Tool;3",
+                        "displayType": null,
+                        "differentiator": "Page-TriageToolFilters",
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null
+                    }
+                ],
+                "NumericField_Edit": [
+                    {
+                        "place": "Parts:10#Content;0",
+                        "displayType": null,
+                        "differentiator": "JobProfile-MinimumHours",
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null
                     },
                     {
-                        "place": "Parts:1#Content;1",
+                        "place": "Parts:11#Content;0",
                         "displayType": null,
-                        "differentiator": "Page-ShowHeroBanner",
+                        "differentiator": "JobProfile-MaximumHours",
                         "alternates": null,
                         "wrappers": null,
                         "shape": null
-                    }
-                ],
-                "HtmlField_Edit": [
-                    {
-                        "place": "Parts:2#Content;1",
-                        "displayType": null,
-                        "differentiator": "Page-Herobanner",
-                        "alternates": null,
-                        "wrappers": null,
-                        "shape": null
-                    }
-                ],
-                "FlowPart_Edit": [
-                    {
-                        "place": "Parts:2#Content;1",
-                        "displayType": null,
-                        "differentiator": null,
-                        "alternates": null,
-                        "wrappers": null,
-                        "shape": null,
-                        "contentType": [
-                            "Page"
-                        ]
-                    }
-                ],
-                "SitemapPart_Edit": [
-                    {
-                        "place": "Parts:0#SEO;2",
-                        "displayType": null,
-                        "differentiator": null,
-                        "alternates": null,
-                        "wrappers": null,
-                        "shape": null,
-                        "contentType": [
-                            "Page"
-                        ]
                     }
                 ]
             }
@@ -1170,4 +1413,4 @@
             ]
         }
     ]
-        }
+}
