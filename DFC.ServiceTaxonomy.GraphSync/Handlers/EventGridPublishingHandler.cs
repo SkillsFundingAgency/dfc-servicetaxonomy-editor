@@ -98,9 +98,10 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers
             return PublishContentEvent(context, ContentEventType.Deleted);
         }
 
-        public Task DraftDiscarded(IOrchestrationContext context)
+        public async Task DraftDiscarded(IOrchestrationContext context)
         {
-            return PublishContentEvent(context, ContentEventType.DraftDiscarded);
+            await PublishContentEvent(context, ContentEventType.DraftDiscarded);
+            await PublishContentEvent(context, ContentEventType.Published);
         }
 
         #pragma warning disable S4144
