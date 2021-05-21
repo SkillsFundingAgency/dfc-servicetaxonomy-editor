@@ -4,20 +4,20 @@ parameters:
 steps:
 - task: ExtractFiles@1
   displayName: Extract TestSuite artifact
-  condition: in('${{ parameters.Environment }}', 'DEV_SERVICETAXONOMY', 'SIT_SERVICETAXONOMY')
+  condition: in('${{ parameters.Environment }}', 'LAB_SERVICETAXONOMY', 'DEV_SERVICETAXONOMY', 'SIT_SERVICETAXONOMY')
   inputs:
     archiveFilePatterns: '$(Pipeline.Workspace)/DFC.ServiceTaxonomy.IntegrationTests.DeploymentPackages/DeploymentPackages/DFC.ServiceTaxonomy.IntegrationTests.zip' 
     destinationFolder: $(System.DefaultWorkingDirectory)/DFC.ServiceTaxonomy.IntegrationTests/
     cleanDestinationFolder: true
 - task: esfadevops.Tokenization.custom-build-task.Tokenization@0
   displayName: 'Tokenization: Transform file appsettings.json'
-  condition: in('${{ parameters.Environment }}', 'DEV_SERVICETAXONOMY', 'SIT_SERVICETAXONOMY')
+  condition: in('${{ parameters.Environment }}', 'LAB_SERVICETAXONOMY', 'DEV_SERVICETAXONOMY', 'SIT_SERVICETAXONOMY')
   inputs:
     SourcePath: $(System.DefaultWorkingDirectory)/DFC.ServiceTaxonomy.IntegrationTests
     TargetFileNames: appsettings.json
 - task: VSTest@2
   displayName: 'VsTest - run IntegrationTests'
-  condition: in('${{ parameters.Environment }}', 'DEV_SERVICETAXONOMY', 'SIT_SERVICETAXONOMY')
+  condition: in('${{ parameters.Environment }}', 'LAB_SERVICETAXONOMY', 'DEV_SERVICETAXONOMY', 'SIT_SERVICETAXONOMY')
   inputs:
     testAssemblyVer2: |
       **\DFC.ServiceTaxonomy.IntegrationTests.dll

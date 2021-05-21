@@ -150,8 +150,45 @@ stages:
               nuGetFeedType: external
               publishFeedCredentials: 'DFC Nuget'
 
-- stage: DeployToDev
+- stage: DeployToLab
   condition: and(eq(dependencies.Build.result,'Succeeded'), ne(variables['Build.Reason'], 'PullRequest'))
+  displayName: Deploy to LAB_SERVICETAXONOMY
+  variables:
+  - group: dfc-shared-all
+  - group: dfc-stax-shared-all
+  - group: dfc-shared-lab
+  - group: dfc-app-shared-lab
+  - group: dfc-stax-shared-lab
+  - group: 'KeyVault - dfc-lab-shared-kv'
+  - template: VariableTemplates/SharedEnvironmentVariables.yml
+  - template: VariableTemplates/LabEnvironmentVariables.yml
+  jobs:
+  - template: JobTemplates/deploy-environment.yml
+    parameters:
+      AzureSubscription: 'SFA-CDH-Dev/Test (962cae10-2950-412a-93e3-d8ae92b17896)'
+      Environment: LAB_SERVICETAXONOMY
+      EnvironmentRef: lab
+      PackageFile:  "$(Agent.BuildDirectory)/DFC.ServiceTaxonomy.Editor/DeploymentPackages/DFC.ServiceTaxonomy.Editor.zip"
+      ArmTemplateFolder: "$(Agent.BuildDirectory)/DFC.ServiceTaxonomy.Editor/Azure/ArmTemplates/"
+      Location: 'West Europe'
+      EnvironmentTag: '$(EnvironmentTag)'
+      ParentBusinessTag: '$(ParentBusiness)'
+      ServiceOfferingTag: '$(ServiceOffering)'
+      ResourceGroup: '$(ResourceGroup)'
+      WebAppName: '$(WebAppName)'
+      OrchardCoreUri: 'https://$(WebAppName).azurewebsites.net/'
+      EditorAdminUsername: $(OrchardEditorAdminUserName)
+      EditorAdminUserEmail: $(EditorAdminUserEmail)
+      EditorAdminUserPassword: $(OrchardEditorAdminPassword)
+      DFCAzureDevOpsProjectGuid: $(DFCAzureDevOpsProjectGuid)
+      DfcServiceTaxonomyTestsBuildId: $(DfcServiceTaxonomyTestsBuildId)
+      TestArtifactBranch: ${{ parameters.DfcServiceTaxonomyTestBranch }}
+      TestExclusionTag: 'NotDev'
+      MediaStorageAccountName: $(MediaStorageAccountName)
+      PSScriptPath: "$(Pipeline.Workspace)/${{ variables.SolutionBaseName }}.Editor.Resources.PSScripts"
+
+- stage: DeployToDev
+  condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'))
   displayName: Deploy to DEV_SERVICETAXONOMY
   variables:
   - group: dfc-shared-all
