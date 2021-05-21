@@ -1,0 +1,68 @@
+{
+  "name": "ApprenticeshipLinks0_b585883f-f641-44fb-9355-023bb6372f19",
+  "displayName": "ApprenticeshipLinks0_b585883f-f641-44fb-9355-023bb6372f19",
+  "description": "",
+  "author": "",
+  "website": "",
+  "version": "",
+  "issetuprecipe": false,
+  "categories": "",
+  "tags": [],
+  "steps": [
+    {
+      "name": "ContentNoCache",
+      "data": [
+  {
+    "ApprenticeshipLink": {
+      "Link": {
+        "Url": "https://www.gov.uk/what-different-qualification-levels-mean/list-of-qualification-levels",
+        "Text": "equivalent entry requirements"
+      }
+    },
+    "TitlePart": {
+      "Title": "Show Equiv Entry Reqs"
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/apprenticeshiplink/af81979d-d4bb-4583-964b-5ad33298ea8e"
+    },
+    "ContentItemId": "4s2qz3hsdn6720zjtqvn3wj646",
+    "ContentItemVersionId": "490q95y4504vxzfhszsrd1b5x4",
+    "ContentType": "ApprenticeshipLink",
+    "DisplayText": "Show Equiv Entry Reqs",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-05-02T20:22:18.5740957Z",
+    "PublishedUtc": "2021-05-02T20:22:18.5740957Z",
+    "CreatedUtc": "2021-05-02T20:22:18.5740957Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "ApprenticeshipLink": {
+      "Link": {
+        "Url": "https://www.gov.uk/apprenticeships-guide",
+        "Text": "guide to apprenticeships"
+      }
+    },
+    "TitlePart": {
+      "Title": "Show Apprenticeship Guide"
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/apprenticeshiplink/0f90f5b5-398a-4e9e-95d8-6b7de4bc5ca2"
+    },
+    "ContentItemId": "4t8d2nn56sa2qvbjpvqhrpk8n8",
+    "ContentItemVersionId": "47bbp3zs2eykjsztk82etjkfce",
+    "ContentType": "ApprenticeshipLink",
+    "DisplayText": "Show Apprenticeship Guide",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-05-02T20:22:18.5740957Z",
+    "PublishedUtc": "2021-05-02T20:22:18.5740957Z",
+    "CreatedUtc": "2021-05-02T20:22:18.5740957Z",
+    "Owner": "admin",
+    "Author": "admin"
+  }
+      ]
+    }
+  ]
+}

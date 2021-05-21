@@ -1,0 +1,186 @@
+{
+  "name": "WorkingLocations0_e3bf8492-804f-41d4-ba27-7cc061e1243e",
+  "displayName": "WorkingLocations0_e3bf8492-804f-41d4-ba27-7cc061e1243e",
+  "description": "",
+  "author": "",
+  "website": "",
+  "version": "",
+  "issetuprecipe": false,
+  "categories": "",
+  "tags": [],
+  "steps": [
+    {
+      "name": "ContentNoCache",
+      "data": [
+  {
+    "TitlePart": {
+      "Title": "from home, at a hospice, in a therapy clinic, at a GP practice or in an NHS or private hospital"
+    },
+    "WorkingLocation": {
+      "Description": {
+        "Html": "\u003Cp\u003Efrom home, at a hospice, in a therapy clinic, at a GP practice or in an NHS or private hospital\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/workinglocation/1379ccb4-fe11-439f-a598-f53ed7036f31"
+    },
+    "ContentItemId": "4eap25yckvb262g7cbcpvzsqwb",
+    "ContentItemVersionId": "4pyn2cekhjqsmv7mk5c5yjknxe",
+    "ContentType": "WorkingLocation",
+    "DisplayText": "from home, at a hospice, in a therapy clinic, at a GP practice or in an NHS or private hospital",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-05-03T23:47:22.1611826Z",
+    "PublishedUtc": "2021-05-03T23:47:22.1611826Z",
+    "CreatedUtc": "2021-05-03T23:47:22.1611826Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "at a manufacturing plant, in a factory or at a research facility"
+    },
+    "WorkingLocation": {
+      "Description": {
+        "Html": "\u003Cp\u003Eat a manufacturing plant, in a factory or at a research facility\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/workinglocation/4f8e003c-e48e-495d-9624-9220c638026a"
+    },
+    "ContentItemId": "44q50ffkt32dh0t9c08fn5eh51",
+    "ContentItemVersionId": "4zmvc4yn06eny1ky3q1n28gync",
+    "ContentType": "WorkingLocation",
+    "DisplayText": "at a manufacturing plant, in a factory or at a research facility",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-05-03T23:47:22.1611826Z",
+    "PublishedUtc": "2021-05-03T23:47:22.1611826Z",
+    "CreatedUtc": "2021-05-03T23:47:22.1611826Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "in an office or at a client\u0027s business"
+    },
+    "WorkingLocation": {
+      "Description": {
+        "Html": "\u003Cp\u003Ein an office or at a client\u0027s business\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/workinglocation/e76b9f99-702f-4375-a84f-4a44178edcc5"
+    },
+    "ContentItemId": "40ay0gn1rgmk80vswsf6xdhrxr",
+    "ContentItemVersionId": "4hm8gbvrxh10c78wttk6hdapm9",
+    "ContentType": "WorkingLocation",
+    "DisplayText": "in an office or at a client\u0027s business",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-05-03T23:47:22.1611826Z",
+    "PublishedUtc": "2021-05-03T23:47:22.1611826Z",
+    "CreatedUtc": "2021-05-03T23:47:22.1611826Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "in the community or at an adult care home"
+    },
+    "WorkingLocation": {
+      "Description": {
+        "Html": "\u003Cp\u003Ein the community or at an adult care home\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/workinglocation/4aa88e97-481e-4880-811b-b11e93bfbddf"
+    },
+    "ContentItemId": "4aadabpf8mkd6462awpwghk5w8",
+    "ContentItemVersionId": "47vcvtayva7acxmzj34denfkds",
+    "ContentType": "WorkingLocation",
+    "DisplayText": "in the community or at an adult care home",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-05-03T23:47:22.1611826Z",
+    "PublishedUtc": "2021-05-03T23:47:22.1611826Z",
+    "CreatedUtc": "2021-05-03T23:47:22.1611826Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "at a recording studio, in the community, in a theatre or on a film set"
+    },
+    "WorkingLocation": {
+      "Description": {
+        "Html": "\u003Cp\u003Eat a recording studio, in the community, in a theatre or on a film set\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/workinglocation/1766bc0b-286d-4e23-ab98-d0322712d418"
+    },
+    "ContentItemId": "4gvd6kag2qd1jseq1bbys33em9",
+    "ContentItemVersionId": "43te7r77kj9r8y013cdntbsq46",
+    "ContentType": "WorkingLocation",
+    "DisplayText": "at a recording studio, in the community, in a theatre or on a film set",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-05-03T23:47:22.1611826Z",
+    "PublishedUtc": "2021-05-03T23:47:22.1611826Z",
+    "CreatedUtc": "2021-05-03T23:47:22.1611826Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Office"
+    },
+    "WorkingLocation": {
+      "Description": {
+        "Html": "\u003Cp\u003Ein an office\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/workinglocation/2faf463b-4ee6-4c79-a70f-34f21835b142"
+    },
+    "ContentItemId": "4tchbdbve41wbygcqds4gb8vx8",
+    "ContentItemVersionId": "4ty945xc053652fcbtfjke64mf",
+    "ContentType": "WorkingLocation",
+    "DisplayText": "Office",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-05-03T23:47:22.1611826Z",
+    "PublishedUtc": "2021-05-03T23:47:22.1611826Z",
+    "CreatedUtc": "2021-05-03T23:47:22.1611826Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "in an office, at a client\u0027s business or in a laboratory"
+    },
+    "WorkingLocation": {
+      "Description": {
+        "Html": "\u003Cp\u003Ein an office, at a client\u0027s business or in a laboratory\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/workinglocation/c54ce6ab-c140-488e-ba57-31e082262fb5"
+    },
+    "ContentItemId": "4d272vzthn61m29tjg6vkj5cw2",
+    "ContentItemVersionId": "4qw0qk80t7swdw7bj5mp9x0qdn",
+    "ContentType": "WorkingLocation",
+    "DisplayText": "in an office, at a client\u0027s business or in a laboratory",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-05-03T23:47:22.1611826Z",
+    "PublishedUtc": "2021-05-03T23:47:22.1611826Z",
+    "CreatedUtc": "2021-05-03T23:47:22.1611826Z",
+    "Owner": "admin",
+    "Author": "admin"
+  }
+      ]
+    }
+  ]
+}

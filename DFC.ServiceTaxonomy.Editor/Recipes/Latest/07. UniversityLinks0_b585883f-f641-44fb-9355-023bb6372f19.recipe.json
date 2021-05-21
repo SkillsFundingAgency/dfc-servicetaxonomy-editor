@@ -1,0 +1,118 @@
+{
+  "name": "UniversityLinks0_b585883f-f641-44fb-9355-023bb6372f19",
+  "displayName": "UniversityLinks0_b585883f-f641-44fb-9355-023bb6372f19",
+  "description": "",
+  "author": "",
+  "website": "",
+  "version": "",
+  "issetuprecipe": false,
+  "categories": "",
+  "tags": [],
+  "steps": [
+    {
+      "name": "ContentNoCache",
+      "data": [
+  {
+    "UniversityLink": {
+      "Link": {
+        "Url": "https://www.gov.uk/student-finance",
+        "Text": "student finance for fees and living costs"
+      }
+    },
+    "TitlePart": {
+      "Title": "Show Student finance"
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/universitylink/ab075668-65d5-42c8-afa4-bb7449f5b135"
+    },
+    "ContentItemId": "4qa05h9h0y76qz7jcg65mxmjcz",
+    "ContentItemVersionId": "427qg20t1hybyvnf9p2bzpye44",
+    "ContentType": "UniversityLink",
+    "DisplayText": "Show Student finance",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-05-02T20:22:18.5740957Z",
+    "PublishedUtc": "2021-05-02T20:22:18.5740957Z",
+    "CreatedUtc": "2021-05-02T20:22:18.5740957Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "UniversityLink": {
+      "Link": {
+        "Url": "https://www.ucas.com/",
+        "Text": "university courses and entry requirements"
+      }
+    },
+    "TitlePart": {
+      "Title": "Show UCAS info"
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/universitylink/7b7c1559-5220-491c-bad4-b46e77eee575"
+    },
+    "ContentItemId": "4jg4t8bzzzwe8w2kkths60w9dd",
+    "ContentItemVersionId": "4emdh899cjrh61jye32yst1m4c",
+    "ContentType": "UniversityLink",
+    "DisplayText": "Show UCAS info",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-05-02T20:22:18.5740957Z",
+    "PublishedUtc": "2021-05-02T20:22:18.5740957Z",
+    "CreatedUtc": "2021-05-02T20:22:18.5740957Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "UniversityLink": {
+      "Link": {
+        "Url": "https://www.ucas.com/conservatoires",
+        "Text": "search for conservatoire courses"
+      }
+    },
+    "TitlePart": {
+      "Title": "UCAS Conservatoires"
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/universitylink/229cf238-5013-48b6-a110-62e8ffa210eb"
+    },
+    "ContentItemId": "44sybh4ecwy5d1bwcjj13xtdws",
+    "ContentItemVersionId": "4a2tj5hge0bma60ac7mhdaze4x",
+    "ContentType": "UniversityLink",
+    "DisplayText": "UCAS Conservatoires",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-05-02T20:22:18.5740957Z",
+    "PublishedUtc": "2021-05-02T20:22:18.5740957Z",
+    "CreatedUtc": "2021-05-02T20:22:18.5740957Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "UniversityLink": {
+      "Link": {
+        "Url": "https://www.gov.uk/what-different-qualification-levels-mean/list-of-qualification-levels",
+        "Text": "equivalent entry requirements"
+      }
+    },
+    "TitlePart": {
+      "Title": "Show Equiv Entry Reqs"
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/universitylink/9ffb1953-aa81-46c1-931b-2b9fd489c5a3"
+    },
+    "ContentItemId": "4nmt8ve75kcm8135y55czg6md4",
+    "ContentItemVersionId": "4fydbtpjqzf1w6r6t80zrgv9wk",
+    "ContentType": "UniversityLink",
+    "DisplayText": "Show Equiv Entry Reqs",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-05-02T20:22:18.5740957Z",
+    "PublishedUtc": "2021-05-02T20:22:18.5740957Z",
+    "CreatedUtc": "2021-05-02T20:22:18.5740957Z",
+    "Owner": "admin",
+    "Author": "admin"
+  }
+      ]
+    }
+  ]
+}

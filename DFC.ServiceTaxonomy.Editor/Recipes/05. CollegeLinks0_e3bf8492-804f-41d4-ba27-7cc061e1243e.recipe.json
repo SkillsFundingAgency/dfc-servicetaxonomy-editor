@@ -1,0 +1,118 @@
+{
+  "name": "CollegeLinks0_e3bf8492-804f-41d4-ba27-7cc061e1243e",
+  "displayName": "CollegeLinks0_e3bf8492-804f-41d4-ba27-7cc061e1243e",
+  "description": "",
+  "author": "",
+  "website": "",
+  "version": "",
+  "issetuprecipe": false,
+  "categories": "",
+  "tags": [],
+  "steps": [
+    {
+      "name": "ContentNoCache",
+      "data": [
+  {
+    "CollegeLink": {
+      "Link": {
+        "Url": "https://www.gov.uk/what-different-qualification-levels-mean/list-of-qualification-levels",
+        "Text": "equivalent entry requirements"
+      }
+    },
+    "TitlePart": {
+      "Title": "Show Equiv Entry Reqs"
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/collegelink/4a81878b-a0e1-4b69-8b7c-b5cf491eedf3"
+    },
+    "ContentItemId": "4p5gky47en4cw571pq98sn24mh",
+    "ContentItemVersionId": "4r83fy63gd62h2d2qnqwgvy7m7",
+    "ContentType": "CollegeLink",
+    "DisplayText": "Show Equiv Entry Reqs",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-05-03T23:47:22.1611826Z",
+    "PublishedUtc": "2021-05-03T23:47:22.1611826Z",
+    "CreatedUtc": "2021-05-03T23:47:22.1611826Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "CollegeLink": {
+      "Link": {
+        "Url": "https://www.tlevels.gov.uk/",
+        "Text": "guide to T levels"
+      }
+    },
+    "TitlePart": {
+      "Title": "Guide to T levels"
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/collegelink/bcc6c8d2-b099-4a46-b0a2-1185c0b7e817"
+    },
+    "ContentItemId": "4s3fhjkwkbw6jzxh2g8733fbd2",
+    "ContentItemVersionId": "4zahrbtxna2zg4rc4bdjg5yznz",
+    "ContentType": "CollegeLink",
+    "DisplayText": "Guide to T levels",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-05-03T23:47:22.1611826Z",
+    "PublishedUtc": "2021-05-03T23:47:22.1611826Z",
+    "CreatedUtc": "2021-05-03T23:47:22.1611826Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "CollegeLink": {
+      "Link": {
+        "Url": "/find-a-course",
+        "Text": "search for courses"
+      }
+    },
+    "TitlePart": {
+      "Title": "Find a course"
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/collegelink/070b25a3-d8a4-4dcf-8754-858030565e91"
+    },
+    "ContentItemId": "4a9djpqsnw1k14pd2jv53k3qnp",
+    "ContentItemVersionId": "4rnj5ypvpy8fzs55w9hhz0dxc2",
+    "ContentType": "CollegeLink",
+    "DisplayText": "Find a course",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-05-03T23:47:22.1611826Z",
+    "PublishedUtc": "2021-05-03T23:47:22.1611826Z",
+    "CreatedUtc": "2021-05-03T23:47:22.1611826Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "CollegeLink": {
+      "Link": {
+        "Url": "https://www.gov.uk/further-education-courses/financial-help",
+        "Text": "funding advice"
+      }
+    },
+    "TitlePart": {
+      "Title": "Financial Help FE"
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/collegelink/a0f08ffe-5bd9-42d9-b624-c4860e37cb52"
+    },
+    "ContentItemId": "4xt0bjf1q1v8hr4at2d45v2zmj",
+    "ContentItemVersionId": "4h0aankgybbzns0nnnynn1nfw2",
+    "ContentType": "CollegeLink",
+    "DisplayText": "Financial Help FE",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-05-03T23:47:22.1611826Z",
+    "PublishedUtc": "2021-05-03T23:47:22.1611826Z",
+    "CreatedUtc": "2021-05-03T23:47:22.1611826Z",
+    "Owner": "admin",
+    "Author": "admin"
+  }
+      ]
+    }
+  ]
+}

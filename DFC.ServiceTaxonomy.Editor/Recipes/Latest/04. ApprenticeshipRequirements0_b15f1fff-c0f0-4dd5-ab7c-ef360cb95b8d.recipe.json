@@ -1,0 +1,114 @@
+{
+  "name": "ApprenticeshipRequirements0_b15f1fff-c0f0-4dd5-ab7c-ef360cb95b8d",
+  "displayName": "ApprenticeshipRequirements0_b15f1fff-c0f0-4dd5-ab7c-ef360cb95b8d",
+  "description": "",
+  "author": "",
+  "website": "",
+  "version": "",
+  "issetuprecipe": false,
+  "categories": "",
+  "tags": [],
+  "steps": [
+    {
+      "name": "ContentNoCache",
+      "data": [
+  {
+    "TitlePart": {
+      "Title": "Advanced apprenticeship entry reqs"
+    },
+    "ApprenticeshipRequirement": {
+      "Description": {
+        "Html": "\u003Cp\u003E5 GCSEs at grades 9 to 4 (A* to C), or equivalent, including English and maths, for an advanced apprenticeship\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/apprenticeshiprequirement/fc9739b1-2757-442b-89fd-b78319dc1fe3"
+    },
+    "ContentItemId": "4pa4z7r91jaed7n95686s38x4k",
+    "ContentItemVersionId": "4mhw3bm2y22xht2cccdem2de4j",
+    "ContentType": "ApprenticeshipRequirement",
+    "DisplayText": "Advanced apprenticeship entry reqs",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-05-02T19:54:43.9722943Z",
+    "PublishedUtc": "2021-05-02T19:54:43.9722943Z",
+    "CreatedUtc": "2021-05-02T19:54:43.9722943Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Intermediate apprenticeship entry reqs"
+    },
+    "ApprenticeshipRequirement": {
+      "Description": {
+        "Html": "\u003Cp\u003Esome GCSEs, usually including English and maths, or equivalent, for an intermediate apprenticeship\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/apprenticeshiprequirement/e84aafeb-1376-43ba-8419-a606e34a65bd"
+    },
+    "ContentItemId": "4xrfgnq6m78s4ssfxtyfg21vm7",
+    "ContentItemVersionId": "4517a6hz057w1wva53sea9dex5",
+    "ContentType": "ApprenticeshipRequirement",
+    "DisplayText": "Intermediate apprenticeship entry reqs",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-05-02T19:54:43.9722943Z",
+    "PublishedUtc": "2021-05-02T19:54:43.9722943Z",
+    "CreatedUtc": "2021-05-02T19:54:43.9722943Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Higher or degree apprenticeships"
+    },
+    "ApprenticeshipRequirement": {
+      "Description": {
+        "Html": "\u003Cp\u003E4 or 5 GCSEs at grades 9 to 4 (A* to C) and A levels, or equivalent, for a higher or degree apprenticeship\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/apprenticeshiprequirement/5725e844-9d52-4bda-bfbc-594d60a2044e"
+    },
+    "ContentItemId": "4x3pskyx7bb6s6cs8m6qx7hhmh",
+    "ContentItemVersionId": "46k2b0297w9r86zb2v5sekacms",
+    "ContentType": "ApprenticeshipRequirement",
+    "DisplayText": "Higher or degree apprenticeships",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-05-02T19:54:43.9722943Z",
+    "PublishedUtc": "2021-05-02T19:54:43.9722943Z",
+    "CreatedUtc": "2021-05-02T19:54:43.9722943Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "2 or more A levels incl M-S"
+    },
+    "ApprenticeshipRequirement": {
+      "Description": {
+        "Html": "\u003Cp\u003E2 or more A levels, or equivalent, including maths and science, for a higher or degree apprenticeship\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/apprenticeshiprequirement/a5e6eadf-922d-4a43-bb6e-5407480c06f7"
+    },
+    "ContentItemId": "4t7he3av7s00m4ebmgybvn1zw2",
+    "ContentItemVersionId": "4gh6s92djv6ppvxrhrhffvx9m4",
+    "ContentType": "ApprenticeshipRequirement",
+    "DisplayText": "2 or more A levels incl M-S",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-05-02T19:54:43.9722943Z",
+    "PublishedUtc": "2021-05-02T19:54:43.9722943Z",
+    "CreatedUtc": "2021-05-02T19:54:43.9722943Z",
+    "Owner": "admin",
+    "Author": "admin"
+  }
+      ]
+    }
+  ]
+}

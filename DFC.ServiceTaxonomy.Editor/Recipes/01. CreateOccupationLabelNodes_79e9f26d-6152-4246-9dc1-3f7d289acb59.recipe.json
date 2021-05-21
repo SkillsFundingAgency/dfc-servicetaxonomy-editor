@@ -1,0 +1,19 @@
+{
+    "name": "CreateOccupationLabelNodes_79e9f26d-6152-4246-9dc1-3f7d289acb59",
+    "displayName": "CreateOccupationLabelNodes_79e9f26d-6152-4246-9dc1-3f7d289acb59",
+    "description": "",
+    "author": "",
+    "website": "",
+    "version": "",
+    "issetuprecipe": false,
+    "categories": "",
+    "tags": [],
+    "steps": [
+        {
+            "name": "CypherCommand",
+            "commands": [
+                "with 4 as hexLength\r\nmatch (o:esco__Occupation)\r\n\r\nunwind o.skos__altLabel as altLabels\r\nwith o, altLabels, hexLength, '0x' + right( o.uri, hexLength) as baseHexCode\r\nwith o, altLabels, hexLength, baseHexCode, toLower(apoc.text.hexValue( apoc.convert.toInteger(baseHexCode) + apoc.coll.indexOf(o.skos__altLabel,altLabels) + 2)) as replacementChars, left(right( o.uri, 36),36 - hexLength) as trimmedUri, 0 as zero\r\nwith o, altLabels, replacementChars, trimmedUri + right (replacementChars,hexLength ) as newUri\r\ncreate (al:OccupationLabel:Resource {skos__prefLabel: altLabels, uri: \"<<contentapiprefix>>/occupationlabel/\" + newUri})\r\ncreate (o)-[:hasAltLabel]->(al)"
+            ]
+        }
+    ]
+}

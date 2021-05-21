@@ -1,0 +1,66 @@
+﻿{
+    "name": "01_DefaultHomePage",
+    "displayName": "01_DefaultHomePage",
+    "description": "",
+    "author": "",
+    "website": "",
+    "version": "",
+    "issetuprecipe": false,
+    "categories": [],
+    "tags": [],
+    "steps": [
+        {
+            "name": "contentnocache",
+            "data": [
+                {
+                    "ContentItemId": "48566466e5ne13m8htm8emacmx",
+                    "ContentItemVersionId": "47j6zbbpp84aw0jc7f0xk57y5n",
+                    "ContentType": "Page",
+                    "DisplayText": "Dummy Homepage",
+                    "Latest": true,
+                    "Published": true,
+                    "ModifiedUtc": "2020-12-03T09:02:18.5872998Z",
+                    "PublishedUtc": "2020-12-03T09:02:18.6648398Z",
+                    "CreatedUtc": "2020-12-03T09:02:18.5872998Z",
+                    "Owner": "StaxEditorAdmin",
+                    "Author": "StaxEditorAdmin",
+                    "TitlePart": {
+                        "Title": "Dummy Homepage"
+                    },
+                    "Page": {
+                        "PageLocations": {
+                            "TaxonomyContentItemId": "4eembshqzx66drajtdten34tc8",
+                            "TermContentItemIds": [
+                                "4y3qc9f2r818z1df41a1yryvny"
+                            ]
+                        },
+                        "Description": {
+                            "Text": ""
+                        },
+                        "Herobanner": {
+                            "Html": ""
+                        }
+                    },
+                    "SitemapPart": {
+                        "Priority": 1,
+                        "OverrideSitemapConfig": false,
+                        "ChangeFrequency": 0,
+                        "Exclude": false
+                    },
+                    "FlowPart": {
+                        "Widgets": []
+                    },
+                    "GraphSyncPart": {
+                        "Text": "<<contentapiprefix>>/page/29c55f23-eed4-49c9-84ce-42a9270e0772"
+                    },
+                    "PageLocationPart": {
+                        "UrlName": "dummy-homepage",
+                        "DefaultPageForLocation": true,
+                        "RedirectLocations": null,
+                        "FullUrl": "/dummy-homepage"
+                    }
+                }
+            ]
+        }
+    ]
+}

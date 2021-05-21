@@ -1,0 +1,138 @@
+{
+  "name": "DirectRoutes0_b585883f-f641-44fb-9355-023bb6372f19",
+  "displayName": "DirectRoutes0_b585883f-f641-44fb-9355-023bb6372f19",
+  "description": "",
+  "author": "",
+  "website": "",
+  "version": "",
+  "issetuprecipe": false,
+  "categories": "",
+  "tags": [],
+  "steps": [
+    {
+      "name": "ContentNoCache",
+      "data": [
+  {
+    "TitlePart": {
+      "Title": "Actor"
+    },
+    "DirectRoute": {
+      "Description": {
+        "Html": "\u003Cp\u003EYou may be able to find work by applying directly for roles if you have a lot of experience and exceptional acting talent.\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/directroute/fdbac6fe-1602-4333-a94e-c8825e2c73b3"
+    },
+    "ContentItemId": "4d4b1ezsdpzc7w5bk3xrg3jrdv",
+    "ContentItemVersionId": "48m3tv5peewt804fn3amwe8xcg",
+    "ContentType": "DirectRoute",
+    "DisplayText": "Actor",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-05-02T20:22:18.5740957Z",
+    "PublishedUtc": "2021-05-02T20:22:18.5740957Z",
+    "CreatedUtc": "2021-05-02T20:22:18.5740957Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Actuary"
+    },
+    "DirectRoute": {
+      "Description": {
+        "Html": "\u003Cp\u003EYou may be able to switch to actuarial work from a related profession, like risk management, financial services or business analysis. You would then follow an employer training programme to qualify.\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/directroute/21b21740-316e-48b9-9789-958b119fbc12"
+    },
+    "ContentItemId": "4tgc59kegvmjvy3psvdk14k2d8",
+    "ContentItemVersionId": "4srzvvf99r690tjxdk6x7nctc8",
+    "ContentType": "DirectRoute",
+    "DisplayText": "Actuary",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-05-02T20:22:18.5740957Z",
+    "PublishedUtc": "2021-05-02T20:22:18.5740957Z",
+    "CreatedUtc": "2021-05-02T20:22:18.5740957Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Accounting technician"
+    },
+    "DirectRoute": {
+      "Description": {
+        "Html": "\u003Cp\u003EYou can apply directly to employers if you have some of the relevant skills and knowledge needed for this role.\u003C/p\u003E\u003Cp\u003EEmployers are likely to look for up to five GCSEs at grades 9 to 4 (A* to C), including English and maths. A level business studies, maths, economics, or equivalent qualifications, could also be useful.\u003C/p\u003E\u003Cp\u003EPrevious experience of office work or working in an accounts or finance department would be helpful.  Experience of using accounting software or spreadsheets could also give you an advantage when looking for work.\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/directroute/00dc70f3-a20d-4876-ba7f-aab50fd159d5"
+    },
+    "ContentItemId": "4taq7dch1sjga0318gckakebc3",
+    "ContentItemVersionId": "4exxtthq4w3xz1e9wq1s9459cd",
+    "ContentType": "DirectRoute",
+    "DisplayText": "Accounting technician",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-05-02T20:22:18.5740957Z",
+    "PublishedUtc": "2021-05-02T20:22:18.5740957Z",
+    "CreatedUtc": "2021-05-02T20:22:18.5740957Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Admin assistant"
+    },
+    "DirectRoute": {
+      "Description": {
+        "Html": "\u003Cp\u003EYou could apply directly to become an admin assistant.\u003C/p\u003E\u003Cp\u003EEmployers may expect you to have:\u003Cul\u003E\u003Cli\u003EGCSEs at grades 9 to 4 (A* to C), or equivalent qualifications, including English and maths\u003C/li\u003E\u003Cli\u003Etelephone, typing or IT skills\u003C/li\u003E\u003C/ul\u003E\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/directroute/fa7a7e8b-1231-4a98-b2b7-90608014aa25"
+    },
+    "ContentItemId": "4x7f5m071axfjtjszagwc271xs",
+    "ContentItemVersionId": "4be5sk909gwfkxv8drp0df9sxn",
+    "ContentType": "DirectRoute",
+    "DisplayText": "Admin assistant",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-05-02T20:22:18.5740957Z",
+    "PublishedUtc": "2021-05-02T20:22:18.5740957Z",
+    "CreatedUtc": "2021-05-02T20:22:18.5740957Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Accommodation warden"
+    },
+    "DirectRoute": {
+      "Description": {
+        "Html": "\u003Cp\u003ETo apply directly, you\u0027ll usually need some GCSEs or equivalent, including English and maths.\u003C/p\u003E\u003Cp\u003EYou\u0027ll also find it helpful to have paid or unpaid experience of working with vulnerable groups and experience of working in a care setting.\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/directroute/00326574-8d5f-4b83-ad83-c65bd3e5ab02"
+    },
+    "ContentItemId": "4h9tbg609jgkp5q22ra5g7dw41",
+    "ContentItemVersionId": "442es1chngh2q3kt557ga6an4n",
+    "ContentType": "DirectRoute",
+    "DisplayText": "Accommodation warden",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-05-02T20:22:18.5740957Z",
+    "PublishedUtc": "2021-05-02T20:22:18.5740957Z",
+    "CreatedUtc": "2021-05-02T20:22:18.5740957Z",
+    "Owner": "admin",
+    "Author": "admin"
+  }
+      ]
+    }
+  ]
+}

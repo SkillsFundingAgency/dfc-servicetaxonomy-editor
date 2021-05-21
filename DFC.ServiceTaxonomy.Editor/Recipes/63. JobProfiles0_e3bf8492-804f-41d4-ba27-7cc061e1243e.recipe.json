@@ -1,0 +1,1426 @@
+{
+  "name": "JobProfiles0_e3bf8492-804f-41d4-ba27-7cc061e1243e",
+  "displayName": "JobProfiles0_e3bf8492-804f-41d4-ba27-7cc061e1243e",
+  "description": "",
+  "author": "",
+  "website": "",
+  "version": "",
+  "issetuprecipe": false,
+  "categories": "",
+  "tags": [],
+  "steps": [
+    {
+      "name": "CSharpContent",
+      "data": [
+  {
+    "TitlePart": {
+      "Title": "3D printing technician"
+    },
+    "PageLocationPart": {
+      "UrlName": "3d-printing-technician",
+      "FullUrl": "/job-profiles/3d-printing-technician",
+      "DefaultPageForLocation": false,
+      "RedirectLocations": null
+    },
+    "JobProfile": {
+      "AlternativeTitle": {
+        "Text": ""
+      },
+      "HiddenAlternativeTitle": {
+        "Text": "additive manufacturing engineer"
+      },
+      "PageLocations": {
+        "TaxonomyContentItemId": "4eembshqzx66drajtdten34tc8",
+        "TermContentItemIds": [
+          "4x352kh85x7894jr7yqbt0z34b"
+        ]
+      },
+      "Description": {
+        "Html": "\u003Cp\u003E3D printing technicians manufacture products, including biomedical implants, car parts, aerospace components and fashion accessories.\u003C/p\u003E"
+      },
+      "TitleOptions": {
+        "Text": "As Defined"
+      },
+      "SOCCode": {
+        "ContentItemIds": [
+          "442k4dc3db9qn4p51x2wgy8ewe"
+        ]
+      },
+      "ONetOccupationalCode": {
+        "ContentItemIds": [
+          "4f8t2nmfzjhwx7k618rnptkk4b"
+        ]
+      },
+      "SalaryStarter": {
+        "Text": "18000"
+      },
+      "SalaryExperienced": {
+        "Text": "33000"
+      },
+      "MinimumHours": {
+        "Value": 37.0
+      },
+      "MaximumHours": {
+        "Value": 42.0
+      },
+      "WorkingHoursDetails": {
+        "Text": "a week"
+      },
+      "WorkingPattern": {
+        "Text": "between 8am and 6pm"
+      },
+      "WorkingPatternDetails": {
+        "Text": "on a rota"
+      },
+      "ApprenticeshipRoute": {
+        "ContentItemIds": [
+          "4d8bws81gcj5nwqzr9jv51k2xk"
+        ]
+      },
+      "CollegeRoute": {
+        "ContentItemIds": [
+          "47k7sme4hfedbsqc0msn9445mz"
+        ]
+      },
+      "UniversityRoute": {
+        "ContentItemIds": [
+          "4e0c37pzwht1pyrcwywgrq67wz"
+        ]
+      },
+      "DirectRoute": {
+        "ContentItemIds": []
+      },
+      "OtherRoute": {
+        "ContentItemIds": []
+      },
+      "VolunteeringRoute": {
+        "ContentItemIds": []
+      },
+      "WorkRoute": {
+        "ContentItemIds": [
+          "4zghc2dxknsvaw077txx1wwjnr"
+        ]
+      },
+      "HtbProfessionalBodies": {
+        "Html": ""
+      },
+      "HtbCareerTips": {
+        "Html": "\u003Cp\u003ELearn more about the \u003Ca href=\u0022https://3dprintingindustry.com/3d-printing-basics-free-beginners-guide\u0022\u003Ebasics of 3D printing\u003C/a\u003E.\u003C/p\u003E"
+      },
+      "HtbFurtherInformation": {
+        "Html": "\u003Cp\u003EYou can get details about working in 3D printing and design engineering from the\n\u003Ca href=\u0022https://www.britishprint.com\u0022\u003EBritish Printing Industries Federation\u003C/a\u003E and\n\u003Ca href=\u0022https://www.tomorrowsengineers.org.uk/students/why-should-i-become-an-engineer/\u0022\u003ETomorrow\u0027s Engineers\u003C/a\u003E.\u003C/p\u003E"
+      },
+      "HtbRegistrations": {
+        "ContentItemIds": []
+      },
+      "WitRestrictions": {
+        "ContentItemIds": []
+      },
+      "WitOtherRequirements": {
+        "ContentItemIds": []
+      },
+      "WitDigitalSkillsLevel": null,
+      "WydDayToDayTasks": null,
+      "WydWorkingEnvironment": {
+        "ContentItemIds": [
+          "493fsmdm2fx0tzqqy2rff702wq"
+        ]
+      },
+      "WydWorkingLocation": {
+        "ContentItemIds": [
+          "44q50ffkt32dh0t9c08fn5eh51"
+        ]
+      },
+      "WydWorkingUniform": {
+        "ContentItemIds": [
+          "4474vb6xm3yg9xr61bex835zm7"
+        ]
+      },
+      "CareerPathAndProgression": null,
+      "ApprenticeshipStandards": null,
+      "RelatedCareers": null
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/jobprofile/9beeb350-490c-4bf4-8b4a-4b38c0b6cdbc"
+    },
+    "ContentItemId": "4kww3zfj45395smtda2xs9q0db",
+    "ContentItemVersionId": "4tcyj5a1zwvvv489wc1ck5qqmc",
+    "ContentType": "JobProfile",
+    "DisplayText": "3D printing technician",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-05-03T23:47:22.1611826Z",
+    "PublishedUtc": "2021-05-03T23:47:22.1611826Z",
+    "CreatedUtc": "2021-05-03T23:47:22.1611826Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Accommodation warden"
+    },
+    "PageLocationPart": {
+      "UrlName": "accommodation-warden",
+      "FullUrl": "/job-profiles/accommodation-warden",
+      "DefaultPageForLocation": false,
+      "RedirectLocations": null
+    },
+    "JobProfile": {
+      "AlternativeTitle": {
+        "Text": "Property manager, hall manager"
+      },
+      "HiddenAlternativeTitle": {
+        "Text": ""
+      },
+      "PageLocations": {
+        "TaxonomyContentItemId": "4eembshqzx66drajtdten34tc8",
+        "TermContentItemIds": [
+          "4x352kh85x7894jr7yqbt0z34b"
+        ]
+      },
+      "Description": {
+        "Html": "\u003Cp\u003EAccommodation wardens manage the day-to-day running of services like sheltered housing, youth hostels and student flats.\u003C/p\u003E"
+      },
+      "TitleOptions": {
+        "Text": "As Defined"
+      },
+      "SOCCode": {
+        "ContentItemIds": [
+          "4y339yhe2kqhx7a49mzjvcf0m8"
+        ]
+      },
+      "ONetOccupationalCode": {
+        "ContentItemIds": [
+          "46k6b0j0hp72v5ac7x12am1h4r"
+        ]
+      },
+      "SalaryStarter": {
+        "Text": "15000"
+      },
+      "SalaryExperienced": {
+        "Text": "40000"
+      },
+      "MinimumHours": {
+        "Value": 38.0
+      },
+      "MaximumHours": {
+        "Value": 40.0
+      },
+      "WorkingHoursDetails": {
+        "Text": "a week"
+      },
+      "WorkingPattern": {
+        "Text": "evenings / weekends"
+      },
+      "WorkingPatternDetails": {
+        "Text": "at short notice"
+      },
+      "ApprenticeshipRoute": {
+        "ContentItemIds": [
+          "4crvbnm899eg8sp46vhpcby9c0"
+        ]
+      },
+      "CollegeRoute": {
+        "ContentItemIds": [
+          "4fnp7ac8hhejq67790kc1r7955"
+        ]
+      },
+      "UniversityRoute": {
+        "ContentItemIds": []
+      },
+      "DirectRoute": {
+        "ContentItemIds": [
+          "4wp70hb9tw836y941jqe9tk7m5"
+        ]
+      },
+      "OtherRoute": {
+        "ContentItemIds": []
+      },
+      "VolunteeringRoute": {
+        "ContentItemIds": [
+          "4wbhe2ndj9jw8xpsyjzwtg66xf"
+        ]
+      },
+      "WorkRoute": {
+        "ContentItemIds": [
+          "4znfdwnc444w8v3b63xnbf77n2"
+        ]
+      },
+      "HtbProfessionalBodies": {
+        "Html": ""
+      },
+      "HtbCareerTips": {
+        "Html": ""
+      },
+      "HtbFurtherInformation": {
+        "Html": "\u003Cp\u003EYou can find out more about working as a warden from the \u003Ca href=\u0022http://www.cih.org/\u0022\u003EChartered Institute of Housing\u003C/a\u003E.\u003C/p\u003E"
+      },
+      "HtbRegistrations": {
+        "ContentItemIds": []
+      },
+      "WitRestrictions": {
+        "ContentItemIds": [
+          "4q2rgccg66g80w3ek2qs6jenmq"
+        ]
+      },
+      "WitOtherRequirements": {
+        "ContentItemIds": []
+      },
+      "WitDigitalSkillsLevel": null,
+      "WydDayToDayTasks": null,
+      "WydWorkingEnvironment": {
+        "ContentItemIds": []
+      },
+      "WydWorkingLocation": {
+        "ContentItemIds": [
+          "4aadabpf8mkd6462awpwghk5w8"
+        ]
+      },
+      "WydWorkingUniform": {
+        "ContentItemIds": []
+      },
+      "CareerPathAndProgression": null,
+      "ApprenticeshipStandards": null,
+      "RelatedCareers": null
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/jobprofile/c755317c-916f-49b3-ac53-22e1e4e56cc8"
+    },
+    "ContentItemId": "4t5p1psp5nkyh5j6nkx40e6z45",
+    "ContentItemVersionId": "47xc4w5m5x6ea6sbhenxf7kkw3",
+    "ContentType": "JobProfile",
+    "DisplayText": "Accommodation warden",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-05-03T23:47:22.1611826Z",
+    "PublishedUtc": "2021-05-03T23:47:22.1611826Z",
+    "CreatedUtc": "2021-05-03T23:47:22.1611826Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Accounting technician"
+    },
+    "PageLocationPart": {
+      "UrlName": "accounting-technician",
+      "FullUrl": "/job-profiles/accounting-technician",
+      "DefaultPageForLocation": false,
+      "RedirectLocations": null
+    },
+    "JobProfile": {
+      "AlternativeTitle": {
+        "Text": ""
+      },
+      "HiddenAlternativeTitle": {
+        "Text": ""
+      },
+      "PageLocations": {
+        "TaxonomyContentItemId": "4eembshqzx66drajtdten34tc8",
+        "TermContentItemIds": [
+          "4x352kh85x7894jr7yqbt0z34b"
+        ]
+      },
+      "Description": {
+        "Html": "\u003Cp\u003EAccounting technicians handle day-to-day financial matters in all types of business.\u003C/p\u003E"
+      },
+      "TitleOptions": {
+        "Text": "As Defined"
+      },
+      "SOCCode": {
+        "ContentItemIds": [
+          "4yz25p5xr0prttekgcs371s7dd"
+        ]
+      },
+      "ONetOccupationalCode": {
+        "ContentItemIds": [
+          "4904hw9js39p4wrekqns1m91c7"
+        ]
+      },
+      "SalaryStarter": {
+        "Text": "18000"
+      },
+      "SalaryExperienced": {
+        "Text": "32000"
+      },
+      "MinimumHours": {
+        "Value": 37.0
+      },
+      "MaximumHours": {
+        "Value": 39.0
+      },
+      "WorkingHoursDetails": {
+        "Text": "a week"
+      },
+      "WorkingPattern": {
+        "Text": "between 8am and 6pm"
+      },
+      "WorkingPatternDetails": {
+        "Text": null
+      },
+      "ApprenticeshipRoute": {
+        "ContentItemIds": [
+          "4cay8gvp7cvt453x234qxc3kc6"
+        ]
+      },
+      "CollegeRoute": {
+        "ContentItemIds": [
+          "4eree3t7fw60j6160dsvccf8nx"
+        ]
+      },
+      "UniversityRoute": {
+        "ContentItemIds": []
+      },
+      "DirectRoute": {
+        "ContentItemIds": [
+          "41t4qwqsjzzxd2xp5y9gsm6wnr"
+        ]
+      },
+      "OtherRoute": {
+        "ContentItemIds": []
+      },
+      "VolunteeringRoute": {
+        "ContentItemIds": []
+      },
+      "WorkRoute": {
+        "ContentItemIds": [
+          "44x59zs8n79m70exw12ecc9r51"
+        ]
+      },
+      "HtbProfessionalBodies": {
+        "Html": ""
+      },
+      "HtbCareerTips": {
+        "Html": ""
+      },
+      "HtbFurtherInformation": {
+        "Html": "\u003Cp\u003EYou can find out more about careers in accountancy from the\u00A0\u003Ca href=\u0022https://yourfuture.accaglobal.com/global/en/your-career/sectors-industries-roles.html/\u0022\u003EAssociation of Chartered Certified Accountants\u003C/a\u003E.\u003C/p\u003E"
+      },
+      "HtbRegistrations": {
+        "ContentItemIds": []
+      },
+      "WitRestrictions": {
+        "ContentItemIds": []
+      },
+      "WitOtherRequirements": {
+        "ContentItemIds": []
+      },
+      "WitDigitalSkillsLevel": null,
+      "WydDayToDayTasks": null,
+      "WydWorkingEnvironment": {
+        "ContentItemIds": []
+      },
+      "WydWorkingLocation": {
+        "ContentItemIds": [
+          "4tchbdbve41wbygcqds4gb8vx8"
+        ]
+      },
+      "WydWorkingUniform": {
+        "ContentItemIds": []
+      },
+      "CareerPathAndProgression": null,
+      "ApprenticeshipStandards": null,
+      "RelatedCareers": null
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/jobprofile/0dd91027-c057-47b7-9dc5-aaf1514afc3a"
+    },
+    "ContentItemId": "48e1nkrt1fb0822jhrddrq67mb",
+    "ContentItemVersionId": "4rqqq39bj9ghn3svbechjbcd48",
+    "ContentType": "JobProfile",
+    "DisplayText": "Accounting technician",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-05-03T23:47:22.1611826Z",
+    "PublishedUtc": "2021-05-03T23:47:22.1611826Z",
+    "CreatedUtc": "2021-05-03T23:47:22.1611826Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Acoustics consultant"
+    },
+    "PageLocationPart": {
+      "UrlName": "acoustics-consultant",
+      "FullUrl": "/job-profiles/acoustics-consultant",
+      "DefaultPageForLocation": false,
+      "RedirectLocations": null
+    },
+    "JobProfile": {
+      "AlternativeTitle": {
+        "Text": "Acoustician, acoustics engineer"
+      },
+      "HiddenAlternativeTitle": {
+        "Text": ""
+      },
+      "PageLocations": {
+        "TaxonomyContentItemId": "4eembshqzx66drajtdten34tc8",
+        "TermContentItemIds": [
+          "4x352kh85x7894jr7yqbt0z34b"
+        ]
+      },
+      "Description": {
+        "Html": "\u003Cp\u003EAcoustics consultants help manage and control noise and vibrations in homes, workplaces and other environments.\u003C/p\u003E"
+      },
+      "TitleOptions": {
+        "Text": "As Defined"
+      },
+      "SOCCode": {
+        "ContentItemIds": [
+          "440wegghjnjxn3hxt26e8sewma"
+        ]
+      },
+      "ONetOccupationalCode": {
+        "ContentItemIds": [
+          "4xtegmnjbx51k3r0t2vh123f59"
+        ]
+      },
+      "SalaryStarter": {
+        "Text": "18000"
+      },
+      "SalaryExperienced": {
+        "Text": "50000"
+      },
+      "MinimumHours": {
+        "Value": 39.0
+      },
+      "MaximumHours": {
+        "Value": 41.0
+      },
+      "WorkingHoursDetails": {
+        "Text": "variable"
+      },
+      "WorkingPattern": {
+        "Text": "evenings / weekends"
+      },
+      "WorkingPatternDetails": {
+        "Text": "away from home"
+      },
+      "ApprenticeshipRoute": {
+        "ContentItemIds": [
+          "4t5ewng64r4xjvhygpcga8nex7"
+        ]
+      },
+      "CollegeRoute": {
+        "ContentItemIds": []
+      },
+      "UniversityRoute": {
+        "ContentItemIds": [
+          "47nspwz3ktsg3y6q2q72dzwgms"
+        ]
+      },
+      "DirectRoute": {
+        "ContentItemIds": []
+      },
+      "OtherRoute": {
+        "ContentItemIds": []
+      },
+      "VolunteeringRoute": {
+        "ContentItemIds": []
+      },
+      "WorkRoute": {
+        "ContentItemIds": [
+          "4ert8yhr0jkwx6jcy99zk688df"
+        ]
+      },
+      "HtbProfessionalBodies": {
+        "Html": ""
+      },
+      "HtbCareerTips": {
+        "Html": ""
+      },
+      "HtbFurtherInformation": {
+        "Html": "\u003Cp\u003EYou can find out more about becoming an acoustics consultant from the \u003Ca href=\u0022https://www.ioa.org.uk/careers\u0022\u003EInstitute of Acoustics\u003C/a\u003E.\u003C/p\u003E"
+      },
+      "HtbRegistrations": {
+        "ContentItemIds": []
+      },
+      "WitRestrictions": {
+        "ContentItemIds": []
+      },
+      "WitOtherRequirements": {
+        "ContentItemIds": []
+      },
+      "WitDigitalSkillsLevel": null,
+      "WydDayToDayTasks": null,
+      "WydWorkingEnvironment": {
+        "ContentItemIds": []
+      },
+      "WydWorkingLocation": {
+        "ContentItemIds": [
+          "4d272vzthn61m29tjg6vkj5cw2"
+        ]
+      },
+      "WydWorkingUniform": {
+        "ContentItemIds": [
+          "4k96xe95cs6n1w0vawncey5gwe"
+        ]
+      },
+      "CareerPathAndProgression": null,
+      "ApprenticeshipStandards": null,
+      "RelatedCareers": null
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/jobprofile/54923b46-8956-48a5-9918-19211437f666"
+    },
+    "ContentItemId": "4r8tzsdzgszwg2ptfg4kjyqgx1",
+    "ContentItemVersionId": "4rvrzfk166d4p3j4dsh18k4fde",
+    "ContentType": "JobProfile",
+    "DisplayText": "Acoustics consultant",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-05-03T23:47:22.1611826Z",
+    "PublishedUtc": "2021-05-03T23:47:22.1611826Z",
+    "CreatedUtc": "2021-05-03T23:47:22.1611826Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Actor"
+    },
+    "PageLocationPart": {
+      "UrlName": "actor",
+      "FullUrl": "/job-profiles/actor",
+      "DefaultPageForLocation": false,
+      "RedirectLocations": null
+    },
+    "JobProfile": {
+      "AlternativeTitle": {
+        "Text": ""
+      },
+      "HiddenAlternativeTitle": {
+        "Text": ""
+      },
+      "PageLocations": {
+        "TaxonomyContentItemId": "4eembshqzx66drajtdten34tc8",
+        "TermContentItemIds": [
+          "4x352kh85x7894jr7yqbt0z34b"
+        ]
+      },
+      "Description": {
+        "Html": "\u003Cp\u003EActors use speech, movement and expression to bring characters to life in theatre, film, television and radio.\u003C/p\u003E"
+      },
+      "TitleOptions": {
+        "Text": "As Defined"
+      },
+      "SOCCode": {
+        "ContentItemIds": [
+          "4ky3v53zyb23d2bvvs1sj3pmdm"
+        ]
+      },
+      "ONetOccupationalCode": {
+        "ContentItemIds": [
+          "447gtfv7c6bht1apm5h2qrhx4q"
+        ]
+      },
+      "SalaryStarter": {
+        "Text": "variable"
+      },
+      "SalaryExperienced": {
+        "Text": "variable"
+      },
+      "MinimumHours": {
+        "Value": 45.0
+      },
+      "MaximumHours": {
+        "Value": 47.0
+      },
+      "WorkingHoursDetails": {
+        "Text": "irregular"
+      },
+      "WorkingPattern": {
+        "Text": "evenings / weekends / bank holidays"
+      },
+      "WorkingPatternDetails": {
+        "Text": "away from home"
+      },
+      "ApprenticeshipRoute": {
+        "ContentItemIds": []
+      },
+      "CollegeRoute": {
+        "ContentItemIds": [
+          "45prff5xvj2gzw9gcaa9z2bdmz"
+        ]
+      },
+      "UniversityRoute": {
+        "ContentItemIds": [
+          "4170dqr4cvpznrgjs1vj557adg"
+        ]
+      },
+      "DirectRoute": {
+        "ContentItemIds": [
+          "40pszq5tvyz7f25w7syvx71pd2"
+        ]
+      },
+      "OtherRoute": {
+        "ContentItemIds": [
+          "4qjjw8ah74qv729s8pv2c6nzd7"
+        ]
+      },
+      "VolunteeringRoute": {
+        "ContentItemIds": [
+          "4nnw2z27y9e2d16wvmrwbm3ncc"
+        ]
+      },
+      "WorkRoute": {
+        "ContentItemIds": []
+      },
+      "HtbProfessionalBodies": {
+        "Html": "\u003Cp\u003EYou can join \u003Ca href=\u0022https://www.equity.org.uk/getting-involved/\u0022\u003EEquity\u003C/a\u003E for professional recognition, training opportunities and to make industry contacts.\u003C/p\u003E"
+      },
+      "HtbCareerTips": {
+        "Html": "\u003Cp\u003EYou\u0027ll need to get as much practical experience of acting as you can, and create a showreel to demonstrate your acting skills to agents and casting directors.\u003C/p\u003E"
+      },
+      "HtbFurtherInformation": {
+        "Html": "\u003Cp\u003EYou can find out more about becoming an actor through \u003Ca href=\u0022https://getintotheatre.org/\u0022\u003EGet into Theatre\u003C/a\u003E and \u003Ca href=\u0022https://discovercreative.careers/#/\u0022\u003EDiscover Creative Careers\u003C/a\u003E.\u003C/p\u003E\u003Cp\u003EYou can also get extra support from organisations like \u003Ca href=\u0022https://www.shapearts.org.uk/\u0022\u003EShape Arts\u003C/a\u003E, if you have a disability or special learning need.\u003C/p\u003E"
+      },
+      "HtbRegistrations": {
+        "ContentItemIds": []
+      },
+      "WitRestrictions": {
+        "ContentItemIds": []
+      },
+      "WitOtherRequirements": {
+        "ContentItemIds": []
+      },
+      "WitDigitalSkillsLevel": null,
+      "WydDayToDayTasks": null,
+      "WydWorkingEnvironment": {
+        "ContentItemIds": [
+          "454rmqgcz666xv7gqztk0wqrxp"
+        ]
+      },
+      "WydWorkingLocation": {
+        "ContentItemIds": [
+          "4gvd6kag2qd1jseq1bbys33em9"
+        ]
+      },
+      "WydWorkingUniform": {
+        "ContentItemIds": []
+      },
+      "CareerPathAndProgression": null,
+      "ApprenticeshipStandards": null,
+      "RelatedCareers": null
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/jobprofile/ec82c9f0-7224-47ae-a601-60a204b9c73d"
+    },
+    "ContentItemId": "47rntpbrzjqqv0epkvtn39dd55",
+    "ContentItemVersionId": "4bg74ydaq37k8s1055z328xdwh",
+    "ContentType": "JobProfile",
+    "DisplayText": "Actor",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-05-03T23:47:22.1611826Z",
+    "PublishedUtc": "2021-05-03T23:47:22.1611826Z",
+    "CreatedUtc": "2021-05-03T23:47:22.1611826Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Actuary"
+    },
+    "PageLocationPart": {
+      "UrlName": "actuary",
+      "FullUrl": "/job-profiles/actuary",
+      "DefaultPageForLocation": false,
+      "RedirectLocations": null
+    },
+    "JobProfile": {
+      "AlternativeTitle": {
+        "Text": "Actuarial analyst"
+      },
+      "HiddenAlternativeTitle": {
+        "Text": ""
+      },
+      "PageLocations": {
+        "TaxonomyContentItemId": "4eembshqzx66drajtdten34tc8",
+        "TermContentItemIds": [
+          "4x352kh85x7894jr7yqbt0z34b"
+        ]
+      },
+      "Description": {
+        "Html": "\u003Cp\u003EActuaries work with companies and government departments, to help them forecast long-term financial costs and investment risks.\u003C/p\u003E"
+      },
+      "TitleOptions": {
+        "Text": "As Defined"
+      },
+      "SOCCode": {
+        "ContentItemIds": [
+          "4p0j2ym1tmd21s1c63jwnyvxns"
+        ]
+      },
+      "ONetOccupationalCode": {
+        "ContentItemIds": [
+          "45dn35hqa7f61s5b072hqnd1nv"
+        ]
+      },
+      "SalaryStarter": {
+        "Text": "30000"
+      },
+      "SalaryExperienced": {
+        "Text": "70000"
+      },
+      "MinimumHours": {
+        "Value": 37.0
+      },
+      "MaximumHours": {
+        "Value": 39.0
+      },
+      "WorkingHoursDetails": {
+        "Text": "a week"
+      },
+      "WorkingPattern": {
+        "Text": "between 8am and 6pm"
+      },
+      "WorkingPatternDetails": {
+        "Text": null
+      },
+      "ApprenticeshipRoute": {
+        "ContentItemIds": [
+          "49j5fm22bnyq97ymmeq5na8xn7"
+        ]
+      },
+      "CollegeRoute": {
+        "ContentItemIds": []
+      },
+      "UniversityRoute": {
+        "ContentItemIds": [
+          "4w3yk1xg50mky5ksw948r5b25h"
+        ]
+      },
+      "DirectRoute": {
+        "ContentItemIds": [
+          "4t1a78s43z91tvctzbs3hx8mwy"
+        ]
+      },
+      "OtherRoute": {
+        "ContentItemIds": []
+      },
+      "VolunteeringRoute": {
+        "ContentItemIds": [
+          "4grvp9a89zcr7wj0w71zew6rwa"
+        ]
+      },
+      "WorkRoute": {
+        "ContentItemIds": []
+      },
+      "HtbProfessionalBodies": {
+        "Html": "\u003Cp\u003EYou can join the \u003Ca href=\u0022https://www.actuaries.org.uk/membership/types-membership\u0022\u003EInstitute and Faculty of Actuaries\u003C/a\u003E to begin training and to take professional exams as you progress.\u003C/p\u003E"
+      },
+      "HtbCareerTips": {
+        "Html": ""
+      },
+      "HtbFurtherInformation": {
+        "Html": "\u003Cp\u003EYou\u0027ll find more details about careers in the actuarial profession, training and case studies from the \u003Ca href=\u0022https://www.actuaries.org.uk/become-actuary\u0022\u003EInstitute and Faculty of Actuaries\u003C/a\u003E.\u003C/p\u003E"
+      },
+      "HtbRegistrations": {
+        "ContentItemIds": []
+      },
+      "WitRestrictions": {
+        "ContentItemIds": []
+      },
+      "WitOtherRequirements": {
+        "ContentItemIds": []
+      },
+      "WitDigitalSkillsLevel": null,
+      "WydDayToDayTasks": null,
+      "WydWorkingEnvironment": {
+        "ContentItemIds": []
+      },
+      "WydWorkingLocation": {
+        "ContentItemIds": [
+          "4tchbdbve41wbygcqds4gb8vx8"
+        ]
+      },
+      "WydWorkingUniform": {
+        "ContentItemIds": []
+      },
+      "CareerPathAndProgression": null,
+      "ApprenticeshipStandards": null,
+      "RelatedCareers": null
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/jobprofile/ccb0b7bb-f090-44db-a060-06f73af07e4a"
+    },
+    "ContentItemId": "4knc8y72hev2ny99tk08ggc3d0",
+    "ContentItemVersionId": "46c5427rnnzd0vrdf337eh91ns",
+    "ContentType": "JobProfile",
+    "DisplayText": "Actuary",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-05-03T23:47:22.1611826Z",
+    "PublishedUtc": "2021-05-03T23:47:22.1611826Z",
+    "CreatedUtc": "2021-05-03T23:47:22.1611826Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Acupuncturist"
+    },
+    "PageLocationPart": {
+      "UrlName": "acupuncturist",
+      "FullUrl": "/job-profiles/acupuncturist",
+      "DefaultPageForLocation": false,
+      "RedirectLocations": null
+    },
+    "JobProfile": {
+      "AlternativeTitle": {
+        "Text": ""
+      },
+      "HiddenAlternativeTitle": {
+        "Text": ""
+      },
+      "PageLocations": {
+        "TaxonomyContentItemId": "4eembshqzx66drajtdten34tc8",
+        "TermContentItemIds": [
+          "4x352kh85x7894jr7yqbt0z34b"
+        ]
+      },
+      "Description": {
+        "Html": "\u003Cp\u003EAcupuncturists insert needles into pressure points on clients\u0027 bodies to help relieve everyday stresses, and improve their wellbeing.\u003C/p\u003E"
+      },
+      "TitleOptions": {
+        "Text": "As Defined"
+      },
+      "SOCCode": {
+        "ContentItemIds": [
+          "43a3x466s60qz3qfhtvb57r5dv"
+        ]
+      },
+      "ONetOccupationalCode": {
+        "ContentItemIds": [
+          "4h31vh3tc8m3f59f9px0gajhdk"
+        ]
+      },
+      "SalaryStarter": {
+        "Text": "variable"
+      },
+      "SalaryExperienced": {
+        "Text": "variable"
+      },
+      "MinimumHours": {
+        "Value": 37.0
+      },
+      "MaximumHours": {
+        "Value": 39.0
+      },
+      "WorkingHoursDetails": {
+        "Text": "variable"
+      },
+      "WorkingPattern": {
+        "Text": "freelance / self-employed test"
+      },
+      "WorkingPatternDetails": {
+        "Text": "managing your own hours"
+      },
+      "ApprenticeshipRoute": {
+        "ContentItemIds": []
+      },
+      "CollegeRoute": {
+        "ContentItemIds": []
+      },
+      "UniversityRoute": {
+        "ContentItemIds": []
+      },
+      "DirectRoute": {
+        "ContentItemIds": []
+      },
+      "OtherRoute": {
+        "ContentItemIds": [
+          "4a1vz4mm39pb94kxkc8rzxk2da"
+        ]
+      },
+      "VolunteeringRoute": {
+        "ContentItemIds": []
+      },
+      "WorkRoute": {
+        "ContentItemIds": []
+      },
+      "HtbProfessionalBodies": {
+        "Html": "\u003Cp\u003EWork is currently ongoing for the statutory regulation of acupuncturists.\u003C/p\u003E\u003Cp\u003EYou may find it useful to join organisations like the \u003Ca href=\u0022https://admissions.acupuncture.org.uk/\u0022\u003EBritish Acupuncture Council\u003C/a\u003E and \u003Ca href=\u0022https://www.cnhc.org.uk/\u0022\u003EComplementary and Natural Healthcare Council\u003C/a\u003E, for professional recognition, training opportunities and to make industry contacts.\u003C/p\u003E"
+      },
+      "HtbCareerTips": {
+        "Html": ""
+      },
+      "HtbFurtherInformation": {
+        "Html": "\u003Cp\u003EYou can find out more about acupuncture careers from the \u003Ca href=\u0022https://www.baab.co.uk/studying-acupuncture/acupuncture-as-a-career.html\u0022\u003EBritish Acupuncture Accreditation Board\u003C/a\u003E and the \u003Ca href=\u0022http://www.acupuncture.org.uk/\u0022\u003EBritish Acupuncture Council\u003C/a\u003E.\u003C/p\u003E"
+      },
+      "HtbRegistrations": {
+        "ContentItemIds": []
+      },
+      "WitRestrictions": {
+        "ContentItemIds": [
+          "48q0etfzxzw270s3baxqc7xan6"
+        ]
+      },
+      "WitOtherRequirements": {
+        "ContentItemIds": []
+      },
+      "WitDigitalSkillsLevel": null,
+      "WydDayToDayTasks": null,
+      "WydWorkingEnvironment": {
+        "ContentItemIds": []
+      },
+      "WydWorkingLocation": {
+        "ContentItemIds": [
+          "4eap25yckvb262g7cbcpvzsqwb"
+        ]
+      },
+      "WydWorkingUniform": {
+        "ContentItemIds": []
+      },
+      "CareerPathAndProgression": null,
+      "ApprenticeshipStandards": null,
+      "RelatedCareers": null
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/jobprofile/2d0c289a-683b-4f1d-8fa0-0b268ff8d622"
+    },
+    "ContentItemId": "4nbfc5fs5d9k2s1r7yhmxghwct",
+    "ContentItemVersionId": "4d259tj9ycjfw7y824s2rhbx5m",
+    "ContentType": "JobProfile",
+    "DisplayText": "Acupuncturist",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-05-03T23:47:22.1611826Z",
+    "PublishedUtc": "2021-05-03T23:47:22.1611826Z",
+    "CreatedUtc": "2021-05-03T23:47:22.1611826Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Admin assistant"
+    },
+    "PageLocationPart": {
+      "UrlName": "admin-assistant",
+      "FullUrl": "/job-profiles/admin-assistant",
+      "DefaultPageForLocation": false,
+      "RedirectLocations": null
+    },
+    "JobProfile": {
+      "AlternativeTitle": {
+        "Text": "Office administrator, clerical assistant, administrative assistant"
+      },
+      "HiddenAlternativeTitle": {
+        "Text": ""
+      },
+      "PageLocations": {
+        "TaxonomyContentItemId": "4eembshqzx66drajtdten34tc8",
+        "TermContentItemIds": [
+          "4x352kh85x7894jr7yqbt0z34b"
+        ]
+      },
+      "Description": {
+        "Html": "\u003Cp\u003EAdmin assistants give support to offices by organising meetings, typing documents and updating computer records.\u003C/p\u003E"
+      },
+      "TitleOptions": {
+        "Text": "As Defined"
+      },
+      "SOCCode": {
+        "ContentItemIds": [
+          "4mp9r4k7g4qa103y8h0s173edk"
+        ]
+      },
+      "ONetOccupationalCode": {
+        "ContentItemIds": [
+          "414mgk2wek91j1adepnaewag4q"
+        ]
+      },
+      "SalaryStarter": {
+        "Text": "14000"
+      },
+      "SalaryExperienced": {
+        "Text": "30000"
+      },
+      "MinimumHours": {
+        "Value": 38.0
+      },
+      "MaximumHours": {
+        "Value": 40.0
+      },
+      "WorkingHoursDetails": {
+        "Text": "a week"
+      },
+      "WorkingPattern": {
+        "Text": "between 8am and 6pm"
+      },
+      "WorkingPatternDetails": {
+        "Text": null
+      },
+      "ApprenticeshipRoute": {
+        "ContentItemIds": [
+          "42e69kypmmqfyzmjns8xgsp447"
+        ]
+      },
+      "CollegeRoute": {
+        "ContentItemIds": [
+          "49nftfm37kkh9skmyyzhk0r3mw"
+        ]
+      },
+      "UniversityRoute": {
+        "ContentItemIds": []
+      },
+      "DirectRoute": {
+        "ContentItemIds": [
+          "4r0y11jys5rphshcpbcpffwgw1"
+        ]
+      },
+      "OtherRoute": {
+        "ContentItemIds": []
+      },
+      "VolunteeringRoute": {
+        "ContentItemIds": [
+          "4kkpabgtyktjbxpw5vdtrg8x5m"
+        ]
+      },
+      "WorkRoute": {
+        "ContentItemIds": [
+          "48v0qc14za6njsak3gzxtnhgd0"
+        ]
+      },
+      "HtbProfessionalBodies": {
+        "Html": ""
+      },
+      "HtbCareerTips": {
+        "Html": "\u003Cp\u003ETime management and the ability to prioritise tasks is really important in administration. This could be tested at interview. For example, you might be given some tasks to complete and asked to arrange them in order of importance.\u003C/p\u003E"
+      },
+      "HtbFurtherInformation": {
+        "Html": ""
+      },
+      "HtbRegistrations": {
+        "ContentItemIds": []
+      },
+      "WitRestrictions": {
+        "ContentItemIds": []
+      },
+      "WitOtherRequirements": {
+        "ContentItemIds": []
+      },
+      "WitDigitalSkillsLevel": null,
+      "WydDayToDayTasks": null,
+      "WydWorkingEnvironment": {
+        "ContentItemIds": []
+      },
+      "WydWorkingLocation": {
+        "ContentItemIds": [
+          "4tchbdbve41wbygcqds4gb8vx8"
+        ]
+      },
+      "WydWorkingUniform": {
+        "ContentItemIds": []
+      },
+      "CareerPathAndProgression": null,
+      "ApprenticeshipStandards": null,
+      "RelatedCareers": null
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/jobprofile/42c300fc-38fd-48d5-87a8-80cff839f6a9"
+    },
+    "ContentItemId": "4nd70sx842x957mgsxqa7bwpxg",
+    "ContentItemVersionId": "41h140revmqaqr98v997k1qhmk",
+    "ContentType": "JobProfile",
+    "DisplayText": "Admin assistant",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-05-03T23:47:22.1611826Z",
+    "PublishedUtc": "2021-05-03T23:47:22.1611826Z",
+    "CreatedUtc": "2021-05-03T23:47:22.1611826Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Advertising account executive"
+    },
+    "PageLocationPart": {
+      "UrlName": "advertising-account-executive",
+      "FullUrl": "/job-profiles/advertising-account-executive",
+      "DefaultPageForLocation": false,
+      "RedirectLocations": null
+    },
+    "JobProfile": {
+      "AlternativeTitle": {
+        "Text": "Account handler"
+      },
+      "HiddenAlternativeTitle": {
+        "Text": "publicist"
+      },
+      "PageLocations": {
+        "TaxonomyContentItemId": "4eembshqzx66drajtdten34tc8",
+        "TermContentItemIds": [
+          "4x352kh85x7894jr7yqbt0z34b"
+        ]
+      },
+      "Description": {
+        "Html": "\u003Cp\u003EAdvertising account executives provide the link between an advertising agency and its clients.\u003C/p\u003E"
+      },
+      "TitleOptions": {
+        "Text": "As Defined"
+      },
+      "SOCCode": {
+        "ContentItemIds": [
+          "4saec8ekpph3g1rf0f47xzp2xx"
+        ]
+      },
+      "ONetOccupationalCode": {
+        "ContentItemIds": [
+          "48tegpt6n6283wyr7x3bq0hgxq"
+        ]
+      },
+      "SalaryStarter": {
+        "Text": "18000"
+      },
+      "SalaryExperienced": {
+        "Text": "60000"
+      },
+      "MinimumHours": {
+        "Value": 37.0
+      },
+      "MaximumHours": {
+        "Value": 39.0
+      },
+      "WorkingHoursDetails": {
+        "Text": "a week"
+      },
+      "WorkingPattern": {
+        "Text": "evenings"
+      },
+      "WorkingPatternDetails": {
+        "Text": "occasionally"
+      },
+      "ApprenticeshipRoute": {
+        "ContentItemIds": [
+          "473rkhxkpg1g24f24kjvdm88cr"
+        ]
+      },
+      "CollegeRoute": {
+        "ContentItemIds": [
+          "488tc4548crnd1tqe8stby9r5q"
+        ]
+      },
+      "UniversityRoute": {
+        "ContentItemIds": [
+          "4j7g40ak85k4sw9as6b99w5ydt"
+        ]
+      },
+      "DirectRoute": {
+        "ContentItemIds": []
+      },
+      "OtherRoute": {
+        "ContentItemIds": [
+          "464bn2szrp36hrm6xbwbn4bwn4"
+        ]
+      },
+      "VolunteeringRoute": {
+        "ContentItemIds": [
+          "4bbzsg22m3rsbxa8tpzqq08xwn"
+        ]
+      },
+      "WorkRoute": {
+        "ContentItemIds": [
+          "4bqwtsqmb2359r8smbeatbzh4s"
+        ]
+      },
+      "HtbProfessionalBodies": {
+        "Html": ""
+      },
+      "HtbCareerTips": {
+        "Html": "\u003Cp\u003EIt\u0027s a good idea to have a presence on social networking sites. You could also show your creative and communication skills to employers through your own blog or website.\u003C/p\u003E"
+      },
+      "HtbFurtherInformation": {
+        "Html": "\u003Cp\u003EYou can find out more about a career in advertising from the \u003Ca href=\u0022https://ipa.co.uk/knowledge/careers-in-advertising/\u0022\u003EInstitute of Practitioners in Advertising\u003C/a\u003E.\u003C/p\u003E"
+      },
+      "HtbRegistrations": {
+        "ContentItemIds": []
+      },
+      "WitRestrictions": {
+        "ContentItemIds": []
+      },
+      "WitOtherRequirements": {
+        "ContentItemIds": []
+      },
+      "WitDigitalSkillsLevel": null,
+      "WydDayToDayTasks": null,
+      "WydWorkingEnvironment": {
+        "ContentItemIds": []
+      },
+      "WydWorkingLocation": {
+        "ContentItemIds": [
+          "4tchbdbve41wbygcqds4gb8vx8"
+        ]
+      },
+      "WydWorkingUniform": {
+        "ContentItemIds": []
+      },
+      "CareerPathAndProgression": null,
+      "ApprenticeshipStandards": null,
+      "RelatedCareers": null
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/jobprofile/0809dd42-fc0b-4d16-b25d-04ef44a534ba"
+    },
+    "ContentItemId": "4awd8zxkbbqz31f30ghw8amqcg",
+    "ContentItemVersionId": "4bazmzhbyzafww14vr2becc1dr",
+    "ContentType": "JobProfile",
+    "DisplayText": "Advertising account executive",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-05-03T23:47:22.1611826Z",
+    "PublishedUtc": "2021-05-03T23:47:22.1611826Z",
+    "CreatedUtc": "2021-05-03T23:47:22.1611826Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Advertising account planner"
+    },
+    "PageLocationPart": {
+      "UrlName": "advertising-account-planner",
+      "FullUrl": "/job-profiles/advertising-account-planner",
+      "DefaultPageForLocation": false,
+      "RedirectLocations": null
+    },
+    "JobProfile": {
+      "AlternativeTitle": {
+        "Text": "Strategic planner"
+      },
+      "HiddenAlternativeTitle": {
+        "Text": ""
+      },
+      "PageLocations": {
+        "TaxonomyContentItemId": "4eembshqzx66drajtdten34tc8",
+        "TermContentItemIds": [
+          "4x352kh85x7894jr7yqbt0z34b"
+        ]
+      },
+      "Description": {
+        "Html": "\u003Cp\u003EAdvertising account planners develop and plan advertising campaigns to make sure they reach the right audience.\u003C/p\u003E"
+      },
+      "TitleOptions": {
+        "Text": "As Defined"
+      },
+      "SOCCode": {
+        "ContentItemIds": [
+          "4saec8ekpph3g1rf0f47xzp2xx"
+        ]
+      },
+      "ONetOccupationalCode": {
+        "ContentItemIds": [
+          "4s97w6v23wxxj4jc7160hmtsxc"
+        ]
+      },
+      "SalaryStarter": {
+        "Text": "18000"
+      },
+      "SalaryExperienced": {
+        "Text": "45000"
+      },
+      "MinimumHours": {
+        "Value": 39.0
+      },
+      "MaximumHours": {
+        "Value": 41.0
+      },
+      "WorkingHoursDetails": {
+        "Text": "a week"
+      },
+      "WorkingPattern": {
+        "Text": "9am to 5pm"
+      },
+      "WorkingPatternDetails": {
+        "Text": "attending events or appointments"
+      },
+      "ApprenticeshipRoute": {
+        "ContentItemIds": [
+          "4dg8hh45x039kw0arm826wcrx1"
+        ]
+      },
+      "CollegeRoute": {
+        "ContentItemIds": []
+      },
+      "UniversityRoute": {
+        "ContentItemIds": [
+          "41dkpqgsnha5xzw9h2qkjtdsnw"
+        ]
+      },
+      "DirectRoute": {
+        "ContentItemIds": []
+      },
+      "OtherRoute": {
+        "ContentItemIds": [
+          "4cb32s5v6g21nwyp91r74s49dd"
+        ]
+      },
+      "VolunteeringRoute": {
+        "ContentItemIds": [
+          "4bbzsg22m3rsbxa8tpzqq08xwn"
+        ]
+      },
+      "WorkRoute": {
+        "ContentItemIds": [
+          "4fdx88f5ym65q55z6db87pknmb"
+        ]
+      },
+      "HtbProfessionalBodies": {
+        "Html": "\u003Cp\u003EYou could join the \u003Ca href=\u0022https://www.apg.org.uk/apg-membership\u0022\u003EAPG\u003C/a\u003E for professional development, training opportunities and to make industry contacts.\u003C/p\u003E"
+      },
+      "HtbCareerTips": {
+        "Html": ""
+      },
+      "HtbFurtherInformation": {
+        "Html": "\u003Cp\u003EYou can find out more about careers in advertising from the \u003Ca href=\u0022https://ipa.co.uk/knowledge/careers-in-advertising/\u0022\u003EIPA\u003C/a\u003E, the \u003Ca href=\u0022https://www.apg.org.uk/knowledge-planningandstrategy\u0022\u003EAPG\u003C/a\u003E and \u003Ca href=\u0022https://discovercreative.careers/#/\u0022\u003EDiscover Creative Careers\u003C/a\u003E.\u003C/p\u003E"
+      },
+      "HtbRegistrations": {
+        "ContentItemIds": []
+      },
+      "WitRestrictions": {
+        "ContentItemIds": []
+      },
+      "WitOtherRequirements": {
+        "ContentItemIds": []
+      },
+      "WitDigitalSkillsLevel": null,
+      "WydDayToDayTasks": null,
+      "WydWorkingEnvironment": {
+        "ContentItemIds": []
+      },
+      "WydWorkingLocation": {
+        "ContentItemIds": [
+          "40ay0gn1rgmk80vswsf6xdhrxr"
+        ]
+      },
+      "WydWorkingUniform": {
+        "ContentItemIds": [
+          "4ffzwwhsmsrkz2b3gc4pxqk0dg"
+        ]
+      },
+      "CareerPathAndProgression": null,
+      "ApprenticeshipStandards": null,
+      "RelatedCareers": null
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/jobprofile/a64c67b8-fcac-4b06-a9b3-75255908b6fa"
+    },
+    "ContentItemId": "42dybtwbmhn77vp2wj2tr9a8wy",
+    "ContentItemVersionId": "41q5msrx6rntn7bf0t3td7f2cg",
+    "ContentType": "JobProfile",
+    "DisplayText": "Advertising account planner",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-05-03T23:47:22.1611826Z",
+    "PublishedUtc": "2021-05-03T23:47:22.1611826Z",
+    "CreatedUtc": "2021-05-03T23:47:22.1611826Z",
+    "Owner": "admin",
+    "Author": "admin"
+  }
+      ]
+    }
+  ]
+}

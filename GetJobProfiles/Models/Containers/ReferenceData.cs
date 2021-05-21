@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using GetJobProfiles.Builders;
+using GetJobProfiles.Entities;
 using GetJobProfiles.Models.Recipe.ContentItems;
 using GetJobProfiles.Models.Recipe.Fields;
 using NPOI.XSSF.UserModel;
@@ -20,7 +20,7 @@ namespace GetJobProfiles.Models.Containers
         public XSSFWorkbook DysacJobProfileMappingExcelWorkbook { get; set; }
 
         // The SocSkillsMatrix spreadsheet
-        public XSSFWorkbook SocSkillsMatricExcelWorkbook { get; set; }
+        public XSSFWorkbook SocSkillsMatrixExcelWorkbook { get; set; }
 
         // Onet skill
         //public OnetSkillContentItemBuilder OnetSkillContentItemBuilder { get; set; }
@@ -34,29 +34,32 @@ namespace GetJobProfiles.Models.Containers
 
 
         // SOC Codes Builder
-        public SocCodeContentItemBuilder SocCodeContentItemBuilder { get; set; }
+        public SocCode SocCodes { get; set; }
 
         // ONet Occupational Codes Builder
-        public ONetOccupationalCodeContentItemBuilder ONetOccupationalCodeContentItemBuilder { get; set; }
+        public ONetOccCode ONetOccCodes { get; set; }
 
         // ONet Skills Builder
-        public OnetSkillContentItemBuilder OnetSkillContentItemBuilder { get; set;}
+        public OnetSkill OnetSkills { get; set;}
 
         // QCF Levels Builder
-        public QcfLevelContentItemBuilder QcfLevelContentItemBuilder { get; set; }
+        public QcfLevel QcfLevels { get; set; }
 
         // JobProfiles Builder
-        public JobProfileContentItemBuilder JobProfileContentItemBuilder { get; set; }
+        public JobProfile JobProfiles { get; set; }
 
         // JobCategory Builder
-        public JobCategoryBuilder JobCategoryBuilder { get; set; }
+        public JobCategory JobCategories { get; set; }
+
+        // Apprenticeship Standard and Standard Route Builder
+        public ApprenticeshipStandard ApprenticeshipStandards { get; set; }
+
+        // Digital Skills Level Builder
+        public DigitalSkillsLevel DigitalSkillsLevel { get; set; }
 
         // Onet Occupational Code Content Items
         public ONetOccupationalCodeContentItem ONetOccupationalCodeContentItems { get; set; }
 
-
-        // Apprencticeship Standard Route
-        public ApprenticeshipStandardRouteContentItem ApprenticeshipStandardRouteContentItems { get; set; }
 
 
         // University Route
@@ -71,16 +74,12 @@ namespace GetJobProfiles.Models.Containers
         // Other Requirement
         public OtherRequirementContentItem OtherRequirementContentItems { get; set; }
 
-        // Digital Skills Level
-        public DigitalSkillsLevelContentItem DigitalSkillsLevelContentItems { get; set; }
 
         // Working Environment
         // Working Location
         // Working Uniform
         // Apprencticeship Standard
-        public ApprenticeshipStandardContentItemBuilder ApprenticeshipStandardContentItemBuilder { get; set; }
 
-        public ApprenticeshipStandardContentItem ApprenticeshipStandardContentItems { get; set;}
 
         // Job Profiles
         //public IEnumerable<JobProfileContentItem> JobProfileContentItems { get; set; }
@@ -88,40 +87,48 @@ namespace GetJobProfiles.Models.Containers
         // Job Category
         //public JobCategoryContentItem JobCategoryContentItems { get; set; }
 
-        public ReferenceData Build(JobProfileSettingsDataModel jobProfileSettingsDataModel)
+        public ReferenceData Build(SettingsModel settings)
         {
             // The job profile data spreadsheet exported from Sitefinity
-            JobProfileExcelWorkbook = GetExcelWorkbook(jobProfileSettingsDataModel.JobProfileExcelWorkbookPath); ;
+            JobProfileExcelWorkbook = GetExcelWorkbook(settings.JobProfileExcelWorkbookPath);
+
+            return this;
 
             // The dysac data spreadsheet exported from Sitefinity
-            DysacExcelWorkbook = GetExcelWorkbook(jobProfileSettingsDataModel.DysacExcelWorkbookPath); ;
+            DysacExcelWorkbook = GetExcelWorkbook(settings.DysacExcelWorkbookPath);
 
             // The dysac/job profile mapping data spreadsheet
-            DysacJobProfileMappingExcelWorkbook = GetExcelWorkbook(jobProfileSettingsDataModel.DysacJobProfileMappingExcelWorkbookPath);
+            DysacJobProfileMappingExcelWorkbook = GetExcelWorkbook(settings.DysacJobProfileMappingExcelWorkbookPath);
 
             // The dysac/job profile mapping data spreadsheet
-            SocSkillsMatricExcelWorkbook = GetExcelWorkbook(jobProfileSettingsDataModel.DysacJobProfileMappingExcelWorkbookPath);
+            SocSkillsMatrixExcelWorkbook = GetExcelWorkbook(settings.DysacJobProfileMappingExcelWorkbookPath);
+
+            // TODO: Uncomment after testing
+            return this;
 
             // SocCodes
-            SocCodeContentItemBuilder = new SocCodeContentItemBuilder(jobProfileSettingsDataModel.SocCodeDictionary).Build(jobProfileSettingsDataModel.Timestamp);
+            SocCodes = new SocCode(settings.SocCodeDictionary).Build(settings.Timestamp);
 
             // JobCategory Builder
-            JobCategoryBuilder = new JobCategoryBuilder(jobProfileSettingsDataModel, this).Build();
+            JobCategories = new JobCategory(settings, this).Build();
 
             // Onet Occupational Codes
-            ONetOccupationalCodeContentItemBuilder = new ONetOccupationalCodeContentItemBuilder(jobProfileSettingsDataModel.OnetCodeDictionary).Build(JobProfileExcelWorkbook, jobProfileSettingsDataModel.Timestamp);
+            ONetOccCodes = new ONetOccCode(settings.OnetCodeDictionary).Build(JobProfileExcelWorkbook, settings.Timestamp);
 
             // Onet Skills
-            OnetSkillContentItemBuilder = new OnetSkillContentItemBuilder(jobProfileSettingsDataModel, this).Build();
+            OnetSkills = new OnetSkill(settings, this).Build();
 
             // QCF Levels
-            QcfLevelContentItemBuilder = new QcfLevelContentItemBuilder().Build(jobProfileSettingsDataModel.Timestamp);
+            QcfLevels = new QcfLevel().Build(settings.Timestamp);
+
+            // Digital Skills Level
+            DigitalSkillsLevel = new DigitalSkillsLevel().Build(settings.Timestamp);
 
             // JobProfiles
-            JobProfileContentItemBuilder = new JobProfileContentItemBuilder(jobProfileSettingsDataModel, this).Build();
+            JobProfiles = new JobProfile(settings, this).Build(0, 0, 5000, settings.JobProfilesToImport);
 
             // Apprenticeship Standard Builder (dependent on JobProfileContentItemBuilder, order of building is important)
-            ApprenticeshipStandardContentItemBuilder = new ApprenticeshipStandardContentItemBuilder(jobProfileSettingsDataModel.ApprenticeshipStandardsRefDictionary).Build(jobProfileSettingsDataModel, this);
+            ApprenticeshipStandards = new ApprenticeshipStandard(settings.ApprenticeshipStandardsRefDictionary).Build(settings, this);
 
             return this;
         }

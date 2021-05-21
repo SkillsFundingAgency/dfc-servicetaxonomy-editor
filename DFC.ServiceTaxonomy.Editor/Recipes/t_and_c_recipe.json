@@ -1,0 +1,122 @@
+{
+    "name": "01_t_and_c_page",
+    "displayName": "01_t_and_c_page",
+    "description": "",
+    "author": "",
+    "website": "",
+    "version": "",
+    "issetuprecipe": false,
+    "categories": [],
+    "tags": [],
+    "steps": [
+        {
+            "name": "content",
+            "data": [
+                {
+                    "ContentItemId": "4s1w7rj8jr157612g8kp4f3c4w",
+                    "ContentItemVersionId": "4j1zab3xtn0f43s9fr5dz377cx",
+                    "ContentType": "Page",
+                    "DisplayText": "terms-and-conditions",
+                    "Latest": true,
+                    "Published": true,
+                    "ModifiedUtc": "2021-01-11T15:15:26.3461251Z",
+                    "PublishedUtc": "2021-01-11T15:15:26.3662729Z",
+                    "CreatedUtc": "2021-01-11T14:27:17.7547991Z",
+                    "Owner": "4na16vs5fp7c07zn8qhhx0tzmk",
+                    "Author": "admin",
+                    "TitlePart": {
+                        "Title": "terms-and-conditions"
+                    },
+                    "Page": {
+                        "PageLocations": {
+                            "TaxonomyContentItemId": "4eembshqzx66drajtdten34tc8",
+                            "TermContentItemIds": [
+                                "4kwrnpnw94m4h1014fqdvwzb5d"
+                            ]
+                        },
+                        "Description": {
+                            "Text": null
+                        },
+                        "Herobanner": {
+                            "Html": ""
+                        },
+                        "ShowHeroBanner": {
+                            "Value": false
+                        }
+                    },
+                    "SitemapPart": {
+                        "Priority": 5,
+                        "OverrideSitemapConfig": false,
+                        "ChangeFrequency": 0,
+                        "Exclude": false
+                    },
+                    "FlowPart": {
+                        "Widgets": [
+                            {
+                                "ContentItemId": "4tgvhjxtbzfsw4m7wdj7zq1mxs",
+                                "ContentItemVersionId": null,
+                                "ContentType": "HTML",
+                                "DisplayText": "",
+                                "Latest": false,
+                                "Published": false,
+                                "ModifiedUtc": "2021-01-11T15:15:26.3516778Z",
+                                "PublishedUtc": null,
+                                "CreatedUtc": null,
+                                "Owner": "",
+                                "Author": "admin",
+                                "HTML": {},
+                                "HtmlBodyPart": {
+                                    "Html": "<h1 class=\"govuk-heading-xl\" style=\"font-family: nta, Arial, sans-serif; font-size: 48px; line-height: 1.04167; margin-bottom: 50px; letter-spacing: normal\">Terms and conditions</h1><p class=\"govuk-body\" style=\"font-family: nta, Arial, sans-serif; font-size: 19px; line-height: 1.31579; margin-bottom: 20px\">The Education and Skills Funding Agency operates the National Careers Service. This is the publicly funded careers service in England for adults, and young people aged 13 or over. The service includes:</p><ul class=\"govuk-list govuk-list--bullet\" style=\"font-family: nta, Arial, sans-serif; font-size: 19px; line-height: 1.31579; margin-bottom: 20px\"><li>the National Careers Service website</li><li>services delivered through the website</li><li>the National Contact Centre</li><li>face-to-face careers advice providers</li></ul><p class=\"govuk-body\" style=\"font-family: nta, Arial, sans-serif; font-size: 19px; line-height: 1.31579; margin-bottom: 20px\">When using the National Career Service, you agree to the following terms and conditions. You will:</p><ul class=\"govuk-list govuk-list--bullet\" style=\"font-family: nta, Arial, sans-serif; font-size: 19px; line-height: 1.31579; margin-bottom: 20px\"><li>respect any patents, copyrights and trademarks</li><li>accept that all rights are owned by the Education and Skills Funding Agency</li><li>use webchat services appropriately – we monitor these services and will take action against inappropriate use</li></ul><p class=\"govuk-body\" style=\"font-family: nta, Arial, sans-serif; font-size: 19px; line-height: 1.31579; margin-bottom: 20px\">The Education and Skills Funding Agency accepts no liability for:</p><ul class=\"govuk-list govuk-list--bullet\" style=\"font-family: nta, Arial, sans-serif; font-size: 19px; line-height: 1.31579; margin-bottom: 20px\"><li>loss of access to the website due to excessive demands on the service</li><li>loss of access due to routine or emergency maintenance on the system</li><li>loss of data, including data sent and data held by you or on behalf of you</li><li>delays or failure in receipt of data given by you or given to you</li><li>damage caused while you're using the National Careers Service</li></ul><p class=\"govuk-body\" style=\"font-family: nta, Arial, sans-serif; font-size: 19px; line-height: 1.31579; margin-bottom: 20px\">You can learn more about how we use and protect your personal information by going to our&nbsp;<a class=\"govuk-link\" href=\"https://nationalcareers.service.gov.uk/help/privacy-and-cookies\" style=\"font-family: nta, Arial, sans-serif\">privacy policy</a>.</p><p class=\"govuk-body\" style=\"font-family: nta, Arial, sans-serif; font-size: 19px; line-height: 1.31579; margin-bottom: 20px\">You can stop using the National Careers Service at any time, either through the website or by getting in touch with the National Contact Centre.</p><p class=\"govuk-body\" style=\"font-family: nta, Arial, sans-serif; font-size: 19px; line-height: 1.31579; margin-bottom: 20px\">National Contact Centre:</p><p class=\"govuk-body\" style=\"font-family: nta, Arial, sans-serif; font-size: 19px; line-height: 1.31579; margin-bottom: 20px\">Call the National Contact Centre on 0800 100 900, or speak to them by&nbsp;<a class=\"govuk-link\" href=\"https://nationalcareers.service.gov.uk/webchat/chat/\" style=\"font-family: nta, Arial, sans-serif\">webchat</a>, and tell the adviser that you want to close your account.</p><p class=\"govuk-body\" style=\"font-family: nta, Arial, sans-serif; font-size: 19px; line-height: 1.31579; margin-bottom: 20px\">You can&nbsp;<a class=\"govuk-link\" href=\"https://nationalcareers.service.gov.uk/contact-us\" style=\"font-family: nta, Arial, sans-serif\">contact us</a>&nbsp;if you have any further questions about the National Careers Service, want to leave feedback or wish to report a problem.</p>"
+                                },
+                                "GraphSyncPart": {
+                                    "Text": "<<contentapiprefix>>/html/6cde4545-098a-4608-8230-3530673e7471"
+                                },
+                                "FlowMetadata": {
+                                    "Alignment": 3,
+                                    "Size": 66
+                                }
+                            },
+                            {
+                                "ContentItemId": "4064nvr7jaz6c6shvrxyz6wv5c",
+                                "ContentItemVersionId": null,
+                                "ContentType": "HTMLShared",
+                                "DisplayText": "",
+                                "Latest": false,
+                                "Published": false,
+                                "ModifiedUtc": "2021-01-11T15:15:26.356425Z",
+                                "PublishedUtc": null,
+                                "CreatedUtc": null,
+                                "Owner": "",
+                                "Author": "admin",
+                                "HTMLShared": {
+                                    "SharedContent": {
+                                        "ContentItemIds": [
+                                            "43mj84xpc3kpgycv11wb8pxqnz",
+                                            "4nyydyyta43vzxjk0b61sdmddr"
+                                        ]
+                                    }
+                                },
+                                "GraphSyncPart": {
+                                    "Text": "<<contentapiprefix>>/htmlshared/394dfa1d-d9f4-4198-85f9-d5f49981bc32"
+                                },
+                                "FlowMetadata": {
+                                    "Alignment": 3,
+                                    "Size": 33
+                                }
+                            }
+                        ]
+                    },
+                    "GraphSyncPart": {
+                        "Text": "<<contentapiprefix>>/page/1dbfd908-e4a0-4a2c-9729-7be6193593e0"
+                    },
+                    "PageLocationPart": {
+                        "UrlName": "terms-and-conditions",
+                        "DefaultPageForLocation": false,
+                        "RedirectLocations": null,
+                        "FullUrl": "/help/terms-and-conditions"
+                    }
+                }
+            ]
+        }
+    ]
+}

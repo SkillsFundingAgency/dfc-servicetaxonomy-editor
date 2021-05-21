@@ -1,0 +1,162 @@
+{
+  "name": "OtherRoutes0_9fe00965-66da-4be5-b015-af3e164dc7f0",
+  "displayName": "OtherRoutes0_9fe00965-66da-4be5-b015-af3e164dc7f0",
+  "description": "",
+  "author": "",
+  "website": "",
+  "version": "",
+  "issetuprecipe": false,
+  "categories": "",
+  "tags": [],
+  "steps": [
+    {
+      "name": "ContentNoCache",
+      "data": [
+  {
+    "TitlePart": {
+      "Title": "Social worker"
+    },
+    "OtherRoute": {
+      "Description": {
+        "Html": "\u003Cp\u003EYou can apply to do an intensive, work-based training programme for graduates if you\u0027ve got a first or upper second class degree in any subject except social work. The programmes are:\u003Ca href=\u0022https://thefrontline.org.uk/\u0022\u003EFrontline\u003C/a\u003E for children\u0027s social work; \u003Ca href=\u0022https://www.gov.uk/guidance/step-up-to-social-work-information-for-applicants\u0022\u003EStep Up to Social Work\u003C/a\u003E for children\u0027s social work; \u003Ca href=\u0022https://thinkahead.org/about-the-programme/how-to-apply/\u0022\u003EThink Ahead\u003C/a\u003E for mental health social work\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/otherroute/d868cd13-4c73-46e9-81cd-e3d4f5cedb9a"
+    },
+    "ContentItemId": "4mmdxc5wvxvew1966bbsjwgkn1",
+    "ContentItemVersionId": "4aq8r7gwxdd4xza71bpjcnt4wp",
+    "ContentType": "OtherRoute",
+    "DisplayText": "Social worker",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-03-19T17:00:54.8467600Z",
+    "PublishedUtc": "2021-03-19T17:00:54.8467600Z",
+    "CreatedUtc": "2021-03-19T17:00:54.8467600Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Border Force officer"
+    },
+    "OtherRoute": {
+      "Description": {
+        "Html": "\u003Cp\u003EYou can apply through the \u003Ca href=\u0022https://www.faststream.gov.uk/\u0022\u003ECivil Service Fast Stream\u003C/a\u003E if you have a degree.\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/otherroute/0903fe7b-83bc-4601-8ed5-0a84ce7cfef3"
+    },
+    "ContentItemId": "49vg0gq12y81t76qwnpa0zvpmb",
+    "ContentItemVersionId": "43xqsceqets50rrcdwd3wg7fwa",
+    "ContentType": "OtherRoute",
+    "DisplayText": "Border Force officer",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-03-19T17:00:54.8467600Z",
+    "PublishedUtc": "2021-03-19T17:00:54.8467600Z",
+    "CreatedUtc": "2021-03-19T17:00:54.8467600Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Police officer"
+    },
+    "OtherRoute": {
+      "Description": {
+        "Html": "\u003Cp\u003EIf you\u0027re a former officer and want to go back into police work, you could return at the same rank or higher through the \u003Ca href=\u0022https://www.joiningthepolice.co.uk/ways-in-to-policing/rejoiner-entry-route\u0022\u003EPolice Former Officer\u003C/a\u003E entry route.\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/otherroute/cd707150-9e9d-4021-a861-74b2b6ea1a85"
+    },
+    "ContentItemId": "45qxq3qm5wkwnzrfh3m989z1c8",
+    "ContentItemVersionId": "4bzpktmz299dwsxg0frz3ysfcd",
+    "ContentType": "OtherRoute",
+    "DisplayText": "Police officer",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-03-19T17:00:54.8467600Z",
+    "PublishedUtc": "2021-03-19T17:00:54.8467600Z",
+    "CreatedUtc": "2021-03-19T17:00:54.8467600Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "MP"
+    },
+    "OtherRoute": {
+      "Description": {
+        "Html": "\u003Cp\u003EYou become a Member of Parliament (MP) by being elected in a by-election or general election. You can stand for election as a member of a political party or as an independent candidate.\u003C/p\u003E\u003Cp\u003EEach political party has its own selection procedure. Normally, you must get the support of your party\u0027s nominating officer before you can become the prospective candidate.\u003C/p\u003E\u003Cp\u003EAs a candidate during an election, you\u0027ll be expected to campaign in public and online, attend meetings, make speeches and talk to the local media. You\u0027ll find it helpful to have some experience in one or more of these areas.\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/otherroute/8cf33d61-17f6-46a0-8de2-4131a4cc2e47"
+    },
+    "ContentItemId": "4dx1311fghrv1vzgvdhtgmpn5d",
+    "ContentItemVersionId": "41bg2020z4tmz5wzag1efydrc7",
+    "ContentType": "OtherRoute",
+    "DisplayText": "MP",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-03-19T17:00:54.8467600Z",
+    "PublishedUtc": "2021-03-19T17:00:54.8467600Z",
+    "CreatedUtc": "2021-03-19T17:00:54.8467600Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Actor"
+    },
+    "OtherRoute": {
+      "Description": {
+        "Html": "\u003Cp\u003EYou can study with a private \u003Ca href=\u0022http://www.federationofdramaschools.co.uk/member-schools/4593600509\u0022\u003Edrama school\u003C/a\u003E or conservatoire. Many offer full-time courses, as well as short courses and summer schools.\u003C/p\u003E\u003Cp\u003EYou\u0027ll need to pass an audition to get into a drama school. You may also need A levels or a Level 3 Diploma in Performing Arts, though this is not always essential if you can show enough talent and commitment.\u003C/p\u003E\u003Cp\u003EYou may be able to get \u003Ca href=\u0022https://www.gov.uk/dance-drama-awards\u0022\u003Efunding\u003C/a\u003E to help with fees and living costs at a private drama school.\u003C/p\u003E\u003Cp\u003EYou could also take graded exams in acting, musical theatre and performance art through \u003Ca href=\u0022https://www.trinitycollege.com/site/?id=198\u0022\u003ETrinity College London\u003C/a\u003E, \u003Ca href=\u0022https://lcme.uwl.ac.uk/exams/drama/acting\u0022\u003EUniversity of West London\u003C/a\u003E or \u003Ca href=\u0022https://www.lamda.ac.uk/our-exams/all-examinations/performance-examinations/acting\u0022\u003ELondon Academy of Music and Dramatic Art\u003C/a\u003E (LAMDA).\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/otherroute/a0f370e5-4637-4e30-b69d-fbea2ebb364e"
+    },
+    "ContentItemId": "44qz9ddr3bfs5y0ez877p5f1xy",
+    "ContentItemVersionId": "4n926nrz18kve0n9yk9kda2wc5",
+    "ContentType": "OtherRoute",
+    "DisplayText": "Actor",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-03-19T17:00:54.8467600Z",
+    "PublishedUtc": "2021-03-19T17:00:54.8467600Z",
+    "CreatedUtc": "2021-03-19T17:00:54.8467600Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Personal assistant"
+    },
+    "OtherRoute": {
+      "Description": {
+        "Html": "\u003Cp\u003EYou could do training courses with a private training provider or through a professional body like the \u003Ca href=\u0022http://www.instam.org/Learning-Overview\u0022\u003EInstitute of Administrative Management\u003C/a\u003E.\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/otherroute/bd8688e7-f7f2-4859-988c-8a6f34e17652"
+    },
+    "ContentItemId": "4scbk2p2qpmax41cvngn2krtcg",
+    "ContentItemVersionId": "4p6mqft8v6hp86g7xrp0b22n4q",
+    "ContentType": "OtherRoute",
+    "DisplayText": "Personal assistant",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-03-19T17:00:54.8467600Z",
+    "PublishedUtc": "2021-03-19T17:00:54.8467600Z",
+    "CreatedUtc": "2021-03-19T17:00:54.8467600Z",
+    "Owner": "admin",
+    "Author": "admin"
+  }
+      ]
+    }
+  ]
+}

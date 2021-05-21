@@ -1,0 +1,90 @@
+{
+  "name": "WorkingUniforms0_5758efa4-419e-433e-a483-3c149a2cacff",
+  "displayName": "WorkingUniforms0_5758efa4-419e-433e-a483-3c149a2cacff",
+  "description": "",
+  "author": "",
+  "website": "",
+  "version": "",
+  "issetuprecipe": false,
+  "categories": "",
+  "tags": [],
+  "steps": [
+    {
+      "name": "ContentNoCache",
+      "data": [
+  {
+    "TitlePart": {
+      "Title": "Safety Clothing and Equipment"
+    },
+    "WorkingUniform": {
+      "Description": {
+        "Html": "\u003Cp\u003Esafety clothing and use safety equipment\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/workinguniform/4fb96c6c-eea1-4603-9ea4-489810889a76"
+    },
+    "ContentItemId": "4r8pz7pfktyp52st8nx6wkt8mw",
+    "ContentItemVersionId": "4evewsa3n0d8zxxe3sbgmgt24k",
+    "ContentType": "WorkingUniform",
+    "DisplayText": "Safety Clothing and Equipment",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-05-03T12:39:28.0913156Z",
+    "PublishedUtc": "2021-05-03T12:39:28.0913156Z",
+    "CreatedUtc": "2021-05-03T12:39:28.0913156Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Smart business dress"
+    },
+    "WorkingUniform": {
+      "Description": {
+        "Html": "\u003Cp\u003Esmart business dress\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/workinguniform/eb35c62d-73b1-4a6c-ae60-7d16ff3df07a"
+    },
+    "ContentItemId": "44abe76mtej7jr5atx2z801yxe",
+    "ContentItemVersionId": "4yq3dd7x13h3433scrs5pfk64y",
+    "ContentType": "WorkingUniform",
+    "DisplayText": "Smart business dress",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-05-03T12:39:28.0913156Z",
+    "PublishedUtc": "2021-05-03T12:39:28.0913156Z",
+    "CreatedUtc": "2021-05-03T12:39:28.0913156Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Protective Clothing"
+    },
+    "WorkingUniform": {
+      "Description": {
+        "Html": "\u003Cp\u003Eprotective clothing\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/workinguniform/051d8609-8ee3-4030-bac4-db28b0afaab8"
+    },
+    "ContentItemId": "4tvsk2snzr1xh0fsg6brffvfdb",
+    "ContentItemVersionId": "4277aeyt78vnz15c5s7rbbpewk",
+    "ContentType": "WorkingUniform",
+    "DisplayText": "Protective Clothing",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-05-03T12:39:28.0913156Z",
+    "PublishedUtc": "2021-05-03T12:39:28.0913156Z",
+    "CreatedUtc": "2021-05-03T12:39:28.0913156Z",
+    "Owner": "admin",
+    "Author": "admin"
+  }
+      ]
+    }
+  ]
+}

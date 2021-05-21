@@ -1,0 +1,66 @@
+{
+  "name": "Restrictions0_d7f60f37-dfd7-487a-a079-ae051e838441",
+  "displayName": "Restrictions0_d7f60f37-dfd7-487a-a079-ae051e838441",
+  "description": "",
+  "author": "",
+  "website": "",
+  "version": "",
+  "issetuprecipe": false,
+  "categories": "",
+  "tags": [],
+  "steps": [
+    {
+      "name": "ContentNoCache",
+      "data": [
+  {
+    "TitlePart": {
+      "Title": "DBS checks - not enhanced"
+    },
+    "Restriction": {
+      "Description": {
+        "Html": "\u003Cp\u003Epass \u003Ca href=\u0022https://www.gov.uk/criminal-record-checks-apply-role\u0022\u003Ebackground checks\u003C/a\u003E\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/restriction/66983a28-efb7-4ad7-a110-18689bf7ed1e"
+    },
+    "ContentItemId": "4h2sme88tnvkkvydm9p52ajpch",
+    "ContentItemVersionId": "4hg6fpfz4gstrvt2dpsp3raexh",
+    "ContentType": "Restriction",
+    "DisplayText": "DBS checks - not enhanced",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-05-02T22:42:08.9174639Z",
+    "PublishedUtc": "2021-05-02T22:42:08.9174639Z",
+    "CreatedUtc": "2021-05-02T22:42:08.9174639Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "DBS enhanced check"
+    },
+    "Restriction": {
+      "Description": {
+        "Html": "\u003Cp\u003Epass \u003Ca href=\u0022https://www.gov.uk/criminal-record-checks-apply-role\u0022\u003Eenhanced background checks\u003C/a\u003E\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/restriction/2c5f56bf-b78b-4621-9cc9-e20a899934c4"
+    },
+    "ContentItemId": "4zv2f1ps11cbn480a2hnb028ng",
+    "ContentItemVersionId": "46caffaz8v5m36sdvhx2vqw8d7",
+    "ContentType": "Restriction",
+    "DisplayText": "DBS enhanced check",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-05-02T22:42:08.9174639Z",
+    "PublishedUtc": "2021-05-02T22:42:08.9174639Z",
+    "CreatedUtc": "2021-05-02T22:42:08.9174639Z",
+    "Owner": "admin",
+    "Author": "admin"
+  }
+      ]
+    }
+  ]
+}

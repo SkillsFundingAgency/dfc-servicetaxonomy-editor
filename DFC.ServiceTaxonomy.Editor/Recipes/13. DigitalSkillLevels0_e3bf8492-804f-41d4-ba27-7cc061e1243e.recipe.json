@@ -1,0 +1,114 @@
+{
+  "name": "DigitalSkillLevels0_e3bf8492-804f-41d4-ba27-7cc061e1243e",
+  "displayName": "DigitalSkillLevels0_e3bf8492-804f-41d4-ba27-7cc061e1243e",
+  "description": "",
+  "author": "",
+  "website": "",
+  "version": "",
+  "issetuprecipe": false,
+  "categories": "",
+  "tags": [],
+  "steps": [
+    {
+      "name": "ContentNoCache",
+      "data": [
+  {
+    "DigitalSkillsLevel": {
+      "Text": {
+        "Text": "to have a thorough understanding of computer systems and applications"
+      }
+    },
+    "TitlePart": {
+      "Title": "to have a thorough understanding of computer systems and applications"
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/digitalskilllevel/60d82430-8b8c-44ca-aed8-d8933a049ae0"
+    },
+    "ContentItemId": "4h9kc7b36scb3x0nv1hvrcp3dw",
+    "ContentItemVersionId": "4s4snbvs6j3zwrg4z54r0rs75s",
+    "ContentType": "DigitalSkillsLevel",
+    "DisplayText": "to have a thorough understanding of computer systems and applications",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-05-03T23:47:22.1611826Z",
+    "PublishedUtc": "2021-05-03T23:47:22.1611826Z",
+    "CreatedUtc": "2021-05-03T23:47:22.1611826Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "DigitalSkillsLevel": {
+      "Text": {
+        "Text": "to be able to use a computer and the main software packages confidently"
+      }
+    },
+    "TitlePart": {
+      "Title": "to be able to use a computer and the main software packages confidently"
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/digitalskilllevel/87c1783b-9bf8-49dd-b775-fff453a1dbbf"
+    },
+    "ContentItemId": "4xn3ztf5jgr6armng52gazh54g",
+    "ContentItemVersionId": "4mygdcn8s6g8rw50meqbga9t5e",
+    "ContentType": "DigitalSkillsLevel",
+    "DisplayText": "to be able to use a computer and the main software packages confidently",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-05-03T23:47:22.1611826Z",
+    "PublishedUtc": "2021-05-03T23:47:22.1611826Z",
+    "CreatedUtc": "2021-05-03T23:47:22.1611826Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "DigitalSkillsLevel": {
+      "Text": {
+        "Text": "to be able to use a computer and the main software packages competently"
+      }
+    },
+    "TitlePart": {
+      "Title": "to be able to use a computer and the main software packages competently"
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/digitalskilllevel/f619ae34-be85-4bdb-8965-15f051b290e4"
+    },
+    "ContentItemId": "4q1jw3b868f4mxg082x13kkmcc",
+    "ContentItemVersionId": "4exp6m37bpw8pyb47v7zmhtxxy",
+    "ContentType": "DigitalSkillsLevel",
+    "DisplayText": "to be able to use a computer and the main software packages competently",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-05-03T23:47:22.1611826Z",
+    "PublishedUtc": "2021-05-03T23:47:22.1611826Z",
+    "CreatedUtc": "2021-05-03T23:47:22.1611826Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "DigitalSkillsLevel": {
+      "Text": {
+        "Text": "to be able to carry out basic tasks on a computer or hand-held device"
+      }
+    },
+    "TitlePart": {
+      "Title": "to be able to carry out basic tasks on a computer or hand-held device"
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/digitalskilllevel/6ffc8b5c-6bfc-4c42-88c7-2e3a6733f879"
+    },
+    "ContentItemId": "443vn9pgaf6pg45wzzt0abvywv",
+    "ContentItemVersionId": "4t02temhab25k0y3ecks44den3",
+    "ContentType": "DigitalSkillsLevel",
+    "DisplayText": "to be able to carry out basic tasks on a computer or hand-held device",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-05-03T23:47:22.1611826Z",
+    "PublishedUtc": "2021-05-03T23:47:22.1611826Z",
+    "CreatedUtc": "2021-05-03T23:47:22.1611826Z",
+    "Owner": "admin",
+    "Author": "admin"
+  }
+      ]
+    }
+  ]
+}

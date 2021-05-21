@@ -1,0 +1,90 @@
+{
+  "name": "WorkingUniforms0_eeb750a2-ee31-431c-9f86-ade86c11903e",
+  "displayName": "WorkingUniforms0_eeb750a2-ee31-431c-9f86-ade86c11903e",
+  "description": "",
+  "author": "",
+  "website": "",
+  "version": "",
+  "issetuprecipe": false,
+  "categories": "",
+  "tags": [],
+  "steps": [
+    {
+      "name": "ContentNoCache",
+      "data": [
+  {
+    "TitlePart": {
+      "Title": "Protective Clothing"
+    },
+    "WorkingUniform": {
+      "Description": {
+        "Html": "\u003Cp\u003Eprotective clothing\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/workinguniform/95739c95-6b3e-4c6c-be85-97710c81dc30"
+    },
+    "ContentItemId": "42yt7ech8m5g5vc3nk0j39p0cw",
+    "ContentItemVersionId": "4p18armvtc5ynv3fj3g8f6855d",
+    "ContentType": "WorkingUniform",
+    "DisplayText": "Protective Clothing",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-03-19T16:28:56.6269958Z",
+    "PublishedUtc": "2021-03-19T16:28:56.6269958Z",
+    "CreatedUtc": "2021-03-19T16:28:56.6269958Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "a uniform test"
+    },
+    "WorkingUniform": {
+      "Description": {
+        "Html": "\u003Cp\u003Ea uniform test\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/workinguniform/28f03793-0600-4ad7-ab6a-4b82205db81d"
+    },
+    "ContentItemId": "4g7en1xdkre6c65zpvc6eatm42",
+    "ContentItemVersionId": "4j9q2p5ayfcmksmn2y5nzs625n",
+    "ContentType": "WorkingUniform",
+    "DisplayText": "a uniform test",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-03-19T16:28:56.6269958Z",
+    "PublishedUtc": "2021-03-19T16:28:56.6269958Z",
+    "CreatedUtc": "2021-03-19T16:28:56.6269958Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "a sports kit and a uniform test"
+    },
+    "WorkingUniform": {
+      "Description": {
+        "Html": "\u003Cp\u003Ea sports kit and a uniform test\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/workinguniform/506c8dd4-ab3e-4e4c-a9af-8406037621f2"
+    },
+    "ContentItemId": "4e01mj0a1x8a345grnp279fac7",
+    "ContentItemVersionId": "4fr44fk6cfwdt55mtstfzfw6mw",
+    "ContentType": "WorkingUniform",
+    "DisplayText": "a sports kit and a uniform test",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-03-19T16:28:56.6269958Z",
+    "PublishedUtc": "2021-03-19T16:28:56.6269958Z",
+    "CreatedUtc": "2021-03-19T16:28:56.6269958Z",
+    "Owner": "admin",
+    "Author": "admin"
+  }
+      ]
+    }
+  ]
+}

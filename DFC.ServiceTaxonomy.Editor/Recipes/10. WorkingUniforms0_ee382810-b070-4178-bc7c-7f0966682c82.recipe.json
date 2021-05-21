@@ -1,0 +1,90 @@
+{
+  "name": "WorkingUniforms0_ee382810-b070-4178-bc7c-7f0966682c82",
+  "displayName": "WorkingUniforms0_ee382810-b070-4178-bc7c-7f0966682c82",
+  "description": "",
+  "author": "",
+  "website": "",
+  "version": "",
+  "issetuprecipe": false,
+  "categories": "",
+  "tags": [],
+  "steps": [
+    {
+      "name": "ContentNoCache",
+      "data": [
+  {
+    "TitlePart": {
+      "Title": "Protective Clothing"
+    },
+    "WorkingUniform": {
+      "Description": {
+        "Html": "\u003Cp\u003Eprotective clothing\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/workinguniform/514dec5d-b733-4e95-b7e8-4a1a7d9f403d"
+    },
+    "ContentItemId": "4fwt1s1hqg1qrvpttcane3whws",
+    "ContentItemVersionId": "4pd8kwwnv6nkd0ty89w6hjk44q",
+    "ContentType": "WorkingUniform",
+    "DisplayText": "Protective Clothing",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-05-04T06:51:05.4984878Z",
+    "PublishedUtc": "2021-05-04T06:51:05.4984878Z",
+    "CreatedUtc": "2021-05-04T06:51:05.4984878Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "a sports kit and a uniform test"
+    },
+    "WorkingUniform": {
+      "Description": {
+        "Html": "\u003Cp\u003Ea sports kit and a uniform test\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/workinguniform/ff754c26-20ce-49f1-842c-848472751b07"
+    },
+    "ContentItemId": "4akgcv869a7nvrmmw101s069dq",
+    "ContentItemVersionId": "407pp7vrspjd5zzw0epa9wm9xz",
+    "ContentType": "WorkingUniform",
+    "DisplayText": "a sports kit and a uniform test",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-05-04T06:51:05.4984878Z",
+    "PublishedUtc": "2021-05-04T06:51:05.4984878Z",
+    "CreatedUtc": "2021-05-04T06:51:05.4984878Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "a uniform test"
+    },
+    "WorkingUniform": {
+      "Description": {
+        "Html": "\u003Cp\u003Ea uniform test\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/workinguniform/40f3b344-3424-49f3-8c0f-627a7a7db81e"
+    },
+    "ContentItemId": "4p3fb4g9jjrtbr55nf5yfwqf4k",
+    "ContentItemVersionId": "4krv8xvxhatdwtza93t7c3ddc4",
+    "ContentType": "WorkingUniform",
+    "DisplayText": "a uniform test",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-05-04T06:51:05.4984878Z",
+    "PublishedUtc": "2021-05-04T06:51:05.4984878Z",
+    "CreatedUtc": "2021-05-04T06:51:05.4984878Z",
+    "Owner": "admin",
+    "Author": "admin"
+  }
+      ]
+    }
+  ]
+}

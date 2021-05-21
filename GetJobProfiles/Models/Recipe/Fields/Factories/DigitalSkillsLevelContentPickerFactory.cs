@@ -5,18 +5,18 @@ namespace GetJobProfiles.Models.Recipe.Fields.Factories
 {
     public class DigitalSkillsLevelContentPickerFactory
     {
-        private readonly Dictionary<string, JobProfileExcelWorkbookColumnsDataModel> _digitalSkillsLevelDictionary;
+        private readonly Dictionary<string, JobProfileExcelWorkbookColumnsModel> _digitalSkillsLevelDictionary;
 
-        public DigitalSkillsLevelContentPickerFactory(Dictionary<string, JobProfileExcelWorkbookColumnsDataModel> digitalSkillsLevelDictionary)
+        public DigitalSkillsLevelContentPickerFactory(Dictionary<string, JobProfileExcelWorkbookColumnsModel> digitalSkillsLevelDictionary)
         {
             _digitalSkillsLevelDictionary = digitalSkillsLevelDictionary;
         }
 
         public ContentPicker Create(string digitalSkillsLevelContentPicker)
         {
-            if (!_digitalSkillsLevelDictionary.TryGetValue(digitalSkillsLevelContentPicker, out JobProfileExcelWorkbookColumnsDataModel contentItemId))
+            if (!_digitalSkillsLevelDictionary.TryGetValue(digitalSkillsLevelContentPicker, out JobProfileExcelWorkbookColumnsModel contentItemId))
             {
-                contentItemId = new JobProfileExcelWorkbookColumnsDataModel();
+                contentItemId = new JobProfileExcelWorkbookColumnsModel();
                 contentItemId.DigitalSkillsLevel = "undefined";
             }
 

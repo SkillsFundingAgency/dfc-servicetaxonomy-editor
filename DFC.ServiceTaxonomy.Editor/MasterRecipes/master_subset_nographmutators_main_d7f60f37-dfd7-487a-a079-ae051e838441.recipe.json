@@ -1,0 +1,42 @@
+{
+  "name": "Import_d7f60f37-dfd7-487a-a079-ae051e838441",
+  "displayName": "Import_d7f60f37-dfd7-487a-a079-ae051e838441",
+  "description": "",
+  "author": "",
+  "website": "",
+  "version": "",
+  "issetuprecipe": false,
+  "categories": "",
+  "tags": [],
+  "steps": [
+    {
+      "name": "recipes",
+      "values": [
+{ "executionid": "Import_d7f60f37-dfd7-487a-a079-ae051e838441", name:"QCFLevels0_d7f60f37-dfd7-487a-a079-ae051e838441" },
+{ "executionid": "Import_d7f60f37-dfd7-487a-a079-ae051e838441", name:"ApprenticeshipStandardRoutes0_d7f60f37-dfd7-487a-a079-ae051e838441" },
+{ "executionid": "Import_d7f60f37-dfd7-487a-a079-ae051e838441", name:"ApprenticeshipLinks0_d7f60f37-dfd7-487a-a079-ae051e838441" },
+{ "executionid": "Import_d7f60f37-dfd7-487a-a079-ae051e838441", name:"ApprenticeshipRequirements0_d7f60f37-dfd7-487a-a079-ae051e838441" },
+{ "executionid": "Import_d7f60f37-dfd7-487a-a079-ae051e838441", name:"CollegeLinks0_d7f60f37-dfd7-487a-a079-ae051e838441" },
+{ "executionid": "Import_d7f60f37-dfd7-487a-a079-ae051e838441", name:"CollegeRequirements0_d7f60f37-dfd7-487a-a079-ae051e838441" },
+{ "executionid": "Import_d7f60f37-dfd7-487a-a079-ae051e838441", name:"UniversityLinks0_d7f60f37-dfd7-487a-a079-ae051e838441" },
+{ "executionid": "Import_d7f60f37-dfd7-487a-a079-ae051e838441", name:"UniversityRequirements0_d7f60f37-dfd7-487a-a079-ae051e838441" },
+{ "executionid": "Import_d7f60f37-dfd7-487a-a079-ae051e838441", name:"WorkingUniforms0_d7f60f37-dfd7-487a-a079-ae051e838441" },
+{ "executionid": "Import_d7f60f37-dfd7-487a-a079-ae051e838441", name:"WorkingLocations0_d7f60f37-dfd7-487a-a079-ae051e838441" },
+{ "executionid": "Import_d7f60f37-dfd7-487a-a079-ae051e838441", name:"ApprenticeshipStandards0_d7f60f37-dfd7-487a-a079-ae051e838441" },
+{ "executionid": "Import_d7f60f37-dfd7-487a-a079-ae051e838441", name:"WorkingEnvironments0_d7f60f37-dfd7-487a-a079-ae051e838441" },
+{ "executionid": "Import_d7f60f37-dfd7-487a-a079-ae051e838441", name:"DigitalSkillLevels0_d7f60f37-dfd7-487a-a079-ae051e838441" },
+{ "executionid": "Import_d7f60f37-dfd7-487a-a079-ae051e838441", name:"ApprenticeshipStandards1_d7f60f37-dfd7-487a-a079-ae051e838441" },
+{ "executionid": "Import_d7f60f37-dfd7-487a-a079-ae051e838441", name:"Restrictions0_d7f60f37-dfd7-487a-a079-ae051e838441" },
+{ "executionid": "Import_d7f60f37-dfd7-487a-a079-ae051e838441", name:"OtherRoutes0_d7f60f37-dfd7-487a-a079-ae051e838441" },
+{ "executionid": "Import_d7f60f37-dfd7-487a-a079-ae051e838441", name:"DirectRoutes0_d7f60f37-dfd7-487a-a079-ae051e838441" },
+{ "executionid": "Import_d7f60f37-dfd7-487a-a079-ae051e838441", name:"VolunteeringRoutes0_d7f60f37-dfd7-487a-a079-ae051e838441" },
+{ "executionid": "Import_d7f60f37-dfd7-487a-a079-ae051e838441", name:"WorkRoutes0_d7f60f37-dfd7-487a-a079-ae051e838441" },
+{ "executionid": "Import_d7f60f37-dfd7-487a-a079-ae051e838441", name:"ApprenticeshipRoutes0_d7f60f37-dfd7-487a-a079-ae051e838441" },
+{ "executionid": "Import_d7f60f37-dfd7-487a-a079-ae051e838441", name:"CollegeRoutes0_d7f60f37-dfd7-487a-a079-ae051e838441" },
+{ "executionid": "Import_d7f60f37-dfd7-487a-a079-ae051e838441", name:"ApprenticeshipRoutes1_d7f60f37-dfd7-487a-a079-ae051e838441" },
+{ "executionid": "Import_d7f60f37-dfd7-487a-a079-ae051e838441", name:"UniversityRoutes0_d7f60f37-dfd7-487a-a079-ae051e838441" },
+{ "executionid": "Import_d7f60f37-dfd7-487a-a079-ae051e838441", name:"SocCodes0_d7f60f37-dfd7-487a-a079-ae051e838441" }
+      ]
+    }
+  ]
+}

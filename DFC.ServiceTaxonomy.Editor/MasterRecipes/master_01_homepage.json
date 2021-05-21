@@ -1,0 +1,21 @@
+{
+    "name": "master_homepage",
+    "displayName": "master_homepage",
+    "description": "",
+    "author": "",
+    "website": "",
+    "version": "",
+    "issetuprecipe": false,
+    "categories": "",
+    "tags": [],
+    "steps": [
+      {
+        "name": "recipes",
+        "values": [
+            { "executionid": "01_homepage", "name": "01_homepage_shared_content" },
+            { "executionid": "01_t_and_c", "name": "01_t_and_c_page" }
+        ]
+      }
+    ]
+  }
+  

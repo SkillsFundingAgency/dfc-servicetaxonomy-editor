@@ -10,31 +10,51 @@ namespace GetJobProfiles.Models.Recipe.Fields.Factories
     {
         private static readonly DefaultIdGenerator _idGenerator = new DefaultIdGenerator();
 
-        public readonly ConcurrentDictionary<string, string> IdLookup = new ConcurrentDictionary<string, string>();
+        public readonly ConcurrentDictionary<string, string> keyValuePair = new ConcurrentDictionary<string, string>();
 
-        public ContentPicker CreateContentPicker(string sourceContent)
+        public ContentPicker CreateContentPicker(string item)
         {
-            if (string.IsNullOrEmpty(sourceContent))
+            if (string.IsNullOrEmpty(item))
                 return new ContentPicker { ContentItemIds = Enumerable.Empty<string>() };
 
-            return CreateContentPicker(new[] { sourceContent });
+            return CreateContentPicker(new[] { item });
         }
 
-        public ContentPicker CreateContentPicker(IEnumerable<string> sourceContent)
+        public ContentPicker CreateContentPicker(IDictionary<string, string> itemDictionary)
         {
-            foreach (string content in sourceContent ?? Enumerable.Empty<string>())
+            if (itemDictionary != null && itemDictionary.Any())
             {
-                // for now add full as title. once we have the full list can plug in current titles
-                if (!IdLookup.TryAdd(content, _idGenerator.GenerateUniqueId()))
+                foreach(var item in itemDictionary)
                 {
-                    // ctor with name?
-                    ColorConsole.WriteLine($"Content '{content}' already saved", ConsoleColor.Magenta);
+                    if (!keyValuePair.TryAdd(item.Key, _idGenerator.GenerateUniqueId()))
+                    {
+                        // ctor with name?
+                        ColorConsole.WriteLine($"Content '{item}' already saved", ConsoleColor.Magenta);
+                    }
                 }
             }
 
             return new ContentPicker
             {
-                ContentItemIds = sourceContent?.Select(ci => IdLookup[ci]) ?? new string[0]
+                ContentItemIds = itemDictionary?.Select(ci => keyValuePair[ci.Value]) ?? new string[0]
+            };
+        }
+
+        public ContentPicker CreateContentPicker(IEnumerable<string> itemList)
+        {
+            foreach (string item in itemList ?? Enumerable.Empty<string>())
+            {
+                // for now add full as title. once we have the full list can plug in current titles
+                if (!keyValuePair.TryAdd(item, _idGenerator.GenerateUniqueId()))
+                {
+                    // ctor with name?
+                    ColorConsole.WriteLine($"Content '{item}' already saved", ConsoleColor.Magenta);
+                }
+            }
+
+            return new ContentPicker
+            {
+                ContentItemIds = itemList?.Select(ci => keyValuePair[ci]) ?? new string[0]
             };
         }
 

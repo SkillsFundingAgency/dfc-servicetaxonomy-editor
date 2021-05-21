@@ -1,0 +1,3357 @@
+{
+  "name": "CollegeRoutes2_d7f60f37-dfd7-487a-a079-ae051e838441",
+  "displayName": "CollegeRoutes2_d7f60f37-dfd7-487a-a079-ae051e838441",
+  "description": "",
+  "author": "",
+  "website": "",
+  "version": "",
+  "issetuprecipe": false,
+  "categories": "",
+  "tags": [],
+  "steps": [
+    {
+      "name": "ContentNoCache",
+      "data": [
+  {
+    "TitlePart": {
+      "Title": "Accommodation warden"
+    },
+    "CollegeRoute": {
+      "RelevantSubjects": {
+        "Html": "\u003Cp\u003EYou could take a college course before applying for a job. Courses include:\u003Cul\u003E\u003Cli\u003ELevel 2 Certificate in Facilities Services\u003C/li\u003E\u003Cli\u003ELevel 3 Diploma in Health and Social Care\u003C/li\u003E\u003C/ul\u003E\u003C/p\u003E"
+      },
+      "FurtherInfo": {
+        "Html": ""
+      },
+      "Requirements": {
+        "ContentItemIds": [
+          "4v1ejqj750p1379jppwn6xw6ws",
+          "4rd3b5vs7qa29rcvx9je20rdwz"
+        ]
+      },
+      "Links": {
+        "ContentItemIds": [
+          "4gvq9h4dfkfg31zbvxjwnkfkdj",
+          "4vdwe99jk77121mj6yfem4d2mb",
+          "465pqwtcnmexv5dvrr2xra2ewf"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/collegeroute/df979462-119c-46a9-ae17-192b05f0773b"
+    },
+    "ContentItemId": "4cvn82s7agq31vxfa0y8r3hmn8",
+    "ContentItemVersionId": "4avgq371ffkdx7zgy484k9x3db",
+    "ContentType": "CollegeRoute",
+    "DisplayText": "Accommodation warden",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-05-02T22:42:08.9174639Z",
+    "PublishedUtc": "2021-05-02T22:42:08.9174639Z",
+    "CreatedUtc": "2021-05-02T22:42:08.9174639Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Actor"
+    },
+    "CollegeRoute": {
+      "RelevantSubjects": {
+        "Html": "\u003Cp\u003EThere is no set entry route to become an actor but it may be useful to do a relevant subject like:\u003Cul\u003E\u003Cli\u003ELevel 2 Technical Certificate in Performing Arts\u003C/li\u003E\u003Cli\u003ELevel 3 Extended Diploma in Performing Arts - Acting\u003C/li\u003E\u003Cli\u003EA level in Drama and Theatre\u003C/li\u003E\u003Cli\u003ELevel 4 Diploma in Speech and Drama\u003C/li\u003E\u003C/ul\u003E\u003C/p\u003E"
+      },
+      "FurtherInfo": {
+        "Html": ""
+      },
+      "Requirements": {
+        "ContentItemIds": [
+          "4v1ejqj750p1379jppwn6xw6ws",
+          "4rd3b5vs7qa29rcvx9je20rdwz",
+          "49npm70fa9p2f2nvf490kq66m3"
+        ]
+      },
+      "Links": {
+        "ContentItemIds": [
+          "4gvq9h4dfkfg31zbvxjwnkfkdj",
+          "4vdwe99jk77121mj6yfem4d2mb",
+          "465pqwtcnmexv5dvrr2xra2ewf"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/collegeroute/23c5b81f-e5d3-4f5c-9fca-a8b52117086b"
+    },
+    "ContentItemId": "4yre16vn0frdasb276tvfmx1dn",
+    "ContentItemVersionId": "4nnt6880qa4af4jvtwb5p2hdcg",
+    "ContentType": "CollegeRoute",
+    "DisplayText": "Actor",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-05-02T22:42:08.9174639Z",
+    "PublishedUtc": "2021-05-02T22:42:08.9174639Z",
+    "CreatedUtc": "2021-05-02T22:42:08.9174639Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Actor"
+    },
+    "CollegeRoute": {
+      "RelevantSubjects": {
+        "Html": "\u003Cp\u003EThere is no set entry route to become an actor but it may be useful to do a relevant subject like:\u003Cul\u003E\u003Cli\u003ELevel 2 Technical Certificate in Performing Arts\u003C/li\u003E\u003Cli\u003ELevel 3 Extended Diploma in Performing Arts - Acting\u003C/li\u003E\u003Cli\u003EA level in Drama and Theatre\u003C/li\u003E\u003Cli\u003ELevel 4 Diploma in Speech and Drama\u003C/li\u003E\u003C/ul\u003E\u003C/p\u003E"
+      },
+      "FurtherInfo": {
+        "Html": ""
+      },
+      "Requirements": {
+        "ContentItemIds": [
+          "4v1ejqj750p1379jppwn6xw6ws",
+          "4rd3b5vs7qa29rcvx9je20rdwz",
+          "49npm70fa9p2f2nvf490kq66m3"
+        ]
+      },
+      "Links": {
+        "ContentItemIds": [
+          "4gvq9h4dfkfg31zbvxjwnkfkdj",
+          "4vdwe99jk77121mj6yfem4d2mb",
+          "465pqwtcnmexv5dvrr2xra2ewf"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/collegeroute/d925669f-0474-4ca4-a537-6a22ccf95b15"
+    },
+    "ContentItemId": "4ew2vv9gmhzasxfb6d8pztxedq",
+    "ContentItemVersionId": "41whwa4sh5sc8rxpxyks1hvmcg",
+    "ContentType": "CollegeRoute",
+    "DisplayText": "Actor",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-05-02T22:42:08.9174639Z",
+    "PublishedUtc": "2021-05-02T22:42:08.9174639Z",
+    "CreatedUtc": "2021-05-02T22:42:08.9174639Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Accommodation warden"
+    },
+    "CollegeRoute": {
+      "RelevantSubjects": {
+        "Html": "\u003Cp\u003EYou could take a college course before applying for a job. Courses include:\u003Cul\u003E\u003Cli\u003ELevel 2 Certificate in Facilities Services\u003C/li\u003E\u003Cli\u003ELevel 3 Diploma in Health and Social Care\u003C/li\u003E\u003C/ul\u003E\u003C/p\u003E"
+      },
+      "FurtherInfo": {
+        "Html": ""
+      },
+      "Requirements": {
+        "ContentItemIds": [
+          "4v1ejqj750p1379jppwn6xw6ws",
+          "4rd3b5vs7qa29rcvx9je20rdwz"
+        ]
+      },
+      "Links": {
+        "ContentItemIds": [
+          "4gvq9h4dfkfg31zbvxjwnkfkdj",
+          "4vdwe99jk77121mj6yfem4d2mb",
+          "465pqwtcnmexv5dvrr2xra2ewf"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/collegeroute/2ba63a06-99cb-4584-bf2d-56efbc449a8f"
+    },
+    "ContentItemId": "4241fg2sp367x57prn3v6jg7x9",
+    "ContentItemVersionId": "4n9p14r260jytsxcc4f8yep3de",
+    "ContentType": "CollegeRoute",
+    "DisplayText": "Accommodation warden",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-05-02T22:42:08.9174639Z",
+    "PublishedUtc": "2021-05-02T22:42:08.9174639Z",
+    "CreatedUtc": "2021-05-02T22:42:08.9174639Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Advertising account executive"
+    },
+    "CollegeRoute": {
+      "RelevantSubjects": {
+        "Html": "\u003Cp\u003EThere is no set entry route to become an advertising account executive but it may be useful to do a relevant subject like a Foundation Certificate in Marketing.\u003C/p\u003E"
+      },
+      "FurtherInfo": {
+        "Html": ""
+      },
+      "Requirements": {
+        "ContentItemIds": []
+      },
+      "Links": {
+        "ContentItemIds": [
+          "4vdwe99jk77121mj6yfem4d2mb",
+          "465pqwtcnmexv5dvrr2xra2ewf"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/collegeroute/ac97751b-a009-4fd9-8e80-daf8ab15a07c"
+    },
+    "ContentItemId": "4m0rm63pc8hhg16sgcctwxm9m6",
+    "ContentItemVersionId": "4jt23z0gxw5dv5g621ms1dm7c3",
+    "ContentType": "CollegeRoute",
+    "DisplayText": "Advertising account executive",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-05-02T22:42:08.9174639Z",
+    "PublishedUtc": "2021-05-02T22:42:08.9174639Z",
+    "CreatedUtc": "2021-05-02T22:42:08.9174639Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Advertising account executive"
+    },
+    "CollegeRoute": {
+      "RelevantSubjects": {
+        "Html": "\u003Cp\u003EThere is no set entry route to become an advertising account executive but it may be useful to do a relevant subject like a Foundation Certificate in Marketing.\u003C/p\u003E"
+      },
+      "FurtherInfo": {
+        "Html": ""
+      },
+      "Requirements": {
+        "ContentItemIds": []
+      },
+      "Links": {
+        "ContentItemIds": [
+          "4vdwe99jk77121mj6yfem4d2mb",
+          "465pqwtcnmexv5dvrr2xra2ewf"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/collegeroute/9b985c3e-32b1-47b3-9f8e-a3f4f88152e0"
+    },
+    "ContentItemId": "41kbzy6fnc5w94bchrmj10awxx",
+    "ContentItemVersionId": "4rkzk1240cs36x0v4jvn2cr855",
+    "ContentType": "CollegeRoute",
+    "DisplayText": "Advertising account executive",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-05-02T22:42:08.9174639Z",
+    "PublishedUtc": "2021-05-02T22:42:08.9174639Z",
+    "CreatedUtc": "2021-05-02T22:42:08.9174639Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Advertising account executive"
+    },
+    "CollegeRoute": {
+      "RelevantSubjects": {
+        "Html": "\u003Cp\u003EThere is no set entry route to become an advertising account executive but it may be useful to do a relevant subject like a Foundation Certificate in Marketing.\u003C/p\u003E"
+      },
+      "FurtherInfo": {
+        "Html": ""
+      },
+      "Requirements": {
+        "ContentItemIds": []
+      },
+      "Links": {
+        "ContentItemIds": [
+          "4vdwe99jk77121mj6yfem4d2mb",
+          "465pqwtcnmexv5dvrr2xra2ewf"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/collegeroute/2f8843d8-95a7-4dca-9eb0-88c9c3084d2c"
+    },
+    "ContentItemId": "4g4qw13wrh3xs78j3gy05cmswg",
+    "ContentItemVersionId": "403vjd8qsfxyjz2t60qc4sw9nq",
+    "ContentType": "CollegeRoute",
+    "DisplayText": "Advertising account executive",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-05-02T22:42:08.9174639Z",
+    "PublishedUtc": "2021-05-02T22:42:08.9174639Z",
+    "CreatedUtc": "2021-05-02T22:42:08.9174639Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Accommodation warden"
+    },
+    "CollegeRoute": {
+      "RelevantSubjects": {
+        "Html": "\u003Cp\u003EYou could take a college course before applying for a job. Courses include:\u003Cul\u003E\u003Cli\u003ELevel 2 Certificate in Facilities Services\u003C/li\u003E\u003Cli\u003ELevel 3 Diploma in Health and Social Care\u003C/li\u003E\u003C/ul\u003E\u003C/p\u003E"
+      },
+      "FurtherInfo": {
+        "Html": ""
+      },
+      "Requirements": {
+        "ContentItemIds": [
+          "4v1ejqj750p1379jppwn6xw6ws",
+          "4rd3b5vs7qa29rcvx9je20rdwz"
+        ]
+      },
+      "Links": {
+        "ContentItemIds": [
+          "4gvq9h4dfkfg31zbvxjwnkfkdj",
+          "4vdwe99jk77121mj6yfem4d2mb",
+          "465pqwtcnmexv5dvrr2xra2ewf"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/collegeroute/a7096326-6d78-407e-8773-a2e996206f3e"
+    },
+    "ContentItemId": "4btd03qcyea2q2djdadjw2eb4e",
+    "ContentItemVersionId": "4xwqsh0abwdfcxykyhjhbgsnde",
+    "ContentType": "CollegeRoute",
+    "DisplayText": "Accommodation warden",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-05-02T22:42:08.9174639Z",
+    "PublishedUtc": "2021-05-02T22:42:08.9174639Z",
+    "CreatedUtc": "2021-05-02T22:42:08.9174639Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Accommodation warden"
+    },
+    "CollegeRoute": {
+      "RelevantSubjects": {
+        "Html": "\u003Cp\u003EYou could take a college course before applying for a job. Courses include:\u003Cul\u003E\u003Cli\u003ELevel 2 Certificate in Facilities Services\u003C/li\u003E\u003Cli\u003ELevel 3 Diploma in Health and Social Care\u003C/li\u003E\u003C/ul\u003E\u003C/p\u003E"
+      },
+      "FurtherInfo": {
+        "Html": ""
+      },
+      "Requirements": {
+        "ContentItemIds": [
+          "4v1ejqj750p1379jppwn6xw6ws",
+          "4rd3b5vs7qa29rcvx9je20rdwz"
+        ]
+      },
+      "Links": {
+        "ContentItemIds": [
+          "4gvq9h4dfkfg31zbvxjwnkfkdj",
+          "4vdwe99jk77121mj6yfem4d2mb",
+          "465pqwtcnmexv5dvrr2xra2ewf"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/collegeroute/06f1ee93-a9c7-4a39-9fd2-2324690b6df5"
+    },
+    "ContentItemId": "48n2e6zw86qyq5b6vpqvk673wj",
+    "ContentItemVersionId": "4v90xf3nehtjt1ttksbw3fzaws",
+    "ContentType": "CollegeRoute",
+    "DisplayText": "Accommodation warden",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-05-02T22:42:08.9174639Z",
+    "PublishedUtc": "2021-05-02T22:42:08.9174639Z",
+    "CreatedUtc": "2021-05-02T22:42:08.9174639Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "3D printing technician"
+    },
+    "CollegeRoute": {
+      "RelevantSubjects": {
+        "Html": "\u003Cp\u003EYou could take a course in creative design, model making or engineering. This could help you to find a job with a manufacturing or 3D printing company. Courses include:\u003Cul\u003E\u003Cli\u003ELevel 2 Certificate in Computer-Aided Design and Manufacturing\u003C/li\u003E\u003Cli\u003ELevel 3 Certificate in 3D Design\u003C/li\u003E\u003Cli\u003ELevel 3 Diploma in Engineering Technology\u003C/li\u003E\u003Cli\u003ET level in Digital Production, Design and Development\u003C/li\u003E\u003C/ul\u003E\u003C/p\u003E"
+      },
+      "FurtherInfo": {
+        "Html": ""
+      },
+      "Requirements": {
+        "ContentItemIds": [
+          "49atr8kx4ptr4yrtr73ytbjznv",
+          "42nq5skmamxbr6rcrt96tb57xn"
+        ]
+      },
+      "Links": {
+        "ContentItemIds": [
+          "4gvq9h4dfkfg31zbvxjwnkfkdj",
+          "4gsjrg4m2zskktqxqwgm00t05m",
+          "4vdwe99jk77121mj6yfem4d2mb",
+          "465pqwtcnmexv5dvrr2xra2ewf"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/collegeroute/5a75b3fc-f773-4962-9ade-f214a2cce7ce"
+    },
+    "ContentItemId": "4smwfh0fx3wdzz9g26rq55ax58",
+    "ContentItemVersionId": "4q8g81wwz39m6714zrknjbtadw",
+    "ContentType": "CollegeRoute",
+    "DisplayText": "3D printing technician",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-05-02T22:42:08.9174639Z",
+    "PublishedUtc": "2021-05-02T22:42:08.9174639Z",
+    "CreatedUtc": "2021-05-02T22:42:08.9174639Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Actor"
+    },
+    "CollegeRoute": {
+      "RelevantSubjects": {
+        "Html": "\u003Cp\u003EThere is no set entry route to become an actor but it may be useful to do a relevant subject like:\u003Cul\u003E\u003Cli\u003ELevel 2 Technical Certificate in Performing Arts\u003C/li\u003E\u003Cli\u003ELevel 3 Extended Diploma in Performing Arts - Acting\u003C/li\u003E\u003Cli\u003EA level in Drama and Theatre\u003C/li\u003E\u003Cli\u003ELevel 4 Diploma in Speech and Drama\u003C/li\u003E\u003C/ul\u003E\u003C/p\u003E"
+      },
+      "FurtherInfo": {
+        "Html": ""
+      },
+      "Requirements": {
+        "ContentItemIds": [
+          "4v1ejqj750p1379jppwn6xw6ws",
+          "4rd3b5vs7qa29rcvx9je20rdwz",
+          "49npm70fa9p2f2nvf490kq66m3"
+        ]
+      },
+      "Links": {
+        "ContentItemIds": [
+          "4gvq9h4dfkfg31zbvxjwnkfkdj",
+          "4vdwe99jk77121mj6yfem4d2mb",
+          "465pqwtcnmexv5dvrr2xra2ewf"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/collegeroute/b1d114b8-06f0-4cd7-a677-7a617abd4639"
+    },
+    "ContentItemId": "4d8fsawrg71n9ske8m2d936ymq",
+    "ContentItemVersionId": "4n740ctspgxdez1mqnp4p5m2mn",
+    "ContentType": "CollegeRoute",
+    "DisplayText": "Actor",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-05-02T22:42:08.9174639Z",
+    "PublishedUtc": "2021-05-02T22:42:08.9174639Z",
+    "CreatedUtc": "2021-05-02T22:42:08.9174639Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "3D printing technician"
+    },
+    "CollegeRoute": {
+      "RelevantSubjects": {
+        "Html": "\u003Cp\u003EYou could take a course in creative design, model making or engineering. This could help you to find a job with a manufacturing or 3D printing company. Courses include:\u003Cul\u003E\u003Cli\u003ELevel 2 Certificate in Computer-Aided Design and Manufacturing\u003C/li\u003E\u003Cli\u003ELevel 3 Certificate in 3D Design\u003C/li\u003E\u003Cli\u003ELevel 3 Diploma in Engineering Technology\u003C/li\u003E\u003Cli\u003ET level in Digital Production, Design and Development\u003C/li\u003E\u003C/ul\u003E\u003C/p\u003E"
+      },
+      "FurtherInfo": {
+        "Html": ""
+      },
+      "Requirements": {
+        "ContentItemIds": [
+          "49atr8kx4ptr4yrtr73ytbjznv",
+          "42nq5skmamxbr6rcrt96tb57xn"
+        ]
+      },
+      "Links": {
+        "ContentItemIds": [
+          "4gvq9h4dfkfg31zbvxjwnkfkdj",
+          "4gsjrg4m2zskktqxqwgm00t05m",
+          "4vdwe99jk77121mj6yfem4d2mb",
+          "465pqwtcnmexv5dvrr2xra2ewf"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/collegeroute/d077e572-6d4d-4aaf-acb8-bf6df143aa8e"
+    },
+    "ContentItemId": "4chv95az39d3qx4s4e8h75f5xa",
+    "ContentItemVersionId": "4zyc34xkaz81dv98t1e2vghbxe",
+    "ContentType": "CollegeRoute",
+    "DisplayText": "3D printing technician",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-05-02T22:42:08.9174639Z",
+    "PublishedUtc": "2021-05-02T22:42:08.9174639Z",
+    "CreatedUtc": "2021-05-02T22:42:08.9174639Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "3D printing technician"
+    },
+    "CollegeRoute": {
+      "RelevantSubjects": {
+        "Html": "\u003Cp\u003EYou could take a course in creative design, model making or engineering. This could help you to find a job with a manufacturing or 3D printing company. Courses include:\u003Cul\u003E\u003Cli\u003ELevel 2 Certificate in Computer-Aided Design and Manufacturing\u003C/li\u003E\u003Cli\u003ELevel 3 Certificate in 3D Design\u003C/li\u003E\u003Cli\u003ELevel 3 Diploma in Engineering Technology\u003C/li\u003E\u003Cli\u003ET level in Digital Production, Design and Development\u003C/li\u003E\u003C/ul\u003E\u003C/p\u003E"
+      },
+      "FurtherInfo": {
+        "Html": ""
+      },
+      "Requirements": {
+        "ContentItemIds": [
+          "49atr8kx4ptr4yrtr73ytbjznv",
+          "42nq5skmamxbr6rcrt96tb57xn"
+        ]
+      },
+      "Links": {
+        "ContentItemIds": [
+          "4gvq9h4dfkfg31zbvxjwnkfkdj",
+          "4gsjrg4m2zskktqxqwgm00t05m",
+          "4vdwe99jk77121mj6yfem4d2mb",
+          "465pqwtcnmexv5dvrr2xra2ewf"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/collegeroute/d0e99465-491a-4fc5-8398-6732b6f90868"
+    },
+    "ContentItemId": "4jk1rh1xjyqb94an9fwrf6xdxa",
+    "ContentItemVersionId": "4myn87pkk773rs0e6gfg3m7mcq",
+    "ContentType": "CollegeRoute",
+    "DisplayText": "3D printing technician",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-05-02T22:42:08.9174639Z",
+    "PublishedUtc": "2021-05-02T22:42:08.9174639Z",
+    "CreatedUtc": "2021-05-02T22:42:08.9174639Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "3D printing technician"
+    },
+    "CollegeRoute": {
+      "RelevantSubjects": {
+        "Html": "\u003Cp\u003EYou could take a course in creative design, model making or engineering. This could help you to find a job with a manufacturing or 3D printing company. Courses include:\u003Cul\u003E\u003Cli\u003ELevel 2 Certificate in Computer-Aided Design and Manufacturing\u003C/li\u003E\u003Cli\u003ELevel 3 Certificate in 3D Design\u003C/li\u003E\u003Cli\u003ELevel 3 Diploma in Engineering Technology\u003C/li\u003E\u003Cli\u003ET level in Digital Production, Design and Development\u003C/li\u003E\u003C/ul\u003E\u003C/p\u003E"
+      },
+      "FurtherInfo": {
+        "Html": ""
+      },
+      "Requirements": {
+        "ContentItemIds": [
+          "49atr8kx4ptr4yrtr73ytbjznv",
+          "42nq5skmamxbr6rcrt96tb57xn"
+        ]
+      },
+      "Links": {
+        "ContentItemIds": [
+          "4gvq9h4dfkfg31zbvxjwnkfkdj",
+          "4gsjrg4m2zskktqxqwgm00t05m",
+          "4vdwe99jk77121mj6yfem4d2mb",
+          "465pqwtcnmexv5dvrr2xra2ewf"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/collegeroute/4ce06ac3-584e-4a82-a918-b1f741d326dd"
+    },
+    "ContentItemId": "4z67pkrs5vhq3582awfqnfww41",
+    "ContentItemVersionId": "49nyzbszv1a7aretsh3r4xqb49",
+    "ContentType": "CollegeRoute",
+    "DisplayText": "3D printing technician",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-05-02T22:42:08.9174639Z",
+    "PublishedUtc": "2021-05-02T22:42:08.9174639Z",
+    "CreatedUtc": "2021-05-02T22:42:08.9174639Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Admin assistant"
+    },
+    "CollegeRoute": {
+      "RelevantSubjects": {
+        "Html": "\u003Cp\u003EYou could do a college course, which would teach you some of the skills and knowledge you need in this job. Relevant subjects include a Level 2 or 3 Diploma in Business and Administration.\u003C/p\u003E"
+      },
+      "FurtherInfo": {
+        "Html": ""
+      },
+      "Requirements": {
+        "ContentItemIds": [
+          "4v1ejqj750p1379jppwn6xw6ws",
+          "4rd3b5vs7qa29rcvx9je20rdwz"
+        ]
+      },
+      "Links": {
+        "ContentItemIds": [
+          "4gvq9h4dfkfg31zbvxjwnkfkdj",
+          "4vdwe99jk77121mj6yfem4d2mb",
+          "465pqwtcnmexv5dvrr2xra2ewf"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/collegeroute/7604584d-7f99-4f7d-93c5-46990d56ce9d"
+    },
+    "ContentItemId": "4cnykg61dv9jcttppv9pwxbe4t",
+    "ContentItemVersionId": "4kte8b7gcnyvbwkk08ryep5enz",
+    "ContentType": "CollegeRoute",
+    "DisplayText": "Admin assistant",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-05-02T22:42:08.9174639Z",
+    "PublishedUtc": "2021-05-02T22:42:08.9174639Z",
+    "CreatedUtc": "2021-05-02T22:42:08.9174639Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Admin assistant"
+    },
+    "CollegeRoute": {
+      "RelevantSubjects": {
+        "Html": "\u003Cp\u003EYou could do a college course, which would teach you some of the skills and knowledge you need in this job. Relevant subjects include a Level 2 or 3 Diploma in Business and Administration.\u003C/p\u003E"
+      },
+      "FurtherInfo": {
+        "Html": ""
+      },
+      "Requirements": {
+        "ContentItemIds": [
+          "4v1ejqj750p1379jppwn6xw6ws",
+          "4rd3b5vs7qa29rcvx9je20rdwz"
+        ]
+      },
+      "Links": {
+        "ContentItemIds": [
+          "4gvq9h4dfkfg31zbvxjwnkfkdj",
+          "4vdwe99jk77121mj6yfem4d2mb",
+          "465pqwtcnmexv5dvrr2xra2ewf"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/collegeroute/e0d0b78c-6535-4087-b9d0-97cc27d408dd"
+    },
+    "ContentItemId": "4nb955f5vskw56cdjjngxdb542",
+    "ContentItemVersionId": "443b46c9gdhfj4nf2c7cz13xnb",
+    "ContentType": "CollegeRoute",
+    "DisplayText": "Admin assistant",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-05-02T22:42:08.9174639Z",
+    "PublishedUtc": "2021-05-02T22:42:08.9174639Z",
+    "CreatedUtc": "2021-05-02T22:42:08.9174639Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Accounting technician"
+    },
+    "CollegeRoute": {
+      "RelevantSubjects": {
+        "Html": "\u003Cp\u003EThere is no set entry route to become an accounting technician but it may be useful to do a relevant qualification like:Level 2 Foundation Certificate in Accounting accredited by the \u003Ca href=\u0022http://www.aatqualificationsnavigator.org.uk/navigator.html\u0022\u003EAssociation of Accounting Technicians\u003C/a\u003E (AAT); Foundations in Accountancy accredited by the \u003Ca href=\u0022https://www.accaglobal.com/uk/en/qualifications/glance/foundation-level/foundations-professionalism.html\u0022\u003EAssociation of Chartered Certified Accountants\u003C/a\u003E (ACCA)\u003C/p\u003E"
+      },
+      "FurtherInfo": {
+        "Html": ""
+      },
+      "Requirements": {
+        "ContentItemIds": []
+      },
+      "Links": {
+        "ContentItemIds": [
+          "4vdwe99jk77121mj6yfem4d2mb",
+          "465pqwtcnmexv5dvrr2xra2ewf"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/collegeroute/cb0b122e-ba92-4ab0-b232-9c4de7e49d44"
+    },
+    "ContentItemId": "4ghxhhcj1mgrtsk8dsx0fzm957",
+    "ContentItemVersionId": "4fj6hzjfn7avv7ybtpfyg93axw",
+    "ContentType": "CollegeRoute",
+    "DisplayText": "Accounting technician",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-05-02T22:42:08.9174639Z",
+    "PublishedUtc": "2021-05-02T22:42:08.9174639Z",
+    "CreatedUtc": "2021-05-02T22:42:08.9174639Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Accounting technician"
+    },
+    "CollegeRoute": {
+      "RelevantSubjects": {
+        "Html": "\u003Cp\u003EThere is no set entry route to become an accounting technician but it may be useful to do a relevant qualification like:Level 2 Foundation Certificate in Accounting accredited by the \u003Ca href=\u0022http://www.aatqualificationsnavigator.org.uk/navigator.html\u0022\u003EAssociation of Accounting Technicians\u003C/a\u003E (AAT); Foundations in Accountancy accredited by the \u003Ca href=\u0022https://www.accaglobal.com/uk/en/qualifications/glance/foundation-level/foundations-professionalism.html\u0022\u003EAssociation of Chartered Certified Accountants\u003C/a\u003E (ACCA)\u003C/p\u003E"
+      },
+      "FurtherInfo": {
+        "Html": ""
+      },
+      "Requirements": {
+        "ContentItemIds": []
+      },
+      "Links": {
+        "ContentItemIds": [
+          "4vdwe99jk77121mj6yfem4d2mb",
+          "465pqwtcnmexv5dvrr2xra2ewf"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/collegeroute/1305b120-30f9-4158-937e-00066f90d7a1"
+    },
+    "ContentItemId": "452cpadwg8qhe1rgwvkegmvjnv",
+    "ContentItemVersionId": "4w8kwdhw1gf1z014b086kvrdmv",
+    "ContentType": "CollegeRoute",
+    "DisplayText": "Accounting technician",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-05-02T22:42:08.9174639Z",
+    "PublishedUtc": "2021-05-02T22:42:08.9174639Z",
+    "CreatedUtc": "2021-05-02T22:42:08.9174639Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Actor"
+    },
+    "CollegeRoute": {
+      "RelevantSubjects": {
+        "Html": "\u003Cp\u003EThere is no set entry route to become an actor but it may be useful to do a relevant subject like:\u003Cul\u003E\u003Cli\u003ELevel 2 Technical Certificate in Performing Arts\u003C/li\u003E\u003Cli\u003ELevel 3 Extended Diploma in Performing Arts - Acting\u003C/li\u003E\u003Cli\u003EA level in Drama and Theatre\u003C/li\u003E\u003Cli\u003ELevel 4 Diploma in Speech and Drama\u003C/li\u003E\u003C/ul\u003E\u003C/p\u003E"
+      },
+      "FurtherInfo": {
+        "Html": ""
+      },
+      "Requirements": {
+        "ContentItemIds": [
+          "4v1ejqj750p1379jppwn6xw6ws",
+          "4rd3b5vs7qa29rcvx9je20rdwz",
+          "49npm70fa9p2f2nvf490kq66m3"
+        ]
+      },
+      "Links": {
+        "ContentItemIds": [
+          "4gvq9h4dfkfg31zbvxjwnkfkdj",
+          "4vdwe99jk77121mj6yfem4d2mb",
+          "465pqwtcnmexv5dvrr2xra2ewf"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/collegeroute/13bf2726-86af-41c5-a91d-a42b6278e892"
+    },
+    "ContentItemId": "4wqsg1c2shtq823krm0j0yxmm9",
+    "ContentItemVersionId": "4z0zjdpryb3f3x7q0sqbxk3zdd",
+    "ContentType": "CollegeRoute",
+    "DisplayText": "Actor",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-05-02T22:42:08.9174639Z",
+    "PublishedUtc": "2021-05-02T22:42:08.9174639Z",
+    "CreatedUtc": "2021-05-02T22:42:08.9174639Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Accommodation warden"
+    },
+    "CollegeRoute": {
+      "RelevantSubjects": {
+        "Html": "\u003Cp\u003EYou could take a college course before applying for a job. Courses include:\u003Cul\u003E\u003Cli\u003ELevel 2 Certificate in Facilities Services\u003C/li\u003E\u003Cli\u003ELevel 3 Diploma in Health and Social Care\u003C/li\u003E\u003C/ul\u003E\u003C/p\u003E"
+      },
+      "FurtherInfo": {
+        "Html": ""
+      },
+      "Requirements": {
+        "ContentItemIds": [
+          "4v1ejqj750p1379jppwn6xw6ws",
+          "4rd3b5vs7qa29rcvx9je20rdwz"
+        ]
+      },
+      "Links": {
+        "ContentItemIds": [
+          "4gvq9h4dfkfg31zbvxjwnkfkdj",
+          "4vdwe99jk77121mj6yfem4d2mb",
+          "465pqwtcnmexv5dvrr2xra2ewf"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/collegeroute/d0abfd44-b63a-40a1-966a-4a44300dfb44"
+    },
+    "ContentItemId": "409538rn1qd9fyfk9m5gtrpwnj",
+    "ContentItemVersionId": "4sbnctqtpmtes19hw5tz2nyt45",
+    "ContentType": "CollegeRoute",
+    "DisplayText": "Accommodation warden",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-05-02T22:42:08.9174639Z",
+    "PublishedUtc": "2021-05-02T22:42:08.9174639Z",
+    "CreatedUtc": "2021-05-02T22:42:08.9174639Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Accommodation warden"
+    },
+    "CollegeRoute": {
+      "RelevantSubjects": {
+        "Html": "\u003Cp\u003EYou could take a college course before applying for a job. Courses include:\u003Cul\u003E\u003Cli\u003ELevel 2 Certificate in Facilities Services\u003C/li\u003E\u003Cli\u003ELevel 3 Diploma in Health and Social Care\u003C/li\u003E\u003C/ul\u003E\u003C/p\u003E"
+      },
+      "FurtherInfo": {
+        "Html": ""
+      },
+      "Requirements": {
+        "ContentItemIds": [
+          "4v1ejqj750p1379jppwn6xw6ws",
+          "4rd3b5vs7qa29rcvx9je20rdwz"
+        ]
+      },
+      "Links": {
+        "ContentItemIds": [
+          "4gvq9h4dfkfg31zbvxjwnkfkdj",
+          "4vdwe99jk77121mj6yfem4d2mb",
+          "465pqwtcnmexv5dvrr2xra2ewf"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/collegeroute/4a733c50-7db1-45f2-8478-b25dd3ce1a05"
+    },
+    "ContentItemId": "4zqzynq8s27xdxf7e9n0ky63mp",
+    "ContentItemVersionId": "4e4m7erzjtjcs0ww01f8fhj6xx",
+    "ContentType": "CollegeRoute",
+    "DisplayText": "Accommodation warden",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-05-02T22:42:08.9174639Z",
+    "PublishedUtc": "2021-05-02T22:42:08.9174639Z",
+    "CreatedUtc": "2021-05-02T22:42:08.9174639Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Actor"
+    },
+    "CollegeRoute": {
+      "RelevantSubjects": {
+        "Html": "\u003Cp\u003EThere is no set entry route to become an actor but it may be useful to do a relevant subject like:\u003Cul\u003E\u003Cli\u003ELevel 2 Technical Certificate in Performing Arts\u003C/li\u003E\u003Cli\u003ELevel 3 Extended Diploma in Performing Arts - Acting\u003C/li\u003E\u003Cli\u003EA level in Drama and Theatre\u003C/li\u003E\u003Cli\u003ELevel 4 Diploma in Speech and Drama\u003C/li\u003E\u003C/ul\u003E\u003C/p\u003E"
+      },
+      "FurtherInfo": {
+        "Html": ""
+      },
+      "Requirements": {
+        "ContentItemIds": [
+          "4v1ejqj750p1379jppwn6xw6ws",
+          "4rd3b5vs7qa29rcvx9je20rdwz",
+          "49npm70fa9p2f2nvf490kq66m3"
+        ]
+      },
+      "Links": {
+        "ContentItemIds": [
+          "4gvq9h4dfkfg31zbvxjwnkfkdj",
+          "4vdwe99jk77121mj6yfem4d2mb",
+          "465pqwtcnmexv5dvrr2xra2ewf"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/collegeroute/42c58ce8-43d8-4f13-a5a8-0d04d4912bbb"
+    },
+    "ContentItemId": "43zkhvyxpg9dvr01hq5p7xkwcs",
+    "ContentItemVersionId": "42zw222c7mw36vv6601nypzcd1",
+    "ContentType": "CollegeRoute",
+    "DisplayText": "Actor",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-05-02T22:42:08.9174639Z",
+    "PublishedUtc": "2021-05-02T22:42:08.9174639Z",
+    "CreatedUtc": "2021-05-02T22:42:08.9174639Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Advertising account executive"
+    },
+    "CollegeRoute": {
+      "RelevantSubjects": {
+        "Html": "\u003Cp\u003EThere is no set entry route to become an advertising account executive but it may be useful to do a relevant subject like a Foundation Certificate in Marketing.\u003C/p\u003E"
+      },
+      "FurtherInfo": {
+        "Html": ""
+      },
+      "Requirements": {
+        "ContentItemIds": []
+      },
+      "Links": {
+        "ContentItemIds": [
+          "4vdwe99jk77121mj6yfem4d2mb",
+          "465pqwtcnmexv5dvrr2xra2ewf"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/collegeroute/077425c6-924e-400f-b7e8-0a6ebf7ce667"
+    },
+    "ContentItemId": "4h1qvpzs1d1dn57afhh0ep2kc0",
+    "ContentItemVersionId": "4ypym9w7x7x1q0z4neqmba6zxc",
+    "ContentType": "CollegeRoute",
+    "DisplayText": "Advertising account executive",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-05-02T22:42:08.9174639Z",
+    "PublishedUtc": "2021-05-02T22:42:08.9174639Z",
+    "CreatedUtc": "2021-05-02T22:42:08.9174639Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Accounting technician"
+    },
+    "CollegeRoute": {
+      "RelevantSubjects": {
+        "Html": "\u003Cp\u003EThere is no set entry route to become an accounting technician but it may be useful to do a relevant qualification like:Level 2 Foundation Certificate in Accounting accredited by the \u003Ca href=\u0022http://www.aatqualificationsnavigator.org.uk/navigator.html\u0022\u003EAssociation of Accounting Technicians\u003C/a\u003E (AAT); Foundations in Accountancy accredited by the \u003Ca href=\u0022https://www.accaglobal.com/uk/en/qualifications/glance/foundation-level/foundations-professionalism.html\u0022\u003EAssociation of Chartered Certified Accountants\u003C/a\u003E (ACCA)\u003C/p\u003E"
+      },
+      "FurtherInfo": {
+        "Html": ""
+      },
+      "Requirements": {
+        "ContentItemIds": []
+      },
+      "Links": {
+        "ContentItemIds": [
+          "4vdwe99jk77121mj6yfem4d2mb",
+          "465pqwtcnmexv5dvrr2xra2ewf"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/collegeroute/c7feec81-66da-4387-afab-18140450be8f"
+    },
+    "ContentItemId": "4f1eha5ttc5k7yfkaf5vkf7rnx",
+    "ContentItemVersionId": "45sa5kqv3mmpkwqm29z105rqd6",
+    "ContentType": "CollegeRoute",
+    "DisplayText": "Accounting technician",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-05-02T22:42:08.9174639Z",
+    "PublishedUtc": "2021-05-02T22:42:08.9174639Z",
+    "CreatedUtc": "2021-05-02T22:42:08.9174639Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Admin assistant"
+    },
+    "CollegeRoute": {
+      "RelevantSubjects": {
+        "Html": "\u003Cp\u003EYou could do a college course, which would teach you some of the skills and knowledge you need in this job. Relevant subjects include a Level 2 or 3 Diploma in Business and Administration.\u003C/p\u003E"
+      },
+      "FurtherInfo": {
+        "Html": ""
+      },
+      "Requirements": {
+        "ContentItemIds": [
+          "4v1ejqj750p1379jppwn6xw6ws",
+          "4rd3b5vs7qa29rcvx9je20rdwz"
+        ]
+      },
+      "Links": {
+        "ContentItemIds": [
+          "4gvq9h4dfkfg31zbvxjwnkfkdj",
+          "4vdwe99jk77121mj6yfem4d2mb",
+          "465pqwtcnmexv5dvrr2xra2ewf"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/collegeroute/a39ea9ff-26eb-43f6-b539-326580588300"
+    },
+    "ContentItemId": "4b24xkrynkgwcwf24r30mrsvmf",
+    "ContentItemVersionId": "43a3rgyejva255af498tktem5y",
+    "ContentType": "CollegeRoute",
+    "DisplayText": "Admin assistant",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-05-02T22:42:08.9174639Z",
+    "PublishedUtc": "2021-05-02T22:42:08.9174639Z",
+    "CreatedUtc": "2021-05-02T22:42:08.9174639Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Accounting technician"
+    },
+    "CollegeRoute": {
+      "RelevantSubjects": {
+        "Html": "\u003Cp\u003EThere is no set entry route to become an accounting technician but it may be useful to do a relevant qualification like:Level 2 Foundation Certificate in Accounting accredited by the \u003Ca href=\u0022http://www.aatqualificationsnavigator.org.uk/navigator.html\u0022\u003EAssociation of Accounting Technicians\u003C/a\u003E (AAT); Foundations in Accountancy accredited by the \u003Ca href=\u0022https://www.accaglobal.com/uk/en/qualifications/glance/foundation-level/foundations-professionalism.html\u0022\u003EAssociation of Chartered Certified Accountants\u003C/a\u003E (ACCA)\u003C/p\u003E"
+      },
+      "FurtherInfo": {
+        "Html": ""
+      },
+      "Requirements": {
+        "ContentItemIds": []
+      },
+      "Links": {
+        "ContentItemIds": [
+          "4vdwe99jk77121mj6yfem4d2mb",
+          "465pqwtcnmexv5dvrr2xra2ewf"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/collegeroute/623429e0-cb29-4c88-a47d-001e8322e3fb"
+    },
+    "ContentItemId": "46yn252pw6yg5vntc7rpb3whw4",
+    "ContentItemVersionId": "43dmm1039pz68tzbyrp5fbavne",
+    "ContentType": "CollegeRoute",
+    "DisplayText": "Accounting technician",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-05-02T22:42:08.9174639Z",
+    "PublishedUtc": "2021-05-02T22:42:08.9174639Z",
+    "CreatedUtc": "2021-05-02T22:42:08.9174639Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "3D printing technician"
+    },
+    "CollegeRoute": {
+      "RelevantSubjects": {
+        "Html": "\u003Cp\u003EYou could take a course in creative design, model making or engineering. This could help you to find a job with a manufacturing or 3D printing company. Courses include:\u003Cul\u003E\u003Cli\u003ELevel 2 Certificate in Computer-Aided Design and Manufacturing\u003C/li\u003E\u003Cli\u003ELevel 3 Certificate in 3D Design\u003C/li\u003E\u003Cli\u003ELevel 3 Diploma in Engineering Technology\u003C/li\u003E\u003Cli\u003ET level in Digital Production, Design and Development\u003C/li\u003E\u003C/ul\u003E\u003C/p\u003E"
+      },
+      "FurtherInfo": {
+        "Html": ""
+      },
+      "Requirements": {
+        "ContentItemIds": [
+          "49atr8kx4ptr4yrtr73ytbjznv",
+          "42nq5skmamxbr6rcrt96tb57xn"
+        ]
+      },
+      "Links": {
+        "ContentItemIds": [
+          "4gvq9h4dfkfg31zbvxjwnkfkdj",
+          "4gsjrg4m2zskktqxqwgm00t05m",
+          "4vdwe99jk77121mj6yfem4d2mb",
+          "465pqwtcnmexv5dvrr2xra2ewf"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/collegeroute/b69815a4-732d-4a8f-a6dd-d3020ca92c48"
+    },
+    "ContentItemId": "4nvzhpx71vkvw59wfkdt9y8rww",
+    "ContentItemVersionId": "4hpn8gc7z8qe6xs8er47rtq1xd",
+    "ContentType": "CollegeRoute",
+    "DisplayText": "3D printing technician",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-05-02T22:42:08.9174639Z",
+    "PublishedUtc": "2021-05-02T22:42:08.9174639Z",
+    "CreatedUtc": "2021-05-02T22:42:08.9174639Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Accounting technician"
+    },
+    "CollegeRoute": {
+      "RelevantSubjects": {
+        "Html": "\u003Cp\u003EThere is no set entry route to become an accounting technician but it may be useful to do a relevant qualification like:Level 2 Foundation Certificate in Accounting accredited by the \u003Ca href=\u0022http://www.aatqualificationsnavigator.org.uk/navigator.html\u0022\u003EAssociation of Accounting Technicians\u003C/a\u003E (AAT); Foundations in Accountancy accredited by the \u003Ca href=\u0022https://www.accaglobal.com/uk/en/qualifications/glance/foundation-level/foundations-professionalism.html\u0022\u003EAssociation of Chartered Certified Accountants\u003C/a\u003E (ACCA)\u003C/p\u003E"
+      },
+      "FurtherInfo": {
+        "Html": ""
+      },
+      "Requirements": {
+        "ContentItemIds": []
+      },
+      "Links": {
+        "ContentItemIds": [
+          "4vdwe99jk77121mj6yfem4d2mb",
+          "465pqwtcnmexv5dvrr2xra2ewf"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/collegeroute/a1c95017-474d-4865-b49a-616fdbc45658"
+    },
+    "ContentItemId": "44vj6anjpf1ts2c8gnbt8m1bn2",
+    "ContentItemVersionId": "4gnfr4v77wsn37jsnd0h67a9cp",
+    "ContentType": "CollegeRoute",
+    "DisplayText": "Accounting technician",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-05-02T22:42:08.9174639Z",
+    "PublishedUtc": "2021-05-02T22:42:08.9174639Z",
+    "CreatedUtc": "2021-05-02T22:42:08.9174639Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Actor"
+    },
+    "CollegeRoute": {
+      "RelevantSubjects": {
+        "Html": "\u003Cp\u003EThere is no set entry route to become an actor but it may be useful to do a relevant subject like:\u003Cul\u003E\u003Cli\u003ELevel 2 Technical Certificate in Performing Arts\u003C/li\u003E\u003Cli\u003ELevel 3 Extended Diploma in Performing Arts - Acting\u003C/li\u003E\u003Cli\u003EA level in Drama and Theatre\u003C/li\u003E\u003Cli\u003ELevel 4 Diploma in Speech and Drama\u003C/li\u003E\u003C/ul\u003E\u003C/p\u003E"
+      },
+      "FurtherInfo": {
+        "Html": ""
+      },
+      "Requirements": {
+        "ContentItemIds": [
+          "4v1ejqj750p1379jppwn6xw6ws",
+          "4rd3b5vs7qa29rcvx9je20rdwz",
+          "49npm70fa9p2f2nvf490kq66m3"
+        ]
+      },
+      "Links": {
+        "ContentItemIds": [
+          "4gvq9h4dfkfg31zbvxjwnkfkdj",
+          "4vdwe99jk77121mj6yfem4d2mb",
+          "465pqwtcnmexv5dvrr2xra2ewf"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/collegeroute/bd7bc4fd-7c93-49a3-995a-f99cc40fe788"
+    },
+    "ContentItemId": "4g41cmc6564p4wjeqxx5a5rzxh",
+    "ContentItemVersionId": "4t9jb756t4benyvnvhjhh1tfn9",
+    "ContentType": "CollegeRoute",
+    "DisplayText": "Actor",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-05-02T22:42:08.9174639Z",
+    "PublishedUtc": "2021-05-02T22:42:08.9174639Z",
+    "CreatedUtc": "2021-05-02T22:42:08.9174639Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Advertising account executive"
+    },
+    "CollegeRoute": {
+      "RelevantSubjects": {
+        "Html": "\u003Cp\u003EThere is no set entry route to become an advertising account executive but it may be useful to do a relevant subject like a Foundation Certificate in Marketing.\u003C/p\u003E"
+      },
+      "FurtherInfo": {
+        "Html": ""
+      },
+      "Requirements": {
+        "ContentItemIds": []
+      },
+      "Links": {
+        "ContentItemIds": [
+          "4vdwe99jk77121mj6yfem4d2mb",
+          "465pqwtcnmexv5dvrr2xra2ewf"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/collegeroute/bbcf5cea-c1af-4814-8138-d5b993674848"
+    },
+    "ContentItemId": "4aty6vgyrxnpm4se68jwkdm6xk",
+    "ContentItemVersionId": "4jrq4bjtb3qekxz2ywn0xszknw",
+    "ContentType": "CollegeRoute",
+    "DisplayText": "Advertising account executive",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-05-02T22:42:08.9174639Z",
+    "PublishedUtc": "2021-05-02T22:42:08.9174639Z",
+    "CreatedUtc": "2021-05-02T22:42:08.9174639Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Admin assistant"
+    },
+    "CollegeRoute": {
+      "RelevantSubjects": {
+        "Html": "\u003Cp\u003EYou could do a college course, which would teach you some of the skills and knowledge you need in this job. Relevant subjects include a Level 2 or 3 Diploma in Business and Administration.\u003C/p\u003E"
+      },
+      "FurtherInfo": {
+        "Html": ""
+      },
+      "Requirements": {
+        "ContentItemIds": [
+          "4v1ejqj750p1379jppwn6xw6ws",
+          "4rd3b5vs7qa29rcvx9je20rdwz"
+        ]
+      },
+      "Links": {
+        "ContentItemIds": [
+          "4gvq9h4dfkfg31zbvxjwnkfkdj",
+          "4vdwe99jk77121mj6yfem4d2mb",
+          "465pqwtcnmexv5dvrr2xra2ewf"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/collegeroute/37d52b9d-6411-45f1-a4aa-9a3cc97875dd"
+    },
+    "ContentItemId": "4nxjxpxxvjjg6v0wb08eebqhdc",
+    "ContentItemVersionId": "4gkbk872t3hshzn3ng4qqmnd57",
+    "ContentType": "CollegeRoute",
+    "DisplayText": "Admin assistant",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-05-02T22:42:08.9174639Z",
+    "PublishedUtc": "2021-05-02T22:42:08.9174639Z",
+    "CreatedUtc": "2021-05-02T22:42:08.9174639Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Accommodation warden"
+    },
+    "CollegeRoute": {
+      "RelevantSubjects": {
+        "Html": "\u003Cp\u003EYou could take a college course before applying for a job. Courses include:\u003Cul\u003E\u003Cli\u003ELevel 2 Certificate in Facilities Services\u003C/li\u003E\u003Cli\u003ELevel 3 Diploma in Health and Social Care\u003C/li\u003E\u003C/ul\u003E\u003C/p\u003E"
+      },
+      "FurtherInfo": {
+        "Html": ""
+      },
+      "Requirements": {
+        "ContentItemIds": [
+          "4v1ejqj750p1379jppwn6xw6ws",
+          "4rd3b5vs7qa29rcvx9je20rdwz"
+        ]
+      },
+      "Links": {
+        "ContentItemIds": [
+          "4gvq9h4dfkfg31zbvxjwnkfkdj",
+          "4vdwe99jk77121mj6yfem4d2mb",
+          "465pqwtcnmexv5dvrr2xra2ewf"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/collegeroute/b595ec04-70ea-44e7-a8ef-a6cebd4f8913"
+    },
+    "ContentItemId": "4s54pq5cvm3xk7gkbd01z4d840",
+    "ContentItemVersionId": "4vhqfqb5ftd4m5nrkzp4gr4e5g",
+    "ContentType": "CollegeRoute",
+    "DisplayText": "Accommodation warden",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-05-02T22:42:08.9174639Z",
+    "PublishedUtc": "2021-05-02T22:42:08.9174639Z",
+    "CreatedUtc": "2021-05-02T22:42:08.9174639Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Accounting technician"
+    },
+    "CollegeRoute": {
+      "RelevantSubjects": {
+        "Html": "\u003Cp\u003EThere is no set entry route to become an accounting technician but it may be useful to do a relevant qualification like:Level 2 Foundation Certificate in Accounting accredited by the \u003Ca href=\u0022http://www.aatqualificationsnavigator.org.uk/navigator.html\u0022\u003EAssociation of Accounting Technicians\u003C/a\u003E (AAT); Foundations in Accountancy accredited by the \u003Ca href=\u0022https://www.accaglobal.com/uk/en/qualifications/glance/foundation-level/foundations-professionalism.html\u0022\u003EAssociation of Chartered Certified Accountants\u003C/a\u003E (ACCA)\u003C/p\u003E"
+      },
+      "FurtherInfo": {
+        "Html": ""
+      },
+      "Requirements": {
+        "ContentItemIds": []
+      },
+      "Links": {
+        "ContentItemIds": [
+          "4vdwe99jk77121mj6yfem4d2mb",
+          "465pqwtcnmexv5dvrr2xra2ewf"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/collegeroute/973360fe-1455-43f8-9c2e-993d41e15ad7"
+    },
+    "ContentItemId": "415pha8z61zjw22hjjbjkcp4x3",
+    "ContentItemVersionId": "4b0me86wm25xf7majcryk3w5m9",
+    "ContentType": "CollegeRoute",
+    "DisplayText": "Accounting technician",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-05-02T22:42:08.9174639Z",
+    "PublishedUtc": "2021-05-02T22:42:08.9174639Z",
+    "CreatedUtc": "2021-05-02T22:42:08.9174639Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Admin assistant"
+    },
+    "CollegeRoute": {
+      "RelevantSubjects": {
+        "Html": "\u003Cp\u003EYou could do a college course, which would teach you some of the skills and knowledge you need in this job. Relevant subjects include a Level 2 or 3 Diploma in Business and Administration.\u003C/p\u003E"
+      },
+      "FurtherInfo": {
+        "Html": ""
+      },
+      "Requirements": {
+        "ContentItemIds": [
+          "4v1ejqj750p1379jppwn6xw6ws",
+          "4rd3b5vs7qa29rcvx9je20rdwz"
+        ]
+      },
+      "Links": {
+        "ContentItemIds": [
+          "4gvq9h4dfkfg31zbvxjwnkfkdj",
+          "4vdwe99jk77121mj6yfem4d2mb",
+          "465pqwtcnmexv5dvrr2xra2ewf"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/collegeroute/91d9b6d6-3b26-43d0-8f78-64dce13d992c"
+    },
+    "ContentItemId": "4vk5qkgcc5t7kwn5vj3tphs7wb",
+    "ContentItemVersionId": "4zpdvxyqhg8mjzs43zhr9406dp",
+    "ContentType": "CollegeRoute",
+    "DisplayText": "Admin assistant",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-05-02T22:42:08.9174639Z",
+    "PublishedUtc": "2021-05-02T22:42:08.9174639Z",
+    "CreatedUtc": "2021-05-02T22:42:08.9174639Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Accommodation warden"
+    },
+    "CollegeRoute": {
+      "RelevantSubjects": {
+        "Html": "\u003Cp\u003EYou could take a college course before applying for a job. Courses include:\u003Cul\u003E\u003Cli\u003ELevel 2 Certificate in Facilities Services\u003C/li\u003E\u003Cli\u003ELevel 3 Diploma in Health and Social Care\u003C/li\u003E\u003C/ul\u003E\u003C/p\u003E"
+      },
+      "FurtherInfo": {
+        "Html": ""
+      },
+      "Requirements": {
+        "ContentItemIds": [
+          "4v1ejqj750p1379jppwn6xw6ws",
+          "4rd3b5vs7qa29rcvx9je20rdwz"
+        ]
+      },
+      "Links": {
+        "ContentItemIds": [
+          "4gvq9h4dfkfg31zbvxjwnkfkdj",
+          "4vdwe99jk77121mj6yfem4d2mb",
+          "465pqwtcnmexv5dvrr2xra2ewf"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/collegeroute/4963cfe2-cf63-4d47-a6a0-f05fd9c184f5"
+    },
+    "ContentItemId": "4ksn410t9zej7yf6t4gqaw204d",
+    "ContentItemVersionId": "48k7jy5ngkxed5bz081hnw9hwy",
+    "ContentType": "CollegeRoute",
+    "DisplayText": "Accommodation warden",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-05-02T22:42:08.9174639Z",
+    "PublishedUtc": "2021-05-02T22:42:08.9174639Z",
+    "CreatedUtc": "2021-05-02T22:42:08.9174639Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Accommodation warden"
+    },
+    "CollegeRoute": {
+      "RelevantSubjects": {
+        "Html": "\u003Cp\u003EYou could take a college course before applying for a job. Courses include:\u003Cul\u003E\u003Cli\u003ELevel 2 Certificate in Facilities Services\u003C/li\u003E\u003Cli\u003ELevel 3 Diploma in Health and Social Care\u003C/li\u003E\u003C/ul\u003E\u003C/p\u003E"
+      },
+      "FurtherInfo": {
+        "Html": ""
+      },
+      "Requirements": {
+        "ContentItemIds": [
+          "4v1ejqj750p1379jppwn6xw6ws",
+          "4rd3b5vs7qa29rcvx9je20rdwz"
+        ]
+      },
+      "Links": {
+        "ContentItemIds": [
+          "4gvq9h4dfkfg31zbvxjwnkfkdj",
+          "4vdwe99jk77121mj6yfem4d2mb",
+          "465pqwtcnmexv5dvrr2xra2ewf"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/collegeroute/8b12ddd2-28ff-4923-aea2-94e61b0ad56d"
+    },
+    "ContentItemId": "46cka5w51qjtytsj2r9ks8b8we",
+    "ContentItemVersionId": "4212rzbv2dr0azh3xrag6y2dx4",
+    "ContentType": "CollegeRoute",
+    "DisplayText": "Accommodation warden",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-05-02T22:42:08.9174639Z",
+    "PublishedUtc": "2021-05-02T22:42:08.9174639Z",
+    "CreatedUtc": "2021-05-02T22:42:08.9174639Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Accommodation warden"
+    },
+    "CollegeRoute": {
+      "RelevantSubjects": {
+        "Html": "\u003Cp\u003EYou could take a college course before applying for a job. Courses include:\u003Cul\u003E\u003Cli\u003ELevel 2 Certificate in Facilities Services\u003C/li\u003E\u003Cli\u003ELevel 3 Diploma in Health and Social Care\u003C/li\u003E\u003C/ul\u003E\u003C/p\u003E"
+      },
+      "FurtherInfo": {
+        "Html": ""
+      },
+      "Requirements": {
+        "ContentItemIds": [
+          "4v1ejqj750p1379jppwn6xw6ws",
+          "4rd3b5vs7qa29rcvx9je20rdwz"
+        ]
+      },
+      "Links": {
+        "ContentItemIds": [
+          "4gvq9h4dfkfg31zbvxjwnkfkdj",
+          "4vdwe99jk77121mj6yfem4d2mb",
+          "465pqwtcnmexv5dvrr2xra2ewf"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/collegeroute/8f83404f-dc46-4970-be01-51fb3fe54754"
+    },
+    "ContentItemId": "4fv5dskamrswwz532x8da2sqm3",
+    "ContentItemVersionId": "4rtdqqqgy7zd0tgz73mp8djfm8",
+    "ContentType": "CollegeRoute",
+    "DisplayText": "Accommodation warden",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-05-02T22:42:08.9174639Z",
+    "PublishedUtc": "2021-05-02T22:42:08.9174639Z",
+    "CreatedUtc": "2021-05-02T22:42:08.9174639Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Actor"
+    },
+    "CollegeRoute": {
+      "RelevantSubjects": {
+        "Html": "\u003Cp\u003EThere is no set entry route to become an actor but it may be useful to do a relevant subject like:\u003Cul\u003E\u003Cli\u003ELevel 2 Technical Certificate in Performing Arts\u003C/li\u003E\u003Cli\u003ELevel 3 Extended Diploma in Performing Arts - Acting\u003C/li\u003E\u003Cli\u003EA level in Drama and Theatre\u003C/li\u003E\u003Cli\u003ELevel 4 Diploma in Speech and Drama\u003C/li\u003E\u003C/ul\u003E\u003C/p\u003E"
+      },
+      "FurtherInfo": {
+        "Html": ""
+      },
+      "Requirements": {
+        "ContentItemIds": [
+          "4v1ejqj750p1379jppwn6xw6ws",
+          "4rd3b5vs7qa29rcvx9je20rdwz",
+          "49npm70fa9p2f2nvf490kq66m3"
+        ]
+      },
+      "Links": {
+        "ContentItemIds": [
+          "4gvq9h4dfkfg31zbvxjwnkfkdj",
+          "4vdwe99jk77121mj6yfem4d2mb",
+          "465pqwtcnmexv5dvrr2xra2ewf"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/collegeroute/78728147-91c3-4c51-b1d0-34f976c92db4"
+    },
+    "ContentItemId": "44az80peqb0hb21p66hegh2wda",
+    "ContentItemVersionId": "42ym3czn624tt08r60jgn6p7n3",
+    "ContentType": "CollegeRoute",
+    "DisplayText": "Actor",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-05-02T22:42:08.9174639Z",
+    "PublishedUtc": "2021-05-02T22:42:08.9174639Z",
+    "CreatedUtc": "2021-05-02T22:42:08.9174639Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Advertising account executive"
+    },
+    "CollegeRoute": {
+      "RelevantSubjects": {
+        "Html": "\u003Cp\u003EThere is no set entry route to become an advertising account executive but it may be useful to do a relevant subject like a Foundation Certificate in Marketing.\u003C/p\u003E"
+      },
+      "FurtherInfo": {
+        "Html": ""
+      },
+      "Requirements": {
+        "ContentItemIds": []
+      },
+      "Links": {
+        "ContentItemIds": [
+          "4vdwe99jk77121mj6yfem4d2mb",
+          "465pqwtcnmexv5dvrr2xra2ewf"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/collegeroute/0af9cb25-f6c3-4375-8b24-e21641779055"
+    },
+    "ContentItemId": "4t1845vbe9nay5b44b1rw8cy4t",
+    "ContentItemVersionId": "4xzd618sr59sr0eawcn5t54cdk",
+    "ContentType": "CollegeRoute",
+    "DisplayText": "Advertising account executive",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-05-02T22:42:08.9174639Z",
+    "PublishedUtc": "2021-05-02T22:42:08.9174639Z",
+    "CreatedUtc": "2021-05-02T22:42:08.9174639Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Admin assistant"
+    },
+    "CollegeRoute": {
+      "RelevantSubjects": {
+        "Html": "\u003Cp\u003EYou could do a college course, which would teach you some of the skills and knowledge you need in this job. Relevant subjects include a Level 2 or 3 Diploma in Business and Administration.\u003C/p\u003E"
+      },
+      "FurtherInfo": {
+        "Html": ""
+      },
+      "Requirements": {
+        "ContentItemIds": [
+          "4v1ejqj750p1379jppwn6xw6ws",
+          "4rd3b5vs7qa29rcvx9je20rdwz"
+        ]
+      },
+      "Links": {
+        "ContentItemIds": [
+          "4gvq9h4dfkfg31zbvxjwnkfkdj",
+          "4vdwe99jk77121mj6yfem4d2mb",
+          "465pqwtcnmexv5dvrr2xra2ewf"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/collegeroute/0595a246-de28-4b8a-a0b6-bc1c33a7651b"
+    },
+    "ContentItemId": "4tv49qnq97hzbspyzz7bx94snf",
+    "ContentItemVersionId": "40frkr1pjpvcp0t22bdm8cykd7",
+    "ContentType": "CollegeRoute",
+    "DisplayText": "Admin assistant",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-05-02T22:42:08.9174639Z",
+    "PublishedUtc": "2021-05-02T22:42:08.9174639Z",
+    "CreatedUtc": "2021-05-02T22:42:08.9174639Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Accounting technician"
+    },
+    "CollegeRoute": {
+      "RelevantSubjects": {
+        "Html": "\u003Cp\u003EThere is no set entry route to become an accounting technician but it may be useful to do a relevant qualification like:Level 2 Foundation Certificate in Accounting accredited by the \u003Ca href=\u0022http://www.aatqualificationsnavigator.org.uk/navigator.html\u0022\u003EAssociation of Accounting Technicians\u003C/a\u003E (AAT); Foundations in Accountancy accredited by the \u003Ca href=\u0022https://www.accaglobal.com/uk/en/qualifications/glance/foundation-level/foundations-professionalism.html\u0022\u003EAssociation of Chartered Certified Accountants\u003C/a\u003E (ACCA)\u003C/p\u003E"
+      },
+      "FurtherInfo": {
+        "Html": ""
+      },
+      "Requirements": {
+        "ContentItemIds": []
+      },
+      "Links": {
+        "ContentItemIds": [
+          "4vdwe99jk77121mj6yfem4d2mb",
+          "465pqwtcnmexv5dvrr2xra2ewf"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/collegeroute/8e0ea26c-e028-4f77-977b-8fbc2c76504e"
+    },
+    "ContentItemId": "40y8qvnmakdee5e8k2tt7872wp",
+    "ContentItemVersionId": "4x50mc2jgxpyz00svhkw5d1rcg",
+    "ContentType": "CollegeRoute",
+    "DisplayText": "Accounting technician",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-05-02T22:42:08.9174639Z",
+    "PublishedUtc": "2021-05-02T22:42:08.9174639Z",
+    "CreatedUtc": "2021-05-02T22:42:08.9174639Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Actor"
+    },
+    "CollegeRoute": {
+      "RelevantSubjects": {
+        "Html": "\u003Cp\u003EThere is no set entry route to become an actor but it may be useful to do a relevant subject like:\u003Cul\u003E\u003Cli\u003ELevel 2 Technical Certificate in Performing Arts\u003C/li\u003E\u003Cli\u003ELevel 3 Extended Diploma in Performing Arts - Acting\u003C/li\u003E\u003Cli\u003EA level in Drama and Theatre\u003C/li\u003E\u003Cli\u003ELevel 4 Diploma in Speech and Drama\u003C/li\u003E\u003C/ul\u003E\u003C/p\u003E"
+      },
+      "FurtherInfo": {
+        "Html": ""
+      },
+      "Requirements": {
+        "ContentItemIds": [
+          "4v1ejqj750p1379jppwn6xw6ws",
+          "4rd3b5vs7qa29rcvx9je20rdwz",
+          "49npm70fa9p2f2nvf490kq66m3"
+        ]
+      },
+      "Links": {
+        "ContentItemIds": [
+          "4gvq9h4dfkfg31zbvxjwnkfkdj",
+          "4vdwe99jk77121mj6yfem4d2mb",
+          "465pqwtcnmexv5dvrr2xra2ewf"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/collegeroute/994ecd59-d621-46b0-bfc6-38aab4f77b0a"
+    },
+    "ContentItemId": "43s3g7xv2hh151na4m6rdcp54h",
+    "ContentItemVersionId": "4730rqhvxdep8rhydnbyfvpec3",
+    "ContentType": "CollegeRoute",
+    "DisplayText": "Actor",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-05-02T22:42:08.9174639Z",
+    "PublishedUtc": "2021-05-02T22:42:08.9174639Z",
+    "CreatedUtc": "2021-05-02T22:42:08.9174639Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "3D printing technician"
+    },
+    "CollegeRoute": {
+      "RelevantSubjects": {
+        "Html": "\u003Cp\u003EYou could take a course in creative design, model making or engineering. This could help you to find a job with a manufacturing or 3D printing company. Courses include:\u003Cul\u003E\u003Cli\u003ELevel 2 Certificate in Computer-Aided Design and Manufacturing\u003C/li\u003E\u003Cli\u003ELevel 3 Certificate in 3D Design\u003C/li\u003E\u003Cli\u003ELevel 3 Diploma in Engineering Technology\u003C/li\u003E\u003Cli\u003ET level in Digital Production, Design and Development\u003C/li\u003E\u003C/ul\u003E\u003C/p\u003E"
+      },
+      "FurtherInfo": {
+        "Html": ""
+      },
+      "Requirements": {
+        "ContentItemIds": [
+          "49atr8kx4ptr4yrtr73ytbjznv",
+          "42nq5skmamxbr6rcrt96tb57xn"
+        ]
+      },
+      "Links": {
+        "ContentItemIds": [
+          "4gvq9h4dfkfg31zbvxjwnkfkdj",
+          "4gsjrg4m2zskktqxqwgm00t05m",
+          "4vdwe99jk77121mj6yfem4d2mb",
+          "465pqwtcnmexv5dvrr2xra2ewf"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/collegeroute/c3d9764b-ac4f-4285-b934-8a9ded303ae7"
+    },
+    "ContentItemId": "4raagwj7rt09czhbpw4j6e6hdk",
+    "ContentItemVersionId": "40qhhv8v8fr73532wbjgd1hvna",
+    "ContentType": "CollegeRoute",
+    "DisplayText": "3D printing technician",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-05-02T22:42:08.9174639Z",
+    "PublishedUtc": "2021-05-02T22:42:08.9174639Z",
+    "CreatedUtc": "2021-05-02T22:42:08.9174639Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Actor"
+    },
+    "CollegeRoute": {
+      "RelevantSubjects": {
+        "Html": "\u003Cp\u003EThere is no set entry route to become an actor but it may be useful to do a relevant subject like:\u003Cul\u003E\u003Cli\u003ELevel 2 Technical Certificate in Performing Arts\u003C/li\u003E\u003Cli\u003ELevel 3 Extended Diploma in Performing Arts - Acting\u003C/li\u003E\u003Cli\u003EA level in Drama and Theatre\u003C/li\u003E\u003Cli\u003ELevel 4 Diploma in Speech and Drama\u003C/li\u003E\u003C/ul\u003E\u003C/p\u003E"
+      },
+      "FurtherInfo": {
+        "Html": ""
+      },
+      "Requirements": {
+        "ContentItemIds": [
+          "4v1ejqj750p1379jppwn6xw6ws",
+          "4rd3b5vs7qa29rcvx9je20rdwz",
+          "49npm70fa9p2f2nvf490kq66m3"
+        ]
+      },
+      "Links": {
+        "ContentItemIds": [
+          "4gvq9h4dfkfg31zbvxjwnkfkdj",
+          "4vdwe99jk77121mj6yfem4d2mb",
+          "465pqwtcnmexv5dvrr2xra2ewf"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/collegeroute/c666f854-3c0f-4c6b-993d-ebfae77304fe"
+    },
+    "ContentItemId": "4spbv4as77n3ettkyy2p0g3hm6",
+    "ContentItemVersionId": "4s33p8g75jk87s9gvkyv6wvkm2",
+    "ContentType": "CollegeRoute",
+    "DisplayText": "Actor",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-05-02T22:42:08.9174639Z",
+    "PublishedUtc": "2021-05-02T22:42:08.9174639Z",
+    "CreatedUtc": "2021-05-02T22:42:08.9174639Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Accommodation warden"
+    },
+    "CollegeRoute": {
+      "RelevantSubjects": {
+        "Html": "\u003Cp\u003EYou could take a college course before applying for a job. Courses include:\u003Cul\u003E\u003Cli\u003ELevel 2 Certificate in Facilities Services\u003C/li\u003E\u003Cli\u003ELevel 3 Diploma in Health and Social Care\u003C/li\u003E\u003C/ul\u003E\u003C/p\u003E"
+      },
+      "FurtherInfo": {
+        "Html": ""
+      },
+      "Requirements": {
+        "ContentItemIds": [
+          "4v1ejqj750p1379jppwn6xw6ws",
+          "4rd3b5vs7qa29rcvx9je20rdwz"
+        ]
+      },
+      "Links": {
+        "ContentItemIds": [
+          "4gvq9h4dfkfg31zbvxjwnkfkdj",
+          "4vdwe99jk77121mj6yfem4d2mb",
+          "465pqwtcnmexv5dvrr2xra2ewf"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/collegeroute/f15e8609-a40e-467c-bd61-d9fa6c640912"
+    },
+    "ContentItemId": "4jjw436zqxhypv3hgbpanskbnq",
+    "ContentItemVersionId": "4f9hy11jkzj8xwqh98zd9vfscd",
+    "ContentType": "CollegeRoute",
+    "DisplayText": "Accommodation warden",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-05-02T22:42:08.9174639Z",
+    "PublishedUtc": "2021-05-02T22:42:08.9174639Z",
+    "CreatedUtc": "2021-05-02T22:42:08.9174639Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Admin assistant"
+    },
+    "CollegeRoute": {
+      "RelevantSubjects": {
+        "Html": "\u003Cp\u003EYou could do a college course, which would teach you some of the skills and knowledge you need in this job. Relevant subjects include a Level 2 or 3 Diploma in Business and Administration.\u003C/p\u003E"
+      },
+      "FurtherInfo": {
+        "Html": ""
+      },
+      "Requirements": {
+        "ContentItemIds": [
+          "4v1ejqj750p1379jppwn6xw6ws",
+          "4rd3b5vs7qa29rcvx9je20rdwz"
+        ]
+      },
+      "Links": {
+        "ContentItemIds": [
+          "4gvq9h4dfkfg31zbvxjwnkfkdj",
+          "4vdwe99jk77121mj6yfem4d2mb",
+          "465pqwtcnmexv5dvrr2xra2ewf"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/collegeroute/91291f7b-4e1f-4879-978e-98bc219f2933"
+    },
+    "ContentItemId": "4k11m4dh92nt3wqbfk4xe2k6cf",
+    "ContentItemVersionId": "4er6xx9kk7d35wqjttmescn4c7",
+    "ContentType": "CollegeRoute",
+    "DisplayText": "Admin assistant",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-05-02T22:42:08.9174639Z",
+    "PublishedUtc": "2021-05-02T22:42:08.9174639Z",
+    "CreatedUtc": "2021-05-02T22:42:08.9174639Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Admin assistant"
+    },
+    "CollegeRoute": {
+      "RelevantSubjects": {
+        "Html": "\u003Cp\u003EYou could do a college course, which would teach you some of the skills and knowledge you need in this job. Relevant subjects include a Level 2 or 3 Diploma in Business and Administration.\u003C/p\u003E"
+      },
+      "FurtherInfo": {
+        "Html": ""
+      },
+      "Requirements": {
+        "ContentItemIds": [
+          "4v1ejqj750p1379jppwn6xw6ws",
+          "4rd3b5vs7qa29rcvx9je20rdwz"
+        ]
+      },
+      "Links": {
+        "ContentItemIds": [
+          "4gvq9h4dfkfg31zbvxjwnkfkdj",
+          "4vdwe99jk77121mj6yfem4d2mb",
+          "465pqwtcnmexv5dvrr2xra2ewf"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/collegeroute/7023d6b1-c6b2-4919-b855-480b075df559"
+    },
+    "ContentItemId": "4mfyekcrbqyv65wafwgeqqbw4r",
+    "ContentItemVersionId": "4qqrhn41dx3fkrk4wnsxvchfce",
+    "ContentType": "CollegeRoute",
+    "DisplayText": "Admin assistant",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-05-02T22:42:08.9174639Z",
+    "PublishedUtc": "2021-05-02T22:42:08.9174639Z",
+    "CreatedUtc": "2021-05-02T22:42:08.9174639Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "3D printing technician"
+    },
+    "CollegeRoute": {
+      "RelevantSubjects": {
+        "Html": "\u003Cp\u003EYou could take a course in creative design, model making or engineering. This could help you to find a job with a manufacturing or 3D printing company. Courses include:\u003Cul\u003E\u003Cli\u003ELevel 2 Certificate in Computer-Aided Design and Manufacturing\u003C/li\u003E\u003Cli\u003ELevel 3 Certificate in 3D Design\u003C/li\u003E\u003Cli\u003ELevel 3 Diploma in Engineering Technology\u003C/li\u003E\u003Cli\u003ET level in Digital Production, Design and Development\u003C/li\u003E\u003C/ul\u003E\u003C/p\u003E"
+      },
+      "FurtherInfo": {
+        "Html": ""
+      },
+      "Requirements": {
+        "ContentItemIds": [
+          "49atr8kx4ptr4yrtr73ytbjznv",
+          "42nq5skmamxbr6rcrt96tb57xn"
+        ]
+      },
+      "Links": {
+        "ContentItemIds": [
+          "4gvq9h4dfkfg31zbvxjwnkfkdj",
+          "4gsjrg4m2zskktqxqwgm00t05m",
+          "4vdwe99jk77121mj6yfem4d2mb",
+          "465pqwtcnmexv5dvrr2xra2ewf"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/collegeroute/08774d47-9903-4bd8-85a8-7b84f1169a09"
+    },
+    "ContentItemId": "46606h1g9bqxk2r6sd40gmxsd9",
+    "ContentItemVersionId": "4qv7wxv5pf6qat03vz3q3sa2wx",
+    "ContentType": "CollegeRoute",
+    "DisplayText": "3D printing technician",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-05-02T22:42:08.9174639Z",
+    "PublishedUtc": "2021-05-02T22:42:08.9174639Z",
+    "CreatedUtc": "2021-05-02T22:42:08.9174639Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Actor"
+    },
+    "CollegeRoute": {
+      "RelevantSubjects": {
+        "Html": "\u003Cp\u003EThere is no set entry route to become an actor but it may be useful to do a relevant subject like:\u003Cul\u003E\u003Cli\u003ELevel 2 Technical Certificate in Performing Arts\u003C/li\u003E\u003Cli\u003ELevel 3 Extended Diploma in Performing Arts - Acting\u003C/li\u003E\u003Cli\u003EA level in Drama and Theatre\u003C/li\u003E\u003Cli\u003ELevel 4 Diploma in Speech and Drama\u003C/li\u003E\u003C/ul\u003E\u003C/p\u003E"
+      },
+      "FurtherInfo": {
+        "Html": ""
+      },
+      "Requirements": {
+        "ContentItemIds": [
+          "4v1ejqj750p1379jppwn6xw6ws",
+          "4rd3b5vs7qa29rcvx9je20rdwz",
+          "49npm70fa9p2f2nvf490kq66m3"
+        ]
+      },
+      "Links": {
+        "ContentItemIds": [
+          "4gvq9h4dfkfg31zbvxjwnkfkdj",
+          "4vdwe99jk77121mj6yfem4d2mb",
+          "465pqwtcnmexv5dvrr2xra2ewf"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/collegeroute/845559ee-0f12-457d-a7f4-26b74b43659e"
+    },
+    "ContentItemId": "4nwynyfsw4kmg69sz9nedpa5d4",
+    "ContentItemVersionId": "4df07y9585zqp5v5gk0nb2sf4m",
+    "ContentType": "CollegeRoute",
+    "DisplayText": "Actor",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-05-02T22:42:08.9174639Z",
+    "PublishedUtc": "2021-05-02T22:42:08.9174639Z",
+    "CreatedUtc": "2021-05-02T22:42:08.9174639Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Accommodation warden"
+    },
+    "CollegeRoute": {
+      "RelevantSubjects": {
+        "Html": "\u003Cp\u003EYou could take a college course before applying for a job. Courses include:\u003Cul\u003E\u003Cli\u003ELevel 2 Certificate in Facilities Services\u003C/li\u003E\u003Cli\u003ELevel 3 Diploma in Health and Social Care\u003C/li\u003E\u003C/ul\u003E\u003C/p\u003E"
+      },
+      "FurtherInfo": {
+        "Html": ""
+      },
+      "Requirements": {
+        "ContentItemIds": [
+          "4v1ejqj750p1379jppwn6xw6ws",
+          "4rd3b5vs7qa29rcvx9je20rdwz"
+        ]
+      },
+      "Links": {
+        "ContentItemIds": [
+          "4gvq9h4dfkfg31zbvxjwnkfkdj",
+          "4vdwe99jk77121mj6yfem4d2mb",
+          "465pqwtcnmexv5dvrr2xra2ewf"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/collegeroute/018a52e5-9009-4140-a5b7-3991cb20cd5f"
+    },
+    "ContentItemId": "4p2rg20cd6jbwyc5afh9ebff4r",
+    "ContentItemVersionId": "4jnhgnfbz4zdps8fs4bea00557",
+    "ContentType": "CollegeRoute",
+    "DisplayText": "Accommodation warden",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-05-02T22:42:08.9174639Z",
+    "PublishedUtc": "2021-05-02T22:42:08.9174639Z",
+    "CreatedUtc": "2021-05-02T22:42:08.9174639Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Accounting technician"
+    },
+    "CollegeRoute": {
+      "RelevantSubjects": {
+        "Html": "\u003Cp\u003EThere is no set entry route to become an accounting technician but it may be useful to do a relevant qualification like:Level 2 Foundation Certificate in Accounting accredited by the \u003Ca href=\u0022http://www.aatqualificationsnavigator.org.uk/navigator.html\u0022\u003EAssociation of Accounting Technicians\u003C/a\u003E (AAT); Foundations in Accountancy accredited by the \u003Ca href=\u0022https://www.accaglobal.com/uk/en/qualifications/glance/foundation-level/foundations-professionalism.html\u0022\u003EAssociation of Chartered Certified Accountants\u003C/a\u003E (ACCA)\u003C/p\u003E"
+      },
+      "FurtherInfo": {
+        "Html": ""
+      },
+      "Requirements": {
+        "ContentItemIds": []
+      },
+      "Links": {
+        "ContentItemIds": [
+          "4vdwe99jk77121mj6yfem4d2mb",
+          "465pqwtcnmexv5dvrr2xra2ewf"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/collegeroute/7125812a-9b4e-4925-946a-8899370e857e"
+    },
+    "ContentItemId": "41vv5thy2e53w45hh3kf989q4r",
+    "ContentItemVersionId": "47jbnybmtbvzh449m5k9jbganr",
+    "ContentType": "CollegeRoute",
+    "DisplayText": "Accounting technician",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-05-02T22:42:08.9174639Z",
+    "PublishedUtc": "2021-05-02T22:42:08.9174639Z",
+    "CreatedUtc": "2021-05-02T22:42:08.9174639Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Actor"
+    },
+    "CollegeRoute": {
+      "RelevantSubjects": {
+        "Html": "\u003Cp\u003EThere is no set entry route to become an actor but it may be useful to do a relevant subject like:\u003Cul\u003E\u003Cli\u003ELevel 2 Technical Certificate in Performing Arts\u003C/li\u003E\u003Cli\u003ELevel 3 Extended Diploma in Performing Arts - Acting\u003C/li\u003E\u003Cli\u003EA level in Drama and Theatre\u003C/li\u003E\u003Cli\u003ELevel 4 Diploma in Speech and Drama\u003C/li\u003E\u003C/ul\u003E\u003C/p\u003E"
+      },
+      "FurtherInfo": {
+        "Html": ""
+      },
+      "Requirements": {
+        "ContentItemIds": [
+          "4v1ejqj750p1379jppwn6xw6ws",
+          "4rd3b5vs7qa29rcvx9je20rdwz",
+          "49npm70fa9p2f2nvf490kq66m3"
+        ]
+      },
+      "Links": {
+        "ContentItemIds": [
+          "4gvq9h4dfkfg31zbvxjwnkfkdj",
+          "4vdwe99jk77121mj6yfem4d2mb",
+          "465pqwtcnmexv5dvrr2xra2ewf"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/collegeroute/542dcd01-c1b9-42bb-93c0-19b8213822d3"
+    },
+    "ContentItemId": "4bwj75hbjqs2c29710c4m9p4ca",
+    "ContentItemVersionId": "43zhyfgst38yr2241d5s8gdr4v",
+    "ContentType": "CollegeRoute",
+    "DisplayText": "Actor",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-05-02T22:42:08.9174639Z",
+    "PublishedUtc": "2021-05-02T22:42:08.9174639Z",
+    "CreatedUtc": "2021-05-02T22:42:08.9174639Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "3D printing technician"
+    },
+    "CollegeRoute": {
+      "RelevantSubjects": {
+        "Html": "\u003Cp\u003EYou could take a course in creative design, model making or engineering. This could help you to find a job with a manufacturing or 3D printing company. Courses include:\u003Cul\u003E\u003Cli\u003ELevel 2 Certificate in Computer-Aided Design and Manufacturing\u003C/li\u003E\u003Cli\u003ELevel 3 Certificate in 3D Design\u003C/li\u003E\u003Cli\u003ELevel 3 Diploma in Engineering Technology\u003C/li\u003E\u003Cli\u003ET level in Digital Production, Design and Development\u003C/li\u003E\u003C/ul\u003E\u003C/p\u003E"
+      },
+      "FurtherInfo": {
+        "Html": ""
+      },
+      "Requirements": {
+        "ContentItemIds": [
+          "49atr8kx4ptr4yrtr73ytbjznv",
+          "42nq5skmamxbr6rcrt96tb57xn"
+        ]
+      },
+      "Links": {
+        "ContentItemIds": [
+          "4gvq9h4dfkfg31zbvxjwnkfkdj",
+          "4gsjrg4m2zskktqxqwgm00t05m",
+          "4vdwe99jk77121mj6yfem4d2mb",
+          "465pqwtcnmexv5dvrr2xra2ewf"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/collegeroute/1edc1a36-c2b0-449d-935c-b80a38a52fe6"
+    },
+    "ContentItemId": "4m82w9ee11jhe3xa6df22dmd5q",
+    "ContentItemVersionId": "4pqdk6p5h2retr4gp7mqnjh2mt",
+    "ContentType": "CollegeRoute",
+    "DisplayText": "3D printing technician",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-05-02T22:42:08.9174639Z",
+    "PublishedUtc": "2021-05-02T22:42:08.9174639Z",
+    "CreatedUtc": "2021-05-02T22:42:08.9174639Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Accounting technician"
+    },
+    "CollegeRoute": {
+      "RelevantSubjects": {
+        "Html": "\u003Cp\u003EThere is no set entry route to become an accounting technician but it may be useful to do a relevant qualification like:Level 2 Foundation Certificate in Accounting accredited by the \u003Ca href=\u0022http://www.aatqualificationsnavigator.org.uk/navigator.html\u0022\u003EAssociation of Accounting Technicians\u003C/a\u003E (AAT); Foundations in Accountancy accredited by the \u003Ca href=\u0022https://www.accaglobal.com/uk/en/qualifications/glance/foundation-level/foundations-professionalism.html\u0022\u003EAssociation of Chartered Certified Accountants\u003C/a\u003E (ACCA)\u003C/p\u003E"
+      },
+      "FurtherInfo": {
+        "Html": ""
+      },
+      "Requirements": {
+        "ContentItemIds": []
+      },
+      "Links": {
+        "ContentItemIds": [
+          "4vdwe99jk77121mj6yfem4d2mb",
+          "465pqwtcnmexv5dvrr2xra2ewf"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/collegeroute/10f8f04f-d40d-4796-bbc7-d4abe1a23f6a"
+    },
+    "ContentItemId": "4h56h18swwr4a7x72x4a4cr449",
+    "ContentItemVersionId": "4zyevekb451xm2bjxybbcn1fx9",
+    "ContentType": "CollegeRoute",
+    "DisplayText": "Accounting technician",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-05-02T22:42:08.9174639Z",
+    "PublishedUtc": "2021-05-02T22:42:08.9174639Z",
+    "CreatedUtc": "2021-05-02T22:42:08.9174639Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Advertising account executive"
+    },
+    "CollegeRoute": {
+      "RelevantSubjects": {
+        "Html": "\u003Cp\u003EThere is no set entry route to become an advertising account executive but it may be useful to do a relevant subject like a Foundation Certificate in Marketing.\u003C/p\u003E"
+      },
+      "FurtherInfo": {
+        "Html": ""
+      },
+      "Requirements": {
+        "ContentItemIds": []
+      },
+      "Links": {
+        "ContentItemIds": [
+          "4vdwe99jk77121mj6yfem4d2mb",
+          "465pqwtcnmexv5dvrr2xra2ewf"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/collegeroute/faf9a663-12ff-49bc-b1b8-4eb445bf4a7f"
+    },
+    "ContentItemId": "4ecdqtt93ns5bvv6ep795qq6c1",
+    "ContentItemVersionId": "460n7b9qb2njdtdngfr511ghnf",
+    "ContentType": "CollegeRoute",
+    "DisplayText": "Advertising account executive",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-05-02T22:42:08.9174639Z",
+    "PublishedUtc": "2021-05-02T22:42:08.9174639Z",
+    "CreatedUtc": "2021-05-02T22:42:08.9174639Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Accounting technician"
+    },
+    "CollegeRoute": {
+      "RelevantSubjects": {
+        "Html": "\u003Cp\u003EThere is no set entry route to become an accounting technician but it may be useful to do a relevant qualification like:Level 2 Foundation Certificate in Accounting accredited by the \u003Ca href=\u0022http://www.aatqualificationsnavigator.org.uk/navigator.html\u0022\u003EAssociation of Accounting Technicians\u003C/a\u003E (AAT); Foundations in Accountancy accredited by the \u003Ca href=\u0022https://www.accaglobal.com/uk/en/qualifications/glance/foundation-level/foundations-professionalism.html\u0022\u003EAssociation of Chartered Certified Accountants\u003C/a\u003E (ACCA)\u003C/p\u003E"
+      },
+      "FurtherInfo": {
+        "Html": ""
+      },
+      "Requirements": {
+        "ContentItemIds": []
+      },
+      "Links": {
+        "ContentItemIds": [
+          "4vdwe99jk77121mj6yfem4d2mb",
+          "465pqwtcnmexv5dvrr2xra2ewf"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/collegeroute/8368d068-150b-43d7-9653-386ab3dcf577"
+    },
+    "ContentItemId": "4hsmprsabrn9bwmb6jnxy07kc3",
+    "ContentItemVersionId": "4snj410vssfkq1ta6absx5jf4v",
+    "ContentType": "CollegeRoute",
+    "DisplayText": "Accounting technician",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-05-02T22:42:08.9174639Z",
+    "PublishedUtc": "2021-05-02T22:42:08.9174639Z",
+    "CreatedUtc": "2021-05-02T22:42:08.9174639Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Admin assistant"
+    },
+    "CollegeRoute": {
+      "RelevantSubjects": {
+        "Html": "\u003Cp\u003EYou could do a college course, which would teach you some of the skills and knowledge you need in this job. Relevant subjects include a Level 2 or 3 Diploma in Business and Administration.\u003C/p\u003E"
+      },
+      "FurtherInfo": {
+        "Html": ""
+      },
+      "Requirements": {
+        "ContentItemIds": [
+          "4v1ejqj750p1379jppwn6xw6ws",
+          "4rd3b5vs7qa29rcvx9je20rdwz"
+        ]
+      },
+      "Links": {
+        "ContentItemIds": [
+          "4gvq9h4dfkfg31zbvxjwnkfkdj",
+          "4vdwe99jk77121mj6yfem4d2mb",
+          "465pqwtcnmexv5dvrr2xra2ewf"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/collegeroute/92ea3001-0d9d-4c12-a498-2f4673e62c12"
+    },
+    "ContentItemId": "4fp55pmg7s2nbr4ayz1jzrx2nf",
+    "ContentItemVersionId": "4x57k21cknj7hyhb9fh50g2s5b",
+    "ContentType": "CollegeRoute",
+    "DisplayText": "Admin assistant",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-05-02T22:42:08.9174639Z",
+    "PublishedUtc": "2021-05-02T22:42:08.9174639Z",
+    "CreatedUtc": "2021-05-02T22:42:08.9174639Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Admin assistant"
+    },
+    "CollegeRoute": {
+      "RelevantSubjects": {
+        "Html": "\u003Cp\u003EYou could do a college course, which would teach you some of the skills and knowledge you need in this job. Relevant subjects include a Level 2 or 3 Diploma in Business and Administration.\u003C/p\u003E"
+      },
+      "FurtherInfo": {
+        "Html": ""
+      },
+      "Requirements": {
+        "ContentItemIds": [
+          "4v1ejqj750p1379jppwn6xw6ws",
+          "4rd3b5vs7qa29rcvx9je20rdwz"
+        ]
+      },
+      "Links": {
+        "ContentItemIds": [
+          "4gvq9h4dfkfg31zbvxjwnkfkdj",
+          "4vdwe99jk77121mj6yfem4d2mb",
+          "465pqwtcnmexv5dvrr2xra2ewf"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/collegeroute/49a200f6-0fcb-44af-819e-94e8afff3149"
+    },
+    "ContentItemId": "431867agrdvnnsg9wsv2g4y65t",
+    "ContentItemVersionId": "4svmdrh22r6w5v6wtq2hv0s6cf",
+    "ContentType": "CollegeRoute",
+    "DisplayText": "Admin assistant",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-05-02T22:42:08.9174639Z",
+    "PublishedUtc": "2021-05-02T22:42:08.9174639Z",
+    "CreatedUtc": "2021-05-02T22:42:08.9174639Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Admin assistant"
+    },
+    "CollegeRoute": {
+      "RelevantSubjects": {
+        "Html": "\u003Cp\u003EYou could do a college course, which would teach you some of the skills and knowledge you need in this job. Relevant subjects include a Level 2 or 3 Diploma in Business and Administration.\u003C/p\u003E"
+      },
+      "FurtherInfo": {
+        "Html": ""
+      },
+      "Requirements": {
+        "ContentItemIds": [
+          "4v1ejqj750p1379jppwn6xw6ws",
+          "4rd3b5vs7qa29rcvx9je20rdwz"
+        ]
+      },
+      "Links": {
+        "ContentItemIds": [
+          "4gvq9h4dfkfg31zbvxjwnkfkdj",
+          "4vdwe99jk77121mj6yfem4d2mb",
+          "465pqwtcnmexv5dvrr2xra2ewf"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/collegeroute/d008cd6d-b506-45c1-b450-0001ae4274c4"
+    },
+    "ContentItemId": "4wr8de8jq5n8qv7n3cwgt9ag4c",
+    "ContentItemVersionId": "49hcpxj0shmnwtsb40fwk4x7de",
+    "ContentType": "CollegeRoute",
+    "DisplayText": "Admin assistant",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-05-02T22:42:08.9174639Z",
+    "PublishedUtc": "2021-05-02T22:42:08.9174639Z",
+    "CreatedUtc": "2021-05-02T22:42:08.9174639Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Advertising account executive"
+    },
+    "CollegeRoute": {
+      "RelevantSubjects": {
+        "Html": "\u003Cp\u003EThere is no set entry route to become an advertising account executive but it may be useful to do a relevant subject like a Foundation Certificate in Marketing.\u003C/p\u003E"
+      },
+      "FurtherInfo": {
+        "Html": ""
+      },
+      "Requirements": {
+        "ContentItemIds": []
+      },
+      "Links": {
+        "ContentItemIds": [
+          "4vdwe99jk77121mj6yfem4d2mb",
+          "465pqwtcnmexv5dvrr2xra2ewf"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/collegeroute/62071b2b-d962-4fb6-841e-d17af55a51ce"
+    },
+    "ContentItemId": "4c6ppgsyzwn28vjqwyf6sdh55n",
+    "ContentItemVersionId": "4aktp967g7899zkbee6njbn44a",
+    "ContentType": "CollegeRoute",
+    "DisplayText": "Advertising account executive",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-05-02T22:42:08.9174639Z",
+    "PublishedUtc": "2021-05-02T22:42:08.9174639Z",
+    "CreatedUtc": "2021-05-02T22:42:08.9174639Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Accommodation warden"
+    },
+    "CollegeRoute": {
+      "RelevantSubjects": {
+        "Html": "\u003Cp\u003EYou could take a college course before applying for a job. Courses include:\u003Cul\u003E\u003Cli\u003ELevel 2 Certificate in Facilities Services\u003C/li\u003E\u003Cli\u003ELevel 3 Diploma in Health and Social Care\u003C/li\u003E\u003C/ul\u003E\u003C/p\u003E"
+      },
+      "FurtherInfo": {
+        "Html": ""
+      },
+      "Requirements": {
+        "ContentItemIds": [
+          "4v1ejqj750p1379jppwn6xw6ws",
+          "4rd3b5vs7qa29rcvx9je20rdwz"
+        ]
+      },
+      "Links": {
+        "ContentItemIds": [
+          "4gvq9h4dfkfg31zbvxjwnkfkdj",
+          "4vdwe99jk77121mj6yfem4d2mb",
+          "465pqwtcnmexv5dvrr2xra2ewf"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/collegeroute/edf16b9c-ed51-481b-a270-41cecba334f3"
+    },
+    "ContentItemId": "45q6691cv93qys1b60fwj87sd0",
+    "ContentItemVersionId": "4sasxwjahrvq3zc2qf4cpbg0mg",
+    "ContentType": "CollegeRoute",
+    "DisplayText": "Accommodation warden",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-05-02T22:42:08.9174639Z",
+    "PublishedUtc": "2021-05-02T22:42:08.9174639Z",
+    "CreatedUtc": "2021-05-02T22:42:08.9174639Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Accommodation warden"
+    },
+    "CollegeRoute": {
+      "RelevantSubjects": {
+        "Html": "\u003Cp\u003EYou could take a college course before applying for a job. Courses include:\u003Cul\u003E\u003Cli\u003ELevel 2 Certificate in Facilities Services\u003C/li\u003E\u003Cli\u003ELevel 3 Diploma in Health and Social Care\u003C/li\u003E\u003C/ul\u003E\u003C/p\u003E"
+      },
+      "FurtherInfo": {
+        "Html": ""
+      },
+      "Requirements": {
+        "ContentItemIds": [
+          "4v1ejqj750p1379jppwn6xw6ws",
+          "4rd3b5vs7qa29rcvx9je20rdwz"
+        ]
+      },
+      "Links": {
+        "ContentItemIds": [
+          "4gvq9h4dfkfg31zbvxjwnkfkdj",
+          "4vdwe99jk77121mj6yfem4d2mb",
+          "465pqwtcnmexv5dvrr2xra2ewf"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/collegeroute/5cf2adb5-3713-4705-80dc-0cce4ae9299a"
+    },
+    "ContentItemId": "4s5sv9ey999jftz1sm5063ktx6",
+    "ContentItemVersionId": "4caz7b2gk6297srk3awxm65n4n",
+    "ContentType": "CollegeRoute",
+    "DisplayText": "Accommodation warden",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-05-02T22:42:08.9174639Z",
+    "PublishedUtc": "2021-05-02T22:42:08.9174639Z",
+    "CreatedUtc": "2021-05-02T22:42:08.9174639Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Accommodation warden"
+    },
+    "CollegeRoute": {
+      "RelevantSubjects": {
+        "Html": "\u003Cp\u003EYou could take a college course before applying for a job. Courses include:\u003Cul\u003E\u003Cli\u003ELevel 2 Certificate in Facilities Services\u003C/li\u003E\u003Cli\u003ELevel 3 Diploma in Health and Social Care\u003C/li\u003E\u003C/ul\u003E\u003C/p\u003E"
+      },
+      "FurtherInfo": {
+        "Html": ""
+      },
+      "Requirements": {
+        "ContentItemIds": [
+          "4v1ejqj750p1379jppwn6xw6ws",
+          "4rd3b5vs7qa29rcvx9je20rdwz"
+        ]
+      },
+      "Links": {
+        "ContentItemIds": [
+          "4gvq9h4dfkfg31zbvxjwnkfkdj",
+          "4vdwe99jk77121mj6yfem4d2mb",
+          "465pqwtcnmexv5dvrr2xra2ewf"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/collegeroute/f27dbdea-ed47-485d-a5c3-197a3dffd5b9"
+    },
+    "ContentItemId": "4qa6fc1a0d3dtzzjv3t6w0ny4g",
+    "ContentItemVersionId": "49qfdywr94qbdxf06gmmffcmws",
+    "ContentType": "CollegeRoute",
+    "DisplayText": "Accommodation warden",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-05-02T22:42:08.9174639Z",
+    "PublishedUtc": "2021-05-02T22:42:08.9174639Z",
+    "CreatedUtc": "2021-05-02T22:42:08.9174639Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "3D printing technician"
+    },
+    "CollegeRoute": {
+      "RelevantSubjects": {
+        "Html": "\u003Cp\u003EYou could take a course in creative design, model making or engineering. This could help you to find a job with a manufacturing or 3D printing company. Courses include:\u003Cul\u003E\u003Cli\u003ELevel 2 Certificate in Computer-Aided Design and Manufacturing\u003C/li\u003E\u003Cli\u003ELevel 3 Certificate in 3D Design\u003C/li\u003E\u003Cli\u003ELevel 3 Diploma in Engineering Technology\u003C/li\u003E\u003Cli\u003ET level in Digital Production, Design and Development\u003C/li\u003E\u003C/ul\u003E\u003C/p\u003E"
+      },
+      "FurtherInfo": {
+        "Html": ""
+      },
+      "Requirements": {
+        "ContentItemIds": [
+          "49atr8kx4ptr4yrtr73ytbjznv",
+          "42nq5skmamxbr6rcrt96tb57xn"
+        ]
+      },
+      "Links": {
+        "ContentItemIds": [
+          "4gvq9h4dfkfg31zbvxjwnkfkdj",
+          "4gsjrg4m2zskktqxqwgm00t05m",
+          "4vdwe99jk77121mj6yfem4d2mb",
+          "465pqwtcnmexv5dvrr2xra2ewf"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/collegeroute/8a7ede39-16b8-455d-8100-dbf63acd9dc3"
+    },
+    "ContentItemId": "4b43wzgjg9wfkrpam5jvs4xkxk",
+    "ContentItemVersionId": "4fnx9edmzfbhtraayv50504wc8",
+    "ContentType": "CollegeRoute",
+    "DisplayText": "3D printing technician",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-05-02T22:42:08.9174639Z",
+    "PublishedUtc": "2021-05-02T22:42:08.9174639Z",
+    "CreatedUtc": "2021-05-02T22:42:08.9174639Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Accounting technician"
+    },
+    "CollegeRoute": {
+      "RelevantSubjects": {
+        "Html": "\u003Cp\u003EThere is no set entry route to become an accounting technician but it may be useful to do a relevant qualification like:Level 2 Foundation Certificate in Accounting accredited by the \u003Ca href=\u0022http://www.aatqualificationsnavigator.org.uk/navigator.html\u0022\u003EAssociation of Accounting Technicians\u003C/a\u003E (AAT); Foundations in Accountancy accredited by the \u003Ca href=\u0022https://www.accaglobal.com/uk/en/qualifications/glance/foundation-level/foundations-professionalism.html\u0022\u003EAssociation of Chartered Certified Accountants\u003C/a\u003E (ACCA)\u003C/p\u003E"
+      },
+      "FurtherInfo": {
+        "Html": ""
+      },
+      "Requirements": {
+        "ContentItemIds": []
+      },
+      "Links": {
+        "ContentItemIds": [
+          "4vdwe99jk77121mj6yfem4d2mb",
+          "465pqwtcnmexv5dvrr2xra2ewf"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/collegeroute/ee464d1b-ce87-424d-a6bf-e2b6b09f4769"
+    },
+    "ContentItemId": "47yzwd9fq62e1s64nz019mbex4",
+    "ContentItemVersionId": "4wcj735mcg25s0np5mc6n267wx",
+    "ContentType": "CollegeRoute",
+    "DisplayText": "Accounting technician",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-05-02T22:42:08.9174639Z",
+    "PublishedUtc": "2021-05-02T22:42:08.9174639Z",
+    "CreatedUtc": "2021-05-02T22:42:08.9174639Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Actor"
+    },
+    "CollegeRoute": {
+      "RelevantSubjects": {
+        "Html": "\u003Cp\u003EThere is no set entry route to become an actor but it may be useful to do a relevant subject like:\u003Cul\u003E\u003Cli\u003ELevel 2 Technical Certificate in Performing Arts\u003C/li\u003E\u003Cli\u003ELevel 3 Extended Diploma in Performing Arts - Acting\u003C/li\u003E\u003Cli\u003EA level in Drama and Theatre\u003C/li\u003E\u003Cli\u003ELevel 4 Diploma in Speech and Drama\u003C/li\u003E\u003C/ul\u003E\u003C/p\u003E"
+      },
+      "FurtherInfo": {
+        "Html": ""
+      },
+      "Requirements": {
+        "ContentItemIds": [
+          "4v1ejqj750p1379jppwn6xw6ws",
+          "4rd3b5vs7qa29rcvx9je20rdwz",
+          "49npm70fa9p2f2nvf490kq66m3"
+        ]
+      },
+      "Links": {
+        "ContentItemIds": [
+          "4gvq9h4dfkfg31zbvxjwnkfkdj",
+          "4vdwe99jk77121mj6yfem4d2mb",
+          "465pqwtcnmexv5dvrr2xra2ewf"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/collegeroute/7b27ebbc-34b4-467b-9ac2-93ba55955ea2"
+    },
+    "ContentItemId": "4e8y2by8phw8ctxcjgnnqdzqdh",
+    "ContentItemVersionId": "4jkhk8skhtfw43dtt6826ve5nt",
+    "ContentType": "CollegeRoute",
+    "DisplayText": "Actor",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-05-02T22:42:08.9174639Z",
+    "PublishedUtc": "2021-05-02T22:42:08.9174639Z",
+    "CreatedUtc": "2021-05-02T22:42:08.9174639Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Accounting technician"
+    },
+    "CollegeRoute": {
+      "RelevantSubjects": {
+        "Html": "\u003Cp\u003EThere is no set entry route to become an accounting technician but it may be useful to do a relevant qualification like:Level 2 Foundation Certificate in Accounting accredited by the \u003Ca href=\u0022http://www.aatqualificationsnavigator.org.uk/navigator.html\u0022\u003EAssociation of Accounting Technicians\u003C/a\u003E (AAT); Foundations in Accountancy accredited by the \u003Ca href=\u0022https://www.accaglobal.com/uk/en/qualifications/glance/foundation-level/foundations-professionalism.html\u0022\u003EAssociation of Chartered Certified Accountants\u003C/a\u003E (ACCA)\u003C/p\u003E"
+      },
+      "FurtherInfo": {
+        "Html": ""
+      },
+      "Requirements": {
+        "ContentItemIds": []
+      },
+      "Links": {
+        "ContentItemIds": [
+          "4vdwe99jk77121mj6yfem4d2mb",
+          "465pqwtcnmexv5dvrr2xra2ewf"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/collegeroute/8cccec12-ce30-40c4-9814-dd1859d56b4c"
+    },
+    "ContentItemId": "461zexsysqte964ztbj78pzk5e",
+    "ContentItemVersionId": "4s0as5qcrfk5ky3y43ypz345xx",
+    "ContentType": "CollegeRoute",
+    "DisplayText": "Accounting technician",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-05-02T22:42:08.9174639Z",
+    "PublishedUtc": "2021-05-02T22:42:08.9174639Z",
+    "CreatedUtc": "2021-05-02T22:42:08.9174639Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Accommodation warden"
+    },
+    "CollegeRoute": {
+      "RelevantSubjects": {
+        "Html": "\u003Cp\u003EYou could take a college course before applying for a job. Courses include:\u003Cul\u003E\u003Cli\u003ELevel 2 Certificate in Facilities Services\u003C/li\u003E\u003Cli\u003ELevel 3 Diploma in Health and Social Care\u003C/li\u003E\u003C/ul\u003E\u003C/p\u003E"
+      },
+      "FurtherInfo": {
+        "Html": ""
+      },
+      "Requirements": {
+        "ContentItemIds": [
+          "4v1ejqj750p1379jppwn6xw6ws",
+          "4rd3b5vs7qa29rcvx9je20rdwz"
+        ]
+      },
+      "Links": {
+        "ContentItemIds": [
+          "4gvq9h4dfkfg31zbvxjwnkfkdj",
+          "4vdwe99jk77121mj6yfem4d2mb",
+          "465pqwtcnmexv5dvrr2xra2ewf"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/collegeroute/10bf3cfa-1083-4eb0-b461-f0fabfbf7f6e"
+    },
+    "ContentItemId": "4hjghadn8gd461smgaanbhz7xp",
+    "ContentItemVersionId": "42jaav6sfr0s0rk949jbaeg7mp",
+    "ContentType": "CollegeRoute",
+    "DisplayText": "Accommodation warden",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-05-02T22:42:08.9174639Z",
+    "PublishedUtc": "2021-05-02T22:42:08.9174639Z",
+    "CreatedUtc": "2021-05-02T22:42:08.9174639Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Accommodation warden"
+    },
+    "CollegeRoute": {
+      "RelevantSubjects": {
+        "Html": "\u003Cp\u003EYou could take a college course before applying for a job. Courses include:\u003Cul\u003E\u003Cli\u003ELevel 2 Certificate in Facilities Services\u003C/li\u003E\u003Cli\u003ELevel 3 Diploma in Health and Social Care\u003C/li\u003E\u003C/ul\u003E\u003C/p\u003E"
+      },
+      "FurtherInfo": {
+        "Html": ""
+      },
+      "Requirements": {
+        "ContentItemIds": [
+          "4v1ejqj750p1379jppwn6xw6ws",
+          "4rd3b5vs7qa29rcvx9je20rdwz"
+        ]
+      },
+      "Links": {
+        "ContentItemIds": [
+          "4gvq9h4dfkfg31zbvxjwnkfkdj",
+          "4vdwe99jk77121mj6yfem4d2mb",
+          "465pqwtcnmexv5dvrr2xra2ewf"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/collegeroute/4705388a-017a-4f77-b7ca-bb92461f7881"
+    },
+    "ContentItemId": "4ppsyg21merw15gezwpj7r9nc7",
+    "ContentItemVersionId": "49963ne7nn8edyw8d4m9m3bd44",
+    "ContentType": "CollegeRoute",
+    "DisplayText": "Accommodation warden",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-05-02T22:42:08.9174639Z",
+    "PublishedUtc": "2021-05-02T22:42:08.9174639Z",
+    "CreatedUtc": "2021-05-02T22:42:08.9174639Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Accommodation warden"
+    },
+    "CollegeRoute": {
+      "RelevantSubjects": {
+        "Html": "\u003Cp\u003EYou could take a college course before applying for a job. Courses include:\u003Cul\u003E\u003Cli\u003ELevel 2 Certificate in Facilities Services\u003C/li\u003E\u003Cli\u003ELevel 3 Diploma in Health and Social Care\u003C/li\u003E\u003C/ul\u003E\u003C/p\u003E"
+      },
+      "FurtherInfo": {
+        "Html": ""
+      },
+      "Requirements": {
+        "ContentItemIds": [
+          "4v1ejqj750p1379jppwn6xw6ws",
+          "4rd3b5vs7qa29rcvx9je20rdwz"
+        ]
+      },
+      "Links": {
+        "ContentItemIds": [
+          "4gvq9h4dfkfg31zbvxjwnkfkdj",
+          "4vdwe99jk77121mj6yfem4d2mb",
+          "465pqwtcnmexv5dvrr2xra2ewf"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/collegeroute/e76b097e-9e42-45cd-a4ff-3185c201343f"
+    },
+    "ContentItemId": "4sf0hf9cmywn81r5xnw47grcnj",
+    "ContentItemVersionId": "4e43evzyae2w0xqqbqgsq191x9",
+    "ContentType": "CollegeRoute",
+    "DisplayText": "Accommodation warden",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-05-02T22:42:08.9174639Z",
+    "PublishedUtc": "2021-05-02T22:42:08.9174639Z",
+    "CreatedUtc": "2021-05-02T22:42:08.9174639Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Actor"
+    },
+    "CollegeRoute": {
+      "RelevantSubjects": {
+        "Html": "\u003Cp\u003EThere is no set entry route to become an actor but it may be useful to do a relevant subject like:\u003Cul\u003E\u003Cli\u003ELevel 2 Technical Certificate in Performing Arts\u003C/li\u003E\u003Cli\u003ELevel 3 Extended Diploma in Performing Arts - Acting\u003C/li\u003E\u003Cli\u003EA level in Drama and Theatre\u003C/li\u003E\u003Cli\u003ELevel 4 Diploma in Speech and Drama\u003C/li\u003E\u003C/ul\u003E\u003C/p\u003E"
+      },
+      "FurtherInfo": {
+        "Html": ""
+      },
+      "Requirements": {
+        "ContentItemIds": [
+          "4v1ejqj750p1379jppwn6xw6ws",
+          "4rd3b5vs7qa29rcvx9je20rdwz",
+          "49npm70fa9p2f2nvf490kq66m3"
+        ]
+      },
+      "Links": {
+        "ContentItemIds": [
+          "4gvq9h4dfkfg31zbvxjwnkfkdj",
+          "4vdwe99jk77121mj6yfem4d2mb",
+          "465pqwtcnmexv5dvrr2xra2ewf"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/collegeroute/4bd0c01c-9ca2-40c1-b4be-508bc7e1900b"
+    },
+    "ContentItemId": "47sh9t3gxkw1v7zzw4888yhent",
+    "ContentItemVersionId": "4gk3ackqazay6z1pzkss6dw1x3",
+    "ContentType": "CollegeRoute",
+    "DisplayText": "Actor",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-05-02T22:42:08.9174639Z",
+    "PublishedUtc": "2021-05-02T22:42:08.9174639Z",
+    "CreatedUtc": "2021-05-02T22:42:08.9174639Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Admin assistant"
+    },
+    "CollegeRoute": {
+      "RelevantSubjects": {
+        "Html": "\u003Cp\u003EYou could do a college course, which would teach you some of the skills and knowledge you need in this job. Relevant subjects include a Level 2 or 3 Diploma in Business and Administration.\u003C/p\u003E"
+      },
+      "FurtherInfo": {
+        "Html": ""
+      },
+      "Requirements": {
+        "ContentItemIds": [
+          "4v1ejqj750p1379jppwn6xw6ws",
+          "4rd3b5vs7qa29rcvx9je20rdwz"
+        ]
+      },
+      "Links": {
+        "ContentItemIds": [
+          "4gvq9h4dfkfg31zbvxjwnkfkdj",
+          "4vdwe99jk77121mj6yfem4d2mb",
+          "465pqwtcnmexv5dvrr2xra2ewf"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/collegeroute/7c0d262b-3feb-45e5-a534-45187bba8ea5"
+    },
+    "ContentItemId": "4ncg69z77qr9h27p0wexx4g9w4",
+    "ContentItemVersionId": "4wyg7tqczbxkkrdjk2jcz4xrcc",
+    "ContentType": "CollegeRoute",
+    "DisplayText": "Admin assistant",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-05-02T22:42:08.9174639Z",
+    "PublishedUtc": "2021-05-02T22:42:08.9174639Z",
+    "CreatedUtc": "2021-05-02T22:42:08.9174639Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Advertising account executive"
+    },
+    "CollegeRoute": {
+      "RelevantSubjects": {
+        "Html": "\u003Cp\u003EThere is no set entry route to become an advertising account executive but it may be useful to do a relevant subject like a Foundation Certificate in Marketing.\u003C/p\u003E"
+      },
+      "FurtherInfo": {
+        "Html": ""
+      },
+      "Requirements": {
+        "ContentItemIds": []
+      },
+      "Links": {
+        "ContentItemIds": [
+          "4vdwe99jk77121mj6yfem4d2mb",
+          "465pqwtcnmexv5dvrr2xra2ewf"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/collegeroute/0e8a5c21-0397-4236-947b-4319e992f9d7"
+    },
+    "ContentItemId": "440pnfqyarbyg1byzs6nz31cm7",
+    "ContentItemVersionId": "4t9x417409yzyr6n0vq6tf1acf",
+    "ContentType": "CollegeRoute",
+    "DisplayText": "Advertising account executive",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-05-02T22:42:08.9174639Z",
+    "PublishedUtc": "2021-05-02T22:42:08.9174639Z",
+    "CreatedUtc": "2021-05-02T22:42:08.9174639Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Advertising account executive"
+    },
+    "CollegeRoute": {
+      "RelevantSubjects": {
+        "Html": "\u003Cp\u003EThere is no set entry route to become an advertising account executive but it may be useful to do a relevant subject like a Foundation Certificate in Marketing.\u003C/p\u003E"
+      },
+      "FurtherInfo": {
+        "Html": ""
+      },
+      "Requirements": {
+        "ContentItemIds": []
+      },
+      "Links": {
+        "ContentItemIds": [
+          "4vdwe99jk77121mj6yfem4d2mb",
+          "465pqwtcnmexv5dvrr2xra2ewf"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/collegeroute/8ea871c3-f15a-4757-8980-d48d8a29e415"
+    },
+    "ContentItemId": "4t5b14cc6kqhvrwhcsgnyfv9wa",
+    "ContentItemVersionId": "4g37jd6tf0dh70xd6pjxkctcmt",
+    "ContentType": "CollegeRoute",
+    "DisplayText": "Advertising account executive",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-05-02T22:42:08.9174639Z",
+    "PublishedUtc": "2021-05-02T22:42:08.9174639Z",
+    "CreatedUtc": "2021-05-02T22:42:08.9174639Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Actor"
+    },
+    "CollegeRoute": {
+      "RelevantSubjects": {
+        "Html": "\u003Cp\u003EThere is no set entry route to become an actor but it may be useful to do a relevant subject like:\u003Cul\u003E\u003Cli\u003ELevel 2 Technical Certificate in Performing Arts\u003C/li\u003E\u003Cli\u003ELevel 3 Extended Diploma in Performing Arts - Acting\u003C/li\u003E\u003Cli\u003EA level in Drama and Theatre\u003C/li\u003E\u003Cli\u003ELevel 4 Diploma in Speech and Drama\u003C/li\u003E\u003C/ul\u003E\u003C/p\u003E"
+      },
+      "FurtherInfo": {
+        "Html": ""
+      },
+      "Requirements": {
+        "ContentItemIds": [
+          "4v1ejqj750p1379jppwn6xw6ws",
+          "4rd3b5vs7qa29rcvx9je20rdwz",
+          "49npm70fa9p2f2nvf490kq66m3"
+        ]
+      },
+      "Links": {
+        "ContentItemIds": [
+          "4gvq9h4dfkfg31zbvxjwnkfkdj",
+          "4vdwe99jk77121mj6yfem4d2mb",
+          "465pqwtcnmexv5dvrr2xra2ewf"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/collegeroute/565edc01-3df8-4708-9632-b031c8ac3b20"
+    },
+    "ContentItemId": "40fsct2yzeh0j4q6x85dq8dscv",
+    "ContentItemVersionId": "446030apjvg1c08eaj1df26c5e",
+    "ContentType": "CollegeRoute",
+    "DisplayText": "Actor",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-05-02T22:42:08.9174639Z",
+    "PublishedUtc": "2021-05-02T22:42:08.9174639Z",
+    "CreatedUtc": "2021-05-02T22:42:08.9174639Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Admin assistant"
+    },
+    "CollegeRoute": {
+      "RelevantSubjects": {
+        "Html": "\u003Cp\u003EYou could do a college course, which would teach you some of the skills and knowledge you need in this job. Relevant subjects include a Level 2 or 3 Diploma in Business and Administration.\u003C/p\u003E"
+      },
+      "FurtherInfo": {
+        "Html": ""
+      },
+      "Requirements": {
+        "ContentItemIds": [
+          "4v1ejqj750p1379jppwn6xw6ws",
+          "4rd3b5vs7qa29rcvx9je20rdwz"
+        ]
+      },
+      "Links": {
+        "ContentItemIds": [
+          "4gvq9h4dfkfg31zbvxjwnkfkdj",
+          "4vdwe99jk77121mj6yfem4d2mb",
+          "465pqwtcnmexv5dvrr2xra2ewf"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/collegeroute/2744aef6-2b07-4454-b75f-6512183afe6b"
+    },
+    "ContentItemId": "491mk3k0ama4m1kvy04zg3j8x7",
+    "ContentItemVersionId": "4x3jeqtnxwgf50ejzxmwmhcpdv",
+    "ContentType": "CollegeRoute",
+    "DisplayText": "Admin assistant",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-05-02T22:42:08.9174639Z",
+    "PublishedUtc": "2021-05-02T22:42:08.9174639Z",
+    "CreatedUtc": "2021-05-02T22:42:08.9174639Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "3D printing technician"
+    },
+    "CollegeRoute": {
+      "RelevantSubjects": {
+        "Html": "\u003Cp\u003EYou could take a course in creative design, model making or engineering. This could help you to find a job with a manufacturing or 3D printing company. Courses include:\u003Cul\u003E\u003Cli\u003ELevel 2 Certificate in Computer-Aided Design and Manufacturing\u003C/li\u003E\u003Cli\u003ELevel 3 Certificate in 3D Design\u003C/li\u003E\u003Cli\u003ELevel 3 Diploma in Engineering Technology\u003C/li\u003E\u003Cli\u003ET level in Digital Production, Design and Development\u003C/li\u003E\u003C/ul\u003E\u003C/p\u003E"
+      },
+      "FurtherInfo": {
+        "Html": ""
+      },
+      "Requirements": {
+        "ContentItemIds": [
+          "49atr8kx4ptr4yrtr73ytbjznv",
+          "42nq5skmamxbr6rcrt96tb57xn"
+        ]
+      },
+      "Links": {
+        "ContentItemIds": [
+          "4gvq9h4dfkfg31zbvxjwnkfkdj",
+          "4gsjrg4m2zskktqxqwgm00t05m",
+          "4vdwe99jk77121mj6yfem4d2mb",
+          "465pqwtcnmexv5dvrr2xra2ewf"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/collegeroute/6af8198d-0631-43da-81b0-4946c4c73675"
+    },
+    "ContentItemId": "4rrh6sd06kmfmrpj7m9ewdm8na",
+    "ContentItemVersionId": "4fkk526msmhzxwfcyqrqbm2ydb",
+    "ContentType": "CollegeRoute",
+    "DisplayText": "3D printing technician",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-05-02T22:42:08.9174639Z",
+    "PublishedUtc": "2021-05-02T22:42:08.9174639Z",
+    "CreatedUtc": "2021-05-02T22:42:08.9174639Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Accommodation warden"
+    },
+    "CollegeRoute": {
+      "RelevantSubjects": {
+        "Html": "\u003Cp\u003EYou could take a college course before applying for a job. Courses include:\u003Cul\u003E\u003Cli\u003ELevel 2 Certificate in Facilities Services\u003C/li\u003E\u003Cli\u003ELevel 3 Diploma in Health and Social Care\u003C/li\u003E\u003C/ul\u003E\u003C/p\u003E"
+      },
+      "FurtherInfo": {
+        "Html": ""
+      },
+      "Requirements": {
+        "ContentItemIds": [
+          "4v1ejqj750p1379jppwn6xw6ws",
+          "4rd3b5vs7qa29rcvx9je20rdwz"
+        ]
+      },
+      "Links": {
+        "ContentItemIds": [
+          "4gvq9h4dfkfg31zbvxjwnkfkdj",
+          "4vdwe99jk77121mj6yfem4d2mb",
+          "465pqwtcnmexv5dvrr2xra2ewf"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/collegeroute/a036e0eb-5d86-4eeb-bfb1-2a8adb3eb6c5"
+    },
+    "ContentItemId": "4r1cgvzncw8dg71rftr3ftgz5b",
+    "ContentItemVersionId": "44xpngvm136w1sabj942p557cp",
+    "ContentType": "CollegeRoute",
+    "DisplayText": "Accommodation warden",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-05-02T22:42:08.9174639Z",
+    "PublishedUtc": "2021-05-02T22:42:08.9174639Z",
+    "CreatedUtc": "2021-05-02T22:42:08.9174639Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Actor"
+    },
+    "CollegeRoute": {
+      "RelevantSubjects": {
+        "Html": "\u003Cp\u003EThere is no set entry route to become an actor but it may be useful to do a relevant subject like:\u003Cul\u003E\u003Cli\u003ELevel 2 Technical Certificate in Performing Arts\u003C/li\u003E\u003Cli\u003ELevel 3 Extended Diploma in Performing Arts - Acting\u003C/li\u003E\u003Cli\u003EA level in Drama and Theatre\u003C/li\u003E\u003Cli\u003ELevel 4 Diploma in Speech and Drama\u003C/li\u003E\u003C/ul\u003E\u003C/p\u003E"
+      },
+      "FurtherInfo": {
+        "Html": ""
+      },
+      "Requirements": {
+        "ContentItemIds": [
+          "4v1ejqj750p1379jppwn6xw6ws",
+          "4rd3b5vs7qa29rcvx9je20rdwz",
+          "49npm70fa9p2f2nvf490kq66m3"
+        ]
+      },
+      "Links": {
+        "ContentItemIds": [
+          "4gvq9h4dfkfg31zbvxjwnkfkdj",
+          "4vdwe99jk77121mj6yfem4d2mb",
+          "465pqwtcnmexv5dvrr2xra2ewf"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/collegeroute/409cd83f-7a1e-405d-847c-cb9ab886f877"
+    },
+    "ContentItemId": "4jps8mrxprsrq26e50xwzty65n",
+    "ContentItemVersionId": "4x8btt5914v6xtddbs9y3bxsm0",
+    "ContentType": "CollegeRoute",
+    "DisplayText": "Actor",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-05-02T22:42:08.9174639Z",
+    "PublishedUtc": "2021-05-02T22:42:08.9174639Z",
+    "CreatedUtc": "2021-05-02T22:42:08.9174639Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "3D printing technician"
+    },
+    "CollegeRoute": {
+      "RelevantSubjects": {
+        "Html": "\u003Cp\u003EYou could take a course in creative design, model making or engineering. This could help you to find a job with a manufacturing or 3D printing company. Courses include:\u003Cul\u003E\u003Cli\u003ELevel 2 Certificate in Computer-Aided Design and Manufacturing\u003C/li\u003E\u003Cli\u003ELevel 3 Certificate in 3D Design\u003C/li\u003E\u003Cli\u003ELevel 3 Diploma in Engineering Technology\u003C/li\u003E\u003Cli\u003ET level in Digital Production, Design and Development\u003C/li\u003E\u003C/ul\u003E\u003C/p\u003E"
+      },
+      "FurtherInfo": {
+        "Html": ""
+      },
+      "Requirements": {
+        "ContentItemIds": [
+          "49atr8kx4ptr4yrtr73ytbjznv",
+          "42nq5skmamxbr6rcrt96tb57xn"
+        ]
+      },
+      "Links": {
+        "ContentItemIds": [
+          "4gvq9h4dfkfg31zbvxjwnkfkdj",
+          "4gsjrg4m2zskktqxqwgm00t05m",
+          "4vdwe99jk77121mj6yfem4d2mb",
+          "465pqwtcnmexv5dvrr2xra2ewf"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/collegeroute/41aaf5b5-2210-4943-88f2-885fe7f079da"
+    },
+    "ContentItemId": "4ycnawx90wxe24j0me30k154nh",
+    "ContentItemVersionId": "4s37hzdd4dmxy38vhymzyvbxwr",
+    "ContentType": "CollegeRoute",
+    "DisplayText": "3D printing technician",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-05-02T22:42:08.9174639Z",
+    "PublishedUtc": "2021-05-02T22:42:08.9174639Z",
+    "CreatedUtc": "2021-05-02T22:42:08.9174639Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Advertising account executive"
+    },
+    "CollegeRoute": {
+      "RelevantSubjects": {
+        "Html": "\u003Cp\u003EThere is no set entry route to become an advertising account executive but it may be useful to do a relevant subject like a Foundation Certificate in Marketing.\u003C/p\u003E"
+      },
+      "FurtherInfo": {
+        "Html": ""
+      },
+      "Requirements": {
+        "ContentItemIds": []
+      },
+      "Links": {
+        "ContentItemIds": [
+          "4vdwe99jk77121mj6yfem4d2mb",
+          "465pqwtcnmexv5dvrr2xra2ewf"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/collegeroute/a331a664-b695-49cd-b871-6e7446a6e3b9"
+    },
+    "ContentItemId": "4pzmz36j1wjw6y4pvjxyz4t9mr",
+    "ContentItemVersionId": "4d6ptftevvyj5w07w1zd54hmw6",
+    "ContentType": "CollegeRoute",
+    "DisplayText": "Advertising account executive",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-05-02T22:42:08.9174639Z",
+    "PublishedUtc": "2021-05-02T22:42:08.9174639Z",
+    "CreatedUtc": "2021-05-02T22:42:08.9174639Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "3D printing technician"
+    },
+    "CollegeRoute": {
+      "RelevantSubjects": {
+        "Html": "\u003Cp\u003EYou could take a course in creative design, model making or engineering. This could help you to find a job with a manufacturing or 3D printing company. Courses include:\u003Cul\u003E\u003Cli\u003ELevel 2 Certificate in Computer-Aided Design and Manufacturing\u003C/li\u003E\u003Cli\u003ELevel 3 Certificate in 3D Design\u003C/li\u003E\u003Cli\u003ELevel 3 Diploma in Engineering Technology\u003C/li\u003E\u003Cli\u003ET level in Digital Production, Design and Development\u003C/li\u003E\u003C/ul\u003E\u003C/p\u003E"
+      },
+      "FurtherInfo": {
+        "Html": ""
+      },
+      "Requirements": {
+        "ContentItemIds": [
+          "49atr8kx4ptr4yrtr73ytbjznv",
+          "42nq5skmamxbr6rcrt96tb57xn"
+        ]
+      },
+      "Links": {
+        "ContentItemIds": [
+          "4gvq9h4dfkfg31zbvxjwnkfkdj",
+          "4gsjrg4m2zskktqxqwgm00t05m",
+          "4vdwe99jk77121mj6yfem4d2mb",
+          "465pqwtcnmexv5dvrr2xra2ewf"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/collegeroute/3458d0eb-f428-4307-941e-4359793a74f8"
+    },
+    "ContentItemId": "4qefxqf7ey317v7tt0cnz18xcx",
+    "ContentItemVersionId": "4tv617ma8fdbg66bcchns511my",
+    "ContentType": "CollegeRoute",
+    "DisplayText": "3D printing technician",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-05-02T22:42:08.9174639Z",
+    "PublishedUtc": "2021-05-02T22:42:08.9174639Z",
+    "CreatedUtc": "2021-05-02T22:42:08.9174639Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Admin assistant"
+    },
+    "CollegeRoute": {
+      "RelevantSubjects": {
+        "Html": "\u003Cp\u003EYou could do a college course, which would teach you some of the skills and knowledge you need in this job. Relevant subjects include a Level 2 or 3 Diploma in Business and Administration.\u003C/p\u003E"
+      },
+      "FurtherInfo": {
+        "Html": ""
+      },
+      "Requirements": {
+        "ContentItemIds": [
+          "4v1ejqj750p1379jppwn6xw6ws",
+          "4rd3b5vs7qa29rcvx9je20rdwz"
+        ]
+      },
+      "Links": {
+        "ContentItemIds": [
+          "4gvq9h4dfkfg31zbvxjwnkfkdj",
+          "4vdwe99jk77121mj6yfem4d2mb",
+          "465pqwtcnmexv5dvrr2xra2ewf"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/collegeroute/2f09abd3-cc5c-48a2-929a-472505313637"
+    },
+    "ContentItemId": "4bfryz9444kf6y28ne4pefadw8",
+    "ContentItemVersionId": "4k3ryrvqgq18fyd4wrph9qmz53",
+    "ContentType": "CollegeRoute",
+    "DisplayText": "Admin assistant",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-05-02T22:42:08.9174639Z",
+    "PublishedUtc": "2021-05-02T22:42:08.9174639Z",
+    "CreatedUtc": "2021-05-02T22:42:08.9174639Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Accommodation warden"
+    },
+    "CollegeRoute": {
+      "RelevantSubjects": {
+        "Html": "\u003Cp\u003EYou could take a college course before applying for a job. Courses include:\u003Cul\u003E\u003Cli\u003ELevel 2 Certificate in Facilities Services\u003C/li\u003E\u003Cli\u003ELevel 3 Diploma in Health and Social Care\u003C/li\u003E\u003C/ul\u003E\u003C/p\u003E"
+      },
+      "FurtherInfo": {
+        "Html": ""
+      },
+      "Requirements": {
+        "ContentItemIds": [
+          "4v1ejqj750p1379jppwn6xw6ws",
+          "4rd3b5vs7qa29rcvx9je20rdwz"
+        ]
+      },
+      "Links": {
+        "ContentItemIds": [
+          "4gvq9h4dfkfg31zbvxjwnkfkdj",
+          "4vdwe99jk77121mj6yfem4d2mb",
+          "465pqwtcnmexv5dvrr2xra2ewf"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/collegeroute/4d588395-abb9-48f7-8896-d49d5f1e2ca4"
+    },
+    "ContentItemId": "42gca4kj44dnh6syay419035mr",
+    "ContentItemVersionId": "481sg5qex76ze0bcnphq88hb4z",
+    "ContentType": "CollegeRoute",
+    "DisplayText": "Accommodation warden",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-05-02T22:42:08.9174639Z",
+    "PublishedUtc": "2021-05-02T22:42:08.9174639Z",
+    "CreatedUtc": "2021-05-02T22:42:08.9174639Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "3D printing technician"
+    },
+    "CollegeRoute": {
+      "RelevantSubjects": {
+        "Html": "\u003Cp\u003EYou could take a course in creative design, model making or engineering. This could help you to find a job with a manufacturing or 3D printing company. Courses include:\u003Cul\u003E\u003Cli\u003ELevel 2 Certificate in Computer-Aided Design and Manufacturing\u003C/li\u003E\u003Cli\u003ELevel 3 Certificate in 3D Design\u003C/li\u003E\u003Cli\u003ELevel 3 Diploma in Engineering Technology\u003C/li\u003E\u003Cli\u003ET level in Digital Production, Design and Development\u003C/li\u003E\u003C/ul\u003E\u003C/p\u003E"
+      },
+      "FurtherInfo": {
+        "Html": ""
+      },
+      "Requirements": {
+        "ContentItemIds": [
+          "49atr8kx4ptr4yrtr73ytbjznv",
+          "42nq5skmamxbr6rcrt96tb57xn"
+        ]
+      },
+      "Links": {
+        "ContentItemIds": [
+          "4gvq9h4dfkfg31zbvxjwnkfkdj",
+          "4gsjrg4m2zskktqxqwgm00t05m",
+          "4vdwe99jk77121mj6yfem4d2mb",
+          "465pqwtcnmexv5dvrr2xra2ewf"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/collegeroute/3fb31a76-0bfe-499e-9536-0061ab92547f"
+    },
+    "ContentItemId": "4yack1r86s320rjsqjmerk0amq",
+    "ContentItemVersionId": "4s7b04y369c331hvaz59pc68ch",
+    "ContentType": "CollegeRoute",
+    "DisplayText": "3D printing technician",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-05-02T22:42:08.9174639Z",
+    "PublishedUtc": "2021-05-02T22:42:08.9174639Z",
+    "CreatedUtc": "2021-05-02T22:42:08.9174639Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Actor"
+    },
+    "CollegeRoute": {
+      "RelevantSubjects": {
+        "Html": "\u003Cp\u003EThere is no set entry route to become an actor but it may be useful to do a relevant subject like:\u003Cul\u003E\u003Cli\u003ELevel 2 Technical Certificate in Performing Arts\u003C/li\u003E\u003Cli\u003ELevel 3 Extended Diploma

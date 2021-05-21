@@ -1,0 +1,186 @@
+{
+  "name": "WorkRoutes0_b585883f-f641-44fb-9355-023bb6372f19",
+  "displayName": "WorkRoutes0_b585883f-f641-44fb-9355-023bb6372f19",
+  "description": "",
+  "author": "",
+  "website": "",
+  "version": "",
+  "issetuprecipe": false,
+  "categories": "",
+  "tags": [],
+  "steps": [
+    {
+      "name": "ContentNoCache",
+      "data": [
+  {
+    "TitlePart": {
+      "Title": "Accounting technician"
+    },
+    "WorkRoute": {
+      "Description": {
+        "Html": "\u003Cp\u003EYou could start as an accounts clerk or bookkeeper while you study to become an accounting technician.\u003C/p\u003E\u003Cp\u003EThe \u003Ca href=\u0022https://www.aat.org.uk/\u0022\u003EAssociation of Accounting Technicians\u003C/a\u003E (AAT) and the \u003Ca href=\u0022http://www.accaglobal.com\u0022\u003EAssociation of Chartered Certified Accountants\u003C/a\u003E (ACCA) have information on accounting courses.\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/workroute/c3a0f100-4856-4af9-9317-9da4d5897120"
+    },
+    "ContentItemId": "44wetb3j13mk9xdsqgzvb5h8ns",
+    "ContentItemVersionId": "4ett992w3sp775xszdvvek1amz",
+    "ContentType": "WorkRoute",
+    "DisplayText": "Accounting technician",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-05-02T20:22:18.5740957Z",
+    "PublishedUtc": "2021-05-02T20:22:18.5740957Z",
+    "CreatedUtc": "2021-05-02T20:22:18.5740957Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Admin assistant"
+    },
+    "WorkRoute": {
+      "Description": {
+        "Html": "\u003Cp\u003EYou might be able to start on a temporary contract through a recruitment agency. Sometimes this can lead to a permanent job. Qualifications in business administration may also help.\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/workroute/8a8f8cbc-2eb5-4178-a471-f2af14237e35"
+    },
+    "ContentItemId": "4zebtfvdc5tm47frkdymwx8v57",
+    "ContentItemVersionId": "48wy1vmcs19cq5z36hgtm5ny54",
+    "ContentType": "WorkRoute",
+    "DisplayText": "Admin assistant",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-05-02T20:22:18.5740957Z",
+    "PublishedUtc": "2021-05-02T20:22:18.5740957Z",
+    "CreatedUtc": "2021-05-02T20:22:18.5740957Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Advertising account planner"
+    },
+    "WorkRoute": {
+      "Description": {
+        "Html": "\u003Cp\u003EIn smaller advertising agencies you may be able to start in a junior position like an administrator, and work your way up as your experience in the industry grows.\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/workroute/e970e96e-087e-40e8-bd79-7f68f0062855"
+    },
+    "ContentItemId": "4hh1h12pe762a0a0t9egf5v1dd",
+    "ContentItemVersionId": "4f7s5020b8xvay6rqn0hf6a55t",
+    "ContentType": "WorkRoute",
+    "DisplayText": "Advertising account planner",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-05-02T20:22:18.5740957Z",
+    "PublishedUtc": "2021-05-02T20:22:18.5740957Z",
+    "CreatedUtc": "2021-05-02T20:22:18.5740957Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Acoustics consultant"
+    },
+    "WorkRoute": {
+      "Description": {
+        "Html": "\u003Cp\u003EYou may be able to start work as an assistant or trainee technician and, with further training, qualify as an engineer or consultant.\u003C/p\u003E\u003Cp\u003EYou\u0027ll normally need at least 4 GCSEs at grades 9 to 4 (A* to C), including two science subjects. A levels or equivalent, like applied science, may be acceptable. Employers may also consider relevant work experience like non-destructive testing, if you do not have academic qualifications.\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/workroute/d2f7c3e3-e50e-4fdf-b345-57ec5aa6f711"
+    },
+    "ContentItemId": "41rqj8ekrdagv2wq85xxvx85ns",
+    "ContentItemVersionId": "4q67tzsee2bhv5ysappk6hyec1",
+    "ContentType": "WorkRoute",
+    "DisplayText": "Acoustics consultant",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-05-02T20:22:18.5740957Z",
+    "PublishedUtc": "2021-05-02T20:22:18.5740957Z",
+    "CreatedUtc": "2021-05-02T20:22:18.5740957Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Accommodation warden"
+    },
+    "WorkRoute": {
+      "Description": {
+        "Html": "\u003Cp\u003EYou could work as a warden\u0027s assistant and become qualified through on-the-job training. You could also work your way up by doing customer service courses.\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/workroute/e8212b66-234c-4b7c-bce2-5ba76acc230b"
+    },
+    "ContentItemId": "4fzbek81j0fdqv7pwj7h0gj4wk",
+    "ContentItemVersionId": "4kk93dgh57mrw0kfzxg8kqxzwa",
+    "ContentType": "WorkRoute",
+    "DisplayText": "Accommodation warden",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-05-02T20:22:18.5740957Z",
+    "PublishedUtc": "2021-05-02T20:22:18.5740957Z",
+    "CreatedUtc": "2021-05-02T20:22:18.5740957Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Advertising account executive"
+    },
+    "WorkRoute": {
+      "Description": {
+        "Html": "\u003Cp\u003EIn smaller advertising agencies you may be able to start in a junior position like administrator, and work your way up as your experience in the industry grows.\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/workroute/0668aec0-8ae1-4a3e-b573-81c31da7578e"
+    },
+    "ContentItemId": "4g0g550kn5w9ktny4c3jyczs4m",
+    "ContentItemVersionId": "492ewywv7x3jy32hkq5rcqkq42",
+    "ContentType": "WorkRoute",
+    "DisplayText": "Advertising account executive",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-05-02T20:22:18.5740957Z",
+    "PublishedUtc": "2021-05-02T20:22:18.5740957Z",
+    "CreatedUtc": "2021-05-02T20:22:18.5740957Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "3D printing technician"
+    },
+    "WorkRoute": {
+      "Description": {
+        "Html": "\u003Cp\u003EYou may be able to start as an assistant in a 3D print workshop and take training on the job to become a technician. Skills and qualifications in model making, printing, technology or design will be useful.\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/workroute/bb517849-3b14-423e-b053-1b8cd71c1198"
+    },
+    "ContentItemId": "44akk0f5az15r4hqxaq7mcdvns",
+    "ContentItemVersionId": "4ty6fna6eqrfbvxvhnx552zm5v",
+    "ContentType": "WorkRoute",
+    "DisplayText": "3D printing technician",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-05-02T20:22:18.5740957Z",
+    "PublishedUtc": "2021-05-02T20:22:18.5740957Z",
+    "CreatedUtc": "2021-05-02T20:22:18.5740957Z",
+    "Owner": "admin",
+    "Author": "admin"
+  }
+      ]
+    }
+  ]
+}

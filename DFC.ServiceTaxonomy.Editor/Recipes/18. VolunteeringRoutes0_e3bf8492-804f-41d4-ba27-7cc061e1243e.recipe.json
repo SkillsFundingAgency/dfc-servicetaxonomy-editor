@@ -1,0 +1,138 @@
+{
+  "name": "VolunteeringRoutes0_e3bf8492-804f-41d4-ba27-7cc061e1243e",
+  "displayName": "VolunteeringRoutes0_e3bf8492-804f-41d4-ba27-7cc061e1243e",
+  "description": "",
+  "author": "",
+  "website": "",
+  "version": "",
+  "issetuprecipe": false,
+  "categories": "",
+  "tags": [],
+  "steps": [
+    {
+      "name": "ContentNoCache",
+      "data": [
+  {
+    "TitlePart": {
+      "Title": "Actor"
+    },
+    "VolunteeringRoute": {
+      "Description": {
+        "Html": "\u003Cp\u003EActing is very competitive and you\u0027ll need to develop your skills by getting as much practical experience of acting as possible. You could do this through:\u003Cul\u003E\u003Cli\u003Eamateur, community or youth theatre\u003C/li\u003E\u003Cli\u003Ecollege and university drama societies\u003C/li\u003E\u003Cli\u003Estudent drama festivals and competitions\u003C/li\u003E\u003C/ul\u003E\u003C/p\u003E\u003Cp\u003EThis can also help to put you in touch with people in the acting profession, who could be useful contacts when looking for work.\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/volunteeringroute/fb689d2f-222f-42eb-a5d8-12fefce73d7d"
+    },
+    "ContentItemId": "4nnw2z27y9e2d16wvmrwbm3ncc",
+    "ContentItemVersionId": "4n8tp9pm8mq61319h85rbph5n9",
+    "ContentType": "VolunteeringRoute",
+    "DisplayText": "Actor",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-05-03T23:47:22.1611826Z",
+    "PublishedUtc": "2021-05-03T23:47:22.1611826Z",
+    "CreatedUtc": "2021-05-03T23:47:22.1611826Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Accommodation warden"
+    },
+    "VolunteeringRoute": {
+      "Description": {
+        "Html": "\u003Cp\u003EYou could start as a volunteer warden, if you want to work with the \u003Ca href=\u0022https://jobs.yha.org.uk/volunteer/\u0022\u003EYouth Hostel Association\u003C/a\u003E.\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/volunteeringroute/6616a55f-a3d6-43b1-af1c-1f7fa38bac35"
+    },
+    "ContentItemId": "4wbhe2ndj9jw8xpsyjzwtg66xf",
+    "ContentItemVersionId": "4drz0xz1j5yjgs4t4wxv9cazn9",
+    "ContentType": "VolunteeringRoute",
+    "DisplayText": "Accommodation warden",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-05-03T23:47:22.1611826Z",
+    "PublishedUtc": "2021-05-03T23:47:22.1611826Z",
+    "CreatedUtc": "2021-05-03T23:47:22.1611826Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Actuary"
+    },
+    "VolunteeringRoute": {
+      "Description": {
+        "Html": "\u003Cp\u003EYou may improve your chances of finding a trainee position if you have some work experience in an actuarial department. You can find details about internships and work placements through the \u003Ca href=\u0022https://www.actuaries.org.uk/become-actuary/careers-advice/actuarial-work-experience\u0022\u003EInstitute and Faculty of Actuaries\u003C/a\u003E.\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/volunteeringroute/c3ceafc9-eeb7-4e1d-b908-121c28a332de"
+    },
+    "ContentItemId": "4grvp9a89zcr7wj0w71zew6rwa",
+    "ContentItemVersionId": "48d75b2q553ykrs6ss5f17w04k",
+    "ContentType": "VolunteeringRoute",
+    "DisplayText": "Actuary",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-05-03T23:47:22.1611826Z",
+    "PublishedUtc": "2021-05-03T23:47:22.1611826Z",
+    "CreatedUtc": "2021-05-03T23:47:22.1611826Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Advertising account executive"
+    },
+    "VolunteeringRoute": {
+      "Description": {
+        "Html": "\u003Cp\u003EExperience will help you understand the industry and allow you to meet new people who may help you find paid work in advertising. You could try:\u003Cul\u003E\u003Cli\u003Ework experience\u003C/li\u003E\u003Cli\u003Einternships\u003C/li\u003E\u003Cli\u003Etemporary employment\u003C/li\u003E\u003C/ul\u003E\u003C/p\u003E\u003Cp\u003EYou could contact agencies directly to ask about placements, and make industry contacts through social networking sites like Twitter or LinkedIn.\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/volunteeringroute/68bd8a00-7f14-4c8d-9b3e-eb88f3594d06"
+    },
+    "ContentItemId": "4bbzsg22m3rsbxa8tpzqq08xwn",
+    "ContentItemVersionId": "40yv9b324dgm06ry0bn8cs08d6",
+    "ContentType": "VolunteeringRoute",
+    "DisplayText": "Advertising account executive",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-05-03T23:47:22.1611826Z",
+    "PublishedUtc": "2021-05-03T23:47:22.1611826Z",
+    "CreatedUtc": "2021-05-03T23:47:22.1611826Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Admin assistant"
+    },
+    "VolunteeringRoute": {
+      "Description": {
+        "Html": "\u003Cp\u003EYou could volunteer with a charity in an office based role to get some experience and skills that are useful for administration work.\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/volunteeringroute/f9ab0247-8997-4dcc-8607-8d7f979d3eb4"
+    },
+    "ContentItemId": "4kkpabgtyktjbxpw5vdtrg8x5m",
+    "ContentItemVersionId": "4y3w47fkfrkxy1ca1msqqwyr53",
+    "ContentType": "VolunteeringRoute",
+    "DisplayText": "Admin assistant",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-05-03T23:47:22.1611826Z",
+    "PublishedUtc": "2021-05-03T23:47:22.1611826Z",
+    "CreatedUtc": "2021-05-03T23:47:22.1611826Z",
+    "Owner": "admin",
+    "Author": "admin"
+  }
+      ]
+    }
+  ]
+}

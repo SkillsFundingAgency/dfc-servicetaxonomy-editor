@@ -1,0 +1,114 @@
+{
+  "name": "DigitalSkillLevels0_d7f60f37-dfd7-487a-a079-ae051e838441",
+  "displayName": "DigitalSkillLevels0_d7f60f37-dfd7-487a-a079-ae051e838441",
+  "description": "",
+  "author": "",
+  "website": "",
+  "version": "",
+  "issetuprecipe": false,
+  "categories": "",
+  "tags": [],
+  "steps": [
+    {
+      "name": "ContentNoCache",
+      "data": [
+  {
+    "TitlePart": {
+      "Title": "to have a thorough understanding of computer systems and applications"
+    },
+    "DigitalSkillsLevel": {
+      "Description": {
+        "Html": "\u003Cp\u003Eto have a thorough understanding of computer systems and applications\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/digitalskillslevel/e826b531-0292-48cd-88c9-135bfdc38d60"
+    },
+    "ContentItemId": "44fd5cnnx1g4qr622dw3k6nynw",
+    "ContentItemVersionId": "4vnbbyxk8asc71bspncjnmkb4x",
+    "ContentType": "DigitalSkillsLevel",
+    "DisplayText": "to have a thorough understanding of computer systems and applications",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-05-02T22:42:08.9174639Z",
+    "PublishedUtc": "2021-05-02T22:42:08.9174639Z",
+    "CreatedUtc": "2021-05-02T22:42:08.9174639Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "to be able to use acomputer and the main software packages confidently"
+    },
+    "DigitalSkillsLevel": {
+      "Description": {
+        "Html": "\u003Cp\u003Eto be able to use acomputer and the main software packages confidently\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/digitalskillslevel/7bac2644-9f13-446b-9005-ea90106b27d4"
+    },
+    "ContentItemId": "44hq1d0c89wsh6956w51gqden5",
+    "ContentItemVersionId": "40k9p5cb7jex3wp6k4gk8e6ec3",
+    "ContentType": "DigitalSkillsLevel",
+    "DisplayText": "to be able to use acomputer and the main software packages confidently",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-05-02T22:42:08.9174639Z",
+    "PublishedUtc": "2021-05-02T22:42:08.9174639Z",
+    "CreatedUtc": "2021-05-02T22:42:08.9174639Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "to be able to use acomputer and the main software packages competently"
+    },
+    "DigitalSkillsLevel": {
+      "Description": {
+        "Html": "\u003Cp\u003Eto be able to use acomputer and the main software packages competently\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/digitalskillslevel/22726239-b3d0-441d-a92b-23b0f246d7de"
+    },
+    "ContentItemId": "4kw1cm2epgtr6tfw8wvthps1xc",
+    "ContentItemVersionId": "4afjhtd80gys2yejw81yjtc642",
+    "ContentType": "DigitalSkillsLevel",
+    "DisplayText": "to be able to use acomputer and the main software packages competently",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-05-02T22:42:08.9174639Z",
+    "PublishedUtc": "2021-05-02T22:42:08.9174639Z",
+    "CreatedUtc": "2021-05-02T22:42:08.9174639Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "to be able to carry out basic tasks on a computer or hand-held device"
+    },
+    "DigitalSkillsLevel": {
+      "Description": {
+        "Html": "\u003Cp\u003Eto be able to carry out basic tasks on a computer or hand-held device\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/digitalskillslevel/e18ada23-d6a1-4cf6-9b99-3a1ea582a84c"
+    },
+    "ContentItemId": "4yr9y1dcjftkarn19j8c6yg75d",
+    "ContentItemVersionId": "4kjg0qpbngvevtff37nnf02348",
+    "ContentType": "DigitalSkillsLevel",
+    "DisplayText": "to be able to carry out basic tasks on a computer or hand-held device",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2021-05-02T22:42:08.9174639Z",
+    "PublishedUtc": "2021-05-02T22:42:08.9174639Z",
+    "CreatedUtc": "2021-05-02T22:42:08.9174639Z",
+    "Owner": "admin",
+    "Author": "admin"
+  }
+      ]
+    }
+  ]
+}
