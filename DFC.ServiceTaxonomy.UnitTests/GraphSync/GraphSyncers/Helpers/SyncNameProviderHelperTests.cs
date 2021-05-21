@@ -1,5 +1,5 @@
-﻿using System;
-using DFC.ServiceTaxonomy.GraphSync.CSharpScripting.Interfaces;
+﻿using DFC.ServiceTaxonomy.GraphSync.CSharpScripting.Interfaces;
+using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Exceptions;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.ContentItemVersions;
 using DFC.ServiceTaxonomy.GraphSync.Models;
@@ -17,8 +17,10 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Helpers
         public ISyncNameProviderCSharpScriptGlobals SyncNameProviderCSharpScriptGlobals { get; set; }
         public IContentDefinitionManager ContentDefinitionManager { get; set; }
         public ISuperpositionContentItemVersion SuperpositionContentItemVersion { get; set; }
+
         // using a real one is not ideal
         public ContentTypeDefinition ContentTypeDefinition { get; set; }
+
         public SyncNameProvider SyncNameProvider { get; set; }
 
         private const string _contentType = "ContentType";
@@ -29,7 +31,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Helpers
 
             ContentDefinitionManager = A.Fake<IContentDefinitionManager>();
             ContentTypeDefinition = new ContentTypeDefinition("name", "displayName",
-                new []
+                new[]
                 {
                     new ContentTypePartDefinition(nameof(GraphSyncPart), new ContentPartDefinition(nameof(GraphSyncPart)), null)
                 },
@@ -47,7 +49,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Helpers
         [Fact]
         public void SyncNameProvider_ContentTypeSetToNull_ArgumentNullExceptionThrown()
         {
-            Assert.Throws<ArgumentNullException>(() => SyncNameProvider.ContentType = null);
+            Assert.Throws<SetArgumentNullException>(() => SyncNameProvider.ContentType = null);
         }
 
         [Fact]
