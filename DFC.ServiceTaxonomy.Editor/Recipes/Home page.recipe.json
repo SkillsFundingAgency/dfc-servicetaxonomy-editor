@@ -256,12 +256,6 @@
                 "DefaultPageForLocation": true,
                 "RedirectLocations": null,
                 "FullUrl": "/home"
-            },
-            "ContentApprovalPart": {
-                "ReviewStatus": 0,
-                "ReviewType": 0,
-                "IsForcePublished": false,
-                "Comment": "Updated page location"
             }
         }
     ]
