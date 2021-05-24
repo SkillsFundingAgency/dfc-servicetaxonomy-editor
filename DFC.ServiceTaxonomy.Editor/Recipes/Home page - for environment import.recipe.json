@@ -54,7 +54,7 @@
                     "Author": "admin",
                     "SharedContent": {
                         "Content": {
-                            "Html": "<p></p><hr class=\"govuk-section-break govuk-section-break--m govuk-section-break--visible\"><p></p>\n<h3 class=\"govuk-heading-m\">Speak to a careers adviser</h3>\n<p class=\"govuk-body\">Wherever you are in your decision-making, you can call us on <strong>0800 100 900</strong> or <a href=\"/webchat/chat\" class=\"govuk-link govuk-link--no-visited-state\">use webchat</a>.</p>\n<p class=\"govuk-body-m\">Our advisers can discuss your strength, skills and ambitions to help you consider your options.</p>\n"
+                            "Html": "<p></p><hr class=\"govuk-section-break govuk-section-break--m govuk-section-break--visible\"><p></p>\n<h3 class=\"govuk-heading-m\">Speak to a careers adviser</h3>\n<p class=\"govuk-body\">Wherever you are in your decision-making, you can call us on <strong class=\"no-wrap\">0800 100 900</strong> or <a href=\"/webchat/chat\" class=\"govuk-link govuk-link--no-visited-state\">use webchat</a>.</p>\n<p class=\"govuk-body-m\">Our advisers can discuss your strength, skills and ambitions to help you consider your options.</p>\n"
                         }
                     },
                     "GraphSyncPart": {
