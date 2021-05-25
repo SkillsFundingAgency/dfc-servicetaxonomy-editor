@@ -1,6 +1,6 @@
 ﻿@using OrchardCore.ContentManagement
-@*@using DFC.ServiceTaxonomy.ContentApproval.Models
-@using DFC.ServiceTaxonomy.ContentApproval.Models.Enums*@
+@using DFC.ServiceTaxonomy.ContentApproval.Models
+@using DFC.ServiceTaxonomy.ContentApproval.Models.Enums
 @using DFC.ServiceTaxonomy.CustomEditor.Configuration
 @using DFC.ServiceTaxonomy.CustomEditor.Constants
 @using DFC.ServiceTaxonomy.PageLocation.Models
@@ -10,7 +10,6 @@
 @inject IContentManager ContentManager
 @inject IOptions<PagesConfiguration> Config
 @inject IAuthorizationService AuthorizationService
-
 
 @{
     ContentItem contentItem = Model.ContentItem;
@@ -23,7 +22,7 @@
     var previewContentTypes = contentItem.ContentType == ContentTypes.Page; //contentItem.ContentType == ContentTypes.JobProfile ||
 }
 
-@*@if (contentItem.Has<ContentApprovalPart>())
+@if (contentItem.Has<ContentApprovalPart>())
 {
     var isInReview = contentItem.As<ContentApprovalPart>()?.ReviewStatus == ReviewStatus.InReview;
     var hasEditPermission = await AuthorizationService.AuthorizeAsync(User, CommonPermissions.EditContent, contentItem) && User.HasClaim(c => c.Value == CommonPermissions.EditContent.Name);
@@ -35,13 +34,11 @@
 else
 {
     <a edit-for="@contentItem" asp-route-returnUrl="@FullRequestPath" class="btn btn-primary btn-sm">@T["Edit"]</a>
-}*@
-
-<a edit-for="@contentItem" asp-route-returnUrl="@FullRequestPath" class="btn btn-primary btn-sm">@T["Edit"]</a>
+}
 
 @if (hasPublished && hasViewPermission && !previewContentTypes)
 {
-    <a display-for="@contentItem" class="btn btn-success btn-sm" itemprop="">@T["View"]</a>
+    <a display-for="@contentItem" target="_blank" class="btn btn-success btn-sm" itemprop="">@T["View"]</a>
 }
 
 @if (hasDraft && hasPreviewPermission && !previewContentTypes)
