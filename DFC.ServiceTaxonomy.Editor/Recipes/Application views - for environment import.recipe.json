@@ -1,13 +1,17 @@
 ﻿{
-    "name": "",
-    "displayName": "",
-    "description": "",
-    "author": "",
-    "website": "",
-    "version": "",
+    "name": "Application-view-content-environment-load",
+    "displayName": "Application view - initial environment load",
+    "description": "Sets up the baselined Application view content",
+    "author": "National Careers Service",
+    "website": "https://github.com/SkillsFundingAgency/dfc-servicetaxonomy-editor",
+    "version": null,
     "issetuprecipe": false,
-    "categories": [],
-    "tags": [],
+    "categories": [
+        "default"
+    ],
+    "tags": [
+        "ncs"
+    ],
     "steps": [
         {
             "name": "ContentDefinition",
