@@ -164,59 +164,72 @@
             "name": "content",
             "data": [
                 {
-                    "ContentItemId": "4em3h5pc157v829dnzrc7y68dg",
-                    "ContentItemVersionId": null,
+                    "ContentItemId": "4jf6jqwpjxxkntb24e9h2zwymc",
+                    "ContentItemVersionId": "4dveqcd3re9qz6axawnv1jg1x1",
                     "ContentType": "ApplicationView",
-                    "DisplayText": "Discover your skills and careers",
+                    "DisplayText": "Explore careers",
                     "Latest": true,
                     "Published": true,
-                    "ModifiedUtc": "2021-05-28T11:10:48.8787614Z",
-                    "PublishedUtc": "2021-05-28T11:10:48.8879662Z",
-                    "CreatedUtc": "2021-05-28T08:46:00.0493169Z",
+                    "ModifiedUtc": "2021-05-28T12:57:25.0901799Z",
+                    "PublishedUtc": "2021-05-28T12:57:25.9809249Z",
+                    "CreatedUtc": "2021-05-28T07:19:25.4420803Z",
                     "Owner": "4c0dn95m0jzd15fm01m6c13awt",
                     "Author": "admin",
                     "ApplicationView": {
                         "PageLocations": {
                             "TaxonomyContentItemId": "4eembshqzx66drajtdten34tc8",
                             "TermContentItemIds": [
-                                "4y3qc9f2r818z1df41a1yryvny"
+                                "4bj8dac5hskh76gp82ncd1hkx7"
                             ]
                         },
                         "TriageToolFilters": {
-                            "ContentItemIds": []
+                            "ContentItemIds": [
+                                "4fstdnjr95bbh6sthnb2vjrens",
+                                "4nm282s1a4e2s1w6hsdsvs3zd2",
+                                "4z5ms9q6n232by7pgbhthd3ex4",
+                                "4d9a0vcs44r3h2rj7b3yam9cm1",
+                                "4vwkbebr5182t4gykp3e2k31cz",
+                                "41rjzp7pecftm0ad7cawz753cs",
+                                "4b9z5pyav7hecy1j828d4h89dc",
+                                "4k89msc07n55r0yyxeevgjd34q",
+                                "4as6xq8jzxrgxwtn6kv53gm6wr",
+                                "4cz9zj2pt5bq04ex3xa0dcm2dz",
+                                "4jxxqaapbw13kt93mm9c5604mx",
+                                "4ysg36ed7btsc73mhgfdwc46mw"
+                            ]
                         },
                         "UseInTriageTool": {
                             "Value": true
                         },
                         "TriageToolSummary": {
-                            "Html": "<p>Answer questions to identify careers that suit your interests, motivations and preferences.</p>"
+                            "Html": "<p>Choose from over 800 career profiles to discover what each job involves.</p>"
                         },
                         "PageLocation": {
-                            "Text": "/discover-your-skills-and-careers"
+                            "Text": "/explore-careers"
                         }
                     },
                     "GraphSyncPart": {
-                        "Text": "<<contentapiprefix>>/applicationview/4d18788a-15dc-4a43-ac05-caff0e2b7f81"
+                        "Text": "<<contentapiprefix>>/applicationview/e2c89c3d-5626-4716-9134-bf7dd4be15b1"
                     },
                     "PageLocationPart": {
-                        "UrlName": "discover-your-skills-and-careers",
+                        "UrlName": "unknown",
                         "DefaultPageForLocation": false,
                         "RedirectLocations": null,
-                        "FullUrl": "/discover-your-skills-and-careers"
+                        "FullUrl": "/explore-careers/unknown"
                     },
                     "TitlePart": {
-                        "Title": "Discover your skills and careers"
+                        "Title": "Explore careers"
                     }
                 },
                 {
                     "ContentItemId": "43m7q20x3pvq20qxn0x6sk5fcx",
-                    "ContentItemVersionId": null,
+                    "ContentItemVersionId": "47frkt10z87br1s2scp9dhm1xk",
                     "ContentType": "ApplicationView",
                     "DisplayText": "Skills health check",
                     "Latest": true,
                     "Published": true,
-                    "ModifiedUtc": "2021-05-28T11:12:15.6649038Z",
-                    "PublishedUtc": "2021-05-28T11:12:15.67392Z",
+                    "ModifiedUtc": "2021-05-28T12:58:11.5316038Z",
+                    "PublishedUtc": "2021-05-28T12:58:11.5473719Z",
                     "CreatedUtc": "2021-05-28T08:44:31.6020118Z",
                     "Owner": "4c0dn95m0jzd15fm01m6c13awt",
                     "Author": "admin",
@@ -228,7 +241,10 @@
                             ]
                         },
                         "TriageToolFilters": {
-                            "ContentItemIds": []
+                            "ContentItemIds": [
+                                "4vw3zfe67cafr590t9ff7v3jm6",
+                                "4fstdnjr95bbh6sthnb2vjrens"
+                            ]
                         },
                         "UseInTriageTool": {
                             "Value": true
@@ -254,48 +270,51 @@
                     }
                 },
                 {
-                    "ContentItemId": "4jf6jqwpjxxkntb24e9h2zwymc",
-                    "ContentItemVersionId": null,
+                    "ContentItemId": "4em3h5pc157v829dnzrc7y68dg",
+                    "ContentItemVersionId": "4ws87sk1me2ya1bqwsmczradcd",
                     "ContentType": "ApplicationView",
-                    "DisplayText": "Explore careers",
+                    "DisplayText": "Discover your skills and careers",
                     "Latest": true,
                     "Published": true,
-                    "ModifiedUtc": "2021-05-28T11:12:51.067456Z",
-                    "PublishedUtc": "2021-05-28T11:12:51.0744685Z",
-                    "CreatedUtc": "2021-05-28T07:19:25.4420803Z",
+                    "ModifiedUtc": "2021-05-28T12:58:48.5782192Z",
+                    "PublishedUtc": "2021-05-28T12:58:48.599315Z",
+                    "CreatedUtc": "2021-05-28T08:46:00.0493169Z",
                     "Owner": "4c0dn95m0jzd15fm01m6c13awt",
                     "Author": "admin",
                     "ApplicationView": {
                         "PageLocations": {
                             "TaxonomyContentItemId": "4eembshqzx66drajtdten34tc8",
                             "TermContentItemIds": [
-                                "4bj8dac5hskh76gp82ncd1hkx7"
+                                "4y3qc9f2r818z1df41a1yryvny"
                             ]
                         },
                         "TriageToolFilters": {
-                            "ContentItemIds": []
+                            "ContentItemIds": [
+                                "4vw3zfe67cafr590t9ff7v3jm6",
+                                "4fstdnjr95bbh6sthnb2vjrens"
+                            ]
                         },
                         "UseInTriageTool": {
                             "Value": true
                         },
                         "TriageToolSummary": {
-                            "Html": "<p>Choose from over 800 career profiles to discover what each job involves.</p>"
+                            "Html": "<p>Answer questions to identify careers that suit your interests, motivations and preferences.</p>"
                         },
                         "PageLocation": {
-                            "Text": "/explore-careers"
+                            "Text": "/discover-your-skills-and-careers"
                         }
                     },
                     "GraphSyncPart": {
-                        "Text": "<<contentapiprefix>>/applicationview/e2c89c3d-5626-4716-9134-bf7dd4be15b1"
+                        "Text": "<<contentapiprefix>>/applicationview/4d18788a-15dc-4a43-ac05-caff0e2b7f81"
                     },
                     "PageLocationPart": {
-                        "UrlName": "unknown",
+                        "UrlName": "discover-your-skills-and-careers",
                         "DefaultPageForLocation": false,
                         "RedirectLocations": null,
-                        "FullUrl": "/explore-careers/unknown"
+                        "FullUrl": "/discover-your-skills-and-careers"
                     },
                     "TitlePart": {
-                        "Title": "Explore careers"
+                        "Title": "Discover your skills and careers"
                     }
                 }
             ]
