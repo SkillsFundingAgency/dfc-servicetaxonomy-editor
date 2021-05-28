@@ -1,0 +1,300 @@
+﻿{
+    "name": "",
+    "displayName": "",
+    "description": "",
+    "author": "",
+    "website": "",
+    "version": "",
+    "issetuprecipe": false,
+    "categories": [],
+    "tags": [],
+    "steps": [
+        {
+            "name": "ContentDefinition",
+            "ContentTypes": [
+                {
+                    "Name": "ApplicationView",
+                    "DisplayName": "Application View",
+                    "Settings": {
+                        "ContentTypeSettings": {
+                            "Creatable": true,
+                            "Listable": true,
+                            "Draftable": true,
+                            "Versionable": true,
+                            "Securable": true
+                        },
+                        "FullTextAspectSettings": {}
+                    },
+                    "ContentTypePartDefinitionRecords": [
+                        {
+                            "PartName": "ApplicationView",
+                            "Name": "ApplicationView",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "1"
+                                }
+                            }
+                        },
+                        {
+                            "PartName": "GraphSyncPart",
+                            "Name": "GraphSyncPart",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "2"
+                                },
+                                "GraphSyncPartSettings": {
+                                    "NodeNameTransform": "ContentType",
+                                    "PropertyNameTransform": "Value",
+                                    "IdPropertyName": "uri",
+                                    "GenerateIdPropertyValue": "$\"<<contentapiprefix>>/{ContentType}/{Value}\".ToLowerInvariant()",
+                                    "DisplayId": true
+                                },
+                                "ContentIndexSettings": {}
+                            }
+                        },
+                        {
+                            "PartName": "TitlePart",
+                            "Name": "TitlePart",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "0"
+                                },
+                                "ContentIndexSettings": {},
+                                "TitlePartSettings": {}
+                            }
+                        }
+                    ]
+                }
+            ],
+            "ContentParts": [
+                {
+                    "Name": "GraphSyncPart",
+                    "Settings": {
+                        "ContentPartSettings": {
+                            "Attachable": true,
+                            "Description": "Enables the content type to be synced to a graph."
+                        }
+                    },
+                    "ContentPartFieldDefinitionRecords": []
+                },
+                {
+                    "Name": "TitlePart",
+                    "Settings": {
+                        "ContentPartSettings": {
+                            "Attachable": true,
+                            "Description": "Provides a Title for your content item.",
+                            "DefaultPosition": "0"
+                        }
+                    },
+                    "ContentPartFieldDefinitionRecords": []
+                },
+                {
+                    "Name": "ApplicationView",
+                    "Settings": {},
+                    "ContentPartFieldDefinitionRecords": [
+                        {
+                            "FieldName": "ContentPickerField",
+                            "Name": "TriageToolFilters",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Triage Tool Filters",
+                                    "Position": "1"
+                                },
+                                "ContentPickerFieldSettings": {
+                                    "Multiple": true,
+                                    "DisplayedContentTypes": [
+                                        "TriageToolFilter"
+                                    ]
+                                },
+                                "ContentIndexSettings": {}
+                            }
+                        },
+                        {
+                            "FieldName": "BooleanField",
+                            "Name": "UseInTriageTool",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Use In Triage Tool",
+                                    "Editor": "Switch",
+                                    "Position": "2"
+                                },
+                                "BooleanFieldSettings": {},
+                                "ContentIndexSettings": {}
+                            }
+                        },
+                        {
+                            "FieldName": "HtmlField",
+                            "Name": "TriageToolSummary",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Triage Tool Summary",
+                                    "Editor": "Trumbowyg",
+                                    "Position": "3"
+                                },
+                                "HtmlFieldSettings": {},
+                                "HtmlFieldTrumbowygEditorSettings": {
+                                    "Options": "{\r\n    autogrow: true,\r\n    btns: [\r\n        [\"viewHTML\"],\r\n        [\"undo\", \"redo\"],\r\n        [\"formatting\"],\r\n        [\"strong\", \"em\", \"del\"],\r\n        [\"foreColor\", \"backColor\"],\r\n        [\"superscript\", \"subscript\"],\r\n        [\"link\"],\r\n        [\"insertShortcode\"],\r\n        [\"image\"],\r\n        [\"align\"],\r\n        [\"unorderedList\", \"orderedList\"],\r\n        [\"horizontalRule\"],\r\n        [\"removeformat\"],\r\n        [\"fullscreen\"]\r\n    ],\r\n    btnsDef: {\r\n        align: {\r\n            dropdown: [\"justifyLeft\", \"justifyCenter\", \"justifyRight\", \"justifyFull\"],\r\n            ico: \"justifyLeft\"\r\n        },\r\n        image: {\r\n            dropdown: [\"insertImage\", \"base64\", \"noembed\"],\r\n            ico: \"insertImage\"\r\n        }\r\n    }\r\n}"
+                                },
+                                "ContentIndexSettings": {}
+                            }
+                        },
+                        {
+                            "FieldName": "TextField",
+                            "Name": "PageLocation",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Page Location",
+                                    "Position": "0"
+                                },
+                                "TextFieldSettings": {
+                                    "Required": true
+                                },
+                                "ContentIndexSettings": {}
+                            }
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "content",
+            "data": [
+                {
+                    "ContentItemId": "4em3h5pc157v829dnzrc7y68dg",
+                    "ContentItemVersionId": null,
+                    "ContentType": "ApplicationView",
+                    "DisplayText": "Discover your skills and careers",
+                    "Latest": true,
+                    "Published": true,
+                    "ModifiedUtc": "2021-05-28T11:10:48.8787614Z",
+                    "PublishedUtc": "2021-05-28T11:10:48.8879662Z",
+                    "CreatedUtc": "2021-05-28T08:46:00.0493169Z",
+                    "Owner": "4c0dn95m0jzd15fm01m6c13awt",
+                    "Author": "admin",
+                    "ApplicationView": {
+                        "PageLocations": {
+                            "TaxonomyContentItemId": "4eembshqzx66drajtdten34tc8",
+                            "TermContentItemIds": [
+                                "4y3qc9f2r818z1df41a1yryvny"
+                            ]
+                        },
+                        "TriageToolFilters": {
+                            "ContentItemIds": []
+                        },
+                        "UseInTriageTool": {
+                            "Value": true
+                        },
+                        "TriageToolSummary": {
+                            "Html": "<p>Answer questions to identify careers that suit your interests, motivations and preferences.</p>"
+                        },
+                        "PageLocation": {
+                            "Text": "/discover-your-skills-and-careers"
+                        }
+                    },
+                    "GraphSyncPart": {
+                        "Text": "<<contentapiprefix>>/applicationview/4d18788a-15dc-4a43-ac05-caff0e2b7f81"
+                    },
+                    "PageLocationPart": {
+                        "UrlName": "discover-your-skills-and-careers",
+                        "DefaultPageForLocation": false,
+                        "RedirectLocations": null,
+                        "FullUrl": "/discover-your-skills-and-careers"
+                    },
+                    "TitlePart": {
+                        "Title": "Discover your skills and careers"
+                    }
+                },
+                {
+                    "ContentItemId": "43m7q20x3pvq20qxn0x6sk5fcx",
+                    "ContentItemVersionId": null,
+                    "ContentType": "ApplicationView",
+                    "DisplayText": "Skills health check",
+                    "Latest": true,
+                    "Published": true,
+                    "ModifiedUtc": "2021-05-28T11:12:15.6649038Z",
+                    "PublishedUtc": "2021-05-28T11:12:15.67392Z",
+                    "CreatedUtc": "2021-05-28T08:44:31.6020118Z",
+                    "Owner": "4c0dn95m0jzd15fm01m6c13awt",
+                    "Author": "admin",
+                    "ApplicationView": {
+                        "PageLocations": {
+                            "TaxonomyContentItemId": "4eembshqzx66drajtdten34tc8",
+                            "TermContentItemIds": [
+                                "4rk5qs3dmjc22t2wfvnvwe1p4x"
+                            ]
+                        },
+                        "TriageToolFilters": {
+                            "ContentItemIds": []
+                        },
+                        "UseInTriageTool": {
+                            "Value": true
+                        },
+                        "TriageToolSummary": {
+                            "Html": "<p>Take a number of quizzes and activities to explore your skills, interests and motivations.</p>"
+                        },
+                        "PageLocation": {
+                            "Text": "/skills-assessment/skills-health-check/home"
+                        }
+                    },
+                    "GraphSyncPart": {
+                        "Text": "<<contentapiprefix>>/applicationview/7cf963c7-0995-4d46-a3a9-7bbca03a0741"
+                    },
+                    "PageLocationPart": {
+                        "UrlName": "skills-health-check",
+                        "DefaultPageForLocation": false,
+                        "RedirectLocations": null,
+                        "FullUrl": "/skills-assessment/skills-health-check"
+                    },
+                    "TitlePart": {
+                        "Title": "Skills health check"
+                    }
+                },
+                {
+                    "ContentItemId": "4jf6jqwpjxxkntb24e9h2zwymc",
+                    "ContentItemVersionId": null,
+                    "ContentType": "ApplicationView",
+                    "DisplayText": "Explore careers",
+                    "Latest": true,
+                    "Published": true,
+                    "ModifiedUtc": "2021-05-28T11:12:51.067456Z",
+                    "PublishedUtc": "2021-05-28T11:12:51.0744685Z",
+                    "CreatedUtc": "2021-05-28T07:19:25.4420803Z",
+                    "Owner": "4c0dn95m0jzd15fm01m6c13awt",
+                    "Author": "admin",
+                    "ApplicationView": {
+                        "PageLocations": {
+                            "TaxonomyContentItemId": "4eembshqzx66drajtdten34tc8",
+                            "TermContentItemIds": [
+                                "4bj8dac5hskh76gp82ncd1hkx7"
+                            ]
+                        },
+                        "TriageToolFilters": {
+                            "ContentItemIds": []
+                        },
+                        "UseInTriageTool": {
+                            "Value": true
+                        },
+                        "TriageToolSummary": {
+                            "Html": "<p>Choose from over 800 career profiles to discover what each job involves.</p>"
+                        },
+                        "PageLocation": {
+                            "Text": "/explore-careers"
+                        }
+                    },
+                    "GraphSyncPart": {
+                        "Text": "<<contentapiprefix>>/applicationview/e2c89c3d-5626-4716-9134-bf7dd4be15b1"
+                    },
+                    "PageLocationPart": {
+                        "UrlName": "unknown",
+                        "DefaultPageForLocation": false,
+                        "RedirectLocations": null,
+                        "FullUrl": "/explore-careers/unknown"
+                    },
+                    "TitlePart": {
+                        "Title": "Explore careers"
+                    }
+                }
+            ]
+        }
+    ]
+}
