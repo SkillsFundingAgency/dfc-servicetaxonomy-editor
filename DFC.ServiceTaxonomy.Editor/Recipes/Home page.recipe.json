@@ -15,13 +15,13 @@
     "steps": [
         {
             "ContentItemId": "4k13ad52r5y524vc22yyytc9cs",
-            "ContentItemVersionId": "null",
+            "ContentItemVersionId": null,
             "ContentType": "Page",
             "DisplayText": "Careers advice - job profiles, information and resources",
             "Latest": true,
             "Published": true,
-            "ModifiedUtc": "2021-05-27T08:12:37.718115Z",
-            "PublishedUtc": "2021-05-27T08:12:39.9205942Z",
+            "ModifiedUtc": "2021-06-01T13:51:46.8100067Z",
+            "PublishedUtc": "2021-06-01T13:51:47.3070693Z",
             "CreatedUtc": "2021-05-05T08:22:29.1776661Z",
             "Owner": "43crnj0zkd1pa1xncekdwyzgxk",
             "Author": "ian",
@@ -72,7 +72,7 @@
                         "DisplayText": "Triage tool",
                         "Latest": false,
                         "Published": false,
-                        "ModifiedUtc": "2021-05-27T08:12:39.1238089Z",
+                        "ModifiedUtc": "2021-06-01T13:51:46.8926824Z",
                         "PublishedUtc": null,
                         "CreatedUtc": null,
                         "Owner": "",
@@ -99,7 +99,7 @@
                                     "DisplayText": "",
                                     "Latest": false,
                                     "Published": false,
-                                    "ModifiedUtc": "2021-05-27T08:12:39.147007Z",
+                                    "ModifiedUtc": "2021-06-01T13:51:46.9037754Z",
                                     "PublishedUtc": null,
                                     "CreatedUtc": null,
                                     "Owner": "",
@@ -133,14 +133,14 @@
                         "DisplayText": "",
                         "Latest": false,
                         "Published": false,
-                        "ModifiedUtc": "2021-05-27T08:12:39.2444046Z",
+                        "ModifiedUtc": "2021-06-01T13:51:46.9292598Z",
                         "PublishedUtc": null,
                         "CreatedUtc": null,
                         "Owner": "",
                         "Author": "ian",
                         "HTML": {},
                         "HtmlBodyPart": {
-                            "Html": "<div class=\"brand--ncs organisation__brand-border-top brand__border-color\">\n  <div class=\"govuk-grid-row govuk-!-margin-top-5\">\n\t<div class=\"govuk-grid-column-one-third\">\n\t\t<h2 class=\"govuk-heading-m\">Skills assessment</h2>\n\t\t<p class=\"govuk-body-m\">Learn more about your skills and match them to potential new careers.</p>\n\t\t<a class=\"govuk-link govuk-button\" href=\"/skills-assessment\">Assess your skills</a>\n\t</div>\n\t<div class=\"govuk-grid-column-one-third\">\n\t\t<h2 class=\"govuk-heading-m\">Explore Careers</h2>\n\t\t<p class=\"govuk-body-m\">Choose from over 800 career profiles to discover what a job involves.</p>\n\t\t<a class=\"govuk-link govuk-button\" href=\"/explore-careers\">Search job profiles</a>\n\t</div>\n\t<div class=\"govuk-grid-column-one-third\">\n\t\t<h2 class=\"govuk-heading-m\">Find a course</h2>\n\t\t<p class=\"govuk-body-m\">Look for learning and training opportunities local to you.</p>\n\t\t<a class=\"govuk-link govuk-button\" href=\"/find-a-course\">Look for courses</a>\n  </div>\n  </div>\n</div>"
+                            "Html": "<div class=\"brand--ncs organisation__brand-border-top brand__border-color\">\n  <div class=\"govuk-grid-row govuk-!-margin-top-5\">\n\t<div class=\"govuk-grid-column-one-third\">\n\t\t<h2 class=\"govuk-heading-m\">Skills assessment</h2>\n\t\t<p class=\"govuk-body-m\">Learn more about your skills and match them to potential new careers.</p>\n\t</div>\n\t<div class=\"govuk-grid-column-one-third\">\n\t\t<h2 class=\"govuk-heading-m\">Explore Careers</h2>\n\t\t<p class=\"govuk-body-m\">Choose from over 800 career profiles to discover what a job involves.</p>\n\t</div>\n\t<div class=\"govuk-grid-column-one-third\">\n\t\t<h2 class=\"govuk-heading-m\">Find a course</h2>\n\t\t<p class=\"govuk-body-m\">Look for learning and training opportunities local to you.</p>\n\t</div>\n  </div>\n  <div class=\"govuk-grid-row\">\n\t<div class=\"govuk-grid-column-one-third\">\n\t\t<a class=\"govuk-link govuk-button\" href=\"/skills-assessment\">Assess your skills</a>\n\t</div>\n\t<div class=\"govuk-grid-column-one-third\">\n\t\t<a class=\"govuk-link govuk-button\" href=\"/explore-careers\">Search job profiles</a>\n\t</div>\n\t<div class=\"govuk-grid-column-one-third\">\n\t\t<a class=\"govuk-link govuk-button\" href=\"/find-a-course\">Look for courses</a>\n\t</div>\n  </div>\n</div>"
                         },
                         "GraphSyncPart": {
                             "Text": "<<contentapiprefix>>/html/e3455725-99ce-45dc-ba2f-398220ecd2cb"
@@ -157,7 +157,7 @@
                         "DisplayText": "",
                         "Latest": false,
                         "Published": false,
-                        "ModifiedUtc": "2021-05-27T08:12:39.3009504Z",
+                        "ModifiedUtc": "2021-06-01T13:51:46.9433521Z",
                         "PublishedUtc": null,
                         "CreatedUtc": null,
                         "Owner": "",
@@ -181,7 +181,7 @@
                         "DisplayText": "",
                         "Latest": false,
                         "Published": false,
-                        "ModifiedUtc": "2021-05-27T08:12:39.3244029Z",
+                        "ModifiedUtc": "2021-06-01T13:51:46.9600187Z",
                         "PublishedUtc": null,
                         "CreatedUtc": null,
                         "Owner": "",
@@ -208,7 +208,7 @@
                         "DisplayText": "",
                         "Latest": false,
                         "Published": false,
-                        "ModifiedUtc": "2021-05-27T08:12:39.3916587Z",
+                        "ModifiedUtc": "2021-06-01T13:51:46.9834843Z",
                         "PublishedUtc": null,
                         "CreatedUtc": null,
                         "Owner": "",
@@ -235,7 +235,7 @@
                         "DisplayText": "",
                         "Latest": false,
                         "Published": false,
-                        "ModifiedUtc": "2021-05-27T08:12:39.4146459Z",
+                        "ModifiedUtc": "2021-06-01T13:51:47.0089281Z",
                         "PublishedUtc": null,
                         "CreatedUtc": null,
                         "Owner": "",
@@ -270,7 +270,7 @@
                 "ReviewStatus": 0,
                 "ReviewType": 0,
                 "IsForcePublished": false,
-                "Comment": "Adjusting CSS classes for better spacing"
+                "Comment": "Adjusted button alignments 2"
             }
         }
     ]
