@@ -12,7 +12,7 @@ namespace DFC.ServiceTaxonomy.Taxonomies.Liquid
 {
     public class InheritedTermsFilter : ILiquidFilter
     {
-        public async ValueTask<FluidValue> ProcessAsync(FluidValue input, FilterArguments arguments, TemplateContext ctx)
+        public async ValueTask<FluidValue> ProcessAsync(FluidValue input, FilterArguments arguments, LiquidTemplateContext ctx)
         {
             if (!ctx.AmbientValues.TryGetValue("Services", out var services))
             {
@@ -52,8 +52,8 @@ namespace DFC.ServiceTaxonomy.Taxonomies.Liquid
             var terms = new List<ContentItem>();
 
             TaxonomyOrchardHelperExtensions.FindTermHierarchy(taxonomy.Content.TaxonomyPart.Terms as JArray, termContentItemId, terms);
-
-            return FluidValue.Create(terms);
+            
+            return FluidValue.Create(terms, TemplateOptions.Default);
         }
     }
 }

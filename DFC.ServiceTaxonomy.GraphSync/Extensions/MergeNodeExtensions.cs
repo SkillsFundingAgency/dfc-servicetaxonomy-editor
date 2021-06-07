@@ -112,7 +112,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Extensions
             JToken? values = content[contentPropertyName];
             if (values != null && values.Type != JTokenType.Null)
             {
-                valueStrings = values.Value<string>().Split("\r\n");
+                valueStrings = values.Value<string>()?.Split("\r\n") ?? new string[0];
             }
             else
             {
