@@ -60,17 +60,10 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             IEnumerable<KeyValuePair<string, object>>? deleteIncomingRelationshipsProperties = null,
             IGraphDeleteContext? parentContext = null)
         {
-            if (contentItem.Content.GraphSyncPart == null)
-            {
-                return AllowSync.NotRequired;
-            }
-
             _syncNameProvider.ContentType = contentItem.ContentType;
 
-            if (_syncNameProvider.GraphSyncPartSettings.PreexistingNode)
-            {
+            if (contentItem.Content.GraphSyncPart == null || _syncNameProvider.GraphSyncPartSettings.PreexistingNode)
                 return AllowSync.NotRequired;
-            }
 
             //todo: helper for this
             var allDeleteIncomingRelationshipsProperties = new HashSet<KeyValuePair<string, object>>();

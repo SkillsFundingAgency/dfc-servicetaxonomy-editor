@@ -1,6 +1,6 @@
 ﻿@using OrchardCore.ContentManagement
-@using DFC.ServiceTaxonomy.ContentApproval.Models
-@using DFC.ServiceTaxonomy.ContentApproval.Models.Enums
+@*@using DFC.ServiceTaxonomy.ContentApproval.Models
+  @using DFC.ServiceTaxonomy.ContentApproval.Models.Enums*@
 @using DFC.ServiceTaxonomy.CustomEditor.Configuration
 @using DFC.ServiceTaxonomy.CustomEditor.Constants
 @using DFC.ServiceTaxonomy.PageLocation.Models
@@ -22,19 +22,21 @@
     var previewContentTypes = contentItem.ContentType == ContentTypes.Page; //contentItem.ContentType == ContentTypes.JobProfile ||
 }
 
-@if (contentItem.Has<ContentApprovalPart>())
-{
-    var isInReview = contentItem.As<ContentApprovalPart>()?.ReviewStatus == ReviewStatus.InReview;
-    var hasEditPermission = await AuthorizationService.AuthorizeAsync(User, CommonPermissions.EditContent, contentItem) && User.HasClaim(c => c.Value == CommonPermissions.EditContent.Name);
-    if (!isInReview && hasEditPermission)
+@*@if (contentItem.Has<ContentApprovalPart>())
     {
-        <a asp-action="Edit" asp-controller="ContentApproval" asp-route-area="DFC.ServiceTaxonomy.ContentApproval" asp-route-contentItemId="@contentItem.ContentItemId" asp-route-returnUrl="@FullRequestPath" class="btn btn-sm btn-primary edit"><span>@T["Edit"]</span></a>
+        var isInReview = contentItem.As<ContentApprovalPart>()?.ReviewStatus == ReviewStatus.InReview;
+        var hasEditPermission = await AuthorizationService.AuthorizeAsync(User, CommonPermissions.EditContent, contentItem) && User.HasClaim(c => c.Value == CommonPermissions.EditContent.Name);
+        if (!isInReview && hasEditPermission)
+        {
+            <a asp-action="Edit" asp-controller="ContentApproval" asp-route-area="DFC.ServiceTaxonomy.ContentApproval" asp-route-contentItemId="@contentItem.ContentItemId" asp-route-returnUrl="@FullRequestPath" class="btn btn-sm btn-primary edit"><span>@T["Edit"]</span></a>
+        }
     }
-}
-else
-{
-    <a edit-for="@contentItem" asp-route-returnUrl="@FullRequestPath" class="btn btn-primary btn-sm">@T["Edit"]</a>
-}
+    else
+    {
+        <a edit-for="@contentItem" asp-route-returnUrl="@FullRequestPath" class="btn btn-primary btn-sm">@T["Edit"]</a>
+    }*@
+
+<a edit-for="@contentItem" asp-route-returnUrl="@FullRequestPath" class="btn btn-primary btn-sm">@T["Edit"]</a>
 
 @if (hasPublished && hasViewPermission && !previewContentTypes)
 {

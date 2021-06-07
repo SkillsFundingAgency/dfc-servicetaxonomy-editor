@@ -6,7 +6,6 @@
       <Nullable>enable</Nullable>
       <EnableNETAnalyzers>true</EnableNETAnalyzers>
       <AnalysisLevel>latest</AnalysisLevel>
-      <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
       <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 
       <Authors>Education and Skills Funding Agency Team</Authors>
@@ -20,7 +19,6 @@
       <PublishRepositoryUrl>true</PublishRepositoryUrl>
       <SymbolPackageFormat>snupkg</SymbolPackageFormat>
       <LangVersion>default</LangVersion>
-      <PackageVersion>1.0.0</PackageVersion>
     </PropertyGroup>
 
     <ItemGroup>
@@ -28,8 +26,8 @@
         <PrivateAssets>all</PrivateAssets>
         <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       </PackageReference>
-      <PackageReference Include="Microsoft.Extensions.Options" Version="3.1.12" />
-      <PackageReference Include="Microsoft.Extensions.Logging" Version="3.1.12" />
+      <PackageReference Include="Microsoft.Extensions.Options" Version="5.0.0" />
+      <PackageReference Include="Microsoft.Extensions.Logging" Version="5.0.0" />
       <PackageReference Include="Neo4j.Driver" Version="4.2.0" />
       <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="All" />
       <PackageReference Include="SonarAnalyzer.CSharp" Version="8.15.0.24505">
@@ -37,4 +35,17 @@
         <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       </PackageReference>
     </ItemGroup>
+
+  <ItemGroup>
+    <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleToAttribute">
+      <_Parameter1>DFC.ServiceTaxonomy.UnitTests</_Parameter1>
+    </AssemblyAttribute>
+    <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleToAttribute">
+      <_Parameter1>DFC.ServiceTaxonomy.IntegrationTests</_Parameter1>
+    </AssemblyAttribute>
+    <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleToAttribute">
+      <_Parameter1>DynamicProxyGenAssembly2</_Parameter1>
+    </AssemblyAttribute>
+  </ItemGroup>
+
 </Project>

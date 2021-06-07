@@ -42,11 +42,6 @@ namespace DFC.ServiceTaxonomy.Theme.Filters
                 .RegisterResource("stylesheet", "StaxTheme-unpublish-later")
                 .AtHead();
 
-            //todo: only required for dashboard
-            _resourceManager
-                .RegisterResource("stylesheet", "StaxTheme-content-approval")
-                .AtHead();
-
             await next();
         }
     }

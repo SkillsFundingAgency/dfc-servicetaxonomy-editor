@@ -276,6 +276,9 @@ paket-files/
 __pycache__/
 *.pyc
 
+#JetBrains
+.idea/
+
 #generated localization files
 Localization/
 **/.DS_Store
