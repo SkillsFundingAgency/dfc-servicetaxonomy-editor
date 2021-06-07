@@ -1,0 +1,62 @@
+{
+    "name": "02_content_approval",
+    "displayName": "Content approval",
+    "description": "Updates editors with force publish permissions",
+    "author": "National Careers Service",
+    "website": "https://github.com/SkillsFundingAgency/dfc-servicetaxonomy-editor",
+    "version": "1.0",
+    "issetuprecipe": false,
+    "categories": ["default"],
+    "tags": ["ncs"],
+    "steps": [
+        {
+            "name": "Roles",
+            "Roles": [
+                {
+                    "Name": "ContentAdministrator",
+                    "Description": "Content administrator",
+                    "Permissions": [
+                        "ListContent",
+                        "DeleteContent",
+                        "EditContent",
+                        "CloneContent",
+                        "ViewContent",
+                        "PreviewContent",
+                        "PublishContent",
+                        "RequestReviewPermission",
+                        "CanPerformContentDesignReviewPermission",
+                        "CanPerformSMEReviewPermission",
+                        "CanPerformUXReviewPermission",
+                        "CanPerformStakeholderApprovalPermission",
+                        "ForcePublishPermission",
+                        "AssignRoles",
+                        "ManageTaxonomy",
+                        "ManageUsers",
+                        "ManageOwnUserInformation",
+                        "AccessAdminPanel",
+                        "ManageMediaContent"
+                    ]
+                },
+                {
+                    "Name": "Editor",
+                    "Description": "Editor",
+                    "Permissions": [
+                        "ListContent",
+                        "EditContent",
+                        "ViewContent",
+                        "DeleteContent",
+                        "PreviewContent",
+                        "CloneContent",
+                        "PublishContent",
+                        "RequestReviewPermission",
+                        "ForcePublishPermission",
+                        "ManageTaxonomy",
+                        "ManageOwnUserInformation",
+                        "AccessAdminPanel",
+                        "ManageMediaContent"
+                    ]
+                }
+            ]
+        }
+    ]
+}

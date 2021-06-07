@@ -69,7 +69,14 @@
                     'title': 'Title',
                     'width': 'Width',
                     'height': 'Height'
-                }
+                },
+                insertMedia: 'Insert Media',
+                mediaSettings: {
+                    'url': 'Url',
+                    'altText': 'Alternate text',
+                    'width': 'Width',
+                    'height': 'Height'
+                },
             }
         },
         // Register plugin in Trumbowyg
@@ -179,6 +186,13 @@
                         }
                     });
 
+                    trumbowyg.addBtnDef('insertMedia', {
+                        ico: 'insertImage',
+                        title: trumbowyg.lang.insertMedia,
+                        fn: function () {
+                            insertMedia(trumbowyg);
+                        }
+                    });
                     setColourTitles();
                 },
                 // Return a list of button names which are active on current element
@@ -284,26 +298,26 @@
                 required: true
             },
             title: {
-                label: trumbowyg.lang.iframeSettings.title
+                label: trumbowyg.lang.iframeSettings.title,
+                required: true
             },
             height: {
                 label: trumbowyg.lang.iframeSettings.height,
                 required: true,
-                value: "360"
+                value: "315"
             },
             width: {
                 label: trumbowyg.lang.iframeSettings.width,
                 required: true,
-                value: "640"
+                value: "630"
             },
         };
-
         trumbowyg.openModalInsert(
             trumbowyg.lang.youtubeLink,
             options,
             function (data) {
 
-                var srcUrl = setQueryParam(data.url, "rel", "0")
+                var srcUrl = setQueryParam(data.url);
 
                 var $linkToEmbed = $('<iframe>')
                     .attr('src', srcUrl)
@@ -320,9 +334,78 @@
             });
     }
 
-    function setQueryParam(sourceUrl, key, value) {
+    function insertMedia(trumbowyg) {
+
+        $("#mediaApp").detach().appendTo('#mediaModalHtmlField .modal-body');
+        $("#mediaApp").show();
+        mediaApp.selectedMedias = [];
+        var modal = $('#mediaModalHtmlField').modal();
+        //disable an reset on click event over the button to avoid issue if press button multiple times or have multiple editor
+        $('#mediaHtmlFieldSelectButton').off('click');
+        $('#mediaHtmlFieldSelectButton').on('click', function (v) {
+
+            $(window).trigger('scroll');
+
+            if (mediaApp.selectedMedias.length != 0) {
+                insertImageWithAltText(trumbowyg, mediaApp.selectedMedias[0].url, mediaApp.selectedMedias[0].name);
+            }
+
+            $('#mediaModalHtmlField').modal('hide');
+            return true;
+        });
+    }
+
+    function insertImageWithAltText(trumbowyg, imageUrl, altText) {
+
+        var options = {
+            url: {
+                label: trumbowyg.lang.mediaSettings.url,
+                value: imageUrl,
+                required: true
+            },
+            alt: {
+                label: trumbowyg.lang.mediaSettings.altText,
+                required: true
+            },
+            height: {
+                label: trumbowyg.lang.mediaSettings.height,
+                type: 'number'
+            },
+            width: {
+                label: trumbowyg.lang.mediaSettings.width,
+                type: 'number'
+            },
+        };
+        trumbowyg.openModalInsert(
+            trumbowyg.lang.insertMedia,
+            options,
+            function (data) {
+
+                var dateTimeStamp = new Date().toISOString().slice(0, -8).replace(/[-:T]/g, "");
+
+                var $mediaToInsert = $('<img>')
+                    .attr('src', data.url + '?' + dateTimeStamp)
+                    .attr('alt', data.alt)
+                    .attr('data-source', 'CDN')
+                    .attr('height', data.height)
+                    .attr('width', data.width)
+
+                trumbowyg.execCmd('insertHTML', $mediaToInsert.get(0).outerHTML)
+                return true;
+            });
+    }
+
+    function setQueryParam(sourceUrl) {
         var url = new URL(sourceUrl);
-        url.searchParams.set(key, value);
+        let queryParams = new Map();
+        queryParams.set("rel", "0");
+        queryParams.set("modestbranding", "1");
+        queryParams.set("autoplay", "0");
+        queryParams.set("origin", "https://nationalcareers.service.gov.uk");
+
+        for (let [key, value] of queryParams) {
+            url.searchParams.set(key, value);
+        }
         return url;
     }
 

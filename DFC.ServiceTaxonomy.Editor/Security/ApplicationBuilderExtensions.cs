@@ -1,11 +1,12 @@
 ﻿using Joonasw.AspNetCore.SecurityHeaders;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.Configuration;
 
 namespace DFC.ServiceTaxonomy.Editor.Security
 {
     public static class ApplicationBuilderExtensions
     {
-        public static IApplicationBuilder UseSecurityHeaders(this IApplicationBuilder app)
+        public static IApplicationBuilder UseSecurityHeaders(this IApplicationBuilder app,IConfiguration configuration)
         {
             app.Use(async (context, next) =>
                 {
@@ -42,6 +43,10 @@ namespace DFC.ServiceTaxonomy.Editor.Security
 
                     csp.AllowConnections
                         .ToSelf();
+
+                    csp.AllowImages
+                       .FromSelf()
+                       .From(configuration.GetValue<string>(Constants.Common.DigitalAssetsCdnKey));
 
                     csp.AllowFrames
                         .FromSelf()
