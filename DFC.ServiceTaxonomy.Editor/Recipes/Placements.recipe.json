@@ -1,7 +1,7 @@
 ﻿{
     "name": "Placements",
     "displayName": "Placements - master copy",
-    "description": "Master copy fo placements",
+    "description": "Master copy of placements",
     "author": "National Careers Service",
     "website": "https://github.com/SkillsFundingAgency/dfc-servicetaxonomy-editor",
     "version": null,
@@ -16,6 +16,147 @@
         {
             "name": "Placements",
             "Placements": {
+                "HtmlField_Edit": [
+                    {
+                        "place": "Parts:3#Content;1",
+                        "displayType": null,
+                        "differentiator": "Page-Herobanner",
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null
+                    },
+                    {
+                        "place": "Parts:1#Triage Tool;3",
+                        "displayType": null,
+                        "differentiator": "Page-TriageToolSummary",
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null
+                    },
+                    {
+                        "place": "Parts:4#Content;0",
+                        "displayType": null,
+                        "differentiator": "JobProfile-Description",
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null
+                    },
+                    {
+                        "place": "Parts:8#How to become;0",
+                        "displayType": null,
+                        "differentiator": "JobProfile-HtbCareerTips",
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null
+                    },
+                    {
+                        "place": "Parts:9#How to become;0",
+                        "displayType": null,
+                        "differentiator": "JobProfile-HtbProfessionalBodies",
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null
+                    },
+                    {
+                        "place": "Parts:10#How to become;0",
+                        "displayType": null,
+                        "differentiator": "JobProfile-HtbFurtherInformation",
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null
+                    },
+                    {
+                        "place": "Parts:0#What you will do;3",
+                        "displayType": null,
+                        "differentiator": "JobProfile-WydDayToDayTasks",
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null
+                    },
+                    {
+                        "place": "Parts:0#Career Path;4",
+                        "displayType": null,
+                        "differentiator": "JobProfile-CareerPathAndProgression",
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null
+                    },
+                    {
+                        "place": "Parts:1#Triage Tool;2",
+                        "displayType": null,
+                        "differentiator": "ApplicationView-TriageToolSummary",
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null
+                    }
+                ],
+                "SitemapPart_Edit": [
+                    {
+                        "place": "Parts:0#SEO;2",
+                        "displayType": null,
+                        "differentiator": null,
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null,
+                        "contentType": [
+                            "Page"
+                        ]
+                    }
+                ],
+                "ShowHeroBanner_Edit": [
+                    {
+                        "place": "Parts:1#Content;1",
+                        "displayType": null,
+                        "differentiator": "Page-ShowHeroBanner",
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null
+                    }
+                ],
+                "ShowBreadcrumb_Edit": [
+                    {
+                        "place": "Parts:0#Content;1",
+                        "displayType": null,
+                        "differentiator": "Page-ShowBreadcrumb",
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null
+                    }
+                ],
+                "TriageToolFilters_Edit": [
+                    {
+                        "place": "Parts:2#Triage Tool;3",
+                        "displayType": null,
+                        "differentiator": null,
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null
+                    }
+                ],
+                "PageLocationPart_Edit": [
+                    {
+                        "place": "Parts:3#Metadata;0",
+                        "displayType": null,
+                        "differentiator": null,
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null,
+                        "contentType": [
+                            "Page"
+                        ]
+                    },
+                    {
+                        "place": "Parts:2#Content;0",
+                        "displayType": null,
+                        "differentiator": null,
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null,
+                        "contentType": [
+                            "JobProfile"
+                        ]
+                    }
+                ],
                 "GraphSyncPart_Edit": [
                     {
                         "place": "Parts:4#Metadata;0",
@@ -38,16 +179,6 @@
                         "contentType": [
                             "JobProfile"
                         ]
-                    }
-                ],
-                "ShowHeroBanner_Edit": [
-                    {
-                        "place": "Parts:1#Content;1",
-                        "displayType": null,
-                        "differentiator": "Page-ShowHeroBanner",
-                        "alternates": null,
-                        "wrappers": null,
-                        "shape": null
                     }
                 ],
                 "TitlePart_Edit": [
@@ -150,7 +281,7 @@
                 ],
                 "FlowPart_Edit": [
                     {
-                        "place": "Parts:2#Content;1",
+                        "place": "Parts:3#Content;1",
                         "displayType": null,
                         "differentiator": null,
                         "alternates": null,
@@ -159,6 +290,48 @@
                         "contentType": [
                             "Page"
                         ]
+                    }
+                ],
+                "BooleanField_Edit": [
+                    {
+                        "place": "Parts:1#Content;1",
+                        "displayType": null,
+                        "differentiator": "Page-ShowBreadcrumb",
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null
+                    },
+                    {
+                        "place": "Parts:2#Content;1",
+                        "displayType": null,
+                        "differentiator": "Page-ShowHeroBanner",
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null
+                    },
+                    {
+                        "place": "Parts:0#Triage Tool;3",
+                        "displayType": null,
+                        "differentiator": "Page-UseInTriageTool",
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null
+                    },
+                    {
+                        "place": "Parts:0#Triage Tool;2",
+                        "displayType": null,
+                        "differentiator": "ApplicationView-UseInTriageTool",
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null
+                    },
+                    {
+                        "place": "Parts:0#Content;1",
+                        "displayType": null,
+                        "differentiator": "Page-UseBrowserWidth",
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null
                     }
                 ],
                 "ContentPickerField_Edit": [
@@ -323,55 +496,19 @@
                         "shape": null
                     }
                 ],
-                "ShowBreadcrumb_Edit": [
+                "TaxonomyField_Edit": [
                     {
-                        "place": "Parts:0#Content;1",
+                        "place": "Parts:2#Metadata;0",
                         "displayType": null,
-                        "differentiator": "Page-ShowBreadcrumb",
-                        "alternates": null,
-                        "wrappers": null,
-                        "shape": null
-                    }
-                ],
-                "TriageToolFilters_Edit": [
-                    {
-                        "place": "Parts:2#Triage Tool;3",
-                        "displayType": null,
-                        "differentiator": null,
-                        "alternates": null,
-                        "wrappers": null,
-                        "shape": null
-                    }
-                ],
-                "BooleanField_Edit": [
-                    {
-                        "place": "Parts:0#Content;1",
-                        "displayType": null,
-                        "differentiator": "Page-ShowBreadcrumb",
+                        "differentiator": "Page-PageLocations",
                         "alternates": null,
                         "wrappers": null,
                         "shape": null
                     },
                     {
-                        "place": "Parts:1#Content;1",
+                        "place": "Parts:1#Content;0",
                         "displayType": null,
-                        "differentiator": "Page-ShowHeroBanner",
-                        "alternates": null,
-                        "wrappers": null,
-                        "shape": null
-                    },
-                    {
-                        "place": "Parts:0#Triage Tool;3",
-                        "displayType": null,
-                        "differentiator": "Page-UseInTriageTool",
-                        "alternates": null,
-                        "wrappers": null,
-                        "shape": null
-                    },
-                    {
-                        "place": "Parts:0#Triage Tool;2",
-                        "displayType": null,
-                        "differentiator": "ApplicationView-UseInTriageTool",
+                        "differentiator": "JobProfile-PageLocations",
                         "alternates": null,
                         "wrappers": null,
                         "shape": null
@@ -409,135 +546,6 @@
                         "alternates": null,
                         "wrappers": null,
                         "shape": null
-                    }
-                ],
-                "SitemapPart_Edit": [
-                    {
-                        "place": "Parts:0#SEO;2",
-                        "displayType": null,
-                        "differentiator": null,
-                        "alternates": null,
-                        "wrappers": null,
-                        "shape": null,
-                        "contentType": [
-                            "Page"
-                        ]
-                    }
-                ],
-                "TaxonomyField_Edit": [
-                    {
-                        "place": "Parts:2#Metadata;0",
-                        "displayType": null,
-                        "differentiator": "Page-PageLocations",
-                        "alternates": null,
-                        "wrappers": null,
-                        "shape": null
-                    },
-                    {
-                        "place": "Parts:1#Content;0",
-                        "displayType": null,
-                        "differentiator": "JobProfile-PageLocations",
-                        "alternates": null,
-                        "wrappers": null,
-                        "shape": null
-                    }
-                ],
-                "HtmlField_Edit": [
-                    {
-                        "place": "Parts:2#Content;1",
-                        "displayType": null,
-                        "differentiator": "Page-Herobanner",
-                        "alternates": null,
-                        "wrappers": null,
-                        "shape": null
-                    },
-                    {
-                        "place": "Parts:1#Triage Tool;3",
-                        "displayType": null,
-                        "differentiator": "Page-TriageToolSummary",
-                        "alternates": null,
-                        "wrappers": null,
-                        "shape": null
-                    },
-                    {
-                        "place": "Parts:4#Content;0",
-                        "displayType": null,
-                        "differentiator": "JobProfile-Description",
-                        "alternates": null,
-                        "wrappers": null,
-                        "shape": null
-                    },
-                    {
-                        "place": "Parts:8#How to become;0",
-                        "displayType": null,
-                        "differentiator": "JobProfile-HtbCareerTips",
-                        "alternates": null,
-                        "wrappers": null,
-                        "shape": null
-                    },
-                    {
-                        "place": "Parts:9#How to become;0",
-                        "displayType": null,
-                        "differentiator": "JobProfile-HtbProfessionalBodies",
-                        "alternates": null,
-                        "wrappers": null,
-                        "shape": null
-                    },
-                    {
-                        "place": "Parts:10#How to become;0",
-                        "displayType": null,
-                        "differentiator": "JobProfile-HtbFurtherInformation",
-                        "alternates": null,
-                        "wrappers": null,
-                        "shape": null
-                    },
-                    {
-                        "place": "Parts:0#What you will do;3",
-                        "displayType": null,
-                        "differentiator": "JobProfile-WydDayToDayTasks",
-                        "alternates": null,
-                        "wrappers": null,
-                        "shape": null
-                    },
-                    {
-                        "place": "Parts:0#Career Path;4",
-                        "displayType": null,
-                        "differentiator": "JobProfile-CareerPathAndProgression",
-                        "alternates": null,
-                        "wrappers": null,
-                        "shape": null
-                    },
-                    {
-                        "place": "Parts:1#Triage Tool;2",
-                        "displayType": null,
-                        "differentiator": "ApplicationView-TriageToolSummary",
-                        "alternates": null,
-                        "wrappers": null,
-                        "shape": null
-                    }
-                ],
-                "PageLocationPart_Edit": [
-                    {
-                        "place": "Parts:3#Metadata;0",
-                        "displayType": null,
-                        "differentiator": null,
-                        "alternates": null,
-                        "wrappers": null,
-                        "shape": null,
-                        "contentType": [
-                            "Page"
-                        ]
-                    },
-                    {
-                        "place": "Parts:2#Content;0",
-                        "displayType": null,
-                        "differentiator": null,
-                        "alternates": null,
-                        "wrappers": null,
-                        "shape": null,
-                        "contentType": [
-                            "JobProfile"
-                        ]
                     }
                 ]
             }
