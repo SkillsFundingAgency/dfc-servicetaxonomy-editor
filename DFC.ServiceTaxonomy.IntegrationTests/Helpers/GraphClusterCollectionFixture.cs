@@ -16,6 +16,7 @@ namespace DFC.ServiceTaxonomy.IntegrationTests.Helpers
                 .SetBasePath(Directory.GetCurrentDirectory())
                 .AddJsonFile("appsettings.json", false)
                 .AddJsonFile("appsettings.Development.json", optional: true)
+                .AddEnvironmentVariables()
                 .Build();
 
             Neo4jOptions = configuration.GetSection("Neo4j").Get<Neo4jOptions>();

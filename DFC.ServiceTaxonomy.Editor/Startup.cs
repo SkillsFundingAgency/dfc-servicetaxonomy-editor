@@ -6,7 +6,10 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.AspNetCore.Http;
+using OrchardCore.Media;
+using System.Collections.Generic;
 using DFC.ServiceTaxonomy.CustomEditor.Configuration;
+using System;
 
 namespace DFC.ServiceTaxonomy.Editor
 {
@@ -60,6 +63,8 @@ namespace DFC.ServiceTaxonomy.Editor
                 options.Cookie.Name = "staxantiforgery_Default";
             }), order:10);
 
+            services.PostConfigure(SetupMediaConfig());
+
             services.Configure<PagesConfiguration>(Configuration.GetSection("Pages"));
         }
 
@@ -73,8 +78,25 @@ namespace DFC.ServiceTaxonomy.Editor
             app.UseCookiePolicy();
             // UseSecurityHeaders must come before UseOrchardCore
             app.UsePoweredByOrchardCore(false);
-            app.UseSecurityHeaders()
+            app.UseSecurityHeaders(Configuration)
                 .UseOrchardCore();
+        }
+
+        private Action<MediaOptions> SetupMediaConfig()
+        {
+            return o =>
+            {
+                o.AllowedFileExtensions = new HashSet<string>
+                {
+                        ".jpg",
+                        ".png",
+                        ".gif",
+                        ".ico",
+                        ".svg"
+                };
+                o.CdnBaseUrl = Configuration.GetValue<string>(Constants.Common.DigitalAssetsCdnKey).TrimEnd('/');
+            };
+
         }
     }
 }
