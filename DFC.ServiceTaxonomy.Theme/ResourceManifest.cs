@@ -30,11 +30,6 @@ namespace DFC.ServiceTaxonomy.Theme
                 .DefineStyle("StaxTheme-unpublish-later")
                 .SetUrl("~/DFC.ServiceTaxonomy.Theme/Styles/unpublish-later.min.css", "~/DFC.ServiceTaxonomy.Theme/Styles/unpublish-later.css")
                 .SetVersion("1.0.0");
-
-            manifest
-                .DefineStyle("StaxTheme-content-approval")
-                .SetUrl("~/DFC.ServiceTaxonomy.Theme/Styles/content-approval.min.css", "~/DFC.ServiceTaxonomy.Theme/Styles/content-approval.css")
-                .SetVersion("1.0.0");
         }
     }
 }

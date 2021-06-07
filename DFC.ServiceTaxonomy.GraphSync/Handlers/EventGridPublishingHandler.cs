@@ -98,10 +98,9 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers
             return PublishContentEvent(context, ContentEventType.Deleted);
         }
 
-        public async Task DraftDiscarded(IOrchestrationContext context)
+        public Task DraftDiscarded(IOrchestrationContext context)
         {
-            await PublishContentEvent(context, ContentEventType.DraftDiscarded);
-            await PublishContentEvent(context, ContentEventType.Published);
+            return PublishContentEvent(context, ContentEventType.DraftDiscarded);
         }
 
         #pragma warning disable S4144
@@ -117,12 +116,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers
             ContentEventType eventType)
         {
             if (!_eventGridConfiguration.CurrentValue.PublishEvents)
-            {
-                _logger.LogInformation("Event grid publishing is disabled. No events will be published.");
-                return;
-            }
-
-            if (context.ContentItem.Content.GraphSyncPart == null)
             {
                 _logger.LogInformation("Event grid publishing is disabled. No events will be published.");
                 return;

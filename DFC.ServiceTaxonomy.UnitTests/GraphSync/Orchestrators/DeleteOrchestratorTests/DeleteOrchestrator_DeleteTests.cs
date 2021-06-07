@@ -62,7 +62,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.Orchestrators.DeleteOrchestrat
 
             A.CallTo(() => EventGridPublishingHandler.Deleted(
                     A<IOrchestrationContext>.That.Matches(ctx => Equals(ctx.ContentItem, ContentItem))))
-                .MustNotHaveHappened();
+                .MustHaveHappened();
         }
     }
 }
