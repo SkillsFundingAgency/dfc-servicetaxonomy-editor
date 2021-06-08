@@ -107,6 +107,12 @@ stages:
         targetPath: $(build.artifactstagingdirectory)\DeploymentPackages\Nuget
         artifactName: $(SolutionBaseName).Nuget
 
+    - task: PublishBuildArtifacts@1
+      displayName: 'Publish media folder'
+      inputs:
+        PathtoPublish: 'media'
+        artifactName: media
+
 - stage: PublishPackage
   displayName: Publish Package to NuGet
   condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master')) 
@@ -164,6 +170,7 @@ stages:
       DfcServiceTaxonomyTestsBuildId: $(DfcServiceTaxonomyTestsBuildId)
       TestArtifactBranch: ${{ parameters.DfcServiceTaxonomyTestBranch }}
       TestExclusionTag: 'NotDev'
+      MediaStorageAccountName: $(MediaStorageAccountName)
 
 - stage: DeployToSit
   condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'))
@@ -198,6 +205,8 @@ stages:
       DfcServiceTaxonomyTestsBuildId: $(DfcServiceTaxonomyTestsBuildId)
       TestArtifactBranch: ${{ parameters.DfcServiceTaxonomyTestBranch }}
       TestExclusionTag: 'NotSit'
+      MediaStorageAccountName: $(MediaStorageAccountName)
+
 
 - stage: DeployToPP
   condition: and(eq(dependencies.Build.result,'Succeeded'), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
@@ -232,6 +241,7 @@ stages:
       DfcServiceTaxonomyTestsBuildId: $(DfcServiceTaxonomyTestsBuildId)
       TestArtifactBranch: ${{ parameters.DfcServiceTaxonomyTestBranch }}
       TestExclusionTag: 'NotPP'
+      MediaStorageAccountName: $(MediaStorageAccountName)
 
 - stage: DeployToPrd
   condition: and(eq(dependencies.Build.result,'Succeeded'), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
@@ -265,3 +275,4 @@ stages:
       DFCAzureDevOpsProjectGuid: $(DFCAzureDevOpsProjectGuid)
       DfcServiceTaxonomyTestsBuildId: $(DfcServiceTaxonomyTestsBuildId)
       TestArtifactBranch: ${{ parameters.DfcServiceTaxonomyTestBranch }}
+      MediaStorageAccountName: $(MediaStorageAccountName)
