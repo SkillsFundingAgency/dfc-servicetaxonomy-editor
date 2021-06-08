@@ -23,6 +23,8 @@
                         "ViewContent",
                         "PreviewContent",
                         "PublishContent",
+                        "EditContentTypes",
+                        "ViewContentTypes",
                         "RequestReviewPermission",
                         "CanPerformContentDesignReviewPermission",
                         "CanPerformSMEReviewPermission",
