@@ -26,7 +26,7 @@ namespace DFC.ServiceTaxonomy.ContentApproval
             _logger = logger;
         }
 
-        public async Task<int> CreateAsync()
+        public int Create()
         {
             _contentDefinitionManager.AlterPartDefinition(nameof(ContentApprovalItemStatusDashboardPart), builder => builder
                 .Attachable()
@@ -43,7 +43,7 @@ namespace DFC.ServiceTaxonomy.ContentApproval
             {
                 SchemaBuilder.DropMapIndexTable<ContentApprovalPartIndex>();
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 // Not required by SQLLite as no issue if index doesn't exist but maybe a problem in SQL
                 _logger.LogWarning(e, "ContentApprovalPartIndex could not be deleted");
@@ -62,10 +62,10 @@ namespace DFC.ServiceTaxonomy.ContentApproval
                     nameof(ContentApprovalPartIndex.ReviewType),
                     nameof(ContentApprovalPart.IsForcePublished)));
 
+            // TODO: we need to look at reintroducting this once OC can handle separate DB updates in a migration without breaking
+            //await _recipeMigrator.ExecuteAsync("stax-content-approval.recipe.json", this);
 
-            await _recipeMigrator.ExecuteAsync("stax-content-approval.recipe.json", this);
-
-            return await Task.FromResult(8);
+            return 8;
         }
 
         public async Task<int> UpdateFrom1Async()
