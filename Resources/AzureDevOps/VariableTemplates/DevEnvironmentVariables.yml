@@ -19,5 +19,7 @@ variables:
   value: true
 - name: ExceptionCountThreshold
   value: 10
+- name: MediaStorageAccountName
+  value: dfcdevdigstr
 - name: EnableAzureMonitorAlerting
   value: true
