@@ -1,6 +1,7 @@
 using DFC.ServiceTaxonomy.CustomFields.Drivers;
 using DFC.ServiceTaxonomy.CustomFields.Fields;
 using DFC.ServiceTaxonomy.CustomFields.Settings;
+using DFC.ServiceTaxonomy.CustomFields.ViewModels;
 using Fluid;
 using Microsoft.Extensions.DependencyInjection;
 using OrchardCore.ContentManagement;
@@ -25,8 +26,8 @@ namespace DFC.ServiceTaxonomy.CustomFields
             services.Configure<TemplateOptions>(o =>
             {
                 o.MemberAccessStrategy.Register<AccordionField>();
-                o.MemberAccessStrategy.Register<AccordionField>();
-                o.MemberAccessStrategy.Register<AccordionField>();
+                o.MemberAccessStrategy.Register<TabField>();
+                o.MemberAccessStrategy.Register<EmptyViewModel>();
             });
         }
     }
