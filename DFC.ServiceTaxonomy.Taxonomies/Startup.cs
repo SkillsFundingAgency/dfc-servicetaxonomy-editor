@@ -45,16 +45,6 @@ namespace DFC.ServiceTaxonomy.Taxonomies
     {
         private readonly AdminOptions _adminOptions;
 
-        static Startup()
-        {
-            // Registering both field types and shape types are necessary as they can
-            // be accessed from inner properties.
-
-            TemplateContext.GlobalMemberAccessStrategy.Register<TaxonomyField>();
-            TemplateContext.GlobalMemberAccessStrategy.Register<DisplayTaxonomyFieldViewModel>();
-            TemplateContext.GlobalMemberAccessStrategy.Register<DisplayTaxonomyFieldTagsViewModel>();
-        }
-
         public Startup(IOptions<AdminOptions> adminOptions)
         {
             _adminOptions = adminOptions.Value;
@@ -97,6 +87,13 @@ namespace DFC.ServiceTaxonomy.Taxonomies
 
             // Helper.
             services.AddSingleton<ITaxonomyHelper, TaxonomyHelper>();
+
+            services.Configure<TemplateOptions>(o =>
+            {
+                o.MemberAccessStrategy.Register<TaxonomyField>();
+                o.MemberAccessStrategy.Register<DisplayTaxonomyFieldViewModel>();
+                o.MemberAccessStrategy.Register<DisplayTaxonomyFieldTagsViewModel>();
+            });
         }
 
         public override void Configure(IApplicationBuilder app, IEndpointRouteBuilder routes, IServiceProvider serviceProvider)

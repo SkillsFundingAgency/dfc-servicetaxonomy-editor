@@ -17,11 +17,6 @@ namespace DFC.ServiceTaxonomy.UnpublishLater
 {
     public class Startup : StartupBase
     {
-        static Startup()
-        {
-            TemplateContext.GlobalMemberAccessStrategy.Register<UnpublishLaterPartViewModel>();
-        }
-
         public override void ConfigureServices(IServiceCollection services)
         {
             services
@@ -32,6 +27,11 @@ namespace DFC.ServiceTaxonomy.UnpublishLater
             services.AddSingleton<IIndexProvider, UnpublishLaterPartIndexProvider>();
 
             services.AddSingleton<IBackgroundTask, ScheduledUnpublishingBackgroundTask>();
+
+            services.Configure<TemplateOptions>(o =>
+            {
+                o.MemberAccessStrategy.Register<UnpublishLaterPartViewModel>();
+            });
         }
     }
 }
