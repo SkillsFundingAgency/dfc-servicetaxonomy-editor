@@ -78,5 +78,5 @@ steps:
   inputs:
     azureSubscription: '${{ parameters.AzureSubscription }}'
     ScriptPath: '${{ parameters.PSScriptPath }}/Set-SqlUser.ps1'
-    ScriptArguments: "-KeyVaultName $(sharedKeyVaultName) -SqlServerName $(sharedSqlServerName) -SqlDatabaseName $(SqlDatabaseName) -EditorAdminUsername $(OrchardEditorAdminUserName)"
+    ScriptArguments: "-KeyVaultName $(sharedKeyVaultName) -SqlServerName $(sharedSqlServerName) -SqlDatabaseName $(SqlDatabaseName) -EditorAdminUsername '$(ServicePrincipalName)-as-svc'"
     azurePowerShellVersion: LatestVersion
