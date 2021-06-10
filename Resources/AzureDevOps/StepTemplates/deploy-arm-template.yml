@@ -64,11 +64,19 @@ steps:
           -TenantId "$(Authentication_Tenant)"  `
           -CdnProfileName "$(CdnProfileName)"  -Verbose
     azurePowerShellVersion: LatestVersion
-        
+
 - task: AzurePowerShell@5
   displayName: 'Azure PowerShell script: Keyvault permissions'
   inputs:
     azureSubscription: '${{ parameters.AzureSubscription }}'
     ScriptPath: '${{ parameters.PSScriptPath }}/Assign-KeyVault-Permissions-To-Identity.ps1'
     ScriptArguments: "-KeyVaultName  $(sharedKeyVaultName) -ResourceGroupName $(sharedResourceGroup) -ServicePrincipalName '$(ServicePrincipalName)-as' -Verbose"
+    azurePowerShellVersion: LatestVersion
+
+- task: AzurePowerShell@5
+  displayName: 'Create SQL user'
+  inputs:
+    azureSubscription: '${{ parameters.AzureSubscription }}'
+    ScriptPath: '${{ parameters.PSScriptPath }}/Set-SqlUser.ps1'
+    ScriptArguments: "-KeyVaultName $(sharedKeyVaultName) -SqlServerName $(sharedSqlServerName) -SqlDatabaseName $(SqlDatabaseName) -EditorAdminUsername $(OrchardEditorAdminUserName)"
     azurePowerShellVersion: LatestVersion
