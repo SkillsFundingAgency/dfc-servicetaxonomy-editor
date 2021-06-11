@@ -1,0 +1,46 @@
+{
+    "name": "05_content_approval",
+    "displayName": "Content approval",
+    "description": "Updates content admins with content types permissions",
+    "author": "National Careers Service",
+    "website": "https://github.com/SkillsFundingAgency/dfc-servicetaxonomy-editor",
+    "version": "1.0",
+    "issetuprecipe": false,
+    "categories": ["default"],
+    "tags": ["ncs"],
+    "steps": [
+        {
+            "name": "Roles",
+            "Roles": [
+                {
+                    "Name": "ContentAdministrator",
+                    "Description": "Content administrator",
+                    "Permissions": [
+                        "ListContent",
+                        "DeleteContent",
+                        "EditContent",
+                        "CloneContent",
+                        "ViewContent",
+                        "PreviewContent",
+                        "PublishContent",
+                        "EditContentTypes",
+                        "ViewContentTypes",
+                        "RequestReviewPermission",
+                        "CanPerformContentDesignReviewPermission",
+                        "CanPerformSMEReviewPermission",
+                        "CanPerformUXReviewPermission",
+                        "CanPerformStakeholderApprovalPermission",
+                        "ForcePublishPermission",
+                        "AssignRoles",
+                        "ManageTaxonomy",
+                        "ManageUsers",
+                        "ManageOwnUserInformation",
+                        "AccessAdminPanel",
+                        "ManageMediaContent",
+                        "AccessAdminDashboard"
+                    ]
+                }
+            ]
+        }
+    ]
+}
