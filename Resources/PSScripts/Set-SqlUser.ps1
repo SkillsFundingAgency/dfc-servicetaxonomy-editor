@@ -28,8 +28,9 @@ if (!$KeyVault) {
     throw "KeyVault $KeyVaultName doesn't exist"
 }
 
-$sqlPass = Get-AzKeyVaultSecret -Name $EditorAdminUsername -VaultName $KeyVault.VaultName
-if (!$sqlPass.SecretValuetext) {
+#$sqlPass = Get-AzKeyVaultSecret -Name $EditorAdminUsername -VaultName $KeyVault.VaultName
+$sqlPass = Get-AzKeyVaultSecret -Name $EditorAdminUsername -VaultName $KeyVault.VaultName -AsPlainText
+if (!$sqlPass) {
     throw "No password set for $EditorAdminUsername in $KeyVaultName"
 }
 
@@ -42,7 +43,7 @@ $userQuery =    "if not exists (
                 )
                 begin
                     print 'Adding user $($EditorAdminUsername) to database $($SqlDatabaseName) on server $($SqlServerName)'
-                    CREATE USER [$($EditorAdminUsername)] WITH PASSWORD = '$($sqlPass.SecretValuetext)'
+                    CREATE USER [$($EditorAdminUsername)] WITH PASSWORD = '$($sqlPass)'
                     ALTER ROLE db_datareader ADD MEMBER [$($EditorAdminUsername)]
                     ALTER ROLE db_datawriter ADD MEMBER [$($EditorAdminUsername)]
                     ALTER ROLE db_ddladmin ADD MEMBER [$($EditorAdminUsername)]
