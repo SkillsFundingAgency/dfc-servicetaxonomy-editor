@@ -1,0 +1,136 @@
+{
+    "name": "banner content for environment import",
+    "displayName": "banner content for environment import",
+    "description": "Sets up Banner content type",
+    "author": "National Careers Service",
+    "website": "https://github.com/SkillsFundingAgency/dfc-servicetaxonomy-editor",
+    "version": null,
+    "issetuprecipe": false,
+    "categories": [
+        "default"
+    ],
+    "tags": [
+        "ncs"
+    ],
+    "steps": [
+        {
+            "name": "ContentDefinition",
+            "ContentTypes": [
+                {
+                    "Name": "Banner",
+                    "DisplayName": "Banner",
+                    "Settings": {
+                        "ContentTypeSettings": {
+                            "Creatable": true,
+                            "Listable": true,
+                            "Draftable": true,
+                            "Versionable": true,
+                            "Securable": true
+                        },
+                        "FullTextAspectSettings": {}
+                    },
+                    "ContentTypePartDefinitionRecords": [
+                        {
+                            "PartName": "Banner",
+                            "Name": "Banner",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "1"
+                                }
+                            }
+                        },
+                        {
+                            "PartName": "ContentApprovalPart",
+                            "Name": "ContentApprovalPart",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "3"
+                                }
+                            }
+                        },
+                        {
+                            "PartName": "GraphSyncPart",
+                            "Name": "GraphSyncPart",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "2"
+                                },
+                                "GraphSyncPartSettings": {
+                                    "NodeNameTransform": "ContentType",
+                                    "PropertyNameTransform": "Value",
+                                    "IdPropertyName": "uri",
+                                    "GenerateIdPropertyValue": "$\"<<contentapiprefix>>/{ContentType}/{Value}\".ToLowerInvariant()",
+                                    "DisplayId": true
+                                },
+                                "ContentIndexSettings": {}
+                            }
+                        },
+                        {
+                            "PartName": "TitlePart",
+                            "Name": "TitlePart",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "0"
+                                }
+                            }
+                        }
+                    ]
+                }
+            ],
+            "ContentParts": [
+                {
+                    "Name": "Banner",
+                    "Settings": {},
+                    "ContentPartFieldDefinitionRecords": [
+                        {
+                            "FieldName": "HtmlField",
+                            "Name": "BannercontentHTML",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Banner content(HTML)",
+                                    "Editor": "Trumbowyg",
+                                    "Position": "0"
+                                },
+                                "HtmlFieldSettings": {},
+                                "HtmlFieldTrumbowygEditorSettings": {
+                                    "Options": "{\r\n    semantic: {\r\n        'b': 'strong',\r\n        'i': 'em',\r\n        's': 'del',\r\n        'strike': 'del',\r\n        'div': 'div'\r\n    },\r\n    tagsToKeep: [\r\n      \"area\",\r\n      \"base\",\r\n      \"br\",\r\n      \"col\",\r\n      \"embed\",\r\n      \"hr\",\r\n      \"img\",\r\n      \"input\",\r\n      \"param\",\r\n      \"source\",\r\n      \"track\",\r\n      \"wbr\",\r\n\r\n      \"div\",\r\n      \"iframe\",\r\n      \"form\"\r\n    ],\r\n    autogrow: true,\r\n    btns: [\r\n        [\"viewHTML\"],\r\n        [\"undo\", \"redo\"],\r\n        [\"heading\", \"paragraph\", \"fontSize\"],\r\n        [\"fontWeight\"],\r\n        [\"foreColor\", \"backColor\"],\r\n        [\"links\"],\r\n        [\"image\"],\r\n        [\"align\"],\r\n        [\"list\", \"bulletList\", \"numberList\"],\r\n        [\"sectionBreak\"],\r\n        [\"removeformat\"],\r\n        [\"fullscreen\"],\r\n        [\"accordion\"],\r\n        [\"tabs\"]\r\n    ],\r\n    btnsDef: {\r\n        align: {\r\n            dropdown: [\"justifyLeft\", \"justifyCenter\", \"justifyRight\", \"justifyFull\"],\r\n            ico: \"justifyLeft\"\r\n        },\r\n        image: {\r\n            dropdown: [\"insertMedia\", \"base64\",\"youtubeLink\"],\r\n            ico: \"insertImage\"\r\n        }\r\n    },\r\n    plugins: {\r\n      colors: {\r\n          colorList: [\r\n            '0b0c0c',\r\n            '626a6e',\r\n            '1d70b8',\r\n            '003078',\r\n            '4c2c92',\r\n            'b1b4b6',\r\n            'ffdd00',\r\n            'd4351c',\r\n            '003a69',\r\n            '347ca9',\r\n            '00703c',\r\n            '5694ca',\r\n            'f3f2f1',\r\n            'ffffff',\r\n            '6f72af',\r\n            '912b88',\r\n            'd53880',\r\n            'f499be',\r\n            'f47738',\r\n            'b58840',\r\n            '85994b',\r\n            '28a197',\r\n          ]\r\n      }\r\n  }\r\n}"
+                                },
+                                "ContentIndexSettings": {}
+                            }
+                        },
+                        {
+                            "FieldName": "BooleanField",
+                            "Name": "Displaybanneracrossallpages",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Display banner across all pages",
+                                    "Editor": "Switch",
+                                    "Position": "1"
+                                },
+                                "BooleanFieldSettings": {
+                                    "Hint": "Switch on to make banner 'global'. If this is left switched off. PageBanner content items will need to be created where each banner can be manually added to individual pages or sections of the website."
+                                },
+                                "ContentIndexSettings": {}
+                            }
+                        },
+                        {
+                            "FieldName": "BooleanField",
+                            "Name": "Makebanneractive",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Make banner active",
+                                    "Editor": "Switch",
+                                    "Position": "2"
+                                },
+                                "BooleanFieldSettings": {
+                                    "Hint": "A banner will not display until it is set to active.\r\nAlso use to easily hide banners when they are no loger required."
+                                },
+                                "ContentIndexSettings": {}
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}
