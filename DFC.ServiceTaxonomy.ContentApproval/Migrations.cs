@@ -26,7 +26,7 @@ namespace DFC.ServiceTaxonomy.ContentApproval
             _logger = logger;
         }
 
-        public int Create()
+        public async Task<int> CreateAsync()
         {
             _contentDefinitionManager.AlterPartDefinition(nameof(ContentApprovalItemStatusDashboardPart), builder => builder
                 .Attachable()
@@ -62,8 +62,7 @@ namespace DFC.ServiceTaxonomy.ContentApproval
                     nameof(ContentApprovalPartIndex.ReviewType),
                     nameof(ContentApprovalPart.IsForcePublished)));
 
-            // TODO: we need to look at reintroducting this once OC can handle separate DB updates in a migration without breaking
-            //await _recipeMigrator.ExecuteAsync("stax-content-approval.recipe.json", this);
+            await _recipeMigrator.ExecuteAsync("stax-content-approval.recipe.json", this);
 
             return 8;
         }
