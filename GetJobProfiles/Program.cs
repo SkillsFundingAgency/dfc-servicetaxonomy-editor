@@ -7,7 +7,9 @@ using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.Recipes.Executors;
+using GetApprenticeshipStandardss.Importers.Spreadsheets;
 using GetJobProfiles.Importers;
+using GetJobProfiles.Importers.Spreadsheets;
 using GetJobProfiles.JsonHelpers;
 using GetJobProfiles.Models.Recipe.ContentItems;
 using GetJobProfiles.Models.Recipe.ContentItems.Base;
@@ -95,15 +97,91 @@ namespace GetJobProfiles
             string[] apprenticeshipStandardsRefList = !createTestFiles ? new string[] { } : config["TestApprenticeshipStandardReferences"].Split(',');
             string filenamePrefix = createTestFiles ? "TestData_" : "";
 
+            // ApprenticeshipStandards Workbook Reference
+            using var apprenticeshipStandardsStreamReader = new StreamReader(@"SeedData\ApprenticeshipStandards.xlsx");
+            var apprenticeshipStandardsWorkbook = new XSSFWorkbook(apprenticeshipStandardsStreamReader.BaseStream);
+
+            // Dysac Workbook Reference
+            using var dysacStreamReader = new StreamReader(@"SeedData\dysac.xlsx");
+            var dysacWorkbook = new XSSFWorkbook(dysacStreamReader.BaseStream);
+
+            // SOCCodes Workbook Reference
+            using var socCodesStreamReader = new StreamReader(@"SeedData\soc_codes.xlsx");
+            var socCodesWorkbook = new XSSFWorkbook(socCodesStreamReader.BaseStream);
+
+            // SOCCode Converter
             var socCodeConverter = new SocCodeConverter(socCodeList);
             var socCodeDictionary = socCodeConverter.Go(timestamp);
 
-            using var reader = new StreamReader(@"SeedData\job_profiles_updated.xlsx");
+            // JobProfile Workbook Reference
+            using var reader = new StreamReader(@"SeedData\dfc-beta_Job_Profile_Job_Profiles_items.xlsx");
             var jobProfileWorkbook = new XSSFWorkbook(reader.BaseStream);
 
+            // ApprenticeshipStandards spreadsheet importer
+            var apprenticeshipStandardsSpreadsheetImporter = new ApprenticeshipStandardsSpreadsheetImporter().Import(apprenticeshipStandardsWorkbook);
+
+            // DysacShortQuestion spreadsheet importer
+            var dysacShortQuestionSpreadsheetImporter = new DysacShortQuestionSpreadsheetImporter().Import(dysacWorkbook);
+
+            // DysacTrait spreadsheet importer
+            var dysacTraitSpreadsheetImporter = new DysacTraitSpreadsheetImporter().Import(dysacWorkbook);
+
+            // DysacShortQuestionSet spreadsheet importer
+            var dysacShortQuestionSetSpreadsheetImporter = new DysacShortQuestionSetSpreadsheetImporter().Import(dysacWorkbook);
+
+            // DysacFilteringQuestion spreadsheet importer
+            var dysacFilteringQuestionSpreadsheetImporter = new DysacFilteringQuestionSpreadsheetImporter().Import(dysacWorkbook);
+
+            // SocCodes spreadsheet importer
+            var socCodesSpreadsheetImporter = new SocCodesSpreadsheetImporter().Import(socCodesWorkbook);
+
+            // Skill spreadsheet importer
+            var skillSpreadsheetImporter = new SkillSpreadsheetImporter().Import(jobProfileWorkbook);
+
+            // SocSkillsMatrix spreadsheet importer
+            var socSkillsMatrixSpreadsheetImporter = new SocSkillsMatrixSpreadsheetImporter().Import(jobProfileWorkbook);
+
+            // JobProfileSoc spreadsheet importer
+            var jobProfileSocSpreadsheetImporter = new JobProfileSocSpreadsheetImporter().Import(jobProfileWorkbook);
+
+            // Uniform spreadsheet importer
+            var uniformSpreadsheetImporter = new UniformSpreadsheetImporter().Import(jobProfileWorkbook);
+
+            // ApprenticeshipLink spreadsheet importer
+            var apprenticeshipLinkSpreadsheetImporter = new ApprenticeshipLinkSpreadsheetImporter().Import(jobProfileWorkbook);
+
+            // ApprenticeshipRequirement spreadsheet importer
+            var apprenticeshipRequirementSpreadsheetImporter = new ApprenticeshipRequirementSpreadsheetImporter().Import(jobProfileWorkbook);
+
+            // CollegeLink spreadsheet importer
+            var collegeLinkSpreadsheetImporter = new CollegeLinkSpreadsheetImporter().Import(jobProfileWorkbook);
+
+            // CollegeRequirement spreadsheet importer
+            var collegeRequirementSpreadsheetImporter = new CollegeRequirementSpreadsheetImporter().Import(jobProfileWorkbook);
+
+            // UniversityLink spreadsheet importer
+            var universityLinkSpreadsheetImporter = new UniversityLinkSpreadsheetImporter().Import(jobProfileWorkbook);
+
+            // UniversityRequirement spreadsheet importer
+            var universityRequirementSpreadsheetImporter = new UniversityRequirementSpreadsheetImporter().Import(jobProfileWorkbook);
+
+            // Restriction spreadsheet importer
+            var restrictionSpreadsheetImporter = new RestrictionSpreadsheetImporter().Import(jobProfileWorkbook);
+
+            // Registration spreadsheet importer
+            var registrationSpreadsheetImporter = new RegistrationSpreadsheetImporter().Import(jobProfileWorkbook);
+
+            // Location spreadsheet importer
+            var locationSpreadsheetImporter = new LocationSpreadsheetImporter().Import(jobProfileWorkbook);
+
+            // JobProfile spreadsheet importer
+            var jobProfileSpreadsheetImporter = new JobProfileSpreadsheetImporter().Import(jobProfileWorkbook);
+
+            // ONet Converter
             var oNetConverter = new ONetConverter(oNetCodeList);
             var oNetDictionary = oNetConverter.Go(jobProfileWorkbook, timestamp);
 
+            // Title Options Lookup
             var titleOptionsLookup = new TitleOptionsImporter().Import(jobProfileWorkbook);
 
             //use these knobs to work around rate - limiting
@@ -118,6 +196,7 @@ namespace GetJobProfiles
             const int skillBatchSize = 400;
             const int skillLabelsBatchSize = 1000;
 
+            // JobProfile API Client
             var httpClient = new HttpClient
             {
                 BaseAddress = new Uri("https://pp.api.nationalcareers.service.gov.uk/job-profiles/"),
@@ -128,30 +207,37 @@ namespace GetJobProfiles
                 }
             };
 
+            // Dysac Importer
             var dysacImporter = new DysacImporter(oNetConverter.ONetOccupationalCodeToSocCodeDictionary, oNetConverter.ONetOccupationalCodeContentItems);
             using var dysacJobProfileReader = new StreamReader(@"SeedData\dysac_job_profile_mappings.xlsx");
             var dysacJobProfileWorkbook = new XSSFWorkbook(dysacJobProfileReader.BaseStream);
 
+            // JobProfile Converter (using JobProfileAPI)
             var client = new RestHttpClient.RestHttpClient(httpClient);
             var converter = new JobProfileConverter(client, socCodeDictionary, oNetDictionary, titleOptionsLookup, timestamp);
             await converter.Go(skip, take, napTimeMs, jobProfilesToImport);
-
             var jobProfiles = converter.JobProfiles.ToArray();
 
+            // ESCO Mapper
             List<string> mappedOccupationUris = new EscoJobProfileMapper().Map(jobProfiles);
 
+            // JobCategory Importer
             var jobCategoryImporter = new JobCategoryImporter();
             jobCategoryImporter.Import(jobProfileWorkbook, timestamp, jobProfiles);
 
+            // QCF Level Builder
             var qcfLevelBuilder = new QCFLevelBuilder();
             qcfLevelBuilder.Build(timestamp);
 
+            // Digital Skills Level Builder
+            var digitalSkillsLevelBuilder = new DigitalSkillsLevelBuilder();
+            digitalSkillsLevelBuilder.Build(timestamp);
+
+            // ApprenticeshipStandard Importer
             var apprenticeshipStandardImporter = new ApprenticeshipStandardImporter(apprenticeshipStandardsRefList);
             apprenticeshipStandardImporter.Import(jobProfileWorkbook, timestamp, qcfLevelBuilder.QCFLevelDictionary, jobProfiles);
 
-            using var dysacReader = new StreamReader(@"SeedData\dysac.xlsx");
-            var dysacWorkbook = new XSSFWorkbook(dysacReader.BaseStream);
-
+            // Import ONet Occupations/Skills and Dysac Questions
             dysacImporter.ImportONetSkillRank(jobProfileWorkbook);
             dysacImporter.ImportTraits(jobCategoryImporter.JobCategoryContentItemIdDictionary, dysacWorkbook, timestamp);
             dysacImporter.ImportShortQuestions(dysacWorkbook, timestamp);
@@ -180,6 +266,7 @@ namespace GetJobProfiles
                 {"occupationMatch", occupationMatch }
             };
 
+            // Master Recipe
             NewMasterRecipe("main");
 
             bool excludeGraphContentMutators = bool.Parse(config["ExcludeGraphContentMutators"] ?? "False");
@@ -199,12 +286,19 @@ namespace GetJobProfiles
 
             const string cypherToContentRecipesPath = "CypherToContentRecipes";
 
+            // Create Occupation Label content items recipe
             await BatchRecipes(cypherToContentRecipesPath, "CreateOccupationLabelContentItems", occupationLabelsBatchSize, "OccupationLabels", totalOccupationLabels, tokens);
+
+            // Create Skill Label content items recipe
             await BatchRecipes(cypherToContentRecipesPath, "CreateSkillLabelContentItems", skillLabelsBatchSize, "SkillLabels", totalSkillLabels, tokens);
 
+            // Create Skill content items recipe
             await BatchRecipes(cypherToContentRecipesPath, "CreateSkillContentItems", skillBatchSize, "Skills", totalSkills, tokens);
+
+            // Create Occupation content items recipe
             await BatchRecipes(cypherToContentRecipesPath, "CreateOccupationContentItems", occupationsBatchSize, "Occupations", totalOccupations, tokens);
 
+            // Import spreadsheets from the JobProfile workbook ("Location", "Environment", "ApprenticeshipLink", "ApprenticeshipRequirement", "CollegeLink", "CollegeRequirement", "UniversityLink", "UniversityRequirement", "Restriction", "Registration") 
             ProcessJobProfileSpreadsheet(jobProfileWorkbook);
 
             converter.UpdateRouteItemsWithSharedNames();
@@ -216,7 +310,9 @@ namespace GetJobProfiles
 
             const string contentRecipesPath = "ContentRecipes";
 
+            // Create the recipe files
             await BatchSerializeToFiles(qcfLevelBuilder.QCFLevelContentItems, batchSize, $"{filenamePrefix}QCFLevels");
+            await BatchSerializeToFiles(digitalSkillsLevelBuilder.DigitalSkillsLevelContentItems, batchSize, $"{filenamePrefix}DigitalSkillsLevels");
             await BatchSerializeToFiles(apprenticeshipStandardImporter.ApprenticeshipStandardRouteContentItems, batchSize, $"{filenamePrefix}ApprenticeshipStandardRoutes");
             await BatchSerializeToFiles(apprenticeshipStandardImporter.ApprenticeshipStandardContentItems, batchSize, $"{filenamePrefix}ApprenticeshipStandards");
             await BatchSerializeToFiles(RouteFactory.RequirementsPrefixes.IdLookup.Select(r => new RequirementsPrefixContentItem(r.Key, timestamp, r.Key, r.Value)), batchSize, $"{filenamePrefix}RequirementsPrefixes");
@@ -265,8 +361,7 @@ namespace GetJobProfiles
             string masterRecipeName = config["MasterRecipeName"] ?? "master";
 
             await WriteMasterRecipesFiles(masterRecipeName);
-            await File.WriteAllTextAsync($"{OutputBasePath}content items count_{_executionId}.txt", @$"{_importFilesReport}# Totals
-    {_importTotalsReport}");
+            await File.WriteAllTextAsync($"{OutputBasePath}content items count_{_executionId}.txt", @$"{_importFilesReport}# Totals  {_importTotalsReport}");
             await File.WriteAllTextAsync($"{OutputBasePath}manual_activity_mapping_{_executionId}.json", JsonSerializer.Serialize(converter.DayToDayTaskExclusions));
             await File.WriteAllTextAsync($"{OutputBasePath}content_titles_summary_{_executionId}.json", JsonSerializer.Serialize(new { Matches = _matchingTitles.Count, Failures = _missingTitles.Count }));
             await File.WriteAllTextAsync($"{OutputBasePath}matching_content_titles_{_executionId}.json", JsonSerializer.Serialize(_matchingTitles));
