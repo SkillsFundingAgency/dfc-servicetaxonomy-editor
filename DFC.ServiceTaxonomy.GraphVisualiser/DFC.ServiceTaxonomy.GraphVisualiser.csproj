@@ -36,7 +36,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Update="Views\ContentVisualise.Button.cshtml">
+    <EmbeddedResource Update="Views\ContentsVisualise.Button.cshtml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\_ViewImports.cshtml">
