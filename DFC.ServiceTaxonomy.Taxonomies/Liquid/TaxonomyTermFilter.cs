@@ -14,7 +14,7 @@ namespace DFC.ServiceTaxonomy.Taxonomies.Liquid
 {
     public class TaxonomyTermsFilter : ILiquidFilter
     {
-        public async ValueTask<FluidValue> ProcessAsync(FluidValue input, FilterArguments arguments, TemplateContext ctx)
+        public async ValueTask<FluidValue> ProcessAsync(FluidValue input, FilterArguments arguments, LiquidTemplateContext ctx)
         {
             if (!ctx.AmbientValues.TryGetValue("Services", out var services))
             {
@@ -68,7 +68,7 @@ namespace DFC.ServiceTaxonomy.Taxonomies.Liquid
                 }
             }
 
-            return FluidValue.Create(terms);
+            return FluidValue.Create(terms, TemplateOptions.Default);
         }
     }
 }
