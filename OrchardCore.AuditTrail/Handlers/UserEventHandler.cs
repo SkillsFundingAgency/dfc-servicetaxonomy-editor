@@ -75,6 +75,20 @@ namespace OrchardCore.AuditTrail.Handlers
         public Task RegistrationValidationAsync(Action<string, string> reportError) =>
             Task.CompletedTask;
 
+        public Task CreatingAsync(UserCreateContext ctx) =>
+            Task.CompletedTask;
+
+        public Task CreatedAsync(UserCreateContext ctx) =>
+            Task.CompletedTask;
+
+        public Task DeletingAsync(UserDeleteContext ctx) =>
+            Task.CompletedTask;
+        public Task DeletedAsync(UserDeleteContext ctx) =>
+            Task.CompletedTask;
+        public Task UpdatingAsync(UserUpdateContext ctx) =>
+            Task.CompletedTask;
+        public Task UpdatedAsync(UserUpdateContext ctx) =>
+            Task.CompletedTask;
         #endregion
 
 
