@@ -1,0 +1,422 @@
+{
+    "name": "00_Pages_AlertPages",
+    "displayName": "00_Pages_AlertPages",
+    "description": "",
+    "author": "",
+    "website": "",
+    "version": "",
+    "issetuprecipe": false,
+    "categories": [],
+    "tags": [],
+    "steps": [
+        {
+            "name": "Content",
+            "data": [
+                {
+                    "ContentItemId": "46zbtnm85gvk67h89qj3yr8zma",
+                    "ContentItemVersionId": "4ba9avjy5cwggs1s19jm4zpgdc",
+                    "ContentType": "Page",
+                    "DisplayText": "403",
+                    "Latest": true,
+                    "Published": true,
+                    "ModifiedUtc": "2021-06-09T13:04:52.0610639Z",
+                    "PublishedUtc": "2021-06-09T13:04:52.1264557Z",
+                    "CreatedUtc": "2021-06-09T10:08:27.4276164Z",
+                    "Owner": "4exbe0z0f1z924enx2r3e7wnxr",
+                    "Author": "admin",
+                    "TitlePart": {
+                      "Title": "403"
+                    },
+                    "Page": {
+                        "PageLocations": {
+                            "TaxonomyContentItemId": "4eembshqzx66drajtdten34tc8",
+                            "TermContentItemIds": [
+                                "4car1vzxtkwx71r2g3mvpr4wcd"
+                            ]
+                        },
+                        "Description": {
+                            "Text": "Forbidden"
+                        },
+                        "Herobanner": {
+                            "Html": "<p><br></p>"
+                        },
+                        "ShowHeroBanner": {
+                            "Value": false
+                        },
+                        "ShowBreadcrumb": {
+                            "Value": true
+                        }
+                    },
+                    "SitemapPart": {
+                        "Priority": 5,
+                        "OverrideSitemapConfig": false,
+                        "ChangeFrequency": 0,
+                        "Exclude": false
+                    },
+                    "FlowPart": {
+                        "Widgets": [
+                            {
+                                "ContentItemId": "4nwz0e46s4vvd3ta6mkqc4wpwg",
+                                "ContentItemVersionId": null,
+                                "ContentType": "HTML",
+                                "DisplayText": "",
+                                "Latest": false,
+                                "Published": false,
+                                "ModifiedUtc": "2021-06-09T13:04:52.0904138Z",
+                                "PublishedUtc": null,
+                                "CreatedUtc": null,
+                                "Owner": "",
+                                "Author": "admin",
+                                "HTML": {},
+                                "HtmlBodyPart": {
+                                    "Html": "<div class=\"content-container\">\n    <h1 class=\"heading-xlarge\">Page not found</h1>\n    <p>If you typed the web address or used a bookmark, check it is correct.</p>\n    <p>If you pasted the web address, check you copied the whole address.</p>\n    <p>If the web address is correct you can <a href=\"/contact-us\">contact us</a> to get help using this service or call 0800 100 900, 8am to 10pm, 7 days a week.</p>\n</div>"
+                                },
+                                "GraphSyncPart": {
+                                    "Text": "<<contentapiprefix>>/html/f7f9eeac-0e9e-4009-b726-fc2c24369b03"
+                                },
+                                "FlowMetadata": {
+                                    "Alignment": 3,
+                                    "Size": 66
+                                }
+                            }
+                        ]
+                    },
+                    "GraphSyncPart": {
+                        "Text": "<<contentapiprefix>>/page/e70c32fc-e526-4644-b35c-88be7364583e"
+                    },
+                    "PageLocationPart": {
+                        "UrlName": "403",
+                        "DefaultPageForLocation": false,
+                        "RedirectLocations": null,
+                        "FullUrl": "/alerts/403"
+                    }
+                },
+                {
+                    "ContentItemId": "4grb6h2mvqh2cvp2jsydpsrzc2",
+                    "ContentItemVersionId": "479pmvja6m0v40q15yx7g8jjx3",
+                    "ContentType": "Page",
+                    "DisplayText": "400",
+                    "Latest": true,
+                    "Published": true,
+                    "ModifiedUtc": "2021-06-09T13:05:16.2778651Z",
+                    "PublishedUtc": "2021-06-09T13:05:16.3244408Z",
+                    "CreatedUtc": "2021-06-09T10:09:41.2745054Z",
+                    "Owner": "4exbe0z0f1z924enx2r3e7wnxr",
+                    "Author": "admin",
+                    "TitlePart": {
+                        "Title": "400"
+                    },
+                    "Page": {
+                        "PageLocations": {
+                            "TaxonomyContentItemId": "4eembshqzx66drajtdten34tc8",
+                            "TermContentItemIds": [
+                                "4car1vzxtkwx71r2g3mvpr4wcd"
+                            ]
+                        },
+                        "Description": {
+                            "Text": null
+                        },
+                        "Herobanner": {
+                            "Html": ""
+                        },
+                        "ShowHeroBanner": {
+                            "Value": false
+                        },
+                        "ShowBreadcrumb": {
+                            "Value": true
+                        }
+                    },
+                    "SitemapPart": {
+                        "Priority": 5,
+                        "OverrideSitemapConfig": false,
+                        "ChangeFrequency": 0,
+                        "Exclude": false
+                    },
+                    "FlowPart": {
+                        "Widgets": [
+                            {
+                                "ContentItemId": "4jjk7kezzpcy858cakm062x74x",
+                                "ContentItemVersionId": null,
+                                "ContentType": "HTMLShared",
+                                "DisplayText": "",
+                                "Latest": false,
+                                "Published": false,
+                                "ModifiedUtc": "2021-06-09T13:05:16.2936459Z",
+                                "PublishedUtc": null,
+                                "CreatedUtc": null,
+                                "Owner": "",
+                                "Author": "admin",
+                                "HTMLShared": {
+                                    "SharedContent": {
+                                        "ContentItemIds": [
+                                            "4p5kyphsfpjcz5ya5wx1k0415b"
+                                        ]
+                                    }
+                                },
+                                "GraphSyncPart": {
+                                    "Text": "<<contentapiprefix>>/htmlshared/e66d825a-d717-4ff5-b183-321c45a89238"
+                                },
+                                "FlowMetadata": {
+                                    "Alignment": 3,
+                                    "Size": 66
+                                }
+                            }
+                        ]
+                    },
+                    "GraphSyncPart": {
+                        "Text": "<<contentapiprefix>>/page/2a742fde-30dc-48a7-a516-302ec85f243e"
+                    },
+                    "PageLocationPart": {
+                        "UrlName": "400",
+                        "DefaultPageForLocation": false,
+                        "RedirectLocations": null,
+                        "FullUrl": "/alerts/400"
+                    }
+                },
+                {
+                    "ContentItemId": "45gz4g9pn329b586wy0rdpr1me",
+                    "ContentItemVersionId": "4eb064amv78czsc76v3m2q5r5e",
+                    "ContentType": "Page",
+                    "DisplayText": "500",
+                    "Latest": true,
+                    "Published": true,
+                    "ModifiedUtc": "2021-06-09T13:05:39.830262Z",
+                    "PublishedUtc": "2021-06-09T13:05:39.8831068Z",
+                    "CreatedUtc": "2021-06-09T10:04:43.1133172Z",
+                    "Owner": "4exbe0z0f1z924enx2r3e7wnxr",
+                    "Author": "admin",
+                    "TitlePart": {
+                        "Title": "500"
+                    },
+                    "Page": {
+                        "PageLocations": {
+                            "TaxonomyContentItemId": "4eembshqzx66drajtdten34tc8",
+                            "TermContentItemIds": [
+                                "4car1vzxtkwx71r2g3mvpr4wcd"
+                            ]
+                        },
+                        "Description": {
+                            "Text": null
+                        },
+                        "Herobanner": {
+                            "Html": ""
+                        },
+                        "ShowHeroBanner": {
+                            "Value": false
+                        },
+                        "ShowBreadcrumb": {
+                            "Value": true
+                        }
+                    },
+                    "SitemapPart": {
+                        "Priority": 5,
+                        "OverrideSitemapConfig": false,
+                        "ChangeFrequency": 0,
+                        "Exclude": false
+                    },
+                    "FlowPart": {
+                        "Widgets": [
+                            {
+                                "ContentItemId": "43wb51d4ne140xsp857579s5cz",
+                                "ContentItemVersionId": null,
+                                "ContentType": "HTML",
+                                "DisplayText": "",
+                                "Latest": false,
+                                "Published": false,
+                                "ModifiedUtc": "2021-06-09T13:05:39.8495175Z",
+                                "PublishedUtc": null,
+                                "CreatedUtc": null,
+                                "Owner": "",
+                                "Author": "admin",
+                                "HTML": {},
+                                "HtmlBodyPart": {
+                                    "Html": "<div class=\"content-container\">\n    <h1 class=\"heading-xlarge\">Sorry, there is a problem with this service</h1>\n    <p>Please try again later.</p>\n    <p><a href=\"/contact-us\">Contact us</a> if you want to speak to one of our careers advisers.</p>\n</div>"
+                                },
+                                "GraphSyncPart": {
+                                    "Text": "<<contentapiprefix>>/html/34e273fc-a530-49d7-b2ef-3901b1876366"
+                                },
+                                "FlowMetadata": {
+                                    "Alignment": 3,
+                                    "Size": 66
+                                }
+                            }
+                        ]
+                    },
+                    "GraphSyncPart": {
+                        "Text": "<<contentapiprefix>>/page/f19db486-a4d5-4e93-88c8-ff3e45da0fcf"
+                    },
+                    "PageLocationPart": {
+                        "UrlName": "500",
+                        "DefaultPageForLocation": false,
+                        "RedirectLocations": null,
+                        "FullUrl": "/alerts/500"
+                    }
+                },
+                {
+                    "ContentItemId": "4w5yqbq7em2gfzrjp7nf3p31w1",
+                    "ContentItemVersionId": "4m96xg7gecb8a2kd7a3c1espnz",
+                    "ContentType": "Page",
+                    "DisplayText": "404",
+                    "Latest": true,
+                    "Published": true,
+                    "ModifiedUtc": "2021-06-09T13:06:13.2734412Z",
+                    "PublishedUtc": "2021-06-09T13:06:13.3244705Z",
+                    "CreatedUtc": "2021-06-09T10:07:39.2124716Z",
+                    "Owner": "4exbe0z0f1z924enx2r3e7wnxr",
+                    "Author": "admin",
+                    "TitlePart": {
+                        "Title": "404"
+                    },
+                    "Page": {
+                        "PageLocations": {
+                            "TaxonomyContentItemId": "4eembshqzx66drajtdten34tc8",
+                            "TermContentItemIds": [
+                                "4car1vzxtkwx71r2g3mvpr4wcd"
+                            ]
+                        },
+                        "Description": {
+                            "Text": null
+                        },
+                        "Herobanner": {
+                            "Html": ""
+                        },
+                        "ShowHeroBanner": {
+                            "Value": false
+                        },
+                        "ShowBreadcrumb": {
+                            "Value": true
+                        }
+                    },
+                    "SitemapPart": {
+                        "Priority": 5,
+                        "OverrideSitemapConfig": false,
+                        "ChangeFrequency": 0,
+                        "Exclude": false
+                    },
+                    "FlowPart": {
+                        "Widgets": [
+                            {
+                                "ContentItemId": "43dzsmbrmaea1s863a733t38xz",
+                                "ContentItemVersionId": null,
+                                "ContentType": "HTMLShared",
+                                "DisplayText": "",
+                                "Latest": false,
+                                "Published": false,
+                                "ModifiedUtc": "2021-06-09T13:06:13.2942225Z",
+                                "PublishedUtc": null,
+                                "CreatedUtc": null,
+                                "Owner": "",
+                                "Author": "admin",
+                                "HTMLShared": {
+                                    "SharedContent": {
+                                        "ContentItemIds": [
+                                            "4p5kyphsfpjcz5ya5wx1k0415b"
+                                        ]
+                                    }
+                                },
+                                "GraphSyncPart": {
+                                    "Text": "<<contentapiprefix>>/htmlshared/5821ed23-4710-475c-8104-308d3b99a170"
+                                },
+                                "FlowMetadata": {
+                                    "Alignment": 3,
+                                    "Size": 66
+                                }
+                            }
+                        ]
+                    },
+                    "GraphSyncPart": {
+                        "Text": "<<contentapiprefix>>/page/2808fd8a-7cd9-408a-8d5e-8c313a6094e2"
+                    },
+                    "PageLocationPart": {
+                        "UrlName": "404",
+                        "DefaultPageForLocation": false,
+                        "RedirectLocations": null,
+                        "FullUrl": "/alerts/404"
+                    }
+                },
+                {
+                    "ContentItemId": "4jkqs5c3vg9fqwtmr4a2vzj745",
+                    "ContentItemVersionId": "40vtj6hsw7btztxp5tz5bk6cmk",
+                    "ContentType": "Page",
+                    "DisplayText": "503",
+                    "Latest": true,
+                    "Published": true,
+                    "ModifiedUtc": "2021-06-09T13:17:52.5400491Z",
+                    "PublishedUtc": "2021-06-09T13:17:52.5692395Z",
+                    "CreatedUtc": "2021-06-08T12:28:47.4291748Z",
+                    "Owner": "4exbe0z0f1z924enx2r3e7wnxr",
+                    "Author": "admin",
+                    "TitlePart": {
+                        "Title": "503"
+                    },
+                    "Page": {
+                        "PageLocations": {
+                            "TaxonomyContentItemId": "4eembshqzx66drajtdten34tc8",
+                            "TermContentItemIds": [
+                                "4car1vzxtkwx71r2g3mvpr4wcd"
+                            ]
+                        },
+                        "Description": {
+                            "Text": null
+                        },
+                        "Herobanner": {
+                            "Html": ""
+                        },
+                        "ShowHeroBanner": {
+                            "Value": false
+                        },
+                        "ShowBreadcrumb": {
+                            "Value": true
+                        }
+                    },
+                    "SitemapPart": {
+                        "Priority": 5,
+                        "OverrideSitemapConfig": false,
+                        "ChangeFrequency": 0,
+                        "Exclude": false
+                    },
+                    "FlowPart": {
+                        "Widgets": [
+                            {
+                                "ContentItemId": "4bacbdpyezdeb33czndg9s4h4p",
+                                "ContentItemVersionId": null,
+                                "ContentType": "HTMLShared",
+                                "DisplayText": "",
+                                "Latest": false,
+                                "Published": false,
+                                "ModifiedUtc": "2021-06-09T13:17:52.5520397Z",
+                                "PublishedUtc": null,
+                                "CreatedUtc": null,
+                                "Owner": "",
+                                "Author": "admin",
+                                "HTMLShared": {
+                                    "SharedContent": {
+                                        "ContentItemIds": [
+                                            "4p5kyphsfpjcz5ya5wx1k0415b"
+                                        ]
+                                    }
+                                },
+                                "GraphSyncPart": {
+                                    "Text": "<<contentapiprefix>>/htmlshared/0b1c336d-19b5-4e9b-9836-95de67c1277c"
+                                },
+                                "FlowMetadata": {
+                                    "Alignment": 3,
+                                    "Size": 66
+                                }
+                            }
+                        ]
+                    },
+                    "GraphSyncPart": {
+                        "Text": "<<contentapiprefix>>/page/f67a2314-eb6b-4b0d-8eab-28e5cf3d6d0d"
+                    },
+                    "PageLocationPart": {
+                        "UrlName": "503",
+                        "DefaultPageForLocation": false,
+                        "RedirectLocations": null,
+                        "FullUrl": "/alerts/503"
+                    }
+                }
+            ]
+        }
+    ]
+}

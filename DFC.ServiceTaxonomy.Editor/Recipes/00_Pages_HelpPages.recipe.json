@@ -1,0 +1,731 @@
+{
+    "name": "00_Pages_AlertPages",
+    "displayName": "00_Pages_AlertPages",
+    "description": "",
+    "author": "",
+    "website": "",
+    "version": "",
+    "issetuprecipe": false,
+    "categories": [],
+    "tags": [],
+    "steps": [
+        {
+            "name": "Content",
+            "data": [
+                {
+                    "ContentItemId": "4cmgehw1wdarh6qczc6cnbx6mj",
+                    "ContentItemVersionId": "41smcxyecxq5az9025tftd61m3",
+                    "ContentType": "Page",
+                    "DisplayText": "Help",
+                    "Latest": true,
+                    "Published": true,
+                    "ModifiedUtc": "2021-06-10T10:55:45.9057545Z",
+                    "PublishedUtc": "2021-06-10T10:55:45.9383618Z",
+                    "CreatedUtc": "2021-06-10T10:55:21.4774732Z",
+                    "Owner": "4exbe0z0f1z924enx2r3e7wnxr",
+                    "Author": "admin",
+                    "TitlePart": {
+                        "Title": "Help"
+                    },
+                    "Page": {
+                        "PageLocations": {
+                            "TaxonomyContentItemId": "4eembshqzx66drajtdten34tc8",
+                            "TermContentItemIds": [
+                                "4apexr4wxtkyzx10r56gxzqrxx"
+                            ]
+                        },
+                        "Description": {
+                            "Text": null
+                        },
+                        "Herobanner": {
+                            "Html": ""
+                        },
+                        "ShowHeroBanner": {
+                            "Value": false
+                        },
+                        "ShowBreadcrumb": {
+                            "Value": true
+                        }
+                    },
+                    "SitemapPart": {
+                        "Priority": 5,
+                        "OverrideSitemapConfig": false,
+                        "ChangeFrequency": 0,
+                        "Exclude": false
+                    },
+                    "FlowPart": {
+                        "Widgets": [
+                            {
+                                "ContentItemId": "4vzhw44c1mn2txqg7w5jjxjxxy",
+                                "ContentItemVersionId": null,
+                                "ContentType": "HTML",
+                                "DisplayText": "",
+                                "Latest": false,
+                                "Published": false,
+                                "ModifiedUtc": "2021-06-10T10:55:45.9198162Z",
+                                "PublishedUtc": null,
+                                "CreatedUtc": null,
+                                "Owner": "",
+                                "Author": "admin",
+                                "HTML": {},
+                                "HtmlBodyPart": {
+                                    "Html": "<h1 class=\"heading-xlarge\">Help using the National Careers Service</h1>\n<p>Find out more about the National Careers Service, including accessibility, our privacy policy, how we use cookies, and terms and conditions of use.</p>\n<ul>\n    <li>\n        <h2 class=\"heading-small\"><a href=\"/about-us\">About us</a></h2>\n        <p>Get information about the website and the team that's building it</p>\n    </li>\n    <li>\n        <h2 class=\"heading-small\"><a href=\"/help/accessibility\">Accessibility</a></h2>\n        <p>Find out how we help to make the site accessible</p>\n    </li>\n    <li>\n        <h2 class=\"heading-small\"><a href=\"/contact-us\">Contact us</a></h2>\n        <p>Chat online, call or text an adviser and receive careers information and advice</p>\n    </li>\n    <li>\n        <h2 class=\"heading-small\"><a href=\"/help/privacy-and-cookies\">Privacy and cookies</a></h2>\n        <p>Find out about our approach to users' privacy, how we use cookies and what their purpose is</p>\n    </li>\n    <li>\n        <h2 class=\"heading-small\"><a href=\"/help/terms-and-conditions\">Terms and conditions</a></h2>\n        <p>Get information about using the National Careers Service and liability</p>\n    </li>\n</ul>"
+                                },
+                                "GraphSyncPart": {
+                                    "Text": "<<contentapiprefix>>/html/753b8187-8406-4d2b-af6a-801cb8d0f1c1"
+                                },
+                                "FlowMetadata": {
+                                    "Alignment": 0,
+                                    "Size": 66
+                                }
+                            }
+                        ]
+                    },
+                    "GraphSyncPart": {
+                        "Text": "<<contentapiprefix>>/page/61f80caa-56c3-4de6-a5f6-f331baa05862"
+                    },
+                    "PageLocationPart": {
+                        "UrlName": "help",
+                        "DefaultPageForLocation": true,
+                        "RedirectLocations": null,
+                        "FullUrl": "/help/help"
+                    }
+                },
+                {
+                    "ContentItemId": "4xgkrh0d9tknwtch88wdpcr5ms",
+                    "ContentItemVersionId": "4gcgrw6sgcgpm28hjngszzcn4n",
+                    "ContentType": "Page",
+                    "DisplayText": "Cookie settings",
+                    "Latest": true,
+                    "Published": true,
+                    "ModifiedUtc": "2021-06-10T11:06:54.4392567Z",
+                    "PublishedUtc": "2021-06-10T11:06:54.4603924Z",
+                    "CreatedUtc": "2021-06-10T11:06:54.4392567Z",
+                    "Owner": "4exbe0z0f1z924enx2r3e7wnxr",
+                    "Author": "admin",
+                    "TitlePart": {
+                        "Title": "Cookie settings"
+                    },
+                    "Page": {
+                        "PageLocations": {
+                            "TaxonomyContentItemId": "4eembshqzx66drajtdten34tc8",
+                            "TermContentItemIds": [
+                                "4apexr4wxtkyzx10r56gxzqrxx"
+                            ]
+                        },
+                        "Description": {
+                            "Text": null
+                        },
+                        "Herobanner": {
+                            "Html": ""
+                        },
+                        "ShowHeroBanner": {
+                            "Value": false
+                        },
+                        "ShowBreadcrumb": {
+                            "Value": true
+                        }
+                    },
+                    "SitemapPart": {
+                        "Priority": 5,
+                        "OverrideSitemapConfig": false,
+                        "ChangeFrequency": 0,
+                        "Exclude": false
+                    },
+                    "FlowPart": {
+                        "Widgets": [
+                            {
+                                "ContentItemId": "4ctrn38z13ymv18xbr403radmz",
+                                "ContentItemVersionId": null,
+                                "ContentType": "HTML",
+                                "DisplayText": "",
+                                "Latest": false,
+                                "Published": false,
+                                "ModifiedUtc": "2021-06-10T11:06:54.3882109Z",
+                                "PublishedUtc": null,
+                                "CreatedUtc": null,
+                                "Owner": null,
+                                "Author": "admin",
+                                "HTML": {},
+                                "HtmlBodyPart": {
+                                    "Html": "<div id=\"wrapper\">\n    <div id=\"content\" class=\"group help-page cookie-settings\">\n        <div id=\"cookie-settings-confirmation\" class=\"cookie-settings__confirmation\" data-cookie-confirmation=\"true\">\n            <section class=\"gem-c-notice govuk-!-margin-bottom-8\">\n                <h2 class=\"govuk-heading-m\">Your cookie settings were saved</h2>\n                <p class=\"govuk-body\">Government services may set additional cookies and, if so, will have their own cookie policy and banner.</p><a id=\"cookie-settings-backto-previous\" class=\"govuk-link cookie-settings__prev-page\" href=\"#\" data-module=\"track-click\" data-track-category=\"cookieSettings\" data-track-action=\"Back to previous page\">Go back to the page you were looking at\n                    </a>\n            </section>\n        </div>\n        <div class=\"gem-c-title govuk-!-margin-bottom-8\">\n            <h1 class=\"govuk-heading-xl\">Cookies on the National Careers Service website\n            </h1>\n        </div>\n        <div class=\"gem-c-govspeak govuk-govspeak \" data-module=\"govspeak\">\n            <p class=\"govuk-body\">Cookies are files saved on your phone, tablet or computer when you visit a website.</p>\n            <p class=\"govuk-body\">We use cookies to store information about your use of the site, like how often you visit and which pages you look at.</p>\n        </div>\n        <h2 class=\"govuk-heading-m\">Cookie settings</h2>\n        <div class=\"cookie-settings__no-js\">\n            <div class=\"gem-c-govspeak govuk-govspeak \" data-module=\"govspeak\">\n                <p class=\"govuk-body\">We use Javascript to set most of our cookies. Unfortunately Javascript is not running on your browser, so you cannot change your settings. You can try:</p>\n                <ul class=\"govuk-list govuk-list--bullet\">\n                    <li>reloading the page</li>\n                    <li>turning on Javascript in your browser</li>\n                </ul>\n            </div>\n        </div>\n        <div class=\"cookie-settings__form-wrapper\">\n            <p class=\"govuk-body\">We use 2 types of cookie:</p>\n            \n                <div class=\"govuk-form-group\">\n                    <fieldset class=\"govuk-fieldset\">\n                        <legend class=\"govuk-fieldset__legend govuk-fieldset__legend--m\">Cookies that measure website use</legend>\n                        <div id=\"hint-f6ad30ba\" class=\"gem-c-hint govuk-hint govuk-!-margin-bottom-3\">\n                            <p class=\"govuk-body\">We use Google Analytics software to collect information about how you use our website. We do this to help make sure it is meeting the needs of our users, and to help us to make improvements.\n                            </p>\n                            <p class=\"govuk-body\">Google Analytics does not collect personally identifiable information. It does save information about:</p>\n                            <ul class=\"govuk-list govuk-list--bullet\">\n                                <li>how you got to the site</li>\n                                <li>the pages you visit and how long you spend on each page</li>\n                                <li>what you click on while you're visiting the site</li>\n                            </ul>\n                        </div>\n                        <div class=\"govuk-radios\">\n                            <div class=\"gem-c-radio govuk-radios__item\"><input type=\"radio\" name=\"cookies-usage\" id=\"radio-usage-yes\" value=\"on\" class=\"govuk-radios__input\"><label for=\"radio-usage-yes\" class=\"gem-c-label govuk-label govuk-radios__label\">Use cookies that measure my website use</label>\n                            </div>\n                            <div class=\"gem-c-radio govuk-radios__item\"><input type=\"radio\" name=\"cookies-usage\" id=\"radio-usage-no\" value=\"off\" class=\"govuk-radios__input\"><label for=\"radio-usage-no\" class=\"gem-c-label govuk-label govuk-radios__label\">Do not use cookies that measure my website use</label>\n                            </div>\n                        </div>\n                    </fieldset>\n                </div>\n                <div class=\"gem-c-govspeak govuk-govspeak \" data-module=\"govspeak\">\n                    <h2 class=\"govuk-heading-m\">Strictly necessary cookies</h2>\n                    <p class=\"govuk-body\">These cookies are essential for you to browse the website and use its features. Necessary cookies do things like remember your progress through parts of the site, for example if you take one of our Skills assessments.</p>\n                    <p class=\"govuk-body\">These cookies do not collect information about you. They help us provide our information and services safely and in the best way possible. They always need to be on.</p>\n                    <p class=\"govuk-body\"><a href=\"/help/privacy-and-cookies\" data-module=\"track-click\" data-track-category=\"cookieSettings\" data-track-action=\"Find out more about cookies\">Find out more about cookies on the National Careers Service Website\n                            </a>\n                    </p>\n                </div><button class=\"gem-c-button govuk-button\" type=\"submit\">Save changes</button>\n        </div>\n    </div>\n</div>"
+                                },
+                                "GraphSyncPart": {
+                                    "Text": "<<contentapiprefix>>/html/0893ce90-25e2-408c-8c80-f49a60ca40cf"
+                                },
+                                "FlowMetadata": {
+                                    "Alignment": 0,
+                                    "Size": 66
+                                }
+                            },
+                            {
+                                "ContentItemId": "417a1pam0nv9v09waarhqp4kxd",
+                                "ContentItemVersionId": null,
+                                "ContentType": "HTMLShared",
+                                "DisplayText": "",
+                                "Latest": false,
+                                "Published": false,
+                                "ModifiedUtc": "2021-06-10T11:06:54.4161343Z",
+                                "PublishedUtc": null,
+                                "CreatedUtc": null,
+                                "Owner": null,
+                                "Author": "admin",
+                                "HTMLShared": {
+                                    "SharedContent": {
+                                        "ContentItemIds": [
+                                            "4nyydyyta43vzxjk0b61sdmddr"
+                                        ]
+                                    }
+                                },
+                                "GraphSyncPart": {
+                                    "Text": "<<contentapiprefix>>/htmlshared/dd6f25cc-dbfe-4101-8d10-056854e828ef"
+                                },
+                                "FlowMetadata": {
+                                    "Alignment": 0,
+                                    "Size": 33
+                                }
+                            }
+                        ]
+                    },
+                    "GraphSyncPart": {
+                        "Text": "<<contentapiprefix>>/page/03655e62-11ad-48ea-951e-7ce529767b12"
+                    },
+                    "PageLocationPart": {
+                        "UrlName": "cookie-settings",
+                        "DefaultPageForLocation": false,
+                        "RedirectLocations": null,
+                        "FullUrl": "/help/cookie-settings"
+                    }
+                },
+                {
+                    "ContentItemId": "4zppc3qnbmpjktgyrc6g8sp85h",
+                    "ContentItemVersionId": "4451v0z5bvhkrzkfqycg8bm6wa",
+                    "ContentType": "Page",
+                    "DisplayText": "Accessibility",
+                    "Latest": true,
+                    "Published": true,
+                    "ModifiedUtc": "2021-06-10T11:03:16.1861678Z",
+                    "PublishedUtc": "2021-06-10T11:03:16.2111282Z",
+                    "CreatedUtc": "2021-06-10T11:03:16.1861678Z",
+                    "Owner": "4exbe0z0f1z924enx2r3e7wnxr",
+                    "Author": "admin",
+                    "TitlePart": {
+                        "Title": "Accessibility"
+                    },
+                    "Page": {
+                        "PageLocations": {
+                            "TaxonomyContentItemId": "4eembshqzx66drajtdten34tc8",
+                            "TermContentItemIds": [
+                                "4apexr4wxtkyzx10r56gxzqrxx"
+                            ]
+                        },
+                        "Description": {
+                            "Text": null
+                        },
+                        "Herobanner": {
+                            "Html": ""
+                        },
+                        "ShowHeroBanner": {
+                            "Value": false
+                        },
+                        "ShowBreadcrumb": {
+                            "Value": true
+                        }
+                    },
+                    "SitemapPart": {
+                        "Priority": 5,
+                        "OverrideSitemapConfig": false,
+                        "ChangeFrequency": 0,
+                        "Exclude": false
+                    },
+                    "FlowPart": {
+                        "Widgets": [
+                            {
+                                "ContentItemId": "4rq2x6bjc0j3p3nfw122z77k4r",
+                                "ContentItemVersionId": null,
+                                "ContentType": "HTML",
+                                "DisplayText": "",
+                                "Latest": false,
+                                "Published": false,
+                                "ModifiedUtc": "2021-06-10T11:03:16.1674079Z",
+                                "PublishedUtc": null,
+                                "CreatedUtc": null,
+                                "Owner": null,
+                                "Author": "admin",
+                                "HTML": {},
+                                "HtmlBodyPart": {
+                                    "Html": "<h1 class=\"govuk-heading-xl\">Accessibility statement </h1>\n<h2 class=\"govuk-heading-l\">National Careers Service</h2>\n<p class=\"govuk-body\">The National Careers Service website is run by the Education and Skills Funding Agency (ESFA). We want as many people as possible to be able to use this website, including people who use assistive technologies. This means for example, that you will be\n    able to:\n</p>\n<ul class=\"list list-bullet\">\n    <li>navigate the website using just a keyboard</li>\n    <li>navigate the website using speech recognition software, like Dragon Naturally Speaking</li>\n    <li>listen to the website using a screen reader, including the most recent versions of JAWS</li>\n    <li>magnify text on screen with ZoomText</li>\n</ul>\n<p class=\"govuk-body\">We've also made the website content as simple and as clear as possible to understand.</p>\n<p class=\"govuk-body\">AbilityNet has <a href=\"https://mcmw.abilitynet.org.uk/\">advice on making your device easier to use</a> if you have a disability.</p>\n<h3 class=\"govuk-heading-m\">How accessible this website is</h3>\n<p class=\"govuk-body\">We know some parts of this website are not fully accessible. Things include:</p>\n<ul class=\"list list-bullet\">\n    <li>the spatial and abstract assessments within the skills health check, which contain images. Alternative text cannot be supplied for these assessments without influencing your results and invalidating your assessment</li>\n    <li>the personal skills assessments and most of the activity skills assessments on the skills health check. These are quite long and could be difficult to work through. You can save your progress during the assessments so that you can finish each assessment\n        at your own pace</li>\n    <li>you cannot modify the line height or spacing of text on the site </li>\n</ul>\n<h3 class=\"govuk-heading-m\">What to do if you cannot access parts of this website</h3>\n<p class=\"govuk-body\">If you need help using this website, you can <a href=\"/contact-us\">contact us</a> and an adviser will get back to you to provide support.</p>\n<p class=\"govuk-body\">The following information will help us to deal promptly with your enquiry:</p>\n<ul class=\"list list-bullet\">\n    <li>the web address (url) of the page you want help with</li>\n    <li>the type of help you need</li>\n    <li>your name and email address</li>\n</ul>\n<p>We're open from 8am to 8pm Monday to Friday and 10am to 5pm on Saturdays.</p>\n<h3 class=\"govuk-heading-m\">Reporting accessibility problems with this website</h3>\n<p class=\"govuk-body\">We're always looking to improve the accessibility of this website. If you find any issues that are not listed on this page, or you think we're not meeting the requirements of the accessibility regulations, you can:</p>\n<ul class=\"list list-bullet\">\n    <li><a href=\"/contact-us\">contact us</a> with the details</li>\n    <li><a>email the Technology Services: End User Computing</a> at the Department for Education</li>\n</ul>\n<h3 class=\"govuk-heading-m\">Enforcement procedure</h3>\n<p class=\"govuk-body\">The Equality and Human Rights Commission (EHRC) is responsible for enforcing the Public Sector Bodies (Websites and Mobile Applications) (No. 2) Accessibility Regulations 2018 (the 'accessibility regulations'). If you're not happy with\n    how we respond to your complaint, <a href=\"https://www.equalityadvisoryservice.com/\">contact the Equality Advisory and Support Service</a> (EASS).</p>\n<h2 class=\"govuk-heading-l\">Technical information about this website's accessibility</h2>\n<p class=\"govuk-body\">The National Careers Service is committed to making its website accessible, in accordance with the Public Sector Bodies (Websites and Mobile Applications) (No. 2) Accessibility Regulations 2018.</p>\n<p class=\"govuk-body\">This website is partially compliant with the <a href=\"https://www.w3.org/TR/WCAG21/\">Web Content Accessibility Guidelines version 2.1</a> AA standard, due to the non-compliances listed below.</p>\n<h2 class=\"govuk-heading-l\">Non-accessible content</h2>\n<p class=\"govuk-body\">The content listed below is non-accessible for the following reasons.</p>\n<h2 class=\"govuk-heading-l\">Non-compliance with the accessibility regulations</h2>\n<h4 class=\"govuk-heading-s\">Interactive tools and transactions</h4>\n<p class=\"govuk-body\">The accessibility issues identified during testing can be found specifically in the skills health check tool. You may find that:</p>\n<ul class=\"list list-bullet\">\n    <li>some of the assessments are quite long. You can save your progress as you go, so you can finish an assessment at your own pace</li>\n    <li>the spatial and abstract assessments are not accessible as they contain images. Alternative text cannot be supplied without influencing your results and invalidating the assessment</li>\n    <li>citizens using a virtual cursor may encounter difficulties navigating assessments when using a screen reader. This issue can be resolved by turning off the virtual cursor and navigating using the keyboard</li>\n</ul>\n<h3 class=\"govuk-heading-m\">Content that's not within the scope of the accessibility regulations</h3>\n<h4 class=\"govuk-heading-s\">PDFs and other documents</h4>\n<p class=\"govuk-body\">The skills health check assessment results reports are in PDF format but are accessible to screen readers. We also provide results in Microsoft Word as an alternative, which is fully accessible. </p>\n<h2 class=\"govuk-heading-l\">How we tested this website</h2>\n<p class=\"govuk-body\">This website was last tested on 12 August 2020. The test was carried out on our behalf by Technology Services: End User Computing, Technology Group, which is part of the Department for Education (DfE).</p>\n<p class=\"govuk-body\">We tested:</p>\n<ul class=\"list list-bullet\">\n    <li>our main website, available at <a href=\"https://nationalcareers.service.gov.uk\">https://nationalcareers.service.gov.uk</a></li>\n    <li>our additional website, available at <a href=\"https://beta.nationalcareers.service.gov.uk\">https://beta.nationalcareers.service.gov.uk</a></li>\n</ul>\n<p class=\"govuk-body\">The testing was carried out on: </p>\n<ul class=\"list list-bullet\">\n    <li>the skills health check tool </li>\n    <li>the save my progress page</li>\n</ul>\n<p class=\"govuk-body\">During testing, the user was able to: </p>\n<ul class=\"list list-bullet\">\n    <li>start a skills health check assessment</li>\n    <li>save progress</li>\n    <li>return to and continue an assessment</li>\n    <li>complete an assessment and download report</li>\n</ul>\n<p class=\"govuk-body\">Testing was carried out using the following software:</p>\n<ul class=\"list list-bullet\">\n    <li>Dragon NaturallySpeaking Professional (V15.4)</li>\n    <li>JAWS (2020)</li>\n    <li>Fusion (2020)</li>\n    <li>ZoomText (2020)</li>\n</ul>\n<p class=\"govuk-body\">At the time of testing, these were the National Careers Service's supported versions of accessibility software.</p>\n<p class=\"govuk-body\">Things to note:</p>\n<ul class=\"list list-bullet\">\n    <li>WCAG 2.1 AA standards were considered and reported against</li>\n    <li>the browser used was IE11 as this is standard in the ESFA</li>\n    <li>testing was done with 2 different screen reader packages, as they often interact differently with a page</li>\n    <li>testing was carried out using only keyboard, keyboard commands and voice where applicable - a mouse or similar device was not used</li>\n    <li>during testing, consideration was given to usability and to neurodiversity</li>\n    <li>compatibility and usability cannot be guaranteed for people who access the system outside of the ESFA network, as it is not possible to test for every browser, operating system and accessibility software package</li>\n</ul>\n<h2 class=\"govuk-heading-l\">Preparation of this accessibility statement</h2>\n<p class=\"govuk-body\">This statement was prepared on 16 September 2020. It was last reviewed on 16 September 2020.</p>\n<p class=\"govuk-body\">This website was last tested on 12 August 2020. The test was carried out by the Technology Services: End User Computing at the Department for Education.</p>\n<p class=\"govuk-body\">The pages we've chosen have been recently updated to improve accessibility and the skills health check is amongst the top ten pages visited.</p>"
+                                },
+                                "GraphSyncPart": {
+                                    "Text": "<<contentapiprefix>>/html/e9b1f0ce-7d0d-493f-9c8a-fc7d3f2ac465"
+                                },
+                                "FlowMetadata": {
+                                    "Alignment": 0,
+                                    "Size": 66
+                                }
+                            }
+                        ]
+                    },
+                    "GraphSyncPart": {
+                        "Text": "<<contentapiprefix>>/page/d04de90c-7e3a-4cc7-9b49-46a305413104"
+                    },
+                    "PageLocationPart": {
+                        "UrlName": "accessibility",
+                        "DefaultPageForLocation": false,
+                        "RedirectLocations": null,
+                        "FullUrl": "/help/accessibility"
+                    }
+                },
+                {
+                    "ContentItemId": "49art42xgvx1kw94258t9k4g4q",
+                    "ContentItemVersionId": "48rf9md85fqbk4qk9qhh3fp3df",
+                    "ContentType": "Page",
+                    "DisplayText": "About",
+                    "Latest": true,
+                    "Published": true,
+                    "ModifiedUtc": "2021-06-10T11:02:34.2537478Z",
+                    "PublishedUtc": "2021-06-10T11:02:34.2716709Z",
+                    "CreatedUtc": "2021-06-10T11:02:34.2537478Z",
+                    "Owner": "4exbe0z0f1z924enx2r3e7wnxr",
+                    "Author": "admin",
+                    "TitlePart": {
+                        "Title": "About"
+                    },
+                    "Page": {
+                        "PageLocations": {
+                            "TaxonomyContentItemId": "4eembshqzx66drajtdten34tc8",
+                            "TermContentItemIds": [
+                                "4apexr4wxtkyzx10r56gxzqrxx"
+                            ]
+                        },
+                        "Description": {
+                            "Text": null
+                        },
+                        "Herobanner": {
+                            "Html": ""
+                        },
+                        "ShowHeroBanner": {
+                            "Value": false
+                        },
+                        "ShowBreadcrumb": {
+                            "Value": true
+                        }
+                    },
+                    "SitemapPart": {
+                        "Priority": 5,
+                        "OverrideSitemapConfig": false,
+                        "ChangeFrequency": 0,
+                        "Exclude": false
+                    },
+                    "FlowPart": {
+                        "Widgets": [
+                            {
+                                "ContentItemId": "4waashnsqw4d2rxajwff4ptsdv",
+                                "ContentItemVersionId": null,
+                                "ContentType": "HTML",
+                                "DisplayText": "",
+                                "Latest": false,
+                                "Published": false,
+                                "ModifiedUtc": "2021-06-10T11:02:34.2442774Z",
+                                "PublishedUtc": null,
+                                "CreatedUtc": null,
+                                "Owner": null,
+                                "Author": "admin",
+                                "HTML": {},
+                                "HtmlBodyPart": {
+                                    "Html": "<h1 class=\"heading-xlarge\" style=\"text-align: left\">About Explore careers</h1>\n<p>Explore careers is the government's careers advice website for England. It provides information and advice to help you make decisions on learning, training and work. The service offers confidential and impartial advice and is supported by qualified\n    careers advisers.</p>\n<p>The site is maintained by the Department for Education (DfE).</p>\n<h2>What's on Explore careers</h2>\n<p>You'll find:</p>\n<ul class=\"list list-bullet\">\n    <li>job profiles</li>\n    <li>a Skills health check tool</li>\n    <li>a Find a course tool</li>\n    <li>help to get a job</li>\n</ul>\n<h2>Job profiles</h2>\n<p>We've got over 750 <a href=\"/\">job profiles</a> describing what each job involves, including:</p>\n<ul class=\"list list-bullet\">\n    <li>what you need to get into the job</li>\n    <li>what you'll do</li>\n    <li>what the working hours are</li>\n    <li>how much you'll usually get paid</li>\n</ul>\n<p>You can use the search bar if you've got a particular job profile in mind. You can also browse the jobs in different job categories to get some career ideas.</p>\n<h2>Skills assessment</h2>\n<p>Try our <a href=\"/skills-assessment\">skills assessments</a> to learn more about your career skills, strengths and motivations. There are 2 assessments to choose from:</p>\n<ul class=\"list list-bullet\">\n    <li>Discover your skills and careers</li>\n    <li>Skills health check</li>\n</ul>\n<p>After working through an assessment, you'll get a summary of your results, including suggestions about the job categories and job roles that might suit you.</p>\n<h2>Find a course</h2>\n<p>Use <a href=\"/find-a-course\">Find a course</a> for information on courses offered by learning providers contracted with the Education and Skills Funding Agency (ESFA). These include colleges, training providers and local education authorities.</p>\n<p>Learning opportunities include:</p>\n<ul class=\"list list-bullet\">\n    <li>adult further education</li>\n    <li>apprenticeships</li>\n    <li>adult community learning</li>\n    <li>undergraduate and postgraduate degrees</li>\n    <li>courses aimed at 16 to 19 year olds</li>\n</ul>\n<h2>Help to get a job</h2>\n<p>In our <a href=\"/get-a-job\">help to get a job</a> section you can find in-depth advice on how to:</p>\n<ul class=\"list list-bullet\">\n    <li>find vacancies</li>\n    <li>fill in application forms</li>\n    <li>write a professional CV</li>\n    <li>perform well in interviews</li>\n    <li>get work experience</li>\n</ul>\n<h2>Advice in other languages</h2>\n<p>You can speak to an adviser in your own language using our translation service. Call 0800 100 900 and tell the adviser which language you would like translated.</p>\n<h2>Scotland, Wales and Northern Ireland</h2>\n<p>Explore careers offers advice about careers and skills in England. You can get careers advice for other parts of the UK from:</p>\n<ul class=\"list list-bullet\">\n    <li><a href=\"https://www.myworldofwork.co.uk/\">Skills Development Scotland - My World of Work</a></li>\n    <li><a href=\"https://www.careerswales.com/en/\">Careers Wales</a></li>\n    <li><a href=\"https://www.nidirect.gov.uk/campaigns/careers\">Careers Service Northern Ireland</a></li>\n</ul>\n<h2>How Explore careers is updated</h2>\n<p>We work closely with Sector Skills Councils, professional and industry bodies, and government departments to make sure all the information on Explore careers is accurate and up to date.</p>\n<p>Explore careers is also updated based on results from user research and feedback from members of the public.</p>\n<h2>Tracking users</h2>\n<p>We track how you use Explore careers, but we do not collect or store your personal information (like your name or address) while you're browsing. This means that you cannot be personally identified.</p>\n<p>We use Google Analytics software to track:</p>\n<ul class=\"list list-bullet\">\n    <li>which pages you visit</li>\n    <li>how long you use the site</li>\n    <li>how you got to the site and what links you clicked on</li>\n</ul>\n<p>We do not allow Google to share this data with anyone else.</p>\n<h2>Reuse information published on Explore careers</h2>\n<p>You can republish any of the content on Explore careers, as long as you meet the conditions of the Open Government Licence.</p>\n<h2>Links to other sites from Explore careers</h2>\n<p>Explore careers links to external organisations when that link is essential for helping someone complete a task that they begin on the site.</p>\n<p>For example, there's a link on many job profiles to the Universities and Colleges Admissions Service (UCAS) website, which allows you to search for degree courses.</p>\n<p>You can ask for a link to be added to Explore careers.</p>"
+                                },
+                                "GraphSyncPart": {
+                                    "Text": "<<contentapiprefix>>/html/6f36617a-524a-4776-b227-900d5a7650cb"
+                                },
+                                "FlowMetadata": {
+                                    "Alignment": 0,
+                                    "Size": 66
+                                }
+                            }
+                        ]
+                    },
+                    "GraphSyncPart": {
+                        "Text": "<<contentapiprefix>>/page/86e74397-877a-498b-8604-263e33aa3c85"
+                    },
+                    "PageLocationPart": {
+                        "UrlName": "about",
+                        "DefaultPageForLocation": false,
+                        "RedirectLocations": null,
+                        "FullUrl": "/help/about"
+                    }
+                },
+                {
+                    "ContentItemId": "4ezrmwrjsfz79z87gj8yvjemmk",
+                    "ContentItemVersionId": "4ay9y21kgna5gwsjta00m597wt",
+                    "ContentType": "Page",
+                    "DisplayText": "Information sources",
+                    "Latest": true,
+                    "Published": true,
+                    "ModifiedUtc": "2021-06-10T11:01:50.8723018Z",
+                    "PublishedUtc": "2021-06-10T11:01:50.8866911Z",
+                    "CreatedUtc": "2021-06-10T11:01:50.8723018Z",
+                    "Owner": "4exbe0z0f1z924enx2r3e7wnxr",
+                    "Author": "admin",
+                    "TitlePart": {
+                        "Title": "Information sources"
+                    },
+                    "Page": {
+                        "PageLocations": {
+                            "TaxonomyContentItemId": "4eembshqzx66drajtdten34tc8",
+                            "TermContentItemIds": [
+                                "4apexr4wxtkyzx10r56gxzqrxx"
+                            ]
+                        },
+                        "Description": {
+                            "Text": null
+                        },
+                        "Herobanner": {
+                            "Html": ""
+                        },
+                        "ShowHeroBanner": {
+                            "Value": false
+                        },
+                        "ShowBreadcrumb": {
+                            "Value": true
+                        }
+                    },
+                    "SitemapPart": {
+                        "Priority": 5,
+                        "OverrideSitemapConfig": false,
+                        "ChangeFrequency": 0,
+                        "Exclude": false
+                    },
+                    "FlowPart": {
+                        "Widgets": [
+                            {
+                                "ContentItemId": "4zf78m9fq1j5k0ktz8fxr5h9ny",
+                                "ContentItemVersionId": null,
+                                "ContentType": "HTML",
+                                "DisplayText": "",
+                                "Latest": false,
+                                "Published": false,
+                                "ModifiedUtc": "2021-06-10T11:01:50.8279668Z",
+                                "PublishedUtc": null,
+                                "CreatedUtc": null,
+                                "Owner": null,
+                                "Author": "admin",
+                                "HTML": {},
+                                "HtmlBodyPart": {
+                                    "Html": "<h1 class=\"filter-results-heading\">Information sources</h1>\n<h2>Skills assessments</h2>\n<p>The National Careers Service worked with occupational psychology subject matter experts, SHL Group Limited, to create the 'Discover your skills and careers' and 'Skills health check' assessment tools.</p>\n<h2>Skills and working environment information</h2>\n<p style=\"text-align: left\"><a href=\"https://www.onetonline.org/\"><img alt=\"O*NET in-it\" height=\"60\" src=\"https://cdn.nationalcareers.service.gov.uk/gds_service_toolkit/images/onet-in-it.svg\"></a></p>\n<p>This website includes information from <a href=\"https://www.onetonline.org/\">O*NET OnLine</a> by the U.S. Department of Labor, Employment and Training Administration (USDOL/ETA). Used under the <a href=\"https://creativecommons.org/licenses/by/4.0/\">CC BY 4.0</a>    license. O*NET® is a trademark of USDOL/ETA. The National Careers Service has modified all or some of this information. USDOL/ETA has not approved, endorsed, or tested these modifications.</p>\n<div>\n    <h2>Our career adviser subject matter experts </h2>\n    <p>Our subject matter experts use content from LMI, ONET and their own experience to create our job profiles.</p>\n    <p>We're constantly working to improve our information and your feedback is important to us. Please <a href=\"/contact-us/select-option\">email</a> us with your feedback.</p>\n    <h2>Labour market information</h2>\n    <p>This website uses labour market information (LMI) from <a href=\"http://www.lmiforall.org.uk\">LMI for All</a> to show data such as average salaries, working hours and predicted growth for different jobs and industries.</p>\n    <p>LMI for All is funded by the Department for Education.</p>\n</div>"
+                                },
+                                "GraphSyncPart": {
+                                    "Text": "<<contentapiprefix>>/html/fc2bf38e-860f-4533-b784-710818106017"
+                                },
+                                "FlowMetadata": {
+                                    "Alignment": 0,
+                                    "Size": 66
+                                }
+                            }
+                        ]
+                    },
+                    "GraphSyncPart": {
+                        "Text": "<<contentapiprefix>>/page/a8f37eb9-49a1-434e-9d1f-d1b5bceb9ad9"
+                    },
+                    "PageLocationPart": {
+                        "UrlName": "information-sources",
+                        "DefaultPageForLocation": false,
+                        "RedirectLocations": null,
+                        "FullUrl": "/help/information-sources"
+                    }
+                },
+                {
+                    "ContentItemId": "49dqqyvkgb149662a8vk0rw5cc",
+                    "ContentItemVersionId": "4jyp43cs8gp8v6vctsqhrx724e",
+                    "ContentType": "Page",
+                    "DisplayText": "Salary information",
+                    "Latest": true,
+                    "Published": true,
+                    "ModifiedUtc": "2021-06-10T11:00:44.8368225Z",
+                    "PublishedUtc": "2021-06-10T11:00:44.8495873Z",
+                    "CreatedUtc": "2021-06-10T11:00:44.8368225Z",
+                    "Owner": "4exbe0z0f1z924enx2r3e7wnxr",
+                    "Author": "admin",
+                    "TitlePart": {
+                        "Title": "Salary information"
+                    },
+                    "Page": {
+                        "PageLocations": {
+                            "TaxonomyContentItemId": "4eembshqzx66drajtdten34tc8",
+                            "TermContentItemIds": [
+                                "4apexr4wxtkyzx10r56gxzqrxx"
+                            ]
+                        },
+                        "Description": {
+                            "Text": null
+                        },
+                        "Herobanner": {
+                            "Html": ""
+                        },
+                        "ShowHeroBanner": {
+                            "Value": false
+                        },
+                        "ShowBreadcrumb": {
+                            "Value": true
+                        }
+                    },
+                    "SitemapPart": {
+                        "Priority": 5,
+                        "OverrideSitemapConfig": false,
+                        "ChangeFrequency": 0,
+                        "Exclude": false
+                    },
+                    "FlowPart": {
+                        "Widgets": [
+                            {
+                                "ContentItemId": "471nchej957vq6h35qvabyvkcj",
+                                "ContentItemVersionId": null,
+                                "ContentType": "HTML",
+                                "DisplayText": "",
+                                "Latest": false,
+                                "Published": false,
+                                "ModifiedUtc": "2021-06-10T11:00:44.7978555Z",
+                                "PublishedUtc": null,
+                                "CreatedUtc": null,
+                                "Owner": null,
+                                "Author": "admin",
+                                "HTML": {},
+                                "HtmlBodyPart": {
+                                    "Html": "<h1 class=\"heading-xlarge\" style=\"text-align: left\">Salary information </h1>\n<p>Source: Labour market information (LMI) derived from the Office for National Statistics. Where LMI salary data was found unsuitable for a small number of job profiles, that information has been provided by a National Careers Service subject matter expert.</p>\n<h2 class=\"heading-medium\">About LMI</h2>\n    <p>LMIforall provides (the most recently available) Gross Weekly Pay Data (average, median and decile) for one year based on a combination of data from ASHE (Annual Survey of Hours and Earnings) and the Labour Force Survey (LFS). The salary data is organised\n        around the Standard Occupational Classification (SOC2010 4-digit categories). SOC codes classify all jobs into 369 detailed categories, according to the tasks that are undertaken, and the level and nature of the skills and qualifications required\n        to do the job. For privacy reasons, the actual numbers are not made public, but the estimates are designed to be close enough to the actual data for meaningful statistics.</p>\n    <p>Information on earnings and paid hours worked is obtained from employers and does not cover:</p>\n    <ul class=\"list list-bullet\">\n        <li>Self-employed</li>\n        <li>Employees not paid during the reference period (exclude payments of arrears from another period made during the survey period; any payments due as a result of a pay settlement but not yet paid at the time of the survey will also be excluded)</li>\n        <li>Earnings of employees not on adult rates of pay, most of whom will be young people</li>\n        <li><span style=\"color: rgba(65, 64, 66, 1); text-decoration: none\">Survey and hence salary figures does not fully cover certain types of seasonal work, for example employees taken on for only summer or winter work.</span></li>\n        <li>Jobs within the armed forces</li>\n    </ul>"
+                                },
+                                "GraphSyncPart": {
+                                    "Text": "<<contentapiprefix>>/html/d68e4356-bdc3-4d0c-b977-4d63a42d96da"
+                                },
+                                "FlowMetadata": {
+                                    "Alignment": 0,
+                                    "Size": 66
+                                }
+                            }
+                        ]
+                    },
+                    "GraphSyncPart": {
+                        "Text": "<<contentapiprefix>>/page/c27bb702-2c2e-4caa-8e29-d440a9d95d38"
+                    },
+                    "PageLocationPart": {
+                        "UrlName": "salary-information",
+                        "DefaultPageForLocation": false,
+                        "RedirectLocations": null,
+                        "FullUrl": "/help/salary-information"
+                    }
+                },
+                {
+                    "ContentItemId": "41fgerejgeq8qszs93cv8peqcx",
+                    "ContentItemVersionId": "4asm2h1pcpyykxhwge729wajw6",
+                    "ContentType": "Page",
+                    "DisplayText": "Terms and conditions",
+                    "Latest": true,
+                    "Published": true,
+                    "ModifiedUtc": "2021-06-10T10:59:54.1886941Z",
+                    "PublishedUtc": "2021-06-10T10:59:54.2053083Z",
+                    "CreatedUtc": "2021-06-10T10:59:54.1886941Z",
+                    "Owner": "4exbe0z0f1z924enx2r3e7wnxr",
+                    "Author": "admin",
+                    "TitlePart": {
+                        "Title": "Terms and conditions"
+                    },
+                    "Page": {
+                        "PageLocations": {
+                            "TaxonomyContentItemId": "4eembshqzx66drajtdten34tc8",
+                            "TermContentItemIds": [
+                                "4apexr4wxtkyzx10r56gxzqrxx"
+                            ]
+                        },
+                        "Description": {
+                            "Text": null
+                        },
+                        "Herobanner": {
+                            "Html": ""
+                        },
+                        "ShowHeroBanner": {
+                            "Value": false
+                        },
+                        "ShowBreadcrumb": {
+                            "Value": true
+                        }
+                    },
+                    "SitemapPart": {
+                        "Priority": 5,
+                        "OverrideSitemapConfig": false,
+                        "ChangeFrequency": 0,
+                        "Exclude": false
+                    },
+                    "FlowPart": {
+                        "Widgets": [
+                            {
+                                "ContentItemId": "4e0hsr0hqsjj7wntmafa75s650",
+                                "ContentItemVersionId": null,
+                                "ContentType": "HTML",
+                                "DisplayText": "",
+                                "Latest": false,
+                                "Published": false,
+                                "ModifiedUtc": "2021-06-10T10:59:54.1682146Z",
+                                "PublishedUtc": null,
+                                "CreatedUtc": null,
+                                "Owner": null,
+                                "Author": "admin",
+                                "HTML": {},
+                                "HtmlBodyPart": {
+                                    "Html": "<h1 class=\"govuk-heading-xl\">Terms and conditions</h1>\n<p class=\"govuk-body\">The Education and Skills Funding Agency operates the National Careers Service. This is the publicly funded careers service in England for adults, and young people aged 13 or over. The service includes:</p>\n<ul class=\"govuk-list govuk-list--bullet\">\n    <li>the National Careers Service website</li>\n    <li>services delivered through the website</li>\n    <li>the National Contact Centre</li>\n    <li>face-to-face careers advice providers</li>\n</ul>\n<p class=\"govuk-body\">When using the National Career Service, you agree to the following terms and conditions. You will:</p>\n<ul class=\"govuk-list govuk-list--bullet\">\n    <li>respect any patents, copyrights and trademarks</li>\n    <li>accept that all rights are owned by the Education and Skills Funding Agency</li>\n    <li>use webchat services appropriately – we monitor these services and will take action against inappropriate use</li>\n</ul>\n<p class=\"govuk-body\">The Education and Skills Funding Agency accepts no liability for:</p>\n<ul class=\"govuk-list govuk-list--bullet\">\n    <li>loss of access to the website due to excessive demands on the service</li>\n    <li>loss of access due to routine or emergency maintenance on the system</li>\n    <li>loss of data, including data sent and data held by you or on behalf of you</li>\n    <li>delays or failure in receipt of data given by you or given to you</li>\n    <li>damage caused while you're using the National Careers Service</li>\n</ul>\n<p class=\"govuk-body\">You can learn more about how we use and protect your personal information by going to our <a class=\"govuk-link\" href=\"/help/privacy-and-cookies\">privacy policy</a>.</p>\n<p class=\"govuk-body\">You can stop using the National Careers Service at any time, either through the website or by getting in touch with the National Contact Centre.</p>\n<p class=\"govuk-body\">National Contact Centre:</p>\n<p class=\"govuk-body\">Call the National Contact Centre on 0800 100 900, or speak to them by <a class=\"govuk-link\" href=\"/webchat/chat/\">webchat</a>, and tell the adviser that you want to close your account.</p>\n<p class=\"govuk-body\">You can <a class=\"govuk-link\" href=\"/contact-us\">contact us</a> if you have any further questions about the National Careers Service, want to leave feedback or wish to report a problem.</p>"
+                                },
+                                "GraphSyncPart": {
+                                    "Text": "<<contentapiprefix>>/html/6174817b-7af6-4b0a-b386-875f9c9ffa93"
+                                },
+                                "FlowMetadata": {
+                                    "Alignment": 0,
+                                    "Size": 66
+                                }
+                            },
+                            {
+                                "ContentItemId": "4gs3jjph9tvgvr06e8y01pzt48",
+                                "ContentItemVersionId": null,
+                                "ContentType": "HTMLShared",
+                                "DisplayText": "",
+                                "Latest": false,
+                                "Published": false,
+                                "ModifiedUtc": "2021-06-10T10:59:54.1768279Z",
+                                "PublishedUtc": null,
+                                "CreatedUtc": null,
+                                "Owner": null,
+                                "Author": "admin",
+                                "HTMLShared": {
+                                    "SharedContent": {
+                                        "ContentItemIds": [
+                                            "4nyydyyta43vzxjk0b61sdmddr"
+                                        ]
+                                    }
+                                },
+                                "GraphSyncPart": {
+                                    "Text": "<<contentapiprefix>>/htmlshared/313b0e41-853f-4a3f-88ec-90d533e2ff3f"
+                                },
+                                "FlowMetadata": {
+                                    "Alignment": 0,
+                                    "Size": 33
+                                }
+                            }
+                        ]
+                    },
+                    "GraphSyncPart": {
+                        "Text": "<<contentapiprefix>>/page/00d49b5d-7093-4af4-9122-9d90b34ea996"
+                    },
+                    "PageLocationPart": {
+                        "UrlName": "terms-and-conditions",
+                        "DefaultPageForLocation": false,
+                        "RedirectLocations": null,
+                        "FullUrl": "/help/terms-and-conditions"
+                    }
+                },
+                {
+                    "ContentItemId": "4jtz7yb32wzh9xb9adsrgdpnw9",
+                    "ContentItemVersionId": "4rkmdt156yxf9x7k139rw7yqdx",
+                    "ContentType": "Page",
+                    "DisplayText": "Privacy and cookies",
+                    "Latest": true,
+                    "Published": true,
+                    "ModifiedUtc": "2021-06-10T10:58:23.7487921Z",
+                    "PublishedUtc": "2021-06-10T10:58:23.7682028Z",
+                    "CreatedUtc": "2021-06-10T10:58:23.7487921Z",
+                    "Owner": "4exbe0z0f1z924enx2r3e7wnxr",
+                    "Author": "admin",
+                    "TitlePart": {
+                        "Title": "Privacy and cookies"
+                    },
+                    "Page": {
+                        "PageLocations": {
+                            "TaxonomyContentItemId": "4eembshqzx66drajtdten34tc8",
+                            "TermContentItemIds": [
+                                "4apexr4wxtkyzx10r56gxzqrxx"
+                            ]
+                        },
+                        "Description": {
+                            "Text": null
+                        },
+                        "Herobanner": {
+                            "Html": ""
+                        },
+                        "ShowHeroBanner": {
+                            "Value": false
+                        },
+                        "ShowBreadcrumb": {
+                            "Value": true
+                        }
+                    },
+                    "SitemapPart": {
+                        "Priority": 5,
+                        "OverrideSitemapConfig": false,
+                        "ChangeFrequency": 0,
+                        "Exclude": false
+                    },
+                    "FlowPart": {
+                        "Widgets": [
+                            {
+                                "ContentItemId": "4nnetc41jh40k68qxah651yddy",
+                                "ContentItemVersionId": null,
+                                "ContentType": "HTML",
+                                "DisplayText": "",
+                                "Latest": false,
+                                "Published": false,
+                                "ModifiedUtc": "2021-06-10T10:58:23.6642942Z",
+                                "PublishedUtc": null,
+                                "CreatedUtc": null,
+                                "Owner": null,
+                                "Author": "admin",
+                                "HTML": {},
+                                "HtmlBodyPart": {
+                                    "Html": "<h1 class=\"govuk-heading-xl\" style=\"text-align: left\">Privacy and cookies</h1>\n<h2 class=\"govuk-heading-l\">Privacy</h2>\n<p class=\"govuk-body\">The National Careers Service is funded and managed by the Education and Skills Funding Agency (ESFA), an executive agency of the Department for Education (DfE). For the purposes of relevant data protection legislation, the DfE is the data controller for\n    processed personal information.\n</p>\n<p class=\"govuk-body\">This page explains how we use and protect the personal information that we collect from you when you use the National Careers Service. </p>\n<p class=\"govuk-body\">You can get detailed information on how we handle your personal information by visiting the <a class=\"govuk-link\" href=\"https://www.gov.uk/government/publications/esfa-privacy-notice\">ESFA: privacy notice</a>.</p>\n<h3 class=\"govuk-heading-m\">How we use your personal information</h3>\n<p class=\"govuk-body\">We collect your personal information so that the DfE can provide this service, which includes:</p>\n<ul class=\"govuk-list govuk-list--bullet\">\n    <li>the National Careers Service website</li>\n    <li>services delivered through the website</li>\n    <li>our national telephone helpline</li>\n    <li>the local area careers advisory services, who provide face-to-face advice</li>\n</ul>\n<p class=\"govuk-body\">When you use the National Careers Service, we collect personal information:</p>\n<ul class=\"govuk-list govuk-list--bullet\">\n    <li>to help us provide the services you've requested</li>\n    <li>to provide statistical information to partner organisations</li>\n    <li>for evidence and to support payments to organisations delivering careers advice on our behalf</li>\n    <li>to improve our services by analysing how they are used</li>\n</ul>\n<p class=\"govuk-body\">In addition, if you give your consent, we will collect your personal information:</p>\n<ul class=\"govuk-list govuk-list--bullet\">\n    <li>for customer satisfaction surveys</li>\n    <li>to monitor our performance against our equality and diversity standards</li>\n    <li>to make sure we are targeting our service to meet the needs of priority groups</li>\n    <li>to carry out user research with you</li>\n</ul>\n<h3 class=\"govuk-heading-m\">How to withdraw your consent</h3>\n<p class=\"govuk-body\">If you choose not to allow us to collect additional information, you will still receive the same level of service.</p>\n<p class=\"govuk-body\">If you do provide this extra information, you can choose to withdraw your consent at any time. You can do this if you:</p>\n<ul class=\"govuk-list govuk-list--bullet\">\n    <li>call an adviser on 0800 100 900 - tell them you wish to withdraw your consent for customer satisfaction surveys, and your ethnicity and disability information as appropriate</li>\n    <li>speak to a local adviser by phone or face to face - tell them you wish to withdraw your consent for customer satisfaction surveys, and your ethnicity and disability information as appropriate</li>\n</ul>\n<h3 class=\"govuk-heading-m\">Where we collect personal information</h3>\n<p class=\"govuk-body\">Personal information is provided directly by you to the National Careers Service when you:</p>\n<ul class=\"govuk-list govuk-list--bullet\">\n    <li>talk to us on the phone or face to face</li>\n    <li>use our website or webchat</li>\n    <li>send us emails, text messages or online messages</li>\n</ul>\n<p class=\"govuk-body\">We may collect personal information about you from other systems, or organisations funded by the ESFA and from:</p>\n<ul class=\"govuk-list govuk-list--bullet\">\n    <li>the <a class=\"govuk-link\" href=\"https://www.gov.uk/apply-apprenticeship\">Find an apprenticeship</a> service</li>\n    <li>the Department for Work and Pensions, if you've been referred by Jobcentre Plus</li>\n    <li>organisations that pass on your details, so that we can make contact with you</li>\n</ul>\n<h3 class=\"govuk-heading-m\">Where we share your information</h3>\n<p class=\"govuk-body\">We may share your personal information with other services run by the ESFA and partner organisations, where the law allows it or we have a legal obligation to do so. This is to support the delivery of careers advice and guidance services to you.</p>\n<p class=\"govuk-body\">We may share information with the following:</p>\n    <ul class=\"govuk-list govuk-list--bullet\">\n        <li>organisations working on behalf of local careers advice services</li>\n        <li>organisations who introduce you to us, so that we can update them about your progress</li>\n        <li>referral organisations, for example ones that we think may be able to offer you specialist support</li>\n        <li>Ofsted, so that they can check the quality of advice given to you by the National Careers Service</li>\n        <li>market research companies, who check how satisfied you are with the service you've received - though only if you've agreed to this</li>\n        <li>educational institutions and organisations performing research and statistical work on behalf of the Department for Education, or partners of those organisations\n        </li>\n    </ul>\n    <h3 class=\"govuk-heading-m\">How long we keep your personal information</h3>\n    <p class=\"govuk-body\">We will only keep your information for as long as is necessary.</p>\n    <p class=\"govuk-body\">We may need to keep some of your personal information for up to 6 years after you stop using the service to satisfy our contractual audit requirements. Personal information kept for this reason will be restricted to a minimum and is to provide confirmation\n        of payments to organisations who deliver careers advice services on our behalf.\n    </p>\n    <p class=\"govuk-body\">Your information will be held securely and destroyed when it is no longer required.</p>\n    <h3 class=\"govuk-heading-m\">How to get a copy of your personal information</h3>\n    <p class=\"govuk-body\">You can request a copy of any of your personal information that the National Careers Service holds by <a class=\"govuk-link\" href=\"https://www.education.gov.uk/contactus/efa\">contacting the Department for Education</a>, or by writing to:</p>\n    <p class=\"govuk-body\">Ministerial and Public Communications Division<br>Department for Education <br>Piccadilly Gate <br>Store Street <br>Manchester <br>M1 2WD</p>\n    <h3 class=\"govuk-heading-m\">How to tell us if your personal information is incorrect</h3>\n    <p class=\"govuk-body\">You have the right to question any information we have about you that you think is wrong or incomplete. To do this, please contact us by:</p>\n    <ul class=\"govuk-list govuk-list--bullet\">\n        <li>using the telephone service on 0800 100 900</li>\n        <li>speaking to your local careers adviser, using the details they have given you</li>\n    </ul>\n    <p class=\"govuk-body\">We will take reasonable steps to check the information's accuracy and correct it where necessary, and inform any organisations we may have shared it with.</p>\n    <h3 class=\"govuk-heading-m\">How to withdraw from the National Careers Service</h3>\n    <p class=\"govuk-body\">You can stop using the National Careers Service at any time in the following ways:</p>\n    <ul class=\"govuk-list govuk-list--bullet\">\n        <li>call the telephone service on 0800 100 900 and tell them you want to stop using the service</li>\n        <li>speak to a local adviser by phone or face to face and tell them you want to stop using the service</li>\n    </ul>\n    <h3 class=\"govuk-heading-m\">How to complain</h3>\n    <p class=\"govuk-body\">Please let us know if you're unhappy with how we have used your personal information by <a class=\"govuk-link\" href=\"https://www.education.gov.uk/contactus/efa\">contacting the Department for Education</a>.</p>\n    <p class=\"govuk-body\">You also have the right to complain to the <a class=\"govuk-link\" href=\"https://ico.org.uk/make-a-complaint/\">Information Commissioner's Office</a>.</p>\n    <h2 class=\"govuk-heading-m\">How we use cookies</h2>\n    <p class=\"govuk-body\">We put small files, called 'cookies', onto your computer when you use the National Careers Service website.</p>\n    <p class=\"govuk-body\">Cookies collect information about how you browse the site. They also:</p>\n    <ul class=\"govuk-list govuk-list--bullet\">\n        <li>measure how you use the site so we can improve it and meet your needs</li>\n        <li>remember the notifications you've seen so that we do not show them to you again</li>\n    </ul>\n    <p class=\"govuk-body\">We do not use cookies to identify you personally. You'll usually see a message before we store cookies on your computer.</p>\n    <p class=\"govuk-body\">Some cookies may be be placed on your computer by third parties and partners we work with. We use these cookies to:</p>\n    <ul class=\"govuk-body\">\n        <li>help us understand how you use our website</li>\n        <li>capture&nbsp;your comments and feedback through&nbsp;surveys</li>\n        <li>provide online support if you need to speak to a careers adviser</li>\n    </ul>\n    <p class=\"govuk-body\">Find out more about <a class=\"govuk-link\" href=\"https://www.aboutcookies.org/\">how to manage cookies</a>.</p>\n    <h2 class=\"govuk-heading-m\">Change your settings</h2>\n    <p class=\"govuk-body\">You can change cookie preferences for this website at any time from the&nbsp;<a href=\"/help/cookie-settings/\">cookie settings</a>&nbsp;page.</p>\n    <h2 class=\"govuk-heading-m\">Cookie list</h2>\n    <p class=\"govuk-body\">We use 2 types of cookie. You can choose which cookies you're happy for us to use.</p>\n    <h3 class=\"govuk-heading-m\">Cookies that measure website use</h3>\n    <h3 class=\"govuk-heading-m\">Google Analytics</h3>\n    <p class=\"govuk-body\">We use Google Analytics software to collect information about how you use the National Careers Service website. We do this to help make sure the site is meeting the needs of its users, and to help us to make improvements.</p>\n    <p class=\"govuk-body\">You can <a class=\"govuk-link\" href=\"https://tools.google.com/dlpage/gaoptout\">opt out of Google Analytics cookies</a> at any time.</p>\n    <p class=\"govuk-body\">We do not allow Google to use or share our analytics data.</p>\n    <p class=\"govuk-body\">Google Analytics sets the following cookies:<span style=\"font-size: 1.16em\"></span></p>\n    <table class=\"govuk-table k-table\" style=\"text-align: left\">\n        <thead class=\"govuk-table__head\">\n            <tr class=\"govuk-table__row\">\n                <th class=\"govuk-table__header\" data-role=\"resizable\" style=\"\">Name</th>\n                <th class=\"govuk-table__header\" data-role=\"resizable\" style=\"\">Purpose</th>\n                <th class=\"govuk-table__header\">Expires</th>\n            </tr>\n        </thead>\n        <tbody class=\"govuk-table__body\" style=\"\">\n            <tr class=\"govuk-table__row\" style=\"\">\n                <td class=\"govuk-table__cell\" style=\"\">_ga</td>\n                <td class=\"govuk-table__cell\" style=\"\">This helps us count how many people visit this website by tracking if you've visited before</td>\n                <td class=\"govuk-table__cell\">2 years</td>\n            </tr>\n            <tr class=\"govuk-table__row\" style=\"\">\n                <td class=\"govuk-table__cell\">_gat</td>\n                <td class=\"govuk-table__cell\">Used to manage the rate at which page view requests are made</td>\n                <td class=\"govuk-table__cell\">10 minutes</td>\n            </tr>\n            <tr class=\"govuk-table__row\">\n                <td class=\"govuk-table__cell\">_gid</td>\n                <td class=\"govuk-table__cell\">Stores and updates a unique value for each page you've visited to help us improve your experience</td>\n                <td class=\"govuk-table__cell\">1 day</td>\n            </tr>\n        </tbody>\n    </table>\n    <p class=\"govuk-body\">We also set our own cookies to understand how people move through the site:</p>\n    <table class=\"govuk-table k-table\" style=\"text-align: left\">\n        <thead class=\"govuk-table__head\">\n            <tr class=\"govuk-table__row\">\n                <th class=\"govuk-table__header\" data-role=\"resizable\">Name</th>\n                <th class=\"govuk-table__header\" data-role=\"resizable\">Purpose</th>\n                <th class=\"govuk-table__header\">Expires</th>\n            </tr>\n        </thead>\n        <tbody class=\"govuk-table__body\">\n            <tr class=\"govuk-table__row\">\n                <td class=\"govuk-table__cell\" style=\"width: 80px\">ai_session</td>\n                <td class=\"govuk-table__cell\" style=\"width: 631px\">This helps us count how many people visit this website by tracking if you've visited before</td>\n                <td class=\"govuk-table__cell\" style=\"width: 96px\">30 mins</td>\n            </tr>\n            <tr class=\"govuk-table__row\">\n                <td class=\"govuk-table__cell\" style=\"width: 80px\">ai_user</td>\n                <td class=\"govuk-table__cell\" style=\"width: 631px\">Used to manage the rate at which page view requests are made</td>\n                <td class=\"govuk-table__cell\" style=\"width: 96px\">1 year</td>\n            </tr>\n        </tbody>\n    </table>\n    <h3 class=\"govuk-heading-m\">Other third party cookies that measure&nbsp;website use\n    </h3>\n    <table class=\"govuk-table k-table\" style=\"text-align: left\">\n        <thead class=\"govuk-table__head\">\n            <tr class=\"govuk-table__row\">\n                <th class=\"govuk-table__header\" data-role=\"resizable\">Name</th>\n                <th class=\"govuk-table__header\" data-role=\"resizable\">Purpose</th>\n                <th class=\"govuk-table__header\">Expires</th>\n            </tr>\n        </thead>\n        <tbody class=\"govuk-table__body\">\n            <tr class=\"govuk-table__row\">\n                <td class=\"govuk-table__cell\" style=\"width: 80px\">id</td>\n                <td class=\"govuk-table__cell\" style=\"width: 631px\">Third party cookie to show relevant content based on the way you browse the site</td>\n                <td class=\"govuk-table__cell\" style=\"width: 96px\">when you close your browser</td>\n            </tr>\n            <tr class=\"govuk-table__row\">\n                <td class=\"govuk-table__cell\" style=\"width: 80px\">DSID</td>\n                <td class=\"govuk-table__cell\" style=\"width: 631px\">Third party cookie that manages user activity across devices. This is an auto generated encrypted unique id</td>\n                <td class=\"govuk-table__cell\" style=\"width: 96px\">14 days</td>\n            </tr>\n        </tbody>\n    </table>\n    <h3 class=\"govuk-heading-m\">Cookies that remember your settings</h3>\n    <p class=\"govuk-body\">These cookies remember your preferences and the choices you make, to personalise your experience of using the National Careers Service Website</p>\n    <h3 class=\"govuk-heading-m\">SmartSurvey </h3>\n    <p class=\"govuk-body\" style=\"text-align: left\">We use third party SmartSurvey software to collect information about how you use this website.</p>\n    <p class=\"govuk-body\" style=\"text-align: left\">We do this to help make sure the site is meeting the needs of its users, and to help us make improvements.</p>\n    <table class=\"govuk-table k-table\" style=\"text-align: left\">\n        <thead class=\"govuk-table__head\">\n            <tr class=\"govuk-table__row\">\n                <th class=\"govuk-table__header\" data-role=\"resizable\">Name</th>\n                <th class=\"govuk-table__header\" data-role=\"resizable\">Purpose</th>\n                <th class=\"govuk-table__header\">Expires</th>\n            </tr>\n        </thead>\n        <tbody class=\"govuk-table__body\">\n            <tr class=\"govuk-table__row\">\n                <td class=\"govuk-table__cell\" style=\"\">SmartSurvey Cookies</td>\n                <td class=\"govuk-table__cell\" style=\"\">Third party cookies that allows us to link SmartSurvey responses to how you used the site using google analytics, and gather your survey response effectively. For more information, please see\n                    <a class=\"govuk-link\" href=\"https://www.smartsurvey.co.uk/privacy-policy\" rel=\"external\">SmartSurvey privacy information</a>\n                </td>\n                <td class=\"govuk-table__cell\" style=\"width: 132px\">when you close your browser</td>\n            </tr>\n        </tbody>\n    </table>\n    <h3 class=\"govuk-heading-m\" style=\"text-align: left\"></h3>\n    <h3 class=\"govuk-heading-m\">Other Surveys</h3>\n    <p class=\"govuk-body\">We also have our own feedback surveys to collect your comments and feedback. These surveys use the following cookies: </p>\n    <table class=\"govuk-table k-table\" style=\"text-align: left\">\n        <thead class=\"govuk-table__head\">\n            <tr class=\"govuk-table__row\">\n                <th class=\"govuk-table__header\" data-role=\"resizable\">Name</th>\n                <th class=\"govuk-table__header\" data-role=\"resizable\">Purpose</th>\n                <th class=\"govuk-table__header\">Expires</th>\n            </tr>\n        </thead>\n        <tbody class=\"govuk-table__body\">\n            <tr class=\"govuk-table__row\">\n                <td class=\"govuk-table__cell\" style=\"\">voc_Personalisation</td>\n                <td class=\"govuk-table__cell\" style=\"\">Remembers the last job profile you visited</td>\n                <td class=\"govuk-table__cell\" style=\"width: 132px\">when you close your browser</td>\n            </tr>\n            <tr class=\"govuk-table__row\">\n                <td class=\"govuk-table__cell\" style=\"\">JPsurvey</td>\n                <td class=\"govuk-table__cell\" style=\"\">Remembers if you've given feedback on one of the job profile pages you've visited</td>\n                <td class=\"govuk-table__cell\" style=\"width: 132px\">1 month</td>\n            </tr>\n            <tr class=\"govuk-table__row\">\n                <td class=\"govuk-table__cell\" style=\"\">Ipsos-overlay</td>\n                <td class=\"govuk-table__cell\" style=\"\">This cookie handles user satisfaction survey on our website&nbsp;&nbsp;</td>\n                <td class=\"govuk-table__cell\" style=\"width: 132px\">28 days</td>\n            </tr>\n        </tbody>\n    </table>\n    <h3 class=\"govuk-heading-m\">Strictly necessary cookies</h3>\n    <table class=\"govuk-table k-table\" style=\"text-align: left\">\n        <thead class=\"govuk-table__head\">\n            <tr class=\"govuk-table__row\">\n                <th class=\"govuk-table__header\" data-role=\"resizable\">Name</th>\n                <th class=\"govuk-table__header\" data-role=\"resizable\">Purpose</th>\n                <th class=\"govuk-table__header\">Expires</th>\n            </tr>\n        </thead>\n        <tbody class=\"govuk-table__body\">\n            <tr class=\"govuk-table__row\" style=\"\">\n                <td class=\"govuk-table__cell\">SF-TokenId</td>\n                <td class=\"govuk-table__cell\">Third party cookie that manages site authentication</td>\n                <td class=\"govuk-table__cell\">1 hr</td>\n            </tr>\n            <tr class=\"govuk-table__row\" style=\"\">\n                <td class=\"govuk-table__cell\">BNES_SameSite</td>\n                <td class=\"govuk-table__cell\">This enables the website to function properly</td>\n                <td class=\"govuk-table__cell\">when you close your browser</td>\n            </tr>\n            <tr class=\"govuk-table__row\" style=\"\">\n                <td class=\"govuk-table__cell\">ARRAffinity</td>\n                <td class=\"govuk-table__cell\">Helps you move around the website and to use our searches and other tools</td>\n                <td class=\"govuk-table__cell\">when you close your browser</td>\n            </tr>\n            <tr class=\"govuk-table__row\">\n                <td class=\"govuk-table__cell\">BNES_ARRAffinity</td>\n                <td class=\"govuk-table__cell\">An encrypted copy of ARRAffinity which is used by our firewall to provide an extra level of security</td>\n                <td class=\"govuk-table__cell\">when you close your browser</td>\n            </tr>\n            <tr class=\"govuk-table__row\">\n                <td class=\"govuk-table__cell\">ASP.Net_SessionId</td>\n                <td class=\"govuk-table__cell\">Used to store page data between http requests at our server</td>\n                <td class=\"govuk-table__cell\">when you close your browser</td>\n            </tr>\n            <tr class=\"govuk-table__row\">\n                <td class=\"govuk-table__cell\">BNES_ASP.NET_SessionId</td>\n                <td class=\"govuk-table__cell\">An encrypted copy of ASP.Net_SessionId which is used by our firewall to provide an extra level of security\n                </td>\n                <td class=\"govuk-table__cell\">when you close your browser</td>\n            </tr>\n            <tr class=\"govuk-table__row\">\n                <td class=\"govuk-table__cell\">dysac-session</td>\n                <td class=\"govuk-table__cell\">This holds the user session Id and is not persisted when the browser closes</td>\n                <td class=\"govuk-table__cell\">24 hours</td>\n            </tr>\n            <tr class=\"govuk-table__row\">\n                <td class=\"govuk-table__cell\">dysac-results</td>\n                <td class=\"govuk-table__cell\">This holds the collapse status of each of the job categories and is not persisted when the browser closes</td>\n                <td class=\"govuk-table__cell\">when you close your browser</td>\n            </tr>\n            <tr class=\"govuk-table__row\">\n                <td class=\"govuk-table__cell\">seen_cookie_message</td>\n                <td class=\"govuk-table__cell\">You may see a pop-up welcome message when you first visit an ESFA site. This cookie saves a message to let us know that you've seen our cookie message and it should not be shown again</td>\n                <td class=\"govuk-table__cell\">28 days</td>\n            </tr>\n            <tr class=\"govuk-table__row\">\n                <td class=\"govuk-table__cell\">cookies_policy</td>\n                <td class=\"govuk-table__cell\">Saves your cookie consent settings</td>\n                <td class=\"govuk-table__cell\">1 year</td>\n            </tr>\n            <tr class=\"govuk-table__row\">\n                <td class=\"govuk-table__cell\">cookies_preferences_set</td>\n                <td class=\"govuk-table__cell\">Lets us know that you've saved your cookie consent settings</td>\n                <td class=\"govuk-table__cell\">1 year</td>\n            </tr>\n            <tr class=\"govuk-table__row\">\n                <td class=\"govuk-table__cell\">ncs_hide_custom_banner</td>\n                <td class=\"govuk-table__cell\">This cookie remembers your preference to show or hide the page banner / message.</td>\n                <td class=\"govuk-table__cell\">when you close your browser</td>\n            </tr>\n        </tbody>\n    </table>"
+                                },
+                                "GraphSyncPart": {
+                                    "Text": "<<contentapiprefix>>/html/6596de4f-429b-4373-b0f4-9417900f6dfc"
+                                },
+                                "FlowMetadata": {
+                                    "Alignment": 0,
+                                    "Size": 66
+                                }
+                            },
+                            {
+                                "ContentItemId": "487z8665gxrfqvzd3vadj08mn9",
+                                "ContentItemVersionId": null,
+                                "ContentType": "HTMLShared",
+                                "DisplayText": "",
+                                "Latest": false,
+                                "Published": false,
+                                "ModifiedUtc": "2021-06-10T10:58:23.7372925Z",
+                                "PublishedUtc": null,
+                                "CreatedUtc": null,
+                                "Owner": null,
+                                "Author": "admin",
+                                "HTMLShared": {
+                                    "SharedContent": {
+                                        "ContentItemIds": [
+                                            "4nyydyyta43vzxjk0b61sdmddr"
+                                        ]
+                                    }
+                                },
+                                "GraphSyncPart": {
+                                    "Text": "<<contentapiprefix>>/htmlshared/38befd02-787b-4d04-b629-544996371b80"
+                                },
+                                "FlowMetadata": {
+                                    "Alignment": 0,
+                                    "Size": 33
+                                }
+                            }
+                        ]
+                    },
+                    "GraphSyncPart": {
+                        "Text": "<<contentapiprefix>>/page/94035874-828f-4697-93d6-adbc38a75d43"
+                    },
+                    "PageLocationPart": {
+                        "UrlName": "privacy-and-cookies",
+                        "DefaultPageForLocation": false,
+                        "RedirectLocations": null,
+                        "FullUrl": "/help/privacy-and-cookies"
+                    }
+                }
+            ]
+        }
+    ]
+}
