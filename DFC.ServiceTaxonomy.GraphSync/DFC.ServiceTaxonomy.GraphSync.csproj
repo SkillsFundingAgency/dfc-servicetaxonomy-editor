@@ -21,7 +21,6 @@
     </PackageReference>
     <PackageReference Include="Microsoft.CodeAnalysis.CSharp.Scripting" Version="3.8.0" />
     <PackageReference Include="morelinq" Version="3.3.2" />
-    <PackageReference Include="OrchardCore.Alias" Version="1.0.0-rc10" />
     <PackageReference Include="OrchardCore.ContentFields" Version="1.0.0-rc11" />
     <PackageReference Include="OrchardCore.ContentTypes" Version="1.0.0-rc11" />
     <PackageReference Include="OrchardCore.Flows" Version="1.0.0-rc11" />
