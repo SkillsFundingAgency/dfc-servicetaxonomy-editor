@@ -721,7 +721,7 @@
                     "PageLocationPart": {
                         "UrlName": "privacy-and-cookies",
                         "DefaultPageForLocation": false,
-                        "RedirectLocations": null,
+                        "RedirectLocations": "/help/cookies",
                         "FullUrl": "/help/privacy-and-cookies"
                     }
                 }
