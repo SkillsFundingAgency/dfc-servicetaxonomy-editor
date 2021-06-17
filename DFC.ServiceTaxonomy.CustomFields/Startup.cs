@@ -13,13 +13,6 @@ namespace DFC.ServiceTaxonomy.CustomFields
 {
     public class Startup : StartupBase
     {
-        public Startup()
-        {
-            TemplateContext.GlobalMemberAccessStrategy.Register<AccordionField>();
-            TemplateContext.GlobalMemberAccessStrategy.Register<TabField>();
-            TemplateContext.GlobalMemberAccessStrategy.Register<EmptyViewModel>();
-        }
-
         public override void ConfigureServices(IServiceCollection services)
         {
             services.AddContentField<AccordionField>()
@@ -29,6 +22,13 @@ namespace DFC.ServiceTaxonomy.CustomFields
             services.AddContentField<TabField>()
                 .UseDisplayDriver<TabFieldDisplayDriver>();
             services.AddScoped<IContentPartFieldDefinitionDisplayDriver, TabFieldSettingsDriver>();
+
+            services.Configure<TemplateOptions>(o =>
+            {
+                o.MemberAccessStrategy.Register<AccordionField>();
+                o.MemberAccessStrategy.Register<TabField>();
+                o.MemberAccessStrategy.Register<EmptyViewModel>();
+            });
         }
     }
 }

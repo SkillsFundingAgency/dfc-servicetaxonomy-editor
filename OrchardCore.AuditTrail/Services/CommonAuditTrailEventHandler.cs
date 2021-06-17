@@ -65,10 +65,10 @@ namespace OrchardCore.AuditTrail.Services
                 Categories: auditTrailManager.DescribeCategories().ToArray(),
                 Category: category);
 
-            context.FilterDisplay.Add(dateFromFilterDisplay);
-            context.FilterDisplay.Add(dateToFilterDisplay);
-            context.FilterDisplay.Add(categoryFilterDisplay);
-            context.FilterDisplay.Add(userNameFilterDisplay);
+            await context.FilterDisplay.AddAsync(dateFromFilterDisplay, "10");
+            await context.FilterDisplay.AddAsync(dateToFilterDisplay, "20");
+            await context.FilterDisplay.AddAsync(categoryFilterDisplay, "30");
+            await context.FilterDisplay.AddAsync(userNameFilterDisplay, "40");
         }
 
 

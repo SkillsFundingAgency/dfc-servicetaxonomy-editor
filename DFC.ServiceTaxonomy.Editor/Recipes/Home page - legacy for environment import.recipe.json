@@ -1,0 +1,224 @@
+﻿{
+    "name": "legacy-home-page-content-environment-load",
+    "displayName": "Legacy home page - initial environment load",
+    "description": "Sets up the baselined legacy Home page content including new shared-content items",
+    "author": "National Careers Service",
+    "website": "https://github.com/SkillsFundingAgency/dfc-servicetaxonomy-editor",
+    "version": null,
+    "issetuprecipe": false,
+    "categories": [
+        "default"
+    ],
+    "tags": [
+        "ncs"
+    ],
+    "steps": [
+        {
+            "name": "content",
+            "data": [
+                {
+                    "ContentItemId": "4a7xcpf6nwp26rwhv1cp0wh0wp",
+                    "ContentItemVersionId": null,
+                    "ContentType": "Page",
+                    "DisplayText": "Careers advice - job profiles, information and resources",
+                    "Latest": true,
+                    "Published": true,
+                    "ModifiedUtc": "2021-06-14T10:31:17.9275222Z",
+                    "PublishedUtc": "2021-06-14T10:31:18.6300189Z",
+                    "CreatedUtc": "2021-06-14T10:00:54.5621149Z",
+                    "Owner": "43crnj0zkd1pa1xncekdwyzgxk",
+                    "Author": "admin",
+                    "TitlePart": {
+                        "Title": "Careers advice - job profiles, information and resources"
+                    },
+                    "Page": {
+                        "PageLocations": {
+                            "TaxonomyContentItemId": "4eembshqzx66drajtdten34tc8",
+                            "TermContentItemIds": [
+                                "4y3qc9f2r818z1df41a1yryvny"
+                            ]
+                        },
+                        "Description": {
+                            "Text": null
+                        },
+                        "Herobanner": {
+                            "Html": "<div class=\"govuk-width-container\">\n<div class=\"govuk-grid-row\">\n<div class=\"govuk-grid-column-full\">\n\t<h1 class=\"govuk-heading-xl\">National Careers Service</h1>\n\t<p class=\"govuk-body-lead\">We provide careers information, advice and guidance. We can help you to make decisions on learning, training and work at all stages in your career.</p>\n\t<p class=\"govuk-body-lead\">This service is available to people who live in England.</p>\n</div>\n</div>\n</div>"
+                        },
+                        "ShowHeroBanner": {
+                            "Value": true
+                        },
+                        "ShowBreadcrumb": {
+                            "Value": false
+                        },
+                        "TriageToolSummary": {
+                            "Html": ""
+                        },
+                        "UseInTriageTool": {
+                            "Value": false
+                        },
+                        "TriageToolFilters": {
+                            "ContentItemIds": []
+                        },
+                        "UseBrowserWidth": {
+                            "Value": false
+                        }
+                    },
+                    "SitemapPart": {
+                        "Priority": 5,
+                        "OverrideSitemapConfig": false,
+                        "ChangeFrequency": 0,
+                        "Exclude": false
+                    },
+                    "FlowPart": {
+                        "Widgets": [
+                            {
+                                "ContentItemId": "4d6wf1atb8f41w2vzr3sdqhzxf",
+                                "ContentItemVersionId": null,
+                                "ContentType": "HTML",
+                                "DisplayText": "",
+                                "Latest": false,
+                                "Published": false,
+                                "ModifiedUtc": "2021-06-14T10:31:18.0712129Z",
+                                "PublishedUtc": null,
+                                "CreatedUtc": null,
+                                "Owner": "",
+                                "Author": "admin",
+                                "HTML": {},
+                                "HtmlBodyPart": {
+                                    "Html": "  <div class=\"govuk-grid-row\">\n\t<div class=\"govuk-grid-column-one-third\">\n\t\t<h2 class=\"govuk-heading-m\">Skills assessment</h2>\n\t\t<p class=\"govuk-body-m\">Learn more about your skills and match them to potential new careers.</p>\n\t</div>\n\t<div class=\"govuk-grid-column-one-third\">\n\t\t<h2 class=\"govuk-heading-m\">Explore Careers</h2>\n\t\t<p class=\"govuk-body-m\">Choose from over 800 career profiles to discover what a job involves.</p>\n\t</div>\n\t<div class=\"govuk-grid-column-one-third\">\n\t\t<h2 class=\"govuk-heading-m\">Find a course</h2>\n\t\t<p class=\"govuk-body-m\">Look for learning and training opportunities local to you.</p>\n\t</div>\n  </div>\n  <div class=\"govuk-grid-row\">\n\t<div class=\"govuk-grid-column-one-third\">\n\t\t<a class=\"govuk-link govuk-button\" href=\"/skills-assessment\">Assess your skills</a>\n\t</div>\n\t<div class=\"govuk-grid-column-one-third\">\n\t\t<a class=\"govuk-link govuk-button\" href=\"/explore-careers\">Search job profiles</a>\n\t</div>\n\t<div class=\"govuk-grid-column-one-third\">\n\t\t<a class=\"govuk-link govuk-button\" href=\"/find-a-course\">Look for courses</a>\n\t</div>\n  </div>"
+                                },
+                                "GraphSyncPart": {
+                                    "Text": "<<contentapiprefix>>/html/8635f0c4-cafa-4c84-89e3-1a8364a44677"
+                                },
+                                "FlowMetadata": {
+                                    "Alignment": 0,
+                                    "Size": 100
+                                }
+                            },
+                            {
+                                "ContentItemId": "4vfmbd4nex31a236aa616gpxxc",
+                                "ContentItemVersionId": null,
+                                "ContentType": "HTML",
+                                "DisplayText": "",
+                                "Latest": false,
+                                "Published": false,
+                                "ModifiedUtc": "2021-06-14T10:31:18.0885521Z",
+                                "PublishedUtc": null,
+                                "CreatedUtc": null,
+                                "Owner": "",
+                                "Author": "admin",
+                                "HTML": {},
+                                "HtmlBodyPart": {
+                                    "Html": "<section class=\"brand--ncs brand__border-color organisation__section-wrap organisation__margin-bottom\" id=\"featured-documents\">\n\t<div class=\"separator govuk-!-padding-bottom-4 govuk-!-padding-top-2\">\n\t\t<h2 class=\"govuk-heading-m govuk-!-margin-bottom-0\">Careers advice</h2>\n\t</div>\n\t<div class=\"govuk-grid-row card-group\">\n\t\t<div class=\"govuk-grid-column-one-third\">\n\t\t\t<a class=\"cards-link\" href=\"/careers-advice#making-career-choices\">\n\t\t\t\t<div class=\"card\">\n\t\t\t\t\t<h3 class=\"govuk-heading-s\">Making career choices</h3>\n\t\t\t\t\t<p class=\"govuk-body-m\">Whether starting your career, changing job or if you have been affected by COVID-19, understand and make the right choice for you.</p>\n\t\t\t\t</div>\n\t\t\t</a>\n\t\t</div>\n\t\t<div class=\"govuk-grid-column-one-third\">\n\t\t\t<a class=\"cards-link\" href=\"/careers-advice#getting-a-job\">\n\t\t\t\t<div class=\"card\">\n\t\t\t\t\t<h3 class=\"govuk-heading-s\">Getting a job</h3>\n\t\t\t\t\t<p class=\"govuk-body-m\">Be successful in the recruitment process with tips on great CVs, interviews and graduate scheme applications.</p>\n\t\t\t\t</div>\n\t\t\t</a>\n\t\t</div>\n\t\t<div class=\"govuk-grid-column-one-third\">\n\t\t\t<a class=\"cards-link\" href=\"/careers-advice#progressing-your-career\">\n\t\t\t\t<div class=\"card\">\n\t\t\t\t\t<h3 class=\"govuk-heading-s\">Progressing your career</h3>\n\t\t\t\t\t<p class=\"govuk-body-m\">Move up in your career by developing new skills. Find opportunities like volunteering and online learning.</p>\n\t\t\t\t</div>\n\t\t\t</a>\n\t\t</div>\n\t</div>\n\t\n</section>"
+                                },
+                                "GraphSyncPart": {
+                                    "Text": "<<contentapiprefix>>/html/31835e17-b5c4-4537-9c6f-b09ef7dae105"
+                                },
+                                "FlowMetadata": {
+                                    "Alignment": 0,
+                                    "Size": 100
+                                }
+                            },
+                            {
+                                "ContentItemId": "4daqy8x19cs4rrs8tmnrvt8kx3",
+                                "ContentItemVersionId": null,
+                                "ContentType": "HTMLShared",
+                                "DisplayText": "",
+                                "Latest": false,
+                                "Published": false,
+                                "ModifiedUtc": "2021-06-14T10:31:18.1033792Z",
+                                "PublishedUtc": null,
+                                "CreatedUtc": null,
+                                "Owner": "",
+                                "Author": "admin",
+                                "HTMLShared": {
+                                    "SharedContent": {
+                                        "ContentItemIds": [
+                                            "43khc4457cwfks3496tfttrtnv"
+                                        ]
+                                    }
+                                },
+                                "GraphSyncPart": {
+                                    "Text": "<<contentapiprefix>>/htmlshared/721cd0d5-9e9e-4158-90f2-49ab2f5f8cb5"
+                                },
+                                "FlowMetadata": {
+                                    "Alignment": 0,
+                                    "Size": 33
+                                }
+                            },
+                            {
+                                "ContentItemId": "413z15p6ccc7k4yc77pgnmtmdb",
+                                "ContentItemVersionId": null,
+                                "ContentType": "HTMLShared",
+                                "DisplayText": "",
+                                "Latest": false,
+                                "Published": false,
+                                "ModifiedUtc": "2021-06-14T10:31:18.1211493Z",
+                                "PublishedUtc": null,
+                                "CreatedUtc": null,
+                                "Owner": "",
+                                "Author": "admin",
+                                "HTMLShared": {
+                                    "SharedContent": {
+                                        "ContentItemIds": [
+                                            "4b0q1pcyraddr4x9rv999z9s4e"
+                                        ]
+                                    }
+                                },
+                                "GraphSyncPart": {
+                                    "Text": "<<contentapiprefix>>/htmlshared/8a3eb6db-e323-412d-aa77-47723abc65c9"
+                                },
+                                "FlowMetadata": {
+                                    "Alignment": 0,
+                                    "Size": 33
+                                }
+                            },
+                            {
+                                "ContentItemId": "4cz2n603m9c9qr80qjjsq9yv5k",
+                                "ContentItemVersionId": null,
+                                "ContentType": "HTMLShared",
+                                "DisplayText": "",
+                                "Latest": false,
+                                "Published": false,
+                                "ModifiedUtc": "2021-06-14T10:31:18.1430727Z",
+                                "PublishedUtc": null,
+                                "CreatedUtc": null,
+                                "Owner": "",
+                                "Author": "admin",
+                                "HTMLShared": {
+                                    "SharedContent": {
+                                        "ContentItemIds": [
+                                            "443dnb323skytyj1jkxe92ted2"
+                                        ]
+                                    }
+                                },
+                                "GraphSyncPart": {
+                                    "Text": "<<contentapiprefix>>/htmlshared/96f68c9d-8ee8-468b-8d99-c43c4fd42efd"
+                                },
+                                "FlowMetadata": {
+                                    "Alignment": 0,
+                                    "Size": 33
+                                }
+                            }
+                        ]
+                    },
+                    "GraphSyncPart": {
+                        "Text": "<<contentapiprefix>>/page/2516ae3b-28fa-42bd-ac1b-a194a6834ac6"
+                    },
+                    "PageLocationPart": {
+                        "UrlName": "home-legacy",
+                        "DefaultPageForLocation": true,
+                        "RedirectLocations": null,
+                        "FullUrl": "/home-legacy"
+                    },
+                    "ContentApprovalPart": {
+                        "ReviewStatus": 0,
+                        "ReviewType": 0,
+                        "IsForcePublished": false,
+                        "Comment": null
+                    }
+                }
+            ]
+        }
+    ]
+}

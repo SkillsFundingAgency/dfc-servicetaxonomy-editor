@@ -28,7 +28,7 @@ if (!$KeyVault) {
     throw "KeyVault $KeyVaultName doesn't exist"
 }
 
-$sqlPass = Get-AzKeyVaultSecret -Name $EditorAdminUsername -VaultName $KeyVault.VaultName
+$sqlPass = Get-AzKeyVaultSecret -Name $EditorAdminUsername -VaultName $KeyVault.VaultName -AsPlainText
 if (!$sqlPass) {
     throw "No password set for $EditorAdminUsername in $KeyVaultName"
 }
