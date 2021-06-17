@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -13,8 +12,6 @@ using OrchardCore.Contents.Services;
 using OrchardCore.Contents.ViewModels;
 using OrchardCore.DisplayManagement.ModelBinding;
 using YesSql;
-using YesSql.Filters.Query;
-using YesSql.Filters.Query.Services;
 using ISession = YesSql.ISession;
 
 namespace DFC.ServiceTaxonomy.ContentApproval.Services
@@ -27,8 +24,6 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Services
 
         public ContentItemsApprovalService(
             ISession session,
-            IContentsAdminListFilter defaultContentsAdminListFilter,
-            IEnumerable<IContentsAdminListFilter> contentsAdminListFilters,
             IContentsAdminListQueryService contentsAdminListQueryService,
             IHttpContextAccessor httpContextAccessor)
         {
@@ -99,10 +94,7 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Services
         {
             //var querySession = _session.Query<ContentItem>();
 
-            var filterOptions = new ContentOptionsViewModel()
-            {
-                FilterResult = new QueryFilterResult<ContentItem>(new ConcurrentDictionary<string, QueryTermOption<ContentItem>>())
-            };
+            var filterOptions = new ContentOptionsViewModel();
 
             switch (card)
             {
