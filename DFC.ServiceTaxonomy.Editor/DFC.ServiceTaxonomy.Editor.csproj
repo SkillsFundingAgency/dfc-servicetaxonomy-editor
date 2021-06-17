@@ -11,6 +11,7 @@
     <EnableNETAnalyzers>true</EnableNETAnalyzers>
     <AnalysisLevel>latest</AnalysisLevel>
     <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
+    <UserSecretsId>049ec31b-9ec3-4123-a3e6-b35fc9237492</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
