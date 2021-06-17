@@ -61,8 +61,6 @@ namespace DFC.ServiceTaxonomy.ContentApproval
 
             services.AddScoped<IContentsAdminListFilter, ReviewTypeContentsAdminListFilter>();
             services.AddScoped<IDisplayDriver<ContentOptionsViewModel>, ReviewTypeContentsAdminListFilterDisplayDriver>();
-
-            //services.AddTransient<IContentsAdminListFilterProvider, ContentApprovalFilterProvider>();
         }
 
         public override void Configure(IApplicationBuilder app, IEndpointRouteBuilder routes, IServiceProvider serviceProvider)
