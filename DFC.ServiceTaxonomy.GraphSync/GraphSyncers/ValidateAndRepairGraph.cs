@@ -155,7 +155,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
                 timestamp.ToString("O"));
 
             _session.Save(new AuditSyncLog(timestamp));
-            await _session.CurrentTransaction.CommitAsync();
 
             return results;
         }

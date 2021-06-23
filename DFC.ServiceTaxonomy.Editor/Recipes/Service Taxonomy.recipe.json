@@ -36,8 +36,10 @@
                 "OrchardCore.Themes",
                 "OrchardCore.Users",
                 // Content Management
+                "OrchardCore.AdminDashboard",
                 "OrchardCore.Alias",
                 "OrchardCore.Autoroute",
+                "OrchardCore.AuditTrail",
                 "OrchardCore.Html",
                 "OrchardCore.Https",
                 "OrchardCore.ContentFields",
@@ -87,7 +89,6 @@
                 "DFC.ServiceTaxonomy.Taxonomies",
                 "DFC.ServiceTaxonomy.Taxonomies.ContentsAdminList",
                 "DFC.ServiceTaxonomy.UnpublishLater",
-                "OrchardCore.AdminDashboard",
                 "DFC.ServiceTaxonomy.ContentApproval"
             ]
         },

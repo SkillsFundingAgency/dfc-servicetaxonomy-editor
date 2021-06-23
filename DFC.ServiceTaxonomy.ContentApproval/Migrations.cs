@@ -38,17 +38,6 @@ namespace DFC.ServiceTaxonomy.ContentApproval
                 .WithDescription("Adds publishing status workflow properties to content items.")
             );
 
-
-            try
-            {
-                SchemaBuilder.DropMapIndexTable<ContentApprovalPartIndex>();
-            }
-            catch (Exception e)
-            {
-                // Not required by SQLLite as no issue if index doesn't exist but maybe a problem in SQL
-                _logger.LogWarning(e, "ContentApprovalPartIndex could not be deleted");
-            }
-
             SchemaBuilder.CreateMapIndexTable<ContentApprovalPartIndex>(table => table
                 .Column<int>(nameof(ContentApprovalPartIndex.ReviewStatus))
                 .Column<int>(nameof(ContentApprovalPartIndex.ReviewType))
