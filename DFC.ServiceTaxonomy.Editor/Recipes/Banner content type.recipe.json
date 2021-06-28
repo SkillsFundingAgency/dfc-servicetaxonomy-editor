@@ -115,7 +115,7 @@
                     "ContentPartFieldDefinitionRecords": [
                         {
                             "FieldName": "HtmlField",
-                            "Name": "BannercontentHTML",
+                            "Name": "Content",
                             "Settings": {
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "Banner content(HTML)",
@@ -131,7 +131,7 @@
                         },
                         {
                             "FieldName": "BooleanField",
-                            "Name": "Displaybanneracrossallpages",
+                            "Name": "IsGlobal",
                             "Settings": {
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "Display banner across all pages",
@@ -146,7 +146,7 @@
                         },
                         {
                             "FieldName": "BooleanField",
-                            "Name": "Makebanneractive",
+                            "Name": "IsActive",
                             "Settings": {
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "Make banner active",

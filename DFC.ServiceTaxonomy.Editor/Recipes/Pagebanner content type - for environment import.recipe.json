@@ -86,7 +86,7 @@
                     "ContentPartFieldDefinitionRecords": [
                         {
                             "FieldName": "TextField",
-                            "Name": "Webpagename",
+                            "Name": "WebPageName",
                             "Settings": {
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "Webpage name",
@@ -101,7 +101,7 @@
                         },
                         {
                             "FieldName": "TextField",
-                            "Name": "Enterawebpagelocationtodisplaythebanners",
+                            "Name": "PageUrl",
                             "Settings": {
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "Enter a webpage location to display the banner(s)",
