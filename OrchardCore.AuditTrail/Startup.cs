@@ -70,10 +70,10 @@ namespace OrchardCore.AuditTrail
             services.AddSingleton<IBackgroundTask, AuditTrailTrimmingBackgroundTask>();
             
             services.AddScoped<IContentHandler, GlobalContentHandler>();
-            services.AddScoped<IUserEventHandler, UserEventHandler>();
-            services.AddScoped<ILoginFormEvent, UserEventHandler>();
-            services.AddScoped<IPasswordRecoveryFormEvents, UserEventHandler>();
-            services.AddScoped<IRegistrationFormEvents, UserEventHandler>();
+            //services.AddScoped<IUserEventHandler, UserEventHandler>();
+            //services.AddScoped<ILoginFormEvent, UserEventHandler>();
+            //services.AddScoped<IPasswordRecoveryFormEvents, UserEventHandler>();
+            //services.AddScoped<IRegistrationFormEvents, UserEventHandler>();
 
             services.AddTransient<IDeploymentSource, SiteSettingsPropertyDeploymentSource<AuditTrailSettings>>();
             services.AddScoped<IDisplayDriver<DeploymentStep>>(sp =>

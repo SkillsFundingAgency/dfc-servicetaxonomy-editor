@@ -10,12 +10,12 @@ namespace DFC.ServiceTaxonomy.GraphVisualiser.Drivers
     {
         public override IDisplayResult Display(ContentItem model, IUpdateModel updater)
         {
-            return Shape("ContentVisualise_Button", new ContentVisualiseViewModel(model)).Location("SummaryAdmin", "Actions:10");
+            return Shape("ContentsVisualise_Button", new ContentVisualiseViewModel(model)).Location("SummaryAdmin", "Actions:10");
         }
 
         public override IDisplayResult Edit(ContentItem model, IUpdateModel updater)
         {
-            return Shape("ContentVisualise_Button", new ContentVisualiseViewModel(model, true)).Location("Actions:after");
+            return Shape("ContentsVisualise_Button", new ContentVisualiseViewModel(model, true)).Location("Actions:after");
         }
     }
 }
