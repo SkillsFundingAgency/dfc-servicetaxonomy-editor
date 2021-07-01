@@ -1,6 +1,8 @@
 ﻿using DFC.ServiceTaxonomy.Banners.Drivers;
+using DFC.ServiceTaxonomy.Banners.GraphSyncers;
 using DFC.ServiceTaxonomy.Banners.Indexes;
 using DFC.ServiceTaxonomy.Banners.Models;
+using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Parts;
 using Microsoft.Extensions.DependencyInjection;
 using OrchardCore.ContentManagement;
 using OrchardCore.ContentManagement.Display.ContentDisplay;
@@ -20,6 +22,9 @@ namespace DFC.ServiceTaxonomy.Banners
             services.AddScoped<IDataMigration, Migrations>();
 
             services.AddSingleton<IIndexProvider, BannerPartIndexProvider>();
+
+            services.AddTransient<IContentPartGraphSyncer, BannerPartGraphSyncer>();
+
         }
     }
 }
