@@ -75,6 +75,7 @@
                 "TheAdmin",
                 "DFC.ServiceTaxonomy.Theme",
                 // Service Taxonomy Editor
+                "DFC.ServiceTaxonomy.Banners",
                 "DFC.ServiceTaxonomy.Content",
                 "DFC.ServiceTaxonomy.ContentPickerPreview",
                 "DFC.ServiceTaxonomy.CustomEditor",
@@ -775,14 +776,12 @@
                             }
                         },
                         {
-                            "PartName": "TitlePart",
-                            "Name": "TitlePart",
+                            "PartName": "BannerPart",
+                            "Name": "BannerPart",
                             "Settings": {
                                 "ContentTypePartSettings": {
                                     "Position": "0"
-                                },
-                                "ContentIndexSettings": {},
-                                "TitlePartSettings": {}
+                                }
                             }
                         }
                     ]
@@ -856,6 +855,16 @@
                             "Attachable": true,
                             "Reusable": true,
                             "Description": "Provides a collection behavior for your content item."
+                        }
+                    },
+                    "ContentPartFieldDefinitionRecords": []
+                },
+                {
+                    "Name": "BannerPart",
+                    "Settings": {
+                        "ContentPartSettings": {
+                            "Attachable": true,
+                            "Description": "Adds banner related properties to a content item."
                         }
                     },
                     "ContentPartFieldDefinitionRecords": []
@@ -1307,36 +1316,6 @@
                     "Name": "Pagebanner",
                     "Settings": {},
                     "ContentPartFieldDefinitionRecords": [
-                        {
-                            "FieldName": "TextField",
-                            "Name": "WebPageName",
-                            "Settings": {
-                                "ContentPartFieldSettings": {
-                                    "DisplayName": "Webpage name",
-                                    "Position": "0"
-                                },
-                                "TextFieldSettings": {
-                                    "Hint": "Enter the name of the individual webpage or the parent webpage/section you are adding a banner to.",
-                                    "Required": true
-                                },
-                                "ContentIndexSettings": {}
-                            }
-                        },
-                        {
-                            "FieldName": "TextField",
-                            "Name": "PageUrl",
-                            "Settings": {
-                                "ContentPartFieldSettings": {
-                                    "DisplayName": "Enter a webpage location to display the banner(s)",
-                                    "Position": "1"
-                                },
-                                "TextFieldSettings": {
-                                    "Hint": "Copy and paste the National Careers Service website URL to define where to display the banners.To display banners across a whole section such as ‘Careers advice’, enter the parent location URL for this section,e.g. nationalcareers.service.gov.uk/careers-advice. The banners will appear on every page within /careers-advice.Displaying or managing banners on a individual page is possible, but only if there are no further child pages nested within the location specified,e.g. nationalcareers.service.gov.uk/careers-advice/advice-on-a-gap-year.",
-                                    "Required": true
-                                },
-                                "ContentIndexSettings": {}
-                            }
-                        },
                         {
                             "FieldName": "ContentPickerField",
                             "Name": "Addabanner",
