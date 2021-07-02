@@ -745,7 +745,7 @@
                             "Name": "Pagebanner",
                             "Settings": {
                                 "ContentTypePartSettings": {
-                                    "Position": "1"
+                                    "Position": "2"
                                 }
                             }
                         },
@@ -754,7 +754,7 @@
                             "Name": "ContentApprovalPart",
                             "Settings": {
                                 "ContentTypePartSettings": {
-                                    "Position": "2"
+                                    "Position": "3"
                                 }
                             }
                         },
@@ -763,7 +763,7 @@
                             "Name": "GraphSyncPart",
                             "Settings": {
                                 "ContentTypePartSettings": {
-                                    "Position": "3"
+                                    "Position": "4"
                                 },
                                 "GraphSyncPartSettings": {
                                     "NodeNameTransform": "ContentType",
@@ -778,6 +778,15 @@
                         {
                             "PartName": "BannerPart",
                             "Name": "BannerPart",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "1"
+                                }
+                            }
+                        },
+                        {
+                            "PartName": "TitlePart",
+                            "Name": "TitlePart",
                             "Settings": {
                                 "ContentTypePartSettings": {
                                     "Position": "0"
@@ -1322,7 +1331,7 @@
                             "Settings": {
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "Add a banner",
-                                    "Position": "2"
+                                    "Position": "0"
                                 },
                                 "ContentPickerFieldSettings": {
                                     "Hint": "Drag and drop banners to arrange the order in which they will display on the webpage location(s) defined above. Remove individual banners as necessary. Global banners cannot be manually ordered or removed.",
