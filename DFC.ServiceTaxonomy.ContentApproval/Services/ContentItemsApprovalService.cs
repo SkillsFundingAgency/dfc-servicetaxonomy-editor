@@ -6,6 +6,8 @@ using DFC.ServiceTaxonomy.ContentApproval.Indexes;
 using DFC.ServiceTaxonomy.ContentApproval.Models;
 using DFC.ServiceTaxonomy.ContentApproval.Models.Enums;
 using Microsoft.AspNetCore.Http;
+using OrchardCore.AuditTrail.Indexes;
+using OrchardCore.AuditTrail.Models;
 using OrchardCore.ContentManagement;
 using OrchardCore.ContentManagement.Records;
 using YesSql;
@@ -32,7 +34,7 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Services
             switch (card)
             {
                 case DashboardItemsStatusCard.InDraft:
-                    counts.Count =  GetManageContentItemCount(card);
+                    counts.Count = GetManageContentItemCount(card);
                     break;
                 case DashboardItemsStatusCard.Published:
                     counts.Count =  GetManageContentItemCount(card);
@@ -48,6 +50,9 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Services
                     break;
                 case DashboardItemsStatusCard.MyWorkItems:
                     counts.MyItems = await GetMyContent();
+                    break;
+                case DashboardItemsStatusCard.Deleted:
+                    counts.Count = GetManageContentItemCount(card);
                     break;
             }
 
@@ -81,8 +86,15 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Services
             ReviewType? reviewType = null,
             bool isForcePublished = false)
         {
-            var querySession = _session.Query<ContentItem>();
+            if (card == DashboardItemsStatusCard.Deleted)
+            {
+                // Deleted content item data is requested from the Audit Trail indexes so separate code for this.
+                var auditQuerySession = _session.Query<AuditTrailEvent>(AuditTrailEvent.Collection);
+                auditQuerySession.With<AuditTrailEventIndex>(i => i.Name == "Removed");
+                return auditQuerySession.CountAsync().Result;
+            }
 
+            var querySession =  _session.Query<ContentItem>();
             switch (card)
             {
                 case DashboardItemsStatusCard.WaitingForReview:

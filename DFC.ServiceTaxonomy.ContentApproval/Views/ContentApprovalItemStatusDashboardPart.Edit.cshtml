@@ -8,7 +8,8 @@
             <option value="@DashboardItemsStatusCard.WaitingForReview" selected="@(Model.Card == DashboardItemsStatusCard.WaitingForReview)">@T["Waiting for Review"]</option>
             <option value="@DashboardItemsStatusCard.InReview" selected="@(Model.Card == DashboardItemsStatusCard.InReview)">@T["In Review"]</option>
             <option value="@DashboardItemsStatusCard.Published" selected="@(Model.Card == DashboardItemsStatusCard.Published)">@T["Published"]</option>
-            <option value="@DashboardItemsStatusCard.MyWorkItems" selected="@(Model.Card == DashboardItemsStatusCard.Published)">@T["My work items"]</option>
+            <option value="@DashboardItemsStatusCard.MyWorkItems" selected="@(Model.Card == DashboardItemsStatusCard.MyWorkItems)">@T["My work items"]</option>
+            <option value="@DashboardItemsStatusCard.Deleted" selected="@(Model.Card == DashboardItemsStatusCard.Deleted)">@T["Deleted"]</option>
         </select>
         <span class="hint">The item status to summarise in this widget.</span>
     </div>

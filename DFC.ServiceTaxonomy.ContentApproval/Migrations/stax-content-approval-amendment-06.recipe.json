@@ -1,0 +1,40 @@
+﻿{
+    "name": "06_content_approval",
+    "displayName": "Content approval",
+    "description": "Adds deleted dashboard cards",
+    "author": "National Careers Service",
+    "website": "https://github.com/SkillsFundingAgency/dfc-servicetaxonomy-editor",
+    "version": "1.0",
+    "issetuprecipe": false,
+    "categories": ["default"],
+    "tags": ["ncs"],
+    "steps": [
+        {
+            "name": "Content",
+            "data": [
+                {
+                    "ContentItemId": "4zc3ryr6ywshzrgg4mfe9x8256",
+                    "ContentItemVersionId": "4jwyaebmfb49p6qcgkrzj42tme",
+                    "ContentType": "ContentApprovalItemStatusDashboardWidget",
+                    "DisplayText": null,
+                    "Latest": true,
+                    "Published": true,
+                    "ModifiedUtc": "2021-02-11T12:53:42.7302174Z",
+                    "PublishedUtc": "2021-02-11T12:53:42.7429332Z",
+                    "CreatedUtc": "2021-02-11T12:30:53.749129Z",
+                    "Owner": null,
+                    "Author": "admin",
+                    "ContentApprovalItemStatusDashboardWidget": {},
+                    "ContentApprovalItemStatusDashboardPart": {
+                        "Card": 5
+                    },
+                    "DashboardPart": {
+                        "Width": 2.0,
+                        "Height": 2.0,
+                        "Position": 600.0
+                    }
+                }
+            ]
+        }
+    ]
+}
