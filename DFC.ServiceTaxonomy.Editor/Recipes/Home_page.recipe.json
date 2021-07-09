@@ -1,7 +1,7 @@
 ﻿{
-    "name": "legacy-home-page-content-environment-load",
-    "displayName": "Legacy home page - initial environment load",
-    "description": "Sets up the baselined legacy Home page content including new shared-content items",
+    "name": "home-page-content",
+    "displayName": "Home page baselined content",
+    "description": "Sets up the baselined Home page content",
     "author": "National Careers Service",
     "website": "https://github.com/SkillsFundingAgency/dfc-servicetaxonomy-editor",
     "version": null,
@@ -17,15 +17,15 @@
             "name": "content",
             "data": [
                 {
-                    "ContentItemId": "4a7xcpf6nwp26rwhv1cp0wh0wp",
+                    "ContentItemId": "4k13ad52r5y524vc22yyytc9cs",
                     "ContentItemVersionId": null,
                     "ContentType": "Page",
                     "DisplayText": "Careers advice - job profiles, information and resources",
                     "Latest": true,
                     "Published": true,
-                    "ModifiedUtc": "2021-06-18T09:08:50.9399123Z",
-                    "PublishedUtc": "2021-06-18T09:08:51.6782775Z",
-                    "CreatedUtc": "2021-06-14T10:00:54.5621149Z",
+                    "ModifiedUtc": "2021-07-09T06:09:19.2825634Z",
+                    "PublishedUtc": "2021-07-09T06:09:19.9421836Z",
+                    "CreatedUtc": "2021-05-05T08:22:29.1776661Z",
                     "Owner": "43crnj0zkd1pa1xncekdwyzgxk",
                     "Author": "admin",
                     "TitlePart": {
@@ -42,7 +42,7 @@
                             "Text": null
                         },
                         "Herobanner": {
-                            "Html": "<div class=\"govuk-width-container\">\n<div class=\"govuk-grid-row\">\n<div class=\"govuk-grid-column-full\">\n\t<h1 class=\"govuk-heading-xl\">National Careers Service</h1>\n\t<p class=\"govuk-body-lead\">We provide careers information, advice and guidance. We can help you to make decisions on learning, training and work at all stages in your career.</p>\n\t<p class=\"govuk-body-lead\">This service is available to people who live in England.</p>\n</div>\n</div>\n</div>"
+                            "Html": "<div class=\"govuk-width-container\">\n<div class=\"govuk-grid-row\">\n<div class=\"govuk-grid-column-two-thirds\">\n\t<h1 class=\"govuk-heading-xl\">National Careers Service</h1>\n\t<p class=\"govuk-body-lead\">We provide careers information, advice and guidance. We can help you to make decisions on learning, training and work at all stages in your career.</p>\n\t<p class=\"govuk-body-lead\">This service is available to people who live in England.</p>\n</div>\n</div>\n</div>"
                         },
                         "ShowHeroBanner": {
                             "Value": true
@@ -72,13 +72,74 @@
                     "FlowPart": {
                         "Widgets": [
                             {
+                                "ContentItemId": "4merpb5qnfww4x0c5rcwjr44nw",
+                                "ContentItemVersionId": null,
+                                "ContentType": "Form",
+                                "DisplayText": "Triage tool",
+                                "Latest": false,
+                                "Published": false,
+                                "ModifiedUtc": "2021-07-09T06:09:19.4001405Z",
+                                "PublishedUtc": null,
+                                "CreatedUtc": null,
+                                "Owner": "",
+                                "Author": "admin",
+                                "TitlePart": {
+                                    "Title": "Triage tool"
+                                },
+                                "FormElementPart": {
+                                    "Id": "triageTool"
+                                },
+                                "FormPart": {
+                                    "EnableAntiForgeryToken": true,
+                                    "Action": "/triagetool",
+                                    "Method": "POST",
+                                    "WorkflowTypeId": null,
+                                    "EncType": "application/x-www-form-urlencoded"
+                                },
+                                "FlowPart": {
+                                    "Widgets": [
+                                        {
+                                            "ContentItemId": "4w4yc53ds4weywr2p6at9vr3w0",
+                                            "ContentItemVersionId": null,
+                                            "ContentType": "HTML",
+                                            "DisplayText": "",
+                                            "Latest": false,
+                                            "Published": false,
+                                            "ModifiedUtc": "2021-07-09T06:09:19.4068305Z",
+                                            "PublishedUtc": null,
+                                            "CreatedUtc": null,
+                                            "Owner": "",
+                                            "Author": "admin",
+                                            "HTML": {},
+                                            "HtmlBodyPart": {
+                                                "Html": "<div class=\"govuk-!-margin-bottom-2 govuk-!-margin-top-5 govuk-!-margin-bottom-5 brand--ncs organisation__brand-border-bottom brand__border-color triage-hide\">\n\t<h2 class=\"govuk-heading-l\">Get personalised careers advice and information</h2>\n\t<div class=\"govuk-form-group govuk-!-margin-bottom-0\">\n\t\t<label class=\"govuk-label ncs-triage-select-label\" for=\"triageSelect\">\n\t\t\tShow advice for\n\t\t</label>\n\t\t<select class=\"govuk-select ncs-triage-select\" id=\"triageSelect\" name=\"triage-select\">\n\t\t\t<option value=\"changing your career\">changing your career</option>\n\t\t\t<option value=\"identifying and building your skills\">identifying and building your skills</option>\n\t\t\t<option value=\"moving up in your career\">moving up in your career</option>\n\t\t\t<option value=\"planning or starting your career\">planning or starting your career</option>\n\t\t\t<option value=\"returning to work\">returning to work</option>\n\t\t\t<option value=\"understanding the recruitment process\">understanding the recruitment process</option>\n\t\t\t<option value=\"understanding your options\">understanding your options</option>\n\t\t\t<option value=\"working with a health condition or disability\">working with a health condition or disability</option>\n\t\t</select>\n\t\t<button draggable=\"false\" class=\"govuk-button govuk-button--start triage-start-btn\" data-module=\"govuk-button\">\n\t\t\tSee suggestions\n\t\t\t<svg class=\"govuk-button__start-icon\" xmlns=\"http://www.w3.org/2000/svg\" width=\"17.5\" height=\"19\" viewBox=\"0 0 33 40\">\n\t\t\t\t<path fill=\"currentColor\" d=\"M0 0h13l20 20-20 20H0l20-20z\"></path>\n\t\t\t</svg>\n\t\t</button>\n\t</div>\n</div>"
+                                            },
+                                            "GraphSyncPart": {
+                                                "Text": "<<contentapiprefix>>/html/11b21479-0f80-4cbb-95f7-5e8581fe3216"
+                                            },
+                                            "FlowMetadata": {
+                                                "Alignment": 0,
+                                                "Size": 100
+                                            }
+                                        }
+                                    ]
+                                },
+                                "GraphSyncPart": {
+                                    "Text": "<<contentapiprefix>>/form/157f0129-f9a7-46d9-ba47-385cce43e8ca"
+                                },
+                                "FlowMetadata": {
+                                    "Alignment": 0,
+                                    "Size": 100
+                                }
+                            },
+                            {
                                 "ContentItemId": "4d6wf1atb8f41w2vzr3sdqhzxf",
                                 "ContentItemVersionId": null,
                                 "ContentType": "HTML",
                                 "DisplayText": "",
                                 "Latest": false,
                                 "Published": false,
-                                "ModifiedUtc": "2021-06-18T09:08:51.0964462Z",
+                                "ModifiedUtc": "2021-07-09T06:09:19.4384842Z",
                                 "PublishedUtc": null,
                                 "CreatedUtc": null,
                                 "Owner": "",
@@ -88,7 +149,7 @@
                                     "Html": "<div class=\"govuk-grid-row\">\n\t<div class=\"govuk-grid-column-one-third\">\n\t\t<div class=\"ncs-home-grid-wrapper\">\n\t\t\t<h2 class=\"govuk-heading-m\">Skills assessment</h2>\n\t\t\t<p class=\"govuk-body-m\">Learn more about your skills and match them to potential new careers.</p>\n\t\t</div>\n\t\t<div>\n\t\t\t<a class=\"govuk-link govuk-button\" href=\"/skills-assessment\">Assess your skills</a>\n\t\t</div>\n\t</div>\n\t<div class=\"govuk-grid-column-one-third\">\n\t\t<div class=\"ncs-home-grid-wrapper\">\n\t\t\t<h2 class=\"govuk-heading-m\">Explore Careers</h2>\n\t\t\t<p class=\"govuk-body-m\">Choose from over 800 career profiles to discover what a job involves.</p>\n\t\t</div>\n\t\t<div>\n\t\t\t<a class=\"govuk-link govuk-button\" href=\"/explore-careers\">Search job profiles</a>\n\t\t</div>\n\t</div>\n\t<div class=\"govuk-grid-column-one-third\">\n\t\t<div class=\"ncs-home-grid-wrapper\">\n\t\t\t<h2 class=\"govuk-heading-m\">Find a course</h2>\n\t\t\t<p class=\"govuk-body-m\">Look for learning and training opportunities local to you.</p>\n\t\t</div>\n\t\t<div>\n\t\t\t<a class=\"govuk-link govuk-button\" href=\"/find-a-course\">Look for courses</a>\n\t\t</div>\n\t</div>\n</div>"
                                 },
                                 "GraphSyncPart": {
-                                    "Text": "<<contentapiprefix>>/html/8635f0c4-cafa-4c84-89e3-1a8364a44677"
+                                    "Text": "<<contentapiprefix>>/html/e3455725-99ce-45dc-ba2f-398220ecd2cb"
                                 },
                                 "FlowMetadata": {
                                     "Alignment": 0,
@@ -102,7 +163,7 @@
                                 "DisplayText": "",
                                 "Latest": false,
                                 "Published": false,
-                                "ModifiedUtc": "2021-06-18T09:08:51.1146949Z",
+                                "ModifiedUtc": "2021-07-09T06:09:19.4575791Z",
                                 "PublishedUtc": null,
                                 "CreatedUtc": null,
                                 "Owner": "",
@@ -112,7 +173,7 @@
                                     "Html": "<section class=\"brand--ncs brand__border-color organisation__section-wrap organisation__margin-bottom\" id=\"featured-documents\">\n\t<div class=\"separator govuk-!-padding-bottom-4 govuk-!-padding-top-2\">\n\t\t<h2 class=\"govuk-heading-m govuk-!-margin-bottom-0\">Careers advice</h2>\n\t</div>\n\t<div class=\"govuk-grid-row card-group\">\n\t\t<div class=\"govuk-grid-column-one-third\">\n\t\t\t<a class=\"cards-link\" href=\"/careers-advice#making-career-choices\">\n\t\t\t\t<div class=\"card\">\n\t\t\t\t\t<h3 class=\"govuk-heading-s\">Making career choices</h3>\n\t\t\t\t\t<p class=\"govuk-body-m\">Whether starting your career, changing job or if you have been affected by COVID-19, understand and make the right choice for you.</p>\n\t\t\t\t</div>\n\t\t\t</a>\n\t\t</div>\n\t\t<div class=\"govuk-grid-column-one-third\">\n\t\t\t<a class=\"cards-link\" href=\"/careers-advice#getting-a-job\">\n\t\t\t\t<div class=\"card\">\n\t\t\t\t\t<h3 class=\"govuk-heading-s\">Getting a job</h3>\n\t\t\t\t\t<p class=\"govuk-body-m\">Be successful in the recruitment process with tips on great CVs, interviews and graduate scheme applications.</p>\n\t\t\t\t</div>\n\t\t\t</a>\n\t\t</div>\n\t\t<div class=\"govuk-grid-column-one-third\">\n\t\t\t<a class=\"cards-link\" href=\"/careers-advice#progressing-your-career\">\n\t\t\t\t<div class=\"card\">\n\t\t\t\t\t<h3 class=\"govuk-heading-s\">Progressing your career</h3>\n\t\t\t\t\t<p class=\"govuk-body-m\">Move up in your career by developing new skills. Find opportunities like volunteering and online learning.</p>\n\t\t\t\t</div>\n\t\t\t</a>\n\t\t</div>\n\t</div>\n\t\n</section>"
                                 },
                                 "GraphSyncPart": {
-                                    "Text": "<<contentapiprefix>>/html/31835e17-b5c4-4537-9c6f-b09ef7dae105"
+                                    "Text": "<<contentapiprefix>>/html/03be4b73-ce0a-4fac-9059-f1ffb9ac5337"
                                 },
                                 "FlowMetadata": {
                                     "Alignment": 0,
@@ -126,7 +187,7 @@
                                 "DisplayText": "",
                                 "Latest": false,
                                 "Published": false,
-                                "ModifiedUtc": "2021-06-18T09:08:51.1288215Z",
+                                "ModifiedUtc": "2021-07-09T06:09:19.471879Z",
                                 "PublishedUtc": null,
                                 "CreatedUtc": null,
                                 "Owner": "",
@@ -139,7 +200,7 @@
                                     }
                                 },
                                 "GraphSyncPart": {
-                                    "Text": "<<contentapiprefix>>/htmlshared/721cd0d5-9e9e-4158-90f2-49ab2f5f8cb5"
+                                    "Text": "<<contentapiprefix>>/htmlshared/c8b4ba86-4356-44d9-bf7e-85b5d4cfe3cc"
                                 },
                                 "FlowMetadata": {
                                     "Alignment": 0,
@@ -153,7 +214,7 @@
                                 "DisplayText": "",
                                 "Latest": false,
                                 "Published": false,
-                                "ModifiedUtc": "2021-06-18T09:08:51.1538835Z",
+                                "ModifiedUtc": "2021-07-09T06:09:19.4962839Z",
                                 "PublishedUtc": null,
                                 "CreatedUtc": null,
                                 "Owner": "",
@@ -166,7 +227,7 @@
                                     }
                                 },
                                 "GraphSyncPart": {
-                                    "Text": "<<contentapiprefix>>/htmlshared/8a3eb6db-e323-412d-aa77-47723abc65c9"
+                                    "Text": "<<contentapiprefix>>/htmlshared/31985267-ea95-429c-ab4c-62d5e9afdf24"
                                 },
                                 "FlowMetadata": {
                                     "Alignment": 0,
@@ -180,7 +241,7 @@
                                 "DisplayText": "",
                                 "Latest": false,
                                 "Published": false,
-                                "ModifiedUtc": "2021-06-18T09:08:51.1773334Z",
+                                "ModifiedUtc": "2021-07-09T06:09:19.5202764Z",
                                 "PublishedUtc": null,
                                 "CreatedUtc": null,
                                 "Owner": "",
@@ -193,7 +254,7 @@
                                     }
                                 },
                                 "GraphSyncPart": {
-                                    "Text": "<<contentapiprefix>>/htmlshared/96f68c9d-8ee8-468b-8d99-c43c4fd42efd"
+                                    "Text": "<<contentapiprefix>>/htmlshared/e9a4fa74-25d0-4a61-81ac-18571b27fe87"
                                 },
                                 "FlowMetadata": {
                                     "Alignment": 0,
@@ -203,19 +264,13 @@
                         ]
                     },
                     "GraphSyncPart": {
-                        "Text": "<<contentapiprefix>>/page/2516ae3b-28fa-42bd-ac1b-a194a6834ac6"
+                        "Text": "<<contentapiprefix>>/page/35875892-73e1-4007-9989-c09d29f9f7ae"
                     },
                     "PageLocationPart": {
-                        "UrlName": "home-legacy",
+                        "UrlName": "home",
                         "DefaultPageForLocation": true,
                         "RedirectLocations": null,
-                        "FullUrl": "/home-legacy"
-                    },
-                    "ContentApprovalPart": {
-                        "ReviewStatus": 0,
-                        "ReviewType": 0,
-                        "IsForcePublished": false,
-                        "Comment": null
+                        "FullUrl": "/home"
                     }
                 }
             ]

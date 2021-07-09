@@ -1,0 +1,14 @@
+@model DFC.ServiceTaxonomy.Banners.ViewModels.BannerPartViewModel
+@using OrchardCore.Mvc.Utilities
+
+@{
+    var webPageName = (Model?.PartDefinition?.Name + "-" + nameof(Model.WebPageName)).HtmlClassify();
+    var webPageURL = (Model?.PartDefinition?.Name + "-" + nameof(Model.WebPageURL)).HtmlClassify();
+}
+
+<div class="field field-type-textfield field-name-@webPageName">
+    @Model?.WebPageName
+</div>
+<div class="field field-type-textfield field-name-@webPageURL">
+    @Model?.WebPageURL
+</div>
