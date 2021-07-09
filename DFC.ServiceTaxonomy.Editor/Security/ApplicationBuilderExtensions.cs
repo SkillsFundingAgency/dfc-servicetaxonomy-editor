@@ -11,6 +11,12 @@ namespace DFC.ServiceTaxonomy.Editor.Security
             app.Use(async (context, next) =>
                 {
                     context.Response.Headers.Add("X-Content-Type-Options", "nosniff");
+
+                    if (!string.IsNullOrEmpty(context.Session?.Id))
+                    {
+                        context.Response.Headers.Add("X-WAF-SessionId", context.Session.Id);
+                    }
+
                     await next();
                 })
                 // see https://github.com/juunas11/aspnetcore-security-headers
