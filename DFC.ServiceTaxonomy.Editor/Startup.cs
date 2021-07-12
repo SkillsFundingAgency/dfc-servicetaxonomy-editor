@@ -1,15 +1,18 @@
+using System;
+using System.Collections.Generic;
+
+using DFC.ServiceTaxonomy.CustomEditor.Configuration;
 using DFC.ServiceTaxonomy.Editor.Security;
 using DFC.ServiceTaxonomy.GraphSync.Settings;
 using DFC.ServiceTaxonomy.Neo4j.Configuration;
+
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.AspNetCore.Http;
+
 using OrchardCore.Media;
-using System.Collections.Generic;
-using DFC.ServiceTaxonomy.CustomEditor.Configuration;
-using System;
 
 namespace DFC.ServiceTaxonomy.Editor
 {
@@ -40,6 +43,7 @@ namespace DFC.ServiceTaxonomy.Editor
                 sanitizer.AllowedAttributes.Add("xmlns");
                 sanitizer.AllowedAttributes.Add("viewBox");
                 sanitizer.AllowedAttributes.Add("allowfullscreen");
+                sanitizer.AllowedSchemes.Add("mailto");
 
             }));
 
@@ -50,18 +54,18 @@ namespace DFC.ServiceTaxonomy.Editor
             services.Configure<GraphSyncPartSettingsConfiguration>(Configuration.GetSection(nameof(GraphSyncPartSettings)));
             services.Configure<CookiePolicyOptions>(options =>
             {
-               options.Secure = CookieSecurePolicy.Always;
+                options.Secure = CookieSecurePolicy.Always;
             });
             services.AddEventGridPublishing(Configuration);
             services.AddOrchardCore().ConfigureServices(s => s.ConfigureApplicationCookie(options =>
             {
                 options.Cookie.Name = "stax_Default";
-            }), order:10);
+            }), order: 10);
 
             services.AddOrchardCore().ConfigureServices(s => s.AddAntiforgery(options =>
             {
                 options.Cookie.Name = "staxantiforgery_Default";
-            }), order:10);
+            }), order: 10);
 
             services.PostConfigure(SetupMediaConfig());
 
