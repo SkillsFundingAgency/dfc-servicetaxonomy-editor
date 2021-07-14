@@ -1084,12 +1084,6 @@
                             }
                         }
                     ]
-                                    ]
-                                },
-                                "ContentIndexSettings": {}
-                            }
-                        }
-                    ]
                 },
                 {
                     "Name": "Banner",
@@ -1161,6 +1155,12 @@
                                     "Multiple": true,
                                     "DisplayedContentTypes": [
                                         "Banner"
+                                    ]
+                                },
+                                "ContentIndexSettings": {}
+                            }
+                        }
+                    ]
                 }
             ]
         },
