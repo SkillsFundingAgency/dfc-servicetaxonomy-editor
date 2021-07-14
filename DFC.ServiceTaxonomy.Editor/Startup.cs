@@ -31,7 +31,10 @@ namespace DFC.ServiceTaxonomy.Editor
                 options.InstrumentationKey = Configuration["APPINSIGHTS_INSTRUMENTATIONKEY"]);
 
             services.AddDistributedMemoryCache();
-            services.AddSession();
+            services.AddSession(options =>
+            {
+                options.Cookie.IsEssential = true;
+            });
 
             services.AddOrchardCms().ConfigureServices(se => se.ConfigureHtmlSanitizer((sanitizer) =>
             {
