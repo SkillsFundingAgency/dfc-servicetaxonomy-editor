@@ -30,6 +30,9 @@ namespace DFC.ServiceTaxonomy.Editor
             services.AddApplicationInsightsTelemetry(options =>
                 options.InstrumentationKey = Configuration["APPINSIGHTS_INSTRUMENTATIONKEY"]);
 
+            services.AddDistributedMemoryCache();
+            services.AddSession();
+
             services.AddOrchardCms().ConfigureServices(se => se.ConfigureHtmlSanitizer((sanitizer) =>
             {
                 sanitizer.AllowDataAttributes = true;
