@@ -14,7 +14,7 @@ namespace DFC.ServiceTaxonomy.Editor.Security
 
                     if (!string.IsNullOrEmpty(context.Session?.Id))
                     {
-                        context.Response.Headers.Add("X-WAF-SessionId", context.Session.Id);
+                        context.Response.Headers.Add("X-STAX-SessionId", context.Session.Id);
                     }
 
                     await next();
