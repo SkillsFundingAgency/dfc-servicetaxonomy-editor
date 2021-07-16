@@ -36,6 +36,7 @@ namespace DFC.ServiceTaxonomy.Media.Services
             catch (AuthenticationFailedException exception)
             {
                 _logger.LogError($"Authentication Failed. {exception.Message}");
+
                 return null;
             }
         }

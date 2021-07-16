@@ -5,6 +5,6 @@ namespace DFC.ServiceTaxonomy.Media.Services
 {
     public interface ICdnService
     {
-        Task<bool> PurgeContent(IList<string> contentPaths);
+        Task<bool> PurgeContentAsync(IList<string> contentPaths);
     }
 }

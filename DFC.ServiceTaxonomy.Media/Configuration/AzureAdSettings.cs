@@ -1,5 +1,8 @@
-﻿namespace DFC.ServiceTaxonomy.Media.Configuration
+﻿using System.Diagnostics.CodeAnalysis;
+
+namespace DFC.ServiceTaxonomy.Media.Configuration
 {
+    [ExcludeFromCodeCoverage]
     public class AzureAdSettings
     {
         public string ClientId { get; set; }

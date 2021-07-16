@@ -16,9 +16,11 @@ namespace DFC.ServiceTaxonomy.Media.Events
             _cdnService = cdnService;
         }
 
-        public override async Task MediaDeletedFileAsync(MediaDeletedContext context)
+        public override Task MediaDeletedFileAsync(MediaDeletedContext context)
         {
-            await _cdnService.PurgeContent(new List<string>() { $"{AssetsRequestPath}/{context.Path}" });
+            _cdnService.PurgeContentAsync(new List<string>() { $"{AssetsRequestPath}/{context.Path}" });
+
+            return Task.CompletedTask;
         }
     }
 }

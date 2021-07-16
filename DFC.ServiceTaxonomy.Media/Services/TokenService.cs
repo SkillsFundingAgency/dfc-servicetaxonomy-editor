@@ -25,26 +25,23 @@ namespace DFC.ServiceTaxonomy.Media.Services
 
         public async Task<string> GetAccessToken()
         {
-            AuthenticationResult authenticationResult;
             try
             {
-                AuthenticationContext authContext = new AuthenticationContext(_azureAdSettings.Authority);
-
                 string clientId = await _keyVaultService.GetSecrectAsync(_azureAdSettings.ClientId);
-
                 string clientSecret = await _keyVaultService.GetSecrectAsync(_azureAdSettings.ClientSecret);
 
                 ClientCredential credential = new ClientCredential(clientId, clientSecret);
+                AuthenticationContext authContext = new AuthenticationContext(_azureAdSettings.Authority);
+                AuthenticationResult authenticationResult = await authContext.AcquireTokenAsync(Resource, credential);
 
-                authenticationResult = await authContext.AcquireTokenAsync(Resource, credential);
+                return authenticationResult.AccessToken;
+
             }
             catch (Exception exception)
             {
                 _logger.LogError(exception, "Error getting access token");
                 return null;
             }
-
-            return authenticationResult.AccessToken;
         }
     }
 }

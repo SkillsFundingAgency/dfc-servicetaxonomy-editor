@@ -24,7 +24,7 @@ namespace DFC.ServiceTaxonomy.Media.Services
             _logger = logger;
         }
 
-        public async Task<bool> PurgeContent(IList<string> contentPaths)
+        public async Task<bool> PurgeContentAsync(IList<string> contentPaths)
         {
             bool hasErrors = false;
 
@@ -38,6 +38,8 @@ namespace DFC.ServiceTaxonomy.Media.Services
                     return hasErrors;
                 }
 
+                _logger.LogInformation($"Obtained an authentication token to access cdn. Token: {accessToken}");
+
                 CdnManagementClient cdnManagementClient = new CdnManagementClient(new TokenCredentials(accessToken))
                 {
                     SubscriptionId = _azureAdSettings.SubscriptionId
@@ -47,6 +49,9 @@ namespace DFC.ServiceTaxonomy.Media.Services
                                                            _azureAdSettings.CdnProfileName,
                                                            _azureAdSettings.CdnEndpointName,
                                                            contentPaths);
+
+                _logger.LogInformation($"Removed content: {string.Join(',', contentPaths)} from CDN.");
+
                 hasErrors = false;
             }
             catch (Exception exception)
