@@ -20,6 +20,10 @@
     background-color: #FFFFFF !important;
 }
 
+.dashboard-item-status-deleted {
+    background-color: #F6D6D6 !important;
+}
+
 .dashboard-container {
     grid-template-rows: repeat(6, 110px) !important;
 }

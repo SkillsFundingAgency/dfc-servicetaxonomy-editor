@@ -38,17 +38,6 @@ namespace DFC.ServiceTaxonomy.ContentApproval
                 .WithDescription("Adds publishing status workflow properties to content items.")
             );
 
-
-            try
-            {
-                SchemaBuilder.DropMapIndexTable<ContentApprovalPartIndex>();
-            }
-            catch (Exception e)
-            {
-                // Not required by SQLLite as no issue if index doesn't exist but maybe a problem in SQL
-                _logger.LogWarning(e, "ContentApprovalPartIndex could not be deleted");
-            }
-
             SchemaBuilder.CreateMapIndexTable<ContentApprovalPartIndex>(table => table
                 .Column<int>(nameof(ContentApprovalPartIndex.ReviewStatus))
                 .Column<int>(nameof(ContentApprovalPartIndex.ReviewType))
@@ -64,7 +53,7 @@ namespace DFC.ServiceTaxonomy.ContentApproval
 
             await _recipeMigrator.ExecuteAsync("stax-content-approval.recipe.json", this);
 
-            return 8;
+            return 9;
         }
 
         public async Task<int> UpdateFrom1Async()
@@ -162,6 +151,13 @@ namespace DFC.ServiceTaxonomy.ContentApproval
             await _recipeMigrator.ExecuteAsync("stax-content-approval-amendment-05.recipe.json", this);
 
             return 8;
+        }
+
+        public async Task<int> UpdateFrom8Async()
+        {
+            await _recipeMigrator.ExecuteAsync("stax-content-approval-amendment-06.recipe.json", this);
+
+            return 9;
         }
     }
 }
