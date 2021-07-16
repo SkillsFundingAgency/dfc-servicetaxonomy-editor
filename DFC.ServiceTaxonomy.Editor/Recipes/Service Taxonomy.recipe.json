@@ -90,7 +90,8 @@
                 "DFC.ServiceTaxonomy.UnpublishLater",
                 "OrchardCore.AuditTrail",
                 "OrchardCore.AdminDashboard",
-                "DFC.ServiceTaxonomy.ContentApproval"
+                "DFC.ServiceTaxonomy.ContentApproval",
+                "DFC.ServiceTaxonomy.Media"
             ]
         },
         {
