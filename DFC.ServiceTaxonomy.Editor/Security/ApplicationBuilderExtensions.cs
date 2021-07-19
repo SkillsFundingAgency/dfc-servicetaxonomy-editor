@@ -1,11 +1,14 @@
 ﻿using Joonasw.AspNetCore.SecurityHeaders;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 
 namespace DFC.ServiceTaxonomy.Editor.Security
 {
     public static class ApplicationBuilderExtensions
     {
+        private const string StaxSessionIdKeyName = "_Stax-SessionId";
+
         public static IApplicationBuilder UseSecurityHeaders(this IApplicationBuilder app,IConfiguration configuration)
         {
             app.Use(async (context, next) =>
@@ -14,6 +17,11 @@ namespace DFC.ServiceTaxonomy.Editor.Security
 
                     if (!string.IsNullOrEmpty(context.Session?.Id))
                     {
+                        if (string.IsNullOrEmpty(context.Session.GetString(StaxSessionIdKeyName)))
+                        {
+                            context.Session.SetString(StaxSessionIdKeyName, context.Session.Id);
+                        }
+
                         context.Response.Headers.Add("X-STAX-SessionId", context.Session.Id);
                     }
 
