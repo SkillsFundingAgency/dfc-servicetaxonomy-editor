@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-
+using DFC.ServiceTaxonomy.Content.Configuration;
 using DFC.ServiceTaxonomy.CustomEditor.Configuration;
 using DFC.ServiceTaxonomy.Editor.Security;
 using DFC.ServiceTaxonomy.GraphSync.Settings;
@@ -74,6 +74,7 @@ namespace DFC.ServiceTaxonomy.Editor
             services.PostConfigure(SetupMediaConfig());
 
             services.Configure<PagesConfiguration>(Configuration.GetSection("Pages"));
+            services.Configure<AzureAdSettings>(Configuration.GetSection("AzureAdSettings"));
         }
 
         public void Configure(IApplicationBuilder app, IHostEnvironment env)
