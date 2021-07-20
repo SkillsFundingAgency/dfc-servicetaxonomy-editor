@@ -29,7 +29,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\DFC.ServiceTaxonomy.GraphSync\DFC.ServiceTaxonomy.GraphSync.csproj" />
-    <ProjectReference Include="..\DFC.ServiceTaxonomy.Media\DFC.ServiceTaxonomy.Media.csproj" />
     <ProjectReference Include="..\DFC.ServiceTaxonomy.Neo4j\DFC.ServiceTaxonomy.Neo4j.csproj" />
     <ProjectReference Include="..\DFC.ServiceTaxonomy.PageLocation\DFC.ServiceTaxonomy.PageLocation.csproj" />
     <ProjectReference Include="..\GetJobProfiles\GetJobProfiles.csproj" />

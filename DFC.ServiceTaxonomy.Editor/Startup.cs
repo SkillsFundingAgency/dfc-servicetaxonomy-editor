@@ -1,10 +1,9 @@
 using System;
 using System.Collections.Generic;
-
+using DFC.ServiceTaxonomy.Content.Configuration;
 using DFC.ServiceTaxonomy.CustomEditor.Configuration;
 using DFC.ServiceTaxonomy.Editor.Security;
 using DFC.ServiceTaxonomy.GraphSync.Settings;
-using DFC.ServiceTaxonomy.Media.Configuration;
 using DFC.ServiceTaxonomy.Neo4j.Configuration;
 
 using Microsoft.AspNetCore.Builder;
