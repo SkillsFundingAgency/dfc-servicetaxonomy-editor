@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-
+using DFC.ServiceTaxonomy.Content.Configuration;
 using DFC.ServiceTaxonomy.CustomEditor.Configuration;
 using DFC.ServiceTaxonomy.Editor.Security;
 using DFC.ServiceTaxonomy.GraphSync.Settings;
@@ -30,6 +30,9 @@ namespace DFC.ServiceTaxonomy.Editor
             services.AddApplicationInsightsTelemetry(options =>
                 options.InstrumentationKey = Configuration["APPINSIGHTS_INSTRUMENTATIONKEY"]);
 
+            services.AddDistributedMemoryCache();
+            services.AddSession();
+
             services.AddOrchardCms().ConfigureServices(se => se.ConfigureHtmlSanitizer((sanitizer) =>
             {
                 sanitizer.AllowDataAttributes = true;
@@ -44,6 +47,7 @@ namespace DFC.ServiceTaxonomy.Editor
                 sanitizer.AllowedAttributes.Add("viewBox");
                 sanitizer.AllowedAttributes.Add("allowfullscreen");
                 sanitizer.AllowedSchemes.Add("mailto");
+                sanitizer.AllowedSchemes.Add("tel");
 
             }));
 
@@ -70,6 +74,7 @@ namespace DFC.ServiceTaxonomy.Editor
             services.PostConfigure(SetupMediaConfig());
 
             services.Configure<PagesConfiguration>(Configuration.GetSection("Pages"));
+            services.Configure<AzureAdSettings>(Configuration.GetSection("AzureAdSettings"));
         }
 
         public void Configure(IApplicationBuilder app, IHostEnvironment env)
@@ -79,6 +84,7 @@ namespace DFC.ServiceTaxonomy.Editor
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseSession();
             app.UseCookiePolicy();
             // UseSecurityHeaders must come before UseOrchardCore
             app.UsePoweredByOrchardCore(false);
