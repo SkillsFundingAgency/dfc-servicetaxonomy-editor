@@ -1,0 +1,51 @@
+@model DFC.ServiceTaxonomy.VersionCompare.ViewModels.VersionComparisonViewModel
+<zone name="Title"><h1 class="mb-4">@RenderTitleSegments(T["Version comparison"])</h1></zone>
+
+<form asp-action="Index" method="post">
+    <label asp-for="BaseVersionId"></label>
+    <select asp-items="Model.Options" asp-for="BaseVersionId">Base version</select>
+    <label asp-for="CompareVersionId"></label>
+    <select asp-items="Model.Options" asp-for="CompareVersionId">Compare version</select>
+    <label asp-for="SelectedProperty"></label>
+    <select asp-items="Model.Properties" asp-for="SelectedProperty">Compare version</select>
+    <button type="submit">Submit</button>
+</form>
+<div id="comparison" class="type-part-editor type-part-editor-monaco">
+    <div class="form-group">
+        <div id="comparisoncontainer" style="min-height: 500px;" class="form-control"></div>
+    </div>
+</div>
+
+
+<script asp-name="monaco" depends-on="admin" at="Foot"></script>
+<script at="Foot" depends-on="monaco">
+    $(document).ready(function () {
+        require(['vs/editor/editor.main'],
+            function () {
+// ReSharper disable Es6Feature
+                var json1 = `@Html.Raw(Model.BaseVersionJson)`;
+// ReSharper restore Es6Feature
+// ReSharper disable Es6Feature
+                var json2 = `@Html.Raw(Model.CompareVersionJson)`;
+// ReSharper restore Es6Feature
+
+                var modelUri1 = monaco.Uri.parse("a://b/foo.json");
+                var modelUri2 = monaco.Uri.parse("c://d/bar.json");
+                var model1 = monaco.editor.createModel(json1, "json", modelUri1);
+                var model2 = monaco.editor.createModel(json2, "json", modelUri2);
+
+                monaco.languages.json.jsonDefaults.setDiagnosticsOptions({
+                    validate: true
+                });
+
+                var diffEditor = monaco.editor.createDiffEditor(document.getElementById('comparisoncontainer'),
+                    {
+                        enableSplitViewResizing: false
+                    });
+                diffEditor.setModel({
+                    original: model2,
+                    modified: model1
+                });
+            });
+    });
+</script>

@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
+<Project Sdk="Microsoft.NET.Sdk.Razor">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
@@ -19,8 +19,12 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+    <PackageReference Include="OrchardCore.Admin" Version="1.0.0-rc13" />
+    <PackageReference Include="OrchardCore.AuditTrail" Version="1.0.0-rc13" />
     <PackageReference Include="OrchardCore.ContentManagement" Version="1.0.0-rc13" />
     <PackageReference Include="OrchardCore.ContentManagement.Display" Version="1.0.0-rc13" />
+    <PackageReference Include="OrchardCore.Contents" Version="1.0.0-rc13" />
     <PackageReference Include="OrchardCore.Module.Targets" Version="1.0.0-rc13" />
     <PackageReference Include="SonarAnalyzer.CSharp" Version="8.15.0.24505">
       <PrivateAssets>all</PrivateAssets>
@@ -29,7 +33,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\DFC.ServiceTaxonomy.GraphSync\DFC.ServiceTaxonomy.GraphSync.csproj" />
+    <Folder Include="Models\" />
   </ItemGroup>
 
 </Project>
