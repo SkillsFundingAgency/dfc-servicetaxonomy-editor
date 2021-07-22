@@ -188,7 +188,7 @@ stages:
       PSScriptPath: "$(Pipeline.Workspace)/${{ variables.SolutionBaseName }}.Editor.Resources.PSScripts"
 
 - stage: DeployToDev
-  dependsOn: Build
+  dependsOn: PublishPackage
   condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/dev'))
   displayName: Deploy to DEV_SERVICETAXONOMY
   variables:
