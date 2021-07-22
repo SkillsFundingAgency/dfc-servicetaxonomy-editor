@@ -7,6 +7,9 @@
         public string? PropertyLabel { get; set; }
         public string? BaseValue { get; set; }
         public string? CompareValue { get; set; }
+        public bool IsHtmlShared { get; set; }
+        public string? BaseContentId { get; set; }
+        public string? CompareContentId { get; set; }
     }
 
     public enum LanguageType

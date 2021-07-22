@@ -19,42 +19,58 @@
 }
 @foreach (var propertyDiff in Model.PropertyDiffs)
 {
-    <div class="form-group">
-        <div>@propertyDiff.PropertyLabel</div>
-        <div id="comparison" class="type-part-editor type-part-editor-monaco">
-            <div class="form-group">
-                <div id="comparisoncontainer_@propertyDiff.PropertyLabel" style="min-height: @(propertyDiff.LanguageType == LanguageType.Html ? "500px;" : "50px;")" class="form-control"></div>
+    if (propertyDiff.IsHtmlShared)
+    {
+        <div class="form-group">
+            <div>@propertyDiff.PropertyLabel</div>
+            <div style="width: 100%">
+                <div style="width: 50%; float: left; border: 1px solid #ced4da;padding: 10px">
+                    <a href="/Admin/VersionCompare/@propertyDiff.BaseContentId">@propertyDiff.BaseValue</a>
+                </div>
+                <div style="width: 50%; float: left; border: 1px solid #ced4da;padding: 10px">
+                    <a href="/Admin/VersionCompare/@propertyDiff.CompareContentId">@propertyDiff.CompareValue</a>
+                </div>
             </div>
         </div>
-    </div>
-    <script at="Foot" depends-on="monaco">
-        $(document).ready(function () {
-    require(['vs/editor/editor.main'],
-                function () {
-        // ReSharper disable Es6Feature
-        var json1 = `@Html.Raw(propertyDiff.BaseValue)`;
-        // ReSharper restore Es6Feature
-        // ReSharper disable Es6Feature
-        var json2 = `@Html.Raw(propertyDiff.CompareValue)`;
-        // ReSharper restore Es6Feature
+    }
+    else
+    {
+        <div class="form-group">
+            <div>@propertyDiff.PropertyLabel</div>
+            <div id="comparison" class="type-part-editor type-part-editor-monaco">
+                <div class="form-group">
+                    <div id="comparisoncontainer_@propertyDiff.PropertyLabel" style="min-height: @(propertyDiff.LanguageType == LanguageType.Html ? "500px;" : "50px;")" class="form-control"></div>
+                </div>
+            </div>
+        </div>
+        <script at="Foot" depends-on="monaco">
+            $(document).ready(function() {
+                require(['vs/editor/editor.main'],
+                    function() {
+                        // ReSharper disable Es6Feature
+                        var json1 = `@Html.Raw(propertyDiff.BaseValue)`;
+                        // ReSharper restore Es6Feature
+                        // ReSharper disable Es6Feature
+                        var json2 = `@Html.Raw(propertyDiff.CompareValue)`;
+                        // ReSharper restore Es6Feature
 
-        var model1 = monaco.editor.createModel(json1, "text/html");
-                    var model2 = monaco.editor.createModel(json2, "text/html");
+                        var model1 = monaco.editor.createModel(json1, "text/html");
+                        var model2 = monaco.editor.createModel(json2, "text/html");
 
 
-        var diffEditor = monaco.editor.createDiffEditor(document.getElementById('comparisoncontainer_@propertyDiff.PropertyLabel'),
-                        {
-                            enableSplitViewResizing: false,
+                        var diffEditor = monaco.editor.createDiffEditor(document.getElementById('comparisoncontainer_@propertyDiff.PropertyLabel'),
+                            {
+                                enableSplitViewResizing: false,
+                            });
+
+                        diffEditor.setModel({
+                            original: model2,
+                            modified: model1
                         });
-
-        diffEditor.setModel({
-        original: model2,
-                        modified: model1
                     });
-    });
-});
-    </script>
-
+            });
+        </script>
+    }
 }
 
 

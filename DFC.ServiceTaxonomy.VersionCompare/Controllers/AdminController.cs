@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Newtonsoft.Json.Linq;
 using OrchardCore.AuditTrail.Indexes;
 using OrchardCore.AuditTrail.Models;
+using OrchardCore.ContentManagement;
 using OrchardCore.Contents.AuditTrail.Models;
 using OrchardCore.Entities;
 using YesSql;
@@ -17,9 +18,11 @@ namespace DFC.ServiceTaxonomy.VersionCompare.Controllers
     public class AdminController : Controller
     {
         private readonly ISession _session;
+        private readonly IContentManager _contentManager;
         private const string IndexView = "IndexAlt";
-        public AdminController(ISession session)
+        public AdminController(ISession session, IContentManager contentManager)
         {
+            _contentManager = contentManager;
             _session = session;
         }
         public async Task<ActionResult> Index(string contentId)
@@ -49,6 +52,7 @@ namespace DFC.ServiceTaxonomy.VersionCompare.Controllers
             "DisplayName",
             "FlowPart"
         };
+
 
         private JObject BuildDiffObject(string contentType, JObject source)
         {
@@ -153,25 +157,47 @@ namespace DFC.ServiceTaxonomy.VersionCompare.Controllers
                     compareWidgetObjects.FirstOrDefault(w => w?.ContentItemId == baseWidgetObject?.ContentItemId);
                 var propDiff = new PropertyDiffViewModel
                 {
-                    BaseValue =
-                        baseWidgetObject?.ContentType == "HTMLShared"
-                            ? baseWidgetObject.HTMLShared?.SharedContent?.ContentItemIds?[0]
-                            : baseWidgetObject?.HtmlBodyPart?.Html,
-                    CompareValue =
-                        compareWidgetObject?.ContentType == "HTMLShared"
-                            ? compareWidgetObject.HTMLShared?.SharedContent?.ContentItemIds?[0]
-                            : compareWidgetObject?.HtmlBodyPart?.Html,
                     PropertyName = "FlowPart.Item_" + indexer.ToString("00"),
-                    PropertyLabel = "FlowPart." + baseWidgetObject?.ContentType + ".Item_" + indexer.ToString("00"),
-                    LanguageType = baseWidgetObject?.ContentType == "HTMLShared"
-                        ? LanguageType.Text
-                        : LanguageType.Html
+                    PropertyLabel = "FlowPart." + baseWidgetObject?.ContentType + ".Item_" + indexer.ToString("00")
+
                 };
+                if (baseWidgetObject?.ContentType == "HTMLShared")
+                {
+                    propDiff.BaseValue =
+                         GetContentName(baseWidgetObject?.HTMLShared?.SharedContent?.ContentItemIds?[0]).Result;
+                    propDiff.CompareValue =
+                        GetContentName(compareWidgetObject?.HTMLShared?.SharedContent?.ContentItemIds?[0]).Result;
+                    propDiff.IsHtmlShared = true;
+                    propDiff.LanguageType = LanguageType.Text;
+                    propDiff.BaseContentId = baseWidgetObject?.HTMLShared?.SharedContent?.ContentItemIds?[0];
+                    propDiff.CompareContentId = compareWidgetObject?.HTMLShared?.SharedContent?.ContentItemIds?[0];
+                }
+                else
+                {
+                    propDiff.BaseValue = baseWidgetObject?.HtmlBodyPart?.Html;
+                    propDiff.CompareValue = compareWidgetObject?.HtmlBodyPart?.Html;
+                    propDiff.LanguageType = LanguageType.Html;
+                }
                 indexer++;
                 list.Add(propDiff);
             }
             return list;
 
+        }
+
+        private async Task<string> GetContentName(string? contentItemId)
+        {
+            if (string.IsNullOrWhiteSpace(contentItemId))
+            {
+                return string.Empty;
+            }
+            var contentItem = await _contentManager.GetAsync(contentItemId);
+            if (contentItem != null)
+            {
+                return contentItem.DisplayText;
+            }
+
+            return string.Empty;
         }
 
         private void RemoveProperties(JObject jObject)
@@ -223,15 +249,19 @@ namespace DFC.ServiceTaxonomy.VersionCompare.Controllers
                     propertyDiffs.AddRange(SortOutFlowPart(currentJson.Property("FlowPart"), previousJson.Property("FlowPart")));
 #pragma warning restore CS8604 // Possible null reference argument.
                 }
-                currentJson = currentJson?.GetValue(selectedProperty) as JObject;
-                previousJson = previousJson?.GetValue(selectedProperty) as JObject;
-                var propertyDiff = new PropertyDiffViewModel
+                else
                 {
-                    PropertyName = selectedProperty,
-                    PropertyLabel = selectedProperty.Substring(selectedProperty.IndexOf('.') + 1)
-                };
-                SetCompareProperties(currentJson?.Properties().First(), previousJson?.Properties().First(), propertyDiff);
-                propertyDiffs.Add(propertyDiff);
+                    currentJson = currentJson?.GetValue(selectedProperty) as JObject;
+                    previousJson = previousJson?.GetValue(selectedProperty) as JObject;
+                    var propertyDiff = new PropertyDiffViewModel
+                    {
+                        PropertyName = selectedProperty,
+                        PropertyLabel = selectedProperty.Substring(selectedProperty.IndexOf('.') + 1)
+                    };
+                    SetCompareProperties(currentJson?.Properties().First(), previousJson?.Properties().First(),
+                        propertyDiff);
+                    propertyDiffs.Add(propertyDiff);
+                }
             }
             else
             {
