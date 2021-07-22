@@ -188,7 +188,8 @@ stages:
       PSScriptPath: "$(Pipeline.Workspace)/${{ variables.SolutionBaseName }}.Editor.Resources.PSScripts"
 
 - stage: DeployToDev
-  condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'))
+  dependsOn: PublishPackage
+  condition: and(eq(dependencies.Build.result,'Succeeded'), ne(variables['Build.Reason'], 'PullRequest'))
   displayName: Deploy to DEV_SERVICETAXONOMY
   variables:
   - group: dfc-shared-all
