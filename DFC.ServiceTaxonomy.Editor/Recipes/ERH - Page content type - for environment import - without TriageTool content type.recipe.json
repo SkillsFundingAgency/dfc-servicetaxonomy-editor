@@ -1,0 +1,277 @@
+﻿{
+    "name": "erh-initial-environment-load-no-triage-tool",
+    "displayName": "ERH - initial environment load",
+    "description": "Sets up the Page content type for ERH enhancement - without Triage Tool content types",
+    "author": "National Careers Service",
+    "website": "https://github.com/SkillsFundingAgency/dfc-servicetaxonomy-editor",
+    "version": null,
+    "issetuprecipe": false,
+    "categories": [
+        "default"
+    ],
+    "tags": [
+        "ncs"
+    ],
+    "steps": [
+        {
+            "name": "ContentDefinition",
+            "ContentTypes": [
+                {
+                    "Name": "Page",
+                    "DisplayName": "Page",
+                    "Settings": {
+                        "ContentTypeSettings": {
+                            "Creatable": true,
+                            "Listable": true,
+                            "Draftable": true,
+                            "Versionable": true,
+                            "Securable": true
+                        },
+                        "FullTextAspectSettings": {}
+                    },
+                    "ContentTypePartDefinitionRecords": [
+                        {
+                            "PartName": "TitlePart",
+                            "Name": "TitlePart",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "0"
+                                }
+                            }
+                        },
+                        {
+                            "PartName": "Page",
+                            "Name": "Page",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "2"
+                                }
+                            }
+                        },
+                        {
+                            "PartName": "SitemapPart",
+                            "Name": "SitemapPart",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "3"
+                                }
+                            }
+                        },
+                        {
+                            "PartName": "FlowPart",
+                            "Name": "FlowPart",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "4"
+                                },
+                                "FlowPartSettings": {
+                                    "ContainedContentTypes": [
+                                        "Form",
+                                        "HTML",
+                                        "HTMLShared"
+                                    ]
+                                },
+                                "ContentIndexSettings": {}
+                            }
+                        },
+                        {
+                            "PartName": "GraphSyncPart",
+                            "Name": "GraphSyncPart",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "5"
+                                },
+                                "GraphSyncPartSettings": {
+                                    "NodeNameTransform": "ContentType",
+                                    "PropertyNameTransform": "Value",
+                                    "IdPropertyName": "uri",
+                                    "GenerateIdPropertyValue": "$\"<<contentapiprefix>>/{ContentType}/{Value}\".ToLowerInvariant()",
+                                    "DisplayId": true
+                                }
+                            }
+                        },
+                        {
+                            "PartName": "PageLocationPart",
+                            "Name": "PageLocationPart",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "1"
+                                },
+                                "PageLocationPartSettings": {
+                                    "DisplayRedirectLocationsAndDefaultPageForLocation": true
+                                }
+                            }
+                        },
+                        {
+                            "PartName": "ContentApprovalPart",
+                            "Name": "ContentApprovalPart",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "6"
+                                }
+                            }
+                        }
+                    ]
+                }
+            ],
+            "ContentParts": [
+                {
+                    "Name": "GraphSyncPart",
+                    "Settings": {
+                        "ContentPartSettings": {
+                            "Attachable": true,
+                            "Description": "Enables the content type to be synced to a graph."
+                        }
+                    },
+                    "ContentPartFieldDefinitionRecords": []
+                },
+                {
+                    "Name": "PageLocationPart",
+                    "Settings": {
+                        "ContentPartSettings": {
+                            "Attachable": true,
+                            "Description": "Adds the page location part."
+                        }
+                    },
+                    "ContentPartFieldDefinitionRecords": []
+                },
+                {
+                    "Name": "SitemapPart",
+                    "Settings": {
+                        "ContentPartSettings": {
+                            "Attachable": true,
+                            "Description": "Provides an optional part that allows content items to be excluded, or configured, on a content item."
+                        }
+                    },
+                    "ContentPartFieldDefinitionRecords": []
+                },
+                {
+                    "Name": "FlowPart",
+                    "Settings": {
+                        "ContentPartSettings": {
+                            "Attachable": true,
+                            "Description": "Provides a customizable body for your content item."
+                        }
+                    },
+                    "ContentPartFieldDefinitionRecords": []
+                },
+                {
+                    "Name": "TitlePart",
+                    "Settings": {
+                        "ContentPartSettings": {
+                            "Attachable": true,
+                            "Description": "Provides a Title for your content item.",
+                            "DefaultPosition": "0"
+                        }
+                    },
+                    "ContentPartFieldDefinitionRecords": []
+                },
+                {
+                    "Name": "Page",
+                    "Settings": {},
+                    "ContentPartFieldDefinitionRecords": [
+                        {
+                            "FieldName": "TaxonomyField",
+                            "Name": "PageLocations",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Page Locations",
+                                    "Position": "0"
+                                },
+                                "ContentIndexSettings": {},
+                                "TaxonomyFieldSettings": {
+                                    "Required": true,
+                                    "TaxonomyContentItemId": "4eembshqzx66drajtdten34tc8",
+                                    "Unique": true
+                                },
+                                "TaxonomyFieldTagsEditorSettings": {
+                                    "Open": false
+                                }
+                            }
+                        },
+                        {
+                            "FieldName": "TextField",
+                            "Name": "Description",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Description",
+                                    "Position": "6"
+                                }
+                            }
+                        },
+                        {
+                            "FieldName": "HtmlField",
+                            "Name": "Herobanner",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Hero banner",
+                                    "Editor": "Trumbowyg",
+                                    "Position": "8"
+                                },
+                                "HtmlFieldSettings": {},
+                                "HtmlFieldTrumbowygEditorSettings": {
+                                    "Options": "{\r\n    semantic: {\r\n        'b': 'strong',\r\n        'i': 'em',\r\n        's': 'del',\r\n        'strike': 'del',\r\n        'div': 'div'\r\n    },\r\n    tagsToKeep: [\r\n      \"area\",\r\n      \"base\",\r\n      \"br\",\r\n      \"col\",\r\n      \"embed\",\r\n      \"hr\",\r\n      \"img\",\r\n      \"input\",\r\n      \"param\",\r\n      \"source\",\r\n      \"track\",\r\n      \"wbr\",\r\n\r\n      \"div\",\r\n      \"iframe\"\r\n    ],\r\n    autogrow: true,\r\n    btns: [\r\n        [\"viewHTML\"],\r\n        [\"undo\", \"redo\"],\r\n        [\"heading\", \"paragraph\", \"fontSize\"],\r\n        [\"fontWeight\"],\r\n        [\"foreColor\", \"backColor\"],\r\n        [\"links\"],\r\n        [\"image\"],\r\n        [\"align\"],\r\n        [\"list\", \"bulletList\", \"numberList\"],\r\n        [\"sectionBreak\"],\r\n        [\"removeformat\"],\r\n        [\"fullscreen\"],\r\n        [\"accordion\"],\r\n        [\"tabs\"]\r\n    ],\r\n    btnsDef: {\r\n        align: {\r\n            dropdown: [\"justifyLeft\", \"justifyCenter\", \"justifyRight\", \"justifyFull\"],\r\n            ico: \"justifyLeft\"\r\n        },\r\n        image: {\r\n            dropdown: [\"insertMedia\", \"base64\",\"youtubeLink\"],\r\n            ico: \"insertImage\"\r\n        }\r\n    },\r\n    plugins: {\r\n      colors: {\r\n          colorList: [\r\n            '0b0c0c',\r\n            '626a6e',\r\n            '1d70b8',\r\n            '003078',\r\n            '4c2c92',\r\n            'b1b4b6',\r\n            'ffdd00',\r\n            'd4351c',\r\n            \r\n            '003a69',\r\n            '347ca9',\r\n            \r\n            '00703c',\r\n            '5694ca',\r\n            'f3f2f1',\r\n            'ffffff',\r\n            '6f72af',\r\n            '912b88',\r\n            'd53880',\r\n            'f499be',\r\n            'f47738',\r\n            'b58840',\r\n            '85994b',\r\n            '28a197',\r\n          ]\r\n      }\r\n  }\r\n}"
+                                },
+                                "ContentIndexSettings": {}
+                            }
+                        },
+                        {
+                            "FieldName": "BooleanField",
+                            "Name": "ShowHeroBanner",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "ShowHeroBanner",
+                                    "Editor": "Switch",
+                                    "Position": "7"
+                                },
+                                "BooleanFieldSettings": {
+                                    "Label": "Show hero banner"
+                                },
+                                "ContentIndexSettings": {}
+                            }
+                        },
+                        {
+                            "FieldName": "BooleanField",
+                            "Name": "ShowBreadcrumb",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Show breadcrumb",
+                                    "Editor": "Switch",
+                                    "Position": "5"
+                                },
+                                "BooleanFieldSettings": {
+                                    "Label": "Show breadcrumb",
+                                    "DefaultValue": true
+                                },
+                                "ContentIndexSettings": {}
+                            }
+                        },
+                        {
+                            "FieldName": "BooleanField",
+                            "Name": "UseBrowserWidth",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Use Browser Width",
+                                    "Editor": "Switch",
+                                    "Position": "1"
+                                },
+                                "BooleanFieldSettings": {},
+                                "ContentIndexSettings": {}
+                            }
+                        }
+                    ]
+                },
+                {
+                    "Name": "ContentApprovalPart",
+                    "Settings": {
+                        "ContentPartSettings": {
+                            "Attachable": true,
+                            "Description": "Adds publishing status workflow properties to content items."
+                        }
+                    },
+                    "ContentPartFieldDefinitionRecords": []
+                }
+            ]
+        }
+    ]
+}
