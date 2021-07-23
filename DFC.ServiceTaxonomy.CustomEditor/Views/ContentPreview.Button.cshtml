@@ -18,16 +18,16 @@
 @if (isPageContentType)
 {
     string url = contentItem.Content[nameof(PageLocationPart)][nameof(PageLocationPart.FullUrl)];
-    bool allowPagePreview = contentItem.HasDraft();
+    bool allowPagePreview = !string.IsNullOrWhiteSpace(contentItem.ContentItemVersionId) && contentItem.HasDraft();
 
     <div class="btn-group btn-group-approval">
         @if (allowPagePreview)
         {
-            <a href="@($"{PageConfig.PreviewAppPrefix}{url}")" target="_blank" class="btn btn-info">@T["Page preview"]</a>
+            <a href="@($"{PageConfig.PreviewAppPrefix}{url}")" target="_blank" class="btn btn-info">@T["Preview draft"]</a>
         }
         else
         {
-            <button disabled="disabled" class="btn btn-info" title="A draft version must be saved before using the preview">@T["Page preview"]</button>
+            <button disabled="disabled" class="btn btn-info" title="A draft version must be saved before using the preview">@T["Preview draft"]</button>
         }
     </div>
 }

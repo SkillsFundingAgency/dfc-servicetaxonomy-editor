@@ -14,4 +14,4 @@
 - name: OwlDataGeneratorDescription
   value: NationalCareersService-ServiceTaxonomy
 - name: AzureAdSettingsAuthority
-  value: https://login.microsoftonline.com/$(Authentication_Tenant)/$(Authentication_Tenant_Domain)
+  value: https://login.microsoftonline.com/$(Authentication_Tenant)

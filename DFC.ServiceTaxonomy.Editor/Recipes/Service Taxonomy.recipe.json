@@ -38,6 +38,7 @@
                 // Content Management
                 "OrchardCore.AdminDashboard",
                 "OrchardCore.Alias",
+                "OrchardCore.AuditTrail",
                 "OrchardCore.Autoroute",
                 "OrchardCore.AuditTrail",
                 "OrchardCore.Html",
@@ -67,6 +68,7 @@
                 "OrchardCore.Title",
                 "OrchardCore.Templates",
                 "OrchardCore.Widgets",
+                "OrchardCore.Users.AuditTrail",
                 // Hosting
                 "OrchardCore.Media.Azure.Storage",
                 // Workflows

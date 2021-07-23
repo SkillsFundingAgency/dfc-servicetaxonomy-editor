@@ -84,13 +84,22 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Drivers
             var reviewStatuses = new[] {ReviewStatus.ReadyForReview, ReviewStatus.InReview};
 
             var results = new List<IDisplayResult>();
+            // Show force publish
+            if(part.ReviewStatus == ReviewStatus.NotInReview && await _authorizationService.AuthorizeAsync(currentUser, Permissions.ForcePublishPermissions.ForcePublishPermission))
+            {
+                results.Add(Initialize<ContentApprovalPartViewModel>(
+                        $"{editorShape}_ForcePublish",
+                        viewModel => PopulateViewModel(part, viewModel))
+                    .Location("Actions:15"));
+            }
+
             // Show Request review option
             if (await _authorizationService.AuthorizeAsync(currentUser, Permissions.RequestReviewPermissions.RequestReviewPermission))
             {
                 results.Add(Initialize<ContentApprovalPartViewModel>(
                         $"{editorShape}_RequestReview",
                         viewModel => PopulateViewModel(part, viewModel))
-                    .Location("Actions:20"));
+                    .Location("Actions:16"));
             }
 
             // Show Request revision option
@@ -102,14 +111,6 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Drivers
                     .Location("Actions:First"));
             }
 
-            // Show force publish
-            if(part.ReviewStatus == ReviewStatus.NotInReview && await _authorizationService.AuthorizeAsync(currentUser, Permissions.ForcePublishPermissions.ForcePublishPermission))
-            {
-                results.Add(Initialize<ContentApprovalPartViewModel>(
-                        $"{editorShape}_ForcePublish",
-                        viewModel => PopulateViewModel(part, viewModel))
-                    .Location("Actions:15"));
-            }
 
             // Show comment field
             results.Add(Initialize<ContentApprovalPartViewModel>(
