@@ -232,3 +232,4 @@ Local Orchard Core package history, as stored in OrchardCorePackages folder.
 | rc11 | https://github.com/OrchardCMS/OrchardCore/tree/dev 5702acffa357a204f481a9627290ad9cf554673f : 10 Jun 21 | Vanilla OC dev branch | |
 | rc12 | https://github.com/OrchardCMS/OrchardCore/tree/dev deb0827c743e79ddad91df06e5ac71e8932c5373 : 23 Jul 21 | Vanilla OC dev branch | |
 
+23/07/2021 Orchard Core version 1.0.0 nuget packages released and solution updated with these.

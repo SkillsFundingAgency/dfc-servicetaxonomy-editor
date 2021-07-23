@@ -54,8 +54,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DFC.ServiceTaxonomy.Taxonom
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DFC.ServiceTaxonomy.Content", "DFC.ServiceTaxonomy.Content\DFC.ServiceTaxonomy.Content.csproj", "{F8935113-7D2A-4156-866E-47AF78D1F997}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "OrchardCorePackages", "OrchardCorePackages", "{A7C90278-8F0E-4F99-8AD1-816B7C9FE739}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DFC.ServiceTaxonomy.Slack", "DFC.ServiceTaxonomy.Slack\DFC.ServiceTaxonomy.Slack.csproj", "{D82B530E-8453-4963-8ABE-64947ED69A8F}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documentation", "Documentation", "{01FC712E-9E3D-4690-81A0-E2EDD3B18697}"
