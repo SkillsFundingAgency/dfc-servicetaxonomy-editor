@@ -36,7 +36,9 @@
                 "OrchardCore.Themes",
                 "OrchardCore.Users",
                 // Content Management
+                "OrchardCore.AdminDashboard",
                 "OrchardCore.Alias",
+                "OrchardCore.AuditTrail",
                 "OrchardCore.Autoroute",
                 "OrchardCore.Html",
                 "OrchardCore.Https",
@@ -65,6 +67,7 @@
                 "OrchardCore.Title",
                 "OrchardCore.Templates",
                 "OrchardCore.Widgets",
+                "OrchardCore.Users.AuditTrail",
                 // Hosting
                 "OrchardCore.Media.Azure.Storage",
                 // Workflows
@@ -88,8 +91,6 @@
                 "DFC.ServiceTaxonomy.Taxonomies",
                 "DFC.ServiceTaxonomy.Taxonomies.ContentsAdminList",
                 "DFC.ServiceTaxonomy.UnpublishLater",
-                "OrchardCore.AuditTrail",
-                "OrchardCore.AdminDashboard",
                 "DFC.ServiceTaxonomy.ContentApproval"
             ]
         },
