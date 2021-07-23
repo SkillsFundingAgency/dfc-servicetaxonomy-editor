@@ -50,6 +50,7 @@ namespace DFC.ServiceTaxonomy.Editor
                 sanitizer.AllowedAttributes.Add("viewBox");
                 sanitizer.AllowedAttributes.Add("allowfullscreen");
                 sanitizer.AllowedSchemes.Add("mailto");
+                sanitizer.AllowedSchemes.Add("tel");
 
             }));
 
