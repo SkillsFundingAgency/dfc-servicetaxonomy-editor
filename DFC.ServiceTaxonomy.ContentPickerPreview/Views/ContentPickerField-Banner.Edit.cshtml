@@ -21,10 +21,10 @@
 
     var globalBanners = new List<BannerType>();
 
-    foreach(var contentItem in contentItems)
+    foreach (var contentItem in contentItems)
     {
 
-        if(contentItem.Content.Banner.IsGlobal.Value == true)
+        if (contentItem.Content.Banner.IsGlobal.Value == true)
         {
             var banner = new BannerType
             {
@@ -41,9 +41,9 @@
 
     };
 
-    foreach(var globalBanner in globalBanners)
+    foreach (var globalBanner in globalBanners)
     {
-        if(!Model.SelectedItems.Any(x=>x.Id == globalBanner.Id))
+        if (!Model.SelectedItems.Any(x => x.Id == globalBanner.Id))
         {
             Model.SelectedItems.Add(new OrchardCore.ContentFields.ViewModels.VueMultiselectItemViewModel
             {

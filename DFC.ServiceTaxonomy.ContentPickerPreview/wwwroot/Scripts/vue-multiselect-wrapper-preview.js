@@ -12,11 +12,12 @@
         if (callNow) func.apply(context, args);
     };
 };
-function initVueMultiselectPreview(element) {
+function initVueMultiselectPreview(element,banners) {
     // only run script if element exists
     if (element) {
         var elementId = element.id;
         var selectedItems = JSON.parse(element.dataset.selectedItems || "[]");
+        var globalBanners = JSON.parse(element.dataset.globalBanners || "[]");
         var searchUrl = element.dataset.searchUrl;
         var multiple = JSON.parse(element.dataset.multiple);
         var previewCollapse = $('#' + elementId).next('.collapse');
@@ -30,7 +31,8 @@ function initVueMultiselectPreview(element) {
             }
             fetch(searchFullUrl).then(function (res) {
                 res.json().then(function (json) {
-                    vm.options = json;
+                    var filterBanners = json.filter(banner => !globalBanners.map(x => x.id).includes(banner.id))
+                    vm.options = filterBanners;
                     vm.isLoading = false;
                 })
             });
