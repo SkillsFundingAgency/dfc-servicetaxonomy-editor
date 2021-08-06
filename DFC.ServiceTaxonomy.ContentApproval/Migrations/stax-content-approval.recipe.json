@@ -37,7 +37,8 @@
                         "ManageOwnUserInformation",
                         "AccessAdminPanel",
                         "ManageMediaContent",
-                        "AccessAdminDashboard"
+                        "AccessAdminDashboard",
+                        "ViewAuditTrail"
                     ]
                 },
                 {
@@ -57,7 +58,8 @@
                         "ManageOwnUserInformation",
                         "AccessAdminPanel",
                         "ManageMediaContent",
-                        "AccessAdminDashboard"
+                        "AccessAdminDashboard",
+                        "ViewAuditTrail"
                     ]
                 },
                 {
@@ -72,7 +74,8 @@
                         "CanPerformUXReviewPermission",
                         "ManageOwnUserInformation",
                         "AccessAdminPanel",
-                        "AccessAdminDashboard"
+                        "AccessAdminDashboard",
+                        "ViewAuditTrail"
                     ]
                 },
                 {
@@ -87,7 +90,8 @@
                         "CanPerformSMEReviewPermission",
                         "ManageOwnUserInformation",
                         "AccessAdminPanel",
-                        "AccessAdminDashboard"
+                        "AccessAdminDashboard",
+                        "ViewAuditTrail"
                     ]
                 },
                 {
@@ -102,7 +106,8 @@
                         "CanPerformContentDesignReviewPermission",
                         "ManageOwnUserInformation",
                         "AccessAdminPanel",
-                        "AccessAdminDashboard"
+                        "AccessAdminDashboard",
+                        "ViewAuditTrail"
                     ]
                 },
                 {
@@ -117,7 +122,8 @@
                         "CanPerformStakeholderApprovalPermission",
                         "ManageOwnUserInformation",
                         "AccessAdminPanel",
-                        "AccessAdminDashboard"
+                        "AccessAdminDashboard",
+                        "ViewAuditTrail"
                     ]
                 }
             ]
