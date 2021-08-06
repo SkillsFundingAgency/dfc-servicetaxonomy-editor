@@ -205,32 +205,61 @@
         }
     });
 
-    function setParagraph(trumbowyg, paragraph) {
+    function updateNode(trumbowyg, nodeName, nodeClass) {
+        var documentSelection = trumbowyg.doc.getSelection();
+        var node = documentSelection.focusNode;
+        // If we are inside an A tag we need to move to the parent node
+        if (node.parentNode.nodeName === "A") {
+            node = node.parentNode;
+        }
 
-        trumbowyg.execCmd('formatBlock', 'p');
+        // Get the text that is to be wrapped in the new tag
+        var text = node.parentNode.innerHTML;
+        var newNodeString = ["<", nodeName, " class=\"", nodeClass, "\">", text, "</", nodeName, ">"].join("");
 
-        var selection = trumbowyg.doc.getSelection();
-        $(selection.focusNode.parentNode).addClass(paragraph.class);
+        // Ensure correct node range is being replaced
+        if (["H1", "H2", "H3", "H4", "P"].indexOf(node.parentNode.nodeName) > -1) {
+            node = node.parentNode;
+        } else if (node.parentNode.nodeName === "LI") {
+            node = node.parentNode;
+            newNodeString = ["<LI>", newNodeString, "</LI>"].join("");
+        }
 
-        // var selectionParentElement = getSelectionParentElement();
-        // $(selectionParentElement).addClass(paragraph.class);
+        // Update the range to be replaced
+        var range = trumbowyg.doc.createRange();
+        range.selectNode(node);
+        documentSelection.removeAllRanges();
+        documentSelection.addRange(range);
+        trumbowyg.saveRange();
+        trumbowyg.$c.trigger("tbwchange");
 
-        // trumbowyg.saveRange();
-        // var text = trumbowyg.getRangeText();
-        // if (text.replace(/\s/g, '') !== '') {
-        //     try {
-        //         var parent = getSelectionParentElement();
-        //         $(parent).addClass(paragraph.class);
-        //     } catch (e) {
-        //     }
-        // }
+        // Update range with new node
+        var newNode = $(newNodeString)[0];
+        trumbowyg.range.deleteContents();
+        trumbowyg.range.insertNode(newNode);
+
+        trumbowyg.$c.trigger("tbwchange");
     }
 
-    function setHeading(trumbowyg, heading) {
+    function setParagraph(trumbowyg, paragraph) {
+        updateNode(trumbowyg, "P", paragraph.class);
+    }
 
+
+    function setHeading(trumbowyg, heading) {
+        updateNode(trumbowyg, heading.name, heading.class);
+    }
+
+    function setHeadings(trumbowyg, heading) {
+
+        var documentSelection = trumbowyg.doc.getSelection();
+        var node = documentSelection.focusNode;
+        trumbowyg.saveRange();
+        var cloneRange = trumbowyg.range.cloneRange();
         trumbowyg.execCmd('formatBlock', heading.name);
 
         var selection = trumbowyg.doc.getSelection();
+        var findrange = selection.find(cloneRange);
         $(selection.focusNode.parentNode).addClass(heading.class);
     }
 
