@@ -60,6 +60,7 @@
     <ProjectReference Include="..\DFC.ServiceTaxonomy.Taxonomies\DFC.ServiceTaxonomy.Taxonomies.csproj" />
     <ProjectReference Include="..\DFC.ServiceTaxonomy.Theme\DFC.ServiceTaxonomy.Theme.csproj" />
     <ProjectReference Include="..\DFC.ServiceTaxonomy.UnpublishLater\DFC.ServiceTaxonomy.UnpublishLater.csproj" />
+    <ProjectReference Include="..\DFC.ServiceTaxonomy.VersionComparison\DFC.ServiceTaxonomy.VersionComparison.csproj" />
   </ItemGroup>
 
 </Project>
