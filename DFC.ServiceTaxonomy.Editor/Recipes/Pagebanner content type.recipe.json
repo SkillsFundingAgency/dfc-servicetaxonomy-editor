@@ -14,146 +14,147 @@
     ],
     "steps": [
         {
-            "name": "ContentDefinition",
-            "ContentTypes": [
+          "name": "ContentDefinition",
+          "ContentTypes": [
+            {
+              "Name": "Pagebanner",
+              "DisplayName": "Page banner",
+              "Settings": {
+                "ContentTypeSettings": {
+                  "Creatable": true,
+                  "Listable": true,
+                  "Draftable": true,
+                  "Versionable": true,
+                  "Securable": true
+                },
+                "FullTextAspectSettings": {}
+              },
+              "ContentTypePartDefinitionRecords": [
                 {
-                    "Name": "Pagebanner",
-                    "DisplayName": "Page banner",
-                    "Settings": {
-                        "ContentTypeSettings": {
-                            "Creatable": true,
-                            "Listable": true,
-                            "Draftable": true,
-                            "Versionable": true,
-                            "Securable": true
-                        },
-                        "FullTextAspectSettings": {}
+                  "PartName": "Pagebanner",
+                  "Name": "Pagebanner",
+                  "Settings": {
+                    "ContentTypePartSettings": {
+                      "Position": "2"
+                    }
+                  }
+                },
+                {
+                  "PartName": "ContentApprovalPart",
+                  "Name": "ContentApprovalPart",
+                  "Settings": {
+                    "ContentTypePartSettings": {
+                      "Position": "3"
+                    }
+                  }
+                },
+                {
+                  "PartName": "GraphSyncPart",
+                  "Name": "GraphSyncPart",
+                  "Settings": {
+                    "ContentTypePartSettings": {
+                      "Position": "4"
                     },
-                    "ContentTypePartDefinitionRecords": [
-                        {
-                            "PartName": "Pagebanner",
-                            "Name": "Pagebanner",
-                            "Settings": {
-                                "ContentTypePartSettings": {
-                                    "Position": "2"
-                                }
-                            }
-                        },
-                        {
-                            "PartName": "ContentApprovalPart",
-                            "Name": "ContentApprovalPart",
-                            "Settings": {
-                                "ContentTypePartSettings": {
-                                    "Position": "3"
-                                }
-                            }
-                        },
-                        {
-                            "PartName": "GraphSyncPart",
-                            "Name": "GraphSyncPart",
-                            "Settings": {
-                                "ContentTypePartSettings": {
-                                    "Position": "4"
-                                },
-                                "GraphSyncPartSettings": {
-                                    "NodeNameTransform": "ContentType",
-                                    "PropertyNameTransform": "Value",
-                                    "IdPropertyName": "uri",
-                                    "GenerateIdPropertyValue": "$\"<<contentapiprefix>>/{ContentType}/{Value}\".ToLowerInvariant()",
-                                    "DisplayId": true
-                                },
-                                "ContentIndexSettings": {}
-                            }
-                        },
-                        {
-                            "PartName": "BannerPart",
-                            "Name": "BannerPart",
-                            "Settings": {
-                                "ContentTypePartSettings": {
-                                    "Position": "1"
-                                }
-                            }
-                        },
-                        {
-                            "PartName": "TitlePart",
-                            "Name": "TitlePart",
-                            "Settings": {
-                                "ContentTypePartSettings": {
-                                    "Position": "0"
-                                }
-                            }
-                        }
-                    ]
+                    "GraphSyncPartSettings": {
+                      "NodeNameTransform": "ContentType",
+                      "PropertyNameTransform": "Value",
+                      "IdPropertyName": "uri",
+                      "GenerateIdPropertyValue": "$\"<<contentapiprefix>>/{ContentType}/{Value}\".ToLowerInvariant()",
+                      "DisplayId": true
+                    },
+                    "ContentIndexSettings": {}
+                  }
+                },
+                {
+                  "PartName": "BannerPart",
+                  "Name": "BannerPart",
+                  "Settings": {
+                    "ContentTypePartSettings": {
+                      "Position": "1"
+                    }
+                  }
+                },
+                {
+                  "PartName": "TitlePart",
+                  "Name": "TitlePart",
+                  "Settings": {
+                    "ContentTypePartSettings": {
+                      "Position": "0"
+                    }
+                  }
                 }
-            ],
-            "ContentParts": [
-                {
-                    "Name": "BannerPart",
-                    "Settings": {
-                        "ContentPartSettings": {
-                            "Attachable": true,
-                            "Description": "Adds banner related properties to a content item."
-                        }
-                    },
-                    "ContentPartFieldDefinitionRecords": []
-                },
-                {
-                    "Name": "ContentApprovalPart",
-                    "Settings": {
-                        "ContentPartSettings": {
-                            "Attachable": true,
-                            "Description": "Adds publishing status workflow properties to content items."
-                        }
-                    },
-                    "ContentPartFieldDefinitionRecords": []
-                },
-                {
-                    "Name": "GraphSyncPart",
-                    "Settings": {
-                        "ContentPartSettings": {
-                            "Attachable": true,
-                            "Description": "Enables the content type to be synced to a graph."
-                        }
-                    },
-                    "ContentPartFieldDefinitionRecords": []
-                },
-                {
-                    "Name": "TitlePart",
-                    "Settings": {
-                        "ContentPartSettings": {
-                            "Attachable": true,
-                            "Description": "Provides a Title for your content item.",
-                            "DefaultPosition": "0"
-                        }
-                    },
-                    "ContentPartFieldDefinitionRecords": []
-                },
-                {
-                    "Name": "Pagebanner",
-                    "Settings": {},
-                    "ContentPartFieldDefinitionRecords": [
-                        {
-                            "FieldName": "ContentPickerField",
-                            "Name": "Addabanner",
-                            "Settings": {
-                                "ContentPartFieldSettings": {
-                                    "DisplayName": "Add a banner",
-                                    "Position": "0"
-                                },
-                                "ContentPickerFieldSettings": {
-                                    "Hint": "Drag and drop banners to arrange the order in which they will display on the webpage location(s) defined above. Remove individual banners as necessary. Global banners cannot be manually ordered or removed.",
-                                    "Required": true,
-                                    "Multiple": true,
-                                    "DisplayedContentTypes": [
-                                        "Banner"
-                                    ]
-                                },
-                                "ContentIndexSettings": {}
-                            }
-                        }
-                    ]
+              ]
+            }
+          ],
+          "ContentParts": [
+            {
+              "Name": "BannerPart",
+              "Settings": {
+                "ContentPartSettings": {
+                  "Attachable": true,
+                  "Description": "Adds banner related properties to a content item."
                 }
-            ]
+              },
+              "ContentPartFieldDefinitionRecords": []
+            },
+            {
+              "Name": "ContentApprovalPart",
+              "Settings": {
+                "ContentPartSettings": {
+                  "Attachable": true,
+                  "Description": "Adds publishing status workflow properties to content items."
+                }
+              },
+              "ContentPartFieldDefinitionRecords": []
+            },
+            {
+              "Name": "GraphSyncPart",
+              "Settings": {
+                "ContentPartSettings": {
+                  "Attachable": true,
+                  "Description": "Enables the content type to be synced to a graph."
+                }
+              },
+              "ContentPartFieldDefinitionRecords": []
+            },
+            {
+              "Name": "TitlePart",
+              "Settings": {
+                "ContentPartSettings": {
+                  "Attachable": true,
+                  "Description": "Provides a Title for your content item.",
+                  "DefaultPosition": "0"
+                }
+              },
+              "ContentPartFieldDefinitionRecords": []
+            },
+            {
+              "Name": "Pagebanner",
+              "Settings": {},
+              "ContentPartFieldDefinitionRecords": [
+                {
+                  "FieldName": "ContentPickerField",
+                  "Name": "Addabanner",
+                  "Settings": {
+                    "ContentPartFieldSettings": {
+                      "DisplayName": "Add a banner",
+                      "Editor": "Banner",
+                      "Position": "0"
+                    },
+                    "ContentPickerFieldSettings": {
+                      "Hint": "Drag and drop banners to arrange the order in which they will display on the webpage location(s) defined above. Remove individual banners as necessary. Global banners cannot be manually ordered or removed.",
+                      "Required": true,
+                      "Multiple": true,
+                      "DisplayedContentTypes": [
+                        "Banner"
+                      ]
+                    },
+                    "ContentIndexSettings": {}
+                  }
+                }
+              ]
+            }
+          ]
         }
-    ]
+      ]
 }
