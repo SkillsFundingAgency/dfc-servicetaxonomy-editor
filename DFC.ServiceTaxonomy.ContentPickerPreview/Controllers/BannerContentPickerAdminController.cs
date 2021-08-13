@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.ContentPickerPreview.Models;
 using DFC.ServiceTaxonomy.ContentPickerPreview.Services;
+using DFC.ServiceTaxonomy.ContentPickerPreview.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using OrchardCore.Admin;
 using OrchardCore.ContentFields.Settings;

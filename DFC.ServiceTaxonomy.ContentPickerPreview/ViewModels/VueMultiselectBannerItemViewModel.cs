@@ -1,4 +1,4 @@
-﻿namespace DFC.ServiceTaxonomy.ContentPickerPreview.Models
+﻿namespace DFC.ServiceTaxonomy.ContentPickerPreview.ViewModels
 {
     public class VueMultiselectBannerItemViewModel
     {
