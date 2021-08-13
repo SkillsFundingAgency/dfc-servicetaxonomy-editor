@@ -45,17 +45,18 @@ namespace DFC.ServiceTaxonomy.VersionComparison.Controllers
 
         public async Task<ActionResult> Index(string contentItemId)
         {
-            var contentItem = await _contentManager.GetAsync(contentItemId);
-            if(contentItem == null)
+
+            var versions = await _auditTrailQueryService.GetVersions(contentItemId);
+            if (!versions.Any())
             {
                 return NotFound();
             }
-
-            var versions = await _auditTrailQueryService.GetVersions(contentItemId);
             if (versions.Count == 1)
             {
                 _notifier.Warning(_h["There is currently only one version of this content item."]);
             }
+
+            var contentItem = versions.First().ContentItem;
 
             var selectVersions = BuildSelectList(versions.Select(v => v.VersionNumber).ToList());
 
@@ -76,18 +77,13 @@ namespace DFC.ServiceTaxonomy.VersionComparison.Controllers
         [HttpPost, ActionName("Index")]
         public async Task<ActionResult> IndexPost([Bind(Prefix = "VersionComparisonOptions")] VersionComparisonOptions options)
         {
-            var contentItem = await _contentManager.GetAsync(options.ContentItemId);
-            if (contentItem == null)
-            {
-                return NotFound();
-            }
-
             if (options.BaseVersion == options.CompareVersion)
             {
                 _notifier.Warning(_h["Both the base and compare version are the same."]);
             }
 
             var versions = await _auditTrailQueryService.GetVersions(options.ContentItemId ?? string.Empty);
+            var contentItem = versions.First().ContentItem;
             var selectVersions = BuildSelectList(versions.Select(v => v.VersionNumber).ToList());
 
             options.BaseVersionSelectListItems = selectVersions;

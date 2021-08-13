@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using OrchardCore.Admin;
+using OrchardCore.ContentManagement.Display.ContentDisplay;
 using OrchardCore.DisplayManagement;
 using OrchardCore.DisplayManagement.Handlers;
 using OrchardCore.Modules;
@@ -30,6 +31,8 @@ namespace DFC.ServiceTaxonomy.VersionComparison
                 .AddScoped<IDisplayDriver<VersionComparisonOptions>, VersionComparisonOptionsDisplayDriver>();
 
             services.AddScoped<IAuditTrailQueryService, AuditTrailQueryService>();
+
+            services.AddScoped<IContentDisplayDriver, VersionComparisonContentsDriver>();
         }
 
         public override void Configure(IApplicationBuilder app, IEndpointRouteBuilder routes,
