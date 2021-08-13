@@ -58,7 +58,7 @@ namespace DFC.ServiceTaxonomy.ContentPickerPreview.Controllers
             });
 
             return new ObjectResult(results.Select(r =>
-                        new VueMultiselectIBannertemViewModel()
+                        new VueMultiselectBannerItemViewModel()
                         {
                             Id = r.ContentItemId,
                             DisplayText = r.DisplayText,
