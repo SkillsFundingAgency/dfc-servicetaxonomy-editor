@@ -1,0 +1,7 @@
+﻿@model VersionComparisonViewModel
+
+<zone name="Title"><h1 class="mb-4">Compare versions: '@Model.ContentItemDisplayName' (@Model.ContentItemContentType)</h1></zone>
+
+<form asp-action="Index" method="post">
+    @await DisplayAsync(Model)
+</form>
