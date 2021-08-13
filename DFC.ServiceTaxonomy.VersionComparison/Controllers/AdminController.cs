@@ -43,6 +43,7 @@ namespace DFC.ServiceTaxonomy.VersionComparison.Controllers
             _versionComparisonOptionsDisplayManager = versionComparisonOptionsDisplayManager;
         }
 
+        [HttpGet]
         public async Task<ActionResult> Index(string contentItemId)
         {
 
@@ -117,8 +118,7 @@ namespace DFC.ServiceTaxonomy.VersionComparison.Controllers
             for (int i = 0; i < versionNumbers.Count; i++)
             {
                 var versionNumberValue = versionNumbers[i].ToString();
-                var versionNumberText = string.Format("version {0}{1}", versionNumberValue,
-                    i == 0 ? " (latest)" : string.Empty);
+                var versionNumberText = $"version {versionNumberValue}{(i == 0 ? " (latest)" : string.Empty)}";
                 selectListItems.Add(new SelectListItem(versionNumberText, versionNumberValue));
             }
             return selectListItems;
