@@ -1,6 +1,6 @@
 ﻿namespace DFC.ServiceTaxonomy.ContentPickerPreview.Models
 {
-    public class VueMultiselectIBannertemViewModel
+    public class VueMultiselectBannerItemViewModel
     {
         public string? Id { get; set; }
         public string? DisplayText { get; set; }
