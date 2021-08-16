@@ -9,7 +9,7 @@ using DFC.ServiceTaxonomy.ContentApproval.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Localization;
-using Newtonsoft.Json;
+using OrchardCore.ContentManagement;
 using OrchardCore.ContentManagement.Display.ContentDisplay;
 using OrchardCore.ContentManagement.Display.Models;
 using OrchardCore.ContentPreview;
@@ -190,10 +190,14 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Drivers
             var isCommentRequired = IsCommentRequired(updateModel);
             if(isCommentRequired)
             {
-                var isCommentEmpty = IsCommentEmpty(part);
-                if(isCommentEmpty)
+                var auditTrailPartExists = part.ContentItem.Has<OrchardCore.Contents.AuditTrail.Models.AuditTrailPart>();
+                if (auditTrailPartExists)
                 {
-                    commentValid = false;
+                    var auditTrailPartComment = part.ContentItem.As<OrchardCore.Contents.AuditTrail.Models.AuditTrailPart>().Comment;
+                    if (string.IsNullOrEmpty(auditTrailPartComment))
+                    {
+                        commentValid = false;
+                    }
                 }
             }
 
@@ -294,50 +298,50 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Drivers
             return isCommentRequired;
         }
 
-        private static bool IsCommentEmpty(ContentApprovalPart part)
-        {
-            const string CommentFieldName = "Comment";
-            bool commentIsEmpty = true;
+        //private static bool IsCommentEmpty(ContentApprovalPart part)
+        //{
+        //    const string CommentFieldName = "Comment";
+        //    bool commentIsEmpty = true;
 
-            if (part != null && part.ContentItem != null && part.ContentItem.Content != null)
-            {
-                var stringContent = Convert.ToString(part?.ContentItem?.Content);
-                if (!string.IsNullOrEmpty(stringContent))
-                {
-                    var auditTrailPartItem = GetJsonItem(nameof(AuditTrailPart), stringContent);
-                    if (auditTrailPartItem != null)
-                    {
-                        var commentItem = GetJsonItem(CommentFieldName, auditTrailPartItem);
-                        if (!string.IsNullOrEmpty(commentItem))
-                        {
-                            commentIsEmpty = false;
-                        }
-                    }
-                }
-            }
+        //    if (part != null && part.ContentItem != null && part.ContentItem.Content != null)
+        //    {
+        //        var stringContent = Convert.ToString(part?.ContentItem?.Content);
+        //        if (!string.IsNullOrEmpty(stringContent))
+        //        {
+        //            var auditTrailPartItem = GetJsonItem(nameof(AuditTrailPart), stringContent);
+        //            if (auditTrailPartItem != null)
+        //            {
+        //                var commentItem = GetJsonItem(CommentFieldName, auditTrailPartItem);
+        //                if (!string.IsNullOrEmpty(commentItem))
+        //                {
+        //                    commentIsEmpty = false;
+        //                }
+        //            }
+        //        }
+        //    }
 
-            return commentIsEmpty;
-        }
+        //    return commentIsEmpty;
+        //}
 
-        private static string GetJsonItem(string key, dynamic content)
-        {
-            string result = string.Empty;
+        //private static string GetJsonItem(string key, dynamic content)
+        //{
+        //    string result = string.Empty;
 
-            var deserialisedContent = JsonConvert.DeserializeObject<Dictionary<string, object>>(content);
-            if (deserialisedContent != null && deserialisedContent?.ContainsKey(key))
-            {
-                var item = deserialisedContent?[key];
-                if (item != null)
-                {
-                    var stringItem = Convert.ToString(item);
-                    if (!string.IsNullOrEmpty(stringItem))
-                    {
-                        result = stringItem;
-                    }
-                }
-            }
+        //    var deserialisedContent = JsonConvert.DeserializeObject<Dictionary<string, object>>(content);
+        //    if (deserialisedContent != null && deserialisedContent?.ContainsKey(key))
+        //    {
+        //        var item = deserialisedContent?[key];
+        //        if (item != null)
+        //        {
+        //            var stringItem = Convert.ToString(item);
+        //            if (!string.IsNullOrEmpty(stringItem))
+        //            {
+        //                result = stringItem;
+        //            }
+        //        }
+        //    }
 
-            return result;
-        }
+        //    return result;
+        //}
     }
 }
