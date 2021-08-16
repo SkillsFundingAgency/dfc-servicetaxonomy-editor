@@ -26,7 +26,7 @@
             Id = selectedItem.Id,
             DisplayText = selectedItem.DisplayText,
             HasPublished = selectedItem.HasPublished,
-            IsActive = bannerContentItems.FirstOrDefault(x => x.ContentItemId == selectedItem.Id).Content.Banner.IsActive.Value,
+            IsActive = bannerContentItems.FirstOrDefault(x => x.ContentItemId == selectedItem.Id)?.Content.Banner.IsActive.Value,
 
         });
     };
