@@ -10,7 +10,6 @@ using OrchardCore.ContentFields.Settings;
 using OrchardCore.ContentManagement;
 using OrchardCore.ContentManagement.Metadata;
 using OrchardCore.ContentManagement.Metadata.Models;
-using OrchardCore.ContentManagement.Metadata.Settings;
 
 namespace DFC.ServiceTaxonomy.ContentPickerPreview.Controllers
 {
@@ -42,7 +41,7 @@ namespace DFC.ServiceTaxonomy.ContentPickerPreview.Controllers
                 return BadRequest("Unable to find field definition");
             }
 
-            string? editor = partFieldDefinition?.GetSettings<ContentPartFieldSettings>().Editor ?? "Default";
+            string? editor = partFieldDefinition.Editor() ?? "Default";
             IBannerContentPickerResultProvider? resultProvider = _resultProviders.FirstOrDefault(p => p.Name == editor);
 
             if (resultProvider == null)
