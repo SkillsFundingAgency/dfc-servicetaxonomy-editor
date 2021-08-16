@@ -297,51 +297,5 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Drivers
 
             return isCommentRequired;
         }
-
-        //private static bool IsCommentEmpty(ContentApprovalPart part)
-        //{
-        //    const string CommentFieldName = "Comment";
-        //    bool commentIsEmpty = true;
-
-        //    if (part != null && part.ContentItem != null && part.ContentItem.Content != null)
-        //    {
-        //        var stringContent = Convert.ToString(part?.ContentItem?.Content);
-        //        if (!string.IsNullOrEmpty(stringContent))
-        //        {
-        //            var auditTrailPartItem = GetJsonItem(nameof(AuditTrailPart), stringContent);
-        //            if (auditTrailPartItem != null)
-        //            {
-        //                var commentItem = GetJsonItem(CommentFieldName, auditTrailPartItem);
-        //                if (!string.IsNullOrEmpty(commentItem))
-        //                {
-        //                    commentIsEmpty = false;
-        //                }
-        //            }
-        //        }
-        //    }
-
-        //    return commentIsEmpty;
-        //}
-
-        //private static string GetJsonItem(string key, dynamic content)
-        //{
-        //    string result = string.Empty;
-
-        //    var deserialisedContent = JsonConvert.DeserializeObject<Dictionary<string, object>>(content);
-        //    if (deserialisedContent != null && deserialisedContent?.ContainsKey(key))
-        //    {
-        //        var item = deserialisedContent?[key];
-        //        if (item != null)
-        //        {
-        //            var stringItem = Convert.ToString(item);
-        //            if (!string.IsNullOrEmpty(stringItem))
-        //            {
-        //                result = stringItem;
-        //            }
-        //        }
-        //    }
-
-        //    return result;
-        //}
     }
 }
