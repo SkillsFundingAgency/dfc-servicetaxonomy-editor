@@ -2,12 +2,13 @@
 
 @{
     var webPageUrlHint = "This field requires a National Careers Service website URL to define where on the live website the banners will be displayed." +
-                         "<br><br><br>To display banners across a whole section such as '\'Careers advice'\', enter the parent location URL for this section, e.g. nationalcareers.service.gov.uk/careers-advice." +
-                         "<br><br>The banners will appear on every page within /careers-advice." +
-                         "<br><br><br>Displaying or managing banners on a individual page is possible, but only if there are no further child pages nested within the location specified, e.g. nationalcareers.service.gov.uk/careers-advice/advice-on-a-gap-year.";
+                         "<br><br>To display banners across a whole section such as '\'Careers advice'\', enter the parent location URL for this section, e.g. nationalcareers.service.gov.uk/careers-advice." +
+                         "<br>The banners will appear on every page within /careers-advice." +
+                         "<br><br>Displaying or managing banners on a individual page is possible, but only if there are no further child pages nested within the location specified," +
+                         "<br>e.g. nationalcareers.service.gov.uk/careers-advice/advice-on-a-gap-year.";
 }
 
-<style asp-name="test" asp-src="~/DFC.ServiceTaxonomy.Banners/Styles/banners.css" debug-src="~/DFC.ServiceTaxonomy.Banners/Styles/banners.css"></style>
+<style asp-name="test" asp-src="~/DFC.ServiceTaxonomy.Banners/Styles/banners.min.css" debug-src="~/DFC.ServiceTaxonomy.Banners/Styles/banners.css"></style>
 
 <div class="form-group" asp-validation-class-for="WebPageName">
     <label asp-for="WebPageName">
