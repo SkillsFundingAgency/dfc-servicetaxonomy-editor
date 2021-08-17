@@ -17,5 +17,7 @@ variables:
   value: basic
 - name: PublishToSlack
   value: true
-- name: MediaStorageAccountName
-  value: dfcdevdigstr
+- name: ExceptionCountThreshold
+  value: 10
+- name: EnableAzureMonitorAlerting
+  value: true
