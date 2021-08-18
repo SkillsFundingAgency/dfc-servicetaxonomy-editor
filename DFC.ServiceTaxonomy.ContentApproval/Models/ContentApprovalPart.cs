@@ -8,5 +8,6 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Models
         public ReviewStatus ReviewStatus { get; set; }
         public ReviewType ReviewType { get; set; }
         public bool IsForcePublished { get; set; }
+        public OrchardCore.DisplayManagement.ModelBinding.IUpdateModel? updateModel { get; set; }
     }
 }

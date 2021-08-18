@@ -173,6 +173,9 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Drivers
                 }
             }
 
+            // save the updateModel in the content approval part for later use in customising the audit event logging
+            part.updateModel = updater;
+
             return await EditAsync(part, context);
         }
 
