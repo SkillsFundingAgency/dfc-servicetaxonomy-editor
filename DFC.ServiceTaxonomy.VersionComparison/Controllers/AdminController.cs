@@ -7,7 +7,7 @@ using DFC.ServiceTaxonomy.VersionComparison.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Localization;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using OrchardCore.ContentManagement;
+using OrchardCore.Contents.AuditTrail.Models;
 using OrchardCore.DisplayManagement;
 using OrchardCore.DisplayManagement.ModelBinding;
 using OrchardCore.DisplayManagement.Notify;
@@ -17,16 +17,18 @@ namespace DFC.ServiceTaxonomy.VersionComparison.Controllers
     public class AdminController : Controller
     {
         private readonly IAuditTrailQueryService _auditTrailQueryService;
-        private readonly IContentManager _contentManager;
-        private readonly IShapeFactory _shapeFactory;
+        private readonly IDiffBuilderService _diffBuilderService;
+        private readonly IDisplayManager<DiffItem> _diffItemDisplayManager;
         private readonly IDisplayManager<VersionComparisonOptions> _versionComparisonOptionsDisplayManager;
-        private readonly IUpdateModelAccessor _updateModelAccessor;
-        private readonly INotifier _notifier;
         private readonly IHtmlLocalizer<AdminController> _h;
+        private readonly INotifier _notifier;
+        private readonly IShapeFactory _shapeFactory;
+        private readonly IUpdateModelAccessor _updateModelAccessor;
 
         public AdminController(
             IAuditTrailQueryService auditTrailQueryService,
-            IContentManager contentManager,
+            IDiffBuilderService diffBuilderService,
+            IDisplayManager<DiffItem> diffItemDisplayManager,
             IDisplayManager<VersionComparisonOptions> versionComparisonOptionsDisplayManager,
             IHtmlLocalizer<AdminController> htmlLocalizer,
             INotifier notifier,
@@ -35,12 +37,13 @@ namespace DFC.ServiceTaxonomy.VersionComparison.Controllers
         )
         {
             _auditTrailQueryService = auditTrailQueryService;
-            _contentManager = contentManager;
+            _diffBuilderService = diffBuilderService;
+            _diffItemDisplayManager = diffItemDisplayManager;
+            _versionComparisonOptionsDisplayManager = versionComparisonOptionsDisplayManager;
             _h = htmlLocalizer;
             _notifier = notifier;
             _shapeFactory = shapeFactory;
             _updateModelAccessor = updateModelAccessor;
-            _versionComparisonOptionsDisplayManager = versionComparisonOptionsDisplayManager;
         }
 
         [HttpGet]
@@ -57,20 +60,7 @@ namespace DFC.ServiceTaxonomy.VersionComparison.Controllers
                 _notifier.Warning(_h["There is currently only one version of this content item."]);
             }
 
-            var contentItem = versions.First().ContentItem;
-
-            var selectVersions = BuildSelectList(versions.Select(v => v.VersionNumber).ToList());
-
-            var options = new VersionComparisonOptions
-            {
-                ContentItemId = contentItemId,
-                BaseVersion = selectVersions[0].Value,
-                BaseVersionSelectListItems = selectVersions,
-                CompareVersion = versions.Count > 1 ? selectVersions[1].Value : selectVersions[0].Value,
-                CompareVersionSelectListItems = selectVersions
-            };
-
-            var shapeViewModel = await GetShapeViewModel(options, contentItem);
+            var shapeViewModel = await GetShapeViewModel(new VersionComparisonOptions { ContentItemId = contentItemId}, versions);
 
             return View(shapeViewModel);
         }
@@ -84,23 +74,29 @@ namespace DFC.ServiceTaxonomy.VersionComparison.Controllers
             }
 
             var versions = await _auditTrailQueryService.GetVersions(options.ContentItemId ?? string.Empty);
-            var contentItem = versions.First().ContentItem;
-            var selectVersions = BuildSelectList(versions.Select(v => v.VersionNumber).ToList());
 
-            options.BaseVersionSelectListItems = selectVersions;
-            options.CompareVersionSelectListItems = selectVersions;
-
-            var shapeViewModel = await GetShapeViewModel(options, contentItem);
+            var shapeViewModel = await GetShapeViewModel(options, versions);
 
             return View(shapeViewModel);
         }
 
-        private async Task<IShape> GetShapeViewModel(VersionComparisonOptions options, ContentItem contentItem)
+        private async Task<IShape> GetShapeViewModel(VersionComparisonOptions options, List<AuditTrailContentEvent> versions)
         {
+            BuildOptions(options, versions);
+
             var selectListShape =
                 await _versionComparisonOptionsDisplayManager.BuildEditorAsync(options,
                     _updateModelAccessor.ModelUpdater, false);
 
+            var items = new List<IShape>();
+            var diffItems = _diffBuilderService.BuildDiffList(versions.First(v => v.VersionNumber.ToString() == options.BaseVersion).ContentItem,
+                versions.First(v => v.VersionNumber.ToString() == options.CompareVersion).ContentItem);
+            foreach (DiffItem diffItem in diffItems)
+            {
+                items.Add(await _diffItemDisplayManager.BuildDisplayAsync(diffItem, _updateModelAccessor.ModelUpdater, "SummaryAdmin"));
+            }
+
+            var contentItem = versions.First().ContentItem;
 
             return await _shapeFactory.CreateAsync<VersionComparisonViewModel>("VersionComparison",
                 viewModel =>
@@ -109,7 +105,20 @@ namespace DFC.ServiceTaxonomy.VersionComparison.Controllers
                     viewModel.ContentItemDisplayName = contentItem.DisplayText;
                     viewModel.ContentItemContentType = contentItem.ContentType;
                     viewModel.SelectLists = selectListShape;
+                    viewModel.DiffItems = items;
                 });
+        }
+
+        private void BuildOptions(VersionComparisonOptions options, List<AuditTrailContentEvent> versions)
+        {
+            var selectVersions = BuildSelectList(versions.Select(v => v.VersionNumber).ToList());
+            options.BaseVersionSelectListItems = selectVersions;
+            options.CompareVersionSelectListItems = selectVersions;
+            if (string.IsNullOrWhiteSpace(options.BaseVersion) || string.IsNullOrWhiteSpace(options.CompareVersion))
+            {
+                options.BaseVersion = selectVersions[0].Value;
+                options.CompareVersion = versions.Count > 1 ? selectVersions[1].Value : selectVersions[0].Value;
+            }
         }
 
         private List<SelectListItem> BuildSelectList(List<int> versionNumbers)

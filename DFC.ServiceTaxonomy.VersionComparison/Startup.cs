@@ -29,8 +29,11 @@ namespace DFC.ServiceTaxonomy.VersionComparison
         {
             services.AddScoped<IDisplayManager<VersionComparisonOptions>, DisplayManager<VersionComparisonOptions>>()
                 .AddScoped<IDisplayDriver<VersionComparisonOptions>, VersionComparisonOptionsDisplayDriver>();
+            services.AddScoped<IDisplayManager<DiffItem>, DisplayManager<DiffItem>>()
+                .AddScoped<IDisplayDriver<DiffItem>, DiffItemDisplayDriver>();
 
             services.AddScoped<IAuditTrailQueryService, AuditTrailQueryService>();
+            services.AddScoped<IDiffBuilderService, DiffBuilderService>();
 
             services.AddScoped<IContentDisplayDriver, VersionComparisonContentsDriver>();
         }
