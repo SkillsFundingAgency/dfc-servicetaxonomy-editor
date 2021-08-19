@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.VersionComparison.Models;
 using DFC.ServiceTaxonomy.VersionComparison.Models.Parts;
 using Newtonsoft.Json.Linq;
@@ -12,9 +13,11 @@ namespace DFC.ServiceTaxonomy.VersionComparison.Services
     public class DiffBuilderService : IDiffBuilderService
     {
         private readonly IContentDefinitionManager _contentDefinitionManager;
+        private readonly IContentManager _contentManager;
 
-        public DiffBuilderService(IContentDefinitionManager contentDefinitionManager)
+        public DiffBuilderService(IContentDefinitionManager contentDefinitionManager, IContentManager contentManager)
         {
+            _contentManager = contentManager;
             _contentDefinitionManager = contentDefinitionManager;
         }
 
@@ -23,7 +26,7 @@ namespace DFC.ServiceTaxonomy.VersionComparison.Services
             if (baseVersion.ContentType != compareVersion.ContentType)
             {
                 throw new ArgumentException(
-                    $"The base content type '{baseVersion.ContentType}' is different to the compare content tyep '{compareVersion.ContentType}'");
+                    $"The base content type '{baseVersion.ContentType}' is different to the compare content type '{compareVersion.ContentType}'");
             }
 
             var contentType = _contentDefinitionManager.GetTypeDefinition(baseVersion.ContentType);
@@ -31,8 +34,8 @@ namespace DFC.ServiceTaxonomy.VersionComparison.Services
             var baseJObject = JObject.FromObject(baseVersion);
             var compareJObject = JObject.FromObject(compareVersion);
 
-            var basePartDictionary = new Dictionary<string, string>();
-            var comparePartDictionary = new Dictionary<string, string>();
+            var basePartDictionary = new Dictionary<string, PropertyDto>();
+            var comparePartDictionary = new Dictionary<string, PropertyDto>();
             foreach (var contentTypePartDefinition in partsLIst)
             {
                 var basePart = baseJObject.GetValue(contentTypePartDefinition.Name) as JObject;
@@ -51,59 +54,108 @@ namespace DFC.ServiceTaxonomy.VersionComparison.Services
 
         }
 
-        private List<DiffItem> MergeDictionaries(Dictionary<string, string> basePartDictionary,
-            Dictionary<string, string> comparePartDictionary)
+        private List<DiffItem> MergeDictionaries(Dictionary<string, PropertyDto> basePartDictionary,
+            Dictionary<string, PropertyDto> comparePartDictionary)
         {
             var diffList = new List<DiffItem>();
             var keys = basePartDictionary.Keys.Union(comparePartDictionary.Keys);
             foreach (string key in keys)
             {
                 diffList.Add(new DiffItem{
-                    Name = key,
-                    BaseItem = basePartDictionary.ContainsKey(key) ? basePartDictionary[key] : string.Empty,
-                    CompareItem = comparePartDictionary.ContainsKey(key) ? comparePartDictionary[key] : string.Empty
+                    Name = basePartDictionary.ContainsKey(key) ? basePartDictionary[key].Name : comparePartDictionary[key].Name,
+                    BaseItem = basePartDictionary.ContainsKey(key) ? basePartDictionary[key].Value : string.Empty,
+                    BaseURLs = basePartDictionary.ContainsKey(key) ? basePartDictionary[key].Links : null,
+                    CompareItem = comparePartDictionary.ContainsKey(key) ? comparePartDictionary[key].Value : string.Empty,
+                    CompareURLs = comparePartDictionary.ContainsKey(key) ? comparePartDictionary[key].Links : null
                 });
             }
-
             return diffList;
         }
 
-        private void LoadPropertyValues(JObject part, Dictionary<string, string> propertyDictionary)
+        private void LoadPropertyValues(JObject part, Dictionary<string, PropertyDto> propertyDictionary)
         {
             foreach (JProperty jProperty in part.Properties())
             {
+                // TODO: I think some kind of rules engine would be better suited to extracting the differing property types
                 var propertyName = ValidDictionaryKey(propertyDictionary, jProperty.Name);
                 var partProperty = part.GetValue(jProperty.Name);
 
-                if (partProperty == null)
+                if (partProperty == null) // Handle nulls gracefully
                 {
-                    propertyDictionary.Add(propertyName, string.Empty);
+                    propertyDictionary.Add(propertyName, new PropertyDto { Name = propertyName});
                 }
-                else if (partProperty.Type != JTokenType.Object && partProperty.Type != JTokenType.Array)
+                else if (partProperty.Type != JTokenType.Object && partProperty.Type != JTokenType.Array) // Basic properties on the part
                 {
-                    propertyDictionary.Add(propertyName, partProperty.ToString());
-                }
-                else if(partProperty.Type == JTokenType.Array && jProperty.Name == "Widgets")
+                    var objectValue = new ObjectValue {Value = partProperty.ToString()};
+                    propertyDictionary.Add(propertyName, new PropertyDto { Name = jProperty.Name, Value = objectValue.ToString()});
+                } 
+                else if(partProperty.Type == JTokenType.Array && jProperty.Name == "Widgets") // Specifically for the FlowPart
                 {
                     // We need to go further down the rabbit hole
                     var widgets = partProperty.Select(w => w.ToObject<Widget>()).ToList();
-                    foreach (var widget in widgets.Where(w => w != null))
+                    foreach (var widget in widgets)
                     {
-                        propertyName = ValidDictionaryKey(propertyDictionary, widget?.ContentType ?? string.Empty);
-                        if (widget?.ContentType == "HTMLShared")
+                        if (widget == null)
                         {
-                            propertyDictionary.Add(propertyName, string.Join(", ",widget.HTMLShared?.SharedContent?.ContentItemIds ?? Array.Empty<string>()));
+                            continue;
+                        }
+                        propertyName = $"{widget.ContentType}-{widget.ContentItemId}";
+                        if (widget.ContentType == "HTMLShared")
+                        {
+                            var linkInfo = widget.HTMLShared?.SharedContent?.ContentItemIds
+                                .Select(c => new {Id = c, Name = GetContentName(c).Result})
+                                .ToDictionary(k => k.Id, v => v.Name);
+                            propertyDictionary.Add(propertyName, new PropertyDto { Name = "HTMLShared", Links = linkInfo});
                         }
                         else
                         {
-                            propertyDictionary.Add(propertyName, widget?.HtmlBodyPart?.Html ?? string.Empty);
+                            propertyDictionary.Add(propertyName, new PropertyDto { Name = "HTML", Value = widget?.HtmlBodyPart?.Html ?? string.Empty});
+                        }
+                    }
+                }
+                else if (partProperty.Type == JTokenType.Object && partProperty.Children().Count() == 1) // Properties exposed a JObjects with a single value
+                {
+                    var objectValue = partProperty.ToObject<ObjectValue>();
+                    if (objectValue != null)
+                    {
+                        propertyDictionary.Add(propertyName, new PropertyDto { Name = jProperty.Name, Value = objectValue.ToString() });
+                    }
+                }
+                else if (partProperty.Type == JTokenType.Object) // Objects with multiple values
+                {
+                    foreach (JToken child in partProperty.Children())
+                    {
+                        if (child.Type == JTokenType.Object)
+                        {
+                            LoadPropertyValues((JObject)child, propertyDictionary);
+                        }
+                        else if(child.Type == JTokenType.Property)
+                        {
+                            var childProperty = child as JProperty;
+                            var childPropertyName = $"{propertyName}-{childProperty?.Name}";
+                            propertyDictionary.Add(childPropertyName, new PropertyDto{Name = childPropertyName, Value = childProperty?.Value.ToString()});
                         }
                     }
                 }
             }
         }
 
-        private string ValidDictionaryKey(Dictionary<string, string> propertyDictionary, string key)
+        private async Task<string> GetContentName(string contentItemId)
+        {
+            if (string.IsNullOrWhiteSpace(contentItemId))
+            {
+                return string.Empty;
+            }
+            var contentItem = await _contentManager.GetAsync(contentItemId);
+            if (contentItem != null)
+            {
+                return contentItem.DisplayText;
+            }
+
+            return string.Empty;
+        }
+
+        private string ValidDictionaryKey(Dictionary<string, PropertyDto> propertyDictionary, string key)
         {
             var i = 1;
             while (propertyDictionary.ContainsKey(key))
@@ -112,44 +164,6 @@ namespace DFC.ServiceTaxonomy.VersionComparison.Services
             }
 
             return key;
-        }
-
-        private List<DiffItem> GetPropertyValues(JObject? basePart, JObject? comparePart)
-        {
-            var partDiff = new List<DiffItem>();
-            var properties = basePart?.Properties() ?? new List<JProperty>();
-
-            foreach (var property in properties)
-            {
-                var baseProperty = basePart?.GetValue(property.Name);
-                var compareProperty = comparePart?.GetValue(property.Name);
-                if (baseProperty == null && compareProperty == null)
-                {
-                    continue;
-                }
-                if (baseProperty?.Type != JTokenType.Object)
-                {
-                    partDiff.Add(new DiffItem
-                    {
-                        BaseItem = baseProperty?.ToString(),
-                        CompareItem = compareProperty?.ToString(),
-                        Name = property.Name
-                    });
-                }
-                else 
-                {
-                    baseProperty = baseProperty?.First;
-                    compareProperty = compareProperty?.First;
-                    partDiff.Add(new DiffItem
-                    {
-                        BaseItem = baseProperty?.ToString(),
-                        CompareItem = compareProperty?.ToString(),
-                        Name = property.Name
-                    });
-                }
-            }
-
-            return partDiff;
         }
     }
 }

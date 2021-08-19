@@ -17,7 +17,9 @@ namespace DFC.ServiceTaxonomy.VersionComparison.Drivers
         private static void BuildViewModel(DiffItem model, DiffItem diffItem)
         {
             diffItem.BaseItem = model.BaseItem;
+            diffItem.BaseURLs = model.BaseURLs;
             diffItem.CompareItem = model.CompareItem;
+            diffItem.CompareURLs = model.CompareURLs;
             diffItem.Name = model.Name;
         }
     }
