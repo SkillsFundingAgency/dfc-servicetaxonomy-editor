@@ -38,6 +38,7 @@ namespace DFC.ServiceTaxonomy.VersionComparison
 
             services.AddScoped<IContentDisplayDriver, VersionComparisonContentsDriver>();
 
+            // Ordering of adding these services is important here, they will be processed for appropriateness in this order
             services
                 .AddScoped<IPropertyService, NullPropertyService>()
                 .AddScoped<IPropertyService, BasicPropertyService>()
