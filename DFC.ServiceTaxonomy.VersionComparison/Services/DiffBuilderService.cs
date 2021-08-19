@@ -1,23 +1,31 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.VersionComparison.Models;
-using DFC.ServiceTaxonomy.VersionComparison.Models.Parts;
+using DFC.ServiceTaxonomy.VersionComparison.Services.PropertyServices;
 using Newtonsoft.Json.Linq;
 using OrchardCore.ContentManagement;
 using OrchardCore.ContentManagement.Metadata;
+using OrchardCore.ContentManagement.Metadata.Models;
+using OrchardCore.Contents.AuditTrail.Models;
 
 namespace DFC.ServiceTaxonomy.VersionComparison.Services
 {
     public class DiffBuilderService : IDiffBuilderService
     {
         private readonly IContentDefinitionManager _contentDefinitionManager;
-        private readonly IContentManager _contentManager;
-
-        public DiffBuilderService(IContentDefinitionManager contentDefinitionManager, IContentManager contentManager)
+        private readonly IEnumerable<IPropertyService> _propertyServices;
+        // We could look at creating a setting for this module to handle the parts black list but not a short piece of work
+        private readonly List<string> partsBlackList = new List<string>
         {
-            _contentManager = contentManager;
+            nameof(AuditTrailPart),
+            "GraphSyncPart",
+            "ContentApprovalPart"
+        };
+
+        public DiffBuilderService(IContentDefinitionManager contentDefinitionManager, IEnumerable<IPropertyService> propertyServices)
+        {
+            _propertyServices = propertyServices;
             _contentDefinitionManager = contentDefinitionManager;
         }
 
@@ -30,7 +38,10 @@ namespace DFC.ServiceTaxonomy.VersionComparison.Services
             }
 
             var contentType = _contentDefinitionManager.GetTypeDefinition(baseVersion.ContentType);
-            var partsLIst = contentType.Parts.Select(p => p).ToList();
+            var partsLIst = contentType.Parts
+                .Select(p => p)
+                .Where(p => partsBlackList.All(bl => !bl.Equals(p.Name, StringComparison.InvariantCultureIgnoreCase)))
+                .ToList();
             var baseJObject = JObject.FromObject(baseVersion);
             var compareJObject = JObject.FromObject(compareVersion);
 
@@ -38,20 +49,21 @@ namespace DFC.ServiceTaxonomy.VersionComparison.Services
             var comparePartDictionary = new Dictionary<string, PropertyDto>();
             foreach (var contentTypePartDefinition in partsLIst)
             {
-                var basePart = baseJObject.GetValue(contentTypePartDefinition.Name) as JObject;
-                if (basePart != null)
-                {
-                    LoadPropertyValues(basePart, basePartDictionary);
-                }
-                var comparePart = compareJObject.GetValue(contentTypePartDefinition.Name) as JObject;
-                if (comparePart != null)
-                {
-                    LoadPropertyValues(comparePart, comparePartDictionary);
-                }
+                LoadDictionaries(basePartDictionary, contentTypePartDefinition, baseJObject);
+                LoadDictionaries(comparePartDictionary, contentTypePartDefinition, compareJObject);
             }
 
             return MergeDictionaries(basePartDictionary, comparePartDictionary);
+        }
 
+        private void LoadDictionaries(Dictionary<string, PropertyDto> dictionary,
+            ContentTypePartDefinition? partDefinition, JObject? jObject)
+        {
+            var basePart = jObject?.GetValue(partDefinition?.Name) as JObject;
+            if (basePart != null)
+            {
+                LoadPropertyValues(basePart, dictionary);
+            }
         }
 
         private List<DiffItem> MergeDictionaries(Dictionary<string, PropertyDto> basePartDictionary,
@@ -76,52 +88,19 @@ namespace DFC.ServiceTaxonomy.VersionComparison.Services
         {
             foreach (JProperty jProperty in part.Properties())
             {
-                // TODO: I think some kind of rules engine would be better suited to extracting the differing property types
                 var propertyName = ValidDictionaryKey(propertyDictionary, jProperty.Name);
                 var partProperty = part.GetValue(jProperty.Name);
 
-                if (partProperty == null) // Handle nulls gracefully
+                var propertyService = _propertyServices.FirstOrDefault(ps => ps.CanProcess(partProperty, propertyName));
+                if (propertyService != null)
                 {
-                    propertyDictionary.Add(propertyName, new PropertyDto { Name = propertyName});
-                }
-                else if (partProperty.Type != JTokenType.Object && partProperty.Type != JTokenType.Array) // Basic properties on the part
-                {
-                    var objectValue = new ObjectValue {Value = partProperty.ToString()};
-                    propertyDictionary.Add(propertyName, new PropertyDto { Name = jProperty.Name, Value = objectValue.ToString()});
-                } 
-                else if(partProperty.Type == JTokenType.Array && jProperty.Name == "Widgets") // Specifically for the FlowPart
-                {
-                    // We need to go further down the rabbit hole
-                    var widgets = partProperty.Select(w => w.ToObject<Widget>()).ToList();
-                    foreach (var widget in widgets)
+                    var properties = propertyService.Process(propertyName, partProperty);
+                    foreach (PropertyDto? propertyDto in properties)
                     {
-                        if (widget == null)
-                        {
-                            continue;
-                        }
-                        propertyName = $"{widget.ContentType}-{widget.ContentItemId}";
-                        if (widget.ContentType == "HTMLShared")
-                        {
-                            var linkInfo = widget.HTMLShared?.SharedContent?.ContentItemIds
-                                .Select(c => new {Id = c, Name = GetContentName(c).Result})
-                                .ToDictionary(k => k.Id, v => v.Name);
-                            propertyDictionary.Add(propertyName, new PropertyDto { Name = "HTMLShared", Links = linkInfo});
-                        }
-                        else
-                        {
-                            propertyDictionary.Add(propertyName, new PropertyDto { Name = "HTML", Value = widget?.HtmlBodyPart?.Html ?? string.Empty});
-                        }
+                        propertyDictionary.Add(propertyDto.Key ?? propertyName, propertyDto);
                     }
                 }
-                else if (partProperty.Type == JTokenType.Object && partProperty.Children().Count() == 1) // Properties exposed a JObjects with a single value
-                {
-                    var objectValue = partProperty.ToObject<ObjectValue>();
-                    if (objectValue != null)
-                    {
-                        propertyDictionary.Add(propertyName, new PropertyDto { Name = jProperty.Name, Value = objectValue.ToString() });
-                    }
-                }
-                else if (partProperty.Type == JTokenType.Object) // Objects with multiple values
+                else if (partProperty != null && partProperty.Type == JTokenType.Object) // Objects with multiple values
                 {
                     foreach (JToken child in partProperty.Children())
                     {
@@ -129,30 +108,15 @@ namespace DFC.ServiceTaxonomy.VersionComparison.Services
                         {
                             LoadPropertyValues((JObject)child, propertyDictionary);
                         }
-                        else if(child.Type == JTokenType.Property)
+                        else if (child.Type == JTokenType.Property)
                         {
                             var childProperty = child as JProperty;
                             var childPropertyName = $"{propertyName}-{childProperty?.Name}";
-                            propertyDictionary.Add(childPropertyName, new PropertyDto{Name = childPropertyName, Value = childProperty?.Value.ToString()});
+                            propertyDictionary.Add(childPropertyName, new PropertyDto { Name = childPropertyName, Value = childProperty?.Value.ToString() });
                         }
                     }
                 }
             }
-        }
-
-        private async Task<string> GetContentName(string contentItemId)
-        {
-            if (string.IsNullOrWhiteSpace(contentItemId))
-            {
-                return string.Empty;
-            }
-            var contentItem = await _contentManager.GetAsync(contentItemId);
-            if (contentItem != null)
-            {
-                return contentItem.DisplayText;
-            }
-
-            return string.Empty;
         }
 
         private string ValidDictionaryKey(Dictionary<string, PropertyDto> propertyDictionary, string key)

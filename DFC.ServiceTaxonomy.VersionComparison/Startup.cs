@@ -3,6 +3,7 @@ using DFC.ServiceTaxonomy.VersionComparison.Controllers;
 using DFC.ServiceTaxonomy.VersionComparison.Drivers;
 using DFC.ServiceTaxonomy.VersionComparison.Services;
 using DFC.ServiceTaxonomy.VersionComparison.Models;
+using DFC.ServiceTaxonomy.VersionComparison.Services.PropertyServices;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.DependencyInjection;
@@ -36,6 +37,12 @@ namespace DFC.ServiceTaxonomy.VersionComparison
             services.AddScoped<IDiffBuilderService, DiffBuilderService>();
 
             services.AddScoped<IContentDisplayDriver, VersionComparisonContentsDriver>();
+
+            services
+                .AddScoped<IPropertyService, NullPropertyService>()
+                .AddScoped<IPropertyService, BasicPropertyService>()
+                .AddScoped<IPropertyService, WidgetPropertyService>()
+                .AddScoped<IPropertyService, SingleChildPropertyService>();
         }
 
         public override void Configure(IApplicationBuilder app, IEndpointRouteBuilder routes,
