@@ -1,16 +1,16 @@
 ﻿@model VersionComparisonOptions
-<div class="container">
+<div class="container-fluid">
     <div class="row">
-        <div class="col-2">
+        <div class="col-3">
             <input type="hidden" asp-for="ContentItemId"/>
         </div>
-        <div class="col-5">
+        <div class="col-4">
             <div class="form-group">
                 <label class="d-block" asp-for="CompareVersion">Content version</label>
                 <select class="d-block p-2 version-picker" asp-items="Model.CompareVersionSelectListItems" asp-for="CompareVersion"></select>
             </div>
         </div>
-        <div class="col-5">
+        <div class="col-4">
             <div class="form-group">
                 <label class="d-block" asp-for="BaseVersion">Content version</label>
                 <select class="d-block p-2 version-picker" asp-items="Model.BaseVersionSelectListItems" asp-for="BaseVersion"></select>

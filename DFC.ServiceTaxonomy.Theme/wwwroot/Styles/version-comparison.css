@@ -1,0 +1,9 @@
+.diff-list-item {
+  border: none !important;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.125) !important;
+}
+
+.diff-item-label {
+  font-weight: 600;
+}
+/*# sourceMappingURL=data:application/json;charset=utf8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInZlcnNpb24tY29tcGFyaXNvbi5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0k7RUFDQTs7O0FBR0o7RUFDSSIsImZpbGUiOiJ2ZXJzaW9uLWNvbXBhcmlzb24uY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLmRpZmYtbGlzdC1pdGVtIHtcclxuICAgIGJvcmRlcjogbm9uZSAhaW1wb3J0YW50O1xyXG4gICAgYm9yZGVyLWJvdHRvbTogMXB4IHNvbGlkIHJnYmEoMCwgMCwgMCwgMC4xMjUpICFpbXBvcnRhbnQ7XHJcbn1cclxuXHJcbi5kaWZmLWl0ZW0tbGFiZWwge1xyXG4gICAgZm9udC13ZWlnaHQ6IDYwMDtcclxufVxyXG4iXX0= */

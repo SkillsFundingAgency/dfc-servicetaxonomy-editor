@@ -38,6 +38,11 @@ namespace DFC.ServiceTaxonomy.Theme
                 .DefineStyle("StaxTheme-content-approval")
                 .SetUrl("~/DFC.ServiceTaxonomy.Theme/Styles/content-approval.min.css", "~/DFC.ServiceTaxonomy.Theme/Styles/content-approval.css")
                 .SetVersion("1.0.0");
+
+            _manifest
+                .DefineStyle("StaxTheme-version-comparison")
+                .SetUrl("~/DFC.ServiceTaxonomy.Theme/Styles/version-comparison.min.css", "~/DFC.ServiceTaxonomy.Theme/Styles/version-comparison.css")
+                .SetVersion("1.0.0");
         }
 #pragma warning restore S3963 // "static" fields should be initialized inline
 

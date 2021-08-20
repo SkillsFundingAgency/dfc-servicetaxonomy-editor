@@ -11,7 +11,17 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <EmbeddedResource Remove="wwwroot\Styles\version-comparison.scss" />
+  </ItemGroup>
+
+  <ItemGroup>
     <FrameworkReference Include="Microsoft.AspNetCore.App" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\Styles\version-comparison.scss">
+      <CopyToPublishDirectory>Never</CopyToPublishDirectory>
+    </None>
   </ItemGroup>
 
   <ItemGroup>

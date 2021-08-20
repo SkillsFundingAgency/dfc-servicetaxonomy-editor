@@ -1,12 +1,12 @@
 ﻿@model DiffItem
-<div class="container">
+<div class="container-fluid">
     <div class="row">
-        <div class="col-2">
-            <span>@Model.Name</span>
+        <div class="col-3">
+            <span class="diff-item-label">@Model.Name</span>
         </div>
         @if ((Model.BaseURLs != null && Model.BaseURLs.Any()) || (Model.CompareURLs != null && Model.CompareURLs.Any()))
         {
-            <div class="col-5">
+            <div class="col-4">
                 @if (Model.CompareURLs != null)
                 {
                     foreach (var url in Model.CompareURLs)
@@ -17,7 +17,7 @@
                     }
                 }
             </div>
-            <div class="col-5">
+            <div class="col-4">
                 @if (Model.BaseURLs != null)
                 {
                     foreach (var url in Model.BaseURLs)
@@ -31,10 +31,10 @@
         }
         else
         {
-            <div class="col-5">
+            <div class="col-4">
                 <span>@Model.CompareItem</span>
             </div>
-            <div class="col-5">
+            <div class="col-4">
                 <span>@Model.BaseItem</span>
             </div>
         }

@@ -8,12 +8,12 @@
     </div>
 </div>
 
-<ul class="list-group">
+<ul class="list-group diff-list">
     @if (Model.DiffItems != null && Model.DiffItems.Any())
     {
         foreach (var modelDiffItem in Model.DiffItems)
         {
-            <li class="list-group-item">
+            <li class="list-group-item diff-list-item">
                 @await DisplayAsync(modelDiffItem)
             </li>
         }
