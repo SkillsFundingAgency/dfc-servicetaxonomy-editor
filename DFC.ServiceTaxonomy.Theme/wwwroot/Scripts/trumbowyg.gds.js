@@ -193,6 +193,11 @@
                             insertMedia(trumbowyg);
                         }
                     });
+
+                    trumbowyg.$c.on('tbwchange', function () {
+                        onImageResize(trumbowyg);
+                    });
+
                     setColourTitles();
                 },
                 // Return a list of button names which are active on current element
@@ -903,6 +908,18 @@
         };
 
         return '<div class="govuk-tabs__panel' + hidden(show) + '" id="' + id + '"><h2 class="govuk-heading-l">[Insert Tab Title Here]</h2><div>[place tab content here]</div></div>';
+    }
+
+    function onImageResize(trumbowyg) {
+        var images = trumbowyg.$ed.find('img');
+        $.each(images, function (index, value) {
+            if (value.style.maxWidth !== "" && value.style.maxHeight !== "") {
+                $(value).attr({
+                    width: value.style.maxWidth,
+                    height: value.style.maxHeight
+                });
+            }
+        });
     }
 
 })(jQuery);
