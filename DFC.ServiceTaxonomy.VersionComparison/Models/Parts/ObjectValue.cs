@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace DFC.ServiceTaxonomy.VersionComparison.Models.Parts
+﻿namespace DFC.ServiceTaxonomy.VersionComparison.Models.Parts
 {
     public class ObjectValue
     {
@@ -16,19 +14,17 @@ namespace DFC.ServiceTaxonomy.VersionComparison.Models.Parts
             }
             if (!string.IsNullOrWhiteSpace(Text))
             {
-                if (Text.Equals("true", StringComparison.InvariantCultureIgnoreCase) ||
-                    Text.Equals("false", StringComparison.InvariantCultureIgnoreCase))
+                if (bool.TryParse(Text, out bool result))
                 {
-                    return Text.Equals("true", StringComparison.InvariantCultureIgnoreCase) ? "Yes" : "No";
+                    return result ? "Yes" : "No";
                 }
                 return Text;
             }
             if (!string.IsNullOrWhiteSpace(Value))
             {
-                if (Value.Equals("true", StringComparison.InvariantCultureIgnoreCase) ||
-                    Value.Equals("false", StringComparison.InvariantCultureIgnoreCase))
+                if (bool.TryParse(Value, out bool result))
                 {
-                    return Value.Equals("true", StringComparison.InvariantCultureIgnoreCase) ? "Yes" : "No";
+                    return result ? "Yes" : "No";
                 }
                 return Value;
             }

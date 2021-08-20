@@ -73,12 +73,14 @@ namespace DFC.ServiceTaxonomy.VersionComparison.Services
             var keys = basePartDictionary.Keys.Union(comparePartDictionary.Keys);
             foreach (string key in keys)
             {
+                var basePartContainsKey = basePartDictionary.ContainsKey(key);
+                var comparePartContainsKey = comparePartDictionary.ContainsKey(key);
                 diffList.Add(new DiffItem{
-                    Name = basePartDictionary.ContainsKey(key) ? basePartDictionary[key].Name : comparePartDictionary[key].Name,
-                    BaseItem = basePartDictionary.ContainsKey(key) ? basePartDictionary[key].Value : string.Empty,
-                    BaseURLs = basePartDictionary.ContainsKey(key) ? basePartDictionary[key].Links : null,
-                    CompareItem = comparePartDictionary.ContainsKey(key) ? comparePartDictionary[key].Value : string.Empty,
-                    CompareURLs = comparePartDictionary.ContainsKey(key) ? comparePartDictionary[key].Links : null
+                    Name = basePartContainsKey ? basePartDictionary[key].Name : comparePartDictionary[key].Name,
+                    BaseItem = basePartContainsKey ? basePartDictionary[key].Value : string.Empty,
+                    BaseURLs = basePartContainsKey ? basePartDictionary[key].Links : null,
+                    CompareItem = comparePartContainsKey ? comparePartDictionary[key].Value : string.Empty,
+                    CompareURLs = comparePartContainsKey ? comparePartDictionary[key].Links : null
                 });
             }
             return diffList;
