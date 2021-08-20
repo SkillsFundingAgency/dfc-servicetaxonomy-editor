@@ -12,10 +12,10 @@ namespace DFC.ServiceTaxonomy.VersionComparison.Services.PropertyServices
             return jToken != null && jToken.Type != JTokenType.Object && jToken.Type != JTokenType.Array;
         }
 
-        public IList<PropertyDto> Process(string propertyName, JToken? jToken)
+        public IList<PropertyExtract> Process(string propertyName, JToken? jToken)
         {
             var objectValue = new ObjectValue { Value = jToken?.ToString() };
-            return new List<PropertyDto> { new PropertyDto { Name = propertyName, Value = objectValue.ToString() }};
+            return new List<PropertyExtract> { new PropertyExtract { Name = propertyName, Value = objectValue.ToString() }};
         }
     }
 }

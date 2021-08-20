@@ -11,9 +11,9 @@ namespace DFC.ServiceTaxonomy.VersionComparison.Services.PropertyServices
             return jToken == null;
         }
 
-        public IList<PropertyDto> Process(string propertyName, JToken? jToken)
+        public IList<PropertyExtract> Process(string propertyName, JToken? jToken)
         {
-            return new List<PropertyDto> { new PropertyDto{ Name = propertyName, Key = propertyName} };
+            return new List<PropertyExtract> { new PropertyExtract{ Name = propertyName, Key = propertyName} };
         }
     }
 }

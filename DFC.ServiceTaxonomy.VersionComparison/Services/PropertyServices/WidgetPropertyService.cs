@@ -23,9 +23,9 @@ namespace DFC.ServiceTaxonomy.VersionComparison.Services.PropertyServices
             return jToken != null && jToken.Type == JTokenType.Array && !string.IsNullOrWhiteSpace(propertyName) && propertyName.StartsWith("Widgets");
         }
 
-        public IList<PropertyDto> Process(string propertyName, JToken? jToken)
+        public IList<PropertyExtract> Process(string propertyName, JToken? jToken)
         {
-            var widgetList = new List<PropertyDto>();
+            var widgetList = new List<PropertyExtract>();
             var widgets = jToken?.Select(w => w.ToObject<Widget>()).ToList() ?? new List<Widget?>();
             foreach (var widget in widgets)
             {
@@ -39,11 +39,11 @@ namespace DFC.ServiceTaxonomy.VersionComparison.Services.PropertyServices
                     var linkInfo = widget.HTMLShared?.SharedContent?.ContentItemIds
                         .Select(c => new { Id = c, Name = GetContentName(c).Result })
                         .ToDictionary(k => k.Id, v => v.Name);
-                    widgetList.Add(new PropertyDto { Key = key, Name = "HTMLShared", Links = linkInfo });
+                    widgetList.Add(new PropertyExtract { Key = key, Name = "HTMLShared", Links = linkInfo });
                 }
                 else
                 {
-                    widgetList.Add(new PropertyDto { Key = key, Name = "HTML", Value = widget?.HtmlBodyPart?.Html ?? string.Empty });
+                    widgetList.Add(new PropertyExtract { Key = key, Name = "HTML", Value = widget?.HtmlBodyPart?.Html ?? string.Empty });
                 }
             }
 

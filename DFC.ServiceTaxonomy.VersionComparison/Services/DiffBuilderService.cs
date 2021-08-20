@@ -45,8 +45,8 @@ namespace DFC.ServiceTaxonomy.VersionComparison.Services
             var baseJObject = JObject.FromObject(baseVersion);
             var compareJObject = JObject.FromObject(compareVersion);
 
-            var basePartDictionary = new Dictionary<string, PropertyDto>();
-            var comparePartDictionary = new Dictionary<string, PropertyDto>();
+            var basePartDictionary = new Dictionary<string, PropertyExtract>();
+            var comparePartDictionary = new Dictionary<string, PropertyExtract>();
             foreach (var contentTypePartDefinition in partsLIst)
             {
                 LoadDictionaries(basePartDictionary, contentTypePartDefinition, baseJObject);
@@ -56,7 +56,7 @@ namespace DFC.ServiceTaxonomy.VersionComparison.Services
             return MergeDictionaries(basePartDictionary, comparePartDictionary);
         }
 
-        private void LoadDictionaries(Dictionary<string, PropertyDto> dictionary,
+        private void LoadDictionaries(Dictionary<string, PropertyExtract> dictionary,
             ContentTypePartDefinition? partDefinition, JObject? jObject)
         {
             var basePart = jObject?.GetValue(partDefinition?.Name) as JObject;
@@ -66,8 +66,8 @@ namespace DFC.ServiceTaxonomy.VersionComparison.Services
             }
         }
 
-        private List<DiffItem> MergeDictionaries(Dictionary<string, PropertyDto> basePartDictionary,
-            Dictionary<string, PropertyDto> comparePartDictionary)
+        private List<DiffItem> MergeDictionaries(Dictionary<string, PropertyExtract> basePartDictionary,
+            Dictionary<string, PropertyExtract> comparePartDictionary)
         {
             var diffList = new List<DiffItem>();
             var keys = basePartDictionary.Keys.Union(comparePartDictionary.Keys);
@@ -84,7 +84,7 @@ namespace DFC.ServiceTaxonomy.VersionComparison.Services
             return diffList;
         }
 
-        private void LoadPropertyValues(JObject part, Dictionary<string, PropertyDto> propertyDictionary)
+        private void LoadPropertyValues(JObject part, Dictionary<string, PropertyExtract> propertyDictionary)
         {
             foreach (JProperty jProperty in part.Properties())
             {
@@ -95,7 +95,7 @@ namespace DFC.ServiceTaxonomy.VersionComparison.Services
                 if (propertyService != null)
                 {
                     var properties = propertyService.Process(propertyName, partProperty);
-                    foreach (PropertyDto? propertyDto in properties)
+                    foreach (PropertyExtract? propertyDto in properties)
                     {
                         propertyDictionary.Add(propertyDto.Key ?? propertyName, propertyDto);
                     }
@@ -112,14 +112,14 @@ namespace DFC.ServiceTaxonomy.VersionComparison.Services
                         {
                             var childProperty = child as JProperty;
                             var childPropertyName = $"{propertyName}-{childProperty?.Name}";
-                            propertyDictionary.Add(childPropertyName, new PropertyDto { Name = childPropertyName, Value = childProperty?.Value.ToString() });
+                            propertyDictionary.Add(childPropertyName, new PropertyExtract { Name = childPropertyName, Value = childProperty?.Value.ToString() });
                         }
                     }
                 }
             }
         }
 
-        private string ValidDictionaryKey(Dictionary<string, PropertyDto> propertyDictionary, string key)
+        private string ValidDictionaryKey(Dictionary<string, PropertyExtract> propertyDictionary, string key)
         {
             var i = 1;
             while (propertyDictionary.ContainsKey(key))

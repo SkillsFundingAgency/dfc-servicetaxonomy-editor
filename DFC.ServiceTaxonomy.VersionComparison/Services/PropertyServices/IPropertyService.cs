@@ -8,6 +8,6 @@ namespace DFC.ServiceTaxonomy.VersionComparison.Services.PropertyServices
     {
         bool CanProcess(JToken? jToken, string? propertyName = null);
 
-        IList<PropertyDto> Process(string propertyName, JToken? jToken);
+        IList<PropertyExtract> Process(string propertyName, JToken? jToken);
     }
 }

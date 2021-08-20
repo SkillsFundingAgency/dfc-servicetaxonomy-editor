@@ -2,7 +2,7 @@
 
 namespace DFC.ServiceTaxonomy.VersionComparison.Models
 {
-    public class PropertyDto
+    public class PropertyExtract
     {
         public string? Value { get; set; }
         public Dictionary<string, string>? Links { get; set; } 
