@@ -14,7 +14,7 @@
     ],
     "steps": [
         {
-            "name": "ContentDefinition",
+            "name": "ReplaceContentDefinition",
             "ContentTypes": [
                 {
                     "Name": "Banner",
@@ -31,20 +31,20 @@
                     },
                     "ContentTypePartDefinitionRecords": [
                         {
+                            "PartName": "TitlePart",
+                            "Name": "TitlePart",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "0"
+                                }
+                            }
+                        },
+                        {
                             "PartName": "Banner",
                             "Name": "Banner",
                             "Settings": {
                                 "ContentTypePartSettings": {
                                     "Position": "1"
-                                }
-                            }
-                        },
-                        {
-                            "PartName": "ContentApprovalPart",
-                            "Name": "ContentApprovalPart",
-                            "Settings": {
-                                "ContentTypePartSettings": {
-                                    "Position": "3"
                                 }
                             }
                         },
@@ -66,11 +66,20 @@
                             }
                         },
                         {
-                            "PartName": "TitlePart",
-                            "Name": "TitlePart",
+                            "PartName": "ContentApprovalPart",
+                            "Name": "ContentApprovalPart",
                             "Settings": {
                                 "ContentTypePartSettings": {
-                                    "Position": "0"
+                                    "Position": "3"
+                                }
+                            }
+                        },
+                        {
+                            "PartName": "AuditTrailPart",
+                            "Name": "AuditTrailPart",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "4"
                                 }
                             }
                         }
@@ -79,32 +88,12 @@
             ],
             "ContentParts": [
                 {
-                    "Name": "GraphSyncPart",
-                    "Settings": {
-                        "ContentPartSettings": {
-                            "Attachable": true,
-                            "Description": "Enables the content type to be synced to a graph."
-                        }
-                    },
-                    "ContentPartFieldDefinitionRecords": []
-                },
-                {
                     "Name": "TitlePart",
                     "Settings": {
                         "ContentPartSettings": {
                             "Attachable": true,
                             "Description": "Provides a Title for your content item.",
                             "DefaultPosition": "0"
-                        }
-                    },
-                    "ContentPartFieldDefinitionRecords": []
-                },
-                {
-                    "Name": "ContentApprovalPart",
-                    "Settings": {
-                        "ContentPartSettings": {
-                            "Attachable": true,
-                            "Description": "Adds publishing status workflow properties to content items."
                         }
                     },
                     "ContentPartFieldDefinitionRecords": []
@@ -160,6 +149,36 @@
                             }
                         }
                     ]
+                },
+                {
+                    "Name": "GraphSyncPart",
+                    "Settings": {
+                        "ContentPartSettings": {
+                            "Attachable": true,
+                            "Description": "Enables the content type to be synced to a graph."
+                        }
+                    },
+                    "ContentPartFieldDefinitionRecords": []
+                },
+                {
+                    "Name": "ContentApprovalPart",
+                    "Settings": {
+                        "ContentPartSettings": {
+                            "Attachable": true,
+                            "Description": "Adds publishing status workflow properties to content items."
+                        }
+                    },
+                    "ContentPartFieldDefinitionRecords": []
+                },
+                {
+                    "Name": "AuditTrailPart",
+                    "Settings": {
+                        "ContentPartSettings": {
+                            "Attachable": true,
+                            "Description": "Allows editors to enter a comment to be saved into the Audit Trail event when saving a content item."
+                        }
+                    },
+                    "ContentPartFieldDefinitionRecords": []
                 }
             ]
         }

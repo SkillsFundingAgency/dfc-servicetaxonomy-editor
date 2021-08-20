@@ -2,8 +2,8 @@
 {
     public class AuditTrailPart
     {
-        string? Comment { get; set; }
+        public string? Comment { get; set; }
 
-        bool? ShowComment { get; set; }
+        public bool? ShowComment { get; set; }
     }
 }
