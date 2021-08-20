@@ -136,7 +136,7 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Drivers
             var keys = updater.ModelState.Keys;
 
             // For Publish, Force-Publish, Save Draft & Exit and Send Back actions the user must enter a comment for the audit trail
-            if (IsAuditTrailCommentValid(part, updater))
+            if (!IsAuditTrailCommentValid(part, updater))
             {
                 updater.ModelState.AddModelError("Comment", "Please update the comment field before submitting.");
                 return await EditAsync(part, context);
