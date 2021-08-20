@@ -110,6 +110,15 @@
                                     "Position": "6"
                                 }
                             }
+                        },
+                        {
+                            "PartName": "AuditTrailPart",
+                            "Name": "AuditTrailPart",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "7"
+                                }
+                            }
                         }
                     ]
                 }
@@ -313,6 +322,16 @@
                         "ContentPartSettings": {
                             "Attachable": true,
                             "Description": "Adds publishing status workflow properties to content items."
+                        }
+                    },
+                    "ContentPartFieldDefinitionRecords": []
+                },
+                {
+                    "Name": "AuditTrailPart",
+                    "Settings": {
+                        "ContentPartSettings": {
+                            "Attachable": true,
+                            "Description": "Allows editors to enter a comment to be saved into the Audit Trail event when saving a content item."
                         }
                     },
                     "ContentPartFieldDefinitionRecords": []
