@@ -13,7 +13,6 @@ using OrchardCore.ContentManagement;
 using OrchardCore.ContentManagement.Display.ContentDisplay;
 using OrchardCore.ContentManagement.Display.Models;
 using OrchardCore.ContentPreview;
-using OrchardCore.Contents.AuditTrail.Models;
 using OrchardCore.DisplayManagement.ModelBinding;
 using OrchardCore.DisplayManagement.Notify;
 using OrchardCore.DisplayManagement.Views;
@@ -137,7 +136,7 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Drivers
             var keys = updater.ModelState.Keys;
 
             // For Publish, Force-Publish, Save Draft & Exit and Send Back actions the user must enter a comment for the audit trail
-            if (!await IsAuditTrailCommentValid(part, updater))
+            if (IsAuditTrailCommentValid(part, updater))
             {
                 updater.ModelState.AddModelError("Comment", "Please update the comment field before submitting.");
                 return await EditAsync(part, context);
@@ -184,20 +183,18 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Drivers
             viewModel.ReviewTypes = EnumExtensions.GetEnumNameAndDisplayNameDictionary(typeof(ReviewType)).Where(rt => rt.Key != ReviewType.None.ToString());
         }
 
-        private static async Task<bool> IsAuditTrailCommentValid(ContentApprovalPart part, IUpdateModel updateModel)
+        private static bool IsAuditTrailCommentValid(ContentApprovalPart part, IUpdateModel updateModel)
         {
             bool commentValid = true;
 
             var isCommentRequired = IsCommentRequired(updateModel);
             if(isCommentRequired)
             {
-                var auditTrailPartExists = part.ContentItem.Has<AuditTrailPart>();
+                var auditTrailPartExists = part.ContentItem.Has<OrchardCore.Contents.AuditTrail.Models.AuditTrailPart>();
                 if (auditTrailPartExists)
                 {
-                    var auditTrail = new AuditTrailPart();
-                    await updateModel.TryUpdateModelAsync(auditTrail, nameof(AuditTrailPart));
-                    //var auditTrailPartComment = part.ContentItem.As<AuditTrailPart>().Comment;
-                    if (string.IsNullOrEmpty(auditTrail.Comment))
+                    var auditTrailPartComment = part.ContentItem.As<OrchardCore.Contents.AuditTrail.Models.AuditTrailPart>().Comment;
+                    if (string.IsNullOrEmpty(auditTrailPartComment))
                     {
                         commentValid = false;
                     }
