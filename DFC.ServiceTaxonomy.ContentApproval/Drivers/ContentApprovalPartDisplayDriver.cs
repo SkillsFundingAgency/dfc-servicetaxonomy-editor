@@ -136,7 +136,7 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Drivers
             var keys = updater.ModelState.Keys;
 
             // For Publish, Force-Publish, Save Draft & Exit and Send Back actions the user must enter a comment for the audit trail
-            if (!IsAuditTrailCommentValid(part, updater))
+            if (!await IsAuditTrailCommentValid(part, updater))
             {
                 updater.ModelState.AddModelError("Comment", "Please update the comment field before submitting.");
                 return await EditAsync(part, context);
@@ -183,20 +183,25 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Drivers
             viewModel.ReviewTypes = EnumExtensions.GetEnumNameAndDisplayNameDictionary(typeof(ReviewType)).Where(rt => rt.Key != ReviewType.None.ToString());
         }
 
-        private static bool IsAuditTrailCommentValid(ContentApprovalPart part, IUpdateModel updateModel)
+        private static async Task<bool> IsAuditTrailCommentValid(ContentApprovalPart part, IUpdateModel updateModel)
         {
             bool commentValid = true;
 
-            var isCommentRequired = IsCommentRequired(updateModel);
-            if(isCommentRequired)
+            if (part != null && updateModel != null)
             {
-                var auditTrailPartExists = part.ContentItem.Has<OrchardCore.Contents.AuditTrail.Models.AuditTrailPart>();
-                if (auditTrailPartExists)
+                var isCommentRequired = IsCommentRequired(updateModel);
+                if (isCommentRequired)
                 {
-                    var auditTrailPartComment = part.ContentItem.As<OrchardCore.Contents.AuditTrail.Models.AuditTrailPart>().Comment;
-                    if (string.IsNullOrEmpty(auditTrailPartComment))
+                    var auditTrailPartExists = part.ContentItem.Has<OrchardCore.Contents.AuditTrail.Models.AuditTrailPart>();
+                    if (auditTrailPartExists)
                     {
-                        commentValid = false;
+                        var auditTrail = new AuditTrailPart();
+
+                        await updateModel.TryUpdateModelAsync(auditTrail, nameof(AuditTrailPart));
+                        if (string.IsNullOrEmpty(auditTrail.Comment))
+                        {
+                            commentValid = false;
+                        }
                     }
                 }
             }

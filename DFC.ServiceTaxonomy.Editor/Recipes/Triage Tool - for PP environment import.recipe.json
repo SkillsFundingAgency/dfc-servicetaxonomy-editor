@@ -110,6 +110,15 @@
                                     "Position": "6"
                                 }
                             }
+                        },
+                        {
+                            "PartName": "AuditTrailPart",
+                            "Name": "AuditTrailPart",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "7"
+                                }
+                            }
                         }
                     ]
                 },
@@ -161,6 +170,24 @@
                                 "ContentIndexSettings": {},
                                 "TitlePartSettings": {}
                             }
+                        },
+                        {
+                            "PartName": "ContentApprovalPart",
+                            "Name": "ContentApprovalPart",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "3"
+                                }
+                            }
+                        },
+                        {
+                            "PartName": "AuditTrailPart",
+                            "Name": "AuditTrailPart",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "4"
+                                }
+                            }
                         }
                     ]
                 },
@@ -208,6 +235,24 @@
                             "Settings": {
                                 "ContentTypePartSettings": {
                                     "Position": "0"
+                                }
+                            }
+                        },
+                        {
+                            "PartName": "ContentApprovalPart",
+                            "Name": "ContentApprovalPart",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "3"
+                                }
+                            }
+                        },
+                        {
+                            "PartName": "AuditTrailPart",
+                            "Name": "AuditTrailPart",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "4"
                                 }
                             }
                         }
@@ -463,6 +508,16 @@
                         "ContentPartSettings": {
                             "Attachable": true,
                             "Description": "Provides an optional part that allows content items to be excluded, or configured, on a content item."
+                        }
+                    },
+                    "ContentPartFieldDefinitionRecords": []
+                },
+                {
+                    "Name": "AuditTrailPart",
+                    "Settings": {
+                        "ContentPartSettings": {
+                            "Attachable": true,
+                            "Description": "Allows editors to enter a comment to be saved into the Audit Trail event when saving a content item."
                         }
                     },
                     "ContentPartFieldDefinitionRecords": []
