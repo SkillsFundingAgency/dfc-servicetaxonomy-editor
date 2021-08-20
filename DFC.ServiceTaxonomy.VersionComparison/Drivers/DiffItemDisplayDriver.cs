@@ -1,4 +1,5 @@
-﻿using DFC.ServiceTaxonomy.VersionComparison.Models;
+﻿using System.Linq;
+using DFC.ServiceTaxonomy.VersionComparison.Models;
 using OrchardCore.DisplayManagement.Handlers;
 using OrchardCore.DisplayManagement.Views;
 
@@ -8,8 +9,11 @@ namespace DFC.ServiceTaxonomy.VersionComparison.Drivers
     {
         public override IDisplayResult Display(DiffItem model)
         {
+            var linkShape = (model.BaseURLs?.Any() ?? false) || (model.CompareURLs?.Any() ?? false);
+            var shapeView = $"DiffItemDetailAdmin{(linkShape ? "Link" : "Text")}";
+
             return Combine(
-                Initialize<DiffItem>("DiffItemDetailAdmin", diffItem => BuildViewModel(model, diffItem))
+                Initialize<DiffItem>(shapeView, diffItem => BuildViewModel(model, diffItem))
                     .Location("SummaryAdmin", "DiffItem")
                 );
         }
