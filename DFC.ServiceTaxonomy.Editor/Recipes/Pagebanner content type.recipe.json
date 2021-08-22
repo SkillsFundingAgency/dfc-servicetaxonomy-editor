@@ -75,86 +75,105 @@
                   }
                 },
                 {
-                  "PartName": "TitlePart",
-                  "Name": "TitlePart",
-                  "Settings": {
-                    "ContentTypePartSettings": {
-                      "Position": "0"
+                    "PartName": "TitlePart",
+                    "Name": "TitlePart",
+                    "Settings": {
+                        "ContentTypePartSettings": {
+                            "Position": "0"
+                        }
                     }
-                  }
+                },
+                {
+                    "PartName": "AuditTrailPart",
+                    "Name": "AuditTrailPart",
+                    "Settings": {
+                        "ContentTypePartSettings": {
+                            "Position": "5"
+                        }
+                    }
                 }
               ]
             }
           ],
-          "ContentParts": [
-            {
-              "Name": "BannerPart",
-              "Settings": {
-                "ContentPartSettings": {
-                  "Attachable": true,
-                  "Description": "Adds banner related properties to a content item."
-                }
-              },
-              "ContentPartFieldDefinitionRecords": []
-            },
-            {
-              "Name": "ContentApprovalPart",
-              "Settings": {
-                "ContentPartSettings": {
-                  "Attachable": true,
-                  "Description": "Adds publishing status workflow properties to content items."
-                }
-              },
-              "ContentPartFieldDefinitionRecords": []
-            },
-            {
-              "Name": "GraphSyncPart",
-              "Settings": {
-                "ContentPartSettings": {
-                  "Attachable": true,
-                  "Description": "Enables the content type to be synced to a graph."
-                }
-              },
-              "ContentPartFieldDefinitionRecords": []
-            },
-            {
-              "Name": "TitlePart",
-              "Settings": {
-                "ContentPartSettings": {
-                  "Attachable": true,
-                  "Description": "Provides a Title for your content item.",
-                  "DefaultPosition": "0"
-                }
-              },
-              "ContentPartFieldDefinitionRecords": []
-            },
-            {
-              "Name": "Pagebanner",
-              "Settings": {},
-              "ContentPartFieldDefinitionRecords": [
+            "ContentParts": [
                 {
-                  "FieldName": "ContentPickerField",
-                  "Name": "Addabanner",
-                  "Settings": {
-                    "ContentPartFieldSettings": {
-                      "DisplayName": "Add a banner",
-                      "Editor": "Banner",
-                      "Position": "0"
+                    "Name": "BannerPart",
+                    "Settings": {
+                        "ContentPartSettings": {
+                            "Attachable": true,
+                            "Description": "Adds banner related properties to a content item."
+                        }
                     },
-                    "ContentPickerFieldSettings": {
-                      "Hint": "Drag and drop banners to arrange the order in which they will display on the webpage location(s) defined above. Remove individual banners as necessary. Global banners cannot be manually ordered or removed.",
-                      "Required": true,
-                      "Multiple": true,
-                      "DisplayedContentTypes": [
-                        "Banner"
-                      ]
+                    "ContentPartFieldDefinitionRecords": []
+                },
+                {
+                    "Name": "ContentApprovalPart",
+                    "Settings": {
+                        "ContentPartSettings": {
+                            "Attachable": true,
+                            "Description": "Adds publishing status workflow properties to content items."
+                        }
                     },
-                    "ContentIndexSettings": {}
-                  }
+                    "ContentPartFieldDefinitionRecords": []
+                },
+                {
+                    "Name": "GraphSyncPart",
+                    "Settings": {
+                        "ContentPartSettings": {
+                            "Attachable": true,
+                            "Description": "Enables the content type to be synced to a graph."
+                        }
+                    },
+                    "ContentPartFieldDefinitionRecords": []
+                },
+                {
+                    "Name": "TitlePart",
+                    "Settings": {
+                        "ContentPartSettings": {
+                            "Attachable": true,
+                            "Description": "Provides a Title for your content item.",
+                            "DefaultPosition": "0"
+                        }
+                    },
+                    "ContentPartFieldDefinitionRecords": []
+                },
+                {
+                    "Name": "Pagebanner",
+                    "Settings": {},
+                    "ContentPartFieldDefinitionRecords": [
+                        {
+                            "FieldName": "ContentPickerField",
+                            "Name": "Addabanner",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Add a banner",
+                                    "Editor": "Banner",
+                                    "Position": "0"
+                                },
+                                "ContentPickerFieldSettings": {
+                                    "Hint": "Drag and drop banners to arrange the order in which they will display on the webpage location(s) defined above. Remove individual banners as necessary. Global banners cannot be manually ordered or removed.",
+                                    "Required": true,
+                                    "Multiple": true,
+                                    "DisplayedContentTypes": [
+                                        "Banner"
+                                    ]
+                                },
+                                "ContentIndexSettings": {}
+                            }
+                        }
+                    ]
+                },
+                {
+                    "Name": "AuditTrailPart",
+                    "Settings": {
+                        "ContentPartSettings": {
+                            "Attachable": true,
+                            "Description": "Allows editors to enter a comment to be saved into the Audit Trail event when saving a content item."
+                        }
+                    },
+                    "ContentPartFieldDefinitionRecords": []
                 }
-              ]
-            }
-          ]
+            ]
         }
       ]
 }
