@@ -10,6 +10,7 @@ using DFC.ServiceTaxonomy.ContentApproval.Shapes;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.DependencyInjection;
+using OrchardCore.AuditTrail.Services;
 using OrchardCore.ContentManagement;
 using OrchardCore.ContentManagement.Display.ContentDisplay;
 using OrchardCore.Contents.Services;
@@ -61,6 +62,8 @@ namespace DFC.ServiceTaxonomy.ContentApproval
 
             services.AddScoped<IContentsAdminListFilter, ReviewTypeContentsAdminListFilter>();
             services.AddScoped<IDisplayDriver<ContentOptionsViewModel>, ReviewTypeContentsAdminListFilterDisplayDriver>();
+
+            services.AddScoped<IAuditTrailEventHandler, ContentApprovalAuditTrailEventHandler>();
         }
 
         public override void Configure(IApplicationBuilder app, IEndpointRouteBuilder routes, IServiceProvider serviceProvider)
