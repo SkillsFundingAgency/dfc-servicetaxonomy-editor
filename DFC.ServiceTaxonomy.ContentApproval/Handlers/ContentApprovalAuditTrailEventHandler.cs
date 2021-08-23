@@ -56,10 +56,12 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Handlers
                         var formSubmitAction = contentApprovalPart.FormSubmitAction;
                         if(formSubmitAction != null)
                         {
+                            (string button, string action) = formSubmitAction;
+
                             // Publish/Force Publish button
-                            if (formSubmitAction.Item1.Contains(Constants.SubmitPublishKey))
+                            if (button.Contains(Constants.SubmitPublishKey))
                             {
-                                switch (formSubmitAction.Item2)
+                                switch (button)
                                 {
                                     case "submit.Publish":
                                         contentEvent.Name = "Published";
@@ -90,9 +92,9 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Handlers
                                 }
                             }
                             // Request Review/Save Draft/Save Draft & Exit button
-                            else if (formSubmitAction.Item1.Contains(Constants.SubmitSaveKey))
+                            else if (button.Contains(Constants.SubmitSaveKey))
                             {
-                                switch (formSubmitAction.Item2)
+                                switch (action)
                                 {
                                     case "submit.Save":
                                         contentEvent.Name = "Draft saved and exited";

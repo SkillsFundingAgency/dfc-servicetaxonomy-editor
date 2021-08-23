@@ -251,8 +251,7 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Drivers
 
             if (formSubmitAction != null)
             {
-                var button = formSubmitAction.Item1;
-                var action = formSubmitAction.Item2;
+                (string button, string action) = formSubmitAction;
 
                 //----------------------------------------------
                 // Publish/Force-Publish button
