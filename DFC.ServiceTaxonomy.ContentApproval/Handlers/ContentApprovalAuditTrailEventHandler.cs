@@ -61,7 +61,7 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Handlers
                             // Publish/Force Publish button
                             if (button.Contains(Constants.SubmitPublishKey))
                             {
-                                switch (button)
+                                switch (action)
                                 {
                                     case "submit.Publish":
                                         contentEvent.Name = "Published";
