@@ -72,19 +72,19 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Handlers
                                         break;
 
                                     case Constants.SubmitForcePublishContentDesignAction:
-                                        contentEvent.Name = Constants.ContentEventForcePublishedContentDesign;
+                                        contentEvent.Name = GetContentEventName(contentApprovalPart, Constants.ContentEventRequestReviewContentDesign);
                                         break;
 
                                     case Constants.SubmitForcePublishedStakeholderAction:
-                                        contentEvent.Name = Constants.ContentEventForcePublishedStakeholder;
+                                        contentEvent.Name = GetContentEventName(contentApprovalPart, Constants.ContentEventRequestReviewStakeholder);
                                         break;
 
                                     case Constants.SubmitForcePublishedSmeAction:
-                                        contentEvent.Name = Constants.ContentEventForcePublishedSme;
+                                        contentEvent.Name = GetContentEventName(contentApprovalPart, Constants.ContentEventRequestReviewSme);
                                         break;
 
                                     case Constants.SubmitForcePublishedUxAction:
-                                        contentEvent.Name = Constants.ContentEventForcePublishedUx;
+                                        contentEvent.Name = GetContentEventName(contentApprovalPart, Constants.ContentEventRequestReviewUx);
                                         break;
 
                                     default:
@@ -105,23 +105,23 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Handlers
                                         break;
 
                                     case Constants.SubmitSaveAndRequestReviewContentDesignAction:
-                                        contentEvent.Name = GetContentEventName(contentApprovalPart, Constants.ContentEventSavedAndRequestReviewContentDesign);
+                                        contentEvent.Name = GetContentEventName(contentApprovalPart, Constants.ContentEventRequestReviewContentDesign);
                                         break;
 
                                     case Constants.SubmitSaveAndRequestReviewStakeholderAction:
-                                        contentEvent.Name = GetContentEventName(contentApprovalPart, Constants.ContentEventSavedAndRequestReviewStakeholder);
+                                        contentEvent.Name = GetContentEventName(contentApprovalPart, Constants.ContentEventRequestReviewStakeholder);
                                         break;
 
                                     case Constants.SubmitSaveAndRequestReviewSmeAction:
-                                        contentEvent.Name = GetContentEventName(contentApprovalPart, Constants.ContentEventSavedAndRequestReviewSme);
+                                        contentEvent.Name = GetContentEventName(contentApprovalPart, Constants.ContentEventRequestReviewSme);
                                         break;
 
                                     case Constants.SubmitSaveAndRequestReviewUxAction:
-                                        contentEvent.Name = GetContentEventName(contentApprovalPart, Constants.ContentEventSavedAndRequestReviewUx);
+                                        contentEvent.Name = GetContentEventName(contentApprovalPart, Constants.ContentEventRequestReviewUx);
                                         break;
 
                                     case Constants.SubmitSaveAndRequiresRevisionAction:
-                                        contentEvent.Name = Constants.ContentEventSavedAndRequiresRevision;
+                                        contentEvent.Name = Constants.ContentEventRequiresRevision;
                                         break;
 
                                     default:
@@ -138,9 +138,24 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Handlers
 
         private static string GetContentEventName(ContentApprovalPart contentApprovalPart, string reviewType)
         {
-            return contentApprovalPart.ReviewStatus != Models.Enums.ReviewStatus.InReview
-                ? $"Requested for review ({reviewType})"
-                : $"In review ({reviewType})";
+            string contentEventName = string.Empty;
+
+            // Force published button - Content Design, Stakeholder, SME, UX
+            if(contentApprovalPart.IsForcePublished)
+            {
+               contentEventName = contentApprovalPart.ReviewStatus != Models.Enums.ReviewStatus.InReview
+               ? $"Force published ({reviewType})"
+               : $"In review ({reviewType})";
+            }
+            // Review request button - Content Design, Stakeholder, SME, UX
+            else
+            {
+               contentEventName = contentApprovalPart.ReviewStatus != Models.Enums.ReviewStatus.InReview
+               ? $"Requested for review ({reviewType})"
+               : $"In review ({reviewType})";
+            }
+
+            return contentEventName;
         }
     }
 }

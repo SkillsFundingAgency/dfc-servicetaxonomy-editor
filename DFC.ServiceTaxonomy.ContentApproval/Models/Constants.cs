@@ -40,18 +40,18 @@
         public const string ContentEventSavedAndContinued = "Draft saved and continued";
 
         public const string SubmitSaveAndRequestReviewContentDesignAction = "submit.RequestApproval-ContentDesign";
-        public const string ContentEventSavedAndRequestReviewContentDesign = contentdesign;
+        public const string ContentEventRequestReviewContentDesign = contentdesign;
 
         public const string SubmitSaveAndRequestReviewStakeholderAction = "submit.RequestApproval-Stakeholder";
-        public const string ContentEventSavedAndRequestReviewStakeholder = stakeholder;
+        public const string ContentEventRequestReviewStakeholder = stakeholder;
 
         public const string SubmitSaveAndRequestReviewSmeAction = "submit.RequestApproval-SME";
-        public const string ContentEventSavedAndRequestReviewSme = sme;
+        public const string ContentEventRequestReviewSme = sme;
 
         public const string SubmitSaveAndRequestReviewUxAction = "submit.RequestApproval-UX";
-        public const string ContentEventSavedAndRequestReviewUx = ux;
+        public const string ContentEventRequestReviewUx = ux;
 
         public const string SubmitSaveAndRequiresRevisionAction = "submit.RequiresRevision";
-        public const string ContentEventSavedAndRequiresRevision = "Sent back for revision";
+        public const string ContentEventRequiresRevision = "Sent back for revision";
     }
 }
