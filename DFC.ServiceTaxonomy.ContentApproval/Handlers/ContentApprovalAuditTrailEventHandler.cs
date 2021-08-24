@@ -63,28 +63,28 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Handlers
                             {
                                 switch (action)
                                 {
-                                    case "submit.Publish":
-                                        contentEvent.Name = "Published";
+                                    case Constants.SubmitPublishAction:
+                                        contentEvent.Name = Constants.ContentEventPublished;
                                         break;
 
-                                    case "submit.PublishAndContinue":
-                                        contentEvent.Name = "Published and continued";
+                                    case Constants.SubmitPublishAndContinueAction:
+                                        contentEvent.Name = Constants.ContentEventPublishedAndContinued;
                                         break;
 
-                                    case "submit.RequestApproval-ContentDesign":
-                                        contentEvent.Name = "Force published (ContentDesign)";
+                                    case Constants.SubmitForcePublishContentDesignAction:
+                                        contentEvent.Name = Constants.ContentEventForcePublishedContentDesign;
                                         break;
 
-                                    case "submit.RequestApproval-Stakeholder":
-                                        contentEvent.Name = "Force published (Stakeholder)";
+                                    case Constants.SubmitForcePublishedStakeholderAction:
+                                        contentEvent.Name = Constants.ContentEventForcePublishedStakeholder;
                                         break;
 
-                                    case "submit.RequestApproval-SME":
-                                        contentEvent.Name = "Force published (SME)";
+                                    case Constants.SubmitForcePublishedSmeAction:
+                                        contentEvent.Name = Constants.ContentEventForcePublishedSme;
                                         break;
 
-                                    case "submit.RequestApproval-UX":
-                                        contentEvent.Name = "Force published (UX)";
+                                    case Constants.SubmitForcePublishedUxAction:
+                                        contentEvent.Name = Constants.ContentEventForcePublishedUx;
                                         break;
 
                                     default:
@@ -96,32 +96,32 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Handlers
                             {
                                 switch (action)
                                 {
-                                    case "submit.Save":
-                                        contentEvent.Name = "Draft saved and exited";
+                                    case Constants.SubmitSaveKey:
+                                        contentEvent.Name = Constants.ContentEventDraftSavedAndExited;
                                         break;
 
-                                    case "submit.SaveAndContinue":
-                                        contentEvent.Name = "Draft saved and continued";
+                                    case Constants.SubmitSaveAndContinueAction:
+                                        contentEvent.Name = Constants.ContentEventSavedAndContinued;
                                         break;
 
-                                    case "submit.RequestApproval-ContentDesign":
-                                        contentEvent.Name = GetContentEventName(contentApprovalPart, "content design");
+                                    case Constants.SubmitSaveAndRequestReviewContentDesignAction:
+                                        contentEvent.Name = GetContentEventName(contentApprovalPart, Constants.ContentEventSavedAndRequestReviewContentDesign);
                                         break;
 
-                                    case "submit.RequestApproval-Stakeholder":
-                                        contentEvent.Name = GetContentEventName(contentApprovalPart, "stakeholder");
+                                    case Constants.SubmitSaveAndRequestReviewStakeholderAction:
+                                        contentEvent.Name = GetContentEventName(contentApprovalPart, Constants.ContentEventSavedAndRequestReviewStakeholder);
                                         break;
 
-                                    case "submit.RequestApproval-SME":
-                                        contentEvent.Name = GetContentEventName(contentApprovalPart, "sme");
+                                    case Constants.SubmitSaveAndRequestReviewSmeAction:
+                                        contentEvent.Name = GetContentEventName(contentApprovalPart, Constants.ContentEventSavedAndRequestReviewSme);
                                         break;
 
-                                    case "submit.RequestApproval-UX":
-                                        contentEvent.Name = GetContentEventName(contentApprovalPart, "ux");
+                                    case Constants.SubmitSaveAndRequestReviewUxAction:
+                                        contentEvent.Name = GetContentEventName(contentApprovalPart, Constants.ContentEventSavedAndRequestReviewUx);
                                         break;
 
-                                    case "submit.RequiresRevision":
-                                        contentEvent.Name = "Sent back for revision";
+                                    case Constants.SubmitSaveAndRequiresRevisionAction:
+                                        contentEvent.Name = Constants.ContentEventSavedAndRequiresRevision;
                                         break;
 
                                     default:
