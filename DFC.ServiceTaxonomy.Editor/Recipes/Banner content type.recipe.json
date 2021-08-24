@@ -14,7 +14,7 @@
     ],
     "steps": [
         {
-            "name": "ReplaceContentDefinition",
+            "name": "ContentDefinition",
             "ContentTypes": [
                 {
                     "Name": "Banner",
