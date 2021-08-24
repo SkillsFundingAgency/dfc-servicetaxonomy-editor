@@ -94,7 +94,6 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Handlers
                             // Request Review/Save Draft/Save Draft & Exit button
                             else if (button.Contains(Constants.SubmitSaveKey))
                             {
-                                string reviewType = string.Empty;
                                 switch (action)
                                 {
                                     case "submit.Save":
@@ -106,19 +105,19 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Handlers
                                         break;
 
                                     case "submit.RequestApproval-ContentDesign":
-                                        reviewType = GetContentEventName(contentEvent, contentApprovalPart, "content design");
+                                        contentEvent.Name = GetContentEventName(contentEvent, contentApprovalPart, "content design");
                                         break;
 
                                     case "submit.RequestApproval-Stakeholder":
-                                        reviewType = GetContentEventName(contentEvent, contentApprovalPart, "stakeholder");
+                                        contentEvent.Name = GetContentEventName(contentEvent, contentApprovalPart, "stakeholder");
                                         break;
 
                                     case "submit.RequestApproval-SME":
-                                        reviewType = GetContentEventName(contentEvent, contentApprovalPart, "sme");
+                                        contentEvent.Name = GetContentEventName(contentEvent, contentApprovalPart, "sme");
                                         break;
 
                                     case "submit.RequestApproval-UX":
-                                        reviewType = GetContentEventName(contentEvent, contentApprovalPart, "ux");
+                                        contentEvent.Name = GetContentEventName(contentEvent, contentApprovalPart, "ux");
                                         break;
 
                                     case "submit.RequiresRevision":
