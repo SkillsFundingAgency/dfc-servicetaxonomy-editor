@@ -105,19 +105,19 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Handlers
                                         break;
 
                                     case "submit.RequestApproval-ContentDesign":
-                                        contentEvent.Name = GetContentEventName(contentEvent, contentApprovalPart, "content design");
+                                        contentEvent.Name = GetContentEventName(contentApprovalPart, "content design");
                                         break;
 
                                     case "submit.RequestApproval-Stakeholder":
-                                        contentEvent.Name = GetContentEventName(contentEvent, contentApprovalPart, "stakeholder");
+                                        contentEvent.Name = GetContentEventName(contentApprovalPart, "stakeholder");
                                         break;
 
                                     case "submit.RequestApproval-SME":
-                                        contentEvent.Name = GetContentEventName(contentEvent, contentApprovalPart, "sme");
+                                        contentEvent.Name = GetContentEventName(contentApprovalPart, "sme");
                                         break;
 
                                     case "submit.RequestApproval-UX":
-                                        contentEvent.Name = GetContentEventName(contentEvent, contentApprovalPart, "ux");
+                                        contentEvent.Name = GetContentEventName(contentApprovalPart, "ux");
                                         break;
 
                                     case "submit.RequiresRevision":
@@ -136,13 +136,11 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Handlers
             return Task.CompletedTask;
         }
 
-        private static string GetContentEventName(AuditTrailCreateContext<AuditTrailContentEvent> contentEvent, ContentApprovalPart contentApprovalPart, string reviewType)
+        private static string GetContentEventName(ContentApprovalPart contentApprovalPart, string reviewType)
         {
-            contentEvent.Name = contentApprovalPart.ReviewStatus != Models.Enums.ReviewStatus.InReview
+            return contentApprovalPart.ReviewStatus != Models.Enums.ReviewStatus.InReview
                 ? $"Requested for review ({reviewType})"
                 : $"In review ({reviewType})";
-
-            return contentEvent.Name;
         }
     }
 }
