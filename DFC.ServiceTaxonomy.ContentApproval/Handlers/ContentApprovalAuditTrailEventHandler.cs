@@ -94,6 +94,7 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Handlers
                             // Request Review/Save Draft/Save Draft & Exit button
                             else if (button.Contains(Constants.SubmitSaveKey))
                             {
+                                string reviewType = string.Empty;
                                 switch (action)
                                 {
                                     case "submit.Save":
@@ -105,19 +106,31 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Handlers
                                         break;
 
                                     case "submit.RequestApproval-ContentDesign":
-                                        contentEvent.Name = "Requested for review (ContentDesign)";
+                                        reviewType = "content design";
+                                        contentEvent.Name = contentApprovalPart.ReviewStatus != Models.Enums.ReviewStatus.InReview
+                                            ? $"Requested for review ({reviewType})"
+                                            : $"In review ({reviewType})";
                                         break;
 
                                     case "submit.RequestApproval-Stakeholder":
-                                        contentEvent.Name = "Requested for review (Stakeholder)";
+                                        reviewType = "stakeholder";
+                                        contentEvent.Name = contentApprovalPart.ReviewStatus != Models.Enums.ReviewStatus.InReview
+                                            ? $"Requested for review ({reviewType})"
+                                            : $"In review ({reviewType})";
                                         break;
 
                                     case "submit.RequestApproval-SME":
-                                        contentEvent.Name = "Requested for review (SME)";
+                                        reviewType = "sme";
+                                        contentEvent.Name = contentApprovalPart.ReviewStatus != Models.Enums.ReviewStatus.InReview
+                                            ? $"Requested for review ({reviewType})"
+                                            : $"In review  ({reviewType})";
                                         break;
 
                                     case "submit.RequestApproval-UX":
-                                        contentEvent.Name = "Requested for review (UX)";
+                                        reviewType = "ux";
+                                        contentEvent.Name = contentApprovalPart.ReviewStatus != Models.Enums.ReviewStatus.InReview
+                                            ? $"Requested for review ({reviewType})"
+                                            : $"In review  ({reviewType})";
                                         break;
 
                                     case "submit.RequiresRevision":
