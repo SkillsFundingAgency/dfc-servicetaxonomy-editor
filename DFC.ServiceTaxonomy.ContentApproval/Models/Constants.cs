@@ -22,16 +22,9 @@
         public const string ContentEventPublishedAndContinued = "Published and continued";
 
         public const string SubmitForcePublishContentDesignAction = "submit.RequestApproval-ContentDesign";
-        public const string ContentEventForcePublishedContentDesign = "Force published (" + contentdesign + ")";
-
         public const string SubmitForcePublishedStakeholderAction = "submit.RequestApproval-Stakeholder";
-        public const string ContentEventForcePublishedStakeholder = "Force published (" + stakeholder + ")";
-
         public const string SubmitForcePublishedSmeAction = "submit.RequestApproval-SME";
-        public const string ContentEventForcePublishedSme = "Force published (" + sme + ")";
-
         public const string SubmitForcePublishedUxAction = "submit.RequestApproval-UX";
-        public const string ContentEventForcePublishedUx = "Force published (" + ux + ")";
 
         public const string SubmitSaveAction = SubmitSaveKey;
         public const string ContentEventDraftSavedAndExited = "Draft saved and exited";

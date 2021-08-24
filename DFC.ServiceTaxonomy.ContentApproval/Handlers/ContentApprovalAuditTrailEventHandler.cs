@@ -155,6 +155,7 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Handlers
                : $"In review ({reviewType})";
             }
 
+
             return contentEventName;
         }
     }
