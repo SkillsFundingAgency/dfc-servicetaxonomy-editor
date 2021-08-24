@@ -105,19 +105,19 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Handlers
                                         break;
 
                                     case "submit.RequestApproval-ContentDesign":
-                                        contentEvent.Name = "Requested for review (ContentDesign)";
+                                        contentEvent.Name = GetContentEventName(contentApprovalPart, "content design");
                                         break;
 
                                     case "submit.RequestApproval-Stakeholder":
-                                        contentEvent.Name = "Requested for review (Stakeholder)";
+                                        contentEvent.Name = GetContentEventName(contentApprovalPart, "stakeholder");
                                         break;
 
                                     case "submit.RequestApproval-SME":
-                                        contentEvent.Name = "Requested for review (SME)";
+                                        contentEvent.Name = GetContentEventName(contentApprovalPart, "sme");
                                         break;
 
                                     case "submit.RequestApproval-UX":
-                                        contentEvent.Name = "Requested for review (UX)";
+                                        contentEvent.Name = GetContentEventName(contentApprovalPart, "ux");
                                         break;
 
                                     case "submit.RequiresRevision":
@@ -136,5 +136,11 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Handlers
             return Task.CompletedTask;
         }
 
+        private static string GetContentEventName(ContentApprovalPart contentApprovalPart, string reviewType)
+        {
+            return contentApprovalPart.ReviewStatus != Models.Enums.ReviewStatus.InReview
+                ? $"Requested for review ({reviewType})"
+                : $"In review ({reviewType})";
+        }
     }
 }
