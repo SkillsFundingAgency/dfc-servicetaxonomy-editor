@@ -72,19 +72,19 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Handlers
                                         break;
 
                                     case "submit.RequestApproval-ContentDesign":
-                                        contentEvent.Name = "Force published (ContentDesign)";
+                                        contentEvent.Name = "Force published (content design)";
                                         break;
 
                                     case "submit.RequestApproval-Stakeholder":
-                                        contentEvent.Name = "Force published (Stakeholder)";
+                                        contentEvent.Name = "Force published (stakeholder)";
                                         break;
 
                                     case "submit.RequestApproval-SME":
-                                        contentEvent.Name = "Force published (SME)";
+                                        contentEvent.Name = "Force published (sme)";
                                         break;
 
                                     case "submit.RequestApproval-UX":
-                                        contentEvent.Name = "Force published (UX)";
+                                        contentEvent.Name = "Force published (ux)";
                                         break;
 
                                     default:
