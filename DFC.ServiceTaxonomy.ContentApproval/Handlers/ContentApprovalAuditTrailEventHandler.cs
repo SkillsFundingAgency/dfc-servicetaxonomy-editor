@@ -106,31 +106,19 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Handlers
                                         break;
 
                                     case "submit.RequestApproval-ContentDesign":
-                                        reviewType = "content design";
-                                        contentEvent.Name = contentApprovalPart.ReviewStatus != Models.Enums.ReviewStatus.InReview
-                                            ? $"Requested for review ({reviewType})"
-                                            : $"In review ({reviewType})";
+                                        reviewType = GetContentEventName(contentEvent, contentApprovalPart, "content design");
                                         break;
 
                                     case "submit.RequestApproval-Stakeholder":
-                                        reviewType = "stakeholder";
-                                        contentEvent.Name = contentApprovalPart.ReviewStatus != Models.Enums.ReviewStatus.InReview
-                                            ? $"Requested for review ({reviewType})"
-                                            : $"In review ({reviewType})";
+                                        reviewType = GetContentEventName(contentEvent, contentApprovalPart, "stakeholder");
                                         break;
 
                                     case "submit.RequestApproval-SME":
-                                        reviewType = "sme";
-                                        contentEvent.Name = contentApprovalPart.ReviewStatus != Models.Enums.ReviewStatus.InReview
-                                            ? $"Requested for review ({reviewType})"
-                                            : $"In review  ({reviewType})";
+                                        reviewType = GetContentEventName(contentEvent, contentApprovalPart, "sme");
                                         break;
 
                                     case "submit.RequestApproval-UX":
-                                        reviewType = "ux";
-                                        contentEvent.Name = contentApprovalPart.ReviewStatus != Models.Enums.ReviewStatus.InReview
-                                            ? $"Requested for review ({reviewType})"
-                                            : $"In review  ({reviewType})";
+                                        reviewType = GetContentEventName(contentEvent, contentApprovalPart, "ux");
                                         break;
 
                                     case "submit.RequiresRevision":
@@ -149,5 +137,13 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Handlers
             return Task.CompletedTask;
         }
 
+        private static string GetContentEventName(AuditTrailCreateContext<AuditTrailContentEvent> contentEvent, ContentApprovalPart contentApprovalPart, string reviewType)
+        {
+            contentEvent.Name = contentApprovalPart.ReviewStatus != Models.Enums.ReviewStatus.InReview
+                ? $"Requested for review ({reviewType})"
+                : $"In review ({reviewType})";
+
+            return contentEvent.Name;
+        }
     }
 }
