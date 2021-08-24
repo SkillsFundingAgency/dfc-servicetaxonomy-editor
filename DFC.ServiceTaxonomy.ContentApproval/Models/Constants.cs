@@ -1,6 +1,6 @@
 ﻿namespace DFC.ServiceTaxonomy.ContentApproval.Models
 {
-    public static class Constants
+     public static class Constants
     {
         public const string contentdesign = "content design"; // case of constant matches the string casing
         public const string stakeholder = "stakeholder";
