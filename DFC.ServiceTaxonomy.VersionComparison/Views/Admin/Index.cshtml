@@ -5,3 +5,25 @@
 <form asp-action="Index" method="post">
     @await DisplayAsync(Model)
 </form>
+
+<style asp-name="version-styles" asp-src="~/DFC.ServiceTaxonomy.VersionComparison/Styles/version.min.css" debug-src="~/DFC.ServiceTaxonomy.VersionComparison/Styles/version.css"></style>
+<script asp-name="diff" asp-src="~/DFC.ServiceTaxonomy.VersionComparison/Scripts/diff_match_patch.js" at="Foot" debug-src="~/DFC.ServiceTaxonomy.VersionComparison/Scripts/diff_match_patch.js"></script>
+<script at="Foot" depends-on="diff">
+    $(function () {
+        $('.version-picker').on('change', function () {
+            $("form").submit();
+        });
+
+        var dmp = new diff_match_patch();
+        var els = $(".diff");
+        for (el of els) {
+            var base = $(el).find(".base")[0];
+            var compare = $(el).find(".compare")[0];
+            if (base && compare) {
+                var d = dmp.diff_main(base.innerText, compare.innerText);
+                var ds = dmp.diff_prettyHtml(d);
+                compare.innerHTML = ds;
+            }
+        }
+    });
+</script>

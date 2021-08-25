@@ -1,12 +1,15 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+
 using DFC.ServiceTaxonomy.VersionComparison.Models;
 using DFC.ServiceTaxonomy.VersionComparison.Services;
 using DFC.ServiceTaxonomy.VersionComparison.ViewModels;
+
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Localization;
 using Microsoft.AspNetCore.Mvc.Rendering;
+
 using OrchardCore.Contents.AuditTrail.Models;
 using OrchardCore.DisplayManagement;
 using OrchardCore.DisplayManagement.ModelBinding;
@@ -60,7 +63,7 @@ namespace DFC.ServiceTaxonomy.VersionComparison.Controllers
                 _notifier.Warning(_h["There is currently only one version of this content item."]);
             }
 
-            var shapeViewModel = await GetShapeViewModel(new VersionComparisonOptions { ContentItemId = contentItemId}, versions);
+            var shapeViewModel = await GetShapeViewModel(new VersionComparisonOptions { ContentItemId = contentItemId }, versions);
 
             return View(shapeViewModel);
         }
@@ -109,7 +112,7 @@ namespace DFC.ServiceTaxonomy.VersionComparison.Controllers
                 });
         }
 
-        private void BuildOptions(VersionComparisonOptions options, List<AuditTrailContentEvent> versions)
+        private static void BuildOptions(VersionComparisonOptions options, List<AuditTrailContentEvent> versions)
         {
             var selectVersions = BuildSelectList(versions.Select(v => v.VersionNumber).ToList());
             options.BaseVersionSelectListItems = selectVersions;
@@ -121,9 +124,9 @@ namespace DFC.ServiceTaxonomy.VersionComparison.Controllers
             }
         }
 
-        private List<SelectListItem> BuildSelectList(List<int> versionNumbers)
+        private static List<SelectListItem> BuildSelectList(List<int> versionNumbers)
         {
-            var selectListItems = new List<SelectListItem>();
+            var selectListItems = new List<SelectListItem>(versionNumbers.Count);
             for (int i = 0; i < versionNumbers.Count; i++)
             {
                 var versionNumberValue = versionNumbers[i].ToString();

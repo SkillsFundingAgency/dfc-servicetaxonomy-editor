@@ -1,13 +1,13 @@
 ﻿@model DiffItem
 <div class="container-fluid">
-    <div class="row">
+    <div class="row diff">
         <div class="col-3">
             <span class="diff-item-label">@Model.Name</span>
         </div>
-        <div class="col-4">
+        <div class="col-4 base">
             <span>@Model.CompareItem</span>
         </div>
-        <div class="col-4">
+        <div class="col-4 compare">
             <span>@Model.BaseItem</span>
         </div>
     </div>
