@@ -2,12 +2,6 @@
 {
     public static class Constants
     {
-        public const string contentdesign = "content design"; // case of constant matches the string casing
-        public const string stakeholder = "stakeholder";
-        public const string sme = "sme";
-        public const string ux = "ux";
-
-
         public const string SubmitSaveKey = "submit.Save";
         public const string SubmitPublishKey = "submit.Publish";
 
@@ -15,36 +9,37 @@
         public const string SubmitRequestApprovalValuePrefix = "submit.RequestApproval-";
         public const string ContentApprovalPartPrefix = "ContentApproval";
 
-        public const string SubmitPublishAction = SubmitPublishKey;
-        public const string ContentEventPublished = "Published";
+        // Shared strings
+        public const string ReviewType_ContentDesign = "content design";
+        public const string ReviewType_Stakeholder = "stakeholder";
+        public const string ReviewType_Sme = "sme";
+        public const string ReviewType_Ux = "ux";
 
-        public const string SubmitPublishAndContinueAction = "submit.PublishAndContinue";
-        public const string ContentEventPublishedAndContinued = "Published and continued";
+        public const string ReviewRequest_ContentDesign = "submit.RequestApproval-ContentDesign";
+        public const string ReviewRequest_Stakeholder = "submit.RequestApproval-Stakeholder";
+        public const string ReviewRequest_Sme = "submit.RequestApproval-SME";
+        public const string ReviewRequest_Ux = "submit.RequestApproval-UX";
 
-        public const string SubmitForcePublishContentDesignAction = "submit.RequestApproval-ContentDesign";
-        public const string SubmitForcePublishedStakeholderAction = "submit.RequestApproval-Stakeholder";
-        public const string SubmitForcePublishedSmeAction = "submit.RequestApproval-SME";
-        public const string SubmitForcePublishedUxAction = "submit.RequestApproval-UX";
+        // Content approval button actions
+        public const string Action_Publish = SubmitPublishKey;
+        public const string Action_Publish_Continue = "submit.PublishAndContinue";
+        public const string Action_ForcePublish_ContentDesign = ReviewRequest_ContentDesign;
+        public const string Action_ForcePublish_Stakeholder = ReviewRequest_Stakeholder;
+        public const string Action_ForcePublish_Sme = ReviewRequest_Sme;
+        public const string Action_ForcePublish_Ux = ReviewRequest_Ux;
+        public const string Action_SaveDraft_Exit = SubmitSaveKey;
+        public const string Action_SaveDraft_Continue = "submit.SaveAndContinue";
+        public const string Action_RequestReview_ContentDesign = ReviewRequest_ContentDesign;
+        public const string Action_RequestReview_Stakeholder = ReviewRequest_Stakeholder;
+        public const string Action_RequestReview_Sme = ReviewRequest_Sme;
+        public const string Action_RequestReview_Ux = ReviewRequest_Ux;
+        public const string Action_SendBack = "submit.RequiresRevision";
 
-        public const string SubmitSaveAction = SubmitSaveKey;
-        public const string ContentEventDraftSavedAndExited = "Draft saved and exited";
-
-        public const string SubmitSaveAndContinueAction = "submit.SaveAndContinue";
-        public const string ContentEventSavedAndContinued = "Draft saved and continued";
-
-        public const string SubmitSaveAndRequestReviewContentDesignAction = "submit.RequestApproval-ContentDesign";
-        public const string ContentEventRequestReviewContentDesign = contentdesign;
-
-        public const string SubmitSaveAndRequestReviewStakeholderAction = "submit.RequestApproval-Stakeholder";
-        public const string ContentEventRequestReviewStakeholder = stakeholder;
-
-        public const string SubmitSaveAndRequestReviewSmeAction = "submit.RequestApproval-SME";
-        public const string ContentEventRequestReviewSme = sme;
-
-        public const string SubmitSaveAndRequestReviewUxAction = "submit.RequestApproval-UX";
-        public const string ContentEventRequestReviewUx = ux;
-
-        public const string SubmitSaveAndRequiresRevisionAction = "submit.RequiresRevision";
-        public const string ContentEventRequiresRevision = "Sent back for revision";
+        // Content event names
+        public const string ContentEvent_Publish = "Published";
+        public const string ContentEvent_Publish_Continue = "Published and continued";
+        public const string ContentEvent_SaveDraft_Exit = "Draft saved and exited";
+        public const string ContentEvent_SaveDraft_Continue = "Draft saved and continued";
+        public const string ContentEvent_SendBack = "Sent back for revision";
     }
 }
