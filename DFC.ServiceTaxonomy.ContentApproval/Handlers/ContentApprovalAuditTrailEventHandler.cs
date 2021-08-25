@@ -52,7 +52,7 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Handlers
                     if (contentApprovalPart != null)
                     {
                         var formSubmitAction = contentApprovalPart.FormSubmitAction;
-                        if(formSubmitAction != null)
+                                               if(formSubmitAction != null)
                         {
                             (string button, string action) = formSubmitAction;
 
