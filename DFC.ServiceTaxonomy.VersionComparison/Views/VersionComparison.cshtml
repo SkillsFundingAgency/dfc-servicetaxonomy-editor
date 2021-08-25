@@ -1,0 +1,21 @@
+﻿@model VersionComparisonViewModel
+
+<div class="card mb-3 position-sticky action-bar">
+    <div class="card-body bg-primary p-3">
+        <div class="form-group mb-n1">
+            @await DisplayAsync(Model.SelectLists?.Search)
+        </div>
+    </div>
+</div>
+
+<ul class="list-group diff-list">
+    @if (Model.DiffItems != null && Model.DiffItems.Any())
+    {
+        foreach (var modelDiffItem in Model.DiffItems)
+        {
+            <li class="list-group-item diff-list-item">
+                @await DisplayAsync(modelDiffItem)
+            </li>
+        }
+    }
+</ul>

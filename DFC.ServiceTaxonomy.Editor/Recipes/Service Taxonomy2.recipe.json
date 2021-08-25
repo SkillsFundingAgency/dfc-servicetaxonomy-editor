@@ -79,6 +79,7 @@
                 "DFC.ServiceTaxonomy.Theme",
                 // Service Taxonomy Editor
                 "DFC.ServiceTaxonomy.Content",
+                "DFC.ServiceTaxonomy.ContentApproval",
                 "DFC.ServiceTaxonomy.ContentPickerPreview",
                 "DFC.ServiceTaxonomy.CustomEditor",
                 "DFC.ServiceTaxonomy.CustomFields",
@@ -90,7 +91,7 @@
                 "DFC.ServiceTaxonomy.Taxonomies",
                 "DFC.ServiceTaxonomy.Taxonomies.ContentsAdminList",
                 "DFC.ServiceTaxonomy.UnpublishLater",
-                "DFC.ServiceTaxonomy.ContentApproval"
+                "DFC.ServiceTaxonomy.VersionComparison"
             ]
         },
         {
