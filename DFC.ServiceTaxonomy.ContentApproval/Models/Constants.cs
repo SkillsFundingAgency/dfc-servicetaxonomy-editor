@@ -1,6 +1,6 @@
 ﻿namespace DFC.ServiceTaxonomy.ContentApproval.Models
 {
-     public static class Constants
+    public static class Constants
     {
         public const string SubmitSaveKey = "submit.Save";
         public const string SubmitPublishKey = "submit.Publish";
