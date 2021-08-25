@@ -1,5 +1,4 @@
 ﻿using System;
-//using System.Linq;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.ContentApproval.Models;
 using OrchardCore.AuditTrail.Services;
@@ -43,7 +42,6 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Handlers
              *  
              *  Cancel                      - N/A (exits page)
              */
-            //string actionType = string.Empty;
 
             if (context is AuditTrailCreateContext<AuditTrailContentEvent> contentEvent)
             {
@@ -54,7 +52,7 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Handlers
                     if (contentApprovalPart != null)
                     {
                         var formSubmitAction = contentApprovalPart.FormSubmitAction;
-                        if(formSubmitAction != null)
+                        if (formSubmitAction != null)
                         {
                             (string button, string action) = formSubmitAction;
 
@@ -63,28 +61,28 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Handlers
                             {
                                 switch (action)
                                 {
-                                    case Constants.SubmitPublishAction:
-                                        contentEvent.Name = Constants.ContentEventPublished;
+                                    case Constants.Action_Publish:
+                                        contentEvent.Name = Constants.ContentEvent_Publish;
                                         break;
 
-                                    case Constants.SubmitPublishAndContinueAction:
-                                        contentEvent.Name = Constants.ContentEventPublishedAndContinued;
+                                    case Constants.Action_Publish_Continue:
+                                        contentEvent.Name = Constants.ContentEvent_Publish_Continue;
                                         break;
 
-                                    case Constants.SubmitForcePublishContentDesignAction:
-                                        contentEvent.Name = Constants.ContentEventForcePublishedContentDesign;
+                                    case Constants.Action_ForcePublish_ContentDesign:
+                                        contentEvent.Name = GetContentEventName(contentApprovalPart, button, Constants.ReviewType_ContentDesign);
                                         break;
 
-                                    case Constants.SubmitForcePublishedStakeholderAction:
-                                        contentEvent.Name = Constants.ContentEventForcePublishedStakeholder;
+                                    case Constants.Action_ForcePublish_Stakeholder:
+                                        contentEvent.Name = GetContentEventName(contentApprovalPart, button, Constants.ReviewType_Stakeholder);
                                         break;
 
-                                    case Constants.SubmitForcePublishedSmeAction:
-                                        contentEvent.Name = Constants.ContentEventForcePublishedSme;
+                                    case Constants.Action_ForcePublish_Sme:
+                                        contentEvent.Name = GetContentEventName(contentApprovalPart, button, Constants.ReviewType_Sme);
                                         break;
 
-                                    case Constants.SubmitForcePublishedUxAction:
-                                        contentEvent.Name = Constants.ContentEventForcePublishedUx;
+                                    case Constants.Action_ForcePublish_Ux:
+                                        contentEvent.Name = GetContentEventName(contentApprovalPart, button, Constants.ReviewType_Ux);
                                         break;
 
                                     default:
@@ -96,32 +94,32 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Handlers
                             {
                                 switch (action)
                                 {
-                                    case Constants.SubmitSaveKey:
-                                        contentEvent.Name = Constants.ContentEventDraftSavedAndExited;
+                                    case Constants.Action_SaveDraft_Exit:
+                                        contentEvent.Name = Constants.ContentEvent_SaveDraft_Exit;
                                         break;
 
-                                    case Constants.SubmitSaveAndContinueAction:
-                                        contentEvent.Name = Constants.ContentEventSavedAndContinued;
+                                    case Constants.Action_SaveDraft_Continue:
+                                        contentEvent.Name = Constants.ContentEvent_SaveDraft_Continue;
                                         break;
 
-                                    case Constants.SubmitSaveAndRequestReviewContentDesignAction:
-                                        contentEvent.Name = GetContentEventName(contentApprovalPart, Constants.ContentEventSavedAndRequestReviewContentDesign);
+                                    case Constants.Action_RequestReview_ContentDesign:
+                                        contentEvent.Name = GetContentEventName(contentApprovalPart, button, Constants.ReviewType_ContentDesign);
                                         break;
 
-                                    case Constants.SubmitSaveAndRequestReviewStakeholderAction:
-                                        contentEvent.Name = GetContentEventName(contentApprovalPart, Constants.ContentEventSavedAndRequestReviewStakeholder);
+                                    case Constants.Action_RequestReview_Stakeholder:
+                                        contentEvent.Name = GetContentEventName(contentApprovalPart, button, Constants.ReviewType_Stakeholder);
                                         break;
 
-                                    case Constants.SubmitSaveAndRequestReviewSmeAction:
-                                        contentEvent.Name = GetContentEventName(contentApprovalPart, Constants.ContentEventSavedAndRequestReviewSme);
+                                    case Constants.Action_RequestReview_Sme:
+                                        contentEvent.Name = GetContentEventName(contentApprovalPart, button, Constants.ReviewType_Sme);
                                         break;
 
-                                    case Constants.SubmitSaveAndRequestReviewUxAction:
-                                        contentEvent.Name = GetContentEventName(contentApprovalPart, Constants.ContentEventSavedAndRequestReviewUx);
+                                    case Constants.Action_RequestReview_Ux:
+                                        contentEvent.Name = GetContentEventName(contentApprovalPart, button, Constants.ReviewType_Ux);
                                         break;
 
-                                    case Constants.SubmitSaveAndRequiresRevisionAction:
-                                        contentEvent.Name = Constants.ContentEventSavedAndRequiresRevision;
+                                    case Constants.Action_SendBack:
+                                        contentEvent.Name = Constants.ContentEvent_SendBack;
                                         break;
 
                                     default:
@@ -136,11 +134,38 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Handlers
             return Task.CompletedTask;
         }
 
-        private static string GetContentEventName(ContentApprovalPart contentApprovalPart, string reviewType)
+        private static string GetContentEventName(ContentApprovalPart contentApprovalPart, string button, string reviewType)
         {
-            return contentApprovalPart.ReviewStatus != Models.Enums.ReviewStatus.InReview
-                ? $"Requested for review ({reviewType})"
-                : $"In review ({reviewType})";
+            reviewType = reviewType.ToLower();
+
+            string contentEventName = string.Empty;
+            string forcePublishText = $"Force published ({reviewType})";
+            string requestReviewText = $"Requested for review ({reviewType})";
+            string inReviewText = $"In review ({reviewType.ToLower()})";
+
+            if (button.Contains(Constants.SubmitPublishKey))
+            {
+                if (contentApprovalPart.IsForcePublished)
+                {
+                    contentEventName = contentApprovalPart.ReviewStatus != Models.Enums.ReviewStatus.InReview
+                    ? forcePublishText
+                    : inReviewText;
+                }
+                else
+                {
+                    contentEventName = contentApprovalPart.ReviewStatus != Models.Enums.ReviewStatus.InReview
+                    ? requestReviewText
+                    : inReviewText;
+                }
+            }
+            else if (button.Contains(Constants.SubmitSaveKey))
+            {
+                contentEventName = contentApprovalPart.ReviewStatus != Models.Enums.ReviewStatus.InReview
+                ? requestReviewText
+                : inReviewText;
+            }
+
+            return contentEventName;
         }
     }
 }
