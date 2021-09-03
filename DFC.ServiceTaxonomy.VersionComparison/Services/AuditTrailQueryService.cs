@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using OrchardCore.AuditTrail.Indexes;
@@ -30,13 +29,12 @@ namespace DFC.ServiceTaxonomy.VersionComparison.Services
                 .OrderByDescending(index => index.Id)
                 .ListAsync();
 
+            var auditTrailContentEventsList = new List<AuditTrailContentEvent>();
+
             if (allAuditVersions == null || !allAuditVersions.Any())
             {
-                throw new DataException(
-                    $"No audit trail version information was found in the audit trail index for {contentItemId}");
+                return auditTrailContentEventsList;
             }
-
-            var auditTrailContentEventsList = new List<AuditTrailContentEvent>();
 
             foreach (var auditTrailEvent in allAuditVersions)
             {
