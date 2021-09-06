@@ -1,21 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.VersionComparison.Models;
 using DFC.ServiceTaxonomy.VersionComparison.Models.Parts;
 using Newtonsoft.Json.Linq;
-using OrchardCore.ContentManagement;
 
 namespace DFC.ServiceTaxonomy.VersionComparison.Services.PropertyServices
 {
     public class WidgetPropertyService : IPropertyService
     {
-        private readonly IContentManager _contentManager;
+        private readonly IContentNameService _contentServiceHelper;
 
-        public WidgetPropertyService(IContentManager contentManager)
+        public WidgetPropertyService(IContentNameService contentServiceHelper)
         {
-            _contentManager = contentManager;
+            _contentServiceHelper = contentServiceHelper;
         }
 
         public bool CanProcess(JToken? jToken, string? propertyName = null)
@@ -37,7 +34,7 @@ namespace DFC.ServiceTaxonomy.VersionComparison.Services.PropertyServices
                 if (widget.ContentType == "HTMLShared")
                 {
                     var linkInfo = widget.HTMLShared?.SharedContent?.ContentItemIds
-                        .Select(c => new { Id = c, Name = GetContentName(c).Result })
+                        .Select(c => new { Id = c, Name = _contentServiceHelper.GetContentNameAsync(c).Result })
                         .ToDictionary(k => k.Id, v => v.Name);
                     widgetList.Add(new PropertyExtract { Key = key, Name = "HTMLShared", Links = linkInfo });
                 }
@@ -48,21 +45,6 @@ namespace DFC.ServiceTaxonomy.VersionComparison.Services.PropertyServices
             }
 
             return widgetList;
-        }
-
-        private async Task<string> GetContentName(string contentItemId)
-        {
-            if (string.IsNullOrWhiteSpace(contentItemId))
-            {
-                return string.Empty;
-            }
-            var contentItem = await _contentManager.GetAsync(contentItemId);
-            if (contentItem != null)
-            {
-                return contentItem.DisplayText;
-            }
-
-            return string.Empty;
         }
     }
 }

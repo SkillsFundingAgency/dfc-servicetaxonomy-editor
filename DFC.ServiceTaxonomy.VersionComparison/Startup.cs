@@ -35,6 +35,7 @@ namespace DFC.ServiceTaxonomy.VersionComparison
 
             services.AddScoped<IAuditTrailQueryService, AuditTrailQueryService>();
             services.AddScoped<IDiffBuilderService, DiffBuilderService>();
+            services.AddScoped<IContentNameService, ContentNameService>();
 
             services.AddScoped<IContentDisplayDriver, VersionComparisonContentsDriver>();
 
@@ -42,6 +43,8 @@ namespace DFC.ServiceTaxonomy.VersionComparison
             services
                 .AddScoped<IPropertyService, NullPropertyService>()
                 .AddScoped<IPropertyService, BasicPropertyService>()
+                .AddScoped<IPropertyService, AddBannerPropertyService>()
+                .AddScoped<IPropertyService, PageLocationsPropertyService>()
                 .AddScoped<IPropertyService, WidgetPropertyService>()
                 .AddScoped<IPropertyService, SingleChildPropertyService>();
         }
