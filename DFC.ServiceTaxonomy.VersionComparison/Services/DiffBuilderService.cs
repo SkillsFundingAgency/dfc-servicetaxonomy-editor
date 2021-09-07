@@ -62,7 +62,7 @@ namespace DFC.ServiceTaxonomy.VersionComparison.Services
             var basePart = jObject?.GetValue(partDefinition?.Name) as JObject;
             if (basePart != null)
             {
-                LoadPropertyValues(basePart, dictionary);
+                LoadPropertyValues(basePart, dictionary, partDefinition);
             }
         }
 
@@ -86,11 +86,20 @@ namespace DFC.ServiceTaxonomy.VersionComparison.Services
             return diffList;
         }
 
-        private void LoadPropertyValues(JObject part, Dictionary<string, PropertyExtract> propertyDictionary)
+        private void LoadPropertyValues(JObject part, Dictionary<string, PropertyExtract> propertyDictionary, ContentTypePartDefinition? partDefinition)
         {
+            var fieldArray = partDefinition?.PartDefinition.Fields.ToArray() ?? Array.Empty<ContentPartFieldDefinition>();
+            var fieldLookUp = fieldArray.ToDictionary(k => k.Name, v => v.DisplayName());
+
             foreach (JProperty jProperty in part.Properties())
             {
-                var propertyName = ValidDictionaryKey(propertyDictionary, jProperty.Name);
+
+                var propertyName = jProperty.Name;
+                if (fieldLookUp.ContainsKey(propertyName))
+                {
+                    propertyName = fieldLookUp[propertyName];
+                }
+                var propertyKey = ValidDictionaryKey(propertyDictionary, jProperty.Name);
                 var partProperty = part.GetValue(jProperty.Name);
 
                 var propertyService = _propertyServices.FirstOrDefault(ps => ps.CanProcess(partProperty, propertyName));
@@ -99,7 +108,7 @@ namespace DFC.ServiceTaxonomy.VersionComparison.Services
                     var properties = propertyService.Process(propertyName, partProperty);
                     foreach (PropertyExtract? propertyDto in properties)
                     {
-                        propertyDictionary.Add(propertyDto.Key ?? propertyName, propertyDto);
+                        propertyDictionary.Add(propertyDto.Key ?? propertyKey, propertyDto);
                     }
                 }
                 else if (partProperty != null && partProperty.Type == JTokenType.Object) // Objects with multiple values
@@ -108,12 +117,12 @@ namespace DFC.ServiceTaxonomy.VersionComparison.Services
                     {
                         if (child.Type == JTokenType.Object)
                         {
-                            LoadPropertyValues((JObject)child, propertyDictionary);
+                            LoadPropertyValues((JObject)child, propertyDictionary, partDefinition);
                         }
                         else if (child.Type == JTokenType.Property)
                         {
                             var childProperty = child as JProperty;
-                            var childPropertyName = $"{propertyName}-{childProperty?.Name}";
+                            var childPropertyName = $"{propertyKey}-{childProperty?.Name}";
                             propertyDictionary.Add(childPropertyName, new PropertyExtract { Name = childPropertyName, Value = childProperty?.Value.ToString() });
                         }
                     }
