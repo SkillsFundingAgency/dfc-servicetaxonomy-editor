@@ -24,7 +24,7 @@
                 var d = dmp.diff_main(base.innerText, compare.innerText);
                 dmp.diff_cleanupEfficiency(d);
                 var ds = dmp.diff_prettyHtml(d);
-                compare.innerHTML = ds;
+                compare.innerHTML = ds.replace(/&para;/g, '');
             }
         }
     });

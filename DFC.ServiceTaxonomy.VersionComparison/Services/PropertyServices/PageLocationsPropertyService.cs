@@ -18,7 +18,7 @@ namespace DFC.ServiceTaxonomy.VersionComparison.Services.PropertyServices
 
         public bool CanProcess(JToken? jToken, string? propertyName = null)
         {
-            return propertyName?.Equals("PageLocations", StringComparison.CurrentCultureIgnoreCase) ?? false;
+            return propertyName?.Replace(" ", string.Empty).Equals("PageLocations", StringComparison.CurrentCultureIgnoreCase) ?? false;
         }
         public IList<PropertyExtract> Process(string propertyName, JToken? jToken)
         {

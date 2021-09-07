@@ -18,7 +18,7 @@ namespace DFC.ServiceTaxonomy.VersionComparison.Services.PropertyServices
 
         public bool CanProcess(JToken? jToken, string? propertyName = null)
         {
-            return propertyName?.Equals("Addabanner", StringComparison.CurrentCultureIgnoreCase) ?? false;
+            return propertyName?.Replace(" ", string.Empty).Equals("Addabanner", StringComparison.CurrentCultureIgnoreCase) ?? false;
         }
 
         public IList<PropertyExtract> Process(string propertyName, JToken? jToken)
@@ -29,7 +29,7 @@ namespace DFC.ServiceTaxonomy.VersionComparison.Services.PropertyServices
             {
                 var linkInfo = addBanner.ContentItemIds.Select(c => new {Id = c, Name = _contentServiceHelper.GetContentNameAsync(c).Result})
                     .ToDictionary(k => k.Id, v => v.Name);
-                properties.Add(new PropertyExtract {Key = propertyName, Name = propertyName, Links = linkInfo});
+                properties.Add(new PropertyExtract { Name = propertyName, Links = linkInfo});
             }
 
             return properties;
