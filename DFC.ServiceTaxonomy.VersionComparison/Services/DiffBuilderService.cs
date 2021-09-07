@@ -86,9 +86,7 @@ namespace DFC.ServiceTaxonomy.VersionComparison.Services
             return diffList;
         }
 
-#pragma warning disable S1172 // Unused method parameters should be removed
         private void LoadPropertyValues(JObject part, Dictionary<string, PropertyExtract> propertyDictionary, ContentTypePartDefinition? partDefinition)
-#pragma warning restore S1172 // Unused method parameters should be removed
         {
             var fieldArray = partDefinition?.PartDefinition.Fields.ToArray() ?? Array.Empty<ContentPartFieldDefinition>();
             var fieldLookUp = fieldArray.ToDictionary(k => k.Name, v => v.DisplayName());
