@@ -19,7 +19,7 @@ namespace DFC.ServiceTaxonomy.VersionComparison.Services
                 return string.Empty;
             }
 
-            var contentItem = await _contentManager.GetAsync(contentItemId);
+            var contentItem = await _contentManager.GetAsync(contentItemId, VersionOptions.Latest);
             if (contentItem != null)
             {
                 return contentItem.DisplayText;
