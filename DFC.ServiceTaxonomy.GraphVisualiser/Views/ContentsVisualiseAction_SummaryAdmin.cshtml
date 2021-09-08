@@ -1,0 +1,27 @@
+﻿@using DFC.ServiceTaxonomy.GraphSync.Models
+@using DFC.ServiceTaxonomy.Taxonomies.Models
+@using Newtonsoft.Json.Linq
+@using OrchardCore.ContentManagement
+
+@inject IContentManager ContentManager
+
+@{
+    ContentItem contentItem = Model.ContentItem;
+    var termPart = ((JObject)contentItem.Content)[nameof(TermPart)];
+    var hasPublished = termPart != null || await ContentManager.HasPublishedVersionAsync(contentItem);
+    var hasGraphSyncPartText = !string.IsNullOrWhiteSpace(contentItem.Content[nameof(GraphSyncPart)]?[nameof(GraphSyncPart.Text)]?.Value);
+}
+
+@* Visualise graph - handle graph visualiser buttons dependent of valid graph synchronisation *@
+@if (hasGraphSyncPartText)
+{
+    var action = nameof(DFC.ServiceTaxonomy.GraphVisualiser.Controllers.VisualiseController.Viewer);
+    var nameSpace = typeof(DFC.ServiceTaxonomy.GraphVisualiser.Startup)!.Namespace;
+
+    <div class="dropdown-divider"></div>
+    <a asp-action="@action" asp-controller="Visualise" asp-area="@nameSpace" asp-route-contentItemId="@contentItem.ContentItemId" asp-route-graph="preview" target="_blank" class="dropdown-item btn-sm">@T["Visualise draft graph"]</a>
+    @if (hasPublished)
+    {
+        <a asp-action="@action" asp-controller="Visualise" asp-area="@nameSpace" asp-route-contentItemId="@contentItem.ContentItemId" asp-route-graph="published" target="_blank" class="dropdown-item btn-sm">@T["Visualise published graph"]</a>
+    }
+}
