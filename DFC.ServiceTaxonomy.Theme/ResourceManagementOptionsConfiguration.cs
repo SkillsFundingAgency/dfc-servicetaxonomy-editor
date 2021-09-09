@@ -43,6 +43,11 @@ namespace DFC.ServiceTaxonomy.Theme
                 .DefineStyle("StaxTheme-version-comparison")
                 .SetUrl("~/DFC.ServiceTaxonomy.Theme/Styles/version-comparison.min.css", "~/DFC.ServiceTaxonomy.Theme/Styles/version-comparison.css")
                 .SetVersion("1.0.0");
+
+            _manifest
+                .DefineStyle("StaxTheme-custom-editor")
+                .SetUrl("~/DFC.ServiceTaxonomy.Theme/Styles/custom-editor.min.css", "~/DFC.ServiceTaxonomy.Theme/Styles/custom-editor.css")
+                .SetVersion("1.0.0");
         }
 #pragma warning restore S3963 // "static" fields should be initialized inline
 
