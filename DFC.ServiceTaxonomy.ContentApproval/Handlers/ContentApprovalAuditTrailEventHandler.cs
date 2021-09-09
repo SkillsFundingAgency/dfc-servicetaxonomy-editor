@@ -43,7 +43,7 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Handlers
              *  Cancel                      - N/A (exits page)
              */
 
-            if (context is AuditTrailCreateContext<AuditTrailContentEvent> contentEvent)
+            if (context is AuditTrailCreateContext<AuditTrailContentEvent> contentEvent && !contentEvent.Name.Equals(Constants.ContentEvent_Created, StringComparison.InvariantCultureIgnoreCase))
             {
                 var contentApprovalPartExists = contentEvent.AuditTrailEventItem.ContentItem.Has<ContentApprovalPart>();
                 if (contentApprovalPartExists)
