@@ -51,7 +51,9 @@ namespace DFC.ServiceTaxonomy.Editor
                 sanitizer.AllowedAttributes.Add("allowfullscreen");
                 sanitizer.AllowedSchemes.Add("mailto");
                 sanitizer.AllowedSchemes.Add("tel");
-
+                sanitizer.AllowedAttributes.Add("action");
+                sanitizer.AllowedAttributes.Add("method");
+                sanitizer.AllowedAttributes.Add("enctype");
             }));
 
             //todo: do this in each library??? if so, make sure it doesn't add services or config twice
