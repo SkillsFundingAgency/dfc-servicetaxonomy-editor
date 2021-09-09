@@ -36,6 +36,7 @@
         public const string Action_SendBack = "submit.RequiresRevision";
 
         // Content event names
+        public const string ContentEvent_Created = "Created";
         public const string ContentEvent_Publish = "Published";
         public const string ContentEvent_Publish_Continue = "Published and continued";
         public const string ContentEvent_SaveDraft_Exit = "Draft saved and exited";
