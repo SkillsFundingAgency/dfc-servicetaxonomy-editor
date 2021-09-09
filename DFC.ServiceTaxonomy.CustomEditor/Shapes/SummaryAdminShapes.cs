@@ -13,6 +13,13 @@ namespace DFC.ServiceTaxonomy.CustomEditor.Shapes
                 Shape actions = (Shape)shape.Actions;
                 actions.Remove("ContentsButtonEdit_SummaryAdmin");
             });
+
+            //builder.Describe("Content_Edit").OnDisplaying(context =>
+            //{
+            //    dynamic shape = context.Shape;
+            //    Shape actions = (Shape)shape.Actions;
+            //    actions.AddAsync()
+            //});
         }
     }
 }
