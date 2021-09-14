@@ -1,0 +1,8 @@
+@using OrchardCore.Contents.AuditTrail.ViewModels
+@model AuditTrailPartViewModel
+
+<div class="form-group">
+    <label asp-for="Comment">@T["Comment"]</label>
+    <textarea asp-for="Comment" rows="5" class="form-control"></textarea>
+    <span class="hint">@T["To publish, request review, send back or delete, you must add a comment."]</span>
+</div>
