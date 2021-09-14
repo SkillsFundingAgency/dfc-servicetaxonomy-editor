@@ -12,10 +12,5 @@ namespace DFC.ServiceTaxonomy.GraphVisualiser.Drivers
         {
             return Shape("ContentsVisualiseAction_SummaryAdmin", new ContentVisualiseViewModel(model)).Location("SummaryAdmin", "ActionsMenu:20");
         }
-
-        public override IDisplayResult Edit(ContentItem model, IUpdateModel updater)
-        {
-            return Shape("ContentsVisualise_Button", new ContentVisualiseViewModel(model, true)).Location("Actions:after");
-        }
     }
 }
