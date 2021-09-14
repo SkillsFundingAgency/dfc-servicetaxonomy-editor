@@ -56,11 +56,11 @@ else
     string url = contentItem.Content[nameof(PageLocationPart)][nameof(PageLocationPart.FullUrl)];
     if (hasDraft && hasPreviewPermission)
     {
-        <a href="@($"{PageConfig.PreviewAppPrefix}{url}")" target="_blank" class="dropdown-item btn-sm">@T["View draft"]</a>
+        <a href="@($"{PageConfig.PreviewAppPrefix}{url}")" target="_blank" class="dropdown-item btn-sm">@T["View draft content"]</a>
     }
     if (hasPublishPermission && hasViewPermission && hasPublished)
     {
-        <a href="@($"{PageConfig.PublishedAppPrefix}{url}")" target="_blank" class="dropdown-item btn-sm">@T["View published"]</a>
+        <a href="@($"{PageConfig.PublishedAppPrefix}{url}")" target="_blank" class="dropdown-item btn-sm">@T["View published content"]</a>
     }
 }
 else
@@ -68,11 +68,11 @@ else
 
     if (hasDraft && hasPreviewPermission)
     {
-        <a asp-action="Preview" asp-controller="Item" asp-route-area="OrchardCore.Contents" asp-route-contentItemId="@contentItem.ContentItemId" target="_blank" class="dropdown-item btn-sm"><span>@T["View draft"]</span></a>
+        <a asp-action="Preview" asp-controller="Item" asp-route-area="OrchardCore.Contents" asp-route-contentItemId="@contentItem.ContentItemId" target="_blank" class="dropdown-item btn-sm"><span>@T["View draft content"]</span></a>
     }
     if (hasPublishPermission && hasViewPermission && hasPublished)
     {
-        <a display-for="@contentItem" target="_blank" class="dropdown-item btn-sm" itemprop="">@T["View published"]</a>
+        <a display-for="@contentItem" target="_blank" class="dropdown-item btn-sm" itemprop="">@T["View published content"]</a>
     }
 }
 
