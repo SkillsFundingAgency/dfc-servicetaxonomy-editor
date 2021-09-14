@@ -13,7 +13,7 @@
     var editForLink = await Orchard.EditForLinkAsync(contentItem.DisplayText, contentItem);
     if (editForLink is TagBuilder editForLinkTagBuilder && editForLinkTagBuilder.Attributes["href"].EndsWith("Edit"))
     {
-        editForLinkTagBuilder.Attributes["href"] = editForLinkTagBuilder.Attributes["href"] + "?returnUrl=" + Html.UrlEncoder.Encode(FullRequestPath);
+        editForLinkTagBuilder.Attributes["href"] = editForLinkTagBuilder.Attributes["href"] + "?returnUrl=" + FullRequestPath;
     }
 }
 
