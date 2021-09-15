@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.ContentApproval.Models;
+using DFC.ServiceTaxonomy.ContentApproval.Models.Enums;
 using OrchardCore.AuditTrail.Services;
 using OrchardCore.AuditTrail.Services.Models;
 using OrchardCore.ContentManagement;
@@ -12,160 +14,94 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Handlers
     {
         public override Task CreateAsync(AuditTrailCreateContext context)
         {
-            /*
-             *  Button/Action matrix         Key/Action                                                                   
-             *  --------------------         ---------------------------------------------------------------------------  
-             *  Publish                     - constants.SubmitPublishKey action = submit.Publish                          
-             *  Publish and continue        - constants.SubmitPublishKey action = submit.PublishAndContinue               
-             *  
-             *  Force Publish
-             *      Content Design          - constants.SubmitPublishKey action = submit.RequestApproval - ContentDesign  
-             *      Stakeholder             - constants.SubmitPublishKey action = submit.RequestApproval - Stakeholder    
-             *      SME                     - constants.SubmitPublishKey action = submit.RequestApproval - SME            
-             *      UX                      - constants.SubmitPublishKey action = submit.RequestApproval - UX             
-             *      
-             *  Save Draft and continue     - constants.SubmitSaveKey    action = submit.SaveAndContinue                  
-             *  Save Draft and exit         - constants.SubmitSaveKey    action = submit.Save                             
-             *  
-             *  Request review
-             *      Content Design          - constants.SubmitSaveKey    action = submit.RequestApproval - ContentDesign  
-             *      Stakeholder             - constants.SubmitSaveKey    action = submit.RequestApproval - Stakeholder    
-             *      SME                     - constants.SubmitSaveKey    action = submit.RequestApproval - SME            
-             *      UK                      - constants.SubmitSaveKey    action = submit.RequestApproval - UX             
-             *      
-             *  Send back                   - constants.SubmitSaveKey    action = submit.RequiresRevision                 
-             *               
-             *  Preview draft               - N/A (opens new tab)
-             *  
-             *  Visualise draft graph       - N/A (opens new tab)
-             *  Visualise published graph   - N/A (opens new tab)
-             *  
-             *  Cancel                      - N/A (exits page)
-             */
-
-            if (context is AuditTrailCreateContext<AuditTrailContentEvent> contentEvent && !contentEvent.Name.Equals(Constants.ContentEvent_Created, StringComparison.InvariantCultureIgnoreCase))
+            // Override event name if:
+            // 1. it is audit trail content event
+            // 2. it is a Save or Publish event only
+            // 3. there is a content approval part add as part of the content type
+            if (context is AuditTrailCreateContext<AuditTrailContentEvent> contentEvent &&
+                new[] {Constants.ContentEvent_Saved, Constants.ContentEvent_Published}.Any(ev => ev.Equals(contentEvent.Name, StringComparison.CurrentCultureIgnoreCase)) &&
+                contentEvent.AuditTrailEventItem.ContentItem.Has<ContentApprovalPart>())
             {
-                var contentApprovalPartExists = contentEvent.AuditTrailEventItem.ContentItem.Has<ContentApprovalPart>();
-                if (contentApprovalPartExists)
+                var contentApprovalPart = contentEvent.AuditTrailEventItem.ContentItem.As<ContentApprovalPart>();
+                if (contentApprovalPart == null)
                 {
-                    var contentApprovalPart = contentEvent.AuditTrailEventItem.ContentItem.As<ContentApprovalPart>();
-                    if (contentApprovalPart != null)
-                    {
-                        var formSubmitAction = contentApprovalPart.FormSubmitAction;
-                        if (formSubmitAction != null)
-                        {
-                            (string button, string action) = formSubmitAction;
+                    return Task.CompletedTask;
+                }
 
-                            // Publish/Force Publish button
-                            if (button.Contains(Constants.SubmitPublishKey))
-                            {
-                                switch (action)
-                                {
-                                    case Constants.Action_Publish:
-                                        contentEvent.Name = Constants.ContentEvent_Publish;
-                                        break;
-
-                                    case Constants.Action_Publish_Continue:
-                                        contentEvent.Name = Constants.ContentEvent_Publish_Continue;
-                                        break;
-
-                                    case Constants.Action_ForcePublish_ContentDesign:
-                                        contentEvent.Name = GetContentEventName(contentApprovalPart, button, Constants.ReviewType_ContentDesign);
-                                        break;
-
-                                    case Constants.Action_ForcePublish_Stakeholder:
-                                        contentEvent.Name = GetContentEventName(contentApprovalPart, button, Constants.ReviewType_Stakeholder);
-                                        break;
-
-                                    case Constants.Action_ForcePublish_Sme:
-                                        contentEvent.Name = GetContentEventName(contentApprovalPart, button, Constants.ReviewType_Sme);
-                                        break;
-
-                                    case Constants.Action_ForcePublish_Ux:
-                                        contentEvent.Name = GetContentEventName(contentApprovalPart, button, Constants.ReviewType_Ux);
-                                        break;
-
-                                    default:
-                                        break;
-                                }
-                            }
-                            // Request Review/Save Draft/Save Draft & Exit button
-                            else if (button.Contains(Constants.SubmitSaveKey))
-                            {
-                                switch (action)
-                                {
-                                    case Constants.Action_SaveDraft_Exit:
-                                        contentEvent.Name = Constants.ContentEvent_SaveDraft_Exit;
-                                        break;
-
-                                    case Constants.Action_SaveDraft_Continue:
-                                        contentEvent.Name = Constants.ContentEvent_SaveDraft_Continue;
-                                        break;
-
-                                    case Constants.Action_RequestReview_ContentDesign:
-                                        contentEvent.Name = GetContentEventName(contentApprovalPart, button, Constants.ReviewType_ContentDesign);
-                                        break;
-
-                                    case Constants.Action_RequestReview_Stakeholder:
-                                        contentEvent.Name = GetContentEventName(contentApprovalPart, button, Constants.ReviewType_Stakeholder);
-                                        break;
-
-                                    case Constants.Action_RequestReview_Sme:
-                                        contentEvent.Name = GetContentEventName(contentApprovalPart, button, Constants.ReviewType_Sme);
-                                        break;
-
-                                    case Constants.Action_RequestReview_Ux:
-                                        contentEvent.Name = GetContentEventName(contentApprovalPart, button, Constants.ReviewType_Ux);
-                                        break;
-
-                                    case Constants.Action_SendBack:
-                                        contentEvent.Name = Constants.ContentEvent_SendBack;
-                                        break;
-
-                                    default:
-                                        break;
-                                }
-                            }
-                        }
-                    }
+                if (contentEvent.Name.Equals(Constants.ContentEvent_Published,
+                    StringComparison.InvariantCultureIgnoreCase))
+                {
+                    ProcessPublishedEvent(contentEvent, contentApprovalPart);
+                }
+                else if (contentEvent.Name.Equals(Constants.ContentEvent_Saved,
+                    StringComparison.InvariantCultureIgnoreCase))
+                {
+                    ProcessSavedEvent(contentEvent, contentApprovalPart);
                 }
             }
-
             return Task.CompletedTask;
         }
 
-        private static string GetContentEventName(ContentApprovalPart contentApprovalPart, string button, string reviewType)
+        private static void ProcessPublishedEvent(AuditTrailCreateContext<AuditTrailContentEvent> publishedContentEvent, ContentApprovalPart contentApprovalPart)
         {
-            reviewType = reviewType.ToLower();
-
-            string contentEventName = string.Empty;
-            string forcePublishText = $"Force published ({reviewType})";
-            string requestReviewText = $"Requested for review ({reviewType})";
-            string inReviewText = $"In review ({reviewType.ToLower()})";
-
-            if (button.Contains(Constants.SubmitPublishKey))
+            if (contentApprovalPart.IsForcePublished)
             {
-                if (contentApprovalPart.IsForcePublished)
+                switch (contentApprovalPart.ReviewType)
                 {
-                    contentEventName = contentApprovalPart.ReviewStatus != Models.Enums.ReviewStatus.InReview
-                    ? forcePublishText
-                    : inReviewText;
-                }
-                else
-                {
-                    contentEventName = contentApprovalPart.ReviewStatus != Models.Enums.ReviewStatus.InReview
-                    ? requestReviewText
-                    : inReviewText;
+                    case ReviewType.ContentDesign:
+                        publishedContentEvent.Name = GetPublishedEventName(Constants.ReviewType_ContentDesign);
+                        break;
+                    case ReviewType.Stakeholder:
+                        publishedContentEvent.Name = GetPublishedEventName(Constants.ReviewType_Stakeholder);
+                        break;
+
+                    case ReviewType.SME:
+                        publishedContentEvent.Name = GetPublishedEventName(Constants.ReviewType_Sme);
+                        break;
+
+                    case ReviewType.UX:
+                        publishedContentEvent.Name = GetPublishedEventName(Constants.ReviewType_Ux);
+                        break;
                 }
             }
-            else if (button.Contains(Constants.SubmitSaveKey))
-            {
-                contentEventName = contentApprovalPart.ReviewStatus != Models.Enums.ReviewStatus.InReview
-                ? requestReviewText
-                : inReviewText;
-            }
+        }
 
-            return contentEventName;
+        private static void ProcessSavedEvent(AuditTrailCreateContext<AuditTrailContentEvent> savedContentEvent, ContentApprovalPart contentApprovalPart)
+        {
+            if (contentApprovalPart.ReviewStatus == ReviewStatus.RequiresRevision)
+            {
+                savedContentEvent.Name = Constants.ContentEventName_SendBack;
+            }
+            else
+            {
+                switch (contentApprovalPart.ReviewType)
+                {
+                    case ReviewType.ContentDesign:
+                        savedContentEvent.Name = GetSavedEventName(contentApprovalPart, Constants.ReviewType_ContentDesign);
+                        break;
+                    case ReviewType.Stakeholder:
+                        savedContentEvent.Name = GetSavedEventName(contentApprovalPart, Constants.ReviewType_Stakeholder);
+                        break;
+                    case ReviewType.SME:
+                        savedContentEvent.Name = GetSavedEventName(contentApprovalPart, Constants.ReviewType_Sme);
+                        break;
+                    case ReviewType.UX:
+                        savedContentEvent.Name = GetSavedEventName(contentApprovalPart, Constants.ReviewType_Ux);
+                        break;
+                }
+            }
+        }
+
+        private static string GetPublishedEventName(string reviewType)
+        {
+            return $"Force published ({reviewType})";
+        }
+
+        private static string GetSavedEventName(ContentApprovalPart contentApprovalPart, string reviewType)
+        {
+            return contentApprovalPart.ReviewStatus != ReviewStatus.InReview
+                ? $"Requested for review ({reviewType})"
+                : $"In review ({reviewType})";
         }
     }
 }

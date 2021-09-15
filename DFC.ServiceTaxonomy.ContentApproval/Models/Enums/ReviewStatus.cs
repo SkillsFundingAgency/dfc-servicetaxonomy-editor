@@ -5,5 +5,6 @@
         NotInReview,
         ReadyForReview,
         InReview,
+        RequiresRevision
     }
 }

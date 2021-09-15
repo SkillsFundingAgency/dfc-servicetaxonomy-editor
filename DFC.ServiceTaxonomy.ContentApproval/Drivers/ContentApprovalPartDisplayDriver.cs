@@ -40,15 +40,6 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Drivers
             var currentUser = _httpContextAccessor.HttpContext?.User;
             var results = new List<IDisplayResult>();
 
-            // Todo: removed this for the time being due to the requirement for commenting which needs to be defined in this view first.
-            //if (part.IsInDraft() && part.ReviewStatus == ReviewStatus.WillNeedReview && await _authorizationService.AuthorizeAsync(currentUser, Permissions.RequestReviewPermissions.RequestReviewPermission, part))
-            //{
-            //    results.Add(Initialize<ContentApprovalPartViewModel>(
-            //            "ContentApprovalPart_Admin_RequestReview",
-            //            viewModel => PopulateViewModel(part, viewModel))
-            //        .Location("SummaryAdmin", "Actions:First"));
-            //}
-
             if (part.ReviewStatus != ReviewStatus.NotInReview && await _authorizationService.AuthorizeAsync(currentUser, part.ReviewType.GetRelatedPermission(), part))
             {
                 results.Add(Initialize<ContentApprovalPartViewModel>(
@@ -56,13 +47,6 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Drivers
                         viewModel => PopulateViewModel(part, viewModel))
                     .Location("SummaryAdmin", "Actions:First"));
             }
-
-            // Todo: see above, hidden for time being.
-            // Show comment field
-            //results.Add(Initialize<ContentApprovalPartViewModel>(
-            //        $"ContentApprovalPart_Edit_Comment",
-            //        viewModel => PopulateViewModel(part, viewModel))
-            //    .Location("SummaryAdmin", "Content"));
 
             return Combine(results.ToArray());
         }
@@ -87,7 +71,7 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Drivers
 
             var results = new List<IDisplayResult>();
             // Show force publish
-            if (part.ReviewStatus == ReviewStatus.NotInReview && await _authorizationService.AuthorizeAsync(currentUser, Permissions.ForcePublishPermissions.ForcePublishPermission))
+            if ((part.ReviewStatus == ReviewStatus.NotInReview || part.ReviewStatus == ReviewStatus.RequiresRevision) && await _authorizationService.AuthorizeAsync(currentUser, Permissions.ForcePublishPermissions.ForcePublishPermission))
             {
                 results.Add(Initialize<ContentApprovalPartViewModel>(
                         $"{editorShape}_ForcePublish",
@@ -136,12 +120,8 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Drivers
             await updateModel.TryUpdateModelAsync(viewModel, Prefix);
             var keys = updateModel.ModelState.Keys;
 
-            // save the formSubmitAction in the content approval part for later use in customising the audit event logging
-            var formSubmitAction = GetFormSubmitAction(updateModel.ModelState);
-            part.FormSubmitAction = formSubmitAction;
-
             // For Publish, Force-Publish, Save Draft & Exit and Send Back actions the user must enter a comment for the audit trail
-            if (!await IsAuditTrailCommentValid(part, updateModel, formSubmitAction))
+            if (!await IsAuditTrailCommentValid(part, updateModel))
             {
                 updateModel.ModelState.AddModelError("Comment", "Please update the comment field before submitting.");
                 return await EditAsync(part, context);
@@ -155,6 +135,11 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Drivers
                     part.ReviewStatus = ReviewStatus.ReadyForReview;
                     part.ReviewType = Enum.Parse<ReviewType>(saveType.Replace(Constants.SubmitRequestApprovalValuePrefix, ""));
                     _notifier.Success(H["{0} is now ready to be reviewed.", part.ContentItem.DisplayText]);
+                }
+                else if (saveType.StartsWith(Constants.SubmitRequiresRevisionValue))
+                {
+                    part.ReviewStatus = ReviewStatus.RequiresRevision;
+                    part.ReviewType = ReviewType.None;
                 }
                 else // implies a draft save or send back for revision
                 {
@@ -188,13 +173,13 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Drivers
             viewModel.ReviewTypes = EnumExtensions.GetEnumNameAndDisplayNameDictionary(typeof(ReviewType)).Where(rt => rt.Key != ReviewType.None.ToString());
         }
 
-        private static async Task<bool> IsAuditTrailCommentValid(ContentApprovalPart part, IUpdateModel updateModel, Tuple<string, string>? formSubmitAction)
+        private static async Task<bool> IsAuditTrailCommentValid(ContentApprovalPart part, IUpdateModel updateModel)
         {
             bool commentValid = true;
 
-            if (part != null && updateModel != null && formSubmitAction != null)
+            if (part != null && updateModel != null)
             {
-                var isCommentRequired = IsCommentRequired(formSubmitAction);
+                var isCommentRequired = IsCommentRequired(updateModel.ModelState);
                 if (isCommentRequired)
                 {
                     var auditTrailPartExists = part.ContentItem.Has<OrchardCore.Contents.AuditTrail.Models.AuditTrailPart>();
@@ -214,10 +199,27 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Drivers
             return commentValid;
         }
 
-        private static bool IsCommentRequired(Tuple<string, string> formSubmitAction)
+        private static bool IsCommentRequired(ModelStateDictionary modelStateDictionary)
         {
-            bool isCommentRequired = false;
+            var keys = modelStateDictionary.Keys;
+            if (!keys.Any())
+            {
+                return false;
+            }
+            // All publishing actions require a comment
+            if (keys.Contains(Constants.SubmitPublishKey))
+            {
+                return true;
+            }
+            // Only Save Draft and exit and Send back actions require a comment
+            if (keys.Contains(Constants.SubmitSaveKey))
+            {
+                var keyValue = modelStateDictionary[Constants.SubmitSaveKey].AttemptedValue;
+                return new[] {Constants.SubmitSaveKey, Constants.SubmitRequiresRevisionValue}.Any(kv =>
+                    kv.Equals(keyValue, StringComparison.CurrentCultureIgnoreCase));
+            }
 
+            return false;
             /*
              *  Button/Action matrix         Key/Action                                                                     Comment
              *  --------------------         ---------------------------------------------------------------------------    ---------------------
@@ -248,130 +250,6 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Drivers
              *  
              *  Cancel                      - N/A (exits page)
              */
-
-            if (formSubmitAction != null)
-            {
-                (string button, string action) = formSubmitAction;
-
-                //----------------------------------------------
-                // Publish/Force-Publish button
-                //----------------------------------------------
-                if (button == Constants.SubmitPublishKey)
-                {
-                    isCommentRequired = true;
-                }
-                else if(button == Constants.SubmitSaveKey)
-                {
-                    switch (action)
-                    {
-                        case "submit.Save":
-                        case "submit.RequiresRevision":
-                            isCommentRequired = true;
-                            break;
-
-                        case "submit.SaveAndContinue":
-                        case "submit.RequestApproval-ContentDesign":
-                        case "submit.RequestApproval-Stakeholder":
-                        case "submit.RequestApproval-SME":
-                        case "submit.RequestApproval-UX":
-                            isCommentRequired = false;
-                            break;
-
-                        default:
-                            isCommentRequired = true;
-                            break;
-                    }
-                }
-                else if(button == Constants.SubmitRequestApprovalValuePrefix)
-                {
-                    isCommentRequired = false;
-                }
-                else if (button == Constants.SubmitRequiresRevisionValue)
-                {
-                    isCommentRequired = false;
-                }
-            }
-
-            return isCommentRequired;
-        }
-
-        private static Tuple<string, string>? GetFormSubmitAction(ModelStateDictionary modelStateDictionary)
-        {
-            /*
-             *  Button/Action matrix         Key/Action                                                                     Comment
-             *  --------------------         ---------------------------------------------------------------------------    ---------------------
-             *  Publish                     - Constants.SubmitPublishKey action = submit.Publish                            Required
-             *  Publish and continue        - Constants.SubmitPublishKey action = submit.PublishAndContinue                 Required
-             *  
-             *  Force Publish
-             *      Content Design          - Constants.SubmitPublishKey action = submit.RequestApproval - ContentDesign    Required
-             *      Stakeholder             - Constants.SubmitPublishKey action = submit.RequestApproval - Stakeholder      Required
-             *      SME                     - Constants.SubmitPublishKey action = submit.RequestApproval - SME              Required
-             *      UX                      - Constants.SubmitPublishKey action = submit.RequestApproval - UX               Required
-             *      
-             *  Save Draft and continue     - Constants.SubmitSaveKey    action = submit.SaveAndContinue                    Optional
-             *  Save Draft and exit         - Constants.SubmitSaveKey    action = submit.Save                               Required
-             *  
-             *  Request review
-             *      Content Design          - Constants.SubmitSaveKey    action = submit.RequestApproval - ContentDesign    Optional
-             *      Stakeholder             - Constants.SubmitSaveKey    action = submit.RequestApproval - Stakeholder      Optional
-             *      SME                     - Constants.SubmitSaveKey    action = submit.RequestApproval - SME              Optional
-             *      UK                      - Constants.SubmitSaveKey    action = submit.RequestApproval - UX               Optional
-             *      
-             *  Send back                   - Constants.SubmitSaveKey    action = submit.RequiresRevision                   Required
-             *               
-             *  Preview draft               - N/A (opens new tab)
-             *  
-             *  Visualise draft graph       - N/A (opens new tab)
-             *  Visualise published graph   - N/A (opens new tab)
-             *  
-             *  Cancel                      - N/A (exits page)
-             */
-
-            string button = string.Empty;
-            string action = string.Empty;
-
-            if (modelStateDictionary != null && modelStateDictionary?.Keys != null)
-            {
-                var keys = modelStateDictionary.Keys;
-                if (keys.Any())
-                {
-                    //----------------------------------------------
-                    // Publish/Force-Publish button
-                    //----------------------------------------------
-                    if (keys.Contains(Constants.SubmitPublishKey))
-                    {
-                        button = Constants.SubmitPublishKey;
-                        action = modelStateDictionary[Constants.SubmitPublishKey].AttemptedValue;
-                    }
-                    //----------------------------------------------
-                    // Save Draft/Save Draft & Exit button/Request Review Content Design, Stakeholder, SME, UX/Send back
-                    //----------------------------------------------
-                    else if (keys.Contains(Constants.SubmitSaveKey))
-                    {
-                        button = Constants.SubmitSaveKey;
-                        action = modelStateDictionary[Constants.SubmitSaveKey].AttemptedValue;
-                    }
-                    //----------------------------------------------
-                    // Request review button
-                    //----------------------------------------------
-                    else if (keys.Contains(Constants.SubmitRequestApprovalValuePrefix))
-                    {
-                        button = Constants.SubmitRequestApprovalValuePrefix;
-                        action = modelStateDictionary[Constants.SubmitRequestApprovalValuePrefix].AttemptedValue;
-                    }
-                    //----------------------------------------------
-                    // Send back button
-                    //----------------------------------------------
-                    else if (keys.Contains(Constants.SubmitRequiresRevisionValue))
-                    {
-                        button = Constants.SubmitRequiresRevisionValue;
-                        action = modelStateDictionary[Constants.SubmitRequiresRevisionValue].AttemptedValue;
-                    }
-                }
-            }
-
-            return new Tuple<string, string>(button, action);
         }
     }
 }
