@@ -37,7 +37,10 @@
 
         // Content event names
         public const string ContentEvent_Created = "Created";
-        public const string ContentEvent_Publish = "Published";
+        public const string ContentEvent_Published = "Published";
+        public const string ContentEvent_Unpublished = "Unpublished";
+        public const string ContentEvent_Saved = "Saved";
+
         public const string ContentEvent_Publish_Continue = "Published and continued";
         public const string ContentEvent_SaveDraft_Exit = "Draft saved and exited";
         public const string ContentEvent_SaveDraft_Continue = "Draft saved and continued";
