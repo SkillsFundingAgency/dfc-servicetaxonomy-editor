@@ -14,42 +14,10 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Handlers
     {
         public override Task CreateAsync(AuditTrailCreateContext context)
         {
-            #region comments
-
-            /*
-             *  Button/Action matrix         Key/Action                                                                   
-             *  --------------------         ---------------------------------------------------------------------------  
-             *  Publish                     - constants.SubmitPublishKey action = submit.Publish                          
-             *  Publish and continue        - constants.SubmitPublishKey action = submit.PublishAndContinue               
-             *  
-             *  Force Publish
-             *      Content Design          - constants.SubmitPublishKey action = submit.RequestApproval - ContentDesign  
-             *      Stakeholder             - constants.SubmitPublishKey action = submit.RequestApproval - Stakeholder    
-             *      SME                     - constants.SubmitPublishKey action = submit.RequestApproval - SME            
-             *      UX                      - constants.SubmitPublishKey action = submit.RequestApproval - UX             
-             *      
-             *  Save Draft and continue     - constants.SubmitSaveKey    action = submit.SaveAndContinue                  
-             *  Save Draft and exit         - constants.SubmitSaveKey    action = submit.Save                             
-             *  
-             *  Request review
-             *      Content Design          - constants.SubmitSaveKey    action = submit.RequestApproval - ContentDesign  
-             *      Stakeholder             - constants.SubmitSaveKey    action = submit.RequestApproval - Stakeholder    
-             *      SME                     - constants.SubmitSaveKey    action = submit.RequestApproval - SME            
-             *      UK                      - constants.SubmitSaveKey    action = submit.RequestApproval - UX             
-             *      
-             *  Send back                   - constants.SubmitSaveKey    action = submit.RequiresRevision                 
-             *               
-             *  Preview draft               - N/A (opens new tab)
-             *  
-             *  Visualise draft graph       - N/A (opens new tab)
-             *  Visualise published graph   - N/A (opens new tab)
-             *  
-             *  Cancel                      - N/A (exits page)
-             */
-            
-
-            #endregion
-
+            // Override event name if:
+            // 1. it is audit trail content event
+            // 2. it is a Save or Publish event only
+            // 3. there is a content approval part add as part of the content type
             if (context is AuditTrailCreateContext<AuditTrailContentEvent> contentEvent &&
                 new[] {Constants.ContentEvent_Saved, Constants.ContentEvent_Published}.Any(ev => ev.Equals(contentEvent.Name, StringComparison.CurrentCultureIgnoreCase)) &&
                 contentEvent.AuditTrailEventItem.ContentItem.Has<ContentApprovalPart>())
@@ -102,7 +70,7 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Handlers
         {
             if (contentApprovalPart.ReviewStatus == ReviewStatus.RequiresRevision)
             {
-                savedContentEvent.Name = Constants.ContentEvent_SendBack;
+                savedContentEvent.Name = Constants.ContentEventName_SendBack;
             }
             else
             {
@@ -126,24 +94,14 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Handlers
 
         private static string GetPublishedEventName(string reviewType)
         {
-            reviewType = reviewType.ToLower();
-            return $"Force published ({reviewType.ToLower()})";
+            return $"Force published ({reviewType})";
         }
 
         private static string GetSavedEventName(ContentApprovalPart contentApprovalPart, string reviewType)
         {
-            reviewType = reviewType.ToLower();
-            return GetReviewText(contentApprovalPart, reviewType);
-        }
-
-        private static string GetReviewText(ContentApprovalPart contentApprovalPart, string reviewType)
-        {
-            string requestReviewText = $"Requested for review ({reviewType})";
-            string inReviewText = $"In review ({reviewType.ToLower()})";
-
-            return contentApprovalPart.ReviewStatus != Models.Enums.ReviewStatus.InReview
-            ? requestReviewText
-            : inReviewText;
+            return contentApprovalPart.ReviewStatus != ReviewStatus.InReview
+                ? $"Requested for review ({reviewType})"
+                : $"In review ({reviewType})";
         }
     }
 }
