@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.ContentApproval.Models;
+using DFC.ServiceTaxonomy.ContentApproval.Models.Enums;
 using OrchardCore.AuditTrail.Services;
 using OrchardCore.AuditTrail.Services.Models;
 using OrchardCore.ContentManagement;
@@ -12,6 +14,8 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Handlers
     {
         public override Task CreateAsync(AuditTrailCreateContext context)
         {
+            #region comments
+
             /*
              *  Button/Action matrix         Key/Action                                                                   
              *  --------------------         ---------------------------------------------------------------------------  
@@ -42,137 +46,88 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Handlers
              *  
              *  Cancel                      - N/A (exits page)
              */
+            
+
+            #endregion
 
             if (context is AuditTrailCreateContext<AuditTrailContentEvent> contentEvent &&
+                new[] {Constants.ContentEvent_Saved, Constants.ContentEvent_Published}.Any(ev => ev.Equals(contentEvent.Name, StringComparison.CurrentCultureIgnoreCase)) &&
                 contentEvent.AuditTrailEventItem.ContentItem.Has<ContentApprovalPart>())
             {
                 var contentApprovalPart = contentEvent.AuditTrailEventItem.ContentItem.As<ContentApprovalPart>();
-                if (contentApprovalPart != null)
+                if (contentApprovalPart == null)
                 {
-                    if (contentEvent.Name.Equals(Constants.ContentEvent_Published, StringComparison.InvariantCultureIgnoreCase))
-                    {
-                        ProcessPublishedEvent(contentEvent, contentApprovalPart);
-                    }
-                    else if (contentEvent.Name.Equals(Constants.ContentEvent_Saved, StringComparison.InvariantCultureIgnoreCase))
-                    {
-                        ProcessSavedEvent(contentEvent, contentApprovalPart);
-                    }
+                    return Task.CompletedTask;
+                }
+
+                if (contentEvent.Name.Equals(Constants.ContentEvent_Published,
+                    StringComparison.InvariantCultureIgnoreCase))
+                {
+                    ProcessPublishedEvent(contentEvent, contentApprovalPart);
+                }
+                else if (contentEvent.Name.Equals(Constants.ContentEvent_Saved,
+                    StringComparison.InvariantCultureIgnoreCase))
+                {
+                    ProcessSavedEvent(contentEvent, contentApprovalPart);
                 }
             }
-
             return Task.CompletedTask;
         }
 
         private static void ProcessPublishedEvent(AuditTrailCreateContext<AuditTrailContentEvent> publishedContentEvent, ContentApprovalPart contentApprovalPart)
         {
-            var formSubmitAction = contentApprovalPart.FormSubmitAction;
-            if (formSubmitAction != null)
+            if (contentApprovalPart.IsForcePublished)
             {
-                (string button, string action) = formSubmitAction;
-
-                // Publish/Force Publish button
-                if (!string.IsNullOrEmpty(action))
+                switch (contentApprovalPart.ReviewType)
                 {
-                    switch (action)
-                    {
-                        case Constants.Action_Publish:
-                            publishedContentEvent.Name = Constants.ContentEvent_Published;
-                            break;
+                    case ReviewType.ContentDesign:
+                        publishedContentEvent.Name = GetPublishedEventName(Constants.ReviewType_ContentDesign);
+                        break;
+                    case ReviewType.Stakeholder:
+                        publishedContentEvent.Name = GetPublishedEventName(Constants.ReviewType_Stakeholder);
+                        break;
 
-                        case Constants.Action_Publish_Continue:
-                            publishedContentEvent.Name = Constants.ContentEvent_Publish_Continue;
-                            break;
+                    case ReviewType.SME:
+                        publishedContentEvent.Name = GetPublishedEventName(Constants.ReviewType_Sme);
+                        break;
 
-                        case Constants.Action_ForcePublish_ContentDesign:
-                            publishedContentEvent.Name = GetPublishedEventName(contentApprovalPart, Constants.ReviewType_ContentDesign);
-                            break;
-
-                        case Constants.Action_ForcePublish_Stakeholder:
-                            publishedContentEvent.Name = GetPublishedEventName(contentApprovalPart, Constants.ReviewType_Stakeholder);
-                            break;
-
-                        case Constants.Action_ForcePublish_Sme:
-                            publishedContentEvent.Name = GetPublishedEventName(contentApprovalPart, Constants.ReviewType_Sme);
-                            break;
-
-                        case Constants.Action_ForcePublish_Ux:
-                            publishedContentEvent.Name = GetPublishedEventName(contentApprovalPart, Constants.ReviewType_Ux);
-                            break;
-
-                        default:
-                            break;
-                    }
+                    case ReviewType.UX:
+                        publishedContentEvent.Name = GetPublishedEventName(Constants.ReviewType_Ux);
+                        break;
                 }
             }
         }
 
         private static void ProcessSavedEvent(AuditTrailCreateContext<AuditTrailContentEvent> savedContentEvent, ContentApprovalPart contentApprovalPart)
         {
-            var formSubmitAction = contentApprovalPart.FormSubmitAction;
-            if (formSubmitAction != null)
+            if (contentApprovalPart.ReviewStatus == ReviewStatus.RequiresRevision)
             {
-                (string button, string action) = formSubmitAction;
-
-                // Request Review/Save Draft/Save Draft & Exit button
-                if (!string.IsNullOrEmpty(action))
+                savedContentEvent.Name = Constants.ContentEvent_SendBack;
+            }
+            else
+            {
+                switch (contentApprovalPart.ReviewType)
                 {
-                    switch (action)
-                    {
-                        case Constants.Action_SaveDraft_Exit:
-                            savedContentEvent.Name = Constants.ContentEvent_SaveDraft_Exit;
-                            break;
-
-                        case Constants.Action_SaveDraft_Continue:
-                            savedContentEvent.Name = Constants.ContentEvent_SaveDraft_Continue;
-                            break;
-
-                        case Constants.Action_RequestReview_ContentDesign:
-                            savedContentEvent.Name = GetSavedEventName(contentApprovalPart, Constants.ReviewType_ContentDesign);
-                            break;
-
-                        case Constants.Action_RequestReview_Stakeholder:
-                            savedContentEvent.Name = GetSavedEventName(contentApprovalPart, Constants.ReviewType_Stakeholder);
-                            break;
-
-                        case Constants.Action_RequestReview_Sme:
-                            savedContentEvent.Name = GetSavedEventName(contentApprovalPart, Constants.ReviewType_Sme);
-                            break;
-
-                        case Constants.Action_RequestReview_Ux:
-                            savedContentEvent.Name = GetSavedEventName(contentApprovalPart, Constants.ReviewType_Ux);
-                            break;
-
-                        case Constants.Action_SendBack:
-                            savedContentEvent.Name = Constants.ContentEvent_SendBack;
-                            break;
-
-                        default:
-                            break;
-                    }
+                    case ReviewType.ContentDesign:
+                        savedContentEvent.Name = GetSavedEventName(contentApprovalPart, Constants.ReviewType_ContentDesign);
+                        break;
+                    case ReviewType.Stakeholder:
+                        savedContentEvent.Name = GetSavedEventName(contentApprovalPart, Constants.ReviewType_Stakeholder);
+                        break;
+                    case ReviewType.SME:
+                        savedContentEvent.Name = GetSavedEventName(contentApprovalPart, Constants.ReviewType_Sme);
+                        break;
+                    case ReviewType.UX:
+                        savedContentEvent.Name = GetSavedEventName(contentApprovalPart, Constants.ReviewType_Ux);
+                        break;
                 }
             }
         }
 
-        private static string GetPublishedEventName(ContentApprovalPart contentApprovalPart, string reviewType)
+        private static string GetPublishedEventName(string reviewType)
         {
             reviewType = reviewType.ToLower();
-
-            string contentEventName = string.Empty;
-            string forcePublishText = $"Force published ({reviewType})";
-            string inReviewText = $"In review ({reviewType.ToLower()})";
-
-            if (contentApprovalPart.IsForcePublished)
-            {
-                contentEventName = contentApprovalPart.ReviewStatus != Models.Enums.ReviewStatus.InReview
-                ? forcePublishText
-                : inReviewText;
-            }
-            else
-            {
-                contentEventName = GetReviewText(contentApprovalPart, reviewType);
-            }
-
-            return contentEventName;
+            return $"Force published ({reviewType.ToLower()})";
         }
 
         private static string GetSavedEventName(ContentApprovalPart contentApprovalPart, string reviewType)
@@ -183,15 +138,12 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Handlers
 
         private static string GetReviewText(ContentApprovalPart contentApprovalPart, string reviewType)
         {
-            string contentEventName = string.Empty;
             string requestReviewText = $"Requested for review ({reviewType})";
             string inReviewText = $"In review ({reviewType.ToLower()})";
 
-            contentEventName = contentApprovalPart.ReviewStatus != Models.Enums.ReviewStatus.InReview
+            return contentApprovalPart.ReviewStatus != Models.Enums.ReviewStatus.InReview
             ? requestReviewText
             : inReviewText;
-
-            return contentEventName;
         }
     }
 }
