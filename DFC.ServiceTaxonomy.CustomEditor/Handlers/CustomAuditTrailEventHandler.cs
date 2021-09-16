@@ -17,14 +17,16 @@ namespace DFC.ServiceTaxonomy.CustomEditor.Handlers
         }
         public override Task CreateAsync(AuditTrailCreateContext context)
         {
-            // No way to divine whether a Remove event is a delete or discarded draft from the content item so need to look a the URL.
-            var isDiscard = _httpContextAccessor.HttpContext.Request.Path.Value.Contains("discarddraft",
-                StringComparison.CurrentCultureIgnoreCase);
             if (context is AuditTrailCreateContext<AuditTrailContentEvent> removedEvent &&
                 removedEvent.Name.Equals(Constants.AuditTrail.ContentEvent_Removed, StringComparison.CurrentCultureIgnoreCase)
-                && isDiscard)
+                )
             {
+            // No way to divine whether a Remove event is a delete or discarded draft from the content item so need to look a the URL.
+                var isDiscard = _httpContextAccessor.HttpContext.Request.Path.Value.Contains("discarddraft", StringComparison.CurrentCultureIgnoreCase);
+                if(isDiscard)
+                {
                     removedEvent.Name = Constants.AuditTrail.ContentEventName_DiscardDraft;
+                }
             }
             return Task.CompletedTask;
         }
