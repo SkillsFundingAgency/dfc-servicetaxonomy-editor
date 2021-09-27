@@ -28,6 +28,11 @@ namespace DFC.ServiceTaxonomy.ContentPickerPreview.Services
 
         public async Task<IEnumerable<BannerContentPickerResult>> Search(ContentPickerSearchContext searchContext)
         {
+            if (!searchContext.ContentTypes.All(x => x == "Banner"))
+            {
+                return new List<BannerContentPickerResult>();
+            }
+
             IEnumerable<string>? contentTypes = searchContext.ContentTypes;
             if (searchContext.DisplayAllContentTypes)
             {
