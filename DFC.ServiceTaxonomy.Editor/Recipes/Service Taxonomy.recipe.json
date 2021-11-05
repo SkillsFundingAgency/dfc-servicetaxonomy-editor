@@ -864,6 +864,61 @@
                     ]
                 },
                 {
+                    "Name": "JobProfileNew",
+                    "DisplayName": "Job Profile New",
+                    "Settings": {
+                        "ContentTypeSettings": {
+                            "Creatable": true,
+                            "Listable": true,
+                            "Draftable": true,
+                            "Versionable": true,
+                            "Securable": true
+                        }
+                    },
+                    "ContentTypePartDefinitionRecords": [
+                        {
+                            "PartName": "JobProfileNew",
+                            "Name": "JobProfileNew",
+                            "Settings": {}
+                        },
+                        {
+                            "PartName": "PreviewPart",
+                            "Name": "PreviewPart",
+                            "Settings": {}
+                        },
+                        {
+                            "PartName": "TitlePart",
+                            "Name": "TitlePart",
+                            "Settings": {}
+                        },
+                        {
+                            "PartName": "PageLocationPart",
+                            "Name": "PageLocationPart",
+                            "Settings": {}
+                        },
+                        {
+                            "PartName": "GraphSyncPart",
+                            "Name": "GraphSyncPart",
+                            "Settings": {
+                                "ContentTypePartSettings": {},
+                                "GraphSyncPartSettings": {
+                                    "NodeNameTransform": "ContentType",
+                                    "PropertyNameTransform": "Value",
+                                    "IdPropertyName": "uri",
+                                    "GenerateIdPropertyValue": "$\"<<contentapiprefix>>/{ContentType}/{Value}\".ToLowerInvariant()",
+                                    "DisplayId": true
+                                },
+                                "ContentIndexSettings": {}
+                            }
+                        },
+                        {
+                            "PartName": "SitemapPart",
+                            "Name": "SitemapPart",
+                            "Settings": {}
+                        }
+                    ]
+                },
+                {
                     "Name": "Pagebanner",
                     "DisplayName": "Page banner",
                     "Settings": {
@@ -1537,6 +1592,17 @@
                         "contentType": [
                             "Page"
                         ]
+                    },
+                    {
+                        "place": "Parts:0#Metadata;0",
+                        "displayType": null,
+                        "differentiator": null,
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null,
+                        "contentType": [
+                            "JobProfileNew"
+                        ]
                     }
                 ],
                 "FlowPart_Edit": [
@@ -1562,6 +1628,28 @@
                         "shape": null,
                         "contentType": [
                             "Page"
+                        ]
+                    },
+                    {
+                        "place": "Parts:0#Metadata;0",
+                        "displayType": null,
+                        "differentiator": null,
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null,
+                        "contentType": [
+                            "JobProfileNew"
+                        ]
+                    },
+                    {
+                        "place": "Parts:0#Content;1",
+                        "displayType": null,
+                        "differentiator": null,
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null,
+                        "contentType": [
+                            "JobProfileNew"
                         ]
                     }
                 ],
@@ -1630,6 +1718,17 @@
                         "contentType": [
                             "Page"
                         ]
+                    },
+                    {
+                        "place": "Parts:3#Metadata;0",
+                        "displayType": null,
+                        "differentiator": null,
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null,
+                        "contentType": [
+                            "JobProfileNew"
+                        ]
                     }
                 ],
                 "GraphSyncPart_Edit": [
@@ -1642,6 +1741,17 @@
                         "shape": null,
                         "contentType": [
                             "Page"
+                        ]
+                    },
+                    {
+                        "place": "Parts:4#Metadata;0",
+                        "displayType": null,
+                        "differentiator": null,
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null,
+                        "contentType": [
+                            "JobProfileNew"
                         ]
                     }
                 ],
