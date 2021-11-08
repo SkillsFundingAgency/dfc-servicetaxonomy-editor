@@ -873,34 +873,57 @@
                             "Draftable": true,
                             "Versionable": true,
                             "Securable": true
-                        }
+                        },
+                        "FullTextAspectSettings": {}
                     },
                     "ContentTypePartDefinitionRecords": [
                         {
                             "PartName": "JobProfileNew",
                             "Name": "JobProfileNew",
-                            "Settings": {}
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "1"
+                                }
+                            }
                         },
                         {
                             "PartName": "PreviewPart",
                             "Name": "PreviewPart",
-                            "Settings": {}
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "2"
+                                }
+                            }
                         },
                         {
                             "PartName": "TitlePart",
                             "Name": "TitlePart",
-                            "Settings": {}
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "0"
+                                },
+                                "ContentIndexSettings": {},
+                                "TitlePartSettings": {
+                                    "Options": 3
+                                }
+                            }
                         },
                         {
                             "PartName": "PageLocationPart",
                             "Name": "PageLocationPart",
-                            "Settings": {}
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "3"
+                                }
+                            }
                         },
                         {
                             "PartName": "GraphSyncPart",
                             "Name": "GraphSyncPart",
                             "Settings": {
-                                "ContentTypePartSettings": {},
+                                "ContentTypePartSettings": {
+                                    "Position": "4"
+                                },
                                 "GraphSyncPartSettings": {
                                     "NodeNameTransform": "ContentType",
                                     "PropertyNameTransform": "Value",
@@ -914,7 +937,11 @@
                         {
                             "PartName": "SitemapPart",
                             "Name": "SitemapPart",
-                            "Settings": {}
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "5"
+                                }
+                            }
                         }
                     ]
                 },
