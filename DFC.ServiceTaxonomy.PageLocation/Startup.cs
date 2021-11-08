@@ -1,6 +1,7 @@
 ﻿using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Parts;
 using DFC.ServiceTaxonomy.PageLocation.Drivers;
 using DFC.ServiceTaxonomy.PageLocation.Filters;
+using DFC.ServiceTaxonomy.PageLocation.GraphQL;
 using DFC.ServiceTaxonomy.PageLocation.GraphSyncers;
 using DFC.ServiceTaxonomy.PageLocation.Handlers;
 using DFC.ServiceTaxonomy.PageLocation.Indexes;
@@ -14,6 +15,7 @@ using Fluid;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
+using OrchardCore.Apis;
 using OrchardCore.ContentManagement;
 using OrchardCore.ContentManagement.Display.ContentDisplay;
 using OrchardCore.ContentManagement.Handlers;
@@ -64,6 +66,16 @@ namespace DFC.ServiceTaxonomy.PageLocation
                 o.MemberAccessStrategy.Register<PageLocationPartViewModel>();
                 o.MemberAccessStrategy.Register<PageLocationPartSettingsViewModel>();
             });
+        }
+    }
+
+    [RequireFeatures("OrchardCore.Apis.GraphQL")]
+    public class GraphQLStartup : StartupBase
+    {
+        public override void ConfigureServices(IServiceCollection services)
+        {
+            services.AddObjectGraphType<PageLocationPart, PageLocationQueryObjectType>();
+            services.AddInputObjectGraphType<PageLocationPart, PageLocationInputObjectType>();
         }
     }
 }
