@@ -150,7 +150,33 @@
                 {
                     "Name": "JobProfileNew",
                     "Settings": {},
-                    "ContentPartFieldDefinitionRecords": []
+                    "ContentPartFieldDefinitionRecords": [
+                        {
+                            "FieldName": "TextField",
+                            "Name": "AlternativeTitle",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Alternative Title",
+                                    "Position": "0"
+                                }
+                            }
+                        },
+                        {
+                            "FieldName": "TextField",
+                            "Name": "Overview",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Overview",
+                                    "Editor": "TextArea",
+                                    "Position": "1"
+                                },
+                                "TextFieldSettings": {
+                                    "Required": true
+                                },
+                                "ContentIndexSettings": {}
+                            }
+                        }
+                    ]
                 }
             ]
         }
