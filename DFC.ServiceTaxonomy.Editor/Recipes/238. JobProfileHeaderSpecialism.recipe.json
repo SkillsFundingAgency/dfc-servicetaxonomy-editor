@@ -1,6 +1,6 @@
 {
-    "name": "JobProfileNew",
-    "displayName": "JobProfileNew",
+    "name": "JobProfileHeaderSpecialism",
+    "displayName": "JobProfileHeaderSpecialism",
     "description": "",
     "author": "",
     "website": "",
@@ -13,8 +13,8 @@
             "name": "ContentDefinition",
             "ContentTypes": [
                 {
-                    "Name": "JobProfileNew",
-                    "DisplayName": "Job Profile New",
+                    "Name": "JobProfileHeaderSpecialism",
+                    "DisplayName": "Job Profile Header Specialism",
                     "Settings": {
                         "ContentTypeSettings": {
                             "Creatable": true,
@@ -27,42 +27,11 @@
                     },
                     "ContentTypePartDefinitionRecords": [
                         {
-                            "PartName": "JobProfileNew",
-                            "Name": "JobProfileNew",
+                            "PartName": "JobProfileHeaderSpecialism",
+                            "Name": "JobProfileHeaderSpecialism",
                             "Settings": {
                                 "ContentTypePartSettings": {
                                     "Position": "1"
-                                }
-                            }
-                        },
-                        {
-                            "PartName": "PreviewPart",
-                            "Name": "PreviewPart",
-                            "Settings": {
-                                "ContentTypePartSettings": {
-                                    "Position": "2"
-                                }
-                            }
-                        },
-                        {
-                            "PartName": "TitlePart",
-                            "Name": "TitlePart",
-                            "Settings": {
-                                "ContentTypePartSettings": {
-                                    "Position": "0"
-                                },
-                                "ContentIndexSettings": {},
-                                "TitlePartSettings": {
-                                    "Options": 3
-                                }
-                            }
-                        },
-                        {
-                            "PartName": "PageLocationPart",
-                            "Name": "PageLocationPart",
-                            "Settings": {
-                                "ContentTypePartSettings": {
-                                    "Position": "3"
                                 }
                             }
                         },
@@ -71,7 +40,7 @@
                             "Name": "GraphSyncPart",
                             "Settings": {
                                 "ContentTypePartSettings": {
-                                    "Position": "4"
+                                    "Position": "2"
                                 },
                                 "GraphSyncPartSettings": {
                                     "NodeNameTransform": "ContentType",
@@ -84,12 +53,25 @@
                             }
                         },
                         {
-                            "PartName": "SitemapPart",
-                            "Name": "SitemapPart",
+                            "PartName": "TitlePart",
+                            "Name": "TitlePart",
                             "Settings": {
                                 "ContentTypePartSettings": {
-                                    "Position": "5"
+                                    "Position": "0"
                                 }
+                            }
+                        },
+                        {
+                            "PartName": "AuditTrailPart",
+                            "Name": "AuditTrailPart",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "3"
+                                },
+                                "AuditTrailPartSettings": {
+                                    "ShowCommentInput": false
+                                },
+                                "ContentIndexSettings": {}
                             }
                         }
                     ]
@@ -97,21 +79,11 @@
             ],
             "ContentParts": [
                 {
-                    "Name": "PreviewPart",
+                    "Name": "AuditTrailPart",
                     "Settings": {
                         "ContentPartSettings": {
                             "Attachable": true,
-                            "Description": "Provides a way to define the url that is used to render your content item."
-                        }
-                    },
-                    "ContentPartFieldDefinitionRecords": []
-                },
-                {
-                    "Name": "PageLocationPart",
-                    "Settings": {
-                        "ContentPartSettings": {
-                            "Attachable": true,
-                            "Description": "Adds the page location part."
+                            "Description": "Allows editors to enter a comment to be saved into the Audit Trail event when saving a content item."
                         }
                     },
                     "ContentPartFieldDefinitionRecords": []
@@ -122,16 +94,6 @@
                         "ContentPartSettings": {
                             "Attachable": true,
                             "Description": "Enables the content type to be synced to a graph."
-                        }
-                    },
-                    "ContentPartFieldDefinitionRecords": []
-                },
-                {
-                    "Name": "SitemapPart",
-                    "Settings": {
-                        "ContentPartSettings": {
-                            "Attachable": true,
-                            "Description": "Provides an optional part that allows content items to be excluded, or configured, on a content item."
                         }
                     },
                     "ContentPartFieldDefinitionRecords": []
@@ -148,27 +110,17 @@
                     "ContentPartFieldDefinitionRecords": []
                 },
                 {
-                    "Name": "JobProfileNew",
+                    "Name": "JobProfileHeaderSpecialism",
                     "Settings": {},
                     "ContentPartFieldDefinitionRecords": [
                         {
                             "FieldName": "TextField",
-                            "Name": "AlternativeTitle",
+                            "Name": "Description",
                             "Settings": {
                                 "ContentPartFieldSettings": {
-                                    "DisplayName": "Alternative Title",
-                                    "Position": "0"
-                                }
-                            }
-                        },
-                        {
-                            "FieldName": "TextField",
-                            "Name": "Overview",
-                            "Settings": {
-                                "ContentPartFieldSettings": {
-                                    "DisplayName": "Overview",
+                                    "DisplayName": "Description",
                                     "Editor": "TextArea",
-                                    "Position": "1"
+                                    "Position": "0"
                                 },
                                 "TextFieldSettings": {
                                     "Required": true
