@@ -864,296 +864,152 @@
                     ]
                 },
                 {
-                    "name": "ContentDefinition",
-                    "ContentTypes": [
+                    "Name": "JobProfileNew",
+                    "DisplayName": "Job Profile New",
+                    "Settings": {
+                        "ContentTypeSettings": {
+                            "Creatable": true,
+                            "Listable": true,
+                            "Draftable": true,
+                            "Versionable": true,
+                            "Securable": true
+                        },
+                        "FullTextAspectSettings": {}
+                    },
+                    "ContentTypePartDefinitionRecords": [
                         {
+                            "PartName": "JobProfileNew",
                             "Name": "JobProfileNew",
-                            "DisplayName": "Job Profile New",
                             "Settings": {
-                                "ContentTypeSettings": {
-                                    "Creatable": true,
-                                    "Listable": true,
-                                    "Draftable": true,
-                                    "Versionable": true,
-                                    "Securable": true
-                                },
-                                "FullTextAspectSettings": {}
-                            },
-                            "ContentTypePartDefinitionRecords": [
-                                {
-                                    "PartName": "JobProfileNew",
-                                    "Name": "JobProfileNew",
-                                    "Settings": {
-                                        "ContentTypePartSettings": {
-                                            "Position": "1"
-                                        }
-                                    }
-                                },
-                                {
-                                    "PartName": "PreviewPart",
-                                    "Name": "PreviewPart",
-                                    "Settings": {
-                                        "ContentTypePartSettings": {
-                                            "Position": "2"
-                                        }
-                                    }
-                                },
-                                {
-                                    "PartName": "TitlePart",
-                                    "Name": "TitlePart",
-                                    "Settings": {
-                                        "ContentTypePartSettings": {
-                                            "Position": "0"
-                                        },
-                                        "ContentIndexSettings": {},
-                                        "TitlePartSettings": {
-                                            "Options": 3
-                                        }
-                                    }
-                                },
-                                {
-                                    "PartName": "PageLocationPart",
-                                    "Name": "PageLocationPart",
-                                    "Settings": {
-                                        "ContentTypePartSettings": {
-                                            "Position": "3"
-                                        }
-                                    }
-                                },
-                                {
-                                    "PartName": "GraphSyncPart",
-                                    "Name": "GraphSyncPart",
-                                    "Settings": {
-                                        "ContentTypePartSettings": {
-                                            "Position": "4"
-                                        },
-                                        "GraphSyncPartSettings": {
-                                            "NodeNameTransform": "ContentType",
-                                            "PropertyNameTransform": "Value",
-                                            "IdPropertyName": "uri",
-                                            "GenerateIdPropertyValue": "$\"<<contentapiprefix>>/{ContentType}/{Value}\".ToLowerInvariant()",
-                                            "DisplayId": true
-                                        },
-                                        "ContentIndexSettings": {}
-                                    }
-                                },
-                                {
-                                    "PartName": "SitemapPart",
-                                    "Name": "SitemapPart",
-                                    "Settings": {
-                                        "ContentTypePartSettings": {
-                                            "Position": "5"
-                                        }
-                                    }
+                                "ContentTypePartSettings": {
+                                    "Position": "1"
                                 }
-                            ]
-                        }
-                    ],
-                    "ContentParts": [
+                            }
+                        },
                         {
+                            "PartName": "PreviewPart",
                             "Name": "PreviewPart",
                             "Settings": {
-                                "ContentPartSettings": {
-                                    "Attachable": true,
-                                    "Description": "Provides a way to define the url that is used to render your content item."
+                                "ContentTypePartSettings": {
+                                    "Position": "2"
                                 }
-                            },
-                            "ContentPartFieldDefinitionRecords": []
+                            }
                         },
                         {
-                            "Name": "PageLocationPart",
-                            "Settings": {
-                                "ContentPartSettings": {
-                                    "Attachable": true,
-                                    "Description": "Adds the page location part."
-                                }
-                            },
-                            "ContentPartFieldDefinitionRecords": []
-                        },
-                        {
-                            "Name": "GraphSyncPart",
-                            "Settings": {
-                                "ContentPartSettings": {
-                                    "Attachable": true,
-                                    "Description": "Enables the content type to be synced to a graph."
-                                }
-                            },
-                            "ContentPartFieldDefinitionRecords": []
-                        },
-                        {
-                            "Name": "SitemapPart",
-                            "Settings": {
-                                "ContentPartSettings": {
-                                    "Attachable": true,
-                                    "Description": "Provides an optional part that allows content items to be excluded, or configured, on a content item."
-                                }
-                            },
-                            "ContentPartFieldDefinitionRecords": []
-                        },
-                        {
+                            "PartName": "TitlePart",
                             "Name": "TitlePart",
                             "Settings": {
-                                "ContentPartSettings": {
-                                    "Attachable": true,
-                                    "Description": "Provides a Title for your content item.",
-                                    "DefaultPosition": "0"
+                                "ContentTypePartSettings": {
+                                    "Position": "0"
+                                },
+                                "ContentIndexSettings": {},
+                                "TitlePartSettings": {
+                                    "Options": 3
                                 }
-                            },
-                            "ContentPartFieldDefinitionRecords": []
+                            }
                         },
                         {
-                            "Name": "JobProfileNew",
-                            "Settings": {},
-                            "ContentPartFieldDefinitionRecords": [
-                                {
-                                    "FieldName": "TextField",
-                                    "Name": "AlternativeTitle",
-                                    "Settings": {
-                                        "ContentPartFieldSettings": {
-                                            "DisplayName": "Alternative Title",
-                                            "Position": "0"
-                                        }
-                                    }
-                                },
-                                {
-                                    "FieldName": "TextField",
-                                    "Name": "Overview",
-                                    "Settings": {
-                                        "ContentPartFieldSettings": {
-                                            "DisplayName": "Overview",
-                                            "Editor": "TextArea",
-                                            "Position": "1"
-                                        },
-                                        "TextFieldSettings": {
-                                            "Required": true
-                                        },
-                                        "ContentIndexSettings": {}
-                                    }
+                            "PartName": "PageLocationPart",
+                            "Name": "PageLocationPart",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "3"
                                 }
-                            ]
+                            }
+                        },
+                        {
+                            "PartName": "GraphSyncPart",
+                            "Name": "GraphSyncPart",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "4"
+                                },
+                                "GraphSyncPartSettings": {
+                                    "NodeNameTransform": "ContentType",
+                                    "PropertyNameTransform": "Value",
+                                    "IdPropertyName": "uri",
+                                    "GenerateIdPropertyValue": "$\"<<contentapiprefix>>/{ContentType}/{Value}\".ToLowerInvariant()",
+                                    "DisplayId": true
+                                },
+                                "ContentIndexSettings": {}
+                            }
+                        },
+                        {
+                            "PartName": "SitemapPart",
+                            "Name": "SitemapPart",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "5"
+                                }
+                            }
                         }
                     ]
                 },
                 {
-                    "name": "ContentDefinition",
-                    "ContentTypes": [
+                    "Name": "JobProfileHeaderSpecialism",
+                    "DisplayName": "Job Profile Header Specialism",
+                    "Settings": {
+                        "ContentTypeSettings": {
+                            "Creatable": true,
+                            "Listable": true,
+                            "Draftable": true,
+                            "Versionable": true,
+                            "Securable": true
+                        },
+                        "FullTextAspectSettings": {}
+                    },
+                    "ContentTypePartDefinitionRecords": [
                         {
+                            "PartName": "JobProfileHeaderSpecialism",
                             "Name": "JobProfileHeaderSpecialism",
-                            "DisplayName": "Job Profile Header Specialism",
                             "Settings": {
-                                "ContentTypeSettings": {
-                                    "Creatable": true,
-                                    "Listable": true,
-                                    "Draftable": true,
-                                    "Versionable": true,
-                                    "Securable": true
-                                },
-                                "FullTextAspectSettings": {}
-                            },
-                            "ContentTypePartDefinitionRecords": [
-                                {
-                                    "PartName": "JobProfileHeaderSpecialism",
-                                    "Name": "JobProfileHeaderSpecialism",
-                                    "Settings": {
-                                        "ContentTypePartSettings": {
-                                            "Position": "1"
-                                        }
-                                    }
-                                },
-                                {
-                                    "PartName": "GraphSyncPart",
-                                    "Name": "GraphSyncPart",
-                                    "Settings": {
-                                        "ContentTypePartSettings": {
-                                            "Position": "2"
-                                        },
-                                        "GraphSyncPartSettings": {
-                                            "NodeNameTransform": "ContentType",
-                                            "PropertyNameTransform": "Value",
-                                            "IdPropertyName": "uri",
-                                            "GenerateIdPropertyValue": "$\"<<contentapiprefix>>/{ContentType}/{Value}\".ToLowerInvariant()",
-                                            "DisplayId": true
-                                        },
-                                        "ContentIndexSettings": {}
-                                    }
-                                },
-                                {
-                                    "PartName": "TitlePart",
-                                    "Name": "TitlePart",
-                                    "Settings": {
-                                        "ContentTypePartSettings": {
-                                            "Position": "0"
-                                        }
-                                    }
-                                },
-                                {
-                                    "PartName": "AuditTrailPart",
-                                    "Name": "AuditTrailPart",
-                                    "Settings": {
-                                        "ContentTypePartSettings": {
-                                            "Position": "3"
-                                        },
-                                        "AuditTrailPartSettings": {
-                                            "ShowCommentInput": false
-                                        },
-                                        "ContentIndexSettings": {}
-                                    }
+                                "ContentTypePartSettings": {
+                                    "Position": "1"
                                 }
-                            ]
-                        }
-                    ],
-                    "ContentParts": [
-                        {
-                            "Name": "AuditTrailPart",
-                            "Settings": {
-                                "ContentPartSettings": {
-                                    "Attachable": true,
-                                    "Description": "Allows editors to enter a comment to be saved into the Audit Trail event when saving a content item."
-                                }
-                            },
-                            "ContentPartFieldDefinitionRecords": []
+                            }
                         },
                         {
+                            "PartName": "GraphSyncPart",
                             "Name": "GraphSyncPart",
                             "Settings": {
-                                "ContentPartSettings": {
-                                    "Attachable": true,
-                                    "Description": "Enables the content type to be synced to a graph."
-                                }
-                            },
-                            "ContentPartFieldDefinitionRecords": []
+                                "ContentTypePartSettings": {
+                                    "Position": "2"
+                                },
+                                "GraphSyncPartSettings": {
+                                    "NodeNameTransform": "ContentType",
+                                    "PropertyNameTransform": "Value",
+                                    "IdPropertyName": "uri",
+                                    "GenerateIdPropertyValue": "$\"<<contentapiprefix>>/{ContentType}/{Value}\".ToLowerInvariant()",
+                                    "DisplayId": true
+                                },
+                                "ContentIndexSettings": {}
+                            }
                         },
                         {
+                            "PartName": "TitlePart",
                             "Name": "TitlePart",
                             "Settings": {
-                                "ContentPartSettings": {
-                                    "Attachable": true,
-                                    "Description": "Provides a Title for your content item.",
-                                    "DefaultPosition": "0"
+                                "ContentTypePartSettings": {
+                                    "Position": "0"
+                                },
+                                "ContentIndexSettings": {},
+                                "TitlePartSettings": {
+                                    "Options": 3
                                 }
-                            },
-                            "ContentPartFieldDefinitionRecords": []
+                            }
                         },
                         {
-                            "Name": "JobProfileHeaderSpecialism",
-                            "Settings": {},
-                            "ContentPartFieldDefinitionRecords": [
-                                {
-                                    "FieldName": "TextField",
-                                    "Name": "Description",
-                                    "Settings": {
-                                        "ContentPartFieldSettings": {
-                                            "DisplayName": "Description",
-                                            "Editor": "TextArea",
-                                            "Position": "0"
-                                        },
-                                        "TextFieldSettings": {
-                                            "Required": true
-                                        },
-                                        "ContentIndexSettings": {}
-                                    }
-                                }
-                            ]
+                            "PartName": "AuditTrailPart",
+                            "Name": "AuditTrailPart",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "3"
+                                },
+                                "AuditTrailPartSettings": {
+                                    "ShowCommentInput": false
+                                },
+                                "ContentIndexSettings": {}
+                            }
                         }
                     ]
                 },
@@ -1246,6 +1102,68 @@
                 }
             ],
             "ContentParts": [
+                {
+                    "Name": "SitemapPart",
+                    "Settings": {
+                        "ContentPartSettings": {
+                            "Attachable": true,
+                            "Description": "Provides an optional part that allows content items to be excluded, or configured, on a content item."
+                        }
+                    },
+                    "ContentPartFieldDefinitionRecords": []
+                },
+                {
+                    "Name": "JobProfileNew",
+                    "Settings": {},
+                    "ContentPartFieldDefinitionRecords": [
+                        {
+                            "FieldName": "TextField",
+                            "Name": "AlternativeTitle",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Alternative Title",
+                                    "Position": "0"
+                                }
+                            }
+                        },
+                        {
+                            "FieldName": "TextField",
+                            "Name": "Overview",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Overview",
+                                    "Editor": "TextArea",
+                                    "Position": "1"
+                                },
+                                "TextFieldSettings": {
+                                    "Required": true
+                                },
+                                "ContentIndexSettings": {}
+                            }
+                        }
+                    ]
+                },
+                {
+                    "Name": "JobProfileHeaderSpecialism",
+                    "Settings": {},
+                    "ContentPartFieldDefinitionRecords": [
+                        {
+                            "FieldName": "TextField",
+                            "Name": "Description",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Description",
+                                    "Editor": "TextArea",
+                                    "Position": "0"
+                                },
+                                "TextFieldSettings": {
+                                    "Required": true
+                                },
+                                "ContentIndexSettings": {}
+                            }
+                        }
+                    ]
+                },
                 {
                     "Name": "CommonPart",
                     "Settings": {

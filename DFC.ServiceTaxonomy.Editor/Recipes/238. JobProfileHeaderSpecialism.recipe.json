@@ -58,6 +58,10 @@
                             "Settings": {
                                 "ContentTypePartSettings": {
                                     "Position": "0"
+                                },
+                                "ContentIndexSettings": {},
+                                "TitlePartSettings": {
+                                    "Options": 3
                                 }
                             }
                         },
