@@ -126,9 +126,7 @@
                                     "Editor": "TextArea",
                                     "Position": "0"
                                 },
-                                "TextFieldSettings": {
-                                    "Required": true
-                                },
+                                "TextFieldSettings": {},
                                 "ContentIndexSettings": {}
                             }
                         }
