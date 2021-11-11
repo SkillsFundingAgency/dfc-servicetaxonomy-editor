@@ -946,6 +946,63 @@
                     ]
                 },
                 {
+                    "Name": "HiddenAlternativeTitle",
+                    "DisplayName": "Hidden Alternative Title",
+                    "Settings": {
+                        "ContentTypeSettings": {
+                            "Creatable": true,
+                            "Listable": true,
+                            "Draftable": true,
+                            "Versionable": true,
+                            "Securable": true
+                        },
+                        "FullTextAspectSettings": {}
+                    },
+                    "ContentTypePartDefinitionRecords": [
+                        {
+                            "PartName": "HiddenAlternativeTitle",
+                            "Name": "HiddenAlternativeTitle",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "1"
+                                }
+                            }
+                        },
+                        {
+                            "PartName": "TitlePart",
+                            "Name": "TitlePart",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "0"
+                                }
+                            }
+                        },
+                        {
+                            "PartName": "GraphSyncPart",
+                            "Name": "GraphSyncPart",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "2"
+                                }
+                            }
+                        },
+                        {
+                            "PartName": "AuditTrailPart",
+                            "Name": "AuditTrailPart",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "3"
+                                },
+                                "AuditTrailPartSettings": {
+                                    "ShowCommentInput": false
+                                },
+                                "GraphQLContentTypePartSettings": {},
+                                "ContentIndexSettings": {}
+                            }
+                        }
+                    ]
+                },
+                {
                     "Name": "JobProfileHeaderSpecialism",
                     "DisplayName": "Job Profile Header Specialism",
                     "Settings": {
@@ -1140,6 +1197,55 @@
                                 },
                                 "ContentIndexSettings": {}
                             }
+                        },
+                        {
+                            "FieldName": "NumericField",
+                            "Name": "Salarystarterperyear",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Salary starter (per year)",
+                                    "Position": "2"
+                                },
+                                "NumericFieldSettings": {
+                                    "Minimum": 0.0,
+                                    "Placeholder": "£"
+                                },
+                                "ContentIndexSettings": {}
+                            }
+                        },
+                        {
+                            "FieldName": "NumericField",
+                            "Name": "Salaryexperiencedperyear",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Salary experienced (per year)",
+                                    "Position": "3"
+                                },
+                                "NumericFieldSettings": {
+                                    "Minimum": 0.0,
+                                    "Placeholder": "£"
+                                },
+                                "ContentIndexSettings": {}
+                            }
+                        }
+                    ]
+                },
+                {
+                    "Name": "HiddenAlternativeTitle",
+                    "Settings": {},
+                    "ContentPartFieldDefinitionRecords": [
+                        {
+                            "FieldName": "TextField",
+                            "Name": "Description",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Description",
+                                    "Editor": "TextArea",
+                                    "Position": "0"
+                                },
+                                "TextFieldSettings": {},
+                                "ContentIndexSettings": {}
+                            }
                         }
                     ]
                 },
@@ -1156,9 +1262,7 @@
                                     "Editor": "TextArea",
                                     "Position": "0"
                                 },
-                                "TextFieldSettings": {
-                                    "Required": true
-                                },
+                                "TextFieldSettings": {},
                                 "ContentIndexSettings": {}
                             }
                         }
