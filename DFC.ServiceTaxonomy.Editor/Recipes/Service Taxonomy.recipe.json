@@ -2104,6 +2104,28 @@
                         "alternates": null,
                         "wrappers": null,
                         "shape": null
+                    },
+                    {
+                        "place": "Parts:3#Header;1",
+                        "displayType": null,
+                        "differentiator": "JobProfileNew-Salarystarterperyear",
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null,
+                        "contentType": [
+                            "JobProfileNew"
+                        ]
+                    },
+                    {
+                        "place": "Parts:4#Header;1",
+                        "displayType": null,
+                        "differentiator": "JobProfileNew-Salaryexperiencedperyear",
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null,
+                        "contentType": [
+                            "JobProfileNew"
+                        ]
                     }
                 ]
             }
