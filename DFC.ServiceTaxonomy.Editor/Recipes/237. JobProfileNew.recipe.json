@@ -175,6 +175,36 @@
                                 },
                                 "ContentIndexSettings": {}
                             }
+                        },
+                        {
+                            "FieldName": "NumericField",
+                            "Name": "Salarystarterperyear",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Salary starter (per year)",
+                                    "Position": "2"
+                                },
+                                "NumericFieldSettings": {
+                                    "Minimum": 0.0,
+                                    "Placeholder": "£"
+                                },
+                                "ContentIndexSettings": {}
+                            }
+                        },
+                        {
+                            "FieldName": "NumericField",
+                            "Name": "Salaryexperiencedperyear",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Salary experienced (per year)",
+                                    "Position": "3"
+                                },
+                                "NumericFieldSettings": {
+                                    "Minimum": 0.0,
+                                    "Placeholder": "£"
+                                },
+                                "ContentIndexSettings": {}
+                            }
                         }
                     ]
                 }
