@@ -946,59 +946,143 @@
                     ]
                 },
                 {
-                    "Name": "HiddenAlternativeTitle",
-                    "DisplayName": "Hidden Alternative Title",
-                    "Settings": {
-                        "ContentTypeSettings": {
-                            "Creatable": true,
-                            "Listable": true,
-                            "Draftable": true,
-                            "Versionable": true,
-                            "Securable": true
-                        },
-                        "FullTextAspectSettings": {}
-                    },
-                    "ContentTypePartDefinitionRecords": [
+                    "name": "JobProfileHeaderHiddenalternativetitle",
+                    "displayName": "JobProfileHeaderHiddenalternativetitle",
+                    "description": "",
+                    "author": "",
+                    "website": "",
+                    "version": "",
+                    "issetuprecipe": false,
+                    "categories": [],
+                    "tags": [],
+                    "steps": [
                         {
-                            "PartName": "HiddenAlternativeTitle",
-                            "Name": "HiddenAlternativeTitle",
-                            "Settings": {
-                                "ContentTypePartSettings": {
-                                    "Position": "1"
+                            "name": "ContentDefinition",
+                            "ContentTypes": [
+                                {
+                                    "Name": "HiddenAlternativeTitle",
+                                    "DisplayName": "Hidden alternative title",
+                                    "Settings": {
+                                        "ContentTypeSettings": {
+                                            "Creatable": true,
+                                            "Listable": true,
+                                            "Draftable": true,
+                                            "Versionable": true,
+                                            "Securable": true
+                                        },
+                                        "FullTextAspectSettings": {}
+                                    },
+                                    "ContentTypePartDefinitionRecords": [
+                                        {
+                                            "PartName": "HiddenAlternativeTitle",
+                                            "Name": "HiddenAlternativeTitle",
+                                            "Settings": {
+                                                "ContentTypePartSettings": {
+                                                    "Position": "1"
+                                                }
+                                            }
+                                        },
+                                        {
+                                            "PartName": "TitlePart",
+                                            "Name": "TitlePart",
+                                            "Settings": {
+                                                "ContentTypePartSettings": {
+                                                    "Position": "0"
+                                                },
+                                                "GraphQLContentTypePartSettings": {},
+                                                "ContentIndexSettings": {},
+                                                "TitlePartSettings": {
+                                                    "Options": 3
+                                                }
+                                            }
+                                        },
+                                        {
+                                            "PartName": "GraphSyncPart",
+                                            "Name": "GraphSyncPart",
+                                            "Settings": {
+                                                "ContentTypePartSettings": {
+                                                    "Position": "2"
+                                                },
+                                                "GraphQLContentTypePartSettings": {},
+                                                "GraphSyncPartSettings": {
+                                                    "NodeNameTransform": "ContentType",
+                                                    "PropertyNameTransform": "Value",
+                                                    "IdPropertyName": "uri",
+                                                    "GenerateIdPropertyValue": "$\"<<contentapiprefix>>/{ContentType}/{Value}\".ToLowerInvariant()",
+                                                    "DisplayId": true
+                                                },
+                                                "ContentIndexSettings": {}
+                                            }
+                                        },
+                                        {
+                                            "PartName": "AuditTrailPart",
+                                            "Name": "AuditTrailPart",
+                                            "Settings": {
+                                                "ContentTypePartSettings": {
+                                                    "Position": "3"
+                                                },
+                                                "AuditTrailPartSettings": {
+                                                    "ShowCommentInput": false
+                                                },
+                                                "GraphQLContentTypePartSettings": {},
+                                                "ContentIndexSettings": {}
+                                            }
+                                        }
+                                    ]
                                 }
-                            }
-                        },
-                        {
-                            "PartName": "TitlePart",
-                            "Name": "TitlePart",
-                            "Settings": {
-                                "ContentTypePartSettings": {
-                                    "Position": "0"
-                                }
-                            }
-                        },
-                        {
-                            "PartName": "GraphSyncPart",
-                            "Name": "GraphSyncPart",
-                            "Settings": {
-                                "ContentTypePartSettings": {
-                                    "Position": "2"
-                                }
-                            }
-                        },
-                        {
-                            "PartName": "AuditTrailPart",
-                            "Name": "AuditTrailPart",
-                            "Settings": {
-                                "ContentTypePartSettings": {
-                                    "Position": "3"
+                            ],
+                            "ContentParts": [
+                                {
+                                    "Name": "AuditTrailPart",
+                                    "Settings": {
+                                        "ContentPartSettings": {
+                                            "Attachable": true,
+                                            "Description": "Allows editors to enter a comment to be saved into the Audit Trail event when saving a content item."
+                                        }
+                                    },
+                                    "ContentPartFieldDefinitionRecords": []
                                 },
-                                "AuditTrailPartSettings": {
-                                    "ShowCommentInput": false
+                                {
+                                    "Name": "GraphSyncPart",
+                                    "Settings": {
+                                        "ContentPartSettings": {
+                                            "Attachable": true,
+                                            "Description": "Enables the content type to be synced to a graph."
+                                        }
+                                    },
+                                    "ContentPartFieldDefinitionRecords": []
                                 },
-                                "GraphQLContentTypePartSettings": {},
-                                "ContentIndexSettings": {}
-                            }
+                                {
+                                    "Name": "TitlePart",
+                                    "Settings": {
+                                        "ContentPartSettings": {
+                                            "Attachable": true,
+                                            "Description": "Provides a Title for your content item.",
+                                            "DefaultPosition": "0"
+                                        }
+                                    },
+                                    "ContentPartFieldDefinitionRecords": []
+                                },
+                                {
+                                    "Name": "HiddenAlternativeTitle",
+                                    "Settings": {},
+                                    "ContentPartFieldDefinitionRecords": [
+                                        {
+                                            "FieldName": "TextField",
+                                            "Name": "Description",
+                                            "Settings": {
+                                                "ContentPartFieldSettings": {
+                                                    "DisplayName": "Description",
+                                                    "Editor": "TextArea",
+                                                    "Position": "0"
+                                                },
+                                                "TextFieldSettings": {},
+                                                "ContentIndexSettings": {}
+                                            }
+                                        }
+                                    ]
+                                }
+                            ]
                         }
                     ]
                 },
