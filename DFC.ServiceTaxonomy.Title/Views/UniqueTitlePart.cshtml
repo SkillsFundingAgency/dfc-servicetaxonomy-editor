@@ -1,0 +1,11 @@
+@model DFC.ServiceTaxonomy.Title.ViewModels.UniqueTitlePartViewModel
+@using OrchardCore.Mvc.Utilities
+
+@{
+    var title = (Model?.PartDefinition?.Name + "-" + nameof(Model.Title)).HtmlClassify();
+}
+
+<div class="field field-type-textfield field-name-@title">
+    @Model?.Title
+</div>
+

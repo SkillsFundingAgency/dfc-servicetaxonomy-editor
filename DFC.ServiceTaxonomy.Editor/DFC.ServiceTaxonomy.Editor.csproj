@@ -60,6 +60,7 @@
     <ProjectReference Include="..\DFC.ServiceTaxonomy.PageLocation\DFC.ServiceTaxonomy.PageLocation.csproj" />
     <ProjectReference Include="..\DFC.ServiceTaxonomy.Taxonomies\DFC.ServiceTaxonomy.Taxonomies.csproj" />
     <ProjectReference Include="..\DFC.ServiceTaxonomy.Theme\DFC.ServiceTaxonomy.Theme.csproj" />
+    <ProjectReference Include="..\DFC.ServiceTaxonomy.Title\DFC.ServiceTaxonomy.Title.csproj" />
     <ProjectReference Include="..\DFC.ServiceTaxonomy.UnpublishLater\DFC.ServiceTaxonomy.UnpublishLater.csproj" />
     <ProjectReference Include="..\DFC.ServiceTaxonomy.VersionComparison\DFC.ServiceTaxonomy.VersionComparison.csproj" />
   </ItemGroup>
@@ -68,7 +69,7 @@
     <Content Update="Recipes\237. JobProfileNew.recipe.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Update="Recipes\238. JobProfileHeaderSpecialism.recipe.json">
+    <Content Update="Recipes\238. JobProfileSpecialism.recipe.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
