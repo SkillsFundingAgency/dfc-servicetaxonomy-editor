@@ -1,6 +1,6 @@
 {
-    "name": "JobProfileHeaderSpecialism",
-    "displayName": "JobProfileHeaderSpecialism",
+    "name": "JobProfileSpecialism",
+    "displayName": "JobProfileSpecialism",
     "description": "",
     "author": "",
     "website": "",
@@ -13,8 +13,8 @@
             "name": "ContentDefinition",
             "ContentTypes": [
                 {
-                    "Name": "JobProfileHeaderSpecialism",
-                    "DisplayName": "Job Profile Header Specialism",
+                    "Name": "JobProfileSpecialism",
+                    "DisplayName": "Job Profile Specialism",
                     "Settings": {
                         "ContentTypeSettings": {
                             "Creatable": true,
@@ -27,8 +27,8 @@
                     },
                     "ContentTypePartDefinitionRecords": [
                         {
-                            "PartName": "JobProfileHeaderSpecialism",
-                            "Name": "JobProfileHeaderSpecialism",
+                            "PartName": "JobProfileSpecialism",
+                            "Name": "JobProfileSpecialism",
                             "Settings": {
                                 "ContentTypePartSettings": {
                                     "Position": "1"
@@ -114,7 +114,7 @@
                     "ContentPartFieldDefinitionRecords": []
                 },
                 {
-                    "Name": "JobProfileHeaderSpecialism",
+                    "Name": "JobProfileSpecialism",
                     "Settings": {},
                     "ContentPartFieldDefinitionRecords": [
                         {

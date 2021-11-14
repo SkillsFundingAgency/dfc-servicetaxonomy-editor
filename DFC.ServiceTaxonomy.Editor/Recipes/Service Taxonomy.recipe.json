@@ -1003,8 +1003,8 @@
                     ]
                 },
                 {
-                    "Name": "JobProfileHeaderSpecialism",
-                    "DisplayName": "Job Profile Header Specialism",
+                    "Name": "JobProfileSpecialism",
+                    "DisplayName": "Job Profile Specialism",
                     "Settings": {
                         "ContentTypeSettings": {
                             "Creatable": true,
@@ -1017,8 +1017,8 @@
                     },
                     "ContentTypePartDefinitionRecords": [
                         {
-                            "PartName": "JobProfileHeaderSpecialism",
-                            "Name": "JobProfileHeaderSpecialism",
+                            "PartName": "JobProfileSpecialism",
+                            "Name": "JobProfileSpecialism",
                             "Settings": {
                                 "ContentTypePartSettings": {
                                     "Position": "1"
@@ -1250,7 +1250,7 @@
                     ]
                 },
                 {
-                    "Name": "JobProfileHeaderSpecialism",
+                    "Name": "JobProfileSpecialism",
                     "Settings": {},
                     "ContentPartFieldDefinitionRecords": [
                         {
