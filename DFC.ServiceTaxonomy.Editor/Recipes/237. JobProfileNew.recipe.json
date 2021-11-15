@@ -10,6 +10,13 @@
     "tags": [],
     "steps": [
         {
+            "name": "feature",
+            "disable": [],
+            "enable": [
+                "DFC.ServiceTaxonomy.Title"
+            ]
+        },
+        {
             "name": "ContentDefinition",
             "ContentTypes": [
                 {
