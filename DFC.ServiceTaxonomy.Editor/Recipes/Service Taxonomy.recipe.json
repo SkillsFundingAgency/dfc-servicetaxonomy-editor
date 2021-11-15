@@ -1218,8 +1218,9 @@
                                     "Position": "2"
                                 },
                                 "NumericFieldSettings": {
+                                    "Required": true,
                                     "Minimum": 0.0,
-                                    "Placeholder": "£"
+                                    "Placeholder": "£ (Mandatory)"
                                 },
                                 "ContentIndexSettings": {}
                             }
@@ -1233,8 +1234,9 @@
                                     "Position": "3"
                                 },
                                 "NumericFieldSettings": {
+                                    "Required": true,
                                     "Minimum": 0.0,
-                                    "Placeholder": "£"
+                                    "Placeholder": "£ (Mandatory)"
                                 },
                                 "ContentIndexSettings": {}
                             }
