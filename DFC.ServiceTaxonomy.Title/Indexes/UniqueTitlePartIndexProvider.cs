@@ -60,17 +60,13 @@ namespace DFC.ServiceTaxonomy.Title.Indexes
                     // Remove index records of soft deleted items.
                     if (!contentItem.Published && !contentItem.Latest)
                     {
-#pragma warning disable CS8603 // Possible null reference return.
                         return null;
-#pragma warning restore CS8603 // Possible null reference return.
                     }
 
                     var part = contentItem.As<UniqueTitlePart>();
                     if (part == null || String.IsNullOrEmpty(part.Title))
                     {
-#pragma warning disable CS8603 // Possible null reference return.
                         return null;
-#pragma warning restore CS8603 // Possible null reference return.
                     }
 
                     return new UniqueTitlePartIndex
