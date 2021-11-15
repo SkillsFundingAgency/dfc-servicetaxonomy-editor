@@ -1,6 +1,6 @@
 {
-  "name": " JobProfileHeaderHiddenAlternativeTitle",
-  "displayName": " JobProfileHeaderHiddenAlternativeTitle",
+  "name": "JobProfileHeaderHiddenalternativetitle",
+  "displayName": "JobProfileHeaderHiddenalternativetitle",
   "description": "",
   "author": "",
   "website": "",
@@ -14,7 +14,7 @@
       "ContentTypes": [
         {
           "Name": "HiddenAlternativeTitle",
-          "DisplayName": "Hidden Alternative Title",
+          "DisplayName": "Hidden alternative title",
           "Settings": {
             "ContentTypeSettings": {
               "Creatable": true,
@@ -41,6 +41,11 @@
               "Settings": {
                 "ContentTypePartSettings": {
                   "Position": "0"
+                },
+                "GraphQLContentTypePartSettings": {},
+                "ContentIndexSettings": {},
+                "TitlePartSettings": {
+                  "Options": 3
                 }
               }
             },
@@ -50,7 +55,16 @@
               "Settings": {
                 "ContentTypePartSettings": {
                   "Position": "2"
-                }
+                },
+                "GraphQLContentTypePartSettings": {},
+                "GraphSyncPartSettings": {
+                  "NodeNameTransform": "ContentType",
+                  "PropertyNameTransform": "Value",
+                  "IdPropertyName": "uri",
+                  "GenerateIdPropertyValue": "$\"<<contentapiprefix>>/{ContentType}/{Value}\".ToLowerInvariant()",
+                  "DisplayId": true
+                },
+                "ContentIndexSettings": {}
               }
             },
             {
