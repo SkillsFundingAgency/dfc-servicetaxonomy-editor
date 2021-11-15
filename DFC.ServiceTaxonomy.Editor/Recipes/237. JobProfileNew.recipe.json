@@ -10,6 +10,13 @@
     "tags": [],
     "steps": [
         {
+            "name": "feature",
+            "disable": [],
+            "enable": [
+                "DFC.ServiceTaxonomy.Title"
+            ]
+        },
+        {
             "name": "ContentDefinition",
             "ContentTypes": [
                 {
@@ -185,8 +192,9 @@
                                     "Position": "2"
                                 },
                                 "NumericFieldSettings": {
+                                    "Required": true,
                                     "Minimum": 0.0,
-                                    "Placeholder": "£"
+                                    "Placeholder": "£ (Mandatory)"
                                 },
                                 "ContentIndexSettings": {}
                             }
@@ -200,8 +208,9 @@
                                     "Position": "3"
                                 },
                                 "NumericFieldSettings": {
+                                    "Required": true,
                                     "Minimum": 0.0,
-                                    "Placeholder": "£"
+                                    "Placeholder": "£ (Mandatory)"
                                 },
                                 "ContentIndexSettings": {}
                             }

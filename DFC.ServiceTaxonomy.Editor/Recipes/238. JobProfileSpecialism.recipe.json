@@ -1,6 +1,6 @@
 {
-    "name": "JobProfileHeaderSpecialism",
-    "displayName": "JobProfileHeaderSpecialism",
+    "name": "JobProfileSpecialism",
+    "displayName": "JobProfileSpecialism",
     "description": "",
     "author": "",
     "website": "",
@@ -13,8 +13,8 @@
             "name": "ContentDefinition",
             "ContentTypes": [
                 {
-                    "Name": "JobProfileHeaderSpecialism",
-                    "DisplayName": "Job Profile Header Specialism",
+                    "Name": "JobProfileSpecialism",
+                    "DisplayName": "Job Profile Specialism",
                     "Settings": {
                         "ContentTypeSettings": {
                             "Creatable": true,
@@ -27,11 +27,11 @@
                     },
                     "ContentTypePartDefinitionRecords": [
                         {
-                            "PartName": "JobProfileHeaderSpecialism",
-                            "Name": "JobProfileHeaderSpecialism",
+                            "PartName": "JobProfileSpecialism",
+                            "Name": "JobProfileSpecialism",
                             "Settings": {
                                 "ContentTypePartSettings": {
-                                    "Position": "1"
+                                    "Position": "2"
                                 }
                             }
                         },
@@ -40,7 +40,7 @@
                             "Name": "GraphSyncPart",
                             "Settings": {
                                 "ContentTypePartSettings": {
-                                    "Position": "2"
+                                    "Position": "3"
                                 },
                                 "GraphSyncPartSettings": {
                                     "NodeNameTransform": "ContentType",
@@ -57,11 +57,12 @@
                             "Name": "TitlePart",
                             "Settings": {
                                 "ContentTypePartSettings": {
-                                    "Position": "0"
+                                    "Position": "1"
                                 },
                                 "ContentIndexSettings": {},
                                 "TitlePartSettings": {
-                                    "Options": 3
+                                    "Options": 2,
+                                    "Pattern": "{{ Model.ContentItem.Content.UniqueTitlePart.Title }}"
                                 }
                             }
                         },
@@ -70,12 +71,21 @@
                             "Name": "AuditTrailPart",
                             "Settings": {
                                 "ContentTypePartSettings": {
-                                    "Position": "3"
+                                    "Position": "4"
                                 },
                                 "AuditTrailPartSettings": {
                                     "ShowCommentInput": false
                                 },
                                 "ContentIndexSettings": {}
+                            }
+                        },
+                        {
+                            "PartName": "UniqueTitlePart",
+                            "Name": "UniqueTitlePart",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "0"
+                                }
                             }
                         }
                     ]
@@ -114,7 +124,17 @@
                     "ContentPartFieldDefinitionRecords": []
                 },
                 {
-                    "Name": "JobProfileHeaderSpecialism",
+                    "Name": "UniqueTitlePart",
+                    "Settings": {
+                        "ContentPartSettings": {
+                            "Attachable": true,
+                            "Description": "Adds Title related properties to a content item."
+                        }
+                    },
+                    "ContentPartFieldDefinitionRecords": []
+                },
+                {
+                    "Name": "JobProfileSpecialism",
                     "Settings": {},
                     "ContentPartFieldDefinitionRecords": [
                         {
