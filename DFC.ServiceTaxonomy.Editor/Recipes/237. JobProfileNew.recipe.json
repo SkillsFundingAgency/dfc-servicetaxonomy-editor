@@ -21,7 +21,7 @@
             "ContentTypes": [
                 {
                     "Name": "JobProfileNew",
-                    "DisplayName": "Job Profile New",
+                    "DisplayName": "Job profile new",
                     "Settings": {
                         "ContentTypeSettings": {
                             "Creatable": true,
@@ -163,9 +163,11 @@
                             "Name": "AlternativeTitle",
                             "Settings": {
                                 "ContentPartFieldSettings": {
-                                    "DisplayName": "Alternative Title",
+                                    "DisplayName": "Alternative title",
                                     "Position": "0"
-                                }
+                                },
+                                "TextFieldSettings": {},
+                                "ContentIndexSettings": {}
                             }
                         },
                         {
@@ -211,6 +213,36 @@
                                     "Required": true,
                                     "Minimum": 0.0,
                                     "Placeholder": "£ (Mandatory)"
+                                },
+                                "ContentIndexSettings": {}
+                            }
+                        },
+                        {
+                            "FieldName": "NumericField",
+                            "Name": "Minimumhours",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Minimum hours",
+                                    "Position": "4"
+                                },
+                                "NumericFieldSettings": {
+                                    "Required": true,
+                                    "Minimum": 0.0
+                                },
+                                "ContentIndexSettings": {}
+                            }
+                        },
+                        {
+                            "FieldName": "NumericField",
+                            "Name": "Maximumhours",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Maximum hours",
+                                    "Position": "5"
+                                },
+                                "NumericFieldSettings": {
+                                    "Required": true,
+                                    "Minimum": 0.0
                                 },
                                 "ContentIndexSettings": {}
                             }
