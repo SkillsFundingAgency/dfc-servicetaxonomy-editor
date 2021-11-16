@@ -645,6 +645,28 @@
                         "contentType": [
                             "JobProfileNew"
                         ]
+                    },
+                    {
+                        "place": "Parts:5#Header;1",
+                        "displayType": null,
+                        "differentiator": "JobProfileNew-Minimumhours",
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null,
+                        "contentType": [
+                            "JobProfileNew"
+                        ]
+                    },
+                    {
+                        "place": "Parts:6#Header;1",
+                        "displayType": null,
+                        "differentiator": "JobProfileNew-Maximumhours",
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null,
+                        "contentType": [
+                            "JobProfileNew"
+                        ]
                     }
                 ]
             }
