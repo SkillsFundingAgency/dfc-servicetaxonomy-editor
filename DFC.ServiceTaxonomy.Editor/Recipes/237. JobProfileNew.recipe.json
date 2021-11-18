@@ -177,7 +177,7 @@
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "Overview",
                                     "Editor": "TextArea",
-                                    "Position": "1"
+                                    "Position": "2"
                                 },
                                 "TextFieldSettings": {
                                     "Required": true
@@ -191,7 +191,7 @@
                             "Settings": {
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "Salary starter (per year)",
-                                    "Position": "2"
+                                    "Position": "3"
                                 },
                                 "NumericFieldSettings": {
                                     "Required": true,
@@ -207,7 +207,7 @@
                             "Settings": {
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "Salary experienced (per year)",
-                                    "Position": "3"
+                                    "Position": "4"
                                 },
                                 "NumericFieldSettings": {
                                     "Required": true,
@@ -223,11 +223,12 @@
                             "Settings": {
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "Minimum hours",
-                                    "Position": "4"
+                                    "Position": "5" 
                                 },
                                 "NumericFieldSettings": {
                                     "Required": true,
-                                    "Minimum": 0.0
+                                    "Minimum": 0.0,
+                                    "Placeholder": "(Mandatory)"
                                 },
                                 "ContentIndexSettings": {}
                             }
@@ -238,11 +239,29 @@
                             "Settings": {
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "Maximum hours",
-                                    "Position": "5"
+                                    "Position": "6"
                                 },
                                 "NumericFieldSettings": {
                                     "Required": true,
-                                    "Minimum": 0.0
+                                    "Minimum": 0.0,
+                                    "Placeholder": "(Mandatory)"
+                                },
+                                "ContentIndexSettings": {}
+                            }
+                        },
+                        {
+                            "FieldName": "ContentPickerField",
+                            "Name": "HiddenAlternativeTitle",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Hidden Alternative Title",
+                                    "Position": "1"
+                                },
+                                "ContentPickerFieldSettings": {
+                                    "Multiple": true,
+                                    "DisplayedContentTypes": [
+                                        "HiddenAlternativeTitle"
+                                    ]
                                 },
                                 "ContentIndexSettings": {}
                             }
