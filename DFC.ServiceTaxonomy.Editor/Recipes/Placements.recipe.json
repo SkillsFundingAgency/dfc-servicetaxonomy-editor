@@ -582,6 +582,17 @@
                         "contentType": [
                             "JobProfileNew"
                         ]
+                    },
+                    {
+                        "place": "Parts:7#Header;1",
+                        "displayType": null,
+                        "differentiator": "JobProfileNew-WorkingHoursDetails",
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null,
+                        "contentType": [
+                            "JobProfileNew"
+                        ]
                     }
                 ],
                 "TaxonomyField_Edit": [
