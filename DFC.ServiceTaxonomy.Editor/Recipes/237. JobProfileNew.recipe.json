@@ -196,7 +196,7 @@
                                 "NumericFieldSettings": {
                                     "Required": true,
                                     "Minimum": 0.0,
-                                    "Placeholder": "£ (Mandatory)"
+                                    "Placeholder": "Â£ (Mandatory)"
                                 },
                                 "ContentIndexSettings": {}
                             }
@@ -212,7 +212,7 @@
                                 "NumericFieldSettings": {
                                     "Required": true,
                                     "Minimum": 0.0,
-                                    "Placeholder": "£ (Mandatory)"
+                                    "Placeholder": "Â£ (Mandatory)"
                                 },
                                 "ContentIndexSettings": {}
                             }
@@ -223,7 +223,7 @@
                             "Settings": {
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "Minimum hours",
-                                    "Position": "5" 
+                                    "Position": "5"
                                 },
                                 "NumericFieldSettings": {
                                     "Required": true,
@@ -261,6 +261,24 @@
                                     "Multiple": true,
                                     "DisplayedContentTypes": [
                                         "HiddenAlternativeTitle"
+                                    ]
+                                },
+                                "ContentIndexSettings": {}
+                            }
+                        },
+                        {
+                            "FieldName": "ContentPickerField",
+                            "Name": "WorkingHoursDetails",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Working Hours Details",
+                                    "Position": "7"
+                                },
+                                "ContentPickerFieldSettings": {
+                                    "Required": true,
+                                    "Multiple": true,
+                                    "DisplayedContentTypes": [
+                                        "Workinghoursdetail"
                                     ]
                                 },
                                 "ContentIndexSettings": {}
