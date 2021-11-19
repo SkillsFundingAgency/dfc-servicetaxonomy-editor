@@ -271,7 +271,7 @@
                             "Name": "WorkingHoursDetails",
                             "Settings": {
                                 "ContentPartFieldSettings": {
-                                    "DisplayName": "Working Hours Details",
+                                    "DisplayName": "Working hours details",
                                     "Position": "7"
                                 },
                                 "ContentPickerFieldSettings": {
@@ -279,6 +279,24 @@
                                     "Multiple": true,
                                     "DisplayedContentTypes": [
                                         "Workinghoursdetail"
+                                    ]
+                                },
+                                "ContentIndexSettings": {}
+                            }
+                        },
+                        {
+                            "FieldName": "ContentPickerField",
+                            "Name": "Workingpattern",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Working pattern",
+                                    "Position": "8"
+                                },
+                                "ContentPickerFieldSettings": {
+                                    "Required": true,
+                                    "Multiple": true,
+                                    "DisplayedContentTypes": [
+                                        "Workingpatterndetail"
                                     ]
                                 },
                                 "ContentIndexSettings": {}
