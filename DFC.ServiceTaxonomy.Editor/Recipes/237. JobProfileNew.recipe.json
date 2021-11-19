@@ -283,6 +283,24 @@
                                 },
                                 "ContentIndexSettings": {}
                             }
+                        },
+                        {
+                            "FieldName": "ContentPickerField",
+                            "Name": "Workingpattern",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Working pattern",
+                                    "Position": "8"
+                                },
+                                "ContentPickerFieldSettings": {
+                                    "Required": true,
+                                    "Multiple": true,
+                                    "DisplayedContentTypes": [
+                                        "Workingpatterndetail"
+                                    ]
+                                },
+                                "ContentIndexSettings": {}
+                            }
                         }
                     ]
                 }

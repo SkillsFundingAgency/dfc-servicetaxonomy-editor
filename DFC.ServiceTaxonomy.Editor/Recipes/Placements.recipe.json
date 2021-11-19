@@ -593,6 +593,17 @@
                         "contentType": [
                             "JobProfileNew"
                         ]
+                    },
+                    {
+                        "place": "Parts:8#Header;1",
+                        "displayType": null,
+                        "differentiator": "JobProfileNew-Workingpattern",
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null,
+                        "contentType": [
+                            "JobProfileNew"
+                        ]
                     }
                 ],
                 "TaxonomyField_Edit": [
