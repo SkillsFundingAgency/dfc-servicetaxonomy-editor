@@ -296,6 +296,23 @@
                                     "Required": true,
                                     "Multiple": true,
                                     "DisplayedContentTypes": [
+                                        "Workingpatterns"
+                                    ]
+                                },
+                                "ContentIndexSettings": {}
+                            }
+                        },
+                        {
+                            "FieldName": "ContentPickerField",
+                            "Name": "Workingpatterndetails",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Working pattern details",
+                                    "Position": "9"
+                                },
+                                "ContentPickerFieldSettings": {
+                                    "Multiple": true,
+                                    "DisplayedContentTypes": [
                                         "Workingpatterndetail"
                                     ]
                                 },
