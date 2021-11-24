@@ -179,7 +179,7 @@
                         ]
                     },
                     {
-                        "place": "Parts:3#Metadata;0",
+                        "place": "Parts:1#Metadata;0",
                         "displayType": null,
                         "differentiator": null,
                         "alternates": null,
@@ -609,6 +609,17 @@
                         "place": "Parts:9#Header;1",
                         "displayType": null,
                         "differentiator": "JobProfileNew-Workingpatterndetails",
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null,
+                        "contentType": [
+                            "JobProfileNew"
+                        ]
+                    },
+                    {
+                        "place": "Parts:2#Metadata;0",
+                        "displayType": null,
+                        "differentiator": "JobProfileNew-Jobprofilespecialism",
                         "alternates": null,
                         "wrappers": null,
                         "shape": null,
