@@ -318,6 +318,23 @@
                                 },
                                 "ContentIndexSettings": {}
                             }
+                        },
+                        {
+                            "FieldName": "ContentPickerField",
+                            "Name": "Jobprofilespecialism",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Job profile specialism",
+                                    "Position": "10"
+                                },
+                                "ContentPickerFieldSettings": {
+                                    "Multiple": true,
+                                    "DisplayedContentTypes": [
+                                        "JobProfileSpecialism"
+                                    ]
+                                },
+                                "ContentIndexSettings": {}
+                            }
                         }
                     ]
                 }
