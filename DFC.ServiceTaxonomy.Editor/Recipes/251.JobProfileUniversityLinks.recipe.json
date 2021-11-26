@@ -138,22 +138,6 @@
           "Settings": {},
           "ContentPartFieldDefinitionRecords": [
             {
-              "FieldName": "HtmlField",
-              "Name": "Text",
-              "Settings": {
-                "ContentPartFieldSettings": {
-                  "DisplayName": "Text",
-                  "Editor": "Trumbowyg",
-                  "Position": "0"
-                },
-                "HtmlFieldSettings": {},
-                "ContentIndexSettings": {},
-                "HtmlFieldTrumbowygEditorSettings": {
-                  "Options": "{\r\n    autogrow: true,\r\n    btns: [\r\n        [\"viewHTML\"],\r\n        [\"undo\", \"redo\"],\r\n        [\"formatting\"],\r\n        [\"strong\", \"em\", \"del\"],\r\n        [\"foreColor\", \"backColor\"],\r\n        [\"superscript\", \"subscript\"],\r\n        [\"link\"],\r\n        [\"insertShortcode\"],\r\n        [\"image\"],\r\n        [\"align\"],\r\n        [\"unorderedList\", \"orderedList\"],\r\n        [\"horizontalRule\"],\r\n        [\"removeformat\"],\r\n        [\"fullscreen\"]\r\n    ],\r\n    btnsDef: {\r\n        align: {\r\n            dropdown: [\"justifyLeft\", \"justifyCenter\", \"justifyRight\", \"justifyFull\"],\r\n            ico: \"justifyLeft\"\r\n        },\r\n        image: {\r\n            dropdown: [\"insertImage\", \"base64\", \"noembed\"],\r\n            ico: \"insertImage\"\r\n        }\r\n    }\r\n}"
-                }
-              }
-            },
-            {
               "FieldName": "TextField",
               "Name": "Url",
               "Settings": {
@@ -161,6 +145,19 @@
                   "DisplayName": "Url",
                   "Position": "1"
                 }
+              }
+            },
+            {
+              "FieldName": "TextField",
+              "Name": "Text",
+              "Settings": {
+                "ContentPartFieldSettings": {
+                  "DisplayName": "Text",
+                  "Editor": "TextArea",
+                  "Position": "0"
+                },
+                "TextFieldSettings": {},
+                "ContentIndexSettings": {}
               }
             }
           ]
