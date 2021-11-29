@@ -1,6 +1,6 @@
 {
-  "name": "JobProfileUniversityLinks",
-  "displayName": "JobProfileUniversityLinks",
+  "name": "JobProfileUniversityLink",
+  "displayName": "JobProfileUniversityLink",
   "description": "",
   "author": "",
   "website": "",
@@ -14,7 +14,7 @@
       "ContentTypes": [
         {
           "Name": "Universitylinks",
-          "DisplayName": "University links",
+          "DisplayName": "University link",
           "Settings": {
             "ContentTypeSettings": {
               "Creatable": true,
@@ -142,9 +142,11 @@
               "Name": "Url",
               "Settings": {
                 "ContentPartFieldSettings": {
-                  "DisplayName": "Url",
+                  "DisplayName": "URL",
                   "Position": "1"
-                }
+                },
+                "TextFieldSettings": {},
+                "ContentIndexSettings": {}
               }
             },
             {

@@ -1,6 +1,6 @@
 {
-  "name": "JobProfileApprenticeshipLinks",
-  "displayName": "JobProfileApprenticeshipLinks",
+  "name": "JobProfileApprenticeshipLink",
+  "displayName": "JobProfileApprenticeshipLink",
   "description": "",
   "author": "",
   "website": "",
@@ -14,7 +14,7 @@
       "ContentTypes": [
         {
           "Name": "Apprenticeshiplink",
-          "DisplayName": "Apprenticeship links",
+          "DisplayName": "Apprenticeship link",
           "Settings": {
             "ContentTypeSettings": {
               "Creatable": true,
