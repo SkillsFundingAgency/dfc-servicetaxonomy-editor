@@ -1,13 +1,13 @@
 {
-    "name": "JobProfileNew",
-    "displayName": "JobProfileNew",
-    "description": "",
-    "author": "",
-    "website": "",
-    "version": "",
-    "issetuprecipe": false,
-    "categories": [],
-    "tags": [],
+  "name": "JobProfileNew",
+  "displayName": "JobProfileNew",
+  "description": "",
+  "author": "",
+  "website": "",
+  "version": "",
+  "issetuprecipe": false,
+  "categories": [],
+  "tags": [],
     "steps": [
         {
             "name": "feature",
@@ -331,6 +331,22 @@
                                     "Multiple": true,
                                     "DisplayedContentTypes": [
                                         "JobProfileSpecialism"
+                                    ]
+                                },
+                                "ContentIndexSettings": {}
+                            }
+                        },
+                        {
+                            "FieldName": "ContentPickerField",
+                            "Name": "Universityentryrequirements",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "University entry requirements",
+                                    "Position": "11"
+                                },
+                                "ContentPickerFieldSettings": {
+                                    "DisplayedContentTypes": [
+                                        "Universityentryrequirements"
                                     ]
                                 },
                                 "ContentIndexSettings": {}
