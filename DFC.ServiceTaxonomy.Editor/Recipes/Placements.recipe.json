@@ -88,6 +88,149 @@
                         "alternates": null,
                         "wrappers": null,
                         "shape": null
+                    },
+                    {
+                        "place": "Parts:0#How to become;2",
+                        "displayType": null,
+                        "differentiator": "JobProfileNew-Entryroutes",
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null,
+                        "contentType": [
+                            "JobProfileNew"
+                        ]
+                    },
+                    {
+                        "place": "Parts:1#How to become;2",
+                        "displayType": null,
+                        "differentiator": "JobProfileNew-Universityrelevantsubjects",
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null,
+                        "contentType": [
+                            "JobProfileNew"
+                        ]
+                    },
+                    {
+                        "place": "Parts:2#How to become;2",
+                        "displayType": null,
+                        "differentiator": "JobProfileNew-Universityfurtherrouteinfo",
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null,
+                        "contentType": [
+                            "JobProfileNew"
+                        ]
+                    },
+                    {
+                        "place": "Parts:6#How to become;2",
+                        "displayType": null,
+                        "differentiator": "JobProfileNew-Collegerelevantsubjects",
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null,
+                        "contentType": [
+                            "JobProfileNew"
+                        ]
+                    },
+                    {
+                        "place": "Parts:7#How to become;2",
+                        "displayType": null,
+                        "differentiator": "JobProfileNew-Collegefurtherrouteinfo",
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null,
+                        "contentType": [
+                            "JobProfileNew"
+                        ]
+                    },
+                    {
+                        "place": "Parts:11#How to become;2",
+                        "displayType": null,
+                        "differentiator": "JobProfileNew-Apprenticeshiprelevantsubjects",
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null,
+                        "contentType": [
+                            "JobProfileNew"
+                        ]
+                    },
+                    {
+                        "place": "Parts:12#How to become;2",
+                        "displayType": null,
+                        "differentiator": "JobProfileNew-Apprenticeshipfurtherroutesinfo",
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null,
+                        "contentType": [
+                            "JobProfileNew"
+                        ]
+                    },
+                    {
+                        "place": "Parts:16#How to become;2",
+                        "displayType": null,
+                        "differentiator": "JobProfileNew-Work",
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null,
+                        "contentType": [
+                            "JobProfileNew"
+                        ]
+                    },
+                    {
+                        "place": "Parts:17#How to become;2",
+                        "displayType": null,
+                        "differentiator": "JobProfileNew-Volunteering",
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null,
+                        "contentType": [
+                            "JobProfileNew"
+                        ]
+                    },
+                    {
+                        "place": "Parts:18#How to become;2",
+                        "displayType": null,
+                        "differentiator": "JobProfileNew-Directapplication",
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null,
+                        "contentType": [
+                            "JobProfileNew"
+                        ]
+                    },
+                    {
+                        "place": "Parts:19#How to become;2",
+                        "displayType": null,
+                        "differentiator": "JobProfileNew-Otherroutes",
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null,
+                        "contentType": [
+                            "JobProfileNew"
+                        ]
+                    },
+                    {
+                        "place": "Parts:20#How to become;2",
+                        "displayType": null,
+                        "differentiator": "JobProfileNew-Careertips",
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null,
+                        "contentType": [
+                            "JobProfileNew"
+                        ]
+                    },
+                    {
+                        "place": "Parts:21#How to become;2",
+                        "displayType": null,
+                        "differentiator": "JobProfileNew-Furtherinformation",
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null,
+                        "contentType": [
+                            "JobProfileNew"
+                        ]
                     }
                 ],
                 "SitemapPart_Edit": [
@@ -653,6 +796,94 @@
                         "place": "Parts:3#How to become;2",
                         "displayType": null,
                         "differentiator": "JobProfileNew-Universityentryrequirements",
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null,
+                        "contentType": [
+                            "JobProfileNew"
+                        ]
+                    },
+                    {
+                        "place": "Parts:4#How to become;2",
+                        "displayType": null,
+                        "differentiator": "JobProfileNew-Relateduniversityrequirements",
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null,
+                        "contentType": [
+                            "JobProfileNew"
+                        ]
+                    },
+                    {
+                        "place": "Parts:5#How to become;2",
+                        "displayType": null,
+                        "differentiator": "JobProfileNew-Relateduniversitylinks",
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null,
+                        "contentType": [
+                            "JobProfileNew"
+                        ]
+                    },
+                    {
+                        "place": "Parts:8#How to become;2",
+                        "displayType": null,
+                        "differentiator": "JobProfileNew-Collegeentryrequirements",
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null,
+                        "contentType": [
+                            "JobProfileNew"
+                        ]
+                    },
+                    {
+                        "place": "Parts:9#How to become;2",
+                        "displayType": null,
+                        "differentiator": "JobProfileNew-Relatedcollegerequirements",
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null,
+                        "contentType": [
+                            "JobProfileNew"
+                        ]
+                    },
+                    {
+                        "place": "Parts:10#How to become;2",
+                        "displayType": null,
+                        "differentiator": "JobProfileNew-Relatedcollegelinks",
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null,
+                        "contentType": [
+                            "JobProfileNew"
+                        ]
+                    },
+                    {
+                        "place": "Parts:13#How to become;2",
+                        "displayType": null,
+                        "differentiator": "JobProfileNew-Apprenticeshipentryrequirements",
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null,
+                        "contentType": [
+                            "JobProfileNew"
+                        ]
+                    },
+                    {
+                        "place": "Parts:14#How to become;2",
+                        "displayType": null,
+                        "differentiator": "JobProfileNew-Relatedapprenticeshiprequirements",
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null,
+                        "contentType": [
+                            "JobProfileNew"
+                        ]
+                    },
+                    {
+                        "place": "Parts:15#How to become;2",
+                        "displayType": null,
+                        "differentiator": "JobProfileNew-Relatedapprenticeshiplinks",
                         "alternates": null,
                         "wrappers": null,
                         "shape": null,
