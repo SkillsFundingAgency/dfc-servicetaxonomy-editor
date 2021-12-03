@@ -297,6 +297,7 @@
                             "Name": "SOCCodeTextField",
                             "Settings": {
                                 "ContentPartFieldSettings": {
+                                    "Required": true,
                                     "DisplayName": "SOC Code"
                                 }
                             }
