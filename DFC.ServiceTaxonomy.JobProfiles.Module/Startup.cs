@@ -1,4 +1,4 @@
-﻿using DFC.ServiceTaxonomy.JobProfiles.Module.Handler;
+﻿using DFC.ServiceTaxonomy.JobProfiles.Module.Handlers;
 using DFC.ServiceTaxonomy.JobProfiles.Service.EFDataModels;
 using DFC.ServiceTaxonomy.JobProfiles.Service.Interfaces;
 using DFC.ServiceTaxonomy.JobProfiles.Service.Models;
@@ -18,10 +18,10 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module
         {
             // CMS
             services.AddScoped<IDataMigration, Migrations>();
-            services.AddScoped<IContentHandler, JobProfileContentHandler>();
+            services.AddScoped<IContentHandler, SocCodeContentHandler>();
 
             // Repositories
-            services.AddDbContext<DfcDevOnetSkillsFrameworkContext>(options => options.UseSqlServer("Server=xxx;Database=dfc-dev-onetskillsframework;Trusted_Connection=True;"));
+            services.AddDbContext<DfcDevOnetSkillsFrameworkContext>(options => options.UseSqlServer("Server=ANDYROSEA5F0;Database=dfc-dev-onetskillsframework;Trusted_Connection=True;"));
             services.AddScoped<ISocMappingRepository, SocMappingRepository>();
             services.AddScoped<ISkillsRepository, SkillsOueryRepository>();
             services.AddScoped<IQueryRepository<FrameworkSkillSuppression>, SuppressionsQueryRepository>();

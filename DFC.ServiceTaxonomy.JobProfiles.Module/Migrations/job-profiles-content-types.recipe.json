@@ -138,20 +138,20 @@
                     },
                     "ContentTypePartDefinitionRecords": [
                         {
-                            "PartName": "SOCSkillsMatrix",
-                            "Name": "SOCSkillsMatrix",
-                            "Settings": {
-                                "ContentTypePartSettings": {
-                                    "Position": "1"
-                                }
-                            }
-                        },
-                        {
                             "PartName": "TitlePart",
                             "Name": "TitlePart",
                             "Settings": {
                                 "ContentTypePartSettings": {
                                     "Position": "0"
+                                }
+                            }
+                        },
+                        {
+                            "PartName": "SOCSkillsMatrix",
+                            "Name": "SOCSkillsMatrix",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "1"
                                 }
                             }
                         },
@@ -187,20 +187,20 @@
                     },
                     "ContentTypePartDefinitionRecords": [
                         {
-                            "PartName": "Skill",
-                            "Name": "Skill",
-                            "Settings": {
-                                "ContentTypePartSettings": {
-                                    "Position": "1"
-                                }
-                            }
-                        },
-                        {
                             "PartName": "TitlePart",
                             "Name": "TitlePart",
                             "Settings": {
                                 "ContentTypePartSettings": {
                                     "Position": "0"
+                                }
+                            }
+                        },
+                        {
+                            "PartName": "Skill",
+                            "Name": "Skill",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "1"
                                 }
                             }
                         },
@@ -212,13 +212,11 @@
                                     "Position": "2"
                                 },
                                 "GraphSyncPartSettings": {
-                                    "PreexistingNode": true,
-                                    "NodeNameTransform": "$\"esco__{ContentType}\"",
+                                    "NodeNameTransform": "ContentType",
+                                    "PropertyNameTransform": "Value",
                                     "IdPropertyName": "uri",
-                                    "GenerateIdPropertyValue": "$\"http://data.europa.eu/esco/{ContentType.ToLowerInvariant()}/{Value}\"",
-                                    "PreExistingNodeUriPrefix": "http://data.europa.eu/esco",
-                                    "DisplayId": true,
-                                    "VisualiserIncomingRelationshipsPathLength": 0
+                                    "GenerateIdPropertyValue": "$\"<<contentapiprefix>>/{ContentType}/{Value}\".ToLowerInvariant()",
+                                    "DisplayId": true
                                 }
                             }
                         }
@@ -369,7 +367,18 @@
                                     "Position": "0"
                                 }
                             }
+                        },
+                        {
+                            "FieldName": "TextField",
+                            "Name": "OnetSkillID",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "ONET Skill ID",
+                                    "Position": "1"
+                                }
+                            }
                         }
+
                     ]
                 }
             ]
