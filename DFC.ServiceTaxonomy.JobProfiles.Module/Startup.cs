@@ -19,6 +19,7 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module
             // CMS
             services.AddScoped<IDataMigration, Migrations>();
             services.AddScoped<IContentHandler, SocCodeContentHandler>();
+            services.AddScoped<IContentHandler, JobProfileContentHandler>();
 
             // Repositories
             services.AddDbContext<DfcDevOnetSkillsFrameworkContext>(options => options.UseSqlServer("Server=ANDYROSEA5F0;Database=dfc-dev-onetskillsframework;Trusted_Connection=True;"));

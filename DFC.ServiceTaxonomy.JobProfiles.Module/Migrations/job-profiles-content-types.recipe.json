@@ -275,7 +275,6 @@
                                 },
                                 "ContentPickerFieldSettings": {
                                     "Hint": "Select and re-order related skills",
-                                    "Required": true,
                                     "Multiple": true,
                                     "DisplayedContentTypes": [
                                         "SOCSkillsMatrix"
