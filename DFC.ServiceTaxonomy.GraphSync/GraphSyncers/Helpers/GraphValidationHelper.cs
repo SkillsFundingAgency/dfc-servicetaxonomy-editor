@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using DFC.ServiceTaxonomy.GraphSync.Extensions;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Helpers;
-using DFC.ServiceTaxonomy.Neo4j.Extensions;
-using DFC.ServiceTaxonomy.Neo4j.Queries.Interfaces;
-using Neo4j.Driver;
+using DFC.ServiceTaxonomy.GraphSync.Interfaces;
 using Newtonsoft.Json.Linq;
+using NodaTime;
 
 namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
 {

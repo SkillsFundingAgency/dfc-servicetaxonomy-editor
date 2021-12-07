@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
+using DFC.ServiceTaxonomy.GraphSync.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.Services;
-using DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces;
 
 namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Contexts
 {

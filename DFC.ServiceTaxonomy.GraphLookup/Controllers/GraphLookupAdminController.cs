@@ -1,10 +1,10 @@
 using System;
 using System.Linq;
 using System.Threading.Tasks;
-using DFC.ServiceTaxonomy.GraphLookup.Queries;
+using DFC.ServiceTaxonomy.GraphLookup.CosmosDb.Queries;
 using DFC.ServiceTaxonomy.GraphLookup.Settings;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers;
-using DFC.ServiceTaxonomy.Neo4j.Services.Interfaces;
+using DFC.ServiceTaxonomy.GraphSync.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using OrchardCore.Admin;
 using OrchardCore.ContentManagement.Metadata;
@@ -41,7 +41,7 @@ namespace DFC.ServiceTaxonomy.GraphLookup.Controllers
 
             //todo: interface and get from service provider
             //todo: add lookup graph to settings
-            var results = await _neoGraphCluster.Run(GraphReplicaSetNames.Published, new LookupQuery(
+            var results = await _neoGraphCluster.Run(GraphReplicaSetNames.Published, new CosmosDbLookupQuery(
                     query,
                     settings.NodeLabel!,        //todo: check can these be null (when no values entered in settings)?
                     settings.DisplayFieldName!,

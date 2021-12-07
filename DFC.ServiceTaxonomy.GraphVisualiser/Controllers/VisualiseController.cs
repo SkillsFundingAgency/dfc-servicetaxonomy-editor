@@ -38,7 +38,7 @@ namespace DFC.ServiceTaxonomy.GraphVisualiser.Controllers
         private const string ContentItemIdPlaceHolder = "{ContentItemID}";
         private const string GraphPlaceHolder = "{graph}";
         private readonly IContentDefinitionManager _contentDefinitionManager;
-        private readonly INeo4JToOwlGeneratorService _neo4JToOwlGeneratorService;
+        private readonly IOwlGeneratorService _neo4JToOwlGeneratorService;
         private readonly IOrchardToOwlGeneratorService _orchardToOwlGeneratorService;
         private readonly IVisualiseGraphSyncer _visualiseGraphSyncer;
         private readonly IContentItemVersionFactory _contentItemVersionFactory;
@@ -51,7 +51,7 @@ namespace DFC.ServiceTaxonomy.GraphVisualiser.Controllers
 
         public VisualiseController(
             IContentDefinitionManager contentDefinitionManager,
-            INeo4JToOwlGeneratorService neo4jToOwlGeneratorService,
+            IOwlGeneratorService neo4jToOwlGeneratorService,
             IOrchardToOwlGeneratorService orchardToOwlGeneratorService,
             IVisualiseGraphSyncer visualiseGraphSyncer,
             IContentItemVersionFactory contentItemVersionFactory,

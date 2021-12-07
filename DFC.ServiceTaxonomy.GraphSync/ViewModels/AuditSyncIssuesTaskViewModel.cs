@@ -1,4 +1,4 @@
-using DFC.ServiceTaxonomy.GraphSync.GraphSyncers;
+using DFC.ServiceTaxonomy.GraphSync.Enums;
 
 namespace DFC.ServiceTaxonomy.Editor.Module.ViewModels
 {
