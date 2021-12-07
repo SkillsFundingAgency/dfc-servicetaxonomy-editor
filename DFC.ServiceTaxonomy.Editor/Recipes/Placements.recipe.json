@@ -231,6 +231,17 @@
                         "contentType": [
                             "JobProfileNew"
                         ]
+                    },
+                    {
+                        "place": "Parts:1#What it takes;3",
+                        "displayType": null,
+                        "differentiator": "JobProfileNew-Otherrequirements",
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null,
+                        "contentType": [
+                            "JobProfileNew"
+                        ]
                     }
                 ],
                 "SitemapPart_Edit": [
@@ -279,7 +290,18 @@
                         ]
                     },
                     {
-                        "place": "Parts:0#Content;3",
+                        "place": "Parts:0#What it takes;3",
+                        "displayType": null,
+                        "differentiator": null,
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null,
+                        "contentType": [
+                            "JobProfileNew"
+                        ]
+                    },
+                    {
+                        "place": "Parts:0#Content;6",
                         "displayType": null,
                         "differentiator": null,
                         "alternates": null,
@@ -884,6 +906,28 @@
                         "place": "Parts:15#How to become;2",
                         "displayType": null,
                         "differentiator": "JobProfileNew-Relatedapprenticeshiplinks",
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null,
+                        "contentType": [
+                            "JobProfileNew"
+                        ]
+                    },
+                    {
+                        "place": "Parts:0#What it takes;3",
+                        "displayType": null,
+                        "differentiator": "JobProfileNew-Relatedrestrictions",
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null,
+                        "contentType": [
+                            "JobProfileNew"
+                        ]
+                    },
+                    {
+                        "place": "Parts:2#What it takes;3",
+                        "displayType": null,
+                        "differentiator": "JobProfileNew-Digitalskills",
                         "alternates": null,
                         "wrappers": null,
                         "shape": null,
