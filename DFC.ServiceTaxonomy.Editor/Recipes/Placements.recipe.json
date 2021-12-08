@@ -242,6 +242,14 @@
                         "contentType": [
                             "JobProfileNew"
                         ]
+                    },
+                    {
+                        "place": "Parts:1#What you’ll do;4",
+                        "displayType": null,
+                        "differentiator": "JobProfileNew-Daytodaytasks",
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null
                     }
                 ],
                 "SitemapPart_Edit": [
@@ -291,6 +299,17 @@
                     },
                     {
                         "place": "Parts:0#What it takes;3",
+                        "displayType": null,
+                        "differentiator": null,
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null,
+                        "contentType": [
+                            "JobProfileNew"
+                        ]
+                    },
+                    {
+                        "place": "Parts:0#What you’ll do;4",
                         "displayType": null,
                         "differentiator": null,
                         "alternates": null,
@@ -928,6 +947,39 @@
                         "place": "Parts:2#What it takes;3",
                         "displayType": null,
                         "differentiator": "JobProfileNew-Digitalskills",
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null,
+                        "contentType": [
+                            "JobProfileNew"
+                        ]
+                    },
+                    {
+                        "place": "Parts:2#What you’ll do;4",
+                        "displayType": null,
+                        "differentiator": "JobProfileNew-Relatedlocations",
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null,
+                        "contentType": [
+                            "JobProfileNew"
+                        ]
+                    },
+                    {
+                        "place": "Parts:3#What you’ll do;4",
+                        "displayType": null,
+                        "differentiator": "JobProfileNew-Relatedenvironments",
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null,
+                        "contentType": [
+                            "JobProfileNew"
+                        ]
+                    },
+                    {
+                        "place": "Parts:4#What you’ll do;4",
+                        "displayType": null,
+                        "differentiator": "JobProfileNew-Relateduniforms",
                         "alternates": null,
                         "wrappers": null,
                         "shape": null,
