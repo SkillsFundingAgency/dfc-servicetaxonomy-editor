@@ -1,7 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
 using DFC.ServiceTaxonomy.GraphSync.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.Models;
 using DFC.ServiceTaxonomy.GraphSync.Exceptions;
@@ -38,6 +36,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb.Queries
 
         private Query BuildCommand()
         {
+            /*
             var withStringBuilder = new StringBuilder();
 
             int currentDepth = 0;
@@ -61,6 +60,13 @@ namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb.Queries
             withStringBuilder.AppendLine("return nodeAndOutRelationshipsAndTheirInRelationships");
 
             return new Query($"{_command} {withStringBuilder}");
+            */
+
+            var parts = _command.Split('|');
+            var command = parts[0];
+            var contentTypeValue = parts[1];
+
+            return new Query(command, new Dictionary<string, object> { { "ContentType", contentTypeValue } });
         }
 
         public INodeAndOutRelationshipsAndTheirInRelationships? ProcessRecord(IRecord record)

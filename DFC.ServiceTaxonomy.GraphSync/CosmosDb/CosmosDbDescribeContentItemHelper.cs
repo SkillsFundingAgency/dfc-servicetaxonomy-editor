@@ -147,13 +147,16 @@ namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb
         private static async Task<IEnumerable<ContentItemRelationship>> GetRelationships(
             IDescribeRelationshipsContext context,
             List<ContentItemRelationship> currentList,
+#pragma warning disable S1172 // Unused method parameters should be removed
             IDescribeRelationshipsContext parentContext)
+#pragma warning restore S1172 // Unused method parameters should be removed
         {
             foreach (var child in context.AvailableRelationships)
             {
                 if (child == null)
                     continue;
 
+                /*
                 var parentRelationship = parentContext.AvailableRelationships.FirstOrDefault(x => x.Destination.All(child.Source.Contains));
 
                 if (parentRelationship != null && !string.IsNullOrEmpty(parentRelationship.RelationshipPathString))
@@ -164,7 +167,10 @@ namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb
                 else
                 {
                     child.RelationshipPathString = $@"THIS2match (s:{string.Join(":", context.SourceNodeLabels)} {{{context.SourceNodeIdPropertyName}: '{context.SourceNodeId}'}})-[r{0}:{child.Relationship}]-(d{0}:{string.Join(":", child.Destination!)})";
-                }
+                }*/
+
+                var id = context.SourceNodeId.Split('/')[context.SourceNodeId.Split('/').Length - 1];
+                child.RelationshipPathString = $"select * from c where c.id = '{id}'|{context.SourceNodeLabels.FirstOrDefault()}";
             }
 
             currentList.AddRange(context.AvailableRelationships);

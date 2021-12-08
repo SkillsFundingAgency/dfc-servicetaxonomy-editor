@@ -120,6 +120,7 @@ namespace DFC.ServiceTaxonomy.GraphSync
             services.AddTransient<ICloneGraphSync, CloneGraphSync>();
             services.AddTransient<IValidateAndRepairGraph, CosmosDbValidateAndRepairGraph>();
             services.AddTransient<IGraphResyncer, GraphResyncer>();
+            services.AddTransient<IVisualiseGraphSyncer, VisualiseGraphSyncer>();
 
             services.AddTransient<ISyncNameProvider, SyncNameProvider>();
             services.AddTransient<ISyncNameProviderCSharpScriptGlobals, SyncNameProviderCSharpScriptGlobals>();

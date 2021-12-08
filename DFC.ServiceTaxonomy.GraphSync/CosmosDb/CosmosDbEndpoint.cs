@@ -20,34 +20,45 @@ namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb
 
         public async Task<List<T>> Run<T>(IQuery<T>[] queries, string databaseName, bool defaultDatabase)
         {
-            var container = await GetContainer(databaseName);
-            var returnList = new List<T>();
-
-            foreach (var query in queries)
+            try
             {
-                var queryDefinition = new QueryDefinition(query.Query.Text);
-                var contentType = ((string)query.Query.Parameters["ContentType"]).ToLower();
+                var container = await GetContainer(databaseName);
+                var returnList = new List<T>();
 
-                using (FeedIterator<T> resultSetIterator = container.GetItemQueryIterator<T>(
-                    queryDefinition,
-                    requestOptions: new QueryRequestOptions
-                    {
-                        PartitionKey = new PartitionKey(contentType)
-                    }))
+                foreach (var query in queries)
                 {
-                    while (resultSetIterator.HasMoreResults)
-                    {
-                        FeedResponse<T> response = await resultSetIterator.ReadNextAsync();
+                    var queryDefinition = new QueryDefinition(query.Query.Text);
+                    var contentType = ((string)query.Query.Parameters["ContentType"]).ToLower();
 
-                        if (response.Resource.Any())
+                    using (FeedIterator<T> resultSetIterator = container.GetItemQueryIterator<T>(
+                        queryDefinition,
+                        requestOptions: new QueryRequestOptions
                         {
-                            returnList.AddRange(response.Resource);
+                            PartitionKey = new PartitionKey(contentType)
+                        }))
+                    {
+                        while (resultSetIterator.HasMoreResults)
+                        {
+                            FeedResponse<T> response = await resultSetIterator.ReadNextAsync();
+
+                            if (response.Resource.Any())
+                            {
+                                returnList.AddRange(response.Resource);
+                            }
                         }
                     }
                 }
-            }
 
-            return returnList;
+                return returnList;
+            }
+            catch (Exception ex)
+            {
+#pragma warning disable CA2200 // Rethrow to preserve stack details
+#pragma warning disable S3445 // Exceptions should not be explicitly rethrown
+                throw ex; // TODO this only here for now to aid debugging
+#pragma warning restore S3445 // Exceptions should not be explicitly rethrown
+#pragma warning restore CA2200 // Rethrow to preserve stack details
+            }
         }
 
         public async Task Run(ICommand[] commands, string databaseName, bool defaultDatabase)
@@ -262,7 +273,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb
         private async Task<Container> GetContainer(string databaseName)
         {
             var cosmosClient = new CosmosClient(ConnectionString);
-            var db = (await cosmosClient.CreateDatabaseIfNotExistsAsync("staxdb")).Database;
+            var db = (await cosmosClient.CreateDatabaseIfNotExistsAsync("staxdb", ThroughputProperties.CreateManualThroughput(400))).Database;
 
             const string PartitionKeyKey = "ContentType";
             return (await db.CreateContainerIfNotExistsAsync(databaseName, $"/{PartitionKeyKey}")).Container;

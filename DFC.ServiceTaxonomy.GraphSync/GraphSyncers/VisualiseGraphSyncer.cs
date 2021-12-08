@@ -8,6 +8,7 @@ using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Helpers;
 using DFC.ServiceTaxonomy.GraphSync.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.Interfaces.Queries;
 using DFC.ServiceTaxonomy.GraphSync.Models;
+using Newtonsoft.Json.Linq;
 using OrchardCore.ContentManagement;
 
 namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
@@ -74,10 +75,16 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             var relationshipCommands = await BuildVisualisationCommands(contentItemId, contentItemVersion!);
 
             // get all results atomically
-            var result = await _neoGraphCluster.Run(graphName, relationshipCommands.ToArray());
+            var results = await _neoGraphCluster.Run(graphName, relationshipCommands.ToArray());
+            var inAndOutResults = new List<INodeAndOutRelationshipsAndTheirInRelationships?>();
 
-            var inAndOutResults =
-                result.OfType<INodeAndOutRelationshipsAndTheirInRelationships?>();
+            foreach (var x in results)
+            {
+                var jobj = x as JObject;
+                var y = jobj?.ToObject<INodeAndOutRelationshipsAndTheirInRelationships>();
+
+                inAndOutResults.Add(y);
+            }
 
             //todo: should really always return the source node (until then, the subgraph will pull it if the main results don't)
             Subgraph subgraph;
@@ -99,7 +106,16 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
                 subgraph = new Subgraph();
             }
 
-            ISubgraph? inResults = result.OfType<ISubgraph>().FirstOrDefault();
+            ISubgraph? inResults = null;
+
+            foreach (var x in results)
+            {
+                var jobj = x as JObject;
+                var y = jobj?.ToObject<Subgraph>(); // TODO need a converter putting in here
+
+                inResults = y;
+            }
+
             if (inResults != null)
             {
                 subgraph.Add(inResults);
