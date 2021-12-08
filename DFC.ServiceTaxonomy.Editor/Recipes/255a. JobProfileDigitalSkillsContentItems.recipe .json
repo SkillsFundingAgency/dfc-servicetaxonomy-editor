@@ -1,123 +1,158 @@
 {
-  "name": "Digitalskillscontentitems",
-  "displayName": "Digitalskillscontentitems",
-  "description": "",
-  "author": "",
-  "website": "",
-  "version": "",
-  "issetuprecipe": false,
-  "categories": [],
-  "tags": [],
-  "steps": [
-    {
-      "name": "content",
-      "data": [
+    "name": "DigitalSkillsContentItems",
+    "displayName": "DigitalSkillsContentItems",
+    "description": "",
+    "author": "",
+    "website": "",
+    "version": "",
+    "issetuprecipe": false,
+    "categories": [],
+    "tags": [],
+    "steps": [
         {
-          "ContentItemId": "44h2p5yn2h6gw5tb9wpezzk4nx",
-          "ContentItemVersionId": "4r9y4e8tbcj8d2apcf4ss12mxr",
-          "ContentType": "Digitalskills",
-          "DisplayText": "to have a thorough understanding of computer systems and applications",
-          "Latest": true,
-          "Published": true,
-          "ModifiedUtc": "2021-12-07T09:52:45.7536217Z",
-          "PublishedUtc": "2021-12-07T09:52:45.7648369Z",
-          "CreatedUtc": "2021-12-07T09:52:45.7536217Z",
-          "Owner": "4p2mxfkep68r87rp1r1a76vt5s",
-          "Author": "Manish",
-          "Digitalskills": {
-            "Description": {
-              "Text": null
-            }
-          },
-          "TitlePart": {
-            "Title": "to have a thorough understanding of computer systems and applications"
-          }
-        },
-        {
-          "ContentItemId": "4fkzzb0m56g5zxt2tgtyvtxjmm",
-          "ContentItemVersionId": "4v0wt1qfa9mca2w2pf9r6v3hwr",
-          "ContentType": "Digitalskills",
-          "DisplayText": "to be able to use a computer and the main software packages confidently",
-          "Latest": true,
-          "Published": true,
-          "ModifiedUtc": "2021-12-07T09:52:53.9626119Z",
-          "PublishedUtc": "2021-12-07T09:52:53.9654483Z",
-          "CreatedUtc": "2021-12-07T09:52:53.9626119Z",
-          "Owner": "4p2mxfkep68r87rp1r1a76vt5s",
-          "Author": "Manish",
-          "Digitalskills": {
-            "Description": {
-              "Text": null
-            }
-          },
-          "TitlePart": {
-            "Title": "to be able to use a computer and the main software packages confidently"
-          }
-        },
-        {
-          "ContentItemId": "479fzqbn1s1p3xv5v3s7r9yx51",
-          "ContentItemVersionId": "414hhc3scs3q2z52e10fz6g3xs",
-          "ContentType": "Digitalskills",
-          "DisplayText": "to be able to use a computer and the main software packages competently",
-          "Latest": true,
-          "Published": true,
-          "ModifiedUtc": "2021-12-07T09:53:01.0597633Z",
-          "PublishedUtc": "2021-12-07T09:53:01.0625982Z",
-          "CreatedUtc": "2021-12-07T09:53:01.0597633Z",
-          "Owner": "4p2mxfkep68r87rp1r1a76vt5s",
-          "Author": "Manish",
-          "Digitalskills": {
-            "Description": {
-              "Text": null
-            }
-          },
-          "TitlePart": {
-            "Title": "to be able to use a computer and the main software packages competently"
-          }
-        },
-        {
-          "ContentItemId": "45mc028cymka4161dgqn6hj55f",
-          "ContentItemVersionId": "421sqpgsvypd22ksrq1857yrm9",
-          "ContentType": "Digitalskills",
-          "DisplayText": "to be able to carry out basic tasks on a computer or hand held device",
-          "Latest": true,
-          "Published": true,
-          "ModifiedUtc": "2021-12-07T09:53:07.315567Z",
-          "PublishedUtc": "2021-12-07T09:53:07.3174427Z",
-          "CreatedUtc": "2021-12-07T09:53:07.315567Z",
-          "Owner": "4p2mxfkep68r87rp1r1a76vt5s",
-          "Author": "Manish",
-          "Digitalskills": {
-            "Description": {
-              "Text": null
-            }
-          },
-          "TitlePart": {
-            "Title": "to be able to carry out basic tasks on a computer or hand held device"
-          }
-        },
-        {
-          "ContentItemId": "4a57g8wt5dryv6awsnf6gy595h",
-          "ContentItemVersionId": "40majswgwk7vxrzwkz94smjqw3",
-          "ContentType": "Digitalskills",
-          "DisplayText": "-",
-          "Latest": true,
-          "Published": true,
-          "ModifiedUtc": "2021-12-07T09:56:11.3690965Z",
-          "PublishedUtc": "2021-12-07T09:56:11.3757226Z",
-          "CreatedUtc": "2021-12-07T09:56:11.3690965Z",
-          "Owner": "4p2mxfkep68r87rp1r1a76vt5s",
-          "Author": "Manish",
-          "Digitalskills": {
-            "Description": {
-              "Text": null
-            }
-          },
-          "TitlePart": {
-            "Title": "-"
-          }
+            "name": "content",
+            "data": [
+                {
+                    "ContentItemId": "4pggmxezyz04cxqhtm89cvf8x3",
+                    "ContentItemVersionId": "4q36p6k29t825ravkj02pqevnq",
+                    "ContentType": "Digitalskills",
+                    "DisplayText": "-",
+                    "Latest": true,
+                    "Published": true,
+                    "ModifiedUtc": "2021-12-08T10:52:20.432085Z",
+                    "PublishedUtc": "2021-12-08T10:52:20.4352765Z",
+                    "CreatedUtc": "2021-12-08T10:52:20.432085Z",
+                    "Owner": "4bkxz0frj8mfr6a6cpk59b6kmx",
+                    "Author": "Manish",
+                    "Digitalskills": {
+                        "Description": {
+                            "Text": null
+                        }
+                    },
+                    "TitlePart": {
+                        "Title": "-"
+                    },
+                    "GraphSyncPart": {
+                        "Text": "<<contentapiprefix>>/digitalskills/9e59e0aa-aa36-4395-8b23-61f1ffd94ae6"
+                    },
+                    "AuditTrailPart": {
+                        "Comment": null,
+                        "ShowComment": false
+                    }
+                },
+                {
+                    "ContentItemId": "4nbq6e0zgpcnj0r4jqn89mcq55",
+                    "ContentItemVersionId": "4jpp6zwe3py3gzsxnjsyhben4c",
+                    "ContentType": "Digitalskills",
+                    "DisplayText": "to have a thorough understanding of computer systems and applications",
+                    "Latest": true,
+                    "Published": true,
+                    "ModifiedUtc": "2021-12-08T10:52:34.0796579Z",
+                    "PublishedUtc": "2021-12-08T10:52:34.0822551Z",
+                    "CreatedUtc": "2021-12-08T10:52:34.0796579Z",
+                    "Owner": "4bkxz0frj8mfr6a6cpk59b6kmx",
+                    "Author": "Manish",
+                    "Digitalskills": {
+                        "Description": {
+                            "Text": null
+                        }
+                    },
+                    "TitlePart": {
+                        "Title": "to have a thorough understanding of computer systems and applications"
+                    },
+                    "GraphSyncPart": {
+                        "Text": "<<contentapiprefix>>/digitalskills/a36316b5-6b4f-4c4a-b40d-eba0f1a1d8fb"
+                    },
+                    "AuditTrailPart": {
+                        "Comment": null,
+                        "ShowComment": false
+                    }
+                },
+                {
+                    "ContentItemId": "4jewsa5k17pr75c1ptm9k7xkng",
+                    "ContentItemVersionId": "42cpathhmv2716mwxwnrzbjgxb",
+                    "ContentType": "Digitalskills",
+                    "DisplayText": "to be able to use a computer and the main software packages confidently",
+                    "Latest": true,
+                    "Published": true,
+                    "ModifiedUtc": "2021-12-08T10:52:47.7460942Z",
+                    "PublishedUtc": "2021-12-08T10:52:47.7503774Z",
+                    "CreatedUtc": "2021-12-08T10:52:47.7460942Z",
+                    "Owner": "4bkxz0frj8mfr6a6cpk59b6kmx",
+                    "Author": "Manish",
+                    "Digitalskills": {
+                        "Description": {
+                            "Text": null
+                        }
+                    },
+                    "TitlePart": {
+                        "Title": "to be able to use a computer and the main software packages confidently"
+                    },
+                    "GraphSyncPart": {
+                        "Text": "<<contentapiprefix>>/digitalskills/ed815d1b-74a9-4577-a9f9-9a32c2aaa838"
+                    },
+                    "AuditTrailPart": {
+                        "Comment": null,
+                        "ShowComment": false
+                    }
+                },
+                {
+                    "ContentItemId": "4k0twbe5kxane7x548sc730pxz",
+                    "ContentItemVersionId": "4ttjts0kh8n120b976dn2yrac4",
+                    "ContentType": "Digitalskills",
+                    "DisplayText": "to be able to use a computer and the main software packages competently",
+                    "Latest": true,
+                    "Published": true,
+                    "ModifiedUtc": "2021-12-08T10:52:56.3098999Z",
+                    "PublishedUtc": "2021-12-08T10:52:56.3128523Z",
+                    "CreatedUtc": "2021-12-08T10:52:56.3098999Z",
+                    "Owner": "4bkxz0frj8mfr6a6cpk59b6kmx",
+                    "Author": "Manish",
+                    "Digitalskills": {
+                        "Description": {
+                            "Text": null
+                        }
+                    },
+                    "TitlePart": {
+                        "Title": "to be able to use a computer and the main software packages competently"
+                    },
+                    "GraphSyncPart": {
+                        "Text": "<<contentapiprefix>>/digitalskills/1f55c628-6472-42c4-bdf2-0c2371a6eabc"
+                    },
+                    "AuditTrailPart": {
+                        "Comment": null,
+                        "ShowComment": false
+                    }
+                },
+                {
+                    "ContentItemId": "42ek1wf6g6k7479ygtb8tzqhnm",
+                    "ContentItemVersionId": "4jxpg8ax4ced9559a9yaa092n7",
+                    "ContentType": "Digitalskills",
+                    "DisplayText": "to be able to carry out basic tasks on a computer or hand held device",
+                    "Latest": true,
+                    "Published": true,
+                    "ModifiedUtc": "2021-12-08T10:53:07.0375454Z",
+                    "PublishedUtc": "2021-12-08T10:53:07.0407533Z",
+                    "CreatedUtc": "2021-12-08T10:53:07.0375454Z",
+                    "Owner": "4bkxz0frj8mfr6a6cpk59b6kmx",
+                    "Author": "Manish",
+                    "Digitalskills": {
+                        "Description": {
+                            "Text": null
+                        }
+                    },
+                    "TitlePart": {
+                        "Title": "to be able to carry out basic tasks on a computer or hand held device"
+                    },
+                    "GraphSyncPart": {
+                        "Text": "<<contentapiprefix>>/digitalskills/b224720c-70a3-40c8-8846-80fdb57ae4cb"
+                    },
+                    "AuditTrailPart": {
+                        "Comment": null,
+                        "ShowComment": false
+                    }
+                }
+            ]
         }
-      ]
-    }
-  ]
+    ]
 }
