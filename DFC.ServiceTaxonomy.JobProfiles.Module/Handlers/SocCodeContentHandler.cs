@@ -44,7 +44,7 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module.Handlers
                     // Get the ONET code
                     var socCodeMapping = _socCodeMappingRepository.GetById(socCode);
                     context.ContentItem.Content.SOCCode.ONetOccupationCodeTextField.Text = socCodeMapping.ONetOccupationalCode;
-
+                    context.ContentItem.Content.SOCCode.SOCDescriptionTextField.Text = socCodeMapping.Description;
                     // Create the SOC Skills Matrix Content items
                     var socSkills = _skillsFrameworkService.GetRelatedSkillMapping(socCodeMapping.ONetOccupationalCode);
                     var skillContentItemsList = await _session.Query<ContentItem, ContentItemIndex>(c => c.ContentType == "Skill").ListAsync();
