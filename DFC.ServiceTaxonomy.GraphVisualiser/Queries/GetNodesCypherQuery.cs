@@ -1,7 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Text;
-using DFC.ServiceTaxonomy.Neo4j.Queries.Interfaces;
-using Neo4j.Driver;
+using DFC.ServiceTaxonomy.GraphSync.Extensions;
+using DFC.ServiceTaxonomy.GraphSync.Interfaces;
+using DFC.ServiceTaxonomy.GraphSync.Models;
 
 namespace DFC.ServiceTaxonomy.GraphVisualiser.Queries
 {

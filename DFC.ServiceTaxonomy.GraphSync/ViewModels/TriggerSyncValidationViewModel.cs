@@ -1,4 +1,4 @@
-﻿using DFC.ServiceTaxonomy.GraphSync.GraphSyncers;
+﻿using DFC.ServiceTaxonomy.GraphSync.Enums;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Results.ValidateAndRepair;
 
 namespace DFC.ServiceTaxonomy.GraphSync.ViewModels

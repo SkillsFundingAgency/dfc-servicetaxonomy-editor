@@ -1,15 +1,15 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Helpers;
+using DFC.ServiceTaxonomy.GraphSync.Interfaces;
 using DFC.ServiceTaxonomy.GraphVisualiser.Models;
 using DFC.ServiceTaxonomy.GraphVisualiser.Models.Configuration;
 using DFC.ServiceTaxonomy.GraphVisualiser.Models.Owl;
 using Microsoft.Extensions.Options;
-using Neo4j.Driver;
 
 namespace DFC.ServiceTaxonomy.GraphVisualiser.Services
 {
-    public class Neo4JToOwlGeneratorService : OwlDataGeneratorService, INeo4JToOwlGeneratorService
+    public class Neo4JToOwlGeneratorService : OwlDataGeneratorService, IOwlGeneratorService
     {
         private readonly ISyncNameProvider _syncNameProvider;
 

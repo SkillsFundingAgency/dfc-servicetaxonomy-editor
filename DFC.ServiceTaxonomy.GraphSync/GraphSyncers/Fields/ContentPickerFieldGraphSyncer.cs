@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.Extensions;
-using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Exceptions;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Contexts;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Fields;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Helpers;
@@ -13,9 +12,8 @@ using OrchardCore.ContentFields.Settings;
 using OrchardCore.ContentManagement;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.ContentItemVersions;
 using System;
-using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers;
 using Microsoft.Extensions.DependencyInjection;
-using Neo4j.Driver;
+using DFC.ServiceTaxonomy.GraphSync.Interfaces;
 
 namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
 {
@@ -74,12 +72,15 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
                 context.ContentManager,
                 context.ContentItemVersion);
 
+            /* 2021-11-29 the below logic doesnt seem to work for the alert pages recipe, it looks for it before its had chance to save it to preview (it saves it after)
+             * Currently errors aren't thrown up to the UI so probably always failed
+             * 
             if (context.ContentItemVersion.GraphReplicaSetName == GraphReplicaSetNames.Preview
                 && foundDestinationContentItems.Count() != contentItemIdsJArray.Count)
             {
                 throw new GraphSyncException(
                     $"Missing picked content items. Looked for {string.Join(",", contentItemIdsJArray.Values<string?>())}. Found {string.Join(",", foundDestinationContentItems.Select(i => i.ContentItemId))}. Current merge node command: {context.MergeNodeCommand}.");
-            }
+            }*/
 
             // if we're syncing to the published graph, some items may be draft only,
             // so it's valid to have less found content items than are picked

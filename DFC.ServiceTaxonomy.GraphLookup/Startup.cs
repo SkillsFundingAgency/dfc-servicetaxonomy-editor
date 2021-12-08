@@ -6,13 +6,13 @@ using OrchardCore.ContentManagement;
 using OrchardCore.ContentManagement.Display.ContentDisplay;
 using OrchardCore.ContentTypes.Editors;
 using OrchardCore.Data.Migration;
-using DFC.ServiceTaxonomy.GraphLookup.Drivers;
 using DFC.ServiceTaxonomy.GraphLookup.GraphSyncers;
 using DFC.ServiceTaxonomy.GraphLookup.Handlers;
 using DFC.ServiceTaxonomy.GraphLookup.Models;
 using DFC.ServiceTaxonomy.GraphLookup.Settings;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Parts;
 using OrchardCore.Modules;
+using DFC.ServiceTaxonomy.GraphLookup.CosmosDb.Drivers;
 
 namespace DFC.ServiceTaxonomy.GraphLookup
 {
@@ -26,7 +26,7 @@ namespace DFC.ServiceTaxonomy.GraphLookup
             //services.AddGraphCluster();
 
             services.AddContentPart<GraphLookupPart>()
-                .UseDisplayDriver<GraphLookupPartDisplayDriver>()
+                .UseDisplayDriver<CosmosDbGraphLookupPartDisplayDriver>()
                 .AddHandler<GraphLookupPartHandler>();
             services.AddScoped<IContentTypePartDefinitionDisplayDriver, GraphLookupPartSettingsDisplayDriver>();
             services.AddScoped<IDataMigration, Migrations>();
