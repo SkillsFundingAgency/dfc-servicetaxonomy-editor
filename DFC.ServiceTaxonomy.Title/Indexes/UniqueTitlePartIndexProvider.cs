@@ -74,7 +74,8 @@ namespace DFC.ServiceTaxonomy.Title.Indexes
                         Title = part.Title?.ToLowerInvariant(),
                         ContentItemId = contentItem.ContentItemId,
                         Latest = contentItem.Latest,
-                        Published = contentItem.Published
+                        Published = contentItem.Published,
+                        ContentType = contentItem.ContentType
                     };
                 });
         }
