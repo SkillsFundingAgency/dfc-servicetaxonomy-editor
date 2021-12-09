@@ -8,5 +8,6 @@ namespace DFC.ServiceTaxonomy.Title.Indexes
         public string? Title { get; set; }
         public bool Latest { get; set; }
         public bool Published { get; set; }
+        public string? ContentType { get; set; }
     }
 }
