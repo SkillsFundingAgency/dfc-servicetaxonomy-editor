@@ -934,6 +934,17 @@
                         "contentType": [
                             "JobProfileNew"
                         ]
+                    },
+                    {
+                        "place": "Parts:5#Metadata;0",
+                        "displayType": null,
+                        "differentiator": "JobProfileNew-Jobprofilecategory",
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null,
+                        "contentType": [
+                            "JobProfileNew"
+                        ]
                     }
                 ],
                 "TaxonomyField_Edit": [
