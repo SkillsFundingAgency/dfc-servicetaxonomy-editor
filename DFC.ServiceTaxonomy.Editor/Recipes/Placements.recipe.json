@@ -1,4 +1,4 @@
-﻿{
+{
     "name": "Placements",
     "displayName": "Placements - master copy",
     "description": "Master copy of placements",
@@ -955,7 +955,18 @@
                         ]
                     },
                     {
-                        "place": "Parts:2#What you’ll do;4",
+                        "place": "Parts:5#Metadata;0",
+                        "displayType": null,
+                        "differentiator": "JobProfileNew-Jobprofilecategory",
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null,
+                        "contentType": [
+                            "JobProfileNew"
+                        ]
+                    },
+					{
+						"place": "Parts:2#What you’ll do;4",
                         "displayType": null,
                         "differentiator": "JobProfileNew-Relatedlocations",
                         "alternates": null,
@@ -964,7 +975,7 @@
                         "contentType": [
                             "JobProfileNew"
                         ]
-                    },
+					},
                     {
                         "place": "Parts:3#What you’ll do;4",
                         "displayType": null,

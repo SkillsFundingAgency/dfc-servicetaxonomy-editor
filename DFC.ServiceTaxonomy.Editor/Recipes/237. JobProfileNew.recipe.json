@@ -748,6 +748,24 @@
                             }
                         },
                         {
+                            "FieldName": "ContentPickerField",
+                            "Name": "Jobprofilecategory",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Job profile category",
+                                    "Position": "36"
+                                },
+                                "ContentPickerFieldSettings": {
+                                    "Required": true,
+                                    "Multiple": true,
+                                    "DisplayedContentTypes": [
+                                        "Jobprofilecategory"
+                                    ]
+                                },
+                                "ContentIndexSettings": {}
+                            }
+                        },
+                        {
                             "FieldName": "HtmlField",
                             "Name": "Daytodaytasks",
                             "Settings": {
