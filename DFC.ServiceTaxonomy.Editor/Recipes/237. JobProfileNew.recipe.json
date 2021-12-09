@@ -838,13 +838,28 @@
                             "Settings": {
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "Course keywords",
-                                    "Position": "37"
+                                    "Position": "40"
                                 },
                                 "TextFieldSettings": {
                                     "Hint": "Separate keywords with single spaces and quotations (ex. 'example1' ;'example2')"
                                 },
                                 "ContentIndexSettings": {}
                             }
+                        },
+                        {
+                            "FieldName": "HtmlField",
+                            "Name": "Careerpathandprogression",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Career path & progression",
+                                    "Editor": "Trumbowyg",
+                                    "Position": "41"
+                                },
+                                "HtmlFieldSettings": {},
+                                "HtmlFieldTrumbowygEditorSettings": {
+                                    "Options": "{\r\n    autogrow: true,\r\n    btns: [\r\n        [\"viewHTML\"],\r\n        [\"undo\", \"redo\"],\r\n        [\"formatting\"],\r\n        [\"strong\", \"em\", \"del\"],\r\n        [\"foreColor\", \"backColor\"],\r\n        [\"superscript\", \"subscript\"],\r\n        [\"link\"],\r\n        [\"insertShortcode\"],\r\n        [\"image\"],\r\n        [\"align\"],\r\n        [\"unorderedList\", \"orderedList\"],\r\n        [\"horizontalRule\"],\r\n        [\"removeformat\"],\r\n        [\"fullscreen\"]\r\n    ],\r\n    btnsDef: {\r\n        align: {\r\n            dropdown: [\"justifyLeft\", \"justifyCenter\", \"justifyRight\", \"justifyFull\"],\r\n            ico: \"justifyLeft\"\r\n        },\r\n        image: {\r\n            dropdown: [\"insertImage\", \"base64\", \"noembed\"],\r\n            ico: \"insertImage\"\r\n        }\r\n    }\r\n}"
+                                },
+                                "ContentIndexSettings": {}
                         }
                     ]
                 }

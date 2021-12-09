@@ -250,6 +250,17 @@
                         "alternates": null,
                         "wrappers": null,
                         "shape": null
+                    },
+                    {
+                        "place": "Parts:0#Career path & progression;4",
+                        "displayType": null,
+                        "differentiator": "JobProfileNew-Careerpathandprogression",
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null,
+                        "contentType": [
+                            "JobProfileNew"
+                        ]
                     }
                 ],
                 "SitemapPart_Edit": [

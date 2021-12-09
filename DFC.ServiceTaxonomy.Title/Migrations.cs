@@ -73,6 +73,5 @@ namespace DFC.ServiceTaxonomy.Title
 
             return 2;
         }
-       
     }
 }
