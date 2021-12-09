@@ -560,6 +560,17 @@
                         "contentType": [
                             "JobProfileNew"
                         ]
+                    },
+                    {
+                        "place": "Parts:6#Metadata;0",
+                        "displayType": null,
+                        "differentiator": "JobProfileNew-Coursekeywords",
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null,
+                        "contentType": [
+                            "JobProfileNew"
+                        ]
                     }
                 ],
                 "FlowPart_Edit": [
