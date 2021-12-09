@@ -9,6 +9,8 @@ using OrchardCore.ContentManagement.Display.ContentDisplay;
 using OrchardCore.Data.Migration;
 using OrchardCore.Modules;
 using YesSql.Indexes;
+using OrchardCore.ContentTypes.Editors;
+using DFC.ServiceTaxonomy.Title.Settings;
 
 namespace DFC.ServiceTaxonomy.Title
 {
@@ -18,6 +20,7 @@ namespace DFC.ServiceTaxonomy.Title
         {
             services.AddContentPart<UniqueTitlePart>()
                 .UseDisplayDriver<UniqueTitlePartDisplayDriver>();
+            services.AddScoped<IContentTypePartDefinitionDisplayDriver, UniqueTitlePartSettingsDisplayDriver>();
 
             services.AddScoped<IDataMigration, Migrations>();
 

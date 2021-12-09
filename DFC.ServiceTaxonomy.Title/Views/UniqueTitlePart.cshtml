@@ -5,7 +5,24 @@
     var title = (Model?.PartDefinition?.Name + "-" + nameof(Model.Title)).HtmlClassify();
 }
 
-<div class="field field-type-textfield field-name-@title">
-    @Model?.Title
+<div class="form-group" asp-validation-class-for="Title">
+    <div class="w-md-75 w-xl-50 pr-md-3">
+        <div class="field field-type-textfield field-name-@title">
+            @Model?.Title
+        </div>
+        @if (!string.IsNullOrEmpty(Model.Hint))
+        {
+            <span class="hint">@Model.Hint</span>
+        }
+        else
+        {
+        }
+    </div>
 </div>
+
+
+
+
+
+
 
