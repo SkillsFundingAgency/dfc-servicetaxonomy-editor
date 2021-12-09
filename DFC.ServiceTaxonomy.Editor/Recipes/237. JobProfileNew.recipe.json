@@ -831,6 +831,20 @@
                                 },
                                 "ContentIndexSettings": {}
                             }
+                        },
+                        {
+                            "FieldName": "TextField",
+                            "Name": "Coursekeywords",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Course keywords",
+                                    "Position": "37"
+                                },
+                                "TextFieldSettings": {
+                                    "Hint": "Separate keywords with single spaces and quotations (ex. 'example1' ;'example2')"
+                                },
+                                "ContentIndexSettings": {}
+                            }
                         }
                     ]
                 }
