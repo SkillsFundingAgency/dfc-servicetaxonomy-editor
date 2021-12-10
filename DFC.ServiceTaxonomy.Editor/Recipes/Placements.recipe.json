@@ -1,4 +1,4 @@
-﻿{
+{
     "name": "Placements",
     "displayName": "Placements - master copy",
     "description": "Master copy of placements",
@@ -242,6 +242,25 @@
                         "contentType": [
                             "JobProfileNew"
                         ]
+                    },
+                    {
+                        "place": "Parts:1#What you’ll do;4",
+                        "displayType": null,
+                        "differentiator": "JobProfileNew-Daytodaytasks",
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null
+                    },
+                    {
+                        "place": "Parts:0#Career path & progression;4",
+                        "displayType": null,
+                        "differentiator": "JobProfileNew-Careerpathandprogression",
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null,
+                        "contentType": [
+                            "JobProfileNew"
+                        ]
                     }
                 ],
                 "SitemapPart_Edit": [
@@ -291,6 +310,17 @@
                     },
                     {
                         "place": "Parts:0#What it takes;3",
+                        "displayType": null,
+                        "differentiator": null,
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null,
+                        "contentType": [
+                            "JobProfileNew"
+                        ]
+                    },
+                    {
+                        "place": "Parts:0#What you’ll do;4",
                         "displayType": null,
                         "differentiator": null,
                         "alternates": null,
@@ -535,6 +565,17 @@
                         "place": "Parts:2#Header;1",
                         "displayType": null,
                         "differentiator": "JobProfileNew-Overview",
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null,
+                        "contentType": [
+                            "JobProfileNew"
+                        ]
+                    },
+                    {
+                        "place": "Parts:6#Metadata;0",
+                        "displayType": null,
+                        "differentiator": "JobProfileNew-Coursekeywords",
                         "alternates": null,
                         "wrappers": null,
                         "shape": null,
@@ -928,6 +969,61 @@
                         "place": "Parts:2#What it takes;3",
                         "displayType": null,
                         "differentiator": "JobProfileNew-Digitalskills",
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null,
+                        "contentType": [
+                            "JobProfileNew"
+                        ]
+                    },
+                    {
+                        "place": "Parts:5#Metadata;0",
+                        "displayType": null,
+                        "differentiator": "JobProfileNew-Jobprofilecategory",
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null,
+                        "contentType": [
+                            "JobProfileNew"
+                        ]
+                    },
+                    {
+                        "place": "Parts:2#What you’ll do;4",
+                        "displayType": null,
+                        "differentiator": "JobProfileNew-Relatedlocations",
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null,
+                        "contentType": [
+                            "JobProfileNew"
+                        ]
+                    },
+                    {
+                        "place": "Parts:3#What you’ll do;4",
+                        "displayType": null,
+                        "differentiator": "JobProfileNew-Relatedenvironments",
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null,
+                        "contentType": [
+                            "JobProfileNew"
+                        ]
+                    },
+                    {
+                        "place": "Parts:4#What you’ll do;4",
+                        "displayType": null,
+                        "differentiator": "JobProfileNew-Relateduniforms",
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null,
+                        "contentType": [
+                            "JobProfileNew"
+                        ]
+                    },
+                    {
+                        "place": "Parts:7#Metadata;0",
+                        "displayType": null,
+                        "differentiator": "JobProfileNew-Relatedcareerprofiles",
                         "alternates": null,
                         "wrappers": null,
                         "shape": null,

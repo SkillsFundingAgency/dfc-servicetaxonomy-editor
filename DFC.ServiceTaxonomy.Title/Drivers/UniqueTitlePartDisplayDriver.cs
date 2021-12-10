@@ -41,6 +41,7 @@ namespace DFC.ServiceTaxonomy.Title.Drivers
             model.Title = part.Title;
             model.UniqueTitlePart = part;
             model.PartDefinition = typePartDefinition;
+            model.Hint = typePartDefinition.Settings["UniqueTitlePartSettings"]["Hint"] == null ? string.Empty :  typePartDefinition.Settings["UniqueTitlePartSettings"]["Hint"].ToString();
         }
 
         public override async Task<IDisplayResult> UpdateAsync(UniqueTitlePart part, IUpdateModel updater,

@@ -18,7 +18,7 @@ namespace DFC.ServiceTaxonomy.Extensions
             }
 
             var matches = await session.QueryIndex<UniqueTitlePartIndex>(b =>
-                b.Title == part.Title && b.ContentItemId != part.ContentItem.ContentItemId).CountAsync();
+                b.Title == part.Title && b.ContentItemId != part.ContentItem.ContentItemId && b.ContentType == part.ContentItem.ContentType).CountAsync();
             if (matches > 0)
             {
                 yield return new ValidationResult(S["The Title '{0}' is already in use on another content item", part.Title]);

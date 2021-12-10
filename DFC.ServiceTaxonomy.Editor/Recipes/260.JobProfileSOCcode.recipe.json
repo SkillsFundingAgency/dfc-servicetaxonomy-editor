@@ -1,6 +1,6 @@
 {
-  "name": "JobProfileUniform",
-  "displayName": "JobProfileUniform",
+  "name": "JobProfileSOCcode",
+  "displayName": "JobProfileSOCcode",
   "description": "",
   "author": "",
   "website": "",
@@ -13,8 +13,8 @@
       "name": "ContentDefinition",
       "ContentTypes": [
         {
-          "Name": "Uniform",
-          "DisplayName": "Uniform",
+          "Name": "SOCcode",
+          "DisplayName": "SOC code",
           "Settings": {
             "ContentTypeSettings": {
               "Creatable": true,
@@ -27,8 +27,8 @@
           },
           "ContentTypePartDefinitionRecords": [
             {
-              "PartName": "Uniform",
-              "Name": "Uniform",
+              "PartName": "SOCcode",
+              "Name": "SOCcode",
               "Settings": {
                 "ContentTypePartSettings": {
                   "Position": "2"
@@ -40,7 +40,7 @@
               "Name": "AuditTrailPart",
               "Settings": {
                 "ContentTypePartSettings": {
-                  "Position": "4"
+                  "Position": "3"
                 },
                 "AuditTrailPartSettings": {
                   "ShowCommentInput": false
@@ -53,7 +53,7 @@
               "Name": "GraphSyncPart",
               "Settings": {
                 "ContentTypePartSettings": {
-                  "Position": "3"
+                  "Position": "4"
                 },
                 "GraphSyncPartSettings": {
                   "NodeNameTransform": "ContentType",
@@ -85,7 +85,11 @@
               "Settings": {
                 "ContentTypePartSettings": {
                   "Position": "0"
-                }
+                },
+                "UniqueTitlePartSettings": {
+                  "Hint": "Please enter SOC Code here"
+                },
+                "ContentIndexSettings": {}
               }
             }
           ]
@@ -134,7 +138,7 @@
           "ContentPartFieldDefinitionRecords": []
         },
         {
-          "Name": "Uniform",
+          "Name": "SOCcode",
           "Settings": {},
           "ContentPartFieldDefinitionRecords": [
             {
@@ -151,6 +155,53 @@
                   "Options": "{\r\n    autogrow: true,\r\n    btns: [\r\n        [\"viewHTML\"],\r\n        [\"undo\", \"redo\"],\r\n        [\"formatting\"],\r\n        [\"strong\", \"em\", \"del\"],\r\n        [\"foreColor\", \"backColor\"],\r\n        [\"superscript\", \"subscript\"],\r\n        [\"link\"],\r\n        [\"insertShortcode\"],\r\n        [\"image\"],\r\n        [\"align\"],\r\n        [\"unorderedList\", \"orderedList\"],\r\n        [\"horizontalRule\"],\r\n        [\"removeformat\"],\r\n        [\"fullscreen\"]\r\n    ],\r\n    btnsDef: {\r\n        align: {\r\n            dropdown: [\"justifyLeft\", \"justifyCenter\", \"justifyRight\", \"justifyFull\"],\r\n            ico: \"justifyLeft\"\r\n        },\r\n        image: {\r\n            dropdown: [\"insertImage\", \"base64\", \"noembed\"],\r\n            ico: \"insertImage\"\r\n        }\r\n    }\r\n}"
                 },
                 "ContentIndexSettings": {}
+              }
+            },
+            {
+              "FieldName": "TextField",
+              "Name": "OnetOccupationCode",
+              "Settings": {
+                "ContentPartFieldSettings": {
+                  "DisplayName": "Onet Occupation Code",
+                  "Position": "1"
+                }
+              }
+            },
+            {
+              "FieldName": "ContentPickerField",
+              "Name": "ApprenticeshipStandards",
+              "Settings": {
+                "ContentPartFieldSettings": {
+                  "DisplayName": "Apprenticeship Standards",
+                  "Position": "2"
+                },
+                "ContentPickerFieldSettings": {
+                  "Multiple": true,
+                  "DisplayedContentTypes": [
+                    "Apprenticeshipstandard"
+                  ]
+                },
+                "ContentIndexSettings": {}
+              }
+            },
+            {
+              "FieldName": "TextField",
+              "Name": "SOC2020",
+              "Settings": {
+                "ContentPartFieldSettings": {
+                  "DisplayName": "SOC 2020",
+                  "Position": "3"
+                }
+              }
+            },
+            {
+              "FieldName": "TextField",
+              "Name": "SOC2020extension",
+              "Settings": {
+                "ContentPartFieldSettings": {
+                  "DisplayName": "SOC 2020 extension",
+                  "Position": "4"
+                }
               }
             }
           ]
