@@ -9,39 +9,4 @@
     <span class="hint">The hint text to display for this field on the editor.</span>
 </div>
 
-<!--<div class="custom-control custom-checkbox">
-    <label asp-for="Hint">
-        Hint
-    </label>-->
-    @*<input asp-for="Hint" class="form-control text-muted" />*@
-    <!--<textarea rows="2" class="form-control" asp-for="Hint"></textarea>
-</div>-->
 
-
-@*<script at="Foot" type="text/javascript">
-    var allSettings = @Html.Raw(Json.Serialize(Model.AllSettings));
-    $(function () {
-
-
-    });
-
-    var populateValuesFromSettings = function (allSettings, selectedSetting) {
-        const e = allSettings.find(s => s.name === selectedSetting);
-        if (e) {
-            $('.form-group input').each(function (index, input) {
-                let key = input.name.substr(input.name.lastIndexOf(".") + 1);
-                key = key.charAt(0).toLowerCase() + key.slice(1)
-
-                const value = e[key];
-                switch (input.type) {
-                    case "checkbox":
-                        input.checked = value;
-                        break;
-                    case "text":
-                        input.value = value;
-                        break;
-                }
-            })
-        }
-    }
-</script>*@
