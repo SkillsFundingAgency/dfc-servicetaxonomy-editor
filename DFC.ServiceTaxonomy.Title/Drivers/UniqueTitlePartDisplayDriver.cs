@@ -10,6 +10,7 @@ using DFC.ServiceTaxonomy.Extensions;
 using OrchardCore.DisplayManagement.Views;
 using OrchardCore.Mvc.ModelBinding;
 using YesSql;
+using DFC.ServiceTaxonomy.Title.Settings;
 
 namespace DFC.ServiceTaxonomy.Title.Drivers
 {
@@ -38,10 +39,12 @@ namespace DFC.ServiceTaxonomy.Title.Drivers
 
         private void BuildViewModel(UniqueTitlePartViewModel model, UniqueTitlePart part, ContentTypePartDefinition typePartDefinition)
         {
+            var uniqueTitlePartSettings = typePartDefinition.GetSettings<UniqueTitlePartSettings>();
+
             model.Title = part.Title;
             model.UniqueTitlePart = part;
             model.PartDefinition = typePartDefinition;
-            model.Hint = typePartDefinition.Settings["UniqueTitlePartSettings"]["Hint"] == null ? string.Empty :  typePartDefinition.Settings["UniqueTitlePartSettings"]["Hint"].ToString();
+            model.Hint = uniqueTitlePartSettings == null ? string.Empty : uniqueTitlePartSettings.Hint;
         }
 
         public override async Task<IDisplayResult> UpdateAsync(UniqueTitlePart part, IUpdateModel updater,
