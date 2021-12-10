@@ -1023,6 +1023,17 @@
                     {
                         "place": "Parts:7#Metadata;0",
                         "displayType": null,
+                        "differentiator": "JobProfileNew-SOCcode",
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null,
+                        "contentType": [
+                            "JobProfileNew"
+                        ]
+                    },
+                    {
+                        "place": "Parts:8#Metadata;0",
+                        "displayType": null,
                         "differentiator": "JobProfileNew-Relatedcareerprofiles",
                         "alternates": null,
                         "wrappers": null,
