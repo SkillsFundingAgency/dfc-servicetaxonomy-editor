@@ -879,7 +879,24 @@
                                 },
                                 "ContentIndexSettings": {}
                             }
-                        }
+                        },
+						{
+						  "FieldName": "ContentPickerField",
+						  "Name": "SOCcode",
+						  "Settings": {
+							"ContentPartFieldSettings": {
+							  "DisplayName": "SOC code",
+							  "Position": "43"
+							},
+							"ContentPickerFieldSettings": {
+							  "Required": true,
+							  "DisplayedContentTypes": [
+								"SOCcode"
+							  ]
+							},
+							"ContentIndexSettings": {}
+						  }
+						}
                     ]
                 }
             ]
