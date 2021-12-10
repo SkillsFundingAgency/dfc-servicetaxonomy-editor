@@ -841,7 +841,7 @@
                                     "Position": "40"
                                 },
                                 "TextFieldSettings": {
-                                    "Hint": "Separate keywords with single spaces and quotations (ex. 'example1' ;'example2')"
+                                    "Hint": "Separate keywords with single spaces and quotations (ex. 'example1' 'example2')"
                                 },
                                 "ContentIndexSettings": {}
                             }
