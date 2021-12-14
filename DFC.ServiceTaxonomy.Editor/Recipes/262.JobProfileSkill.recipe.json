@@ -101,7 +101,8 @@
                             "Settings": {
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "Description",
-                                    "Editor": "TextArea"
+                                    "Position": "0",
+                                    "Editor": "Standard"
                                 },
                                 "TextFieldSettings": {},
                                 "ContentIndexSettings": {}
@@ -109,10 +110,11 @@
                         },
                         {
                             "FieldName": "TextField",
-                            "Name": "Description",
+                            "Name": "ONetElementId",
                             "Settings": {
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "ONet Element Id",
+                                    "Position": "1",
                                     "Editor": "ReadOnly"
                                 },
                                 "TextFieldSettings": {},
