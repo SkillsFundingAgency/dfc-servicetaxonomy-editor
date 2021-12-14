@@ -179,9 +179,7 @@
                                     "Editor": "TextArea",
                                     "Position": "2"
                                 },
-                                "TextFieldSettings": {
-                                    "Required": true
-                                },
+                                "TextFieldSettings": {},
                                 "ContentIndexSettings": {}
                             }
                         },
@@ -194,7 +192,6 @@
                                     "Position": "3"
                                 },
                                 "NumericFieldSettings": {
-                                    "Required": true,
                                     "Minimum": 0.0,
                                     "Placeholder": "£ (Mandatory)"
                                 },
@@ -210,7 +207,6 @@
                                     "Position": "4"
                                 },
                                 "NumericFieldSettings": {
-                                    "Required": true,
                                     "Minimum": 0.0,
                                     "Placeholder": "£ (Mandatory)"
                                 },
@@ -226,7 +222,6 @@
                                     "Position": "5"
                                 },
                                 "NumericFieldSettings": {
-                                    "Required": true,
                                     "Minimum": 0.0,
                                     "Placeholder": "(Mandatory)"
                                 },
@@ -242,7 +237,6 @@
                                     "Position": "6"
                                 },
                                 "NumericFieldSettings": {
-                                    "Required": true,
                                     "Minimum": 0.0,
                                     "Placeholder": "(Mandatory)"
                                 },
@@ -275,7 +269,6 @@
                                     "Position": "7"
                                 },
                                 "ContentPickerFieldSettings": {
-                                    "Required": true,
                                     "Multiple": true,
                                     "DisplayedContentTypes": [
                                         "Workinghoursdetail"
@@ -293,7 +286,6 @@
                                     "Position": "8"
                                 },
                                 "ContentPickerFieldSettings": {
-                                    "Required": true,
                                     "Multiple": true,
                                     "DisplayedContentTypes": [
                                         "Workingpatterns"
@@ -739,7 +731,6 @@
                                     "Position": "35"
                                 },
                                 "ContentPickerFieldSettings": {
-                                    "Required": true,
                                     "DisplayedContentTypes": [
                                         "Digitalskills"
                                     ]
@@ -871,7 +862,6 @@
                                     "Position": "42"
                                 },
                                 "ContentPickerFieldSettings": {
-                                    "Required": true,
                                     "Multiple": true,
                                     "DisplayedContentTypes": [
                                         "JobProfileNew"
@@ -880,23 +870,23 @@
                                 "ContentIndexSettings": {}
                             }
                         },
-						{
-						  "FieldName": "ContentPickerField",
-						  "Name": "SOCcode",
-						  "Settings": {
-							"ContentPartFieldSettings": {
-							  "DisplayName": "SOC code",
-							  "Position": "43"
-							},
-							"ContentPickerFieldSettings": {
-							  "Required": true,
-							  "DisplayedContentTypes": [
-								"SOCcode"
-							  ]
-							},
-							"ContentIndexSettings": {}
-						  }
-						}
+                        {
+                            "FieldName": "ContentPickerField",
+                            "Name": "SOCcode",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "SOC code",
+                                    "Position": "43"
+                                },
+                                "ContentPickerFieldSettings": {
+                                    "Required": true,
+                                    "DisplayedContentTypes": [
+                                        "SOCcode"
+                                    ]
+                                },
+                                "ContentIndexSettings": {}
+                            }
+                        }
                     ]
                 }
             ]
