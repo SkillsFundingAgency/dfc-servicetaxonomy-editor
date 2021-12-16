@@ -180,8 +180,11 @@ namespace DFC.ServiceTaxonomy.GraphSync.Notifications
             }
 
             htmlContentBuilder.AppendHtml("</div></div></div>");
-
-            _entries.Add(new NotifyEntry { Type = type, Message = htmlContentBuilder });
+            var newEntry = new NotifyEntry { Type = type, Message = htmlContentBuilder };
+            if (type != NotifyType.Warning || !_entries.Any(e => e.Type == NotifyType.Warning))
+            {
+                _entries.Add(newEntry);
+            }
         }
 
         private string BuildSlackMessage(string traceId, string userMessage, string technicalMessage, Exception? exception)
@@ -222,8 +225,11 @@ namespace DFC.ServiceTaxonomy.GraphSync.Notifications
             {
                 _logger.LogInformation("Notification '{NotificationType}' with message '{NotificationMessage}'.", type, message);
             }
-
-            _entries.Add(new NotifyEntry { Type = type, Message = message });
+            var newEntry = new NotifyEntry { Type = type, Message = message };
+            if (type != NotifyType.Warning || !_entries.Any(e => e.Type == NotifyType.Warning))
+            {
+                _entries.Add(newEntry);
+            }
         }
 
         public IList<NotifyEntry> List()
