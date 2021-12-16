@@ -763,7 +763,7 @@
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "Day-to-day tasks",
                                     "Editor": "Trumbowyg",
-                                    "Position": "36"
+                                    "Position": "37"
                                 },
                                 "HtmlFieldSettings": {},
                                 "HtmlFieldTrumbowygEditorSettings": {
@@ -778,7 +778,7 @@
                             "Settings": {
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "Related locations",
-                                    "Position": "37"
+                                    "Position": "38"
                                 },
                                 "ContentPickerFieldSettings": {
                                     "Multiple": true,
@@ -795,7 +795,7 @@
                             "Settings": {
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "Related environments",
-                                    "Position": "38"
+                                    "Position": "39"
                                 },
                                 "ContentPickerFieldSettings": {
                                     "Multiple": true,
@@ -812,7 +812,7 @@
                             "Settings": {
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "Related uniforms",
-                                    "Position": "39"
+                                    "Position": "40"
                                 },
                                 "ContentPickerFieldSettings": {
                                     "Multiple": true,
@@ -829,7 +829,7 @@
                             "Settings": {
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "Course keywords",
-                                    "Position": "40"
+                                    "Position": "41"
                                 },
                                 "TextFieldSettings": {
                                     "Hint": "Separate keywords with single spaces and quotations (ex. 'example1' 'example2')"
@@ -844,7 +844,7 @@
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "Career path & progression",
                                     "Editor": "Trumbowyg",
-                                    "Position": "41"
+                                    "Position": "42"
                                 },
                                 "HtmlFieldSettings": {},
                                 "HtmlFieldTrumbowygEditorSettings": {
@@ -859,7 +859,7 @@
                             "Settings": {
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "Related careers profiles",
-                                    "Position": "42"
+                                    "Position": "43"
                                 },
                                 "ContentPickerFieldSettings": {
                                     "Multiple": true,
@@ -876,7 +876,7 @@
                             "Settings": {
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "SOC code",
-                                    "Position": "43"
+                                    "Position": "44"
                                 },
                                 "ContentPickerFieldSettings": {
                                     "Required": true,
@@ -889,11 +889,28 @@
                         },
                         {
                             "FieldName": "ContentPickerField",
+                            "Name": "Dynamictitle",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Dynamic title",
+                                    "Position": "45"
+                                },
+                                "ContentPickerFieldSettings": {
+                                    "Required": true,
+                                    "DisplayedContentTypes": [
+                                        "Dynamictitle"
+                                    ]
+                                },
+                                "ContentIndexSettings": {}
+                            }
+                        },
+                        {
+                            "FieldName": "ContentPickerField",
                             "Name": "Relatedregistrations",
                             "Settings": {
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "Related registrations",
-                                    "Position": "44"
+                                    "Position": "46"
                                 },
                                 "ContentPickerFieldSettings": {
                                     "Multiple": true,
@@ -911,7 +928,7 @@
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "Professional and industry bodies",
                                     "Editor": "Trumbowyg",
-                                    "Position": "45"
+                                    "Position": "47"
                                 },
                                 "HtmlFieldSettings": {},
                                 "HtmlFieldTrumbowygEditorSettings": {

@@ -1,0 +1,162 @@
+{
+    "name": "DynamicTitleContentItems",
+    "displayName": "DynamicTitleContentItems",
+    "description": "",
+    "author": "",
+    "website": "",
+    "version": "",
+    "issetuprecipe": false,
+    "categories": [],
+    "tags": [],
+    "steps": [
+        {
+            "name": "content",
+            "data": [
+                {
+                    "ContentItemId": "4zn0dg44aedhgv1nmzvzvjng44",
+                    "ContentItemVersionId": "4q1k8fvtv8v250w0vw9swd6nnf",
+                    "ContentType": "Dynamictitle",
+                    "DisplayText": "-",
+                    "Latest": true,
+                    "Published": true,
+                    "ModifiedUtc": "2021-12-15T10:04:32.0766002Z",
+                    "PublishedUtc": "2021-12-15T10:04:32.1270526Z",
+                    "CreatedUtc": "2021-12-15T10:04:32.0766002Z",
+                    "Owner": "45s47jq6qekw468f4dmk1rfedv",
+                    "Author": "Manish",
+                    "Dynamictitle": {},
+                    "AuditTrailPart": {
+                        "Comment": null,
+                        "ShowComment": false
+                    },
+                    "GraphSyncPart": {
+                        "Text": "b30579e0-f3d4-47a7-8048-05678738184e"
+                    },
+                    "TitlePart": {
+                        "Title": "-"
+                    }
+                },
+                {
+                    "ContentItemId": "4hteh4yvhf1mh67y90b970gpd4",
+                    "ContentItemVersionId": "4ezzqmk05pwqm24511ar2vdyw1",
+                    "ContentType": "Dynamictitle",
+                    "DisplayText": "As Defined",
+                    "Latest": true,
+                    "Published": true,
+                    "ModifiedUtc": "2021-12-15T10:04:52.6769627Z",
+                    "PublishedUtc": "2021-12-15T10:04:52.6809742Z",
+                    "CreatedUtc": "2021-12-15T10:04:52.6769627Z",
+                    "Owner": "45s47jq6qekw468f4dmk1rfedv",
+                    "Author": "Manish",
+                    "Dynamictitle": {},
+                    "AuditTrailPart": {
+                        "Comment": null,
+                        "ShowComment": false
+                    },
+                    "GraphSyncPart": {
+                        "Text": "5ba6e542-bd32-49b6-a632-cadf905e93ed"
+                    },
+                    "TitlePart": {
+                        "Title": "As Defined"
+                    }
+                },
+                {
+                    "ContentItemId": "4t7yzxxgex3hgypvvvexpjr4wz",
+                    "ContentItemVersionId": "4f66h5fr9cwgq0q5xt8saxeqwz",
+                    "ContentType": "Dynamictitle",
+                    "DisplayText": "No Prefix",
+                    "Latest": true,
+                    "Published": true,
+                    "ModifiedUtc": "2021-12-15T10:05:03.1837737Z",
+                    "PublishedUtc": "2021-12-15T10:05:03.1869325Z",
+                    "CreatedUtc": "2021-12-15T10:05:03.1837737Z",
+                    "Owner": "45s47jq6qekw468f4dmk1rfedv",
+                    "Author": "Manish",
+                    "Dynamictitle": {},
+                    "AuditTrailPart": {
+                        "Comment": null,
+                        "ShowComment": false
+                    },
+                    "GraphSyncPart": {
+                        "Text": "cda2dfdf-0188-41b6-b302-e86bfde5317c"
+                    },
+                    "TitlePart": {
+                        "Title": "No Prefix"
+                    }
+                },
+                {
+                    "ContentItemId": "48f3ef29b0z97x2df2k256s2n1",
+                    "ContentItemVersionId": "4hv6bb3fxy9fq3k1em7b24afmj",
+                    "ContentType": "Dynamictitle",
+                    "DisplayText": "No Title",
+                    "Latest": true,
+                    "Published": true,
+                    "ModifiedUtc": "2021-12-15T10:05:16.6813001Z",
+                    "PublishedUtc": "2021-12-15T10:05:16.684767Z",
+                    "CreatedUtc": "2021-12-15T10:05:16.6813001Z",
+                    "Owner": "45s47jq6qekw468f4dmk1rfedv",
+                    "Author": "Manish",
+                    "Dynamictitle": {},
+                    "AuditTrailPart": {
+                        "Comment": null,
+                        "ShowComment": false
+                    },
+                    "GraphSyncPart": {
+                        "Text": "24296f5d-b5b2-404b-a942-ccd2e3106d3d"
+                    },
+                    "TitlePart": {
+                        "Title": "No Title"
+                    }
+                },
+                {
+                    "ContentItemId": "4b1yvprh6tee757qpsbva9sywf",
+                    "ContentItemVersionId": "4afmmdsspc9d31t6m1szkqw4c0",
+                    "ContentType": "Dynamictitle",
+                    "DisplayText": "Prefix with a",
+                    "Latest": true,
+                    "Published": true,
+                    "ModifiedUtc": "2021-12-15T10:06:07.8449357Z",
+                    "PublishedUtc": "2021-12-15T10:06:07.8516888Z",
+                    "CreatedUtc": "2021-12-15T10:05:32.3999876Z",
+                    "Owner": "45s47jq6qekw468f4dmk1rfedv",
+                    "Author": "Manish",
+                    "Dynamictitle": {},
+                    "AuditTrailPart": {
+                        "Comment": null,
+                        "ShowComment": false
+                    },
+                    "GraphSyncPart": {
+                        "Text": "7403aa6f-9a1a-4be3-a317-ae0f36dba877"
+                    },
+                    "TitlePart": {
+                        "Title": "Prefix with a"
+                    }
+                },
+                {
+                    "ContentItemId": "43wnnw3q7j88wyz00dvjjn3m5j",
+                    "ContentItemVersionId": "4wt0ty8kjd40kzbcc3rzy92vx5",
+                    "ContentType": "Dynamictitle",
+                    "DisplayText": "Prefix with an",
+                    "Latest": true,
+                    "Published": true,
+                    "ModifiedUtc": "2021-12-15T10:06:23.5427454Z",
+                    "PublishedUtc": "2021-12-15T10:06:23.546423Z",
+                    "CreatedUtc": "2021-12-15T10:05:24.4340264Z",
+                    "Owner": "45s47jq6qekw468f4dmk1rfedv",
+                    "Author": "Manish",
+                    "Dynamictitle": {},
+                    "AuditTrailPart": {
+                        "Comment": null,
+                        "ShowComment": false
+                    },
+                    "GraphSyncPart": {
+                        "Text": "689557f9-27e5-444d-b03e-ceba5278b5f1"
+                    },
+                    "TitlePart": {
+                        "Title": "Prefix with an"
+                    }
+                }
+            ]
+        }
+    ]
+}
