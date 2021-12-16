@@ -172,6 +172,18 @@
                         },
                         {
                             "FieldName": "TextField",
+                            "Name": "WidgetContentTitle",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Widget content title",
+                                    "Position": "1"
+                                },
+                                "TextFieldSettings": {},
+                                "ContentIndexSettings": {}
+                            }
+                        },
+                        {
+                            "FieldName": "TextField",
                             "Name": "Overview",
                             "Settings": {
                                 "ContentPartFieldSettings": {

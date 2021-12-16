@@ -34,54 +34,6 @@
                         "shape": null
                     },
                     {
-                        "place": "Parts:4#Content;0",
-                        "displayType": null,
-                        "differentiator": "JobProfile-Description",
-                        "alternates": null,
-                        "wrappers": null,
-                        "shape": null
-                    },
-                    {
-                        "place": "Parts:8#How to become;0",
-                        "displayType": null,
-                        "differentiator": "JobProfile-HtbCareerTips",
-                        "alternates": null,
-                        "wrappers": null,
-                        "shape": null
-                    },
-                    {
-                        "place": "Parts:9#How to become;0",
-                        "displayType": null,
-                        "differentiator": "JobProfile-HtbProfessionalBodies",
-                        "alternates": null,
-                        "wrappers": null,
-                        "shape": null
-                    },
-                    {
-                        "place": "Parts:10#How to become;0",
-                        "displayType": null,
-                        "differentiator": "JobProfile-HtbFurtherInformation",
-                        "alternates": null,
-                        "wrappers": null,
-                        "shape": null
-                    },
-                    {
-                        "place": "Parts:0#What you will do;3",
-                        "displayType": null,
-                        "differentiator": "JobProfile-WydDayToDayTasks",
-                        "alternates": null,
-                        "wrappers": null,
-                        "shape": null
-                    },
-                    {
-                        "place": "Parts:0#Career Path;4",
-                        "displayType": null,
-                        "differentiator": "JobProfile-CareerPathAndProgression",
-                        "alternates": null,
-                        "wrappers": null,
-                        "shape": null
-                    },
-                    {
                         "place": "Parts:1#Triage Tool;2",
                         "displayType": null,
                         "differentiator": "ApplicationView-TriageToolSummary",
@@ -396,17 +348,6 @@
                         ]
                     },
                     {
-                        "place": "Parts:2#Content;0",
-                        "displayType": null,
-                        "differentiator": null,
-                        "alternates": null,
-                        "wrappers": null,
-                        "shape": null,
-                        "contentType": [
-                            "JobProfile"
-                        ]
-                    },
-                    {
                         "place": "Parts:1#Metadata;0",
                         "displayType": null,
                         "differentiator": null,
@@ -428,17 +369,6 @@
                         "shape": null,
                         "contentType": [
                             "Page"
-                        ]
-                    },
-                    {
-                        "place": "Parts:15#Content;0",
-                        "displayType": null,
-                        "differentiator": null,
-                        "alternates": null,
-                        "wrappers": null,
-                        "shape": null,
-                        "contentType": [
-                            "JobProfile"
                         ]
                     },
                     {
@@ -466,17 +396,6 @@
                         ]
                     },
                     {
-                        "place": "Parts:0#Content;0",
-                        "displayType": null,
-                        "differentiator": null,
-                        "alternates": null,
-                        "wrappers": null,
-                        "shape": null,
-                        "contentType": [
-                            "JobProfile"
-                        ]
-                    },
-                    {
                         "place": "Parts:0#Metadata;0",
                         "displayType": null,
                         "differentiator": null,
@@ -493,62 +412,6 @@
                         "place": "Parts:1#Metadata;0",
                         "displayType": null,
                         "differentiator": "Page-Description",
-                        "alternates": null,
-                        "wrappers": null,
-                        "shape": null
-                    },
-                    {
-                        "place": "Parts:1#Content;0",
-                        "displayType": null,
-                        "differentiator": "JobProfile-AlternativeTitle",
-                        "alternates": null,
-                        "wrappers": null,
-                        "shape": null
-                    },
-                    {
-                        "place": "Parts:1#Content;0",
-                        "displayType": null,
-                        "differentiator": "JobProfile-HiddenAlternativeTitle",
-                        "alternates": null,
-                        "wrappers": null,
-                        "shape": null
-                    },
-                    {
-                        "place": "Parts:8#Content;0",
-                        "displayType": null,
-                        "differentiator": "JobProfile-SalaryStarter",
-                        "alternates": null,
-                        "wrappers": null,
-                        "shape": null
-                    },
-                    {
-                        "place": "Parts:9#Content;0",
-                        "displayType": null,
-                        "differentiator": "JobProfile-SalaryExperienced",
-                        "alternates": null,
-                        "wrappers": null,
-                        "shape": null
-                    },
-                    {
-                        "place": "Parts:12#Content;0",
-                        "displayType": null,
-                        "differentiator": "JobProfile-WorkingHoursDetails",
-                        "alternates": null,
-                        "wrappers": null,
-                        "shape": null
-                    },
-                    {
-                        "place": "Parts:13#Content;0",
-                        "displayType": null,
-                        "differentiator": "JobProfile-WorkingPattern",
-                        "alternates": null,
-                        "wrappers": null,
-                        "shape": null
-                    },
-                    {
-                        "place": "Parts:14#Content;0",
-                        "displayType": null,
-                        "differentiator": "JobProfile-WorkingPatternDetails",
                         "alternates": null,
                         "wrappers": null,
                         "shape": null
@@ -574,6 +437,17 @@
                     },
                     {
                         "place": "Parts:2#Header;1",
+                        "displayType": null,
+                        "differentiator": "JobProfileNew-WidgetContentTitle",
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null,
+                        "contentType": [
+                            "JobProfileNew"
+                        ]
+                    },
+                    {
+                        "place": "Parts:3#Header;1",
                         "displayType": null,
                         "differentiator": "JobProfileNew-Overview",
                         "alternates": null,
@@ -660,150 +534,6 @@
                         "shape": null
                     },
                     {
-                        "place": "Parts:6#Content;0",
-                        "displayType": null,
-                        "differentiator": "JobProfile-SOCCode",
-                        "alternates": null,
-                        "wrappers": null,
-                        "shape": null
-                    },
-                    {
-                        "place": "Parts:7#Content;0",
-                        "displayType": null,
-                        "differentiator": "JobProfile-ONetOccupationalCode",
-                        "alternates": null,
-                        "wrappers": null,
-                        "shape": null
-                    },
-                    {
-                        "place": "Parts:1#How to become;1",
-                        "displayType": null,
-                        "differentiator": "JobProfile-UniversityRoute",
-                        "alternates": null,
-                        "wrappers": null,
-                        "shape": null
-                    },
-                    {
-                        "place": "Parts:2#How to become;1",
-                        "displayType": null,
-                        "differentiator": "JobProfile-CollegeRoute",
-                        "alternates": null,
-                        "wrappers": null,
-                        "shape": null
-                    },
-                    {
-                        "place": "Parts:3#How to become;1",
-                        "displayType": null,
-                        "differentiator": "JobProfile-ApprenticeshipRoute",
-                        "alternates": null,
-                        "wrappers": null,
-                        "shape": null
-                    },
-                    {
-                        "place": "Parts:4#How to become;1",
-                        "displayType": null,
-                        "differentiator": "JobProfile-WorkRoute",
-                        "alternates": null,
-                        "wrappers": null,
-                        "shape": null
-                    },
-                    {
-                        "place": "Parts:5#How to become;1",
-                        "displayType": null,
-                        "differentiator": "JobProfile-VolunteeringRoute",
-                        "alternates": null,
-                        "wrappers": null,
-                        "shape": null
-                    },
-                    {
-                        "place": "Parts:6#How to become;1",
-                        "displayType": null,
-                        "differentiator": "JobProfile-DirectRoute",
-                        "alternates": null,
-                        "wrappers": null,
-                        "shape": null
-                    },
-                    {
-                        "place": "Parts:7#How to become;1",
-                        "displayType": null,
-                        "differentiator": "JobProfile-OtherRoute",
-                        "alternates": null,
-                        "wrappers": null,
-                        "shape": null
-                    },
-                    {
-                        "place": "Parts:8#How to become;1",
-                        "displayType": null,
-                        "differentiator": "JobProfile-HtbRegistrations",
-                        "alternates": null,
-                        "wrappers": null,
-                        "shape": null
-                    },
-                    {
-                        "place": "Parts:0#What it takes;2",
-                        "displayType": null,
-                        "differentiator": "JobProfile-WitRestrictions",
-                        "alternates": null,
-                        "wrappers": null,
-                        "shape": null
-                    },
-                    {
-                        "place": "Parts:1#What it takes;2",
-                        "displayType": null,
-                        "differentiator": "JobProfile-WitOtherRequirements",
-                        "alternates": null,
-                        "wrappers": null,
-                        "shape": null
-                    },
-                    {
-                        "place": "Parts:2#What it takes;2",
-                        "displayType": null,
-                        "differentiator": "JobProfile-WitDigitalSkillsLevel",
-                        "alternates": null,
-                        "wrappers": null,
-                        "shape": null
-                    },
-                    {
-                        "place": "Parts:1#What you will do;3",
-                        "displayType": null,
-                        "differentiator": "JobProfile-WydWorkingEnvironment",
-                        "alternates": null,
-                        "wrappers": null,
-                        "shape": null
-                    },
-                    {
-                        "place": "Parts:2#What you will do;3",
-                        "displayType": null,
-                        "differentiator": "JobProfile-WydWorkingLocation",
-                        "alternates": null,
-                        "wrappers": null,
-                        "shape": null
-                    },
-                    {
-                        "place": "Parts:3#What you will do;3",
-                        "displayType": null,
-                        "differentiator": "JobProfile-WydWorkingUniform",
-                        "alternates": null,
-                        "wrappers": null,
-                        "shape": null
-                    },
-                    {
-                        "place": "Parts:1#Career Path;4",
-                        "displayType": null,
-                        "differentiator": "JobProfile-ApprenticeshipStandards",
-                        "alternates": null,
-                        "wrappers": null,
-                        "shape": null
-                    },
-                    {
-                        "place": "Parts:2#Career Path;4",
-                        "displayType": null,
-                        "differentiator": "JobProfile-RelatedCareers",
-                        "alternates": null,
-                        "wrappers": null,
-                        "shape": null
-                    },
-                    {
                         "place": "Parts:2#Triage Tool;2",
                         "displayType": null,
                         "differentiator": "ApplicationView-TriageToolFilters",
@@ -823,7 +553,7 @@
                         ]
                     },
                     {
-                        "place": "Parts:7#Header;1",
+                        "place": "Parts:8#Header;1",
                         "displayType": null,
                         "differentiator": "JobProfileNew-WorkingHoursDetails",
                         "alternates": null,
@@ -834,7 +564,7 @@
                         ]
                     },
                     {
-                        "place": "Parts:8#Header;1",
+                        "place": "Parts:9#Header;1",
                         "displayType": null,
                         "differentiator": "JobProfileNew-Workingpattern",
                         "alternates": null,
@@ -845,7 +575,7 @@
                         ]
                     },
                     {
-                        "place": "Parts:9#Header;1",
+                        "place": "Parts:10#Header;1",
                         "displayType": null,
                         "differentiator": "JobProfileNew-Workingpatterndetails",
                         "alternates": null,
@@ -1084,51 +814,11 @@
                         "alternates": null,
                         "wrappers": null,
                         "shape": null
-                    },
-                    {
-                        "place": "Parts:1#Content;0",
-                        "displayType": null,
-                        "differentiator": "JobProfile-PageLocations",
-                        "alternates": null,
-                        "wrappers": null,
-                        "shape": null
                     }
                 ],
                 "NumericField_Edit": [
                     {
-                        "place": "Parts:10#Content;0",
-                        "displayType": null,
-                        "differentiator": "JobProfile-MinimumHours",
-                        "alternates": null,
-                        "wrappers": null,
-                        "shape": null
-                    },
-                    {
-                        "place": "Parts:11#Content;0",
-                        "displayType": null,
-                        "differentiator": "JobProfile-MaximumHours",
-                        "alternates": null,
-                        "wrappers": null,
-                        "shape": null
-                    },
-                    {
-                        "place": "Parts:10#Content;0",
-                        "displayType": null,
-                        "differentiator": "JobProfile-MinimumHours",
-                        "alternates": null,
-                        "wrappers": null,
-                        "shape": null
-                    },
-                    {
-                        "place": "Parts:11#Content;0",
-                        "displayType": null,
-                        "differentiator": "JobProfile-MaximumHours",
-                        "alternates": null,
-                        "wrappers": null,
-                        "shape": null
-                    },
-                    {
-                        "place": "Parts:3#Header;1",
+                        "place": "Parts:4#Header;1",
                         "displayType": null,
                         "differentiator": "JobProfileNew-Salarystarterperyear",
                         "alternates": null,
@@ -1139,7 +829,7 @@
                         ]
                     },
                     {
-                        "place": "Parts:4#Header;1",
+                        "place": "Parts:5#Header;1",
                         "displayType": null,
                         "differentiator": "JobProfileNew-Salaryexperiencedperyear",
                         "alternates": null,
@@ -1150,7 +840,7 @@
                         ]
                     },
                     {
-                        "place": "Parts:5#Header;1",
+                        "place": "Parts:6#Header;1",
                         "displayType": null,
                         "differentiator": "JobProfileNew-Minimumhours",
                         "alternates": null,
@@ -1161,7 +851,7 @@
                         ]
                     },
                     {
-                        "place": "Parts:6#Header;1",
+                        "place": "Parts:7#Header;1",
                         "displayType": null,
                         "differentiator": "JobProfileNew-Maximumhours",
                         "alternates": null,
