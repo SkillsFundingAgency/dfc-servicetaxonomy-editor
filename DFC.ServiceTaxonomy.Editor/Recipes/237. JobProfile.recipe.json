@@ -172,18 +172,6 @@
                         },
                         {
                             "FieldName": "TextField",
-                            "Name": "WidgetContentTitle",
-                            "Settings": {
-                                "ContentPartFieldSettings": {
-                                    "DisplayName": "Widget content title",
-                                    "Position": "1"
-                                },
-                                "TextFieldSettings": {},
-                                "ContentIndexSettings": {}
-                            }
-                        },
-                        {
-                            "FieldName": "TextField",
                             "Name": "Overview",
                             "Settings": {
                                 "ContentPartFieldSettings": {
@@ -901,23 +889,6 @@
                         },
                         {
                             "FieldName": "ContentPickerField",
-                            "Name": "Dynamictitle",
-                            "Settings": {
-                                "ContentPartFieldSettings": {
-                                    "DisplayName": "Dynamic title",
-                                    "Position": "45"
-                                },
-                                "ContentPickerFieldSettings": {
-                                    "Required": true,
-                                    "DisplayedContentTypes": [
-                                        "Dynamictitle"
-                                    ]
-                                },
-                                "ContentIndexSettings": {}
-                            }
-                        },
-                        {
-                            "FieldName": "ContentPickerField",
                             "Name": "Relatedregistrations",
                             "Settings": {
                                 "ContentPartFieldSettings": {
@@ -945,6 +916,23 @@
                                 "HtmlFieldSettings": {},
                                 "HtmlFieldTrumbowygEditorSettings": {
                                     "Options": "{\r\n    autogrow: true,\r\n    btns: [\r\n        [\"viewHTML\"],\r\n        [\"undo\", \"redo\"],\r\n        [\"formatting\"],\r\n        [\"strong\", \"em\", \"del\"],\r\n        [\"foreColor\", \"backColor\"],\r\n        [\"superscript\", \"subscript\"],\r\n        [\"link\"],\r\n        [\"insertShortcode\"],\r\n        [\"image\"],\r\n        [\"align\"],\r\n        [\"unorderedList\", \"orderedList\"],\r\n        [\"horizontalRule\"],\r\n        [\"removeformat\"],\r\n        [\"fullscreen\"]\r\n    ],\r\n    btnsDef: {\r\n        align: {\r\n            dropdown: [\"justifyLeft\", \"justifyCenter\", \"justifyRight\", \"justifyFull\"],\r\n            ico: \"justifyLeft\"\r\n        },\r\n        image: {\r\n            dropdown: [\"insertImage\", \"base64\", \"noembed\"],\r\n            ico: \"insertImage\"\r\n        }\r\n    }\r\n}"
+                                },
+                                "ContentIndexSettings": {}
+                            }
+                        },
+                        {
+                            "FieldName": "ContentPickerField",
+                            "Name": "Dynamictitleprefix",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Dynamic title prefix",
+                                    "Position": "45"
+                                },
+                                "ContentPickerFieldSettings": {
+                                    "Required": true,
+                                    "DisplayedContentTypes": [
+                                        "Dynamictitleprefix"
+                                    ]
                                 },
                                 "ContentIndexSettings": {}
                             }
