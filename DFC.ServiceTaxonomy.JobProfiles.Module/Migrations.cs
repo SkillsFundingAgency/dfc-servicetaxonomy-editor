@@ -1,4 +1,4 @@
-﻿using System.Threading.Tasks;
+﻿//using System.Threading.Tasks;
 using OrchardCore.Data.Migration;
 using OrchardCore.Modules;
 using OrchardCore.Recipes.Services;
@@ -15,11 +15,11 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module
             _recipeMigrator = recipeMigrator;
         }
 
-        public async Task<int> CreateAsync()
-        {
-            await _recipeMigrator.ExecuteAsync("job-profiles-content-types.recipe.json", this);
+        //public async Task<int> CreateAsync()
+        //{
+        //    await _recipeMigrator.ExecuteAsync("job-profiles-content-types.recipe.json", this);
 
-            return 1;
-        }
+        //    return 1;
+        //}
     }
 }
