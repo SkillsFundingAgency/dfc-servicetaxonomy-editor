@@ -211,7 +211,7 @@
                         ]
                     },
                     {
-                        "place": "Parts:20#How to become;2",
+                        "place": "Parts:21#How to become;2",
                         "displayType": null,
                         "differentiator": "JobProfileNew-Careertips",
                         "alternates": null,
@@ -222,7 +222,18 @@
                         ]
                     },
                     {
-                        "place": "Parts:21#How to become;2",
+                        "place": "Parts:22#How to become;2",
+                        "displayType": null,
+                        "differentiator": "JobProfileNew-Professionalandindustrybodies",
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null,
+                        "contentType": [
+                            "JobProfileNew"
+                        ]
+                    },
+                    {
+                        "place": "Parts:23#How to become;2",
                         "displayType": null,
                         "differentiator": "JobProfileNew-Furtherinformation",
                         "alternates": null,
@@ -947,6 +958,17 @@
                         "place": "Parts:15#How to become;2",
                         "displayType": null,
                         "differentiator": "JobProfileNew-Relatedapprenticeshiplinks",
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null,
+                        "contentType": [
+                            "JobProfileNew"
+                        ]
+                    },
+                    {
+                        "place": "Parts:20#How to become;2",
+                        "displayType": null,
+                        "differentiator": "JobProfileNew-Relatedregistrations",
                         "alternates": null,
                         "wrappers": null,
                         "shape": null,
