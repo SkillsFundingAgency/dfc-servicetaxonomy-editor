@@ -67,7 +67,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Update="Recipes\237. JobProfileNew.recipe.json">
+    <Content Update="Recipes\237. JobProfile.recipe.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Update="Recipes\238. JobProfileSpecialism.recipe.json">

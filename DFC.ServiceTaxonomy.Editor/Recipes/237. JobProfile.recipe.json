@@ -1,6 +1,6 @@
 {
-    "name": "JobProfileNew",
-    "displayName": "JobProfileNew",
+    "name": "JobProfile",
+    "displayName": "JobProfile",
     "description": "",
     "author": "",
     "website": "",
@@ -20,8 +20,8 @@
             "name": "ContentDefinition",
             "ContentTypes": [
                 {
-                    "Name": "JobProfileNew",
-                    "DisplayName": "Job profile new",
+                    "Name": "JobProfile",
+                    "DisplayName": "Job profile",
                     "Settings": {
                         "ContentTypeSettings": {
                             "Creatable": true,
@@ -34,8 +34,8 @@
                     },
                     "ContentTypePartDefinitionRecords": [
                         {
-                            "PartName": "JobProfileNew",
-                            "Name": "JobProfileNew",
+                            "PartName": "JobProfile",
+                            "Name": "JobProfile",
                             "Settings": {
                                 "ContentTypePartSettings": {
                                     "Position": "1"
@@ -155,7 +155,7 @@
                     "ContentPartFieldDefinitionRecords": []
                 },
                 {
-                    "Name": "JobProfileNew",
+                    "Name": "JobProfile",
                     "Settings": {},
                     "ContentPartFieldDefinitionRecords": [
                         {
@@ -165,6 +165,18 @@
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "Alternative title",
                                     "Position": "0"
+                                },
+                                "TextFieldSettings": {},
+                                "ContentIndexSettings": {}
+                            }
+                        },
+                        {
+                            "FieldName": "TextField",
+                            "Name": "WidgetContentTitle",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Widget content title",
+                                    "Position": "1"
                                 },
                                 "TextFieldSettings": {},
                                 "ContentIndexSettings": {}
@@ -864,7 +876,7 @@
                                 "ContentPickerFieldSettings": {
                                     "Multiple": true,
                                     "DisplayedContentTypes": [
-                                        "JobProfileNew"
+                                        "JobProfile"
                                     ]
                                 },
                                 "ContentIndexSettings": {}
@@ -882,23 +894,6 @@
                                     "Required": true,
                                     "DisplayedContentTypes": [
                                         "SOCcode"
-                                    ]
-                                },
-                                "ContentIndexSettings": {}
-                            }
-                        },
-                        {
-                            "FieldName": "ContentPickerField",
-                            "Name": "Dynamictitle",
-                            "Settings": {
-                                "ContentPartFieldSettings": {
-                                    "DisplayName": "Dynamic title",
-                                    "Position": "45"
-                                },
-                                "ContentPickerFieldSettings": {
-                                    "Required": true,
-                                    "DisplayedContentTypes": [
-                                        "Dynamictitle"
                                     ]
                                 },
                                 "ContentIndexSettings": {}
@@ -933,6 +928,23 @@
                                 "HtmlFieldSettings": {},
                                 "HtmlFieldTrumbowygEditorSettings": {
                                     "Options": "{\r\n    autogrow: true,\r\n    btns: [\r\n        [\"viewHTML\"],\r\n        [\"undo\", \"redo\"],\r\n        [\"formatting\"],\r\n        [\"strong\", \"em\", \"del\"],\r\n        [\"foreColor\", \"backColor\"],\r\n        [\"superscript\", \"subscript\"],\r\n        [\"link\"],\r\n        [\"insertShortcode\"],\r\n        [\"image\"],\r\n        [\"align\"],\r\n        [\"unorderedList\", \"orderedList\"],\r\n        [\"horizontalRule\"],\r\n        [\"removeformat\"],\r\n        [\"fullscreen\"]\r\n    ],\r\n    btnsDef: {\r\n        align: {\r\n            dropdown: [\"justifyLeft\", \"justifyCenter\", \"justifyRight\", \"justifyFull\"],\r\n            ico: \"justifyLeft\"\r\n        },\r\n        image: {\r\n            dropdown: [\"insertImage\", \"base64\", \"noembed\"],\r\n            ico: \"insertImage\"\r\n        }\r\n    }\r\n}"
+                                },
+                                "ContentIndexSettings": {}
+                            }
+                        },
+                        {
+                            "FieldName": "ContentPickerField",
+                            "Name": "Dynamictitleprefix",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Dynamic title prefix",
+                                    "Position": "45"
+                                },
+                                "ContentPickerFieldSettings": {
+                                    "Required": true,
+                                    "DisplayedContentTypes": [
+                                        "Dynamictitleprefix"
+                                    ]
                                 },
                                 "ContentIndexSettings": {}
                             }
