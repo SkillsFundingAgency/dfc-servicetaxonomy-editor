@@ -2,7 +2,7 @@
 
 namespace DFC.ServiceTaxonomy.JobProfiles.Module.Models.ServiceBus
 {
-    internal class MoreInformation
+    public class MoreInformation
     {
         public string? CareerTips { get; set; }
 

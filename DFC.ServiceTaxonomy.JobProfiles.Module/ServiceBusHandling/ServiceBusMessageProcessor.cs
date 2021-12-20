@@ -25,7 +25,7 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module.ServiceBusHandling
 
         public async Task SendJobProfileMessage(JobProfileMessage jpData, string contentType, string actionType)
         {
-            _logger.LogInformation($" CREATED service bus message for OrchardCore event {actionType.ToUpper()} on JobProfile with Title -- {jpData.Title} and Jobprofile Id -- {jpData.JobProfileId.ToString()}");
+            _logger.LogInformation($" CREATED service bus message for OrchardCore event {actionType.ToUpper()} on JobProfile with Title -- {jpData.Title} and Jobprofile Id -- {jpData.JobProfileId}");
 
             var configuration = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
@@ -49,7 +49,7 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module.ServiceBusHandling
             var jsonData = JsonConvert.SerializeObject(jpData);
             try
             {
-                _logger.LogInformation($" SENDING service bus message for OrchardCore event {actionType.ToUpper()} on JobProfile with Title -- {jpData.Title} and with Jobprofile Id -- {jpData.JobProfileId.ToString()} ");
+                _logger.LogInformation($" SENDING service bus message for OrchardCore event {actionType.ToUpper()} on JobProfile with Title -- {jpData.Title} and with Jobprofile Id -- {jpData.JobProfileId} ");
 
                 // Message that send to the queue
                 var message = new Message(Encoding.UTF8.GetBytes(jsonData));
@@ -62,11 +62,11 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module.ServiceBusHandling
 
                 await topicClient.SendAsync(message);
 
-                _logger.LogInformation($" SENT service bus message for OrchardCore event {actionType.ToUpper()} on JobProfile with Title -- {jpData.Title} with Jobprofile Id -- {jpData.JobProfileId.ToString()} and with Correlation Id -- {message.CorrelationId.ToString()}");
+                _logger.LogInformation($" SENT service bus message for OrchardCore event {actionType.ToUpper()} on JobProfile with Title -- {jpData.Title} with Jobprofile Id -- {jpData.JobProfileId} and with Correlation Id -- {message.CorrelationId.ToString()}");
             }
             catch (Exception ex)
             {
-                _logger.LogInformation($" FAILED service bus message for OrchardCore event {actionType.ToUpper()} on JobProfile with Title -- {jpData.Title} and with Jobprofile Id -- {jpData.JobProfileId.ToString()} has an exception \n {ex.Message} ");
+                _logger.LogInformation($" FAILED service bus message for OrchardCore event {actionType.ToUpper()} on JobProfile with Title -- {jpData.Title} and with Jobprofile Id -- {jpData.JobProfileId} has an exception \n {ex.Message} ");
             }
             finally
             {

@@ -2,7 +2,7 @@
 
 namespace DFC.ServiceTaxonomy.JobProfiles.Module.Models.ServiceBus
 {
-    internal class MoreInformationLinkItem
+    public class MoreInformationLinkItem
     {
         public Guid Id { get; set; }
 

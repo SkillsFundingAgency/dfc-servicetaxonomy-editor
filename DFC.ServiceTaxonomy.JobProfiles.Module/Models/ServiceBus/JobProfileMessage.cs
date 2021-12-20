@@ -13,7 +13,7 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module.Models.ServiceBus
         /// <value>
         /// The id.
         /// </value>
-        public Guid JobProfileId { get; set; }
+        public string? JobProfileId { get; set; }
 
         /// <summary>
         /// Gets or sets the title.
