@@ -1,4 +1,7 @@
 ﻿//using DFC.ServiceTaxonomy.JobProfiles.Module.Handlers;
+//using DFC.ServiceTaxonomy.JobProfiles.Module.Handlers;
+using DFC.ServiceTaxonomy.JobProfiles.Module.ServiceBusHandling;
+using DFC.ServiceTaxonomy.JobProfiles.Module.ServiceBusHandling.Interfaces;
 using DFC.ServiceTaxonomy.JobProfiles.Service.EFDataModels;
 using DFC.ServiceTaxonomy.JobProfiles.Service.Interfaces;
 using DFC.ServiceTaxonomy.JobProfiles.Service.Models;
@@ -6,6 +9,7 @@ using DFC.ServiceTaxonomy.JobProfiles.Service.Repositories;
 using DFC.ServiceTaxonomy.JobProfiles.Service.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+//using OrchardCore.ContentManagement.Handlers;
 //using OrchardCore.ContentManagement.Handlers;
 //using OrchardCore.Data.Migration;
 using OrchardCore.Modules;
@@ -20,6 +24,9 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module
             //services.AddScoped<IDataMigration, Migrations>();
             //services.AddScoped<IContentHandler, SocCodeContentHandler>();
             //services.AddScoped<IContentHandler, JobProfileContentHandler>();
+            //services.AddScoped<IContentHandler, ServiceBusContentHandler>();
+            services.AddScoped<IDataEventProcessor, DataEventProcessor>();
+            services.AddScoped<IServiceBusMessageProcessor, ServiceBusMessageProcessor>();
 
             // Repositories
 
