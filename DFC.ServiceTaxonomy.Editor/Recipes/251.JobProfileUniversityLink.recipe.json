@@ -13,7 +13,7 @@
       "name": "ContentDefinition",
       "ContentTypes": [
         {
-          "Name": "Universitylinks",
+          "Name": "Universitylink",
           "DisplayName": "University link",
           "Settings": {
             "ContentTypeSettings": {
@@ -27,8 +27,8 @@
           },
           "ContentTypePartDefinitionRecords": [
             {
-              "PartName": "Universitylinks",
-              "Name": "Universitylinks",
+              "PartName": "Universitylink",
+              "Name": "Universitylink",
               "Settings": {
                 "ContentTypePartSettings": {
                   "Position": "2"
@@ -134,21 +134,9 @@
           "ContentPartFieldDefinitionRecords": []
         },
         {
-          "Name": "Universitylinks",
+          "Name": "Universitylink",
           "Settings": {},
           "ContentPartFieldDefinitionRecords": [
-            {
-              "FieldName": "TextField",
-              "Name": "Url",
-              "Settings": {
-                "ContentPartFieldSettings": {
-                  "DisplayName": "URL",
-                  "Position": "1"
-                },
-                "TextFieldSettings": {},
-                "ContentIndexSettings": {}
-              }
-            },
             {
               "FieldName": "TextField",
               "Name": "Text",
@@ -160,6 +148,16 @@
                 },
                 "TextFieldSettings": {},
                 "ContentIndexSettings": {}
+              }
+            },
+            {
+              "FieldName": "TextField",
+              "Name": "URL",
+              "Settings": {
+                "ContentPartFieldSettings": {
+                  "DisplayName": "URL",
+                  "Position": "1"
+                }
               }
             }
           ]
