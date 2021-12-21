@@ -1,11 +1,8 @@
-﻿using System;
-
-
-namespace DFC.ServiceTaxonomy.JobProfiles.Module.Models.ServiceBus
+﻿namespace DFC.ServiceTaxonomy.JobProfiles.Module.Models.ServiceBus
 {
     internal class JobProfileRelatedCareerItem
     {
-        public Guid Id { get; set; }
+        public string? Id { get; set; }
 
         public string? Title { get; set; }
 
