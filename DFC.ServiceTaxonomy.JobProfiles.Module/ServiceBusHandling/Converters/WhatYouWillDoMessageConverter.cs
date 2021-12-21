@@ -83,9 +83,9 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module.ServiceBusHandling.Converters
                 case "Location":
                     return contentItem.Content.Location.Description.Html;
                 case "Environment":
-                    return contentItem.Content.Location.Environment.Html;
+                    return contentItem.Content.Environment.Description.Html;
                 case "Uniform":
-                    return contentItem.Content.Location.Uniform.Html;
+                    return contentItem.Content.Uniform.Description.Html;
                 default: return string.Empty;
             }
         }
