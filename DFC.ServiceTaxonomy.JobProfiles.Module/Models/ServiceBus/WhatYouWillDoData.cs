@@ -3,7 +3,7 @@
 
 namespace DFC.ServiceTaxonomy.JobProfiles.Module.Models.ServiceBus
 {
-    internal class WhatYouWillDoData
+    public class WhatYouWillDoData
     {
         public string? DailyTasks { get; set; }
 
