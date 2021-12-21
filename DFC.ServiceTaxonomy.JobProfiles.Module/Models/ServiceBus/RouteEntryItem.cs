@@ -3,7 +3,7 @@
 
 namespace DFC.ServiceTaxonomy.JobProfiles.Module.Models.ServiceBus
 {
-    internal class RouteEntryItem
+    public class RouteEntryItem
     {
         public RouteEntryType RouteName { get; set; }
 

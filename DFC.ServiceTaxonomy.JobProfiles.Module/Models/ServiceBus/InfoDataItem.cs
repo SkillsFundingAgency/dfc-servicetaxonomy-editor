@@ -3,7 +3,7 @@
 
 namespace DFC.ServiceTaxonomy.JobProfiles.Module.Models.ServiceBus
 {
-    internal class InfoDataItem
+    public class InfoDataItem
     {
         public Guid Id { get; set; }
 

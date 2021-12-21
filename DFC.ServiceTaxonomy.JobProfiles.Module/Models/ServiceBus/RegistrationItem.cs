@@ -2,7 +2,7 @@
 
 namespace DFC.ServiceTaxonomy.JobProfiles.Module.Models.ServiceBus
 {
-    internal class RegistrationItem : InfoDataItem
+    public class RegistrationItem : InfoDataItem
     {
     }
 }

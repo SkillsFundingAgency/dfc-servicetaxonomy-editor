@@ -13,12 +13,15 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module.ServiceBusHandling
     {
         private readonly IServiceBusMessageProcessor _serviceBusMessageProcessor;
         private readonly ILogger<DataEventProcessor> _logger;
+        private readonly IMessageConverter<JobProfileMessage> _jobprofileMessageConverter;
 
         public DataEventProcessor(IServiceBusMessageProcessor serviceBusMessageProcessor,
-                                    ILogger<DataEventProcessor> logger)
+                                    ILogger<DataEventProcessor> logger,
+                                    IMessageConverter<JobProfileMessage> jobprofileMessageConverter)
         {
             _serviceBusMessageProcessor = serviceBusMessageProcessor;
             _logger = logger;
+            _jobprofileMessageConverter = jobprofileMessageConverter;
         }
 
         public async Task ProcessContentContext(ContentContextBase context, string actionType)
@@ -111,12 +114,8 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module.ServiceBusHandling
             var contentType = context.ContentItem.ContentType;
             if (contentType != null && contentType == ContentTypes.JobProfile)
             { 
-            //JobProfileMessage jobprofileData = dynamicContentConverter.ConvertFrom(item);
-            JobProfileMessage jobprofileData = new JobProfileMessage()
-            {
-                Title = context.ContentItem.Content.Title,
-            };
-                await _serviceBusMessageProcessor.SendJobProfileMessage(jobprofileData, contentType, actionType).ConfigureAwait(false);
+                var jobprofileMessage = _jobprofileMessageConverter.ConvertFrom(context.ContentItem);
+                await _serviceBusMessageProcessor.SendJobProfileMessage(jobprofileMessage, contentType, actionType).ConfigureAwait(false);
             }
         }
 
@@ -131,7 +130,7 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module.ServiceBusHandling
             {
                 JobProfileMessage jobprofileData = new JobProfileMessage()
                 {
-                    JobProfileId = new Guid(context.ContentItem.ContentItemId), // => OriginalContentId;
+                    JobProfileId = context.ContentItem.ContentItemId, // => OriginalContentId;
                     Title = context.ContentItem.Content.Title
                 };
                 await _serviceBusMessageProcessor.SendJobProfileMessage(jobprofileData, contentType, actionType); 

@@ -2,7 +2,7 @@
 
 namespace DFC.ServiceTaxonomy.JobProfiles.Module.Models.ServiceBus
 {
-    internal class FurtherRoutes
+    public class FurtherRoutes
     {
         public string? Work { get; set; }
 

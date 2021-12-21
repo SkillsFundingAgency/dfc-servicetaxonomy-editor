@@ -3,7 +3,7 @@
 
 namespace DFC.ServiceTaxonomy.JobProfiles.Module.Models.ServiceBus
 {
-    internal class HowToBecomeData
+    public class HowToBecomeData
     {
         public IEnumerable<RouteEntryItem>? RouteEntries { get; set; }
 
