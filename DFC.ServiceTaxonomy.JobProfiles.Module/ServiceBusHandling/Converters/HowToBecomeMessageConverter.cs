@@ -133,8 +133,8 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module.ServiceBusHandling.Converters
         {
             switch (contentItem.ContentType)
             {
-                case "Universitylinks":
-                    return contentItem.Content.Universitylinks.Url.Text;
+                case "Universitylink":
+                    return contentItem.Content.Universitylinks.URL.Text;
                 case "Collegelink":
                     return contentItem.Content.Collegelink.URL.Text;
                 case "Apprenticeshiplink":
@@ -147,7 +147,7 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module.ServiceBusHandling.Converters
         {
             switch (contentItem.ContentType)
             {
-                case "Universitylinks":
+                case "Universitylink":
                     return contentItem.Content.Universitylinks.Text.Text;
                 case "Collegelink":
                     return contentItem.Content.Collegelink.Text.Text;
