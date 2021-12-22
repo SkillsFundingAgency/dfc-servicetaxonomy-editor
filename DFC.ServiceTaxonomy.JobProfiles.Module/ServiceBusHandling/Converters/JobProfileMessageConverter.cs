@@ -19,17 +19,20 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module.ServiceBusHandling.Converters
         private readonly IServiceProvider _serviceProvider;
         private readonly IMessageConverter<HowToBecomeData> _howToBecomeMessageConverter;
         private readonly IMessageConverter<WhatYouWillDoData> _whatYouWillDoDataMessageConverter;
+        private readonly IMessageConverter<WhatItTakesData> _whatItTakesMessageConverter;
         private readonly ILogger<JobProfileMessageConverter> _logger;
 
         public JobProfileMessageConverter(
             IServiceProvider serviceProvider,
             IMessageConverter<HowToBecomeData> howToBecomeMessageConverter,
             IMessageConverter<WhatYouWillDoData> whatYouWillDoDataMessageConverter,
+            IMessageConverter<WhatItTakesData> whatItTakesMessageConverter,
             ILogger<JobProfileMessageConverter> logger)
         {
             _serviceProvider = serviceProvider;
             _howToBecomeMessageConverter = howToBecomeMessageConverter;
             _whatYouWillDoDataMessageConverter = whatYouWillDoDataMessageConverter;
+            _whatItTakesMessageConverter = whatItTakesMessageConverter;
             _logger = logger;
         }
 
@@ -39,9 +42,11 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module.ServiceBusHandling.Converters
             {
                 var contentManager = _serviceProvider.GetRequiredService<IContentManager>();
                 List<ContentItem> relatedCareersProfiles = GetContentItems(contentItem.Content.JobProfile.Relatedcareerprofiles, contentManager);
-                List<ContentItem> restrictions = GetContentItems(contentItem.Content.JobProfile.Relatedrestrictions, contentManager);
+                //List<ContentItem> restrictions = GetContentItems(contentItem.Content.JobProfile.Relatedrestrictions, contentManager);
                 List<ContentItem> dynamicTitlePrefix = GetContentItems(contentItem.Content.JobProfile.Dynamictitleprefix, contentManager);
-                List<ContentItem> digitalSkillsLevel = GetContentItems(contentItem.Content.JobProfile.Digitalskills, contentManager);
+                //List<ContentItem> digitalSkillsLevel = GetContentItems(contentItem.Content.JobProfile.Digitalskills, contentManager);
+
+                var witMessage = _whatItTakesMessageConverter.ConvertFrom(contentItem);
 
                 var jobProfileMessage = new JobProfileMessage
                 {
@@ -60,10 +65,16 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module.ServiceBusHandling.Converters
                     HowToBecomeData = _howToBecomeMessageConverter.ConvertFrom(contentItem),
                     WhatYouWillDoData = _whatYouWillDoDataMessageConverter.ConvertFrom(contentItem),
                     RelatedCareersData = GetRelatedCareersData(relatedCareersProfiles),
-                    Restrictions = GetRestrictions(restrictions),
-                    OtherRequirements = contentItem.Content.JobProfile.Otherrequirements == null ? default(string?) : (string?)contentItem.Content.JobProfile.Otherrequirements.Html,
+                    //Restrictions = GetRestrictions(restrictions),
+                    //OtherRequirements = contentItem.Content.JobProfile.Otherrequirements == null ? default(string?) : (string?)contentItem.Content.JobProfile.Otherrequirements.Html,
                     DynamicTitlePrefix = dynamicTitlePrefix.Any() ? dynamicTitlePrefix.First().As<TitlePart>().Title : string.Empty,
-                    DigitalSkillsLevel = digitalSkillsLevel.Any() ? digitalSkillsLevel.First().Content.Digitalskills.Description.Text : string.Empty
+                    //DigitalSkillsLevel = digitalSkillsLevel.Any() ? digitalSkillsLevel.First().Content.Digitalskills.Description.Text : string.Empty,
+                   
+
+                    //SocSkillsMatrixData - TODO: RelatedSkills to be added later
+                    DigitalSkillsLevel = witMessage.RelatedDigitalSkills,
+                    Restrictions = witMessage.RelatedRestrictions,
+                    OtherRequirements = witMessage.OtherRequirements
                 };
                 if(contentItem.ModifiedUtc.HasValue)
                 {
