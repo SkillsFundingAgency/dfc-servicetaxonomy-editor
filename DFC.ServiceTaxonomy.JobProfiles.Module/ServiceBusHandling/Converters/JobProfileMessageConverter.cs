@@ -1,4 +1,6 @@
 ﻿using System;
+using DFC.ServiceTaxonomy.GraphSync.Models;
+using DFC.ServiceTaxonomy.JobProfiles.Module.Extensions;
 using DFC.ServiceTaxonomy.JobProfiles.Module.Models.ServiceBus;
 using DFC.ServiceTaxonomy.JobProfiles.Module.ServiceBusHandling.Interfaces;
 using OrchardCore.ContentManagement;
@@ -23,7 +25,7 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module.ServiceBusHandling.Converters
             {
                 var jobProfileMessage = new JobProfileMessage
                 {
-                    JobProfileId = contentItem.ContentItemId,
+                    JobProfileId = contentItem.As<GraphSyncPart>().ExtractGuid(),
                     Title = contentItem.As<TitlePart>().Title,
                     WidgetContentTitle = contentItem.Content.JobProfile.WidgetContentTitle == null ? default(string?) : (string?)contentItem.Content.JobProfile.WidgetContentTitle.Text,
                     AlternativeTitle = contentItem.Content.JobProfile.AlternativeTitle == null ? default(string?) : (string?)contentItem.Content.JobProfile.AlternativeTitle.Text,

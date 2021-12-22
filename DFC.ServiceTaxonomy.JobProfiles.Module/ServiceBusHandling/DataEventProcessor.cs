@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using DFC.ServiceTaxonomy.GraphSync.Models;
+using DFC.ServiceTaxonomy.JobProfiles.Module.Extensions;
 using DFC.ServiceTaxonomy.JobProfiles.Module.Models.ServiceBus;
 using DFC.ServiceTaxonomy.JobProfiles.Module.ServiceBusHandling.Interfaces;
 using Microsoft.Extensions.Logging;
+using OrchardCore.ContentManagement;
 using OrchardCore.ContentManagement.Handlers;
 
 
@@ -130,7 +133,7 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module.ServiceBusHandling
             {
                 JobProfileMessage jobprofileData = new JobProfileMessage()
                 {
-                    JobProfileId = context.ContentItem.ContentItemId, // => OriginalContentId;
+                    JobProfileId = context.ContentItem.As<GraphSyncPart>().ExtractGuid(),
                     Title = context.ContentItem.Content.Title
                 };
                 await _serviceBusMessageProcessor.SendJobProfileMessage(jobprofileData, contentType, actionType); 
