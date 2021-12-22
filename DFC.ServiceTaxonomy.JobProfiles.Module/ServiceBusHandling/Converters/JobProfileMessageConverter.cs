@@ -65,6 +65,11 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module.ServiceBusHandling.Converters
                     DynamicTitlePrefix = dynamicTitlePrefix.Any() ? dynamicTitlePrefix.First().As<TitlePart>().Title : string.Empty,
                     DigitalSkillsLevel = digitalSkillsLevel.Any() ? digitalSkillsLevel.First().Content.Digitalskills.Description.Text : string.Empty
                 };
+                if(contentItem.ModifiedUtc.HasValue)
+                {
+                    jobProfileMessage.LastModified = contentItem.ModifiedUtc.Value;
+                }
+                jobProfileMessage.CanonicalName = contentItem.As<PageLocationPart>().FullUrl;
                 return jobProfileMessage;
             }
             catch (Exception ex)
