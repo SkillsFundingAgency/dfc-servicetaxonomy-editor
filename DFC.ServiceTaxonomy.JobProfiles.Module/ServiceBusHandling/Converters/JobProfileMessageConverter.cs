@@ -42,9 +42,9 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module.ServiceBusHandling.Converters
                     CareerPathAndProgression = contentItem.Content.JobProfile.Careerpathandprogression == null ? default(string?) : (string?)contentItem.Content.JobProfile.Careerpathandprogression.Html,
                     CourseKeywords = contentItem.Content.JobProfile.Coursekeywords == null ? default(string?) : (string?)contentItem.Content.JobProfile.Coursekeywords.Text,
                     HowToBecomeData = _howToBecomeMessageConverter.ConvertFrom(contentItem),
-                    WhatYouWillDoData = _whatYouWillDoDataMessageConverter.ConvertFrom(contentItem)
+                    WhatYouWillDoData = _whatYouWillDoDataMessageConverter.ConvertFrom(contentItem),
 
-                    //SocSkillsMatrixData
+                    //SocSkillsMatrixData - TODO: RelatedSkills to be added later
                     DigitalSkillsLevel = _whatItTakesMessageConverter.ConvertFrom(contentItem).RelatedDigitalSkills,
                     Restrictions = _whatItTakesMessageConverter.ConvertFrom(contentItem).RelatedRestrictions,
                     OtherRequirements = _whatItTakesMessageConverter.ConvertFrom(contentItem).OtherRequirements

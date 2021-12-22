@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using DFC.ServiceTaxonomy.GraphSync.Models;
+using DFC.ServiceTaxonomy.JobProfiles.Module.Extensions;
 using DFC.ServiceTaxonomy.JobProfiles.Module.Models.ServiceBus;
 using DFC.ServiceTaxonomy.JobProfiles.Module.ServiceBusHandling.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
@@ -78,8 +80,7 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module.ServiceBusHandling.Converters
                 {
                     restrictions.Add(new RestrictionItem
                     {
-                        // TODO: We need here unique identifier 
-                        //Id = new Guid(contentItem.ContentItemId),
+                        Id = contentItem.As<GraphSyncPart>().ExtractGuid(),
                         Title = contentItem.As<TitlePart>().Title,
                         Info = contentItem.Content.Restriction.Info?.Html
                     });
