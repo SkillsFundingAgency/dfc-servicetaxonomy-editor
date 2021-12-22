@@ -15,7 +15,6 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module.Handlers
             _dataEventProcessor = dataEventProcessor;
         }
 
-
         //public override async Task PublishingAsync(PublishContentContext context) => await _dataEventProcessor.ProcessContentContext(context, ActionTypes.Published);
 
         //public override async Task UnpublishingAsync(PublishContentContext context) => await _dataEventProcessor.ProcessContentContext(context, ActionTypes.Deleted);

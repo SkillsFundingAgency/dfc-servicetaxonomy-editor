@@ -2,7 +2,7 @@
 
 namespace DFC.ServiceTaxonomy.JobProfiles.Module.Models.ServiceBus
 {
-    internal class RestrictionItem : InfoDataItem
+    public class RestrictionItem : InfoDataItem
     {
 
     }
