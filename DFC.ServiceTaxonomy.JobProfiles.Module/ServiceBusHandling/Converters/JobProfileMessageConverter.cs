@@ -50,7 +50,7 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module.ServiceBusHandling.Converters
                     WidgetContentTitle = contentItem.Content.JobProfile.WidgetContentTitle == null ? default(string?) : (string?)contentItem.Content.JobProfile.WidgetContentTitle.Text,
                     AlternativeTitle = contentItem.Content.JobProfile.AlternativeTitle == null ? default(string?) : (string?)contentItem.Content.JobProfile.AlternativeTitle.Text,
                     Overview = contentItem.Content.JobProfile.Overview == null ? default(string?) : (string?)contentItem.Content.JobProfile.Overview.Text,
-                    SalaryStarter = contentItem.Content.JobProfile.Salarystarterperyear == null ? default(decimal?) :  (decimal?)contentItem.Content.JobProfile.Salarystarterperyear.Value,
+                    SalaryStarter = contentItem.Content.JobProfile.Salarystarterperyear == null ? default(decimal?) : (decimal?)contentItem.Content.JobProfile.Salarystarterperyear.Value,
                     SalaryExperienced = contentItem.Content.JobProfile.Salaryexperiencedperyear == null ? default(decimal?) : (decimal?)contentItem.Content.JobProfile.Salaryexperiencedperyear.Value,
                     MinimumHours = contentItem.Content.JobProfile.Minimumhours == null ? default(decimal?) : (decimal?)contentItem.Content.JobProfile.Minimumhours.Value,
                     MaximumHours = contentItem.Content.JobProfile.Maximumhours == null ? default(decimal?) : (decimal?)contentItem.Content.JobProfile.Maximumhours.Value,
@@ -59,12 +59,12 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module.ServiceBusHandling.Converters
 
                     HowToBecomeData = _howToBecomeMessageConverter.ConvertFrom(contentItem),
                     WhatYouWillDoData = _whatYouWillDoDataMessageConverter.ConvertFrom(contentItem),
+                    RelatedCareersData = GetRelatedCareersData(relatedCareersProfiles),
+                    Restrictions = GetRestrictions(restrictions),
+                    OtherRequirements = contentItem.Content.JobProfile.Otherrequirements == null ? default(string?) : (string?)contentItem.Content.JobProfile.Otherrequirements.Html,
+                    DynamicTitlePrefix = dynamicTitlePrefix.Any() ? dynamicTitlePrefix.First().As<TitlePart>().Title : string.Empty,
+                    DigitalSkillsLevel = digitalSkillsLevel.Any() ? digitalSkillsLevel.First().Content.Digitalskills.Description.Text : string.Empty
                 };
-                jobProfileMessage.RelatedCareersData = GetRelatedCareersData(relatedCareersProfiles);
-                jobProfileMessage.Restrictions = GetRestrictions(restrictions);
-                jobProfileMessage.OtherRequirements = contentItem.Content.JobProfile.Otherrequirements == null ? default(string?) : (string?)contentItem.Content.JobProfile.Otherrequirements.Html;
-                jobProfileMessage.DynamicTitlePrefix = dynamicTitlePrefix.Any() ? dynamicTitlePrefix.First().As<TitlePart>().Title : string.Empty;
-                jobProfileMessage.DigitalSkillsLevel = digitalSkillsLevel.Any() ? digitalSkillsLevel.First().Content.Digitalskills.Description.Text : string.Empty;
                 return jobProfileMessage;
             }
             catch (Exception ex)
