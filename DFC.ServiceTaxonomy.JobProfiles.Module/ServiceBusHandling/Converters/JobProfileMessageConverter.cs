@@ -43,6 +43,10 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module.ServiceBusHandling.Converters
                 List<ContentItem> dynamicTitlePrefix = GetContentItems(contentItem.Content.JobProfile.Dynamictitleprefix, contentManager);
                 List<ContentItem> digitalSkillsLevel = GetContentItems(contentItem.Content.JobProfile.Digitalskills, contentManager);
 
+                List<ContentItem> workingHoursDetails = GetContentItems(contentItem.Content.JobProfile.WorkingHoursDetails, contentManager);
+                List<ContentItem> workingPatterns = GetContentItems(contentItem.Content.JobProfile.Workingpattern, contentManager);
+                List<ContentItem> workingPatternDetails = GetContentItems(contentItem.Content.JobProfile.Workingpatterndetails, contentManager);
+
                 var jobProfileMessage = new JobProfileMessage
                 {
                     JobProfileId = contentItem.As<GraphSyncPart>().ExtractGuid(),
@@ -65,7 +69,12 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module.ServiceBusHandling.Converters
                     DynamicTitlePrefix = dynamicTitlePrefix.Any() ? dynamicTitlePrefix.First().As<TitlePart>().Title : string.Empty,
                     DigitalSkillsLevel = digitalSkillsLevel.Any() ? digitalSkillsLevel.First().Content.Digitalskills.Description.Text : string.Empty
                 };
-                if(contentItem.ModifiedUtc.HasValue)
+
+                jobProfileMessage.WorkingHoursDetails = MapClassificationData(workingHoursDetails);
+                jobProfileMessage.WorkingPattern = MapClassificationData(workingPatterns);
+                jobProfileMessage.WorkingPatternDetails = MapClassificationData(workingPatternDetails);
+
+                if (contentItem.ModifiedUtc.HasValue)
                 {
                     jobProfileMessage.LastModified = contentItem.ModifiedUtc.Value;
                 }
@@ -76,6 +85,39 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module.ServiceBusHandling.Converters
             {
                 _logger.LogError(ex.Message);
                 throw;
+            }
+        }
+
+        private IEnumerable<Classification> MapClassificationData(List<ContentItem> contentItems)
+        {
+            var classificationData = new List<Classification>();
+            if (contentItems.Any())
+            {
+                foreach (var contentItem in contentItems)
+                {
+                    classificationData.Add(new Classification
+                    {
+                        Id = contentItem.As<GraphSyncPart>().ExtractGuid(),
+                        Title = contentItem.As<TitlePart>().Title,
+                        Description = GetClassificationDescriptionText(contentItem)
+                    });
+                }
+            }
+
+            return classificationData;
+        }
+
+        private string GetClassificationDescriptionText(ContentItem contentItem)
+        {
+            switch (contentItem.ContentType)
+            {
+                case "WorkingHoursDetails":
+                    return contentItem.Content.WorkingHoursDetails.Description.Text;
+                case "Workingpattern":
+                    return contentItem.Content.Workingpattern.Description.Text;
+                case "workingPatternDetails":
+                    return contentItem.Content.workingPatternDetails.Description.Text;
+                default: return string.Empty;
             }
         }
 
