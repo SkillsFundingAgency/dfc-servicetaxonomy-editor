@@ -24,14 +24,14 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module.ServiceBusHandling.Converters
         {
             var contentManager = _serviceProvider.GetRequiredService<IContentManager>();
 
-            List<ContentItem> relatedSkills = Helper.GetContentItems(contentItem.Content.JobProfile.Relatedskills, contentManager);
+            //List<ContentItem> relatedSkills = Helper.GetContentItems(contentItem.Content.JobProfile.Relatedskills, contentManager);
             List<ContentItem> relatedDigitalSkills = Helper.GetContentItems(contentItem.Content.JobProfile.Digitalskills, contentManager);
             List<ContentItem> relatedRestrictions = Helper.GetContentItems(contentItem.Content.JobProfile.Relatedrestrictions, contentManager);
 
 
             var whatItTakesData = new WhatItTakesData
             {
-                RelatedSkills = GetSkills(relatedSkills),
+                //RelatedSkills = GetSkills(relatedSkills),
                 RelatedDigitalSkills = GetDigitalSkills(relatedDigitalSkills),
                 OtherRequirements = contentItem.Content.JobProfile.Otherrequirements.Html,
                 RelatedRestrictions = GetRestrictions(relatedRestrictions)
@@ -39,33 +39,34 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module.ServiceBusHandling.Converters
             return whatItTakesData;
         }
 
-        private IEnumerable<SkillItem> GetSkills(List<ContentItem> contentItems)
-        {
-            var skills = new List<SkillItem>();
-            if (contentItems.Any())
-            {
-                foreach (var contentItem in contentItems)
-                {
-                    skills.Add(new SkillItem
-                    {
-                        Title = contentItem.As<TitlePart>().Title,
-                        Description = contentItem.Content.Skill.Description?.Html,
-                        ONetElementId = contentItem.Content.Skill.Description?.Text
-                    });
-                }
-            }
+        // TODO: SKILLs
+        //private IEnumerable<SkillItem> GetSkills(List<ContentItem> contentItems)
+        //{
+        //    var skills = new List<SkillItem>();
+        //    if (contentItems.Any())
+        //    {
+        //        foreach (var contentItem in contentItems)
+        //        {
+        //            skills.Add(new SkillItem
+        //            {
+        //                Title = contentItem.As<TitlePart>().Title,
+        //                Description = contentItem.Content.Skill.Description?.Html,
+        //                ONetElementId = contentItem.Content.Skill.Description?.Text
+        //            });
+        //        }
+        //    }
 
-            return skills;
-        }
+        //    return skills;
+        //}
 
         private string GetDigitalSkills(List<ContentItem> contentItems)
         {
             var digitalSkills = string.Empty;
             if (contentItems.Any())
             {
-                var contentItem = contentItems.FirstOrDefault();
+                var contentItem = contentItems.First();
                 if (contentItem != null)
-                    digitalSkills = contentItem.Content.Digitalskills.Description?.Text;
+                    digitalSkills = contentItem.As<TitlePart>()?.Title;
             }
 
             return digitalSkills ?? string.Empty;
