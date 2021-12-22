@@ -46,6 +46,8 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module.ServiceBusHandling.Converters
                 List<ContentItem> dynamicTitlePrefix = GetContentItems(contentItem.Content.JobProfile.Dynamictitleprefix, contentManager);
                 //List<ContentItem> digitalSkillsLevel = GetContentItems(contentItem.Content.JobProfile.Digitalskills, contentManager);
 
+                var witMessage = _whatItTakesMessageConverter.ConvertFrom(contentItem);
+
                 var jobProfileMessage = new JobProfileMessage
                 {
                     JobProfileId = contentItem.As<GraphSyncPart>().ExtractGuid(),
@@ -70,9 +72,9 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module.ServiceBusHandling.Converters
                    
 
                     //SocSkillsMatrixData - TODO: RelatedSkills to be added later
-                    DigitalSkillsLevel = _whatItTakesMessageConverter.ConvertFrom(contentItem).RelatedDigitalSkills,
-                    Restrictions = _whatItTakesMessageConverter.ConvertFrom(contentItem).RelatedRestrictions,
-                    OtherRequirements = _whatItTakesMessageConverter.ConvertFrom(contentItem).OtherRequirements
+                    DigitalSkillsLevel = witMessage.RelatedDigitalSkills,
+                    Restrictions = witMessage.RelatedRestrictions,
+                    OtherRequirements = witMessage.OtherRequirements
                 };
                 if(contentItem.ModifiedUtc.HasValue)
                 {
