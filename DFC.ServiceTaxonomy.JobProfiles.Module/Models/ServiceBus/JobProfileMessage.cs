@@ -1,6 +1,4 @@
-﻿
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 
 namespace DFC.ServiceTaxonomy.JobProfiles.Module.Models.ServiceBus
@@ -13,7 +11,7 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module.Models.ServiceBus
         /// <value>
         /// The id.
         /// </value>
-        public string? JobProfileId { get; set; }
+        public Guid JobProfileId { get; set; }
 
         /// <summary>
         /// Gets or sets the title.
