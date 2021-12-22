@@ -4,7 +4,7 @@
 namespace DFC.ServiceTaxonomy.JobProfiles.Module.Models.ServiceBus
 {
 #pragma warning disable S101 // Types should be named in PascalCase
-    internal class WYDRelatedContentType
+    public class WYDRelatedContentType
 #pragma warning restore S101 // Types should be named in PascalCase
     {
         public Guid Id { get; set; }
