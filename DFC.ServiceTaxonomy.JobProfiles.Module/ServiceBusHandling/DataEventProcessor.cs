@@ -76,17 +76,17 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module.ServiceBusHandling
                         await GenerateServiceBusMessageForSocSkillsMatrixType(context, actionType);
                         break;
 
-                    case ContentTypes.JobProfileSpecialism:
-                        // apprenticeship-standards	
-                        // apprenticeship-frameworks
-                        // HiddenAlternativeTitle
-                        // UniversityEntryRequirements
-                        // CollegeEntryRequirements
-                        // WorkingHoursDetails
-                        // WorkingHoursDetails
-                        // WorkingPatternDetails
-                        // 
-                        break;
+                    //case ContentTypes.JobProfileSpecialism:
+                    // apprenticeship-standards	
+                    // apprenticeship-frameworks
+                    // HiddenAlternativeTitle
+                    // UniversityEntryRequirements
+                    // CollegeEntryRequirements
+                    // WorkingHoursDetails
+                    // WorkingHoursDetails
+                    // WorkingPatternDetails
+                    // 
+                    //break;
 
                     default:
                         _logger.LogInformation($"Content type '{context.ContentItem.ContentType}' for this item with ContentItemId = '{context.ContentItem.ContentItemId}'  is not proccessed for ServiceBus messaging");
