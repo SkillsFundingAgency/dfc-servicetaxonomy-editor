@@ -31,9 +31,9 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module
             services.AddScoped<IMessageConverter<JobProfileMessage>, JobProfileMessageConverter>();
             services.AddScoped<IMessageConverter<HowToBecomeData>, HowToBecomeMessageConverter>();
             services.AddScoped<IMessageConverter<WhatYouWillDoData>, WhatYouWillDoMessageConverter>();
+            services.AddScoped<IMessageConverter<WhatItTakesData>, WhatItTakesMessageConverter>();
             services.AddScoped<IDataEventProcessor, DataEventProcessor>();
             services.AddScoped<IContentHandler, ServiceBusContentHandler>();
-            services.AddScoped<IDataEventProcessor, DataEventProcessor>();
             services.AddScoped<IServiceBusMessageProcessor, ServiceBusMessageProcessor>();
 
             // Repositories

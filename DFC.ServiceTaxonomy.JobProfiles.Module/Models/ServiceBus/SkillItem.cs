@@ -1,16 +1,11 @@
-﻿using System;
-
+﻿
 
 namespace DFC.ServiceTaxonomy.JobProfiles.Module.Models.ServiceBus
 {
-    public class FrameworkSkillItem
+    public class SkillItem
     {
-        public Guid Id { get; set; }
-
         public string? Title { get; set; }
-
-        public string? ONetElementId { get; set; }
-
         public string? Description { get; set; }
+        public string? ONetElementId { get; set; }
     }
 }

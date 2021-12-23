@@ -1,5 +1,4 @@
-﻿
-namespace DFC.ServiceTaxonomy.JobProfiles.Module.Models.ServiceBus
+﻿namespace DFC.ServiceTaxonomy.JobProfiles.Module.Models.ServiceBus
 {
     internal class InfoContentItem : RelatedContentItem
     {
