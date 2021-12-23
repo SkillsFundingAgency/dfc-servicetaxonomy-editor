@@ -46,6 +46,8 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module.ServiceBusHandling.Converters
                 List<ContentItem> workingHoursDetails = GetContentItems(contentItem.Content.JobProfile.WorkingHoursDetails, contentManager);
                 List<ContentItem> workingPatterns = GetContentItems(contentItem.Content.JobProfile.Workingpattern, contentManager);
                 List<ContentItem> workingPatternDetails = GetContentItems(contentItem.Content.JobProfile.Workingpatterndetails, contentManager);
+                List<ContentItem> hiddenAlternativeTitle = GetContentItems(contentItem.Content.JobProfile.HiddenAlternativeTitle, contentManager);
+                List<ContentItem> jobProfileSpecialism = GetContentItems(contentItem.Content.JobProfile.Jobprofilespecialism, contentManager);
 
                 var jobProfileMessage = new JobProfileMessage
                 {
@@ -67,12 +69,14 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module.ServiceBusHandling.Converters
                     Restrictions = GetRestrictions(restrictions),
                     OtherRequirements = contentItem.Content.JobProfile.Otherrequirements == null ? default(string?) : (string?)contentItem.Content.JobProfile.Otherrequirements.Html,
                     DynamicTitlePrefix = dynamicTitlePrefix.Any() ? dynamicTitlePrefix.First().As<TitlePart>().Title : string.Empty,
-                    DigitalSkillsLevel = digitalSkillsLevel.Any() ? digitalSkillsLevel.First().Content.Digitalskills.Description.Text : string.Empty
+                    DigitalSkillsLevel = digitalSkillsLevel.Any() ? digitalSkillsLevel.First().Content.Digitalskills.Description.Text : string.Empty,
+                    WorkingHoursDetails = MapClassificationData(workingHoursDetails),
+                    WorkingPattern = MapClassificationData(workingPatterns),
+                    WorkingPatternDetails = MapClassificationData(workingPatternDetails),
+                    HiddenAlternativeTitle = MapClassificationData(hiddenAlternativeTitle),
+                    JobProfileSpecialism = MapClassificationData(jobProfileSpecialism)
                 };
 
-                jobProfileMessage.WorkingHoursDetails = MapClassificationData(workingHoursDetails);
-                jobProfileMessage.WorkingPattern = MapClassificationData(workingPatterns);
-                jobProfileMessage.WorkingPatternDetails = MapClassificationData(workingPatternDetails);
 
                 if (contentItem.ModifiedUtc.HasValue)
                 {
@@ -111,12 +115,16 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module.ServiceBusHandling.Converters
         {
             switch (contentItem.ContentType)
             {
-                case "WorkingHoursDetails":
-                    return contentItem.Content.WorkingHoursDetails.Description.Text;
-                case "Workingpattern":
-                    return contentItem.Content.Workingpattern.Description.Text;
-                case "workingPatternDetails":
-                    return contentItem.Content.workingPatternDetails.Description.Text;
+                case "HiddenAlternativeTitle":
+                    return contentItem.Content.HiddenAlternativeTitle.Description.Text;
+                case "JobProfileSpecialism":
+                    return contentItem.Content.JobProfileSpecialism.Description.Text;
+                case "Workinghoursdetail":
+                    return contentItem.Content.Workinghoursdetail.Description.Text;
+                case "Workingpatterns":
+                    return contentItem.Content.Workingpatterns.Description.Text;
+                case "Workingpatterndetail":
+                    return contentItem.Content.Workingpatterndetail.Description.Text;
                 default: return string.Empty;
             }
         }
