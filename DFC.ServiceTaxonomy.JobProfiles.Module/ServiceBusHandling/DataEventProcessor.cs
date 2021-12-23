@@ -50,17 +50,17 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module.ServiceBusHandling
                         await GenerateServiceBusMessageForWYDTypes(context, actionType);
                         break;
 
-                    case ContentTypes.UniversityLink:
-                    case ContentTypes.CollegeLink:
-                    case ContentTypes.ApprenticeshipLink:
+                    case ContentTypes.Universitylink:
+                    case ContentTypes.Collegelink:
+                    case ContentTypes.Apprenticeshiplink:
                         await GenerateServiceBusMessageForTextFieldTypes(context, actionType);
                         break;
 
                     case ContentTypes.Restriction:
                     case ContentTypes.Registration:
-                    case ContentTypes.ApprenticeshipRequirement:
-                    case ContentTypes.CollegeRequirement:
-                    case ContentTypes.UniversityRequirement:
+                    case ContentTypes.Apprenticeshiprequirements:
+                    case ContentTypes.Collegerequirements:
+                    case ContentTypes.Universityrequirements:
                         await GenerateServiceBusMessageForInfoTypes(context, actionType);
                         break;
 
