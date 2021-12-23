@@ -32,6 +32,7 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module
             services.AddScoped<IMessageConverter<HowToBecomeData>, HowToBecomeMessageConverter>();
             services.AddScoped<IMessageConverter<WhatYouWillDoData>, WhatYouWillDoMessageConverter>();
             services.AddScoped<IMessageConverter<WhatItTakesData>, WhatItTakesMessageConverter>();
+            services.AddScoped<IMessageConverter<SocCodeItem>, SocCodeMessageConverter>();
             services.AddScoped<IDataEventProcessor, DataEventProcessor>();
             services.AddScoped<IContentHandler, ServiceBusContentHandler>();
             services.AddScoped<IServiceBusMessageProcessor, ServiceBusMessageProcessor>();
