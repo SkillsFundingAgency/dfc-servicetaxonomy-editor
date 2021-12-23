@@ -20,15 +20,8 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module.ServiceBusHandling
         public const string Uniform = nameof(Uniform);
         public const string Location = nameof(Location);
 
-        public const string UniversityLink = nameof(UniversityLink);
-        public const string CollegeLink = nameof(CollegeLink);
-        public const string ApprenticeshipLink = nameof(ApprenticeshipLink);
-
         public const string Restriction = nameof(Restriction);
         public const string Registration = nameof(Registration);
-        public const string ApprenticeshipRequirement = nameof(ApprenticeshipRequirement);
-        public const string CollegeRequirement = nameof(CollegeRequirement);
-        public const string UniversityRequirement = nameof(UniversityRequirement);
 
         public const string HiddenAlternativeTitle = nameof(HiddenAlternativeTitle);
         public const string JobProfileSpecialism = nameof(JobProfileSpecialism);
