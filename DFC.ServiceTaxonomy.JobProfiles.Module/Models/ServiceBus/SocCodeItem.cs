@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace DFC.ServiceTaxonomy.JobProfiles.Module.Models.ServiceBus
 {
-    internal class SocCodeItem
+    public class SocCodeItem
     {
         public Guid Id { get; set; }
 
@@ -14,7 +14,9 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module.Models.ServiceBus
 
         public string? ONetOccupationalCode { get; set; }
 
-        public string? UrlName { get; set; }
+        public string? SOC2020 { get; set; }
+
+        public string? SOC2020extension { get; set; }
 
         public IEnumerable<Classification>? ApprenticeshipFramework { get; set; }
 
