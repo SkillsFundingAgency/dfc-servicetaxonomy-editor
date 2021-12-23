@@ -96,7 +96,7 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module.ServiceBusHandling.Converters
                 };
 
                 jobProfileMessage.CanonicalName = !string.IsNullOrEmpty(jobProfileMessage.UrlName) ? jobProfileMessage.UrlName.ToLower() : string.Empty;
-                jobProfileMessage.SocLevelTwo = jobProfileMessage.SocCodeData != null ? jobProfileMessage.SocCodeData.SOCCode : String.Empty;
+                jobProfileMessage.SocLevelTwo = jobProfileMessage.SocCodeData != null && !string.IsNullOrEmpty(jobProfileMessage.SocCodeData.SOCCode) ? jobProfileMessage.SocCodeData.SOCCode.Substring(0, 2) : String.Empty;
 
                 if (contentItem.ModifiedUtc.HasValue)
                 {
