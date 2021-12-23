@@ -2,7 +2,7 @@
 
 namespace DFC.ServiceTaxonomy.JobProfiles.Module.Models.ServiceBus
 {
-    internal class Classification
+    public class Classification
     {
         public Guid Id { get; set; }
 

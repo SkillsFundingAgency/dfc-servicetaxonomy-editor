@@ -1,14 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+
 using DFC.ServiceTaxonomy.GraphSync.Models;
 using DFC.ServiceTaxonomy.JobProfiles.Module.Extensions;
 using DFC.ServiceTaxonomy.JobProfiles.Module.Models.ServiceBus;
 using DFC.ServiceTaxonomy.JobProfiles.Module.ServiceBusHandling.Interfaces;
 using DFC.ServiceTaxonomy.PageLocation.Models;
+
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+
 using Newtonsoft.Json.Linq;
+
 using OrchardCore.ContentManagement;
 using OrchardCore.Title.Models;
 
@@ -69,14 +73,14 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module.ServiceBusHandling.Converters
                     //OtherRequirements = contentItem.Content.JobProfile.Otherrequirements == null ? default(string?) : (string?)contentItem.Content.JobProfile.Otherrequirements.Html,
                     DynamicTitlePrefix = dynamicTitlePrefix.Any() ? dynamicTitlePrefix.First().As<TitlePart>().Title : string.Empty,
                     //DigitalSkillsLevel = digitalSkillsLevel.Any() ? digitalSkillsLevel.First().Content.Digitalskills.Description.Text : string.Empty,
-                   
+
 
                     //SocSkillsMatrixData - TODO: RelatedSkills to be added later
                     DigitalSkillsLevel = witMessage.RelatedDigitalSkills,
                     Restrictions = witMessage.RelatedRestrictions,
                     OtherRequirements = witMessage.OtherRequirements
                 };
-                if(contentItem.ModifiedUtc.HasValue)
+                if (contentItem.ModifiedUtc.HasValue)
                 {
                     jobProfileMessage.LastModified = contentItem.ModifiedUtc.Value;
                 }
@@ -93,7 +97,7 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module.ServiceBusHandling.Converters
         private IEnumerable<JobProfileRelatedCareerItem> GetRelatedCareersData(List<ContentItem> contentItems)
         {
             var relatedCareersData = new List<JobProfileRelatedCareerItem>();
-            if(contentItems.Any())
+            if (contentItems.Any())
             {
                 foreach (var contentItem in contentItems)
                 {
