@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using DFC.ServiceTaxonomy.GraphSync.Models;
+using DFC.ServiceTaxonomy.JobProfiles.Module.Extensions;
 using DFC.ServiceTaxonomy.JobProfiles.Module.Models.ServiceBus;
 using DFC.ServiceTaxonomy.JobProfiles.Module.ServiceBusHandling.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
-using Newtonsoft.Json.Linq;
 using OrchardCore.ContentManagement;
 using OrchardCore.Title.Models;
 
@@ -22,16 +23,16 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module.ServiceBusHandling.Converters
         public  HowToBecomeData ConvertFrom(ContentItem contentItem)
         {
             var contentManager = _serviceProvider.GetRequiredService<IContentManager>();
-            List<ContentItem> universityEntryRequirements =  GetContentItems(contentItem.Content.JobProfile.Universityentryrequirements, contentManager);
-            List<ContentItem> relatedUniversityRequirements =  GetContentItems(contentItem.Content.JobProfile.Relateduniversityrequirements, contentManager);
-            List<ContentItem> relatedUniversityLinks =  GetContentItems(contentItem.Content.JobProfile.Relateduniversitylinks, contentManager);
-            List<ContentItem> collegeEntryRequirements =  GetContentItems(contentItem.Content.JobProfile.Collegeentryrequirements, contentManager);
-            List<ContentItem> relatedCollegeRequirements =  GetContentItems(contentItem.Content.JobProfile.Relatedcollegerequirements, contentManager);
-            List<ContentItem> relatedCollegeLinks =  GetContentItems(contentItem.Content.JobProfile.Relatedcollegelinks, contentManager);
-            List<ContentItem> apprenticeshipEntryRequirements =  GetContentItems(contentItem.Content.JobProfile.Apprenticeshipentryrequirements, contentManager);
-            List<ContentItem> relatedApprenticeshipRequirements =  GetContentItems(contentItem.Content.JobProfile.Relatedapprenticeshiprequirements, contentManager);
-            List<ContentItem> relatedApprenticeshipLinks =  GetContentItems(contentItem.Content.JobProfile.Relatedapprenticeshiplinks, contentManager);
-            List<ContentItem> relatedRegistrations =  GetContentItems(contentItem.Content.JobProfile.Relatedregistrations, contentManager);
+            List<ContentItem> universityEntryRequirements =  Helper.GetContentItems(contentItem.Content.JobProfile.Universityentryrequirements, contentManager);
+            List<ContentItem> relatedUniversityRequirements = Helper.GetContentItems(contentItem.Content.JobProfile.Relateduniversityrequirements, contentManager);
+            List<ContentItem> relatedUniversityLinks = Helper.GetContentItems(contentItem.Content.JobProfile.Relateduniversitylinks, contentManager);
+            List<ContentItem> collegeEntryRequirements = Helper.GetContentItems(contentItem.Content.JobProfile.Collegeentryrequirements, contentManager);
+            List<ContentItem> relatedCollegeRequirements = Helper.GetContentItems(contentItem.Content.JobProfile.Relatedcollegerequirements, contentManager);
+            List<ContentItem> relatedCollegeLinks = Helper.GetContentItems(contentItem.Content.JobProfile.Relatedcollegelinks, contentManager);
+            List<ContentItem> apprenticeshipEntryRequirements = Helper.GetContentItems(contentItem.Content.JobProfile.Apprenticeshipentryrequirements, contentManager);
+            List<ContentItem> relatedApprenticeshipRequirements = Helper.GetContentItems(contentItem.Content.JobProfile.Relatedapprenticeshiprequirements, contentManager);
+            List<ContentItem> relatedApprenticeshipLinks = Helper.GetContentItems(contentItem.Content.JobProfile.Relatedapprenticeshiplinks, contentManager);
+            List<ContentItem> relatedRegistrations = Helper.GetContentItems(contentItem.Content.JobProfile.Relatedregistrations, contentManager);
 
 
             var howToBecomeData = new HowToBecomeData
@@ -100,6 +101,7 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module.ServiceBusHandling.Converters
                 {
                     requirements.Add(new RegistrationItem
                     {
+                        Id = contentItem.As<GraphSyncPart>().ExtractGuid(),
                         Title = contentItem.As<TitlePart>().Title,
                         Info = contentItem.Content.Registration.Description.Html
                     });
@@ -119,6 +121,7 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module.ServiceBusHandling.Converters
                     var link = GetRelatedLinkURL(contentItem);
                     linkItems.Add(new MoreInformationLinkItem
                     {
+                        Id = contentItem.As<GraphSyncPart>().ExtractGuid(),
                         Title = contentItem.As<TitlePart>().Title,
                         Url = !string.IsNullOrWhiteSpace(link) ? new Uri(link, UriKind.RelativeOrAbsolute) : default,
                         Text = GetRelatedLinkText(contentItem)
@@ -133,11 +136,11 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module.ServiceBusHandling.Converters
         {
             switch (contentItem.ContentType)
             {
-                case "Universitylink":
+                case ContentTypes.Universitylink:
                     return contentItem.Content.Universitylink.URL.Text;
-                case "Collegelink":
+                case ContentTypes.Collegelink:
                     return contentItem.Content.Collegelink.URL.Text;
-                case "Apprenticeshiplink":
+                case ContentTypes.Apprenticeshiplink:
                     return contentItem.Content.Apprenticeshiplink.URL.Text;
                 default: return string.Empty;
             }
@@ -166,6 +169,7 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module.ServiceBusHandling.Converters
                 {
                     requirements.Add(new EntryRequirementItem
                     {
+                        Id = contentItem.As<GraphSyncPart>().ExtractGuid(),
                         Title = contentItem.As<TitlePart>().Title,
                         Info = GetEntryRequirementInfo(contentItem)
                     });
@@ -179,27 +183,14 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module.ServiceBusHandling.Converters
         {
             switch(contentItem.ContentType)
             {
-                case "Universityrequirements":
+                case ContentTypes.Universityrequirements:
                     return contentItem.Content.Universityrequirements.Info.Html;
-                case "Collegerequirements":
+                case ContentTypes.Collegerequirements:
                     return contentItem.Content.Collegerequirements.Info.Html;
-                case "Apprenticeshiprequirements":
+                case ContentTypes.Apprenticeshiprequirements:
                     return contentItem.Content.Apprenticeshiprequirements.Info.Html;
                 default: return string.Empty;
             }
-        }
-
-        private  List<ContentItem> GetContentItems(dynamic contentPicker, IContentManager contentManager)
-        {
-            var contentItemIds = (JArray)contentPicker.ContentItemIds;
-            if (contentItemIds.Any())
-            {
-                var idList = contentItemIds.Select(c => c.Value<string>()).ToList();
-                var contentItems = contentManager.GetAsync(idList).Result;
-                return contentItems.ToList();
-            }
-
-            return new List<ContentItem>();
         }
     }
 }
