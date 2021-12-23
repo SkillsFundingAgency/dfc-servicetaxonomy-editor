@@ -35,5 +35,15 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module.ServiceBusHandling
         public const string Workinghoursdetail = nameof(Workinghoursdetail);
         public const string Workingpatterns = nameof(Workingpatterns);
         public const string Workingpatterndetail = nameof(Workingpatterndetail);
+
+        public const string Universitylink = nameof(Universitylink);
+        public const string Collegelink = nameof(Collegelink);
+        public const string Apprenticeshiplink = nameof(Apprenticeshiplink);
+
+        public const string Universityrequirements = nameof(Universityrequirements);
+        public const string Collegerequirements = nameof(Collegerequirements);
+        public const string Apprenticeshiprequirements = nameof(Apprenticeshiprequirements);
+
+
     }
 }
