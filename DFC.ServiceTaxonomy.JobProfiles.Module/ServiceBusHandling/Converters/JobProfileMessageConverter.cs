@@ -124,15 +124,15 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module.ServiceBusHandling.Converters
         {
             switch (contentItem.ContentType)
             {
-                case "HiddenAlternativeTitle":
+                case ContentTypes.HiddenAlternativeTitle:
                     return contentItem.Content.HiddenAlternativeTitle.Description.Text;
-                case "JobProfileSpecialism":
+                case ContentTypes.JobProfileSpecialism:
                     return contentItem.Content.JobProfileSpecialism.Description.Text;
-                case "Workinghoursdetail":
+                case ContentTypes.Workinghoursdetail:
                     return contentItem.Content.Workinghoursdetail.Description.Text;
-                case "Workingpatterns":
+                case ContentTypes.Workingpatterns:
                     return contentItem.Content.Workingpatterns.Description.Text;
-                case "Workingpatterndetail":
+                case ContentTypes.Workingpatterndetail:
                     return contentItem.Content.Workingpatterndetail.Description.Text;
                 default: return string.Empty;
             }
