@@ -63,7 +63,7 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module.ServiceBusHandling.Converters
                 {
                     JobProfileId = contentItem.As<GraphSyncPart>().ExtractGuid(),
                     Title = contentItem.As<TitlePart>().Title,
-                    UrlName = contentItem.As<PageLocationPart>().FullUrl,
+                    UrlName = contentItem.As<PageLocationPart>().UrlName,
                     WidgetContentTitle = contentItem.Content.JobProfile.WidgetContentTitle == null ? default(string?) : (string?)contentItem.Content.JobProfile.WidgetContentTitle.Text,
                     AlternativeTitle = contentItem.Content.JobProfile.AlternativeTitle == null ? default(string?) : (string?)contentItem.Content.JobProfile.AlternativeTitle.Text,
                     Overview = contentItem.Content.JobProfile.Overview == null ? default(string?) : (string?)contentItem.Content.JobProfile.Overview.Text,
@@ -95,8 +95,8 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module.ServiceBusHandling.Converters
                     JobProfileCategories = GetJobCategories(jobCategories),
                 };
 
-                jobProfileMessage.CanonicalName = jobProfileMessage.UrlName;
-                jobProfileMessage.SocLevelTwo = jobProfileMessage.SocCodeData.SOCCode;
+                jobProfileMessage.CanonicalName = !string.IsNullOrEmpty(jobProfileMessage.UrlName) ? jobProfileMessage.UrlName.ToLower() : string.Empty;
+                jobProfileMessage.SocLevelTwo = jobProfileMessage.SocCodeData != null ? jobProfileMessage.SocCodeData.SOCCode : String.Empty;
 
                 if (contentItem.ModifiedUtc.HasValue)
                 {
