@@ -29,5 +29,11 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module.ServiceBusHandling
         public const string ApprenticeshipRequirement = nameof(ApprenticeshipRequirement);
         public const string CollegeRequirement = nameof(CollegeRequirement);
         public const string UniversityRequirement = nameof(UniversityRequirement);
+
+        public const string HiddenAlternativeTitle = nameof(HiddenAlternativeTitle);
+        public const string JobProfileSpecialism = nameof(JobProfileSpecialism);
+        public const string Workinghoursdetail = nameof(Workinghoursdetail);
+        public const string Workingpatterns = nameof(Workingpatterns);
+        public const string Workingpatterndetail = nameof(Workingpatterndetail);
     }
 }

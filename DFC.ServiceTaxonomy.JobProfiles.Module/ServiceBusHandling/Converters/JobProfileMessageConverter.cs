@@ -46,11 +46,15 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module.ServiceBusHandling.Converters
             {
                 var contentManager = _serviceProvider.GetRequiredService<IContentManager>();
                 List<ContentItem> relatedCareersProfiles = GetContentItems(contentItem.Content.JobProfile.Relatedcareerprofiles, contentManager);
-                //List<ContentItem> restrictions = GetContentItems(contentItem.Content.JobProfile.Relatedrestrictions, contentManager);
                 List<ContentItem> dynamicTitlePrefix = GetContentItems(contentItem.Content.JobProfile.Dynamictitleprefix, contentManager);
-                //List<ContentItem> digitalSkillsLevel = GetContentItems(contentItem.Content.JobProfile.Digitalskills, contentManager);
 
                 var witMessage = _whatItTakesMessageConverter.ConvertFrom(contentItem);
+
+                List<ContentItem> workingHoursDetails = GetContentItems(contentItem.Content.JobProfile.WorkingHoursDetails, contentManager);
+                List<ContentItem> workingPatterns = GetContentItems(contentItem.Content.JobProfile.Workingpattern, contentManager);
+                List<ContentItem> workingPatternDetails = GetContentItems(contentItem.Content.JobProfile.Workingpatterndetails, contentManager);
+                List<ContentItem> hiddenAlternativeTitle = GetContentItems(contentItem.Content.JobProfile.HiddenAlternativeTitle, contentManager);
+                List<ContentItem> jobProfileSpecialism = GetContentItems(contentItem.Content.JobProfile.Jobprofilespecialism, contentManager);
 
                 var jobProfileMessage = new JobProfileMessage
                 {
@@ -69,17 +73,20 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module.ServiceBusHandling.Converters
                     HowToBecomeData = _howToBecomeMessageConverter.ConvertFrom(contentItem),
                     WhatYouWillDoData = _whatYouWillDoDataMessageConverter.ConvertFrom(contentItem),
                     RelatedCareersData = GetRelatedCareersData(relatedCareersProfiles),
-                    //Restrictions = GetRestrictions(restrictions),
-                    //OtherRequirements = contentItem.Content.JobProfile.Otherrequirements == null ? default(string?) : (string?)contentItem.Content.JobProfile.Otherrequirements.Html,
                     DynamicTitlePrefix = dynamicTitlePrefix.Any() ? dynamicTitlePrefix.First().As<TitlePart>().Title : string.Empty,
-                    //DigitalSkillsLevel = digitalSkillsLevel.Any() ? digitalSkillsLevel.First().Content.Digitalskills.Description.Text : string.Empty,
 
+                    WorkingHoursDetails = MapClassificationData(workingHoursDetails),
+                    WorkingPattern = MapClassificationData(workingPatterns),
+                    WorkingPatternDetails = MapClassificationData(workingPatternDetails),
+                    HiddenAlternativeTitle = MapClassificationData(hiddenAlternativeTitle),
+                    JobProfileSpecialism = MapClassificationData(jobProfileSpecialism),
 
                     //SocSkillsMatrixData - TODO: RelatedSkills to be added later
                     DigitalSkillsLevel = witMessage.RelatedDigitalSkills,
                     Restrictions = witMessage.RelatedRestrictions,
                     OtherRequirements = witMessage.OtherRequirements
                 };
+
                 if (contentItem.ModifiedUtc.HasValue)
                 {
                     jobProfileMessage.LastModified = contentItem.ModifiedUtc.Value;
@@ -94,6 +101,42 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module.ServiceBusHandling.Converters
             }
         }
 
+        private IEnumerable<Classification> MapClassificationData(List<ContentItem> contentItems)
+        {
+            var classificationData = new List<Classification>();
+            if (contentItems.Any())
+            {
+                foreach (var contentItem in contentItems)
+                {
+                    classificationData.Add(new Classification
+                    {
+                        Id = contentItem.As<GraphSyncPart>().ExtractGuid(),
+                        Title = contentItem.As<TitlePart>().Title,
+                        Description = GetClassificationDescriptionText(contentItem)
+                    });
+                }
+            }
+
+            return classificationData;
+        }
+
+        private string GetClassificationDescriptionText(ContentItem contentItem)
+        {
+            switch (contentItem.ContentType)
+            {
+                case ContentTypes.HiddenAlternativeTitle:
+                    return contentItem.Content.HiddenAlternativeTitle.Description.Text;
+                case ContentTypes.JobProfileSpecialism:
+                    return contentItem.Content.JobProfileSpecialism.Description.Text;
+                case ContentTypes.Workinghoursdetail:
+                    return contentItem.Content.Workinghoursdetail.Description.Text;
+                case ContentTypes.Workingpatterns:
+                    return contentItem.Content.Workingpatterns.Description.Text;
+                case ContentTypes.Workingpatterndetail:
+                    return contentItem.Content.Workingpatterndetail.Description.Text;
+                default: return string.Empty;
+            }
+        }
         private IEnumerable<JobProfileRelatedCareerItem> GetRelatedCareersData(List<ContentItem> contentItems)
         {
             var relatedCareersData = new List<JobProfileRelatedCareerItem>();
@@ -111,26 +154,6 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module.ServiceBusHandling.Converters
             }
             return relatedCareersData;
         }
-
-        private IEnumerable<RestrictionItem> GetRestrictions(List<ContentItem> contentItems)
-        {
-            var restrictions = new List<RestrictionItem>();
-            if (contentItems.Any())
-            {
-                foreach (var contentItem in contentItems)
-                {
-                    restrictions.Add(new RestrictionItem
-                    {
-                        Id = contentItem.As<GraphSyncPart>().ExtractGuid(),
-                        Title = contentItem.As<TitlePart>().Title,
-                        Info = contentItem.Content.Restriction.Info.Html
-                    });
-                }
-            }
-
-            return restrictions;
-        }
-
         private List<ContentItem> GetContentItems(dynamic contentPicker, IContentManager contentManager)
         {
             var contentItemIds = (JArray)contentPicker.ContentItemIds;
