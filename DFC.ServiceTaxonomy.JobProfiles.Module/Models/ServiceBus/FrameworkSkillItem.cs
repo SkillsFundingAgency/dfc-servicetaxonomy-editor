@@ -3,7 +3,7 @@
 
 namespace DFC.ServiceTaxonomy.JobProfiles.Module.Models.ServiceBus
 {
-    internal class FrameworkSkillItem
+    public class FrameworkSkillItem
     {
         public Guid Id { get; set; }
 

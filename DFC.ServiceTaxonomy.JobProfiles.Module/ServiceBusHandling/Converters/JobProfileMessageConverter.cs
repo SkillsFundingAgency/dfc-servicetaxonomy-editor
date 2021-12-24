@@ -1,15 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+
 using DFC.ServiceTaxonomy.GraphSync.Models;
 using DFC.ServiceTaxonomy.JobProfiles.Module.Extensions;
 using DFC.ServiceTaxonomy.JobProfiles.Module.Models.ServiceBus;
 using DFC.ServiceTaxonomy.JobProfiles.Module.ServiceBusHandling.Interfaces;
 using DFC.ServiceTaxonomy.PageLocation.Models;
+
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Newtonsoft.Json.Linq;
+
 using OrchardCore.ContentManagement;
+using OrchardCore.Sitemaps.Models;
 using OrchardCore.Title.Models;
 
 namespace DFC.ServiceTaxonomy.JobProfiles.Module.ServiceBusHandling.Converters
@@ -20,6 +23,7 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module.ServiceBusHandling.Converters
         private readonly IMessageConverter<HowToBecomeData> _howToBecomeMessageConverter;
         private readonly IMessageConverter<WhatYouWillDoData> _whatYouWillDoDataMessageConverter;
         private readonly IMessageConverter<WhatItTakesData> _whatItTakesMessageConverter;
+        private readonly IMessageConverter<SocCodeItem> _socCodeMessageConverter;
         private readonly ILogger<JobProfileMessageConverter> _logger;
 
         public JobProfileMessageConverter(
@@ -27,12 +31,14 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module.ServiceBusHandling.Converters
             IMessageConverter<HowToBecomeData> howToBecomeMessageConverter,
             IMessageConverter<WhatYouWillDoData> whatYouWillDoDataMessageConverter,
             IMessageConverter<WhatItTakesData> whatItTakesMessageConverter,
+            IMessageConverter<SocCodeItem> socCodeMessageConverter,
             ILogger<JobProfileMessageConverter> logger)
         {
             _serviceProvider = serviceProvider;
             _howToBecomeMessageConverter = howToBecomeMessageConverter;
             _whatYouWillDoDataMessageConverter = whatYouWillDoDataMessageConverter;
             _whatItTakesMessageConverter = whatItTakesMessageConverter;
+            _socCodeMessageConverter = socCodeMessageConverter;
             _logger = logger;
         }
 
@@ -41,17 +47,23 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module.ServiceBusHandling.Converters
             try
             {
                 var contentManager = _serviceProvider.GetRequiredService<IContentManager>();
-                List<ContentItem> relatedCareersProfiles = GetContentItems(contentItem.Content.JobProfile.Relatedcareerprofiles, contentManager);
-                //List<ContentItem> restrictions = GetContentItems(contentItem.Content.JobProfile.Relatedrestrictions, contentManager);
-                List<ContentItem> dynamicTitlePrefix = GetContentItems(contentItem.Content.JobProfile.Dynamictitleprefix, contentManager);
-                //List<ContentItem> digitalSkillsLevel = GetContentItems(contentItem.Content.JobProfile.Digitalskills, contentManager);
+                List<ContentItem> relatedCareersProfiles = Helper.GetContentItems(contentItem.Content.JobProfile.Relatedcareerprofiles, contentManager);
+                List<ContentItem> dynamicTitlePrefix = Helper.GetContentItems(contentItem.Content.JobProfile.Dynamictitleprefix, contentManager);
 
                 var witMessage = _whatItTakesMessageConverter.ConvertFrom(contentItem);
+
+                List<ContentItem> workingHoursDetails = Helper.GetContentItems(contentItem.Content.JobProfile.WorkingHoursDetails, contentManager);
+                List<ContentItem> workingPatterns = Helper.GetContentItems(contentItem.Content.JobProfile.Workingpattern, contentManager);
+                List<ContentItem> workingPatternDetails = Helper.GetContentItems(contentItem.Content.JobProfile.Workingpatterndetails, contentManager);
+                List<ContentItem> hiddenAlternativeTitle = Helper.GetContentItems(contentItem.Content.JobProfile.HiddenAlternativeTitle, contentManager);
+                List<ContentItem> jobProfileSpecialism = Helper.GetContentItems(contentItem.Content.JobProfile.Jobprofilespecialism, contentManager);
+                List<ContentItem> jobCategories = Helper.GetContentItems(contentItem.Content.JobProfile.Jobprofilecategory, contentManager);
 
                 var jobProfileMessage = new JobProfileMessage
                 {
                     JobProfileId = contentItem.As<GraphSyncPart>().ExtractGuid(),
                     Title = contentItem.As<TitlePart>().Title,
+                    UrlName = contentItem.As<PageLocationPart>().UrlName,
                     WidgetContentTitle = contentItem.Content.JobProfile.WidgetContentTitle == null ? default(string?) : (string?)contentItem.Content.JobProfile.WidgetContentTitle.Text,
                     AlternativeTitle = contentItem.Content.JobProfile.AlternativeTitle == null ? default(string?) : (string?)contentItem.Content.JobProfile.AlternativeTitle.Text,
                     Overview = contentItem.Content.JobProfile.Overview == null ? default(string?) : (string?)contentItem.Content.JobProfile.Overview.Text,
@@ -65,22 +77,31 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module.ServiceBusHandling.Converters
                     HowToBecomeData = _howToBecomeMessageConverter.ConvertFrom(contentItem),
                     WhatYouWillDoData = _whatYouWillDoDataMessageConverter.ConvertFrom(contentItem),
                     RelatedCareersData = GetRelatedCareersData(relatedCareersProfiles),
-                    //Restrictions = GetRestrictions(restrictions),
-                    //OtherRequirements = contentItem.Content.JobProfile.Otherrequirements == null ? default(string?) : (string?)contentItem.Content.JobProfile.Otherrequirements.Html,
                     DynamicTitlePrefix = dynamicTitlePrefix.Any() ? dynamicTitlePrefix.First().As<TitlePart>().Title : string.Empty,
-                    //DigitalSkillsLevel = digitalSkillsLevel.Any() ? digitalSkillsLevel.First().Content.Digitalskills.Description.Text : string.Empty,
-                   
+
+                    WorkingHoursDetails = Helper.MapClassificationData(workingHoursDetails),
+                    WorkingPattern = Helper.MapClassificationData(workingPatterns),
+                    WorkingPatternDetails = Helper.MapClassificationData(workingPatternDetails),
+                    HiddenAlternativeTitle = Helper.MapClassificationData(hiddenAlternativeTitle),
+                    JobProfileSpecialism = Helper.MapClassificationData(jobProfileSpecialism),
 
                     //SocSkillsMatrixData - TODO: RelatedSkills to be added later
                     DigitalSkillsLevel = witMessage.RelatedDigitalSkills,
                     Restrictions = witMessage.RelatedRestrictions,
-                    OtherRequirements = witMessage.OtherRequirements
+                    OtherRequirements = witMessage.OtherRequirements,
+
+                    SocCodeData = _socCodeMessageConverter.ConvertFrom(contentItem),
+                    IncludeInSitemap = !contentItem.As<SitemapPart>().Exclude,
+                    JobProfileCategories = GetJobCategories(jobCategories),
                 };
-                if(contentItem.ModifiedUtc.HasValue)
+
+                jobProfileMessage.CanonicalName = !string.IsNullOrEmpty(jobProfileMessage.UrlName) ? jobProfileMessage.UrlName.ToLower() : string.Empty;
+                jobProfileMessage.SocLevelTwo = jobProfileMessage.SocCodeData != null && !string.IsNullOrEmpty(jobProfileMessage.SocCodeData.SOCCode) ? jobProfileMessage.SocCodeData.SOCCode.Substring(0, 2) : String.Empty;
+
+                if (contentItem.ModifiedUtc.HasValue)
                 {
                     jobProfileMessage.LastModified = contentItem.ModifiedUtc.Value;
                 }
-                jobProfileMessage.CanonicalName = contentItem.As<PageLocationPart>().FullUrl;
                 return jobProfileMessage;
             }
             catch (Exception ex)
@@ -90,10 +111,29 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module.ServiceBusHandling.Converters
             }
         }
 
+        private IEnumerable<JobProfileCategoryItem> GetJobCategories(List<ContentItem> contentItems)
+        {
+            List<JobProfileCategoryItem> jobProfileCategoriesData = new List<JobProfileCategoryItem>();
+            if (contentItems.Any())
+            {
+                foreach (var contentItem in contentItems)
+                {
+                    jobProfileCategoriesData.Add(new JobProfileCategoryItem
+                    {
+                        Id = contentItem.As<GraphSyncPart>().ExtractGuid(),
+                        Title = contentItem.As<TitlePart>().Title,
+                        Name = contentItem.Content.Jobprofilecategory.Description == null ? default(string?) : (string?)contentItem.Content.Jobprofilecategory.Description.Text
+                    });
+                }
+            }
+
+            return jobProfileCategoriesData;
+        }
+
         private IEnumerable<JobProfileRelatedCareerItem> GetRelatedCareersData(List<ContentItem> contentItems)
         {
             var relatedCareersData = new List<JobProfileRelatedCareerItem>();
-            if(contentItems.Any())
+            if (contentItems.Any())
             {
                 foreach (var contentItem in contentItems)
                 {
@@ -107,38 +147,5 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module.ServiceBusHandling.Converters
             }
             return relatedCareersData;
         }
-
-        private IEnumerable<RestrictionItem> GetRestrictions(List<ContentItem> contentItems)
-        {
-            var restrictions = new List<RestrictionItem>();
-            if (contentItems.Any())
-            {
-                foreach (var contentItem in contentItems)
-                {
-                    restrictions.Add(new RestrictionItem
-                    {
-                        Id = contentItem.As<GraphSyncPart>().ExtractGuid(),
-                        Title = contentItem.As<TitlePart>().Title,
-                        Info = contentItem.Content.Restriction.Info.Html
-                    });
-                }
-            }
-
-            return restrictions;
-        }
-
-        private List<ContentItem> GetContentItems(dynamic contentPicker, IContentManager contentManager)
-        {
-            var contentItemIds = (JArray)contentPicker.ContentItemIds;
-            if (contentItemIds.Any())
-            {
-                var idList = contentItemIds.Select(c => c.Value<string>()).ToList();
-                var contentItems = contentManager.GetAsync(idList).Result;
-                return contentItems.ToList();
-            }
-
-            return new List<ContentItem>();
-        }
-
     }
 }
