@@ -1,6 +1,5 @@
 ﻿using System;
 
-
 namespace DFC.ServiceTaxonomy.JobProfiles.Module.Models.ServiceBus
 {
     internal class JobProfileRelatedCareerItem
