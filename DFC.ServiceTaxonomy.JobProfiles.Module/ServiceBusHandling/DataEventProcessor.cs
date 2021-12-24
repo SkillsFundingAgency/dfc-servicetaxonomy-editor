@@ -102,19 +102,16 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module.ServiceBusHandling
 
         private async Task GenerateServiceBusMessageForJobProfile(ContentContextBase context, string actionType)
         {
-            var contentType = context.ContentItem.ContentType;
-            if (contentType != null && contentType == ContentTypes.JobProfile)
-            {
-                bool isSaved = actionType.Equals(ActionTypes.Published) || actionType.Equals(ActionTypes.Draft);
-                var jobprofileMessage = isSaved
-                    ? _jobprofileMessageConverter.ConvertFrom(context.ContentItem)
-                    : new JobProfileMessage()
-                    {
-                        JobProfileId = context.ContentItem.As<GraphSyncPart>().ExtractGuid(),
-                        Title = context.ContentItem.Content.Title
-                    };
-                await _serviceBusMessageProcessor.SendJobProfileMessage(jobprofileMessage, contentType, actionType).ConfigureAwait(false);
-            }
+            bool isSaved = actionType.Equals(ActionTypes.Published) || actionType.Equals(ActionTypes.Draft);
+            var jobprofileMessage = isSaved
+                ? await _jobprofileMessageConverter.ConvertFromAsync(context.ContentItem)
+                : new JobProfileMessage()
+                {
+                    JobProfileId = context.ContentItem.As<GraphSyncPart>().ExtractGuid(),
+                    Title = context.ContentItem.Content.Title
+                };
+
+            await _serviceBusMessageProcessor.SendJobProfileMessage(jobprofileMessage, context.ContentItem.ContentType, actionType);
         }
 
         private Task GenerateServiceBusMessageForWYDTypes(ContentContextBase context, string actionType)
