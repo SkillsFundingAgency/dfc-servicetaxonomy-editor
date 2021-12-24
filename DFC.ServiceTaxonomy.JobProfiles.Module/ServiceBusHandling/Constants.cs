@@ -1,6 +1,4 @@
-﻿
-
-namespace DFC.ServiceTaxonomy.JobProfiles.Module.ServiceBusHandling
+﻿namespace DFC.ServiceTaxonomy.JobProfiles.Module.ServiceBusHandling
 {
     public static class ActionTypes
     {

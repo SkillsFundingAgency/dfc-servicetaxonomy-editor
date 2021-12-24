@@ -1,11 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
+
 using DFC.ServiceTaxonomy.GraphSync.Models;
 using DFC.ServiceTaxonomy.JobProfiles.Module.Extensions;
 using DFC.ServiceTaxonomy.JobProfiles.Module.Models.ServiceBus;
 using DFC.ServiceTaxonomy.JobProfiles.Module.ServiceBusHandling.Interfaces;
-using Microsoft.Extensions.DependencyInjection;
+
 using OrchardCore.ContentManagement;
 using OrchardCore.Title.Models;
 
@@ -13,31 +14,30 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module.ServiceBusHandling.Converters
 {
     public class SocCodeMessageConverter : IMessageConverter<SocCodeItem>
     {
-        private readonly IServiceProvider _serviceProvider;
+        private readonly IContentManager _contentManager;
 
-        public SocCodeMessageConverter(IServiceProvider serviceProvider)
+        public SocCodeMessageConverter(IContentManager contentManager) =>
+            _contentManager = contentManager;
+
+        public async Task<SocCodeItem> ConvertFromAsync(ContentItem contentItem)
         {
-            _serviceProvider = serviceProvider;
-        }
-        public SocCodeItem ConvertFrom(ContentItem contentItem)
-        {
-            var contentManager = _serviceProvider.GetRequiredService<IContentManager>();
-            List<ContentItem> socCodes = Helper.GetContentItems(contentItem.Content.JobProfile.SOCcode, contentManager);
-            if(!socCodes.Any() || socCodes.Count > 1)
+            IEnumerable<ContentItem> socCodes = await Helper.GetContentItemsAsync(contentItem.Content.JobProfile.SOCcode, _contentManager);
+            if (!socCodes.Any() || socCodes.Count() > 1)
             {
                 return new SocCodeItem();
             }
+
             var socCode = socCodes.First();
-            List<ContentItem> apprenticeshipStandards = Helper.GetContentItems(socCode.Content.SOCcode.ApprenticeshipStandards, contentManager);
+            IEnumerable<ContentItem> apprenticeshipStandards = await Helper.GetContentItemsAsync(socCode.Content.SOCcode.ApprenticeshipStandards, _contentManager);
 
             var socCodeItem = new SocCodeItem
             {
                 Id = socCode.As<GraphSyncPart>().ExtractGuid(),
                 SOCCode = socCode.As<TitlePart>().Title,
-                Description = socCode.Content.SOCcode.Description == null ? default(string?) : (string?)socCode.Content.SOCcode.Description.Html,
-                ONetOccupationalCode = socCode.Content.SOCcode.OnetOccupationCode == null ? default(string?) : (string?)socCode.Content.SOCcode.OnetOccupationCode.Text,
-                SOC2020 = socCode.Content.SOCcode.SOC2020 == null ? default(string?) : (string?)socCode.Content.SOCcode.SOC2020.Text,
-                SOC2020extension = socCode.Content.SOCcode.SOC2020extension == null ? default(string?) : (string?)socCode.Content.SOCcode.SOC2020extension.Text,
+                Description = socCode.Content.SOCcode.Description is null ? default : (string?)socCode.Content.SOCcode.Description.Html,
+                ONetOccupationalCode = socCode.Content.SOCcode.OnetOccupationCode is null ? default : (string?)socCode.Content.SOCcode.OnetOccupationCode.Text,
+                SOC2020 = socCode.Content.SOCcode.SOC2020 is null ? default : (string?)socCode.Content.SOCcode.SOC2020.Text,
+                SOC2020extension = socCode.Content.SOCcode.SOC2020extension is null ? default : (string?)socCode.Content.SOCcode.SOC2020extension.Text,
                 ApprenticeshipStandards = Helper.MapClassificationData(apprenticeshipStandards)
             };
             return socCodeItem;
