@@ -1,9 +1,11 @@
-﻿using OrchardCore.ContentManagement;
+﻿using System.Threading.Tasks;
+
+using OrchardCore.ContentManagement;
 
 namespace DFC.ServiceTaxonomy.JobProfiles.Module.ServiceBusHandling.Interfaces
 {
-    public interface IMessageConverter<out T>
+    public interface IMessageConverter<T>
     {
-        T ConvertFrom(ContentItem contentItem);
+        Task<T> ConvertFromAsync(ContentItem contentItem);
     }
 }

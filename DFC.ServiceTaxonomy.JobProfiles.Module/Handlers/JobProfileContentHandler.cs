@@ -1,41 +1,43 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.Extensions.DependencyInjection;
+
+using DFC.ServiceTaxonomy.JobProfiles.Module.ServiceBusHandling;
+
 using Newtonsoft.Json.Linq;
+
 using OrchardCore.ContentManagement;
 using OrchardCore.ContentManagement.Handlers;
 using OrchardCore.ContentManagement.Records;
+
 using YesSql;
 
 namespace DFC.ServiceTaxonomy.JobProfiles.Module.Handlers
 {
     internal class JobProfileContentHandler : ContentHandlerBase
     {
-        private readonly IServiceProvider _serviceProvider;
+        private readonly IContentManager _contentManager;
         private readonly ISession _session;
 
         public JobProfileContentHandler(
-            IServiceProvider serviceProvider,
-            ISession session)
+            ISession session,
+            IContentManager contentManager)
         {
-            _serviceProvider = serviceProvider;
             _session = session;
+            _contentManager = contentManager;
         }
         public override async Task DraftSavingAsync(SaveDraftContentContext context)
         {
-            if (context.ContentItem.ContentType == "JobProfile")
+            if (context.ContentItem.ContentType == ContentTypes.JobProfile)
             {
                 //
                 var socCodeContentItemIds = (JArray)context.ContentItem.Content.JobProfile.SOCCode.ContentItemIds;
-                
-                if(socCodeContentItemIds.Any() && socCodeContentItemIds.Count() == 1)
+
+                if (socCodeContentItemIds.Any() && socCodeContentItemIds.Count == 1)
                 {
                     var socCodeContentItemId = socCodeContentItemIds.First().Value<string>();
-                    var contentManager = _serviceProvider.GetRequiredService<IContentManager>();
-                    var socCodeContentItem = await contentManager.GetAsync(socCodeContentItemId, VersionOptions.Latest);
+                    var socCodeContentItem = await _contentManager.GetAsync(socCodeContentItemId, VersionOptions.Latest);
                     var socCode = (string)socCodeContentItem.Content.SOCCode.SOCCodeTextField.Text;
-                    var socSkillsMatrixContentItemsList = await _session.Query<ContentItem, ContentItemIndex>(c => c.ContentType == "SOCSkillsMatrix" && c.DisplayText.StartsWith(socCode)).ListAsync();
+                    var socSkillsMatrixContentItemsList = await _session.Query<ContentItem, ContentItemIndex>(c => c.ContentType == ContentTypes.SOCSkillsMatrix && c.DisplayText.StartsWith(socCode)).ListAsync();
                     context.ContentItem.Content.JobProfile.Relatedskills.ContentItemIds = new JArray(socSkillsMatrixContentItemsList.Select(c => c.ContentItemId));
                 }
             }
