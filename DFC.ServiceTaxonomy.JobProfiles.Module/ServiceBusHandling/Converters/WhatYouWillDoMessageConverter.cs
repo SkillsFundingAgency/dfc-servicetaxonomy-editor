@@ -2,35 +2,37 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+
+using DFC.ServiceTaxonomy.GraphSync.Models;
+using DFC.ServiceTaxonomy.JobProfiles.Module.Extensions;
 using DFC.ServiceTaxonomy.JobProfiles.Module.Models.ServiceBus;
 using DFC.ServiceTaxonomy.JobProfiles.Module.ServiceBusHandling.Interfaces;
-using Microsoft.Extensions.DependencyInjection;
-using Newtonsoft.Json.Linq;
+
+using Microsoft.Extensions.Logging;
+
 using OrchardCore.ContentManagement;
 using OrchardCore.Title.Models;
-using Microsoft.Extensions.Logging;
 
 namespace DFC.ServiceTaxonomy.JobProfiles.Module.ServiceBusHandling.Converters
 {
     public class WhatYouWillDoMessageConverter : IMessageConverter<WhatYouWillDoData>
     {
-        private readonly IServiceProvider _serviceProvider;
+        private readonly IContentManager _contentManager;
         private readonly ILogger<WhatYouWillDoMessageConverter> _logger;
 
-        public WhatYouWillDoMessageConverter(IServiceProvider serviceProvider, ILogger<WhatYouWillDoMessageConverter> logger)
+        public WhatYouWillDoMessageConverter(ILogger<WhatYouWillDoMessageConverter> logger, IContentManager contentManager)
         {
-            _serviceProvider = serviceProvider;
             _logger = logger;
+            _contentManager = contentManager;
         }
 
         public async Task<WhatYouWillDoData> ConvertFromAsync(ContentItem contentItem)
         {
             try
             {
-                var contentManager = _serviceProvider.GetRequiredService<IContentManager>();
-                List<ContentItem> relatedLocations = GetContentItems(contentItem.Content.JobProfile.Relatedlocations, contentManager);
-                List<ContentItem> relatedEnvironments = GetContentItems(contentItem.Content.JobProfile.Relatedenvironments, contentManager);
-                List<ContentItem> relatedUniforms = GetContentItems(contentItem.Content.JobProfile.Relateduniforms, contentManager);
+                IEnumerable<ContentItem> relatedLocations = await Helper.GetContentItemsAsync(contentItem.Content.JobProfile.Relatedlocations, _contentManager);
+                IEnumerable<ContentItem> relatedEnvironments = await Helper.GetContentItemsAsync(contentItem.Content.JobProfile.Relatedenvironments, _contentManager);
+                IEnumerable<ContentItem> relatedUniforms = await Helper.GetContentItemsAsync(contentItem.Content.JobProfile.Relateduniforms, _contentManager);
 
                 var whatYouWillDoData = new WhatYouWillDoData
                 {
@@ -48,37 +50,14 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module.ServiceBusHandling.Converters
             }
         }
 
-        private List<ContentItem> GetContentItems(dynamic contentPicker, IContentManager contentManager)
-        {
-            var contentItemIds = (JArray)contentPicker.ContentItemIds;
-            if (contentItemIds.Any())
+        private static IEnumerable<WYDRelatedContentType> GetWYDRelatedItems(IEnumerable<ContentItem> contentItems) =>
+            contentItems?.Select(contentItem => new WYDRelatedContentType
             {
-                var idList = contentItemIds.Select(c => c.Value<string>()).ToList();
-                var contentItems = contentManager.GetAsync(idList).Result;
-                return contentItems.ToList();
-            }
-
-            return new List<ContentItem>();
-        }
-
-        private IEnumerable<WYDRelatedContentType> GetWYDRelatedItems(List<ContentItem> contentItems)
-        {
-            var relatedContentTypes = new List<WYDRelatedContentType>();
-            if (contentItems.Any())
-            {
-                foreach (var contentItem in contentItems)
-                {
-                    relatedContentTypes.Add(new WYDRelatedContentType
-                    {
-                        Url = contentItem.Content.GraphSyncPart.Text,
-                        Description = GetWYDRelatedItemDescription(contentItem),
-                        Title = contentItem.As<TitlePart>().Title,
-                    });
-                }
-            }
-
-            return Enumerable.Empty<WYDRelatedContentType>();
-        }
+                Id = contentItem.As<GraphSyncPart>().ExtractGuid(),
+                Url = contentItem.Content.GraphSyncPart.Text,
+                Description = GetWYDRelatedItemDescription(contentItem),
+                Title = contentItem.As<TitlePart>().Title,
+            }) ?? Enumerable.Empty<WYDRelatedContentType>();
 
         private static string GetWYDRelatedItemDescription(ContentItem contentItem) =>
             contentItem.ContentType switch
@@ -90,5 +69,3 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module.ServiceBusHandling.Converters
             };
     }
 }
-
-
