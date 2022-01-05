@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -7,6 +8,8 @@ using DFC.ServiceTaxonomy.JobProfiles.Module.Extensions;
 using DFC.ServiceTaxonomy.JobProfiles.Module.Models.ServiceBus;
 using DFC.ServiceTaxonomy.JobProfiles.Module.ServiceBusHandling.Interfaces;
 
+using Microsoft.Extensions.DependencyInjection;
+
 using OrchardCore.ContentManagement;
 using OrchardCore.Title.Models;
 
@@ -14,16 +17,17 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module.ServiceBusHandling.Converters
 {
     public class WhatItTakesMessageConverter : IMessageConverter<WhatItTakesData>
     {
-        private readonly IContentManager _contentManager;
+        private readonly IServiceProvider _serviceProvider;
 
-        public WhatItTakesMessageConverter(IContentManager contentManager) =>
-            _contentManager = contentManager;
+        public WhatItTakesMessageConverter(IServiceProvider serviceProvider) =>
+            _serviceProvider = serviceProvider;
 
         public async Task<WhatItTakesData> ConvertFromAsync(ContentItem contentItem)
         {
+            var contentManager = _serviceProvider.GetRequiredService<IContentManager>();
             //List<ContentItem> relatedSkills = Helper.GetContentItems(contentItem.Content.JobProfile.Relatedskills, contentManager);
-            IEnumerable<ContentItem> relatedDigitalSkills = await Helper.GetContentItemsAsync(contentItem.Content.JobProfile.Digitalskills, _contentManager);
-            IEnumerable<ContentItem> relatedRestrictions = await Helper.GetContentItemsAsync(contentItem.Content.JobProfile.Relatedrestrictions, _contentManager);
+            IEnumerable<ContentItem> relatedDigitalSkills = await Helper.GetContentItemsAsync(contentItem.Content.JobProfile.Digitalskills, contentManager);
+            IEnumerable<ContentItem> relatedRestrictions = await Helper.GetContentItemsAsync(contentItem.Content.JobProfile.Relatedrestrictions, contentManager);
 
             var whatItTakesData = new WhatItTakesData
             {

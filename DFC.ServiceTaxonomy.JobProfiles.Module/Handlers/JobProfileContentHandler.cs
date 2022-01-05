@@ -1,7 +1,10 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 
 using DFC.ServiceTaxonomy.JobProfiles.Module.ServiceBusHandling;
+
+using Microsoft.Extensions.DependencyInjection;
 
 using Newtonsoft.Json.Linq;
 
@@ -15,15 +18,15 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module.Handlers
 {
     internal class JobProfileContentHandler : ContentHandlerBase
     {
-        private readonly IContentManager _contentManager;
+        private readonly IServiceProvider _serviceProvider;
         private readonly ISession _session;
 
         public JobProfileContentHandler(
-            ISession session,
-            IContentManager contentManager)
+            IServiceProvider serviceProvider,
+            ISession session)
         {
             _session = session;
-            _contentManager = contentManager;
+            _serviceProvider = serviceProvider;
         }
         public override async Task DraftSavingAsync(SaveDraftContentContext context)
         {
@@ -35,7 +38,8 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module.Handlers
                 if (socCodeContentItemIds.Any() && socCodeContentItemIds.Count == 1)
                 {
                     var socCodeContentItemId = socCodeContentItemIds.First().Value<string>();
-                    var socCodeContentItem = await _contentManager.GetAsync(socCodeContentItemId, VersionOptions.Latest);
+                    var contentManager = _serviceProvider.GetRequiredService<IContentManager>(); 
+                    var socCodeContentItem = await contentManager.GetAsync(socCodeContentItemId, VersionOptions.Latest);
                     var socCode = (string)socCodeContentItem.Content.SOCCode.SOCCodeTextField.Text;
                     var socSkillsMatrixContentItemsList = await _session.Query<ContentItem, ContentItemIndex>(c => c.ContentType == ContentTypes.SOCSkillsMatrix && c.DisplayText.StartsWith(socCode)).ListAsync();
                     context.ContentItem.Content.JobProfile.Relatedskills.ContentItemIds = new JArray(socSkillsMatrixContentItemsList.Select(c => c.ContentItemId));
