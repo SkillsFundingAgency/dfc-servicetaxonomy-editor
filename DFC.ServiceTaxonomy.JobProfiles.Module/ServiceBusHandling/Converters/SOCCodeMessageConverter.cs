@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -7,6 +8,8 @@ using DFC.ServiceTaxonomy.JobProfiles.Module.Extensions;
 using DFC.ServiceTaxonomy.JobProfiles.Module.Models.ServiceBus;
 using DFC.ServiceTaxonomy.JobProfiles.Module.ServiceBusHandling.Interfaces;
 
+using Microsoft.Extensions.DependencyInjection;
+
 using OrchardCore.ContentManagement;
 using OrchardCore.Title.Models;
 
@@ -14,21 +17,22 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module.ServiceBusHandling.Converters
 {
     public class SocCodeMessageConverter : IMessageConverter<SocCodeItem>
     {
-        private readonly IContentManager _contentManager;
+        private readonly IServiceProvider _serviceProvider;
 
-        public SocCodeMessageConverter(IContentManager contentManager) =>
-            _contentManager = contentManager;
+        public SocCodeMessageConverter(IServiceProvider serviceProvider) =>
+            _serviceProvider = serviceProvider;
 
         public async Task<SocCodeItem> ConvertFromAsync(ContentItem contentItem)
         {
-            IEnumerable<ContentItem> socCodes = await Helper.GetContentItemsAsync(contentItem.Content.JobProfile.SOCcode, _contentManager);
+            var contentManager = _serviceProvider.GetRequiredService<IContentManager>();
+            IEnumerable<ContentItem> socCodes = await Helper.GetContentItemsAsync(contentItem.Content.JobProfile.SOCcode, contentManager);
             if (!socCodes.Any() || socCodes.Count() > 1)
             {
                 return new SocCodeItem();
             }
 
             var socCode = socCodes.First();
-            IEnumerable<ContentItem> apprenticeshipStandards = await Helper.GetContentItemsAsync(socCode.Content.SOCcode.ApprenticeshipStandards, _contentManager);
+            IEnumerable<ContentItem> apprenticeshipStandards = await Helper.GetContentItemsAsync(socCode.Content.SOCcode.ApprenticeshipStandards, contentManager);
 
             var socCodeItem = new SocCodeItem
             {

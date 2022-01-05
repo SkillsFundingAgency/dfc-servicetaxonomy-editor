@@ -8,6 +8,7 @@ using DFC.ServiceTaxonomy.JobProfiles.Module.Extensions;
 using DFC.ServiceTaxonomy.JobProfiles.Module.Models.ServiceBus;
 using DFC.ServiceTaxonomy.JobProfiles.Module.ServiceBusHandling.Interfaces;
 
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
 using OrchardCore.ContentManagement;
@@ -17,22 +18,23 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module.ServiceBusHandling.Converters
 {
     public class WhatYouWillDoMessageConverter : IMessageConverter<WhatYouWillDoData>
     {
-        private readonly IContentManager _contentManager;
+        private readonly IServiceProvider _serviceProvider;
         private readonly ILogger<WhatYouWillDoMessageConverter> _logger;
 
-        public WhatYouWillDoMessageConverter(ILogger<WhatYouWillDoMessageConverter> logger, IContentManager contentManager)
+        public WhatYouWillDoMessageConverter(ILogger<WhatYouWillDoMessageConverter> logger, IServiceProvider serviceProvider)
         {
             _logger = logger;
-            _contentManager = contentManager;
+            _serviceProvider = serviceProvider;
         }
 
         public async Task<WhatYouWillDoData> ConvertFromAsync(ContentItem contentItem)
         {
             try
             {
-                IEnumerable<ContentItem> relatedLocations = await Helper.GetContentItemsAsync(contentItem.Content.JobProfile.Relatedlocations, _contentManager);
-                IEnumerable<ContentItem> relatedEnvironments = await Helper.GetContentItemsAsync(contentItem.Content.JobProfile.Relatedenvironments, _contentManager);
-                IEnumerable<ContentItem> relatedUniforms = await Helper.GetContentItemsAsync(contentItem.Content.JobProfile.Relateduniforms, _contentManager);
+                var contentManager = _serviceProvider.GetRequiredService<IContentManager>();
+                IEnumerable<ContentItem> relatedLocations = await Helper.GetContentItemsAsync(contentItem.Content.JobProfile.Relatedlocations, contentManager);
+                IEnumerable<ContentItem> relatedEnvironments = await Helper.GetContentItemsAsync(contentItem.Content.JobProfile.Relatedenvironments, contentManager);
+                IEnumerable<ContentItem> relatedUniforms = await Helper.GetContentItemsAsync(contentItem.Content.JobProfile.Relateduniforms, contentManager);
 
                 var whatYouWillDoData = new WhatYouWillDoData
                 {

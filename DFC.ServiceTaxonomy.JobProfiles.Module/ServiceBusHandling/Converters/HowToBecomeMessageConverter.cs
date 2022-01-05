@@ -8,6 +8,8 @@ using DFC.ServiceTaxonomy.JobProfiles.Module.Extensions;
 using DFC.ServiceTaxonomy.JobProfiles.Module.Models.ServiceBus;
 using DFC.ServiceTaxonomy.JobProfiles.Module.ServiceBusHandling.Interfaces;
 
+using Microsoft.Extensions.DependencyInjection;
+
 using OrchardCore.ContentManagement;
 using OrchardCore.Title.Models;
 
@@ -15,23 +17,24 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module.ServiceBusHandling.Converters
 {
     public class HowToBecomeMessageConverter : IMessageConverter<HowToBecomeData>
     {
-        private readonly IContentManager _contentManager;
+        private readonly IServiceProvider _serviceProvider;
 
-        public HowToBecomeMessageConverter(IContentManager contentManager) =>
-            _contentManager = contentManager;
+        public HowToBecomeMessageConverter(IServiceProvider serviceProvider) =>
+            _serviceProvider = serviceProvider;
 
         public async Task<HowToBecomeData> ConvertFromAsync(ContentItem contentItem)
         {
-            IEnumerable<ContentItem> universityEntryRequirements = await Helper.GetContentItemsAsync(contentItem.Content.JobProfile.Universityentryrequirements, _contentManager);
-            IEnumerable<ContentItem> relatedUniversityRequirements = await Helper.GetContentItemsAsync(contentItem.Content.JobProfile.Relateduniversityrequirements, _contentManager);
-            IEnumerable<ContentItem> relatedUniversityLinks = await Helper.GetContentItemsAsync(contentItem.Content.JobProfile.Relateduniversitylinks, _contentManager);
-            IEnumerable<ContentItem> collegeEntryRequirements = await Helper.GetContentItemsAsync(contentItem.Content.JobProfile.Collegeentryrequirements, _contentManager);
-            IEnumerable<ContentItem> relatedCollegeRequirements = await Helper.GetContentItemsAsync(contentItem.Content.JobProfile.Relatedcollegerequirements, _contentManager);
-            IEnumerable<ContentItem> relatedCollegeLinks = await Helper.GetContentItemsAsync(contentItem.Content.JobProfile.Relatedcollegelinks, _contentManager);
-            IEnumerable<ContentItem> apprenticeshipEntryRequirements = await Helper.GetContentItemsAsync(contentItem.Content.JobProfile.Apprenticeshipentryrequirements, _contentManager);
-            IEnumerable<ContentItem> relatedApprenticeshipRequirements = await Helper.GetContentItemsAsync(contentItem.Content.JobProfile.Relatedapprenticeshiprequirements, _contentManager);
-            IEnumerable<ContentItem> relatedApprenticeshipLinks = await Helper.GetContentItemsAsync(contentItem.Content.JobProfile.Relatedapprenticeshiplinks, _contentManager);
-            IEnumerable<ContentItem> relatedRegistrations = await Helper.GetContentItemsAsync(contentItem.Content.JobProfile.Relatedregistrations, _contentManager);
+            var contentManager = _serviceProvider.GetRequiredService<IContentManager>();
+            IEnumerable<ContentItem> universityEntryRequirements = await Helper.GetContentItemsAsync(contentItem.Content.JobProfile.Universityentryrequirements, contentManager);
+            IEnumerable<ContentItem> relatedUniversityRequirements = await Helper.GetContentItemsAsync(contentItem.Content.JobProfile.Relateduniversityrequirements, contentManager);
+            IEnumerable<ContentItem> relatedUniversityLinks = await Helper.GetContentItemsAsync(contentItem.Content.JobProfile.Relateduniversitylinks, contentManager);
+            IEnumerable<ContentItem> collegeEntryRequirements = await Helper.GetContentItemsAsync(contentItem.Content.JobProfile.Collegeentryrequirements, contentManager);
+            IEnumerable<ContentItem> relatedCollegeRequirements = await Helper.GetContentItemsAsync(contentItem.Content.JobProfile.Relatedcollegerequirements, contentManager);
+            IEnumerable<ContentItem> relatedCollegeLinks = await Helper.GetContentItemsAsync(contentItem.Content.JobProfile.Relatedcollegelinks, contentManager);
+            IEnumerable<ContentItem> apprenticeshipEntryRequirements = await Helper.GetContentItemsAsync(contentItem.Content.JobProfile.Apprenticeshipentryrequirements, contentManager);
+            IEnumerable<ContentItem> relatedApprenticeshipRequirements = await Helper.GetContentItemsAsync(contentItem.Content.JobProfile.Relatedapprenticeshiprequirements, contentManager);
+            IEnumerable<ContentItem> relatedApprenticeshipLinks = await Helper.GetContentItemsAsync(contentItem.Content.JobProfile.Relatedapprenticeshiplinks, contentManager);
+            IEnumerable<ContentItem> relatedRegistrations = await Helper.GetContentItemsAsync(contentItem.Content.JobProfile.Relatedregistrations, contentManager);
 
 
             var howToBecomeData = new HowToBecomeData
