@@ -13,6 +13,7 @@
         public const string Skill = nameof(Skill);
         public const string JobProfileSOC = nameof(JobProfileSOC);
         public const string SOCSkillsMatrix = nameof(SOCSkillsMatrix);
+        public const string SOCcode = nameof(SOCcode);
 
         public const string Environment = nameof(Environment);
         public const string Uniform = nameof(Uniform);

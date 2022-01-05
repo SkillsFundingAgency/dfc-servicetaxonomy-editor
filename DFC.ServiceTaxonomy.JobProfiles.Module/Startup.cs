@@ -26,7 +26,7 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module
         {
             // CMS
             //services.AddScoped<IDataMigration, Migrations>();
-            //services.AddScoped<IContentHandler, SocCodeContentHandler>();
+            services.AddScoped<IContentHandler, SocCodeContentHandler>();
             //services.AddScoped<IContentHandler, JobProfileContentHandler>();
             services.AddScoped<IMessageConverter<JobProfileMessage>, JobProfileMessageConverter>();
             services.AddScoped<IMessageConverter<HowToBecomeData>, HowToBecomeMessageConverter>();
@@ -40,7 +40,7 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module
             // Repositories
 
             // TODO: SQL Server connection string should be in settings
-            services.AddDbContext<DfcDevOnetSkillsFrameworkContext>(options => options.UseSqlServer("Server=xxx;Database=dfc-dev-onetskillsframework;Trusted_Connection=True;"));
+            services.AddDbContext<DfcDevOnetSkillsFrameworkContext>(options => options.UseSqlServer("Server=ANDYROSEA5F0;Database=dfc-dev-onetskillsframework;Trusted_Connection=True;"));
             services.AddScoped<ISocMappingRepository, SocMappingRepository>();
             services.AddScoped<ISkillsRepository, SkillsOueryRepository>();
             services.AddScoped<IQueryRepository<FrameworkSkillSuppression>, SuppressionsQueryRepository>();

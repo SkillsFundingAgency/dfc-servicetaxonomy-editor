@@ -1,15 +1,22 @@
-﻿using System.Threading.Tasks;
-using OrchardCore.ContentManagement.Handlers;
-using DFC.ServiceTaxonomy.JobProfiles.Service.Interfaces;
-using OrchardCore.ContentManagement;
-using YesSql;
-using OrchardCore.ContentManagement.Records;
+﻿using System;
 using System.Linq;
-using OrchardCore.Title.Models;
-using System;
-using Microsoft.Extensions.DependencyInjection;
+using System.Threading.Tasks;
+
 using DFC.ServiceTaxonomy.GraphSync.Models;
+using DFC.ServiceTaxonomy.JobProfiles.Module.ServiceBusHandling;
+using DFC.ServiceTaxonomy.JobProfiles.Service.Interfaces;
+using Microsoft.AspNetCore.Mvc.Localization;
+using Microsoft.Extensions.DependencyInjection;
+
 using Newtonsoft.Json.Linq;
+
+using OrchardCore.ContentManagement;
+using OrchardCore.ContentManagement.Handlers;
+using OrchardCore.ContentManagement.Records;
+using OrchardCore.DisplayManagement.Notify;
+using OrchardCore.Title.Models;
+
+using YesSql;
 
 namespace DFC.ServiceTaxonomy.JobProfiles.Module.Handlers
 {
@@ -19,20 +26,58 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module.Handlers
         private readonly ISkillsFrameworkService _skillsFrameworkService;
         private readonly IServiceProvider _serviceProvider;
         private readonly ISession _session;
+        private readonly INotifier _notifier;
+        private readonly IHtmlLocalizer<SocCodeContentHandler> H;
+
 
         public SocCodeContentHandler(
             ISocMappingRepository socCodeMappingRepository,
             ISkillsFrameworkService skillsFrameworkService,
             IServiceProvider serviceProvider,
-            ISession session)
+            ISession session,
+            INotifier notifier,
+            IHtmlLocalizer<SocCodeContentHandler> htmlLocalizer)
         {
             _socCodeMappingRepository = socCodeMappingRepository;
             _skillsFrameworkService = skillsFrameworkService;
             _serviceProvider = serviceProvider;
             _session = session;
+            _notifier = notifier;
+            H = htmlLocalizer;
         }
 
-        public override async Task DraftSavingAsync(SaveDraftContentContext context)
+        public override async Task PublishingAsync(PublishContentContext context)
+        {
+            if (context.ContentItem.ContentType == ContentTypes.SOCcode)
+            {
+                var socCode = context.ContentItem.As<TitlePart>().Title;
+                var onetCode = (string)context.ContentItem.Content.SOCcode.OnetOccupationCode.Text;
+
+                if (string.IsNullOrEmpty(socCode) || string.IsNullOrEmpty(onetCode))
+                {
+                    context.Cancel = true;
+                    _notifier.Error(H["Skills information not found. Please check the SOC code and ONet Occupation code or get in touch with support."]);
+                    return;
+                }
+
+                // update soc/onet mapping
+                if (!await _socCodeMappingRepository.UpdateMappingAsync(socCode, onetCode))
+                {
+                    context.Cancel = true;
+                    _notifier.Error(H["Skills information not found. Please check the ONet Occupation code or get in touch with support."]);
+                    //return;
+                }
+
+
+                // get skills
+
+                // create skills if not present
+
+                // create soc skills matrix
+            }
+        }
+
+        public async Task DraftySavingAsync(SaveDraftContentContext context)
         {
             if (context.ContentItem.ContentType == "SOCCode")
             {
