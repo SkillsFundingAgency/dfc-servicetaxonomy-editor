@@ -9,6 +9,7 @@ using DFC.ServiceTaxonomy.JobProfiles.Module.Models.ServiceBus;
 using DFC.ServiceTaxonomy.JobProfiles.Module.ServiceBusHandling.Interfaces;
 using DFC.ServiceTaxonomy.PageLocation.Models;
 
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
 using OrchardCore.ContentManagement;
@@ -19,7 +20,7 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module.ServiceBusHandling.Converters
 {
     internal class JobProfileMessageConverter : IMessageConverter<JobProfileMessage>
     {
-        private readonly IContentManager _contentManager;
+        private readonly IServiceProvider _serviceProvider;
         private readonly IMessageConverter<HowToBecomeData> _howToBecomeMessageConverter;
         private readonly IMessageConverter<WhatYouWillDoData> _whatYouWillDoDataMessageConverter;
         private readonly IMessageConverter<WhatItTakesData> _whatItTakesMessageConverter;
@@ -32,9 +33,9 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module.ServiceBusHandling.Converters
             IMessageConverter<WhatItTakesData> whatItTakesMessageConverter,
             IMessageConverter<SocCodeItem> socCodeMessageConverter,
             ILogger<JobProfileMessageConverter> logger,
-            IContentManager contentManager)
+            IServiceProvider serviceProvider)
         {
-            _contentManager = contentManager;
+            _serviceProvider = serviceProvider;
             _howToBecomeMessageConverter = howToBecomeMessageConverter;
             _whatYouWillDoDataMessageConverter = whatYouWillDoDataMessageConverter;
             _whatItTakesMessageConverter = whatItTakesMessageConverter;
@@ -46,17 +47,18 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module.ServiceBusHandling.Converters
         {
             try
             {
-                IEnumerable<ContentItem> relatedCareersProfiles = await Helper.GetContentItemsAsync(contentItem.Content.JobProfile.Relatedcareerprofiles, _contentManager);
-                IEnumerable<ContentItem> dynamicTitlePrefix = await Helper.GetContentItemsAsync(contentItem.Content.JobProfile.Dynamictitleprefix, _contentManager);
+                var contentManager = _serviceProvider.GetRequiredService<IContentManager>();
+                IEnumerable<ContentItem> relatedCareersProfiles = await Helper.GetContentItemsAsync(contentItem.Content.JobProfile.Relatedcareerprofiles, contentManager);
+                IEnumerable<ContentItem> dynamicTitlePrefix = await Helper.GetContentItemsAsync(contentItem.Content.JobProfile.Dynamictitleprefix, contentManager);
 
                 var whatItTakesData = await _whatItTakesMessageConverter.ConvertFromAsync(contentItem);
 
-                IEnumerable<ContentItem> workingHoursDetails = await Helper.GetContentItemsAsync(contentItem.Content.JobProfile.WorkingHoursDetails, _contentManager);
-                IEnumerable<ContentItem> workingPatterns = await Helper.GetContentItemsAsync(contentItem.Content.JobProfile.Workingpattern, _contentManager);
-                IEnumerable<ContentItem> workingPatternDetails = await Helper.GetContentItemsAsync(contentItem.Content.JobProfile.Workingpatterndetails, _contentManager);
-                IEnumerable<ContentItem> hiddenAlternativeTitle = await Helper.GetContentItemsAsync(contentItem.Content.JobProfile.HiddenAlternativeTitle, _contentManager);
-                IEnumerable<ContentItem> jobProfileSpecialism = await Helper.GetContentItemsAsync(contentItem.Content.JobProfile.Jobprofilespecialism, _contentManager);
-                IEnumerable<ContentItem> jobCategories = await Helper.GetContentItemsAsync(contentItem.Content.JobProfile.Jobprofilecategory, _contentManager);
+                IEnumerable<ContentItem> workingHoursDetails = await Helper.GetContentItemsAsync(contentItem.Content.JobProfile.WorkingHoursDetails, contentManager);
+                IEnumerable<ContentItem> workingPatterns = await Helper.GetContentItemsAsync(contentItem.Content.JobProfile.Workingpattern, contentManager);
+                IEnumerable<ContentItem> workingPatternDetails = await Helper.GetContentItemsAsync(contentItem.Content.JobProfile.Workingpatterndetails, contentManager);
+                IEnumerable<ContentItem> hiddenAlternativeTitle = await Helper.GetContentItemsAsync(contentItem.Content.JobProfile.HiddenAlternativeTitle, contentManager);
+                IEnumerable<ContentItem> jobProfileSpecialism = await Helper.GetContentItemsAsync(contentItem.Content.JobProfile.Jobprofilespecialism, contentManager);
+                IEnumerable<ContentItem> jobCategories = await Helper.GetContentItemsAsync(contentItem.Content.JobProfile.Jobprofilecategory, contentManager);
 
                 var jobProfileMessage = new JobProfileMessage
                 {
@@ -118,7 +120,6 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module.ServiceBusHandling.Converters
                 Title = contentItem.As<TitlePart>().Title,
                 Name = contentItem.Content.Jobprofilecategory.Description is null ? default : (string?)contentItem.Content.Jobprofilecategory.Description.Text
             }) ?? Enumerable.Empty<JobProfileCategoryItem>();
-
         }
 
         private static IEnumerable<JobProfileRelatedCareerItem> GetRelatedCareersData(IEnumerable<ContentItem> contentItems) =>
