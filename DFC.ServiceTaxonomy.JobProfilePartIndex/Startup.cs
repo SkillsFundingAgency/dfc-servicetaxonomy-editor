@@ -6,9 +6,9 @@ using OrchardCore.Data.Migration;
 using OrchardCore.Modules;
 using YesSql.Indexes;
 using OrchardCore.ContentTypes.Editors;
-using DFC.ServiceTaxonomy.JobProfile.Indexes;
+using DFC.ServiceTaxonomy.JobProfilePartIndex.Indexes;
 
-namespace DFC.ServiceTaxonomy.JobProfile
+namespace DFC.ServiceTaxonomy.JobProfilePartIndex
 {
     public class Startup : StartupBase
     {

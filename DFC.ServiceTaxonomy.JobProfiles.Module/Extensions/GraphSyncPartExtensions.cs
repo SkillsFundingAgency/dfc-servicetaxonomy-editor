@@ -3,7 +3,7 @@ using DFC.ServiceTaxonomy.GraphSync.Models;
 
 namespace DFC.ServiceTaxonomy.JobProfiles.Module.Extensions
 {
-    internal static class GraphSyncPartExtensions
+    public static class GraphSyncPartExtensions
     {
         public static Guid ExtractGuid(this GraphSyncPart part)
         {

@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Text;
 using OrchardCore.ContentManagement;
 
-namespace DFC.ServiceTaxonomy.JobProfile.Models
+namespace DFC.ServiceTaxonomy.JobProfilePartIndex.Models
 {
-    public class JobProfilePart : ContentPart
+    public class JobProfile : ContentPart
     {
         public IList<string> Dynamictitleprefix { get; set; }
         public IList<string> Jobprofilespecialism { get; set; }

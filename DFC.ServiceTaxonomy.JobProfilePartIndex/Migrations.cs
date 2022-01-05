@@ -1,5 +1,5 @@
-﻿using DFC.ServiceTaxonomy.JobProfile.Indexes;
-using DFC.ServiceTaxonomy.JobProfile.Models;
+﻿using DFC.ServiceTaxonomy.JobProfilePartIndex.Indexes;
+using DFC.ServiceTaxonomy.JobProfilePartIndex.Models;
 using OrchardCore.ContentManagement.Metadata;
 using OrchardCore.ContentManagement.Metadata.Settings;
 using OrchardCore.Data.Migration;
@@ -7,9 +7,9 @@ using OrchardCore.Modules;
 using OrchardCore.Recipes.Services;
 using YesSql.Sql;
 
-namespace DFC.ServiceTaxonomy.JobProfile
+namespace DFC.ServiceTaxonomy.JobProfilePartIndex
 {
-    [Feature("DFC.ServiceTaxonomy.JobProfile")]
+    [Feature("DFC.ServiceTaxonomy.JobProfilePartIndex")]
     public class Migrations : DataMigration
     {
         private readonly IContentDefinitionManager _contentDefinitionManager;
@@ -21,7 +21,7 @@ namespace DFC.ServiceTaxonomy.JobProfile
 
         public int Create()
         {
-            _contentDefinitionManager.AlterPartDefinition(nameof(JobProfilePart), part => part
+            _contentDefinitionManager.AlterPartDefinition(nameof(JobProfile), part => part
                 .Attachable()
                 .WithDescription("Adds Title related properties to a content item.")
             );
