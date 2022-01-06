@@ -12,7 +12,6 @@ using YesSql.Indexes;
 using DFC.ServiceTaxonomy.JobProfilePartIndex.Models;
 using DFC.ServiceTaxonomy.GraphSync.Models;
 using DFC.ServiceTaxonomy.JobProfilePartIndex.Extensions;
-using DFC.ServiceTaxonomy.JobProfiles.Module.Extensions;
 
 namespace DFC.ServiceTaxonomy.JobProfilePartIndex.Indexes
 {
