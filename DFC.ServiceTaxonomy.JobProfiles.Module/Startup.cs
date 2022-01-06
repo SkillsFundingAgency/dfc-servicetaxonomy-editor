@@ -1,6 +1,4 @@
-﻿//using DFC.ServiceTaxonomy.JobProfiles.Module.Handlers;
-//using DFC.ServiceTaxonomy.JobProfiles.Module.Handlers;
-using DFC.ServiceTaxonomy.JobProfiles.Module.Handlers;
+﻿using DFC.ServiceTaxonomy.JobProfiles.Module.Handlers;
 using DFC.ServiceTaxonomy.JobProfiles.Module.Models.ServiceBus;
 using DFC.ServiceTaxonomy.JobProfiles.Module.ServiceBusHandling;
 using DFC.ServiceTaxonomy.JobProfiles.Module.ServiceBusHandling.Converters;
@@ -12,20 +10,24 @@ using DFC.ServiceTaxonomy.JobProfiles.Service.Repositories;
 using DFC.ServiceTaxonomy.JobProfiles.Service.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Configuration;
 using OrchardCore.ContentManagement.Handlers;
-//using OrchardCore.ContentManagement.Handlers;
-//using OrchardCore.ContentManagement.Handlers;
-//using OrchardCore.Data.Migration;
 using OrchardCore.Modules;
 
 namespace DFC.ServiceTaxonomy.JobProfiles.Module
 {
     public class Startup : StartupBase
     {
+        private readonly IConfiguration configuration;
+
+        public Startup(IConfiguration configuration)
+        {
+            this.configuration = configuration;
+        }
+
         public override void ConfigureServices(IServiceCollection services)
         {
             // CMS
-            //services.AddScoped<IDataMigration, Migrations>();
             services.AddScoped<IContentHandler, SocCodeContentHandler>();
             //services.AddScoped<IContentHandler, JobProfileContentHandler>();
             services.AddScoped<IMessageConverter<JobProfileMessage>, JobProfileMessageConverter>();
@@ -38,9 +40,7 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module
             services.AddScoped<IServiceBusMessageProcessor, ServiceBusMessageProcessor>();
 
             // Repositories
-
-            // TODO: SQL Server connection string should be in settings
-            services.AddDbContext<DfcDevOnetSkillsFrameworkContext>(options => options.UseSqlServer("Server=ANDYROSEA5F0;Database=dfc-dev-onetskillsframework;Trusted_Connection=True;"));
+            services.AddDbContext<DfcDevOnetSkillsFrameworkContext>(options => options.UseSqlServer(configuration.GetConnectionString("SkillsFramworkDB")));
             services.AddScoped<ISocMappingRepository, SocMappingRepository>();
             services.AddScoped<ISkillsRepository, SkillsOueryRepository>();
             services.AddScoped<IQueryRepository<FrameworkSkillSuppression>, SuppressionsQueryRepository>();

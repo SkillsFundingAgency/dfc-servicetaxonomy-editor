@@ -5,8 +5,6 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Service.Interfaces
 {
     public interface ISocMappingRepository
     {
-        SocCodeMapping GetById(string id);
-
         Task<bool> UpdateMappingAsync(string socCode, string onetId);
     }
 }

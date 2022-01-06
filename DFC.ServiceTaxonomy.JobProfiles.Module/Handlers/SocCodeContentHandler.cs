@@ -5,10 +5,11 @@ using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.Models;
 using DFC.ServiceTaxonomy.JobProfiles.Module.ServiceBusHandling;
 using DFC.ServiceTaxonomy.JobProfiles.Service.Interfaces;
+using DFC.ServiceTaxonomy.Title.Models;
 using Microsoft.AspNetCore.Mvc.Localization;
 using Microsoft.Extensions.DependencyInjection;
 
-using Newtonsoft.Json.Linq;
+ using Newtonsoft.Json.Linq;
 
 using OrchardCore.ContentManagement;
 using OrchardCore.ContentManagement.Handlers;
@@ -68,80 +69,68 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module.Handlers
                     //return;
                 }
 
-
-                // get skills
-
-                // create skills if not present
-
-                // create soc skills matrix
-            }
-        }
-
-        public async Task DraftySavingAsync(SaveDraftContentContext context)
-        {
-            if (context.ContentItem.ContentType == "SOCCode")
-            {
-                var socCode = (string)context.ContentItem.Content.SOCCode.SOCCodeTextField.Text;
-                if(!string.IsNullOrEmpty(socCode))
+                // Create the SOC Skills Matrix Content items
+                var socSkills = _skillsFrameworkService.GetRelatedSkillMapping(onetCode);
+                var skillContentItemsList = await _session.Query<ContentItem, ContentItemIndex>(c => c.ContentType == ContentTypes.Skill).ListAsync();
+                var socSkillsMatrixContentItemsList = await _session.Query<ContentItem, ContentItemIndex>(c => c.ContentType == ContentTypes.SOCskillsmatrix).ListAsync();
+                var contentManager = _serviceProvider.GetRequiredService<IContentManager>();
+                var skillCreatedCount = 0;
+                var socSkillsMatrixCreatedCount = 0;
+                foreach (var onetSkill in socSkills)
                 {
-                    // Need to do our stuff
-
-                    // Get the ONET code
-                    var socCodeMapping = _socCodeMappingRepository.GetById(socCode);
-                    context.ContentItem.Content.SOCCode.ONetOccupationCodeTextField.Text = socCodeMapping.ONetOccupationalCode;
-                    context.ContentItem.Content.SOCCode.SOCDescriptionTextField.Text = socCodeMapping.Description;
-                    // Create the SOC Skills Matrix Content items
-                    var socSkills = _skillsFrameworkService.GetRelatedSkillMapping(socCodeMapping.ONetOccupationalCode);
-                    var skillContentItemsList = await _session.Query<ContentItem, ContentItemIndex>(c => c.ContentType == "Skill").ListAsync();
-                    var socSkillsMatrixContentItemsList = await _session.Query<ContentItem, ContentItemIndex>(c => c.ContentType == "SOCSkillsMatrix").ListAsync();
-                    var contentManager = _serviceProvider.GetRequiredService<IContentManager>();
-                    foreach (var onetSkill in socSkills)
+                    // Create skill if not present
+                    var skillTitle = onetSkill.Name;
+                    var skill = skillContentItemsList.FirstOrDefault(sk => sk.DisplayText == skillTitle && sk.IsPublished());
+                    if (skill == null)
                     {
-                        // Create skill if not present
-                        var skillTitle = onetSkill.Name;
-                        var skill = skillContentItemsList.FirstOrDefault(sk => sk.DisplayText == skillTitle);
-                        if (skill == null)
-                        {
-                            skill = await contentManager.NewAsync("Skill");
-                            skill.ContentItem.DisplayText = skillTitle;
+                        skill = await contentManager.NewAsync(ContentTypes.Skill);
+                        skill.ContentItem.DisplayText = skillTitle;
+                        // Title
+                        var titlePart = skill.As<UniqueTitlePart>();
+                        titlePart.Title = skillTitle;
+                        titlePart.Apply();
+                        // GraphSync
+                        var graphSyncPart = skill.As<GraphSyncPart>();
+                        graphSyncPart.Text = GetGraphSyncId(ContentTypes.Skill);
+                        graphSyncPart.Apply();
+                        // Fields
+                        skill.Content.Skill.Description.Html = onetSkill.Name;
+                        skill.Content.Skill.ONetElementId.Text = onetSkill.Id;
 
-                            var titlePart = skill.As<TitlePart>();
-                            titlePart.Title = skillTitle;
-                            titlePart.Apply();
+                        await contentManager.CreateAsync(skill);
+                        skillCreatedCount++;
+                    }
 
-                            var graphSyncPart = skill.As<GraphSyncPart>();
-                            graphSyncPart.Text = $"<<contentapiprefix>>/skill/{Guid.NewGuid()}";
-                            graphSyncPart.Apply();
+                    //Create soc skills matrix if not present
+                    var socSkillMatrixTitle = $"{socCode}-{onetSkill.Name}";
+                    var socSkillsMatrix = socSkillsMatrixContentItemsList.FirstOrDefault(ssm => ssm.DisplayText == socSkillMatrixTitle && ssm.IsPublished());
+                    if (socSkillsMatrix == null)
+                    {
+                        socSkillsMatrix = await contentManager.NewAsync(ContentTypes.SOCskillsmatrix);
+                        socSkillsMatrix.ContentItem.DisplayText = socSkillMatrixTitle;
+                        // Title
+                        var titlePart = socSkillsMatrix.As<UniqueTitlePart>();
+                        titlePart.Title = socSkillMatrixTitle;
+                        titlePart.Apply();
+                        // GraphSync
+                        var graphSyncPart = socSkillsMatrix.As<GraphSyncPart>();
+                        graphSyncPart.Text = GetGraphSyncId(ContentTypes.SOCskillsmatrix);
+                        graphSyncPart.Apply();
+                        // Fields
+                        socSkillsMatrix.Content.SOCskillsmatrix.ONetAttributeType.Text = onetSkill.Category.ToString();
+                        socSkillsMatrix.Content.SOCskillsmatrix.ONetRank.Text = onetSkill.Score;
+                        socSkillsMatrix.Content.SOCskillsmatrix.RelatedSkills.ContentItemIds = new JArray(skill.ContentItemId);
+                        socSkillsMatrix.Content.SOCskillsmatrix.RelatedSOC.ContentItemIds = new JArray(context.ContentItem.ContentItemId);
 
-                            skill.Content.Skill.Description.Text = onetSkill.Name;
-                            skill.Content.Skill.OnetSkillID.Text = onetSkill.Id;
-
-                            await contentManager.CreateAsync(skill);
-                        }
-
-                        //Create soc skills matrix if not present
-                        var socSkillMatrixTitle = $"{socCode}-{onetSkill.Name}";
-                        var socSkillsMatrix = socSkillsMatrixContentItemsList.FirstOrDefault(ssm => ssm.DisplayText == socSkillMatrixTitle);
-                        if (socSkillsMatrix == null)
-                        {
-                            socSkillsMatrix = await contentManager.NewAsync("SOCSkillsMatrix");
-                            socSkillsMatrix.ContentItem.DisplayText = socSkillMatrixTitle;
-
-                            var titlePart = socSkillsMatrix.As<TitlePart>();
-                            titlePart.Title = socSkillMatrixTitle;
-                            titlePart.Apply();
-
-                            var graphSyncPart = socSkillsMatrix.As<GraphSyncPart>();
-                            graphSyncPart.Text = $"<<contentapiprefix>>/socskillsmatrix/{Guid.NewGuid()}";
-                            graphSyncPart.Apply();
-
-                            socSkillsMatrix.Content.SOCSkillsMatrix.LinkedSkill.ContentItemIds = new JArray(skill.ContentItemId);
-
-                            await contentManager.CreateAsync(socSkillsMatrix);
-                        }
+                        await contentManager.CreateAsync(socSkillsMatrix);
+                        socSkillsMatrixCreatedCount++;
                     }
                 }
+
+                _notifier.Success(H[$"{skillCreatedCount} Skill content item{(skillCreatedCount != 1 ? "s" : string.Empty)} and {socSkillsMatrixCreatedCount} SOC Skills Matrix content item{(socSkillsMatrixCreatedCount != 1 ? "s" : string.Empty)} have been created and published."]);
             }
         }
+
+        public string GetGraphSyncId(string contentType) => $"<<contentapiprefix>>/{contentType.ToLower()}/{Guid.NewGuid()}";
     }
 }

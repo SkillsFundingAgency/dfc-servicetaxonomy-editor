@@ -2,7 +2,6 @@
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.JobProfiles.Service.EFDataModels;
 using DFC.ServiceTaxonomy.JobProfiles.Service.Interfaces;
-using DFC.ServiceTaxonomy.JobProfiles.Service.Models;
 
 namespace DFC.ServiceTaxonomy.JobProfiles.Service.Repositories
 {
@@ -13,22 +12,6 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Service.Repositories
         public SocMappingRepository(DfcDevOnetSkillsFrameworkContext dbContext)
         {
             _dbContext = dbContext;
-        }
-
-        public SocCodeMapping GetById(string id)
-        {
-            var socMapping = _dbContext.DfcSocMappings.AsQueryable().FirstOrDefault(s => s.SocCode == id);
-            if (socMapping == null)
-            {
-                return new SocCodeMapping { SOCCode = id };
-            }
-
-            return new SocCodeMapping
-            {
-                SOCCode = id,
-                ONetOccupationalCode = socMapping.OnetCode,
-                Description = socMapping.JobProfile
-            };
         }
 
         public async Task<bool> UpdateMappingAsync(string socCode, string onetId)
