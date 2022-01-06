@@ -72,7 +72,7 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module.ServiceBusHandling
                         await GenerateServiceBusMessageForSocCodeType(context, actionType);
                         break;
 
-                    case ContentTypes.SOCSkillsMatrix:
+                    case ContentTypes.SOCskillsmatrix:
                         await GenerateServiceBusMessageForSocSkillsMatrixType(context, actionType);
                         break;
 

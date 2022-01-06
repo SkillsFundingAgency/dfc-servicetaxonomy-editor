@@ -41,7 +41,7 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module.Handlers
                     var contentManager = _serviceProvider.GetRequiredService<IContentManager>(); 
                     var socCodeContentItem = await contentManager.GetAsync(socCodeContentItemId, VersionOptions.Latest);
                     var socCode = (string)socCodeContentItem.Content.SOCCode.SOCCodeTextField.Text;
-                    var socSkillsMatrixContentItemsList = await _session.Query<ContentItem, ContentItemIndex>(c => c.ContentType == ContentTypes.SOCSkillsMatrix && c.DisplayText.StartsWith(socCode)).ListAsync();
+                    var socSkillsMatrixContentItemsList = await _session.Query<ContentItem, ContentItemIndex>(c => c.ContentType == ContentTypes.SOCskillsmatrix && c.DisplayText.StartsWith(socCode)).ListAsync();
                     context.ContentItem.Content.JobProfile.Relatedskills.ContentItemIds = new JArray(socSkillsMatrixContentItemsList.Select(c => c.ContentItemId));
                 }
             }
