@@ -66,7 +66,7 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module.Handlers
                 {
                     context.Cancel = true;
                     _notifier.Error(H["Skills information not found. Please check the ONet Occupation code or get in touch with support."]);
-                    //return;
+                    return;
                 }
 
                 // Create the SOC Skills Matrix Content items
