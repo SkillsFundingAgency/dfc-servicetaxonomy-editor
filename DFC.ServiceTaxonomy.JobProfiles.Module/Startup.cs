@@ -1,6 +1,7 @@
 ﻿//using DFC.ServiceTaxonomy.JobProfiles.Module.Handlers;
 //using DFC.ServiceTaxonomy.JobProfiles.Module.Handlers;
 using DFC.ServiceTaxonomy.JobProfiles.Module.Handlers;
+using DFC.ServiceTaxonomy.JobProfiles.Module.Indexes;
 using DFC.ServiceTaxonomy.JobProfiles.Module.Models.ServiceBus;
 using DFC.ServiceTaxonomy.JobProfiles.Module.ServiceBusHandling;
 using DFC.ServiceTaxonomy.JobProfiles.Module.ServiceBusHandling.Converters;
@@ -15,8 +16,9 @@ using Microsoft.Extensions.DependencyInjection;
 using OrchardCore.ContentManagement.Handlers;
 //using OrchardCore.ContentManagement.Handlers;
 //using OrchardCore.ContentManagement.Handlers;
-//using OrchardCore.Data.Migration;
+using OrchardCore.Data.Migration;
 using OrchardCore.Modules;
+using YesSql.Indexes;
 
 namespace DFC.ServiceTaxonomy.JobProfiles.Module
 {
@@ -25,7 +27,7 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module
         public override void ConfigureServices(IServiceCollection services)
         {
             // CMS
-            //services.AddScoped<IDataMigration, Migrations>();
+            services.AddScoped<IDataMigration, Migrations>();
             //services.AddScoped<IContentHandler, SocCodeContentHandler>();
             //services.AddScoped<IContentHandler, JobProfileContentHandler>();
             services.AddScoped<IMessageConverter<JobProfileMessage>, JobProfileMessageConverter>();
@@ -50,6 +52,9 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module
             // Services
             services.AddScoped<ISkillFrameworkBusinessRuleEngine, SkillFrameworkBusinessRuleEngine>();
             services.AddScoped<ISkillsFrameworkService, SkillsFrameworkService>();
+
+            // Index Providers
+            services.AddSingleton<IIndexProvider, JobProfileIndexProvider>();
         }
     }
 }
