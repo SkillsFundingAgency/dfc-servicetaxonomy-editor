@@ -107,7 +107,7 @@ dotnet_style_prefer_conditional_expression_over_return = true:refactoring
 csharp_prefer_simple_default_expression = true:suggestion
 
 # Expression-bodied members
-csharp_style_expression_bodied_methods = true:refactoring
+csharp_style_expression_bodied_methods = true:none
 csharp_style_expression_bodied_constructors = true:refactoring
 csharp_style_expression_bodied_operators = true:refactoring
 csharp_style_expression_bodied_properties = true:refactoring
@@ -167,6 +167,14 @@ dotnet_diagnostic.S125.severity = none
 
 # S3881: "IDisposable" should be implemented correctly
 dotnet_diagnostic.S3881.severity = suggestion
+
+
+
+# IDE0058: Expression value is never used
+dotnet_diagnostic.IDE0058.severity = none
+
+# CS8603: Possible null reference return.
+dotnet_diagnostic.CS8603.severity = none
 
 [*.{cpp,h,in}]
 curly_bracket_next_line = true

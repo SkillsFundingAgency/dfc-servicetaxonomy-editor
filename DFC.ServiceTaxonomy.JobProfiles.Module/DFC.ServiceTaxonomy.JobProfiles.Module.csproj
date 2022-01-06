@@ -32,7 +32,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\DFC.ServiceTaxonomy.GraphSync\DFC.ServiceTaxonomy.GraphSync.csproj" />
-    <ProjectReference Include="..\DFC.ServiceTaxonomy.JobProfilePartIndex\DFC.ServiceTaxonomy.JobProfilePartIndex.csproj" />
     <ProjectReference Include="..\DFC.ServiceTaxonomy.JobProfiles.Service\DFC.ServiceTaxonomy.JobProfiles.Service.csproj" />
     <ProjectReference Include="..\DFC.ServiceTaxonomy.PageLocation\DFC.ServiceTaxonomy.PageLocation.csproj" />
   </ItemGroup>

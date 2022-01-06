@@ -2,18 +2,17 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Text;
 using Microsoft.Extensions.DependencyInjection;
 using OrchardCore.ContentManagement;
 using OrchardCore.ContentManagement.Handlers;
 using OrchardCore.ContentManagement.Metadata;
 using OrchardCore.Data;
 using YesSql.Indexes;
-using DFC.ServiceTaxonomy.JobProfilePartIndex.Models;
+using DFC.ServiceTaxonomy.JobProfiles.Module.Models.Indexes;
 using DFC.ServiceTaxonomy.GraphSync.Models;
-using DFC.ServiceTaxonomy.JobProfilePartIndex.Extensions;
+using DFC.ServiceTaxonomy.JobProfiles.Module.Extensions;
 
-namespace DFC.ServiceTaxonomy.JobProfilePartIndex.Indexes
+namespace DFC.ServiceTaxonomy.JobProfiles.Module.Indexes
 {
     public class JobProfileIndexProvider : ContentHandlerBase, IScopedIndexProvider
     {

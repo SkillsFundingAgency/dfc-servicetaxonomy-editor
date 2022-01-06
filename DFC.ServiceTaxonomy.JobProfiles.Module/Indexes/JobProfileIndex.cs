@@ -1,7 +1,6 @@
-﻿using System.Collections.Generic;
-using YesSql.Indexes;
+﻿using YesSql.Indexes;
 
-namespace DFC.ServiceTaxonomy.JobProfilePartIndex.Indexes
+namespace DFC.ServiceTaxonomy.JobProfiles.Module.Indexes
 {
     public class JobProfileIndex : MapIndex
     {
