@@ -11,6 +11,7 @@ using YesSql.Indexes;
 using DFC.ServiceTaxonomy.JobProfiles.Module.Models.Indexes;
 using DFC.ServiceTaxonomy.GraphSync.Models;
 using DFC.ServiceTaxonomy.JobProfiles.Module.Extensions;
+using System.Diagnostics.CodeAnalysis;
 
 namespace DFC.ServiceTaxonomy.JobProfiles.Module.Indexes
 {
@@ -51,6 +52,7 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module.Indexes
         public Type ForType() => typeof(ContentItem);
         public void Describe(IDescriptor context) => Describe((DescribeContext<ContentItem>)context);
 
+        [return: MaybeNull]
         public void Describe(DescribeContext<ContentItem> context)
         {
             context.For<JobProfileIndex>()
@@ -60,13 +62,13 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module.Indexes
                     // Remove index records of soft deleted items.
                     if (!contentItem.Published && !contentItem.Latest)
                     {
-                        return null;
+                        return default!;
                     }
 
                     var part = contentItem.Content.JobProfile;
                     if (part == null)
                     {
-                        return null;
+                        return default!;
                     }
 
                     return  new JobProfileIndex
