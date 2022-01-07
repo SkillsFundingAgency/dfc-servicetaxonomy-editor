@@ -26,7 +26,7 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module.ServiceBusHandling
         private readonly IMessageConverter<JobProfileMessage> _jobprofileMessageConverter;
         private readonly IGenericIndexRepository<JobProfileIndex> _jobProfileIndexRepository;
 
-        public DataEventProcessor(IServiceBusMessageProcessor serviceBusMessageProcessor,
+public DataEventProcessor(IServiceBusMessageProcessor serviceBusMessageProcessor,
                                     ILogger<DataEventProcessor> logger,
                                     IMessageConverter<JobProfileMessage> jobprofileMessageConverter,
                                     ISession session,
