@@ -51,7 +51,7 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module
             services.AddScoped<IQueryRepository<FrameworkSkillSuppression>, SuppressionsQueryRepository>();
             services.AddScoped<IQueryRepository<FrameworkContent>, ContentReferenceQueryRepository>();
             services.AddScoped<IQueryRepository<FrameworkSkillCombination>, CombinationsQueryRepository>();
-            services.AddTransient(typeof(IJobProfileRepository<>), typeof(JobProfileRepository<>));
+            services.AddTransient(typeof(IGenericIndexRepository<>), typeof(GenericIndexRepository<>));
 
             // Services
             services.AddScoped<ISkillFrameworkBusinessRuleEngine, SkillFrameworkBusinessRuleEngine>();

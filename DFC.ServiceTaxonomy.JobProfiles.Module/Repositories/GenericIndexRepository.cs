@@ -5,11 +5,11 @@ using YesSql.Indexes;
 
 namespace DFC.ServiceTaxonomy.JobProfiles.Module.Repositories
 {
-    public class JobProfileRepository<T> : IJobProfileRepository<T> where T : MapIndex
+    public class GenericIndexRepository<T> : IGenericIndexRepository<T> where T : MapIndex
     {
         private readonly ISession _session;
 
-        public JobProfileRepository(ISession session)
+        public GenericIndexRepository(ISession session)
         {
             _session = session;
         }
