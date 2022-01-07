@@ -729,6 +729,17 @@
                         ]
                     },
                     {
+                        "place": "Parts:3#What it takes;3",
+                        "displayType": null,
+                        "differentiator": "JobProfile-Relatedskills",
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null,
+                        "contentType": [
+                            "JobProfile"
+                        ]
+                    },
+                    {
                         "place": "Parts:6#Metadata;0",
                         "displayType": null,
                         "differentiator": "JobProfile-Jobprofilecategory",

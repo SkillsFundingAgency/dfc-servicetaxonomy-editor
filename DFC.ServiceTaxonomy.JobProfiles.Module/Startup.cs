@@ -34,7 +34,7 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module
             // CMS
             services.AddScoped<IContentHandler, SocCodeContentHandler>();
             services.AddScoped<IDataMigration, Migrations>();
-            //services.AddScoped<IContentHandler, JobProfileContentHandler>();
+            services.AddScoped<IContentHandler, JobProfileContentHandler>();
             services.AddScoped<IMessageConverter<JobProfileMessage>, JobProfileMessageConverter>();
             services.AddScoped<IMessageConverter<HowToBecomeData>, HowToBecomeMessageConverter>();
             services.AddScoped<IMessageConverter<WhatYouWillDoData>, WhatYouWillDoMessageConverter>();
@@ -45,7 +45,7 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module
             services.AddScoped<IServiceBusMessageProcessor, ServiceBusMessageProcessor>();
 
             // Repositories
-            services.AddDbContext<DfcDevOnetSkillsFrameworkContext>(options => options.UseSqlServer(configuration.GetConnectionString("SkillsFramworkDB")));
+            services.AddDbContext<DfcDevOnetSkillsFrameworkContext>(options => options.UseSqlServer(configuration.GetConnectionString("SkillsFrameworkDB")));
             services.AddScoped<ISocMappingRepository, SocMappingRepository>();
             services.AddScoped<ISkillsRepository, SkillsOueryRepository>();
             services.AddScoped<IQueryRepository<FrameworkSkillSuppression>, SuppressionsQueryRepository>();
