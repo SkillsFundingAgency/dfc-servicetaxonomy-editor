@@ -16,6 +16,7 @@ using OrchardCore.ContentManagement.Handlers;
 using OrchardCore.Data.Migration;
 using OrchardCore.Modules;
 using YesSql.Indexes;
+using DFC.ServiceTaxonomy.JobProfiles.Module.Repositories;
 
 namespace DFC.ServiceTaxonomy.JobProfiles.Module
 {
@@ -50,6 +51,7 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module
             services.AddScoped<IQueryRepository<FrameworkSkillSuppression>, SuppressionsQueryRepository>();
             services.AddScoped<IQueryRepository<FrameworkContent>, ContentReferenceQueryRepository>();
             services.AddScoped<IQueryRepository<FrameworkSkillCombination>, CombinationsQueryRepository>();
+            services.AddTransient(typeof(IJobProfileRepository<>), typeof(JobProfileRepository<>));
 
             // Services
             services.AddScoped<ISkillFrameworkBusinessRuleEngine, SkillFrameworkBusinessRuleEngine>();

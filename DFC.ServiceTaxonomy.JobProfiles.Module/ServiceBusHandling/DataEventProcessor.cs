@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 
 using DFC.ServiceTaxonomy.GraphSync.Models;
+using DFC.ServiceTaxonomy.JobProfiles.Module.Indexes;
 using DFC.ServiceTaxonomy.JobProfiles.Module.Extensions;
 using DFC.ServiceTaxonomy.JobProfiles.Module.Models.ServiceBus;
 using DFC.ServiceTaxonomy.JobProfiles.Module.ServiceBusHandling.Interfaces;
@@ -13,6 +14,7 @@ using OrchardCore.ContentManagement;
 using OrchardCore.ContentManagement.Handlers;
 
 using YesSql;
+using DFC.ServiceTaxonomy.JobProfiles.Module.Repositories;
 
 namespace DFC.ServiceTaxonomy.JobProfiles.Module.ServiceBusHandling
 {
@@ -22,16 +24,19 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module.ServiceBusHandling
         private readonly ISession _session;
         private readonly ILogger<DataEventProcessor> _logger;
         private readonly IMessageConverter<JobProfileMessage> _jobprofileMessageConverter;
+        private readonly IJobProfileRepository<JobProfileIndex> _jobProfileIndexRepository;
 
         public DataEventProcessor(IServiceBusMessageProcessor serviceBusMessageProcessor,
                                     ILogger<DataEventProcessor> logger,
                                     IMessageConverter<JobProfileMessage> jobprofileMessageConverter,
-                                    ISession session)
+                                    ISession session,
+                                    IJobProfileRepository<JobProfileIndex> jobProfileIndexRepository)
         {
             _serviceBusMessageProcessor = serviceBusMessageProcessor;
             _logger = logger;
             _jobprofileMessageConverter = jobprofileMessageConverter;
             _session = session;
+            _jobProfileIndexRepository = jobProfileIndexRepository;
         }
 
         public async Task ProcessContentContext(ContentContextBase context, string actionType)
@@ -114,17 +119,50 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module.ServiceBusHandling
             await _serviceBusMessageProcessor.SendJobProfileMessage(jobprofileMessage, context.ContentItem.ContentType, actionType);
         }
 
-        private Task GenerateServiceBusMessageForWYDTypes(ContentContextBase context, string actionType)
+        private async Task GenerateServiceBusMessageForWYDTypes(ContentContextBase context, string actionType)
         {
-            // TODO: find all parents for the referenced content item.
-            IEnumerable<WhatYouWillDoContentItem> jobprofileData = new List<WhatYouWillDoContentItem>
+            bool isSaved = actionType.Equals(ActionTypes.Published) || actionType.Equals(ActionTypes.Draft);
+            IList<WhatYouWillDoContentItem> jobprofileData = new List<WhatYouWillDoContentItem>();
+            string FieldDescription = context.ContentItem.ContentType switch
+            {
+                ContentTypes.Environment => context.ContentItem.Content.Environment.Description.Html,
+                ContentTypes.Uniform => context.ContentItem.Content.Uniform.Description.Html,
+                ContentTypes.Location => context.ContentItem.Content.Location.Description.Html,
+                _ => throw new ArgumentException("No valid match found"),
+            };
+
+            var matches = await _jobProfileIndexRepository.GetAll(b => b.Uniform != null && b.Uniform.Contains(context.ContentItem.ContentItemId) ||
+                b.Environment != null && b.Environment.Contains(context.ContentItem.ContentItemId) ||
+                b.Location != null && b.Location.Contains(context.ContentItem.ContentItemId)).ListAsync();
+
+            foreach (var item in matches)
+            {
+                if (isSaved)
                 {
-                    new WhatYouWillDoContentItem()
+                    jobprofileData.Add(new WhatYouWillDoContentItem()
                     {
                         Id = context.ContentItem.As<GraphSyncPart>().ExtractGuid(),
-                        Title = context.ContentItem.Content.Title}
-                };
-            return _serviceBusMessageProcessor.SendOtherRelatedTypeMessages(jobprofileData, context.ContentItem.ContentType, actionType);
+                        Title = context.ContentItem.Content.TitlePart.Title,
+                        Description = FieldDescription,
+                        JobProfileId = Guid.Parse(item.GraphSyncPartId ?? string.Empty),
+                        JobProfileTitle = item.JobProfileTitle,
+                        Url = string.Empty, // TODO: Needs revisiting during integration to see if leaving it blank does not break anything in CUI"
+                        IsNegative = false
+                    });
+                }
+                else
+                {
+                    jobprofileData.Add(new WhatYouWillDoContentItem()
+                    {
+                        Id = context.ContentItem.As<GraphSyncPart>().ExtractGuid(),
+                        JobProfileId = Guid.Parse(item.GraphSyncPartId ?? string.Empty)
+                    });
+
+                }
+            }
+
+
+            await _serviceBusMessageProcessor.SendOtherRelatedTypeMessages(jobprofileData, context.ContentItem.ContentType, actionType);
         }
 
         private Task GenerateServiceBusMessageForTextFieldTypes(ContentContextBase context, string actionType)

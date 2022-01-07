@@ -98,6 +98,7 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module.Indexes
                         Location = (part.Relatedlocations.ContentItemIds.ToObject<IList<string>>() as IList<string>).ConvertListToCsv(),
                         Environment = (part.Relatedenvironments.ContentItemIds.ToObject<IList<string>>() as IList<string>).ConvertListToCsv(),
                         Uniform = (part.Relateduniforms.ContentItemIds.ToObject<IList<string>>() as IList<string>).ConvertListToCsv(),
+                        JobProfileTitle = contentItem.DisplayText,
                     };
                 });
         }
