@@ -29,5 +29,6 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module.Indexes
         public string? Location { get; set; }
         public string? Environment { get; set; }
         public string? Uniform { get; set; }
+        public string? JobProfileTitle { get; set; }
     }
 }
