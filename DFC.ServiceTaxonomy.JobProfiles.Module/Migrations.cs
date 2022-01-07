@@ -33,7 +33,7 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module
         {
             _contentDefinitionManager.AlterPartDefinition(nameof(JobProfile), part => part
                 .Attachable()
-                .WithDescription("Adds Title related properties to a content item.")
+                .WithDescription("Creates JobProfile related metadata record. ")
             );
             SchemaBuilder.CreateMapIndexTable<JobProfileIndex>(table => table
                 .Column<string>(nameof(JobProfileIndex.ContentItemId))
@@ -70,6 +70,28 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module
                     nameof(JobProfileIndex.GraphSyncPartId)));
 
             return 1;
+        }
+
+        public int UpdateFrom1()
+        {
+            _contentDefinitionManager.AlterPartDefinition(nameof(JobProfile), part => part
+                .Attachable()
+                .WithDescription("Creates JobProfile related metadata record.")
+            );
+
+            SchemaBuilder.AlterIndexTable<JobProfileIndex>(table => table.AddColumn<string>(nameof(JobProfileIndex.JobProfileTitle)));
+
+            SchemaBuilder.AlterIndexTable<JobProfileIndex>(table => table
+     .DropIndex($"IDX_{nameof(JobProfileIndex)}_{nameof(JobProfileIndex.ContentItemId)}"));
+
+            SchemaBuilder.AlterIndexTable<JobProfileIndex>(table => table
+                .CreateIndex(
+                    $"IDX_{nameof(JobProfileIndex)}_{nameof(JobProfileIndex.ContentItemId)}",
+                    "DocumentId",
+                    nameof(JobProfileIndex.ContentItemId),
+                    nameof(JobProfileIndex.GraphSyncPartId)));
+
+            return 2;
         }
     }
 }
