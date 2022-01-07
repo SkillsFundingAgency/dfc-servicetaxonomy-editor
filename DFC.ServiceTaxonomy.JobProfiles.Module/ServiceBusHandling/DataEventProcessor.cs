@@ -24,13 +24,13 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module.ServiceBusHandling
         private readonly ISession _session;
         private readonly ILogger<DataEventProcessor> _logger;
         private readonly IMessageConverter<JobProfileMessage> _jobprofileMessageConverter;
-        private readonly IJobProfileRepository<JobProfileIndex> _jobProfileIndexRepository;
+        private readonly IGenericIndexRepository<JobProfileIndex> _jobProfileIndexRepository;
 
-        public DataEventProcessor(IServiceBusMessageProcessor serviceBusMessageProcessor,
+public DataEventProcessor(IServiceBusMessageProcessor serviceBusMessageProcessor,
                                     ILogger<DataEventProcessor> logger,
                                     IMessageConverter<JobProfileMessage> jobprofileMessageConverter,
                                     ISession session,
-                                    IJobProfileRepository<JobProfileIndex> jobProfileIndexRepository)
+                                    IGenericIndexRepository<JobProfileIndex> jobProfileIndexRepository)
         {
             _serviceBusMessageProcessor = serviceBusMessageProcessor;
             _logger = logger;
