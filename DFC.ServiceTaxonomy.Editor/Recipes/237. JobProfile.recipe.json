@@ -752,11 +752,30 @@
                         },
                         {
                             "FieldName": "ContentPickerField",
+                            "Name": "Relatedskills",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Related skills",
+                                    "Position": "36",
+                                    "Editor": "EditLink"
+                                },
+                                "ContentPickerFieldSettings": {
+                                    "Multiple": true,
+                                    "DisplayedContentTypes": [
+                                        "SOCskillsmatrix"
+                                    ]
+                                },
+                                "ContentIndexSettings": {}
+                            }
+                        },
+
+                        {
+                            "FieldName": "ContentPickerField",
                             "Name": "Jobprofilecategory",
                             "Settings": {
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "Job profile category",
-                                    "Position": "36"
+                                    "Position": "37"
                                 },
                                 "ContentPickerFieldSettings": {
                                     "Required": true,
@@ -775,7 +794,7 @@
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "Day-to-day tasks",
                                     "Editor": "Trumbowyg",
-                                    "Position": "37"
+                                    "Position": "38"
                                 },
                                 "HtmlFieldSettings": {},
                                 "HtmlFieldTrumbowygEditorSettings": {
@@ -790,7 +809,7 @@
                             "Settings": {
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "Related locations",
-                                    "Position": "38"
+                                    "Position": "39"
                                 },
                                 "ContentPickerFieldSettings": {
                                     "Multiple": true,
@@ -807,7 +826,7 @@
                             "Settings": {
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "Related environments",
-                                    "Position": "39"
+                                    "Position": "40"
                                 },
                                 "ContentPickerFieldSettings": {
                                     "Multiple": true,
@@ -824,7 +843,7 @@
                             "Settings": {
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "Related uniforms",
-                                    "Position": "40"
+                                    "Position": "41"
                                 },
                                 "ContentPickerFieldSettings": {
                                     "Multiple": true,
@@ -841,7 +860,7 @@
                             "Settings": {
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "Course keywords",
-                                    "Position": "41"
+                                    "Position": "42"
                                 },
                                 "TextFieldSettings": {
                                     "Hint": "Separate keywords with single spaces and quotations (ex. 'example1' 'example2')"
@@ -856,7 +875,7 @@
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "Career path & progression",
                                     "Editor": "Trumbowyg",
-                                    "Position": "42"
+                                    "Position": "43"
                                 },
                                 "HtmlFieldSettings": {},
                                 "HtmlFieldTrumbowygEditorSettings": {
@@ -871,7 +890,7 @@
                             "Settings": {
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "Related careers profiles",
-                                    "Position": "43"
+                                    "Position": "44"
                                 },
                                 "ContentPickerFieldSettings": {
                                     "Multiple": true,
@@ -888,7 +907,7 @@
                             "Settings": {
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "SOC code",
-                                    "Position": "44"
+                                    "Position": "45"
                                 },
                                 "ContentPickerFieldSettings": {
                                     "Required": true,
@@ -938,7 +957,7 @@
                             "Settings": {
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "Dynamic title prefix",
-                                    "Position": "45"
+                                    "Position": "48"
                                 },
                                 "ContentPickerFieldSettings": {
                                     "Required": true,

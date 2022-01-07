@@ -33,7 +33,7 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module
             // CMS
             services.AddScoped<IContentHandler, SocCodeContentHandler>();
             services.AddScoped<IDataMigration, Migrations>();
-            //services.AddScoped<IContentHandler, JobProfileContentHandler>();
+            services.AddScoped<IContentHandler, JobProfileContentHandler>();
             services.AddScoped<IMessageConverter<JobProfileMessage>, JobProfileMessageConverter>();
             services.AddScoped<IMessageConverter<HowToBecomeData>, HowToBecomeMessageConverter>();
             services.AddScoped<IMessageConverter<WhatYouWillDoData>, WhatYouWillDoMessageConverter>();
