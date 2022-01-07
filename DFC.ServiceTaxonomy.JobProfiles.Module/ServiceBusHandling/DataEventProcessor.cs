@@ -139,15 +139,24 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module.ServiceBusHandling
             {
                 if (isSaved)
                 {
-                    jobprofileData.Add(new WhatYouWillDoContentItem() { Id = context.ContentItem.As<GraphSyncPart>().ExtractGuid(), Title = context.ContentItem.Content.TitlePart.Title,
-                                                Description = FieldDescription, JobProfileId = Guid.Parse(item.GraphSyncPartId ?? string.Empty), JobProfileTitle = item.JobProfileTitle,
-                                                Url = string.Empty, // TODO: Needs revisiting during integration to see if leaving it blank does not break anything in CUI"
-                                                IsNegative = false });
+                    jobprofileData.Add(new WhatYouWillDoContentItem()
+                    {
+                        Id = context.ContentItem.As<GraphSyncPart>().ExtractGuid(),
+                        Title = context.ContentItem.Content.TitlePart.Title,
+                        Description = FieldDescription,
+                        JobProfileId = Guid.Parse(item.GraphSyncPartId ?? string.Empty),
+                        JobProfileTitle = item.JobProfileTitle,
+                        Url = string.Empty, // TODO: Needs revisiting during integration to see if leaving it blank does not break anything in CUI"
+                        IsNegative = false
+                    });
                 }
                 else
                 {
-                    jobprofileData.Add(new WhatYouWillDoContentItem() { Id = context.ContentItem.As<GraphSyncPart>().ExtractGuid(),
-                        JobProfileId = Guid.Parse(item.GraphSyncPartId ?? string.Empty) });
+                    jobprofileData.Add(new WhatYouWillDoContentItem()
+                    {
+                        Id = context.ContentItem.As<GraphSyncPart>().ExtractGuid(),
+                        JobProfileId = Guid.Parse(item.GraphSyncPartId ?? string.Empty)
+                    });
 
                 }
             }

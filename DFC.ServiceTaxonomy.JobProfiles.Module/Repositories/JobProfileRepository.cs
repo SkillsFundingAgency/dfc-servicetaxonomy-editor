@@ -18,5 +18,10 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module.Repositories
         {
             return _session.QueryIndex<T>().Where(whereExpression);
         }
+
+        public void Dispose()
+        {
+            _session.Dispose();
+        }
     }
 }
