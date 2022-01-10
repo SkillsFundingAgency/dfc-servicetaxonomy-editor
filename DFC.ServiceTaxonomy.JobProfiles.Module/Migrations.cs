@@ -93,5 +93,27 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module
 
             return 2;
         }
+
+        public int UpdateFrom2()
+        {
+            _contentDefinitionManager.AlterPartDefinition(nameof(JobProfile), part => part
+                .Attachable()
+                .WithDescription("Creates JobProfile related metadata record.")
+            );
+
+            SchemaBuilder.AlterIndexTable<JobProfileIndex>(table => table.AddColumn<string>(nameof(JobProfileIndex.Restriction)));
+
+            SchemaBuilder.AlterIndexTable<JobProfileIndex>(table => table
+     .DropIndex($"IDX_{nameof(JobProfileIndex)}_{nameof(JobProfileIndex.ContentItemId)}"));
+
+            SchemaBuilder.AlterIndexTable<JobProfileIndex>(table => table
+                .CreateIndex(
+                    $"IDX_{nameof(JobProfileIndex)}_{nameof(JobProfileIndex.ContentItemId)}",
+                    "DocumentId",
+                    nameof(JobProfileIndex.ContentItemId),
+                    nameof(JobProfileIndex.GraphSyncPartId)));
+
+            return 3;
+        }
     }
 }
