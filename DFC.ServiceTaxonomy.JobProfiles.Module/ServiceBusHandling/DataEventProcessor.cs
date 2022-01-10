@@ -217,19 +217,53 @@ public DataEventProcessor(IServiceBusMessageProcessor serviceBusMessageProcessor
             await _serviceBusMessageProcessor.SendOtherRelatedTypeMessages(jobprofileData, context.ContentItem.ContentType, actionType);
         }
 
-        private Task GenerateServiceBusMessageForInfoTypes(ContentContextBase context, string actionType)
+        private async Task GenerateServiceBusMessageForInfoTypes(ContentContextBase context, string actionType)
         {
-            var contentType = context.ContentItem.ContentType;
 
-            // TODO: find all parents for the referenced content item.
-            IEnumerable<InfoContentItem> jobprofileData = new List<InfoContentItem>()
+            bool isSaved = actionType.Equals(ActionTypes.Published) || actionType.Equals(ActionTypes.Draft);
+            IList<InfoContentItem> jobprofileData = new List<InfoContentItem>();
+            string fieldInfo = context.ContentItem.ContentType switch
+            {
+                ContentTypes.Restriction => context.ContentItem.Content.Restriction.Info.Html,
+                ContentTypes.Registration => context.ContentItem.Content.Registration.Description.Html,
+                ContentTypes.Apprenticeshiprequirements => context.ContentItem.Content.Apprenticeshiprequirements.Info.Html,
+                ContentTypes.Collegerequirements => context.ContentItem.Content.Collegerequirements.Info.Html,
+                ContentTypes.Universityrequirements => context.ContentItem.Content.Universityrequirements.Info.Html,
+                _ => throw new ArgumentException("No valid match found"),
+            };
+
+
+            var matches = await _jobProfileIndexRepository.GetAll(b => b.Restriction != null && b.Restriction.Contains(context.ContentItem.ContentItemId) ||
+                b.Registration != null && b.Registration.Contains(context.ContentItem.ContentItemId) ||
+                b.ApprenticeshipRequirements != null && b.ApprenticeshipRequirements.Contains(context.ContentItem.ContentItemId) ||
+                b.CollegeRequirements != null && b.CollegeRequirements.Contains(context.ContentItem.ContentItemId) ||
+                b.UniversityRequirements != null && b.UniversityRequirements.Contains(context.ContentItem.ContentItemId)).ListAsync();
+
+            foreach (var item in matches)
+            {
+                if (isSaved)
                 {
-                    new InfoContentItem()
+                    jobprofileData.Add(new InfoContentItem()
                     {
-                        Id = new Guid(context.ContentItem.ContentItemId),
-                        Title = context.ContentItem.Content.Title}
-                };
-            return _serviceBusMessageProcessor.SendOtherRelatedTypeMessages(jobprofileData, contentType, actionType);
+                        Id = context.ContentItem.As<GraphSyncPart>().ExtractGuid(),
+                        Title = context.ContentItem.DisplayText,
+                        Info = fieldInfo,
+                        JobProfileId = Guid.Parse(item.GraphSyncPartId ?? string.Empty),
+                        JobProfileTitle = item.JobProfileTitle,
+                    });
+                }
+                else
+                {
+                    jobprofileData.Add(new InfoContentItem()
+                    {
+                        Id = context.ContentItem.As<GraphSyncPart>().ExtractGuid(),
+                        JobProfileId = Guid.Parse(item.GraphSyncPartId ?? string.Empty)
+                    });
+
+                }
+            }
+
+            await _serviceBusMessageProcessor.SendOtherRelatedTypeMessages(jobprofileData, context.ContentItem.ContentType, actionType);
         }
 
         private Task GenerateServiceBusMessageForSkillTypes(ContentContextBase context, string actionType)
