@@ -14,7 +14,7 @@ using OrchardCore.ContentManagement;
 using OrchardCore.ContentManagement.Handlers;
 
 using YesSql;
-using DFC.ServiceTaxonomy.JobProfiles.Module.Repositories;
+using DFC.ServiceTaxonomy.DataAccess.Repositories;
 
 namespace DFC.ServiceTaxonomy.JobProfiles.Module.ServiceBusHandling
 {
@@ -123,7 +123,7 @@ public DataEventProcessor(IServiceBusMessageProcessor serviceBusMessageProcessor
         {
             bool isSaved = actionType.Equals(ActionTypes.Published) || actionType.Equals(ActionTypes.Draft);
             IList<WhatYouWillDoContentItem> jobprofileData = new List<WhatYouWillDoContentItem>();
-            string FieldDescription = context.ContentItem.ContentType switch
+            string fieldDescription = context.ContentItem.ContentType switch
             {
                 ContentTypes.Environment => context.ContentItem.Content.Environment.Description.Html,
                 ContentTypes.Uniform => context.ContentItem.Content.Uniform.Description.Html,
@@ -143,7 +143,7 @@ public DataEventProcessor(IServiceBusMessageProcessor serviceBusMessageProcessor
                     {
                         Id = context.ContentItem.As<GraphSyncPart>().ExtractGuid(),
                         Title = context.ContentItem.Content.TitlePart.Title,
-                        Description = FieldDescription,
+                        Description = fieldDescription,
                         JobProfileId = Guid.Parse(item.GraphSyncPartId ?? string.Empty),
                         JobProfileTitle = item.JobProfileTitle,
                         Url = string.Empty, // TODO: Needs revisiting during integration to see if leaving it blank does not break anything in CUI"
@@ -165,19 +165,56 @@ public DataEventProcessor(IServiceBusMessageProcessor serviceBusMessageProcessor
             await _serviceBusMessageProcessor.SendOtherRelatedTypeMessages(jobprofileData, context.ContentItem.ContentType, actionType);
         }
 
-        private Task GenerateServiceBusMessageForTextFieldTypes(ContentContextBase context, string actionType)
+        private async Task GenerateServiceBusMessageForTextFieldTypes(ContentContextBase context, string actionType)
         {
-            var contentType = context.ContentItem.ContentType;
+            bool isSaved = actionType.Equals(ActionTypes.Published) || actionType.Equals(ActionTypes.Draft);
+            IList<TextFieldContentItem> jobprofileData = new List<TextFieldContentItem>();
+            string fieldText = context.ContentItem.ContentType switch
+            {
+                ContentTypes.Universitylink => context.ContentItem.Content.Universitylink.Text.Text,
+                ContentTypes.Collegelink => context.ContentItem.Content.Collegelink.Text.Text,
+                ContentTypes.Apprenticeshiplink => context.ContentItem.Content.Apprenticeshiplink.Text.Text,
+                _ => throw new ArgumentException("No valid match found"),
+            };
 
-            // TODO: find all parents for the referenced content item.
-            IEnumerable<TextFieldContentItem> jobprofileData = new List<TextFieldContentItem>
+            string fieldUrl = context.ContentItem.ContentType switch
+            {
+                ContentTypes.Universitylink => context.ContentItem.Content.Universitylink.URL.Text,
+                ContentTypes.Collegelink => context.ContentItem.Content.Collegelink.URL.Text,
+                ContentTypes.Apprenticeshiplink => context.ContentItem.Content.Apprenticeshiplink.URL.Text,
+                _ => throw new ArgumentException("No valid match found"),
+            };
+
+            var matches = await _jobProfileIndexRepository.GetAll(b => b.UniversityLinks != null && b.UniversityLinks.Contains(context.ContentItem.ContentItemId) ||
+                b.CollegeLink != null && b.CollegeLink.Contains(context.ContentItem.ContentItemId) ||
+                b.ApprenticeshipLink != null && b.ApprenticeshipLink.Contains(context.ContentItem.ContentItemId)).ListAsync();
+
+            foreach (var item in matches)
+            {
+                if (isSaved)
                 {
-                    new TextFieldContentItem()
+                    jobprofileData.Add(new TextFieldContentItem()
                     {
-                        Id = new Guid(context.ContentItem.ContentItemId),
-                        Title = context.ContentItem.Content.Title}
-                };
-            return _serviceBusMessageProcessor.SendOtherRelatedTypeMessages(jobprofileData, contentType, actionType);
+                        Id = context.ContentItem.As<GraphSyncPart>().ExtractGuid(),
+                        Title = context.ContentItem.DisplayText,
+                        Text = fieldText,
+                        JobProfileId = Guid.Parse(item.GraphSyncPartId ?? string.Empty),
+                        JobProfileTitle = item.JobProfileTitle,
+                        Url = fieldUrl, 
+                    });
+                }
+                else
+                {
+                    jobprofileData.Add(new TextFieldContentItem()
+                    {
+                        Id = context.ContentItem.As<GraphSyncPart>().ExtractGuid(),
+                        JobProfileId = Guid.Parse(item.GraphSyncPartId ?? string.Empty)
+                    });
+
+                }
+            }
+
+            await _serviceBusMessageProcessor.SendOtherRelatedTypeMessages(jobprofileData, context.ContentItem.ContentType, actionType);
         }
 
         private Task GenerateServiceBusMessageForInfoTypes(ContentContextBase context, string actionType)

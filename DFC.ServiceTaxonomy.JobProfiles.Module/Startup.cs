@@ -16,7 +16,7 @@ using OrchardCore.ContentManagement.Handlers;
 using OrchardCore.Data.Migration;
 using OrchardCore.Modules;
 using YesSql.Indexes;
-using DFC.ServiceTaxonomy.JobProfiles.Module.Repositories;
+using DFC.ServiceTaxonomy.DataAccess.Repositories;
 
 namespace DFC.ServiceTaxonomy.JobProfiles.Module
 {
