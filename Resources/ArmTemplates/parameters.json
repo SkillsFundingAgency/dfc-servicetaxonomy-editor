@@ -175,6 +175,9 @@
         },
         "ExceptionCountThreshold": {
             "value": "__ExceptionCountThreshold__"
+        },
+        "SkillsFrameworkDbConnectionString": {
+            "value": "__SkillsFrameworkDbConnectionString__"
         }
     }
 }
