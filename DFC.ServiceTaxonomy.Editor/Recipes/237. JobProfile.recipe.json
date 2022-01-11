@@ -908,6 +908,7 @@
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "SOC code",
                                     "Position": "45"
+                                    "Editor": "EditPublishedLink"
                                 },
                                 "ContentPickerFieldSettings": {
                                     "Required": true,
