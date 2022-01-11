@@ -13,7 +13,6 @@
 
     if ($('h1:contains("Edit Page Location")').length) {
         var $titleInput = $('input[name="TitlePart.Title"]');
-        $titleInput = $titleInput.length > 0 ? $titleInput : $('input[name="UniqueTitlePart.Title"]');
         var $form = $titleInput.closest('form');
 
         var initialTitle = $titleInput.val();
