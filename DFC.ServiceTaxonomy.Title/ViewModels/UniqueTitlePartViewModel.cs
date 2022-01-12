@@ -11,5 +11,6 @@ namespace DFC.ServiceTaxonomy.Title.ViewModels
         public ContentPart? Part { get; set; }
         public ContentTypePartDefinition? PartDefinition { get; set; }
         public string? Hint { get; set; }
+        public string? Placeholder { get; set; }
     }
 }

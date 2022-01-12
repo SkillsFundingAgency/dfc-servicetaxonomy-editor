@@ -28,6 +28,7 @@ namespace DFC.ServiceTaxonomy.Title.Settings
                 UniqueTitlePartSettings uniqueTitlePartSettings = contentTypePartDefinition.GetSettings<UniqueTitlePartSettings>();
 
                 model.Hint = uniqueTitlePartSettings.Hint;
+                model.Placeholder = uniqueTitlePartSettings.Placeholder;
 
                 BuildUniqueTitlePartSettingsList(model);
             })
@@ -56,11 +57,13 @@ namespace DFC.ServiceTaxonomy.Title.Settings
 
 
             if (await context.Updater.TryUpdateModelAsync(model, Prefix,
-                m => m.Hint))
+                m => m.Hint,
+                m => m.Placeholder))
             {
                 context.Builder.WithSettings(new UniqueTitlePartSettings
                 {
-                    Hint = model.Hint
+                    Hint = model.Hint,
+                    Placeholder = model.Placeholder
                 });
             }
 

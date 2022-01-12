@@ -10,7 +10,7 @@
                 @T["Enter the name of the unique title field."]
             </span>
         </p>
-        <input asp-for="Title" class="form-control text-muted" placeholder="e.g. Job Profile Header" />
+        <input asp-for="Title" class="form-control text-muted" placeholder=@Model.Placeholder />
         @*<span asp-validation-for="Title"></span>*@
         @if (!string.IsNullOrEmpty(Model.Hint))
         {
