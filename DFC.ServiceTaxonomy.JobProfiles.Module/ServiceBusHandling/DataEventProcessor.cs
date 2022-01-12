@@ -69,6 +69,17 @@ public DataEventProcessor(IServiceBusMessageProcessor serviceBusMessageProcessor
                         await GenerateServiceBusMessageForInfoTypes(context, actionType);
                         break;
 
+                    case ContentTypes.Workinghoursdetail:
+                    case ContentTypes.Workingpatterns:
+                    case ContentTypes.HiddenAlternativeTitle:
+                    case ContentTypes.Workingpatterndetail:
+                    case ContentTypes.Universityentryrequirements:
+                    case ContentTypes.Collegeentryrequirements:
+                    case ContentTypes.JobProfileSpecialism:
+                    case ContentTypes.Apprenticeshipentryrequirements:
+                        await GenerateServiceBusMessageForOtherReferenceTypes(context, actionType);
+                        break;
+
                     case ContentTypes.Skill:
                         await GenerateServiceBusMessageForSkillTypes(context, actionType);
                         break;
@@ -262,6 +273,62 @@ public DataEventProcessor(IServiceBusMessageProcessor serviceBusMessageProcessor
 
                 }
             }
+
+            await _serviceBusMessageProcessor.SendOtherRelatedTypeMessages(jobprofileData, context.ContentItem.ContentType, actionType);
+
+        }
+
+        private async Task GenerateServiceBusMessageForOtherReferenceTypes(ContentContextBase context, string actionType)
+        {
+            bool isSaved = actionType.Equals(ActionTypes.Published) || actionType.Equals(ActionTypes.Draft);
+            IList<OtherReferenceFieldContentItem> jobprofileData = new List<OtherReferenceFieldContentItem>();
+            string fieldDescription = context.ContentItem.ContentType switch
+            {
+                ContentTypes.Workinghoursdetail => context.ContentItem.Content.Workinghoursdetail.Description.Text,
+                ContentTypes.Workingpatterns => context.ContentItem.Content.Workingpatterns.Description.Text,
+                ContentTypes.HiddenAlternativeTitle => context.ContentItem.Content.HiddenAlternativeTitle.Description.Text,
+                ContentTypes.Workingpatterndetail => context.ContentItem.Content.Workingpatterndetail.Description.Text,
+                ContentTypes.Universityentryrequirements => context.ContentItem.Content.Universityentryrequirements.Description.Text,
+                ContentTypes.Collegeentryrequirements => context.ContentItem.Content.Collegeentryrequirements.Description.Text,
+                ContentTypes.JobProfileSpecialism => context.ContentItem.Content.JobProfileSpecialism.Description.Text,
+                ContentTypes.Apprenticeshipentryrequirements => context.ContentItem.Content.Apprenticeshipentryrequirements.Description.Text,
+                _ => throw new ArgumentException("No valid match found"),
+            };
+
+            var matches = await _jobProfileIndexRepository.GetAll(b => b.WorkingHoursDetail != null && b.WorkingHoursDetail.Contains(context.ContentItem.ContentItemId) ||
+                b.WorkingPatterns != null && b.WorkingPatterns.Contains(context.ContentItem.ContentItemId) ||
+                b.HiddenAlternativeTitle != null && b.HiddenAlternativeTitle.Contains(context.ContentItem.ContentItemId) ||
+                b.WorkingPatternDetail != null && b.WorkingPatternDetail.Contains(context.ContentItem.ContentItemId) ||
+                b.UniversityEntryRequirements != null && b.UniversityEntryRequirements.Contains(context.ContentItem.ContentItemId) ||
+                b.CollegeEntryRequirements != null && b.CollegeEntryRequirements.Contains(context.ContentItem.ContentItemId) ||
+                b.JobProfileSpecialism != null && b.JobProfileSpecialism.Contains(context.ContentItem.ContentItemId) ||
+                b.ApprenticeshipEntryRequirements != null && b.ApprenticeshipEntryRequirements.Contains(context.ContentItem.ContentItemId)).ListAsync();
+
+            foreach (var item in matches)
+            {
+                if (isSaved)
+                {
+                    jobprofileData.Add(new OtherReferenceFieldContentItem()
+                    {
+                        Id = context.ContentItem.As<GraphSyncPart>().ExtractGuid(),
+                        Title = context.ContentItem.Content.TitlePart.Title,
+                        Description = fieldDescription,
+                        JobProfileId = Guid.Parse(item.GraphSyncPartId ?? string.Empty),
+                        JobProfileTitle = item.JobProfileTitle,
+                        Url = string.Empty, // TODO: Needs revisiting during integration to see if leaving it blank does not break anything in CUI"
+                    });
+                }
+                else
+                {
+                    jobprofileData.Add(new OtherReferenceFieldContentItem()
+                    {
+                        Id = context.ContentItem.As<GraphSyncPart>().ExtractGuid(),
+                        JobProfileId = Guid.Parse(item.GraphSyncPartId ?? string.Empty)
+                    });
+
+                }
+            }
+
 
             await _serviceBusMessageProcessor.SendOtherRelatedTypeMessages(jobprofileData, context.ContentItem.ContentType, actionType);
         }
