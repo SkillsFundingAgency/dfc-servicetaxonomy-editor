@@ -184,6 +184,9 @@
         },
         "ExceptionCountThreshold": {
             "type": "string"
+        },
+        "SkillsFrameworkDbConnectionString": {
+            "type": "securestring"
         }
     },
     "variables": {
@@ -472,6 +475,10 @@
                             {
                                 "name": "AzureAdSettings__ResourceGroupName",
                                 "value": "[parameters('AzureAdSettingsResourceGroupName')]"
+                            },
+                            {
+                                "name": "ConnectionStrings__SkillsFrameworkDB",
+                                "value": "[parameters('SkillsFrameworkDbConnectionString')]"
                             }
                         ]
                     }

@@ -50,7 +50,7 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module
                 .Column<string>(nameof(JobProfileIndex.UniversityEntryRequirements))
                 .Column<string>(nameof(JobProfileIndex.UniversityRequirements))
                 .Column<string>(nameof(JobProfileIndex.UniversityLinks))
-                .Column<string>(nameof(JobProfileIndex.CollegeentryRequirements))
+                .Column<string>(nameof(JobProfileIndex.CollegeEntryRequirements))
                 .Column<string>(nameof(JobProfileIndex.CollegeRequirements))
                 .Column<string>(nameof(JobProfileIndex.CollegeLink))
                 .Column<string>(nameof(JobProfileIndex.ApprenticeshipEntryRequirements))
@@ -92,6 +92,28 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module
                     nameof(JobProfileIndex.GraphSyncPartId)));
 
             return 2;
+        }
+
+        public int UpdateFrom2()
+        {
+            _contentDefinitionManager.AlterPartDefinition(nameof(JobProfile), part => part
+                .Attachable()
+                .WithDescription("Creates JobProfile related metadata record.")
+            );
+
+            SchemaBuilder.AlterIndexTable<JobProfileIndex>(table => table.AddColumn<string>(nameof(JobProfileIndex.Restriction)));
+
+            SchemaBuilder.AlterIndexTable<JobProfileIndex>(table => table
+     .DropIndex($"IDX_{nameof(JobProfileIndex)}_{nameof(JobProfileIndex.ContentItemId)}"));
+
+            SchemaBuilder.AlterIndexTable<JobProfileIndex>(table => table
+                .CreateIndex(
+                    $"IDX_{nameof(JobProfileIndex)}_{nameof(JobProfileIndex.ContentItemId)}",
+                    "DocumentId",
+                    nameof(JobProfileIndex.ContentItemId),
+                    nameof(JobProfileIndex.GraphSyncPartId)));
+
+            return 3;
         }
     }
 }

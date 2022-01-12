@@ -18,7 +18,7 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module.Indexes
         public string? UniversityEntryRequirements { get; set; }
         public string? UniversityRequirements { get; set; }
         public string? UniversityLinks { get; set; }
-        public string? CollegeentryRequirements { get; set; }
+        public string? CollegeEntryRequirements { get; set; }
         public string? CollegeRequirements { get; set; }
         public string? CollegeLink { get; set; }
         public string? ApprenticeshipEntryRequirements { get; set; }
@@ -30,5 +30,6 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module.Indexes
         public string? Environment { get; set; }
         public string? Uniform { get; set; }
         public string? JobProfileTitle { get; set; }
+        public string? Restriction { get; set; }
     }
 }

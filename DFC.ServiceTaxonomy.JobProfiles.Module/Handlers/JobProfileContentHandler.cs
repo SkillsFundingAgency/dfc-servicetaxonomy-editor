@@ -50,7 +50,11 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module.Handlers
                 if (!string.IsNullOrEmpty(socCode))
                 {
                     var socSkillsMatrixContentItemsList = await _session.Query<ContentItem, ContentItemIndex>(c => c.ContentType == ContentTypes.SOCskillsmatrix && c.DisplayText.StartsWith(socCode) && c.Published).ListAsync();
-                    context.ContentItem.Content.JobProfile.Relatedskills.ContentItemIds = new JArray(socSkillsMatrixContentItemsList.Select(c => c.ContentItemId));
+                    if (context.ContentItem.Content.JobProfile.Relatedskills != null)
+                    {
+                        context.ContentItem.Content.JobProfile.Relatedskills.ContentItemIds = new JArray(socSkillsMatrixContentItemsList.Select(c => c.ContentItemId));
+                    }
+                    
                 }
             }
         }
@@ -58,7 +62,7 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module.Handlers
         private async Task<string> SkillReloadRequired(ContentContextBase context)
         {
             var socCodeContentItemIds = (JArray)context.ContentItem.Content.JobProfile.SOCcode.ContentItemIds;
-            var relatedSkillsIds = (JArray)context.ContentItem.Content.JobProfile.Relatedskills.ContentItemIds;
+            var relatedSkillsIds = (JArray)context.ContentItem.Content.JobProfile.Relatedskills == null ? default : (JArray)context.ContentItem.Content.JobProfile.Relatedskills.ContentItemIds;
             // If no SOC code assigned then no need to create the skill relationships
             if(socCodeContentItemIds == null || !socCodeContentItemIds.Any() || socCodeContentItemIds.Count != 1)
             {

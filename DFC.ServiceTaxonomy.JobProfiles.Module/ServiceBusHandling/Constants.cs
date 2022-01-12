@@ -33,9 +33,11 @@
         public const string Apprenticeshiplink = nameof(Apprenticeshiplink);
 
         public const string Universityrequirements = nameof(Universityrequirements);
+        public const string Universityentryrequirements = nameof(Universityentryrequirements);
         public const string Collegerequirements = nameof(Collegerequirements);
+        public const string Collegeentryrequirements = nameof(Collegeentryrequirements);
         public const string Apprenticeshiprequirements = nameof(Apprenticeshiprequirements);
-
+        public const string Apprenticeshipentryrequirements = nameof(Apprenticeshipentryrequirements);
 
     }
 }

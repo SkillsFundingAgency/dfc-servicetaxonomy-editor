@@ -28,5 +28,6 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module.Models.Indexes
         public IList<string>? Relatedlocations { get; set; }
         public IList<string>? Relatedenvironments { get; set; }
         public IList<string>? Relateduniforms { get; set; }
+        public IList<string>? Restrictions { get; set; }
     }
 }
