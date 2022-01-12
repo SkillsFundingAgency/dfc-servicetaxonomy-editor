@@ -50,7 +50,7 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module
                 .Column<string>(nameof(JobProfileIndex.UniversityEntryRequirements))
                 .Column<string>(nameof(JobProfileIndex.UniversityRequirements))
                 .Column<string>(nameof(JobProfileIndex.UniversityLinks))
-                .Column<string>(nameof(JobProfileIndex.CollegeentryRequirements))
+                .Column<string>(nameof(JobProfileIndex.CollegeEntryRequirements))
                 .Column<string>(nameof(JobProfileIndex.CollegeRequirements))
                 .Column<string>(nameof(JobProfileIndex.CollegeLink))
                 .Column<string>(nameof(JobProfileIndex.ApprenticeshipEntryRequirements))

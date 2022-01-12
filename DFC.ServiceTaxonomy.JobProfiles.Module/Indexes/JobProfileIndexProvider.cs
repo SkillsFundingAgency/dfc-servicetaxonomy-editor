@@ -87,7 +87,7 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module.Indexes
                         UniversityEntryRequirements = (part.Universityentryrequirements.ContentItemIds.ToObject<IList<string>>() as IList<string>).ConvertListToCsv(),
                         UniversityRequirements = (part.Relateduniversityrequirements.ContentItemIds.ToObject<IList<string>>() as IList<string>).ConvertListToCsv(),
                         UniversityLinks = (part.Relateduniversitylinks.ContentItemIds.ToObject<IList<string>>() as IList<string>).ConvertListToCsv(),
-                        CollegeentryRequirements = (part.Collegeentryrequirements.ContentItemIds.ToObject<IList<string>>() as IList<string>).ConvertListToCsv(),
+                        CollegeEntryRequirements = (part.Collegeentryrequirements.ContentItemIds.ToObject<IList<string>>() as IList<string>).ConvertListToCsv(),
                         CollegeRequirements = (part.Relatedcollegerequirements.ContentItemIds.ToObject<IList<string>>() as IList<string>).ConvertListToCsv(),
                         CollegeLink = (part.Relatedcollegelinks.ContentItemIds.ToObject<IList<string>>() as IList<string>).ConvertListToCsv(),
                         ApprenticeshipEntryRequirements = (part.Apprenticeshipentryrequirements.ContentItemIds.ToObject<IList<string>>() as IList<string>).ConvertListToCsv(),
