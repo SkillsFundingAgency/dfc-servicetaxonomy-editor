@@ -230,3 +230,6 @@ Local Orchard Core package history, as stored in OrchardCorePackages folder.
 | rc9  | https://github.com/SkillsFundingAgency/OrchardCore/tree/monaco_editor ab93361 : 10 Feb 21 | Forked MichaelPetrinolis/OrchardCore (itself a fork of OrchardCMS/OrchardCore) to SkillsFundingAgency/OrchardCore. Then merged the latest OrchardCMS/Orchard dev branch into SkillsFundingAgency/OrchardCore monaco_editor branch, up to commit 7526024 (10 Feb 21 : .NET SDK 3.1.406) | Latest Orchard Core @ 7526024 : 10 Feb 21 + [monaco_editor](https://github.com/OrchardCMS/OrchardCore/pull/8266) (wip) 31 Jan 21 : 8a44eb7 |
 | rc10 | https://github.com/SkillsFundingAgency/OrchardCore/tree/dev 25ef9ddf13d3b79d8bbb41e1e3b4053712e483f6 : 3 Mar 21 | Vanilla OC dev branch (although still forked from MichaelPetrinolis/OrchardCore) | |
 | rc11 | https://github.com/OrchardCMS/OrchardCore/tree/dev 5702acffa357a204f481a9627290ad9cf554673f : 10 Jun 21 | Vanilla OC dev branch | |
+| rc12 | https://github.com/OrchardCMS/OrchardCore/tree/dev deb0827c743e79ddad91df06e5ac71e8932c5373 : 23 Jul 21 | Vanilla OC dev branch | |
+
+23/07/2021 Orchard Core version 1.0.0 nuget packages released and solution updated with these.

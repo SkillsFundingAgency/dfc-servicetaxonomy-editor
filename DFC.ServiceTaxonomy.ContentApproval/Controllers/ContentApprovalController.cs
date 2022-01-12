@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc.Localization;
 using Microsoft.AspNetCore.Mvc.Routing;
 using OrchardCore.ContentManagement;
 using OrchardCore.Contents;
+using OrchardCore.Contents.AuditTrail.Models;
 using OrchardCore.DisplayManagement.Notify;
 
 namespace DFC.ServiceTaxonomy.ContentApproval.Controllers
@@ -87,6 +88,10 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Controllers
             if (contentApprovalPart.ReviewStatus == ReviewStatus.ReadyForReview)
             {
                 contentItem.Alter<ContentApprovalPart>(p => p.ReviewStatus = ReviewStatus.InReview);
+                if (contentItem.Has<AuditTrailPart>())
+                {
+                    contentItem.Alter<AuditTrailPart>(a => a.Comment = string.Empty);
+                }
                 contentItem.Author = User.Identity.Name;
                 await _contentManager.SaveDraftAsync(contentItem);
             }

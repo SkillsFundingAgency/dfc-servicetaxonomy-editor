@@ -36,7 +36,9 @@
                 "OrchardCore.Themes",
                 "OrchardCore.Users",
                 // Content Management
+                "OrchardCore.AdminDashboard",
                 "OrchardCore.Alias",
+                "OrchardCore.AuditTrail",
                 "OrchardCore.Autoroute",
                 "OrchardCore.Html",
                 "OrchardCore.Https",
@@ -65,6 +67,7 @@
                 "OrchardCore.Title",
                 "OrchardCore.Templates",
                 "OrchardCore.Widgets",
+                "OrchardCore.Users.AuditTrail",
                 // Hosting
                 "OrchardCore.Media.Azure.Storage",
                 // Workflows
@@ -77,6 +80,7 @@
                 // Service Taxonomy Editor
                 "DFC.ServiceTaxonomy.Banners",
                 "DFC.ServiceTaxonomy.Content",
+                "DFC.ServiceTaxonomy.ContentApproval",
                 "DFC.ServiceTaxonomy.ContentPickerPreview",
                 "DFC.ServiceTaxonomy.CustomEditor",
                 "DFC.ServiceTaxonomy.CustomFields",
@@ -88,9 +92,7 @@
                 "DFC.ServiceTaxonomy.Taxonomies",
                 "DFC.ServiceTaxonomy.Taxonomies.ContentsAdminList",
                 "DFC.ServiceTaxonomy.UnpublishLater",
-                "OrchardCore.AuditTrail",
-                "OrchardCore.AdminDashboard",
-                "DFC.ServiceTaxonomy.ContentApproval"
+                "DFC.ServiceTaxonomy.VersionComparison"
             ]
         },
         {
@@ -202,6 +204,24 @@
                                     "DisplayRedirectLocationsAndDefaultPageForLocation": true
                                 }
                             }
+                        },
+                        {
+                            "PartName": "ContentApprovalPart",
+                            "Name": "ContentApprovalPart",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "6"
+                                }
+                            }
+                        },
+                        {
+                            "PartName": "AuditTrailPart",
+                            "Name": "AuditTrailPart",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "7"
+                                }
+                            }
                         }
                     ]
                 },
@@ -274,6 +294,24 @@
                                     "IdPropertyName": "uri",
                                     "GenerateIdPropertyValue": "$\"<<contentapiprefix>>/{ContentType}/{Value}\".ToLowerInvariant()",
                                     "DisplayId": true
+                                }
+                            }
+                        },
+                        {
+                            "PartName": "ContentApprovalPart",
+                            "Name": "ContentApprovalPart",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "5"
+                                }
+                            }
+                        },
+                        {
+                            "PartName": "AuditTrailPart",
+                            "Name": "AuditTrailPart",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "6"
                                 }
                             }
                         }
@@ -361,7 +399,7 @@
                                 },
                                 "HtmlBodyPartSettings": {},
                                 "HtmlBodyPartTrumbowygEditorSettings": {
-                                    "Options": "{\r\n    semantic: {\r\n        'b': 'strong',\r\n        'i': 'em',\r\n        's': 'del',\r\n        'strike': 'del',\r\n        'div': 'div'\r\n    },\r\n    tagsToKeep: [\r\n      \"area\",\r\n      \"base\",\r\n      \"br\",\r\n      \"col\",\r\n      \"embed\",\r\n      \"hr\",\r\n      \"img\",\r\n      \"input\",\r\n      \"param\",\r\n      \"source\",\r\n      \"track\",\r\n      \"wbr\",\r\n\r\n      \"div\",\r\n      \"iframe\"\r\n    ],\r\n    autogrow: true,\r\n    btns: [\r\n        [\"viewHTML\"],\r\n        [\"undo\", \"redo\"],\r\n        [\"heading\", \"paragraph\", \"fontSize\"],\r\n        [\"fontWeight\"],\r\n        [\"foreColor\", \"backColor\"],\r\n        [\"links\"],\r\n        [\"image\"],\r\n        [\"align\"],\r\n        [\"list\", \"bulletList\", \"numberList\"],\r\n        [\"sectionBreak\"],\r\n        [\"removeformat\"],\r\n        [\"fullscreen\"],\r\n        [\"accordion\"],\r\n        [\"tabs\"]\r\n    ],\r\n    btnsDef: {\r\n        align: {\r\n            dropdown: [\"justifyLeft\", \"justifyCenter\", \"justifyRight\", \"justifyFull\"],\r\n            ico: \"justifyLeft\"\r\n        },\r\n        image: {\r\n            dropdown: [\"insertMedia\", \"base64\",\"youtubeLink\"],\r\n            ico: \"insertImage\"\r\n        }\r\n    },\r\n    plugins: {\r\n      colors: {\r\n          colorList: [\r\n            '0b0c0c',\r\n            '626a6e',\r\n            '1d70b8',\r\n            '003078',\r\n            '4c2c92',\r\n            'b1b4b6',\r\n            'ffdd00',\r\n            'd4351c',\r\n            \r\n            '003a69',\r\n            '347ca9',\r\n            \r\n            '00703c',\r\n            '5694ca',\r\n            'f3f2f1',\r\n            'ffffff',\r\n            '6f72af',\r\n            '912b88',\r\n            'd53880',\r\n            'f499be',\r\n            'f47738',\r\n            'b58840',\r\n            '85994b',\r\n            '28a197',\r\n          ]\r\n      }\r\n  }\r\n}"
+                                    "Options": "{\r\n    semantic: {\r\n        'b': 'strong',\r\n        'i': 'em',\r\n        's': 'del',\r\n        'strike': 'del',\r\n        'div': 'div'\r\n    },\r\n    tagsToKeep: [\r\n      \"area\",\r\n      \"base\",\r\n      \"br\",\r\n      \"col\",\r\n      \"embed\",\r\n      \"hr\",\r\n      \"img\",\r\n      \"input\",\r\n      \"param\",\r\n      \"source\",\r\n      \"track\",\r\n      \"wbr\",\r\n\r\n      \"div\",\r\n      \"iframe\",\r\n      \"form\"\r\n    ],\r\n    autogrow: true,\r\n    btns: [\r\n        [\"viewHTML\"],\r\n        [\"undo\", \"redo\"],\r\n        [\"heading\", \"paragraph\", \"fontSize\"],\r\n        [\"fontWeight\"],\r\n        [\"foreColor\", \"backColor\"],\r\n        [\"links\"],\r\n        [\"image\"],\r\n        [\"align\"],\r\n        [\"list\", \"bulletList\", \"numberList\"],\r\n        [\"sectionBreak\"],\r\n        [\"removeformat\"],\r\n        [\"fullscreen\"],\r\n        [\"accordion\"],\r\n        [\"tabs\"]\r\n    ],\r\n    btnsDef: {\r\n        align: {\r\n            dropdown: [\"justifyLeft\", \"justifyCenter\", \"justifyRight\", \"justifyFull\"],\r\n            ico: \"justifyLeft\"\r\n        },\r\n        image: {\r\n            dropdown: [\"insertMedia\", \"base64\",\"youtubeLink\"],\r\n            ico: \"insertImage\"\r\n        }\r\n    },\r\n    plugins: {\r\n      colors: {\r\n          colorList: [\r\n            '0b0c0c',\r\n            '626a6e',\r\n            '1d70b8',\r\n            '003078',\r\n            '4c2c92',\r\n            'b1b4b6',\r\n            'ffdd00',\r\n            'd4351c',\r\n            \r\n            '003a69',\r\n            '347ca9',\r\n            \r\n            '00703c',\r\n            '5694ca',\r\n            'f3f2f1',\r\n            'ffffff',\r\n            '6f72af',\r\n            '912b88',\r\n            'd53880',\r\n            'f499be',\r\n            'f47738',\r\n            'b58840',\r\n            '85994b',\r\n            '28a197',\r\n          ]\r\n      }\r\n  }\r\n}"
                                 },
                                 "ContentIndexSettings": {}
                             }
@@ -478,6 +516,24 @@
                                     "RenderTitle": false
                                 }
                             }
+                        },
+                        {
+                            "PartName": "ContentApprovalPart",
+                            "Name": "ContentApprovalPart",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "4"
+                                }
+                            }
+                        },
+                        {
+                            "PartName": "AuditTrailPart",
+                            "Name": "AuditTrailPart",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "5"
+                                }
+                            }
                         }
                     ]
                 },
@@ -510,6 +566,24 @@
                             "Settings": {
                                 "ContentTypePartSettings": {
                                     "Position": "0"
+                                }
+                            }
+                        },
+                        {
+                            "PartName": "ContentApprovalPart",
+                            "Name": "ContentApprovalPart",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "2"
+                                }
+                            }
+                        },
+                        {
+                            "PartName": "AuditTrailPart",
+                            "Name": "AuditTrailPart",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "3"
                                 }
                             }
                         }
@@ -561,6 +635,316 @@
                             "Settings": {
                                 "ContentTypePartSettings": {
                                     "Position": "0"
+                                }
+                            }
+                        },
+                        {
+                            "PartName": "ContentApprovalPart",
+                            "Name": "ContentApprovalPart",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "3"
+                                }
+                            }
+                        },
+                        {
+                            "PartName": "AuditTrailPart",
+                            "Name": "AuditTrailPart",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "4"
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "Name": "TriageToolFilter",
+                    "DisplayName": "Triage Tool Filter",
+                    "Settings": {
+                        "ContentTypeSettings": {
+                            "Creatable": true,
+                            "Listable": true,
+                            "Draftable": true
+                        },
+                        "FullTextAspectSettings": {}
+                    },
+                    "ContentTypePartDefinitionRecords": [
+                        {
+                            "PartName": "TriageToolFilter",
+                            "Name": "TriageToolFilter",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "1"
+                                }
+                            }
+                        },
+                        {
+                            "PartName": "GraphSyncPart",
+                            "Name": "GraphSyncPart",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "2"
+                                },
+                                "GraphSyncPartSettings": {
+                                    "NodeNameTransform": "ContentType",
+                                    "PropertyNameTransform": "Value",
+                                    "IdPropertyName": "uri",
+                                    "GenerateIdPropertyValue": "$\"<<contentapiprefix>>/{ContentType}/{Value}\".ToLowerInvariant()",
+                                    "DisplayId": true
+                                },
+                                "ContentIndexSettings": {}
+                            }
+                        },
+                        {
+                            "PartName": "TitlePart",
+                            "Name": "TitlePart",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "0"
+                                },
+                                "ContentIndexSettings": {},
+                                "TitlePartSettings": {}
+                            }
+                        },
+                        {
+                            "PartName": "ContentApprovalPart",
+                            "Name": "ContentApprovalPart",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "3"
+                                }
+                            }
+                        },
+                        {
+                            "PartName": "AuditTrailPart",
+                            "Name": "AuditTrailPart",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "4"
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "Name": "TriageToolOption",
+                    "DisplayName": "Triage Tool Option",
+                    "Settings": {
+                        "ContentTypeSettings": {
+                            "Creatable": true,
+                            "Listable": true,
+                            "Draftable": true
+                        },
+                        "FullTextAspectSettings": {}
+                    },
+                    "ContentTypePartDefinitionRecords": [
+                        {
+                            "PartName": "TriageToolOption",
+                            "Name": "TriageToolOption",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "1"
+                                }
+                            }
+                        },
+                        {
+                            "PartName": "GraphSyncPart",
+                            "Name": "GraphSyncPart",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "2"
+                                },
+                                "GraphSyncPartSettings": {
+                                    "NodeNameTransform": "ContentType",
+                                    "PropertyNameTransform": "Value",
+                                    "IdPropertyName": "uri",
+                                    "GenerateIdPropertyValue": "$\"<<contentapiprefix>>/{ContentType}/{Value}\".ToLowerInvariant()",
+                                    "DisplayId": true
+                                },
+                                "ContentIndexSettings": {}
+                            }
+                        },
+                        {
+                            "PartName": "TitlePart",
+                            "Name": "TitlePart",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "0"
+                                }
+                            }
+                        },
+                        {
+                            "PartName": "ContentApprovalPart",
+                            "Name": "ContentApprovalPart",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "3"
+                                }
+                            }
+                        },
+                        {
+                            "PartName": "AuditTrailPart",
+                            "Name": "AuditTrailPart",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "4"
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "Name": "Banner",
+                    "DisplayName": "Banner",
+                    "Settings": {
+                        "ContentTypeSettings": {
+                            "Creatable": true,
+                            "Listable": true,
+                            "Draftable": true,
+                            "Versionable": true,
+                            "Securable": true
+                        },
+                        "FullTextAspectSettings": {}
+                    },
+                    "ContentTypePartDefinitionRecords": [
+                        {
+                            "PartName": "TitlePart",
+                            "Name": "TitlePart",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "0"
+                                }
+                            }
+                        },
+                        {
+                            "PartName": "Banner",
+                            "Name": "Banner",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "1"
+                                }
+                            }
+                        },
+                        {
+                            "PartName": "GraphSyncPart",
+                            "Name": "GraphSyncPart",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "2"
+                                },
+                                "GraphSyncPartSettings": {
+                                    "NodeNameTransform": "ContentType",
+                                    "PropertyNameTransform": "Value",
+                                    "IdPropertyName": "uri",
+                                    "GenerateIdPropertyValue": "$\"<<contentapiprefix>>/{ContentType}/{Value}\".ToLowerInvariant()",
+                                    "DisplayId": true
+                                },
+                                "ContentIndexSettings": {}
+                            }
+                        },
+                        {
+                            "PartName": "ContentApprovalPart",
+                            "Name": "ContentApprovalPart",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "3"
+                                }
+                            }
+                        },
+                        {
+                            "PartName": "AuditTrailPart",
+                            "Name": "AuditTrailPart",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "4"
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "Name": "Pagebanner",
+                    "DisplayName": "Page banner",
+                    "Settings": {
+                        "ContentTypeSettings": {
+                            "Creatable": true,
+                            "Listable": true,
+                            "Draftable": true,
+                            "Versionable": true,
+                            "Securable": true
+                        },
+                        "FullTextAspectSettings": {}
+                    },
+                    "ContentTypePartDefinitionRecords": [
+                        {
+                            "PartName": "Pagebanner",
+                            "Name": "Pagebanner",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "2"
+                                }
+                            }
+                        },
+                        {
+                            "PartName": "ContentApprovalPart",
+                            "Name": "ContentApprovalPart",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "3"
+                                }
+                            }
+                        },
+                        {
+                            "PartName": "GraphSyncPart",
+                            "Name": "GraphSyncPart",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "4"
+                                },
+                                "GraphSyncPartSettings": {
+                                    "NodeNameTransform": "ContentType",
+                                    "PropertyNameTransform": "Value",
+                                    "IdPropertyName": "uri",
+                                    "GenerateIdPropertyValue": "$\"<<contentapiprefix>>/{ContentType}/{Value}\".ToLowerInvariant()",
+                                    "DisplayId": true
+                                },
+                                "ContentIndexSettings": {}
+                            }
+                        },
+                        {
+                            "PartName": "BannerPart",
+                            "Name": "BannerPart",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "1"
+                                }
+                            }
+                        },
+                        {
+                            "PartName": "TitlePart",
+                            "Name": "TitlePart",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "0"
+                                }
+                            }
+                        },
+                        {
+                            "PartName": "ContentApprovalPart",
+                            "Name": "ContentApprovalPart",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "5"
+                                }
+                            }
+                        },
+                        {
+                            "PartName": "AuditTrailPart",
+                            "Name": "AuditTrailPart",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "6"
                                 }
                             }
                         }
@@ -882,7 +1266,7 @@
                                 },
                                 "HtmlFieldSettings": {},
                                 "HtmlFieldTrumbowygEditorSettings": {
-                                    "Options": "{\r\n    semantic: {\r\n        'b': 'strong',\r\n        'i': 'em',\r\n        's': 'del',\r\n        'strike': 'del',\r\n        'div': 'div'\r\n    },\r\n    tagsToKeep: [\r\n      \"area\",\r\n      \"base\",\r\n      \"br\",\r\n      \"col\",\r\n      \"embed\",\r\n      \"hr\",\r\n      \"img\",\r\n      \"input\",\r\n      \"param\",\r\n      \"source\",\r\n      \"track\",\r\n      \"wbr\",\r\n\r\n      \"div\",\r\n      \"iframe\"\r\n    ],\r\n    autogrow: true,\r\n    btns: [\r\n        [\"viewHTML\"],\r\n        [\"undo\", \"redo\"],\r\n        [\"heading\", \"paragraph\", \"fontSize\"],\r\n        [\"fontWeight\"],\r\n        [\"foreColor\", \"backColor\"],\r\n        [\"links\"],\r\n        [\"image\"],\r\n        [\"align\"],\r\n        [\"list\", \"bulletList\", \"numberList\"],\r\n        [\"sectionBreak\"],\r\n        [\"removeformat\"],\r\n        [\"fullscreen\"],\r\n        [\"accordion\"],\r\n        [\"tabs\"]\r\n    ],\r\n    btnsDef: {\r\n        align: {\r\n            dropdown: [\"justifyLeft\", \"justifyCenter\", \"justifyRight\", \"justifyFull\"],\r\n            ico: \"justifyLeft\"\r\n        },\r\n        image: {\r\n            dropdown: [\"insertMedia\", \"base64\",\"youtubeLink\"],\r\n            ico: \"insertImage\"\r\n        }\r\n    },\r\n    plugins: {\r\n      colors: {\r\n          colorList: [\r\n            '0b0c0c',\r\n            '626a6e',\r\n            '1d70b8',\r\n            '003078',\r\n            '4c2c92',\r\n            'b1b4b6',\r\n            'ffdd00',\r\n            'd4351c',\r\n            \r\n            '003a69',\r\n            '347ca9',\r\n            \r\n            '00703c',\r\n            '5694ca',\r\n            'f3f2f1',\r\n            'ffffff',\r\n            '6f72af',\r\n            '912b88',\r\n            'd53880',\r\n            'f499be',\r\n            'f47738',\r\n            'b58840',\r\n            '85994b',\r\n            '28a197',\r\n          ]\r\n      }\r\n  }\r\n}"
+                                    "Options": "{\r\n    semantic: {\r\n        'b': 'strong',\r\n        'i': 'em',\r\n        's': 'del',\r\n        'strike': 'del',\r\n        'div': 'div'\r\n    },\r\n    tagsToKeep: [\r\n      \"area\",\r\n      \"base\",\r\n      \"br\",\r\n      \"col\",\r\n      \"embed\",\r\n      \"hr\",\r\n      \"img\",\r\n      \"input\",\r\n      \"param\",\r\n      \"source\",\r\n      \"track\",\r\n      \"wbr\",\r\n\r\n      \"div\",\r\n      \"iframe\",\r\n      \"form\"\r\n    ],\r\n    autogrow: true,\r\n    btns: [\r\n        [\"viewHTML\"],\r\n        [\"undo\", \"redo\"],\r\n        [\"heading\", \"paragraph\", \"fontSize\"],\r\n        [\"fontWeight\"],\r\n        [\"foreColor\", \"backColor\"],\r\n        [\"links\"],\r\n        [\"image\"],\r\n        [\"align\"],\r\n        [\"list\", \"bulletList\", \"numberList\"],\r\n        [\"sectionBreak\"],\r\n        [\"removeformat\"],\r\n        [\"fullscreen\"],\r\n        [\"accordion\"],\r\n        [\"tabs\"]\r\n    ],\r\n    btnsDef: {\r\n        align: {\r\n            dropdown: [\"justifyLeft\", \"justifyCenter\", \"justifyRight\", \"justifyFull\"],\r\n            ico: \"justifyLeft\"\r\n        },\r\n        image: {\r\n            dropdown: [\"insertMedia\", \"base64\",\"youtubeLink\"],\r\n            ico: \"insertImage\"\r\n        }\r\n    },\r\n    plugins: {\r\n      colors: {\r\n          colorList: [\r\n            '0b0c0c',\r\n            '626a6e',\r\n            '1d70b8',\r\n            '003078',\r\n            '4c2c92',\r\n            'b1b4b6',\r\n            'ffdd00',\r\n            'd4351c',\r\n            \r\n            '003a69',\r\n            '347ca9',\r\n            \r\n            '00703c',\r\n            '5694ca',\r\n            'f3f2f1',\r\n            'ffffff',\r\n            '6f72af',\r\n            '912b88',\r\n            'd53880',\r\n            'f499be',\r\n            'f47738',\r\n            'b58840',\r\n            '85994b',\r\n            '28a197',\r\n          ]\r\n      }\r\n  }\r\n}"
                                 },
                                 "ContentIndexSettings": {}
                             }
@@ -897,6 +1281,67 @@
                                 },
                                 "BooleanFieldSettings": {
                                     "Label": "Show hero banner"
+                                },
+                                "ContentIndexSettings": {}
+                            }
+                        },
+                        {
+                            "FieldName": "BooleanField",
+                            "Name": "ShowBreadcrumb",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Show breadcrumb",
+                                    "Editor": "Switch"
+                                },
+                                "BooleanFieldSettings": {
+                                    "Label": "Show breadcrumb",
+                                    "DefaultValue": true
+                                },
+                                "ContentIndexSettings": {}
+                            }
+                        },
+                        {
+                            "FieldName": "HtmlField",
+                            "Name": "TriageToolSummary",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Triage Tool Summary",
+                                    "Editor": "Trumbowyg",
+                                    "Position": "3"
+                                },
+                                "HtmlFieldSettings": {},
+                                "ContentIndexSettings": {},
+                                "HtmlFieldTrumbowygEditorSettings": {
+                                    "Options": "{\r\n    autogrow: true,\r\n    btns: [\r\n        [\"viewHTML\"],\r\n        [\"undo\", \"redo\"],\r\n        [\"formatting\"],\r\n        [\"strong\", \"em\", \"del\"],\r\n        [\"foreColor\", \"backColor\"],\r\n        [\"superscript\", \"subscript\"],\r\n        [\"link\"],\r\n        [\"insertShortcode\"],\r\n        [\"image\"],\r\n        [\"align\"],\r\n        [\"unorderedList\", \"orderedList\"],\r\n        [\"horizontalRule\"],\r\n        [\"removeformat\"],\r\n        [\"fullscreen\"]\r\n    ],\r\n    btnsDef: {\r\n        align: {\r\n            dropdown: [\"justifyLeft\", \"justifyCenter\", \"justifyRight\", \"justifyFull\"],\r\n            ico: \"justifyLeft\"\r\n        },\r\n        image: {\r\n            dropdown: [\"insertImage\", \"base64\", \"noembed\"],\r\n            ico: \"insertImage\"\r\n        }\r\n    }\r\n}"
+                                }
+                            }
+                        },
+                        {
+                            "FieldName": "BooleanField",
+                            "Name": "UseInTriageTool",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Use In Triage Tool",
+                                    "Editor": "Switch",
+                                    "Position": "2"
+                                },
+                                "BooleanFieldSettings": {},
+                                "ContentIndexSettings": {}
+                            }
+                        },
+                        {
+                            "FieldName": "ContentPickerField",
+                            "Name": "TriageToolFilters",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Triage Tool Filters",
+                                    "Position": "1"
+                                },
+                                "ContentPickerFieldSettings": {
+                                    "Multiple": true,
+                                    "DisplayedContentTypes": [
+                                        "TriageToolFilter"
+                                    ]
                                 },
                                 "ContentIndexSettings": {}
                             }
@@ -964,7 +1409,7 @@
                                     "Hint": "The shared content."
                                 },
                                 "HtmlFieldTrumbowygEditorSettings": {
-                                    "Options": "{\r\n    semantic: {\r\n        'b': 'strong',\r\n        'i': 'em',\r\n        's': 'del',\r\n        'strike': 'del',\r\n        'div': 'div'\r\n    },\r\n    tagsToKeep: [\r\n      \"area\",\r\n      \"base\",\r\n      \"br\",\r\n      \"col\",\r\n      \"embed\",\r\n      \"hr\",\r\n      \"img\",\r\n      \"input\",\r\n      \"param\",\r\n      \"source\",\r\n      \"track\",\r\n      \"wbr\",\r\n\r\n      \"div\",\r\n      \"iframe\"\r\n    ],\r\n    autogrow: true,\r\n    btns: [\r\n        [\"viewHTML\"],\r\n        [\"undo\", \"redo\"],\r\n        [\"heading\", \"paragraph\", \"fontSize\"],\r\n        [\"fontWeight\"],\r\n        [\"foreColor\", \"backColor\"],\r\n        [\"links\"],\r\n        [\"image\"],\r\n        [\"align\"],\r\n        [\"list\", \"bulletList\", \"numberList\"],\r\n        [\"sectionBreak\"],\r\n        [\"removeformat\"],\r\n        [\"fullscreen\"],\r\n        [\"accordion\"],\r\n        [\"tabs\"]\r\n    ],\r\n    btnsDef: {\r\n        align: {\r\n            dropdown: [\"justifyLeft\", \"justifyCenter\", \"justifyRight\", \"justifyFull\"],\r\n            ico: \"justifyLeft\"\r\n        },\r\n        image: {\r\n            dropdown: [\"insertMedia\", \"base64\",\"youtubeLink\"],\r\n            ico: \"insertImage\"\r\n        }\r\n    },\r\n    plugins: {\r\n      colors: {\r\n          colorList: [\r\n            '0b0c0c',\r\n            '626a6e',\r\n            '1d70b8',\r\n            '003078',\r\n            '4c2c92',\r\n            'b1b4b6',\r\n            'ffdd00',\r\n            'd4351c',\r\n            \r\n            '003a69',\r\n            '347ca9',\r\n            \r\n            '00703c',\r\n            '5694ca',\r\n            'f3f2f1',\r\n            'ffffff',\r\n            '6f72af',\r\n            '912b88',\r\n            'd53880',\r\n            'f499be',\r\n            'f47738',\r\n            'b58840',\r\n            '85994b',\r\n            '28a197',\r\n          ]\r\n      }\r\n  }\r\n}"
+                                    "Options": "{\r\n    semantic: {\r\n        'b': 'strong',\r\n        'i': 'em',\r\n        's': 'del',\r\n        'strike': 'del',\r\n        'div': 'div'\r\n    },\r\n    tagsToKeep: [\r\n      \"area\",\r\n      \"base\",\r\n      \"br\",\r\n      \"col\",\r\n      \"embed\",\r\n      \"hr\",\r\n      \"img\",\r\n      \"input\",\r\n      \"param\",\r\n      \"source\",\r\n      \"track\",\r\n      \"wbr\",\r\n\r\n      \"div\",\r\n      \"iframe\",\r\n      \"form\"\r\n    ],\r\n    autogrow: true,\r\n    btns: [\r\n        [\"viewHTML\"],\r\n        [\"undo\", \"redo\"],\r\n        [\"heading\", \"paragraph\", \"fontSize\"],\r\n        [\"fontWeight\"],\r\n        [\"foreColor\", \"backColor\"],\r\n        [\"links\"],\r\n        [\"image\"],\r\n        [\"align\"],\r\n        [\"list\", \"bulletList\", \"numberList\"],\r\n        [\"sectionBreak\"],\r\n        [\"removeformat\"],\r\n        [\"fullscreen\"],\r\n        [\"accordion\"],\r\n        [\"tabs\"]\r\n    ],\r\n    btnsDef: {\r\n        align: {\r\n            dropdown: [\"justifyLeft\", \"justifyCenter\", \"justifyRight\", \"justifyFull\"],\r\n            ico: \"justifyLeft\"\r\n        },\r\n        image: {\r\n            dropdown: [\"insertMedia\", \"base64\",\"youtubeLink\"],\r\n            ico: \"insertImage\"\r\n        }\r\n    },\r\n    plugins: {\r\n      colors: {\r\n          colorList: [\r\n            '0b0c0c',\r\n            '626a6e',\r\n            '1d70b8',\r\n            '003078',\r\n            '4c2c92',\r\n            'b1b4b6',\r\n            'ffdd00',\r\n            'd4351c',\r\n            \r\n            '003a69',\r\n            '347ca9',\r\n            \r\n            '00703c',\r\n            '5694ca',\r\n            'f3f2f1',\r\n            'ffffff',\r\n            '6f72af',\r\n            '912b88',\r\n            'd53880',\r\n            'f499be',\r\n            'f47738',\r\n            'b58840',\r\n            '85994b',\r\n            '28a197',\r\n          ]\r\n      }\r\n  }\r\n}"
                                 },
                                 "ContentIndexSettings": {}
                             }
@@ -986,7 +1431,7 @@
                                 },
                                 "HtmlFieldSettings": {},
                                 "HtmlFieldTrumbowygEditorSettings": {
-                                    "Options": "{\r\n    semantic: {\r\n        'b': 'strong',\r\n        'i': 'em',\r\n        's': 'del',\r\n        'strike': 'del',\r\n        'div': 'div'\r\n    },\r\n    tagsToKeep: [\r\n      \"area\",\r\n      \"base\",\r\n      \"br\",\r\n      \"col\",\r\n      \"embed\",\r\n      \"hr\",\r\n      \"img\",\r\n      \"input\",\r\n      \"param\",\r\n      \"source\",\r\n      \"track\",\r\n      \"wbr\",\r\n\r\n      \"div\",\r\n      \"iframe\"\r\n    ],\r\n    autogrow: true,\r\n    btns: [\r\n        [\"viewHTML\"],\r\n        [\"undo\", \"redo\"],\r\n        [\"heading\", \"paragraph\", \"fontSize\"],\r\n        [\"fontWeight\"],\r\n        [\"foreColor\", \"backColor\"],\r\n        [\"links\"],\r\n        [\"image\"],\r\n        [\"align\"],\r\n        [\"list\", \"bulletList\", \"numberList\"],\r\n        [\"sectionBreak\"],\r\n        [\"removeformat\"],\r\n        [\"fullscreen\"],\r\n        [\"accordion\"],\r\n        [\"tabs\"]\r\n    ],\r\n    btnsDef: {\r\n        align: {\r\n            dropdown: [\"justifyLeft\", \"justifyCenter\", \"justifyRight\", \"justifyFull\"],\r\n            ico: \"justifyLeft\"\r\n        },\r\n        image: {\r\n            dropdown: [\"insertMedia\", \"base64\",\"youtubeLink\"],\r\n            ico: \"insertImage\"\r\n        }\r\n    },\r\n    plugins: {\r\n      colors: {\r\n          colorList: [\r\n            '0b0c0c',\r\n            '626a6e',\r\n            '1d70b8',\r\n            '003078',\r\n            '4c2c92',\r\n            'b1b4b6',\r\n            'ffdd00',\r\n            'd4351c',\r\n            \r\n            '003a69',\r\n            '347ca9',\r\n            \r\n            '00703c',\r\n            '5694ca',\r\n            'f3f2f1',\r\n            'ffffff',\r\n            '6f72af',\r\n            '912b88',\r\n            'd53880',\r\n            'f499be',\r\n            'f47738',\r\n            'b58840',\r\n            '85994b',\r\n            '28a197',\r\n          ]\r\n      }\r\n  }\r\n}"
+                                    "Options": "{\r\n    semantic: {\r\n        'b': 'strong',\r\n        'i': 'em',\r\n        's': 'del',\r\n        'strike': 'del',\r\n        'div': 'div'\r\n    },\r\n    tagsToKeep: [\r\n      \"area\",\r\n      \"base\",\r\n      \"br\",\r\n      \"col\",\r\n      \"embed\",\r\n      \"hr\",\r\n      \"img\",\r\n      \"input\",\r\n      \"param\",\r\n      \"source\",\r\n      \"track\",\r\n      \"wbr\",\r\n\r\n      \"div\",\r\n      \"iframe\",\r\n      \"form\"\r\n    ],\r\n    autogrow: true,\r\n    btns: [\r\n        [\"viewHTML\"],\r\n        [\"undo\", \"redo\"],\r\n        [\"heading\", \"paragraph\", \"fontSize\"],\r\n        [\"fontWeight\"],\r\n        [\"foreColor\", \"backColor\"],\r\n        [\"links\"],\r\n        [\"image\"],\r\n        [\"align\"],\r\n        [\"list\", \"bulletList\", \"numberList\"],\r\n        [\"sectionBreak\"],\r\n        [\"removeformat\"],\r\n        [\"fullscreen\"],\r\n        [\"accordion\"],\r\n        [\"tabs\"]\r\n    ],\r\n    btnsDef: {\r\n        align: {\r\n            dropdown: [\"justifyLeft\", \"justifyCenter\", \"justifyRight\", \"justifyFull\"],\r\n            ico: \"justifyLeft\"\r\n        },\r\n        image: {\r\n            dropdown: [\"insertMedia\", \"base64\",\"youtubeLink\"],\r\n            ico: \"insertImage\"\r\n        }\r\n    },\r\n    plugins: {\r\n      colors: {\r\n          colorList: [\r\n            '0b0c0c',\r\n            '626a6e',\r\n            '1d70b8',\r\n            '003078',\r\n            '4c2c92',\r\n            'b1b4b6',\r\n            'ffdd00',\r\n            'd4351c',\r\n            \r\n            '003a69',\r\n            '347ca9',\r\n            \r\n            '00703c',\r\n            '5694ca',\r\n            'f3f2f1',\r\n            'ffffff',\r\n            '6f72af',\r\n            '912b88',\r\n            'd53880',\r\n            'f499be',\r\n            'f47738',\r\n            'b58840',\r\n            '85994b',\r\n            '28a197',\r\n          ]\r\n      }\r\n  }\r\n}"
                                 },
                                 "ContentIndexSettings": {}
                             }
@@ -1086,6 +1531,29 @@
                     ]
                 },
                 {
+                    "Name": "TriageToolOption",
+                    "Settings": {},
+                    "ContentPartFieldDefinitionRecords": [
+                        {
+                            "FieldName": "ContentPickerField",
+                            "Name": "TriageToolFilters",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Triage Tool Filters",
+                                    "Position": "0"
+                                },
+                                "ContentPickerFieldSettings": {
+                                    "Multiple": true,
+                                    "DisplayedContentTypes": [
+                                        "TriageToolFilter"
+                                    ]
+                                },
+                                "ContentIndexSettings": {}
+                            }
+                        }
+                    ]
+                },
+                {
                     "Name": "Banner",
                     "Settings": {},
                     "ContentPartFieldDefinitionRecords": [
@@ -1161,6 +1629,26 @@
                             }
                         }
                     ]
+                },
+                {
+                    "Name": "ContentApprovalPart",
+                    "Settings": {
+                        "ContentPartSettings": {
+                            "Attachable": true,
+                            "Description": "Adds publishing status workflow properties to content items."
+                        }
+                    },
+                    "ContentPartFieldDefinitionRecords": []
+                },
+                {
+                    "Name": "AuditTrailPart",
+                    "Settings": {
+                        "ContentPartSettings": {
+                            "Attachable": true,
+                            "Description": "Allows editors to enter a comment to be saved into the Audit Trail event when saving a content item."
+                        }
+                    },
+                    "ContentPartFieldDefinitionRecords": []
                 }
             ]
         },
@@ -1180,21 +1668,81 @@
                         ]
                     }
                 ],
-                "TextField_Edit": [
+                "FlowPart_Edit": [
                     {
-                        "place": "Parts:1#Metadata;0",
+                        "place": "Parts:2#Content;1",
                         "displayType": null,
-                        "differentiator": "Page-Description",
+                        "differentiator": null,
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null,
+                        "contentType": [
+                            "Page"
+                        ]
+                    }
+                ],
+                "SitemapPart_Edit": [
+                    {
+                        "place": "Parts:0#SEO;2",
+                        "displayType": null,
+                        "differentiator": null,
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null,
+                        "contentType": [
+                            "Page"
+                        ]
+                    }
+                ],
+                "BooleanField_Edit": [
+                    {
+                        "place": "Parts:0#Content;1",
+                        "displayType": null,
+                        "differentiator": "Page-ShowBreadcrumb",
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null
+                    },
+                    {
+                        "place": "Parts:1#Content;1",
+                        "displayType": null,
+                        "differentiator": "Page-ShowHeroBanner",
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null
+                    },
+                    {
+                        "place": "Parts:0#Triage Tool;3",
+                        "displayType": null,
+                        "differentiator": "Page-UseInTriageTool",
                         "alternates": null,
                         "wrappers": null,
                         "shape": null
                     }
                 ],
-                "TaxonomyField_Edit": [
+                "HtmlField_Edit": [
                     {
-                        "place": "Parts:2#Metadata;0",
+                        "place": "Parts:2#Content;1",
                         "displayType": null,
-                        "differentiator": "Page-PageLocations",
+                        "differentiator": "Page-Herobanner",
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null
+                    },
+                    {
+                        "place": "Parts:1#Triage Tool;3",
+                        "displayType": null,
+                        "differentiator": "Page-TriageToolSummary",
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null
+                    }
+                ],
+                "ShowHeroBanner_Edit": [
+                    {
+                        "place": "Parts:1#Content;1",
+                        "displayType": null,
+                        "differentiator": "Page-ShowHeroBanner",
                         "alternates": null,
                         "wrappers": null,
                         "shape": null
@@ -1226,50 +1774,72 @@
                         ]
                     }
                 ],
-                "BooleanField_Edit": [
+                "ShowBreadcrumb_Edit": [
                     {
                         "place": "Parts:0#Content;1",
                         "displayType": null,
-                        "differentiator": "Page-ShowHeroBanner",
+                        "differentiator": "Page-ShowBreadcrumb",
                         "alternates": null,
                         "wrappers": null,
                         "shape": null
                     }
                 ],
-                "HtmlField_Edit": [
+                "TextField_Edit": [
                     {
-                        "place": "Parts:1#Content;1",
+                        "place": "Parts:1#Metadata;0",
                         "displayType": null,
-                        "differentiator": "Page-Herobanner",
+                        "differentiator": "Page-Description",
                         "alternates": null,
                         "wrappers": null,
                         "shape": null
                     }
                 ],
-                "FlowPart_Edit": [
+                "TaxonomyField_Edit": [
                     {
-                        "place": "Parts:2#Content;1",
+                        "place": "Parts:2#Metadata;0",
                         "displayType": null,
-                        "differentiator": null,
+                        "differentiator": "Page-PageLocations",
                         "alternates": null,
                         "wrappers": null,
-                        "shape": null,
-                        "contentType": [
-                            "Page"
-                        ]
+                        "shape": null
                     }
                 ],
-                "SitemapPart_Edit": [
+                "TriageToolFilters_Edit": [
                     {
-                        "place": "Parts:0#SEO;2",
+                        "place": "Parts:2#Triage Tool;3",
                         "displayType": null,
                         "differentiator": null,
                         "alternates": null,
                         "wrappers": null,
-                        "shape": null,
-                        "contentType": [
-                            "Page"
-                        ]
+                        "shape": null
+                    }
+                ],
+                "ContentPickerField_Edit": [
+                    {
+                        "place": "Parts:2#Triage Tool;3",
+                        "displayType": null,
+                        "differentiator": "Page-TriageToolFilters",
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null
+                    }
+                ],
+                "NumericField_Edit": [
+                    {
+                        "place": "Parts:10#Content;0",
+                        "displayType": null,
+                        "differentiator": "JobProfile-MinimumHours",
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null
+                    },
+                    {
+                        "place": "Parts:11#Content;0",
+                        "displayType": null,
+                        "differentiator": "JobProfile-MaximumHours",
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null
                     }
                 ]
             }

@@ -1,4 +1,4 @@
-﻿using Microsoft.Extensions.Options;
+using Microsoft.Extensions.Options;
 using OrchardCore.ResourceManagement;
 
 namespace DFC.ServiceTaxonomy.Theme
@@ -37,6 +37,16 @@ namespace DFC.ServiceTaxonomy.Theme
             _manifest
                 .DefineStyle("StaxTheme-content-approval")
                 .SetUrl("~/DFC.ServiceTaxonomy.Theme/Styles/content-approval.min.css", "~/DFC.ServiceTaxonomy.Theme/Styles/content-approval.css")
+                .SetVersion("1.0.0");
+
+            _manifest
+                .DefineStyle("StaxTheme-version-comparison")
+                .SetUrl("~/DFC.ServiceTaxonomy.Theme/Styles/version-comparison.min.css", "~/DFC.ServiceTaxonomy.Theme/Styles/version-comparison.css")
+                .SetVersion("1.0.0");
+
+            _manifest
+                .DefineStyle("StaxTheme-custom-editor")
+                .SetUrl("~/DFC.ServiceTaxonomy.Theme/Styles/custom-editor.min.css", "~/DFC.ServiceTaxonomy.Theme/Styles/custom-editor.css")
                 .SetVersion("1.0.0");
         }
 #pragma warning restore S3963 // "static" fields should be initialized inline

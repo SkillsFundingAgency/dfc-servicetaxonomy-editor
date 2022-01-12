@@ -11,7 +11,6 @@ namespace DFC.ServiceTaxonomy.ContentApproval.ViewModels
         }
 
         public ReviewStatus? ReviewStatus { get; set; }
-        public string? Comment { get; set; }
         public string? ContentItemId { get; set; }
         public IEnumerable<KeyValuePair<string, string>> ReviewTypes { get; set; }
     }

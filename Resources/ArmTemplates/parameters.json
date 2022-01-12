@@ -151,6 +151,30 @@
         },
         "DigitalAssetsCdn": {
             "value": "__CdnUrl__"
+        },
+        "AzureAdSettingsAuthority": {
+            "value": "__AzureAdSettingsAuthority__"
+        },
+        "AzureAdSettingsSubscriptionId": {
+            "value": "__AzureSubscriptionId__"
+        },
+        "AzureAdSettingsKeyVaultAddress": {
+            "value": "__sharedKeyVaultUrl__"
+        },
+        "AzureAdSettingsCdnProfileName": {
+            "value": "__CdnProfileName__"
+        },
+        "AzureAdSettingsCdnEndpointName": {
+            "value": "__CdnHostname__"
+        },
+        "AzureAdSettingsResourceGroupName": {
+            "value": "__SharedResourceGroupName__"
+        },
+        "enableAlerts": {
+            "value": __EnableAzureMonitorAlerting__
+        },
+        "ExceptionCountThreshold": {
+            "value": "__ExceptionCountThreshold__"
         }
     }
 }

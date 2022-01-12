@@ -92,6 +92,46 @@
         {
             "name": "ContentDefinition",
             "ContentTypes": [
+                {
+                    "Name": "TextArea",
+                    "DisplayName": "Text Area",
+                    "Settings": {
+                        "ContentTypeSettings": {
+                            "Stereotype": "Widget"
+                        }
+                    },
+                    "ContentTypePartDefinitionRecords": [
+                        {
+                            "PartName": "FormInputElementPart",
+                            "Name": "FormInputElementPart",
+                            "Settings": {}
+                        },
+                        {
+                            "PartName": "FormElementPart",
+                            "Name": "FormElementPart",
+                            "Settings": {}
+                        },
+                        {
+                            "PartName": "TextAreaPart",
+                            "Name": "TextAreaPart",
+                            "Settings": {}
+                        },
+                        {
+                            "PartName": "GraphSyncPart",
+                            "Name": "GraphSyncPart",
+                            "Settings": {
+                                "ContentTypePartSettings": {},
+                                "GraphSyncPartSettings": {
+                                    "NodeNameTransform": "ContentType",
+                                    "PropertyNameTransform": "Value",
+                                    "IdPropertyName": "uri",
+                                    "GenerateIdPropertyValue": "$\"<<contentapiprefix>>/{ContentType}/{Value}\".ToLowerInvariant()"
+                                },
+                                "ContentIndexSettings": {}
+                            }
+                        }
+                    ]
+                },
               {
                 "Name": "Page",
                 "DisplayName": "Page",
@@ -536,6 +576,15 @@
                   }
                 },
                 "ContentPartFieldDefinitionRecords": []
+              },
+              {
+                  "Name": "TextAreaPart",
+                  "Settings": {
+                      "ContentPartSettings": {
+                          "Description": "Provides text area properties."
+                      }
+                  },
+                  "ContentPartFieldDefinitionRecords": []
               },
               {
                 "Name": "LabelPart",

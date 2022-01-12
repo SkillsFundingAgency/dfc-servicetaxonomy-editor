@@ -47,6 +47,15 @@ namespace DFC.ServiceTaxonomy.Theme.Filters
                 .RegisterResource("stylesheet", "StaxTheme-content-approval")
                 .AtHead();
 
+            //todo: only required for version comparison
+            _resourceManager
+                .RegisterResource("stylesheet", "StaxTheme-version-comparison")
+                .AtHead();
+
+            _resourceManager
+                .RegisterResource("stylesheet", "StaxTheme-custom-editor")
+                .AtHead();
+
             await next();
         }
     }

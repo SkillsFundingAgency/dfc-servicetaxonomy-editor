@@ -46,6 +46,19 @@ stages:
       parameters:
         ArmTemplateRoot: "$(System.DefaultWorkingDirectory)/Resources/ArmTemplates"
 
+    - task: CopyFiles@2
+      displayName: 'Copy PSScripts Files to: $(Build.ArtifactStagingDirectory)'
+      inputs:
+        Contents: 'PSScripts/**/*.ps1'
+        TargetFolder: '$(Build.ArtifactStagingDirectory)/Resources/PSScripts'
+        flattenFolders: true
+
+    - task: PublishPipelineArtifact@0
+      displayName: Publish PSScripts Pipeline Artifact
+      inputs:
+        targetPath: "$(System.DefaultWorkingDirectory)/Resources/PSScripts"
+        artifactName: ${{ variables.SolutionBaseName }}.Editor.Resources.PSScripts
+
   - job: BuildDotNet
     displayName: "Build the dotnet core applications"
     workspace:
@@ -90,7 +103,7 @@ stages:
         configuration: Release
         packDirectory: '$(build.artifactstagingdirectory)\DeploymentPackages\Nuget'
         versioningScheme: byEnvVar
-        versionEnvVar: GitVersion.MajorMinorPatch
+        versionEnvVar: GitVersion.NugetVersionV2
 
     - task: DotNetCoreCLI@2
       displayName: 'dotnet pack - Events'
@@ -100,7 +113,8 @@ stages:
         configuration: Release
         packDirectory: '$(build.artifactstagingdirectory)\DeploymentPackages\Nuget'
         versioningScheme: byEnvVar
-        versionEnvVar: GitVersion.MajorMinorPatch
+        versionEnvVar: GitVersion.NugetVersionV2
+
 
     - task: PublishPipelineArtifact@1
       inputs:
@@ -115,7 +129,7 @@ stages:
 
 - stage: PublishPackage
   displayName: Publish Package to NuGet
-  condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master')) 
+  condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/dev'))
   jobs:  
   - job: CleanArtifacts  
     displayName: Clean artifacts directory
@@ -136,7 +150,45 @@ stages:
               nuGetFeedType: external
               publishFeedCredentials: 'DFC Nuget'
 
+- stage: DeployToLab
+  condition: and(eq(dependencies.Build.result,'Succeeded'), ne(variables['Build.Reason'], 'PullRequest'))
+  displayName: Deploy to LAB_SERVICETAXONOMY
+  variables:
+  - group: dfc-shared-all
+  - group: dfc-stax-shared-all
+  - group: dfc-shared-lab
+  - group: dfc-app-shared-lab
+  - group: dfc-stax-shared-lab
+  - group: 'KeyVault - dfc-lab-shared-kv'
+  - template: VariableTemplates/SharedEnvironmentVariables.yml
+  - template: VariableTemplates/LabEnvironmentVariables.yml
+  jobs:
+  - template: JobTemplates/deploy-environment.yml
+    parameters:
+      AzureSubscription: 'SFA-CDH-Dev/Test (962cae10-2950-412a-93e3-d8ae92b17896)'
+      Environment: LAB_SERVICETAXONOMY
+      EnvironmentRef: lab
+      PackageFile:  "$(Agent.BuildDirectory)/DFC.ServiceTaxonomy.Editor/DeploymentPackages/DFC.ServiceTaxonomy.Editor.zip"
+      ArmTemplateFolder: "$(Agent.BuildDirectory)/DFC.ServiceTaxonomy.Editor/Azure/ArmTemplates/"
+      Location: 'West Europe'
+      EnvironmentTag: '$(EnvironmentTag)'
+      ParentBusinessTag: '$(ParentBusiness)'
+      ServiceOfferingTag: '$(ServiceOffering)'
+      ResourceGroup: '$(ResourceGroup)'
+      WebAppName: '$(WebAppName)'
+      OrchardCoreUri: 'https://$(WebAppName).azurewebsites.net/'
+      EditorAdminUsername: $(OrchardEditorAdminUserName)
+      EditorAdminUserEmail: $(EditorAdminUserEmail)
+      EditorAdminUserPassword: $(OrchardEditorAdminPassword)
+      DFCAzureDevOpsProjectGuid: $(DFCAzureDevOpsProjectGuid)
+      DfcServiceTaxonomyTestsBuildId: $(DfcServiceTaxonomyTestsBuildId)
+      TestArtifactBranch: ${{ parameters.DfcServiceTaxonomyTestBranch }}
+      TestExclusionTag: 'NotDev'
+      MediaStorageAccountName: $(MediaStorageAccountName)
+      PSScriptPath: "$(Pipeline.Workspace)/${{ variables.SolutionBaseName }}.Editor.Resources.PSScripts"
+
 - stage: DeployToDev
+  dependsOn: PublishPackage
   condition: and(eq(dependencies.Build.result,'Succeeded'), ne(variables['Build.Reason'], 'PullRequest'))
   displayName: Deploy to DEV_SERVICETAXONOMY
   variables:
@@ -171,9 +223,10 @@ stages:
       TestArtifactBranch: ${{ parameters.DfcServiceTaxonomyTestBranch }}
       TestExclusionTag: 'NotDev'
       MediaStorageAccountName: $(MediaStorageAccountName)
+      PSScriptPath: "$(Pipeline.Workspace)/${{ variables.SolutionBaseName }}.Editor.Resources.PSScripts"
 
 - stage: DeployToSit
-  condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'))
+  condition: and(succeededOrFailed(), ne(variables['Build.Reason'], 'PullRequest'))
   displayName: Deploy to SIT_SERVICETAXONOMY
   variables:
   - group: dfc-shared-all
@@ -206,6 +259,7 @@ stages:
       TestArtifactBranch: ${{ parameters.DfcServiceTaxonomyTestBranch }}
       TestExclusionTag: 'NotSit'
       MediaStorageAccountName: $(MediaStorageAccountName)
+      PSScriptPath: "$(Pipeline.Workspace)/${{ variables.SolutionBaseName }}.Editor.Resources.PSScripts"
 
 
 - stage: DeployToPP
@@ -242,6 +296,7 @@ stages:
       TestArtifactBranch: ${{ parameters.DfcServiceTaxonomyTestBranch }}
       TestExclusionTag: 'NotPP'
       MediaStorageAccountName: $(MediaStorageAccountName)
+      PSScriptPath: "$(Pipeline.Workspace)/${{ variables.SolutionBaseName }}.Editor.Resources.PSScripts"
 
 - stage: DeployToPrd
   condition: and(eq(dependencies.Build.result,'Succeeded'), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
@@ -276,3 +331,4 @@ stages:
       DfcServiceTaxonomyTestsBuildId: $(DfcServiceTaxonomyTestsBuildId)
       TestArtifactBranch: ${{ parameters.DfcServiceTaxonomyTestBranch }}
       MediaStorageAccountName: $(MediaStorageAccountName)
+      PSScriptPath: "$(Pipeline.Workspace)/${{ variables.SolutionBaseName }}.Editor.Resources.PSScripts"

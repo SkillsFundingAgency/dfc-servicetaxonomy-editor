@@ -1,0 +1,42 @@
+{
+    "name": "01_Alerts_SharedContent",
+    "displayName": "01_Alerts_SharedContent",
+    "description": "",
+    "author": "",
+    "website": "",
+    "version": "",
+    "issetuprecipe": false,
+    "categories": [],
+    "tags": [],
+    "steps": [
+        {
+            "name": "Content",
+            "data": [
+                {
+                    "ContentItemId": "4p5kyphsfpjcz5ya5wx1k0415b",
+                    "ContentItemVersionId": "4yek5fvray2ky24w9v6yqm1hmw",
+                    "ContentType": "SharedContent",
+                    "DisplayText": "Page not found",
+                    "Latest": true,
+                    "Published": true,
+                    "ModifiedUtc": "2021-06-08T12:24:36.8971231Z",
+                    "PublishedUtc": "2021-06-08T12:24:36.9363988Z",
+                    "CreatedUtc": "2021-06-08T12:24:36.8971231Z",
+                    "Owner": "admin",
+                    "Author": "admin",
+                    "SharedContent": {
+                        "Content": {
+                            "Html": "<div class=\"content-container\">\n    <h1 class=\"heading-xlarge\">Page not found</h1>\n    <p>If you typed the web address or used a bookmark, check it is correct.</p>\n    <p>If you pasted the web address, check you copied the whole address.</p>\n    <p>If the web address is correct you can <a href=\"/contact-us\">contact us</a> to get help using this service or call 0800 100 900, 8am to 10pm, 7 days a week.</p>\n</div>"
+                        }
+                    },
+                    "GraphSyncPart": {
+                        "Text": "<<contentapiprefix>>/sharedcontent/cb711d22-2719-49ae-9444-1e6f24c17364"
+                    },
+                    "TitlePart": {
+                        "Title": "Page not found"
+                    }
+                }
+            ]
+        }
+    ]
+}

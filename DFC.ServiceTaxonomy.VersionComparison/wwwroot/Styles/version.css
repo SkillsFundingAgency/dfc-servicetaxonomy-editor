@@ -1,0 +1,15 @@
+﻿
+span {
+    overflow-wrap: break-word;
+}
+
+ins {
+    font-weight: bold;
+    color: #00b017;
+    text-decoration: none;
+}
+
+del {
+    font-weight: bold;
+    color: #ff0000;
+}

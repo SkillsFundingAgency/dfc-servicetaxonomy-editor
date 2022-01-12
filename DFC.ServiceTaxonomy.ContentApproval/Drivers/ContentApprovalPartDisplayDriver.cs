@@ -9,9 +9,12 @@ using DFC.ServiceTaxonomy.ContentApproval.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Localization;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
+using OrchardCore.ContentManagement;
 using OrchardCore.ContentManagement.Display.ContentDisplay;
 using OrchardCore.ContentManagement.Display.Models;
 using OrchardCore.ContentPreview;
+using OrchardCore.Contents.AuditTrail.Models;
 using OrchardCore.DisplayManagement.ModelBinding;
 using OrchardCore.DisplayManagement.Notify;
 using OrchardCore.DisplayManagement.Views;
@@ -38,15 +41,6 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Drivers
             var currentUser = _httpContextAccessor.HttpContext?.User;
             var results = new List<IDisplayResult>();
 
-            // Todo: removed this for the time being due to the requirement for commenting which needs to be defined in this view first.
-            //if (part.IsInDraft() && part.ReviewStatus == ReviewStatus.WillNeedReview && await _authorizationService.AuthorizeAsync(currentUser, Permissions.RequestReviewPermissions.RequestReviewPermission, part))
-            //{
-            //    results.Add(Initialize<ContentApprovalPartViewModel>(
-            //            "ContentApprovalPart_Admin_RequestReview",
-            //            viewModel => PopulateViewModel(part, viewModel))
-            //        .Location("SummaryAdmin", "Actions:First"));
-            //}
-
             if (part.ReviewStatus != ReviewStatus.NotInReview && await _authorizationService.AuthorizeAsync(currentUser, part.ReviewType.GetRelatedPermission(), part))
             {
                 results.Add(Initialize<ContentApprovalPartViewModel>(
@@ -54,13 +48,6 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Drivers
                         viewModel => PopulateViewModel(part, viewModel))
                     .Location("SummaryAdmin", "Actions:First"));
             }
-
-            // Todo: see above, hidden for time being.
-            // Show comment field
-            //results.Add(Initialize<ContentApprovalPartViewModel>(
-            //        $"ContentApprovalPart_Edit_Comment",
-            //        viewModel => PopulateViewModel(part, viewModel))
-            //    .Location("SummaryAdmin", "Content"));
 
             return Combine(results.ToArray());
         }
@@ -81,16 +68,25 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Drivers
             }
 
             var editorShape = GetEditorShapeType(context);
-            var reviewStatuses = new[] {ReviewStatus.ReadyForReview, ReviewStatus.InReview};
+            var reviewStatuses = new[] { ReviewStatus.ReadyForReview, ReviewStatus.InReview };
 
             var results = new List<IDisplayResult>();
+            // Show force publish
+            if ((part.ReviewStatus == ReviewStatus.NotInReview || part.ReviewStatus == ReviewStatus.RequiresRevision) && await _authorizationService.AuthorizeAsync(currentUser, Permissions.ForcePublishPermissions.ForcePublishPermission))
+            {
+                results.Add(Initialize<ContentApprovalPartViewModel>(
+                        $"{editorShape}_ForcePublish",
+                        viewModel => PopulateViewModel(part, viewModel))
+                    .Location("Actions:15"));
+            }
+
             // Show Request review option
             if (await _authorizationService.AuthorizeAsync(currentUser, Permissions.RequestReviewPermissions.RequestReviewPermission))
             {
                 results.Add(Initialize<ContentApprovalPartViewModel>(
                         $"{editorShape}_RequestReview",
                         viewModel => PopulateViewModel(part, viewModel))
-                    .Location("Actions:20"));
+                    .Location("Actions:16"));
             }
 
             // Show Request revision option
@@ -102,59 +98,49 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Drivers
                     .Location("Actions:First"));
             }
 
-            // Show force publish
-            if(part.ReviewStatus == ReviewStatus.NotInReview && await _authorizationService.AuthorizeAsync(currentUser, Permissions.ForcePublishPermissions.ForcePublishPermission))
-            {
-                results.Add(Initialize<ContentApprovalPartViewModel>(
-                        $"{editorShape}_ForcePublish",
-                        viewModel => PopulateViewModel(part, viewModel))
-                    .Location("Actions:15"));
-            }
-
-            // Show comment field
-            results.Add(Initialize<ContentApprovalPartViewModel>(
-                    $"{editorShape}_Comment",
-                    viewModel => PopulateViewModel(part, viewModel))
-                .Location("Actions:after"));
-
             return Combine(results.ToArray());
         }
 
-        public override async Task<IDisplayResult?> UpdateAsync(ContentApprovalPart part, IUpdateModel updater, UpdatePartEditorContext context)
+        public override async Task<IDisplayResult?> UpdateAsync(ContentApprovalPart part, IUpdateModel updateModel, UpdatePartEditorContext context)
         {
             var isPreview = _httpContextAccessor.HttpContext?.Features.Get<ContentPreviewFeature>()?.Previewing ?? false;
-            if(isPreview)
+            if (isPreview)
             {
                 return await EditAsync(part, context);
             }
 
             var viewModel = new ContentApprovalPartViewModel();
-
             var currentUser = _httpContextAccessor.HttpContext?.User;
 
             if (part.ReviewStatus == ReviewStatus.InReview && !await _authorizationService.AuthorizeAsync(currentUser, part.ReviewType.GetRelatedPermission()))
             {
-                updater.ModelState.AddModelError("ReviewStatus", "This item is currently under review and cannot be modified at this time.");
+                updateModel.ModelState.AddModelError("ReviewStatus", "This item is currently under review and cannot be modified at this time.");
                 return await EditAsync(part, context);
             }
 
-            await updater.TryUpdateModelAsync(viewModel, Prefix);
-            if (!part.ContentItem.ContentType.Equals("HTMLShared") && (string.IsNullOrWhiteSpace(viewModel.Comment) || viewModel.Comment.Equals(part.Comment)))
+            await updateModel.TryUpdateModelAsync(viewModel, Prefix);
+            var keys = updateModel.ModelState.Keys;
+
+            // For Publish, Force-Publish, Save Draft & Exit and Send Back actions the user must enter a comment for the audit trail
+            if (!await IsAuditTrailCommentValid(part, updateModel))
             {
-                updater.ModelState.AddModelError("Comment", "Please update the comment field before submitting.");
+                updateModel.ModelState.AddModelError("Comment", "Please update the comment field before submitting.");
                 return await EditAsync(part, context);
             }
-
-            var keys = updater.ModelState.Keys;
 
             if (keys.Contains(Constants.SubmitSaveKey))
             {
-                var saveType = updater.ModelState[Constants.SubmitSaveKey].AttemptedValue;
+                var saveType = updateModel.ModelState[Constants.SubmitSaveKey].AttemptedValue;
                 if (saveType.StartsWith(Constants.SubmitRequestApprovalValuePrefix))
                 {
                     part.ReviewStatus = ReviewStatus.ReadyForReview;
                     part.ReviewType = Enum.Parse<ReviewType>(saveType.Replace(Constants.SubmitRequestApprovalValuePrefix, ""));
                     _notifier.Success(H["{0} is now ready to be reviewed.", part.ContentItem.DisplayText]);
+                }
+                else if (saveType.StartsWith(Constants.SubmitRequiresRevisionValue))
+                {
+                    part.ReviewStatus = ReviewStatus.RequiresRevision;
+                    part.ReviewType = ReviewType.None;
                 }
                 else // implies a draft save or send back for revision
                 {
@@ -165,7 +151,7 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Drivers
             else if (keys.Contains(Constants.SubmitPublishKey))
             {
                 part.ReviewStatus = ReviewStatus.NotInReview;
-                var publishType = updater.ModelState[Constants.SubmitPublishKey].AttemptedValue;
+                var publishType = updateModel.ModelState[Constants.SubmitPublishKey].AttemptedValue;
                 if (publishType.StartsWith(Constants.SubmitRequestApprovalValuePrefix))
                 {
                     part.IsForcePublished = true;
@@ -178,8 +164,6 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Drivers
                 }
             }
 
-            part.Comment = viewModel.Comment;
-
             return await EditAsync(part, context);
         }
 
@@ -188,7 +172,85 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Drivers
             viewModel.ContentItemId = part.ContentItem.ContentItemId;
             viewModel.ReviewStatus = part.ReviewStatus;
             viewModel.ReviewTypes = EnumExtensions.GetEnumNameAndDisplayNameDictionary(typeof(ReviewType)).Where(rt => rt.Key != ReviewType.None.ToString());
-            viewModel.Comment = part.Comment;
+        }
+
+        private static async Task<bool> IsAuditTrailCommentValid(ContentApprovalPart part, IUpdateModel updateModel)
+        {
+            bool commentValid = true;
+
+            if (part != null && updateModel != null)
+            {
+                var isCommentRequired = IsCommentRequired(updateModel.ModelState);
+                if (isCommentRequired)
+                {
+                    var auditTrailPartExists = part.ContentItem.Has<OrchardCore.Contents.AuditTrail.Models.AuditTrailPart>();
+                    if (auditTrailPartExists)
+                    {
+                        var auditTrail = new AuditTrailPart();
+
+                        await updateModel.TryUpdateModelAsync(auditTrail, nameof(AuditTrailPart));
+                        if (string.IsNullOrEmpty(auditTrail.Comment))
+                        {
+                            commentValid = false;
+                        }
+                    }
+                }
+            }
+
+            return commentValid;
+        }
+
+        private static bool IsCommentRequired(ModelStateDictionary modelStateDictionary)
+        {
+            var keys = modelStateDictionary.Keys;
+            if (!keys.Any())
+            {
+                return false;
+            }
+            // All publishing actions require a comment
+            if (keys.Contains(Constants.SubmitPublishKey))
+            {
+                return true;
+            }
+            // Only Save Draft and exit and Send back actions require a comment
+            if (keys.Contains(Constants.SubmitSaveKey))
+            {
+                var keyValue = modelStateDictionary[Constants.SubmitSaveKey].AttemptedValue;
+                return new[] {Constants.SubmitSaveKey, Constants.SubmitRequiresRevisionValue}.Any(kv =>
+                    kv.Equals(keyValue, StringComparison.CurrentCultureIgnoreCase));
+            }
+
+            return false;
+            /*
+             *  Button/Action matrix         Key/Action                                                                     Comment
+             *  --------------------         ---------------------------------------------------------------------------    ---------------------
+             *  Publish                     - constants.SubmitPublishKey action = submit.Publish                            Required
+             *  Publish and continue        - constants.SubmitPublishKey action = submit.PublishAndContinue                 Required
+             *  
+             *  Force Publish
+             *      Content Design          - constants.SubmitPublishKey action = submit.RequestApproval - ContentDesign    Required
+             *      Stakeholder             - constants.SubmitPublishKey action = submit.RequestApproval - Stakeholder      Required
+             *      SME                     - constants.SubmitPublishKey action = submit.RequestApproval - SME              Required
+             *      UX                      - constants.SubmitPublishKey action = submit.RequestApproval - UX               Required
+             *      
+             *  Save Draft and continue     - constants.SubmitSaveKey    action = submit.SaveAndContinue                    Optional
+             *  Save Draft and exit         - constants.SubmitSaveKey    action = submit.Save                               Required
+             *  
+             *  Request review
+             *      Content Design          - constants.SubmitSaveKey    action = submit.RequestApproval - ContentDesign    Optional
+             *      Stakeholder             - constants.SubmitSaveKey    action = submit.RequestApproval - Stakeholder      Optional
+             *      SME                     - constants.SubmitSaveKey    action = submit.RequestApproval - SME              Optional
+             *      UK                      - constants.SubmitSaveKey    action = submit.RequestApproval - UX               Optional
+             *      
+             *  Send back                   - constants.SubmitSaveKey    action = submit.RequiresRevision                   Required
+             *               
+             *  Preview draft               - N/A (opens new tab)
+             *  
+             *  Visualise draft graph       - N/A (opens new tab)
+             *  Visualise published graph   - N/A (opens new tab)
+             *  
+             *  Cancel                      - N/A (exits page)
+             */
         }
     }
 }

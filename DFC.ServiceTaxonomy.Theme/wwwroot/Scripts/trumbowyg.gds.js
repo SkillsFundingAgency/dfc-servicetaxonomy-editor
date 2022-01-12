@@ -409,62 +409,62 @@
         return url;
     }
 
+    // Based on createLink in core trumbowyg src https://github.com/Alex-D/Trumbowyg/blob/develop/src/trumbowyg.js line 1284, 2/8/21
     function createLink(trumbowyg, openInNewTab) {
         trumbowyg.$ed.focus();
         trumbowyg.saveRange();
 
         if (trumbowyg.range.startOffset !== trumbowyg.range.endOffset) {
-            var selection = trumbowyg.doc.getSelection();
+
+
+            var documentSelection = trumbowyg.doc.getSelection();
+            var selectedRange = documentSelection.getRangeAt(0);
+            var node = documentSelection.focusNode;
+            var text = new XMLSerializer().serializeToString(selectedRange.cloneContents()) || selectedRange + "";
+            var url = "";
+
+            while (["A", "DIV"].indexOf(node.nodeName) < 0) {
+                node = node.parentNode;
+            }
+
+            if (node && node.nodeName === "A") {
+                var $a = $(node);
+                text = $a.text();
+                url = $a.attr("href");
+                var range = trumbowyg.doc.createRange();
+                range.selectNode(node);
+                documentSelection.removeAllRanges();
+                documentSelection.addRange(range);
+            }
+
+            trumbowyg.saveRange();
 
             var options = {
                 url: {
                     label: 'URL',
                     required: true,
-                    value: ''
+                    value: url
                 }
             };
 
-            if (selection.focusNode.parentNode.tagName === 'A') {
-                options.text = {
-                    label: "Link Text",
-                    required: true,
-                    value: $(selection.focusNode.parentNode).text()
-                };
-
-                options.url.value = $(selection.focusNode.parentNode).attr('href');
-            }
-
-            trumbowyg.openModalInsert(openInNewTab ? 'Link in New Tab' : 'Link', options, function (v) {
-                var $link;
-
-                if (selection.focusNode.parentNode.tagName === 'A') {
-                    $link = $(selection.focusNode.parentNode);
-                    $link.attr('href', v.url);
-                    $link.text(v.text);
-
-                    if (openInNewTab) {
-                        $link
-                            .attr('target', '_blank')
-                            .attr('rel', 'noreferrer noopener');
-                    } else {
-                        $link
-                            .removeAttr('target')
-                            .removeAttr('rel', 'noreferrer noopener');
+            trumbowyg.openModalInsert(openInNewTab ? "Link in New Tab" : "Link",
+                options,
+                function(v) {
+                    var url = v.url;
+                    if (!url.length) {
+                        return false;
                     }
-                } else {
-                    $link = $('<a href="' + v.url + '" class="govuk-link"></a>');
-
+                    var link = $(['<a href="', url, '" class="govuk-link">', text, '</a>'].join(''));
+                    link.attr("rel", "noreferrer noopener");
                     if (openInNewTab) {
-                        $link
-                            .attr('target', '_blank')
-                            .attr('rel', 'noreferrer noopener');
+                        link.attr("target", "_blank");
                     }
-
-                    $(selection.focusNode).wrap($link);
-                }
-
-                return true;
-            });
+                    trumbowyg.range.deleteContents();
+                    trumbowyg.range.insertNode(link[0]);
+                    trumbowyg.syncCode();
+                    trumbowyg.$c.trigger("tbwchange");
+                    return true;
+                });
         }
 
         trumbowyg.restoreRange();
