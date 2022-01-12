@@ -16,7 +16,12 @@ namespace DFC.ServiceTaxonomy.ContentPickerPreview
         {
             services.AddScoped<IContentPickerResultProvider, PreviewContentPickerResultProvider>();
             services.AddScoped<IContentPickerResultProvider, EditLinkContentPickerResultProvider>();
+            services.AddScoped<IContentPickerResultProvider, EditPublishedLinkContentPickerResultProvider>();
+
+            
             services.AddScoped<IBannerContentPickerResultProvider, BannerContentPickerResultProvider>();
+
+
         }
 
         public override void Configure(IApplicationBuilder builder, IEndpointRouteBuilder routes, IServiceProvider serviceProvider)

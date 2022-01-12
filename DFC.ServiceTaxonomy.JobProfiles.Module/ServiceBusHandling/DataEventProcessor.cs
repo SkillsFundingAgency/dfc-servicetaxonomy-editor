@@ -275,6 +275,7 @@ public DataEventProcessor(IServiceBusMessageProcessor serviceBusMessageProcessor
             }
 
             await _serviceBusMessageProcessor.SendOtherRelatedTypeMessages(jobprofileData, context.ContentItem.ContentType, actionType);
+
         }
 
         private async Task GenerateServiceBusMessageForOtherReferenceTypes(ContentContextBase context, string actionType)
