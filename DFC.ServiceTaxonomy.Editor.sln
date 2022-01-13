@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 17
-VisualStudioVersion = 17.0.31912.275
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31729.503
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DFC.ServiceTaxonomy.Editor", "DFC.ServiceTaxonomy.Editor\DFC.ServiceTaxonomy.Editor.csproj", "{12E7F029-43F7-4BF2-AC86-B5056D1D4DDF}"
 EndProject
@@ -75,9 +75,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DFC.ServiceTaxonomy.Version
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DFC.ServiceTaxonomy.Title", "DFC.ServiceTaxonomy.Title\DFC.ServiceTaxonomy.Title.csproj", "{969F6F82-CA94-452F-80AD-9C05E55EF7FD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DFC.ServiceTaxonomy.JobProfiles.Service", "DFC.ServiceTaxonomy.JobProfiles.Service\DFC.ServiceTaxonomy.JobProfiles.Service.csproj", "{ED90F1C7-7EE9-4585-BBE1-0693CE5EAE48}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DFC.ServiceTaxonomy.JobProfiles.Service", "DFC.ServiceTaxonomy.JobProfiles.Service\DFC.ServiceTaxonomy.JobProfiles.Service.csproj", "{ED90F1C7-7EE9-4585-BBE1-0693CE5EAE48}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DFC.ServiceTaxonomy.JobProfiles.Module", "DFC.ServiceTaxonomy.JobProfiles.Module\DFC.ServiceTaxonomy.JobProfiles.Module.csproj", "{4A69A3A2-2E54-4DF1-A792-827E7DD6490B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DFC.ServiceTaxonomy.JobProfiles.Module", "DFC.ServiceTaxonomy.JobProfiles.Module\DFC.ServiceTaxonomy.JobProfiles.Module.csproj", "{4A69A3A2-2E54-4DF1-A792-827E7DD6490B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DFC.ServiceTaxonomy.DataAccess", "DFC.ServiceTaxonomy.DataAccess\DFC.ServiceTaxonomy.DataAccess.csproj", "{7035AE45-E57E-4293-9008-3E5564F533C7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -248,6 +250,12 @@ Global
 		{4A69A3A2-2E54-4DF1-A792-827E7DD6490B}.Development|Any CPU.Build.0 = Debug|Any CPU
 		{4A69A3A2-2E54-4DF1-A792-827E7DD6490B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4A69A3A2-2E54-4DF1-A792-827E7DD6490B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7035AE45-E57E-4293-9008-3E5564F533C7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7035AE45-E57E-4293-9008-3E5564F533C7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7035AE45-E57E-4293-9008-3E5564F533C7}.Development|Any CPU.ActiveCfg = Debug|Any CPU
+		{7035AE45-E57E-4293-9008-3E5564F533C7}.Development|Any CPU.Build.0 = Debug|Any CPU
+		{7035AE45-E57E-4293-9008-3E5564F533C7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7035AE45-E57E-4293-9008-3E5564F533C7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
@@ -19,6 +19,7 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="Microsoft.Azure.ServiceBus" Version="5.2.0" />
     <PackageReference Include="OrchardCore.ContentManagement" Version="1.0.0" />
     <PackageReference Include="OrchardCore.Module.Targets" Version="1.0.0" />
     <PackageReference Include="OrchardCore.Contents" Version="1.0.0" />
@@ -30,8 +31,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\DFC.ServiceTaxonomy.DataAccess\DFC.ServiceTaxonomy.DataAccess.csproj" />
     <ProjectReference Include="..\DFC.ServiceTaxonomy.GraphSync\DFC.ServiceTaxonomy.GraphSync.csproj" />
     <ProjectReference Include="..\DFC.ServiceTaxonomy.JobProfiles.Service\DFC.ServiceTaxonomy.JobProfiles.Service.csproj" />
+    <ProjectReference Include="..\DFC.ServiceTaxonomy.PageLocation\DFC.ServiceTaxonomy.PageLocation.csproj" />
+    <ProjectReference Include="..\DFC.ServiceTaxonomy.Title\DFC.ServiceTaxonomy.Title.csproj" />
   </ItemGroup>
 
 </Project>
