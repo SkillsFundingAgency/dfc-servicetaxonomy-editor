@@ -29,6 +29,7 @@ namespace DFC.ServiceTaxonomy.Title.Settings
 
                 model.Hint = uniqueTitlePartSettings.Hint;
                 model.Placeholder = uniqueTitlePartSettings.Placeholder;
+                model.ReadOnlyOnPublish = uniqueTitlePartSettings.ReadOnlyOnPublish;
 
                 BuildUniqueTitlePartSettingsList(model);
             })
@@ -58,12 +59,14 @@ namespace DFC.ServiceTaxonomy.Title.Settings
 
             if (await context.Updater.TryUpdateModelAsync(model, Prefix,
                 m => m.Hint,
-                m => m.Placeholder))
+                m => m.Placeholder,
+                m => m.ReadOnlyOnPublish))
             {
                 context.Builder.WithSettings(new UniqueTitlePartSettings
                 {
                     Hint = model.Hint,
-                    Placeholder = model.Placeholder
+                    Placeholder = model.Placeholder,
+                    ReadOnlyOnPublish = model.ReadOnlyOnPublish,
                 });
             }
 

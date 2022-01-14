@@ -87,7 +87,9 @@
                   "Position": "0"
                 },
                 "UniqueTitlePartSettings": {
-                  "Hint": "Please enter SOC Code here"
+                    "Hint": "Please enter SOC Code here",
+                    "Placeholder" :  "1234A",
+                    "ReadOnlyOnPublish":  true
                 },
                 "ContentIndexSettings": {}
               }
@@ -162,8 +164,9 @@
               "Name": "OnetOccupationCode",
               "Settings": {
                 "ContentPartFieldSettings": {
-                  "DisplayName": "Onet Occupation Code",
-                  "Position": "1"
+                    "DisplayName": "Onet Occupation Code",
+                    "Editor": "PublishedReadOnly",
+                    "Position": "1"
                 }
               }
             },
