@@ -352,10 +352,16 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
         {
             ContentTypeDefinition contentTypeDefinition = _contentDefinitionManager.GetTypeDefinition(contentType);
             ContentTypePartDefinition? contentTypePartDefinition =
-                contentTypeDefinition.Parts.FirstOrDefault(p => p.PartDefinition.Name == nameof(GraphSyncPart));
+                contentTypeDefinition?.Parts?.FirstOrDefault(p => p.PartDefinition.Name == nameof(GraphSyncPart));
 
             if (contentTypePartDefinition == null)
-                throw new GraphSyncException($"Attempt to get {nameof(GraphSyncPartSettings)} for {contentType}, but it doesn't have a {nameof(GraphSyncPart)}.");
+            {
+                var contentTypeDefinitionIsNull = contentTypeDefinition == null;
+                var contentTypeDefinitionPartsIsNull = contentTypeDefinition?.Parts == null;
+
+                throw new GraphSyncException(
+                    $"Attempt to get {nameof(GraphSyncPartSettings)} for {contentType}, but it doesn't have a {nameof(GraphSyncPart)}. contentTypeDefinitionIsNull: {contentTypeDefinitionIsNull}. contentTypeDefinitionPartsIsNull: {contentTypeDefinitionPartsIsNull}");
+            }
 
             return contentTypePartDefinition.GetSettings<GraphSyncPartSettings>();
         }
