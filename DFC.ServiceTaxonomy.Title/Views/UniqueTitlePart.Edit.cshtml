@@ -5,12 +5,7 @@
 <div class="form-group" asp-validation-class-for="Title">
     <div class="w-md-75 w-xl-50 pr-md-3">
         <label asp-for="Title">Title</label>
-        <p>
-            <span class="hint">
-                @T["Enter the name of the unique title field."]
-            </span>
-        </p>
-        <input asp-for="Title" class="form-control text-muted" placeholder=@Model.Placeholder />
+        <input asp-for="Title" class="form-control text-muted" placeholder="eg - @Model.Placeholder" />
         @*<span asp-validation-for="Title"></span>*@
         @if (!string.IsNullOrEmpty(Model.Hint))
         {

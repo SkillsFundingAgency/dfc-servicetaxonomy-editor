@@ -11,19 +11,21 @@ using OrchardCore.DisplayManagement.Views;
 using OrchardCore.Mvc.ModelBinding;
 using YesSql;
 using DFC.ServiceTaxonomy.Title.Settings;
+using DFC.ServiceTaxonomy.DataAccess.Repositories;
+using DFC.ServiceTaxonomy.Title.Indexes;
 
 namespace DFC.ServiceTaxonomy.Title.Drivers
 {
     public class UniqueTitlePartDisplayDriver : ContentPartDisplayDriver<UniqueTitlePart>
     {
         private readonly IStringLocalizer S;
-        private readonly ISession _session;
+        private readonly IGenericIndexRepository<UniqueTitlePartIndex> _uniqueTitleIndexRepository;
 
-        public UniqueTitlePartDisplayDriver(IStringLocalizer<UniqueTitlePartDisplayDriver> localizer, ISession session)
+        public UniqueTitlePartDisplayDriver(IStringLocalizer<UniqueTitlePartDisplayDriver> localizer, IGenericIndexRepository<UniqueTitlePartIndex> uniqueTitleIndexRepository)
         {
             S = localizer;
-            _session = session;
-        }
+            _uniqueTitleIndexRepository = uniqueTitleIndexRepository;
+    }
 
         public override IDisplayResult Display(UniqueTitlePart part, BuildPartDisplayContext context)
         {
@@ -54,7 +56,7 @@ namespace DFC.ServiceTaxonomy.Title.Drivers
             var updated = await updater.TryUpdateModelAsync(part, Prefix, b => b.Title);
             if (updated)
             {
-                await foreach (var item in part.ValidateAsync(S, _session))
+                await foreach (var item in part.ValidateAsync(S, _uniqueTitleIndexRepository))
                 {
                     updater.ModelState.BindValidationResult(Prefix, item);
                 }
