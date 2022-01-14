@@ -5,7 +5,7 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module.Models.ServiceBus
 {
     public class WhatItTakesData
     {
-        public IEnumerable<SkillItem>? RelatedSkills { get; set; }
+        public IEnumerable<SocSkillMatrixItem>? RelatedSocSkillMatrixSkills { get; set; }
 
         public string? RelatedDigitalSkills { get; set; }
 

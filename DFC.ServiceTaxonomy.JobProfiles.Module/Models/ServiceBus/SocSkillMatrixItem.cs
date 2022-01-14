@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace DFC.ServiceTaxonomy.JobProfiles.Module.Models.ServiceBus
 {
-    internal class SocSkillMatrixItem
+    public class SocSkillMatrixItem
     {
         public Guid Id { get; set; }
 
@@ -18,8 +18,8 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module.Models.ServiceBus
 
         public decimal? ONetRank { get; set; }
 
-        public IEnumerable<FrameworkSkillItem>? RelatedSkill { get; set; }
+        public IEnumerable<FrameworkSkillItem>? RelatedSkill { get; set; } 
 
-        public IEnumerable<RelatedSocCodeItem>? RelatedSOC { get; set; }
+        public IEnumerable<RelatedSocCodeItem>? RelatedSOC { get; set; } 
     }
 }
