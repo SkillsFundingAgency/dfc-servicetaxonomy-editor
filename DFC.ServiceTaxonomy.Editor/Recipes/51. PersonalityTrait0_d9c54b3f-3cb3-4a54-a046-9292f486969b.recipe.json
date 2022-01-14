@@ -22,14 +22,14 @@
       },
       "JobProfileCategories": {
         "ContentItemIds": [
-          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022JobProfileCategory\u0022, \u0022Hospitality and food\u0022)\u00BB",
-          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022JobProfileCategory\u0022, \u0022Retail and sales\u0022)\u00BB",
-          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022JobProfileCategory\u0022, \u0022Healthcare\u0022)\u00BB",
-          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022JobProfileCategory\u0022, \u0022Social care\u0022)\u00BB",
-          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022JobProfileCategory\u0022, \u0022Travel and tourism\u0022)\u00BB",
-          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022JobProfileCategory\u0022, \u0022Animal care\u0022)\u00BB",
-          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022JobProfileCategory\u0022, \u0022Teaching and education\u0022)\u00BB",
-          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022JobProfileCategory\u0022, \u0022Emergency and uniform services\u0022)\u00BB"
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022Jobprofilecategory\u0022, \u0022Hospitality and food\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022Jobprofilecategory\u0022, \u0022Retail and sales\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022Jobprofilecategory\u0022, \u0022Healthcare\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022Jobprofilecategory\u0022, \u0022Social care\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022Jobprofilecategory\u0022, \u0022Travel and tourism\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022Jobprofilecategory\u0022, \u0022Animal care\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022Jobprofilecategory\u0022, \u0022Teaching and education\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022Jobprofilecategory\u0022, \u0022Emergency and uniform services\u0022)\u00BB"
         ]
       }
     },
@@ -58,9 +58,9 @@
       },
       "JobProfileCategories": {
         "ContentItemIds": [
-          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022JobProfileCategory\u0022, \u0022Sports and leisure\u0022)\u00BB",
-          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022JobProfileCategory\u0022, \u0022Creative and media\u0022)\u00BB",
-          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022JobProfileCategory\u0022, \u0022Construction and trades\u0022)\u00BB"
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022Jobprofilecategory\u0022, \u0022Sports and leisure\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022Jobprofilecategory\u0022, \u0022Creative and media\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022Jobprofilecategory\u0022, \u0022Construction and trades\u0022)\u00BB"
         ]
       }
     },
@@ -89,20 +89,20 @@
       },
       "JobProfileCategories": {
         "ContentItemIds": [
-          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022JobProfileCategory\u0022, \u0022Engineering and maintenance\u0022)\u00BB",
-          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022JobProfileCategory\u0022, \u0022Beauty and wellbeing\u0022)\u00BB",
-          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022JobProfileCategory\u0022, \u0022Creative and media\u0022)\u00BB",
-          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022JobProfileCategory\u0022, \u0022Transport\u0022)\u00BB",
-          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022JobProfileCategory\u0022, \u0022Healthcare\u0022)\u00BB",
-          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022JobProfileCategory\u0022, \u0022Home services\u0022)\u00BB",
-          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022JobProfileCategory\u0022, \u0022Environment and land\u0022)\u00BB",
-          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022JobProfileCategory\u0022, \u0022Travel and tourism\u0022)\u00BB",
-          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022JobProfileCategory\u0022, \u0022Animal care\u0022)\u00BB",
-          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022JobProfileCategory\u0022, \u0022Construction and trades\u0022)\u00BB",
-          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022JobProfileCategory\u0022, \u0022Business and finance\u0022)\u00BB",
-          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022JobProfileCategory\u0022, \u0022Law and legal\u0022)\u00BB",
-          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022JobProfileCategory\u0022, \u0022Delivery and storage\u0022)\u00BB",
-          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022JobProfileCategory\u0022, \u0022Emergency and uniform services\u0022)\u00BB"
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022Jobprofilecategory\u0022, \u0022Engineering and maintenance\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022Jobprofilecategory\u0022, \u0022Beauty and wellbeing\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022Jobprofilecategory\u0022, \u0022Creative and media\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022Jobprofilecategory\u0022, \u0022Transport\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022Jobprofilecategory\u0022, \u0022Healthcare\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022Jobprofilecategory\u0022, \u0022Home services\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022Jobprofilecategory\u0022, \u0022Environment and land\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022Jobprofilecategory\u0022, \u0022Travel and tourism\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022Jobprofilecategory\u0022, \u0022Animal care\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022Jobprofilecategory\u0022, \u0022Construction and trades\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022Jobprofilecategory\u0022, \u0022Business and finance\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022Jobprofilecategory\u0022, \u0022Law and legal\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022Jobprofilecategory\u0022, \u0022Delivery and storage\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022Jobprofilecategory\u0022, \u0022Emergency and uniform services\u0022)\u00BB"
         ]
       }
     },
@@ -131,11 +131,11 @@
       },
       "JobProfileCategories": {
         "ContentItemIds": [
-          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022JobProfileCategory\u0022, \u0022Manufacturing\u0022)\u00BB",
-          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022JobProfileCategory\u0022, \u0022Sports and leisure\u0022)\u00BB",
-          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022JobProfileCategory\u0022, \u0022Creative and media\u0022)\u00BB",
-          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022JobProfileCategory\u0022, \u0022Science and research\u0022)\u00BB",
-          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022JobProfileCategory\u0022, \u0022Construction and trades\u0022)\u00BB"
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022Jobprofilecategory\u0022, \u0022Manufacturing\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022Jobprofilecategory\u0022, \u0022Sports and leisure\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022Jobprofilecategory\u0022, \u0022Creative and media\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022Jobprofilecategory\u0022, \u0022Science and research\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022Jobprofilecategory\u0022, \u0022Construction and trades\u0022)\u00BB"
         ]
       }
     },
@@ -164,13 +164,13 @@
       },
       "JobProfileCategories": {
         "ContentItemIds": [
-          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022JobProfileCategory\u0022, \u0022Manufacturing\u0022)\u00BB",
-          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022JobProfileCategory\u0022, \u0022Sports and leisure\u0022)\u00BB",
-          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022JobProfileCategory\u0022, \u0022Beauty and wellbeing\u0022)\u00BB",
-          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022JobProfileCategory\u0022, \u0022Managerial\u0022)\u00BB",
-          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022JobProfileCategory\u0022, \u0022Science and research\u0022)\u00BB",
-          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022JobProfileCategory\u0022, \u0022Business and finance\u0022)\u00BB",
-          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022JobProfileCategory\u0022, \u0022Law and legal\u0022)\u00BB"
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022Jobprofilecategory\u0022, \u0022Manufacturing\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022Jobprofilecategory\u0022, \u0022Sports and leisure\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022Jobprofilecategory\u0022, \u0022Beauty and wellbeing\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022Jobprofilecategory\u0022, \u0022Managerial\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022Jobprofilecategory\u0022, \u0022Science and research\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022Jobprofilecategory\u0022, \u0022Business and finance\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022Jobprofilecategory\u0022, \u0022Law and legal\u0022)\u00BB"
         ]
       }
     },
@@ -199,9 +199,9 @@
       },
       "JobProfileCategories": {
         "ContentItemIds": [
-          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022JobProfileCategory\u0022, \u0022Managerial\u0022)\u00BB",
-          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022JobProfileCategory\u0022, \u0022Teaching and education\u0022)\u00BB",
-          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022JobProfileCategory\u0022, \u0022Emergency and uniform services\u0022)\u00BB"
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022Jobprofilecategory\u0022, \u0022Managerial\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022Jobprofilecategory\u0022, \u0022Teaching and education\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022Jobprofilecategory\u0022, \u0022Emergency and uniform services\u0022)\u00BB"
         ]
       }
     },
@@ -230,8 +230,8 @@
       },
       "JobProfileCategories": {
         "ContentItemIds": [
-          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022JobProfileCategory\u0022, \u0022Hospitality and food\u0022)\u00BB",
-          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022JobProfileCategory\u0022, \u0022Retail and sales\u0022)\u00BB"
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022Jobprofilecategory\u0022, \u0022Hospitality and food\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022Jobprofilecategory\u0022, \u0022Retail and sales\u0022)\u00BB"
         ]
       }
     },
@@ -260,17 +260,17 @@
       },
       "JobProfileCategories": {
         "ContentItemIds": [
-          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022JobProfileCategory\u0022, \u0022Manufacturing\u0022)\u00BB",
-          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022JobProfileCategory\u0022, \u0022Administration\u0022)\u00BB",
-          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022JobProfileCategory\u0022, \u0022Government services\u0022)\u00BB",
-          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022JobProfileCategory\u0022, \u0022Transport\u0022)\u00BB",
-          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022JobProfileCategory\u0022, \u0022Science and research\u0022)\u00BB",
-          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022JobProfileCategory\u0022, \u0022Home services\u0022)\u00BB",
-          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022JobProfileCategory\u0022, \u0022Travel and tourism\u0022)\u00BB",
-          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022JobProfileCategory\u0022, \u0022Teaching and education\u0022)\u00BB",
-          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022JobProfileCategory\u0022, \u0022Business and finance\u0022)\u00BB",
-          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022JobProfileCategory\u0022, \u0022Law and legal\u0022)\u00BB",
-          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022JobProfileCategory\u0022, \u0022Delivery and storage\u0022)\u00BB"
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022Jobprofilecategory\u0022, \u0022Manufacturing\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022Jobprofilecategory\u0022, \u0022Administration\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022Jobprofilecategory\u0022, \u0022Government services\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022Jobprofilecategory\u0022, \u0022Transport\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022Jobprofilecategory\u0022, \u0022Science and research\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022Jobprofilecategory\u0022, \u0022Home services\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022Jobprofilecategory\u0022, \u0022Travel and tourism\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022Jobprofilecategory\u0022, \u0022Teaching and education\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022Jobprofilecategory\u0022, \u0022Business and finance\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022Jobprofilecategory\u0022, \u0022Law and legal\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022Jobprofilecategory\u0022, \u0022Delivery and storage\u0022)\u00BB"
         ]
       }
     },
