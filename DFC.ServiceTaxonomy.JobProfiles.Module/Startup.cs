@@ -41,7 +41,9 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module
             services.AddScoped<IMessageConverter<WhatItTakesData>, WhatItTakesMessageConverter>();
             services.AddScoped<IMessageConverter<SocCodeItem>, SocCodeMessageConverter>();
             services.AddScoped<IDataEventProcessor, DataEventProcessor>();
-            services.AddScoped<IContentHandler, ServiceBusContentHandler>();
+            // TODO: removed temporarily as not ready for DEV
+            //services.AddScoped<IContentHandler, ServiceBusContentHandler>();
+
             services.AddScoped<IServiceBusMessageProcessor, ServiceBusMessageProcessor>();
 
             // Repositories

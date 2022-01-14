@@ -135,10 +135,10 @@
                         },
                         {
                             "FieldName": "TextField",
-                            "Name": "Rank",
+                            "Name": "RelatedSkill",
                             "Settings": {
                                 "ContentPartFieldSettings": {
-                                    "DisplayName": "Rank",
+                                    "DisplayName": "Related Skill",
                                     "Position": "3",
                                     "Editor": "ReadOnly"
                                 },
@@ -147,38 +147,15 @@
                             }
                         },
                         {
-                            "FieldName": "ContentPickerField",
-                            "Name": "RelatedSkills",
+                            "FieldName": "TextField",
+                            "Name": "RelatedSOCcode",
                             "Settings": {
                                 "ContentPartFieldSettings": {
-                                    "DisplayName": "Related Skills",
+                                    "DisplayName": "Related SOC Code",
                                     "Position": "4",
-                                    "Editor": "EditLink"
+                                    "Editor": "ReadOnly"
                                 },
-                                "ContentPickerFieldSettings": {
-                                    "Hint": "Related ONET skill",
-                                    "DisplayedContentTypes": [
-                                        "Skill"
-                                    ]
-                                },
-                                "ContentIndexSettings": {}
-                            }
-                        },
-                        {
-                            "FieldName": "ContentPickerField",
-                            "Name": "RelatedSOC",
-                            "Settings": {
-                                "ContentPartFieldSettings": {
-                                    "DisplayName": "Related SOC",
-                                    "Position": "5",
-                                    "Editor": "EditLink"
-                                },
-                                "ContentPickerFieldSettings": {
-                                    "Hint": "Related SOC",
-                                    "DisplayedContentTypes": [
-                                        "SOCcode"
-                                    ]
-                                },
+                                "TextFieldSettings": {},
                                 "ContentIndexSettings": {}
                             }
                         }

@@ -40,7 +40,7 @@
                             "Name": "AuditTrailPart",
                             "Settings": {
                                 "ContentTypePartSettings": {
-                                    "Position": "4"
+                                    "Position": "5"
                                 },
                                 "AuditTrailPartSettings": {
                                     "ShowCommentInput": false
@@ -53,7 +53,7 @@
                             "Name": "GraphSyncPart",
                             "Settings": {
                                 "ContentTypePartSettings": {
-                                    "Position": "3"
+                                    "Position": "4"
                                 },
                                 "GraphSyncPartSettings": {
                                     "NodeNameTransform": "ContentType",
@@ -85,6 +85,15 @@
                             "Settings": {
                                 "ContentTypePartSettings": {
                                     "Position": "0"
+                                }
+                            }
+                        },
+                        {
+                            "PartName": "PageLocationPart",
+                            "Name": "PageLocationPart",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "3"
                                 }
                             }
                         }
@@ -129,6 +138,16 @@
                             "Attachable": true,
                             "Description": "Provides a Title for your content item.",
                             "DefaultPosition": "0"
+                        }
+                    },
+                    "ContentPartFieldDefinitionRecords": []
+                },
+                {
+                    "Name": "PageLocationPart",
+                    "Settings": {
+                        "ContentPartSettings": {
+                            "Attachable": true,
+                            "Description": "Adds the page location part."
                         }
                     },
                     "ContentPartFieldDefinitionRecords": []

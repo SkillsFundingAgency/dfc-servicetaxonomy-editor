@@ -1,15 +1,14 @@
-﻿using System;
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 
 using DFC.ServiceTaxonomy.GraphSync.Models;
+using DFC.ServiceTaxonomy.JobProfiles.Module.Indexes;
 using DFC.ServiceTaxonomy.JobProfiles.Module.ServiceBusHandling;
 using DFC.ServiceTaxonomy.JobProfiles.Service.Interfaces;
 using DFC.ServiceTaxonomy.Title.Models;
 using Microsoft.AspNetCore.Mvc.Localization;
 using Microsoft.Extensions.DependencyInjection;
-
- using Newtonsoft.Json.Linq;
 
 using OrchardCore.ContentManagement;
 using OrchardCore.ContentManagement.Handlers;
@@ -119,8 +118,8 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module.Handlers
                         // Fields
                         socSkillsMatrix.Content.SOCskillsmatrix.ONetAttributeType.Text = onetSkill.Category.ToString();
                         socSkillsMatrix.Content.SOCskillsmatrix.ONetRank.Text = onetSkill.Score;
-                        socSkillsMatrix.Content.SOCskillsmatrix.RelatedSkills.ContentItemIds = new JArray(skill.ContentItemId);
-                        socSkillsMatrix.Content.SOCskillsmatrix.RelatedSOC.ContentItemIds = new JArray(context.ContentItem.ContentItemId);
+                        socSkillsMatrix.Content.SOCskillsmatrix.RelatedSkill.Text = skill.DisplayText;
+                        socSkillsMatrix.Content.SOCskillsmatrix.RelatedSOCcode.Text = socCode;
 
                         await contentManager.CreateAsync(socSkillsMatrix);
                         socSkillsMatrixCreatedCount++;
@@ -131,6 +130,28 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module.Handlers
             }
         }
 
-        public string GetGraphSyncId(string contentType) => $"<<contentapiprefix>>/{contentType.ToLower()}/{Guid.NewGuid()}";
+
+        public override async Task RemovingAsync(RemoveContentContext context)
+        {
+            if (context.ContentItem.ContentType == ContentTypes.SOCcode)
+            {
+                var relatedJobProfile = await _session.QueryIndex<JobProfileIndex>(jp => jp.SOCCode == context.ContentItem.ContentItemId).ListAsync();
+                if(relatedJobProfile != null && relatedJobProfile.Any())
+                {
+                    return;
+                }
+                var socSkillsMatrixContentItemsList = await _session.Query<ContentItem, ContentItemIndex>(c => c.ContentType == ContentTypes.SOCskillsmatrix && c.DisplayText.StartsWith(context.ContentItem.DisplayText)).ListAsync();
+                var contentManager = _serviceProvider.GetRequiredService<IContentManager>();
+                var removeCount = 0;
+                foreach (var socSkillsmatrix in socSkillsMatrixContentItemsList)
+                {
+                    await contentManager.RemoveAsync(socSkillsmatrix);
+                    removeCount++;
+                }
+                _notifier.Success(H[$"{removeCount} SOC Skills Matrix content item{(removeCount != 1 ? "s have" : " has")} been removed."]);
+            }
+        }
+
+        private string GetGraphSyncId(string contentType) => $"<<contentapiprefix>>/{contentType.ToLower()}/{Guid.NewGuid()}";
     }
 }
