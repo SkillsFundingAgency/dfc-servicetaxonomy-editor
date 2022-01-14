@@ -125,7 +125,7 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module.ServiceBusHandling.Converters
                 _ => string.Empty,
             };
 
-            return !string.IsNullOrWhiteSpace(link) ? new Uri(link, UriKind.RelativeOrAbsolute) : default;
+            return !string.IsNullOrWhiteSpace(link.Value) ? new Uri(link.Value, UriKind.RelativeOrAbsolute) : default;
         }
 
         private static string GetRelatedLinkText(ContentItem contentItem) =>

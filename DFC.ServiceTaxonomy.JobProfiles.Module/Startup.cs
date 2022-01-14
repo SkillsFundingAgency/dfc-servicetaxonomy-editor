@@ -43,6 +43,7 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module
             services.AddScoped<IDataEventProcessor, DataEventProcessor>();
             // TODO: removed temporarily as not ready for DEV
             //services.AddScoped<IContentHandler, ServiceBusContentHandler>();
+
             services.AddScoped<IServiceBusMessageProcessor, ServiceBusMessageProcessor>();
 
             // Repositories

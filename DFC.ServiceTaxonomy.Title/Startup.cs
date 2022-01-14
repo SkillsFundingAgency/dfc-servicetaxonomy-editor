@@ -11,6 +11,7 @@ using OrchardCore.Modules;
 using YesSql.Indexes;
 using OrchardCore.ContentTypes.Editors;
 using DFC.ServiceTaxonomy.Title.Settings;
+using DFC.ServiceTaxonomy.DataAccess.Repositories;
 
 namespace DFC.ServiceTaxonomy.Title
 {
@@ -27,6 +28,7 @@ namespace DFC.ServiceTaxonomy.Title
             services.AddSingleton<IIndexProvider, UniqueTitlePartIndexProvider>();
 
             services.AddTransient<IContentPartGraphSyncer, UniqueTitlePartGraphSyncer>();
+            services.AddTransient(typeof(IGenericIndexRepository<>), typeof(GenericIndexRepository<>));
 
         }
     }

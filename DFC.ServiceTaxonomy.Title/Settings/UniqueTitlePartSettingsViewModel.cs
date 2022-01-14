@@ -12,5 +12,6 @@ namespace DFC.ServiceTaxonomy.Title.Settings
         }
         public List<UniqueTitlePartSettings> AllSettings { get; set; }
         public string? Hint { get; set; }
+        public string? Placeholder { get; set; }
     }
 }

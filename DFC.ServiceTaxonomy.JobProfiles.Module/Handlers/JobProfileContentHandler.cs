@@ -63,6 +63,7 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module.Handlers
         {
             var socCodeContentItemIds = (JArray)context.ContentItem.Content.JobProfile.SOCcode.ContentItemIds;
             var relatedSkillsIds = context.ContentItem.Content.JobProfile.Relatedskills == null ? default : (JArray)context.ContentItem.Content.JobProfile.Relatedskills.ContentItemIds;
+
             // If no SOC code assigned then no need to create the skill relationships
             if(socCodeContentItemIds == null || !socCodeContentItemIds.Any() || socCodeContentItemIds.Count != 1)
             {
