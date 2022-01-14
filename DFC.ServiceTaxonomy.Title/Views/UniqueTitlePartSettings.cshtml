@@ -15,3 +15,12 @@
     </div>
     <span class="hint">The Placeholder text to display for this field on the editor.</span>
 </div>
+
+<div class="form-group">
+    <div class="custom-control custom-checkbox">
+        <input type="checkbox" class="custom-control-input" asp-for="ReadOnlyOnPublish" checked="@Model.ReadOnlyOnPublish" />
+        <label class="custom-control-label" asp-for="ReadOnlyOnPublish">@T["Read only on publish"]</label>
+        <span class="hint dashed">@T["Indicates whether the title becomes read only once first published and therefore can't be changed."]</span>
+    </div>
+</div>
+
