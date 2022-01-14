@@ -60,7 +60,7 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module.ServiceBusHandling
                 message.UserProperties.Add("CType", contentType);
                 message.CorrelationId = Guid.NewGuid().ToString();
 
-                //await topicClient.SendAsync(message);
+                await topicClient.SendAsync(message);
 
                 _logger.LogInformation($" SENT service bus message for OrchardCore event {actionType.ToUpper()} on JobProfile with Title -- {jpData.Title} with Jobprofile Id -- {jpData.JobProfileId} and with Correlation Id -- {message.CorrelationId.ToString()}");
             }
