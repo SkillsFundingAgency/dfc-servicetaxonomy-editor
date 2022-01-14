@@ -78,7 +78,7 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module.ServiceBusHandling.Converters
                         {
                             new RelatedSocCodeItem()
                             {
-                                // TODO: If absence of Guid ID or other field cause any use the code will be changed 
+                                // TODO: If absence of Guid ID or other field cause any issue the code will be changed 
                                 //Id = GuidId,
                                 SOCCode = socCode
                             }
