@@ -86,7 +86,6 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module.ServiceBusHandling.Converters
                     HiddenAlternativeTitle = Helper.MapClassificationData(hiddenAlternativeTitle),
                     JobProfileSpecialism = Helper.MapClassificationData(jobProfileSpecialism),
 
-                    // TODO: RelatedSkills to be added later
                     SocSkillsMatrixData = whatItTakesData.RelatedSocSkillMatrixSkills,
                     DigitalSkillsLevel = whatItTakesData.RelatedDigitalSkills,
                     Restrictions = whatItTakesData.RelatedRestrictions,
