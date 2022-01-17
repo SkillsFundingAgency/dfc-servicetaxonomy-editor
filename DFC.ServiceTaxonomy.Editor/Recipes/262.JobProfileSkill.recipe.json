@@ -31,7 +31,11 @@
                             "Settings": {
                                 "ContentTypePartSettings": {
                                     "Position": "0"
-                                }
+                                },
+                                "UniqueTitlePartSettings": {
+                                    "Placeholder": "Verbal Abilities"
+                                },
+                                "ContentIndexSettings": {}
                             }
                         },
                         {

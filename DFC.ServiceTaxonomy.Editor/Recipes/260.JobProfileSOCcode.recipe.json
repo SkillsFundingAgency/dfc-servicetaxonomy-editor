@@ -88,8 +88,8 @@
                 },
                 "UniqueTitlePartSettings": {
                     "Hint": "Please enter SOC Code here",
-                    "Placeholder" :  "1234A",
-                    "ReadOnlyOnPublish":  true
+                    "Placeholder": "1000A",
+                    "ReadOnlyOnPublish": true
                 },
                 "ContentIndexSettings": {}
               }

@@ -82,11 +82,15 @@
             {
               "PartName": "UniqueTitlePart",
               "Name": "UniqueTitlePart",
-              "Settings": {
-                "ContentTypePartSettings": {
-                  "Position": "0"
+                "Settings": {
+                    "ContentTypePartSettings": {
+                        "Position": "0"
+                    },
+                    "UniqueTitlePartSettings": {
+                        "Placeholder": "General Dental Council"
+                    },
+                    "ContentIndexSettings": {}
                 }
-              }
             }
           ]
         }
