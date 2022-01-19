@@ -1,6 +1,6 @@
 {
-  "name": "JobProfileRegistration",
-  "displayName": "JobProfileRegistration",
+  "name": "JobProfileLocation",
+  "displayName": "JobProfileLocation",
   "description": "",
   "author": "",
   "website": "",
@@ -13,8 +13,8 @@
       "name": "ContentDefinition",
       "ContentTypes": [
         {
-          "Name": "Registration",
-          "DisplayName": "Registration",
+          "Name": "Location",
+          "DisplayName": "Location",
           "Settings": {
             "ContentTypeSettings": {
               "Creatable": true,
@@ -25,74 +25,74 @@
             },
             "FullTextAspectSettings": {}
           },
-          "ContentTypePartDefinitionRecords": [
-            {
-              "PartName": "Registration",
-              "Name": "Registration",
-              "Settings": {
-                "ContentTypePartSettings": {
-                  "Position": "2"
+            "ContentTypePartDefinitionRecords": [
+                {
+                    "PartName": "UniqueTitlePart",
+                    "Name": "UniqueTitlePart",
+                    "Settings": {
+                        "ContentTypePartSettings": {
+                            "Position": "0"
+                        },
+                        "UniqueTitlePartSettings": {
+                            "Placeholder": "Office"
+                        },
+                        "ContentIndexSettings": {}
+                    }
+                },
+                {
+                    "PartName": "TitlePart",
+                    "Name": "TitlePart",
+                    "Settings": {
+                        "ContentTypePartSettings": {
+                            "Position": "1"
+                        },
+                        "ContentIndexSettings": {},
+                        "TitlePartSettings": {
+                            "Options": 2,
+                            "Pattern": "{{ Model.ContentItem.Content.UniqueTitlePart.Title }}"
+                        }
+                    }
+                },
+                {
+                    "PartName": "Location",
+                    "Name": "Location",
+                    "Settings": {
+                        "ContentTypePartSettings": {
+                            "Position": "2"
+                        }
+                    }
+                },
+                {
+                    "PartName": "GraphSyncPart",
+                    "Name": "GraphSyncPart",
+                    "Settings": {
+                        "ContentTypePartSettings": {
+                            "Position": "3"
+                        },
+                        "GraphSyncPartSettings": {
+                            "NodeNameTransform": "ContentType",
+                            "PropertyNameTransform": "Value",
+                            "IdPropertyName": "uri",
+                            "GenerateIdPropertyValue": "$\"<<contentapiprefix>>/{ContentType}/{Value}\".ToLowerInvariant()",
+                            "DisplayId": true
+                        },
+                        "ContentIndexSettings": {}
+                    }
+                },
+                {
+                    "PartName": "AuditTrailPart",
+                    "Name": "AuditTrailPart",
+                    "Settings": {
+                        "ContentTypePartSettings": {
+                            "Position": "4"
+                        },
+                        "AuditTrailPartSettings": {
+                            "ShowCommentInput": false
+                        },
+                        "ContentIndexSettings": {}
+                    }
                 }
-              }
-            },
-            {
-              "PartName": "AuditTrailPart",
-              "Name": "AuditTrailPart",
-              "Settings": {
-                "ContentTypePartSettings": {
-                  "Position": "3"
-                },
-                "AuditTrailPartSettings": {
-                  "ShowCommentInput": false
-                },
-                "ContentIndexSettings": {}
-              }
-            },
-            {
-              "PartName": "GraphSyncPart",
-              "Name": "GraphSyncPart",
-              "Settings": {
-                "ContentTypePartSettings": {
-                  "Position": "4"
-                },
-                "GraphSyncPartSettings": {
-                  "NodeNameTransform": "ContentType",
-                  "PropertyNameTransform": "Value",
-                  "IdPropertyName": "uri",
-                  "GenerateIdPropertyValue": "$\"<<contentapiprefix>>/{ContentType}/{Value}\".ToLowerInvariant()",
-                  "DisplayId": true
-                },
-                "ContentIndexSettings": {}
-              }
-            },
-            {
-              "PartName": "TitlePart",
-              "Name": "TitlePart",
-              "Settings": {
-                "ContentTypePartSettings": {
-                  "Position": "1"
-                },
-                "ContentIndexSettings": {},
-                "TitlePartSettings": {
-                  "Options": 2,
-                  "Pattern": "{{ Model.ContentItem.Content.UniqueTitlePart.Title }}"
-                }
-              }
-            },
-            {
-              "PartName": "UniqueTitlePart",
-              "Name": "UniqueTitlePart",
-                "Settings": {
-                    "ContentTypePartSettings": {
-                        "Position": "0"
-                    },
-                    "UniqueTitlePartSettings": {
-                        "Placeholder": "General Dental Council"
-                    },
-                    "ContentIndexSettings": {}
-                }
-            }
-          ]
+            ]
         }
       ],
       "ContentParts": [
@@ -138,7 +138,7 @@
           "ContentPartFieldDefinitionRecords": []
         },
         {
-          "Name": "Registration",
+          "Name": "Location",
           "Settings": {},
           "ContentPartFieldDefinitionRecords": [
             {

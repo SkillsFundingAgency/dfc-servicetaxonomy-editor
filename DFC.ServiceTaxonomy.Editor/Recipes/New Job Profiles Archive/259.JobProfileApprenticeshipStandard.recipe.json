@@ -1,6 +1,6 @@
 {
-  "name": "JobProfileLocation",
-  "displayName": "JobProfileLocation",
+  "name": "JobProfileApprenticeshipStandard",
+  "displayName": "JobProfileApprenticeshipStandard",
   "description": "",
   "author": "",
   "website": "",
@@ -13,8 +13,8 @@
       "name": "ContentDefinition",
       "ContentTypes": [
         {
-          "Name": "Location",
-          "DisplayName": "Location",
+          "Name": "Apprenticeshipstandard",
+          "DisplayName": "Apprenticeship standard",
           "Settings": {
             "ContentTypeSettings": {
               "Creatable": true,
@@ -25,74 +25,70 @@
             },
             "FullTextAspectSettings": {}
           },
-          "ContentTypePartDefinitionRecords": [
-            {
-              "PartName": "Location",
-              "Name": "Location",
-              "Settings": {
-                "ContentTypePartSettings": {
-                  "Position": "2"
+            "ContentTypePartDefinitionRecords": [
+                {
+                    "PartName": "UniqueTitlePart",
+                    "Name": "UniqueTitlePart",
+                    "Settings": {
+                        "ContentTypePartSettings": {
+                            "Position": "0"
+                        }
+                    }
+                },
+                {
+                    "PartName": "TitlePart",
+                    "Name": "TitlePart",
+                    "Settings": {
+                        "ContentTypePartSettings": {
+                            "Position": "1"
+                        },
+                        "ContentIndexSettings": {},
+                        "TitlePartSettings": {
+                            "Options": 2,
+                            "Pattern": "{{ Model.ContentItem.Content.UniqueTitlePart.Title }}"
+                        }
+                    }
+                },
+                {
+                    "PartName": "Apprenticeshipstandard",
+                    "Name": "Apprenticeshipstandard",
+                    "Settings": {
+                        "ContentTypePartSettings": {
+                            "Position": "2"
+                        }
+                    }
+                },
+                {
+                    "PartName": "GraphSyncPart",
+                    "Name": "GraphSyncPart",
+                    "Settings": {
+                        "ContentTypePartSettings": {
+                            "Position": "3"
+                        },
+                        "GraphSyncPartSettings": {
+                            "NodeNameTransform": "ContentType",
+                            "PropertyNameTransform": "Value",
+                            "IdPropertyName": "uri",
+                            "GenerateIdPropertyValue": "$\"<<contentapiprefix>>/{ContentType}/{Value}\".ToLowerInvariant()",
+                            "DisplayId": true
+                        },
+                        "ContentIndexSettings": {}
+                    }
+                },
+                {
+                    "PartName": "AuditTrailPart",
+                    "Name": "AuditTrailPart",
+                    "Settings": {
+                        "ContentTypePartSettings": {
+                            "Position": "4"
+                        },
+                        "AuditTrailPartSettings": {
+                            "ShowCommentInput": false
+                        },
+                        "ContentIndexSettings": {}
+                    }
                 }
-              }
-            },
-            {
-              "PartName": "AuditTrailPart",
-              "Name": "AuditTrailPart",
-              "Settings": {
-                "ContentTypePartSettings": {
-                  "Position": "3"
-                },
-                "AuditTrailPartSettings": {
-                  "ShowCommentInput": false
-                },
-                "ContentIndexSettings": {}
-              }
-            },
-            {
-              "PartName": "GraphSyncPart",
-              "Name": "GraphSyncPart",
-              "Settings": {
-                "ContentTypePartSettings": {
-                  "Position": "4"
-                },
-                "GraphSyncPartSettings": {
-                  "NodeNameTransform": "ContentType",
-                  "PropertyNameTransform": "Value",
-                  "IdPropertyName": "uri",
-                  "GenerateIdPropertyValue": "$\"<<contentapiprefix>>/{ContentType}/{Value}\".ToLowerInvariant()",
-                  "DisplayId": true
-                },
-                "ContentIndexSettings": {}
-              }
-            },
-            {
-              "PartName": "TitlePart",
-              "Name": "TitlePart",
-              "Settings": {
-                "ContentTypePartSettings": {
-                  "Position": "1"
-                },
-                "ContentIndexSettings": {},
-                "TitlePartSettings": {
-                  "Options": 2,
-                  "Pattern": "{{ Model.ContentItem.Content.UniqueTitlePart.Title }}"
-                }
-              }
-            },
-            {
-              "PartName": "UniqueTitlePart",
-              "Name": "UniqueTitlePart",
-                "Settings": {
-                    "ContentTypePartSettings": {
-                        "Position": "0"
-                    },
-                    "UniqueTitlePartSettings": {
-                        "Placeholder": "Office"
-                    },
-                    "ContentIndexSettings": {}
-                }
-            }
-          ]
+            ]
         }
       ],
       "ContentParts": [
@@ -138,7 +134,7 @@
           "ContentPartFieldDefinitionRecords": []
         },
         {
-          "Name": "Location",
+          "Name": "Apprenticeshipstandard",
           "Settings": {},
           "ContentPartFieldDefinitionRecords": [
             {
@@ -153,6 +149,20 @@
                 "HtmlFieldSettings": {},
                 "HtmlFieldTrumbowygEditorSettings": {
                   "Options": "{\r\n    autogrow: true,\r\n    btns: [\r\n        [\"viewHTML\"],\r\n        [\"undo\", \"redo\"],\r\n        [\"formatting\"],\r\n        [\"strong\", \"em\", \"del\"],\r\n        [\"foreColor\", \"backColor\"],\r\n        [\"superscript\", \"subscript\"],\r\n        [\"link\"],\r\n        [\"insertShortcode\"],\r\n        [\"image\"],\r\n        [\"align\"],\r\n        [\"unorderedList\", \"orderedList\"],\r\n        [\"horizontalRule\"],\r\n        [\"removeformat\"],\r\n        [\"fullscreen\"]\r\n    ],\r\n    btnsDef: {\r\n        align: {\r\n            dropdown: [\"justifyLeft\", \"justifyCenter\", \"justifyRight\", \"justifyFull\"],\r\n            ico: \"justifyLeft\"\r\n        },\r\n        image: {\r\n            dropdown: [\"insertImage\", \"base64\", \"noembed\"],\r\n            ico: \"insertImage\"\r\n        }\r\n    }\r\n}"
+                },
+                "ContentIndexSettings": {}
+              }
+            },
+            {
+              "FieldName": "TextField",
+              "Name": "LARScode",
+              "Settings": {
+                "ContentPartFieldSettings": {
+                  "DisplayName": "LARS code",
+                  "Position": "1"
+                },
+                "TextFieldSettings": {
+                  "Required": true
                 },
                 "ContentIndexSettings": {}
               }

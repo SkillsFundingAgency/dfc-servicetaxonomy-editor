@@ -1,6 +1,6 @@
 {
-    "name": "JobProfileSOCSkillsMatrix",
-    "displayName": "JobProfileSOCSkillsMatrix",
+    "name": "JobProfileSkill",
+    "displayName": "JobProfileSkill",
     "description": "",
     "author": "",
     "website": "",
@@ -13,8 +13,8 @@
             "name": "ContentDefinition",
             "ContentTypes": [
                 {
-                    "Name": "SOCskillsmatrix",
-                    "DisplayName": "SOC Skills Matrix",
+                    "Name": "Skill",
+                    "DisplayName": "Skill",
                     "Settings": {
                         "ContentTypeSettings": {
                             "Listable": true,
@@ -33,8 +33,7 @@
                                     "Position": "0"
                                 },
                                 "UniqueTitlePartSettings": {
-                                    "Placeholder": "1000A-Verbal Abilities",
-                                    "ReadOnlyOnPublish": true
+                                    "Placeholder": "Verbal Abilities"
                                 },
                                 "ContentIndexSettings": {}
                             }
@@ -54,8 +53,8 @@
                             }
                         },
                         {
-                            "PartName": "SOCskillsmatrix",
-                            "Name": "SOCskillsmatrix",
+                            "PartName": "Skill",
+                            "Name": "Skill",
                             "Settings": {
                                 "ContentTypePartSettings": {
                                     "Position": "2"
@@ -63,24 +62,11 @@
                             }
                         },
                         {
-                            "PartName": "AuditTrailPart",
-                            "Name": "AuditTrailPart",
-                            "Settings": {
-                                "ContentTypePartSettings": {
-                                    "Position": "3"
-                                },
-                                "AuditTrailPartSettings": {
-                                    "ShowCommentInput": false
-                                },
-                                "ContentIndexSettings": {}
-                            }
-                        },
-                        {
                             "PartName": "GraphSyncPart",
                             "Name": "GraphSyncPart",
                             "Settings": {
                                 "ContentTypePartSettings": {
-                                    "Position": "4"
+                                    "Position": "3"
                                 },
                                 "GraphSyncPartSettings": {
                                     "NodeNameTransform": "ContentType",
@@ -91,21 +77,34 @@
                                 },
                                 "ContentIndexSettings": {}
                             }
+                        },
+                        {
+                            "PartName": "AuditTrailPart",
+                            "Name": "AuditTrailPart",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "4"
+                                },
+                                "AuditTrailPartSettings": {
+                                    "ShowCommentInput": false
+                                },
+                                "ContentIndexSettings": {}
+                            }
                         }
                     ]
                 }
             ],
             "ContentParts": [
                 {
-                    "Name": "SOCskillsmatrix",
+                    "Name": "Skill",
                     "Settings": {},
                     "ContentPartFieldDefinitionRecords": [
                         {
                             "FieldName": "HtmlField",
-                            "Name": "Contextualised",
+                            "Name": "Description",
                             "Settings": {
                                 "ContentPartFieldSettings": {
-                                    "DisplayName": "Contextualised",
+                                    "DisplayName": "Description",
                                     "Editor": "Trumbowyg",
                                     "Position": "0"
                                 },
@@ -118,50 +117,11 @@
                         },
                         {
                             "FieldName": "TextField",
-                            "Name": "ONetAttributeType",
+                            "Name": "ONetElementId",
                             "Settings": {
                                 "ContentPartFieldSettings": {
-                                    "DisplayName": "ONet Attribute Type",
+                                    "DisplayName": "ONet Element Id",
                                     "Position": "1",
-                                    "Editor": "ReadOnly"
-                                },
-                                "TextFieldSettings": {},
-                                "ContentIndexSettings": {}
-                            }
-                        },
-                        {
-                            "FieldName": "TextField",
-                            "Name": "ONetRank",
-                            "Settings": {
-                                "ContentPartFieldSettings": {
-                                    "DisplayName": "ONet Rank",
-                                    "Position": "2",
-                                    "Editor": "ReadOnly"
-                                },
-                                "TextFieldSettings": {},
-                                "ContentIndexSettings": {}
-                            }
-                        },
-                        {
-                            "FieldName": "TextField",
-                            "Name": "RelatedSkill",
-                            "Settings": {
-                                "ContentPartFieldSettings": {
-                                    "DisplayName": "Related Skill",
-                                    "Position": "3",
-                                    "Editor": "ReadOnly"
-                                },
-                                "TextFieldSettings": {},
-                                "ContentIndexSettings": {}
-                            }
-                        },
-                        {
-                            "FieldName": "TextField",
-                            "Name": "RelatedSOCcode",
-                            "Settings": {
-                                "ContentPartFieldSettings": {
-                                    "DisplayName": "Related SOC",
-                                    "Position": "4",
                                     "Editor": "ReadOnly"
                                 },
                                 "TextFieldSettings": {},

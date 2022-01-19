@@ -1,6 +1,6 @@
 {
-  "name": "JobProfileApprenticeshipRequirements",
-  "displayName": "JobProfileApprenticeshipRequirements",
+  "name": "JobProfileRegistration",
+  "displayName": "JobProfileRegistration",
   "description": "",
   "author": "",
   "website": "",
@@ -13,8 +13,8 @@
       "name": "ContentDefinition",
       "ContentTypes": [
         {
-          "Name": "Apprenticeshiprequirements",
-          "DisplayName": "Apprenticeship requirements",
+          "Name": "Registration",
+          "DisplayName": "Registration",
           "Settings": {
             "ContentTypeSettings": {
               "Creatable": true,
@@ -25,70 +25,74 @@
             },
             "FullTextAspectSettings": {}
           },
-          "ContentTypePartDefinitionRecords": [
-            {
-              "PartName": "Apprenticeshiprequirements",
-              "Name": "Apprenticeshiprequirements",
-              "Settings": {
-                "ContentTypePartSettings": {
-                  "Position": "2"
+            "ContentTypePartDefinitionRecords": [
+                {
+                    "PartName": "UniqueTitlePart",
+                    "Name": "UniqueTitlePart",
+                    "Settings": {
+                        "ContentTypePartSettings": {
+                            "Position": "0"
+                        },
+                        "UniqueTitlePartSettings": {
+                            "Placeholder": "General Dental Council"
+                        },
+                        "ContentIndexSettings": {}
+                    }
+                },
+                {
+                    "PartName": "TitlePart",
+                    "Name": "TitlePart",
+                    "Settings": {
+                        "ContentTypePartSettings": {
+                            "Position": "1"
+                        },
+                        "ContentIndexSettings": {},
+                        "TitlePartSettings": {
+                            "Options": 2,
+                            "Pattern": "{{ Model.ContentItem.Content.UniqueTitlePart.Title }}"
+                        }
+                    }
+                },
+                {
+                    "PartName": "Registration",
+                    "Name": "Registration",
+                    "Settings": {
+                        "ContentTypePartSettings": {
+                            "Position": "2"
+                        }
+                    }
+                },
+                {
+                    "PartName": "GraphSyncPart",
+                    "Name": "GraphSyncPart",
+                    "Settings": {
+                        "ContentTypePartSettings": {
+                            "Position": "3"
+                        },
+                        "GraphSyncPartSettings": {
+                            "NodeNameTransform": "ContentType",
+                            "PropertyNameTransform": "Value",
+                            "IdPropertyName": "uri",
+                            "GenerateIdPropertyValue": "$\"<<contentapiprefix>>/{ContentType}/{Value}\".ToLowerInvariant()",
+                            "DisplayId": true
+                        },
+                        "ContentIndexSettings": {}
+                    }
+                },
+                {
+                    "PartName": "AuditTrailPart",
+                    "Name": "AuditTrailPart",
+                    "Settings": {
+                        "ContentTypePartSettings": {
+                            "Position": "4"
+                        },
+                        "AuditTrailPartSettings": {
+                            "ShowCommentInput": false
+                        },
+                        "ContentIndexSettings": {}
+                    }
                 }
-              }
-            },
-            {
-              "PartName": "AuditTrailPart",
-              "Name": "AuditTrailPart",
-              "Settings": {
-                "ContentTypePartSettings": {
-                  "Position": "3"
-                },
-                "AuditTrailPartSettings": {
-                  "ShowCommentInput": false
-                },
-                "ContentIndexSettings": {}
-              }
-            },
-            {
-              "PartName": "GraphSyncPart",
-              "Name": "GraphSyncPart",
-              "Settings": {
-                "ContentTypePartSettings": {
-                  "Position": "4"
-                },
-                "GraphSyncPartSettings": {
-                  "NodeNameTransform": "ContentType",
-                  "PropertyNameTransform": "Value",
-                  "IdPropertyName": "uri",
-                  "GenerateIdPropertyValue": "$\"<<contentapiprefix>>/{ContentType}/{Value}\".ToLowerInvariant()",
-                  "DisplayId": true
-                },
-                "ContentIndexSettings": {}
-              }
-            },
-            {
-              "PartName": "TitlePart",
-              "Name": "TitlePart",
-              "Settings": {
-                "ContentTypePartSettings": {
-                  "Position": "1"
-                },
-                "ContentIndexSettings": {},
-                "TitlePartSettings": {
-                  "Options": 2,
-                  "Pattern": "{{ Model.ContentItem.Content.UniqueTitlePart.Title }}"
-                }
-              }
-            },
-            {
-              "PartName": "UniqueTitlePart",
-              "Name": "UniqueTitlePart",
-              "Settings": {
-                "ContentTypePartSettings": {
-                  "Position": "0"
-                }
-              }
-            }
-          ]
+            ]
         }
       ],
       "ContentParts": [
@@ -134,15 +138,15 @@
           "ContentPartFieldDefinitionRecords": []
         },
         {
-          "Name": "Apprenticeshiprequirements",
+          "Name": "Registration",
           "Settings": {},
           "ContentPartFieldDefinitionRecords": [
             {
               "FieldName": "HtmlField",
-              "Name": "Info",
+              "Name": "Description",
               "Settings": {
                 "ContentPartFieldSettings": {
-                  "DisplayName": "Info",
+                  "DisplayName": "Description",
                   "Editor": "Trumbowyg",
                   "Position": "0"
                 },

@@ -25,76 +25,76 @@
             },
             "FullTextAspectSettings": {}
           },
-          "ContentTypePartDefinitionRecords": [
-            {
-              "PartName": "SOCcode",
-              "Name": "SOCcode",
-              "Settings": {
-                "ContentTypePartSettings": {
-                  "Position": "2"
+            "ContentTypePartDefinitionRecords": [
+                {
+                    "PartName": "UniqueTitlePart",
+                    "Name": "UniqueTitlePart",
+                    "Settings": {
+                        "ContentTypePartSettings": {
+                            "Position": "0"
+                        },
+                        "UniqueTitlePartSettings": {
+                            "Hint": "Please enter SOC Code here",
+                            "Placeholder": "1000A",
+                            "ReadOnlyOnPublish": true
+                        },
+                        "ContentIndexSettings": {}
+                    }
+                },
+                {
+                    "PartName": "TitlePart",
+                    "Name": "TitlePart",
+                    "Settings": {
+                        "ContentTypePartSettings": {
+                            "Position": "1"
+                        },
+                        "ContentIndexSettings": {},
+                        "TitlePartSettings": {
+                            "Options": 2,
+                            "Pattern": "{{ Model.ContentItem.Content.UniqueTitlePart.Title }}"
+                        }
+                    }
+                },
+                {
+                    "PartName": "SOCcode",
+                    "Name": "SOCcode",
+                    "Settings": {
+                        "ContentTypePartSettings": {
+                            "Position": "2"
+                        }
+                    }
+                },
+                {
+                    "PartName": "GraphSyncPart",
+                    "Name": "GraphSyncPart",
+                    "Settings": {
+                        "ContentTypePartSettings": {
+                            "Position": "4"
+                        },
+                        "GraphSyncPartSettings": {
+                            "NodeNameTransform": "ContentType",
+                            "PropertyNameTransform": "Value",
+                            "IdPropertyName": "uri",
+                            "GenerateIdPropertyValue": "$\"<<contentapiprefix>>/{ContentType}/{Value}\".ToLowerInvariant()",
+                            "DisplayId": true
+                        },
+                        "ContentIndexSettings": {}
+                    }
+                },
+                {
+                    "PartName": "AuditTrailPart",
+                    "Name": "AuditTrailPart",
+                    "Settings": {
+                        "ContentTypePartSettings": {
+                            "Position": "3"
+                        },
+                        "AuditTrailPartSettings": {
+                            "ShowCommentInput": false
+                        },
+                        "ContentIndexSettings": {}
+                    }
                 }
-              }
-            },
-            {
-              "PartName": "AuditTrailPart",
-              "Name": "AuditTrailPart",
-              "Settings": {
-                "ContentTypePartSettings": {
-                  "Position": "3"
-                },
-                "AuditTrailPartSettings": {
-                  "ShowCommentInput": false
-                },
-                "ContentIndexSettings": {}
-              }
-            },
-            {
-              "PartName": "GraphSyncPart",
-              "Name": "GraphSyncPart",
-              "Settings": {
-                "ContentTypePartSettings": {
-                  "Position": "4"
-                },
-                "GraphSyncPartSettings": {
-                  "NodeNameTransform": "ContentType",
-                  "PropertyNameTransform": "Value",
-                  "IdPropertyName": "uri",
-                  "GenerateIdPropertyValue": "$\"<<contentapiprefix>>/{ContentType}/{Value}\".ToLowerInvariant()",
-                  "DisplayId": true
-                },
-                "ContentIndexSettings": {}
-              }
-            },
-            {
-              "PartName": "TitlePart",
-              "Name": "TitlePart",
-              "Settings": {
-                "ContentTypePartSettings": {
-                  "Position": "1"
-                },
-                "ContentIndexSettings": {},
-                "TitlePartSettings": {
-                  "Options": 2,
-                  "Pattern": "{{ Model.ContentItem.Content.UniqueTitlePart.Title }}"
-                }
-              }
-            },
-            {
-              "PartName": "UniqueTitlePart",
-              "Name": "UniqueTitlePart",
-              "Settings": {
-                "ContentTypePartSettings": {
-                  "Position": "0"
-                },
-                "UniqueTitlePartSettings": {
-                    "Hint": "Please enter SOC Code here",
-                    "Placeholder": "1000A",
-                    "ReadOnlyOnPublish": true
-                },
-                "ContentIndexSettings": {}
-              }
-            }
-          ]
+            ]
         }
       ],
       "ContentParts": [

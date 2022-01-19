@@ -1,6 +1,6 @@
 {
-    "name": "Restriction",
-    "displayName": "Restriction",
+    "name": "Jobprofilecategory",
+    "displayName": "Jobprofilecategory",
     "description": "",
     "author": "",
     "website": "",
@@ -13,8 +13,8 @@
             "name": "ContentDefinition",
             "ContentTypes": [
                 {
-                    "Name": "Restriction",
-                    "DisplayName": "Restriction",
+                    "Name": "Jobprofilecategory",
+                    "DisplayName": "Job profile category",
                     "Settings": {
                         "ContentTypeSettings": {
                             "Creatable": true,
@@ -27,40 +27,14 @@
                     },
                     "ContentTypePartDefinitionRecords": [
                         {
-                            "PartName": "Restriction",
-                            "Name": "Restriction",
+                            "PartName": "UniqueTitlePart",
+                            "Name": "UniqueTitlePart",
                             "Settings": {
                                 "ContentTypePartSettings": {
-                                    "Position": "2"
-                                }
-                            }
-                        },
-                        {
-                            "PartName": "AuditTrailPart",
-                            "Name": "AuditTrailPart",
-                            "Settings": {
-                                "ContentTypePartSettings": {
-                                    "Position": "4"
+                                    "Position": "0"
                                 },
-                                "AuditTrailPartSettings": {
-                                    "ShowCommentInput": false
-                                },
-                                "ContentIndexSettings": {}
-                            }
-                        },
-                        {
-                            "PartName": "GraphSyncPart",
-                            "Name": "GraphSyncPart",
-                            "Settings": {
-                                "ContentTypePartSettings": {
-                                    "Position": "3"
-                                },
-                                "GraphSyncPartSettings": {
-                                    "NodeNameTransform": "ContentType",
-                                    "PropertyNameTransform": "Value",
-                                    "IdPropertyName": "uri",
-                                    "GenerateIdPropertyValue": "$\"<<contentapiprefix>>/{ContentType}/{Value}\".ToLowerInvariant()",
-                                    "DisplayId": true
+                                "UniqueTitlePartSettings": {
+                                    "Placeholder": "science and research"
                                 },
                                 "ContentIndexSettings": {}
                             }
@@ -80,14 +54,49 @@
                             }
                         },
                         {
-                            "PartName": "UniqueTitlePart",
-                            "Name": "UniqueTitlePart",
+                            "PartName": "Jobprofilecategory",
+                            "Name": "Jobprofilecategory",
                             "Settings": {
                                 "ContentTypePartSettings": {
-                                    "Position": "0"
+                                    "Position": "2"
+                                }
+                            }
+                        },
+                        {
+                            "PartName": "PageLocationPart",
+                            "Name": "PageLocationPart",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "3"
+                                }
+                            }
+                        },
+                        {
+                            "PartName": "GraphSyncPart",
+                            "Name": "GraphSyncPart",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "4"
                                 },
-                                "UniqueTitlePartSettings": {
-                                    "Placeholder": "Medical check"
+                                "GraphSyncPartSettings": {
+                                    "NodeNameTransform": "ContentType",
+                                    "PropertyNameTransform": "Value",
+                                    "IdPropertyName": "uri",
+                                    "GenerateIdPropertyValue": "$\"<<contentapiprefix>>/{ContentType}/{Value}\".ToLowerInvariant()",
+                                    "DisplayId": true
+                                },
+                                "ContentIndexSettings": {}
+                            }
+                        },
+                        {
+                            "PartName": "AuditTrailPart",
+                            "Name": "AuditTrailPart",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "5"
+                                },
+                                "AuditTrailPartSettings": {
+                                    "ShowCommentInput": false
                                 },
                                 "ContentIndexSettings": {}
                             }
@@ -138,22 +147,29 @@
                     "ContentPartFieldDefinitionRecords": []
                 },
                 {
-                    "Name": "Restriction",
+                    "Name": "PageLocationPart",
+                    "Settings": {
+                        "ContentPartSettings": {
+                            "Attachable": true,
+                            "Description": "Adds the page location part."
+                        }
+                    },
+                    "ContentPartFieldDefinitionRecords": []
+                },
+                {
+                    "Name": "Jobprofilecategory",
                     "Settings": {},
                     "ContentPartFieldDefinitionRecords": [
                         {
-                            "FieldName": "HtmlField",
-                            "Name": "Info",
+                            "FieldName": "TextField",
+                            "Name": "Description",
                             "Settings": {
                                 "ContentPartFieldSettings": {
-                                    "DisplayName": "Info",
-                                    "Editor": "Trumbowyg",
+                                    "DisplayName": "Description",
+                                    "Editor": "TextArea",
                                     "Position": "0"
                                 },
-                                "HtmlFieldSettings": {},
-                                "HtmlFieldTrumbowygEditorSettings": {
-                                    "Options": "{\r\n    autogrow: true,\r\n    btns: [\r\n        [\"viewHTML\"],\r\n        [\"undo\", \"redo\"],\r\n        [\"formatting\"],\r\n        [\"strong\", \"em\", \"del\"],\r\n        [\"foreColor\", \"backColor\"],\r\n        [\"superscript\", \"subscript\"],\r\n        [\"link\"],\r\n        [\"insertShortcode\"],\r\n        [\"image\"],\r\n        [\"align\"],\r\n        [\"unorderedList\", \"orderedList\"],\r\n        [\"horizontalRule\"],\r\n        [\"removeformat\"],\r\n        [\"fullscreen\"]\r\n    ],\r\n    btnsDef: {\r\n        align: {\r\n            dropdown: [\"justifyLeft\", \"justifyCenter\", \"justifyRight\", \"justifyFull\"],\r\n            ico: \"justifyLeft\"\r\n        },\r\n        image: {\r\n            dropdown: [\"insertImage\", \"base64\", \"noembed\"],\r\n            ico: \"insertImage\"\r\n        }\r\n    }\r\n}"
-                                },
+                                "TextFieldSettings": {},
                                 "ContentIndexSettings": {}
                             }
                         }

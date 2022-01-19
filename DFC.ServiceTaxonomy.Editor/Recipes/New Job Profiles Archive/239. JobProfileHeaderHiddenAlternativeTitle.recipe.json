@@ -1,6 +1,6 @@
 {
-  "name": "JobProfileUniversityentryrequirements",
-  "displayName": "JobProfileUniversityentryrequirements",
+  "name": "JobProfileHeaderHiddenalternativetitle",
+  "displayName": "JobProfileHeaderHiddenalternativetitle",
   "description": "",
   "author": "",
   "website": "",
@@ -13,8 +13,8 @@
       "name": "ContentDefinition",
       "ContentTypes": [
         {
-          "Name": "Universityentryrequirements",
-          "DisplayName": "University entry requirements",
+          "Name": "HiddenAlternativeTitle",
+          "DisplayName": "Hidden alternative title",
           "Settings": {
             "ContentTypeSettings": {
               "Creatable": true,
@@ -27,12 +27,44 @@
           },
           "ContentTypePartDefinitionRecords": [
             {
-              "PartName": "Universityentryrequirements",
-              "Name": "Universityentryrequirements",
+              "PartName": "TitlePart",
+              "Name": "TitlePart",
+              "Settings": {
+                "ContentTypePartSettings": {
+                  "Position": "0"
+                },
+                "GraphQLContentTypePartSettings": {},
+                "ContentIndexSettings": {},
+                "TitlePartSettings": {
+                  "Options": 3
+                }
+              }
+            },
+            {
+              "PartName": "HiddenAlternativeTitle",
+              "Name": "HiddenAlternativeTitle",
+              "Settings": {
+                "ContentTypePartSettings": {
+                  "Position": "1"
+                }
+              }
+            },
+            {
+              "PartName": "GraphSyncPart",
+              "Name": "GraphSyncPart",
               "Settings": {
                 "ContentTypePartSettings": {
                   "Position": "2"
-                }
+                },
+                "GraphQLContentTypePartSettings": {},
+                "GraphSyncPartSettings": {
+                  "NodeNameTransform": "ContentType",
+                  "PropertyNameTransform": "Value",
+                  "IdPropertyName": "uri",
+                  "GenerateIdPropertyValue": "$\"<<contentapiprefix>>/{ContentType}/{Value}\".ToLowerInvariant()",
+                  "DisplayId": true
+                },
+                "ContentIndexSettings": {}
               }
             },
             {
@@ -45,52 +77,9 @@
                 "AuditTrailPartSettings": {
                   "ShowCommentInput": false
                 },
+                "GraphQLContentTypePartSettings": {},
                 "ContentIndexSettings": {}
               }
-            },
-            {
-              "PartName": "GraphSyncPart",
-              "Name": "GraphSyncPart",
-              "Settings": {
-                "ContentTypePartSettings": {
-                  "Position": "4"
-                },
-                "GraphSyncPartSettings": {
-                  "NodeNameTransform": "ContentType",
-                  "PropertyNameTransform": "Value",
-                  "IdPropertyName": "uri",
-                  "GenerateIdPropertyValue": "$\"<<contentapiprefix>>/{ContentType}/{Value}\".ToLowerInvariant()",
-                  "DisplayId": true
-                },
-                "ContentIndexSettings": {}
-              }
-            },
-            {
-              "PartName": "TitlePart",
-              "Name": "TitlePart",
-              "Settings": {
-                "ContentTypePartSettings": {
-                  "Position": "1"
-                },
-                "ContentIndexSettings": {},
-                "TitlePartSettings": {
-                  "Options": 2,
-                  "Pattern": "{{ Model.ContentItem.Content.UniqueTitlePart.Title }}"
-                }
-              }
-            },
-            {
-              "PartName": "UniqueTitlePart",
-              "Name": "UniqueTitlePart",
-                "Settings": {
-                    "ContentTypePartSettings": {
-                        "Position": "0"
-                    },
-                    "UniqueTitlePartSettings": {
-                        "Placeholder": "You will need"
-                    },
-                    "ContentIndexSettings": {}
-                }
             }
           ]
         }
@@ -117,16 +106,6 @@
           "ContentPartFieldDefinitionRecords": []
         },
         {
-          "Name": "UniqueTitlePart",
-          "Settings": {
-            "ContentPartSettings": {
-              "Attachable": true,
-              "Description": "Adds Title related properties to a content item."
-            }
-          },
-          "ContentPartFieldDefinitionRecords": []
-        },
-        {
           "Name": "TitlePart",
           "Settings": {
             "ContentPartSettings": {
@@ -138,7 +117,7 @@
           "ContentPartFieldDefinitionRecords": []
         },
         {
-          "Name": "Universityentryrequirements",
+          "Name": "HiddenAlternativeTitle",
           "Settings": {},
           "ContentPartFieldDefinitionRecords": [
             {

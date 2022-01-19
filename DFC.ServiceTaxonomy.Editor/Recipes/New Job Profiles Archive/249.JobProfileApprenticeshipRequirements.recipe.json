@@ -1,6 +1,6 @@
 {
-  "name": "JobProfileEnvironment",
-  "displayName": "JobProfileEnvironment",
+  "name": "JobProfileApprenticeshipRequirements",
+  "displayName": "JobProfileApprenticeshipRequirements",
   "description": "",
   "author": "",
   "website": "",
@@ -13,8 +13,8 @@
       "name": "ContentDefinition",
       "ContentTypes": [
         {
-          "Name": "Environment",
-          "DisplayName": "Environment",
+          "Name": "Apprenticeshiprequirements",
+          "DisplayName": "Apprenticeship requirements",
           "Settings": {
             "ContentTypeSettings": {
               "Creatable": true,
@@ -25,74 +25,70 @@
             },
             "FullTextAspectSettings": {}
           },
-          "ContentTypePartDefinitionRecords": [
-            {
-              "PartName": "Environment",
-              "Name": "Environment",
-              "Settings": {
-                "ContentTypePartSettings": {
-                  "Position": "2"
+            "ContentTypePartDefinitionRecords": [
+                {
+                    "PartName": "UniqueTitlePart",
+                    "Name": "UniqueTitlePart",
+                    "Settings": {
+                        "ContentTypePartSettings": {
+                            "Position": "0"
+                        }
+                    }
+                },
+                {
+                    "PartName": "TitlePart",
+                    "Name": "TitlePart",
+                    "Settings": {
+                        "ContentTypePartSettings": {
+                            "Position": "1"
+                        },
+                        "ContentIndexSettings": {},
+                        "TitlePartSettings": {
+                            "Options": 2,
+                            "Pattern": "{{ Model.ContentItem.Content.UniqueTitlePart.Title }}"
+                        }
+                    }
+                },
+                {
+                    "PartName": "Apprenticeshiprequirements",
+                    "Name": "Apprenticeshiprequirements",
+                    "Settings": {
+                        "ContentTypePartSettings": {
+                            "Position": "2"
+                        }
+                    }
+                },
+                {
+                    "PartName": "GraphSyncPart",
+                    "Name": "GraphSyncPart",
+                    "Settings": {
+                        "ContentTypePartSettings": {
+                            "Position": "3"
+                        },
+                        "GraphSyncPartSettings": {
+                            "NodeNameTransform": "ContentType",
+                            "PropertyNameTransform": "Value",
+                            "IdPropertyName": "uri",
+                            "GenerateIdPropertyValue": "$\"<<contentapiprefix>>/{ContentType}/{Value}\".ToLowerInvariant()",
+                            "DisplayId": true
+                        },
+                        "ContentIndexSettings": {}
+                    }
+                },
+                {
+                    "PartName": "AuditTrailPart",
+                    "Name": "AuditTrailPart",
+                    "Settings": {
+                        "ContentTypePartSettings": {
+                            "Position": "4"
+                        },
+                        "AuditTrailPartSettings": {
+                            "ShowCommentInput": false
+                        },
+                        "ContentIndexSettings": {}
+                    }
                 }
-              }
-            },
-            {
-              "PartName": "AuditTrailPart",
-              "Name": "AuditTrailPart",
-              "Settings": {
-                "ContentTypePartSettings": {
-                  "Position": "4"
-                },
-                "AuditTrailPartSettings": {
-                  "ShowCommentInput": false
-                },
-                "ContentIndexSettings": {}
-              }
-            },
-            {
-              "PartName": "GraphSyncPart",
-              "Name": "GraphSyncPart",
-              "Settings": {
-                "ContentTypePartSettings": {
-                  "Position": "3"
-                },
-                "GraphSyncPartSettings": {
-                  "NodeNameTransform": "ContentType",
-                  "PropertyNameTransform": "Value",
-                  "IdPropertyName": "uri",
-                  "GenerateIdPropertyValue": "$\"<<contentapiprefix>>/{ContentType}/{Value}\".ToLowerInvariant()",
-                  "DisplayId": true
-                },
-                "ContentIndexSettings": {}
-              }
-            },
-            {
-              "PartName": "TitlePart",
-              "Name": "TitlePart",
-              "Settings": {
-                "ContentTypePartSettings": {
-                  "Position": "1"
-                },
-                "ContentIndexSettings": {},
-                "TitlePartSettings": {
-                  "Options": 2,
-                  "Pattern": "{{ Model.ContentItem.Content.UniqueTitlePart.Title }}"
-                }
-              }
-            },
-            {
-              "PartName": "UniqueTitlePart",
-              "Name": "UniqueTitlePart",
-                "Settings": {
-                    "ContentTypePartSettings": {
-                        "Position": "0"
-                    },
-                    "UniqueTitlePartSettings": {
-                        "Placeholder": "Travel away"
-                    },
-                    "ContentIndexSettings": {}
-                }
-            }
-          ]
+            ]
         }
       ],
       "ContentParts": [
@@ -138,15 +134,15 @@
           "ContentPartFieldDefinitionRecords": []
         },
         {
-          "Name": "Environment",
+          "Name": "Apprenticeshiprequirements",
           "Settings": {},
           "ContentPartFieldDefinitionRecords": [
             {
               "FieldName": "HtmlField",
-              "Name": "Description",
+              "Name": "Info",
               "Settings": {
                 "ContentPartFieldSettings": {
-                  "DisplayName": "Description",
+                  "DisplayName": "Info",
                   "Editor": "Trumbowyg",
                   "Position": "0"
                 },

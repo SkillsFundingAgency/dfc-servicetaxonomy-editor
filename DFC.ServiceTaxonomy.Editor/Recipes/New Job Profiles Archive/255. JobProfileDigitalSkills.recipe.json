@@ -27,15 +27,6 @@
                     },
                     "ContentTypePartDefinitionRecords": [
                         {
-                            "PartName": "Digitalskills",
-                            "Name": "Digitalskills",
-                            "Settings": {
-                                "ContentTypePartSettings": {
-                                    "Position": "1"
-                                }
-                            }
-                        },
-                        {
                             "PartName": "TitlePart",
                             "Name": "TitlePart",
                             "Settings": {
@@ -44,6 +35,15 @@
                                 },
                                 "ContentIndexSettings": {},
                                 "TitlePartSettings": {}
+                            }
+                        },
+                        {
+                            "PartName": "Digitalskills",
+                            "Name": "Digitalskills",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "1"
+                                }
                             }
                         },
                         {

@@ -1,6 +1,6 @@
 {
-    "name": "Jobprofilecategory",
-    "displayName": "Jobprofilecategory",
+    "name": "Restriction",
+    "displayName": "Restriction",
     "description": "",
     "author": "",
     "website": "",
@@ -13,8 +13,8 @@
             "name": "ContentDefinition",
             "ContentTypes": [
                 {
-                    "Name": "Jobprofilecategory",
-                    "DisplayName": "Job profile category",
+                    "Name": "Restriction",
+                    "DisplayName": "Restriction",
                     "Settings": {
                         "ContentTypeSettings": {
                             "Creatable": true,
@@ -27,40 +27,14 @@
                     },
                     "ContentTypePartDefinitionRecords": [
                         {
-                            "PartName": "Jobprofilecategory",
-                            "Name": "Jobprofilecategory",
+                            "PartName": "UniqueTitlePart",
+                            "Name": "UniqueTitlePart",
                             "Settings": {
                                 "ContentTypePartSettings": {
-                                    "Position": "2"
-                                }
-                            }
-                        },
-                        {
-                            "PartName": "AuditTrailPart",
-                            "Name": "AuditTrailPart",
-                            "Settings": {
-                                "ContentTypePartSettings": {
-                                    "Position": "5"
+                                    "Position": "0"
                                 },
-                                "AuditTrailPartSettings": {
-                                    "ShowCommentInput": false
-                                },
-                                "ContentIndexSettings": {}
-                            }
-                        },
-                        {
-                            "PartName": "GraphSyncPart",
-                            "Name": "GraphSyncPart",
-                            "Settings": {
-                                "ContentTypePartSettings": {
-                                    "Position": "4"
-                                },
-                                "GraphSyncPartSettings": {
-                                    "NodeNameTransform": "ContentType",
-                                    "PropertyNameTransform": "Value",
-                                    "IdPropertyName": "uri",
-                                    "GenerateIdPropertyValue": "$\"<<contentapiprefix>>/{ContentType}/{Value}\".ToLowerInvariant()",
-                                    "DisplayId": true
+                                "UniqueTitlePartSettings": {
+                                    "Placeholder": "Medical check"
                                 },
                                 "ContentIndexSettings": {}
                             }
@@ -80,25 +54,42 @@
                             }
                         },
                         {
-                            "PartName": "UniqueTitlePart",
-                            "Name": "UniqueTitlePart",
+                            "PartName": "Restriction",
+                            "Name": "Restriction",
                             "Settings": {
                                 "ContentTypePartSettings": {
-                                    "Position": "0"
+                                    "Position": "2"
+                                }
+                            }
+                        },
+                        {
+                            "PartName": "GraphSyncPart",
+                            "Name": "GraphSyncPart",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "3"
                                 },
-                                "UniqueTitlePartSettings": {
-                                    "Placeholder": "science and research"
+                                "GraphSyncPartSettings": {
+                                    "NodeNameTransform": "ContentType",
+                                    "PropertyNameTransform": "Value",
+                                    "IdPropertyName": "uri",
+                                    "GenerateIdPropertyValue": "$\"<<contentapiprefix>>/{ContentType}/{Value}\".ToLowerInvariant()",
+                                    "DisplayId": true
                                 },
                                 "ContentIndexSettings": {}
                             }
                         },
                         {
-                            "PartName": "PageLocationPart",
-                            "Name": "PageLocationPart",
+                            "PartName": "AuditTrailPart",
+                            "Name": "AuditTrailPart",
                             "Settings": {
                                 "ContentTypePartSettings": {
-                                    "Position": "3"
-                                }
+                                    "Position": "4"
+                                },
+                                "AuditTrailPartSettings": {
+                                    "ShowCommentInput": false
+                                },
+                                "ContentIndexSettings": {}
                             }
                         }
                     ]
@@ -147,29 +138,22 @@
                     "ContentPartFieldDefinitionRecords": []
                 },
                 {
-                    "Name": "PageLocationPart",
-                    "Settings": {
-                        "ContentPartSettings": {
-                            "Attachable": true,
-                            "Description": "Adds the page location part."
-                        }
-                    },
-                    "ContentPartFieldDefinitionRecords": []
-                },
-                {
-                    "Name": "Jobprofilecategory",
+                    "Name": "Restriction",
                     "Settings": {},
                     "ContentPartFieldDefinitionRecords": [
                         {
-                            "FieldName": "TextField",
-                            "Name": "Description",
+                            "FieldName": "HtmlField",
+                            "Name": "Info",
                             "Settings": {
                                 "ContentPartFieldSettings": {
-                                    "DisplayName": "Description",
-                                    "Editor": "TextArea",
+                                    "DisplayName": "Info",
+                                    "Editor": "Trumbowyg",
                                     "Position": "0"
                                 },
-                                "TextFieldSettings": {},
+                                "HtmlFieldSettings": {},
+                                "HtmlFieldTrumbowygEditorSettings": {
+                                    "Options": "{\r\n    autogrow: true,\r\n    btns: [\r\n        [\"viewHTML\"],\r\n        [\"undo\", \"redo\"],\r\n        [\"formatting\"],\r\n        [\"strong\", \"em\", \"del\"],\r\n        [\"foreColor\", \"backColor\"],\r\n        [\"superscript\", \"subscript\"],\r\n        [\"link\"],\r\n        [\"insertShortcode\"],\r\n        [\"image\"],\r\n        [\"align\"],\r\n        [\"unorderedList\", \"orderedList\"],\r\n        [\"horizontalRule\"],\r\n        [\"removeformat\"],\r\n        [\"fullscreen\"]\r\n    ],\r\n    btnsDef: {\r\n        align: {\r\n            dropdown: [\"justifyLeft\", \"justifyCenter\", \"justifyRight\", \"justifyFull\"],\r\n            ico: \"justifyLeft\"\r\n        },\r\n        image: {\r\n            dropdown: [\"insertImage\", \"base64\", \"noembed\"],\r\n            ico: \"insertImage\"\r\n        }\r\n    }\r\n}"
+                                },
                                 "ContentIndexSettings": {}
                             }
                         }
