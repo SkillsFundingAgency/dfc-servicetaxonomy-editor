@@ -40,7 +40,7 @@
 
     @if ((hasDraft || hasPublished) && hasDeletePermission)
     {
-            var deleteMessage = contentItem.ContentType == ContentTypes.SOCcode ? "Deleting this code shall lead to removal of this SOC code along with all the related SOC Skills Matrix content items? Are you sure you want to delete?" : "Are you sure you want to delete this content item?";
+            var deleteMessage = contentItem.ContentType == ContentTypes.SOCCode ? "Deleting this code shall lead to removal of this SOC code along with all the related SOC Skills Matrix content items? Are you sure you want to delete?" : "Are you sure you want to delete this content item?";
             <div class="btn-group btn-group-approval">
             <a remove-for="@contentItem" data-url-af="RemoveUrl UnsafeUrl" data-title="@T["Delete"]" data-message="@T[deleteMessage]" data-ok-text="@T["Ok"]" data-cancel-text="@T["Cancel"]" class="btn additional-actions-btn-danger">@T["Delete"]</a>
         </div>

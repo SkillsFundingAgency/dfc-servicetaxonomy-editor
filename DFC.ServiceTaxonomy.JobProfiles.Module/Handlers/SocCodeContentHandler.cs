@@ -48,10 +48,10 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module.Handlers
 
         public override async Task PublishingAsync(PublishContentContext context)
         {
-            if (context.ContentItem.ContentType == ContentTypes.SOCcode)
+            if (context.ContentItem.ContentType == ContentTypes.SOCCode)
             {
                 var socCode = context.ContentItem.As<TitlePart>().Title;
-                var onetCode = (string)context.ContentItem.Content.SOCcode.OnetOccupationCode.Text;
+                var onetCode = (string)context.ContentItem.Content.SOCCode.OnetOccupationCode.Text;
 
                 if (string.IsNullOrEmpty(socCode) || string.IsNullOrEmpty(onetCode))
                 {
@@ -71,7 +71,7 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module.Handlers
                 // Create the SOC Skills Matrix Content items
                 var socSkills = _skillsFrameworkService.GetRelatedSkillMapping(onetCode);
                 var skillContentItemsList = await _session.Query<ContentItem, ContentItemIndex>(c => c.ContentType == ContentTypes.Skill).ListAsync();
-                var socSkillsMatrixContentItemsList = await _session.Query<ContentItem, ContentItemIndex>(c => c.ContentType == ContentTypes.SOCskillsmatrix).ListAsync();
+                var socSkillsMatrixContentItemsList = await _session.Query<ContentItem, ContentItemIndex>(c => c.ContentType == ContentTypes.SOCSkillsMatrix).ListAsync();
                 var contentManager = _serviceProvider.GetRequiredService<IContentManager>();
                 var skillCreatedCount = 0;
                 var socSkillsMatrixCreatedCount = 0;
@@ -105,7 +105,7 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module.Handlers
                     var socSkillsMatrix = socSkillsMatrixContentItemsList.FirstOrDefault(ssm => ssm.DisplayText == socSkillMatrixTitle && ssm.IsPublished());
                     if (socSkillsMatrix == null)
                     {
-                        socSkillsMatrix = await contentManager.NewAsync(ContentTypes.SOCskillsmatrix);
+                        socSkillsMatrix = await contentManager.NewAsync(ContentTypes.SOCSkillsMatrix);
                         socSkillsMatrix.ContentItem.DisplayText = socSkillMatrixTitle;
                         // Title
                         var titlePart = socSkillsMatrix.As<UniqueTitlePart>();
@@ -113,13 +113,13 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module.Handlers
                         titlePart.Apply();
                         // GraphSync
                         var graphSyncPart = socSkillsMatrix.As<GraphSyncPart>();
-                        graphSyncPart.Text = GetGraphSyncId(ContentTypes.SOCskillsmatrix);
+                        graphSyncPart.Text = GetGraphSyncId(ContentTypes.SOCSkillsMatrix);
                         graphSyncPart.Apply();
                         // Fields
-                        socSkillsMatrix.Content.SOCskillsmatrix.ONetAttributeType.Text = onetSkill.Category.ToString();
-                        socSkillsMatrix.Content.SOCskillsmatrix.ONetRank.Text = onetSkill.Score;
-                        socSkillsMatrix.Content.SOCskillsmatrix.RelatedSkill.Text = skill.DisplayText;
-                        socSkillsMatrix.Content.SOCskillsmatrix.RelatedSOCcode.Text = socCode;
+                        socSkillsMatrix.Content.SOCSkillsMatrix.ONetAttributeType.Text = onetSkill.Category.ToString();
+                        socSkillsMatrix.Content.SOCSkillsMatrix.ONetRank.Text = onetSkill.Score;
+                        socSkillsMatrix.Content.SOCSkillsMatrix.RelatedSkill.Text = skill.DisplayText;
+                        socSkillsMatrix.Content.SOCSkillsMatrix.RelatedSOCcode.Text = socCode;
 
                         await contentManager.CreateAsync(socSkillsMatrix);
                         socSkillsMatrixCreatedCount++;
@@ -133,14 +133,14 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module.Handlers
 
         public override async Task RemovingAsync(RemoveContentContext context)
         {
-            if (context.ContentItem.ContentType == ContentTypes.SOCcode)
+            if (context.ContentItem.ContentType == ContentTypes.SOCCode)
             {
                 var relatedJobProfile = await _session.QueryIndex<JobProfileIndex>(jp => jp.SOCCode == context.ContentItem.ContentItemId).ListAsync();
                 if(relatedJobProfile != null && relatedJobProfile.Any())
                 {
                     return;
                 }
-                var socSkillsMatrixContentItemsList = await _session.Query<ContentItem, ContentItemIndex>(c => c.ContentType == ContentTypes.SOCskillsmatrix && c.DisplayText.StartsWith(context.ContentItem.DisplayText)).ListAsync();
+                var socSkillsMatrixContentItemsList = await _session.Query<ContentItem, ContentItemIndex>(c => c.ContentType == ContentTypes.SOCSkillsMatrix && c.DisplayText.StartsWith(context.ContentItem.DisplayText)).ListAsync();
                 var contentManager = _serviceProvider.GetRequiredService<IContentManager>();
                 var removeCount = 0;
                 foreach (var socSkillsmatrix in socSkillsMatrixContentItemsList)

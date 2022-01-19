@@ -36,7 +36,7 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module.Handlers
                 var socCode = await SkillReloadRequired(context);
                 if(!string.IsNullOrEmpty(socCode))
                 {
-                    var socSkillsMatrixContentItemsList = await _session.Query<ContentItem, ContentItemIndex>(c => c.ContentType == ContentTypes.SOCskillsmatrix && c.DisplayText.StartsWith(socCode) && c.Published).ListAsync();
+                    var socSkillsMatrixContentItemsList = await _session.Query<ContentItem, ContentItemIndex>(c => c.ContentType == ContentTypes.SOCSkillsMatrix && c.DisplayText.StartsWith(socCode) && c.Published).ListAsync();
                     context.ContentItem.Content.JobProfile.Relatedskills.ContentItemIds = new JArray(socSkillsMatrixContentItemsList.Select(c => c.ContentItemId));
                 }
             }
@@ -49,7 +49,7 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module.Handlers
                 var socCode = await SkillReloadRequired(context);
                 if (!string.IsNullOrEmpty(socCode))
                 {
-                    var socSkillsMatrixContentItemsList = await _session.Query<ContentItem, ContentItemIndex>(c => c.ContentType == ContentTypes.SOCskillsmatrix && c.DisplayText.StartsWith(socCode) && c.Published).ListAsync();
+                    var socSkillsMatrixContentItemsList = await _session.Query<ContentItem, ContentItemIndex>(c => c.ContentType == ContentTypes.SOCSkillsMatrix && c.DisplayText.StartsWith(socCode) && c.Published).ListAsync();
                     if (context.ContentItem.Content.JobProfile.Relatedskills != null)
                     {
                         context.ContentItem.Content.JobProfile.Relatedskills.ContentItemIds = new JArray(socSkillsMatrixContentItemsList.Select(c => c.ContentItemId));
@@ -61,7 +61,7 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module.Handlers
 
         private async Task<string> SkillReloadRequired(ContentContextBase context)
         {
-            var socCodeContentItemIds = (JArray)context.ContentItem.Content.JobProfile.SOCcode.ContentItemIds;
+            var socCodeContentItemIds = (JArray)context.ContentItem.Content.JobProfile.SOCCode.ContentItemIds;
             var relatedSkillsIds = context.ContentItem.Content.JobProfile.Relatedskills == null ? default : (JArray)context.ContentItem.Content.JobProfile.Relatedskills.ContentItemIds;
 
             // If no SOC code assigned then no need to create the skill relationships

@@ -1,7 +1,5 @@
-﻿//using System.Threading.Tasks;
-using OrchardCore.Data.Migration;
+﻿using OrchardCore.Data.Migration;
 using OrchardCore.Modules;
-using OrchardCore.Recipes.Services;
 using OrchardCore.ContentManagement.Metadata;
 using OrchardCore.ContentManagement.Metadata.Settings;
 using DFC.ServiceTaxonomy.JobProfiles.Module.Models.Indexes;
@@ -13,21 +11,12 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module
     [Feature("DFC.ServiceTaxonomy.JobProfiles")]
     public class Migrations : DataMigration
     {
-        private readonly IRecipeMigrator _recipeMigrator;
         private readonly IContentDefinitionManager _contentDefinitionManager;
 
-        public Migrations(IContentDefinitionManager contentDefinitionManager, IRecipeMigrator recipeMigrator)
+        public Migrations(IContentDefinitionManager contentDefinitionManager)
         {
             _contentDefinitionManager = contentDefinitionManager;
-            _recipeMigrator = recipeMigrator;
         }
-
-        //public async Task<int> CreateAsync()
-        //{
-        //    await _recipeMigrator.ExecuteAsync("job-profiles-content-types.recipe.json", this);
-
-        //    return 1;
-        //}
 
         public int Create()
         {
@@ -35,6 +24,7 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module
                 .Attachable()
                 .WithDescription("Creates JobProfile related metadata record. ")
             );
+
             SchemaBuilder.CreateMapIndexTable<JobProfileIndex>(table => table
                 .Column<string>(nameof(JobProfileIndex.ContentItemId))
                 .Column<string>(nameof(JobProfileIndex.GraphSyncPartId))
@@ -57,10 +47,12 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module
                 .Column<string>(nameof(JobProfileIndex.ApprenticeshipRequirements))
                 .Column<string>(nameof(JobProfileIndex.ApprenticeshipLink))
                 .Column<string>(nameof(JobProfileIndex.Registration))
-                .Column<string>(nameof(JobProfileIndex.Digitalskills))
+                .Column<string>(nameof(JobProfileIndex.DigitalSkills))
                 .Column<string>(nameof(JobProfileIndex.Location))
                 .Column<string>(nameof(JobProfileIndex.Environment))
-                .Column<string>(nameof(JobProfileIndex.Uniform)));
+                .Column<string>(nameof(JobProfileIndex.Uniform))
+                .Column<string>(nameof(JobProfileIndex.JobProfileTitle))
+                .Column<string>(nameof(JobProfileIndex.Restriction)));
 
             SchemaBuilder.AlterIndexTable<JobProfileIndex>(table => table
                 .CreateIndex(
@@ -69,20 +61,15 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module
                     nameof(JobProfileIndex.ContentItemId),
                     nameof(JobProfileIndex.GraphSyncPartId)));
 
-            return 1;
+            return 4;
         }
 
         public int UpdateFrom1()
         {
-            _contentDefinitionManager.AlterPartDefinition(nameof(JobProfile), part => part
-                .Attachable()
-                .WithDescription("Creates JobProfile related metadata record.")
-            );
-
             SchemaBuilder.AlterIndexTable<JobProfileIndex>(table => table.AddColumn<string>(nameof(JobProfileIndex.JobProfileTitle)));
 
             SchemaBuilder.AlterIndexTable<JobProfileIndex>(table => table
-     .DropIndex($"IDX_{nameof(JobProfileIndex)}_{nameof(JobProfileIndex.ContentItemId)}"));
+                .DropIndex($"IDX_{nameof(JobProfileIndex)}_{nameof(JobProfileIndex.ContentItemId)}"));
 
             SchemaBuilder.AlterIndexTable<JobProfileIndex>(table => table
                 .CreateIndex(
@@ -96,15 +83,10 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module
 
         public int UpdateFrom2()
         {
-            _contentDefinitionManager.AlterPartDefinition(nameof(JobProfile), part => part
-                .Attachable()
-                .WithDescription("Creates JobProfile related metadata record.")
-            );
-
             SchemaBuilder.AlterIndexTable<JobProfileIndex>(table => table.AddColumn<string>(nameof(JobProfileIndex.Restriction)));
 
             SchemaBuilder.AlterIndexTable<JobProfileIndex>(table => table
-     .DropIndex($"IDX_{nameof(JobProfileIndex)}_{nameof(JobProfileIndex.ContentItemId)}"));
+                .DropIndex($"IDX_{nameof(JobProfileIndex)}_{nameof(JobProfileIndex.ContentItemId)}"));
 
             SchemaBuilder.AlterIndexTable<JobProfileIndex>(table => table
                 .CreateIndex(
@@ -114,6 +96,24 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module
                     nameof(JobProfileIndex.GraphSyncPartId)));
 
             return 3;
+        }
+        public int UpdateFrom3()
+        {
+            SchemaBuilder.AlterIndexTable<JobProfileIndex>(table => table.DropColumn("Digitalskills"));
+
+            SchemaBuilder.AlterIndexTable<JobProfileIndex>(table => table.AddColumn<string>(nameof(JobProfileIndex.DigitalSkills)));
+
+            SchemaBuilder.AlterIndexTable<JobProfileIndex>(table => table
+                .DropIndex($"IDX_{nameof(JobProfileIndex)}_{nameof(JobProfileIndex.ContentItemId)}"));
+
+            SchemaBuilder.AlterIndexTable<JobProfileIndex>(table => table
+                .CreateIndex(
+                    $"IDX_{nameof(JobProfileIndex)}_{nameof(JobProfileIndex.ContentItemId)}",
+                    "DocumentId",
+                    nameof(JobProfileIndex.ContentItemId),
+                    nameof(JobProfileIndex.GraphSyncPartId)));
+
+            return 4;
         }
     }
 }

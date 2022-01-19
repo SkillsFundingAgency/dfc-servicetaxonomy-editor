@@ -25,16 +25,16 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module.ServiceBusHandling.Converters
         public async Task<HowToBecomeData> ConvertFromAsync(ContentItem contentItem)
         {
             var contentManager = _serviceProvider.GetRequiredService<IContentManager>();
-            IEnumerable<ContentItem> universityEntryRequirements = await Helper.GetContentItemsAsync(contentItem.Content.JobProfile.Universityentryrequirements, contentManager);
-            IEnumerable<ContentItem> relatedUniversityRequirements = await Helper.GetContentItemsAsync(contentItem.Content.JobProfile.Relateduniversityrequirements, contentManager);
-            IEnumerable<ContentItem> relatedUniversityLinks = await Helper.GetContentItemsAsync(contentItem.Content.JobProfile.Relateduniversitylinks, contentManager);
-            IEnumerable<ContentItem> collegeEntryRequirements = await Helper.GetContentItemsAsync(contentItem.Content.JobProfile.Collegeentryrequirements, contentManager);
-            IEnumerable<ContentItem> relatedCollegeRequirements = await Helper.GetContentItemsAsync(contentItem.Content.JobProfile.Relatedcollegerequirements, contentManager);
-            IEnumerable<ContentItem> relatedCollegeLinks = await Helper.GetContentItemsAsync(contentItem.Content.JobProfile.Relatedcollegelinks, contentManager);
-            IEnumerable<ContentItem> apprenticeshipEntryRequirements = await Helper.GetContentItemsAsync(contentItem.Content.JobProfile.Apprenticeshipentryrequirements, contentManager);
-            IEnumerable<ContentItem> relatedApprenticeshipRequirements = await Helper.GetContentItemsAsync(contentItem.Content.JobProfile.Relatedapprenticeshiprequirements, contentManager);
-            IEnumerable<ContentItem> relatedApprenticeshipLinks = await Helper.GetContentItemsAsync(contentItem.Content.JobProfile.Relatedapprenticeshiplinks, contentManager);
-            IEnumerable<ContentItem> relatedRegistrations = await Helper.GetContentItemsAsync(contentItem.Content.JobProfile.Relatedregistrations, contentManager);
+            IEnumerable<ContentItem> universityEntryRequirements = await Helper.GetContentItemsAsync(contentItem.Content.JobProfile.UniversityEntryRequirements, contentManager);
+            IEnumerable<ContentItem> relatedUniversityRequirements = await Helper.GetContentItemsAsync(contentItem.Content.JobProfile.RelatedUniversityRequirements, contentManager);
+            IEnumerable<ContentItem> relatedUniversityLinks = await Helper.GetContentItemsAsync(contentItem.Content.JobProfile.RelatedUniversityLinks, contentManager);
+            IEnumerable<ContentItem> collegeEntryRequirements = await Helper.GetContentItemsAsync(contentItem.Content.JobProfile.CollegeEntryRequirements, contentManager);
+            IEnumerable<ContentItem> relatedCollegeRequirements = await Helper.GetContentItemsAsync(contentItem.Content.JobProfile.RelatedCollegeRequirements, contentManager);
+            IEnumerable<ContentItem> relatedCollegeLinks = await Helper.GetContentItemsAsync(contentItem.Content.JobProfile.RelatedCollegeLinks, contentManager);
+            IEnumerable<ContentItem> apprenticeshipEntryRequirements = await Helper.GetContentItemsAsync(contentItem.Content.JobProfile.ApprenticeshipEntryRequirements, contentManager);
+            IEnumerable<ContentItem> relatedApprenticeshipRequirements = await Helper.GetContentItemsAsync(contentItem.Content.JobProfile.RelatedApprenticeshipRequirements, contentManager);
+            IEnumerable<ContentItem> relatedApprenticeshipLinks = await Helper.GetContentItemsAsync(contentItem.Content.JobProfile.RelatedApprenticeshipLinks, contentManager);
+            IEnumerable<ContentItem> relatedRegistrations = await Helper.GetContentItemsAsync(contentItem.Content.JobProfile.RelatedRegistrations, contentManager);
 
 
             var howToBecomeData = new HowToBecomeData
@@ -119,9 +119,9 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module.ServiceBusHandling.Converters
         {
             var link = contentItem.ContentType switch
             {
-                ContentTypes.Universitylink => contentItem.Content.Universitylink.URL.Text,
-                ContentTypes.Collegelink => contentItem.Content.Collegelink.URL.Text,
-                ContentTypes.Apprenticeshiplink => contentItem.Content.Apprenticeshiplink.URL.Text,
+                ContentTypes.UniversityLink => contentItem.Content.UniversityLink.URL.Text,
+                ContentTypes.CollegeLink => contentItem.Content.CollegeLink.URL.Text,
+                ContentTypes.ApprenticeshipLink => contentItem.Content.ApprenticeshipLink.URL.Text,
                 _ => string.Empty,
             };
 
@@ -131,9 +131,9 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module.ServiceBusHandling.Converters
         private static string GetRelatedLinkText(ContentItem contentItem) =>
             contentItem.ContentType switch
             {
-                ContentTypes.Universitylink => contentItem.Content.Universitylink.Text.Text,
-                ContentTypes.Collegelink => contentItem.Content.Collegelink.Text.Text,
-                ContentTypes.Apprenticeshiplink => contentItem.Content.Apprenticeshiplink.Text.Text,
+                ContentTypes.UniversityLink => contentItem.Content.UniversityLink.Text.Text,
+                ContentTypes.CollegeLink => contentItem.Content.CollegeLink.Text.Text,
+                ContentTypes.ApprenticeshipLink => contentItem.Content.ApprenticeshipLink.Text.Text,
                 _ => string.Empty,
             };
 
@@ -148,9 +148,9 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module.ServiceBusHandling.Converters
         private static string GetEntryRequirementInfo(ContentItem contentItem) =>
             contentItem.ContentType switch
             {
-                ContentTypes.Universityrequirements => contentItem.Content.Universityrequirements.Info.Html,
-                ContentTypes.Collegerequirements => contentItem.Content.Collegerequirements.Info.Html,
-                ContentTypes.Apprenticeshiprequirements => contentItem.Content.Apprenticeshiprequirements.Info.Html,
+                ContentTypes.UniversityRequirements => contentItem.Content.UniversityRequirements.Info.Html,
+                ContentTypes.CollegeRequirements => contentItem.Content.CollegeRequirements.Info.Html,
+                ContentTypes.ApprenticeshipRequirements => contentItem.Content.ApprenticeshipRequirements.Info.Html,
                 _ => string.Empty,
             };
     }
