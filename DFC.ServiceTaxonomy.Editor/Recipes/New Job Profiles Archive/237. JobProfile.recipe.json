@@ -301,7 +301,7 @@
                                 "ContentPickerFieldSettings": {
                                     "Multiple": true,
                                     "DisplayedContentTypes": [
-                                        "Workinghoursdetail"
+                                        "WorkingHoursDetail"
                                     ]
                                 },
                                 "ContentIndexSettings": {}
@@ -318,7 +318,7 @@
                                 "ContentPickerFieldSettings": {
                                     "Multiple": true,
                                     "DisplayedContentTypes": [
-                                        "Workingpatterns"
+                                        "WorkingPatterns"
                                     ]
                                 },
                                 "ContentIndexSettings": {}
@@ -335,7 +335,7 @@
                                 "ContentPickerFieldSettings": {
                                     "Multiple": true,
                                     "DisplayedContentTypes": [
-                                        "Workingpatterndetail"
+                                        "WorkingPatternDetail"
                                     ]
                                 },
                                 "ContentIndexSettings": {}
@@ -408,7 +408,7 @@
                         },
                         {
                             "FieldName": "ContentPickerField",
-                            "Name": "Universityentryrequirements",
+                            "Name": "UniversityEntryRequirements",
                             "Settings": {
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "University entry requirements",
@@ -417,7 +417,7 @@
                                 "ContentPickerFieldSettings": {
                                     "Multiple": true,
                                     "DisplayedContentTypes": [
-                                        "Universityentryrequirements"
+                                        "UniversityEntryRequirements"
                                     ]
                                 },
                                 "ContentIndexSettings": {}
@@ -434,7 +434,7 @@
                                 "ContentPickerFieldSettings": {
                                     "Multiple": true,
                                     "DisplayedContentTypes": [
-                                        "Universityrequirements"
+                                        "UniversityRequirements"
                                     ]
                                 },
                                 "ContentIndexSettings": {}
@@ -483,7 +483,7 @@
                                 "ContentPickerFieldSettings": {
                                     "Multiple": true,
                                     "DisplayedContentTypes": [
-                                        "Universitylink"
+                                        "UniversityLink"
                                     ]
                                 },
                                 "ContentIndexSettings": {}
@@ -491,7 +491,7 @@
                         },
                         {
                             "FieldName": "ContentPickerField",
-                            "Name": "Collegeentryrequirements",
+                            "Name": "CollegeEntryRequirements",
                             "Settings": {
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "College entry requirements",
@@ -500,7 +500,7 @@
                                 "ContentPickerFieldSettings": {
                                     "Multiple": true,
                                     "DisplayedContentTypes": [
-                                        "Collegeentryrequirements"
+                                        "CollegeEntryRequirements"
                                     ]
                                 },
                                 "ContentIndexSettings": {}
@@ -517,7 +517,7 @@
                                 "ContentPickerFieldSettings": {
                                     "Multiple": true,
                                     "DisplayedContentTypes": [
-                                        "Collegerequirements"
+                                        "CollegeRequirements"
                                     ]
                                 },
                                 "ContentIndexSettings": {}
@@ -534,7 +534,7 @@
                                 "ContentPickerFieldSettings": {
                                     "Multiple": true,
                                     "DisplayedContentTypes": [
-                                        "Collegelink"
+                                        "CollegeLink"
                                     ]
                                 },
                                 "ContentIndexSettings": {}
@@ -574,7 +574,7 @@
                         },
                         {
                             "FieldName": "ContentPickerField",
-                            "Name": "Apprenticeshipentryrequirements",
+                            "Name": "ApprenticeshipEntryRequirements",
                             "Settings": {
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "Apprenticeship entry requirements",
@@ -583,7 +583,7 @@
                                 "ContentPickerFieldSettings": {
                                     "Multiple": true,
                                     "DisplayedContentTypes": [
-                                        "Apprenticeshipentryrequirements"
+                                        "ApprenticeshipEntryRequirements"
                                     ]
                                 },
                                 "ContentIndexSettings": {}
@@ -600,7 +600,7 @@
                                 "ContentPickerFieldSettings": {
                                     "Multiple": true,
                                     "DisplayedContentTypes": [
-                                        "Apprenticeshiprequirements"
+                                        "ApprenticeshipRequirements"
                                     ]
                                 },
                                 "ContentIndexSettings": {}
@@ -617,7 +617,7 @@
                                 "ContentPickerFieldSettings": {
                                     "Multiple": true,
                                     "DisplayedContentTypes": [
-                                        "Apprenticeshiplink"
+                                        "ApprenticeshipLink"
                                     ]
                                 },
                                 "ContentIndexSettings": {}
@@ -754,7 +754,7 @@
                         },
                         {
                             "FieldName": "ContentPickerField",
-                            "Name": "Digitalskills",
+                            "Name": "DigitalSkills",
                             "Settings": {
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "Digital skills",
@@ -762,7 +762,7 @@
                                 },
                                 "ContentPickerFieldSettings": {
                                     "DisplayedContentTypes": [
-                                        "Digitalskills"
+                                        "DigitalSkills"
                                     ]
                                 },
                                 "ContentIndexSettings": {}
@@ -780,7 +780,7 @@
                                 "ContentPickerFieldSettings": {
                                     "Multiple": true,
                                     "DisplayedContentTypes": [
-                                        "SOCskillsmatrix"
+                                        "SOCSkillsMatrix"
                                     ]
                                 },
                                 "ContentIndexSettings": {}
@@ -789,7 +789,7 @@
 
                         {
                             "FieldName": "ContentPickerField",
-                            "Name": "Jobprofilecategory",
+                            "Name": "JobProfileCategory",
                             "Settings": {
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "Job profile category",
@@ -799,7 +799,7 @@
                                     "Required": true,
                                     "Multiple": true,
                                     "DisplayedContentTypes": [
-                                        "Jobprofilecategory"
+                                        "JobProfileCategory"
                                     ]
                                 },
                                 "ContentIndexSettings": {}
@@ -921,7 +921,7 @@
                         },
                         {
                             "FieldName": "ContentPickerField",
-                            "Name": "SOCcode",
+                            "Name": "SOCCode",
                             "Settings": {
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "SOC code",
@@ -931,7 +931,7 @@
                                 "ContentPickerFieldSettings": {
                                     "Required": true,
                                     "DisplayedContentTypes": [
-                                        "SOCcode"
+                                        "SOCCode"
                                     ]
                                 },
                                 "ContentIndexSettings": {}
@@ -972,7 +972,7 @@
                         },
                         {
                             "FieldName": "ContentPickerField",
-                            "Name": "Dynamictitleprefix",
+                            "Name": "DynamicTitlePrefix",
                             "Settings": {
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "Dynamic title prefix",
@@ -981,7 +981,7 @@
                                 "ContentPickerFieldSettings": {
                                     "Required": true,
                                     "DisplayedContentTypes": [
-                                        "Dynamictitleprefix"
+                                        "DynamicTitlePrefix"
                                     ]
                                 },
                                 "ContentIndexSettings": {}

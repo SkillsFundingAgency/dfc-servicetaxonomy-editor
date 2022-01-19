@@ -12,8 +12,8 @@
         public const string JobProfile = nameof(JobProfile);
         public const string Skill = nameof(Skill);
         public const string JobProfileSOC = nameof(JobProfileSOC);
-        public const string SOCskillsmatrix = nameof(SOCskillsmatrix);
-        public const string SOCcode = nameof(SOCcode);
+        public const string SOCSkillsMatrix = nameof(SOCSkillsMatrix);
+        public const string SOCCode = nameof(SOCCode);
 
         public const string Environment = nameof(Environment);
         public const string Uniform = nameof(Uniform);
@@ -24,20 +24,20 @@
 
         public const string HiddenAlternativeTitle = nameof(HiddenAlternativeTitle);
         public const string JobProfileSpecialism = nameof(JobProfileSpecialism);
-        public const string Workinghoursdetail = nameof(Workinghoursdetail);
-        public const string Workingpatterns = nameof(Workingpatterns);
-        public const string Workingpatterndetail = nameof(Workingpatterndetail);
+        public const string WorkingHoursDetail = nameof(WorkingHoursDetail);
+        public const string WorkingPatterns = nameof(WorkingPatterns);
+        public const string WorkingPatternDetail = nameof(WorkingPatternDetail);
 
-        public const string Universitylink = nameof(Universitylink);
-        public const string Collegelink = nameof(Collegelink);
-        public const string Apprenticeshiplink = nameof(Apprenticeshiplink);
+        public const string UniversityLink = nameof(UniversityLink);
+        public const string CollegeLink = nameof(CollegeLink);
+        public const string ApprenticeshipLink = nameof(ApprenticeshipLink);
 
-        public const string Universityrequirements = nameof(Universityrequirements);
-        public const string Universityentryrequirements = nameof(Universityentryrequirements);
-        public const string Collegerequirements = nameof(Collegerequirements);
-        public const string Collegeentryrequirements = nameof(Collegeentryrequirements);
-        public const string Apprenticeshiprequirements = nameof(Apprenticeshiprequirements);
-        public const string Apprenticeshipentryrequirements = nameof(Apprenticeshipentryrequirements);
+        public const string UniversityRequirements = nameof(UniversityRequirements);
+        public const string UniversityEntryRequirements = nameof(UniversityEntryRequirements);
+        public const string CollegeRequirements = nameof(CollegeRequirements);
+        public const string CollegeEntryRequirements = nameof(CollegeEntryRequirements);
+        public const string ApprenticeshipRequirements = nameof(ApprenticeshipRequirements);
+        public const string ApprenticeshipEntryRequirements = nameof(ApprenticeshipEntryRequirements);
 
     }
 }

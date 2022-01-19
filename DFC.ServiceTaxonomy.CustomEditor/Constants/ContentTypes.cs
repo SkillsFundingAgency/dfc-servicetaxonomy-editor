@@ -4,6 +4,6 @@
     {
         public const string JobProfile = nameof(JobProfile);
         public const string Page = nameof(Page);
-        public const string SOCcode = nameof(SOCcode);
+        public const string SOCCode = nameof(SOCCode);
     }
 }

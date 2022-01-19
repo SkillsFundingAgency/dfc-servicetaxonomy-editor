@@ -1,6 +1,6 @@
 {
-    "name": "Dynamictitleprefix",
-    "displayName": "Dynamictitleprefix",
+    "name": "DynamicTitlePrefix",
+    "displayName": "DynamicTitlePrefix",
     "description": "",
     "author": "",
     "website": "",
@@ -13,7 +13,7 @@
             "name": "ContentDefinition",
             "ContentTypes": [
                 {
-                    "Name": "Dynamictitleprefix",
+                    "Name": "DynamicTitlePrefix",
                     "DisplayName": "Dynamic title prefix",
                     "Settings": {
                         "ContentTypeSettings": {

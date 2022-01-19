@@ -55,28 +55,28 @@ public DataEventProcessor(IServiceBusMessageProcessor serviceBusMessageProcessor
                         await GenerateServiceBusMessageForWYDTypes(context, actionType);
                         break;
 
-                    case ContentTypes.Universitylink:
-                    case ContentTypes.Collegelink:
-                    case ContentTypes.Apprenticeshiplink:
+                    case ContentTypes.UniversityLink:
+                    case ContentTypes.CollegeLink:
+                    case ContentTypes.ApprenticeshipLink:
                         await GenerateServiceBusMessageForTextFieldTypes(context, actionType);
                         break;
 
                     case ContentTypes.Restriction:
                     case ContentTypes.Registration:
-                    case ContentTypes.Apprenticeshiprequirements:
-                    case ContentTypes.Collegerequirements:
-                    case ContentTypes.Universityrequirements:
+                    case ContentTypes.ApprenticeshipRequirements:
+                    case ContentTypes.CollegeRequirements:
+                    case ContentTypes.UniversityRequirements:
                         await GenerateServiceBusMessageForInfoTypes(context, actionType);
                         break;
 
-                    case ContentTypes.Workinghoursdetail:
-                    case ContentTypes.Workingpatterns:
+                    case ContentTypes.WorkingHoursDetail:
+                    case ContentTypes.WorkingPatterns:
                     case ContentTypes.HiddenAlternativeTitle:
-                    case ContentTypes.Workingpatterndetail:
-                    case ContentTypes.Universityentryrequirements:
-                    case ContentTypes.Collegeentryrequirements:
+                    case ContentTypes.WorkingPatternDetail:
+                    case ContentTypes.UniversityEntryRequirements:
+                    case ContentTypes.CollegeEntryRequirements:
                     case ContentTypes.JobProfileSpecialism:
-                    case ContentTypes.Apprenticeshipentryrequirements:
+                    case ContentTypes.ApprenticeshipEntryRequirements:
                         await GenerateServiceBusMessageForOtherReferenceTypes(context, actionType);
                         break;
 
@@ -88,7 +88,7 @@ public DataEventProcessor(IServiceBusMessageProcessor serviceBusMessageProcessor
                         await GenerateServiceBusMessageForSocCodeType(context, actionType);
                         break;
 
-                    case ContentTypes.SOCskillsmatrix:
+                    case ContentTypes.SOCSkillsMatrix:
                         await GenerateServiceBusMessageForSocSkillsMatrixType(context, actionType);
                         break;
 
@@ -182,17 +182,17 @@ public DataEventProcessor(IServiceBusMessageProcessor serviceBusMessageProcessor
             IList<TextFieldContentItem> jobprofileData = new List<TextFieldContentItem>();
             string fieldText = context.ContentItem.ContentType switch
             {
-                ContentTypes.Universitylink => context.ContentItem.Content.Universitylink.Text.Text,
-                ContentTypes.Collegelink => context.ContentItem.Content.Collegelink.Text.Text,
-                ContentTypes.Apprenticeshiplink => context.ContentItem.Content.Apprenticeshiplink.Text.Text,
+                ContentTypes.UniversityLink => context.ContentItem.Content.UniversityLink.Text.Text,
+                ContentTypes.CollegeLink => context.ContentItem.Content.CollegeLink.Text.Text,
+                ContentTypes.ApprenticeshipLink => context.ContentItem.Content.ApprenticeshipLink.Text.Text,
                 _ => throw new ArgumentException("No valid match found"),
             };
 
             string fieldUrl = context.ContentItem.ContentType switch
             {
-                ContentTypes.Universitylink => context.ContentItem.Content.Universitylink.URL.Text,
-                ContentTypes.Collegelink => context.ContentItem.Content.Collegelink.URL.Text,
-                ContentTypes.Apprenticeshiplink => context.ContentItem.Content.Apprenticeshiplink.URL.Text,
+                ContentTypes.UniversityLink => context.ContentItem.Content.UniversityLink.URL.Text,
+                ContentTypes.CollegeLink => context.ContentItem.Content.CollegeLink.URL.Text,
+                ContentTypes.ApprenticeshipLink => context.ContentItem.Content.ApprenticeshipLink.URL.Text,
                 _ => throw new ArgumentException("No valid match found"),
             };
 
@@ -237,9 +237,9 @@ public DataEventProcessor(IServiceBusMessageProcessor serviceBusMessageProcessor
             {
                 ContentTypes.Restriction => context.ContentItem.Content.Restriction.Info.Html,
                 ContentTypes.Registration => context.ContentItem.Content.Registration.Description.Html,
-                ContentTypes.Apprenticeshiprequirements => context.ContentItem.Content.Apprenticeshiprequirements.Info.Html,
-                ContentTypes.Collegerequirements => context.ContentItem.Content.Collegerequirements.Info.Html,
-                ContentTypes.Universityrequirements => context.ContentItem.Content.Universityrequirements.Info.Html,
+                ContentTypes.ApprenticeshipRequirements => context.ContentItem.Content.ApprenticeshipRequirements.Info.Html,
+                ContentTypes.CollegeRequirements => context.ContentItem.Content.CollegeRequirements.Info.Html,
+                ContentTypes.UniversityRequirements => context.ContentItem.Content.UniversityRequirements.Info.Html,
                 _ => throw new ArgumentException("No valid match found"),
             };
 
@@ -284,14 +284,14 @@ public DataEventProcessor(IServiceBusMessageProcessor serviceBusMessageProcessor
             IList<OtherReferenceFieldContentItem> jobprofileData = new List<OtherReferenceFieldContentItem>();
             string fieldDescription = context.ContentItem.ContentType switch
             {
-                ContentTypes.Workinghoursdetail => context.ContentItem.Content.Workinghoursdetail.Description.Text,
-                ContentTypes.Workingpatterns => context.ContentItem.Content.Workingpatterns.Description.Text,
+                ContentTypes.WorkingHoursDetail => context.ContentItem.Content.WorkingHoursDetail.Description.Text,
+                ContentTypes.WorkingPatterns => context.ContentItem.Content.WorkingPatterns.Description.Text,
                 ContentTypes.HiddenAlternativeTitle => context.ContentItem.Content.HiddenAlternativeTitle.Description.Text,
-                ContentTypes.Workingpatterndetail => context.ContentItem.Content.Workingpatterndetail.Description.Text,
-                ContentTypes.Universityentryrequirements => context.ContentItem.Content.Universityentryrequirements.Description.Text,
-                ContentTypes.Collegeentryrequirements => context.ContentItem.Content.Collegeentryrequirements.Description.Text,
+                ContentTypes.WorkingPatternDetail => context.ContentItem.Content.WorkingPatternDetail.Description.Text,
+                ContentTypes.UniversityEntryRequirements => context.ContentItem.Content.UniversityEntryRequirements.Description.Text,
+                ContentTypes.CollegeEntryRequirements => context.ContentItem.Content.CollegeEntryRequirements.Description.Text,
                 ContentTypes.JobProfileSpecialism => context.ContentItem.Content.JobProfileSpecialism.Description.Text,
-                ContentTypes.Apprenticeshipentryrequirements => context.ContentItem.Content.Apprenticeshipentryrequirements.Description.Text,
+                ContentTypes.ApprenticeshipEntryRequirements => context.ContentItem.Content.ApprenticeshipEntryRequirements.Description.Text,
                 _ => throw new ArgumentException("No valid match found"),
             };
 

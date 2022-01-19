@@ -13,18 +13,18 @@
       "name": "ContentDefinition",
       "ContentTypes": [
         {
-          "Name": "Apprenticeshipstandard",
-          "DisplayName": "Apprenticeship standard",
-          "Settings": {
-            "ContentTypeSettings": {
-              "Creatable": true,
-              "Listable": true,
-              "Draftable": true,
-              "Versionable": true,
-              "Securable": true
+            "Name": "ApprenticeshipStandard",
+            "DisplayName": "Apprenticeship standard",
+            "Settings": {
+                "ContentTypeSettings": {
+                    "Creatable": true,
+                    "Listable": true,
+                    "Draftable": true,
+                    "Versionable": true,
+                    "Securable": true
+                },
+                "FullTextAspectSettings": {}
             },
-            "FullTextAspectSettings": {}
-          },
             "ContentTypePartDefinitionRecords": [
                 {
                     "PartName": "UniqueTitlePart",
@@ -50,8 +50,8 @@
                     }
                 },
                 {
-                    "PartName": "Apprenticeshipstandard",
-                    "Name": "Apprenticeshipstandard",
+                    "PartName": "ApprenticeshipStandard",
+                    "Name": "ApprenticeshipStandard",
                     "Settings": {
                         "ContentTypePartSettings": {
                             "Position": "2"
@@ -134,40 +134,40 @@
           "ContentPartFieldDefinitionRecords": []
         },
         {
-          "Name": "Apprenticeshipstandard",
-          "Settings": {},
-          "ContentPartFieldDefinitionRecords": [
-            {
-              "FieldName": "HtmlField",
-              "Name": "Description",
-              "Settings": {
-                "ContentPartFieldSettings": {
-                  "DisplayName": "Description",
-                  "Editor": "Trumbowyg",
-                  "Position": "0"
+            "Name": "ApprenticeshipStandard",
+            "Settings": {},
+            "ContentPartFieldDefinitionRecords": [
+                {
+                    "FieldName": "HtmlField",
+                    "Name": "Description",
+                    "Settings": {
+                        "ContentPartFieldSettings": {
+                            "DisplayName": "Description",
+                            "Editor": "Trumbowyg",
+                            "Position": "0"
+                        },
+                        "HtmlFieldSettings": {},
+                        "HtmlFieldTrumbowygEditorSettings": {
+                            "Options": "{\r\n    autogrow: true,\r\n    btns: [\r\n        [\"viewHTML\"],\r\n        [\"undo\", \"redo\"],\r\n        [\"formatting\"],\r\n        [\"strong\", \"em\", \"del\"],\r\n        [\"foreColor\", \"backColor\"],\r\n        [\"superscript\", \"subscript\"],\r\n        [\"link\"],\r\n        [\"insertShortcode\"],\r\n        [\"image\"],\r\n        [\"align\"],\r\n        [\"unorderedList\", \"orderedList\"],\r\n        [\"horizontalRule\"],\r\n        [\"removeformat\"],\r\n        [\"fullscreen\"]\r\n    ],\r\n    btnsDef: {\r\n        align: {\r\n            dropdown: [\"justifyLeft\", \"justifyCenter\", \"justifyRight\", \"justifyFull\"],\r\n            ico: \"justifyLeft\"\r\n        },\r\n        image: {\r\n            dropdown: [\"insertImage\", \"base64\", \"noembed\"],\r\n            ico: \"insertImage\"\r\n        }\r\n    }\r\n}"
+                        },
+                        "ContentIndexSettings": {}
+                    }
                 },
-                "HtmlFieldSettings": {},
-                "HtmlFieldTrumbowygEditorSettings": {
-                  "Options": "{\r\n    autogrow: true,\r\n    btns: [\r\n        [\"viewHTML\"],\r\n        [\"undo\", \"redo\"],\r\n        [\"formatting\"],\r\n        [\"strong\", \"em\", \"del\"],\r\n        [\"foreColor\", \"backColor\"],\r\n        [\"superscript\", \"subscript\"],\r\n        [\"link\"],\r\n        [\"insertShortcode\"],\r\n        [\"image\"],\r\n        [\"align\"],\r\n        [\"unorderedList\", \"orderedList\"],\r\n        [\"horizontalRule\"],\r\n        [\"removeformat\"],\r\n        [\"fullscreen\"]\r\n    ],\r\n    btnsDef: {\r\n        align: {\r\n            dropdown: [\"justifyLeft\", \"justifyCenter\", \"justifyRight\", \"justifyFull\"],\r\n            ico: \"justifyLeft\"\r\n        },\r\n        image: {\r\n            dropdown: [\"insertImage\", \"base64\", \"noembed\"],\r\n            ico: \"insertImage\"\r\n        }\r\n    }\r\n}"
-                },
-                "ContentIndexSettings": {}
-              }
-            },
-            {
-              "FieldName": "TextField",
-              "Name": "LARScode",
-              "Settings": {
-                "ContentPartFieldSettings": {
-                  "DisplayName": "LARS code",
-                  "Position": "1"
-                },
-                "TextFieldSettings": {
-                  "Required": true
-                },
-                "ContentIndexSettings": {}
-              }
-            }
-          ]
+                {
+                    "FieldName": "TextField",
+                    "Name": "LARScode",
+                    "Settings": {
+                        "ContentPartFieldSettings": {
+                            "DisplayName": "LARS code",
+                            "Position": "1"
+                        },
+                        "TextFieldSettings": {
+                            "Required": true
+                        },
+                        "ContentIndexSettings": {}
+                    }
+                }
+            ]
         }
       ]
     }

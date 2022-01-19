@@ -1,6 +1,6 @@
 {
-    "name": "Jobprofilecategory",
-    "displayName": "Jobprofilecategory",
+    "name": "JobProfileCategory",
+    "displayName": "JobProfileCategory",
     "description": "",
     "author": "",
     "website": "",
@@ -13,7 +13,7 @@
             "name": "ContentDefinition",
             "ContentTypes": [
                 {
-                    "Name": "Jobprofilecategory",
+                    "Name": "JobProfileCategory",
                     "DisplayName": "Job profile category",
                     "Settings": {
                         "ContentTypeSettings": {
@@ -54,8 +54,8 @@
                             }
                         },
                         {
-                            "PartName": "Jobprofilecategory",
-                            "Name": "Jobprofilecategory",
+                            "PartName": "JobProfileCategory",
+                            "Name": "JobProfileCategory",
                             "Settings": {
                                 "ContentTypePartSettings": {
                                     "Position": "2"
@@ -157,7 +157,7 @@
                     "ContentPartFieldDefinitionRecords": []
                 },
                 {
-                    "Name": "Jobprofilecategory",
+                    "Name": "JobProfileCategory",
                     "Settings": {},
                     "ContentPartFieldDefinitionRecords": [
                         {

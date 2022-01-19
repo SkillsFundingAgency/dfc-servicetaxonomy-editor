@@ -599,7 +599,7 @@
                     {
                         "place": "Parts:3#How to become;2",
                         "displayType": null,
-                        "differentiator": "JobProfile-Universityentryrequirements",
+                        "differentiator": "JobProfile-UniversityEntryRequirements",
                         "alternates": null,
                         "wrappers": null,
                         "shape": null,
@@ -632,7 +632,7 @@
                     {
                         "place": "Parts:8#How to become;2",
                         "displayType": null,
-                        "differentiator": "JobProfile-Collegeentryrequirements",
+                        "differentiator": "JobProfile-CollegeEntryRequirements",
                         "alternates": null,
                         "wrappers": null,
                         "shape": null,
@@ -665,7 +665,7 @@
                     {
                         "place": "Parts:13#How to become;2",
                         "displayType": null,
-                        "differentiator": "JobProfile-Apprenticeshipentryrequirements",
+                        "differentiator": "JobProfile-ApprenticeshipEntryRequirements",
                         "alternates": null,
                         "wrappers": null,
                         "shape": null,
@@ -720,7 +720,7 @@
                     {
                         "place": "Parts:2#What it takes;3",
                         "displayType": null,
-                        "differentiator": "JobProfile-Digitalskills",
+                        "differentiator": "JobProfile-DigitalSkills",
                         "alternates": null,
                         "wrappers": null,
                         "shape": null,
@@ -742,7 +742,7 @@
                     {
                         "place": "Parts:6#Metadata;0",
                         "displayType": null,
-                        "differentiator": "JobProfile-Jobprofilecategory",
+                        "differentiator": "JobProfile-JobProfileCategory",
                         "alternates": null,
                         "wrappers": null,
                         "shape": null,
@@ -786,7 +786,7 @@
                     {
                         "place": "Parts:8#Metadata;0",
                         "displayType": null,
-                        "differentiator": "JobProfile-SOCcode",
+                        "differentiator": "JobProfile-SOCCode",
                         "alternates": null,
                         "wrappers": null,
                         "shape": null,
@@ -808,7 +808,7 @@
                     {
                         "place": "Parts:1#Metadata;0",
                         "displayType": null,
-                        "differentiator": "JobProfile-Dynamictitleprefix",
+                        "differentiator": "JobProfile-DynamicTitlePrefix",
                         "alternates": null,
                         "wrappers": null,
                         "shape": null,

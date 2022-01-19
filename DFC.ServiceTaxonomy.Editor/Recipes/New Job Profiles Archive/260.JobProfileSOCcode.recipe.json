@@ -13,18 +13,18 @@
       "name": "ContentDefinition",
       "ContentTypes": [
         {
-          "Name": "SOCcode",
-          "DisplayName": "SOC code",
-          "Settings": {
-            "ContentTypeSettings": {
-              "Creatable": true,
-              "Listable": true,
-              "Draftable": true,
-              "Versionable": true,
-              "Securable": true
+            "Name": "SOCCode",
+            "DisplayName": "SOC code",
+            "Settings": {
+                "ContentTypeSettings": {
+                    "Creatable": true,
+                    "Listable": true,
+                    "Draftable": true,
+                    "Versionable": true,
+                    "Securable": true
+                },
+                "FullTextAspectSettings": {}
             },
-            "FullTextAspectSettings": {}
-          },
             "ContentTypePartDefinitionRecords": [
                 {
                     "PartName": "UniqueTitlePart",
@@ -56,8 +56,8 @@
                     }
                 },
                 {
-                    "PartName": "SOCcode",
-                    "Name": "SOCcode",
+                    "PartName": "SOCCode",
+                    "Name": "SOCCode",
                     "Settings": {
                         "ContentTypePartSettings": {
                             "Position": "2"
@@ -140,74 +140,74 @@
           "ContentPartFieldDefinitionRecords": []
         },
         {
-          "Name": "SOCcode",
-          "Settings": {},
-          "ContentPartFieldDefinitionRecords": [
-            {
-              "FieldName": "HtmlField",
-              "Name": "Description",
-              "Settings": {
-                "ContentPartFieldSettings": {
-                  "DisplayName": "Description",
-                  "Editor": "Trumbowyg",
-                  "Position": "0"
+            "Name": "SOCCode",
+            "Settings": {},
+            "ContentPartFieldDefinitionRecords": [
+                {
+                    "FieldName": "HtmlField",
+                    "Name": "Description",
+                    "Settings": {
+                        "ContentPartFieldSettings": {
+                            "DisplayName": "Description",
+                            "Editor": "Trumbowyg",
+                            "Position": "0"
+                        },
+                        "HtmlFieldSettings": {},
+                        "HtmlFieldTrumbowygEditorSettings": {
+                            "Options": "{\r\n    autogrow: true,\r\n    btns: [\r\n        [\"viewHTML\"],\r\n        [\"undo\", \"redo\"],\r\n        [\"formatting\"],\r\n        [\"strong\", \"em\", \"del\"],\r\n        [\"foreColor\", \"backColor\"],\r\n        [\"superscript\", \"subscript\"],\r\n        [\"link\"],\r\n        [\"insertShortcode\"],\r\n        [\"image\"],\r\n        [\"align\"],\r\n        [\"unorderedList\", \"orderedList\"],\r\n        [\"horizontalRule\"],\r\n        [\"removeformat\"],\r\n        [\"fullscreen\"]\r\n    ],\r\n    btnsDef: {\r\n        align: {\r\n            dropdown: [\"justifyLeft\", \"justifyCenter\", \"justifyRight\", \"justifyFull\"],\r\n            ico: \"justifyLeft\"\r\n        },\r\n        image: {\r\n            dropdown: [\"insertImage\", \"base64\", \"noembed\"],\r\n            ico: \"insertImage\"\r\n        }\r\n    }\r\n}"
+                        },
+                        "ContentIndexSettings": {}
+                    }
                 },
-                "HtmlFieldSettings": {},
-                "HtmlFieldTrumbowygEditorSettings": {
-                  "Options": "{\r\n    autogrow: true,\r\n    btns: [\r\n        [\"viewHTML\"],\r\n        [\"undo\", \"redo\"],\r\n        [\"formatting\"],\r\n        [\"strong\", \"em\", \"del\"],\r\n        [\"foreColor\", \"backColor\"],\r\n        [\"superscript\", \"subscript\"],\r\n        [\"link\"],\r\n        [\"insertShortcode\"],\r\n        [\"image\"],\r\n        [\"align\"],\r\n        [\"unorderedList\", \"orderedList\"],\r\n        [\"horizontalRule\"],\r\n        [\"removeformat\"],\r\n        [\"fullscreen\"]\r\n    ],\r\n    btnsDef: {\r\n        align: {\r\n            dropdown: [\"justifyLeft\", \"justifyCenter\", \"justifyRight\", \"justifyFull\"],\r\n            ico: \"justifyLeft\"\r\n        },\r\n        image: {\r\n            dropdown: [\"insertImage\", \"base64\", \"noembed\"],\r\n            ico: \"insertImage\"\r\n        }\r\n    }\r\n}"
+                {
+                    "FieldName": "TextField",
+                    "Name": "OnetOccupationCode",
+                    "Settings": {
+                        "ContentPartFieldSettings": {
+                            "DisplayName": "Onet Occupation Code",
+                            "Editor": "PublishedReadOnly",
+                            "Position": "1"
+                        }
+                    }
                 },
-                "ContentIndexSettings": {}
-              }
-            },
-            {
-              "FieldName": "TextField",
-              "Name": "OnetOccupationCode",
-              "Settings": {
-                "ContentPartFieldSettings": {
-                    "DisplayName": "Onet Occupation Code",
-                    "Editor": "PublishedReadOnly",
-                    "Position": "1"
+                {
+                    "FieldName": "ContentPickerField",
+                    "Name": "ApprenticeshipStandards",
+                    "Settings": {
+                        "ContentPartFieldSettings": {
+                            "DisplayName": "Apprenticeship Standards",
+                            "Position": "2"
+                        },
+                        "ContentPickerFieldSettings": {
+                            "Multiple": true,
+                            "DisplayedContentTypes": [
+                                "ApprenticeshipStandard"
+                            ]
+                        },
+                        "ContentIndexSettings": {}
+                    }
+                },
+                {
+                    "FieldName": "TextField",
+                    "Name": "SOC2020",
+                    "Settings": {
+                        "ContentPartFieldSettings": {
+                            "DisplayName": "SOC 2020",
+                            "Position": "3"
+                        }
+                    }
+                },
+                {
+                    "FieldName": "TextField",
+                    "Name": "SOC2020extension",
+                    "Settings": {
+                        "ContentPartFieldSettings": {
+                            "DisplayName": "SOC 2020 extension",
+                            "Position": "4"
+                        }
+                    }
                 }
-              }
-            },
-            {
-              "FieldName": "ContentPickerField",
-              "Name": "ApprenticeshipStandards",
-              "Settings": {
-                "ContentPartFieldSettings": {
-                  "DisplayName": "Apprenticeship Standards",
-                  "Position": "2"
-                },
-                "ContentPickerFieldSettings": {
-                  "Multiple": true,
-                  "DisplayedContentTypes": [
-                    "Apprenticeshipstandard"
-                  ]
-                },
-                "ContentIndexSettings": {}
-              }
-            },
-            {
-              "FieldName": "TextField",
-              "Name": "SOC2020",
-              "Settings": {
-                "ContentPartFieldSettings": {
-                  "DisplayName": "SOC 2020",
-                  "Position": "3"
-                }
-              }
-            },
-            {
-              "FieldName": "TextField",
-              "Name": "SOC2020extension",
-              "Settings": {
-                "ContentPartFieldSettings": {
-                  "DisplayName": "SOC 2020 extension",
-                  "Position": "4"
-                }
-              }
-            }
-          ]
+            ]
         }
       ]
     }

@@ -1,6 +1,6 @@
 {
-    "name": "Digitalskills",
-    "displayName": "Digitalskills",
+    "name": "DigitalSkills",
+    "displayName": "DigitalSkills",
     "description": "",
     "author": "",
     "website": "",
@@ -13,7 +13,7 @@
             "name": "ContentDefinition",
             "ContentTypes": [
                 {
-                    "Name": "Digitalskills",
+                    "Name": "DigitalSkills",
                     "DisplayName": "Digital skills",
                     "Settings": {
                         "ContentTypeSettings": {
@@ -38,8 +38,8 @@
                             }
                         },
                         {
-                            "PartName": "Digitalskills",
-                            "Name": "Digitalskills",
+                            "PartName": "DigitalSkills",
+                            "Name": "DigitalSkills",
                             "Settings": {
                                 "ContentTypePartSettings": {
                                     "Position": "1"
@@ -92,7 +92,7 @@
                     "ContentPartFieldDefinitionRecords": []
                 },
                 {
-                    "Name": "Digitalskills",
+                    "Name": "DigitalSkills",
                     "Settings": {},
                     "ContentPartFieldDefinitionRecords": [
                         {

@@ -25,7 +25,7 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module.ServiceBusHandling.Converters
         {
             var contentManager = _serviceProvider.GetRequiredService<IContentManager>();
             IEnumerable<ContentItem> relatedSocSkillMatrixSkills = await Helper.GetContentItemsAsync(contentItem.Content.JobProfile.Relatedskills, contentManager);
-            IEnumerable<ContentItem> relatedDigitalSkills = await Helper.GetContentItemsAsync(contentItem.Content.JobProfile.Digitalskills, contentManager);
+            IEnumerable<ContentItem> relatedDigitalSkills = await Helper.GetContentItemsAsync(contentItem.Content.JobProfile.DigitalSkills, contentManager);
             IEnumerable<ContentItem> relatedRestrictions = await Helper.GetContentItemsAsync(contentItem.Content.JobProfile.Relatedrestrictions, contentManager);
 
             var whatItTakesData = new WhatItTakesData
@@ -50,14 +50,14 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module.ServiceBusHandling.Converters
                     {
                         Id = contentItem.As<GraphSyncPart>().ExtractGuid(),
                         Title = contentItem.As<UniqueTitlePart>()?.Title,
-                        Contextualised = contentItem.Content.SOCskillsmatrix.Contextualised is null ? default : (string?)contentItem.Content.SOCskillsmatrix.Contextualised.Text,
-                        ONetAttributeType = contentItem.Content.SOCskillsmatrix.ONetAttributeType is null ? default : (string?)contentItem.Content.SOCskillsmatrix.ONetAttributeType.Text,
+                        Contextualised = contentItem.Content.SOCSkillsMatrix.Contextualised is null ? default : (string?)contentItem.Content.SOCSkillsMatrix.Contextualised.Text,
+                        ONetAttributeType = contentItem.Content.SOCSkillsMatrix.ONetAttributeType is null ? default : (string?)contentItem.Content.SOCSkillsMatrix.ONetAttributeType.Text,
                         // TODO: If we can provide the Rank/Ordinal this code can be changed
-                        Rank = i + 1, // contentItem.Content.SOCskillsmatrix.Rank is null ? default : (decimal?)contentItem.Content.SOCskillsmatrix.Rank.Rank,
-                        ONetRank = contentItem.Content.SOCskillsmatrix.ONetRank is null ? default : (decimal?)contentItem.Content.SOCskillsmatrix.ONetRank.Text
+                        Rank = i + 1, // contentItem.Content.SOCSkillsMatrix.Rank is null ? default : (decimal?)contentItem.Content.SOCSkillsMatrix.Rank.Rank,
+                        ONetRank = contentItem.Content.SOCSkillsMatrix.ONetRank is null ? default : (decimal?)contentItem.Content.SOCSkillsMatrix.ONetRank.Text
                     };
 
-                    var skillName = contentItem.Content.SOCskillsmatrix.RelatedSkill is null ? default : (string?)contentItem.Content.SOCskillsmatrix.RelatedSkill.Text;
+                    var skillName = contentItem.Content.SOCSkillsMatrix.RelatedSkill is null ? default : (string?)contentItem.Content.SOCSkillsMatrix.RelatedSkill.Text;
                     if (skillName != null)
                     {
                         var relatedSkills = new List<FrameworkSkillItem>()
@@ -72,7 +72,7 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module.ServiceBusHandling.Converters
                         skill.RelatedSkill = relatedSkills;
                     }
 
-                    var socCode = contentItem.Content.SOCskillsmatrix.RelatedSOCcode is null ? default : (string?)contentItem.Content.SOCskillsmatrix.RelatedSOCcode.Text;
+                    var socCode = contentItem.Content.SOCSkillsMatrix.RelatedSOCcode is null ? default : (string?)contentItem.Content.SOCSkillsMatrix.RelatedSOCcode.Text;
                     if (socCode != null)
                     {
                         var relatedSOCCodes = new List<RelatedSocCodeItem>()

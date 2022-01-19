@@ -44,9 +44,9 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module.ServiceBusHandling.Converters
             {
                 ContentTypes.HiddenAlternativeTitle => contentItem.Content.HiddenAlternativeTitle.Description.Text,
                 ContentTypes.JobProfileSpecialism => contentItem.Content.JobProfileSpecialism.Description.Text,
-                ContentTypes.Workinghoursdetail => contentItem.Content.Workinghoursdetail.Description.Text,
-                ContentTypes.Workingpatterns => contentItem.Content.Workingpatterns.Description.Text,
-                ContentTypes.Workingpatterndetail => contentItem.Content.Workingpatterndetail.Description.Text,
+                ContentTypes.WorkingHoursDetail => contentItem.Content.WorkingHoursDetail.Description.Text,
+                ContentTypes.WorkingPatterns => contentItem.Content.WorkingPatterns.Description.Text,
+                ContentTypes.WorkingPatternDetail => contentItem.Content.WorkingPatternDetail.Description.Text,
                 _ => string.Empty,
             };
 

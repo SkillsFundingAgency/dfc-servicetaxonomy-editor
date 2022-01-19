@@ -13,7 +13,7 @@
             "name": "ContentDefinition",
             "ContentTypes": [
                 {
-                    "Name": "SOCskillsmatrix",
+                    "Name": "SOCSkillsMatrix",
                     "DisplayName": "SOC Skills Matrix",
                     "Settings": {
                         "ContentTypeSettings": {
@@ -54,8 +54,8 @@
                             }
                         },
                         {
-                            "PartName": "SOCskillsmatrix",
-                            "Name": "SOCskillsmatrix",
+                            "PartName": "SOCSkillsMatrix",
+                            "Name": "SOCSkillsMatrix",
                             "Settings": {
                                 "ContentTypePartSettings": {
                                     "Position": "2"
@@ -97,7 +97,7 @@
             ],
             "ContentParts": [
                 {
-                    "Name": "SOCskillsmatrix",
+                    "Name": "SOCSkillsMatrix",
                     "Settings": {},
                     "ContentPartFieldDefinitionRecords": [
                         {
