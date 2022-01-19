@@ -566,7 +566,7 @@
                     {
                         "place": "Parts:8#Header;1",
                         "displayType": null,
-                        "differentiator": "JobProfile-Workingpattern",
+                        "differentiator": "JobProfile-WorkingPattern",
                         "alternates": null,
                         "wrappers": null,
                         "shape": null,
@@ -577,7 +577,7 @@
                     {
                         "place": "Parts:9#Header;1",
                         "displayType": null,
-                        "differentiator": "JobProfile-Workingpatterndetails",
+                        "differentiator": "JobProfile-WorkingPatternDetails",
                         "alternates": null,
                         "wrappers": null,
                         "shape": null,
@@ -588,7 +588,7 @@
                     {
                         "place": "Parts:3#Metadata;0",
                         "displayType": null,
-                        "differentiator": "JobProfile-Jobprofilespecialism",
+                        "differentiator": "JobProfile-JobProfileSpecialism",
                         "alternates": null,
                         "wrappers": null,
                         "shape": null,
@@ -610,7 +610,7 @@
                     {
                         "place": "Parts:4#How to become;2",
                         "displayType": null,
-                        "differentiator": "JobProfile-Relateduniversityrequirements",
+                        "differentiator": "JobProfile-RelatedUniversityRequirements",
                         "alternates": null,
                         "wrappers": null,
                         "shape": null,
@@ -621,7 +621,7 @@
                     {
                         "place": "Parts:5#How to become;2",
                         "displayType": null,
-                        "differentiator": "JobProfile-Relateduniversitylinks",
+                        "differentiator": "JobProfile-RelatedUniversityLinks",
                         "alternates": null,
                         "wrappers": null,
                         "shape": null,
@@ -643,7 +643,7 @@
                     {
                         "place": "Parts:9#How to become;2",
                         "displayType": null,
-                        "differentiator": "JobProfile-Relatedcollegerequirements",
+                        "differentiator": "JobProfile-RelatedCollegeRequirements",
                         "alternates": null,
                         "wrappers": null,
                         "shape": null,
@@ -654,7 +654,7 @@
                     {
                         "place": "Parts:10#How to become;2",
                         "displayType": null,
-                        "differentiator": "JobProfile-Relatedcollegelinks",
+                        "differentiator": "JobProfile-RelatedCollegeLinks",
                         "alternates": null,
                         "wrappers": null,
                         "shape": null,
@@ -676,7 +676,7 @@
                     {
                         "place": "Parts:14#How to become;2",
                         "displayType": null,
-                        "differentiator": "JobProfile-Relatedapprenticeshiprequirements",
+                        "differentiator": "JobProfile-RelatedApprenticeshipRequirements",
                         "alternates": null,
                         "wrappers": null,
                         "shape": null,
@@ -687,7 +687,7 @@
                     {
                         "place": "Parts:15#How to become;2",
                         "displayType": null,
-                        "differentiator": "JobProfile-Relatedapprenticeshiplinks",
+                        "differentiator": "JobProfile-RelatedApprenticeshipLinks",
                         "alternates": null,
                         "wrappers": null,
                         "shape": null,
@@ -698,7 +698,7 @@
                     {
                         "place": "Parts:20#How to become;2",
                         "displayType": null,
-                        "differentiator": "JobProfile-Relatedregistrations",
+                        "differentiator": "JobProfile-RelatedRegistrations",
                         "alternates": null,
                         "wrappers": null,
                         "shape": null,
@@ -753,7 +753,7 @@
                     {
                         "place": "Parts:2#What you’ll do;4",
                         "displayType": null,
-                        "differentiator": "JobProfile-Relatedlocations",
+                        "differentiator": "JobProfile-RelatedLocations",
                         "alternates": null,
                         "wrappers": null,
                         "shape": null,
@@ -764,7 +764,7 @@
                     {
                         "place": "Parts:3#What you’ll do;4",
                         "displayType": null,
-                        "differentiator": "JobProfile-Relatedenvironments",
+                        "differentiator": "JobProfile-RelatedEnvironments",
                         "alternates": null,
                         "wrappers": null,
                         "shape": null,
@@ -775,7 +775,7 @@
                     {
                         "place": "Parts:4#What you’ll do;4",
                         "displayType": null,
-                        "differentiator": "JobProfile-Relateduniforms",
+                        "differentiator": "JobProfile-RelatedUniforms",
                         "alternates": null,
                         "wrappers": null,
                         "shape": null,

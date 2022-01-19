@@ -32,9 +32,9 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module.ServiceBusHandling.Converters
             try
             {
                 var contentManager = _serviceProvider.GetRequiredService<IContentManager>();
-                IEnumerable<ContentItem> relatedLocations = await Helper.GetContentItemsAsync(contentItem.Content.JobProfile.Relatedlocations, contentManager);
-                IEnumerable<ContentItem> relatedEnvironments = await Helper.GetContentItemsAsync(contentItem.Content.JobProfile.Relatedenvironments, contentManager);
-                IEnumerable<ContentItem> relatedUniforms = await Helper.GetContentItemsAsync(contentItem.Content.JobProfile.Relateduniforms, contentManager);
+                IEnumerable<ContentItem> relatedLocations = await Helper.GetContentItemsAsync(contentItem.Content.JobProfile.RelatedLocations, contentManager);
+                IEnumerable<ContentItem> relatedEnvironments = await Helper.GetContentItemsAsync(contentItem.Content.JobProfile.RelatedEnvironments, contentManager);
+                IEnumerable<ContentItem> relatedUniforms = await Helper.GetContentItemsAsync(contentItem.Content.JobProfile.RelatedUniforms, contentManager);
 
                 var whatYouWillDoData = new WhatYouWillDoData
                 {

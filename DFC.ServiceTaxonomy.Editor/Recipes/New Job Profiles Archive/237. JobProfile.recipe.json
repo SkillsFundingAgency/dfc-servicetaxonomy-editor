@@ -309,7 +309,7 @@
                         },
                         {
                             "FieldName": "ContentPickerField",
-                            "Name": "Workingpattern",
+                            "Name": "WorkingPattern",
                             "Settings": {
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "Working pattern",
@@ -326,7 +326,7 @@
                         },
                         {
                             "FieldName": "ContentPickerField",
-                            "Name": "Workingpatterndetails",
+                            "Name": "WorkingPatternDetails",
                             "Settings": {
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "Working pattern details",
@@ -343,7 +343,7 @@
                         },
                         {
                             "FieldName": "ContentPickerField",
-                            "Name": "Jobprofilespecialism",
+                            "Name": "JobProfileSpecialism",
                             "Settings": {
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "Job profile specialism",
@@ -425,7 +425,7 @@
                         },
                         {
                             "FieldName": "ContentPickerField",
-                            "Name": "Relateduniversityrequirements",
+                            "Name": "RelatedUniversityRequirements",
                             "Settings": {
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "Related university requirements",
@@ -474,7 +474,7 @@
                         },
                         {
                             "FieldName": "ContentPickerField",
-                            "Name": "Relateduniversitylinks",
+                            "Name": "RelatedUniversityLinks",
                             "Settings": {
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "Related university links",
@@ -508,7 +508,7 @@
                         },
                         {
                             "FieldName": "ContentPickerField",
-                            "Name": "Relatedcollegerequirements",
+                            "Name": "RelatedCollegeRequirements",
                             "Settings": {
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "Related college requirements",
@@ -525,7 +525,7 @@
                         },
                         {
                             "FieldName": "ContentPickerField",
-                            "Name": "Relatedcollegelinks",
+                            "Name": "RelatedCollegeLinks",
                             "Settings": {
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "Related college links",
@@ -591,7 +591,7 @@
                         },
                         {
                             "FieldName": "ContentPickerField",
-                            "Name": "Relatedapprenticeshiprequirements",
+                            "Name": "RelatedApprenticeshipRequirements",
                             "Settings": {
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "Related apprenticeship requirements",
@@ -608,7 +608,7 @@
                         },
                         {
                             "FieldName": "ContentPickerField",
-                            "Name": "Relatedapprenticeshiplinks",
+                            "Name": "RelatedApprenticeshipLinks",
                             "Settings": {
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "Related apprenticeship links",
@@ -823,7 +823,7 @@
                         },
                         {
                             "FieldName": "ContentPickerField",
-                            "Name": "Relatedlocations",
+                            "Name": "RelatedLocations",
                             "Settings": {
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "Related locations",
@@ -840,7 +840,7 @@
                         },
                         {
                             "FieldName": "ContentPickerField",
-                            "Name": "Relatedenvironments",
+                            "Name": "RelatedEnvironments",
                             "Settings": {
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "Related environments",
@@ -857,7 +857,7 @@
                         },
                         {
                             "FieldName": "ContentPickerField",
-                            "Name": "Relateduniforms",
+                            "Name": "RelatedUniforms",
                             "Settings": {
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "Related uniforms",
@@ -939,7 +939,7 @@
                         },
                         {
                             "FieldName": "ContentPickerField",
-                            "Name": "Relatedregistrations",
+                            "Name": "RelatedRegistrations",
                             "Settings": {
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "Related registrations",

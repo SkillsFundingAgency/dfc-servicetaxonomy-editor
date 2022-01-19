@@ -54,10 +54,10 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module.ServiceBusHandling.Converters
                 var whatItTakesData = await _whatItTakesMessageConverter.ConvertFromAsync(contentItem);
 
                 IEnumerable<ContentItem> workingHoursDetails = await Helper.GetContentItemsAsync(contentItem.Content.JobProfile.WorkingHoursDetails, contentManager);
-                IEnumerable<ContentItem> workingPatterns = await Helper.GetContentItemsAsync(contentItem.Content.JobProfile.Workingpattern, contentManager);
-                IEnumerable<ContentItem> workingPatternDetails = await Helper.GetContentItemsAsync(contentItem.Content.JobProfile.Workingpatterndetails, contentManager);
+                IEnumerable<ContentItem> workingPatterns = await Helper.GetContentItemsAsync(contentItem.Content.JobProfile.WorkingPattern, contentManager);
+                IEnumerable<ContentItem> workingPatternDetails = await Helper.GetContentItemsAsync(contentItem.Content.JobProfile.WorkingPatternDetails, contentManager);
                 IEnumerable<ContentItem> hiddenAlternativeTitle = await Helper.GetContentItemsAsync(contentItem.Content.JobProfile.HiddenAlternativeTitle, contentManager);
-                IEnumerable<ContentItem> jobProfileSpecialism = await Helper.GetContentItemsAsync(contentItem.Content.JobProfile.Jobprofilespecialism, contentManager);
+                IEnumerable<ContentItem> jobProfileSpecialism = await Helper.GetContentItemsAsync(contentItem.Content.JobProfile.JobProfileSpecialism, contentManager);
                 IEnumerable<ContentItem> jobCategories = await Helper.GetContentItemsAsync(contentItem.Content.JobProfile.JobProfileCategory, contentManager);
 
                 var jobProfileMessage = new JobProfileMessage
