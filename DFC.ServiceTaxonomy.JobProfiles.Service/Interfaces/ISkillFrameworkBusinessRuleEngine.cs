@@ -25,5 +25,7 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Service.Interfaces
         IEnumerable<OnetSkill> CombineSimilarAttributes(IList<OnetSkill> attributes);
 
         IEnumerable<OnetSkill> SelectFinalAttributes(IEnumerable<OnetSkill> attributes);
+
+        IEnumerable<OnetSkill> UpdateGDSDescriptions(IEnumerable<OnetSkill> attributes);
     }
 }

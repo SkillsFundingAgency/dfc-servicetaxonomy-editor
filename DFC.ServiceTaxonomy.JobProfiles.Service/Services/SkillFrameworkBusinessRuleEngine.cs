@@ -188,6 +188,17 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Service.Services
             return finalAttributes.OrderByDescending(s => s.Score).Take(20);
         }
 
+        public IEnumerable<OnetSkill> UpdateGDSDescriptions(IEnumerable<OnetSkill> attributes)
+        {
+            var translations = _skillsOueryRepository.GetAllTranslations();
+            foreach (var onetSkill in attributes)
+            {
+                onetSkill.Description = translations.FirstOrDefault(t => t.ONetElementId == onetSkill.Id)?.Description ?? onetSkill.Name;
+            }
+            return attributes;
+        }
+
+
         private static IEnumerable<OnetSkill> SelectTopAttributes(IEnumerable<OnetSkill> attributes)
         {
             var topAttributes = attributes.Where(a => a.Category == CategoryType.Ability).OrderByDescending(s => s.Score).Take(5)

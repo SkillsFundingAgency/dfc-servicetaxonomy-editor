@@ -28,6 +28,8 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Service.Services
             attributes = _skillFrameworkBusinessRuleEngine.BoostMathsSkills(attributes);
             attributes = _skillFrameworkBusinessRuleEngine.CombineSimilarAttributes(attributes.ToList());
             attributes = _skillFrameworkBusinessRuleEngine.SelectFinalAttributes(attributes);
+            attributes = _skillFrameworkBusinessRuleEngine.UpdateGDSDescriptions(attributes);
+            
 
             return attributes;
         }
