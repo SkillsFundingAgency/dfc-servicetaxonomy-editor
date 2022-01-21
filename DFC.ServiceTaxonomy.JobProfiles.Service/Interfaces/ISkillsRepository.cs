@@ -12,5 +12,7 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Service.Interfaces
         IQueryable<OnetSkill> GetKowledgeForONetOccupationCode(string oNetOccupationCode);
 
         IQueryable<OnetSkill> GetWorkStylesForONetOccupationCode(string oNetOccupationCode);
+
+        IQueryable<FrameworkSkill> GetAllTranslations();
     }
 }
