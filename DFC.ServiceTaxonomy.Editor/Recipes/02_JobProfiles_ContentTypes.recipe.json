@@ -1,4 +1,4 @@
-{
+ï»¿{
     "name": "JobProfileContentTypes",
     "displayName": "Job Profiles - Content types",
     "description": "Creates all dependent content types related to the Job Profiles",
@@ -2335,7 +2335,7 @@
                                 },
                                 "NumericFieldSettings": {
                                     "Minimum": 0.0,
-                                    "Placeholder": "£ (Mandatory)"
+                                    "Placeholder": "Â£ (Mandatory)"
                                 },
                                 "ContentIndexSettings": {}
                             }
@@ -2350,7 +2350,7 @@
                                 },
                                 "NumericFieldSettings": {
                                     "Minimum": 0.0,
-                                    "Placeholder": "£ (Mandatory)"
+                                    "Placeholder": "Â£ (Mandatory)"
                                 },
                                 "ContentIndexSettings": {}
                             }
@@ -3609,19 +3609,14 @@
                     "Settings": {},
                     "ContentPartFieldDefinitionRecords": [
                         {
-                            "FieldName": "HtmlField",
+                            "FieldName": "TextField",
                             "Name": "Description",
                             "Settings": {
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "Description",
-                                    "Editor": "Trumbowyg",
+                                    "Editor": "TextArea",
                                     "Position": "0"
-                                },
-                                "HtmlFieldSettings": {},
-                                "HtmlFieldTrumbowygEditorSettings": {
-                                    "Options": "{\r\n    autogrow: true,\r\n    btns: [\r\n        [\"viewHTML\"],\r\n        [\"undo\", \"redo\"],\r\n        [\"formatting\"],\r\n        [\"strong\", \"em\", \"del\"],\r\n        [\"foreColor\", \"backColor\"],\r\n        [\"superscript\", \"subscript\"],\r\n        [\"link\"],\r\n        [\"insertShortcode\"],\r\n        [\"image\"],\r\n        [\"align\"],\r\n        [\"unorderedList\", \"orderedList\"],\r\n        [\"horizontalRule\"],\r\n        [\"removeformat\"],\r\n        [\"fullscreen\"]\r\n    ],\r\n    btnsDef: {\r\n        align: {\r\n            dropdown: [\"justifyLeft\", \"justifyCenter\", \"justifyRight\", \"justifyFull\"],\r\n            ico: \"justifyLeft\"\r\n        },\r\n        image: {\r\n            dropdown: [\"insertImage\", \"base64\", \"noembed\"],\r\n            ico: \"insertImage\"\r\n        }\r\n    }\r\n}"
-                                },
-                                "ContentIndexSettings": {}
+                                }
                             }
                         },
                         {
@@ -3679,19 +3674,14 @@
                     "Settings": {},
                     "ContentPartFieldDefinitionRecords": [
                         {
-                            "FieldName": "HtmlField",
+                            "FieldName": "TextField",
                             "Name": "Description",
                             "Settings": {
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "Description",
-                                    "Editor": "Trumbowyg",
+                                    "Editor": "TextArea",
                                     "Position": "0"
-                                },
-                                "HtmlFieldSettings": {},
-                                "HtmlFieldTrumbowygEditorSettings": {
-                                    "Options": "{\r\n    autogrow: true,\r\n    btns: [\r\n        [\"viewHTML\"],\r\n        [\"undo\", \"redo\"],\r\n        [\"formatting\"],\r\n        [\"strong\", \"em\", \"del\"],\r\n        [\"foreColor\", \"backColor\"],\r\n        [\"superscript\", \"subscript\"],\r\n        [\"link\"],\r\n        [\"insertShortcode\"],\r\n        [\"image\"],\r\n        [\"align\"],\r\n        [\"unorderedList\", \"orderedList\"],\r\n        [\"horizontalRule\"],\r\n        [\"removeformat\"],\r\n        [\"fullscreen\"]\r\n    ],\r\n    btnsDef: {\r\n        align: {\r\n            dropdown: [\"justifyLeft\", \"justifyCenter\", \"justifyRight\", \"justifyFull\"],\r\n            ico: \"justifyLeft\"\r\n        },\r\n        image: {\r\n            dropdown: [\"insertImage\", \"base64\", \"noembed\"],\r\n            ico: \"insertImage\"\r\n        }\r\n    }\r\n}"
-                                },
-                                "ContentIndexSettings": {}
+                                }
                             }
                         },
                         {
@@ -3737,19 +3727,14 @@
                     "Settings": {},
                     "ContentPartFieldDefinitionRecords": [
                         {
-                            "FieldName": "HtmlField",
+                            "FieldName": "TextField",
                             "Name": "Description",
                             "Settings": {
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "Description",
-                                    "Editor": "Trumbowyg",
+                                    "Editor": "TextArea",
                                     "Position": "0"
-                                },
-                                "HtmlFieldSettings": {},
-                                "HtmlFieldTrumbowygEditorSettings": {
-                                    "Options": "{\r\n    autogrow: true,\r\n    btns: [\r\n        [\"viewHTML\"],\r\n        [\"undo\", \"redo\"],\r\n        [\"formatting\"],\r\n        [\"strong\", \"em\", \"del\"],\r\n        [\"foreColor\", \"backColor\"],\r\n        [\"superscript\", \"subscript\"],\r\n        [\"link\"],\r\n        [\"insertShortcode\"],\r\n        [\"image\"],\r\n        [\"align\"],\r\n        [\"unorderedList\", \"orderedList\"],\r\n        [\"horizontalRule\"],\r\n        [\"removeformat\"],\r\n        [\"fullscreen\"]\r\n    ],\r\n    btnsDef: {\r\n        align: {\r\n            dropdown: [\"justifyLeft\", \"justifyCenter\", \"justifyRight\", \"justifyFull\"],\r\n            ico: \"justifyLeft\"\r\n        },\r\n        image: {\r\n            dropdown: [\"insertImage\", \"base64\", \"noembed\"],\r\n            ico: \"insertImage\"\r\n        }\r\n    }\r\n}"
-                                },
-                                "ContentIndexSettings": {}
+                                }
                             }
                         },
                         {
