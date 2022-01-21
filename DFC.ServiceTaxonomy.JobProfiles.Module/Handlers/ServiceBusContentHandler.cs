@@ -15,14 +15,14 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module.Handlers
             _dataEventProcessor = dataEventProcessor;
         }
 
-        public override async Task DraftSavedAsync(SaveDraftContentContext context)
-            => await _dataEventProcessor.ProcessContentContext(context, ActionTypes.Draft);
-        public override async Task PublishedAsync(PublishContentContext context)
-            => await _dataEventProcessor.ProcessContentContext(context, ActionTypes.Published);
-        public override async Task UnpublishedAsync(PublishContentContext context)
-            => await _dataEventProcessor.ProcessContentContext(context, ActionTypes.Deleted);
-        public override async Task RemovedAsync(RemoveContentContext context)
-            => await _dataEventProcessor.ProcessContentContext(context, ActionTypes.Deleted);
+        public override Task DraftSavedAsync(SaveDraftContentContext context)
+            => _dataEventProcessor.ProcessContentContext(context, ActionTypes.Draft);
+        public override Task PublishedAsync(PublishContentContext context)
+            => _dataEventProcessor.ProcessContentContext(context, ActionTypes.Published);
+        public override Task UnpublishedAsync(PublishContentContext context)
+            => _dataEventProcessor.ProcessContentContext(context, ActionTypes.Deleted);
+        public override Task RemovedAsync(RemoveContentContext context)
+            => _dataEventProcessor.ProcessContentContext(context, ActionTypes.Deleted);
 
     }
 }

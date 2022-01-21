@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 using DFC.ServiceTaxonomy.GraphSync.Models;
@@ -30,6 +31,56 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module.ServiceBusHandling.Converters
 
             return Enumerable.Empty<ContentItem>();
         }
+
+        public static async Task<IEnumerable<string>> GetContentItemNamesAsync(dynamic contentPicker, IContentManager contentManager)
+        {
+            IList<string> contentItemNames = new List<string>();
+            if (contentPicker != null)
+            {
+                var contentItemIds = (JArray)contentPicker.ContentItemIds;
+                if (contentItemIds.Any())
+                {
+                    var idList = contentItemIds.Select(c => c.Value<string>());
+                    var contentItems = await contentManager.GetAsync(idList);
+                    foreach (var item in contentItems)
+                    {
+                        contentItemNames.Add(item.ContentItem.DisplayText);
+                    }
+                    return contentItemNames;
+                }
+            }
+
+            return Enumerable.Empty<string>();
+        }
+
+        public static async Task<IEnumerable<string>> GetRelatedSkillsAsync(dynamic contentPicker, IContentManager contentManager)
+        {
+            IList<string> contentItemNames = new List<string>();
+            if (contentPicker != null)
+            {
+                var contentItemIds = (JArray)contentPicker.ContentItemIds;
+                if (contentItemIds.Any())
+                {
+                    var idList = contentItemIds.Select(c => c.Value<string>());
+                    var contentItems = await contentManager.GetAsync(idList);
+                    foreach (var item in contentItems)
+                    {
+                        contentItemNames.Add(GetSlugValue(item.ContentItem.Content.SOCSkillsMatrix.RelatedSkill.Text.ToString()));
+                    }
+                    return contentItemNames;
+                }
+            }
+
+            return Enumerable.Empty<string>();
+        }
+
+        private static string GetSlugValue(string field)
+        {
+            string UrlNameRegexPattern = @"[^\w\-\!\$\'\(\)\=\@\d_]+";
+            return string.IsNullOrWhiteSpace(field) ? string.Empty : Regex.Replace(field.ToLower().Trim(), UrlNameRegexPattern, "-");
+
+        }
+
 
         public static IEnumerable<Classification> MapClassificationData(IEnumerable<ContentItem> contentItems) =>
             contentItems?.Select(contentItem => new Classification
