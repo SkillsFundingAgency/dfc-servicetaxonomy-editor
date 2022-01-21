@@ -79,6 +79,31 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Service.Repositories
                              };
             return attributes;
         }
+
+        public IQueryable<FrameworkSkill> GetAllTranslations()
+        {
+            var result = (from trans in onetDbContext.DfcGdstranlations
+                          join el in onetDbContext.ContentModelReferences on trans.OnetElementId equals el.ElementId
+                          where el.ElementId == trans.OnetElementId
+                          orderby trans.OnetElementId
+                          select new FrameworkSkill
+                          {
+                              ONetElementId = trans.OnetElementId,
+                              Title = el.ElementName,
+                              Description = trans.Translation
+
+                          }).Concat(from comb in onetDbContext.DfcGdscombinations
+                                    orderby comb.CombinedElementId
+                                    select new FrameworkSkill
+                                    {
+                                        ONetElementId = comb.CombinedElementId,
+                                        Title = comb.ElementName,
+                                        Description = comb.Description
+                                    });
+
+            return result;
+        }
+
         #endregion
     }
 }
