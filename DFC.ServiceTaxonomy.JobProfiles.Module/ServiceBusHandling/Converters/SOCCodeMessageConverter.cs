@@ -38,7 +38,7 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module.ServiceBusHandling.Converters
             {
                 Id = socCode.As<GraphSyncPart>().ExtractGuid(),
                 SOCCode = socCode.As<TitlePart>().Title,
-                Description = socCode.Content.SOCCode.Description is null ? default : (string?)socCode.Content.SOCCode.Description.Html,
+                Description = socCode.Content.SOCCode.Description is null ? default : (string?)socCode.Content.SOCCode.Description.Text,
                 ONetOccupationalCode = socCode.Content.SOCCode.OnetOccupationCode is null ? default : (string?)socCode.Content.SOCCode.OnetOccupationCode.Text,
                 SOC2020 = socCode.Content.SOCCode.SOC2020 is null ? default : (string?)socCode.Content.SOCCode.SOC2020.Text,
                 SOC2020extension = socCode.Content.SOCCode.SOC2020extension is null ? default : (string?)socCode.Content.SOCCode.SOC2020extension.Text,

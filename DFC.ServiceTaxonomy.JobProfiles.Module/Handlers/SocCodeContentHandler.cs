@@ -93,7 +93,7 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module.Handlers
                         graphSyncPart.Text = GetGraphSyncId(ContentTypes.Skill);
                         graphSyncPart.Apply();
                         // Fields
-                        skill.Content.Skill.Description.Html = onetSkill.Description;
+                        skill.Content.Skill.Description.Text = onetSkill.Description;
                         skill.Content.Skill.ONetElementId.Text = onetSkill.Id;
 
                         await contentManager.CreateAsync(skill);
