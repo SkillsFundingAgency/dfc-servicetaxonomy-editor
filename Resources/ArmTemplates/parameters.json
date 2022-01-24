@@ -194,15 +194,6 @@
         "ExceptionCountThreshold": {
             "value": "__ExceptionCountThreshold__"
         },
-        "ServiceBusSettingsConnectionString": {
-            "value": "__ServiceBusConnectionString__"
-        },
-        "ServiceBusSettingsTopicName": {
-            "value": "__ServiceBusTopicName__"
-        },
-        "ServiceBusSettingsTopicNameForDraft": {
-            "value": "__ServiceBusTopicNameForDraft__"
-        },
         "SkillsFrameworkDbConnectionString": {
             "value": "__SkillsFrameworkDbConnectionString__"
         }
