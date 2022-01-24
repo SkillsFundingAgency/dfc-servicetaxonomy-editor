@@ -45,7 +45,7 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module
             services.AddScoped<IMessageConverter<SocCodeItem>, SocCodeMessageConverter>();
             services.AddScoped<IMessageConverter<Models.AzureSearch.JobProfileIndex>, JobProfileIndexMessageConverter>();
             services.AddScoped<IDataEventProcessor, DataEventProcessor>();
-            services.AddScoped(typeof(IAzureSearchDataProcessor<>), typeof(AzureSearchDataProcessor<>));
+            services.AddScoped<IAzureSearchDataProcessor, AzureSearchDataProcessor>();
             // TODO: removed temporarily as not ready for DEV
             //services.AddScoped<IContentHandler, ServiceBusContentHandler>();
             services.AddScoped<IServiceBusMessageProcessor, ServiceBusMessageProcessor>();

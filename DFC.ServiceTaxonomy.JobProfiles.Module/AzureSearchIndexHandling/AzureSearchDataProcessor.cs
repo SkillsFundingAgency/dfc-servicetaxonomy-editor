@@ -1,11 +1,15 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Azure;
 using Azure.Search.Documents;
 using Azure.Search.Documents.Indexes;
+using Azure.Search.Documents.Indexes.Models;
 using Azure.Search.Documents.Models;
 using DFC.ServiceTaxonomy.JobProfiles.Module.AzureSearchIndexHandling.Interfaces;
 using DFC.ServiceTaxonomy.JobProfiles.Module.Models.AzureSearch;
+using DFC.ServiceTaxonomy.JobProfiles.Module.ServiceBusHandling;
 using DFC.ServiceTaxonomy.JobProfiles.Module.ServiceBusHandling.Interfaces;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
@@ -13,13 +17,13 @@ using OrchardCore.ContentManagement.Handlers;
 
 namespace DFC.ServiceTaxonomy.JobProfiles.Module.AzureSearchIndexHandling
 {
-    public class AzureSearchDataProcessor<T> : IAzureSearchDataProcessor<T>
+    public class AzureSearchDataProcessor : IAzureSearchDataProcessor
     {
-        private readonly ILogger<AzureSearchDataProcessor<T>> _logger;
+        private readonly ILogger<AzureSearchDataProcessor> _logger;
         private readonly IMessageConverter<JobProfileIndex> _jobProfileIndexConverter;
         private readonly IConfiguration _configuration;
 
-        public AzureSearchDataProcessor(ILogger<AzureSearchDataProcessor<T>> logger, IMessageConverter<JobProfileIndex> jobProfileIndexConverter, IConfiguration configuration)
+        public AzureSearchDataProcessor(ILogger<AzureSearchDataProcessor> logger, IMessageConverter<JobProfileIndex> jobProfileIndexConverter, IConfiguration configuration)
         {
             _logger = logger;
             _jobProfileIndexConverter = jobProfileIndexConverter;
@@ -27,38 +31,78 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module.AzureSearchIndexHandling
 
         }
 
-        public async Task<T> ProcessContentContext(ContentContextBase context, string actionType)
+        public async Task ProcessContentContext(ContentContextBase context, string actionType)
         {
             try
             {
-                var jobProfileIndex = await _jobProfileIndexConverter.ConvertFromAsync(context.ContentItem);
+                var jobProfileIndexDocument = await _jobProfileIndexConverter.ConvertFromAsync(context.ContentItem);
                 var jobProfileIndexSettings = _configuration.GetSection("AzureSearchSettings").Get<JobProfileIndexSettings>();
+                var jobProfileIndexName = jobProfileIndexSettings.JobProfileSearchIndexName ?? string.Empty;
 
-                SearchIndexClient indexClient = CreateSearchIndexClient(jobProfileIndexSettings.SearchServiceEndPoint?? string.Empty, jobProfileIndexSettings.SearchServiceAdminAPIKey?? string.Empty);
-                SearchClient searchClient = indexClient.GetSearchClient(jobProfileIndexSettings.JobProfileSearchIndexName);
-                IndexDocumentsBatch<JobProfileIndex> jobProfileIndexBatch = IndexDocumentsBatch.Create(IndexDocumentsAction.MergeOrUpload(jobProfileIndex));
-                IndexDocumentsOptions options = new IndexDocumentsOptions { ThrowOnAnyError = true };
-                var jsonObject = Newtonsoft.Json.JsonConvert.SerializeObject(jobProfileIndex);
-                IndexDocumentsResult  result = searchClient.IndexDocuments(jobProfileIndexBatch, options);
-                foreach(var item in result.Results)
+                SearchIndexClient indexClient = CreateSearchIndexClient(jobProfileIndexSettings.SearchServiceEndPoint ?? string.Empty, jobProfileIndexSettings.SearchServiceAdminAPIKey ?? string.Empty);
+                if (await indexClient.GetIndexesAsync().AnyAsync(index => index.Name == jobProfileIndexName))
                 {
-                    Console.WriteLine($"{jsonObject} - {item.Succeeded} TODO: remove Me");
-                }
+                    SearchClient searchClient = indexClient.GetSearchClient(jobProfileIndexName);
+                    if (actionType == ActionTypes.Published)
+                    {
 
+                        if (await indexClient.GetIndexesAsync().AnyAsync(index => index.Name == jobProfileIndexName))
+                        {
+                            var documentUploadResponse = UploadDocument(searchClient, jobProfileIndexDocument);
+                            if (documentUploadResponse.IsCompletedSuccessfully) _logger.Log(LogLevel.Information, $"{jobProfileIndexDocument.IdentityField} successfully uploaded to Azure Search Index");
+                        }
+
+                    }
+                    else if (actionType == ActionTypes.Deleted)
+                    {
+                        var documentUploadResponse = DeleteDocument(searchClient, jobProfileIndexDocument);
+                        if (documentUploadResponse.IsCompletedSuccessfully) _logger.Log(LogLevel.Information, $"{jobProfileIndexDocument.IdentityField} successfully deleted document from Azure Search Index");
+                    }
+                }
+                else                 // The creation of the index can be done at application start up
+                {
+                    if (CreateIndexAsync(jobProfileIndexName, indexClient).IsCompletedSuccessfully)
+                    {
+                        SearchClient searchClient = indexClient.GetSearchClient(jobProfileIndexName);
+                        var documentUploadResponse = UploadDocument(searchClient, jobProfileIndexDocument);
+                        if (documentUploadResponse.IsCompletedSuccessfully) _logger.Log(LogLevel.Information, $"{jobProfileIndexName} index successfully created and document{jobProfileIndexDocument.IdentityField} successfully uploaded to Azure Search Index");
+                    }
+
+                }
             }
-            catch(Exception ex)
+
+            catch (Exception ex)
             {
                 _logger.LogError(ex, $"Failed to export data for item with ContentItemId = {context.ContentItem.ContentItemId}");
                 throw;
             }
-
-            throw new NotImplementedException();
         }
 
         private static SearchIndexClient CreateSearchIndexClient(string searchServiceEndPoint, string adminApiKey)
         {
             SearchIndexClient indexClient = new SearchIndexClient(new Uri(searchServiceEndPoint), new AzureKeyCredential(adminApiKey));
             return indexClient;
+        }
+
+        private static Task<Response<SearchIndex>> CreateIndexAsync(string indexName, SearchIndexClient indexClient)
+        {
+            FieldBuilder builder = new FieldBuilder();
+            var definition = new SearchIndex(indexName, builder.Build(typeof(JobProfileIndex)));
+            return indexClient.CreateIndexAsync(definition);
+        }
+
+        private static Task<Response<IndexDocumentsResult>> UploadDocument(SearchClient searchClient, JobProfileIndex jobProfileIndexDocument)
+        {
+            IndexDocumentsBatch<JobProfileIndex> jobProfileIndexBatch = IndexDocumentsBatch.Create(IndexDocumentsAction.MergeOrUpload(jobProfileIndexDocument));
+            IndexDocumentsOptions options = new IndexDocumentsOptions { ThrowOnAnyError = true };
+            return searchClient.IndexDocumentsAsync(jobProfileIndexBatch, options);
+        }
+
+        private static Task<Response<IndexDocumentsResult>> DeleteDocument(SearchClient searchClient, JobProfileIndex jobProfileIndexDocument)
+        {
+            IndexDocumentsBatch<JobProfileIndex> jobProfileIndexBatch = IndexDocumentsBatch.Delete<JobProfileIndex>(new List<JobProfileIndex> { jobProfileIndexDocument });
+            IndexDocumentsOptions options = new IndexDocumentsOptions { ThrowOnAnyError = true };
+            return searchClient.IndexDocumentsAsync(jobProfileIndexBatch, options);
         }
 
     }

@@ -3,8 +3,8 @@ using OrchardCore.ContentManagement.Handlers;
 
 namespace DFC.ServiceTaxonomy.JobProfiles.Module.AzureSearchIndexHandling.Interfaces
 {
-    public interface IAzureSearchDataProcessor<T>
+    public interface IAzureSearchDataProcessor
     {
-        Task<T> ProcessContentContext(ContentContextBase context, string actionType);
+        Task ProcessContentContext(ContentContextBase context, string actionType);
     }
 }

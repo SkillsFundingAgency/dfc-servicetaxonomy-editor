@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.JobProfiles.Module.AzureSearchIndexHandling.Interfaces;
-using DFC.ServiceTaxonomy.JobProfiles.Module.Models.AzureSearch;
+
 using DFC.ServiceTaxonomy.JobProfiles.Module.ServiceBusHandling;
 using OrchardCore.ContentManagement.Handlers;
 
@@ -8,9 +8,9 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module.Handlers
 {
     public class JobProfileAzureSearchIndexHandler : ContentHandlerBase
     {
-        private readonly IAzureSearchDataProcessor<JobProfileIndex> _azureSearchDataProcessor;
+        private readonly IAzureSearchDataProcessor _azureSearchDataProcessor;
 
-        public JobProfileAzureSearchIndexHandler(IAzureSearchDataProcessor<JobProfileIndex> azureSearchDataProcessor)
+        public JobProfileAzureSearchIndexHandler(IAzureSearchDataProcessor azureSearchDataProcessor)
         {
             _azureSearchDataProcessor = azureSearchDataProcessor;
         }
