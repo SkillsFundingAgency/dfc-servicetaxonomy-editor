@@ -185,6 +185,24 @@
         "ExceptionCountThreshold": {
             "type": "string"
         },
+        "ServiceBusSettingsServiceBusConnectionString": {
+            "type": "securestring"
+        },
+        "ServiceBusSettingsServiceBusTopicName": {
+            "type": "string"
+        },
+        "ServiceBusSettingsServiceBusTopicNameForDraft": {
+            "type": "string"
+        },
+        "AzureSearchSettingsJobProfileSearchIndexName": {
+            "type": "string"
+        },
+        "AzureSearchSettingsSearchServiceAdminAPIKey": {
+            "type": "string"
+        },
+        "AzureSearchSettingsSearchServiceEndPoint": {
+            "type": "string"
+        },
         "SkillsFrameworkDbConnectionString": {
             "type": "securestring"
         }
@@ -475,6 +493,30 @@
                             {
                                 "name": "AzureAdSettings__ResourceGroupName",
                                 "value": "[parameters('AzureAdSettingsResourceGroupName')]"
+                            },
+                            {
+                                "name": "ServiceBusSettings__ServiceBusConnectionString",
+                                "value": "[parameters('ServiceBusSettingsServiceBusConnectionString')]"
+                            },
+                            {
+                                "name": "ServiceBusSettings__ServiceBusTopicName",
+                                "value": "[parameters('ServiceBusSettingsServiceBusTopicName')]"
+                            },
+                            {
+                                "name": "ServiceBusSettings__ServiceBusTopicNameForDraft",
+                                "value": "[parameters('ServiceBusSettingsServiceBusTopicNameForDraft')]"
+                            },
+                            {
+                                "name": "AzureSearchSettings__JobProfileSearchIndexName",
+                                "value": "[parameters('AzureSearchSettingsJobProfileSearchIndexName')]"
+                            },
+                            {
+                                "name": "AzureSearchSettings__SearchServiceAdminAPIKey",
+                                "value": "[parameters('AzureSearchSettingsSearchServiceAdminAPIKey')]"
+                            },
+                            {
+                                "name": "AzureSearchSettings__SearchServiceEndPoint",
+                                "value": "[parameters('AzureSearchSettingsSearchServiceEndPoint')]"
                             },
                             {
                                 "name": "ConnectionStrings__SkillsFrameworkDB",

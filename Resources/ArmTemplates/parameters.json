@@ -170,11 +170,38 @@
         "AzureAdSettingsResourceGroupName": {
             "value": "__SharedResourceGroupName__"
         },
+        "ServiceBusSettingsServiceBusConnectionString": {
+            "value": "__ServiceBusSettingsServiceBusConnectionString__"
+        },
+        "ServiceBusSettingsServiceBusTopicName": {
+            "value": "__ServiceBusSettingsServiceBusTopicName__"
+        },
+        "ServiceBusSettingsServiceBusTopicNameForDraft": {
+            "value": "__ServiceBusSettingsServiceBusTopicNameForDraft__"
+        },
+        "AzureSearchSettingsJobProfileSearchIndexName": {
+            "value": "__AzureSearchSettingsJobProfileSearchIndexName__"
+        },
+        "AzureSearchSettingsSearchServiceAdminAPIKey": {
+            "value": "__AzureSearchSettingsSearchServiceAdminAPIKey__"
+        },
+        "AzureSearchSettingsSearchServiceEndPoint": {
+            "value": "__AzureSearchSettingsSearchServiceEndPoint__"
+        },
         "enableAlerts": {
             "value": __EnableAzureMonitorAlerting__
         },
         "ExceptionCountThreshold": {
             "value": "__ExceptionCountThreshold__"
+        },
+        "ServiceBusSettingsConnectionString": {
+            "value": "__ServiceBusConnectionString__"
+        },
+        "ServiceBusSettingsTopicName": {
+            "value": "__ServiceBusTopicName__"
+        },
+        "ServiceBusSettingsTopicNameForDraft": {
+            "value": "__ServiceBusTopicNameForDraft__"
         },
         "SkillsFrameworkDbConnectionString": {
             "value": "__SkillsFrameworkDbConnectionString__"
