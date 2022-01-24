@@ -17,6 +17,9 @@ using OrchardCore.Data.Migration;
 using OrchardCore.Modules;
 using YesSql.Indexes;
 using DFC.ServiceTaxonomy.DataAccess.Repositories;
+using DFC.ServiceTaxonomy.JobProfiles.Module.AzureSearchIndexHandling.Interfaces;
+using DFC.ServiceTaxonomy.JobProfiles.Module.AzureSearchIndexHandling;
+using DFC.ServiceTaxonomy.JobProfiles.Module.AzureSearchIndexHandling.Converters;
 
 namespace DFC.ServiceTaxonomy.JobProfiles.Module
 {
@@ -40,9 +43,12 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module
             services.AddScoped<IMessageConverter<WhatYouWillDoData>, WhatYouWillDoMessageConverter>();
             services.AddScoped<IMessageConverter<WhatItTakesData>, WhatItTakesMessageConverter>();
             services.AddScoped<IMessageConverter<SocCodeItem>, SocCodeMessageConverter>();
+            services.AddScoped<IMessageConverter<Models.AzureSearch.JobProfileIndex>, JobProfileIndexMessageConverter>();
             services.AddScoped<IDataEventProcessor, DataEventProcessor>();
             services.AddScoped<IContentHandler, ServiceBusContentHandler>();
+            services.AddScoped<IAzureSearchDataProcessor, AzureSearchDataProcessor>();
             services.AddScoped<IServiceBusMessageProcessor, ServiceBusMessageProcessor>();
+            services.AddScoped<IContentHandler, JobProfileAzureSearchIndexHandler>();
 
             // Repositories
             services.AddDbContext<DfcDevOnetSkillsFrameworkContext>(options => options.UseSqlServer(configuration.GetConnectionString("SkillsFrameworkDB")));
