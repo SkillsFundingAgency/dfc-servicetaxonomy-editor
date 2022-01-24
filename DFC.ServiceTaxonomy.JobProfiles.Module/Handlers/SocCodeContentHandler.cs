@@ -136,7 +136,7 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module.Handlers
             if (context.ContentItem.ContentType == ContentTypes.SOCCode)
             {
                 var relatedJobProfile = await _session.QueryIndex<JobProfileIndex>(jp => jp.SOCCode == context.ContentItem.ContentItemId).ListAsync();
-                if(relatedJobProfile != null && relatedJobProfile.Any())
+                if (relatedJobProfile != null && relatedJobProfile.Any())
                 {
                     return;
                 }
