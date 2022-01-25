@@ -87,7 +87,8 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module.ServiceBusHandling.Converters
             {
                 Id = contentItem.As<GraphSyncPart>().ExtractGuid(),
                 Title = contentItem.As<TitlePart>().Title,
-                Description = GetClassificationDescriptionText(contentItem)
+                Description = GetClassificationDescriptionText(contentItem),
+                Url = GetClassificationURLText(contentItem)
             }) ?? Enumerable.Empty<Classification>();
 
         private static string GetClassificationDescriptionText(ContentItem contentItem) =>
@@ -101,5 +102,11 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module.ServiceBusHandling.Converters
                 _ => string.Empty,
             };
 
+        private static string GetClassificationURLText(ContentItem contentItem) =>
+           contentItem.ContentType switch
+           {
+               ContentTypes.ApprenticeshipStandard => contentItem.Content.ApprenticeshipStandard.LARScode.Text,
+               _ => string.Empty,
+           };
     }
 }
