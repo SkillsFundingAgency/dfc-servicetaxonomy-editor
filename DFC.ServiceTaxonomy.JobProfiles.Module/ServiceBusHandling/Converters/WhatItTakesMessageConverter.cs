@@ -75,6 +75,7 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module.ServiceBusHandling.Converters
                         var skillContentItem = skillContentItems.FirstOrDefault(c => c.DisplayText == skillName);
                         if(skillContentItem != null)
                         {
+                            relatedSkill.Id = skillContentItem.As<GraphSyncPart>().ExtractGuid();
                             relatedSkill.Description = skillContentItem.Content.Skill.Description.Text;
                             relatedSkill.ONetElementId = skillContentItem.Content.Skill.ONetElementId.Text;
                         }
