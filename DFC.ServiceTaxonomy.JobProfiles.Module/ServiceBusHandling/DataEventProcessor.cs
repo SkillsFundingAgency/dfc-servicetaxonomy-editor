@@ -236,7 +236,7 @@ public DataEventProcessor(IServiceBusMessageProcessor serviceBusMessageProcessor
             string fieldInfo = context.ContentItem.ContentType switch
             {
                 ContentTypes.Restriction => context.ContentItem.Content.Restriction.Info.Html,
-                ContentTypes.Registration => context.ContentItem.Content.Registration.Description.Html,
+                ContentTypes.Registration => context.ContentItem.Content.Registration.Info.Html,
                 ContentTypes.ApprenticeshipRequirements => context.ContentItem.Content.ApprenticeshipRequirements.Info.Html,
                 ContentTypes.CollegeRequirements => context.ContentItem.Content.CollegeRequirements.Info.Html,
                 ContentTypes.UniversityRequirements => context.ContentItem.Content.UniversityRequirements.Info.Html,

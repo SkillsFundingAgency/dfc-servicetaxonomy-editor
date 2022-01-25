@@ -27,6 +27,7 @@
         public const string WorkingHoursDetail = nameof(WorkingHoursDetail);
         public const string WorkingPatterns = nameof(WorkingPatterns);
         public const string WorkingPatternDetail = nameof(WorkingPatternDetail);
+        public const string ApprenticeshipStandard = nameof(ApprenticeshipStandard);
 
         public const string UniversityLink = nameof(UniversityLink);
         public const string CollegeLink = nameof(CollegeLink);

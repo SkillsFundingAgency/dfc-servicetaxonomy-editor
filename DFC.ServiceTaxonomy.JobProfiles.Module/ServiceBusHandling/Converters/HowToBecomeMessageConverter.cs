@@ -99,7 +99,7 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module.ServiceBusHandling.Converters
             {
                 Id = contentItem.As<GraphSyncPart>().ExtractGuid(),
                 Title = contentItem.As<TitlePart>().Title,
-                Info = contentItem.Content.Registration.Description.Html
+                Info = contentItem.Content.Registration.Info.Html
             }) ?? Enumerable.Empty<RegistrationItem>();
 
         private static IEnumerable<MoreInformationLinkItem> GetRelatedLinkItems(IEnumerable<ContentItem> contentItems) =>
