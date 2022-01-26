@@ -26,7 +26,7 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module.AzureSearchIndexHandling.Conver
         {
             var contentManager = _serviceProvider.GetRequiredService<IContentManager>();
 
-            IEnumerable<string> socCode = await Helper.GetContentItemNamesAsync(contentItem.Content.JobProfile.SOCcode, contentManager);
+            IEnumerable<string> socCode = await Helper.GetContentItemNamesAsync(contentItem.Content.JobProfile.SOCCode, contentManager);
             IEnumerable<ContentItem> jobCategories = await Helper.GetContentItemsAsync(contentItem.Content.JobProfile.JobProfileCategory, contentManager);
             string collegeRelevantSubjects = contentItem.Content.JobProfile.Collegerelevantsubjects == null ? string.Empty : contentItem.Content.JobProfile.Collegerelevantsubjects.Html.ToString();
             string apprenticeshipRelevantSubjects = contentItem.Content.JobProfile.Apprenticeshiprelevantsubjects is null ? string.Empty : contentItem.Content.JobProfile.Apprenticeshiprelevantsubjects.Html.ToString();
