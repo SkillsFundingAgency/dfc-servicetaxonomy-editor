@@ -80,17 +80,18 @@ public DataEventProcessor(IServiceBusMessageProcessor serviceBusMessageProcessor
                         await GenerateServiceBusMessageForOtherReferenceTypes(context, actionType);
                         break;
 
-                    case ContentTypes.Skill:
-                        await GenerateServiceBusMessageForSkillTypes(context, actionType);
-                        break;
+                        // TODO: Commenting out temporarily. Will revisit this later.
+                    //case ContentTypes.Skill:
+                    //    await GenerateServiceBusMessageForSkillTypes(context, actionType);
+                    //    break;
 
-                    case ContentTypes.JobProfileSOC:
-                        await GenerateServiceBusMessageForSocCodeType(context, actionType);
-                        break;
+                    //case ContentTypes.JobProfileSOC:
+                    //    await GenerateServiceBusMessageForSocCodeType(context, actionType);
+                    //    break;
 
-                    case ContentTypes.SOCSkillsMatrix:
-                        await GenerateServiceBusMessageForSocSkillsMatrixType(context, actionType);
-                        break;
+                    //case ContentTypes.SOCSkillsMatrix:
+                    //    await GenerateServiceBusMessageForSocSkillsMatrixType(context, actionType);
+                    //    break;
 
                     //case ContentTypes.JobProfileSpecialism:
                     // apprenticeship-standards	
