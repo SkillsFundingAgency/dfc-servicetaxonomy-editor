@@ -48,7 +48,6 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module
                 .Column<string>(nameof(JobProfileIndex.ApprenticeshipLink))
                 .Column<string>(nameof(JobProfileIndex.Registration))
                 .Column<string>(nameof(JobProfileIndex.DigitalSkills))
-                .Column<string>(nameof(JobProfileIndex.RelatedSkills))
                 .Column<string>(nameof(JobProfileIndex.RelatedSkills), column => column.WithLength(1024))
                 .Column<string>(nameof(JobProfileIndex.Location))
                 .Column<string>(nameof(JobProfileIndex.Environment))
