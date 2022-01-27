@@ -26,6 +26,7 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module.Indexes
         public string? ApprenticeshipLink { get; set; }
         public string? Registration { get; set; }
         public string? DigitalSkills { get; set; }
+        public string? RelatedSkills { get; set; }
         public string? Location { get; set; }
         public string? Environment { get; set; }
         public string? Uniform { get; set; }

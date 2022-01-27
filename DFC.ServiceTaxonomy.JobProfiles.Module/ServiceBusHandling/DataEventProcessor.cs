@@ -13,29 +13,29 @@ using Microsoft.Extensions.Logging;
 using OrchardCore.ContentManagement;
 using OrchardCore.ContentManagement.Handlers;
 
-using YesSql;
 using DFC.ServiceTaxonomy.DataAccess.Repositories;
+using System.Linq;
 
 namespace DFC.ServiceTaxonomy.JobProfiles.Module.ServiceBusHandling
 {
     internal class DataEventProcessor : IDataEventProcessor
     {
         private readonly IServiceBusMessageProcessor _serviceBusMessageProcessor;
-        private readonly ISession _session;
         private readonly ILogger<DataEventProcessor> _logger;
         private readonly IMessageConverter<JobProfileMessage> _jobprofileMessageConverter;
+        private readonly IRelatedSkillsConverter _relatedSkillsConverter;
         private readonly IGenericIndexRepository<JobProfileIndex> _jobProfileIndexRepository;
 
 public DataEventProcessor(IServiceBusMessageProcessor serviceBusMessageProcessor,
                                     ILogger<DataEventProcessor> logger,
                                     IMessageConverter<JobProfileMessage> jobprofileMessageConverter,
-                                    ISession session,
+                                    IRelatedSkillsConverter relatedSkillsConverter,
                                     IGenericIndexRepository<JobProfileIndex> jobProfileIndexRepository)
         {
             _serviceBusMessageProcessor = serviceBusMessageProcessor;
             _logger = logger;
             _jobprofileMessageConverter = jobprofileMessageConverter;
-            _session = session;
+            _relatedSkillsConverter = relatedSkillsConverter;
             _jobProfileIndexRepository = jobProfileIndexRepository;
         }
 
@@ -80,18 +80,9 @@ public DataEventProcessor(IServiceBusMessageProcessor serviceBusMessageProcessor
                         await GenerateServiceBusMessageForOtherReferenceTypes(context, actionType);
                         break;
 
-                        // TODO: Commenting out temporarily. Will revisit this later.
-                    //case ContentTypes.Skill:
-                    //    await GenerateServiceBusMessageForSkillTypes(context, actionType);
-                    //    break;
-
-                    //case ContentTypes.JobProfileSOC:
-                    //    await GenerateServiceBusMessageForSocCodeType(context, actionType);
-                    //    break;
-
-                    //case ContentTypes.SOCSkillsMatrix:
-                    //    await GenerateServiceBusMessageForSocSkillsMatrixType(context, actionType);
-                    //    break;
+                    case ContentTypes.SOCSkillsMatrix:
+                        await GenerateServiceBusMessageForSocSkillsMatrixType(context, actionType);
+                        break;
 
                     //case ContentTypes.JobProfileSpecialism:
                     // apprenticeship-standards	
@@ -172,7 +163,6 @@ public DataEventProcessor(IServiceBusMessageProcessor serviceBusMessageProcessor
 
                 }
             }
-
 
             await _serviceBusMessageProcessor.SendOtherRelatedTypeMessages(jobprofileData, context.ContentItem.ContentType, actionType);
         }
@@ -330,53 +320,52 @@ public DataEventProcessor(IServiceBusMessageProcessor serviceBusMessageProcessor
                 }
             }
 
-
             await _serviceBusMessageProcessor.SendOtherRelatedTypeMessages(jobprofileData, context.ContentItem.ContentType, actionType);
         }
 
-        private Task GenerateServiceBusMessageForSkillTypes(ContentContextBase context, string actionType)
+        private async Task GenerateServiceBusMessageForSocSkillsMatrixType(ContentContextBase context, string actionType)
         {
-            var contentType = context.ContentItem.ContentType;
-
-            // TODO: find all parents for the referenced content item.
-            IEnumerable<SkillContentItem> jobprofileData = new List<SkillContentItem>()
+            var isSaved = actionType.Equals(ActionTypes.Published) || actionType.Equals(ActionTypes.Draft);
+            var matches = await _jobProfileIndexRepository.GetAll(b => b.RelatedSkills != null && b.RelatedSkills.Contains(context.ContentItem.ContentItemId)).ListAsync();
+            var id = context.ContentItem.As<GraphSyncPart>().ExtractGuid();
+            var jobprofileData = new List<SocSkillMatrixContentItem>();
+            if (!isSaved)
+            {
+                jobprofileData.AddRange(matches
+                    .Select(item => new SocSkillMatrixContentItem {
+                        Id = id,
+                        JobProfileId = Guid.Parse(item.GraphSyncPartId ?? string.Empty)
+                    }));
+            }
+            else
+            {
+                var relatedSkills = await _relatedSkillsConverter.GetRelatedSkills(new List<ContentItem> { context.ContentItem });
+                if (relatedSkills.Any() || relatedSkills.Count() == 1)
                 {
-                    new SkillContentItem()
+                    var relatedSkill = relatedSkills.First();
+
+                    foreach (var item in matches)
                     {
-                        Id = new Guid(context.ContentItem.ContentItemId),
-                        Title = context.ContentItem.Content.Title}
-                };
-            return _serviceBusMessageProcessor.SendOtherRelatedTypeMessages(jobprofileData, contentType, actionType);
-        }
+                        var socSkillMatrixIds = item.RelatedSkills?.Split(',').ToList() ?? new List<string>();
+                        var rank = socSkillMatrixIds.IndexOf(context.ContentItem.ContentItemId) + 1;
+                        jobprofileData.Add(new SocSkillMatrixContentItem
+                        {
+                            Id = id,
+                            Title = context.ContentItem.Content.TitlePart.Title,
+                            JobProfileId = Guid.Parse(item.GraphSyncPartId ?? string.Empty),
+                            JobProfileTitle = item.JobProfileTitle,
+                            Contextualised = relatedSkill.Contextualised ?? string.Empty,
+                            ONetAttributeType = relatedSkill.ONetAttributeType ?? string.Empty,
+                            Rank = rank,
+                            ONetRank = relatedSkill.ONetRank ?? 0,
+                            RelatedSOC = relatedSkill.RelatedSOC ?? new List<RelatedSocCodeItem>(),
+                            RelatedSkill = relatedSkill.RelatedSkill?.FirstOrDefault()
+                        });
+                    }
+                }
+            }
 
-        private Task GenerateServiceBusMessageForSocCodeType(ContentContextBase context, string actionType)
-        {
-            var contentType = context.ContentItem.ContentType;
-
-            // TODO: find all parents for the referenced content item.
-            IEnumerable<SocCodeContentItem> jobprofileData = new List<SocCodeContentItem>()
-                {
-                    new SocCodeContentItem()
-                    {
-                        Id = new Guid(context.ContentItem.ContentItemId),
-                        Title = context.ContentItem.Content.Title}
-                };
-            return _serviceBusMessageProcessor.SendOtherRelatedTypeMessages(jobprofileData, contentType, actionType);
-        }
-
-        private Task GenerateServiceBusMessageForSocSkillsMatrixType(ContentContextBase context, string actionType)
-        {
-            var contentType = context.ContentItem.ContentType;
-
-            // TODO: find all parents for the referenced content item.
-            IEnumerable<SocSkillMatrixContentItem> jobprofileData = new List<SocSkillMatrixContentItem>()
-                {
-                    new SocSkillMatrixContentItem()
-                    {
-                        Id = new Guid(context.ContentItem.ContentItemId),
-                        Title = context.ContentItem.Content.Title}
-                };
-            return _serviceBusMessageProcessor.SendOtherRelatedTypeMessages(jobprofileData, contentType, actionType);
+            await _serviceBusMessageProcessor.SendOtherRelatedTypeMessages(jobprofileData, context.ContentItem.ContentType, actionType);
         }
     }
 }

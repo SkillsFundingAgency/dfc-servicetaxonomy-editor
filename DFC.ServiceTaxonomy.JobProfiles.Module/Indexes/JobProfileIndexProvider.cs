@@ -95,6 +95,7 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module.Indexes
                         ApprenticeshipLink = (part.RelatedApprenticeshipLinks.ContentItemIds.ToObject<IList<string>>() as IList<string>).ConvertListToCsv(),
                         Registration = (part.RelatedRegistrations.ContentItemIds.ToObject<IList<string>>() as IList<string>).ConvertListToCsv(),
                         DigitalSkills = (part.DigitalSkills.ContentItemIds.ToObject<IList<string>>() as IList<string>).ConvertListToCsv(),
+                        RelatedSkills = (part.Relatedskills.ContentItemIds.ToObject<IList<string>>() as IList<string>).ConvertListToCsv(),
                         Location = (part.RelatedLocations.ContentItemIds.ToObject<IList<string>>() as IList<string>).ConvertListToCsv(),
                         Environment = (part.RelatedEnvironments.ContentItemIds.ToObject<IList<string>>() as IList<string>).ConvertListToCsv(),
                         Uniform = (part.RelatedUniforms.ContentItemIds.ToObject<IList<string>>() as IList<string>).ConvertListToCsv(),
