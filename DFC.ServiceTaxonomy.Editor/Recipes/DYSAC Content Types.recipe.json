@@ -121,56 +121,6 @@
                     ]
                 },
                 {
-                    "Name": "ONetSkill",
-                    "DisplayName": "ONet Skill",
-                    "Settings": {
-                        "ContentTypeSettings": {
-                            "Creatable": true,
-                            "Listable": true,
-                            "Draftable": true,
-                            "Versionable": true,
-                            "Securable": true
-                        },
-                        "FullTextAspectSettings": {}
-                    },
-                    "ContentTypePartDefinitionRecords": [
-                        {
-                            "PartName": "ONetSkill",
-                            "Name": "ONetSkill",
-                            "Settings": {
-                                "ContentTypePartSettings": {
-                                    "Position": "1"
-                                }
-                            }
-                        },
-                        {
-                            "PartName": "TitlePart",
-                            "Name": "TitlePart",
-                            "Settings": {
-                                "ContentTypePartSettings": {
-                                    "Position": "0"
-                                }
-                            }
-                        },
-                        {
-                            "PartName": "GraphSyncPart",
-                            "Name": "GraphSyncPart",
-                            "Settings": {
-                                "ContentTypePartSettings": {
-                                    "Position": "2"
-                                },
-                                "GraphSyncPartSettings": {
-                                    "NodeNameTransform": "ContentType",
-                                    "PropertyNameTransform": "Value",
-                                    "IdPropertyName": "uri",
-                                    "GenerateIdPropertyValue": "$\"<<contentapiprefix>>/{ContentType}/{Value}\".ToLowerInvariant()",
-                                    "DisplayId": true
-                                }
-                            }
-                        }
-                    ]
-                },
-                {
                     "Name": "PersonalityShortQuestion",
                     "DisplayName": "Personality Short Question",
                     "Settings": {
@@ -328,17 +278,17 @@
                     "ContentPartFieldDefinitionRecords": [
                         {
                             "FieldName": "ContentPickerField",
-                            "Name": "ONetSkill",
+                            "Name": "Skill",
                             "Settings": {
                                 "ContentPartFieldSettings": {
-                                    "DisplayName": "ONet Skill",
+                                    "DisplayName": "Skill",
                                     "Position": "0"
                                 },
                                 "ContentPickerFieldSettings": {
-                                    "Hint": "Creates relationships of [:hasONetSkill].",
+                                    "Hint": "Creates relationships of [:hasSkill].",
                                     "Required": true,
                                     "DisplayedContentTypes": [
-                                        "ONetSkill"
+                                        "Skill"
                                     ]
                                 },
                                 "ContentIndexSettings": {}
@@ -355,22 +305,6 @@
                                 },
                                 "TextFieldSettings": {},
                                 "ContentIndexSettings": {}
-                            }
-                        }
-                    ]
-                },
-                {
-                    "Name": "ONetSkill",
-                    "Settings": {},
-                    "ContentPartFieldDefinitionRecords": [
-                        {
-                            "FieldName": "TextField",
-                            "Name": "Description",
-                            "Settings": {
-                                "ContentPartFieldSettings": {
-                                    "DisplayName": "Description",
-                                    "Position": "0"
-                                }
                             }
                         }
                     ]
