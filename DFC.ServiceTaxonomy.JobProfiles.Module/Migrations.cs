@@ -48,6 +48,7 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module
                 .Column<string>(nameof(JobProfileIndex.ApprenticeshipLink))
                 .Column<string>(nameof(JobProfileIndex.Registration))
                 .Column<string>(nameof(JobProfileIndex.DigitalSkills))
+                .Column<string>(nameof(JobProfileIndex.RelatedSkills))
                 .Column<string>(nameof(JobProfileIndex.RelatedSkills), column => column.WithLength(1024))
                 .Column<string>(nameof(JobProfileIndex.Location))
                 .Column<string>(nameof(JobProfileIndex.Environment))
@@ -138,7 +139,8 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module
 
         public int UpdateFrom5()
         {
-            SchemaBuilder.AlterIndexTable<JobProfileIndex>(table => table.AlterColumn(nameof(JobProfileIndex.RelatedSkills), columm => columm.WithLength(1024)));
+            SchemaBuilder.AlterIndexTable<JobProfileIndex>(table => table.DropColumn(nameof(JobProfileIndex.RelatedSkills)));
+            SchemaBuilder.AlterIndexTable<JobProfileIndex>(table => table.AddColumn<string>(nameof(JobProfileIndex.RelatedSkills), column => column.WithLength(1024)));
 
             SchemaBuilder.AlterIndexTable<JobProfileIndex>(table => table
                 .DropIndex($"IDX_{nameof(JobProfileIndex)}_{nameof(JobProfileIndex.ContentItemId)}"));
@@ -152,6 +154,8 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module
 
             return 6;
         }
+
+
 
     }
 }
