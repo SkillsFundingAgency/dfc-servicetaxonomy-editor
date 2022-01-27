@@ -41,16 +41,16 @@
                             "ContentPartFieldDefinitionRecords": [
                                 {
                                     "FieldName": "ContentPickerField",
-                                    "Name": "ONetSkills",
+                                    "Name": "Skills",
                                     "Settings": {
                                         "ContentPartFieldSettings": {
-                                            "DisplayName": "ONet Skills",
+                                            "DisplayName": "Skills",
                                             "Position": "0"
                                         },
                                         "ContentPickerFieldSettings": {
                                             "Multiple": true,
                                             "DisplayedContentTypes": [
-                                                "ONetSkill"
+                                                "Skill"
                                             ]
                                         },
                                         "ContentIndexSettings": {}
@@ -93,16 +93,16 @@
                     "ContentPartFieldDefinitionRecords": [
                         {
                             "FieldName": "ContentPickerField",
-                            "Name": "ONetSkills",
+                            "Name": "Skills",
                             "Settings": {
                                 "ContentPartFieldSettings": {
-                                    "DisplayName": "ONet Skills",
+                                    "DisplayName": "Skills",
                                     "Position": "0"
                                 },
                                 "ContentPickerFieldSettings": {
                                     "Multiple": true,
                                     "DisplayedContentTypes": [
-                                        "ONetSkill"
+                                        "Skill"
                                     ]
                                 },
                                 "ContentIndexSettings": {}
