@@ -201,7 +201,7 @@
                     "PersonalityFilteringQuestion": {
                         "Skill": {
                             "ContentItemIds": [
-                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"Skill\", \"Initiative\")\u00BB"
+                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"Skill\", \"Independence, Initiative\")\u00BB"
                             ]
                         },
                         "Text": {
