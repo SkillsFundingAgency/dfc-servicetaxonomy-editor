@@ -170,6 +170,24 @@
         "AzureAdSettingsResourceGroupName": {
             "value": "__SharedResourceGroupName__"
         },
+        "ServiceBusSettingsServiceBusConnectionString": {
+            "value": "__ServiceBusSettingsServiceBusConnectionString__"
+        },
+        "ServiceBusSettingsServiceBusTopicName": {
+            "value": "__ServiceBusSettingsServiceBusTopicName__"
+        },
+        "ServiceBusSettingsServiceBusTopicNameForDraft": {
+            "value": "__ServiceBusSettingsServiceBusTopicNameForDraft__"
+        },
+        "AzureSearchSettingsJobProfileSearchIndexName": {
+            "value": "__AzureSearchSettingsJobProfileSearchIndexName__"
+        },
+        "AzureSearchSettingsSearchServiceAdminAPIKey": {
+            "value": "__AzureSearchSettingsSearchServiceAdminAPIKey__"
+        },
+        "AzureSearchSettingsSearchServiceEndPoint": {
+            "value": "__AzureSearchSettingsSearchServiceEndPoint__"
+        },
         "enableAlerts": {
             "value": __EnableAzureMonitorAlerting__
         },

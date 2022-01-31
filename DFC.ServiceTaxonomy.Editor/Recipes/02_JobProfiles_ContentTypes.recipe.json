@@ -3706,10 +3706,10 @@
                     "ContentPartFieldDefinitionRecords": [
                         {
                             "FieldName": "HtmlField",
-                            "Name": "Description",
+                            "Name": "Info",
                             "Settings": {
                                 "ContentPartFieldSettings": {
-                                    "DisplayName": "Description",
+                                    "DisplayName": "Info",
                                     "Editor": "Trumbowyg",
                                     "Position": "0"
                                 },
