@@ -138,18 +138,25 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module
 
         public int UpdateFrom5()
         {
-            SchemaBuilder.AlterIndexTable<JobProfileIndex>(table => table.DropColumn(nameof(JobProfileIndex.RelatedSkills)));
-            SchemaBuilder.AlterIndexTable<JobProfileIndex>(table => table.AddColumn<string>(nameof(JobProfileIndex.RelatedSkills), column => column.WithLength(1024)));
+            try
+            {
+                SchemaBuilder.AlterIndexTable<JobProfileIndex>(table => table.DropColumn(nameof(JobProfileIndex.RelatedSkills)));
+                SchemaBuilder.AlterIndexTable<JobProfileIndex>(table => table.AddColumn<string>(nameof(JobProfileIndex.RelatedSkills), column => column.WithLength(1024)));
 
-            SchemaBuilder.AlterIndexTable<JobProfileIndex>(table => table
-                .DropIndex($"IDX_{nameof(JobProfileIndex)}_{nameof(JobProfileIndex.ContentItemId)}"));
+                SchemaBuilder.AlterIndexTable<JobProfileIndex>(table => table
+                    .DropIndex($"IDX_{nameof(JobProfileIndex)}_{nameof(JobProfileIndex.ContentItemId)}"));
 
-            SchemaBuilder.AlterIndexTable<JobProfileIndex>(table => table
-                .CreateIndex(
-                    $"IDX_{nameof(JobProfileIndex)}_{nameof(JobProfileIndex.ContentItemId)}",
-                    "DocumentId",
-                    nameof(JobProfileIndex.ContentItemId),
-                    nameof(JobProfileIndex.GraphSyncPartId)));
+                SchemaBuilder.AlterIndexTable<JobProfileIndex>(table => table
+                    .CreateIndex(
+                        $"IDX_{nameof(JobProfileIndex)}_{nameof(JobProfileIndex.ContentItemId)}",
+                        "DocumentId",
+                        nameof(JobProfileIndex.ContentItemId),
+                        nameof(JobProfileIndex.GraphSyncPartId)));
+            }
+            catch
+            {
+                // SQLLite will throw an error here so we ignore it as it is not concerned with column length constraints
+            }
 
             return 6;
         }

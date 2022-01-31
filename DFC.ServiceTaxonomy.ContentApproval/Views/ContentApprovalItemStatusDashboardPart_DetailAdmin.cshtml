@@ -17,7 +17,7 @@
             </div>
             <ul class="list-group list-group-flush">
                 <li class="list-group-item d-flex justify-content-between align-items-center">
-                    <a asp-route-area="OrchardCore.Contents" asp-controller="@(typeof(OrchardCore.Contents.Controllers.AdminController).ControllerName())" asp-action="List" asp-route-Options.ContentsStatus="Draft">See all in draft (@(Model.ContentItemsApprovalCounts?.Count))</a>
+                    <a asp-route-area="OrchardCore.Contents" asp-controller="@(typeof(OrchardCore.Contents.Controllers.AdminController).ControllerName())" asp-action="List" asp-route-q="status:Draft">See all in draft (@(Model.ContentItemsApprovalCounts?.Count))</a>
                 </li>
             </ul>
             break;
@@ -81,7 +81,7 @@
             </div>
             <ul class="list-group list-group-flush">
                 <li class="list-group-item d-flex justify-content-between align-items-center">
-                    <a asp-route-area="OrchardCore.Contents" asp-controller="@(typeof(OrchardCore.Contents.Controllers.AdminController).ControllerName())" asp-action="List" asp-route-Options.ContentsStatus="Published">
+                    <a asp-route-area="OrchardCore.Contents" asp-controller="@(typeof(OrchardCore.Contents.Controllers.AdminController).ControllerName())" asp-action="List" asp-route-q="status:Published">
                         See all published (@(Model.ContentItemsApprovalCounts?.Count))
                     </a>
                 </li>
