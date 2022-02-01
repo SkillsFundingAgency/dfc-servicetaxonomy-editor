@@ -108,5 +108,15 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module.ServiceBusHandling.Converters
                ContentTypes.ApprenticeshipStandard => contentItem.Content.ApprenticeshipStandard.LARScode.Text,
                _ => string.Empty,
            };
+
+        public static string GetHtmlWithoutInlineCss(dynamic html)
+        {
+            string htmlString = ((string)html).Replace("<br>", "");
+            htmlString = Regex.Replace(htmlString, "<span[^>]*>", "");
+            htmlString = Regex.Replace(htmlString, "<p[^>]*>", "");
+            htmlString = htmlString.Replace("<p></p>", "");
+            htmlString = htmlString.Replace("</span></p>", "");
+            return new Regex("style=\"[^\"]*\"").Replace(htmlString, "");
+        }
     }
 }

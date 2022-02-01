@@ -72,7 +72,7 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module.ServiceBusHandling.Converters
                     SalaryExperienced = contentItem.Content.JobProfile.Salaryexperiencedperyear is null ? default : (decimal?)contentItem.Content.JobProfile.Salaryexperiencedperyear.Value,
                     MinimumHours = contentItem.Content.JobProfile.Minimumhours is null ? default : (decimal?)contentItem.Content.JobProfile.Minimumhours.Value,
                     MaximumHours = contentItem.Content.JobProfile.Maximumhours is null ? default : (decimal?)contentItem.Content.JobProfile.Maximumhours.Value,
-                    CareerPathAndProgression = contentItem.Content.JobProfile.Careerpathandprogression is null ? default : (string?)contentItem.Content.JobProfile.Careerpathandprogression.Html,
+                    CareerPathAndProgression = contentItem.Content.JobProfile.Careerpathandprogression is null ? default : (string?)Helper.GetHtmlWithoutInlineCss(contentItem.Content.JobProfile.Careerpathandprogression.Html),
                     CourseKeywords = contentItem.Content.JobProfile.Coursekeywords is null ? default : (string?)contentItem.Content.JobProfile.Coursekeywords.Text,
 
                     HowToBecomeData = await _howToBecomeMessageConverter.ConvertFromAsync(contentItem),
