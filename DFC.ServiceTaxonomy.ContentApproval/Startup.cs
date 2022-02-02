@@ -52,11 +52,6 @@ namespace DFC.ServiceTaxonomy.ContentApproval
             services.AddTransient<IContentsAdminListFilterProvider, ContentApprovalPartContentsAdminListFilterProvider>();
             services.AddScoped<IDisplayDriver<ContentOptionsViewModel>, ContentApprovalContentsAdminListFilterDisplayDriver>();
 
-            //services.AddScoped<DefaultContentsAdminListFilter>();
-            //services.AddScoped<IContentsAdminListFilter, ReviewStatusContentsAdminListFilter>();
-            //services.AddScoped<IContentsAdminListFilter, ReviewTypeContentsAdminListFilter>();
-            //services.AddScoped<IDisplayDriver<ContentOptionsViewModel>, ReviewTypeContentsAdminListFilterDisplayDriver>();
-
             services.AddScoped<IAuditTrailEventHandler, ContentApprovalAuditTrailEventHandler>();
         }
 

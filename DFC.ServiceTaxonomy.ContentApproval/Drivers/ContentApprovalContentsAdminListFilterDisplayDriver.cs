@@ -1,6 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
-using DFC.ServiceTaxonomy.ContentApproval.Extensions;
 using DFC.ServiceTaxonomy.ContentApproval.Models;
 using DFC.ServiceTaxonomy.ContentApproval.Models.Enums;
 using DFC.ServiceTaxonomy.ContentApproval.ViewModels;
@@ -37,7 +40,7 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Drivers
 
         public override IDisplayResult Edit(ContentOptionsViewModel model, IUpdateModel updater)
         {
-            return Initialize<ContentApprovalContentsAdminListFilterViewModel>("ContentsAdminList__ReviewStatusFilter", m =>
+            return Initialize<ContentApprovalContentsAdminListFilterViewModel>("ContentsAdminList__ContentApprovalFilter", m =>
             {
                 model.FilterResult.MapTo(m);
 
@@ -46,7 +49,7 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Drivers
                         new SelectListItem { Text = S["All review statuses"], Value = "", Selected = string.IsNullOrEmpty(m.SelectedReviewStatus?.ToString())},
                     };
 
-                reviewStatuses.AddRange(EnumExtensions.GetSelectList(typeof(ReviewStatusFilterOptions), m.SelectedReviewStatus?.ToString()));
+                reviewStatuses.AddRange(GetSelectList(typeof(ReviewStatusFilterOptions), m.SelectedReviewStatus?.ToString()));
                 m.ReviewStatuses = reviewStatuses;
 
                 var reviewTypes = new List<SelectListItem>
@@ -54,11 +57,21 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Drivers
                         new SelectListItem { Text = S["All reviewer types"], Value = "" , Selected = string.IsNullOrEmpty(m.SelectedReviewType?.ToString())},
                     };
 
-                reviewTypes.AddRange(EnumExtensions.GetSelectList(typeof(ReviewType), m.SelectedReviewType?.ToString()));
+                reviewTypes.AddRange(GetSelectList(typeof(ReviewType), m.SelectedReviewType?.ToString()));
                 m.ReviewTypes = reviewTypes;
 
             }).Location("Actions:20");
         }
+
+        private static IEnumerable<SelectListItem> GetSelectList(Type enumType, string? selectedValue)
+        {
+            FieldInfo[] enumFields = enumType.GetFields(BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic);
+
+            return enumFields.Select(fi => (fi, da: fi.GetCustomAttribute<DisplayAttribute>()))
+                .OrderBy(v => v.da?.Order ?? -1)
+                .Select(v => new SelectListItem(v.da?.Name ?? v.fi.Name, v.fi.Name.ToLower(), !string.IsNullOrEmpty(selectedValue) && v.fi.Name.Equals(selectedValue, StringComparison.InvariantCultureIgnoreCase)));
+        }
+
 
         public override async Task<IDisplayResult> UpdateAsync(ContentOptionsViewModel model, IUpdateModel updater)
         {
@@ -67,6 +80,7 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Drivers
             {
                 model?.FilterResult?.MapFrom(viewModel);
             }
+            // Code conventions in STAX clashing with Orchard Core approach
 #pragma warning disable AsyncFixer02 // Long-running or blocking operations inside an async method
 #pragma warning disable CS8604 // Possible null reference argument.
             return Edit(model, updater);

@@ -48,9 +48,9 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Services
                     {
                         if (model.SelectedReviewStatus.HasValue)
                         {
-                            return (true, model.SelectedReviewStatus.ToString());
+                            return (true, model?.SelectedReviewStatus?.ToString().ToLower());
                         }
-                        return (false, String.Empty);
+                        return (false, string.Empty);
                     })
                 )
                 .WithNamedTerm("reviewtype", builder => builder
@@ -73,9 +73,9 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Services
                     {
                         if(model.SelectedReviewType.HasValue)
                         {
-                            return (true, model.SelectedReviewType.ToString());
+                            return (true, model?.SelectedReviewType?.ToString().ToLower());
                         }
-                        return (false, String.Empty);
+                        return (false, string.Empty);
                     })
                 );
         }
