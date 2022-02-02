@@ -134,17 +134,30 @@
                         "FullTextAspectSettings": {}
                     },
                     "ContentTypePartDefinitionRecords": [
+					    {
+                            "PartName": "UniqueTitlePart",
+                            "Name": "UniqueTitlePart",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "0"
+                                },
+                                "UniqueTitlePartSettings": {
+                                    "Placeholder": "on call"
+                                },
+                                "ContentIndexSettings": {}
+                            }
+                        },
                         {
                             "PartName": "TitlePart",
                             "Name": "TitlePart",
                             "Settings": {
                                 "ContentTypePartSettings": {
-                                    "Position": "0"
+                                    "Position": "1"
                                 },
-                                "GraphQLContentTypePartSettings": {},
                                 "ContentIndexSettings": {},
                                 "TitlePartSettings": {
-                                    "Options": 3
+                                    "Options": 2,
+                                    "Pattern": "{{ Model.ContentItem.Content.UniqueTitlePart.Title }}"
                                 }
                             }
                         },
@@ -153,7 +166,7 @@
                             "Name": "HiddenAlternativeTitle",
                             "Settings": {
                                 "ContentTypePartSettings": {
-                                    "Position": "1"
+                                    "Position": "2"
                                 }
                             }
                         },
@@ -162,7 +175,7 @@
                             "Name": "GraphSyncPart",
                             "Settings": {
                                 "ContentTypePartSettings": {
-                                    "Position": "2"
+                                    "Position": "3"
                                 },
                                 "GraphQLContentTypePartSettings": {},
                                 "GraphSyncPartSettings": {
@@ -180,7 +193,7 @@
                             "Name": "AuditTrailPart",
                             "Settings": {
                                 "ContentTypePartSettings": {
-                                    "Position": "3"
+                                    "Position": "4"
                                 },
                                 "AuditTrailPartSettings": {
                                     "ShowCommentInput": false
@@ -2411,7 +2424,6 @@
                                     "Position": "7"
                                 },
                                 "ContentPickerFieldSettings": {
-                                    "Multiple": true,
                                     "DisplayedContentTypes": [
                                         "WorkingHoursDetail"
                                     ]
@@ -2428,7 +2440,6 @@
                                     "Position": "8"
                                 },
                                 "ContentPickerFieldSettings": {
-                                    "Multiple": true,
                                     "DisplayedContentTypes": [
                                         "WorkingPatterns"
                                     ]
@@ -2445,7 +2456,6 @@
                                     "Position": "9"
                                 },
                                 "ContentPickerFieldSettings": {
-                                    "Multiple": true,
                                     "DisplayedContentTypes": [
                                         "WorkingPatternDetail"
                                     ]
