@@ -3,7 +3,9 @@
 
 <div class="form-group mb-n1 filter">
     <div class="btn-group mt-1">
-        <select asp-for="SelectedReviewStatus" asp-items="Model.ReviewStatuses" class="selectpicker culture-selectpicker show-tick mr-2" data-header="@T["Filter by review status"]" data-live-search="true" data-selected-text-format="static" data-width="fit" title="@T["Review Status"]" data-style="btn-sm">
+        <select asp-for="SelectedReviewStatus" asp-items="Model.ReviewStatuses" class="selectpicker reviewstatuses-selectpicker show-tick mr-2" data-header="@T["Filter by review status"]" data-live-search="true" data-selected-text-format="static" data-width="fit" title="@T["Review Status"]" data-style="btn-sm">
+        </select>
+        <select asp-for="SelectedReviewType" asp-items="Model.ReviewTypes" class="selectpicker reviewtypes-selectpicker show-tick mr-2" data-header="@T["Filter by reviewer types"]" data-live-search="true" data-selected-text-format="static" data-width="fit" title="@T["Reviewer Types"]" data-style="btn-sm">
         </select>
     </div>
 </div>

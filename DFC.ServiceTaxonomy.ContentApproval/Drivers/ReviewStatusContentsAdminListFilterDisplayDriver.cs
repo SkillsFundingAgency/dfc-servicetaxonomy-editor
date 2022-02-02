@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.ContentApproval.Extensions;
 using DFC.ServiceTaxonomy.ContentApproval.Models;
 using DFC.ServiceTaxonomy.ContentApproval.Models.Enums;
-using DFC.ServiceTaxonomy.ContentApproval.Services;
+using DFC.ServiceTaxonomy.ContentApproval.ViewModels;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Localization;
 using OrchardCore.Contents.ViewModels;
@@ -29,13 +29,18 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Drivers
         }
 
         public override IDisplayResult Display(ContentOptionsViewModel model)
-            => View("ContentsAdminFilters_Thumbnail__ContentApproval", model).Location("Thumbnail", "Content:20.1");
+        {
+            return Combine(
+                View("ContentsAdminFilters_Thumbnail__ReviewStatus", model).Location("Thumbnail", "Content:50"),
+                View("ContentsAdminFilters_Thumbnail__ReviewType", model).Location("Thumbnail", "Content:60"));
+        }
 
         public override IDisplayResult Edit(ContentOptionsViewModel model, IUpdateModel updater)
         {
             return Initialize<ContentApprovalContentsAdminListFilterViewModel>("ContentsAdminList__ReviewStatusFilter", m =>
             {
                 model.FilterResult.MapTo(m);
+
                 var reviewStatuses = new List<SelectListItem>
                     {
                         new SelectListItem { Text = S["All review statuses"], Value = "", Selected = string.IsNullOrEmpty(m.SelectedReviewStatus?.ToString())},
@@ -43,6 +48,15 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Drivers
 
                 reviewStatuses.AddRange(EnumExtensions.GetSelectList(typeof(ReviewStatusFilterOptions), m.SelectedReviewStatus?.ToString()));
                 m.ReviewStatuses = reviewStatuses;
+
+                var reviewTypes = new List<SelectListItem>
+                    {
+                        new SelectListItem { Text = S["All reviewer types"], Value = "" , Selected = string.IsNullOrEmpty(m.SelectedReviewType?.ToString())},
+                    };
+
+                reviewTypes.AddRange(EnumExtensions.GetSelectList(typeof(ReviewType), m.SelectedReviewType?.ToString()));
+                m.ReviewTypes = reviewTypes;
+
             }).Location("Actions:20");
         }
 
