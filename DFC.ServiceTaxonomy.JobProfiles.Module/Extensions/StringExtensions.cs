@@ -7,10 +7,8 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module.Extensions
     {
         public static string HTMLToText(this string htmlString)
         {
-            // Remove new lines since they are not visible in HTML
-            htmlString = htmlString.Replace("\n", " ");
-            // Remove tab spaces
-            htmlString = htmlString.Replace("\t", " ");
+            // Remove new lines since they are not visible in HTML and Remove tab spaces
+            htmlString = htmlString.Replace("\n", " ").Replace("\t", " ");
             // Remove multiple white spaces from HTML
             htmlString = Regex.Replace(htmlString, "\\s+", " ");
             // Remove HEAD tag
@@ -30,11 +28,12 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module.Extensions
                 sbHTML.Replace(OldWords[i], NewWords[i]);
             }
             // Check if there are line breaks (<br>) or paragraph (<p>)
+            sbHTML = new StringBuilder(Regex.Replace(sbHTML.ToString(), "^<ul><li>|</li></ul>$", ""));
             sbHTML.Replace("<br>", "\n<br>");
             sbHTML.Replace("<br ", "\n<br ");
-            sbHTML.Replace("</p> ", "  </p>");
-            sbHTML.Replace("<li ", "  <li");
-            sbHTML.Replace("<ul ", "  <ul");
+            sbHTML.Replace("</p>", "  </p>");
+            sbHTML.Replace("<li", "  <li");
+            sbHTML.Replace("<ul", "  <ul");
             //sbHTML.Replace("<p ", "\n<p ");
             // Finally, remove all HTML tags and return plain text
             return Regex.Replace(

@@ -129,9 +129,9 @@ public DataEventProcessor(IServiceBusMessageProcessor serviceBusMessageProcessor
             IList<WhatYouWillDoContentItem> jobprofileData = new List<WhatYouWillDoContentItem>();
             string fieldDescription = context.ContentItem.ContentType switch
             {
-                ContentTypes.Environment => Helper.GetHtmlWithoutInlineCss(context.ContentItem.Content.Environment.Description.Html),
-                ContentTypes.Uniform => Helper.GetHtmlWithoutInlineCss(context.ContentItem.Content.Uniform.Description.Html),
-                ContentTypes.Location => Helper.GetHtmlWithoutInlineCss(context.ContentItem.Content.Location.Description.Html),
+                ContentTypes.Environment => Helper.SanitiseHtml(context.ContentItem.Content.Environment.Description.Html),
+                ContentTypes.Uniform => Helper.SanitiseHtml(context.ContentItem.Content.Uniform.Description.Html),
+                ContentTypes.Location => Helper.SanitiseHtml(context.ContentItem.Content.Location.Description.Html),
                 _ => throw new ArgumentException("No valid match found"),
             };
 
@@ -227,11 +227,11 @@ public DataEventProcessor(IServiceBusMessageProcessor serviceBusMessageProcessor
             IList<InfoContentItem> jobprofileData = new List<InfoContentItem>();
             string fieldInfo = context.ContentItem.ContentType switch
             {
-                ContentTypes.Restriction => Helper.GetHtmlWithoutInlineCss(context.ContentItem.Content.Restriction.Info.Html),
-                ContentTypes.Registration => Helper.GetHtmlWithoutInlineCss(context.ContentItem.Content.Registration.Info.Html),
-                ContentTypes.ApprenticeshipRequirements => Helper.GetHtmlWithoutInlineCss(context.ContentItem.Content.ApprenticeshipRequirements.Info.Html),
-                ContentTypes.CollegeRequirements => Helper.GetHtmlWithoutInlineCss(context.ContentItem.Content.CollegeRequirements.Info.Html),
-                ContentTypes.UniversityRequirements => Helper.GetHtmlWithoutInlineCss(context.ContentItem.Content.UniversityRequirements.Info.Html),
+                ContentTypes.Restriction => Helper.SanitiseHtml(context.ContentItem.Content.Restriction.Info.Html),
+                ContentTypes.Registration => Helper.SanitiseHtml(context.ContentItem.Content.Registration.Info.Html),
+                ContentTypes.ApprenticeshipRequirements => Helper.SanitiseHtml(context.ContentItem.Content.ApprenticeshipRequirements.Info.Html),
+                ContentTypes.CollegeRequirements => Helper.SanitiseHtml(context.ContentItem.Content.CollegeRequirements.Info.Html),
+                ContentTypes.UniversityRequirements => Helper.SanitiseHtml(context.ContentItem.Content.UniversityRequirements.Info.Html),
                 _ => throw new ArgumentException("No valid match found"),
             };
 

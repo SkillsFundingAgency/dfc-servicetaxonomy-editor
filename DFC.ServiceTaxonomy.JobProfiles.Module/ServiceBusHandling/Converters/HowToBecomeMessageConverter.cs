@@ -21,7 +21,7 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module.ServiceBusHandling.Converters
 
         public async Task<HowToBecomeData> ConvertFromAsync(ContentItem contentItem)
         {
-            var contentManager = _serviceProvider.GetRequiredService<IContentManager>();
+        var contentManager = _serviceProvider.GetRequiredService<IContentManager>();
             IEnumerable<ContentItem> universityEntryRequirements = await Helper.GetContentItemsAsync(contentItem.Content.JobProfile.UniversityEntryRequirements, contentManager);
             IEnumerable<ContentItem> relatedUniversityRequirements = await Helper.GetContentItemsAsync(contentItem.Content.JobProfile.RelatedUniversityRequirements, contentManager);
             IEnumerable<ContentItem> relatedUniversityLinks = await Helper.GetContentItemsAsync(contentItem.Content.JobProfile.RelatedUniversityLinks, contentManager);
@@ -36,19 +36,19 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module.ServiceBusHandling.Converters
 
             var howToBecomeData = new HowToBecomeData
             {
-                IntroText = Helper.GetHtmlWithoutInlineCss(contentItem.Content.JobProfile.Entryroutes.Html),
+                IntroText = Helper.SanitiseHtmlWithPTag(contentItem.Content.JobProfile.Entryroutes.Html),
                 FurtherRoutes = new FurtherRoutes
                 {
-                    Work = Helper.GetHtmlWithoutInlineCss(contentItem.Content.JobProfile.Work.Html),
-                    Volunteering = Helper.GetHtmlWithoutInlineCss(contentItem.Content.JobProfile.Volunteering.Html),
-                    DirectApplication = Helper.GetHtmlWithoutInlineCss(contentItem.Content.JobProfile.Directapplication.Html),
-                    OtherRoutes = Helper.GetHtmlWithoutInlineCss(contentItem.Content.JobProfile.Otherroutes.Html)
+                    Work = Helper.SanitiseHtmlWithPTag(contentItem.Content.JobProfile.Work.Html),
+                    Volunteering = Helper.SanitiseHtmlWithPTag(contentItem.Content.JobProfile.Volunteering.Html),
+                    DirectApplication = Helper.SanitiseHtmlWithPTag(contentItem.Content.JobProfile.Directapplication.Html),
+                    OtherRoutes = Helper.SanitiseHtmlWithPTag(contentItem.Content.JobProfile.Otherroutes.Html)
                 },
                 FurtherInformation = new MoreInformation
                 {
-                    ProfessionalAndIndustryBodies = Helper.GetHtmlWithoutInlineCss(contentItem.Content.JobProfile.Professionalandindustrybodies.Html),
-                    CareerTips = Helper.GetHtmlWithoutInlineCss(contentItem.Content.JobProfile.Careertips.Html),
-                    FurtherInformation = Helper.GetHtmlWithoutInlineCss(contentItem.Content.JobProfile.Furtherinformation.Html),
+                    ProfessionalAndIndustryBodies = Helper.SanitiseHtmlWithPTag(contentItem.Content.JobProfile.Professionalandindustrybodies.Html),
+                    CareerTips = Helper.SanitiseHtmlWithPTag(contentItem.Content.JobProfile.Careertips.Html),
+                    FurtherInformation = Helper.SanitiseHtmlWithPTag(contentItem.Content.JobProfile.Furtherinformation.Html),
                 },
                 RouteEntries = new List<RouteEntryItem>
                 {
@@ -56,8 +56,8 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module.ServiceBusHandling.Converters
                     new RouteEntryItem
                     {
                         RouteName = RouteEntryType.University,
-                        RouteSubjects = Helper.GetHtmlWithoutInlineCss(contentItem.Content.JobProfile.Universityrelevantsubjects.Html),
-                        FurtherRouteInformation = Helper.GetHtmlWithoutInlineCss(contentItem.Content.JobProfile.Universityfurtherrouteinfo.Html),
+                        RouteSubjects = Helper.SanitiseHtmlWithPTag(contentItem.Content.JobProfile.Universityrelevantsubjects.Html),
+                        FurtherRouteInformation = Helper.SanitiseHtml(contentItem.Content.JobProfile.Universityfurtherrouteinfo.Html),
                         RouteRequirement = universityEntryRequirements.FirstOrDefault()?.As<TitlePart>().Title ?? string.Empty,
                         EntryRequirements = GetEntryRequirements(relatedUniversityRequirements),
                         MoreInformationLinks = GetRelatedLinkItems(relatedUniversityLinks)
@@ -67,8 +67,8 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module.ServiceBusHandling.Converters
                     new RouteEntryItem
                     {
                         RouteName = RouteEntryType.College,
-                        RouteSubjects = Helper.GetHtmlWithoutInlineCss(contentItem.Content.JobProfile.Collegerelevantsubjects.Html),
-                        FurtherRouteInformation = Helper.GetHtmlWithoutInlineCss(contentItem.Content.JobProfile.Collegefurtherrouteinfo.Html),
+                        RouteSubjects = Helper.SanitiseHtmlWithPTag(contentItem.Content.JobProfile.Collegerelevantsubjects.Html),
+                        FurtherRouteInformation = Helper.SanitiseHtml(contentItem.Content.JobProfile.Collegefurtherrouteinfo.Html),
                         RouteRequirement = collegeEntryRequirements.FirstOrDefault()?.As<TitlePart>().Title ?? string.Empty,
                         EntryRequirements = GetEntryRequirements(relatedCollegeRequirements),
                         MoreInformationLinks = GetRelatedLinkItems(relatedCollegeLinks)
@@ -79,8 +79,8 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module.ServiceBusHandling.Converters
                     new RouteEntryItem
                     {
                         RouteName = RouteEntryType.Apprenticeship,
-                        RouteSubjects = Helper.GetHtmlWithoutInlineCss(contentItem.Content.JobProfile.Apprenticeshiprelevantsubjects.Html),
-                        FurtherRouteInformation = Helper.GetHtmlWithoutInlineCss(contentItem.Content.JobProfile.Apprenticeshipfurtherroutesinfo.Html),
+                        RouteSubjects = Helper.SanitiseHtmlWithPTag(contentItem.Content.JobProfile.Apprenticeshiprelevantsubjects.Html),
+                        FurtherRouteInformation = Helper.SanitiseHtml(contentItem.Content.JobProfile.Apprenticeshipfurtherroutesinfo.Html),
                         RouteRequirement = apprenticeshipEntryRequirements.FirstOrDefault()?.As<TitlePart>().Title ?? string.Empty,
                         EntryRequirements = GetEntryRequirements(relatedApprenticeshipRequirements),
                         MoreInformationLinks = GetRelatedLinkItems(relatedApprenticeshipLinks)
@@ -96,7 +96,7 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module.ServiceBusHandling.Converters
             {
                 Id = contentItem.As<GraphSyncPart>().ExtractGuid(),
                 Title = contentItem.As<TitlePart>().Title,
-                Info = Helper.GetHtmlWithoutInlineCss(contentItem.Content.Registration.Description.Html)
+                Info = Helper.SanitiseHtmlWithPTag(contentItem.Content.Registration.Description.Html)
             }) ?? Enumerable.Empty<RegistrationItem>();
 
         private static IEnumerable<MoreInformationLinkItem> GetRelatedLinkItems(IEnumerable<ContentItem> contentItems) =>
@@ -145,9 +145,9 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module.ServiceBusHandling.Converters
         private static string GetEntryRequirementInfo(ContentItem contentItem) =>
             contentItem.ContentType switch
             {
-                ContentTypes.UniversityRequirements => Helper.GetHtmlWithoutInlineCss(contentItem.Content.UniversityRequirements.Info.Html),
-                ContentTypes.CollegeRequirements => Helper.GetHtmlWithoutInlineCss(contentItem.Content.CollegeRequirements.Info.Html),
-                ContentTypes.ApprenticeshipRequirements => Helper.GetHtmlWithoutInlineCss(contentItem.Content.ApprenticeshipRequirements.Info.Html),
+                ContentTypes.UniversityRequirements => Helper.SanitiseHtml(contentItem.Content.UniversityRequirements.Info.Html),
+                ContentTypes.CollegeRequirements => Helper.SanitiseHtml(contentItem.Content.CollegeRequirements.Info.Html),
+                ContentTypes.ApprenticeshipRequirements => Helper.SanitiseHtml(contentItem.Content.ApprenticeshipRequirements.Info.Html),
                 _ => string.Empty,
             };
 
