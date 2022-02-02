@@ -56,7 +56,7 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module.ServiceBusHandling.Converters
             contentItems?.Select(contentItem => new WYDRelatedContentType
             {
                 Id = contentItem.As<GraphSyncPart>().ExtractGuid(),
-                Url = contentItem.Content.GraphSyncPart.Text,
+                Url = string.Empty, //contentItem.Content.GraphSyncPart.Text,
                 Description = GetWYDRelatedItemDescription(contentItem),
                 Title = contentItem.As<TitlePart>().Title,
             }) ?? Enumerable.Empty<WYDRelatedContentType>();
