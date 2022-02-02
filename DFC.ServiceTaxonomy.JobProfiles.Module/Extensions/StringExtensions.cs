@@ -29,12 +29,7 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module.Extensions
             }
             // Check if there are line breaks (<br>) or paragraph (<p>)
             sbHTML = new StringBuilder(Regex.Replace(sbHTML.ToString(), "^<ul><li>|</li></ul>$", ""));
-            sbHTML.Replace("<br>", "\n<br>");
-            sbHTML.Replace("<br ", "\n<br ");
-            sbHTML.Replace("</p>", "  </p>");
-            sbHTML.Replace("<li", "  <li");
-            sbHTML.Replace("<ul", "  <ul");
-            //sbHTML.Replace("<p ", "\n<p ");
+            sbHTML.Replace("<br>", "\n<br>").Replace("<br ", "\n<br ").Replace("</p>", "  </p>").Replace("<li", "  <li").Replace("<ul", "  <ul");
             // Finally, remove all HTML tags and return plain text
             return Regex.Replace(
               sbHTML.ToString(), "<[^>]*>", "");
