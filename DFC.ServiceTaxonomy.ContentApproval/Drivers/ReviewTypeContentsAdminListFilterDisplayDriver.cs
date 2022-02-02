@@ -18,7 +18,7 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Drivers
         private readonly IStringLocalizer S;
 
         public ReviewTypeContentsAdminListFilterDisplayDriver(
-            IStringLocalizer<ReviewStatusContentsAdminListFilterDisplayDriver> stringLocalizer)
+            IStringLocalizer<ReviewTypeContentsAdminListFilterDisplayDriver> stringLocalizer)
         {
             S = stringLocalizer;
         }

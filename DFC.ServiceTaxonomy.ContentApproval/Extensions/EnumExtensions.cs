@@ -10,13 +10,13 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Extensions
     public static class EnumExtensions
     {
         //todo: move out of this class?
-        public static IEnumerable<SelectListItem> GetSelectList(Type enumType)
+        public static IEnumerable<SelectListItem> GetSelectList(Type enumType, string? selectedValue = null)
         {
             FieldInfo[] enumFields = enumType.GetFields(BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic);
 
             return enumFields.Select(fi => (fi, da:fi.GetCustomAttribute<DisplayAttribute>()))
                 .OrderBy(v => v.da?.Order ?? -1)
-                .Select(v => new SelectListItem(v.da?.Name ?? v.fi.Name, v.fi.Name));
+                .Select(v => new SelectListItem(v.da?.Name ?? v.fi.Name, v.fi.Name, !string.IsNullOrEmpty(selectedValue) && v.fi.Name == selectedValue));
         }
 
         public static Dictionary<string, string> GetEnumNameAndDisplayNameDictionary(Type enumType)

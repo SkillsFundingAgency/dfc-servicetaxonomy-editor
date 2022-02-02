@@ -1,8 +1,9 @@
-﻿@model ReviewStatusContentsAdminListFilterViewModel
+﻿@using DFC.ServiceTaxonomy.ContentApproval.Services
+@model ContentApprovalContentsAdminListFilterViewModel
 
 <div class="form-group mb-n1 filter">
     <div class="btn-group mt-1">
-        <select asp-for="SelectedApprovalStatus" asp-items="Model.ApprovalStatuses" class="selectpicker show-tick mr-2" data-header="@T["Filter by review status"]" data-live-search="true" data-selected-text-format="static" data-width="fit" title="@T["Review Status"]" data-style="btn-sm">
+        <select asp-for="SelectedReviewStatus" asp-items="Model.ReviewStatuses" class="selectpicker culture-selectpicker show-tick mr-2" data-header="@T["Filter by review status"]" data-live-search="true" data-selected-text-format="static" data-width="fit" title="@T["Review Status"]" data-style="btn-sm">
         </select>
     </div>
 </div>

@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.ContentApproval.Extensions;
 using DFC.ServiceTaxonomy.ContentApproval.Models;
 using DFC.ServiceTaxonomy.ContentApproval.Models.Enums;
-using DFC.ServiceTaxonomy.ContentApproval.ViewModels;
+using DFC.ServiceTaxonomy.ContentApproval.Services;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Localization;
 using OrchardCore.Contents.ViewModels;
@@ -13,12 +13,12 @@ using OrchardCore.DisplayManagement.Views;
 
 namespace DFC.ServiceTaxonomy.ContentApproval.Drivers
 {
-    public class ReviewStatusContentsAdminListFilterDisplayDriver : DisplayDriver<ContentOptionsViewModel>
+    public class ContentApprovalContentsAdminListFilterDisplayDriver : DisplayDriver<ContentOptionsViewModel>
     {
         private readonly IStringLocalizer S;
 
-        public ReviewStatusContentsAdminListFilterDisplayDriver(
-            IStringLocalizer<ReviewStatusContentsAdminListFilterDisplayDriver> stringLocalizer)
+        public ContentApprovalContentsAdminListFilterDisplayDriver(
+            IStringLocalizer<ContentApprovalContentsAdminListFilterDisplayDriver> stringLocalizer)
         {
             S = stringLocalizer;
         }
@@ -28,32 +28,36 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Drivers
             Prefix = Constants.ContentApprovalPartPrefix;
         }
 
+        public override IDisplayResult Display(ContentOptionsViewModel model)
+            => View("ContentsAdminFilters_Thumbnail__ContentApproval", model).Location("Thumbnail", "Content:20.1");
+
         public override IDisplayResult Edit(ContentOptionsViewModel model, IUpdateModel updater)
         {
-            return Initialize<ReviewStatusContentsAdminListFilterViewModel>("ContentsAdminList__ReviewStatusFilter", m =>
-                {
-                    var approvalStatuses = new List<SelectListItem>
+            return Initialize<ContentApprovalContentsAdminListFilterViewModel>("ContentsAdminList__ReviewStatusFilter", m =>
+            {
+                model.FilterResult.MapTo(m);
+                var reviewStatuses = new List<SelectListItem>
                     {
-                        new SelectListItem { Text = S["All review statuses"], Value = "" },
+                        new SelectListItem { Text = S["All review statuses"], Value = "", Selected = string.IsNullOrEmpty(m.SelectedReviewStatus?.ToString())},
                     };
 
-                    approvalStatuses.AddRange(EnumExtensions.GetSelectList(typeof(ReviewStatusFilterOptions)));
-
-                    m.ApprovalStatuses = approvalStatuses;
-                }).Location("Actions:25");
+                reviewStatuses.AddRange(EnumExtensions.GetSelectList(typeof(ReviewStatusFilterOptions), m.SelectedReviewStatus?.ToString()));
+                m.ReviewStatuses = reviewStatuses;
+            }).Location("Actions:20");
         }
 
         public override async Task<IDisplayResult> UpdateAsync(ContentOptionsViewModel model, IUpdateModel updater)
         {
-            var viewModel = new ReviewStatusContentsAdminListFilterViewModel();
-
-            if (await updater.TryUpdateModelAsync(viewModel, Constants.ContentApprovalPartPrefix)
-                && viewModel.SelectedApprovalStatus != null)
+            var viewModel = new ContentApprovalContentsAdminListFilterViewModel();
+            if(await updater.TryUpdateModelAsync(viewModel, Constants.ContentApprovalPartPrefix))
             {
-                model.RouteValues.TryAdd($"{Constants.ContentApprovalPartPrefix}.SelectedApprovalStatus", viewModel.SelectedApprovalStatus);
+                model?.FilterResult?.MapFrom(viewModel);
             }
-
-            return await EditAsync(model, updater);
+#pragma warning disable AsyncFixer02 // Long-running or blocking operations inside an async method
+#pragma warning disable CS8604 // Possible null reference argument.
+            return Edit(model, updater);
+#pragma warning restore CS8604 // Possible null reference argument.
+#pragma warning restore AsyncFixer02 // Long-running or blocking operations inside an async method
         }
     }
 }

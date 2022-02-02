@@ -15,6 +15,7 @@ using OrchardCore.ContentManagement;
 using OrchardCore.ContentManagement.Display.ContentDisplay;
 using OrchardCore.Contents.Services;
 using OrchardCore.Contents.ViewModels;
+//using OrchardCore.Contents.ViewModels;
 //using OrchardCore.ContentManagement;
 //using OrchardCore.ContentManagement.Display.ContentDisplay;
 //using OrchardCore.Contents.Services;
@@ -54,14 +55,16 @@ namespace DFC.ServiceTaxonomy.ContentApproval
 
             services.AddScoped<IContentItemsApprovalService, ContentItemsApprovalService>();
 
-            //services.AddScoped<DefaultContentsAdminListFilter>();
 
             // contents admin list filters
-            services.AddScoped<IContentsAdminListFilter, ReviewStatusContentsAdminListFilter>();
-            services.AddScoped<IDisplayDriver<ContentOptionsViewModel>, ReviewStatusContentsAdminListFilterDisplayDriver>();
+            services.AddScoped<IContentsAdminListFilter, ContentApprovalPartContentsAdminListFilter>();
+            services.AddTransient<IContentsAdminListFilterProvider, ContentApprovalPartContentsAdminListFilterProvider>();
+            services.AddScoped<IDisplayDriver<ContentOptionsViewModel>, ContentApprovalContentsAdminListFilterDisplayDriver>();
 
-            services.AddScoped<IContentsAdminListFilter, ReviewTypeContentsAdminListFilter>();
-            services.AddScoped<IDisplayDriver<ContentOptionsViewModel>, ReviewTypeContentsAdminListFilterDisplayDriver>();
+            //services.AddScoped<DefaultContentsAdminListFilter>();
+            //services.AddScoped<IContentsAdminListFilter, ReviewStatusContentsAdminListFilter>();
+            //services.AddScoped<IContentsAdminListFilter, ReviewTypeContentsAdminListFilter>();
+            //services.AddScoped<IDisplayDriver<ContentOptionsViewModel>, ReviewTypeContentsAdminListFilterDisplayDriver>();
 
             services.AddScoped<IAuditTrailEventHandler, ContentApprovalAuditTrailEventHandler>();
         }
