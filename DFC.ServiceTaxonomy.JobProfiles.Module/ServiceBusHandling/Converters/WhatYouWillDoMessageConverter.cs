@@ -38,7 +38,7 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module.ServiceBusHandling.Converters
 
                 var whatYouWillDoData = new WhatYouWillDoData
                 {
-                    DailyTasks = contentItem.Content.JobProfile.Daytodaytasks.Html,
+                    DailyTasks = Helper.SanitiseHtmlWithPTag(contentItem.Content.JobProfile.Daytodaytasks.Html),
                     Locations = GetWYDRelatedItems(relatedLocations),
                     Environments = GetWYDRelatedItems(relatedEnvironments),
                     Uniforms = GetWYDRelatedItems(relatedUniforms)
@@ -56,7 +56,7 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module.ServiceBusHandling.Converters
             contentItems?.Select(contentItem => new WYDRelatedContentType
             {
                 Id = contentItem.As<GraphSyncPart>().ExtractGuid(),
-                Url = contentItem.Content.GraphSyncPart.Text,
+                Url = string.Empty, //contentItem.Content.GraphSyncPart.Text,
                 Description = GetWYDRelatedItemDescription(contentItem),
                 Title = contentItem.As<TitlePart>().Title,
             }) ?? Enumerable.Empty<WYDRelatedContentType>();
@@ -64,9 +64,9 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module.ServiceBusHandling.Converters
         private static string GetWYDRelatedItemDescription(ContentItem contentItem) =>
             contentItem.ContentType switch
             {
-                ContentTypes.Location => contentItem.Content.Location.Description.Html,
-                ContentTypes.Environment => contentItem.Content.Environment.Description.Html,
-                ContentTypes.Uniform => contentItem.Content.Uniform.Description.Html,
+                ContentTypes.Location => Helper.SanitiseHtml(contentItem.Content.Location.Description.Html),
+                ContentTypes.Environment => Helper.SanitiseHtml(contentItem.Content.Environment.Description.Html),
+                ContentTypes.Uniform => Helper.SanitiseHtml(contentItem.Content.Uniform.Description.Html),
                 _ => string.Empty,
             };
     }

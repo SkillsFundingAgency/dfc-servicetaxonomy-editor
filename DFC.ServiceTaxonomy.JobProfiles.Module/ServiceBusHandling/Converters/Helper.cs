@@ -106,7 +106,27 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module.ServiceBusHandling.Converters
            contentItem.ContentType switch
            {
                ContentTypes.ApprenticeshipStandard => contentItem.Content.ApprenticeshipStandard.LARScode.Text,
+               ContentTypes.WorkingPatternDetail => GetHyphenatedString(contentItem.As<TitlePart>().Title),
+               ContentTypes.WorkingHoursDetail => GetHyphenatedString(contentItem.As<TitlePart>().Title),
+               ContentTypes.WorkingPatterns => GetHyphenatedString(contentItem.As<TitlePart>().Title),
                _ => string.Empty,
            };
+
+        public static string SanitiseHtml(dynamic html)
+        {
+            string htmlString = ((string)html).Replace("<br>", "");
+            return Regex.Replace(htmlString, "<p[^>]*>|</p[^>]*>|</span[^>]*>|<span[^>]*>|^<ul><li>|</li></ul>$", "");
+        }
+
+        public static string SanitiseHtmlWithPTag(dynamic html)
+        {
+            string htmlString = ((string)html).Replace("<br>", "").Replace("&nbsp;", " ");
+            return Regex.Replace(htmlString, "</span[^>]*>|<span[^>]*>|^<ul><li>|</li></ul>$", "");
+        }
+
+        private static string GetHyphenatedString(string url)
+        {
+            return url.Replace(" ", "-");
+        }
     }
 }

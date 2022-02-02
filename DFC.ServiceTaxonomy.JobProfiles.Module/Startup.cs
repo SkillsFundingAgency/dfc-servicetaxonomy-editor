@@ -66,6 +66,11 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module
 
             // Index Providers
             services.AddSingleton<IIndexProvider, JobProfileIndexProvider>();
+
+            services.ConfigureHtmlSanitizer((sanitizer) =>
+            {
+                sanitizer.AllowedAttributes.Remove("style");
+            });
         }
     }
 }
