@@ -150,7 +150,7 @@ public DataEventProcessor(IServiceBusMessageProcessor serviceBusMessageProcessor
                         Description = fieldDescription,
                         JobProfileId = Guid.Parse(item.GraphSyncPartId ?? string.Empty),
                         JobProfileTitle = item.JobProfileTitle,
-                        Url = Helper.GetSlugValue(fieldDescription, true, true),
+                        Url = Helper.GetSlugValue(fieldDescription),
                         IsNegative = false
                     });
                 }
@@ -289,14 +289,14 @@ public DataEventProcessor(IServiceBusMessageProcessor serviceBusMessageProcessor
 
             string urlString = context.ContentItem.ContentType switch
             {
-                ContentTypes.WorkingHoursDetail => Helper.GetSlugValue((string)context.ContentItem.Content.TitlePart.Title, false, false, true),
-                ContentTypes.WorkingPatterns => Helper.GetSlugValue((string)context.ContentItem.Content.TitlePart.Title, false, false, true),
-                ContentTypes.HiddenAlternativeTitle => Helper.GetSlugValue((string)context.ContentItem.Content.TitlePart.Title, false, false, true),
-                ContentTypes.WorkingPatternDetail => Helper.GetSlugValue((string)context.ContentItem.Content.TitlePart.Title, false, false, true),
-                ContentTypes.UniversityEntryRequirements => Helper.GetSlugValue((string)context.ContentItem.Content.TitlePart.Title, false, true, true),
-                ContentTypes.CollegeEntryRequirements => Helper.GetSlugValue((string)context.ContentItem.Content.TitlePart.Title, false, true, true),
-                ContentTypes.JobProfileSpecialism => Helper.GetSlugValue((string)context.ContentItem.Content.TitlePart.Title, false, false, true),
-                ContentTypes.ApprenticeshipEntryRequirements => Helper.GetSlugValue((string)context.ContentItem.Content.TitlePart.Title, false, true, true),
+                ContentTypes.WorkingHoursDetail => Helper.GetHyphenated((string)context.ContentItem.Content.TitlePart.Title),
+                ContentTypes.WorkingPatterns => Helper.GetHyphenated((string)context.ContentItem.Content.TitlePart.Title),
+                ContentTypes.HiddenAlternativeTitle => Helper.GetHyphenated((string)context.ContentItem.Content.TitlePart.Title),
+                ContentTypes.WorkingPatternDetail => Helper.GetHyphenated((string)context.ContentItem.Content.TitlePart.Title),
+                ContentTypes.UniversityEntryRequirements => Helper.GetHyphenated((string)context.ContentItem.Content.TitlePart.Title),
+                ContentTypes.CollegeEntryRequirements => Helper.GetHyphenated((string)context.ContentItem.Content.TitlePart.Title),
+                ContentTypes.JobProfileSpecialism => Helper.GetHyphenated((string)context.ContentItem.Content.TitlePart.Title),
+                ContentTypes.ApprenticeshipEntryRequirements => Helper.GetHyphenated((string)context.ContentItem.Content.TitlePart.Title),
                 _ => throw new ArgumentException("No valid match found"),
             };
 

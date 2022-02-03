@@ -75,24 +75,16 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module.ServiceBusHandling.Converters
             return Enumerable.Empty<string>();
         }
 
-        public static string GetSlugValue(string field, bool isForwardSlashNeeded = default, bool isPascalCaseUrl = default, bool isOnlyHyphenated = default)
+        public static string GetSlugValue(string field)
         {
-            if (string.IsNullOrWhiteSpace(field))
-            {
-                return string.Empty;
-            }
-            else
-            {
-                StringBuilder result;
-                string UrlNameRegexPattern = @"[^\w\-\!\$\'\(\)\=\@\d_]+";
-                if(isOnlyHyphenated) return field.Replace(" ", "-");
-                field = (isPascalCaseUrl) ? field.FirstCharToUpper() : field;
-                result = new StringBuilder(isPascalCaseUrl ? Regex.Replace(field, UrlNameRegexPattern, "-") : Regex.Replace(field.ToLower().Trim(), UrlNameRegexPattern, "-"));
-                if (isForwardSlashNeeded) result = new StringBuilder(string.Concat("/", result.ToString()));
-                //if (isForwardSlashNeeded && !string.IsNullOrWhiteSpace(result.ToString())) result = new StringBuilder(result.ToString().FirstCharToUpper());
-                return result.ToString();
-            }
+            string UrlNameRegexPattern = @"[^\w\-\!\$\'\(\)\=\@\d_]+";
+            return string.IsNullOrWhiteSpace(field) ? string.Empty : Regex.Replace(field.ToLower().Trim(), UrlNameRegexPattern, "-");
 
+        }
+
+        public static string GetHyphenated(string field)
+        {
+            return field.Replace(" ", "-");
         }
 
         public static IEnumerable<Classification> MapClassificationData(IEnumerable<ContentItem> contentItems) =>
@@ -119,9 +111,9 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module.ServiceBusHandling.Converters
            contentItem.ContentType switch
            {
                ContentTypes.ApprenticeshipStandard => contentItem.Content.ApprenticeshipStandard.LARScode.Text,
-               ContentTypes.WorkingPatternDetail => GetSlugValue(contentItem.As<TitlePart>().Title,false,false,true),
-               ContentTypes.WorkingHoursDetail => GetSlugValue(contentItem.As<TitlePart>().Title, false, false, true),
-               ContentTypes.WorkingPatterns => GetSlugValue(contentItem.As<TitlePart>().Title, false, false, true),
+               ContentTypes.WorkingPatternDetail => GetSlugValue(contentItem.As<TitlePart>().Title),
+               ContentTypes.WorkingHoursDetail => GetSlugValue(contentItem.As<TitlePart>().Title),
+               ContentTypes.WorkingPatterns => GetSlugValue(contentItem.As<TitlePart>().Title),
                _ => string.Empty,
            };
 
