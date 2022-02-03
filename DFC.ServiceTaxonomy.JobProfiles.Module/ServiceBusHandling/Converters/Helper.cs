@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
@@ -74,13 +75,25 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module.ServiceBusHandling.Converters
             return Enumerable.Empty<string>();
         }
 
-        private static string GetSlugValue(string field)
+        public static string GetSlugValue(string field, bool isForwardSlashNeeded = default, bool isPascalCaseUrl = default, bool isOnlyHyphenated = default)
         {
-            string UrlNameRegexPattern = @"[^\w\-\!\$\'\(\)\=\@\d_]+";
-            return string.IsNullOrWhiteSpace(field) ? string.Empty : Regex.Replace(field.ToLower().Trim(), UrlNameRegexPattern, "-");
+            if (string.IsNullOrWhiteSpace(field))
+            {
+                return string.Empty;
+            }
+            else
+            {
+                StringBuilder result;
+                string UrlNameRegexPattern = @"[^\w\-\!\$\'\(\)\=\@\d_]+";
+                if(isOnlyHyphenated) return field.Replace(" ", "-");
+                field = (isPascalCaseUrl) ? field.FirstCharToUpper() : field;
+                result = new StringBuilder(isPascalCaseUrl ? Regex.Replace(field, UrlNameRegexPattern, "-") : Regex.Replace(field.ToLower().Trim(), UrlNameRegexPattern, "-"));
+                if (isForwardSlashNeeded) result = new StringBuilder(string.Concat("/", result.ToString()));
+                //if (isForwardSlashNeeded && !string.IsNullOrWhiteSpace(result.ToString())) result = new StringBuilder(result.ToString().FirstCharToUpper());
+                return result.ToString();
+            }
 
         }
-
 
         public static IEnumerable<Classification> MapClassificationData(IEnumerable<ContentItem> contentItems) =>
             contentItems?.Select(contentItem => new Classification
@@ -106,9 +119,9 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module.ServiceBusHandling.Converters
            contentItem.ContentType switch
            {
                ContentTypes.ApprenticeshipStandard => contentItem.Content.ApprenticeshipStandard.LARScode.Text,
-               ContentTypes.WorkingPatternDetail => GetHyphenatedString(contentItem.As<TitlePart>().Title),
-               ContentTypes.WorkingHoursDetail => GetHyphenatedString(contentItem.As<TitlePart>().Title),
-               ContentTypes.WorkingPatterns => GetHyphenatedString(contentItem.As<TitlePart>().Title),
+               ContentTypes.WorkingPatternDetail => GetSlugValue(contentItem.As<TitlePart>().Title,false,false,true),
+               ContentTypes.WorkingHoursDetail => GetSlugValue(contentItem.As<TitlePart>().Title, false, false, true),
+               ContentTypes.WorkingPatterns => GetSlugValue(contentItem.As<TitlePart>().Title, false, false, true),
                _ => string.Empty,
            };
 
@@ -122,11 +135,6 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module.ServiceBusHandling.Converters
         {
             string htmlString = ((string)html).Replace("<br>", "").Replace("&nbsp;", " ");
             return Regex.Replace(htmlString, "</span[^>]*>|<span[^>]*>|^<ul><li>|</li></ul>$", "");
-        }
-
-        private static string GetHyphenatedString(string url)
-        {
-            return url.Replace(" ", "-");
         }
     }
 }

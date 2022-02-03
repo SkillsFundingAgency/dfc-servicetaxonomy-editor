@@ -1,4 +1,6 @@
-﻿using System.Text;
+﻿using System;
+using System.Globalization;
+using System.Text;
 using System.Text.RegularExpressions;
 
 namespace DFC.ServiceTaxonomy.JobProfiles.Module.Extensions
@@ -21,7 +23,7 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module.Extensions
             StringBuilder sbHTML = new StringBuilder(htmlString);
             // Note: There are many more special characters, these are just
             // most common. You can add new characters in this arrays if needed
-            string[] OldWords = {"&nbsp;", "&amp;", "&quot;", "&lt;", "&gt;", "&reg;", "&copy;", "&bull;", "&trade;","&#39;"};
+            string[] OldWords = { "&nbsp;", "&amp;", "&quot;", "&lt;", "&gt;", "&reg;", "&copy;", "&bull;", "&trade;", "&#39;" };
             string[] NewWords = { " ", "&", "\"", "<", ">", "Â®", "Â©", "â€¢", "â„¢", "\'" };
             for (int i = 0; i < OldWords.Length; i++)
             {
@@ -33,6 +35,12 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module.Extensions
             // Finally, remove all HTML tags and return plain text
             return Regex.Replace(
               sbHTML.ToString(), "<[^>]*>", "");
+        }
+
+        public static string FirstCharToUpper(this string input)
+        {
+            TextInfo textInfo = CultureInfo.CurrentCulture.TextInfo;
+            return textInfo.ToTitleCase(input);
         }
     }
 }

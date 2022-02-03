@@ -150,7 +150,7 @@ public DataEventProcessor(IServiceBusMessageProcessor serviceBusMessageProcessor
                         Description = fieldDescription,
                         JobProfileId = Guid.Parse(item.GraphSyncPartId ?? string.Empty),
                         JobProfileTitle = item.JobProfileTitle,
-                        Url = string.Empty, // TODO: Needs revisiting during integration to see if leaving it blank does not break anything in CUI"
+                        Url = Helper.GetSlugValue(fieldDescription, true, true),
                         IsNegative = false
                     });
                 }
@@ -287,6 +287,19 @@ public DataEventProcessor(IServiceBusMessageProcessor serviceBusMessageProcessor
                 _ => throw new ArgumentException("No valid match found"),
             };
 
+            string urlString = context.ContentItem.ContentType switch
+            {
+                ContentTypes.WorkingHoursDetail => Helper.GetSlugValue((string)context.ContentItem.Content.TitlePart.Title, false, false, true),
+                ContentTypes.WorkingPatterns => Helper.GetSlugValue((string)context.ContentItem.Content.TitlePart.Title, false, false, true),
+                ContentTypes.HiddenAlternativeTitle => Helper.GetSlugValue((string)context.ContentItem.Content.TitlePart.Title, false, false, true),
+                ContentTypes.WorkingPatternDetail => Helper.GetSlugValue((string)context.ContentItem.Content.TitlePart.Title, false, false, true),
+                ContentTypes.UniversityEntryRequirements => Helper.GetSlugValue((string)context.ContentItem.Content.TitlePart.Title, false, true, true),
+                ContentTypes.CollegeEntryRequirements => Helper.GetSlugValue((string)context.ContentItem.Content.TitlePart.Title, false, true, true),
+                ContentTypes.JobProfileSpecialism => Helper.GetSlugValue((string)context.ContentItem.Content.TitlePart.Title, false, false, true),
+                ContentTypes.ApprenticeshipEntryRequirements => Helper.GetSlugValue((string)context.ContentItem.Content.TitlePart.Title, false, true, true),
+                _ => throw new ArgumentException("No valid match found"),
+            };
+
             var matches = await _jobProfileIndexRepository.GetAll(b => b.WorkingHoursDetail != null && b.WorkingHoursDetail.Contains(context.ContentItem.ContentItemId) ||
                 b.WorkingPatterns != null && b.WorkingPatterns.Contains(context.ContentItem.ContentItemId) ||
                 b.HiddenAlternativeTitle != null && b.HiddenAlternativeTitle.Contains(context.ContentItem.ContentItemId) ||
@@ -307,7 +320,7 @@ public DataEventProcessor(IServiceBusMessageProcessor serviceBusMessageProcessor
                         Description = fieldDescription,
                         JobProfileId = Guid.Parse(item.GraphSyncPartId ?? string.Empty),
                         JobProfileTitle = item.JobProfileTitle,
-                        Url = string.Empty, // TODO: Needs revisiting during integration to see if leaving it blank does not break anything in CUI"
+                        Url = urlString, 
                     });
                 }
                 else
