@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
@@ -65,7 +66,7 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module.ServiceBusHandling.Converters
                     var contentItems = await contentManager.GetAsync(idList);
                     foreach (var item in contentItems)
                     {
-                        contentItemNames.Add(GetSlugValue(item.ContentItem.Content.SOCSkillsMatrix.RelatedSkill.Text.ToString()));
+                        contentItemNames.Add(item.ContentItem.Content.SOCSkillsMatrix.RelatedSkill.Text.ToString().GetSlugValue());
                     }
                     return contentItemNames;
                 }
@@ -73,14 +74,6 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module.ServiceBusHandling.Converters
 
             return Enumerable.Empty<string>();
         }
-
-        private static string GetSlugValue(string field)
-        {
-            string UrlNameRegexPattern = @"[^\w\-\!\$\'\(\)\=\@\d_]+";
-            return string.IsNullOrWhiteSpace(field) ? string.Empty : Regex.Replace(field.ToLower().Trim(), UrlNameRegexPattern, "-");
-
-        }
-
 
         public static IEnumerable<Classification> MapClassificationData(IEnumerable<ContentItem> contentItems) =>
             contentItems?.Select(contentItem => new Classification
@@ -106,9 +99,9 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module.ServiceBusHandling.Converters
            contentItem.ContentType switch
            {
                ContentTypes.ApprenticeshipStandard => contentItem.Content.ApprenticeshipStandard.LARScode.Text,
-               ContentTypes.WorkingPatternDetail => GetHyphenatedString(contentItem.As<TitlePart>().Title),
-               ContentTypes.WorkingHoursDetail => GetHyphenatedString(contentItem.As<TitlePart>().Title),
-               ContentTypes.WorkingPatterns => GetHyphenatedString(contentItem.As<TitlePart>().Title),
+               ContentTypes.WorkingPatternDetail => contentItem.As<TitlePart>().Title.GetSlugValue(),
+               ContentTypes.WorkingHoursDetail => contentItem.As<TitlePart>().Title.GetSlugValue(),
+               ContentTypes.WorkingPatterns => contentItem.As<TitlePart>().Title.GetSlugValue(),
                _ => string.Empty,
            };
 
@@ -122,11 +115,6 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module.ServiceBusHandling.Converters
         {
             string htmlString = ((string)html).Replace("<br>", "").Replace("&nbsp;", " ");
             return Regex.Replace(htmlString, "</span[^>]*>|<span[^>]*>|^<ul><li>|</li></ul>$", "");
-        }
-
-        private static string GetHyphenatedString(string url)
-        {
-            return url.Replace(" ", "-");
         }
     }
 }
