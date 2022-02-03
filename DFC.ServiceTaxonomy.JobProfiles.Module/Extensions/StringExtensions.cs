@@ -42,5 +42,16 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module.Extensions
             TextInfo textInfo = CultureInfo.CurrentCulture.TextInfo;
             return textInfo.ToTitleCase(input);
         }
+
+        public static string GetSlugValue(this string input)
+        {
+            string UrlNameRegexPattern = @"[^\w\-\!\$\'\(\)\=\@\d_]+";
+            return string.IsNullOrWhiteSpace(input) ? string.Empty : Regex.Replace(input.ToLower().Trim(), UrlNameRegexPattern, "-");
+        }
+
+        public static string GetHyphenated(this string input)
+        {
+            return input.Replace(" ", "-");
+        }
     }
 }

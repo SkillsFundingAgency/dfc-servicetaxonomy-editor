@@ -66,25 +66,13 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module.ServiceBusHandling.Converters
                     var contentItems = await contentManager.GetAsync(idList);
                     foreach (var item in contentItems)
                     {
-                        contentItemNames.Add(GetSlugValue(item.ContentItem.Content.SOCSkillsMatrix.RelatedSkill.Text.ToString()));
+                        contentItemNames.Add(item.ContentItem.Content.SOCSkillsMatrix.RelatedSkill.Text.ToString().GetSlugValue());
                     }
                     return contentItemNames;
                 }
             }
 
             return Enumerable.Empty<string>();
-        }
-
-        public static string GetSlugValue(string field)
-        {
-            string UrlNameRegexPattern = @"[^\w\-\!\$\'\(\)\=\@\d_]+";
-            return string.IsNullOrWhiteSpace(field) ? string.Empty : Regex.Replace(field.ToLower().Trim(), UrlNameRegexPattern, "-");
-
-        }
-
-        public static string GetHyphenated(string field)
-        {
-            return field.Replace(" ", "-");
         }
 
         public static IEnumerable<Classification> MapClassificationData(IEnumerable<ContentItem> contentItems) =>
@@ -111,9 +99,9 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module.ServiceBusHandling.Converters
            contentItem.ContentType switch
            {
                ContentTypes.ApprenticeshipStandard => contentItem.Content.ApprenticeshipStandard.LARScode.Text,
-               ContentTypes.WorkingPatternDetail => GetSlugValue(contentItem.As<TitlePart>().Title),
-               ContentTypes.WorkingHoursDetail => GetSlugValue(contentItem.As<TitlePart>().Title),
-               ContentTypes.WorkingPatterns => GetSlugValue(contentItem.As<TitlePart>().Title),
+               ContentTypes.WorkingPatternDetail => contentItem.As<TitlePart>().Title.GetSlugValue(),
+               ContentTypes.WorkingHoursDetail => contentItem.As<TitlePart>().Title.GetSlugValue(),
+               ContentTypes.WorkingPatterns => contentItem.As<TitlePart>().Title.GetSlugValue(),
                _ => string.Empty,
            };
 
