@@ -264,6 +264,7 @@ namespace DFC.ServiceTaxonomy.Taxonomies.Controllers
             contentItem.Merge(existing);            
             contentItem.Weld<TermPart>();
             contentItem.Alter<TermPart>(t => t.TaxonomyContentItemId = taxonomyContentItemId);
+            contentItem.ContentItemId = existing.ContentItemId;
 
             dynamic model = await _contentItemDisplayManager.UpdateEditorAsync(contentItem, _updateModelAccessor.ModelUpdater, false);
 
