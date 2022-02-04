@@ -9,19 +9,19 @@
 @using Microsoft.Extensions.Options
 
 @inject IAuthorizationService AuthorizationService
-@inject IOptions<PagesConfiguration> Config
+@inject IOptions<PagesConfiguration> PagesConfig
+@inject IOptions<JobProfilesConfiguration> JobProfilesConfig
 @inject IContentManager ContentManager
 
 @{
     ContentItem contentItem = Model.ContentItem;
-    var PageConfig = Config.Value;
     var hasDraft = contentItem.HasDraft();
     var hasPublished = await ContentManager.HasPublishedVersionAsync(contentItem);
     var hasPublishPermission = await AuthorizationService.AuthorizeAsync(User, CommonPermissions.PublishContent, contentItem);
     var hasClonePermission = await AuthorizationService.AuthorizeAsync(User, CommonPermissions.CloneContent, contentItem);
     var hasViewPermission = await AuthorizationService.AuthorizeAsync(User, CommonPermissions.ViewContent, contentItem);
     var hasPreviewPermission = await AuthorizationService.AuthorizeAsync(User, CommonPermissions.PreviewContent, contentItem);
-    var previewContentTypes = contentItem.ContentType == ContentTypes.Page; //contentItem.ContentType == ContentTypes.JobProfile ||
+    var previewContentTypes = contentItem.ContentType == ContentTypes.Page || contentItem.ContentType == ContentTypes.JobProfile;
 
 }
 @* Publish - handle publish if content part not present in content item *@
@@ -53,14 +53,16 @@ else
 
 @if (previewContentTypes)
 {
+    var previewURI = contentItem.ContentType == ContentTypes.Page ? PagesConfig.Value.PreviewAppPrefix : JobProfilesConfig.Value.PreviewAppPrefix;
+    var publishedURI = contentItem.ContentType == ContentTypes.Page ? PagesConfig.Value.PublishedAppPrefix : JobProfilesConfig.Value.PublishedAppPrefix;
     string url = contentItem.Content[nameof(PageLocationPart)][nameof(PageLocationPart.FullUrl)];
     if (hasDraft && hasPreviewPermission)
     {
-        <a href="@($"{PageConfig.PreviewAppPrefix}{url}")" target="_blank" class="dropdown-item btn-sm">@T["View draft content"]</a>
+        <a href="@($"{previewURI}{url}")" target="_blank" class="dropdown-item btn-sm">@T["View draft content"]</a>
     }
     if (hasPublishPermission && hasViewPermission && hasPublished)
     {
-        <a href="@($"{PageConfig.PublishedAppPrefix}{url}")" target="_blank" class="dropdown-item btn-sm">@T["View published content"]</a>
+        <a href="@($"{publishedURI}{url}")" target="_blank" class="dropdown-item btn-sm">@T["View published content"]</a>
     }
 }
 else
