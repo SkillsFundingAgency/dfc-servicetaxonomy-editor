@@ -16,6 +16,7 @@ using OrchardCore.ContentManagement.Metadata;
 using OrchardCore.ContentManagement.Metadata.Settings;
 using OrchardCore.DisplayManagement.ModelBinding;
 using OrchardCore.DisplayManagement.Notify;
+using OrchardCore.Title.Models;
 using YesSql;
 
 namespace DFC.ServiceTaxonomy.Taxonomies.Controllers
@@ -264,6 +265,7 @@ namespace DFC.ServiceTaxonomy.Taxonomies.Controllers
             contentItem.Merge(existing);            
             contentItem.Weld<TermPart>();
             contentItem.Alter<TermPart>(t => t.TaxonomyContentItemId = taxonomyContentItemId);
+            contentItem.ContentItemId = existing.ContentItemId;
 
             dynamic model = await _contentItemDisplayManager.UpdateEditorAsync(contentItem, _updateModelAccessor.ModelUpdater, false);
 
@@ -297,6 +299,12 @@ namespace DFC.ServiceTaxonomy.Taxonomies.Controllers
 
             foreach (var validator in _validators)
             {
+                if(validator.GetType().Name == "PageLocationModificationValidator" &&
+                    existing.As<TitlePart>().Title == contentItem.As<TitlePart>().Title)
+                {
+                    continue;
+                }
+
                 (bool validated, string errorMessage) = await validator.ValidateUpdate(JObject.FromObject(contentItem),
                     JObject.FromObject(taxonomy));
 

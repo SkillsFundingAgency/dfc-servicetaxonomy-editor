@@ -3,22 +3,11 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Reflection;
-using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace DFC.ServiceTaxonomy.ContentApproval.Extensions
 {
     public static class EnumExtensions
     {
-        //todo: move out of this class?
-        public static IEnumerable<SelectListItem> GetSelectList(Type enumType)
-        {
-            FieldInfo[] enumFields = enumType.GetFields(BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic);
-
-            return enumFields.Select(fi => (fi, da:fi.GetCustomAttribute<DisplayAttribute>()))
-                .OrderBy(v => v.da?.Order ?? -1)
-                .Select(v => new SelectListItem(v.da?.Name ?? v.fi.Name, v.fi.Name));
-        }
-
         public static Dictionary<string, string> GetEnumNameAndDisplayNameDictionary(Type enumType)
         {
             if (!enumType.IsEnum)

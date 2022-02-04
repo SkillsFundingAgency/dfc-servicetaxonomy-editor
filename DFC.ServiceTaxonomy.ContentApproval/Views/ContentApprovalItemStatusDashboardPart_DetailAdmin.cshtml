@@ -17,7 +17,7 @@
             </div>
             <ul class="list-group list-group-flush">
                 <li class="list-group-item d-flex justify-content-between align-items-center">
-                    <a asp-route-area="OrchardCore.Contents" asp-controller="@(typeof(OrchardCore.Contents.Controllers.AdminController).ControllerName())" asp-action="List" asp-route-Options.ContentsStatus="Draft">See all in draft (@(Model.ContentItemsApprovalCounts?.Count))</a>
+                    <a asp-route-area="OrchardCore.Contents" asp-controller="@(typeof(OrchardCore.Contents.Controllers.AdminController).ControllerName())" asp-action="List" asp-route-q="status:draft">See all in draft (@(Model.ContentItemsApprovalCounts?.Count))</a>
                 </li>
             </ul>
             break;
@@ -33,7 +33,7 @@
             </div>
             <ul class="list-group list-group-flush">
                 <li class="list-group-item d-flex justify-content-between align-items-center">
-                    <a asp-route-area="OrchardCore.Contents" asp-controller="@(typeof(OrchardCore.Contents.Controllers.AdminController).ControllerName())" asp-action="List" asp-route-ContentApproval.SelectedApprovalStatus="ReadyForReview">
+                    <a asp-route-area="OrchardCore.Contents" asp-controller="@(typeof(OrchardCore.Contents.Controllers.AdminController).ControllerName())" asp-action="List" asp-route-q="reviewstatus:readyforreview">
                         See all waiting for review (@(Model.ContentItemsApprovalCounts?.Count))
                     </a>
                 </li>
@@ -57,7 +57,7 @@
             </div>
             <ul class="list-group list-group-flush">
                 <li class="list-group-item d-flex justify-content-between align-items-center">
-                    <a asp-route-area="OrchardCore.Contents" asp-controller="@(typeof(OrchardCore.Contents.Controllers.AdminController).ControllerName())" asp-action="List" asp-route-ContentApproval.SelectedApprovalStatus="InReview">
+                    <a asp-route-area="OrchardCore.Contents" asp-controller="@(typeof(OrchardCore.Contents.Controllers.AdminController).ControllerName())" asp-action="List" asp-route-q="reviewstatus:inreview">
                         See all in review (@(Model.ContentItemsApprovalCounts?.Count))
                     </a>
                 </li>
@@ -81,12 +81,12 @@
             </div>
             <ul class="list-group list-group-flush">
                 <li class="list-group-item d-flex justify-content-between align-items-center">
-                    <a asp-route-area="OrchardCore.Contents" asp-controller="@(typeof(OrchardCore.Contents.Controllers.AdminController).ControllerName())" asp-action="List" asp-route-Options.ContentsStatus="Published">
+                    <a asp-route-area="OrchardCore.Contents" asp-controller="@(typeof(OrchardCore.Contents.Controllers.AdminController).ControllerName())" asp-action="List" asp-route-q="status:published">
                         See all published (@(Model.ContentItemsApprovalCounts?.Count))
                     </a>
                 </li>
                 <li class="list-group-item d-flex justify-content-between align-items-center">
-                    <a asp-route-area="OrchardCore.Contents" asp-controller="@(typeof(OrchardCore.Contents.Controllers.AdminController).ControllerName())" asp-action="List" asp-route-ContentApproval.SelectedApprovalStatus="@ReviewStatusFilterOptions.ForcePublished">
+                    <a asp-route-area="OrchardCore.Contents" asp-controller="@(typeof(OrchardCore.Contents.Controllers.AdminController).ControllerName())" asp-action="List" asp-route-q="reviewstatus:forcepublished">
                         Force published (@(Model.ContentItemsApprovalCounts?.SubCounts?[1] ?? 0))
                     </a>
                 </li>
@@ -95,7 +95,6 @@
         case DashboardItemsStatusCard.MyWorkItems:
             <div class="card-body py-3 dashboard-item-my-workspace">
                 <span class="lead mb-0">My workspace</span>
-                @*<a asp-route-area="OrchardCore.Contents" asp-controller="@(typeof(OrchardCore.Contents.Controllers.AdminController).ControllerName())" asp-action="List" asp-route-Options.ContentsStatus="Owner" target="_self" class="mt-1 float-right">View all</a>*@
             </div>
             <ul class="list-group list-group-flush">
                 @if (Model.ContentItemsApprovalCounts?.MyItems != null)
@@ -125,7 +124,7 @@
     {
         int count = Model?.ContentItemsApprovalCounts?.SubCounts?[(int)reviewType] ?? 0;
         <li class="list-group-item d-flex justify-content-between align-items-center">
-            <a asp-route-area="OrchardCore.Contents" asp-controller="@(typeof(OrchardCore.Contents.Controllers.AdminController).ControllerName())" asp-action="List" asp-route-ContentApproval.SelectedApprovalStatus="@status" asp-route-ContentApproval.SelectedReviewType="@reviewType">
+            <a asp-route-area="OrchardCore.Contents" asp-controller="@(typeof(OrchardCore.Contents.Controllers.AdminController).ControllerName())" asp-action="List" asp-route-q="reviewstatus:@status reviewtype:@reviewType">
                 @reviewType.GetDisplayName() (@count)
             </a>
         </li>
