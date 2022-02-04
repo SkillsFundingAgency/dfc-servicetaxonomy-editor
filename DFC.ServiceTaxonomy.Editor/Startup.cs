@@ -74,6 +74,7 @@ namespace DFC.ServiceTaxonomy.Editor
             services.PostConfigure(SetupMediaConfig());
 
             services.Configure<PagesConfiguration>(Configuration.GetSection("Pages"));
+            services.Configure<JobProfilesConfiguration>(Configuration.GetSection("JobProfiles"));
             services.Configure<AzureAdSettings>(Configuration.GetSection("AzureAdSettings"));
         }
 

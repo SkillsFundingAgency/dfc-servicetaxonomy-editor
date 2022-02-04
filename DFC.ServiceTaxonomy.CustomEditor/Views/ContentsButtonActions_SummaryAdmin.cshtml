@@ -9,12 +9,12 @@
 @using Microsoft.Extensions.Options
 
 @inject IAuthorizationService AuthorizationService
-@inject IOptions<PagesConfiguration> Config
+@inject IOptions<PagesConfiguration> PagesConfig
+@inject IOptions<JobProfilesConfiguration> JobProfilesConfig
 @inject IContentManager ContentManager
 
 @{
     ContentItem contentItem = Model.ContentItem;
-    var PageConfig = Config.Value;
     var hasDraft = contentItem.HasDraft();
     var hasPublished = await ContentManager.HasPublishedVersionAsync(contentItem);
     var hasPublishPermission = await AuthorizationService.AuthorizeAsync(User, CommonPermissions.PublishContent, contentItem);
@@ -53,8 +53,8 @@ else
 
 @if (previewContentTypes)
 {
-    var previewURI = contentItem.ContentType == ContentTypes.Page ? PageConfig.PreviewAppPrefix : PageConfig.PreviewJobProfileAppPrefix;
-    var publishedURI = contentItem.ContentType == ContentTypes.Page ? PageConfig.PublishedAppPrefix : PageConfig.PublishedJobProfileAppPrefix;
+    var previewURI = contentItem.ContentType == ContentTypes.Page ? PagesConfig.Value.PreviewAppPrefix : JobProfilesConfig.Value.PreviewAppPrefix;
+    var publishedURI = contentItem.ContentType == ContentTypes.Page ? PagesConfig.Value.PublishedAppPrefix : JobProfilesConfig.Value.PublishedAppPrefix;
     string url = contentItem.Content[nameof(PageLocationPart)][nameof(PageLocationPart.FullUrl)];
     if (hasDraft && hasPreviewPermission)
     {
