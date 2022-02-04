@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
@@ -66,7 +65,7 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module.ServiceBusHandling.Converters
                     var contentItems = await contentManager.GetAsync(idList);
                     foreach (var item in contentItems)
                     {
-                        contentItemNames.Add(item.ContentItem.Content.SOCSkillsMatrix.RelatedSkill.Text.ToString().GetSlugValue());
+                        contentItemNames.Add(((string)item.ContentItem.Content.SOCSkillsMatrix.RelatedSkill.Text).GetSlugValue());
                     }
                     return contentItemNames;
                 }
