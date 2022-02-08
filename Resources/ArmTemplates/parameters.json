@@ -134,6 +134,12 @@
         "PreviewAppPrefix": {
             "value": "__PreviewAppPrefix__"
         },
+        "JobProfilePublishedAppPrefix": {
+            "value": "__JobProfilePublishedAppPrefix__"
+        },
+        "JobProfilePreviewAppPrefix": {
+            "value": "__JobProfilePreviewAppPrefix__"
+        },
         "PublishToSlack": {
             "value": __PublishToSlack__
         },

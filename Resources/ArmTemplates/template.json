@@ -113,6 +113,12 @@
         "PreviewAppPrefix": {
             "type": "string"
         },
+        "JobProfilePublishedAppPrefix": {
+            "type": "string"
+        },
+        "JobProfilePreviewAppPrefix": {
+            "type": "string"
+        },
         "Neo4jEndpoints0Enabled": {
             "type": "bool"
         },
@@ -433,6 +439,14 @@
                             {
                                 "name": "Pages__PreviewAppPrefix",
                                 "value": "[parameters('PreviewAppPrefix')]"
+                            },
+                            {
+                                "name": "JobProfile__PublishedAppPrefix",
+                                "value": "[parameters('JobProfilePublishedAppPrefix')]"
+                            },
+                            {
+                                "name": "JobProfile__PreviewAppPrefix",
+                                "value": "[parameters('JobProfilePreviewAppPrefix')]"
                             },
                             {
                                 "name": "SlackMessagePublishingConfiguration__PublishToSlack",
