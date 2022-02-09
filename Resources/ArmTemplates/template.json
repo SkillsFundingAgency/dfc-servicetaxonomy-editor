@@ -441,11 +441,11 @@
                                 "value": "[parameters('PreviewAppPrefix')]"
                             },
                             {
-                                "name": "JobProfile__PublishedAppPrefix",
+                                "name": "JobProfiles__PublishedAppPrefix",
                                 "value": "[parameters('JobProfilePublishedAppPrefix')]"
                             },
                             {
-                                "name": "JobProfile__PreviewAppPrefix",
+                                "name": "JobProfiles__PreviewAppPrefix",
                                 "value": "[parameters('JobProfilePreviewAppPrefix')]"
                             },
                             {
