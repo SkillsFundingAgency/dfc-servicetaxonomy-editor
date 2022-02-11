@@ -25,11 +25,36 @@
     $('li.has-items span.title:contains("SEO")').closest('li').remove();
 });
 
-$('document').ready(function () {
-    $('input[id="JobProfileNew_Salarystarterperyear_Value"]').closest("form").attr('novalidate', 'novalidate');
-    $('label[for="JobProfileNew_Work_Html"]').css("font-size", ".8rem");
-    $('label[for="JobProfileNew_Volunteering_Html"]').css("font-size", ".8rem");
-    $('label[for="JobProfileNew_Directapplication_Html"]').css("font-size", ".8rem");
-    $('label[for="JobProfileNew_Work_Html"]').before("<div><label> Further routes </label></div>");
+$.fn.only = function (events, callback) {
+    //The handler is executed at most once for all elements for all event types.
+    var $this = $(this).on(events, myCallback);
+    function myCallback(e) {
+        $this.off(events, myCallback);
+        callback.call(this, e);
+    }
+    return this
+};
 
+$(document).ready(function () {
+    needToConfirm = false;
+    $("a").click(askConfirm);
 });
+
+$(".edit-container").only('change', function () {
+    needToConfirm = true;
+});
+
+$(document).only('contentpreview:render', function () {
+    needToConfirm = true;
+});
+
+
+function askConfirm() {
+    var allowed = this.target === '_blank' || this.dataset['toggle'] === 'tab';
+    if (needToConfirm && !allowed) {
+        var confirm = window.confirm("Are you sure you want to navigate away from this page?\n\nYou have unsaved changes.\n\nPress OK to continue, or Cancel to stay on the current page.");
+        if (!confirm) {
+            return false;
+        }
+    }
+}
