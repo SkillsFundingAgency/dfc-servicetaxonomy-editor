@@ -57,7 +57,7 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module.ServiceBusHandling.Converters
                     {
                         RouteName = RouteEntryType.University,
                         RouteSubjects = Helper.SanitiseHtmlWithPTag(contentItem.Content.JobProfile.Universityrelevantsubjects.Html),
-                        FurtherRouteInformation = Helper.SanitiseHtml(contentItem.Content.JobProfile.Universityfurtherrouteinfo.Html),
+                        FurtherRouteInformation = Helper.SanitiseHtmlWithPTag(contentItem.Content.JobProfile.Universityfurtherrouteinfo.Html),
                         RouteRequirement = universityEntryRequirements.FirstOrDefault()?.As<TitlePart>().Title ?? string.Empty,
                         EntryRequirements = GetEntryRequirements(relatedUniversityRequirements),
                         MoreInformationLinks = GetRelatedLinkItems(relatedUniversityLinks)
@@ -68,7 +68,7 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module.ServiceBusHandling.Converters
                     {
                         RouteName = RouteEntryType.College,
                         RouteSubjects = Helper.SanitiseHtmlWithPTag(contentItem.Content.JobProfile.Collegerelevantsubjects.Html),
-                        FurtherRouteInformation = Helper.SanitiseHtml(contentItem.Content.JobProfile.Collegefurtherrouteinfo.Html),
+                        FurtherRouteInformation = Helper.SanitiseHtmlWithPTag(contentItem.Content.JobProfile.Collegefurtherrouteinfo.Html),
                         RouteRequirement = collegeEntryRequirements.FirstOrDefault()?.As<TitlePart>().Title ?? string.Empty,
                         EntryRequirements = GetEntryRequirements(relatedCollegeRequirements),
                         MoreInformationLinks = GetRelatedLinkItems(relatedCollegeLinks)
@@ -80,7 +80,7 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module.ServiceBusHandling.Converters
                     {
                         RouteName = RouteEntryType.Apprenticeship,
                         RouteSubjects = Helper.SanitiseHtmlWithPTag(contentItem.Content.JobProfile.Apprenticeshiprelevantsubjects.Html),
-                        FurtherRouteInformation = Helper.SanitiseHtml(contentItem.Content.JobProfile.Apprenticeshipfurtherroutesinfo.Html),
+                        FurtherRouteInformation = Helper.SanitiseHtmlWithPTag(contentItem.Content.JobProfile.Apprenticeshipfurtherroutesinfo.Html),
                         RouteRequirement = apprenticeshipEntryRequirements.FirstOrDefault()?.As<TitlePart>().Title ?? string.Empty,
                         EntryRequirements = GetEntryRequirements(relatedApprenticeshipRequirements),
                         MoreInformationLinks = GetRelatedLinkItems(relatedApprenticeshipLinks)
