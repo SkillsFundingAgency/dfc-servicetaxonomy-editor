@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,10 +15,12 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module.ServiceBusHandling
 {
     internal class ServiceBusMessageProcessor : IServiceBusMessageProcessor
     {
+        private readonly ServiceBusSettings _serviceBusSettings;
         private readonly ILogger<ServiceBusMessageProcessor> _logger;
 
-        public ServiceBusMessageProcessor(ILogger<ServiceBusMessageProcessor> logger)
+        public ServiceBusMessageProcessor(IConfiguration configuration, ILogger<ServiceBusMessageProcessor> logger)
         {
+            _serviceBusSettings = configuration.GetSection("ServiceBusSettings").Get<ServiceBusSettings>();
             _logger = logger;
         }
 
@@ -27,23 +28,11 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module.ServiceBusHandling
         {
             _logger.LogInformation($" CREATED service bus message for OrchardCore event {actionType.ToUpper()} on JobProfile with Title -- {jpData.Title} and Jobprofile Id -- {jpData.JobProfileId}");
 
-            var configuration = new ConfigurationBuilder()
-                .SetBasePath(Directory.GetCurrentDirectory())
-                .AddJsonFile("appsettings.json", false)
-                .AddJsonFile("appsettings.Development.json", optional: true)
-                .AddEnvironmentVariables()
-                .Build();
+            var topicName = (actionType == "Draft")
+                ? _serviceBusSettings.ServiceBusTopicNameForDraft
+                : _serviceBusSettings.ServiceBusTopicName;
 
-            var serviceBusSettings = configuration.GetSection("ServiceBusSettings").Get<ServiceBusSettings>();
-            var connectionStringServiceBus = serviceBusSettings.ServiceBusConnectionString;
-            var topicName = serviceBusSettings.ServiceBusTopicName;
-
-            if (actionType == "Draft")
-            {
-                topicName = serviceBusSettings.ServiceBusTopicNameForDraft;
-            }
-
-            var topicClient = new TopicClient(connectionStringServiceBus, topicName);
+            var topicClient = new TopicClient(_serviceBusSettings.ServiceBusConnectionString, topicName);
 
             // Send Messages
             var jsonData = JsonConvert.SerializeObject(jpData);
@@ -77,17 +66,8 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module.ServiceBusHandling
         public async Task SendOtherRelatedTypeMessages(IEnumerable<RelatedContentItem> relatedContentItems, string contentType, string actionType)
         {
             _logger.LogInformation($" CREATED service bus message for OrchardCore event {actionType.ToUpper()} on Item of Type -- {contentType.ToUpper()} with {relatedContentItems.Count().ToString()} message(s)");
-            var configuration = new ConfigurationBuilder()
-               .SetBasePath(Directory.GetCurrentDirectory())
-               .AddJsonFile("appsettings.json", false)
-               .AddJsonFile("appsettings.Development.json", optional: true)
-               .AddEnvironmentVariables()
-               .Build();
 
-            var serviceBusSettings = configuration.GetSection("ServiceBusSettings").Get<ServiceBusSettings>();
-            var connectionStringServiceBus = serviceBusSettings.ServiceBusConnectionString;
-            var topicName = serviceBusSettings.ServiceBusTopicName;
-            var topicClient = new TopicClient(connectionStringServiceBus, topicName);
+            var topicClient = new TopicClient(_serviceBusSettings.ServiceBusConnectionString, _serviceBusSettings.ServiceBusTopicName);
             try
             {
                 foreach (var relatedContentItem in relatedContentItems)
