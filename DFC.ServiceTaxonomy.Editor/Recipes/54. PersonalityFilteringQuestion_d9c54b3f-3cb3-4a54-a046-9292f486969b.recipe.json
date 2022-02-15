@@ -25,9 +25,18 @@
                     "Owner": "admin",
                     "Author": "admin",
                     "PersonalityFilteringQuestion": {
-                        "Skill": {
+                        "SOCSkillsMatrix": {
                             "ContentItemIds": [
-                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"Skill\", \"Concern for Others\")\u00BB"
+                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"SOCSkillsMatrix\", \"2316B-Concern for Others\")\u00BB",
+                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"SOCSkillsMatrix\", \"6222B-Concern for Others\")\u00BB",
+                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"SOCSkillsMatrix\", \"9239A-Concern for Others\")\u00BB",
+                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"SOCSkillsMatrix\", \"8222A-Concern for Others\")\u00BB",
+                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"SOCSkillsMatrix\", \"3235B-Concern for Others\")\u00BB",
+                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"SOCSkillsMatrix\", \"3537A-Concern for Others\")\u00BB",
+                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"SOCSkillsMatrix\", \"7878a-Concern for Others\")\u00BB",
+                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"SOCSkillsMatrix\", \"3443b-Concern for Others\")\u00BB",
+                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"SOCSkillsMatrix\", \"3333j-Concern for Others\")\u00BB",
+                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"SOCSkillsMatrix\", \"3239J-Concern for Others\")\u00BB"
                             ]
                         },
                         "Text": {
@@ -54,9 +63,23 @@
                     "Owner": "admin",
                     "Author": "admin",
                     "PersonalityFilteringQuestion": {
-                        "Skill": {
+                        "SOCSkillsMatrix": {
                             "ContentItemIds": [
-                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"Skill\", \"Fine Manipulative Abilities\")\u00BB"
+                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"SOCSkillsMatrix\", \"3311D-Fine Manipulative Abilities\")\u00BB",
+                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"SOCSkillsMatrix\", \"5119B-Fine Manipulative Abilities\")\u00BB",
+                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"SOCSkillsMatrix\", \"6222B-Fine Manipulative Abilities\")\u00BB",
+                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"SOCSkillsMatrix\", \"3441E-Fine Manipulative Abilities\")\u00BB",
+                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"SOCSkillsMatrix\", \"8114A-Fine Manipulative Abilities\")\u00BB",
+                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"SOCSkillsMatrix\", \"9239A-Fine Manipulative Abilities\")\u00BB",
+                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"SOCSkillsMatrix\", \"8222A-Fine Manipulative Abilities\")\u00BB",
+                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"SOCSkillsMatrix\", \"3537A-Fine Manipulative Abilities\")\u00BB",
+                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"SOCSkillsMatrix\", \"5432B-Fine Manipulative Abilities\")\u00BB",
+                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"SOCSkillsMatrix\", \"7878a-Fine Manipulative Abilities\")\u00BB",
+                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"SOCSkillsMatrix\", \"8111D-Fine Manipulative Abilities\")\u00BB",
+                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"SOCSkillsMatrix\", \"1121A-Fine Manipulative Abilities\")\u00BB",
+                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"SOCSkillsMatrix\", \"3443B-Fine Manipulative Abilities\")\u00BB",
+                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"SOCSkillsMatrix\", \"3417C-Fine Manipulative Abilities\")\u00BB",
+                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"SOCSkillsMatrix\", \"3333j-Fine Manipulative Abilities\")\u00BB"
                             ]
                         },
                         "Text": {
@@ -83,9 +106,14 @@
                     "Owner": "admin",
                     "Author": "admin",
                     "PersonalityFilteringQuestion": {
-                        "Skill": {
+                        "SOCSkillsMatrix": {
                             "ContentItemIds": [
-                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"Skill\", \"Adaptability/Flexibility\")\u00BB"
+                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"SOCSkillsMatrix\", \"2316B-Adaptability/Flexibility\")\u00BB",
+                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"SOCSkillsMatrix\", \"5119B-Adaptability/Flexibility\")\u00BB",
+                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"SOCSkillsMatrix\", \"2429D-Adaptability/Flexibility\")\u00BB",
+                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"SOCSkillsMatrix\", \"3537A-Adaptability/Flexibility\")\u00BB",
+                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"SOCSkillsMatrix\", \"1121A-Adaptability/Flexibility\")\u00BB",
+                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"SOCSkillsMatrix\", \"3417C-Adaptability/Flexibility\")\u00BB"
                             ]
                         },
                         "Text": {
@@ -112,9 +140,18 @@
                     "Owner": "admin",
                     "Author": "admin",
                     "PersonalityFilteringQuestion": {
-                        "Skill": {
+                        "SOCSkillsMatrix": {
                             "ContentItemIds": [
-                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"Skill\", \"Reading Comprehension\")\u00BB"
+                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"SOCSkillsMatrix\", \"2316B-Reading Comprehension\")\u00BB",
+                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"SOCSkillsMatrix\", \"6222B-Reading Comprehension\")\u00BB",
+                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"SOCSkillsMatrix\", \"2429D-Reading Comprehension\")\u00BB",
+                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"SOCSkillsMatrix\", \"3235B-Reading Comprehension\")\u00BB",
+                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"SOCSkillsMatrix\", \"3537A-Reading Comprehension\")\u00BB",
+                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"SOCSkillsMatrix\", \"7878a-Reading Comprehension\")\u00BB",
+                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"SOCSkillsMatrix\", \"8111D-Reading Comprehension\")\u00BB",
+                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"SOCSkillsMatrix\", \"3417C-Reading Comprehension\")\u00BB",
+                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"SOCSkillsMatrix\", \"2434A-Reading Comprehension\")\u00BB",
+                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"SOCSkillsMatrix\", \"3333j-Reading Comprehension\")\u00BB"
                             ]
                         },
                         "Text": {
@@ -141,9 +178,21 @@
                     "Owner": "admin",
                     "Author": "admin",
                     "PersonalityFilteringQuestion": {
-                        "Skill": {
+                        "SOCSkillsMatrix": {
                             "ContentItemIds": [
-                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"Skill\", \"Stress Tolerance\")\u00BB"
+                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"SOCSkillsMatrix\", \"2316B-Stress Tolerance\")\u00BB",
+                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"SOCSkillsMatrix\", \"3311D-Stress Tolerance\")\u00BB",
+                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"SOCSkillsMatrix\", \"3441E-Stress Tolerance\")\u00BB",
+                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"SOCSkillsMatrix\", \"8114A-Stress Tolerance\")\u00BB",
+                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"SOCSkillsMatrix\", \"9239A-Stress Tolerance\")\u00BB",
+                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"SOCSkillsMatrix\", \"3235B-Stress Tolerance\")\u00BB",
+                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"SOCSkillsMatrix\", \"5432B-Stress Tolerance\")\u00BB",
+                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"SOCSkillsMatrix\", \"7878a-Stress Tolerance\")\u00BB",
+                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"SOCSkillsMatrix\", \"8111D-Stress Tolerance\")\u00BB",
+                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"SOCSkillsMatrix\", \"3417C-Stress Tolerance\")\u00BB",
+                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"SOCSkillsMatrix\", \"2434A-Stress Tolerance\")\u00BB",
+                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"SOCSkillsMatrix\", \"3333j-Stress Tolerance\")\u00BB",
+                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"SOCSkillsMatrix\", \"3239J-Stress Tolerance\")\u00BB"
                             ]
                         },
                         "Text": {
@@ -170,9 +219,14 @@
                     "Owner": "admin",
                     "Author": "admin",
                     "PersonalityFilteringQuestion": {
-                        "Skill": {
+                        "SOCSkillsMatrix": {
                             "ContentItemIds": [
-                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"Skill\", \"Verbal Abilities\")\u00BB"
+                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"SOCSkillsMatrix\", \"5119B-Verbal Abilities\")\u00BB",
+                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"SOCSkillsMatrix\", \"8114A-Verbal Abilities\")\u00BB",
+                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"SOCSkillsMatrix\", \"9239A-Verbal Abilities\")\u00BB",
+                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"SOCSkillsMatrix\", \"8222A-Verbal Abilities\")\u00BB",
+                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"SOCSkillsMatrix\", \"8111D-Verbal Abilities\")\u00BB",
+                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"SOCSkillsMatrix\", \"1121A-Verbal Abilities\")\u00BB"
                             ]
                         },
                         "Text": {
@@ -199,9 +253,11 @@
                     "Owner": "admin",
                     "Author": "admin",
                     "PersonalityFilteringQuestion": {
-                        "Skill": {
+                        "SOCSkillsMatrix": {
                             "ContentItemIds": [
-                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"Skill\", \"Independence, Initiative\")\u00BB"
+                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"SOCSkillsMatrix\", \"9239A-Independence, Initiative\")\u00BB",
+                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"SOCSkillsMatrix\", \"2429D-Independence, Initiative\")\u00BB",
+                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"SOCSkillsMatrix\", \"2434A-Independence, Initiative\")\u00BB"
                             ]
                         },
                         "Text": {
@@ -228,9 +284,24 @@
                     "Owner": "admin",
                     "Author": "admin",
                     "PersonalityFilteringQuestion": {
-                        "Skill": {
+                        "SOCSkillsMatrix": {
                             "ContentItemIds": [
-                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"Skill\", \"Cooperation\")\u00BB"
+                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"SOCSkillsMatrix\", \"2316B-Cooperation\")\u00BB",
+                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"SOCSkillsMatrix\", \"5119B-Cooperation\")\u00BB",
+                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"SOCSkillsMatrix\", \"6222B-Cooperation\")\u00BB",
+                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"SOCSkillsMatrix\", \"8114A-Cooperation\")\u00BB",
+                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"SOCSkillsMatrix\", \"2429D-Cooperation\")\u00BB",
+                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"SOCSkillsMatrix\", \"8222A-Cooperation\")\u00BB",
+                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"SOCSkillsMatrix\", \"3235B-Cooperation\")\u00BB",
+                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"SOCSkillsMatrix\", \"3537A-Cooperation\")\u00BB",
+                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"SOCSkillsMatrix\", \"5432B-Cooperation\")\u00BB",
+                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"SOCSkillsMatrix\", \"7878a-Cooperation\")\u00BB",
+                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"SOCSkillsMatrix\", \"8111D-Cooperation\")\u00BB",
+                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"SOCSkillsMatrix\", \"1121A-Cooperation\")\u00BB",
+                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"SOCSkillsMatrix\", \"3443B-Cooperation\")\u00BB",
+                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"SOCSkillsMatrix\", \"3417C-Cooperation\")\u00BB",
+                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"SOCSkillsMatrix\", \"3333j-Cooperation\")\u00BB",
+                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"SOCSkillsMatrix\", \"3239J-Cooperation\")\u00BB"
                             ]
                         },
                         "Text": {
@@ -257,9 +328,10 @@
                     "Owner": "admin",
                     "Author": "admin",
                     "PersonalityFilteringQuestion": {
-                        "Skill": {
+                        "SOCSkillsMatrix": {
                             "ContentItemIds": [
-                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"Skill\", \"Analytical Thinking\")\u00BB"
+                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"SOCSkillsMatrix\", \"8114A-Analytical Thinking\")\u00BB",
+                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"SOCSkillsMatrix\", \"2434A-Analytical Thinking\")\u00BB"
                             ]
                         },
                         "Text": {
@@ -286,9 +358,23 @@
                     "Owner": "admin",
                     "Author": "admin",
                     "PersonalityFilteringQuestion": {
-                        "Skill": {
+                        "SOCSkillsMatrix": {
                             "ContentItemIds": [
-                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"Skill\", \"Speaking, Verbal Abilities\")\u00BB"
+                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"SOCSkillsMatrix\", \"2316B-Speaking, Verbal Abilities\")\u00BB",
+                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"SOCSkillsMatrix\", \"3311D-Speaking, Verbal Abilities\")\u00BB",
+                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"SOCSkillsMatrix\", \"6222B-Speaking, Verbal Abilities\")\u00BB",
+                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"SOCSkillsMatrix\", \"3441E-Speaking, Verbal Abilities\")\u00BB",
+                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"SOCSkillsMatrix\", \"3414A-Speaking, Verbal Abilities\")\u00BB",
+                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"SOCSkillsMatrix\", \"2429D-Speaking, Verbal Abilities\")\u00BB",
+                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"SOCSkillsMatrix\", \"3235B-Speaking, Verbal Abilities\")\u00BB",
+                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"SOCSkillsMatrix\", \"3537A-Speaking, Verbal Abilities\")\u00BB",
+                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"SOCSkillsMatrix\", \"5432B-Speaking, Verbal Abilities\")\u00BB",
+                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"SOCSkillsMatrix\", \"7878a-Speaking, Verbal Abilities\")\u00BB",
+                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"SOCSkillsMatrix\", \"3443B-Speaking, Verbal Abilities\")\u00BB",
+                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"SOCSkillsMatrix\", \"3417C-Speaking, Verbal Abilities\")\u00BB",
+                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"SOCSkillsMatrix\", \"2434A-Speaking, Verbal Abilities\")\u00BB",
+                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"SOCSkillsMatrix\", \"3333j-Speaking, Verbal Abilities\")\u00BB",
+                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"SOCSkillsMatrix\", \"3239J-Speaking, Verbal Abilities\")\u00BB"
                             ]
                         },
                         "Text": {
@@ -315,9 +401,12 @@
                     "Owner": "admin",
                     "Author": "admin",
                     "PersonalityFilteringQuestion": {
-                        "Skill": {
+                        "SOCSkillsMatrix": {
                             "ContentItemIds": [
-                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"Skill\", \"Quantitative Abilities, Mathematics Knowledge\")\u00BB"
+                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"SOCSkillsMatrix\", \"2316B-Quantitative Abilities, Mathematics Knowledge\")\u00BB",
+                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"SOCSkillsMatrix\", \"3537A-Quantitative Abilities, Mathematics Knowledge\")\u00BB",
+                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"SOCSkillsMatrix\", \"5432B-Quantitative Abilities, Mathematics Knowledge\")\u00BB",
+                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"SOCSkillsMatrix\", \"2434A-Quantitative Abilities, Mathematics Knowledge\")\u00BB"
                             ]
                         },
                         "Text": {
@@ -344,9 +433,23 @@
                     "Owner": "admin",
                     "Author": "admin",
                     "PersonalityFilteringQuestion": {
-                        "Skill": {
+                        "SOCSkillsMatrix": {
                             "ContentItemIds": [
-                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"Skill\", \"Self Control\")\u00BB"
+                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"SOCSkillsMatrix\", \"2316B-Self Control\")\u00BB",
+                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"SOCSkillsMatrix\", \"3311D-Self Control\")\u00BB",
+                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"SOCSkillsMatrix\", \"5119B-Self Control\")\u00BB",
+                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"SOCSkillsMatrix\", \"6222B-Self Control\")\u00BB",
+                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"SOCSkillsMatrix\", \"3441E-Self Control\")\u00BB",
+                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"SOCSkillsMatrix\", \"9239A-Self Control\")\u00BB",
+                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"SOCSkillsMatrix\", \"8222A-Self Control\")\u00BB",
+                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"SOCSkillsMatrix\", \"3235B-Self Control\")\u00BB",
+                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"SOCSkillsMatrix\", \"7878A-Self Control\")\u00BB",
+                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"SOCSkillsMatrix\", \"8111D-Self Control\")\u00BB",
+                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"SOCSkillsMatrix\", \"1121A-Self Control\")\u00BB",
+                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"SOCSkillsMatrix\", \"3443B-Self Control\")\u00BB",
+                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"SOCSkillsMatrix\", \"2434A-Self Control\")\u00BB",
+                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"SOCSkillsMatrix\", \"3333j-Self Control\")\u00BB",
+                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"SOCSkillsMatrix\", \"3239J-Self Control\")\u00BB"
                             ]
                         },
                         "Text": {

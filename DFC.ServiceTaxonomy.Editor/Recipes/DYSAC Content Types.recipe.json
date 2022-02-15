@@ -278,17 +278,17 @@
                     "ContentPartFieldDefinitionRecords": [
                         {
                             "FieldName": "ContentPickerField",
-                            "Name": "Skill",
+                            "Name": "SOCSkillsMatrix",
                             "Settings": {
                                 "ContentPartFieldSettings": {
-                                    "DisplayName": "Skill",
+                                    "DisplayName": "SOCSkillsMatrix",
                                     "Position": "0"
                                 },
                                 "ContentPickerFieldSettings": {
-                                    "Hint": "Creates relationships of [:hasSkill].",
+                                    "Hint": "Creates relationships of [:hasSOCSkillsMatrix].",
                                     "Required": true,
                                     "DisplayedContentTypes": [
-                                        "Skill"
+                                        "SOCSkillsMatrix"
                                     ]
                                 },
                                 "ContentIndexSettings": {}
