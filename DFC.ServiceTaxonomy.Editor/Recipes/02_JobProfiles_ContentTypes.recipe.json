@@ -2344,11 +2344,12 @@
                             "Settings": {
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "Salary starter (per year)",
+                                    "Editor": "Currency",
                                     "Position": "3"
                                 },
                                 "NumericFieldSettings": {
-                                    "Minimum": 0.0,
-                                    "Placeholder": "£ (Mandatory)"
+                                    "Minimum": null,
+                                    "Placeholder": ""
                                 },
                                 "ContentIndexSettings": {}
                             }
@@ -2359,11 +2360,12 @@
                             "Settings": {
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "Salary experienced (per year)",
+                                    "Editor": "Currency",
                                     "Position": "4"
                                 },
                                 "NumericFieldSettings": {
-                                    "Minimum": 0.0,
-                                    "Placeholder": "£ (Mandatory)"
+                                    "Minimum": null,
+                                    "Placeholder": ""
                                 },
                                 "ContentIndexSettings": {}
                             }
@@ -2377,8 +2379,8 @@
                                     "Position": "5"
                                 },
                                 "NumericFieldSettings": {
-                                    "Minimum": 0.0,
-                                    "Placeholder": "(Mandatory)"
+                                    "Minimum": null,
+                                    "Placeholder": ""
                                 },
                                 "ContentIndexSettings": {}
                             }
@@ -2392,8 +2394,8 @@
                                     "Position": "6"
                                 },
                                 "NumericFieldSettings": {
-                                    "Minimum": 0.0,
-                                    "Placeholder": "(Mandatory)"
+                                    "Minimum": null,
+                                    "Placeholder": ""
                                 },
                                 "ContentIndexSettings": {}
                             }
