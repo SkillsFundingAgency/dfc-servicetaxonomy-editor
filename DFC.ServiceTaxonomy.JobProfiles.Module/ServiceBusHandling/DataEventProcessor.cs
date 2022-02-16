@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
+using DFC.ServiceTaxonomy.DataAccess.Repositories;
 using DFC.ServiceTaxonomy.GraphSync.Models;
-using DFC.ServiceTaxonomy.JobProfiles.Module.Indexes;
 using DFC.ServiceTaxonomy.JobProfiles.Module.Extensions;
+using DFC.ServiceTaxonomy.JobProfiles.Module.Indexes;
 using DFC.ServiceTaxonomy.JobProfiles.Module.Models.ServiceBus;
 using DFC.ServiceTaxonomy.JobProfiles.Module.ServiceBusHandling.Interfaces;
 
@@ -12,10 +14,6 @@ using Microsoft.Extensions.Logging;
 
 using OrchardCore.ContentManagement;
 using OrchardCore.ContentManagement.Handlers;
-
-using DFC.ServiceTaxonomy.DataAccess.Repositories;
-using System.Linq;
-using DFC.ServiceTaxonomy.JobProfiles.Module.ServiceBusHandling.Converters;
 
 namespace DFC.ServiceTaxonomy.JobProfiles.Module.ServiceBusHandling
 {
@@ -27,11 +25,11 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module.ServiceBusHandling
         private readonly IRelatedSkillsConverter _relatedSkillsConverter;
         private readonly IGenericIndexRepository<JobProfileIndex> _jobProfileIndexRepository;
 
-public DataEventProcessor(IServiceBusMessageProcessor serviceBusMessageProcessor,
-                                    ILogger<DataEventProcessor> logger,
-                                    IMessageConverter<JobProfileMessage> jobprofileMessageConverter,
-                                    IRelatedSkillsConverter relatedSkillsConverter,
-                                    IGenericIndexRepository<JobProfileIndex> jobProfileIndexRepository)
+        public DataEventProcessor(IServiceBusMessageProcessor serviceBusMessageProcessor,
+                                            ILogger<DataEventProcessor> logger,
+                                            IMessageConverter<JobProfileMessage> jobprofileMessageConverter,
+                                            IRelatedSkillsConverter relatedSkillsConverter,
+                                            IGenericIndexRepository<JobProfileIndex> jobProfileIndexRepository)
         {
             _serviceBusMessageProcessor = serviceBusMessageProcessor;
             _logger = logger;
@@ -129,9 +127,9 @@ public DataEventProcessor(IServiceBusMessageProcessor serviceBusMessageProcessor
             IList<WhatYouWillDoContentItem> jobprofileData = new List<WhatYouWillDoContentItem>();
             string fieldDescription = context.ContentItem.ContentType switch
             {
-                ContentTypes.Environment => Helper.SanitiseHtml(context.ContentItem.Content.Environment.Description.Html),
-                ContentTypes.Uniform => Helper.SanitiseHtml(context.ContentItem.Content.Uniform.Description.Html),
-                ContentTypes.Location => Helper.SanitiseHtml(context.ContentItem.Content.Location.Description.Html),
+                ContentTypes.Environment => context.ContentItem.Content.Environment.Description.Html,
+                ContentTypes.Uniform => context.ContentItem.Content.Uniform.Description.Html,
+                ContentTypes.Location => context.ContentItem.Content.Location.Description.Html,
                 _ => throw new ArgumentException("No valid match found"),
             };
 
@@ -203,7 +201,7 @@ public DataEventProcessor(IServiceBusMessageProcessor serviceBusMessageProcessor
                         Text = fieldText,
                         JobProfileId = Guid.Parse(item.GraphSyncPartId ?? string.Empty),
                         JobProfileTitle = item.JobProfileTitle,
-                        Url = fieldUrl, 
+                        Url = fieldUrl,
                     });
                 }
                 else
@@ -227,11 +225,11 @@ public DataEventProcessor(IServiceBusMessageProcessor serviceBusMessageProcessor
             IList<InfoContentItem> jobprofileData = new List<InfoContentItem>();
             string fieldInfo = context.ContentItem.ContentType switch
             {
-                ContentTypes.Restriction => Helper.SanitiseHtml(context.ContentItem.Content.Restriction.Info.Html),
-                ContentTypes.Registration => Helper.SanitiseHtml(context.ContentItem.Content.Registration.Info.Html),
-                ContentTypes.ApprenticeshipRequirements => Helper.SanitiseHtml(context.ContentItem.Content.ApprenticeshipRequirements.Info.Html),
-                ContentTypes.CollegeRequirements => Helper.SanitiseHtml(context.ContentItem.Content.CollegeRequirements.Info.Html),
-                ContentTypes.UniversityRequirements => Helper.SanitiseHtml(context.ContentItem.Content.UniversityRequirements.Info.Html),
+                ContentTypes.Restriction => context.ContentItem.Content.Restriction.Info.Html,
+                ContentTypes.Registration => context.ContentItem.Content.Registration.Info.Html,
+                ContentTypes.ApprenticeshipRequirements => context.ContentItem.Content.ApprenticeshipRequirements.Info.Html,
+                ContentTypes.CollegeRequirements => context.ContentItem.Content.CollegeRequirements.Info.Html,
+                ContentTypes.UniversityRequirements => context.ContentItem.Content.UniversityRequirements.Info.Html,
                 _ => throw new ArgumentException("No valid match found"),
             };
 
@@ -320,7 +318,7 @@ public DataEventProcessor(IServiceBusMessageProcessor serviceBusMessageProcessor
                         Description = fieldDescription,
                         JobProfileId = Guid.Parse(item.GraphSyncPartId ?? string.Empty),
                         JobProfileTitle = item.JobProfileTitle,
-                        Url = urlString, 
+                        Url = urlString,
                     });
                 }
                 else
@@ -346,7 +344,8 @@ public DataEventProcessor(IServiceBusMessageProcessor serviceBusMessageProcessor
             if (!isSaved)
             {
                 jobprofileData.AddRange(matches
-                    .Select(item => new SocSkillMatrixContentItem {
+                    .Select(item => new SocSkillMatrixContentItem
+                    {
                         Id = id,
                         JobProfileId = Guid.Parse(item.GraphSyncPartId ?? string.Empty)
                     }));

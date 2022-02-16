@@ -1,4 +1,8 @@
-﻿using DFC.ServiceTaxonomy.JobProfiles.Module.Handlers;
+﻿using DFC.ServiceTaxonomy.DataAccess.Repositories;
+using DFC.ServiceTaxonomy.JobProfiles.Module.AzureSearchIndexHandling;
+using DFC.ServiceTaxonomy.JobProfiles.Module.AzureSearchIndexHandling.Converters;
+using DFC.ServiceTaxonomy.JobProfiles.Module.AzureSearchIndexHandling.Interfaces;
+using DFC.ServiceTaxonomy.JobProfiles.Module.Handlers;
 using DFC.ServiceTaxonomy.JobProfiles.Module.Indexes;
 using DFC.ServiceTaxonomy.JobProfiles.Module.Models.ServiceBus;
 using DFC.ServiceTaxonomy.JobProfiles.Module.ServiceBusHandling;
@@ -9,28 +13,25 @@ using DFC.ServiceTaxonomy.JobProfiles.Service.Interfaces;
 using DFC.ServiceTaxonomy.JobProfiles.Service.Models;
 using DFC.ServiceTaxonomy.JobProfiles.Service.Repositories;
 using DFC.ServiceTaxonomy.JobProfiles.Service.Services;
+
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+
 using OrchardCore.ContentManagement.Handlers;
 using OrchardCore.Data.Migration;
 using OrchardCore.Modules;
+
 using YesSql.Indexes;
-using DFC.ServiceTaxonomy.DataAccess.Repositories;
-using DFC.ServiceTaxonomy.JobProfiles.Module.AzureSearchIndexHandling.Interfaces;
-using DFC.ServiceTaxonomy.JobProfiles.Module.AzureSearchIndexHandling;
-using DFC.ServiceTaxonomy.JobProfiles.Module.AzureSearchIndexHandling.Converters;
 
 namespace DFC.ServiceTaxonomy.JobProfiles.Module
 {
     public class Startup : StartupBase
     {
-        private readonly IConfiguration configuration;
+        private readonly IConfiguration _configuration;
 
-        public Startup(IConfiguration configuration)
-        {
-            this.configuration = configuration;
-        }
+        public Startup(IConfiguration configuration) =>
+            _configuration = configuration;
 
         public override void ConfigureServices(IServiceCollection services)
         {
@@ -52,7 +53,7 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module
             services.AddScoped<IContentHandler, JobProfileAzureSearchIndexHandler>();
 
             // Repositories
-            services.AddDbContext<DfcDevOnetSkillsFrameworkContext>(options => options.UseSqlServer(configuration.GetConnectionString("SkillsFrameworkDB")));
+            services.AddDbContext<DfcDevOnetSkillsFrameworkContext>(options => options.UseSqlServer(_configuration.GetConnectionString("SkillsFrameworkDB")));
             services.AddScoped<ISocMappingRepository, SocMappingRepository>();
             services.AddScoped<ISkillsRepository, SkillsOueryRepository>();
             services.AddScoped<IQueryRepository<FrameworkSkillSuppression>, SuppressionsQueryRepository>();
@@ -66,11 +67,6 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module
 
             // Index Providers
             services.AddSingleton<IIndexProvider, JobProfileIndexProvider>();
-
-            services.ConfigureHtmlSanitizer((sanitizer) =>
-            {
-                sanitizer.AllowedAttributes.Remove("style");
-            });
         }
     }
 }
