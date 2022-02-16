@@ -1,0 +1,158 @@
+﻿{
+    "name": "OccupationContentTypes",
+    "displayName": "Occupation Content Types",
+    "description": "Sets up the Service Taxonomy Editor with Occupation content types",
+    "author": "National Careers Service",
+    "website": "https://github.com/SkillsFundingAgency/dfc-servicetaxonomy-editor",
+    "version": "1.0",
+    "issetuprecipe": false,
+    "categories": [
+        "default"
+    ],
+    "tags": [
+        "ncs"
+    ],
+    "steps": [
+        {
+            "name": "ContentDefinition",
+            "ContentTypes": [
+                {
+                    "Name": "Occupation",
+                    "DisplayName": "Occupation",
+                    "Settings": {
+                        "ContentTypeSettings": {
+                            "Listable": true,
+                            "Draftable": true,
+                            "Versionable": true,
+                            "Securable": true
+                        },
+                        "FullTextAspectSettings": {}
+                    },
+                    "ContentTypePartDefinitionRecords": [
+                        {
+                            "PartName": "TitlePart",
+                            "Name": "TitlePart",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "0"
+                                },
+                                "ContentIndexSettings": {},
+                                "TitlePartSettings": {
+                                    "Options": 1
+                                }
+                            }
+                        },
+                        {
+                            "PartName": "Occupation",
+                            "Name": "Occupation",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "1"
+                                }
+                            }
+                        },
+                        {
+                            "PartName": "GraphSyncPart",
+                            "Name": "GraphSyncPart",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "2"
+                                },
+                                "GraphSyncPartSettings": {
+                                    "PreexistingNode": true,
+                                    "NodeNameTransform": "$\"esco__{ContentType}\"",
+                                    "IdPropertyName": "uri",
+                                    "GenerateIdPropertyValue": "$\"http://data.europa.eu/esco/{ContentType.ToLowerInvariant()}/{Value}\"",
+                                    "PreExistingNodeUriPrefix": "http://data.europa.eu/esco",
+                                    "DisplayId": true,
+                                    "VisualiserIncomingRelationshipsPathLength": 0
+                                },
+                                "ContentIndexSettings": {}
+                            }
+                        }
+                    ]
+                }
+            ],
+            "ContentParts": [
+                {
+                    "Name": "Occupation",
+                    "Settings": {},
+                    "ContentPartFieldDefinitionRecords": [
+                        {
+                            "FieldName": "ContentPickerField",
+                            "Name": "PreferredLabel",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Preferred Label",
+                                    "Position": "0"
+                                },
+                                "ContentPickerFieldSettings": {
+                                    "Hint": "Creates relationship of type [:hasPrefLabel].",
+                                    "Multiple": false,
+                                    "DisplayedContentTypes": [
+                                        "OccupationLabel"
+                                    ]
+                                },
+                                "ContentIndexSettings": {}
+                            }
+                        },
+                        {
+                            "FieldName": "ContentPickerField",
+                            "Name": "AlternativeLabels",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Alternative Labels",
+                                    "Position": "1"
+                                },
+                                "ContentPickerFieldSettings": {
+                                    "Hint": "Creates relationships of type [:hasAltLabel].",
+                                    "Multiple": true,
+                                    "DisplayedContentTypes": [
+                                        "OccupationLabel"
+                                    ]
+                                },
+                                "ContentIndexSettings": {}
+                            }
+                        },
+                        {
+                            "FieldName": "ContentPickerField",
+                            "Name": "EssentialSkills",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Essential Skills",
+                                    "Position": "2"
+                                },
+                                "ContentPickerFieldSettings": {
+                                    "Hint": "Creates relationships of type [:hasEssentialSkill].",
+                                    "Multiple": true,
+                                    "DisplayedContentTypes": [
+                                        "Skill"
+                                    ]
+                                },
+                                "ContentIndexSettings": {}
+                            }
+                        },
+                        {
+                            "FieldName": "ContentPickerField",
+                            "Name": "OptionalSkills",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Optional Skills",
+                                    "Position": "3"
+                                },
+                                "ContentPickerFieldSettings": {
+                                    "Hint": "Creates relationships of type [:hasOptionalSkill].",
+                                    "Multiple": true,
+                                    "DisplayedContentTypes": [
+                                        "Skill"
+                                    ]
+                                },
+                                "ContentIndexSettings": {}
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}
