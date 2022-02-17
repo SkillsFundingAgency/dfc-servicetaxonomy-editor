@@ -12,6 +12,7 @@
     <AnalysisLevel>latest</AnalysisLevel>
     <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
     <UserSecretsId>049ec31b-9ec3-4123-a3e6-b35fc9237492</UserSecretsId>
+    <Configurations>Debug;Release;Development</Configurations>
   </PropertyGroup>
 
   <ItemGroup>
@@ -56,11 +57,22 @@
     <ProjectReference Include="..\DFC.ServiceTaxonomy.GraphLookup\DFC.ServiceTaxonomy.GraphLookup.csproj" />
     <ProjectReference Include="..\DFC.ServiceTaxonomy.GraphSync\DFC.ServiceTaxonomy.GraphSync.csproj" />
     <ProjectReference Include="..\DFC.ServiceTaxonomy.GraphVisualiser\DFC.ServiceTaxonomy.GraphVisualiser.csproj" />
+    <ProjectReference Include="..\DFC.ServiceTaxonomy.JobProfiles.Module\DFC.ServiceTaxonomy.JobProfiles.Module.csproj" />
     <ProjectReference Include="..\DFC.ServiceTaxonomy.PageLocation\DFC.ServiceTaxonomy.PageLocation.csproj" />
     <ProjectReference Include="..\DFC.ServiceTaxonomy.Taxonomies\DFC.ServiceTaxonomy.Taxonomies.csproj" />
     <ProjectReference Include="..\DFC.ServiceTaxonomy.Theme\DFC.ServiceTaxonomy.Theme.csproj" />
+    <ProjectReference Include="..\DFC.ServiceTaxonomy.Title\DFC.ServiceTaxonomy.Title.csproj" />
     <ProjectReference Include="..\DFC.ServiceTaxonomy.UnpublishLater\DFC.ServiceTaxonomy.UnpublishLater.csproj" />
     <ProjectReference Include="..\DFC.ServiceTaxonomy.VersionComparison\DFC.ServiceTaxonomy.VersionComparison.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="Recipes\237. JobProfile.recipe.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="Recipes\238. JobProfileSpecialism.recipe.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
 </Project>

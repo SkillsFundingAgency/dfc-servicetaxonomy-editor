@@ -24,3 +24,12 @@
     //hide the configuration -> SEO menu item as it can't be disabled any other way I don't think??
     $('li.has-items span.title:contains("SEO")').closest('li').remove();
 });
+
+$('document').ready(function () {
+    $('input[id="JobProfileNew_Salarystarterperyear_Value"]').closest("form").attr('novalidate', 'novalidate');
+    $('label[for="JobProfileNew_Work_Html"]').css("font-size", ".8rem");
+    $('label[for="JobProfileNew_Volunteering_Html"]').css("font-size", ".8rem");
+    $('label[for="JobProfileNew_Directapplication_Html"]').css("font-size", ".8rem");
+    $('label[for="JobProfileNew_Work_Html"]').before("<div><label> Further routes </label></div>");
+
+});

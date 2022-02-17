@@ -43,6 +43,9 @@
             $pageLocationCheckboxes = $pageLocationsFormGroup.find('input[name*=".PageLocations."]'),
             $fullUrlInput = $('input[name="PageLocationPart.FullUrl"]');
 
+        // try using UniqueTitle if Title is not found.
+        $titleInput = $titleInput.length > 0 ? $titleInput : $('input[name="UniqueTitlePart.Title"]');
+
         //taxonomy HTML structure is broke - there are some nested form groups which shouldn't be here
         $pageLocationsFormGroup.find('.form-group, .d-none, > label, [data-editor-type="ContentPicker"]').remove().insertAfter($pageLocationsFormGroup);
 

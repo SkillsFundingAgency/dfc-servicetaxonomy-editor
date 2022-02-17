@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+
 using DFC.ServiceTaxonomy.Content.Configuration;
 using DFC.ServiceTaxonomy.CustomEditor.Configuration;
 using DFC.ServiceTaxonomy.Editor.Security;
@@ -18,10 +19,8 @@ namespace DFC.ServiceTaxonomy.Editor
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
-        {
+        public Startup(IConfiguration configuration) =>
             Configuration = configuration;
-        }
 
         public IConfiguration Configuration { get; }
 
@@ -33,48 +32,46 @@ namespace DFC.ServiceTaxonomy.Editor
             services.AddDistributedMemoryCache();
             services.AddSession();
 
-            services.AddOrchardCms().ConfigureServices(se => se.ConfigureHtmlSanitizer((sanitizer) =>
-            {
-                sanitizer.AllowDataAttributes = true;
-                sanitizer.AllowedAttributes.Add("id");
-                sanitizer.AllowedAttributes.Add("aria-labelledby");
-                sanitizer.AllowedTags.Add("iframe");
-                sanitizer.AllowedTags.Add("svg");
-                sanitizer.AllowedTags.Add("path");
-                sanitizer.AllowedAttributes.Add("fill");
-                sanitizer.AllowedAttributes.Add("d");
-                sanitizer.AllowedAttributes.Add("xmlns");
-                sanitizer.AllowedAttributes.Add("viewBox");
-                sanitizer.AllowedAttributes.Add("allowfullscreen");
-                sanitizer.AllowedSchemes.Add("mailto");
-                sanitizer.AllowedSchemes.Add("tel");
+            services.AddOrchardCms()
+                .ConfigureServices(se => se.ConfigureHtmlSanitizer((sanitizer) =>
+                {
+                    sanitizer.AllowDataAttributes = true;
+                    sanitizer.AllowedAttributes.Add("id");
+                    sanitizer.AllowedAttributes.Add("aria-labelledby");
+                    sanitizer.AllowedTags.Add("iframe");
+                    sanitizer.AllowedTags.Add("svg");
+                    sanitizer.AllowedTags.Add("path");
+                    sanitizer.AllowedAttributes.Add("fill");
+                    sanitizer.AllowedAttributes.Add("d");
+                    sanitizer.AllowedAttributes.Add("xmlns");
+                    sanitizer.AllowedAttributes.Add("viewBox");
+                    sanitizer.AllowedAttributes.Add("allowfullscreen");
+                    sanitizer.AllowedSchemes.Add("mailto");
+                    sanitizer.AllowedSchemes.Add("tel");
 
-            }));
+                    sanitizer.AllowedAttributes.Remove("style");
+                }));
 
             //todo: do this in each library??? if so, make sure it doesn't add services or config twice
             services.AddGraphCluster(options =>
                 Configuration.GetSection(Neo4jOptions.Neo4j).Bind(options));
 
             services.Configure<GraphSyncPartSettingsConfiguration>(Configuration.GetSection(nameof(GraphSyncPartSettings)));
-            services.Configure<CookiePolicyOptions>(options =>
-            {
-                options.Secure = CookieSecurePolicy.Always;
-            });
+            services.Configure<CookiePolicyOptions>(options => options.Secure = CookieSecurePolicy.Always);
             services.AddEventGridPublishing(Configuration);
-            services.AddOrchardCore().ConfigureServices(s => s.ConfigureApplicationCookie(options =>
-            {
-                options.Cookie.Name = "stax_Default";
-            }), order: 10);
 
-            services.AddOrchardCore().ConfigureServices(s => s.AddAntiforgery(options =>
-            {
-                options.Cookie.Name = "staxantiforgery_Default";
-            }), order: 10);
-
-            services.PostConfigure(SetupMediaConfig());
+            services.AddOrchardCore()
+                .ConfigureServices(s =>
+                {
+                    s.ConfigureApplicationCookie(options => options.Cookie.Name = "stax_Default");
+                    s.AddAntiforgery(options => options.Cookie.Name = "staxantiforgery_Default");
+                }, order: 10);
 
             services.Configure<PagesConfiguration>(Configuration.GetSection("Pages"));
+            services.Configure<JobProfilesConfiguration>(Configuration.GetSection("JobProfiles"));
             services.Configure<AzureAdSettings>(Configuration.GetSection("AzureAdSettings"));
+
+            services.PostConfigure(SetupMediaConfig());
         }
 
         public void Configure(IApplicationBuilder app, IHostEnvironment env)
@@ -92,21 +89,18 @@ namespace DFC.ServiceTaxonomy.Editor
                 .UseOrchardCore();
         }
 
-        private Action<MediaOptions> SetupMediaConfig()
-        {
-            return o =>
+        private Action<MediaOptions> SetupMediaConfig() =>
+            o =>
             {
                 o.AllowedFileExtensions = new HashSet<string>
                 {
-                        ".jpg",
-                        ".png",
-                        ".gif",
-                        ".ico",
-                        ".svg"
+                    ".jpg",
+                    ".png",
+                    ".gif",
+                    ".ico",
+                    ".svg"
                 };
                 o.CdnBaseUrl = Configuration.GetValue<string>(Constants.Common.DigitalAssetsCdnKey).TrimEnd('/');
             };
-
-        }
     }
 }

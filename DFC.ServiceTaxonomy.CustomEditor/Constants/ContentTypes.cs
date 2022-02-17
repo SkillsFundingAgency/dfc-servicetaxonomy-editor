@@ -2,7 +2,8 @@
 {
     public static class ContentTypes
     {
-        public const string JobProfile = "JobProfile";
-        public const string Page = "Page";
+        public const string JobProfile = nameof(JobProfile);
+        public const string Page = nameof(Page);
+        public const string SOCCode = nameof(SOCCode);
     }
 }

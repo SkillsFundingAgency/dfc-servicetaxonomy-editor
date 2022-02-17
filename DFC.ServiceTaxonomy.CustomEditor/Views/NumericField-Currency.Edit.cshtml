@@ -1,0 +1,24 @@
+﻿@model OrchardCore.ContentFields.ViewModels.EditNumericFieldViewModel
+
+@{
+    var settings = Model.PartFieldDefinition.GetSettings<NumericFieldSettings>();
+    string name = Model.PartFieldDefinition.DisplayName();
+}
+
+<div class="form-group">
+    <div class="row">
+        <div class="col-md-6 col-lg-4">
+            <label asp-for="Value">@name</label>
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <div class="input-group-text">&pound;</div>
+                </div>
+                <input asp-for="Value" class="form-control content-preview-select" placeholder="@settings.Placeholder" required="@settings.Required" />
+            </div>
+        </div>
+    </div>
+    @if (!String.IsNullOrEmpty(settings.Hint))
+    {
+        <span class="hint">@settings.Hint</span>
+    }
+</div>
