@@ -57,30 +57,21 @@ namespace DFC.ServiceTaxonomy.Editor
                 Configuration.GetSection(Neo4jOptions.Neo4j).Bind(options));
 
             services.Configure<GraphSyncPartSettingsConfiguration>(Configuration.GetSection(nameof(GraphSyncPartSettings)));
-            services.Configure<CookiePolicyOptions>(options =>
-            {
-                options.Secure = CookieSecurePolicy.Always;
-            });
+            services.Configure<CookiePolicyOptions>(options => options.Secure = CookieSecurePolicy.Always);
             services.AddEventGridPublishing(Configuration);
 
             services.AddOrchardCore()
                 .ConfigureServices(s =>
                 {
-                    s.ConfigureApplicationCookie(options =>
-                    {
-                        options.Cookie.Name = "stax_Default";
-                    });
-                    s.AddAntiforgery(options =>
-                    {
-                        options.Cookie.Name = "staxantiforgery_Default";
-                    });
+                    s.ConfigureApplicationCookie(options => options.Cookie.Name = "stax_Default");
+                    s.AddAntiforgery(options => options.Cookie.Name = "staxantiforgery_Default");
                 }, order: 10);
-
-            services.PostConfigure(SetupMediaConfig());
 
             services.Configure<PagesConfiguration>(Configuration.GetSection("Pages"));
             services.Configure<JobProfilesConfiguration>(Configuration.GetSection("JobProfiles"));
             services.Configure<AzureAdSettings>(Configuration.GetSection("AzureAdSettings"));
+
+            services.PostConfigure(SetupMediaConfig());
         }
 
         public void Configure(IApplicationBuilder app, IHostEnvironment env)
