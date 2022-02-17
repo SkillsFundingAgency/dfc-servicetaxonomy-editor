@@ -72,7 +72,7 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module.ServiceBusHandling.Converters
                     SalaryExperienced = contentItem.Content.JobProfile.Salaryexperiencedperyear is null ? default : (decimal?)contentItem.Content.JobProfile.Salaryexperiencedperyear.Value,
                     MinimumHours = contentItem.Content.JobProfile.Minimumhours is null ? default : (decimal?)contentItem.Content.JobProfile.Minimumhours.Value,
                     MaximumHours = contentItem.Content.JobProfile.Maximumhours is null ? default : (decimal?)contentItem.Content.JobProfile.Maximumhours.Value,
-                    CareerPathAndProgression = contentItem.Content.JobProfile.Careerpathandprogression is null ? default : (string?)Helper.SanitiseHtmlWithPTag(contentItem.Content.JobProfile.Careerpathandprogression.Html),
+                    CareerPathAndProgression = contentItem.Content.JobProfile.Careerpathandprogression is null ? default : (string?)contentItem.Content.JobProfile.Careerpathandprogression.Html,
                     CourseKeywords = contentItem.Content.JobProfile.Coursekeywords is null ? default : (string?)contentItem.Content.JobProfile.Coursekeywords.Text,
 
                     HowToBecomeData = await _howToBecomeMessageConverter.ConvertFromAsync(contentItem),
@@ -112,15 +112,13 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module.ServiceBusHandling.Converters
             }
         }
 
-        private static IEnumerable<JobProfileCategoryItem> GetJobCategories(IEnumerable<ContentItem> contentItems)
-        {
-            return contentItems?.Select(contentItem => new JobProfileCategoryItem
+        private static IEnumerable<JobProfileCategoryItem> GetJobCategories(IEnumerable<ContentItem> contentItems) =>
+            contentItems?.Select(contentItem => new JobProfileCategoryItem
             {
                 Id = contentItem.As<GraphSyncPart>().ExtractGuid(),
                 Title = contentItem.As<TitlePart>().Title,
                 Name = contentItem.Content.JobProfileCategory.Description is null ? default : (string?)contentItem.Content.JobProfileCategory.Description.Text
             }) ?? Enumerable.Empty<JobProfileCategoryItem>();
-        }
 
         private static IEnumerable<JobProfileRelatedCareerItem> GetRelatedCareersData(IEnumerable<ContentItem> contentItems) =>
             contentItems?.Select(contentItem => new JobProfileRelatedCareerItem

@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+
 using DFC.ServiceTaxonomy.GraphSync.Models;
 using DFC.ServiceTaxonomy.JobProfiles.Module.Extensions;
 using DFC.ServiceTaxonomy.JobProfiles.Module.Models.ServiceBus;
 using DFC.ServiceTaxonomy.JobProfiles.Module.ServiceBusHandling.Interfaces;
+
 using Microsoft.Extensions.DependencyInjection;
 
 using OrchardCore.ContentManagement;
@@ -34,7 +36,7 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module.ServiceBusHandling.Converters
             {
                 RelatedSocSkillMatrixSkills = await _relatedSkillsConverter.GetRelatedSkills(relatedSocSkillMatrixSkills),
                 RelatedDigitalSkills = GetDigitalSkills(relatedDigitalSkills),
-                OtherRequirements = Helper.SanitiseHtml(contentItem.Content.JobProfile.Otherrequirements.Html),
+                OtherRequirements = contentItem.Content.JobProfile.Otherrequirements.Html,
                 RelatedRestrictions = GetRestrictions(relatedRestrictions)
             };
             return whatItTakesData;
@@ -48,7 +50,7 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module.ServiceBusHandling.Converters
             {
                 Id = contentItem.As<GraphSyncPart>().ExtractGuid(),
                 Title = contentItem.As<TitlePart>().Title,
-                Info = Helper.SanitiseHtmlWithPTag(contentItem.Content.Restriction.Info?.Html)
+                Info = contentItem.Content.Restriction.Info?.Html
             }) ?? Enumerable.Empty<RestrictionItem>();
     }
 }
