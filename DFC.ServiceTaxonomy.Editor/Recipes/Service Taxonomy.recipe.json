@@ -91,6 +91,7 @@
                 "DFC.ServiceTaxonomy.PageLocation",
                 "DFC.ServiceTaxonomy.Taxonomies",
                 "DFC.ServiceTaxonomy.Taxonomies.ContentsAdminList",
+                "DFC.ServiceTaxonomy.Title",
                 "DFC.ServiceTaxonomy.UnpublishLater",
                 "DFC.ServiceTaxonomy.VersionComparison"
             ]
@@ -1081,6 +1082,16 @@
                 }
             ],
             "ContentParts": [
+                {
+                    "Name": "SitemapPart",
+                    "Settings": {
+                        "ContentPartSettings": {
+                            "Attachable": true,
+                            "Description": "Provides an optional part that allows content items to be excluded, or configured, on a content item."
+                        }
+                    },
+                    "ContentPartFieldDefinitionRecords": []
+                },
                 {
                     "Name": "CommonPart",
                     "Settings": {

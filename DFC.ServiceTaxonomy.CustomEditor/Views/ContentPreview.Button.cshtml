@@ -1,29 +1,31 @@
 @using DFC.ServiceTaxonomy.CustomEditor.Configuration
+@using DFC.ServiceTaxonomy.CustomEditor.Constants
 @using DFC.ServiceTaxonomy.PageLocation.Models
 @using Microsoft.AspNetCore.Authorization
 @using Microsoft.Extensions.Options
 @using OrchardCore.ContentManagement
 @using OrchardCore.Contents
 @inject IAuthorizationService AuthorizationService
-@inject IOptions<PagesConfiguration> Config
+@inject IOptions<PagesConfiguration> PagesConfig
+@inject IOptions<JobProfilesConfiguration> JobProfilesConfig
 
 @{
-    var PageConfig = Config.Value;
     ContentItem contentItem = Model.ContentItem;
     var previewId = Guid.NewGuid();
     var hasPreviewPermission = await AuthorizationService.AuthorizeAsync(User, CommonPermissions.PreviewContent, contentItem);
-    var isPageContentType = contentItem.ContentType == "Page";
+    var isPreviewRequired = contentItem.ContentType == ContentTypes.Page || contentItem.ContentType == ContentTypes.JobProfile;
 }
 
-@if (isPageContentType)
+@if (isPreviewRequired)
 {
+    var previewURI = contentItem.ContentType == ContentTypes.Page ? PagesConfig.Value.PreviewAppPrefix : JobProfilesConfig.Value.PreviewAppPrefix;
     string url = contentItem.Content[nameof(PageLocationPart)][nameof(PageLocationPart.FullUrl)];
     bool allowPagePreview = !string.IsNullOrWhiteSpace(contentItem.ContentItemVersionId) && contentItem.HasDraft();
 
     <div class="btn-group btn-group-approval">
         @if (allowPagePreview)
         {
-            <a href="@($"{PageConfig.PreviewAppPrefix}{url}")" target="_blank" class="btn btn-info">@T["Preview draft"]</a>
+            <a href="@($"{previewURI}{url}")" target="_blank" class="btn btn-info">@T["Preview draft"]</a>
         }
         else
         {
