@@ -38,7 +38,7 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module.ServiceBusHandling.Converters
 
                 var whatYouWillDoData = new WhatYouWillDoData
                 {
-                    DailyTasks = Helper.SanitiseHtmlWithPTag(contentItem.Content.JobProfile.Daytodaytasks.Html),
+                    DailyTasks = contentItem.Content.JobProfile.Daytodaytasks.Html,
                     Locations = GetWYDRelatedItems(relatedLocations),
                     Environments = GetWYDRelatedItems(relatedEnvironments),
                     Uniforms = GetWYDRelatedItems(relatedUniforms)
@@ -64,9 +64,9 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module.ServiceBusHandling.Converters
         private static string GetWYDRelatedItemDescription(ContentItem contentItem) =>
             contentItem.ContentType switch
             {
-                ContentTypes.Location => Helper.SanitiseHtml(contentItem.Content.Location.Description.Text),
-                ContentTypes.Environment => Helper.SanitiseHtml(contentItem.Content.Environment.Description.Text),
-                ContentTypes.Uniform => Helper.SanitiseHtml(contentItem.Content.Uniform.Description.Text),
+                ContentTypes.Location => contentItem.Content.Location.Description.Text,
+                ContentTypes.Environment => contentItem.Content.Environment.Description.Text,
+                ContentTypes.Uniform => contentItem.Content.Uniform.Description.Text,
                 _ => string.Empty,
             };
     }
