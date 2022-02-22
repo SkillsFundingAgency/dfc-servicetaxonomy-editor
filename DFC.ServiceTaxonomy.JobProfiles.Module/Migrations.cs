@@ -1,10 +1,12 @@
-﻿using OrchardCore.Data.Migration;
-using OrchardCore.Modules;
+﻿using DFC.ServiceTaxonomy.JobProfiles.Module.Indexes;
+using DFC.ServiceTaxonomy.JobProfiles.Module.Models.Indexes;
+
 using OrchardCore.ContentManagement.Metadata;
 using OrchardCore.ContentManagement.Metadata.Settings;
-using DFC.ServiceTaxonomy.JobProfiles.Module.Models.Indexes;
+using OrchardCore.Data.Migration;
+using OrchardCore.Modules;
+
 using YesSql.Sql;
-using DFC.ServiceTaxonomy.JobProfiles.Module.Indexes;
 
 namespace DFC.ServiceTaxonomy.JobProfiles.Module
 {
@@ -13,10 +15,8 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module
     {
         private readonly IContentDefinitionManager _contentDefinitionManager;
 
-        public Migrations(IContentDefinitionManager contentDefinitionManager)
-        {
+        public Migrations(IContentDefinitionManager contentDefinitionManager) =>
             _contentDefinitionManager = contentDefinitionManager;
-        }
 
         public int Create()
         {
@@ -141,7 +141,9 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module
             try
             {
                 SchemaBuilder.AlterIndexTable<JobProfileIndex>(table => table.DropColumn(nameof(JobProfileIndex.RelatedSkills)));
-                SchemaBuilder.AlterIndexTable<JobProfileIndex>(table => table.AddColumn<string>(nameof(JobProfileIndex.RelatedSkills), column => column.WithLength(1024)));
+                SchemaBuilder.AlterIndexTable<JobProfileIndex>(
+                    table => table.AddColumn<string>(nameof(JobProfileIndex.RelatedSkills),
+                    column => column.WithLength(1024)));
 
                 SchemaBuilder.AlterIndexTable<JobProfileIndex>(table => table
                     .DropIndex($"IDX_{nameof(JobProfileIndex)}_{nameof(JobProfileIndex.ContentItemId)}"));
@@ -159,6 +161,38 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module
             }
 
             return 6;
+        }
+
+        public int UpdateFrom6()
+        {
+            try
+            {
+                SchemaBuilder.AlterIndexTable<JobProfileIndex>(table => table.DropColumn(nameof(JobProfileIndex.RelatedSkills)));
+                SchemaBuilder.AlterIndexTable<JobProfileIndex>(
+                    table => table.AddColumn<string>(nameof(JobProfileIndex.RelatedSkills),
+                    column => column.WithLength(600)));
+
+                SchemaBuilder.AlterIndexTable<JobProfileIndex>(table => table.DropColumn(nameof(JobProfileIndex.HiddenAlternativeTitle)));
+                SchemaBuilder.AlterIndexTable<JobProfileIndex>(
+                    table => table.AddColumn<string>(nameof(JobProfileIndex.HiddenAlternativeTitle),
+                    column => column.WithLength(300)));
+
+                SchemaBuilder.AlterIndexTable<JobProfileIndex>(table => table
+                    .DropIndex($"IDX_{nameof(JobProfileIndex)}_{nameof(JobProfileIndex.ContentItemId)}"));
+
+                SchemaBuilder.AlterIndexTable<JobProfileIndex>(table => table
+                    .CreateIndex(
+                        $"IDX_{nameof(JobProfileIndex)}_{nameof(JobProfileIndex.ContentItemId)}",
+                        "DocumentId",
+                        nameof(JobProfileIndex.ContentItemId),
+                        nameof(JobProfileIndex.GraphSyncPartId)));
+            }
+            catch
+            {
+                // SQLLite will throw an error here so we ignore it as it is not concerned with column length constraints
+            }
+
+            return 7;
         }
 
 
