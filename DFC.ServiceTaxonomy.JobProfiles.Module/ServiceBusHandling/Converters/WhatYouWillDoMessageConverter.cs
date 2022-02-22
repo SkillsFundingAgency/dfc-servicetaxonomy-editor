@@ -64,9 +64,9 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module.ServiceBusHandling.Converters
         private static string GetWYDRelatedItemDescription(ContentItem contentItem) =>
             contentItem.ContentType switch
             {
-                ContentTypes.Location => Helper.SanitiseHtml(contentItem.Content.Location.Description.Html),
-                ContentTypes.Environment => Helper.SanitiseHtml(contentItem.Content.Environment.Description.Html),
-                ContentTypes.Uniform => Helper.SanitiseHtml(contentItem.Content.Uniform.Description.Html),
+                ContentTypes.Location => Helper.SanitiseHtml(contentItem.Content.Location.Description.Text),
+                ContentTypes.Environment => Helper.SanitiseHtml(contentItem.Content.Environment.Description.Text),
+                ContentTypes.Uniform => Helper.SanitiseHtml(contentItem.Content.Uniform.Description.Text),
                 _ => string.Empty,
             };
     }
