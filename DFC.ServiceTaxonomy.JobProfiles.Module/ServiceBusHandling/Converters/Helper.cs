@@ -103,18 +103,5 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module.ServiceBusHandling.Converters
                _ => string.Empty,
            };
 
-        public static string SanitiseHtml(dynamic html)
-        {
-            string htmlString = ((string)html).Replace("<br>", "");
-            //return Regex.Replace(htmlString, "<p[^>]*>|</p[^>]*>|</span[^>]*>|<span[^>]*>|^<ul><li>|</li></ul>$", "");
-            return htmlString;
-        }
-
-        public static string SanitiseHtmlWithPTag(dynamic html)
-        {
-            string htmlString = ((string)html).Replace("<br>", "").Replace("&nbsp;", " ");
-            //return Regex.Replace(htmlString, "</span[^>]*>|<span[^>]*>|^<ul><li>|</li></ul>$", "");
-            return htmlString;
-        }
     }
 }
