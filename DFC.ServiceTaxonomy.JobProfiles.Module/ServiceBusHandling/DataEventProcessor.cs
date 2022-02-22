@@ -127,9 +127,9 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module.ServiceBusHandling
             IList<WhatYouWillDoContentItem> jobprofileData = new List<WhatYouWillDoContentItem>();
             string fieldDescription = context.ContentItem.ContentType switch
             {
-                ContentTypes.Environment => context.ContentItem.Content.Environment.Description.Html,
-                ContentTypes.Uniform => context.ContentItem.Content.Uniform.Description.Html,
-                ContentTypes.Location => context.ContentItem.Content.Location.Description.Html,
+                ContentTypes.Environment => context.ContentItem.Content.Environment.Description.Text,
+                ContentTypes.Uniform => context.ContentItem.Content.Uniform.Description.Text,
+                ContentTypes.Location => context.ContentItem.Content.Location.Description.Text,
                 _ => throw new ArgumentException("No valid match found"),
             };
 
