@@ -33,7 +33,7 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module
                 .Column<string>(nameof(JobProfileIndex.JobProfileCategory))
                 .Column<string>(nameof(JobProfileIndex.RelatedCareerProfiles))
                 .Column<string>(nameof(JobProfileIndex.SOCCode))
-                .Column<string>(nameof(JobProfileIndex.HiddenAlternativeTitle))
+                .Column<string>(nameof(JobProfileIndex.HiddenAlternativeTitle), column => column.WithLength(300))
                 .Column<string>(nameof(JobProfileIndex.WorkingHoursDetail))
                 .Column<string>(nameof(JobProfileIndex.WorkingPatterns))
                 .Column<string>(nameof(JobProfileIndex.WorkingPatternDetail))
@@ -48,7 +48,7 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module
                 .Column<string>(nameof(JobProfileIndex.ApprenticeshipLink))
                 .Column<string>(nameof(JobProfileIndex.Registration))
                 .Column<string>(nameof(JobProfileIndex.DigitalSkills))
-                .Column<string>(nameof(JobProfileIndex.RelatedSkills), column => column.WithLength(1024))
+                .Column<string>(nameof(JobProfileIndex.RelatedSkills), column => column.WithLength(600))
                 .Column<string>(nameof(JobProfileIndex.Location))
                 .Column<string>(nameof(JobProfileIndex.Environment))
                 .Column<string>(nameof(JobProfileIndex.Uniform))
@@ -63,7 +63,7 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module
                     nameof(JobProfileIndex.ContentItemId),
                     nameof(JobProfileIndex.GraphSyncPartId)));
 
-            return 6;
+            return 7;
         }
 
         public int UpdateFrom1()
