@@ -175,8 +175,8 @@
                     "DisplayName": "Personality Trait",
                     "Settings": {
                         "ContentTypeSettings": {
-                            "Creatable": false,
-                            "Listable": false,
+                            "Creatable": true,
+                            "Listable": true,
                             "Draftable": true,
                             "Versionable": true,
                             "Securable": true
