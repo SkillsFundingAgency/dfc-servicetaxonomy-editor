@@ -37,7 +37,7 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module.ServiceBusHandling.Converters
                     {
                         Id = contentItem.As<GraphSyncPart>().ExtractGuid(),
                         Title = contentItem.As<UniqueTitlePart>()?.Title,
-                        Contextualised = contentItem.Content.SOCSkillsMatrix.Contextualised is null ? default : (string?)contentItem.Content.SOCSkillsMatrix.Contextualised.Html,
+                        Contextualised = contentItem.Content.SOCSkillsMatrix.Contextualised is null ? default : (string?)contentItem.Content.SOCSkillsMatrix.Contextualised.Text,
                         ONetAttributeType = contentItem.Content.SOCSkillsMatrix.ONetAttributeType is null ? default : (string?)contentItem.Content.SOCSkillsMatrix.ONetAttributeType.Text,
                         Rank = i + 1,
                         ONetRank = contentItem.Content.SOCSkillsMatrix.ONetRank is null ? default : (decimal?)contentItem.Content.SOCSkillsMatrix.ONetRank.Text
