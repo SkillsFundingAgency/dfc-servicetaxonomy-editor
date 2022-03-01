@@ -71,38 +71,52 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module.Indexes
                         return default!;
                     }
 
-                    return  new JobProfileIndex
+                    var jobProfileIndex = new JobProfileIndex
                     {
                         ContentItemId = contentItem.ContentItemId,
-                        GraphSyncPartId = (contentItem.As<GraphSyncPart>()).ExtractGuid().ToString(),
-                        DynamicTitlePrefix = (part.DynamicTitlePrefix.ContentItemIds.ToObject<IList<string>>() as IList<string>).ConvertListToCsv(),
-                        JobProfileSpecialism = (part.JobProfileSpecialism.ContentItemIds.ToObject<IList<string>>() as IList<string>).ConvertListToCsv(),
-                        JobProfileCategory = (part.JobProfileCategory.ContentItemIds.ToObject<IList<string>>() as IList<string>).ConvertListToCsv(),
-                        RelatedCareerProfiles = (part.Relatedcareerprofiles.ContentItemIds.ToObject<IList<string>>() as IList<string>).ConvertListToCsv(),
-                        SOCCode = (part.SOCCode.ContentItemIds.ToObject<IList<string>>() as IList<string>).ConvertListToCsv(),
-                        HiddenAlternativeTitle = (part.HiddenAlternativeTitle.ContentItemIds.ToObject<IList<string>>() as IList<string>).ConvertListToCsv(),
-                        WorkingHoursDetail = (part.WorkingHoursDetails.ContentItemIds.ToObject<IList<string>>() as IList<string>).ConvertListToCsv(),
-                        WorkingPatterns = (part.WorkingPattern.ContentItemIds.ToObject<IList<string>>() as IList<string>).ConvertListToCsv(),
-                        WorkingPatternDetail = (part.WorkingPatternDetails.ContentItemIds.ToObject<IList<string>>() as IList<string>).ConvertListToCsv(),
-                        UniversityEntryRequirements = (part.UniversityEntryRequirements.ContentItemIds.ToObject<IList<string>>() as IList<string>).ConvertListToCsv(),
-                        UniversityRequirements = (part.RelatedUniversityRequirements.ContentItemIds.ToObject<IList<string>>() as IList<string>).ConvertListToCsv(),
-                        UniversityLinks = (part.RelatedUniversityLinks.ContentItemIds.ToObject<IList<string>>() as IList<string>).ConvertListToCsv(),
-                        CollegeEntryRequirements = (part.CollegeEntryRequirements.ContentItemIds.ToObject<IList<string>>() as IList<string>).ConvertListToCsv(),
-                        CollegeRequirements = (part.RelatedCollegeRequirements.ContentItemIds.ToObject<IList<string>>() as IList<string>).ConvertListToCsv(),
-                        CollegeLink = (part.RelatedCollegeLinks.ContentItemIds.ToObject<IList<string>>() as IList<string>).ConvertListToCsv(),
-                        ApprenticeshipEntryRequirements = (part.ApprenticeshipEntryRequirements.ContentItemIds.ToObject<IList<string>>() as IList<string>).ConvertListToCsv(),
-                        ApprenticeshipRequirements = (part.RelatedApprenticeshipRequirements.ContentItemIds.ToObject<IList<string>>() as IList<string>).ConvertListToCsv(),
-                        ApprenticeshipLink = (part.RelatedApprenticeshipLinks.ContentItemIds.ToObject<IList<string>>() as IList<string>).ConvertListToCsv(),
-                        Registration = (part.RelatedRegistrations.ContentItemIds.ToObject<IList<string>>() as IList<string>).ConvertListToCsv(),
-                        DigitalSkills = (part.DigitalSkills.ContentItemIds.ToObject<IList<string>>() as IList<string>).ConvertListToCsv(),
-                        RelatedSkills = (part.Relatedskills.ContentItemIds.ToObject<IList<string>>() as IList<string>).ConvertListToCsv(),
-                        Location = (part.RelatedLocations.ContentItemIds.ToObject<IList<string>>() as IList<string>).ConvertListToCsv(),
-                        Environment = (part.RelatedEnvironments.ContentItemIds.ToObject<IList<string>>() as IList<string>).ConvertListToCsv(),
-                        Uniform = (part.RelatedUniforms.ContentItemIds.ToObject<IList<string>>() as IList<string>).ConvertListToCsv(),
-                        JobProfileTitle = contentItem.DisplayText,
-                        Restriction = (part.Relatedrestrictions.ContentItemIds.ToObject<IList<string>>() as IList<string>).ConvertListToCsv(),
+                        GraphSyncPartId = contentItem.As<GraphSyncPart>().ExtractGuid().ToString(),
+                        JobProfileTitle = contentItem.DisplayText
                     };
+
+                    jobProfileIndex.DynamicTitlePrefix = GetContentItemListAsCsv(part.DynamicTitlePrefix);
+                    jobProfileIndex.JobProfileSpecialism = GetContentItemListAsCsv(part.JobProfileSpecialism);
+                    jobProfileIndex.JobProfileCategory = GetContentItemListAsCsv(part.JobProfileCategory);
+                    jobProfileIndex.RelatedCareerProfiles = GetContentItemListAsCsv(part.Relatedcareerprofiles);
+                    jobProfileIndex.SOCCode = GetContentItemListAsCsv(part.SOCCode);
+                    jobProfileIndex.HiddenAlternativeTitle = GetContentItemListAsCsv(part.HiddenAlternativeTitle);
+                    jobProfileIndex.WorkingHoursDetail = GetContentItemListAsCsv(part.WorkingHoursDetails);
+                    jobProfileIndex.WorkingPatterns = GetContentItemListAsCsv(part.WorkingPattern);
+                    jobProfileIndex.WorkingPatternDetail = GetContentItemListAsCsv(part.WorkingPatternDetails);
+                    jobProfileIndex.UniversityEntryRequirements = GetContentItemListAsCsv(part.UniversityEntryRequirements);
+                    jobProfileIndex.UniversityRequirements = GetContentItemListAsCsv(part.RelatedUniversityRequirements);
+                    jobProfileIndex.UniversityLinks = GetContentItemListAsCsv(part.RelatedUniversityLinks);
+                    jobProfileIndex.CollegeEntryRequirements = GetContentItemListAsCsv(part.CollegeEntryRequirements);
+                    jobProfileIndex.CollegeRequirements = GetContentItemListAsCsv(part.RelatedCollegeRequirements);
+                    jobProfileIndex.CollegeLink = GetContentItemListAsCsv(part.RelatedCollegeLinks);
+                    jobProfileIndex.ApprenticeshipEntryRequirements = GetContentItemListAsCsv(part.ApprenticeshipEntryRequirements);
+                    jobProfileIndex.ApprenticeshipRequirements = GetContentItemListAsCsv(part.RelatedApprenticeshipRequirements);
+                    jobProfileIndex.ApprenticeshipLink = GetContentItemListAsCsv(part.RelatedApprenticeshipLinks);
+                    jobProfileIndex.Registration = GetContentItemListAsCsv(part.RelatedRegistrations);
+                    jobProfileIndex.DigitalSkills = GetContentItemListAsCsv(part.DigitalSkills);
+                    jobProfileIndex.RelatedSkills = GetContentItemListAsCsv(part.Relatedskills);
+                    jobProfileIndex.Location = GetContentItemListAsCsv(part.RelatedLocations);
+                    jobProfileIndex.Environment = GetContentItemListAsCsv(part.RelatedEnvironments);
+                    jobProfileIndex.Uniform = GetContentItemListAsCsv(part.RelatedUniforms);
+                    jobProfileIndex.Restriction = GetContentItemListAsCsv(part.Relatedrestrictions);
+
+                    return jobProfileIndex;
                 });
+        }
+
+        private string? GetContentItemListAsCsv(dynamic contentItemIdField)
+        {
+            if(contentItemIdField == null || contentItemIdField?.ContentItemIds == null)
+            {
+                return null;
+            }
+
+            var contentItemIds = contentItemIdField?.ContentItemIds.ToObject<IList<string>>() as IList<string>;
+            return contentItemIds.ConvertListToCsv();
         }
     }
 }
