@@ -234,10 +234,12 @@
                             "Name": "Questions",
                             "Settings": {
                                 "ContentPartFieldSettings": {
-                                    "DisplayName": "Questions",
+                                    "DisplayName": "Related questions",
                                     "Position": "0"
                                 },
                                 "ContentPickerFieldSettings": {
+                                    "Hint": "These are the questions that make up the question set. The order of the questions here represents the order the questions will appear in the assessment.",
+                                    "Required": true,
                                     "Multiple": true,
                                     "DisplayedContentTypes": [
                                         "PersonalityShortQuestion"
