@@ -247,30 +247,6 @@
                                 },
                                 "ContentIndexSettings": {}
                             }
-                        },
-                        {
-                            "FieldName": "TextField",
-                            "Name": "Type",
-                            "Settings": {
-                                "ContentPartFieldSettings": {
-                                    "DisplayName": "Type",
-                                    "Editor": "PredefinedList",
-                                    "Position": "1"
-                                },
-                                "TextFieldSettings": {
-                                    "Required": true
-                                },
-                                "TextFieldPredefinedListEditorSettings": {
-                                    "Options": [
-                                        {
-                                            "name": "Short",
-                                            "value": "short"
-                                        }
-                                    ],
-                                    "DefaultValue": "short"
-                                },
-                                "ContentIndexSettings": {}
-                            }
                         }
                     ]
                 },
