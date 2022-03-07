@@ -334,11 +334,11 @@
                             "Name": "Trait",
                             "Settings": {
                                 "ContentPartFieldSettings": {
-                                    "DisplayName": "Trait",
+                                    "DisplayName": "Related Trait",
                                     "Position": "0"
                                 },
                                 "ContentPickerFieldSettings": {
-                                    "Hint": "Creates relationships of [:hasPersonalityTrait].",
+                                    "Hint": "This field creates an association from the question to the trait that the question contributes to in the assessment.",
                                     "Required": true,
                                     "DisplayedContentTypes": [
                                         "PersonalityTrait"
@@ -356,7 +356,9 @@
                                     "Editor": "PredefinedList",
                                     "Position": "1"
                                 },
-                                "TextFieldSettings": {},
+                                "TextFieldSettings": {
+                                    "Hint": "Shows whether this question contributes positively/negatively to the total for a trait."
+                                },
                                 "TextFieldPredefinedListEditorSettings": {
                                     "Options": [
                                         {
