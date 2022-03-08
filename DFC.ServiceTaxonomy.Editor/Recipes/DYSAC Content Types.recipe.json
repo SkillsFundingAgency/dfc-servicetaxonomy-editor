@@ -259,7 +259,7 @@
                             "Name": "SOCSkillsMatrix",
                             "Settings": {
                                 "ContentPartFieldSettings": {
-                                    "DisplayName": "SOCSkillsMatrix",
+                                    "DisplayName": "Related Skill (Note SOCCode prefix is not used)",
                                     "Position": "0"
                                 },
                                 "ContentPickerFieldSettings": {
@@ -296,9 +296,24 @@
                             "Name": "Description",
                             "Settings": {
                                 "ContentPartFieldSettings": {
-                                    "DisplayName": "Description",
+                                    "DisplayName": "Result Display Text",
                                     "Editor": "TextArea",
                                     "Position": "0"
+                                },
+                                "TextFieldSettings": {
+                                    "Hint": "The text that describes this trait. For example 'You enjoy helping and listening to other people."
+                                },
+                                "ContentIndexSettings": {}
+                            }
+                        },
+                        {
+                            "FieldName": "TextField",
+                            "Name": "Info",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Info",
+                                    "Editor": "TextArea",
+                                    "Position": "1"
                                 },
                                 "TextFieldSettings": {},
                                 "ContentIndexSettings": {}
@@ -310,10 +325,9 @@
                             "Settings": {
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "Job Profile Categories",
-                                    "Position": "1"
+                                    "Position": "2"
                                 },
                                 "ContentPickerFieldSettings": {
-                                    "Hint": "Creates relationships of [:hasJobProfileCategory].",
                                     "Required": true,
                                     "Multiple": true,
                                     "DisplayedContentTypes": [
