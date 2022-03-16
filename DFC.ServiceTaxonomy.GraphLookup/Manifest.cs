@@ -7,7 +7,7 @@ using OrchardCore.Modules.Manifest;
     Version = "0.0.3",
     Description = "Graph lookup content part.",
     Category = "Graph",
-    //todo:
+    //coulddo:
     Dependencies = new string[] {
     }
 )]

@@ -23,12 +23,14 @@ namespace DFC.ServiceTaxonomy.Events.Services
         }
 
         public async Task<T?> Get<T>(Uri uri, object? queryData = null, CancellationToken cancellationToken = default)
+            where T : class
         {
             using HttpResponseMessage response = await GetResponse(uri, queryData, cancellationToken).ConfigureAwait(false);
             return await response.Content.ReadFromJsonAsync<T>(cancellationToken: cancellationToken).ConfigureAwait(false);
         }
 
         public Task<T?> Get<T>(string uri, object? queryData = null, CancellationToken cancellationToken = default)
+            where T : class
         {
             return Get<T>(new Uri(uri, UriKind.RelativeOrAbsolute), queryData, cancellationToken);
         }
@@ -45,6 +47,7 @@ namespace DFC.ServiceTaxonomy.Events.Services
         }
 
         public async Task<TResponse?> PostAsJson<TResponse>(string uri, CancellationToken cancellationToken = default)
+            where TResponse : class
         {
             Stream result = await PostAsJson<object>(uri, null, cancellationToken).ConfigureAwait(false);
 
@@ -68,6 +71,7 @@ namespace DFC.ServiceTaxonomy.Events.Services
         }
 
         public async Task<TResponse?> PostAsJson<TRequest, TResponse>(string uri, TRequest requestData, CancellationToken cancellationToken = default)
+            where TResponse : class
         {
             Stream result = await PostAsJson(uri, requestData, cancellationToken).ConfigureAwait(false);
 

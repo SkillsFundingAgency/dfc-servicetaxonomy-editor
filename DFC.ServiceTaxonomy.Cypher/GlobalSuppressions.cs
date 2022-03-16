@@ -13,3 +13,6 @@
 [assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Style", "IDE0008:Use explicit type", Justification = "<Pending>", Scope = "member", Target = "~M:DFC.ServiceTaxonomy.Cypher.Helpers.Neo4JHelper.GetListOfRecordsAsync~System.Threading.Tasks.Task{System.Object}")]
 [assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Style", "IDE0008:Use explicit type", Justification = "<Pending>", Scope = "member", Target = "~M:DFC.ServiceTaxonomy.Cypher.Helpers.Neo4JHelper.#ctor(DFC.ServiceTaxonomy.Cypher.Configuration.Neo4jConfiguration)")]
 [assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Style", "IDE1006:Naming Styles", Justification = "<Pending>", Scope = "member", Target = "~F:DFC.ServiceTaxonomy.Cypher.CypherQuerySource.neo4JHelper")]
+[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Comment", "S1135", Justification = "XXX", Scope = "namespaceanddescendants", Target = "DFC.ServiceTaxonomy.Cypher")]
+[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Comment", "S3881", Justification = "XXX", Scope = "namespaceanddescendants", Target = "DFC.ServiceTaxonomy.Cypher")]
+[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Comment", "S125:Remove this commented out code.", Justification = "XXX", Scope = "namespaceanddescendants", Target = "DFC.ServiceTaxonomy.Cypher")]
