@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using DFC.ServiceTaxonomy.Content.Configuration;
 using DFC.ServiceTaxonomy.CustomEditor.Configuration;
-using DFC.ServiceTaxonomy.Editor.Security;
 using DFC.ServiceTaxonomy.GraphSync.Extensions;
 using DFC.ServiceTaxonomy.GraphSync.CosmosDb;
 using DFC.ServiceTaxonomy.GraphSync.Settings;
@@ -88,7 +87,7 @@ namespace DFC.ServiceTaxonomy.Editor
             app.UseCookiePolicy();
             // UseSecurityHeaders must come before UseOrchardCore
             app.UsePoweredByOrchardCore(false);
-            app.UseSecurityHeaders(Configuration)
+            app/*.UseSecurityHeaders(Configuration)*/
                 .UseOrchardCore();
         }
 
