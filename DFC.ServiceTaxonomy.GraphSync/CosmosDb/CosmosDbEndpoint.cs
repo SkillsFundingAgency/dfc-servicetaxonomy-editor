@@ -124,6 +124,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb
             var result = await iterator.ReadNextAsync();
             var item = result.Resource.SingleOrDefault();
 
+            await UpdateIncomingRelationships(container, relationships, id, contentType, item);
+
             if (item == null)
             {
                 item = new Dictionary<string, object>
@@ -190,6 +192,181 @@ namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb
             await container.UpsertItemAsync(item);
         }
 
+        private static async Task UpdateIncomingRelationships(
+            Container container,
+            List<CommandRelationship> currentRelationships,
+            string id,
+            string contentType,
+            Dictionary<string, object>? previousItem)
+        {
+            await HandleRemovedRelationships(container, previousItem, currentRelationships);
+
+            foreach (var relationship in currentRelationships
+                         .Where(r => !string.IsNullOrEmpty(r.DestinationNodeIdPropertyName)))
+            {
+                var uriLoop = (string)relationship.DestinationNodeIdPropertyValues.First();
+                var idLoop = uriLoop.Split('/')[uriLoop.Split('/').Length - 1];
+                var contentTypeLoop = uriLoop.Split('/')[uriLoop.Split('/').Length - 2].ToLower();
+
+                var iteratorLoop = container.GetItemQueryIterator<Dictionary<string, object>>(
+                    new QueryDefinition($"SELECT * from c where c.id = '{idLoop}'"),
+                    requestOptions: new QueryRequestOptions() {PartitionKey = new PartitionKey(contentTypeLoop)});
+
+                var resultLoop = await iteratorLoop.ReadNextAsync();
+                var itemLoop = resultLoop.Resource.SingleOrDefault();
+
+                if (itemLoop == null || !itemLoop.ContainsKey("_links") || !(itemLoop["_links"] is JObject linksJobj))
+                {
+                    continue;
+                }
+
+                #pragma warning disable CS8600 // Converting null literal or possible null value to non-nullable type.
+                var links = linksJobj.ToObject<Dictionary<string, object>>();
+                #pragma warning restore CS8600 // Converting null literal or possible null value to non-nullable type.
+
+                var curies = ((links?["curies"] as JArray)!).ToObject<List<Dictionary<string, object>>>();
+                var incomingPos = curies!.FindIndex(curie =>
+                    (string)curie["name"] == "incoming");
+                var incomingObj = curies.Count > incomingPos ? curies[incomingPos] : null;
+
+                if (incomingObj == null)
+                {
+                    continue;
+                }
+
+                var incoming = ((incomingObj["items"] as JArray)!).ToObject<List<Dictionary<string, object>>>();
+                var exists = false;
+
+                foreach (var incomingItem in incoming!)
+                {
+                    contentTypeLoop = (string)incomingItem["contentType"];
+                    idLoop = (string)incomingItem["id"];
+
+                    if (idLoop == id && contentTypeLoop == contentType)
+                    {
+                        exists = true;
+                        break;
+                    }
+                }
+
+                if (exists)
+                {
+                    continue;
+                }
+
+                incoming.Add(new Dictionary<string, object>
+                {
+                    { "contentType", contentType },
+                    { "id", id },
+                });
+
+                curies[incomingPos]["items"] = incoming;
+                links["curies"] = curies;
+                itemLoop["_links"] = links;
+
+                await container.UpsertItemAsync(itemLoop);
+            }
+        }
+
+        private static async Task HandleRemovedRelationships(
+            Container container,
+            Dictionary<string, object>? previousItem,
+            List<CommandRelationship> currentRelationships)
+        {
+            if (previousItem == null) return;
+
+            var previousItemCompositeKey = (string)previousItem["ContentType"] + (string)previousItem["id"];
+            var previousItemLinks = (previousItem!["_links"] as JObject)!.ToObject<Dictionary<string, object>>();
+
+            var currentRelationshipsSimple = currentRelationships
+                .Where(rel => rel.DestinationNodeIdPropertyValues.Any() &&
+                    rel.DestinationNodeIdPropertyValues.First()?.ToString() != null)
+                .Select(rel =>
+                    {
+                        var uri = rel.DestinationNodeIdPropertyValues.First().ToString();
+                        var id = uri!.Split('/')[uri.Split('/').Length - 1];
+                        var contentType = uri.Split('/')[uri.Split('/').Length - 2].ToLower();
+
+                        return contentType + id;
+                    })
+                    .ToList();
+
+            foreach (var previousItemLink in previousItemLinks!)
+            {
+                if (previousItemLink.Key == "self" || previousItemLink.Key == "curies")
+                {
+                    continue;
+                }
+
+                var dict = ((JObject)previousItemLink.Value).ToObject<Dictionary<string, object>>();
+                var uri = (string)dict!["href"];
+
+                if (string.IsNullOrEmpty(uri))
+                {
+                    continue;
+                }
+
+                var id = uri.Split('/')[uri.Split('/').Length - 1];
+                var contentType = uri.Split('/')[uri.Split('/').Length - 2].ToLower();
+                var compositeKey = contentType + id;
+
+                // Continue if the relationship is still there
+                if (currentRelationshipsSimple.Contains(compositeKey))
+                {
+                    continue;
+                }
+
+                // Else update their incoming relationships section
+                var iterator = container.GetItemQueryIterator<Dictionary<string, object>>(
+                    new QueryDefinition($"SELECT * from c where c.id = '{id}'"),
+                    requestOptions: new QueryRequestOptions() {PartitionKey = new PartitionKey(contentType)});
+
+                var result = await iterator.ReadNextAsync();
+                var item = result.Resource.SingleOrDefault();
+
+                if (item == null || !item.ContainsKey("_links") || !(item["_links"] is JObject linksJobj))
+                {
+                    continue;
+                }
+
+                #pragma warning disable CS8600 // Converting null literal or possible null value to non-nullable type.
+                var links = linksJobj.ToObject<Dictionary<string, object>>();
+                #pragma warning restore CS8600 // Converting null literal or possible null value to non-nullable type.
+
+                var curies = ((links?["curies"] as JArray)!).ToObject<List<Dictionary<string, object>>>();
+                var incomingPos = curies!.FindIndex(curie =>
+                    (string)curie["name"] == "incoming");
+                var incomingObj = curies.Count > incomingPos ? curies[incomingPos] : null;
+                if (incomingObj == null)
+                {
+                    continue;
+                }
+
+                var incoming = ((incomingObj["items"] as JArray)!).ToObject<List<Dictionary<string, object>>>();
+                var newIncoming = new List<Dictionary<string, object>>();
+
+                foreach (var incomingItem in incoming!)
+                {
+                    var contentTypeLoop = (string)incomingItem["contentType"];
+                    var idLoop = (string)incomingItem["id"];
+                    var compositeKeyLoop = contentTypeLoop + idLoop;
+
+                    if (compositeKeyLoop == previousItemCompositeKey)
+                    {
+                        continue;
+                    }
+
+                    newIncoming.Add(incomingItem);
+                }
+
+                curies[incomingPos]["items"] = newIncoming;
+                links["curies"] = curies;
+                item["_links"] = links;
+
+                await container.UpsertItemAsync(item);
+            }
+        }
+
         private static Dictionary<string, object> BuildLinksDictionary(string uri)
         {
             var uriParts = uri.Split('/');
@@ -197,13 +374,18 @@ namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb
             return new Dictionary<string, object>
             {
                 { "self", uri },
-                { "curies", new Dictionary<string, object>[]
+                { "curies", new[]
                     {
                          new Dictionary<string, object>
                          {
                              { "name", "cont" },
                              { "href", $"https://{uriParts[2]}/{uriParts[3]}/{uriParts[4]}" }
-                         }
+                         },
+                         new Dictionary<string, object>
+                         {
+                             { "name", "incoming" },
+                             { "items", new List<KeyValuePair<string, object>>() }
+                         },
                     }
                 }
             };
@@ -273,7 +455,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb
         private async Task<Container> GetContainer(string databaseName)
         {
             var cosmosClient = new CosmosClient(ConnectionString);
-            var db = (await cosmosClient.CreateDatabaseIfNotExistsAsync("staxdb", ThroughputProperties.CreateManualThroughput(400))).Database;
+            var db = cosmosClient.GetDatabase("dev");
 
             const string PartitionKeyKey = "ContentType";
             return (await db.CreateContainerIfNotExistsAsync(databaseName, $"/{PartitionKeyKey}")).Container;
