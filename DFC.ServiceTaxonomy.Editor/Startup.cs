@@ -4,9 +4,6 @@ using System.Collections.Generic;
 using DFC.ServiceTaxonomy.Content.Configuration;
 using DFC.ServiceTaxonomy.CustomEditor.Configuration;
 using DFC.ServiceTaxonomy.Editor.Security;
-using DFC.ServiceTaxonomy.GraphSync.Extensions;
-using DFC.ServiceTaxonomy.GraphSync.CosmosDb;
-using DFC.ServiceTaxonomy.GraphSync.Settings;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
@@ -53,10 +50,7 @@ namespace DFC.ServiceTaxonomy.Editor
                 }));
 
             //todo: do this in each library??? if so, make sure it doesn't add services or config twice
-            services.AddGraphCluster(options =>
-                Configuration.GetSection(CosmosDbOptions.CosmosDb).Bind(options));
 
-            services.Configure<GraphSyncPartSettingsConfiguration>(Configuration.GetSection(nameof(GraphSyncPartSettings)));
             services.Configure<CookiePolicyOptions>(options => options.Secure = CookieSecurePolicy.Always);
             services.AddEventGridPublishing(Configuration);
 

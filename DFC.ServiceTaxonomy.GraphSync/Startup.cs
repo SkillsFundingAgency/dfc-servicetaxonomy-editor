@@ -1,4 +1,7 @@
 using System;
+using System.Collections.Concurrent;
+using System.Linq;
+using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.CSharpScriptGlobals.CypherToContent;
 using DFC.ServiceTaxonomy.CSharpScriptGlobals.CypherToContent.Interfaces;
 using DFC.ServiceTaxonomy.Editor.Module.Drivers;
@@ -8,10 +11,13 @@ using DFC.ServiceTaxonomy.GraphSync.CosmosDb.GraphSyncers;
 using DFC.ServiceTaxonomy.GraphSync.CosmosDb.GraphSyncers.Parts.Bag;
 using DFC.ServiceTaxonomy.GraphSync.CosmosDb.GraphSyncers.Parts.Flow;
 using DFC.ServiceTaxonomy.GraphSync.CosmosDb.GraphSyncers.Parts.Taxonomy;
+using DFC.ServiceTaxonomy.GraphSync.CosmosDb.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.CosmosDb.Queries;
 using DFC.ServiceTaxonomy.GraphSync.CSharpScripting;
 using DFC.ServiceTaxonomy.GraphSync.CSharpScripting.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.Drivers;
+using DFC.ServiceTaxonomy.GraphSync.Exceptions;
+using DFC.ServiceTaxonomy.GraphSync.Extensions;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.ContentItemVersions;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields;
@@ -45,6 +51,7 @@ using DFC.ServiceTaxonomy.GraphSync.Settings;
 using DFC.ServiceTaxonomy.Slack;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Routing;
+using Microsoft.Azure.Cosmos;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
@@ -73,6 +80,26 @@ namespace DFC.ServiceTaxonomy.GraphSync
             _configuration = configuration;
         }
 
+        private static async Task<CosmosDbService> InitialiseCosmosClientInstanceAsync(IConfigurationSection configurationSection)
+        {
+            var cosmosDbOptions = new CosmosDbOptions();
+            configurationSection.Bind(cosmosDbOptions);
+             if(!cosmosDbOptions.Endpoints.Any())
+            {
+                throw new GraphClusterConfigurationErrorException("No endpoints configured.");
+            }
+            var client = new CosmosClient(cosmosDbOptions.ConnectionString);
+            var db = (await client.CreateDatabaseIfNotExistsAsync(cosmosDbOptions.DatabaseName, ThroughputProperties.CreateManualThroughput(400))).Database;
+            const string PartitionKeyKey = "ContentType";
+            var concurrentDictionary = new ConcurrentDictionary<string, Container>();
+            foreach (var endpoint in cosmosDbOptions.Endpoints)
+            {
+                var container = await db.CreateContainerIfNotExistsAsync(endpoint, $"/{PartitionKeyKey}");
+                concurrentDictionary.TryAdd(endpoint, container.Container);
+            }
+            return new CosmosDbService(concurrentDictionary);
+        }
+
         public override void ConfigureServices(IServiceCollection services)
         {
             services.Configure<GraphSyncSettings>(_configuration.GetSection(nameof(GraphSyncSettings)));
@@ -87,7 +114,12 @@ namespace DFC.ServiceTaxonomy.GraphSync
             services.AddTransient<IServiceTaxonomyHelper, ServiceTaxonomyHelper>();
             services.AddTransient<IGetContentItemsAsJsonQuery, GetContentItemsAsJsonQuery>();
 
-            services.AddTransient<IEndpoint, CosmosDbEndpoint>();
+            services.AddSingleton<ICosmosDbService>(InitialiseCosmosClientInstanceAsync(_configuration.GetSection("CosmosDb")).GetAwaiter().GetResult());
+
+            services.AddGraphCluster(options =>
+                _configuration.GetSection(CosmosDbOptions.CosmosDb).Bind(options));
+
+            services.Configure<GraphSyncPartSettingsConfiguration>(_configuration.GetSection(nameof(GraphSyncPartSettings)));
 
             // graph database
             //todo: should we do this in each library that used the graph cluster, or just once in the root editor project?

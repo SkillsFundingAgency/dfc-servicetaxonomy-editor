@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using DFC.ServiceTaxonomy.GraphSync.CosmosDb.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.Models;
 using Microsoft.Azure.Cosmos;
@@ -11,18 +12,21 @@ namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb
 {
     public class CosmosDbEndpoint : IEndpoint
     {
-        public CosmosDbEndpoint(string connectionString)
-        {
-            ConnectionString = connectionString;
-        }
+        private readonly ICosmosDbService _cosmosDbService;
 
         public string ConnectionString { get; set; }
+
+        public CosmosDbEndpoint(ICosmosDbService cosmosDbService)
+        {
+            _cosmosDbService = cosmosDbService;
+            ConnectionString = "What is this used for?"; //TODO: need to follow this in Noe4JValidateAndRepairGraph.cs
+        }
 
         public async Task<List<T>> Run<T>(IQuery<T>[] queries, string databaseName, bool defaultDatabase)
         {
             try
             {
-                var container = await GetContainer(databaseName);
+                var container = _cosmosDbService.GetContainer(databaseName);
                 var returnList = new List<T>();
 
                 foreach (var query in queries)
@@ -65,7 +69,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb
         {
             try
             {
-                var container = await GetContainer(databaseName);
+                var container = _cosmosDbService.GetContainer(databaseName);
 
                 foreach (var command in commands)
                 {
@@ -268,15 +272,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb
             }
 
             await container.UpsertItemAsync(item);
-        }
-
-        private async Task<Container> GetContainer(string databaseName)
-        {
-            var cosmosClient = new CosmosClient(ConnectionString);
-            var db = (await cosmosClient.CreateDatabaseIfNotExistsAsync("staxdb", ThroughputProperties.CreateManualThroughput(400))).Database;
-
-            const string PartitionKeyKey = "ContentType";
-            return (await db.CreateContainerIfNotExistsAsync(databaseName, $"/{PartitionKeyKey}")).Container;
         }
     }
 }
