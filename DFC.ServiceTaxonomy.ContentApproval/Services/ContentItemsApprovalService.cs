@@ -105,7 +105,7 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Services
                     querySession.With<ContentItemIndex>(i => i.Latest && !i.Published); // Equivalent to Orchard Core Draft filter
                     break;
                 case DashboardItemsStatusCard.Published:
-                    querySession.With<ContentItemIndex>(i => i.Published); // Equivalent to Orchard Core Published filter
+                    querySession.With<ContentItemIndex>(i => i.Published && i.DisplayText != null); // Equivalent to Orchard Core Published filter
                     if (isForcePublished)
                     {
                         querySession.With<ContentApprovalPartIndex>(i => i.IsForcePublished);

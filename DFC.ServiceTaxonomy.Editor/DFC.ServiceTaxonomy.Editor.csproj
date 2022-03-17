@@ -57,6 +57,7 @@
     <ProjectReference Include="..\DFC.ServiceTaxonomy.GraphLookup\DFC.ServiceTaxonomy.GraphLookup.csproj" />
     <ProjectReference Include="..\DFC.ServiceTaxonomy.GraphSync\DFC.ServiceTaxonomy.GraphSync.csproj" />
     <ProjectReference Include="..\DFC.ServiceTaxonomy.GraphVisualiser\DFC.ServiceTaxonomy.GraphVisualiser.csproj" />
+    <ProjectReference Include="..\DFC.ServiceTaxonomy.JobProfiles.Module\DFC.ServiceTaxonomy.JobProfiles.Module.csproj" />
     <ProjectReference Include="..\DFC.ServiceTaxonomy.PageLocation\DFC.ServiceTaxonomy.PageLocation.csproj" />
     <ProjectReference Include="..\DFC.ServiceTaxonomy.Taxonomies\DFC.ServiceTaxonomy.Taxonomies.csproj" />
     <ProjectReference Include="..\DFC.ServiceTaxonomy.Theme\DFC.ServiceTaxonomy.Theme.csproj" />
@@ -66,7 +67,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Update="Recipes\237. JobProfileNew.recipe.json">
+    <Content Update="Recipes\237. JobProfile.recipe.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Update="Recipes\238. JobProfileSpecialism.recipe.json">

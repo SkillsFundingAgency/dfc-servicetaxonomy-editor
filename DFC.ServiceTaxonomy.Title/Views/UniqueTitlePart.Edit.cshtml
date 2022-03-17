@@ -1,17 +1,25 @@
 @model DFC.ServiceTaxonomy.Title.ViewModels.UniqueTitlePartViewModel
+@{
+    var readOnly = !string.IsNullOrWhiteSpace(Model.Title) && Model.ReadOnlyOnPublish && Model.UniqueTitlePart.ContentItem.PublishedUtc.HasValue;
+    var placeholderText = string.IsNullOrWhiteSpace(Model.Placeholder) ? string.Empty : $"eg - {Model.Placeholder}";
+}
 
 <style asp-name="test" asp-src="~/DFC.ServiceTaxonomy.Title/Styles/titles.min.css" debug-src="~/DFC.ServiceTaxonomy.Title/Styles/titles.css"></style>
 
 <div class="form-group" asp-validation-class-for="Title">
-    <label asp-for="Title">
-        Title
-    </label>
-    <p>
-        <span class="hint">
-            @T["Enter the name of the unique title field."]
-        </span>
-    </p>
-    <input asp-for="Title" class="form-control text-muted" placeholder="e.g. Job Profile Header" />
-    <span asp-validation-for="Title"></span>
+    <div class="w-md-75 w-xl-50 pr-md-3">
+        <label asp-for="Title">Title</label>
+        @if(readOnly)
+        {
+        <input asp-for="Title" class="form-control text-muted" type="text" readonly />
+        }
+        else
+        {
+        <input asp-for="Title" class="form-control text-muted" placeholder="@placeholderText" />
+        }
+        @if (!string.IsNullOrEmpty(Model.Hint))
+        {
+            <span class="hint">@Model.Hint</span>
+        }
+    </div>
 </div>
-

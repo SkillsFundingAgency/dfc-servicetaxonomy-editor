@@ -7,5 +7,5 @@ using OrchardCore.Modules.Manifest;
     Version = "0.0.3",
     Description = "Enables syncing content to a Cosmos db (referred to as graph).",
     Category = "Graph",
-    Dependencies = new[] { "OrchardCore.Contents", "OrchardCore.ContentTypes", "DFC.ServiceTaxonomy.Content" }
+    Dependencies = new[] { "OrchardCore.Contents", "OrchardCore.ContentTypes", "DFC.ServiceTaxonomy.Content", "DFC.ServiceTaxonomy.JobProfiles.Module" }
 )]

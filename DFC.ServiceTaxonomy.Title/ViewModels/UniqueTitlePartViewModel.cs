@@ -10,5 +10,8 @@ namespace DFC.ServiceTaxonomy.Title.ViewModels
         public UniqueTitlePart? UniqueTitlePart { get; set; }
         public ContentPart? Part { get; set; }
         public ContentTypePartDefinition? PartDefinition { get; set; }
+        public string? Hint { get; set; }
+        public string? Placeholder { get; set; }
+        public bool ReadOnlyOnPublish { get; set; }
     }
 }
