@@ -29,11 +29,11 @@ namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb
             {
                 new GraphReplicaSetLowLevel(publishedKey, new List<Graph>()
                 {
-                    new Graph(new CosmosDbEndpoint(_cosmosDbService), publishedKey, true, 0, _logger)
+                    new Graph(new CosmosDbEndpoint(_cosmosDbService, publishedKey), publishedKey, true, 0, _logger)
                 }, _logger),
                 new GraphReplicaSetLowLevel(previewKey, new List<Graph>()
                 {
-                    new Graph(new CosmosDbEndpoint(_cosmosDbService), previewKey, false, 0, _logger)
+                    new Graph(new CosmosDbEndpoint(_cosmosDbService, previewKey), previewKey, false, 0, _logger)
                 }, _logger)
             });
         }

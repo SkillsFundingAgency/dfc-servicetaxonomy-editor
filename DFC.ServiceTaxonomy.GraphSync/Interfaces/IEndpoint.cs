@@ -5,7 +5,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Interfaces
 {
     public interface IEndpoint
     {
-        public string ConnectionString { get; set; }
+        public string Name { get; set; }
 
         Task<List<T>> Run<T>(IQuery<T>[] queries, string graphName, bool defaultGraph);
 

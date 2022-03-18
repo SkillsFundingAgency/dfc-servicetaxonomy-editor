@@ -114,7 +114,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Neo4j.GraphSyncers
                     ValidateAndRepairResult result = results.AddNewValidateAndRepairResult(
                         graphReplicaSetName,
                         graph.Instance,
-                        graph.Endpoint.ConnectionString,
+                        graph.Endpoint.Name,
                         graph.GraphName,
                         graph.DefaultGraph);
 

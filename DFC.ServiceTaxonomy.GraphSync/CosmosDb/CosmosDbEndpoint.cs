@@ -14,12 +14,12 @@ namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb
     {
         private readonly ICosmosDbService _cosmosDbService;
 
-        public string ConnectionString { get; set; }
+        public string Name { get; set; }
 
-        public CosmosDbEndpoint(ICosmosDbService cosmosDbService)
+        public CosmosDbEndpoint(ICosmosDbService cosmosDbService, string endpointName)
         {
             _cosmosDbService = cosmosDbService;
-            ConnectionString = "What is this used for?"; //TODO: need to follow this in Noe4JValidateAndRepairGraph.cs
+            Name = "What is this used for?"; //TODO: need to follow this in Noe4JValidateAndRepairGraph.cs
         }
 
         public async Task<List<T>> Run<T>(IQuery<T>[] queries, string databaseName, bool defaultDatabase)
@@ -98,7 +98,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb
         private static async Task ReplaceRelationshipsCommand(Container container, ICommand command)
         {
             var commandParameters = command.Query.Parameters;
-
+            
             string itemUri = (string)commandParameters["uri"];
             (string contentType, string id) = GetContentTypeAndId(itemUri);
             var itemRelationships = (List<CommandRelationship>)commandParameters["relationships"];
