@@ -230,6 +230,20 @@ namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb
             await HandleAddedRelationships(container, itemRelationships, itemId, itemContentType);
         }
 
+        private static string GetRelationshipId(CommandRelationship commandRelationship)
+        {
+            if(!(commandRelationship.DestinationNodeIdPropertyValues.FirstOrDefault() is string uri))
+            {
+                return string.Empty;
+            }
+            if(string.IsNullOrWhiteSpace(uri))
+            {
+                return string.Empty;
+            }
+            (string contentType, string id) = GetContentTypeAndId(uri);
+            return $"{contentType}{id}";
+        }
+
         private static async Task HandleRemovedRelationships(
             Container container,
             Dictionary<string, object>? itemBeforeUpdate,
@@ -237,79 +251,35 @@ namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb
         {
             if (itemBeforeUpdate == null) return;
 
-            string itemContentType = (string)itemBeforeUpdate["ContentType"] + (string)itemBeforeUpdate["id"];
-            var itemLinks = (itemBeforeUpdate["_links"] as JObject)!.GetLinks();
+            string itemId = (string)itemBeforeUpdate["ContentType"] + (string)itemBeforeUpdate["id"];
+            var existingItemRelationships = (itemBeforeUpdate["_links"] as JObject)!.GetLinks().SelectMany(l => l.Value.Select(v => GetContentTypeAndId(v)));
+            var newRelationshipIds = itemRelationships.Select(GetRelationshipId).Where(r => string.IsNullOrWhiteSpace(r)).ToList();
 
-            var simpleRelationships = itemRelationships
-                .Where(rel =>
-                    rel.DestinationNodeIdPropertyValues.Any() &&
-                    rel.DestinationNodeIdPropertyValues.First().ToString() != null)
-                .Select(rel =>
-                    {
-                        string? uri = rel.DestinationNodeIdPropertyValues.First().ToString();
-                        (string contentType, string id) = GetContentTypeAndId(uri!);
-
-                        return contentType + id;
-                    })
-                    .ToList();
-
-            foreach (string? uri in itemLinks.SelectMany(l => l.Value.Select(v => v)))
+            // filter for any existing relationships that are no longer present in the new relationships
+            foreach (var item in existingItemRelationships.Where(i => newRelationshipIds.All(n => $"{i.Item1}{i.Item2}" != n)))
             {
-                (string contentType, string id) = GetContentTypeAndId(uri);
-                string compositeKey = contentType + id;
-
-                // Continue if the relationship is still there
-                if (simpleRelationships.Contains(compositeKey))
-                {
-                    continue;
-                }
-
-                // Else update their incoming relationships section
-                var relationshipItem = await GetItemFromDatabase(container, contentType, id);
-
+                var relationshipItem = await GetItemFromDatabase(container, item.Item1, item.Item2);
+                // if there is no relationship item or it doesn;t have a _links section we don't need to bother updating
                 if (relationshipItem == null || !relationshipItem.ContainsKey("_links") || !(relationshipItem["_links"] is JObject linksJObject))
                 {
                     continue;
                 }
-
-                var links = linksJObject.ToObject<Dictionary<string, object>>();
-                var curies = ((links?["curies"] as JArray)!).ToObject<List<Dictionary<string, object>>>();
-                int incomingPosition = curies!.FindIndex(curie =>
-                    (string)curie["name"] == "incoming");
-                var incomingObject = curies.Count > incomingPosition ? curies[incomingPosition] : null;
-
-                if (incomingObject == null)
+                // also if there is no incoming section we don't need to bother updating
+                var incominglist = linksJObject["curies"].FirstOrDefault(a => (string)a["name"]! == "incoming") as JObject;
+                if (incominglist == null)
                 {
                     continue;
                 }
-
-                var existingIncomingList = ((incomingObject["items"] as JArray)!).ToObject<List<Dictionary<string, object>>>();
-                var newIncomingList = new List<Dictionary<string, object>>();
-
-                foreach (var incomingItem in existingIncomingList!)
-                {
-                    string contentTypeLoop = (string)incomingItem["contentType"];
-                    string idLoop = (string)incomingItem["id"];
-                    string compositeKeyLoop = contentTypeLoop + idLoop;
-
-                    // It's linked to the parent still, so keep it
-                    if (compositeKeyLoop == itemContentType)
-                    {
-                        continue;
-                    }
-
-                    newIncomingList.Add(incomingItem);
-                }
-
-                curies[incomingPosition]["items"] = newIncomingList;
-                links["curies"] = curies;
-                relationshipItem["_links"] = links;
+                // amend the list of items to remove relationship
+                var incomingListItems = incominglist["items"].Where(l => (string)l["contentType"]! + (string)l["id"]! != itemId);
+                incominglist["items"] = incomingListItems as JArray ?? new JArray();
 
                 await container.UpsertItemAsync(relationshipItem);
             }
         }
 
-         private static async Task HandleAddedRelationships(
+
+        private static async Task HandleAddedRelationships(
             Container container,
             List<CommandRelationship> itemRelationships,
             string itemId,
@@ -372,8 +342,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb
                 await container.UpsertItemAsync(relationshipItem);
             }
         }
-
-
 
         private static (string, string) GetContentTypeAndId(string uri)
         {
