@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.CosmosDb.Interfaces;
+using DFC.ServiceTaxonomy.GraphSync.Extensions;
 using DFC.ServiceTaxonomy.GraphSync.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.Models;
 using Microsoft.Azure.Cosmos;
@@ -113,13 +114,14 @@ namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb
                 {"_links", BuildLinksDictionary(itemUri)},
             };
 
-            Dictionary<string, object> itemLinks;
+            Dictionary<string, object> itemLinks = BuildLinksDictionary(itemUri);
 
             if (item.ContainsKey("_links"))
             {
                 if (item["_links"] is JObject linksJObject)
                 {
-                    itemLinks = linksJObject.ToObject<Dictionary<string, object>>()!;
+                    var linksDictionary = linksJObject.ToObject<Dictionary<string, object>>()!;
+                    itemLinks["curies"] = linksDictionary["curies"];
                 }
                 else
                 {
@@ -132,41 +134,42 @@ namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb
                 item.Add("_links", itemLinks);
             }
 
-            foreach (var relationship in itemRelationships)
+            var relationships = itemRelationships.Select(r => ExtractRelationship(r));
+            var keys = relationships.Select(r => r.Item1).Distinct();
+            foreach (var key in keys)
             {
-                string relationshipKey = $"cont:{relationship.RelationshipType}";
-                var valuesDictionary = new Dictionary<string, object>
+                var keyValues = relationships.Where(r => r.Item1 == key).Select(r => r.Item2).ToArray();
+                if (keyValues.Count() == 1)
                 {
-                    { "href", relationship.DestinationNodeIdPropertyValues.FirstOrDefault()! }
-                };
-
-                if (relationship.Properties != null)
-                {
-                    foreach ((string? key, object? value) in relationship.Properties)
-                    {
-                        valuesDictionary.Add(key, value);
-                    }
+                    itemLinks.Add(key, keyValues.First());
                 }
-
-                if (itemLinks?.ContainsKey(relationshipKey) == false)
+                else
                 {
-                    itemLinks.Add(relationshipKey, valuesDictionary);
-                    continue;
+                    itemLinks.Add(key, keyValues);
                 }
-
-                if (itemLinks == null)
-                {
-                    continue;
-                }
-
-                itemLinks[relationshipKey] = valuesDictionary;
             }
 
             item["_links"] = itemLinks!;
             await container.UpsertItemAsync(item);
         }
 
-        #pragma warning disable S4457
+        private static (string, JObject) ExtractRelationship(CommandRelationship relationship)
+        {
+            var relationshipKey = $"cont:{relationship.RelationshipType}";
+            var valuesDictionary = new JObject();
+            valuesDictionary.Add(new JProperty("href", ((string)relationship.DestinationNodeIdPropertyValues.FirstOrDefault()!).ExtactCurieHref()));
+
+            if (relationship.Properties != null)
+            {
+                foreach ((string? key, object? value) in relationship.Properties)
+                {
+                    valuesDictionary.Add(new JProperty(key, value));
+                }
+            }
+            return(relationshipKey, valuesDictionary);
+        }
+
+#pragma warning disable S4457
         private static async Task MergeNodeCommand(Container container, ICommand command)
         #pragma warning restore S4457
         {
@@ -235,7 +238,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb
             if (itemBeforeUpdate == null) return;
 
             string itemContentType = (string)itemBeforeUpdate["ContentType"] + (string)itemBeforeUpdate["id"];
-            var itemLinks = (itemBeforeUpdate["_links"] as JObject)!.ToObject<Dictionary<string, object>>();
+            var itemLinks = (itemBeforeUpdate["_links"] as JObject)!.GetLinks();
 
             var simpleRelationships = itemRelationships
                 .Where(rel =>
@@ -250,13 +253,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb
                     })
                     .ToList();
 
-            foreach (string? uri in itemLinks!
-                 .Where(previousItemLink =>
-                     previousItemLink.Key != "self" && previousItemLink.Key != "curies")
-                 .Select(previousItemLink =>
-                     ((JObject)previousItemLink.Value).ToObject<Dictionary<string, object>>())
-                 .Select(dict => (string)dict!["href"])
-                 .Where(uri => !string.IsNullOrEmpty(uri)))
+            foreach (string? uri in itemLinks.SelectMany(l => l.Value.Select(v => v)))
             {
                 (string contentType, string id) = GetContentTypeAndId(uri);
                 string compositeKey = contentType + id;
