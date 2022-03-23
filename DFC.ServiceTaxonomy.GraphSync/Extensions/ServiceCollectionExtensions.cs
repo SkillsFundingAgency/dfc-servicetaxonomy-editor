@@ -1,5 +1,6 @@
 ﻿using System;
 using DFC.ServiceTaxonomy.GraphSync.CosmosDb;
+using DFC.ServiceTaxonomy.GraphSync.CosmosDb.Commands;
 using DFC.ServiceTaxonomy.GraphSync.CosmosDb.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.Models;

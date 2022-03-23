@@ -4,7 +4,7 @@ using DFC.ServiceTaxonomy.GraphSync.Extensions;
 using DFC.ServiceTaxonomy.GraphSync.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.Models;
 
-namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb
+namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb.Commands
 {
     //todo: now we delete all relationships, we should be able to just create rather than merge. change once we have integration test coverage
     //todo: rename now don't necessarily replace existing relationships

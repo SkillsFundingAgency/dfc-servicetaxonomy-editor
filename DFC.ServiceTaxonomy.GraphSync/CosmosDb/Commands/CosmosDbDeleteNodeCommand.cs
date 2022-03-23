@@ -6,7 +6,7 @@ using DFC.ServiceTaxonomy.GraphSync.Extensions;
 using DFC.ServiceTaxonomy.GraphSync.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.Models;
 
-namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb
+namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb.Commands
 {
     //todo: rename - it deletes the outgoing relationships and optionally deletes the node, and incoming relationships with given properties
     public class CosmosDbDeleteNodeCommand : IDeleteNodeCommand

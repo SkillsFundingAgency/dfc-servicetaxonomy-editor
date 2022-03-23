@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using DFC.ServiceTaxonomy.GraphSync.CosmosDb.Commands;
 using DFC.ServiceTaxonomy.GraphSync.CosmosDb.Queries;
 using DFC.ServiceTaxonomy.GraphSync.Extensions;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Exceptions;

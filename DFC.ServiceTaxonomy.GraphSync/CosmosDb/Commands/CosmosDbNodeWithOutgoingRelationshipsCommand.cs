@@ -5,7 +5,7 @@ using DFC.ServiceTaxonomy.GraphSync.Exceptions;
 using DFC.ServiceTaxonomy.GraphSync.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.Models;
 
-namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb
+namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb.Commands
 {
     public abstract class CosmosDbNodeWithOutgoingRelationshipsCommand : INodeWithOutgoingRelationshipsCommand
     {

@@ -5,7 +5,7 @@ using DFC.ServiceTaxonomy.GraphSync.Extensions;
 using DFC.ServiceTaxonomy.GraphSync.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.Models;
 
-namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb
+namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb.Commands
 {
     // todo: abstract RelationshipCommand or have in builder??
     public class CosmosDbDeleteRelationshipsCommand : CosmosDbNodeWithOutgoingRelationshipsCommand, IDeleteRelationshipsCommand

@@ -4,7 +4,7 @@ using DFC.ServiceTaxonomy.GraphSync.Extensions;
 using DFC.ServiceTaxonomy.GraphSync.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.Models;
 
-namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb
+namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb.Commands
 {
     public class CosmosDbDeleteNodesByTypeCommand : IDeleteNodesByTypeCommand
     {

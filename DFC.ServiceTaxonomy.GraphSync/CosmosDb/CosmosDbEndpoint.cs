@@ -20,7 +20,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb
         public CosmosDbEndpoint(ICosmosDbService cosmosDbService, string endpointName)
         {
             _cosmosDbService = cosmosDbService;
-            Name = "What is this used for?"; //TODO: need to follow this in Noe4JValidateAndRepairGraph.cs
+            Name = endpointName; // TODO: need to follow this in Noe4JValidateAndRepairGraph.cs
         }
 
         public async Task<List<T>> Run<T>(IQuery<T>[] queries, string databaseName, bool defaultDatabase)
