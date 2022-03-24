@@ -84,12 +84,13 @@ namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb
             }
         }
 
-        private static async Task DeleteNodeCommand(Container container, ICommand command)
+        private static Task DeleteNodeCommand(Container container, ICommand command)
         {
             // find outgoing relations
             // remove these from related items
             // delete unnecessary related items (html, htmlshared)
             // delete item
+            throw new NotImplementedException();
         }
 
 #pragma warning disable CS1998
@@ -107,7 +108,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb
             }
         }
 
-        private static async Task ReplaceRelationshipsCommand(Container container, ICommand command)
+        private async Task ReplaceRelationshipsCommand(Container container, ICommand command)
         {
             var commandParameters = command.Query.Parameters;
             
@@ -115,7 +116,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb
             (string contentType, string id) = GetContentTypeAndId(itemUri);
             var itemRelationships = (List<CommandRelationship>)commandParameters["relationships"];
 
-            var item = await GetItemFromDatabase(container, contentType, id);
+            var item = await _cosmosDbService.GetContentItemFromDatabase(container, contentType, id);
             await UpdateIncomingRelationships(container, itemRelationships, id, contentType, item);
 
             item ??= new Dictionary<string, object>
@@ -181,7 +182,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb
         }
 
 #pragma warning disable S4457
-        private static async Task MergeNodeCommand(Container container, ICommand command)
+        private async Task MergeNodeCommand(Container container, ICommand command)
         #pragma warning restore S4457
         {
             var parameters = command.Query.Parameters;
@@ -198,7 +199,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb
             string contentType = properties != null ? ((string)properties["ContentType"]).ToLower() : string.Empty;
             id = id.Split('/')[id.Split('/').Length - 1];
 
-            var item = await GetItemFromDatabase(container, contentType, id) ?? new Dictionary<string, object>
+            var item = await _cosmosDbService.GetContentItemFromDatabase(container, contentType, id) ?? new Dictionary<string, object>
             {
                 { "id", id },
                 { "ContentType", contentType },
@@ -274,7 +275,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb
         }
 
 
-        private static async Task HandleAddedRelationships(
+        private async Task HandleAddedRelationships(
             Container container,
             List<CommandRelationship> itemRelationships,
             string itemId,
@@ -285,7 +286,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb
             {
                 string relationshipUri = (string)relationship.DestinationNodeIdPropertyValues.First();
                 (string relationshipContentType, string relationshipId) = GetContentTypeAndId(relationshipUri);
-                var relationshipItem = await GetItemFromDatabase(container, relationshipContentType, relationshipId);
+                var relationshipItem = await _cosmosDbService.GetContentItemFromDatabase(container, relationshipContentType, relationshipId);
 
                 if (relationshipItem == null || !relationshipItem.ContainsKey("_links") || !(relationshipItem["_links"] is JObject linksJObject))
                 {
@@ -344,16 +345,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb
             string contentType = uri.Split('/')[uri.Split('/').Length - 2].ToLower();
 
             return (contentType, id);
-        }
-
-        private static async Task<Dictionary<string, object>?> GetItemFromDatabase(Container container, string contentType, string id)
-        {
-            var iteratorLoop = container.GetItemQueryIterator<Dictionary<string, object>>(
-                new QueryDefinition($"SELECT * FROM c WHERE c.id = '{id}'"),
-                requestOptions: new QueryRequestOptions {PartitionKey = new PartitionKey(contentType)});
-
-            var result = await iteratorLoop.ReadNextAsync();
-            return result.Resource.SingleOrDefault();
         }
 
         private static Dictionary<string, object> BuildLinksDictionary(string uri)

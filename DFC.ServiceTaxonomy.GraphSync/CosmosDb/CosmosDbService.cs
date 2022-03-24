@@ -30,7 +30,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb
 
         public async Task DeleteIncomingRelationshipAsync(Container container, string contentType, string id, string relationshipId)
         {
-            var relationshipItem = await GetItemFromDatabase(container, contentType, id);
+            var relationshipItem = await GetContentItemFromDatabase(container, contentType, id);
             // if there is no relationship item or it doesn;t have a _links section we don't need to bother updating
             if (relationshipItem == null || !relationshipItem.ContainsKey("_links") || !(relationshipItem["_links"] is JObject linksJObject))
             {
@@ -50,7 +50,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb
         }
 
 
-        private static async Task<Dictionary<string, object>?> GetItemFromDatabase(Container container, string contentType, string id)
+        public async Task<Dictionary<string, object>?> GetContentItemFromDatabase(Container container, string contentType, string id)
         {
             var iteratorLoop = container.GetItemQueryIterator<Dictionary<string, object>>(
                 new QueryDefinition($"SELECT * FROM c WHERE c.id = '{id}'"),
