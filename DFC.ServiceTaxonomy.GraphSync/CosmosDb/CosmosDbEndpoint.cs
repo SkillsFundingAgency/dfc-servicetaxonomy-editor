@@ -75,14 +75,25 @@ namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb
                     case "MergeNodeCommand":
                         await MergeNodeCommand(container, command);
                         break;
+                    case "DeleteNodeCommand":
+                        await DeleteNodeCommand(container, command);
+                        break;
                     default:
                         throw new NotImplementedException();
                 }
             }
         }
 
-        #pragma warning disable CS1998
-        #pragma warning disable S1172
+        private static async Task DeleteNodeCommand(Container container, ICommand command)
+        {
+            // find outgoing relations
+            // remove these from related items
+            // delete unnecessary related items (html, htmlshared)
+            // delete item
+        }
+
+#pragma warning disable CS1998
+#pragma warning disable S1172
         private static async Task DeleteNodesByTypeCommand(Container container, ICommand command)
         #pragma warning restore S1172
         #pragma warning restore CS1998
@@ -244,7 +255,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb
             return $"{contentType}{id}";
         }
 
-        private static async Task HandleRemovedRelationships(
+        private async Task HandleRemovedRelationships(
             Container container,
             Dictionary<string, object>? itemBeforeUpdate,
             List<CommandRelationship> itemRelationships)
@@ -258,23 +269,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb
             // filter for any existing relationships that are no longer present in the new relationships
             foreach (var item in existingItemRelationships.Where(i => newRelationshipIds.All(n => $"{i.Item1}{i.Item2}" != n)))
             {
-                var relationshipItem = await GetItemFromDatabase(container, item.Item1, item.Item2);
-                // if there is no relationship item or it doesn;t have a _links section we don't need to bother updating
-                if (relationshipItem == null || !relationshipItem.ContainsKey("_links") || !(relationshipItem["_links"] is JObject linksJObject))
-                {
-                    continue;
-                }
-                // also if there is no incoming section we don't need to bother updating
-                var incominglist = linksJObject["curies"].FirstOrDefault(a => (string)a["name"]! == "incoming") as JObject;
-                if (incominglist == null)
-                {
-                    continue;
-                }
-                // amend the list of items to remove relationship
-                var incomingListItems = incominglist["items"].Where(l => (string)l["contentType"]! + (string)l["id"]! != itemId);
-                incominglist["items"] = incomingListItems as JArray ?? new JArray();
-
-                await container.UpsertItemAsync(relationshipItem);
+                await _cosmosDbService.DeleteIncomingRelationshipAsync(container, item.Item1, item.Item2, itemId);
             }
         }
 
