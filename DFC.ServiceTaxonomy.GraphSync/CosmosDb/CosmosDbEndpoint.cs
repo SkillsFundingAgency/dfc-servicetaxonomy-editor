@@ -231,7 +231,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb
             await container.UpsertItemAsync(item);
         }
 
-        private static async Task UpdateIncomingRelationships(
+        private async Task UpdateIncomingRelationships(
             Container container,
             List<CommandRelationship> itemRelationships,
             string itemId,
