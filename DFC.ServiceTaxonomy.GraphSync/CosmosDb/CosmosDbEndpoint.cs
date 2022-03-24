@@ -66,6 +66,9 @@ namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb
 
                 switch (query)
                 {
+                    case "DeleteNodeCommand":
+                        await DeleteNodeCommand(container, command);
+                        break;
                     case "DeleteNodesByType":
                         await DeleteNodesByTypeCommand(container, command);
                         break;
@@ -75,22 +78,32 @@ namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb
                     case "MergeNodeCommand":
                         await MergeNodeCommand(container, command);
                         break;
-                    case "DeleteNodeCommand":
-                        await DeleteNodeCommand(container, command);
-                        break;
                     default:
                         throw new NotImplementedException();
                 }
             }
         }
 
-        private static Task DeleteNodeCommand(Container container, ICommand command)
+        private async Task DeleteNodeCommand(Container container, ICommand command)
         {
-            // find outgoing relations
-            // remove these from related items
-            // delete unnecessary related items (html, htmlshared)
-            // delete item
-            throw new NotImplementedException();
+            var commandParameters = command.Query.Parameters;
+
+            string itemUri = (string)commandParameters["uri"];
+            (string contentType, string id) = GetContentTypeAndId(itemUri);
+            var contentItem = await _cosmosDbService.GetContentItemFromDatabase(container, contentType, id);
+            if (contentItem == null) return;
+
+            // find outgoing relations to other content items
+            var existingItemRelationships = (contentItem["_links"] as JObject)!.GetLinks().SelectMany(l => l.Value.Select(v => GetContentTypeAndId(v)));
+
+            // remove and incoming relationship to the content item to be deleted from these related content items
+            foreach ((string, string) relationship in existingItemRelationships)
+            {
+                await _cosmosDbService.DeleteIncomingRelationshipAsync(container, relationship.Item1, relationship.Item2, $"{contentType}{id}");
+            }
+
+            // delete content item
+            await container.DeleteItemAsync<Dictionary<string, object>>(id, new PartitionKey(contentType));
         }
 
 #pragma warning disable CS1998

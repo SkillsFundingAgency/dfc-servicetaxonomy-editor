@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using DFC.ServiceTaxonomy.GraphSync.Exceptions;
 using DFC.ServiceTaxonomy.GraphSync.Extensions;
 using DFC.ServiceTaxonomy.GraphSync.Interfaces;
@@ -39,34 +38,38 @@ namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb.Commands
             get
             {
                 this.CheckIsValid();
-
-                StringBuilder queryBuilder = new StringBuilder(
-$@"MATCH (n:{string.Join(':', NodeLabels)} {{{IdPropertyName}:'{IdPropertyValue}'}})
-OPTIONAL MATCH (n)-[r]->()
-");
-
-                Dictionary<string, object>? parameters = new Dictionary<string, object>();
-
-                if (DeleteIncomingRelationshipsProperties?.Any() == true)
+                var parameters = new Dictionary<string, object>
                 {
-                    parameters = new Dictionary<string, object>(DeleteIncomingRelationshipsProperties);
+                    { "uri", IdPropertyValue! }
+                };
 
-                    queryBuilder.AppendLine("OPTIONAL MATCH ()-[ir]->(n)");
+                //                StringBuilder queryBuilder = new StringBuilder(
+                //$@"MATCH (n:{string.Join(':', NodeLabels)} {{{IdPropertyName}:'{IdPropertyValue}'}})
+                //OPTIONAL MATCH (n)-[r]->()
+                //");
 
-                    queryBuilder.Append("WHERE ");
+                //                Dictionary<string, object>? parameters = new Dictionary<string, object>();
 
-                    var constraints = DeleteIncomingRelationshipsProperties.Select(p => $"ir.{p.Key}=${p.Key}");
+                //                if (DeleteIncomingRelationshipsProperties?.Any() == true)
+                //                {
+                //                    parameters = new Dictionary<string, object>(DeleteIncomingRelationshipsProperties);
 
-                    queryBuilder.AppendLine(string.Join(" OR ", constraints));
+                //                    queryBuilder.AppendLine("OPTIONAL MATCH ()-[ir]->(n)");
 
-                    queryBuilder.AppendLine($"DELETE {(DeleteNode ? "n, r, ir" : "r, ir")}");
-                }
-                else
-                {
-                    queryBuilder.AppendLine($"DELETE {(DeleteNode ? "n, r" : "r")}");
-                }
+                //                    queryBuilder.Append("WHERE ");
 
-                return new Query(queryBuilder.ToString(), parameters);
+                //                    var constraints = DeleteIncomingRelationshipsProperties.Select(p => $"ir.{p.Key}=${p.Key}");
+
+                //                    queryBuilder.AppendLine(string.Join(" OR ", constraints));
+
+                //                    queryBuilder.AppendLine($"DELETE {(DeleteNode ? "n, r, ir" : "r, ir")}");
+                //                }
+                //                else
+                //                {
+                //                    queryBuilder.AppendLine($"DELETE {(DeleteNode ? "n, r" : "r")}");
+                //                }
+
+                return new Query("DeleteNodeCommand", parameters);
             }
         }
 
