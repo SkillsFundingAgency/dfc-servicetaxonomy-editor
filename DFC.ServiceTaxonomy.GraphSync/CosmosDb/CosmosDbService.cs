@@ -43,8 +43,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb
                 return;
             }
             // amend the list of items to remove relationship
-            var incomingListItems = incominglist["items"].Where(l => (string)l["contentType"]! + (string)l["id"]! != relationshipId);
-            incominglist["items"] = incomingListItems as JArray ?? new JArray();
+            var incomingListItems = incominglist["items"].Where(l => (string)l["contentType"]! + (string)l["id"]! != relationshipId).ToList();
+            incominglist["items"] = incomingListItems.Any() ? new JArray(incomingListItems) : new JArray();
 
             await container.UpsertItemAsync(relationshipItem);
         }
