@@ -14,6 +14,7 @@ namespace DFC.ServiceTaxonomy.Taxonomies.Liquid
 {
     public class TaxonomyTermsFilter : ILiquidFilter
     {
+        [Obsolete]
         public async ValueTask<FluidValue> ProcessAsync(FluidValue input, FilterArguments arguments, LiquidTemplateContext ctx)
         {
             if (!ctx.AmbientValues.TryGetValue("Services", out var services))
