@@ -8,18 +8,21 @@ using DFC.ServiceTaxonomy.GraphSync.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.Models;
 using Microsoft.Azure.Cosmos;
 using Newtonsoft.Json.Linq;
+using Microsoft.Extensions.Logging;
 
 namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb
 {
     public class CosmosDbEndpoint : IEndpoint
     {
         private readonly ICosmosDbService _cosmosDbService;
+        private readonly ILogger _logger;
 
         public string Name { get; set; }
 
-        public CosmosDbEndpoint(ICosmosDbService cosmosDbService, string endpointName)
+        public CosmosDbEndpoint(ICosmosDbService cosmosDbService, string endpointName, ILogger logger)
         {
             _cosmosDbService = cosmosDbService;
+            _logger = logger;
             Name = endpointName; // TODO: need to follow this in Noe4JValidateAndRepairGraph.cs
         }
 
@@ -63,6 +66,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb
             foreach (var command in commands)
             {
                 string query = command.Query.Text;
+                _logger.LogWarning($"{query} called");
 
                 switch (query)
                 {
@@ -103,7 +107,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb
             }
 
             // delete content item
-            await container.DeleteItemAsync<Dictionary<string, object>>(id, new PartitionKey(contentType));
+            await container.DeleteItemAsync<Dictionary<string, object>>(id, new PartitionKey(contentType.ToLower()));
         }
 
 #pragma warning disable CS1998

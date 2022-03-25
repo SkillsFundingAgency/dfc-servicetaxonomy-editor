@@ -258,13 +258,21 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
                 return Enumerable.Empty<INodeWithOutgoingRelationships>();
             }
 
+            var blackListNodeLabels = new[] { "resource", "html", "htmlshared" };
+            var nodeLabels = MergeNodeCommand.NodeLabels
+                .Where(l => blackListNodeLabels.All(blnl => !blnl.Equals(l.ToLower()))).ToArray();
+            if (!nodeLabels.Any())
+            {
+                return Enumerable.Empty<INodeWithOutgoingRelationships>();
+            }
+
             // allow sync is called concurrently for preview and published
             // so we could get the before or after incoming relationships
             // either should do, but perhaps we should do it serially to consistently fetch the _before_ incoming relationships?
             IGetIncomingContentPickerRelationshipsQuery getDraftRelationshipsQuery =
                 _serviceProvider.GetRequiredService<IGetIncomingContentPickerRelationshipsQuery>();
 
-            getDraftRelationshipsQuery.NodeLabels = MergeNodeCommand.NodeLabels;
+            getDraftRelationshipsQuery.NodeLabels = nodeLabels;
             getDraftRelationshipsQuery.IdPropertyName = MergeNodeCommand.IdPropertyName;
             getDraftRelationshipsQuery.IdPropertyValue = _syncNameProvider.GetNodeIdPropertyValue(
                 graphSyncPartContent, _previewContentItemVersion);
