@@ -2,6 +2,11 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MigrateNeo4JToCosmosDb", "MigrateNeo4JToCosmosDb\MigrateNeo4JToCosmosDb.csproj", "{9592E8C1-9A3C-47F6-B2A3-DDDD9E7F0A36}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{E2071781-E0ED-4588-89DD-9284319AE273}"
+	ProjectSection(SolutionItems) = preProject
+		README.md = README.md
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
