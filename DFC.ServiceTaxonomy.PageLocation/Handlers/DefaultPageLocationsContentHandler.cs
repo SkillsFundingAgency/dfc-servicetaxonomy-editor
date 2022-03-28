@@ -112,7 +112,7 @@ namespace DFC.ServiceTaxonomy.PageLocation.Handlers
 
             if (allowSyncResult == AllowSyncResult.Blocked)
             {
-                _notifier.Add(NotifyType.Error, new LocalizedHtmlString(nameof(DefaultPageLocationsContentHandler), message));
+                await _notifier.AddAsync(NotifyType.Error, new LocalizedHtmlString(nameof(DefaultPageLocationsContentHandler), message));
             }
             #pragma warning restore S1854
         }
