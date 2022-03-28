@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+//using System.Linq;
+//using System.Text;
 using DFC.ServiceTaxonomy.GraphSync.Extensions;
 using DFC.ServiceTaxonomy.GraphSync.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.Models;
@@ -12,14 +12,14 @@ namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb.Commands
     {
         public bool DeleteDestinationNodes { get; set; }
 
-        private int _expectedDeleted;
+        //private int _expectedDeleted;
 
         //todo: rename variables to match delete
-        private const string _sourceNodeVariableName = "s";
-        private const string _destinationNodeVariableBase = "d";
-        private const string _newRelationshipVariableBase = "nr";
-        private const string _destinationNodeOutgoingRelationshipsVariableBase = "dr";
-        private const string _destinationNodeIncomingTwoWayRelationshipsVariableBase = "it";
+        //private const string _sourceNodeVariableName = "s";
+        //private const string _destinationNodeVariableBase = "d";
+        //private const string _newRelationshipVariableBase = "nr";
+        //private const string _destinationNodeOutgoingRelationshipsVariableBase = "dr";
+        //private const string _destinationNodeIncomingTwoWayRelationshipsVariableBase = "it";
 
         public override Query Query
         {
@@ -30,125 +30,127 @@ namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb.Commands
                 this.CheckIsValid();
 
                 //todo: bi-directional relationships
-                const string sourceIdPropertyValueParamName = "sourceIdPropertyValue";
-                StringBuilder nodeMatchBuilder = new StringBuilder(
-                        $"match ({_sourceNodeVariableName}:{string.Join(':', SourceNodeLabels)} {{{SourceIdPropertyName}:${sourceIdPropertyValueParamName}}})");
-                StringBuilder destNodeOutgoingRelationshipsBuilder = new StringBuilder();
-                var parameters =
-                    new Dictionary<string, object> { { sourceIdPropertyValueParamName, SourceIdPropertyValue! } };
-                int ordinal = 0;
+                //const string sourceIdPropertyValueParamName = "sourceIdPropertyValue";
+                //StringBuilder nodeMatchBuilder = new StringBuilder(
+                //        $"match ({_sourceNodeVariableName}:{string.Join(':', SourceNodeLabels)} {{{SourceIdPropertyName}:${sourceIdPropertyValueParamName}}})");
+                //StringBuilder destNodeOutgoingRelationshipsBuilder = new StringBuilder();
+                var parameters = new Dictionary<string, object>();
+                    //new Dictionary<string, object> { { sourceIdPropertyValueParamName, SourceIdPropertyValue! } };
+                //int ordinal = 0;
                 //todo: better name relationship=> relationships, relationships=>?
 
-                var distinctRelationshipTypeToDestNode = new HashSet<(string type, string labels)>();
+                //var distinctRelationshipTypeToDestNode = new HashSet<(string type, string labels)>();
 
-                foreach (var relationship in RelationshipsList)
-                {
-                    string destNodeLabels = string.Join(':', relationship.DestinationNodeLabels.OrderBy(l => l));
-                    // different types could have different dest node labels
-                    // add unit/integration tests for this ^^ scenario
-                    distinctRelationshipTypeToDestNode.Add((relationship.RelationshipType, destNodeLabels));
+                //foreach (var relationship in RelationshipsList)
+                //{
+                //    string destNodeLabels = string.Join(':', relationship.DestinationNodeLabels.OrderBy(l => l));
+                //    // different types could have different dest node labels
+                //    // add unit/integration tests for this ^^ scenario
+                //    distinctRelationshipTypeToDestNode.Add((relationship.RelationshipType, destNodeLabels));
 
-                    if (relationship.DestinationNodeIdPropertyName == null)
-                    {
-                        BuildForRelationship(++ordinal, nodeMatchBuilder, destNodeOutgoingRelationshipsBuilder,
-                            parameters, relationship, destNodeLabels);
-                    }
-                    else
-                    {
-                        foreach (object destIdPropertyValue in relationship.DestinationNodeIdPropertyValues)
-                        {
-                            BuildForRelationship(++ordinal, nodeMatchBuilder, destNodeOutgoingRelationshipsBuilder,
-                                parameters, relationship, destNodeLabels, destIdPropertyValue);
-                        }
-                    }
-                }
+                //    if (relationship.DestinationNodeIdPropertyName == null)
+                //    {
+                //        BuildForRelationship(++ordinal, nodeMatchBuilder, destNodeOutgoingRelationshipsBuilder,
+                //            parameters, relationship, destNodeLabels);
+                //    }
+                //    else
+                //    {
+                //        foreach (object destIdPropertyValue in relationship.DestinationNodeIdPropertyValues)
+                //        {
+                //            BuildForRelationship(++ordinal, nodeMatchBuilder, destNodeOutgoingRelationshipsBuilder,
+                //                parameters, relationship, destNodeLabels, destIdPropertyValue);
+                //        }
+                //    }
+                //}
 
-                StringBuilder queryBuilder = new StringBuilder($"{nodeMatchBuilder}\r\n");
+                //StringBuilder queryBuilder = new StringBuilder($"{nodeMatchBuilder}\r\n");
 
-                if (DeleteDestinationNodes)
-                {
-                    // delete outgoing relationships on destination nodes first
-                    queryBuilder.AppendLine(destNodeOutgoingRelationshipsBuilder.ToString());
+                //if (DeleteDestinationNodes)
+                //{
+                //    // delete outgoing relationships on destination nodes first
+                //    queryBuilder.AppendLine(destNodeOutgoingRelationshipsBuilder.ToString());
 
-                    queryBuilder.AppendLine(
-                        $"delete {AllVariablesString(_destinationNodeIncomingTwoWayRelationshipsVariableBase, ordinal)}");
+                //    queryBuilder.AppendLine(
+                //        $"delete {AllVariablesString(_destinationNodeIncomingTwoWayRelationshipsVariableBase, ordinal)}");
 
-                    queryBuilder.AppendLine(
-                        $"delete {AllVariablesString(_destinationNodeOutgoingRelationshipsVariableBase, ordinal)}");
-                }
+                //    queryBuilder.AppendLine(
+                //        $"delete {AllVariablesString(_destinationNodeOutgoingRelationshipsVariableBase, ordinal)}");
+                //}
 
-                // delete relationships from source node to destination nodes
-                queryBuilder.AppendLine($"delete {AllVariablesString(_newRelationshipVariableBase, ordinal)}");
+                //// delete relationships from source node to destination nodes
+                //queryBuilder.AppendLine($"delete {AllVariablesString(_newRelationshipVariableBase, ordinal)}");
 
-                if (DeleteDestinationNodes)
-                {
-                    // then delete destination nodes
-                    // note: any incoming relationships to the destination nodes (not from our source node)
-                    // will stop this from executing
-                    //todo: cancel publish/save if this fails (will e.g. stop taxonomy location terms being deleted if in use by pages)
-                    queryBuilder.AppendLine($"delete {AllVariablesString(_destinationNodeVariableBase, ordinal)}");
-                }
+                //if (DeleteDestinationNodes)
+                //{
+                //    // then delete destination nodes
+                //    // note: any incoming relationships to the destination nodes (not from our source node)
+                //    // will stop this from executing
+                //    //todo: cancel publish/save if this fails (will e.g. stop taxonomy location terms being deleted if in use by pages)
+                //    queryBuilder.AppendLine($"delete {AllVariablesString(_destinationNodeVariableBase, ordinal)}");
+                //}
 
-                // don't use _expectedDeleted instead of ordinal, as could be changed by other threads calling Query
-                // we should probably make class immutable, or stop mutations after Query has been called
-                _expectedDeleted = ordinal;
+                //// don't use _expectedDeleted instead of ordinal, as could be changed by other threads calling Query
+                //// we should probably make class immutable, or stop mutations after Query has been called
+                //_expectedDeleted = ordinal;
 
-                return new Query(queryBuilder.ToString(), parameters);
+                //return new Query(queryBuilder.ToString(), parameters);
+                return new Query("DeleteRelationships", parameters);
             }
         }
 
-        private void BuildForRelationship(
-            int ordinal,
-            StringBuilder nodeMatchBuilder,
-            StringBuilder destNodeOutgoingRelationshipsBuilder,
-            Dictionary<string, object> parameters,
-            ICommandRelationship relationship,
-            string destNodeLabels,
-            object? destIdPropertyValue = null)
-        {
-            string relationshipVariable = $"{_newRelationshipVariableBase}{ordinal}";
-            string destNodeVariable = $"{_destinationNodeVariableBase}{ordinal}";
-            string destIdPropertyValueParamName = $"{destNodeVariable}Value";
-            string destinationNodeOutgoingRelationshipsVariable = $"{_destinationNodeOutgoingRelationshipsVariableBase}{ordinal}";
-            string destinationNodeIncomingTwoWayRelationshipsVariable = $"{_destinationNodeIncomingTwoWayRelationshipsVariableBase}{ordinal}";
+        //private void BuildForRelationship(
+        //    int ordinal,
+        //    StringBuilder nodeMatchBuilder,
+        //    StringBuilder destNodeOutgoingRelationshipsBuilder,
+        //    Dictionary<string, object> parameters,
+        //    ICommandRelationship relationship,
+        //    string destNodeLabels,
+        //    object? destIdPropertyValue = null)
+        //{
+        //    string relationshipVariable = $"{_newRelationshipVariableBase}{ordinal}";
+        //    string destNodeVariable = $"{_destinationNodeVariableBase}{ordinal}";
+        //    string destIdPropertyValueParamName = $"{destNodeVariable}Value";
+        //    string destinationNodeOutgoingRelationshipsVariable = $"{_destinationNodeOutgoingRelationshipsVariableBase}{ordinal}";
+        //    string destinationNodeIncomingTwoWayRelationshipsVariable = $"{_destinationNodeIncomingTwoWayRelationshipsVariableBase}{ordinal}";
 
-            //todo: use AppendLine instead?
-            nodeMatchBuilder.Append(
-                $"\r\nmatch ({_sourceNodeVariableName})-[{relationshipVariable}:{relationship.RelationshipType}]->({destNodeVariable}:{destNodeLabels})");
-            if (relationship.DestinationNodeIdPropertyName != null)
-            {
-                nodeMatchBuilder.Append(
-                    $"\r\nwhere {destNodeVariable}.{relationship.DestinationNodeIdPropertyName} = ${destIdPropertyValueParamName}");
-                parameters.Add(destIdPropertyValueParamName, destIdPropertyValue!);
-            }
+        //    //todo: use AppendLine instead?
+        //    nodeMatchBuilder.Append(
+        //        $"\r\nmatch ({_sourceNodeVariableName})-[{relationshipVariable}:{relationship.RelationshipType}]->({destNodeVariable}:{destNodeLabels})");
+        //    if (relationship.DestinationNodeIdPropertyName != null)
+        //    {
+        //        nodeMatchBuilder.Append(
+        //            $"\r\nwhere {destNodeVariable}.{relationship.DestinationNodeIdPropertyName} = ${destIdPropertyValueParamName}");
+        //        parameters.Add(destIdPropertyValueParamName, destIdPropertyValue!);
+        //    }
 
-            if (!DeleteDestinationNodes)
-                return;
+        //    if (!DeleteDestinationNodes)
+        //        return;
 
-            destNodeOutgoingRelationshipsBuilder.Append(
-                $"\r\noptional match ({destNodeVariable})-[{destinationNodeOutgoingRelationshipsVariable}]->()");
+        //    destNodeOutgoingRelationshipsBuilder.Append(
+        //        $"\r\noptional match ({destNodeVariable})-[{destinationNodeOutgoingRelationshipsVariable}]->()");
 
-            destNodeOutgoingRelationshipsBuilder.Append(
-                $"\r\noptional match ({destNodeVariable})<-[{destinationNodeIncomingTwoWayRelationshipsVariable} {{{TwoWayRelationshipPropertyName}: TRUE}}]-()");
-        }
+        //    destNodeOutgoingRelationshipsBuilder.Append(
+        //        $"\r\noptional match ({destNodeVariable})<-[{destinationNodeIncomingTwoWayRelationshipsVariable} {{{TwoWayRelationshipPropertyName}: TRUE}}]-()");
+        //}
 
         public override void ValidateResults(List<IRecord> records, IResultSummary resultSummary)
         {
-            if (DeleteDestinationNodes)
-            {
-                if (resultSummary.Counters.NodesDeleted > _expectedDeleted)
-                    throw CreateValidationException(resultSummary,
-                        $"Expected no more than {_expectedDeleted} nodes to be deleted, but {resultSummary.Counters.NodesDeleted} were deleted.");
+            //TODO: do nothing
+            //if (DeleteDestinationNodes)
+            //{
+            //    if (resultSummary.Counters.NodesDeleted > _expectedDeleted)
+            //        throw CreateValidationException(resultSummary,
+            //            $"Expected no more than {_expectedDeleted} nodes to be deleted, but {resultSummary.Counters.NodesDeleted} were deleted.");
 
-                // we don't know (without querying) how many relationships are deleted, if DeleteDestinationNodes is true
-                // (due to not knowing how many outgoing relationships are on the destination nodes)
-            }
-            else
-            {
-                if (resultSummary.Counters.RelationshipsDeleted != _expectedDeleted)
-                    throw CreateValidationException(resultSummary,
-                        $"Expected {_expectedDeleted} relationships to be deleted, but {resultSummary.Counters.RelationshipsDeleted} were deleted.");
-            }
+            //    // we don't know (without querying) how many relationships are deleted, if DeleteDestinationNodes is true
+            //    // (due to not knowing how many outgoing relationships are on the destination nodes)
+            //}
+            //else
+            //{
+            //    if (resultSummary.Counters.RelationshipsDeleted != _expectedDeleted)
+            //        throw CreateValidationException(resultSummary,
+            //            $"Expected {_expectedDeleted} relationships to be deleted, but {resultSummary.Counters.RelationshipsDeleted} were deleted.");
+            //}
         }
     }
 }

@@ -76,6 +76,9 @@ namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb
                     case "DeleteNodesByType":
                         await DeleteNodesByTypeCommand(container, command);
                         break;
+                    case "DeleteRelationships":
+                        await DeleteRelationshipsCommand(container, command);
+                        break;
                     case "ReplaceRelationshipsCommand":
                         await ReplaceRelationshipsCommand(container, command);
                         break;
@@ -88,12 +91,17 @@ namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb
             }
         }
 
-        private async Task DeleteNodeCommand(Container container, ICommand command)
+        private Task DeleteNodeCommand(Container container, ICommand command)
         {
             var commandParameters = command.Query.Parameters;
 
             string itemUri = (string)commandParameters["uri"];
             (string contentType, string id) = GetContentTypeAndId(itemUri);
+            return DeleteItem(container, contentType, id);
+        }
+
+        private async Task DeleteItem(Container container, string contentType, string id)
+        {
             var contentItem = await _cosmosDbService.GetContentItemFromDatabase(container, contentType, id);
             if (contentItem == null) return;
 
@@ -110,19 +118,36 @@ namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb
             await container.DeleteItemAsync<Dictionary<string, object>>(id, new PartitionKey(contentType.ToLower()));
         }
 
-#pragma warning disable CS1998
-#pragma warning disable S1172
-        private static async Task DeleteNodesByTypeCommand(Container container, ICommand command)
-        #pragma warning restore S1172
-        #pragma warning restore CS1998
+        private async Task DeleteNodesByTypeCommand(Container container, ICommand command)
         {
             string contentTypeList = ((string)command.Query.Parameters["ContentType"]).ToLower();
             string[] contentTypes = contentTypeList.Split(',');
-
-            foreach (string contentTypeLoop in contentTypes)
+            foreach (string contentType in contentTypes.Where(ct => !string.IsNullOrEmpty(ct)))
             {
-                //container.DeleteItemAsync
+
+                var iterator = container.GetItemQueryIterator<Dictionary<string, object>>("select * from c",
+                    requestOptions: new QueryRequestOptions { PartitionKey = new PartitionKey(contentType!) });
+                var items = new List<Dictionary<string, object>>();
+                while (iterator.HasMoreResults)
+                {
+                    var result = await iterator.ReadNextAsync();
+                    items.AddRange(result);
+                }
+                foreach (var item in items!)
+                {
+                    await DeleteItem(container, contentType, (string)item["id"]);
+                }
             }
+        }
+
+#pragma warning disable CS1998
+#pragma warning disable S1172
+        private static async Task DeleteRelationshipsCommand(Container container, ICommand command)
+#pragma warning restore S1172
+#pragma warning restore CS1998
+        {
+            // TODO 
+                //container.DeleteItemAsync
         }
 
         private async Task ReplaceRelationshipsCommand(Container container, ICommand command)
