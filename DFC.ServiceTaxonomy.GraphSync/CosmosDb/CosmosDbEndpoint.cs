@@ -120,11 +120,16 @@ namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb
 
         private async Task DeleteNodesByTypeCommand(Container container, ICommand command)
         {
-            string contentTypeList = ((string)command.Query.Parameters["ContentType"]).ToLower();
-            string[] contentTypes = contentTypeList.Split(',');
+            var contentTypeList = ((string)command.Query.Parameters["ContentType"]).ToLower();
+            var contentTypes = contentTypeList.Split(',').Where(ct => !string.IsNullOrEmpty(ct)).ToList();
+            // Page is a special case where two additional content types may be created in the background
+            // so if the Page content type is being removed then these should all be removed.
+            if (contentTypes.Any(ct => ct.Equals("Page", StringComparison.InvariantCultureIgnoreCase)))
+            {
+                contentTypes = contentTypes.Union(new List<string>() { "HTML", "HTMLShared" }).ToList();
+            }
             foreach (string contentType in contentTypes.Where(ct => !string.IsNullOrEmpty(ct)))
             {
-
                 var iterator = container.GetItemQueryIterator<Dictionary<string, object>>("select * from c",
                     requestOptions: new QueryRequestOptions { PartitionKey = new PartitionKey(contentType!) });
                 var items = new List<Dictionary<string, object>>();
