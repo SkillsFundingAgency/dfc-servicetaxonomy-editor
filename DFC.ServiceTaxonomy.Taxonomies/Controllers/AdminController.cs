@@ -373,7 +373,7 @@ namespace DFC.ServiceTaxonomy.Taxonomies.Controllers
 
                 if (!validated)
                 {
-                    await _notifier.ErrorAsync(H[errorMessage]);
+                    _notifier.Error(H[errorMessage]);
                     return RedirectToAction("Edit", "Admin", new { area = "OrchardCore.Contents", contentItemId = taxonomyContentItemId });
                 }
             }
@@ -385,7 +385,7 @@ namespace DFC.ServiceTaxonomy.Taxonomies.Controllers
             //force remove the new term content item to trigger events etc
             await _contentManager.RemoveAsync(taxonomyItem.ToObject<ContentItem>());
 
-            await _notifier.SuccessAsync(H["Taxonomy item deleted successfully"]);
+            _notifier.Success(H["Taxonomy item deleted successfully"]);
 
             return RedirectToAction("Edit", "Admin", new { area = "OrchardCore.Contents", contentItemId = taxonomyContentItemId });
         }
