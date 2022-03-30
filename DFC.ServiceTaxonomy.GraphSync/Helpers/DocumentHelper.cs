@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Globalization;
 using Newtonsoft.Json.Linq;
 
@@ -40,5 +41,40 @@ namespace DFC.ServiceTaxonomy.GraphSync.Helpers
                 "" => throw new ArgumentException($"{nameof(input)} cannot be empty", nameof(input)),
                 _ => string.Concat(input[0].ToString().ToUpper(), input.AsSpan(1))
             };
+
+        public static Dictionary<string, object> SafeCastToDictionary(object? value)
+        {
+            if (value == null)
+            {
+                throw new ArgumentNullException(nameof(value));
+            }
+
+            if (value is JObject valObj)
+            {
+                return valObj.ToObject<Dictionary<string, object>>()!;
+            }
+
+            if (!(value is Dictionary<string, object> dictionary))
+            {
+                throw new ArgumentException($"Didn't expect type {value.GetType().Name}");
+            }
+
+            return dictionary;
+        }
+
+        public static List<Dictionary<string, object>> SafeCastToList(object? value)
+        {
+            if (value == null)
+            {
+                throw new ArgumentNullException(nameof(value));
+            }
+
+            if (value is JArray valAry)
+            {
+                return valAry.ToObject<List<Dictionary<string, object>>>()!;
+            }
+
+            return (List<Dictionary<string, object>>)value;
+        }
     }
 }

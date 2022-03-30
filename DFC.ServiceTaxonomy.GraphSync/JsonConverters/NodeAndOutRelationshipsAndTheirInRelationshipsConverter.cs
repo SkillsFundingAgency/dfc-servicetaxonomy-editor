@@ -5,7 +5,8 @@ using DFC.ServiceTaxonomy.GraphSync.Models;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.Linq;
-using DFC.ServiceTaxonomy.GraphSync.Helpers;
+using static DFC.ServiceTaxonomy.GraphSync.Helpers.DocumentHelper;
+using static DFC.ServiceTaxonomy.GraphSync.Helpers.UniqueNumberHelper;
 
 namespace DFC.ServiceTaxonomy.GraphSync.JsonConverters
 {
@@ -20,34 +21,22 @@ namespace DFC.ServiceTaxonomy.GraphSync.JsonConverters
             var properties = data
                 .ToObject<Dictionary<string, object>>()!
                 .Where(dictionary => !dictionary.Key.StartsWith("_"))
-                .ToDictionary(kvp => kvp.Key, x => x.Value);
+                .ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
 
-            string itemId = DocumentHelper.GetAsString(properties["id"]);
-            int startNodeId = UniqueNumberHelper.GetNumber(itemId);
+            string itemId = GetAsString(properties["id"]);
+            int startNodeId = GetNumber(itemId);
 
             var relationships = new List<(IOutgoingRelationship outgoingRelationship, IEnumerable<IOutgoingRelationship> incomingRelationships)>();
-            var links = data["_links"]?.ToObject<Dictionary<string, object>>();
+            var links = SafeCastToDictionary(data["_links"]);
 
-            var node = new StandardNode
+            foreach (var link in links.Where(lnk => lnk.Key != "self" && lnk.Key != "curies"))
             {
-                Labels = new List<string> { contentType, "Resource" },
-                Properties = properties,
-                Id = startNodeId
-            };
+                var linkDictionary = SafeCastToDictionary(link.Value);
+                var linkDetails = GetContentTypeAndId((string)linkDictionary!["href"]);
 
-            if (links == null)
-            {
-                return new NodeAndOutRelationshipsAndTheirInRelationships(node, relationships);
-            }
-
-            foreach (var link in links.Where(x => x.Key != "self" && x.Key != "curies"))
-            {
-                var linkDictionary = (link.Value as JObject)!.ToObject<Dictionary<string, object>>();
-                var linkDetails = DocumentHelper.GetContentTypeAndId((string)linkDictionary!["href"]);
-
-                int endNodeId = UniqueNumberHelper.GetNumber(DocumentHelper.GetAsString(linkDetails.Id));
-                int relationshipId = UniqueNumberHelper.GetNumber(
-                    DocumentHelper.GetAsString(linkDetails.Id) + DocumentHelper.GetAsString(itemId));
+                int endNodeId = GetNumber(GetAsString(linkDetails.Id));
+                int relationshipId = GetNumber(
+                    GetAsString(linkDetails.Id) + GetAsString(itemId));
 
                 var outgoing = new OutgoingRelationship(new StandardRelationship
                 {
@@ -69,6 +58,13 @@ namespace DFC.ServiceTaxonomy.GraphSync.JsonConverters
 
                 relationships.Add((outgoing, new List<OutgoingRelationship>()));
             }
+
+            var node = new StandardNode
+            {
+                Labels = new List<string> { contentType, "Resource" },
+                Properties = properties,
+                Id = startNodeId
+            };
 
             return new NodeAndOutRelationshipsAndTheirInRelationships(node, relationships);
         }

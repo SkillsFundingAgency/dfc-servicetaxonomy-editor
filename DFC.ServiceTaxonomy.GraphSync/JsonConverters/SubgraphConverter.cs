@@ -4,8 +4,9 @@ using DFC.ServiceTaxonomy.GraphSync.Models;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.Linq;
-using DFC.ServiceTaxonomy.GraphSync.Helpers;
 using DFC.ServiceTaxonomy.GraphSync.Interfaces;
+using static DFC.ServiceTaxonomy.GraphSync.Helpers.DocumentHelper;
+using static DFC.ServiceTaxonomy.GraphSync.Helpers.UniqueNumberHelper;
 
 namespace DFC.ServiceTaxonomy.GraphSync.JsonConverters
 {
@@ -15,17 +16,12 @@ namespace DFC.ServiceTaxonomy.GraphSync.JsonConverters
         public override object? ReadJson(JsonReader reader, Type objectType, object? existingValue, JsonSerializer serializer)
         {
             var data = JObject.Load(reader);
-            var links = data["_links"]?.ToObject<Dictionary<string, object>>();
+            var links = SafeCastToDictionary(data["_links"]);
 
-            if (links == null)
-            {
-                return new Subgraph(new List<INode>(), new List<IRelationship>());
-            }
-
-            string dataId = DocumentHelper.GetAsString(data["id"]!);
+            string dataId = GetAsString(data["id"]!);
             string dataContentType = (string)data["ContentType"]!;
 
-            int endNodeId = UniqueNumberHelper.GetNumber(dataId);
+            int endNodeId = GetNumber(dataId);
 
             var incomingRelationships = new List<IRelationship>();
             var nodes = new List<INode>();
@@ -33,14 +29,14 @@ namespace DFC.ServiceTaxonomy.GraphSync.JsonConverters
             foreach (var incomingItem in GetIncomingList(links))
             {
                 string incomingItemContentType = (string)incomingItem["contentType"];
-                string incomingItemId = DocumentHelper.GetAsString(incomingItem["id"]);
+                string incomingItemId = GetAsString(incomingItem["id"]);
 
-                int startNodeId = UniqueNumberHelper.GetNumber(incomingItemId);
-                int relationshipId = UniqueNumberHelper.GetNumber(DocumentHelper.GetAsString(dataId) + incomingItemId);
+                int startNodeId = GetNumber(incomingItemId);
+                int relationshipId = GetNumber(GetAsString(dataId) + incomingItemId);
 
                 incomingRelationships.Add(new StandardRelationship
                 {
-                    Type = $"has{DocumentHelper.FirstCharToUpper(dataContentType)}",
+                    Type = $"has{FirstCharToUpper(dataContentType)}",
                     StartNodeId = startNodeId,
                     EndNodeId = endNodeId,
                     Id = relationshipId
@@ -68,8 +64,9 @@ namespace DFC.ServiceTaxonomy.GraphSync.JsonConverters
 
         private List<Dictionary<string, object>> GetIncomingList(Dictionary<string, object> links)
         {
-            var curies = (links.SingleOrDefault(x => x.Key == "curies").Value as JArray)!
-                .ToObject<List<Dictionary<string, object>>>();
+            var curies = SafeCastToList(
+                links.SingleOrDefault(link => link.Key == "curies").Value);
+
             int incomingPosition = curies!.FindIndex(curie =>
                 (string)curie["name"] == "incoming");
 
@@ -80,7 +77,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.JsonConverters
                 throw new MissingFieldException("Incoming property missing");
             }
 
-            return (incomingObject["items"] as JArray)!.ToObject<List<Dictionary<string, object>>>()!;
+            return SafeCastToList(incomingObject["items"]);
         }
 
         public override bool CanWrite { get { return false; } }

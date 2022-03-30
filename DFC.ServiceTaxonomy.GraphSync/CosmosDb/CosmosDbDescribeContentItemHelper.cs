@@ -9,6 +9,7 @@ using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.ContentItemVersions;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Contexts;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Helpers;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Items;
+using DFC.ServiceTaxonomy.GraphSync.Helpers;
 using DFC.ServiceTaxonomy.GraphSync.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.Models;
 using DFC.ServiceTaxonomy.GraphSync.Settings;
@@ -135,7 +136,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb
         {
             foreach (var child in context.AvailableRelationships)
             {
-                string id = context.SourceNodeId.Split('/')[context.SourceNodeId.Split('/').Length - 1];
+                (_, var id) = DocumentHelper.GetContentTypeAndId(context.SourceNodeId);
                 child.RelationshipPathString = $"select * from c where c.id = '{id}'|{context.SourceNodeLabels.FirstOrDefault()}";
             }
 

@@ -6,12 +6,13 @@ using DFC.ServiceTaxonomy.GraphSync.CosmosDb.Queries;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.ContentItemVersions;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Helpers;
-using DFC.ServiceTaxonomy.GraphSync.Helpers;
 using DFC.ServiceTaxonomy.GraphSync.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.Interfaces.Queries;
 using DFC.ServiceTaxonomy.GraphSync.Models;
 using Newtonsoft.Json.Linq;
 using OrchardCore.ContentManagement;
+using static DFC.ServiceTaxonomy.GraphSync.Helpers.DocumentHelper;
+using static DFC.ServiceTaxonomy.GraphSync.Helpers.UniqueNumberHelper;
 
 namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 {
@@ -177,16 +178,16 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 
                     foreach (object? detailResult in detailResults)
                     {
-                        var properties = (detailResult as JObject)!.ToObject<Dictionary<string, object>>();
-                        string itemId = DocumentHelper.GetAsString(properties!["id"]);
+                        var properties = SafeCastToDictionary(detailResult);
+                        string itemId = GetAsString(properties!["id"]);
 
-                        var destinationNode = nodes.Single(node => DocumentHelper.GetAsString(node.Properties["id"]) == itemId);
+                        var destinationNode = nodes.Single(node => GetAsString(node.Properties["id"]) == itemId);
                         destinationNode.Properties = properties;
 
                         var relationship = incomingResults.Relationships
                             .Single(rel => rel.StartNodeId == destinationNode.Id);
                         var otherNode = nodesIncludingSourceNode.Single(node => node.Id == relationship.EndNodeId);
-                        string otherId = DocumentHelper.GetAsString(otherNode.Properties["id"]);
+                        string otherId = GetAsString(otherNode.Properties["id"]);
 
                         relationship.Type = GetContHasName(properties, otherId, relationship.Type);
                     }
@@ -202,7 +203,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 
         private static string GetContHasName(Dictionary<string, object> properties, string parentId, string defaultName)
         {
-            var links = (properties["_links"] as JObject)?.ToObject<Dictionary<string, object>>();
+            var links = SafeCastToDictionary(properties["_links"]);
 
             if (links == null)
             {
@@ -222,9 +223,9 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
                     return returnItem;
                 }
 
-                var linkDictionary = (link.Value as JObject)!.ToObject<Dictionary<string, object>>();
+                var linkDictionary = SafeCastToDictionary(link.Value);
                 string linkHref = (string)linkDictionary!["href"];
-                var (_, linkId) = DocumentHelper.GetContentTypeAndId(linkHref);
+                var (_, linkId) = GetContentTypeAndId(linkHref);
 
                 if (linkId.ToString() != parentId)
                 {
@@ -244,7 +245,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             foreach (var linkDictionary in linkListDictionary!)
             {
                 string linkHref = (string)linkDictionary["href"];
-                var (_, linkId) = DocumentHelper.GetContentTypeAndId(linkHref);
+                var (_, linkId) = GetContentTypeAndId(linkHref);
 
                 if (linkId.ToString() != parentId)
                 {
@@ -278,11 +279,11 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 
                 foreach (object? detailResult in detailResults)
                 {
-                    var properties = (detailResult as JObject)!.ToObject<Dictionary<string, object>>();
-                    string itemId = DocumentHelper.GetAsString(properties!["id"]);
+                    var properties = SafeCastToDictionary(detailResult);
+                    string itemId = GetAsString(properties!["id"]);
 
                     var itemRelationship = relationships
-                        .Single(relationship => DocumentHelper.GetAsString(relationship.DestinationNode.Properties["id"]) == itemId);
+                        .Single(relationship => GetAsString(relationship.DestinationNode.Properties["id"]) == itemId);
                     var destinationNode = itemRelationship.DestinationNode;
 
                     int endNodeId = (int)destinationNode.Properties["endNodeId"];
@@ -309,16 +310,10 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
                 string rootContentType)
         {
             var returnList = new List<(IOutgoingRelationship outgoingRelationship, IEnumerable<IOutgoingRelationship> incomingRelationships)>();
-            string parentId = DocumentHelper.GetAsString(properties["id"]);
+            string parentId = GetAsString(properties["id"]);
             string parentContentType = (string)properties["ContentType"];
 
-            var links = (properties["_links"] as JObject)?.ToObject<Dictionary<string, object>>();
-
-            if (links == null)
-            {
-                return returnList;
-            }
-
+            var links = SafeCastToDictionary(properties["_links"]);
             var contentTypesWithIds = new Dictionary<string, List<Guid>>();
 
             foreach (var link in links.Where(lnk => lnk.Key != "self" && lnk.Key != "curies"))
@@ -329,9 +324,9 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
                     continue;
                 }
 
-                var linkDictionary = (link.Value as JObject)!.ToObject<Dictionary<string, object>>();
-                string href = (string)linkDictionary!["href"];
-                (string contentType, Guid id) = DocumentHelper.GetContentTypeAndId(href);
+                var linkDictionary = SafeCastToDictionary(link.Value);
+                string href = (string)linkDictionary["href"];
+                (string contentType, Guid id) = GetContentTypeAndId(href);
 
                 if (s_relationshipsToIgnore.Contains($"{rootContentType}>{parentContentType}>{contentType}"))
                 {
@@ -352,7 +347,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             {
                 string[] ids = contentTypeWithIds
                     .Value
-                    .Select(id => $"'{DocumentHelper.GetAsString(id)}'")
+                    .Select(id => $"'{GetAsString(id)}'")
                     .ToArray();
 
                 string contentType = contentTypeWithIds.Key.Split('|')[0];
@@ -360,11 +355,11 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 
                 foreach (object? detailResult in detailResults)
                 {
-                    Dictionary<string, object>? detailResultProperties = ((detailResult as JObject)!).ToObject<Dictionary<string, object>>();
-                    (string detailResultContentType, Guid detailResultId) = DocumentHelper.GetContentTypeAndId((string)detailResultProperties!["uri"]);
+                    Dictionary<string, object>? detailResultProperties = SafeCastToDictionary(detailResult);
+                    (string detailResultContentType, Guid detailResultId) = GetContentTypeAndId((string)detailResultProperties!["uri"]);
 
-                    int endNodeId = UniqueNumberHelper.GetNumber(DocumentHelper.GetAsString(detailResultId));
-                    int relationshipId = UniqueNumberHelper.GetNumber(DocumentHelper.GetAsString(detailResultId) + parentId);
+                    int endNodeId = GetNumber(GetAsString(detailResultId));
+                    int relationshipId = GetNumber(GetAsString(detailResultId) + parentId);
 
                     var outgoing = new OutgoingRelationship(new StandardRelationship
                     {
@@ -401,7 +396,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             foreach (var linkDictionary in linkListDictionary!)
             {
                 string href = (string)linkDictionary["href"];
-                (string contentType, Guid id) = DocumentHelper.GetContentTypeAndId(href);
+                (string contentType, Guid id) = GetContentTypeAndId(href);
 
                 if (s_relationshipsToIgnore.Contains($"{rootContentType}>{parentContentType}>{contentType}"))
                 {
@@ -423,7 +418,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
         {
             string[] ids = destinationNodes
                 .Where(node => contentType.Equals((string)node.Properties["ContentType"], StringComparison.InvariantCultureIgnoreCase))
-                .Select(node => $"'{DocumentHelper.GetAsString(node.Properties["id"])}'")
+                .Select(node => $"'{GetAsString(node.Properties["id"])}'")
                 .ToArray();
 
             return RunQuery(ids, contentType, graphName);
