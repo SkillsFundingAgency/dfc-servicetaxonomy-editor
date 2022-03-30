@@ -60,7 +60,7 @@ namespace DFC.ServiceTaxonomy.VersionComparison.Controllers
             }
             if (versions.Count == 1)
             {
-                await _notifier.WarningAsync(_h["There is currently only one version of this content item."]);
+                _notifier.Warning(_h["There is currently only one version of this content item."]);
             }
 
             var shapeViewModel = await GetShapeViewModel(new VersionComparisonOptions { ContentItemId = contentItemId }, versions);
@@ -73,7 +73,7 @@ namespace DFC.ServiceTaxonomy.VersionComparison.Controllers
         {
             if (options.BaseVersion == options.CompareVersion)
             {
-                await _notifier.WarningAsync(_h["Both the base and compare version are the same."]);
+                _notifier.Warning(_h["Both the base and compare version are the same."]);
             }
 
             var versions = await _auditTrailQueryService.GetVersions(options.ContentItemId ?? string.Empty);
