@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Helpers;
 using DFC.ServiceTaxonomy.GraphSync.Interfaces;
 using DFC.ServiceTaxonomy.GraphVisualiser.Models;
 using DFC.ServiceTaxonomy.GraphVisualiser.Models.Configuration;
@@ -11,14 +10,10 @@ namespace DFC.ServiceTaxonomy.GraphVisualiser.Services
 {
     public class CosmosDbToOwlGeneratorService : OwlDataGeneratorService, IOwlGeneratorService
     {
-        private readonly ISyncNameProvider _syncNameProvider;
-
         public CosmosDbToOwlGeneratorService(
-            IOptionsMonitor<OwlDataGeneratorConfigModel> owlDataGeneratorConfigModel,
-            ISyncNameProvider syncNameProvider)
+            IOptionsMonitor<OwlDataGeneratorConfigModel> owlDataGeneratorConfigModel)
             : base(owlDataGeneratorConfigModel)
         {
-            _syncNameProvider = syncNameProvider;
         }
 
         public OwlDataModel CreateOwlDataModels(long? selectedNodeId, IEnumerable<INode> nodes, HashSet<IRelationship> relationships, string prefLabel)
@@ -43,7 +38,7 @@ namespace DFC.ServiceTaxonomy.GraphVisualiser.Services
         private void TransformNodes(IEnumerable<INode> nodes, string prefLabel)
         {
             nodeDataModels = nodes
-                .Select(node => new NodeDataModel(node, prefLabel, _syncNameProvider))
+                .Select(node => new NodeDataModel(node, prefLabel))
                 .ToList();
         }
 

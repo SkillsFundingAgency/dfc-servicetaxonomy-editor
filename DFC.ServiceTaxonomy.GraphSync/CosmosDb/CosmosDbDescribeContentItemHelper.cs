@@ -43,7 +43,12 @@ namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb
 
             //todo: coupling between GetRelationships and NodeAndNestedOutgoingRelationshipsQuery
             var allRelationships = await GetRelationships(context, currentList, context);
-            var uniqueCommands = allRelationships.Select(z => z.RelationshipPathString).GroupBy(x => x).Select(g => g.First());
+            var uniqueCommands = allRelationships
+                .Select(relationship => relationship.RelationshipPathString)
+                .GroupBy(relationshipPathString => relationshipPathString)
+                .Select(RelationshipPathStringGroup => RelationshipPathStringGroup.First());
+
+            // TODO Check how we can get the child stuff here as we know the IDs
 
             List<IQuery<object?>> commandsToReturn = uniqueCommands
                 .Select(c => new CosmosDbNodeAndNestedOutgoingRelationshipsQuery(c!)).Cast<IQuery<object?>>().ToList();
@@ -52,14 +57,14 @@ namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb
             // but allow other nodes that have a skos__Concept label, such as occupations and skills
             // (or filter on relationships, whitelist whatever)
             //todo: add a setting to graphsyncsettings for the filtering (for now we'll set incoming to 0 for occs & skills)
-            var graphSyncPartSettings = context.SyncNameProvider.GetGraphSyncPartSettings(context.ContentItem.ContentType);
+            /*var graphSyncPartSettings = context.SyncNameProvider.GetGraphSyncPartSettings(context.ContentItem.ContentType);
 
             commandsToReturn.Add(new CosmosDbSubgraphQuery(
                 context.SourceNodeLabels,
                 context.SourceNodeIdPropertyName,
                 context.SourceNodeId,
                 CosmosDbSubgraphQuery.RelationshipFilterIncoming,
-                graphSyncPartSettings.VisualiserIncomingRelationshipsPathLength ?? 1));
+                graphSyncPartSettings.VisualiserIncomingRelationshipsPathLength ?? 1));*/
 
             return commandsToReturn;
         }
@@ -147,27 +152,16 @@ namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb
         private static async Task<IEnumerable<ContentItemRelationship>> GetRelationships(
             IDescribeRelationshipsContext context,
             List<ContentItemRelationship> currentList,
-#pragma warning disable S1172 // Unused method parameters should be removed
+            #pragma warning disable S1172 // Unused method parameters should be removed
             IDescribeRelationshipsContext parentContext)
-#pragma warning restore S1172 // Unused method parameters should be removed
+            #pragma warning restore S1172 // Unused method parameters should be removed
         {
             foreach (var child in context.AvailableRelationships)
             {
                 if (child == null)
+                {
                     continue;
-
-                /*
-                var parentRelationship = parentContext.AvailableRelationships.FirstOrDefault(x => x.Destination.All(child.Source.Contains));
-
-                if (parentRelationship != null && !string.IsNullOrEmpty(parentRelationship.RelationshipPathString))
-                {
-                    var relationshipString = $"THIS1{parentRelationship.RelationshipPathString}-[r{context.CurrentDepth}:{child.Relationship}]-(d{context.CurrentDepth}:{string.Join(":", child.Destination!)})";
-                    child.RelationshipPathString = relationshipString;
                 }
-                else
-                {
-                    child.RelationshipPathString = $@"THIS2match (s:{string.Join(":", context.SourceNodeLabels)} {{{context.SourceNodeIdPropertyName}: '{context.SourceNodeId}'}})-[r{0}:{child.Relationship}]-(d{0}:{string.Join(":", child.Destination!)})";
-                }*/
 
                 var id = context.SourceNodeId.Split('/')[context.SourceNodeId.Split('/').Length - 1];
                 child.RelationshipPathString = $"select * from c where c.id = '{id}'|{context.SourceNodeLabels.FirstOrDefault()}";
