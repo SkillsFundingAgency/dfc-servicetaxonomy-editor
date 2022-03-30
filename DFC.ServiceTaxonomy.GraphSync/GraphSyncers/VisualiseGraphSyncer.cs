@@ -167,38 +167,29 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 
         private async Task AddExtraDetailForIncomingLinks(ISubgraph? incomingResults, string graphName, INode sourceNode)
         {
-            try
+            var nodes = incomingResults!.Nodes.ToList();
+            var nodesIncludingSourceNode = nodes.Union(new List<INode> { sourceNode }).ToList();
+
+            foreach (string contentType in GetDistinctContentTypes(nodes))
             {
-                var nodes = incomingResults!.Nodes.ToList();
-                var nodesIncludingSourceNode = nodes.Union(new List<INode> { sourceNode }).ToList();
+                var detailResults = await RetrieveLinksDetail(nodes, contentType, graphName);
 
-                foreach (string contentType in GetDistinctContentTypes(nodes))
+                foreach (object? detailResult in detailResults)
                 {
-                    var detailResults = await RetrieveLinksDetail(nodes, contentType, graphName);
+                    var properties = SafeCastToDictionary(detailResult);
+                    string itemId = GetAsString(properties!["id"]);
 
-                    foreach (object? detailResult in detailResults)
-                    {
-                        var properties = SafeCastToDictionary(detailResult);
-                        string itemId = GetAsString(properties!["id"]);
+                    var destinationNode = nodes.Single(node => GetAsString(node.Properties["id"]) == itemId);
+                    destinationNode.Properties = properties;
 
-                        var destinationNode = nodes.Single(node => GetAsString(node.Properties["id"]) == itemId);
-                        destinationNode.Properties = properties;
+                    var relationship = incomingResults.Relationships
+                        .Single(rel => rel.StartNodeId == destinationNode.Id);
+                    var otherNode = nodesIncludingSourceNode.Single(node => node.Id == relationship.EndNodeId);
+                    string otherId = GetAsString(otherNode.Properties["id"]);
 
-                        var relationship = incomingResults.Relationships
-                            .Single(rel => rel.StartNodeId == destinationNode.Id);
-                        var otherNode = nodesIncludingSourceNode.Single(node => node.Id == relationship.EndNodeId);
-                        string otherId = GetAsString(otherNode.Properties["id"]);
-
-                        relationship.Type = GetContHasName(properties, otherId, relationship.Type);
-                    }
+                    relationship.Type = GetContHasName(properties, otherId, relationship.Type);
                 }
             }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-                throw;
-            }
-
         }
 
         private static string GetContHasName(Dictionary<string, object> properties, string parentId, string defaultName)
