@@ -35,38 +35,18 @@ namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb
             _graphSyncSettings = graphSyncSettings;
         }
 
-        //todo: only ever called with both contexts the same
-        public async Task<IEnumerable<IQuery<object?>>> GetRelationshipCommands(
-            IDescribeRelationshipsContext context)
+        public async Task<IEnumerable<IQuery<object?>>> GetRelationshipCommands(IDescribeRelationshipsContext context)
         {
             var currentList = new List<ContentItemRelationship>();
+            var allRelationships = await GetRelationships(context, currentList);
 
-            //todo: coupling between GetRelationships and NodeAndNestedOutgoingRelationshipsQuery
-            var allRelationships = await GetRelationships(context, currentList, context);
             var uniqueCommands = allRelationships
                 .Select(relationship => relationship.RelationshipPathString)
                 .GroupBy(relationshipPathString => relationshipPathString)
-                .Select(RelationshipPathStringGroup => RelationshipPathStringGroup.First());
+                .Select(relationshipPathStringGroup => relationshipPathStringGroup.First());
 
-            // TODO Check how we can get the child stuff here as we know the IDs
-
-            List<IQuery<object?>> commandsToReturn = uniqueCommands
+            return uniqueCommands
                 .Select(c => new CosmosDbNodeAndNestedOutgoingRelationshipsQuery(c!)).Cast<IQuery<object?>>().ToList();
-
-            //todo: for occupation and skill, we need to filter out nodes that have just the skos__Concept and Resource labels (and others)
-            // but allow other nodes that have a skos__Concept label, such as occupations and skills
-            // (or filter on relationships, whitelist whatever)
-            //todo: add a setting to graphsyncsettings for the filtering (for now we'll set incoming to 0 for occs & skills)
-            /*var graphSyncPartSettings = context.SyncNameProvider.GetGraphSyncPartSettings(context.ContentItem.ContentType);
-
-            commandsToReturn.Add(new CosmosDbSubgraphQuery(
-                context.SourceNodeLabels,
-                context.SourceNodeIdPropertyName,
-                context.SourceNodeId,
-                CosmosDbSubgraphQuery.RelationshipFilterIncoming,
-                graphSyncPartSettings.VisualiserIncomingRelationshipsPathLength ?? 1));*/
-
-            return commandsToReturn;
         }
 
         //todo: contentmanager
@@ -151,19 +131,11 @@ namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb
         //todo: move any cypher generation into a query
         private static async Task<IEnumerable<ContentItemRelationship>> GetRelationships(
             IDescribeRelationshipsContext context,
-            List<ContentItemRelationship> currentList,
-            #pragma warning disable S1172 // Unused method parameters should be removed
-            IDescribeRelationshipsContext parentContext)
-            #pragma warning restore S1172 // Unused method parameters should be removed
+            List<ContentItemRelationship> currentList)
         {
             foreach (var child in context.AvailableRelationships)
             {
-                if (child == null)
-                {
-                    continue;
-                }
-
-                var id = context.SourceNodeId.Split('/')[context.SourceNodeId.Split('/').Length - 1];
+                string id = context.SourceNodeId.Split('/')[context.SourceNodeId.Split('/').Length - 1];
                 child.RelationshipPathString = $"select * from c where c.id = '{id}'|{context.SourceNodeLabels.FirstOrDefault()}";
             }
 
@@ -171,7 +143,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb
 
             foreach (var childContext in context.ChildContexts)
             {
-                await GetRelationships((IDescribeRelationshipsContext)childContext, currentList, context);
+                await GetRelationships((IDescribeRelationshipsContext)childContext, currentList);
             }
 
             return currentList;

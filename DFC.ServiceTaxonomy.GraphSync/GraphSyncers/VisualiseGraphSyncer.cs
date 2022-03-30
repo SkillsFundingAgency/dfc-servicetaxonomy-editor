@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.CosmosDb.Queries;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.ContentItemVersions;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Helpers;
-using DFC.ServiceTaxonomy.GraphSync.Helper;
+using DFC.ServiceTaxonomy.GraphSync.Helpers;
 using DFC.ServiceTaxonomy.GraphSync.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.Interfaces.Queries;
 using DFC.ServiceTaxonomy.GraphSync.Models;
@@ -34,9 +33,10 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             "_links"
         };
 
-        private static readonly List<string> s_typesToNotLookDeeperAt = new List<string>
+        private static readonly List<string> s_relationshipsToIgnore = new List<string>
         {
-            "taxonomy"
+            "page>taxonomy>pagelocation",
+            "page>pagelocation>pagelocation"
         };
 
         public VisualiseGraphSyncer(
@@ -90,7 +90,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             string graphName,
             IContentItemVersion contentItemVersion)
         {
-            var relationshipCommands = await BuildVisualisationCommands(contentItemId, contentItemVersion!);
+            var relationshipCommands = await BuildVisualisationCommands(contentItemId, contentItemVersion);
 
             // Get all results atomically
             var queryResults = await _neoGraphCluster.Run(graphName, relationshipCommands.ToArray());
@@ -116,7 +116,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
                         .GroupBy(outgoingResult => outgoingResult!.SourceNode)
                         .Select(orGroup => orGroup.First()!.SourceNode));
 
-                var relationships = outgoingResults!
+                var relationships = outgoingResults
                     .SelectMany(outgoingResult => outgoingResult!.OutgoingRelationships
                         .Select(orRelationship => orRelationship.outgoingRelationship.Relationship))
                     .ToHashSet();
@@ -150,14 +150,14 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
         {
             var returnProperties = new Dictionary<string, object>();
 
-            foreach (var propertyName in record.Keys)
+            foreach (string propertyName in record.Keys)
             {
                 if (s_cosmosPropsToIgnore.Contains(propertyName))
                 {
                     continue;
                 }
 
-                var propertyValue = record[propertyName];
+                object propertyValue = record[propertyName];
                 returnProperties.Add(propertyName, propertyValue);
             }
 
@@ -166,32 +166,41 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 
         private async Task AddExtraDetailForIncomingLinks(ISubgraph? incomingResults, string graphName, INode sourceNode)
         {
-            var nodes = incomingResults!.Nodes.ToList();
-            var nodesIncludingSourceNode = nodes.Union(new List<INode> { sourceNode }).ToList();
-
-            foreach (var contentType in GetDistinctContentTypes(nodes))
+            try
             {
-                var detailResults = await GetLinksDetail(nodes, contentType, graphName);
+                var nodes = incomingResults!.Nodes.ToList();
+                var nodesIncludingSourceNode = nodes.Union(new List<INode> { sourceNode }).ToList();
 
-                foreach (var detailResult in detailResults)
+                foreach (string contentType in GetDistinctContentTypes(nodes))
                 {
-                    var properties = (detailResult as JObject)!.ToObject<Dictionary<string, object>>();
-                    var itemId = GetAsString(properties!["id"]);
+                    var detailResults = await RetrieveLinksDetail(nodes, contentType, graphName);
 
-                    var destinationNode = nodes.Single(node => GetAsString(node.Properties["id"]) == itemId);
-                    destinationNode.Properties = properties;
+                    foreach (object? detailResult in detailResults)
+                    {
+                        var properties = (detailResult as JObject)!.ToObject<Dictionary<string, object>>();
+                        string itemId = DocumentHelper.GetAsString(properties!["id"]);
 
-                    var relationship = incomingResults.Relationships
-                        .Single(rel => rel.StartNodeId == destinationNode.Id);
-                    var otherNode = nodesIncludingSourceNode.Single(node => node.Id == relationship.EndNodeId);
-                    var otherId = GetAsString(otherNode.Properties["id"]);
+                        var destinationNode = nodes.Single(node => DocumentHelper.GetAsString(node.Properties["id"]) == itemId);
+                        destinationNode.Properties = properties;
 
-                    relationship.Type = GetContHasName(properties, otherId, relationship.Type);
+                        var relationship = incomingResults.Relationships
+                            .Single(rel => rel.StartNodeId == destinationNode.Id);
+                        var otherNode = nodesIncludingSourceNode.Single(node => node.Id == relationship.EndNodeId);
+                        string otherId = DocumentHelper.GetAsString(otherNode.Properties["id"]);
+
+                        relationship.Type = GetContHasName(properties, otherId, relationship.Type);
+                    }
                 }
             }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+
         }
 
-        private static string GetContHasName(Dictionary<string, object> properties, string id, string defaultName)
+        private static string GetContHasName(Dictionary<string, object> properties, string parentId, string defaultName)
         {
             var links = (properties["_links"] as JObject)?.ToObject<Dictionary<string, object>>();
 
@@ -200,33 +209,24 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
                 throw new MissingFieldException("Links property is missing");
             }
 
-            foreach (var link in links.Where(x => x.Key != "self" && x.Key != "curies"))
+            foreach (var link in links.Where(lnk => lnk.Key != "self" && lnk.Key != "curies"))
             {
                 if (link.Value is JArray jArray)
                 {
-                    var linkListDictionary = jArray.ToObject<List<Dictionary<string, object>>>();
-
-                    foreach (var linkDictionary2 in linkListDictionary!)
+                    string? returnItem = GetContHasNameForArrayItem(jArray, link, parentId);
+                    if (returnItem == null)
                     {
-                        var href2 = (string)linkDictionary2["href"];
-                        (string _, Guid id2) = GetContentTypeAndId(href2);
-
-                        if (id2.ToString() != id)
-                        {
-                            continue;
-                        }
-
-                        return link.Key.Replace("cont:", string.Empty);
+                        continue;
                     }
 
-                    continue;
+                    return returnItem;
                 }
 
                 var linkDictionary = (link.Value as JObject)!.ToObject<Dictionary<string, object>>();
-                var href3 = (string)linkDictionary!["href"];
-                (string _, Guid id3) = GetContentTypeAndId(href3);
+                string linkHref = (string)linkDictionary!["href"];
+                var (_, linkId) = DocumentHelper.GetContentTypeAndId(linkHref);
 
-                if (id3.ToString() != id)
+                if (linkId.ToString() != parentId)
                 {
                     continue;
                 }
@@ -237,40 +237,63 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             return defaultName;
         }
 
-        private async Task AddExtraDetailForOutgoingLinks(INodeAndOutRelationshipsAndTheirInRelationships? outgoingResult, string graphName)
+        private static string? GetContHasNameForArrayItem(JArray jArray, KeyValuePair<string, object> link, string parentId)
+        {
+            var linkListDictionary = jArray.ToObject<List<Dictionary<string, object>>>();
+
+            foreach (var linkDictionary in linkListDictionary!)
+            {
+                string linkHref = (string)linkDictionary["href"];
+                var (_, linkId) = DocumentHelper.GetContentTypeAndId(linkHref);
+
+                if (linkId.ToString() != parentId)
+                {
+                    continue;
+                }
+
+                return link.Key.Replace("cont:", string.Empty);
+            }
+
+            return null;
+        }
+
+        private async Task AddExtraDetailForOutgoingLinks(
+            INodeAndOutRelationshipsAndTheirInRelationships? outgoingResult,
+            string graphName)
         {
             var relationships = outgoingResult!.OutgoingRelationships
                 .Select(outgoingRelationships => outgoingRelationships.outgoingRelationship)
                 .ToList();
 
-            var destinationNodes = outgoingResult!.OutgoingRelationships
+            var destinationNodes = outgoingResult.OutgoingRelationships
                 .Select(outgoingRelationships => outgoingRelationships.outgoingRelationship.DestinationNode)
                 .ToList();
 
+            string rootContentType = (string)outgoingResult.SourceNode.Properties["ContentType"];
             var outgoingRelationships = outgoingResult.OutgoingRelationships.ToList();
 
-            foreach (var contentType in GetDistinctContentTypes(destinationNodes))
+            foreach (string contentType in GetDistinctContentTypes(destinationNodes))
             {
-                var detailResults = await GetLinksDetail(destinationNodes, contentType, graphName);
+                var detailResults = await RetrieveLinksDetail(destinationNodes, contentType, graphName);
 
-                foreach (var detailResult in detailResults)
+                foreach (object? detailResult in detailResults)
                 {
                     var properties = ((detailResult as JObject)!).ToObject<Dictionary<string, object>>();
-                    var itemId = GetAsString(properties!["id"]);
+                    string itemId = DocumentHelper.GetAsString(properties!["id"]);
 
                     var itemRelationship = relationships
-                        .Single(relationship => GetAsString(relationship.DestinationNode.Properties["id"]) == itemId);
+                        .Single(relationship => DocumentHelper.GetAsString(relationship.DestinationNode.Properties["id"]) == itemId);
                     var destinationNode = itemRelationship.DestinationNode;
 
-                    var endNodeId = (int)destinationNode.Properties["endNodeId"];
+                    int endNodeId = (int)destinationNode.Properties["endNodeId"];
                     destinationNode.Properties = properties;
 
-                    var futherOutgoingLinks =
-                        await Get2ndLevelOutgoingLinks(properties, graphName, endNodeId);
+                    var furtherOutgoingLinks =
+                        await GetSecondLevelOutgoingLinks(properties, graphName, endNodeId, rootContentType);
 
-                    foreach (var futherOutgoingLink in futherOutgoingLinks)
+                    foreach (var furtherOutgoingLink in furtherOutgoingLinks)
                     {
-                        outgoingRelationships.Add(futherOutgoingLink);
+                        outgoingRelationships.Add(furtherOutgoingLink);
                     }
                 }
             }
@@ -278,19 +301,16 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             outgoingResult.OutgoingRelationships = outgoingRelationships;
         }
 
-        private async Task<List<(IOutgoingRelationship outgoingRelationship, IEnumerable<IOutgoingRelationship> incomingRelationships)>> Get2ndLevelOutgoingLinks(
-            Dictionary<string, object> properties,
-            string graphName,
-            int startNodeId)
+        private async Task<List<(IOutgoingRelationship outgoingRelationship, IEnumerable<IOutgoingRelationship> incomingRelationships)>>
+            GetSecondLevelOutgoingLinks(
+                Dictionary<string, object> properties,
+                string graphName,
+                int startNodeId,
+                string rootContentType)
         {
             var returnList = new List<(IOutgoingRelationship outgoingRelationship, IEnumerable<IOutgoingRelationship> incomingRelationships)>();
-            var parentId = GetAsString(properties["id"]);
-            var parentContentType = (string)properties["ContentType"];
-
-            if (s_typesToNotLookDeeperAt.Contains(parentContentType))
-            {
-                return returnList;
-            }
+            string parentId = DocumentHelper.GetAsString(properties["id"]);
+            string parentContentType = (string)properties["ContentType"];
 
             var links = (properties["_links"] as JObject)?.ToObject<Dictionary<string, object>>();
 
@@ -301,35 +321,24 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 
             var contentTypesWithIds = new Dictionary<string, List<Guid>>();
 
-            foreach (var link in links.Where(x => x.Key != "self" && x.Key != "curies"))
+            foreach (var link in links.Where(lnk => lnk.Key != "self" && lnk.Key != "curies"))
             {
                 if (link.Value is JArray jArray)
                 {
-                    var linkListDictionary = jArray.ToObject<List<Dictionary<string, object>>>();
-
-                    foreach (var linkDictionary2 in linkListDictionary!)
-                    {
-                        var href2 = (string)linkDictionary2["href"];
-                        (string contentType2, Guid id2) = GetContentTypeAndId(href2);
-
-                        var key2 = $"{contentType2}|{link.Key}";
-
-                        if (!contentTypesWithIds.ContainsKey(key2))
-                        {
-                            contentTypesWithIds.Add(key2, new List<Guid>());
-                        }
-
-                        contentTypesWithIds[key2].Add(id2);
-                    }
-
+                    GetSecondLevelOutgoingLinksForArray(jArray, contentTypesWithIds, rootContentType, parentContentType, link);
                     continue;
                 }
 
                 var linkDictionary = (link.Value as JObject)!.ToObject<Dictionary<string, object>>();
-                var href = (string)linkDictionary!["href"];
-                (string contentType, Guid id) = GetContentTypeAndId(href);
+                string href = (string)linkDictionary!["href"];
+                (string contentType, Guid id) = DocumentHelper.GetContentTypeAndId(href);
 
-                var key = $"{contentType}|{link.Key}";
+                if (s_relationshipsToIgnore.Contains($"{rootContentType}>{parentContentType}>{contentType}"))
+                {
+                    continue;
+                }
+
+                string key = $"{contentType}|{link.Key}";
 
                 if (!contentTypesWithIds.ContainsKey(key))
                 {
@@ -341,21 +350,21 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 
             foreach (var contentTypeWithIds in contentTypesWithIds)
             {
-                var ids = contentTypeWithIds
+                string[] ids = contentTypeWithIds
                     .Value
-                    .Select(id => $"'{GetAsString(id)}'")
+                    .Select(id => $"'{DocumentHelper.GetAsString(id)}'")
                     .ToArray();
 
-                var contentType = contentTypeWithIds.Key.Split('|')[0];
-                var detailResults = await RunQuery(ids, contentType, graphName);
+                string contentType = contentTypeWithIds.Key.Split('|')[0];
+                List<object?> detailResults = await RunQuery(ids, contentType, graphName);
 
-                foreach (var detailResult in detailResults)
+                foreach (object? detailResult in detailResults)
                 {
-                    var properties2 = ((detailResult as JObject)!).ToObject<Dictionary<string, object>>();
-                    var p2 = GetContentTypeAndId((string)properties2!["uri"]);
+                    Dictionary<string, object>? detailResultProperties = ((detailResult as JObject)!).ToObject<Dictionary<string, object>>();
+                    (string detailResultContentType, Guid detailResultId) = DocumentHelper.GetContentTypeAndId((string)detailResultProperties!["uri"]);
 
-                    var endNodeId = UniqueSequencedNumber.GetNumber(GetAsString(p2.Id));
-                    var relationshipId = UniqueSequencedNumber.GetNumber(GetAsString(p2.Id) + parentId);
+                    int endNodeId = UniqueNumberHelper.GetNumber(DocumentHelper.GetAsString(detailResultId));
+                    int relationshipId = UniqueNumberHelper.GetNumber(DocumentHelper.GetAsString(detailResultId) + parentId);
 
                     var outgoing = new OutgoingRelationship(new StandardRelationship
                     {
@@ -366,8 +375,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
                     }, new StandardNode
                     {
                         Id = endNodeId,
-                        Properties = properties2,
-                        Labels = new List<string> { p2.ContentType, "Resource" }
+                        Properties = detailResultProperties,
+                        Labels = new List<string> { detailResultContentType, "Resource" }
                     });
 
                     returnList.AddRange(new List<(IOutgoingRelationship outgoingRelationship, IEnumerable<IOutgoingRelationship> incomingRelationships)>
@@ -380,11 +389,41 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             return returnList;
         }
 
-        private Task<List<object?>> GetLinksDetail(List<INode> destinationNodes, string contentType, string graphName)
+        private static void GetSecondLevelOutgoingLinksForArray(
+            JArray jArray,
+            Dictionary<string, List<Guid>> contentTypesWithIds,
+            string rootContentType,
+            string parentContentType,
+            KeyValuePair<string, object> link)
         {
-            var ids = destinationNodes
+            var linkListDictionary = jArray.ToObject<List<Dictionary<string, object>>>();
+
+            foreach (var linkDictionary in linkListDictionary!)
+            {
+                string href = (string)linkDictionary["href"];
+                (string contentType, Guid id) = DocumentHelper.GetContentTypeAndId(href);
+
+                if (s_relationshipsToIgnore.Contains($"{rootContentType}>{parentContentType}>{contentType}"))
+                {
+                    return;
+                }
+
+                string key = $"{contentType}|{link.Key}";
+
+                if (!contentTypesWithIds.ContainsKey(key))
+                {
+                    contentTypesWithIds.Add(key, new List<Guid>());
+                }
+
+                contentTypesWithIds[key].Add(id);
+            }
+        }
+
+        private Task<List<object?>> RetrieveLinksDetail(List<INode> destinationNodes, string contentType, string graphName)
+        {
+            string[] ids = destinationNodes
                 .Where(node => contentType.Equals((string)node.Properties["ContentType"], StringComparison.InvariantCultureIgnoreCase))
-                .Select(node => $"'{GetAsString(node.Properties["id"])}'")
+                .Select(node => $"'{DocumentHelper.GetAsString(node.Properties["id"])}'")
                 .ToArray();
 
             return RunQuery(ids, contentType, graphName);
@@ -401,40 +440,13 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             return _neoGraphCluster.Run(graphName, detailCommand);
         }
 
-        protected static (string ContentType, Guid Id) GetContentTypeAndId(string uri)
-        {
-            var pathOnly = uri.StartsWith("http") ? new Uri(uri, UriKind.Absolute).AbsolutePath : uri;
-            pathOnly = pathOnly.ToLower().Replace("/api/execute", string.Empty);
-
-            var uriParts = pathOnly.Trim('/').Split('/');
-            var contentType = uriParts[0].ToLower();
-            var id = Guid.Parse(uriParts[1]);
-
-            return (contentType, id);
-        }
-
-        private static string GetAsString(object item)
-        {
-            if (item is Guid guidItem)
-            {
-                return guidItem.ToString();
-            }
-
-            if (item is JValue jValueItem)
-            {
-                return jValueItem.ToString(CultureInfo.InvariantCulture);
-            }
-
-            return (string)item;
-        }
-
         private static List<string> GetDistinctContentTypes(List<INode> destinationNodes)
         {
             var distinctContentTypes = new List<string>();
 
             foreach (var destinationNode in destinationNodes)
             {
-                var contentType = (string)destinationNode.Properties["ContentType"];
+                string contentType = (string)destinationNode.Properties["ContentType"];
 
                 if (!distinctContentTypes.Contains(contentType))
                 {
