@@ -278,7 +278,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 
                 foreach (object? detailResult in detailResults)
                 {
-                    var properties = ((detailResult as JObject)!).ToObject<Dictionary<string, object>>();
+                    var properties = (detailResult as JObject)!.ToObject<Dictionary<string, object>>();
                     string itemId = DocumentHelper.GetAsString(properties!["id"]);
 
                     var itemRelationship = relationships
