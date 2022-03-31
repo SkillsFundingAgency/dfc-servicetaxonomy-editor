@@ -31,7 +31,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb
 
             var sourceNodeName = await _syncNameProvider.NodeLabels(node);
 
-            if(node.Equals("Skill", StringComparison.CurrentCultureIgnoreCase))
+            if (node.Equals("Skill", StringComparison.CurrentCultureIgnoreCase))
             {
                 return await ExecuteSynonymQueryAsync(new CosmosDbMatchSynonymsQuery(string.Join(":",sourceNodeName), "SkillLabel", "skos__prefLabel", "hasAltLabel", "hasPrefLabel", "hasHiddenLabel"));
             }
