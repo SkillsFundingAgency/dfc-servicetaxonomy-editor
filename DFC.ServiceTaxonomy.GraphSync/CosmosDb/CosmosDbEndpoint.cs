@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.CosmosDb.Commands;
 using DFC.ServiceTaxonomy.GraphSync.CosmosDb.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.Extensions;
+using DFC.ServiceTaxonomy.GraphSync.Helpers;
 using DFC.ServiceTaxonomy.GraphSync.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.Models;
 using Microsoft.Azure.Cosmos;
@@ -97,7 +98,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb
             var commandParameters = command.Query.Parameters;
 
             string itemUri = (string)commandParameters["uri"];
-            (string contentType, string id) = GetContentTypeAndId(itemUri);
+            (string contentType, Guid id) = DocumentHelper.GetContentTypeAndId(itemUri);
             return _cosmosDbService.DeleteItemAsync(container, contentType, id);
         }
 
@@ -118,7 +119,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb
                 }
                 foreach (var item in items!)
                 {
-                    await _cosmosDbService.DeleteItemAsync(container, contentType, (string)item["id"]);
+                    var id = new Guid((string)item["id"]);
+                    await _cosmosDbService.DeleteItemAsync(container, contentType, id);
                 }
             }
         }
@@ -127,9 +129,9 @@ namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb
         {
             var commandParameters = command.Query.Parameters;
             string itemUri = (string)commandParameters["sourceIdPropertyValue"];
-            (string contentType, string id) = GetContentTypeAndId(itemUri);
+            (string contentType, Guid id) = DocumentHelper.GetContentTypeAndId(itemUri);
             var item = await _cosmosDbService.GetContentItemFromDatabase(container, contentType, id);
-            var existingItemRelationships = (item!["_links"] as JObject)!.GetLinks().SelectMany(l => l.Value.Select(v => GetContentTypeAndId(v)));
+            var existingItemRelationships = (item!["_links"] as JObject)!.GetLinks().SelectMany(l => l.Value.Select(DocumentHelper.GetContentTypeAndId));
 
             // Since the move to cosmos the destination node source ids don't appear to be populated
             if (command is CosmosDbDeleteRelationshipsCommand deleteRelationshipsCommand)
@@ -156,7 +158,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb
             var commandParameters = command.Query.Parameters;
             
             string itemUri = (string)commandParameters["uri"];
-            (string contentType, string id) = GetContentTypeAndId(itemUri);
+            (string contentType, Guid id) = DocumentHelper.GetContentTypeAndId(itemUri);
             var itemRelationships = (List<CommandRelationship>)commandParameters["relationships"];
 
             var item = await _cosmosDbService.GetContentItemFromDatabase(container, contentType, id);
@@ -224,43 +226,24 @@ namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb
             return(relationshipKey, valuesDictionary);
         }
 
-#pragma warning disable S4457
         private async Task MergeNodeCommand(Container container, ICommand command)
-        #pragma warning restore S4457
         {
-            var parameters = command.Query.Parameters;
-
-            if (!parameters.ContainsKey("properties"))
+            var properties = command.Query.Parameters["properties"] as Dictionary<string, object>;
+            if (properties == null || !properties.ContainsKey("uri"))
             {
-                throw new ArgumentException("Properties missing");
+                return;
             }
-
-            var properties = parameters["properties"] as Dictionary<string, object>;
-            string uri = properties != null ? (string)properties["uri"] : string.Empty;
-            string id = uri;
-
-            string contentType = properties != null ? ((string)properties["ContentType"]).ToLower() : string.Empty;
-            id = id.Split('/')[id.Split('/').Length - 1];
+            var itemUri = (string)properties["uri"];
+            (string contentType, Guid id) = DocumentHelper.GetContentTypeAndId(itemUri);
 
             var item = await _cosmosDbService.GetContentItemFromDatabase(container, contentType, id) ?? new Dictionary<string, object>
             {
                 { "id", id },
                 { "ContentType", contentType },
-                { "_links", BuildLinksDictionary(uri) },
+                { "_links", BuildLinksDictionary(itemUri) },
             };
 
-            if (properties == null)
-            {
-                await container.UpsertItemAsync(item);
-                return;
-            }
-
-            if (properties.ContainsKey("ContentType"))
-            {
-                properties["ContentType"] = contentType;
-            }
-
-            foreach ((string? key, object? value) in properties)
+            foreach ((string? key, object? value) in properties.Where(p => !p.Key.Equals("ContentType")))
             {
                 if (!item.ContainsKey(key))
                 {
@@ -277,7 +260,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb
         private async Task UpdateIncomingRelationships(
             Container container,
             List<CommandRelationship> itemRelationships,
-            string itemId,
+            Guid itemId,
             string itemContentType,
             Dictionary<string, object>? itemBeforeUpdate)
         {
@@ -295,7 +278,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb
             {
                 return string.Empty;
             }
-            (string contentType, string id) = GetContentTypeAndId(uri);
+            (string contentType, Guid id) = DocumentHelper.GetContentTypeAndId(uri);
             return $"{contentType}{id}";
         }
 
@@ -307,7 +290,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb
             if (itemBeforeUpdate == null) return;
 
             string itemId = (string)itemBeforeUpdate["ContentType"] + (string)itemBeforeUpdate["id"];
-            var existingItemRelationships = (itemBeforeUpdate["_links"] as JObject)!.GetLinks().SelectMany(l => l.Value.Select(v => GetContentTypeAndId(v)));
+            var existingItemRelationships = (itemBeforeUpdate["_links"] as JObject)!.GetLinks().SelectMany(l => l.Value.Select(DocumentHelper.GetContentTypeAndId));
             var newRelationshipIds = itemRelationships.Select(GetRelationshipId).Where(r => string.IsNullOrWhiteSpace(r)).ToList();
 
             // filter for any existing relationships that are no longer present in the new relationships
@@ -321,14 +304,14 @@ namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb
         private async Task HandleAddedRelationships(
             Container container,
             List<CommandRelationship> itemRelationships,
-            string itemId,
+            Guid itemId,
             string itemContentType)
         {
             foreach (var relationship in itemRelationships
                 .Where(r => !string.IsNullOrEmpty(r.DestinationNodeIdPropertyName)))
             {
                 string relationshipUri = (string)relationship.DestinationNodeIdPropertyValues.First();
-                (string relationshipContentType, string relationshipId) = GetContentTypeAndId(relationshipUri);
+                (string relationshipContentType, Guid relationshipId) = DocumentHelper.GetContentTypeAndId(relationshipUri);
                 var relationshipItem = await _cosmosDbService.GetContentItemFromDatabase(container, relationshipContentType, relationshipId);
 
                 if (relationshipItem == null || !relationshipItem.ContainsKey("_links") || !(relationshipItem["_links"] is JObject linksJObject))
@@ -354,7 +337,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb
                 foreach (var incomingItem in incomingList!)
                 {
                     string incomingContentType = (string)incomingItem["contentType"];
-                    string incomingId = (string)incomingItem["id"];
+                    var incomingId = new Guid((string)incomingItem["id"]);
 
                     itemLinkAlreadyExists = incomingId == itemId && incomingContentType == itemContentType;
 
@@ -380,14 +363,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb
 
                 await container.UpsertItemAsync(relationshipItem);
             }
-        }
-
-        private static (string, string) GetContentTypeAndId(string uri)
-        {
-            string id = uri.Split('/')[uri.Split('/').Length - 1];
-            string contentType = uri.Split('/')[uri.Split('/').Length - 2].ToLower();
-
-            return (contentType, id);
         }
 
         private static Dictionary<string, object> BuildLinksDictionary(string uri)
