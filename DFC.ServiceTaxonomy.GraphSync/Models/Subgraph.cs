@@ -1,9 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using DFC.ServiceTaxonomy.GraphSync.Interfaces;
+using DFC.ServiceTaxonomy.GraphSync.JsonConverters;
+using Newtonsoft.Json;
 
 namespace DFC.ServiceTaxonomy.GraphSync.Models
 {
+    [JsonConverter(typeof(SubgraphConverter))]
     public class Subgraph : ISubgraph
     {
         //todo: immutable, with non-nullable sourcenode?

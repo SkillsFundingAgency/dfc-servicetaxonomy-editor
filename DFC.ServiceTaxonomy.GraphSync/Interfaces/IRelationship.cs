@@ -7,7 +7,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Interfaces
         //
         // Summary:
         //     Gets the type of the relationship.
-        string Type { get; }
+        string Type { get; set; }
 
         //
         // Summary:
