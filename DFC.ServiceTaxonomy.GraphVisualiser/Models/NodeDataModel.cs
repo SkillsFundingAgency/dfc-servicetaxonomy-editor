@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Helpers;
 using DFC.ServiceTaxonomy.GraphSync.Interfaces;
 
 namespace DFC.ServiceTaxonomy.GraphVisualiser.Models
@@ -16,7 +15,7 @@ namespace DFC.ServiceTaxonomy.GraphVisualiser.Models
         public List<string> StaxProperties { get; }
         public string? NodeId { get; }
 
-        public NodeDataModel(INode node, string prefLabel, ISyncNameProvider syncNameProvider)
+        public NodeDataModel(INode node, string prefLabel)
         {
             //todo: we've already calculated the label earlier, so we don't need this logic (if we make it available here)
             //todo: don't hardcode preexisting nodes
@@ -36,7 +35,7 @@ namespace DFC.ServiceTaxonomy.GraphVisualiser.Models
                 .Where(p => p.Key != prefLabel)
                 .Select(p => $"{p.Key}:{p.Value}")
                 .ToList();
-            NodeId = GetNodeId(node.Properties, type, syncNameProvider);
+            NodeId = GetNodeId(node.Properties, type);
         }
 
         public NodeDataModel(string? id, long key, string? type, string? label, string? comment)
@@ -68,8 +67,7 @@ namespace DFC.ServiceTaxonomy.GraphVisualiser.Models
 
         private static string? GetNodeId(
             IReadOnlyDictionary<string, object> staxProperties,
-            string? contentType,
-            ISyncNameProvider syncNameProvider)
+            string? contentType)
         {
             try
             {
@@ -78,8 +76,7 @@ namespace DFC.ServiceTaxonomy.GraphVisualiser.Models
                     return null;
                 }
 
-                string? propertyId = syncNameProvider.IdPropertyName(contentType);
-
+                string? propertyId = "id";
                 return staxProperties.FirstOrDefault(x => x.Key == propertyId).Value.ToString();
             }
             catch (Exception)
