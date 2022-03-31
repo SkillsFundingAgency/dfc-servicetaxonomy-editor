@@ -30,12 +30,11 @@ namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb.Commands
                 this.CheckIsValid();
 
                 //todo: bi-directional relationships
-                //const string sourceIdPropertyValueParamName = "sourceIdPropertyValue";
-                //StringBuilder nodeMatchBuilder = new StringBuilder(
+                var parameters = 
+                    new Dictionary<string, object> { { "sourceIdPropertyValue", SourceIdPropertyValue! } };
+               //StringBuilder nodeMatchBuilder = new StringBuilder(
                 //        $"match ({_sourceNodeVariableName}:{string.Join(':', SourceNodeLabels)} {{{SourceIdPropertyName}:${sourceIdPropertyValueParamName}}})");
                 //StringBuilder destNodeOutgoingRelationshipsBuilder = new StringBuilder();
-                var parameters = new Dictionary<string, object>();
-                    //new Dictionary<string, object> { { sourceIdPropertyValueParamName, SourceIdPropertyValue! } };
                 //int ordinal = 0;
                 //todo: better name relationship=> relationships, relationships=>?
 

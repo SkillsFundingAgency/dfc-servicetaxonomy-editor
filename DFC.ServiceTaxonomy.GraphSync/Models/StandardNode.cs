@@ -16,7 +16,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Models
 
         public IReadOnlyDictionary<string, object> Properties { get; set; } = new Dictionary<string, object>();
 
-        public long Id => -1;
+        public long Id { get; set; }
 
         public bool Equals([AllowNull] INode other) => true;
     }

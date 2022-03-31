@@ -19,7 +19,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Interfaces
         //
         // Summary:
         //     Gets the properties of the entity.
-        IReadOnlyDictionary<string, object> Properties { get; }
+        IReadOnlyDictionary<string, object> Properties { get; set; }
 
         //
         // Summary:
