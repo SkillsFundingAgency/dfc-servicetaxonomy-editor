@@ -92,7 +92,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb.Commands
 
         public override string ToString()
         {
-            return $@"Source labels - {string.Join(':', SourceNodeLabels)}. {SourceIdPropertyName}: '{SourceIdPropertyValue}'.
+            return $@"Source labels - {string.Join(',', SourceNodeLabels)}. {SourceIdPropertyName}: '{SourceIdPropertyValue}'.
                 Relationships:
 
                 {string.Join(Environment.NewLine, RelationshipsList)}";
