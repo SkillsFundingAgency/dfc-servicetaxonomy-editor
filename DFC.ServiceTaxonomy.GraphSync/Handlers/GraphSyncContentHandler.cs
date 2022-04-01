@@ -55,6 +55,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers
             }
         }
 
+
         //todo: there's no DraftSavingAsync (either add it to oc, or raise an issue)
         public override async Task DraftSavedAsync(SaveDraftContentContext context)
         {
@@ -90,6 +91,24 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers
                 // we log the exception, even though some exceptions will have already been logged,
                 // as there might have been an 'unexpected' exception thrown
                 _logger.LogError(ex, "Exception publishing.");
+                Cancel(context);
+            }
+        }
+        public override async Task RestoredAsync(RestoreContentContext context)
+        {
+            try
+            {
+                if (!await _syncOrchestrator.Publish(context.ContentItem))
+                {
+                    // sad paths have already been notified to the user and logged
+                    Cancel(context);
+                }
+            }
+            catch (Exception ex)
+            {
+                // we log the exception, even though some exceptions will have already been logged,
+                // as there might have been an 'unexpected' exception thrown
+                _logger.LogError(ex, "Exception restoring.");
                 Cancel(context);
             }
         }
