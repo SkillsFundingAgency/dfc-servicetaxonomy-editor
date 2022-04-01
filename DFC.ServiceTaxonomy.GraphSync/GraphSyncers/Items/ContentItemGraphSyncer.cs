@@ -146,7 +146,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Items
                 return (false, failureContext);
             }
 
-            return (true, "");
+            return (true, string.Empty);
         }
 
         //todo: output relationships destination label user id, instead of node id
@@ -158,17 +158,20 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Items
             string partName,
             dynamic partContent)
         {
-            return $@"{context.ValidateAndRepairGraph.FailureContext(failureReason, contentItem)}
-part type name: '{partName}'
-     part name: '{contentTypePartDefinition.Name}'
-  part content:
-{partContent}
-Source Node ------------------------------------
-{SourceNodeContext(context.NodeWithRelationships.SourceNode, context.NodeId)}
-Outgoing Relationships -------------------------
-{string.Join(Environment.NewLine, context.NodeWithRelationships.OutgoingRelationships.Select(or => $"[:{or.Type}]->({or.Id})"))}
-Incoming Relationships -------------------------
-{string.Join(Environment.NewLine, context.NodeWithRelationships.IncomingRelationships.Select(or => $"[:{or.Type}]->({or.Id})"))}";
+            return
+                $@"{context.ValidateAndRepairGraph.FailureContext(failureReason, contentItem)}
+                Part type name: '{partName}'
+                Part name: '{contentTypePartDefinition.Name}'
+                Part content:
+
+                {partContent}
+
+                Source node ------------------------------------
+                {SourceNodeContext(context.NodeWithRelationships.SourceNode, context.NodeId)}
+                Outgoing relationships -------------------------
+                {string.Join(Environment.NewLine, context.NodeWithRelationships.OutgoingRelationships.Select(or => $"{or.Type}->{or.Id}"))}
+                Incoming relationships -------------------------
+                {string.Join(Environment.NewLine, context.NodeWithRelationships.IncomingRelationships.Select(or => $"{or.Type}->{or.Id}"))}";
         }
 
         private string SourceNodeContext(INode? sourceNode, object? nodeId)
@@ -176,11 +179,13 @@ Incoming Relationships -------------------------
             if (sourceNode == null)
                 return "N/A";
 
-            return $@"        ID: {sourceNode.Id}
-   user ID: {nodeId}
-    labels: ':{string.Join(":", sourceNode.Labels)}'
-properties:
-{string.Join(Environment.NewLine, sourceNode.Properties.Select(p => $"{p.Key} = {(p.Value is IEnumerable<object> values ? string.Join(",", values.Select(v => v.ToString())) : p.Value)}"))}";
+            return
+                $@"Id: {sourceNode.Id}
+                User Id: {nodeId}
+                Labels: ':{string.Join(",", sourceNode.Labels)}'
+                Properties:
+                {string.Join(Environment.NewLine, sourceNode.Properties
+                    .Select(p => $"{p.Key} = {(p.Value is IEnumerable<object> values ? string.Join(",", values.Select(v => v.ToString())) : p.Value)}"))}";
         }
     }
 }
