@@ -380,6 +380,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb.GraphSyncers
                 {
                     (bool validated, string failureReason) =
                         await itemSyncer.ValidateSyncComponent(context);
+
                     if (!validated)
                         return (validated, failureReason);
                 }

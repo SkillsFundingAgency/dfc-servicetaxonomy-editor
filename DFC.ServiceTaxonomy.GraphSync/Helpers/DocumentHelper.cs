@@ -9,6 +9,11 @@ namespace DFC.ServiceTaxonomy.GraphSync.Helpers
     {
         public static (string ContentType, Guid Id) GetContentTypeAndId(string uri)
         {
+            if (string.IsNullOrEmpty(uri))
+            {
+                return (string.Empty, Guid.Empty);
+            }
+
             string pathOnly = uri.StartsWith("http") ? new Uri(uri, UriKind.Absolute).AbsolutePath : uri;
             pathOnly = pathOnly.ToLower().Replace("/api/execute", string.Empty);
 

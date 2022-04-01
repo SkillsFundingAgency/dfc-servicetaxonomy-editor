@@ -67,7 +67,18 @@ namespace DFC.ServiceTaxonomy.GraphSync.Extensions
             }
 
             var toType = typeof(T);
-            return (T)Activator.CreateInstance(toType, new object[] { 1 });
+
+            if ((value is int || value is bool || value is double || value is decimal || value is float) && toType == typeof(string))
+            {
+                return (T)(object)value.ToString()!;
+            }
+
+            if (value is string)
+            {
+                return (T)value;
+            }
+
+            return (T)Activator.CreateInstance(toType, new object[] { 1 })!;
         }
         #pragma warning restore CS8603 // Possible null reference return.
     }

@@ -238,7 +238,14 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
                     DateTime contentPropertyValue = (DateTime)contentValue;
 
                     //OC DateTime pickers don't support Milliseconds so ignoring conversion from Neo nanoseconds to OC millisecond
-                    var nodeAsDateTime = new DateTime(nodeZonedDateTime.Year, nodeZonedDateTime.Month, nodeZonedDateTime.Day, nodeZonedDateTime.Hour, nodeZonedDateTime.Minute, nodeZonedDateTime.Second);
+                    var nodeAsDateTime = new DateTime(
+                            nodeZonedDateTime.Year,
+                            nodeZonedDateTime.Month,
+                            nodeZonedDateTime.Day,
+                            nodeZonedDateTime.Hour,
+                            nodeZonedDateTime.Minute,
+                            nodeZonedDateTime.Second)
+                        .ToUniversalTime();
 
                     return Equals(contentPropertyValue, nodeAsDateTime);
                 });
