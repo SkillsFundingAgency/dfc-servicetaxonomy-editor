@@ -34,6 +34,11 @@ namespace DFC.ServiceTaxonomy.GraphSync.JsonConverters
                 var linkDictionary = SafeCastToDictionary(link.Value);
                 var linkDetails = GetContentTypeAndId((string)linkDictionary!["href"]);
 
+                if (linkDetails.Id == Guid.Empty)
+                {
+                    continue;
+                }
+
                 int endNodeId = GetNumber(GetAsString(linkDetails.Id));
                 int relationshipId = GetNumber(
                     GetAsString(linkDetails.Id) + GetAsString(itemId));
