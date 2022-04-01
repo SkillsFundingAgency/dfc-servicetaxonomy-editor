@@ -1,5 +1,5 @@
+using DFC.ServiceTaxonomy.GraphSync.CosmosDb;
 using DFC.ServiceTaxonomy.GraphSync.Interfaces;
-using DFC.ServiceTaxonomy.GraphSync.Neo4j;
 using FakeItEasy;
 using Microsoft.Extensions.Logging;
 using Xunit;
@@ -8,7 +8,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.Neo4j.Services
 {
     public class GraphClusterTests
     {
-        internal Neo4JGraphCluster GraphCluster { get; set; }
+        internal CosmosDbGraphCluster GraphCluster { get; set; }
         internal IGraphReplicaSetLowLevel[] ReplicaSets { get; set; }
         internal ILogger Logger { get; set; }
         internal IQuery<int>[] Queries { get; set; }
@@ -26,7 +26,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.Neo4j.Services
 
             Logger = A.Fake<ILogger>();
 
-            GraphCluster = new Neo4JGraphCluster(ReplicaSets);
+            GraphCluster = new CosmosDbGraphCluster(ReplicaSets);
 
             Queries = new[] {A.Fake<IQuery<int>>()};
             Commands = new[] {A.Fake<ICommand>()};

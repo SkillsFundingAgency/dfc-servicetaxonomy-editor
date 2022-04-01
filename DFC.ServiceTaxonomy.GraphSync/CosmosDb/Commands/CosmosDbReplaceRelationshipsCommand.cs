@@ -19,117 +19,15 @@ namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb.Commands
             {
                 this.CheckIsValid();
 
-               /* const string sourceNodeVariableName = "s";
-                const string destinationNodeVariableBase = "d";
-                const string newRelationshipVariableBase = "nr";
-                const string newIncomingRelationshipVariableBase = "nir";
-                const string relationshipPropertiesVariableBase = "rp";*/
-
-                //todo: bi-directional relationships
-                /*const string sourceIdPropertyValueParamName = "sourceIdPropertyValue";
-                StringBuilder nodeMatchBuilder = new StringBuilder(
-                        $"match ({sourceNodeVariableName}:{string.Join(':', SourceNodeLabels)} {{{SourceIdPropertyName}:${sourceIdPropertyValueParamName}}})");
-                StringBuilder mergeBuilder = new StringBuilder();*/
-
                 var parameters = new Dictionary<string, object>
                 {
                     { "uri", SourceIdPropertyValue! },
                     { "relationships", RelationshipsList },
                 };
 
-                /*
-                int ordinal = 0;
-                //todo: better name relationship=> relationships, relationships=>?
-
-                var distinctRelationshipTypeToDestNode = new HashSet<(string type, string labels)>();
-
-                foreach (var relationship in RelationshipsList)
-                {
-                    string destNodeLabels = string.Join(':', relationship.DestinationNodeLabels.OrderBy(l => l));
-                    // different types could have different dest node labels
-                    // add unit/integration tests for this ^^ scenario
-                    distinctRelationshipTypeToDestNode.Add((relationship.RelationshipType, destNodeLabels));
-
-                    foreach (object destIdPropertyValue in relationship.DestinationNodeIdPropertyValues)
-                    {
-                        string relationshipVariable = $"{newRelationshipVariableBase}{++ordinal}";
-                        string incomingRelationshipVariable = $"{newIncomingRelationshipVariableBase}{ordinal}";
-                        string destNodeVariable = $"{destinationNodeVariableBase}{ordinal}";
-                        string destIdPropertyValueParamName = $"{destNodeVariable}Value";
-
-                        nodeMatchBuilder.Append(
-                            $"\r\nmatch ({destNodeVariable}:{destNodeLabels} {{{relationship.DestinationNodeIdPropertyName}:${destIdPropertyValueParamName}}})");
-                        parameters.Add(destIdPropertyValueParamName, destIdPropertyValue);
-
-                        mergeBuilder.Append(
-                            $"\r\nmerge ({sourceNodeVariableName})-[{relationshipVariable}:{relationship.RelationshipType}]->({destNodeVariable})");
-
-                        if (relationship.Properties?.Any() == true)
-                        {
-                            string relationshipPropertyName = $"{relationshipPropertiesVariableBase}{ordinal}";
-                            mergeBuilder.Append($" set {relationshipVariable}=${relationshipPropertyName}");
-
-                            parameters.Add(relationshipVariable, relationshipPropertyName);
-                            parameters.Add(relationshipPropertyName, relationship.Properties);
-                        }
-
-                        //todo: deleting incoming relationships? don't own incoming relationships
-                        // might have to look at old item (in publishing) and remove any existing we're removing
-
-                        if (relationship.IncomingRelationshipType != null)
-                        {
-                            mergeBuilder.Append(
-                                $"\r\nmerge ({sourceNodeVariableName})<-[{incomingRelationshipVariable}:{relationship.IncomingRelationshipType}]-({destNodeVariable})");
-
-                            // set a property to indicate this is a 2 way relationship
-                            mergeBuilder.Append($" set {incomingRelationshipVariable}.{TwoWayRelationshipPropertyName}=TRUE");
-
-                            //todo: set properties also on incoming relationship?
-                        }
-                    }
-                }
-
-                string newRelationshipsVariablesString = AllVariablesString(newRelationshipVariableBase, ordinal);
-
-                string returnString =
-                    mergeBuilder.Length > 0 ? $"return {newRelationshipsVariablesString}" : string.Empty;
-
-                StringBuilder queryBuilder = new StringBuilder();
-                queryBuilder.AppendLine(nodeMatchBuilder.ToString());
-                if (ReplaceExistingRelationships)
-                {
-                    (string existingRelationshipsOptionalMatches, string existingRelationshipsVariablesString)
-                        = GenerateExistingRelationships(distinctRelationshipTypeToDestNode, sourceNodeVariableName);
-
-                    queryBuilder.AppendLine(existingRelationshipsOptionalMatches);
-                    queryBuilder.AppendLine($"delete {existingRelationshipsVariablesString}");
-                }
-
-                queryBuilder.AppendLine(mergeBuilder.ToString());
-                queryBuilder.AppendLine(returnString);
-                */
-
                 return new Query("ReplaceRelationshipsCommand", parameters);
             }
         }
-
-        /*private static (string optionalMatches, string variablesString) GenerateExistingRelationships(
-            HashSet<(string type, string labels)> distinctRelationshipTypeToDestNode,
-            string sourceNodeVariableName)
-        {
-            const string existingRelationshipVariableBase = "er";
-
-            var existingRelationshipsMatchBuilder = new StringBuilder();
-
-            int ordinal = 0;
-            foreach ((string type, string labels) in distinctRelationshipTypeToDestNode)
-            {
-                existingRelationshipsMatchBuilder.Append(
-                    $"\r\noptional match ({sourceNodeVariableName})-[{existingRelationshipVariableBase}{++ordinal}:{type}]->(:{labels})");
-            }
-
-            return (existingRelationshipsMatchBuilder.ToString(), AllVariablesString(existingRelationshipVariableBase, ordinal));
-        }*/
 
         public override void ValidateResults(List<IRecord> records, IResultSummary resultSummary)
         {
