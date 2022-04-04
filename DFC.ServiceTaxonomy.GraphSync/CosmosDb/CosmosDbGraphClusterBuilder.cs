@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using DFC.ServiceTaxonomy.GraphSync.CosmosDb.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.Models;
@@ -20,7 +19,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb
             _cosmosDbService = cosmosDbService;
         }
 
-        public IGraphCluster Build(Action<CosmosDbOptions>? configure = null)
+        public IGraphCluster Build()
         {
             const string publishedKey = "published";
             const string previewKey = "preview";

@@ -88,14 +88,22 @@ namespace DFC.ServiceTaxonomy.GraphSync
             {
                 throw new GraphClusterConfigurationErrorException("No endpoints configured.");
             }
-            var client = new CosmosClient(cosmosDbOptions.ConnectionString);
-            var db = (await client.CreateDatabaseIfNotExistsAsync(cosmosDbOptions.DatabaseName, ThroughputProperties.CreateManualThroughput(400))).Database;
+
             const string PartitionKeyKey = "ContentType";
             var concurrentDictionary = new ConcurrentDictionary<string, Container>();
-            foreach (var endpoint in cosmosDbOptions.Endpoints)
+            CosmosClient? sharedClient = null;
+            var firstConnString = cosmosDbOptions.Endpoints!.Values.First().ConnectionString;
+            if (cosmosDbOptions.Endpoints.Values.All(v => v.ConnectionString == firstConnString))
             {
-                var container = await db.CreateContainerIfNotExistsAsync(endpoint, $"/{PartitionKeyKey}");
-                concurrentDictionary.TryAdd(endpoint, container.Container);
+                sharedClient = new CosmosClient(firstConnString);
+            }
+            foreach (var endpoint in cosmosDbOptions.Endpoints!)
+            {
+                var client = sharedClient ?? new CosmosClient(endpoint.Value.ConnectionString);
+                var db = (await client.CreateDatabaseIfNotExistsAsync(endpoint.Value.DatabaseName, ThroughputProperties.CreateManualThroughput(400))).Database;
+                var containerName = endpoint.Value.ContainerName ?? endpoint.Key;
+                var container = await db.CreateContainerIfNotExistsAsync(containerName, $"/{PartitionKeyKey}");
+                concurrentDictionary.TryAdd(containerName, container.Container);
             }
             return new CosmosDbService(concurrentDictionary);
         }
@@ -114,10 +122,9 @@ namespace DFC.ServiceTaxonomy.GraphSync
             services.AddTransient<IServiceTaxonomyHelper, ServiceTaxonomyHelper>();
             services.AddTransient<IGetContentItemsAsJsonQuery, GetContentItemsAsJsonQuery>();
 
-            services.AddSingleton<ICosmosDbService>(InitialiseCosmosClientInstanceAsync(_configuration.GetSection("CosmosDb")).GetAwaiter().GetResult());
+            services.AddSingleton<ICosmosDbService>(InitialiseCosmosClientInstanceAsync(_configuration.GetSection(CosmosDbOptions.CosmosDb)).GetAwaiter().GetResult());
 
-            services.AddGraphCluster(options =>
-                _configuration.GetSection(CosmosDbOptions.CosmosDb).Bind(options));
+            services.AddGraphCluster();
 
             services.Configure<GraphSyncPartSettingsConfiguration>(_configuration.GetSection(nameof(GraphSyncPartSettings)));
 
