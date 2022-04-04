@@ -1,5 +1,4 @@
-﻿using System;
-using DFC.ServiceTaxonomy.GraphSync.CosmosDb;
+﻿using DFC.ServiceTaxonomy.GraphSync.CosmosDb;
 using DFC.ServiceTaxonomy.GraphSync.CosmosDb.Commands;
 using DFC.ServiceTaxonomy.GraphSync.CosmosDb.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.Interfaces;
@@ -10,7 +9,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Extensions
 {
     public static class ServiceCollectionExtensions
     {
-        public static void AddGraphCluster(this IServiceCollection services, Action<CosmosDbOptions>? setupAction)
+        public static void AddGraphCluster(this IServiceCollection services)
         {
             services.AddSingleton<ICosmosDbGraphClusterBuilder, CosmosDbGraphClusterBuilder>();
             services.AddSingleton<IGraphCluster, CosmosDbGraphCluster>(
@@ -25,11 +24,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.Extensions
             services.AddTransient<IReplaceRelationshipsCommand, CosmosDbReplaceRelationshipsCommand>();
             services.AddTransient<IDeleteRelationshipsCommand, CosmosDbDeleteRelationshipsCommand>();
             services.AddTransient<ICustomCommand, CustomCommand>();
-
-            if (setupAction != null)
-            {
-                services.Configure(setupAction);
-            }
         }
     }
 }
