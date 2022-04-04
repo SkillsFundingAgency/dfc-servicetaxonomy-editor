@@ -535,6 +535,30 @@
                             {
                                 "name": "ConnectionStrings__SkillsFrameworkDB",
                                 "value": "[parameters('SkillsFrameworkDbConnectionString')]"
+                            },
+                            {
+                                "name": "CosmosDB__ConnectionString__0",
+                                "value": "[parameters('CosmosDBConnectionString0')]"
+                            },
+                            {
+                                "name": "CosmosDB__DatabaseName__0",
+                                "value": "[parameters('CosmosDBDatabaseName0')]"
+                            },
+                            {
+                                "name": "CosmosDB__ContainerName__0",
+                                "value": "[parameters('CosmosDBContainerName0')]"
+                            },
+                            {
+                                "name": "CosmosDB__ConnectionString__1",
+                                "value": "[parameters('CosmosDBConnectionString1')]"
+                            },
+                            {
+                                "name": "CosmosDB__DatabaseName__1",
+                                "value": "[parameters('CosmosDBDatabaseName1')]"
+                            },
+                            {
+                                "name": "CosmosDB__ContainerName__1",
+                                "value": "[parameters('CosmosDBContainerName1')]"
                             }
                         ]
                     }

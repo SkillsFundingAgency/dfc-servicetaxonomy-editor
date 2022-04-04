@@ -202,6 +202,26 @@
         },
         "SkillsFrameworkDbConnectionString": {
             "value": "__SkillsFrameworkDbConnectionString__"
+        },
+        "CosmosDBConnectionStringName0":{
+            "value": "__CosmosDBConnectionStringName0__"
+        },
+        "CosmosDBDatabaseName0":{
+            "value": "__CosmosDBDatabaseName0__"
+        },
+        "CosmosDBContainerName0":{
+            "value": "__CosmosDBContainerName0__"
+        },
+        "CosmosDBConnectionStringName1":{
+            "value": "__CosmosDBConnectionStringName1__"
+        },
+        "CosmosDBDatabaseName1":{
+            "value": "__CosmosDBDatabaseName1__"
+        },
+        "CosmosDBContainerName1":{
+            "value": "__CosmosDBContainerName1__"
         }
+        
+    
     }
 }
