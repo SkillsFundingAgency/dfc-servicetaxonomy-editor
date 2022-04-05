@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.31729.503
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.32112.339
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DFC.ServiceTaxonomy.Editor", "DFC.ServiceTaxonomy.Editor\DFC.ServiceTaxonomy.Editor.csproj", "{12E7F029-43F7-4BF2-AC86-B5056D1D4DDF}"
 EndProject
@@ -16,17 +16,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DFC.ServiceTaxonomy.UnitTests", "DFC.ServiceTaxonomy.UnitTests\DFC.ServiceTaxonomy.UnitTests.csproj", "{248782F2-4F59-4EC6-8403-7BC6235863E1}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DFC.ServiceTaxonomy.GraphLookup", "DFC.ServiceTaxonomy.GraphLookup\DFC.ServiceTaxonomy.GraphLookup.csproj", "{C8CB1064-2262-4DFE-9778-B76163DF0115}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DFC.ServiceTaxonomy.GraphSync", "DFC.ServiceTaxonomy.GraphSync\DFC.ServiceTaxonomy.GraphSync.csproj", "{2CD2FE55-70AC-4F2A-A6BC-D18D52049B7D}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{1C39E2DF-6511-4179-BA7C-2A12DBC963E3}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DFC.ServiceTaxonomy.OrchardCoreInitialiser", "DFC.ServiceTaxonomy.OrchardCoreInitialiser\DFC.ServiceTaxonomy.OrchardCoreInitialiser.csproj", "{129E19BA-40C8-4457-90F9-90BBD42068EF}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Utilities", "Utilities", "{398B7C0B-0D07-4A9D-9765-D5A71941DEF6}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GetJobProfiles", "GetJobProfiles\GetJobProfiles.csproj", "{8A6F690F-F0D5-4E81-A027-3053BFAC89AF}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DFC.ServiceTaxonomy.GraphVisualiser", "DFC.ServiceTaxonomy.GraphVisualiser\DFC.ServiceTaxonomy.GraphVisualiser.csproj", "{A78E7B74-3AD3-493A-98B0-D23DD683C126}"
 EndProject
@@ -96,12 +90,6 @@ Global
 		{248782F2-4F59-4EC6-8403-7BC6235863E1}.Development|Any CPU.Build.0 = Development|Any CPU
 		{248782F2-4F59-4EC6-8403-7BC6235863E1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{248782F2-4F59-4EC6-8403-7BC6235863E1}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C8CB1064-2262-4DFE-9778-B76163DF0115}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C8CB1064-2262-4DFE-9778-B76163DF0115}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C8CB1064-2262-4DFE-9778-B76163DF0115}.Development|Any CPU.ActiveCfg = Development|Any CPU
-		{C8CB1064-2262-4DFE-9778-B76163DF0115}.Development|Any CPU.Build.0 = Development|Any CPU
-		{C8CB1064-2262-4DFE-9778-B76163DF0115}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C8CB1064-2262-4DFE-9778-B76163DF0115}.Release|Any CPU.Build.0 = Release|Any CPU
 		{2CD2FE55-70AC-4F2A-A6BC-D18D52049B7D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{2CD2FE55-70AC-4F2A-A6BC-D18D52049B7D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2CD2FE55-70AC-4F2A-A6BC-D18D52049B7D}.Development|Any CPU.ActiveCfg = Development|Any CPU
@@ -114,12 +102,6 @@ Global
 		{129E19BA-40C8-4457-90F9-90BBD42068EF}.Development|Any CPU.Build.0 = Development|Any CPU
 		{129E19BA-40C8-4457-90F9-90BBD42068EF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{129E19BA-40C8-4457-90F9-90BBD42068EF}.Release|Any CPU.Build.0 = Release|Any CPU
-		{8A6F690F-F0D5-4E81-A027-3053BFAC89AF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8A6F690F-F0D5-4E81-A027-3053BFAC89AF}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8A6F690F-F0D5-4E81-A027-3053BFAC89AF}.Development|Any CPU.ActiveCfg = Development|Any CPU
-		{8A6F690F-F0D5-4E81-A027-3053BFAC89AF}.Development|Any CPU.Build.0 = Development|Any CPU
-		{8A6F690F-F0D5-4E81-A027-3053BFAC89AF}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8A6F690F-F0D5-4E81-A027-3053BFAC89AF}.Release|Any CPU.Build.0 = Release|Any CPU
 		{A78E7B74-3AD3-493A-98B0-D23DD683C126}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{A78E7B74-3AD3-493A-98B0-D23DD683C126}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A78E7B74-3AD3-493A-98B0-D23DD683C126}.Development|Any CPU.ActiveCfg = Debug|Any CPU
@@ -246,7 +228,6 @@ Global
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{248782F2-4F59-4EC6-8403-7BC6235863E1} = {1C39E2DF-6511-4179-BA7C-2A12DBC963E3}
-		{8A6F690F-F0D5-4E81-A027-3053BFAC89AF} = {398B7C0B-0D07-4A9D-9765-D5A71941DEF6}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B38FA84A-9199-474F-B57A-D4E40B208A6F}
