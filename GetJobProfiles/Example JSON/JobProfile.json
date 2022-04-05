@@ -49,14 +49,6 @@
             ]
         }
     },
-    "GraphLookupPart": {
-        "Nodes": [
-            {
-                "Id": "http://data.europa.eu/esco/occupation/4ca8ba6c-dc55-40c0-ae6c-d55c94dd2e03",
-                "DisplayText": "intelligence officer"
-            }
-        ]
-    },
     "GraphSyncPart": {
         "Text": "http://nationalcareers.service.gov.uk/jobprofile/334364ce-8ca2-4d73-bea6-20aa232e87ce"
     },

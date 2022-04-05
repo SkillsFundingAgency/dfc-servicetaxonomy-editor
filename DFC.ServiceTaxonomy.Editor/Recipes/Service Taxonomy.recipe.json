@@ -1331,16 +1331,6 @@
                     "ContentPartFieldDefinitionRecords": []
                 },
                 {
-                    "Name": "GraphLookupPart",
-                    "Settings": {
-                        "ContentPartSettings": {
-                            "Attachable": true,
-                            "Description": "Lookup node(s) from the graph and create relationships and/or set a property based on the selection."
-                        }
-                    },
-                    "ContentPartFieldDefinitionRecords": []
-                },
-                {
                     "Name": "PageLocationPart",
                     "Settings": {
                         "ContentPartSettings": {

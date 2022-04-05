@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.31729.503
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.32112.339
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DFC.ServiceTaxonomy.Editor", "DFC.ServiceTaxonomy.Editor\DFC.ServiceTaxonomy.Editor.csproj", "{12E7F029-43F7-4BF2-AC86-B5056D1D4DDF}"
 EndProject
@@ -15,8 +15,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DFC.ServiceTaxonomy.UnitTests", "DFC.ServiceTaxonomy.UnitTests\DFC.ServiceTaxonomy.UnitTests.csproj", "{248782F2-4F59-4EC6-8403-7BC6235863E1}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DFC.ServiceTaxonomy.GraphLookup", "DFC.ServiceTaxonomy.GraphLookup\DFC.ServiceTaxonomy.GraphLookup.csproj", "{C8CB1064-2262-4DFE-9778-B76163DF0115}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DFC.ServiceTaxonomy.GraphSync", "DFC.ServiceTaxonomy.GraphSync\DFC.ServiceTaxonomy.GraphSync.csproj", "{2CD2FE55-70AC-4F2A-A6BC-D18D52049B7D}"
 EndProject
@@ -96,12 +94,6 @@ Global
 		{248782F2-4F59-4EC6-8403-7BC6235863E1}.Development|Any CPU.Build.0 = Development|Any CPU
 		{248782F2-4F59-4EC6-8403-7BC6235863E1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{248782F2-4F59-4EC6-8403-7BC6235863E1}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C8CB1064-2262-4DFE-9778-B76163DF0115}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C8CB1064-2262-4DFE-9778-B76163DF0115}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C8CB1064-2262-4DFE-9778-B76163DF0115}.Development|Any CPU.ActiveCfg = Development|Any CPU
-		{C8CB1064-2262-4DFE-9778-B76163DF0115}.Development|Any CPU.Build.0 = Development|Any CPU
-		{C8CB1064-2262-4DFE-9778-B76163DF0115}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C8CB1064-2262-4DFE-9778-B76163DF0115}.Release|Any CPU.Build.0 = Release|Any CPU
 		{2CD2FE55-70AC-4F2A-A6BC-D18D52049B7D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{2CD2FE55-70AC-4F2A-A6BC-D18D52049B7D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2CD2FE55-70AC-4F2A-A6BC-D18D52049B7D}.Development|Any CPU.ActiveCfg = Development|Any CPU
