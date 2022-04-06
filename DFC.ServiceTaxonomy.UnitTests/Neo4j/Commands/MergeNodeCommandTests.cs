@@ -1,18 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
+using DFC.ServiceTaxonomy.GraphSync.CosmosDb.Commands;
 using DFC.ServiceTaxonomy.GraphSync.Extensions;
-using DFC.ServiceTaxonomy.GraphSync.Neo4j;
 using Xunit;
 
 namespace DFC.ServiceTaxonomy.UnitTests.Neo4j.Commands
 {
     public class MergeNodeCommandTests
     {
-        public Neo4JMergeNodeCommand MergeNodeCommand;
+        public CosmosDbMergeNodeCommand MergeNodeCommand;
 
         public MergeNodeCommandTests()
         {
-            MergeNodeCommand = new Neo4JMergeNodeCommand
+            MergeNodeCommand = new CosmosDbMergeNodeCommand
             {
                 IdPropertyName = $"{nameof(MergeNodeCommand.IdPropertyName)}",
                 NodeLabels = {"NodeLabel"},
