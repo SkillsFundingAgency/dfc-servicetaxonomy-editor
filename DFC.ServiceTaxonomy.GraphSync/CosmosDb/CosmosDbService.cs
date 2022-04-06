@@ -21,7 +21,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb
             _containers = containers;
         }
 
-        public Container GetContainer(string name)
+        private Container GetContainer(string name)
         {
             if(!_containers.ContainsKey(name))
             {
@@ -30,7 +30,13 @@ namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb
             return _containers[name];
         }
 
-        public async Task DeleteIncomingRelationshipAsync(Container container, string contentType, Guid id, string relationshipId)
+        public Task DeleteIncomingRelationshipAsync(string databaseName, string contentType, Guid id, string relationshipId)
+        {
+            var container = GetContainer(databaseName);
+            return DeleteIncomingRelationshipAsync(container, contentType, id, relationshipId);
+        }
+
+        private async Task DeleteIncomingRelationshipAsync(Container container, string contentType, Guid id, string relationshipId)
         {
             var relationshipItem = await GetContentItemFromDatabase(container, contentType, id);
             // if there is no relationship item or it doesn;t have a _links section we don't need to bother updating
@@ -51,8 +57,9 @@ namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb
             await container.UpsertItemAsync(relationshipItem);
         }
 
-        public async Task DeleteItemAsync(Container container, string contentType, Guid id)
+        public async Task DeleteItemAsync(string databaseName, string contentType, Guid id)
         {
+            var container = GetContainer(databaseName);
             var contentItem = await GetContentItemFromDatabase(container, contentType, id);
             if (contentItem == null) return;
 
@@ -69,7 +76,19 @@ namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb
             await container.DeleteItemAsync<Dictionary<string, object>>(id.ToString(), new PartitionKey(contentType.ToLower()));
         }
 
-        public async Task<Dictionary<string, object>?> GetContentItemFromDatabase(Container container, string contentType, Guid id)
+        public Task UpdateItemAsync(string databaseName, Dictionary<string, object> item)
+        {
+            var container = GetContainer(databaseName);
+            return container.UpsertItemAsync(item);
+        }
+
+        public Task<Dictionary<string, object>?> GetContentItemFromDatabase(string databaseName, string contentType, Guid id)
+        {
+            var container = GetContainer(databaseName);
+            return GetContentItemFromDatabase(container, contentType, id);
+        }
+
+        private async Task<Dictionary<string, object>?> GetContentItemFromDatabase(Container container, string contentType, Guid id)
         {
             var iteratorLoop = container.GetItemQueryIterator<Dictionary<string, object>>(
                 new QueryDefinition($"SELECT * FROM c WHERE c.id = '{id}'"),
@@ -77,6 +96,33 @@ namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb
 
             var result = await iteratorLoop.ReadNextAsync();
             return result.Resource.SingleOrDefault();
+        }
+
+        public async Task<List<T>> GetItemQueryAsync<T>(string databaseName, string query, string contentType)
+        {
+            var returnList = new List<T>();
+            var queryDefinition = new QueryDefinition(query);
+            var container = GetContainer(databaseName);
+            using FeedIterator<T> resultSetIterator = container.GetItemQueryIterator<T>(
+                queryDefinition,
+                requestOptions: new QueryRequestOptions
+                {
+                    PartitionKey = new PartitionKey(contentType)
+                });
+
+            while (resultSetIterator.HasMoreResults)
+            {
+                FeedResponse<T> response = await resultSetIterator.ReadNextAsync();
+
+                if (!response.Resource.Any())
+                {
+                    continue;
+                }
+
+                returnList.AddRange(response.Resource);
+            }
+
+            return returnList;
         }
     }
 }
