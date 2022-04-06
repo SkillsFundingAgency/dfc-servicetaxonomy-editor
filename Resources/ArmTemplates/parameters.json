@@ -203,23 +203,23 @@
         "SkillsFrameworkDbConnectionString": {
             "value": "__SkillsFrameworkDbConnectionString__"
         },
-        "CosmosDBConnectionStringName0":{
-            "value": "__CosmosDBConnectionStringName0__"
+        "CosmosDbendpointspreviewConnectionString":{
+            "value": "__CosmosDbendpointspreviewConnectionString__"
         },
-        "CosmosDBDatabaseName0":{
-            "value": "__CosmosDBDatabaseName0__"
+        "CosmosDbendpointspreviewDatabaseName":{
+            "value": "__CosmosDbendpointspreviewDatabaseName__"
         },
-        "CosmosDBContainerName0":{
-            "value": "__CosmosDBContainerName0__"
+        "CosmosDbendpointspreviewContainerName":{
+            "value": "__osmosDbendpointspreviewContainerName__"
         },
-        "CosmosDBConnectionStringName1":{
-            "value": "__CosmosDBConnectionStringName1__"
+        "CosmosDbendpointspublishedConnectionString":{
+            "value": "__CosmosDbendpointspublishedConnectionString__"
         },
-        "CosmosDBDatabaseName1":{
-            "value": "__CosmosDBDatabaseName1__"
+        "CosmosDbendpointspublishedDatabaseName":{
+            "value": "__CosmosDbendpointspublishedDatabaseName__"
         },
-        "CosmosDBContainerName1":{
-            "value": "__CosmosDBContainerName1__"
+        "CosmosDbendpointspublishedContainerName":{
+            "value": "__CosmosDbendpointspublishedContainerName__"
         }
         
     
