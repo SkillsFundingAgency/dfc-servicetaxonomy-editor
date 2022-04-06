@@ -98,7 +98,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb
             return result.Resource.SingleOrDefault();
         }
 
-        public async Task<List<T>> GetItemQueryAsync<T>(string databaseName, string query, string contentType)
+        public async Task<List<T>> QueryContentItemsAsync<T>(string databaseName, string query, string contentType)
         {
             var returnList = new List<T>();
             var queryDefinition = new QueryDefinition(query);

@@ -34,7 +34,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb
             foreach (var query in queries)
             {
                 var contentType = ((string)query.Query.Parameters["ContentType"]).ToLower();
-                var queryList = await _cosmosDbService.GetItemQueryAsync<T>(databaseName, query.Query.Text, contentType);
+                var queryList = await _cosmosDbService.QueryContentItemsAsync<T>(databaseName, query.Query.Text, contentType);
                 returnList.AddRange(queryList);
             }
 
@@ -88,7 +88,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb
             foreach (string contentType in contentTypes.Where(ct => !string.IsNullOrEmpty(ct)))
             {
                 var resultList =
-                    await _cosmosDbService.GetItemQueryAsync<Dictionary<string, object>>(databaseName, "select * from c",
+                    await _cosmosDbService.QueryContentItemsAsync<Dictionary<string, object>>(databaseName, "select * from c",
                         contentType);
 
                 foreach (var item in resultList)
