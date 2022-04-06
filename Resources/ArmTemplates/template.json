@@ -568,7 +568,7 @@
                                 "value": "[parameters('CosmosDbendpointspreviewContainerName')]"
                             },
                             {
-                                "name": "CosmosDb__endpoints__preview__DatabaseName",
+                                "name": "CosmosDb__endpoints__published__ConnectionString",
                                 "value": "[parameters('CosmosDbendpointspublishedConnectionString')]"
                             },
                             {
