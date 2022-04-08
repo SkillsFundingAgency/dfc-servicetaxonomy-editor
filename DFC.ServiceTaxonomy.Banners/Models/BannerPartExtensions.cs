@@ -24,14 +24,18 @@ namespace DFC.ServiceTaxonomy.Banners.Models
                 b.WebPageName == part.WebPageName && b.ContentItemId != part.ContentItem.ContentItemId).CountAsync();
             if(matches > 0)
             {
+#pragma warning disable CS8604 // Possible null reference argument.
                 yield return new ValidationResult(S["The Webpage name '{0}' is already in use on another page banner.", part.WebPageName]);
+#pragma warning restore CS8604 // Possible null reference argument.
 
             }
             matches = await session.QueryIndex<BannerPartIndex>(b =>
                 b.WebPageURL == part.WebPageURL && b.ContentItemId != part.ContentItem.ContentItemId).CountAsync();
             if (matches > 0) 
             {
+#pragma warning disable CS8604 // Possible null reference argument.
                 yield return new ValidationResult(S["The webpage location '{0}' is already in use on another page banner.", part.WebPageURL]);
+#pragma warning restore CS8604 // Possible null reference argument.
 
             }
         }

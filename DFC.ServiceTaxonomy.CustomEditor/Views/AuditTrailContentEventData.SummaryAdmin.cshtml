@@ -11,10 +11,10 @@
     var versionText = S["Version {0}", versionNumber];
     var eventName = Model.Descriptor.LocalizedName(Context.RequestServices).Value.ToLowerInvariant();
     var editForLink = await Orchard.EditForLinkAsync(contentItem.DisplayText, contentItem);
-    if (editForLink is TagBuilder editForLinkTagBuilder && editForLinkTagBuilder.Attributes["href"].EndsWith("Edit"))
-    {
-        editForLinkTagBuilder.Attributes["href"] = editForLinkTagBuilder.Attributes["href"] + "?returnUrl=" + Html.UrlEncoder.Encode(FullRequestPath);
-    }
+    //if (editForLink is TagBuilder editForLinkTagBuilder &&  editForLinkTagBuilder.Attributes["href"].EndsWith("Edit"))
+    //{
+    //    editForLinkTagBuilder.Attributes["href"] = editForLinkTagBuilder.Attributes["href"] + "?returnUrl=" + Html.UrlEncoder.Encode(FullRequestPath);
+    //}
 }
 
 @if (Model.AuditTrailEvent.Name == ContentAuditTrailEventConfiguration.Restored)

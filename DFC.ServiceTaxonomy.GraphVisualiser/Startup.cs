@@ -42,24 +42,30 @@ namespace DFC.ServiceTaxonomy.GraphVisualiser
         {
             app.UseStaticFiles();
 
+#pragma warning disable CS8604 // Possible null reference argument.
             routes.MapAreaControllerRoute(
                 name: "Visualise",
                 areaName: typeof(Startup).Namespace,
                 pattern: $"Visualise/{nameof(Controllers.VisualiseController.Data)}",
                 defaults: new { controller = "Visualise", action = nameof(Controllers.VisualiseController.Data) }
             );
+#pragma warning restore CS8604 // Possible null reference argument.
+#pragma warning disable CS8604 // Possible null reference argument.
             routes.MapAreaControllerRoute(
                 name: "WebVOWL",
                 areaName: typeof(Startup).Namespace,
                 pattern: $"Visualise/{nameof(Controllers.VisualiseController.Viewer)}",
                 defaults: new { controller = "Visualise", action = nameof(Controllers.VisualiseController.Viewer) }
             );
+#pragma warning restore CS8604 // Possible null reference argument.
+#pragma warning disable CS8604 // Possible null reference argument.
             routes.MapAreaControllerRoute(
                 name: "VisualiserRedirect",
                 areaName: typeof(Startup).Namespace,
                 pattern: $"Visualise/{nameof(Controllers.VisualiseController.NodeLink)}",
                 defaults: new { controller = "Visualise", action = nameof(Controllers.VisualiseController.NodeLink) }
             );
+#pragma warning restore CS8604 // Possible null reference argument.
         }
     }
 }

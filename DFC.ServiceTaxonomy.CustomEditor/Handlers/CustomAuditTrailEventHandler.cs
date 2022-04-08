@@ -22,8 +22,12 @@ namespace DFC.ServiceTaxonomy.CustomEditor.Handlers
                 )
             {
                 // No way to divine whether a Remove event is a delete or discarded draft from the content item so need to look a the URL.
+#pragma warning disable IDE0008 // Use explicit type
+#pragma warning disable CS8602 // Dereference of a possibly null reference.
                 var isDiscard = _httpContextAccessor.HttpContext.Request.Path.Value.Contains(Constants.AuditTrail.UrlPart_DiscardDraft, StringComparison.CurrentCultureIgnoreCase);
-                if(isDiscard)
+#pragma warning restore CS8602 // Dereference of a possibly null reference.
+#pragma warning restore IDE0008 // Use explicit type
+                if (isDiscard)
                 {
                     removedEvent.Name = Constants.AuditTrail.ContentEventName_DiscardDraft;
                 }

@@ -47,7 +47,9 @@ namespace DFC.ServiceTaxonomy.GraphSync.Extensions
                     value = (T)(object)utcTime;
                     break;
                 default:
+#pragma warning disable CS8600 // Converting null literal or possible null value to non-nullable type.
                     value = jvalue.Value<T>();
+#pragma warning restore CS8600 // Converting null literal or possible null value to non-nullable type.
                     if (value == null)
                         throw new InvalidCastException($"Could not convert content property {jvalue} to type {typeof(T)}");
                     break;

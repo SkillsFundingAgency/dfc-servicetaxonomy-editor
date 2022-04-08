@@ -52,7 +52,7 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Controllers
             contentItem.Alter<ContentApprovalPart>(p => p.ReviewStatus = ReviewStatus.ReadyForReview);
             contentItem.Alter<ContentApprovalPart>(p => p.ReviewType = Enum.Parse<ReviewType>(reviewType));
             await _contentManager.SaveDraftAsync(contentItem);
-            _notifier.Success(H["{0} is now ready to be reviewed.", contentItem.DisplayText]);
+            await _notifier.SuccessAsync(H["{0} is now ready to be reviewed.", contentItem.DisplayText]);
 
             return Redirect(returnUrl);
         }
@@ -68,7 +68,7 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Controllers
 
             if (contentApprovalPart.ReviewStatus == ReviewStatus.ReadyForReview && contentApprovalPart.ReviewType == ReviewType.None)
             {
-                _notifier.Warning(H["An appropriate review type hasn't been selected. Please resubmit for review."]);
+                await _notifier.WarningAsync(H["An appropriate review type hasn't been selected. Please resubmit for review."]);
                 contentItem.Alter<ContentApprovalPart>(p => p.ReviewStatus = ReviewStatus.NotInReview);
                 await _contentManager.SaveDraftAsync(contentItem);
                 return Redirect(returnUrl);
@@ -81,7 +81,7 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Controllers
 
             if (contentApprovalPart.ReviewStatus == ReviewStatus.NotInReview)
             {
-                _notifier.Warning(H["This item is no longer available for review."]);
+                await _notifier.WarningAsync(H["This item is no longer available for review."]);
                 return Redirect(returnUrl);
             }
 
@@ -92,12 +92,12 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Controllers
                 {
                     contentItem.Alter<AuditTrailPart>(a => a.Comment = string.Empty);
                 }
-                contentItem.Author = User.Identity.Name;
+                contentItem.Author = User?.Identity?.Name;
                 await _contentManager.SaveDraftAsync(contentItem);
             }
             else if (contentApprovalPart.ReviewStatus == ReviewStatus.InReview)
             {
-                _notifier.Warning(H["This content item has already been selected for review."]);
+                await _notifier.WarningAsync(H["This content item has already been selected for review."]);
             }
 
             return await RedirectToEdit(returnUrl, contentItem);
@@ -108,7 +108,7 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Controllers
             var metadata = await _contentManager.PopulateAspectAsync<ContentItemMetadata>(contentItem);
             if (metadata.EditorRouteValues == null)
             {
-                _notifier.Error(H["Could not redirect for review: {0}", contentItem.DisplayText]);
+                await _notifier.ErrorAsync(H["Could not redirect for review: {0}", contentItem.DisplayText]);
                 return Redirect(returnUrl);
             }
 
@@ -117,10 +117,14 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Controllers
                 metadata.EditorRouteValues.Add("returnUrl", returnUrl);
             }
 
+#pragma warning disable CS8602 // Dereference of a possibly null reference.
             var editLink = _urlHelperFactory.GetUrlHelper(Url.ActionContext).Action(
                 metadata.EditorRouteValues["action"].ToString(),
                 metadata.EditorRouteValues);
+#pragma warning restore CS8602 // Dereference of a possibly null reference.
+#pragma warning disable CS8604 // Possible null reference argument.
             return Redirect(editLink);
+#pragma warning restore CS8604 // Possible null reference argument.
         }
 
         public async Task<IActionResult> Edit(string contentItemId, string returnUrl)
@@ -138,7 +142,7 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Controllers
             var reviewStatus = contentItem.As<ContentApprovalPart>()?.ReviewStatus ?? ReviewStatus.NotInReview;
             if(reviewStatus == ReviewStatus.InReview)
             {
-                _notifier.Warning(H["This item is already in review with {0} and therefore cannot be edited.", contentItem.Author]);
+                await _notifier.WarningAsync(H["This item is already in review with {0} and therefore cannot be edited.", contentItem.Author]);
                 return Redirect(returnUrl);
             }
             return await RedirectToEdit(returnUrl, contentItem);

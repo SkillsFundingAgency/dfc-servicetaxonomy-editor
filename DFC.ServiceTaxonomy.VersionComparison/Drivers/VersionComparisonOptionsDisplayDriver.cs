@@ -19,10 +19,14 @@ namespace DFC.ServiceTaxonomy.VersionComparison.Drivers
             m.ContentItemId = model.ContentItemId;
             m.BaseVersion = model.BaseVersion;
             m.BaseVersionSelectListItems = model.BaseVersionSelectListItems;
+#pragma warning disable CS8604 // Possible null reference argument.
             m.BaseVersionSelectListItems.First(s => s.Value == m.BaseVersion).Selected = true;
+#pragma warning restore CS8604 // Possible null reference argument.
             m.CompareVersion = model.CompareVersion;
             m.CompareVersionSelectListItems = model.CompareVersionSelectListItems;
+#pragma warning disable CS8604 // Possible null reference argument.
             m.CompareVersionSelectListItems.First(s => s.Value == m.CompareVersion).Selected = true;
+#pragma warning restore CS8604 // Possible null reference argument.
         }
     }
 }

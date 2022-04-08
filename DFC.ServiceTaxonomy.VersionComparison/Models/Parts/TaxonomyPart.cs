@@ -9,7 +9,9 @@ namespace DFC.ServiceTaxonomy.VersionComparison.Models.Parts
 
         public string GetDisplayTextById(string contentItemId)
         {
+#pragma warning disable CS8602 // Dereference of a possibly null reference.
             return GetTerms().FirstOrDefault(t => t.ContentItemId == contentItemId).DisplayText ?? string.Empty;
+#pragma warning restore CS8602 // Dereference of a possibly null reference.
         }
         private IEnumerable<TermPart> GetTerms(TermPart? term = null)
         {

@@ -108,9 +108,11 @@ namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
 
                     IEnumerable<string> contentItemsJson = contentItemsJsonPreTokenization.Select(ReplaceCSharpHelpers);
 
+#pragma warning disable CS8603 // Possible null reference return.
                     var contentItemJObjects = contentItemsJson
                         .Select(JsonConvert.DeserializeObject<List<JObject>>)
                         .SelectMany(cijo => cijo);
+#pragma warning restore CS8603 // Possible null reference return.
 
                     Stopwatch stopwatch = Stopwatch.StartNew();
 

@@ -28,8 +28,10 @@ namespace DFC.ServiceTaxonomy.VersionComparison.Drivers
         public override async Task<IDisplayResult> DisplayAsync(ContentItem model, BuildDisplayContext context)
         {
             var results = new List<IDisplayResult>();
+#pragma warning disable CS8602 // Dereference of a possibly null reference.
             var hasAuditTrailPermissions = await _authorizationService.AuthorizeAsync(_httpContextAccessor.HttpContext.User, AuditTrailPermissions.ViewAuditTrail, model);
-            if(!hasAuditTrailPermissions)
+#pragma warning restore CS8602 // Dereference of a possibly null reference.
+            if (!hasAuditTrailPermissions)
             {
                 return Combine(results.ToArray());
             }

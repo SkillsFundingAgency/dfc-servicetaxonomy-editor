@@ -41,18 +41,20 @@ namespace Microsoft.Extensions.DependencyInjection
             {
                 var delay = Backoff.DecorrelatedJitterBackoffV2(medianFirstRetryDelay: TimeSpan.FromSeconds(1), retryCount: 5);
 
-                services.AddHttpClient(eventGridTopicConfig.ContentType, client =>
-                    {
-                        client.BaseAddress = new Uri(eventGridTopicConfig.TopicEndpoint!);
-                        client.DefaultRequestHeaders.Add("aeg-sas-key", eventGridTopicConfig.AegSasKey!);
-                    })
+                _ = services.AddHttpClient(eventGridTopicConfig.ContentType, client =>
+                      {
+                          client.BaseAddress = new Uri(eventGridTopicConfig.TopicEndpoint!);
+                          client.DefaultRequestHeaders.Add("aeg-sas-key", eventGridTopicConfig.AegSasKey!);
+                      })
                     .AddPolicyHandler((services, request) => HttpPolicyExtensions
                         .HandleTransientHttpError()
                         .WaitAndRetryAsync(delay, (result, timespan, retryAttempt, context) =>
                         {
+#pragma warning disable CS8604 // Possible null reference argument.
                             services.GetService<ILogger<EventGridContentClient>>()
                                 .LogWarning("Delaying for {Timespan}, then making retry {RetryAttempt}.",
                                     timespan, retryAttempt);
+#pragma warning restore CS8604 // Possible null reference argument.
                         }))
                     .AddPolicyHandler(timeoutPolicy);
 

@@ -64,7 +64,7 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Drivers
             var reviewPermission = part.ReviewType.GetRelatedPermission();
             if (part.ReviewStatus == ReviewStatus.InReview && (!context.Updater.ModelState.IsValid || !await _authorizationService.AuthorizeAsync(currentUser, reviewPermission)))
             {
-                _notifier.Warning(H["This content item is now under review and should not be modified."]);
+                await _notifier.WarningAsync(H["This content item is now under review and should not be modified."]);
             }
 
             var editorShape = GetEditorShapeType(context);
@@ -130,12 +130,17 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Drivers
 
             if (keys.Contains(Constants.SubmitSaveKey))
             {
+#pragma warning disable IDE0008 // Use explicit type
+#pragma warning disable CS8602 // Dereference of a possibly null reference.
                 var saveType = updateModel.ModelState[Constants.SubmitSaveKey].AttemptedValue;
+#pragma warning restore CS8602 // Dereference of a possibly null reference.
+#pragma warning restore IDE0008 // Use explicit type
+#pragma warning disable CS8602 // Dereference of a possibly null reference.
                 if (saveType.StartsWith(Constants.SubmitRequestApprovalValuePrefix))
                 {
                     part.ReviewStatus = ReviewStatus.ReadyForReview;
                     part.ReviewType = Enum.Parse<ReviewType>(saveType.Replace(Constants.SubmitRequestApprovalValuePrefix, ""));
-                    _notifier.Success(H["{0} is now ready to be reviewed.", part.ContentItem.DisplayText]);
+                    await _notifier.SuccessAsync(H["{0} is now ready to be reviewed.", part.ContentItem.DisplayText]);
                 }
                 else if (saveType.StartsWith(Constants.SubmitRequiresRevisionValue))
                 {
@@ -147,11 +152,15 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Drivers
                     part.ReviewStatus = ReviewStatus.NotInReview;
                     part.ReviewType = ReviewType.None;
                 }
+#pragma warning restore CS8602 // Dereference of a possibly null reference.
             }
             else if (keys.Contains(Constants.SubmitPublishKey))
             {
                 part.ReviewStatus = ReviewStatus.NotInReview;
+#pragma warning disable CS8602 // Dereference of a possibly null reference.
                 var publishType = updateModel.ModelState[Constants.SubmitPublishKey].AttemptedValue;
+#pragma warning restore CS8602 // Dereference of a possibly null reference.
+#pragma warning disable CS8602 // Dereference of a possibly null reference.
                 if (publishType.StartsWith(Constants.SubmitRequestApprovalValuePrefix))
                 {
                     part.IsForcePublished = true;
@@ -162,6 +171,7 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Drivers
                     part.IsForcePublished = false;
                     part.ReviewType = ReviewType.None;
                 }
+#pragma warning restore CS8602 // Dereference of a possibly null reference.
             }
 
             return await EditAsync(part, context);
@@ -215,7 +225,9 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Drivers
             // Only Save Draft and exit and Send back actions require a comment
             if (keys.Contains(Constants.SubmitSaveKey))
             {
+#pragma warning disable CS8602 // Dereference of a possibly null reference.
                 var keyValue = modelStateDictionary[Constants.SubmitSaveKey].AttemptedValue;
+#pragma warning restore CS8602 // Dereference of a possibly null reference.
                 return new[] {Constants.SubmitSaveKey, Constants.SubmitRequiresRevisionValue}.Any(kv =>
                     kv.Equals(keyValue, StringComparison.CurrentCultureIgnoreCase));
             }

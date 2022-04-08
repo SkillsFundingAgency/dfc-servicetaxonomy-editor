@@ -68,10 +68,12 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module.Handlers
             if(socCodeContentItemIds == null || !socCodeContentItemIds.Any() || socCodeContentItemIds.Count != 1)
             {
                 // Ensure any related skills are cleared
-                if(relatedSkillsIds.Any())
+#pragma warning disable CS8604 // Possible null reference argument.
+                if (relatedSkillsIds.Any())
                 {
                     context.ContentItem.Content.JobProfile.Relatedskills.ContentItemIds = null;
                 }
+#pragma warning restore CS8604 // Possible null reference argument.
                 return string.Empty;
             }
 

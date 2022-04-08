@@ -36,7 +36,9 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module.AzureSearchIndexHandling.Conver
 
             var jobProfileIndex = new JobProfileIndex();
             jobProfileIndex.IdentityField = contentItem.As<GraphSyncPart>().ExtractGuid().ToString();
-            jobProfileIndex.SocCode = socCode.FirstOrDefault();
+#pragma warning disable CS8601 // Possible null reference assignment.
+            jobProfileIndex.SocCode = socCode?.FirstOrDefault();
+#pragma warning restore CS8601 // Possible null reference assignment.
             jobProfileIndex.Title = contentItem.As<TitlePart>().Title;
             jobProfileIndex.AlternativeTitle = new List<string> { string.IsNullOrEmpty(contentItem.Content.JobProfile.AlternativeTitle.Text.ToString()) ? string.Empty : contentItem.Content.JobProfile.AlternativeTitle.Text.ToString() };
             jobProfileIndex.Overview = contentItem.Content.JobProfile.Overview.Text ?? string.Empty;
