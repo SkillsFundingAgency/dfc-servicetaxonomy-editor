@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using DFC.ServiceTaxonomy.Neo4j.Commands.Model;
+using DFC.ServiceTaxonomy.GraphSync.Models;
 using Xunit;
 
 namespace DFC.ServiceTaxonomy.UnitTests.Neo4j.Commands.Model

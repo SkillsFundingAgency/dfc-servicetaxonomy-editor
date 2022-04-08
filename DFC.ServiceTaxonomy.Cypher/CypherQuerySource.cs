@@ -8,7 +8,7 @@ using DFC.ServiceTaxonomy.Cypher.Models;
 using DFC.ServiceTaxonomy.Cypher.Models.ResultModels;
 using DFC.ServiceTaxonomy.Cypher.Queries;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers;
-using DFC.ServiceTaxonomy.Neo4j.Services.Interfaces;
+using DFC.ServiceTaxonomy.GraphSync.Interfaces;
 using Newtonsoft.Json;
 using OrchardCore.Queries;
 

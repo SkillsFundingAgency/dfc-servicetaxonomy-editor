@@ -1,19 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using DFC.ServiceTaxonomy.Neo4j.Commands;
-using DFC.ServiceTaxonomy.Neo4j.Commands.Implementation;
+using DFC.ServiceTaxonomy.GraphSync.CosmosDb.Commands;
+using DFC.ServiceTaxonomy.GraphSync.Extensions;
 using Xunit;
 
 namespace DFC.ServiceTaxonomy.UnitTests.Neo4j.Commands
 {
     public class ReplaceRelationshipsCommandTests
     {
-        public ReplaceRelationshipsCommand ReplaceRelationshipsCommand;
+        public CosmosDbReplaceRelationshipsCommand ReplaceRelationshipsCommand;
 
         public ReplaceRelationshipsCommandTests()
         {
-            ReplaceRelationshipsCommand = new ReplaceRelationshipsCommand
+            ReplaceRelationshipsCommand = new CosmosDbReplaceRelationshipsCommand()
             {
                 SourceIdPropertyName = $"{nameof(ReplaceRelationshipsCommand.SourceIdPropertyName)}",
                 SourceIdPropertyValue = $"{nameof(ReplaceRelationshipsCommand.SourceIdPropertyValue)}",

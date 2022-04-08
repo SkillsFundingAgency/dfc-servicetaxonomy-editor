@@ -1,31 +1,28 @@
 using System;
+using System.Collections.Concurrent;
+using System.Linq;
+using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.CSharpScriptGlobals.CypherToContent;
 using DFC.ServiceTaxonomy.CSharpScriptGlobals.CypherToContent.Interfaces;
 using DFC.ServiceTaxonomy.Editor.Module.Drivers;
 using DFC.ServiceTaxonomy.GraphSync.Activities;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Routing;
-using Microsoft.Extensions.DependencyInjection;
-using OrchardCore.ContentManagement;
-using OrchardCore.ContentManagement.Display.ContentDisplay;
-using OrchardCore.ContentTypes.Editors;
-using OrchardCore.Data.Migration;
-using DFC.ServiceTaxonomy.GraphSync.Drivers;
-using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
-using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts;
-using DFC.ServiceTaxonomy.GraphSync.Handlers;
-using DFC.ServiceTaxonomy.GraphSync.Models;
-using DFC.ServiceTaxonomy.GraphSync.Recipes.Executors;
-using DFC.ServiceTaxonomy.GraphSync.Settings;
-using OrchardCore.Modules;
-using OrchardCore.Recipes;
-using OrchardCore.Workflows.Helpers;
+using DFC.ServiceTaxonomy.GraphSync.CosmosDb;
+using DFC.ServiceTaxonomy.GraphSync.CosmosDb.GraphSyncers;
+using DFC.ServiceTaxonomy.GraphSync.CosmosDb.GraphSyncers.Parts.Bag;
+using DFC.ServiceTaxonomy.GraphSync.CosmosDb.GraphSyncers.Parts.Flow;
+using DFC.ServiceTaxonomy.GraphSync.CosmosDb.GraphSyncers.Parts.Taxonomy;
+using DFC.ServiceTaxonomy.GraphSync.CosmosDb.Interfaces;
+using DFC.ServiceTaxonomy.GraphSync.CosmosDb.Queries;
 using DFC.ServiceTaxonomy.GraphSync.CSharpScripting;
 using DFC.ServiceTaxonomy.GraphSync.CSharpScripting.Interfaces;
+using DFC.ServiceTaxonomy.GraphSync.Drivers;
+using DFC.ServiceTaxonomy.GraphSync.Exceptions;
+using DFC.ServiceTaxonomy.GraphSync.Extensions;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.ContentItemVersions;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers;
+using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.ContentItemVersions;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.EmbeddedContentItemsGraphSyncer;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Fields;
@@ -33,29 +30,43 @@ using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Helpers;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Items;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Parts;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Items;
+using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts.Bag;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts.Flow;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts.Form;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts.Taxonomy;
+using DFC.ServiceTaxonomy.GraphSync.Handlers;
 using DFC.ServiceTaxonomy.GraphSync.Handlers.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.Indexes;
-using DFC.ServiceTaxonomy.GraphSync.Services;
+using DFC.ServiceTaxonomy.GraphSync.Interfaces;
+using DFC.ServiceTaxonomy.GraphSync.Interfaces.Queries;
+using DFC.ServiceTaxonomy.GraphSync.Models;
 using DFC.ServiceTaxonomy.GraphSync.Notifications;
-using OrchardCore.DisplayManagement.Notify;
-using DFC.ServiceTaxonomy.GraphSync.Services.Interface;
-using Microsoft.Extensions.DependencyInjection.Extensions;
-using DFC.ServiceTaxonomy.GraphSync.Neo4j.Queries;
-using DFC.ServiceTaxonomy.GraphSync.Neo4j.Queries.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.Orchestrators;
 using DFC.ServiceTaxonomy.GraphSync.Orchestrators.Interfaces;
-using DFC.ServiceTaxonomy.Neo4j.Services.Interfaces;
-using DFC.ServiceTaxonomy.Neo4j.Services.Internal;
+using DFC.ServiceTaxonomy.GraphSync.Recipes.Executors;
+using DFC.ServiceTaxonomy.GraphSync.Services;
+using DFC.ServiceTaxonomy.GraphSync.Services.Interface;
+using DFC.ServiceTaxonomy.GraphSync.Settings;
 using DFC.ServiceTaxonomy.Slack;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Routing;
+using Microsoft.Azure.Cosmos;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
+using OrchardCore.ContentManagement;
+using OrchardCore.ContentManagement.Display.ContentDisplay;
 using OrchardCore.ContentManagement.Handlers;
+using OrchardCore.ContentTypes.Editors;
 using OrchardCore.ContentTypes.Events;
+using OrchardCore.Data.Migration;
+using OrchardCore.DisplayManagement.Notify;
+using OrchardCore.Modules;
 using OrchardCore.Navigation;
+using OrchardCore.Recipes;
 using OrchardCore.Security.Permissions;
+using OrchardCore.Workflows.Helpers;
 using YesSql.Indexes;
 
 namespace DFC.ServiceTaxonomy.GraphSync
@@ -69,9 +80,36 @@ namespace DFC.ServiceTaxonomy.GraphSync
             _configuration = configuration;
         }
 
+        private static async Task<CosmosDbService> InitialiseCosmosClientInstanceAsync(IConfigurationSection configurationSection)
+        {
+            var cosmosDbOptions = new CosmosDbOptions();
+            configurationSection.Bind(cosmosDbOptions);
+             if(!cosmosDbOptions.Endpoints.Any())
+            {
+                throw new GraphClusterConfigurationErrorException("No endpoints configured.");
+            }
+
+            const string PartitionKeyKey = "ContentType";
+            var concurrentDictionary = new ConcurrentDictionary<string, Container>();
+            CosmosClient? sharedClient = null;
+            var firstConnString = cosmosDbOptions.Endpoints!.Values.First().ConnectionString;
+            if (cosmosDbOptions.Endpoints.Values.All(v => v.ConnectionString == firstConnString))
+            {
+                sharedClient = new CosmosClient(firstConnString);
+            }
+            foreach (var endpoint in cosmosDbOptions.Endpoints!)
+            {
+                var client = sharedClient ?? new CosmosClient(endpoint.Value.ConnectionString);
+                var db = (await client.CreateDatabaseIfNotExistsAsync(endpoint.Value.DatabaseName, ThroughputProperties.CreateManualThroughput(400))).Database;
+                var containerName = endpoint.Value.ContainerName ?? endpoint.Key;
+                var container = await db.CreateContainerIfNotExistsAsync(containerName, $"/{PartitionKeyKey}");
+                concurrentDictionary.TryAdd(containerName, container.Container);
+            }
+            return new CosmosDbService(concurrentDictionary);
+        }
+
         public override void ConfigureServices(IServiceCollection services)
         {
-
             services.Configure<GraphSyncSettings>(_configuration.GetSection(nameof(GraphSyncSettings)));
 
             // recipe steps
@@ -84,13 +122,19 @@ namespace DFC.ServiceTaxonomy.GraphSync
             services.AddTransient<IServiceTaxonomyHelper, ServiceTaxonomyHelper>();
             services.AddTransient<IGetContentItemsAsJsonQuery, GetContentItemsAsJsonQuery>();
 
+            services.AddSingleton<ICosmosDbService>(InitialiseCosmosClientInstanceAsync(_configuration.GetSection(CosmosDbOptions.CosmosDb)).GetAwaiter().GetResult());
+
+            services.AddGraphCluster();
+
+            services.Configure<GraphSyncPartSettingsConfiguration>(_configuration.GetSection(nameof(GraphSyncPartSettings)));
+
             // graph database
             //todo: should we do this in each library that used the graph cluster, or just once in the root editor project?
             //services.AddGraphCluster();
             services.AddSingleton(sp => (IGraphClusterLowLevel)sp.GetRequiredService<IGraphCluster>());
             services.AddScoped<IContentHandler, GraphSyncContentHandler>();
             services.AddScoped<IContentDefinitionEventHandler, GraphSyncContentDefinitionHandler>();
-            services.AddTransient<IGetIncomingContentPickerRelationshipsQuery, GetIncomingContentPickerRelationshipsQuery>();
+            services.AddTransient<IGetIncomingContentPickerRelationshipsQuery, CosmosDbGetIncomingContentPickerRelationshipsQuery>();
 
             // GraphSyncPart
             services.AddContentPart<GraphSyncPart>()
@@ -113,7 +157,7 @@ namespace DFC.ServiceTaxonomy.GraphSync
             services.AddTransient<IDeleteGraphSyncer, DeleteGraphSyncer>();
             services.AddTransient<IDeleteTypeGraphSyncer, DeleteTypeGraphSyncer>();
             services.AddTransient<ICloneGraphSync, CloneGraphSync>();
-            services.AddTransient<IValidateAndRepairGraph, ValidateAndRepairGraph>();
+            services.AddTransient<IValidateAndRepairGraph, CosmosDbValidateAndRepairGraph>();
             services.AddTransient<IGraphResyncer, GraphResyncer>();
             services.AddTransient<IVisualiseGraphSyncer, VisualiseGraphSyncer>();
 
@@ -121,9 +165,9 @@ namespace DFC.ServiceTaxonomy.GraphSync
             services.AddTransient<ISyncNameProviderCSharpScriptGlobals, SyncNameProviderCSharpScriptGlobals>();
             services.AddTransient<IGraphValidationHelper, GraphValidationHelper>();
             services.AddTransient<IContentFieldsGraphSyncer, ContentFieldsGraphSyncer>();
-            services.AddTransient<IBagPartEmbeddedContentItemsGraphSyncer, BagPartEmbeddedContentItemsGraphSyncer>();
-            services.AddTransient<IFlowPartEmbeddedContentItemsGraphSyncer, FlowPartEmbeddedContentItemsGraphSyncer>();
-            services.AddTransient<ITaxonomyPartEmbeddedContentItemsGraphSyncer, TaxonomyPartEmbeddedContentItemsGraphSyncer>();
+            services.AddTransient<IBagPartEmbeddedContentItemsGraphSyncer, CosmosDbBagPartEmbeddedContentItemsGraphSyncer>();
+            services.AddTransient<IFlowPartEmbeddedContentItemsGraphSyncer, CosmosDbFlowPartEmbeddedContentItemsGraphSyncer>();
+            services.AddTransient<ITaxonomyPartEmbeddedContentItemsGraphSyncer, CosmosDbTaxonomyPartEmbeddedContentItemsGraphSyncer>();
 
             // content item syncers
             services.AddTransient<IContentItemGraphSyncer, TaxonomyTermContentItemGraphSyncer>();
@@ -163,13 +207,11 @@ namespace DFC.ServiceTaxonomy.GraphSync
             services.Replace(ServiceDescriptor.Scoped<INotifier>(sp => sp.GetRequiredService<IGraphSyncNotifier>()));
 
             // services
-            services.AddScoped<ISynonymService, SynonymService>();
+            services.AddScoped<ISynonymService, CosmosDbSynonymService>();
             services.AddTransient<ITitlePartCloneGenerator, TitlePartCloneGenerator>();
             services.AddTransient<IContentItemVersionFactory, ContentItemVersionFactory>();
             services.AddTransient<INodeContentItemLookup, NodeContentItemLookup>();
-            services.AddTransient<IDescribeContentItemHelper, DescribeContentItemHelper>();
-            // this would be nice, but IContentManager is Scoped, so not available at startup
-            //services.AddSingleton<IPublishedContentItemVersion>(sp => new PublishedContentItemVersion(_configuration, sp.GetRequiredService<IContentManager>()));
+            services.AddTransient<IDescribeContentItemHelper, CosmosDbDescribeContentItemHelper>();
             services.AddSingleton<IPublishedContentItemVersion>(new PublishedContentItemVersion(_configuration));
             services.AddSingleton<IPreviewContentItemVersion>(new PreviewContentItemVersion(_configuration));
             services.AddSingleton<INeutralEventContentItemVersion>(new NeutralEventContentItemVersion());

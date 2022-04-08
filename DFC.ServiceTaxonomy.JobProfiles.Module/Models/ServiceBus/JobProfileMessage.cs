@@ -121,7 +121,6 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module.Models.ServiceBus
 
         public SocCodeItem? SocCodeData { get; set; }
 
-        //public IEnumerable<JobProfileRelatedCareer> RelatedCareersData { get; set; }
         public IEnumerable<JobProfileRelatedCareerItem>? RelatedCareersData { get; set; }
 
         public IEnumerable<SocSkillMatrixItem>? SocSkillsMatrixData { get; set; }

@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using DFC.ServiceTaxonomy.GraphSync.Extensions;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Helpers;
-using DFC.ServiceTaxonomy.Neo4j.Extensions;
-using DFC.ServiceTaxonomy.Neo4j.Queries.Interfaces;
-using Neo4j.Driver;
+using DFC.ServiceTaxonomy.GraphSync.Interfaces;
 using Newtonsoft.Json.Linq;
+using NodaTime;
 
 namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
 {
@@ -238,7 +238,14 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
                     DateTime contentPropertyValue = (DateTime)contentValue;
 
                     //OC DateTime pickers don't support Milliseconds so ignoring conversion from Neo nanoseconds to OC millisecond
-                    var nodeAsDateTime = new DateTime(nodeZonedDateTime.Year, nodeZonedDateTime.Month, nodeZonedDateTime.Day, nodeZonedDateTime.Hour, nodeZonedDateTime.Minute, nodeZonedDateTime.Second);
+                    var nodeAsDateTime = new DateTime(
+                            nodeZonedDateTime.Year,
+                            nodeZonedDateTime.Month,
+                            nodeZonedDateTime.Day,
+                            nodeZonedDateTime.Hour,
+                            nodeZonedDateTime.Minute,
+                            nodeZonedDateTime.Second)
+                        .ToUniversalTime();
 
                     return Equals(contentPropertyValue, nodeAsDateTime);
                 });
