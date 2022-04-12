@@ -25,8 +25,13 @@ namespace DFC.ServiceTaxonomy.GraphSync.Helpers
             }
         }
 
-        private static string GetCorrectlyCasedContentType(string contentType, IContentDefinitionManager contentDefinitionManager)
+        private static string? GetCorrectlyCasedContentType(string? contentType, IContentDefinitionManager contentDefinitionManager)
         {
+            if (contentType == null)
+            {
+                return null;
+            }
+
             if (s_cache.TryGetValue(contentType, out string? typeFromCache))
             {
                 return typeFromCache;
