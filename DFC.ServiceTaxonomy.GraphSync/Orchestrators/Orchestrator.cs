@@ -7,6 +7,7 @@ using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.ContentItemVersions;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Results.AllowSync;
 using DFC.ServiceTaxonomy.GraphSync.Handlers.Contexts;
 using DFC.ServiceTaxonomy.GraphSync.Handlers.Interfaces;
+using DFC.ServiceTaxonomy.GraphSync.Helpers;
 using DFC.ServiceTaxonomy.GraphSync.Notifications;
 using DFC.ServiceTaxonomy.GraphSync.Services;
 using Microsoft.Extensions.DependencyInjection;
@@ -58,7 +59,9 @@ namespace DFC.ServiceTaxonomy.GraphSync.Orchestrators
         //todo: temporarily protected
         protected string GetContentTypeDisplayName(ContentItem contentItem)
         {
-            return _contentDefinitionManager.GetTypeDefinition(contentItem.ContentType).DisplayName;
+            return ContentDefinitionHelper.GetTypeDefinitionCaseInsensitive(
+                contentItem.ContentType,
+                _contentDefinitionManager).DisplayName;
         }
 
         protected string GetSyncOperationCancelledUserMessage(
