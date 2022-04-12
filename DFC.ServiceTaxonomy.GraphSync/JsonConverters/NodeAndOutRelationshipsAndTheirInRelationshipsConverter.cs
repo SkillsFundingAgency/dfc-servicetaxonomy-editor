@@ -31,37 +31,44 @@ namespace DFC.ServiceTaxonomy.GraphSync.JsonConverters
 
             foreach (var link in links.Where(lnk => lnk.Key != "self" && lnk.Key != "curies"))
             {
-                var linkDictionary = SafeCastToDictionary(link.Value);
-                var linkDetails = GetContentTypeAndId((string)linkDictionary!["href"]);
+                List<Dictionary<string, object>> linkDictionaries = CanCastToList(link.Value) ?
+                    SafeCastToList(link.Value) :
+                    new List<Dictionary<string, object>> { SafeCastToDictionary(link.Value) };
 
-                if (linkDetails.Id == Guid.Empty)
+                foreach (var linkDictionary in linkDictionaries)
                 {
-                    continue;
-                }
+                    var linkDetails = GetContentTypeAndId((string)linkDictionary["href"]);
 
-                int endNodeId = GetNumber(GetAsString(linkDetails.Id));
-                int relationshipId = GetNumber(
-                    GetAsString(linkDetails.Id) + GetAsString(itemId));
-
-                var outgoing = new OutgoingRelationship(new StandardRelationship
-                {
-                    Type = link.Key.Replace("cont:", string.Empty), // e.g. hasPageLocation
-                    StartNodeId = startNodeId,
-                    EndNodeId = endNodeId,
-                    Id = relationshipId
-                }, new StandardNode
-                {
-                    Id = endNodeId,
-                    Properties = new Dictionary<string, object>
+                    if (linkDetails.Id == Guid.Empty)
                     {
-                        { "ContentType", linkDetails.ContentType },
-                        { "id", linkDetails.Id },
-                        { "endNodeId", endNodeId }
-                    },
-                    Labels = new List<string> { linkDetails.ContentType, "Resource" }
-                });
+                        continue;
+                    }
 
-                relationships.Add((outgoing, new List<OutgoingRelationship>()));
+                    int endNodeId = GetNumber(GetAsString(linkDetails.Id));
+                    int relationshipId = GetNumber(
+                        GetAsString(linkDetails.Id) + GetAsString(itemId));
+
+                    var outgoing = new OutgoingRelationship(new StandardRelationship
+                        {
+                            Type = link.Key.Replace("cont:", string.Empty), // e.g. hasPageLocation
+                            StartNodeId = startNodeId,
+                            EndNodeId = endNodeId,
+                            Id = relationshipId
+                        },
+                        new StandardNode
+                        {
+                            Id = endNodeId,
+                            Properties = new Dictionary<string, object>
+                            {
+                                {"ContentType", linkDetails.ContentType},
+                                {"id", linkDetails.Id},
+                                {"endNodeId", endNodeId}
+                            },
+                            Labels = new List<string> {linkDetails.ContentType, "Resource"}
+                        });
+
+                    relationships.Add((outgoing, new List<OutgoingRelationship>()));
+                }
             }
 
             var node = new StandardNode
