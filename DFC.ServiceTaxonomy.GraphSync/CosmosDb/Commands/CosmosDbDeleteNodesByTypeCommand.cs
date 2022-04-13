@@ -26,15 +26,13 @@ namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb.Commands
             {
                 this.CheckIsValid();
 
-                var contentTypes = string.Join(",",
-                    NodeLabels.Where(nodeLabel => !nodeLabel.Equals("Resource", System.StringComparison.InvariantCultureIgnoreCase)).ToArray());
-
-                var parameters = new Dictionary<string, object>
+                var queryDetail = new QueryDetail
                 {
-                    {"ContentType", contentTypes }
+                    Text = "DeleteNodesByType",
+                    ContentTypes = NodeLabels.Where(nl => !string.IsNullOrWhiteSpace(nl) && !nl.Equals("Resource", System.StringComparison.InvariantCultureIgnoreCase)).ToList()
                 };
 
-                return new Query("DeleteNodesByType", parameters);
+                return new Query(queryDetail);
             }
         }
 

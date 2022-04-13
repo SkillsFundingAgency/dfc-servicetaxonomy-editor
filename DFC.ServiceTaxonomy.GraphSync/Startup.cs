@@ -113,14 +113,11 @@ namespace DFC.ServiceTaxonomy.GraphSync
             services.Configure<GraphSyncSettings>(_configuration.GetSection(nameof(GraphSyncSettings)));
 
             // recipe steps
-            services.AddRecipeExecutionStep<CypherCommandStep>();
-            services.AddRecipeExecutionStep<CypherToContentStep>();
             services.AddRecipeExecutionStep<CSharpContentStep>();
             services.AddRecipeExecutionStep<ContentNoCacheStep>();
             services.AddTransient<ICypherToContentCSharpScriptGlobals, CypherToContentCSharpScriptGlobals>();
             services.AddTransient<IContentHelper, ContentHelper>();
             services.AddTransient<IServiceTaxonomyHelper, ServiceTaxonomyHelper>();
-            services.AddTransient<IGetContentItemsAsJsonQuery, GetContentItemsAsJsonQuery>();
 
             services.AddSingleton<ICosmosDbService>(InitialiseCosmosClientInstanceAsync(_configuration.GetSection(CosmosDbOptions.CosmosDb)).GetAwaiter().GetResult());
 

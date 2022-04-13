@@ -417,10 +417,15 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 
         private Task<List<object?>> RunQuery(string[] ids, string contentType, string graphName)
         {
+            var queryDetail = new QueryDetail
+            {
+                Text = "SELECT * FROM c WHERE c.id in (@ids)",
+                Parameters = new Dictionary<string, object> { { "@ids", string.Join(',', ids) } },
+                ContentTypes = new List<string> { contentType }
+            };
             var detailCommand = new List<IQuery<object?>>
             {
-                new CosmosDbNodeAndNestedOutgoingRelationshipsQuery(
-                    $"select * from c where c.id in ({string.Join(',', ids)})|{contentType}")
+                new CosmosDbNodeAndNestedOutgoingRelationshipsQuery(queryDetail)
             }.ToArray();
 
             return _neoGraphCluster.Run(graphName, detailCommand);

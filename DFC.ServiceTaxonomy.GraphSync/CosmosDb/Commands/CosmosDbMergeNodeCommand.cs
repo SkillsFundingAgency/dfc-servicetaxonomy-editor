@@ -40,7 +40,13 @@ namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb.Commands
                         string.Join(",", NodeLabels.Where(nodeLabel => !nodeLabel.Equals("Resource", System.StringComparison.InvariantCultureIgnoreCase)).ToArray()));
                 }
 
-                return new Query("MergeNodeCommand", new Dictionary<string, object> { { "properties", Properties } });
+                var queryDetail = new QueryDetail
+                {
+                    Text = "MergeNodeCommand",
+                    Parameters = new Dictionary<string, object> { { "properties", Properties } }
+                };
+
+                return new Query(queryDetail);
             }
         }
 

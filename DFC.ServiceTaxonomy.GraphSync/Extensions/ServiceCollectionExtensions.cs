@@ -2,7 +2,6 @@
 using DFC.ServiceTaxonomy.GraphSync.CosmosDb.Commands;
 using DFC.ServiceTaxonomy.GraphSync.CosmosDb.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.Interfaces;
-using DFC.ServiceTaxonomy.GraphSync.Models;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace DFC.ServiceTaxonomy.GraphSync.Extensions
@@ -23,7 +22,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.Extensions
             services.AddTransient<IDeleteNodesByTypeCommand, CosmosDbDeleteNodesByTypeCommand>();
             services.AddTransient<IReplaceRelationshipsCommand, CosmosDbReplaceRelationshipsCommand>();
             services.AddTransient<IDeleteRelationshipsCommand, CosmosDbDeleteRelationshipsCommand>();
-            services.AddTransient<ICustomCommand, CustomCommand>();
         }
     }
 }

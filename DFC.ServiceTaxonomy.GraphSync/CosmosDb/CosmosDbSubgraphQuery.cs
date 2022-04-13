@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using DFC.ServiceTaxonomy.GraphSync.Extensions;
 using DFC.ServiceTaxonomy.GraphSync.Interfaces;
@@ -8,14 +9,9 @@ namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb
 {
     public class CosmosDbSubgraphQuery : IQuery<ISubgraph>
     {
-        public const string? RelationshipFilterNone = null;
-        public const string RelationshipFilterIncoming = "<";
-        public const string RelationshipFilterOutgoing = ">";
-
         private IEnumerable<string> NodeLabels { get; }
         private string IdPropertyName { get; }
         private object IdPropertyValue { get; }
-        private string? RelationshipFilter { get; }
         private int MaxPathLength { get; }
 
         //todo: support separate maxPathLength for incoming and outgoing?
@@ -53,10 +49,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb
             IEnumerable<string> nodeLabels,
             string idPropertyName,
             object idPropertyValue,
-            string? relationshipFilter = RelationshipFilterNone,
             int maxPathLength = 1)
         {
-            RelationshipFilter = relationshipFilter;
             MaxPathLength = maxPathLength;
             NodeLabels = nodeLabels;
             IdPropertyName = idPropertyName;
@@ -86,28 +80,42 @@ namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb
             {
                 this.CheckIsValid();
 
-                var contentTypes = string.Join(",",
-                    NodeLabels.Where(nodeLabel => !nodeLabel.Equals("Resource", System.StringComparison.InvariantCultureIgnoreCase)).ToArray());
+                var contentType = NodeLabels.FirstOrDefault(nodeLabel => !nodeLabel.Equals("Resource", StringComparison.InvariantCultureIgnoreCase));
 
-                var parameters = new Dictionary<string, object?>
-                {
-                    {"maxLevel", MaxPathLength},
-                    {"idPropertyValue", IdPropertyValue},
-                    {"relationshipFilter", RelationshipFilter},
-                    {"ContentType", contentTypes }
-                };
-
-#pragma warning disable IDE0008 // Use explicit type
-#pragma warning disable CS8602 // Dereference of a possibly null reference.
-                var id = IdPropertyValue.ToString().Split('/')[IdPropertyValue.ToString().Split('/').Length - 1];
+#pragma warning disable CS8602  // Dereference of a possibly null reference.
+                var id = IdPropertyValue!.ToString().Split('/')[IdPropertyValue.ToString().Split('/').Length - 1];
 #pragma warning restore CS8602 // Dereference of a possibly null reference.
-#pragma warning restore IDE0008 // Use explicit type
 
-#pragma warning disable CS8620 // Argument cannot be used for parameter due to differences in the nullability of reference types.
-                return new Query(
-                    @$"select * from c where c.id = '{id}'",
-                    parameters);
-#pragma warning restore CS8620 // Argument cannot be used for parameter due to differences in the nullability of reference types.
+                var queryDetail = new QueryDetail
+                {
+                    Text = "SELECT * FROM c WHERE c.id = @id",
+                    Parameters = new Dictionary<string, object> { { "@id", id } },
+                    ContentTypes = new List<string> { contentType }
+                };
+                return new Query(queryDetail);
+
+
+                //                var contentTypes = string.Join(",",
+                //                    NodeLabels.Where(nodeLabel => !nodeLabel.Equals("Resource", System.StringComparison.InvariantCultureIgnoreCase)).ToArray());
+
+                //                var parameters = new Dictionary<string, object?>
+                //                {
+                //                    {"maxLevel", MaxPathLength},
+                //                    {"idPropertyValue", IdPropertyValue},
+                //                    {"ContentType", contentTypes }
+                //                };
+
+                //#pragma warning disable IDE0008 // Use explicit type
+                //#pragma warning disable CS8602 // Dereference of a possibly null reference.
+                //                var id = IdPropertyValue.ToString().Split('/')[IdPropertyValue.ToString().Split('/').Length - 1];
+                //#pragma warning restore CS8602 // Dereference of a possibly null reference.
+                //#pragma warning restore IDE0008 // Use explicit type
+
+                //#pragma warning disable CS8620 // Argument cannot be used for parameter due to differences in the nullability of reference types.
+                //                return new Query(
+                //                    @$"select * from c where c.id = '{id}'",
+                //                    parameters);
+                //#pragma warning restore CS8620 // Argument cannot be used for parameter due to differences in the nullability of reference types.
             }
         }
 

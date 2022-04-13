@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using DFC.ServiceTaxonomy.GraphSync.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.Models;
@@ -46,25 +47,20 @@ namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb.Queries
             {
                 this.CheckIsValid();
 
-                var contentTypes = string.Join(",",
-                    NodeLabels.Where(nodeLabel => !nodeLabel.Equals("Resource", System.StringComparison.InvariantCultureIgnoreCase)).ToArray());
+                var contentType = NodeLabels.FirstOrDefault(nodeLabel => !nodeLabel.Equals("Resource", StringComparison.InvariantCultureIgnoreCase));
 
-                var parameters = new Dictionary<string, object?>
+#pragma warning disable CS8602  // Dereference of a possibly null reference.
+                var id = IdPropertyValue!.ToString().Split('/')[IdPropertyValue.ToString().Split('/').Length - 1];
+#pragma warning restore CS8602 // Dereference of a possibly null reference.
+
+                var queryDetail = new QueryDetail
                 {
-                    {"ContentType", contentTypes }
+                    Text = "SELECT * FROM c WHERE c.id = @id",
+                    Parameters = new Dictionary<string, object> { { "@id", id } },
+                    ContentTypes = new List<string> { contentType }
                 };
 
-#pragma warning disable IDE0008 // Use explicit type
-#pragma warning disable CS8602 // Dereference of a possibly null reference.
-                var id = IdPropertyValue.ToString().Split('/')[IdPropertyValue.ToString().Split('/').Length - 1];
-#pragma warning restore CS8602 // Dereference of a possibly null reference.
-#pragma warning restore IDE0008 // Use explicit type
-
-#pragma warning disable CS8620 // Argument cannot be used for parameter due to differences in the nullability of reference types.
-                return new Query(
-                    @$"select * from c where c.id = '{id}'",
-                    parameters);
-#pragma warning restore CS8620 // Argument cannot be used for parameter due to differences in the nullability of reference types.
+                return new Query(queryDetail);
             }
         }
 

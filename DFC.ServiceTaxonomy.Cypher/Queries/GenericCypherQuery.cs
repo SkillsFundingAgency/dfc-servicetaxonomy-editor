@@ -26,7 +26,7 @@ namespace DFC.ServiceTaxonomy.Cypher.Queries
         {
             get
             {
-                return new Query(_template, _parameters);
+                return new Query(new QueryDetail{Text = _template, Parameters = _parameters});
             }
         }
 

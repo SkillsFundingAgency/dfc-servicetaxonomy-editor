@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using DFC.ServiceTaxonomy.GraphSync.Models;
 
 namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb.Interfaces
 {
@@ -10,6 +11,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb.Interfaces
         Task DeleteItemAsync(string databaseName, string contentType, Guid id);
         Task UpdateItemAsync(string databaseName, Dictionary<string, object> item);
         Task<Dictionary<string, object>?> GetContentItemFromDatabase(string databaseName, string contentType, Guid id);
-        Task<List<T>> QueryContentItemsAsync<T>(string databaseName, string query, string contentType);
+        Task<List<T>> QueryContentItemsAsync<T>(string databaseName, QueryDetail queryDetail);
     }
 }

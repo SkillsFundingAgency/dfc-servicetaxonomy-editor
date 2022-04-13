@@ -423,7 +423,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb.GraphSyncers
                         await _syncNameProvider.NodeLabels(),
                         _syncNameProvider.IdPropertyName(),
                         nodeId,
-                        CosmosDbSubgraphQuery.RelationshipFilterNone, 0)))
+                        0)))
                 .FirstOrDefault();
 
             return nodeWithRelationships?.SourceNode != null

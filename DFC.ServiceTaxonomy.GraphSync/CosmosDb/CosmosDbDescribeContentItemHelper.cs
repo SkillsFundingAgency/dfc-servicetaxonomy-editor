@@ -38,17 +38,42 @@ namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb
 
         public async Task<IEnumerable<IQuery<object?>>> GetRelationshipCommands(IDescribeRelationshipsContext context)
         {
-            var currentList = new List<ContentItemRelationship>();
-            var allRelationships = await GetRelationships(context, currentList);
+            var currentList = new List<QueryDetail>();
+            var allRelationships = await GetRelationshipQueryDetails(context, currentList);
 
-            var uniqueCommands = allRelationships
-                .Select(relationship => relationship.RelationshipPathString)
-                .GroupBy(relationshipPathString => relationshipPathString)
-                .Select(relationshipPathStringGroup => relationshipPathStringGroup.First());
+            var uniqueCommands = allRelationships.Distinct();
 
             return uniqueCommands
                 .Select(c => new CosmosDbNodeAndNestedOutgoingRelationshipsQuery(c!)).Cast<IQuery<object?>>().ToList();
         }
+
+        private static async Task<IEnumerable<QueryDetail>> GetRelationshipQueryDetails(IDescribeRelationshipsContext context, List<QueryDetail> currentList)
+        {
+            foreach (var child in context.AvailableRelationships)
+            {
+                (_, var id) = DocumentHelper.GetContentTypeAndId(context.SourceNodeId);
+                currentList.Add(new QueryDetail
+                {
+                    Text = "SELECT * FROM c WHERE c.id = @id",
+                    Parameters = new Dictionary<string, object>
+                    {
+                        {"@id", id}
+                    },
+                    ContentTypes = new List<string>
+                    {
+                        context.SourceNodeLabels.FirstOrDefault()
+                    }
+                });
+            }
+
+            foreach (var childContext in context.ChildContexts)
+            {
+                await GetRelationshipQueryDetails((IDescribeRelationshipsContext)childContext, currentList);
+            }
+
+            return currentList;
+        }
+
 
         //todo: contentmanager
         //todo: taxonomies use reltype*maxdepth ?
@@ -127,27 +152,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb
                 context.ContentItemVersion,
                 context,
                 context.ServiceProvider);
-        }
-
-        //todo: move any cypher generation into a query
-        private static async Task<IEnumerable<ContentItemRelationship>> GetRelationships(
-            IDescribeRelationshipsContext context,
-            List<ContentItemRelationship> currentList)
-        {
-            foreach (var child in context.AvailableRelationships)
-            {
-                (_, var id) = DocumentHelper.GetContentTypeAndId(context.SourceNodeId);
-                child.RelationshipPathString = $"select * from c where c.id = '{id}'|{context.SourceNodeLabels.FirstOrDefault()}";
-            }
-
-            currentList.AddRange(context.AvailableRelationships);
-
-            foreach (var childContext in context.ChildContexts)
-            {
-                await GetRelationships((IDescribeRelationshipsContext)childContext, currentList);
-            }
-
-            return currentList;
         }
     }
 }

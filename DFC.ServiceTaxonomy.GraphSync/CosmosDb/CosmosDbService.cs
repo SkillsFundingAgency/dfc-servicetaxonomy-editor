@@ -7,6 +7,7 @@ using DFC.ServiceTaxonomy.GraphSync.CosmosDb.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.Exceptions;
 using DFC.ServiceTaxonomy.GraphSync.Extensions;
 using DFC.ServiceTaxonomy.GraphSync.Helpers;
+using DFC.ServiceTaxonomy.GraphSync.Models;
 using Microsoft.Azure.Cosmos;
 using Newtonsoft.Json.Linq;
 
@@ -90,24 +91,30 @@ namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb
 
         private async Task<Dictionary<string, object>?> GetContentItemFromDatabase(Container container, string contentType, Guid id)
         {
+            var queryDefinition = new QueryDefinition($"SELECT * FROM c WHERE c.id = @id");
+            queryDefinition.WithParameter("@id", id);
             var iteratorLoop = container.GetItemQueryIterator<Dictionary<string, object>>(
-                new QueryDefinition($"SELECT * FROM c WHERE c.id = '{id}'"),
+                queryDefinition,
                 requestOptions: new QueryRequestOptions { PartitionKey = new PartitionKey(contentType) });
 
             var result = await iteratorLoop.ReadNextAsync();
             return result.Resource.SingleOrDefault();
         }
 
-        public async Task<List<T>> QueryContentItemsAsync<T>(string databaseName, string query, string contentType)
+        public async Task<List<T>> QueryContentItemsAsync<T>(string databaseName, QueryDetail queryDetail)
         {
             var returnList = new List<T>();
-            var queryDefinition = new QueryDefinition(query);
+            var queryDefinition = new QueryDefinition(queryDetail.Text);
+            foreach (KeyValuePair<string, object> queryDetailParameter in queryDetail.Parameters)
+            {
+                queryDefinition.WithParameter(queryDetailParameter.Key, queryDetailParameter.Value);
+            }
             var container = GetContainer(databaseName);
             using FeedIterator<T> resultSetIterator = container.GetItemQueryIterator<T>(
                 queryDefinition,
                 requestOptions: new QueryRequestOptions
                 {
-                    PartitionKey = new PartitionKey(contentType)
+                    PartitionKey = new PartitionKey(queryDetail.ContentTypes.FirstOrDefault())
                 });
 
             while (resultSetIterator.HasMoreResults)
