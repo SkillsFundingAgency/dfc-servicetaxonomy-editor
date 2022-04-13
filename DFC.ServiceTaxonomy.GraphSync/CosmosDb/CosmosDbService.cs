@@ -91,8 +91,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb
 
         private async Task<Dictionary<string, object>?> GetContentItemFromDatabase(Container container, string contentType, Guid id)
         {
-            var queryDefinition = new QueryDefinition($"SELECT * FROM c WHERE c.id = @id");
-            queryDefinition.WithParameter("@id", id);
+            var queryDefinition = new QueryDefinition($"SELECT * FROM c WHERE c.id = @id0");
+            queryDefinition.WithParameter("@id0", id);
             var iteratorLoop = container.GetItemQueryIterator<Dictionary<string, object>>(
                 queryDefinition,
                 requestOptions: new QueryRequestOptions { PartitionKey = new PartitionKey(contentType) });

@@ -25,7 +25,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb.Commands
                 };
 
                 var queryDetail = new QueryDetail { Text = "ReplaceRelationshipsCommand", Parameters = parameters };
-
                 return new Query(queryDetail);
             }
         }

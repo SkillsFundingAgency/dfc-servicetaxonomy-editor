@@ -54,10 +54,10 @@ namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb
                 (_, var id) = DocumentHelper.GetContentTypeAndId(context.SourceNodeId);
                 currentList.Add(new QueryDetail
                 {
-                    Text = "SELECT * FROM c WHERE c.id = @id",
+                    Text = "SELECT * FROM c WHERE c.id = @id0",
                     Parameters = new Dictionary<string, object>
                     {
-                        {"@id", id}
+                        {"@id0", id}
                     },
                     ContentTypes = new List<string>
                     {

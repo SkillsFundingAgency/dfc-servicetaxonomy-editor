@@ -88,8 +88,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb
 
                 var queryDetail = new QueryDetail
                 {
-                    Text = "SELECT * FROM c WHERE c.id = @id",
-                    Parameters = new Dictionary<string, object> { { "@id", id } },
+                    Text = "SELECT * FROM c WHERE c.id = @id0",
+                    Parameters = new Dictionary<string, object> { { "@id0", id } },
                     ContentTypes = new List<string> { contentType }
                 };
                 return new Query(queryDetail);

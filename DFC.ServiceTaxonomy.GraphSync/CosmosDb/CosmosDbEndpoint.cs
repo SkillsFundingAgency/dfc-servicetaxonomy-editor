@@ -58,11 +58,11 @@ namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb
                     case "DeleteRelationships":
                         await DeleteRelationshipsCommand(databaseName, command);
                         break;
-                    case "ReplaceRelationshipsCommand":
-                        await ReplaceRelationshipsCommand(databaseName, command);
-                        break;
                     case "MergeNodeCommand":
                         await MergeNodeCommand(databaseName, command);
+                        break;
+                    case "ReplaceRelationshipsCommand":
+                        await ReplaceRelationshipsCommand(databaseName, command);
                         break;
                     default:
                         throw new NotImplementedException();
@@ -132,9 +132,9 @@ namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb
             
             string itemUri = (string)commandParameters["uri"];
             (string contentType, Guid id) = DocumentHelper.GetContentTypeAndId(itemUri);
+            var item = await _cosmosDbService.GetContentItemFromDatabase(databaseName, contentType, id);
             var itemRelationships = (List<CommandRelationship>)commandParameters["relationships"];
 
-            var item = await _cosmosDbService.GetContentItemFromDatabase(databaseName, contentType, id);
 
             await HandleRemovedRelationships(databaseName, item, itemRelationships);
             await HandleAddedRelationships(databaseName, itemRelationships, id, contentType);
@@ -166,7 +166,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb
                 item.Add("_links", itemLinks);
             }
 
-            var relationships = itemRelationships.Select(r => ExtractRelationship(r));
+            var relationships = itemRelationships.Select(ExtractRelationship);
             var keys = relationships.Select(r => r.Item1).Distinct();
             foreach (var key in keys)
             {
