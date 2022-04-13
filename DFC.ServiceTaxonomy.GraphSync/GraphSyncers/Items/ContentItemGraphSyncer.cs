@@ -6,6 +6,7 @@ using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Contexts;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Items;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Parts;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Results.AllowSync;
+using DFC.ServiceTaxonomy.GraphSync.Helpers;
 using DFC.ServiceTaxonomy.GraphSync.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.Orchestrators;
 using Microsoft.Extensions.Logging;
@@ -83,7 +84,9 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Items
                 // bag part has p.Name == <<name>>, p.PartDefinition.Name == "BagPart"
                 // (other non-named parts have the part name in both)
                 //todo: contentTypeDefinition can be moved outside of foreach
-                var contentTypeDefinition = _contentDefinitionManager.GetTypeDefinition(context.ContentItem.ContentType);
+                var contentTypeDefinition = ContentDefinitionHelper.GetTypeDefinitionCaseInsensitive(
+                    context.ContentItem.ContentType,
+                    _contentDefinitionManager)!;
                 var contentTypePartDefinitions =
                     contentTypeDefinition.Parts.Where(p => partSync.CanSync(context.ContentItem.ContentType, p.PartDefinition));
 

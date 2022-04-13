@@ -6,6 +6,7 @@ using DFC.ServiceTaxonomy.GraphSync.CSharpScripting.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Exceptions;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.ContentItemVersions;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Helpers;
+using DFC.ServiceTaxonomy.GraphSync.Helpers;
 using DFC.ServiceTaxonomy.GraphSync.Models;
 using DFC.ServiceTaxonomy.GraphSync.Settings;
 using Microsoft.CodeAnalysis.CSharp.Scripting;
@@ -350,7 +351,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
 
         public GraphSyncPartSettings GetGraphSyncPartSettings(string contentType)
         {
-            ContentTypeDefinition contentTypeDefinition = _contentDefinitionManager.GetTypeDefinition(contentType);
+            ContentTypeDefinition? contentTypeDefinition =
+                ContentDefinitionHelper.GetTypeDefinitionCaseInsensitive(contentType, _contentDefinitionManager, false);
 
             if (contentTypeDefinition == null)
                 throw new GraphSyncException($"Attempt to get {nameof(GraphSyncPartSettings)} for {contentType}, but it doesn't have a {nameof(ContentTypeDefinition)}.");

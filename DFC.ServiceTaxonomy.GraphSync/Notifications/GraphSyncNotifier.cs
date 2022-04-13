@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Results.AllowSync;
+using DFC.ServiceTaxonomy.GraphSync.Helpers;
 using DFC.ServiceTaxonomy.GraphSync.Services;
 using DFC.ServiceTaxonomy.GraphSync.Services.Interface;
 using DFC.ServiceTaxonomy.Slack;
@@ -117,7 +118,9 @@ namespace DFC.ServiceTaxonomy.GraphSync.Notifications
 
         private string GetContentTypeDisplayName(ContentItem contentItem)
         {
-            return _contentDefinitionManager.GetTypeDefinition(contentItem.ContentType).DisplayName;
+            return ContentDefinitionHelper.GetTypeDefinitionCaseInsensitive(
+                contentItem.ContentType,
+                _contentDefinitionManager)!.DisplayName;
         }
 
         //todo: add custom styles via scss?
@@ -136,7 +139,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Notifications
             }
 
             string exceptionText = GetExceptionText(exception);
-            
+
             HtmlContentBuilder htmlContentBuilder = new HtmlContentBuilder();
 
             string traceId = Activity.Current?.TraceId.ToString() ?? "N/A";
