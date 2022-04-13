@@ -86,7 +86,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Items
                 //todo: contentTypeDefinition can be moved outside of foreach
                 var contentTypeDefinition = ContentDefinitionHelper.GetTypeDefinitionCaseInsensitive(
                     context.ContentItem.ContentType,
-                    _contentDefinitionManager);
+                    _contentDefinitionManager)!;
                 var contentTypePartDefinitions =
                     contentTypeDefinition.Parts.Where(p => partSync.CanSync(context.ContentItem.ContentType, p.PartDefinition));
 

@@ -120,7 +120,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Notifications
         {
             return ContentDefinitionHelper.GetTypeDefinitionCaseInsensitive(
                 contentItem.ContentType,
-                _contentDefinitionManager).DisplayName;
+                _contentDefinitionManager)!.DisplayName;
         }
 
         //todo: add custom styles via scss?

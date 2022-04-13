@@ -351,8 +351,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
 
         public GraphSyncPartSettings GetGraphSyncPartSettings(string contentType)
         {
-            ContentTypeDefinition contentTypeDefinition =
-                ContentDefinitionHelper.GetTypeDefinitionCaseInsensitive(contentType, _contentDefinitionManager);
+            ContentTypeDefinition? contentTypeDefinition =
+                ContentDefinitionHelper.GetTypeDefinitionCaseInsensitive(contentType, _contentDefinitionManager, false);
 
             if (contentTypeDefinition == null)
                 throw new GraphSyncException($"Attempt to get {nameof(GraphSyncPartSettings)} for {contentType}, but it doesn't have a {nameof(ContentTypeDefinition)}.");

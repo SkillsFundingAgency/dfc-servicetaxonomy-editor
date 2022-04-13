@@ -11,15 +11,34 @@ namespace DFC.ServiceTaxonomy.GraphSync.Helpers
     {
         private static readonly ConcurrentDictionary<string, string> s_cache = new ConcurrentDictionary<string, string>();
 
-        public static ContentTypeDefinition GetTypeDefinitionCaseInsensitive(string contentType, IContentDefinitionManager contentDefinitionManager)
+        public static ContentTypeDefinition? GetTypeDefinitionCaseInsensitive(
+            string contentType,
+            IContentDefinitionManager contentDefinitionManager,
+            bool exceptionIfNull = true)
         {
             try
             {
-                return contentDefinitionManager.GetTypeDefinition(
+                ContentTypeDefinition? contentTypeDefinition = contentDefinitionManager.GetTypeDefinition(
                     GetCorrectlyCasedContentType(contentType, contentDefinitionManager));
+
+                if (contentTypeDefinition != null)
+                {
+                    return contentTypeDefinition;
+                }
+
+                // There wasn't a match, could be because the type definition was updated - so clear our cache
+                s_cache.Clear();
+
+                if (exceptionIfNull)
+                {
+                    throw new KeyNotFoundException("Content type not found");
+                }
+
+                return null;
             }
             catch
             {
+                // There wasn't a match, could be because the type definition was updated - so clear our cache
                 s_cache.Clear();
                 throw;
             }

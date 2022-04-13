@@ -61,7 +61,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Orchestrators
         {
             return ContentDefinitionHelper.GetTypeDefinitionCaseInsensitive(
                 contentItem.ContentType,
-                _contentDefinitionManager).DisplayName;
+                _contentDefinitionManager)!.DisplayName;
         }
 
         protected string GetSyncOperationCancelledUserMessage(
