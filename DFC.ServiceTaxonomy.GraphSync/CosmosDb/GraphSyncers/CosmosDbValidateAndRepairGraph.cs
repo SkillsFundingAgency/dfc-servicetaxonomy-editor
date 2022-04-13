@@ -361,7 +361,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb.GraphSyncers
 
             var nodeLabels = await _syncNameProvider.NodeLabels();
 
-            ISubgraph? nodeWithRelationships = (await _currentGraph!.Run(
+            Subgraph? nodeWithRelationships = (await _currentGraph!.Run(
                 new CosmosDbSubgraphQuery(nodeLabels, _syncNameProvider.IdPropertyName(), nodeId)))
                 .FirstOrDefault();
 
