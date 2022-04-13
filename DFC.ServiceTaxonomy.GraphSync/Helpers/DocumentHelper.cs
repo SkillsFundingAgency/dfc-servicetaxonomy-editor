@@ -67,6 +67,16 @@ namespace DFC.ServiceTaxonomy.GraphSync.Helpers
             return dictionary;
         }
 
+        public static bool CanCastToList(object? value)
+        {
+            if (value == null)
+            {
+                throw new ArgumentNullException(nameof(value));
+            }
+
+            return value is JArray || value is List<Dictionary<string, object>>;
+        }
+
         public static List<Dictionary<string, object>> SafeCastToList(object? value)
         {
             if (value == null)
