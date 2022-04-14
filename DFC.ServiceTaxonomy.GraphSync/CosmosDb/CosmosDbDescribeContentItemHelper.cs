@@ -39,7 +39,21 @@ namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb
         public async Task<IEnumerable<IQuery<object?>>> GetRelationshipCommands(IDescribeRelationshipsContext context)
         {
             var currentList = new List<ContentItemRelationship>();
-            var allRelationships = await GetRelationships(context, currentList);
+            var allRelationships = (await GetRelationships(context, currentList)).ToList();
+
+            if (!allRelationships.Any())
+            {
+                (_, var id) = DocumentHelper.GetContentTypeAndId(context.SourceNodeId);
+                var type = context.SourceNodeLabels.First(snl => !snl.Equals("Resource"));
+
+                allRelationships.Add(new ContentItemRelationship(
+                    context.SourceNodeLabels,
+                    $"has{type}",
+                    context.SourceNodeLabels)
+                {
+                    RelationshipPathString = $"select * from c where c.id = '{id}'|{type}"
+                });
+            }
 
             var uniqueCommands = allRelationships
                 .Select(relationship => relationship.RelationshipPathString)
@@ -137,7 +151,9 @@ namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb
             foreach (var child in context.AvailableRelationships)
             {
                 (_, var id) = DocumentHelper.GetContentTypeAndId(context.SourceNodeId);
-                child.RelationshipPathString = $"select * from c where c.id = '{id}'|{context.SourceNodeLabels.FirstOrDefault()}";
+                var type = context.SourceNodeLabels.First(snl => !snl.Equals("Resource"));
+
+                child.RelationshipPathString = $"select * from c where c.id = '{id}'|{type}";
             }
 
             currentList.AddRange(context.AvailableRelationships);
