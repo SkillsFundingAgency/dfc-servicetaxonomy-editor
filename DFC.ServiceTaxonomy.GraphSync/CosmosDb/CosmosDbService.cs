@@ -91,11 +91,33 @@ namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb
         private async Task<Dictionary<string, object>?> GetContentItemFromDatabase(Container container, string contentType, Guid id)
         {
             var iteratorLoop = container.GetItemQueryIterator<Dictionary<string, object>>(
-                new QueryDefinition($"SELECT * FROM c WHERE c.id = '{id}'"),
+                new QueryDefinition($"SELECT * FROM c WHERE c.id = @id0").WithParameter("@id0", id.ToString()),
                 requestOptions: new QueryRequestOptions { PartitionKey = new PartitionKey(contentType) });
 
             var result = await iteratorLoop.ReadNextAsync();
             return result.Resource.SingleOrDefault();
+        }
+
+        public async Task<List<T>> QueryContentItemsAsync<T>(string databaseName, QueryDefinition queryDefinition, QueryRequestOptions queryRequestOptions)
+        {
+            var returnList = new List<T>();
+            var container = GetContainer(databaseName);
+            using FeedIterator<T> resultSetIterator = container.GetItemQueryIterator<T>(
+                queryDefinition,
+                requestOptions: queryRequestOptions);
+            while (resultSetIterator.HasMoreResults)
+            {
+                FeedResponse<T> response = await resultSetIterator.ReadNextAsync();
+
+                if (!response.Resource.Any())
+                {
+                    continue;
+                }
+
+                returnList.AddRange(response.Resource);
+            }
+
+            return returnList;
         }
 
         public async Task<List<T>> QueryContentItemsAsync<T>(string databaseName, string query, string contentType)

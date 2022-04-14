@@ -33,8 +33,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb
 
             foreach (var query in queries)
             {
-                var contentType = ((string)query.Query.Parameters["ContentType"]).ToLower();
-                var queryList = await _cosmosDbService.QueryContentItemsAsync<T>(databaseName, query.Query.Text, contentType);
+                var queryList = await _cosmosDbService.QueryContentItemsAsync<T>(databaseName, query.Query.QueryDefinition!, query.Query.QueryRequestOptions!);
                 returnList.AddRange(queryList);
             }
 

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Microsoft.Azure.Cosmos;
 
 namespace DFC.ServiceTaxonomy.GraphSync.Models
 {
@@ -7,6 +8,35 @@ namespace DFC.ServiceTaxonomy.GraphSync.Models
     /// </summary>
     public class Query
     {
+        /// <summary>
+        /// Gets the query's text.
+        /// </summary>
+        public string Text { get; } = string.Empty;
+
+        /// <summary>
+        /// Gets the query's parameters.
+        /// </summary>
+        public IDictionary<string, object> Parameters { get; } = new Dictionary<string, object>();
+
+        public QueryDefinition? QueryDefinition { get; }
+
+        public QueryRequestOptions? QueryRequestOptions { get; }
+
+        public Query(string query, string id, string contentType)
+        {
+            QueryDefinition = new QueryDefinition(query);
+            QueryDefinition.WithParameter("@id0", id);
+            QueryRequestOptions = new QueryRequestOptions { PartitionKey = new PartitionKey(contentType) };
+        }
+
+        public Query(string id, string contentType)
+        {
+            QueryDefinition = new QueryDefinition("SELECT * FROM c WHERE c.id = '@id0'");
+            QueryDefinition.WithParameter("@id0", id);
+            QueryRequestOptions = new QueryRequestOptions { PartitionKey = new PartitionKey(contentType) };
+        }
+
+
         /// <summary>
         /// Create a query with no query parameters.
         /// </summary>
@@ -17,16 +47,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.Models
             Parameters = new Dictionary<string, object>();
         }
 
-        //// <summary>
-        /// Create a query with no query parameters.
-        /// </summary>
-        /// <param name="text">The query's text</param>
-        /// <param name="parameters">The query parameters, specified as an object which is then converted into key-value pairs.</param>
-        public Query(string text, object parameters)
-        {
-            Text = text;
-            Parameters = (Dictionary<string, object>)parameters;
-        }
 
         //// <summary>
         /// Create a query with no query parameters.
@@ -39,15 +59,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.Models
             Parameters = parameters;
         }
 
-        /// <summary>
-        /// Gets the query's text.
-        /// </summary>
-        public string Text { get; }
-
-        /// <summary>
-        /// Gets the query's parameters.
-        /// </summary>
-        public IDictionary<string, object> Parameters { get; }
 
         /// <summary>
         /// Print the query.
