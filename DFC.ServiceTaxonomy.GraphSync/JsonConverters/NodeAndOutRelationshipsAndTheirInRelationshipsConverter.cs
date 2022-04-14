@@ -31,36 +31,42 @@ namespace DFC.ServiceTaxonomy.GraphSync.JsonConverters
 
             foreach (var link in links.Where(lnk => lnk.Key != "self" && lnk.Key != "curies"))
             {
+                List<Dictionary<string, object>> linkDictionaries = CanCastToList(link.Value) ?
+                    SafeCastToList(link.Value) :
+                    new List<Dictionary<string, object>> { SafeCastToDictionary(link.Value) };
 
-                var linkDictionarys = SafeObjectArrayCastToDictionaryList(link.Value);
-                foreach (Dictionary<string, object> linkDictionary in linkDictionarys)
+                foreach (var linkDictionary in linkDictionaries)
                 {
-                    var linkDetails = GetContentTypeAndId((string)linkDictionary!["href"]);
+                    var linkDetails = GetContentTypeAndId((string)linkDictionary["href"]);
+
                     if (linkDetails.Id == Guid.Empty)
                     {
                         continue;
                     }
+
                     int endNodeId = GetNumber(GetAsString(linkDetails.Id));
                     int relationshipId = GetNumber(
                         GetAsString(linkDetails.Id) + GetAsString(itemId));
 
                     var outgoing = new OutgoingRelationship(new StandardRelationship
-                    {
-                        Type = link.Key.Replace("cont:", string.Empty), // e.g. hasPageLocation
-                        StartNodeId = startNodeId,
-                        EndNodeId = endNodeId,
-                        Id = relationshipId
-                    }, new StandardNode
-                    {
-                        Id = endNodeId,
-                        Properties = new Dictionary<string, object>
                         {
-                            { "ContentType", linkDetails.ContentType },
-                            { "id", linkDetails.Id },
-                            { "endNodeId", endNodeId }
+                            Type = link.Key.Replace("cont:", string.Empty), // e.g. hasPageLocation
+                            StartNodeId = startNodeId,
+                            EndNodeId = endNodeId,
+                            Id = relationshipId
                         },
-                        Labels = new List<string> { linkDetails.ContentType, "Resource" }
-                    });
+                        new StandardNode
+                        {
+                            Id = endNodeId,
+                            Properties = new Dictionary<string, object>
+                            {
+                                {"ContentType", linkDetails.ContentType},
+                                {"id", linkDetails.Id},
+                                {"endNodeId", endNodeId}
+                            },
+                            Labels = new List<string> {linkDetails.ContentType, "Resource"}
+                        });
+
                     relationships.Add((outgoing, new List<OutgoingRelationship>()));
                 }
             }
