@@ -8,9 +8,6 @@ using Newtonsoft.Json.Linq;
 Console.WriteLine("Neo4j Endpoint: Please enter the Neo4j endpoint (e.g. bolt://HOSTNAME:7687)");
 var neo4JEndpoint = Console.ReadLine()!.Trim();
 
-Console.WriteLine("Neo4j DB Name: Please enter the Neo4j db name (e.g. published)");
-var neo4JDbName = Console.ReadLine()!.Trim();
-
 Console.WriteLine("Neo4j Username: Please enter the Neo4j username");
 var neo4JUsername = Console.ReadLine()!.Trim();
 
@@ -34,7 +31,6 @@ Console.WriteLine("Please review the entered information in the summary below.")
 Console.WriteLine();
 
 Console.WriteLine($"Neo4j endpoint - {neo4JEndpoint}");
-Console.WriteLine($"Neo4j dbname - {neo4JDbName}");
 Console.WriteLine($"Neo4j username - {neo4JUsername}");
 Console.WriteLine($"Neo4j password - {neo4JPassword}");
 Console.WriteLine($"Cosmos Db connection string - {cosmosConnectionString}");
@@ -79,7 +75,7 @@ var exclusions = new List<string>
 
 Console.WriteLine("Request content type (label) information.");
 
-var contentTypes = (await RunQuery(new Query("call db.labels()"), neo4JDbName, true))
+var contentTypes = (await RunQuery(new Query("call db.labels()")))
     .Select(label => label.Values.Values.First().As<string>())
     .Where(label => !exclusions.Contains(label))
     .ToList();
@@ -93,15 +89,15 @@ var reportDictionary = new Dictionary<string, (int, int)>();
 foreach (var contentType in contentTypes)
 {
     Console.WriteLine($"Requesting document data from {contentType}. Content type {contentTypeCount} of {contentTypeTotal}...");
-    var documents = await RunQuery(new Query($"match (a:{contentType}) return a"), neo4JUsername, true);
+    var documents = await RunQuery(new Query($"match (a:{contentType}) return a"));
     Console.WriteLine($"{documents.Count} records found for {contentType} - Content type {contentTypeCount} of {contentTypeTotal}.");
 
     Console.WriteLine($"Requesting contHas relationship records for {contentType} - Content type {contentTypeCount} of {contentTypeTotal}...");
-    var contHasRelationships = await RunQuery(new Query($"match (a:{contentType})-[r]->(b) return a.uri, r, b.uri"), neo4JUsername, true);
+    var contHasRelationships = await RunQuery(new Query($"match (a:{contentType})-[r]->(b) return a.uri, r, b.uri"));
     Console.WriteLine($"{contHasRelationships.Count} contHas relationship records found for {contentType} - Content type {contentTypeCount} of {contentTypeTotal}.");
 
     Console.WriteLine($"Requesting incoming relationship records for {contentType} - Content type {contentTypeCount} of {contentTypeTotal}...");
-    var incomingRelationships = await RunQuery(new Query($"match (a:{contentType})<-[r]-(b) return a.uri, r, b.uri"), neo4JUsername, true);
+    var incomingRelationships = await RunQuery(new Query($"match (a:{contentType})<-[r]-(b) return a.uri, r, b.uri"));
     Console.WriteLine($"{incomingRelationships.Count} incoming relationship records found for {contentType} - Content type {contentTypeCount} of {contentTypeTotal}.");
 
     var documentCount = 1;
@@ -400,9 +396,9 @@ Container GetContainer()
     return cosmosDb.GetDatabase(cosmosDbDatabaseName).GetContainer(cosmosDbContainerName);
 }
 
-async Task<List<IRecord>> RunQuery(Query query, string databaseName, bool defaultDatabase)
+async Task<List<IRecord>> RunQuery(Query query)
 {
-    var session = GetAsyncSession(databaseName, defaultDatabase);
+    var session = GetAsyncSession();
 
     try
     {
@@ -415,10 +411,9 @@ async Task<List<IRecord>> RunQuery(Query query, string databaseName, bool defaul
     }
 }
 
-IAsyncSession GetAsyncSession(string database, bool defaultDatabase)
+IAsyncSession GetAsyncSession()
 {
-    return defaultDatabase ? GetNeo4JDriver().AsyncSession()
-        : GetNeo4JDriver().AsyncSession(builder => builder.WithDatabase(database));
+    return GetNeo4JDriver().AsyncSession();
 }
 
 IDriver GetNeo4JDriver()
