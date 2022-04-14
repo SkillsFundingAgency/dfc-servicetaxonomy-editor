@@ -95,7 +95,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb
                 var contentType = NodeLabels.First(nodeLabel => !nodeLabel.Equals("Resource", StringComparison.InvariantCultureIgnoreCase)).ToLower();
                 (_, var id) = DocumentHelper.GetContentTypeAndId((string)IdPropertyValue);
                 return new Query(id.ToString(), contentType);
-            }
+             }
         }
 
         public ISubgraph ProcessRecord(IRecord record)

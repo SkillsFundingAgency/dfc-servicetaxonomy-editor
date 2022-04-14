@@ -37,20 +37,20 @@ namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb
 
         public async Task<IEnumerable<IQuery<object?>>> GetRelationshipCommands(IDescribeRelationshipsContext context)
         {
-            var currentList = new List<Tuple<string, string>>();
+            var currentList = new List<(string id, string contentType)>();
             var allRelationships = (await GetRelationships(context, currentList)).ToList();
 
             if (!allRelationships.Any())
             {
                 (_, var id) = DocumentHelper.GetContentTypeAndId(context.SourceNodeId);
                 var type = context.SourceNodeLabels.First(snl => !snl.Equals("Resource"));
-                allRelationships.Add(new Tuple<string, string>(id.ToString(), type));
+                allRelationships.Add((id.ToString(), type));
             }
 
             var uniqueCommands = allRelationships.Distinct();
 
             return uniqueCommands
-                .Select(c => new CosmosDbNodeAndNestedOutgoingRelationshipsQuery("SELECT * FROM c WHERE c.id = @id0", c.Item1, c.Item2)).Cast<IQuery<object?>>().ToList();
+                .Select(c => new CosmosDbNodeAndNestedOutgoingRelationshipsQuery("SELECT * FROM c WHERE c.id = @id0", "@id0", c.id, c.contentType)).Cast<IQuery<object?>>().ToList();
         }
 
         //todo: contentmanager
@@ -133,13 +133,13 @@ namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb
         }
 
         //todo: move any cypher generation into a query
-        private static async Task<IEnumerable<Tuple<string, string>>> GetRelationships(IDescribeRelationshipsContext context, List<Tuple<string, string>> currentList)
+        private static async Task<IEnumerable<(string id, string contentType)>> GetRelationships(IDescribeRelationshipsContext context, List<(string id, string contentType)> currentList)
         {
             foreach (var child in context.AvailableRelationships)
             {
                 (_, var id) = DocumentHelper.GetContentTypeAndId(context.SourceNodeId);
                 var contentType = context.SourceNodeLabels.First(snl => !snl.Equals("Resource"));
-                currentList.Add(new Tuple<string, string>(id.ToString(), contentType));
+                currentList.Add((id.ToString(), contentType));
             }
             foreach (var childContext in context.ChildContexts)
             {

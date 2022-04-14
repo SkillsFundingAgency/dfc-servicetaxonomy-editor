@@ -13,16 +13,17 @@ namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb.Queries
     public class CosmosDbNodeAndNestedOutgoingRelationshipsQuery : IQuery<INodeAndOutRelationshipsAndTheirInRelationships?>
     {
         private readonly string _query;
-        private readonly string _id;
+        private readonly string _parameterKey;
+        private readonly string _parameterValue;
         private readonly string _contentType;
 
-        public CosmosDbNodeAndNestedOutgoingRelationshipsQuery(string query, string id, string contentType)
+        public CosmosDbNodeAndNestedOutgoingRelationshipsQuery(string query, string parameterKey, string parameterValue, string contentType)
         {
             _query = query;
-            _id = id;
+            _parameterKey = parameterValue;
+            _parameterValue = parameterValue;
             _contentType = contentType.ToLower();
         }
-
 
         public List<string> ValidationErrors()
         {
@@ -35,7 +36,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb.Queries
             {
                 this.CheckIsValid();
 
-                return new Query(_query, _id, _contentType);
+                return new Query(_query, _parameterKey, _parameterValue, _contentType);
             }
         }
 

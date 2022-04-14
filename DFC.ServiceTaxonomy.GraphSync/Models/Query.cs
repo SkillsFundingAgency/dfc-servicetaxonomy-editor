@@ -22,10 +22,10 @@ namespace DFC.ServiceTaxonomy.GraphSync.Models
 
         public QueryRequestOptions? QueryRequestOptions { get; }
 
-        public Query(string query, string id, string contentType)
+        public Query(string query, string parameterKey, string parameterValue, string contentType)
         {
             QueryDefinition = new QueryDefinition(query);
-            QueryDefinition.WithParameter("@id0", id);
+            QueryDefinition.WithParameter(parameterKey, parameterValue);
             QueryRequestOptions = new QueryRequestOptions { PartitionKey = new PartitionKey(contentType) };
         }
 
