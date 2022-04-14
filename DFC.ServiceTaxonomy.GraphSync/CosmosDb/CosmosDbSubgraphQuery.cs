@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using DFC.ServiceTaxonomy.GraphSync.Extensions;
+using DFC.ServiceTaxonomy.GraphSync.Helpers;
 using DFC.ServiceTaxonomy.GraphSync.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.Models;
 
@@ -92,8 +93,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb
                 this.CheckIsValid();
 
                 var contentType = NodeLabels.First(nodeLabel => !nodeLabel.Equals("Resource", StringComparison.InvariantCultureIgnoreCase)).ToLower();
-                var id = IdPropertyValue.ToString()?.Split('/').Last();
-                return new Query(id!, contentType);
+                (_, var id) = DocumentHelper.GetContentTypeAndId((string)IdPropertyValue);
+                return new Query(id.ToString(), contentType);
             }
         }
 
