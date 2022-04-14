@@ -44,21 +44,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb
             {
                 (_, var id) = DocumentHelper.GetContentTypeAndId(context.SourceNodeId);
                 var type = context.SourceNodeLabels.First(snl => !snl.Equals("Resource"));
-
-                allRelationships.Add(new ContentItemRelationship(
-                    context.SourceNodeLabels,
-                    $"has{type}",
-                    context.SourceNodeLabels)
-                {
-                    RelationshipPathString = $"select * from c where c.id = '{id}'|{type}"
-                });
-            }
-
-            if (!allRelationships.Any())
-            {
-                (_, var id) = DocumentHelper.GetContentTypeAndId(context.SourceNodeId);
-                var type = context.SourceNodeLabels.First(snl => !snl.Equals("Resource"));
-
                 allRelationships.Add(new Tuple<string, string>(id.ToString(), type));
             }
 

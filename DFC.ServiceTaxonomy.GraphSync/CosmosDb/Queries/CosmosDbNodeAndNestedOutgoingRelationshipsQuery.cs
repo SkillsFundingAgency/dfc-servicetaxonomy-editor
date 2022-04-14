@@ -12,15 +12,9 @@ namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb.Queries
     //todo: move generic queries into neo4j
     public class CosmosDbNodeAndNestedOutgoingRelationshipsQuery : IQuery<INodeAndOutRelationshipsAndTheirInRelationships?>
     {
-        //private readonly string _command;
         private readonly string _query;
         private readonly string _id;
         private readonly string _contentType;
-
-        //public CosmosDbNodeAndNestedOutgoingRelationshipsQuery(string command)
-        //{
-        //    _command = command;
-        //}
 
         public CosmosDbNodeAndNestedOutgoingRelationshipsQuery(string query, string id, string contentType)
         {
@@ -40,10 +34,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb.Queries
             get
             {
                 this.CheckIsValid();
-
-                //var parts = _command.Split('|');
-                //var command = parts[0];
-                //var contentTypeValue = parts[1];
 
                 return new Query(_query, _id, _contentType);
             }
