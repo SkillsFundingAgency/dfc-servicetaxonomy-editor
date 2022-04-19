@@ -23,6 +23,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Extensions
             }
             var result = new Dictionary<string, List<string>>();
             var linksDictionary = jobject.ToObject<Dictionary<string, object>>() ?? new Dictionary<string, object>();
+
             foreach (var item in linksDictionary.Where(link => link.Key != "self" && link.Key != "curies"))
             {
                 var list = new List<string>();
