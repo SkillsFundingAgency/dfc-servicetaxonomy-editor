@@ -31,10 +31,9 @@ namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb
         {
             var returnList = new List<T>();
 
-            foreach (var query in queries)
+            foreach (var query in queries.Where(q => q.Query.QueryDefinition != null && q.Query.QueryRequestOptions != null))
             {
-                var contentType = ((string)query.Query.Parameters["ContentType"]).ToLower();
-                var queryList = await _cosmosDbService.QueryContentItemsAsync<T>(databaseName, query.Query.Text, contentType);
+                var queryList = await _cosmosDbService.QueryContentItemsAsync<T>(databaseName, query.Query.QueryDefinition!, query.Query.QueryRequestOptions!);
                 returnList.AddRange(queryList);
             }
 
@@ -59,11 +58,11 @@ namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb
                     case "DeleteRelationships":
                         await DeleteRelationshipsCommand(databaseName, command);
                         break;
-                    case "ReplaceRelationshipsCommand":
-                        await ReplaceRelationshipsCommand(databaseName, command);
-                        break;
                     case "MergeNodeCommand":
                         await MergeNodeCommand(databaseName, command);
+                        break;
+                    case "ReplaceRelationshipsCommand":
+                        await ReplaceRelationshipsCommand(databaseName, command);
                         break;
                     default:
                         throw new NotImplementedException();
@@ -127,15 +126,47 @@ namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb
             }
         }
 
+        private async Task MergeNodeCommand(string databaseName, ICommand command)
+        {
+            var properties = command.Query.Parameters["properties"] as Dictionary<string, object>;
+            if (properties == null || !properties.ContainsKey("uri"))
+            {
+                return;
+            }
+            var itemUri = (string)properties["uri"];
+            (string contentType, Guid id) = DocumentHelper.GetContentTypeAndId(itemUri);
+
+            var item = await _cosmosDbService.GetContentItemFromDatabase(databaseName, contentType, id) ?? new Dictionary<string, object>
+            {
+                { "id", id },
+                { "ContentType", contentType },
+                { "_links", BuildLinksDictionary(itemUri) },
+            };
+
+            foreach ((string? key, object? value) in properties.Where(p => !p.Key.Equals("ContentType")))
+            {
+                if (!item.ContainsKey(key))
+                {
+                    item.Add(key, value);
+                    continue;
+                }
+
+                item[key] = value;
+            }
+
+            await _cosmosDbService.UpdateItemAsync(databaseName, item);
+        }
+
+
         private async Task ReplaceRelationshipsCommand(string databaseName, ICommand command)
         {
             var commandParameters = command.Query.Parameters;
             
             string itemUri = (string)commandParameters["uri"];
             (string contentType, Guid id) = DocumentHelper.GetContentTypeAndId(itemUri);
+            var item = await _cosmosDbService.GetContentItemFromDatabase(databaseName, contentType, id);
             var itemRelationships = (List<CommandRelationship>)commandParameters["relationships"];
 
-            var item = await _cosmosDbService.GetContentItemFromDatabase(databaseName, contentType, id);
 
             await HandleRemovedRelationships(databaseName, item, itemRelationships);
             await HandleAddedRelationships(databaseName, itemRelationships, id, contentType);
@@ -167,7 +198,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb
                 item.Add("_links", itemLinks);
             }
 
-            var relationships = itemRelationships.Select(r => ExtractRelationship(r));
+            var relationships = itemRelationships.Select(ExtractRelationship);
             var keys = relationships.Select(r => r.Item1).Distinct();
             foreach (var key in keys)
             {
@@ -200,37 +231,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb
                 }
             }
             return(relationshipKey, valuesDictionary);
-        }
-
-        private async Task MergeNodeCommand(string databaseName, ICommand command)
-        {
-            var properties = command.Query.Parameters["properties"] as Dictionary<string, object>;
-            if (properties == null || !properties.ContainsKey("uri"))
-            {
-                return;
-            }
-            var itemUri = (string)properties["uri"];
-            (string contentType, Guid id) = DocumentHelper.GetContentTypeAndId(itemUri);
-
-            var item = await _cosmosDbService.GetContentItemFromDatabase(databaseName, contentType, id) ?? new Dictionary<string, object>
-            {
-                { "id", id },
-                { "ContentType", contentType },
-                { "_links", BuildLinksDictionary(itemUri) },
-            };
-
-            foreach ((string? key, object? value) in properties.Where(p => !p.Key.Equals("ContentType")))
-            {
-                if (!item.ContainsKey(key))
-                {
-                    item.Add(key, value);
-                    continue;
-                }
-
-                item[key] = value;
-            }
-
-            await _cosmosDbService.UpdateItemAsync(databaseName, item);
         }
 
         private static string GetRelationshipId(CommandRelationship commandRelationship)
