@@ -133,6 +133,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb
             {
                 return;
             }
+
             var itemUri = (string)properties["uri"];
             (string contentType, Guid id) = DocumentHelper.GetContentTypeAndId(itemUri);
 
@@ -161,12 +162,11 @@ namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb
         private async Task ReplaceRelationshipsCommand(string databaseName, ICommand command)
         {
             var commandParameters = command.Query.Parameters;
-            
+
             string itemUri = (string)commandParameters["uri"];
             (string contentType, Guid id) = DocumentHelper.GetContentTypeAndId(itemUri);
             var item = await _cosmosDbService.GetContentItemFromDatabase(databaseName, contentType, id);
             var itemRelationships = (List<CommandRelationship>)commandParameters["relationships"];
-
 
             await HandleRemovedRelationships(databaseName, item, itemRelationships);
             await HandleAddedRelationships(databaseName, itemRelationships, id, contentType);
@@ -200,6 +200,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb
 
             var relationships = itemRelationships.Select(ExtractRelationship);
             var keys = relationships.Select(r => r.Item1).Distinct();
+
             foreach (var key in keys)
             {
                 var keyValues = relationships.Where(r => r.Item1 == key).Select(r => r.Item2).ToArray();
@@ -219,9 +220,13 @@ namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb
 
         private static (string, JObject) ExtractRelationship(CommandRelationship relationship)
         {
-            var relationshipKey = $"cont:{relationship.RelationshipType}";
-            var valuesDictionary = new JObject();
-            valuesDictionary.Add(new JProperty("href", ((string)relationship.DestinationNodeIdPropertyValues.FirstOrDefault()!).ExtactCurieHref()));
+            string relationshipKey = $"cont:{relationship.RelationshipType}";
+
+            var valuesDictionary = new JObject
+            {
+                new JProperty("href", ((string)relationship.DestinationNodeIdPropertyValues.FirstOrDefault()!).ExtactCurieHref()),
+                new JProperty("contentType", relationship.DestinationNodeLabels.First(lab => lab != "Resource"))
+            };
 
             if (relationship.Properties != null)
             {
@@ -230,7 +235,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb
                     valuesDictionary.Add(new JProperty(key, value));
                 }
             }
-            return(relationshipKey, valuesDictionary);
+
+            return (relationshipKey, valuesDictionary);
         }
 
         private static string GetRelationshipId(CommandRelationship commandRelationship)
