@@ -59,7 +59,19 @@ namespace DFC.ServiceTaxonomy.GraphSync.JsonConverters
                 return null;
             }
 
-            return new Subgraph(nodes, incomingRelationships);
+            return new Subgraph(
+                nodes,
+                incomingRelationships,
+                new StandardNode
+                {
+                    Labels = new List<string> { dataContentType, "Resource" },
+                    Properties = new Dictionary<string, object>
+                    {
+                        { "ContentType", dataContentType },
+                        { "id", dataId },
+                    },
+                    Id = endNodeId
+                });
         }
 
         private List<Dictionary<string, object>> GetIncomingList(Dictionary<string, object> links)

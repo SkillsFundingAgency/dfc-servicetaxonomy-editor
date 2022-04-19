@@ -402,7 +402,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb.GraphSyncers
                 }
             }
 
-            return (true, "");
+            return (true, string.Empty);
         }
 
         private async Task<(bool validated, string failureReason)> ValidateDeletedContentItem(
