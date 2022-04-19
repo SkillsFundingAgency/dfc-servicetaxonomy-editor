@@ -31,11 +31,10 @@ namespace DFC.ServiceTaxonomy.GraphSync.Models
 
         public Query(string id, string contentType)
         {
-            QueryDefinition = new QueryDefinition("SELECT * FROM c WHERE c.id = '@id0'");
+            QueryDefinition = new QueryDefinition("SELECT * FROM c WHERE c.id = @id0");
             QueryDefinition.WithParameter("@id0", id);
             QueryRequestOptions = new QueryRequestOptions { PartitionKey = new PartitionKey(contentType) };
         }
-
 
         /// <summary>
         /// Create a query with no query parameters.
@@ -58,7 +57,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.Models
             Text = text;
             Parameters = parameters;
         }
-
 
         /// <summary>
         /// Print the query.
