@@ -8,7 +8,7 @@ using DFC.ServiceTaxonomy.GraphSync.Models;
 
 namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb
 {
-    public class CosmosDbSubgraphQuery : IQuery<ISubgraph>
+    public class CosmosDbSubgraphQuery : IQuery<Subgraph>
     {
         public const string? RelationshipFilterNone = null;
         public const string RelationshipFilterIncoming = "<";
@@ -98,7 +98,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb
              }
         }
 
-        public ISubgraph ProcessRecord(IRecord record)
+        public Subgraph ProcessRecord(IRecord record)
         {
             var nodes = ((List<object>)record["nodes"]).Cast<INode>();
 

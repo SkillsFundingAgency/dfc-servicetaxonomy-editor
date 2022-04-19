@@ -262,8 +262,9 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
                 nodeWithRelationships.OutgoingRelationships
                     .SingleOrDefault(r =>
                      r.Type == relationshipType
-                     && Equals(nodeWithRelationships.Nodes.First(n => n.Id == r.EndNodeId)
-                         .Properties[destinationIdPropertyName], destinationId));
+                     && destinationId.ToString()!.EndsWith(
+                         nodeWithRelationships.Nodes.First(n => n.Id == r.EndNodeId)
+                             .Properties[destinationIdPropertyName].ToString()!));
 
             if (outgoingRelationship == null)
                 return (false, $"{RelationshipDescription(relationshipType, destinationIdPropertyName, destinationId)} not found");
@@ -293,7 +294,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
             if (properties != null && !AreEqual(properties, incomingRelationship.Properties))
                 return (false, $"{IncomingRelationshipDescription(relationshipType, destinationIdPropertyName, destinationId)} has incorrect properties. expecting {properties.ToCypherPropertiesString()}, found {incomingRelationship.Properties.ToCypherPropertiesString()}");
 
-            return (true, "");
+            return (true, string.Empty);
         }
 
         private string RelationshipDescription(string relationshipType, string destinationIdPropertyName, object destinationId)
