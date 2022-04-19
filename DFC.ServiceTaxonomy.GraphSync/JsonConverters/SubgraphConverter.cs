@@ -51,7 +51,10 @@ namespace DFC.ServiceTaxonomy.GraphSync.JsonConverters
                         Type = link.Key.Replace("cont:", string.Empty),
                         StartNodeId = idAsNumber,
                         EndNodeId = endNodeId,
-                        Id = relationshipId
+                        Id = relationshipId,
+                        Properties = linkDictionary
+                            .Where(pair => pair.Key != "href")
+                            .ToDictionary(pair => pair.Key, pair => pair.Value)
                     });
 
                     nodes.Add(new StandardNode
