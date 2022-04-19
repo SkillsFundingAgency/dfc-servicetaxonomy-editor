@@ -20,7 +20,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb.Queries
         public CosmosDbNodeAndNestedOutgoingRelationshipsQuery(string query, string parameterKey, string parameterValue, string contentType)
         {
             _query = query;
-            _parameterKey = parameterValue;
+            _parameterKey = parameterKey;
             _parameterValue = parameterValue;
             _contentType = contentType.ToLower();
         }
