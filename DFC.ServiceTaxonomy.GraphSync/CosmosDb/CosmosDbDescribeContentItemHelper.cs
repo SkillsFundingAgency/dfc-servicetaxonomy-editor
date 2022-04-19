@@ -11,7 +11,6 @@ using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Helpers;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Items;
 using DFC.ServiceTaxonomy.GraphSync.Helpers;
 using DFC.ServiceTaxonomy.GraphSync.Interfaces;
-using DFC.ServiceTaxonomy.GraphSync.Models;
 using DFC.ServiceTaxonomy.GraphSync.Settings;
 using Microsoft.Extensions.Options;
 using OrchardCore.ContentManagement;
@@ -38,30 +37,20 @@ namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb
 
         public async Task<IEnumerable<IQuery<object?>>> GetRelationshipCommands(IDescribeRelationshipsContext context)
         {
-            var currentList = new List<ContentItemRelationship>();
+            var currentList = new List<(string id, string contentType)>();
             var allRelationships = (await GetRelationships(context, currentList)).ToList();
 
             if (!allRelationships.Any())
             {
                 (_, var id) = DocumentHelper.GetContentTypeAndId(context.SourceNodeId);
                 var type = context.SourceNodeLabels.First(snl => !snl.Equals("Resource"));
-
-                allRelationships.Add(new ContentItemRelationship(
-                    context.SourceNodeLabels,
-                    $"has{type}",
-                    context.SourceNodeLabels)
-                {
-                    RelationshipPathString = $"select * from c where c.id = '{id}'|{type}"
-                });
+                allRelationships.Add((id.ToString(), type));
             }
 
-            var uniqueCommands = allRelationships
-                .Select(relationship => relationship.RelationshipPathString)
-                .GroupBy(relationshipPathString => relationshipPathString)
-                .Select(relationshipPathStringGroup => relationshipPathStringGroup.First());
+            var uniqueCommands = allRelationships.Distinct();
 
             return uniqueCommands
-                .Select(c => new CosmosDbNodeAndNestedOutgoingRelationshipsQuery(c!)).Cast<IQuery<object?>>().ToList();
+                .Select(c => new CosmosDbNodeAndNestedOutgoingRelationshipsQuery("SELECT * FROM c WHERE c.id = @id0", "@id0", c.id, c.contentType)).Cast<IQuery<object?>>().ToList();
         }
 
         //todo: contentmanager
@@ -144,25 +133,18 @@ namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb
         }
 
         //todo: move any cypher generation into a query
-        private static async Task<IEnumerable<ContentItemRelationship>> GetRelationships(
-            IDescribeRelationshipsContext context,
-            List<ContentItemRelationship> currentList)
+        private static async Task<IEnumerable<(string id, string contentType)>> GetRelationships(IDescribeRelationshipsContext context, List<(string id, string contentType)> currentList)
         {
             foreach (var child in context.AvailableRelationships)
             {
                 (_, var id) = DocumentHelper.GetContentTypeAndId(context.SourceNodeId);
-                var type = context.SourceNodeLabels.First(snl => !snl.Equals("Resource"));
-
-                child.RelationshipPathString = $"select * from c where c.id = '{id}'|{type}";
+                var contentType = context.SourceNodeLabels.First(snl => !snl.Equals("Resource"));
+                currentList.Add((id.ToString(), contentType));
             }
-
-            currentList.AddRange(context.AvailableRelationships);
-
             foreach (var childContext in context.ChildContexts)
             {
                 await GetRelationships((IDescribeRelationshipsContext)childContext, currentList);
             }
-
             return currentList;
         }
     }

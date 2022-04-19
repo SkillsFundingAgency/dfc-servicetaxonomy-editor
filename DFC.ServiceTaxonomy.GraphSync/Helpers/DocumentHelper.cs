@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
 using Newtonsoft.Json.Linq;
 
 namespace DFC.ServiceTaxonomy.GraphSync.Helpers
@@ -66,34 +65,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.Helpers
             }
 
             return dictionary;
-        }
-
-        public static List<Dictionary<string, object>> SafeObjectArrayCastToDictionaryList(object? value)
-        {
-            var returnList = new List<Dictionary<string, object>>();
-            if (value == null)
-            {
-                throw new ArgumentNullException(nameof(value));
-            }
-
-            if (value is JObject valObj)
-            {
-                returnList.Add(valObj.ToObject<Dictionary<string, object>>()!);
-            }
-            else if (value is JArray jArray)
-            {
-                returnList.AddRange(jArray.Select(jToken => ((JObject)jToken).ToObject<Dictionary<string, object>>()!));
-            }
-            else if (value is Dictionary<string, object> dictionary)
-            {
-                returnList.Add(dictionary);
-            }
-            else
-            {
-                throw new ArgumentException($"Didn't expect type {value.GetType().Name}");
-            }
-
-            return returnList;
         }
 
         public static bool CanCastToList(object? value)

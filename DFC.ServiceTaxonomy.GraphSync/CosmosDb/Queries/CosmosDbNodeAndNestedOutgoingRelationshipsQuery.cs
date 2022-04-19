@@ -12,11 +12,17 @@ namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb.Queries
     //todo: move generic queries into neo4j
     public class CosmosDbNodeAndNestedOutgoingRelationshipsQuery : IQuery<INodeAndOutRelationshipsAndTheirInRelationships?>
     {
-        private readonly string _command;
+        private readonly string _query;
+        private readonly string _parameterKey;
+        private readonly string _parameterValue;
+        private readonly string _contentType;
 
-        public CosmosDbNodeAndNestedOutgoingRelationshipsQuery(string command)
+        public CosmosDbNodeAndNestedOutgoingRelationshipsQuery(string query, string parameterKey, string parameterValue, string contentType)
         {
-            _command = command;
+            _query = query;
+            _parameterKey = parameterValue;
+            _parameterValue = parameterValue;
+            _contentType = contentType.ToLower();
         }
 
         public List<string> ValidationErrors()
@@ -30,43 +36,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb.Queries
             {
                 this.CheckIsValid();
 
-                return BuildCommand();
+                return new Query(_query, _parameterKey, _parameterValue, _contentType);
             }
-        }
-
-        private Query BuildCommand()
-        {
-            /*
-            var withStringBuilder = new StringBuilder();
-
-            int currentDepth = 0;
-            //todo: brittle
-            int depthCount = (Regex.Matches(_command, "d[0-9]+:").Count)-1;
-
-            List<string> collectClauses = new List<string>();
-            List<string> relationshipClauses = new List<string>();
-
-            while (currentDepth <= depthCount)
-            {
-                //todo: destinationIncomingRelationships
-                relationshipClauses.Add($"{{destNode: d{currentDepth}, relationship: r{currentDepth}, destinationIncomingRelationships:collect({{destIncomingRelationship:'todo',  destIncomingRelSource:'todo'}})}} as dr{currentDepth}RelationshipDetails");
-
-                collectClauses.Add($"collect(dr{currentDepth}RelationshipDetails)");
-                currentDepth++;
-            }
-
-            withStringBuilder.AppendLine($"with s,{string.Join(',', relationshipClauses)}");
-            withStringBuilder.AppendLine($"with {{sourceNode: s, outgoingRelationships: {string.Join('+', collectClauses)}}} as nodeAndOutRelationshipsAndTheirInRelationships");
-            withStringBuilder.AppendLine("return nodeAndOutRelationshipsAndTheirInRelationships");
-
-            return new Query($"{_command} {withStringBuilder}");
-            */
-
-            var parts = _command.Split('|');
-            var command = parts[0];
-            var contentTypeValue = parts[1];
-
-            return new Query(command, new Dictionary<string, object> { { "ContentType", contentTypeValue } });
         }
 
         public INodeAndOutRelationshipsAndTheirInRelationships? ProcessRecord(IRecord record)

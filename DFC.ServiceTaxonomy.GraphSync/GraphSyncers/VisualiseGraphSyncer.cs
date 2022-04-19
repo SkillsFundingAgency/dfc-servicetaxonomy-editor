@@ -419,8 +419,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
         {
             var detailCommand = new List<IQuery<object?>>
             {
-                new CosmosDbNodeAndNestedOutgoingRelationshipsQuery(
-                    $"select * from c where c.id in ({string.Join(',', ids)})|{contentType}")
+                new CosmosDbNodeAndNestedOutgoingRelationshipsQuery("SELECT * FROM c WHERE c.id in (@idList0)", "@idList0", string.Join(',', ids), contentType)
             }.ToArray();
 
             return _neoGraphCluster.Run(graphName, detailCommand);

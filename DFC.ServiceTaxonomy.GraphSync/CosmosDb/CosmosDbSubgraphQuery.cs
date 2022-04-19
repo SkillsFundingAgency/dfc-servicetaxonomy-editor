@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using DFC.ServiceTaxonomy.GraphSync.Extensions;
+using DFC.ServiceTaxonomy.GraphSync.Helpers;
 using DFC.ServiceTaxonomy.GraphSync.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.Models;
 
@@ -72,6 +74,10 @@ namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb
                 validationErrors.Add("At least one NodeLabel must be provided.");
             }
 
+            if (!(IdPropertyValue is string) && string.IsNullOrEmpty((string)IdPropertyValue))
+            {
+                validationErrors.Add("IdPropertyValue must be provided.");
+            }
             if (MaxPathLength < 0)
             {
                 validationErrors.Add("MaxPathLength must not be negative.");
@@ -86,29 +92,10 @@ namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb
             {
                 this.CheckIsValid();
 
-                var contentTypes = string.Join(",",
-                    NodeLabels.Where(nodeLabel => !nodeLabel.Equals("Resource", System.StringComparison.InvariantCultureIgnoreCase)).ToArray());
-
-                var parameters = new Dictionary<string, object?>
-                {
-                    {"maxLevel", MaxPathLength},
-                    {"idPropertyValue", IdPropertyValue},
-                    {"relationshipFilter", RelationshipFilter},
-                    {"ContentType", contentTypes }
-                };
-
-#pragma warning disable IDE0008 // Use explicit type
-#pragma warning disable CS8602 // Dereference of a possibly null reference.
-                var id = IdPropertyValue.ToString().Split('/')[IdPropertyValue.ToString().Split('/').Length - 1];
-#pragma warning restore CS8602 // Dereference of a possibly null reference.
-#pragma warning restore IDE0008 // Use explicit type
-
-#pragma warning disable CS8620 // Argument cannot be used for parameter due to differences in the nullability of reference types.
-                return new Query(
-                    @$"select * from c where c.id = '{id}'",
-                    parameters);
-#pragma warning restore CS8620 // Argument cannot be used for parameter due to differences in the nullability of reference types.
-            }
+                var contentType = NodeLabels.First(nodeLabel => !nodeLabel.Equals("Resource", StringComparison.InvariantCultureIgnoreCase)).ToLower();
+                (_, var id) = DocumentHelper.GetContentTypeAndId((string)IdPropertyValue);
+                return new Query(id.ToString(), contentType);
+             }
         }
 
         public ISubgraph ProcessRecord(IRecord record)
