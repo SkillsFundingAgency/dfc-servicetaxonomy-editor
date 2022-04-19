@@ -35,30 +35,39 @@ namespace DFC.ServiceTaxonomy.GraphSync.JsonConverters
 
             if (links != null)
             {
-                foreach ((string? key, object? value) in links.Where(x => x.Key != "self" && x.Key != "curies"))
+                foreach ((string? key, object? value) in links.Where(link => link.Key != "self" && link.Key != "curies"))
                 {
-                    Dictionary<string, object> linkDictionary = SafeCastToDictionary(value);
-                    string linkHref = (string)linkDictionary["href"];
-                    (string linkContentType, Guid linkId) = GetContentTypeAndId(linkHref);
+                    List<Dictionary<string, object>> linkDictionaries = CanCastToList(value) ?
+                        SafeCastToList(value) :
+                        new List<Dictionary<string, object>> { SafeCastToDictionary(value) };
 
-                    int endNodeId = UniqueNumberHelper.GetNumber(GetAsString(linkId));
-
-                    var relationship = new StandardRelationship
+                    foreach (var linkDictionary in linkDictionaries)
                     {
-                        Type = key.Replace("cont:", string.Empty),
-                        StartNodeId = startNodeId,
-                        EndNodeId = endNodeId,
-                        Id = UniqueNumberHelper.GetNumber(GetAsString(linkId) + GetAsString(parentId))
-                    };
+                        string linkHref = (string)linkDictionary["href"];
+                        (string linkContentType, Guid linkId) = GetContentTypeAndId(linkHref);
 
-                    var relationshipNode = new StandardNode
-                    {
-                        Id = endNodeId,
-                        Labels = new List<string> { linkContentType, "Resource" },
-                        Properties = new Dictionary<string, object> {{ "uri", linkHref }, { "contentType", linkContentType }}
-                    };
+                        int endNodeId = UniqueNumberHelper.GetNumber(GetAsString(linkId));
 
-                    relationships.Add((relationship, relationshipNode));
+                        var relationship = new StandardRelationship
+                        {
+                            Type = key.Replace("cont:", string.Empty),
+                            StartNodeId = startNodeId,
+                            EndNodeId = endNodeId,
+                            Id = UniqueNumberHelper.GetNumber(GetAsString(linkId) + GetAsString(parentId))
+                        };
+
+                        var relationshipNode = new StandardNode
+                        {
+                            Id = endNodeId,
+                            Labels = new List<string> {linkContentType, "Resource"},
+                            Properties = new Dictionary<string, object>
+                            {
+                                {"uri", linkHref}, {"contentType", linkContentType}
+                            }
+                        };
+
+                        relationships.Add((relationship, relationshipNode));
+                    }
                 }
             }
 
