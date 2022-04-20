@@ -87,7 +87,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb
             foreach (string contentType in contentTypes.Where(ct => !string.IsNullOrEmpty(ct)))
             {
                 var resultList =
-                    await _cosmosDbService.QueryContentItemsAsync<Dictionary<string, object>>(databaseName, "select * from c",
+                    await _cosmosDbService.QueryContentItemsAsync<Dictionary<string, object>>(databaseName, "SELECT * FROM c",
                         contentType);
 
                 foreach (var item in resultList)

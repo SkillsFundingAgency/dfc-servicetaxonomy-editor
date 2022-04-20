@@ -1,9 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using DFC.ServiceTaxonomy.GraphSync.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.Models;
 using DFC.ServiceTaxonomy.GraphSync.Exceptions;
 using DFC.ServiceTaxonomy.GraphSync.Extensions;
+using DFC.ServiceTaxonomy.GraphSync.Helpers;
 using DFC.ServiceTaxonomy.GraphSync.Interfaces.Queries;
 
 namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb.Queries
@@ -46,25 +48,11 @@ namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb.Queries
             {
                 this.CheckIsValid();
 
-                var contentTypes = string.Join(",",
-                    NodeLabels.Where(nodeLabel => !nodeLabel.Equals("Resource", System.StringComparison.InvariantCultureIgnoreCase)).ToArray());
+                (_, Guid id) = DocumentHelper.GetContentTypeAndId(IdPropertyValue?.ToString() ?? string.Empty);
 
-                var parameters = new Dictionary<string, object?>
-                {
-                    {"ContentType", contentTypes }
-                };
+                var contentType = NodeLabels.First(nodeLabel => !nodeLabel.Equals("Resource", StringComparison.InvariantCultureIgnoreCase));
 
-#pragma warning disable IDE0008 // Use explicit type
-#pragma warning disable CS8602 // Dereference of a possibly null reference.
-                var id = IdPropertyValue.ToString().Split('/')[IdPropertyValue.ToString().Split('/').Length - 1];
-#pragma warning restore CS8602 // Dereference of a possibly null reference.
-#pragma warning restore IDE0008 // Use explicit type
-
-#pragma warning disable CS8620 // Argument cannot be used for parameter due to differences in the nullability of reference types.
-                return new Query(
-                    @$"select * from c where c.id = '{id}'",
-                    parameters);
-#pragma warning restore CS8620 // Argument cannot be used for parameter due to differences in the nullability of reference types.
+                return new Query(id.ToString(), contentType);
             }
         }
 
