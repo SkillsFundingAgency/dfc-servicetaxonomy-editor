@@ -1,5 +1,5 @@
 ﻿using System;
-using DFC.ServiceTaxonomy.GraphSync.Models;
+using DFC.ServiceTaxonomy.DataSync.Models;
 
 namespace DFC.ServiceTaxonomy.JobProfiles.Module.Extensions
 {

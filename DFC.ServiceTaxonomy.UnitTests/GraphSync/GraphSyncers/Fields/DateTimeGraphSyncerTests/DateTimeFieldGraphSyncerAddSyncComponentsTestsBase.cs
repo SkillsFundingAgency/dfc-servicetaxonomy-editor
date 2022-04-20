@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields;
+using DFC.ServiceTaxonomy.DataSync.DataSyncers.Fields;
 using Newtonsoft.Json.Linq;
 using Xunit;
 
@@ -12,7 +12,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Fields.DateTimeFi
     {
         public DateTimeFieldGraphSyncerAddSyncComponentsTestsBase()
         {
-            ContentFieldGraphSyncer = new DateTimeFieldGraphSyncer();
+            ContentFieldGraphSyncer = new DateTimeFieldDataSyncer();
         }
 
         [Fact]

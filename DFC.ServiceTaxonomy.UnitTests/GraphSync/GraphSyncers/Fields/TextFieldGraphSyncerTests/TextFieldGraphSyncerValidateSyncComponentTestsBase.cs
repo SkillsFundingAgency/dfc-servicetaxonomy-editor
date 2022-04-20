@@ -1,5 +1,5 @@
 ﻿using System.Threading.Tasks;
-using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields;
+using DFC.ServiceTaxonomy.DataSync.DataSyncers.Fields;
 using FakeItEasy;
 using Newtonsoft.Json.Linq;
 using Xunit;
@@ -12,7 +12,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Fields.TextFieldG
 
         public TextFieldGraphSyncerValidateSyncComponentTestsBase()
         {
-            ContentFieldGraphSyncer = new TextFieldGraphSyncer();
+            ContentFieldGraphSyncer = new TextFieldDataSyncer();
         }
 
         [Theory]
@@ -20,7 +20,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Fields.TextFieldG
         [InlineData(false, false)]
         public async Task ValidateSyncComponentTests(bool expected, bool stringContentPropertyMatchesNodePropertyReturns)
         {
-            A.CallTo(() => GraphValidationHelper.StringContentPropertyMatchesNodeProperty(
+            A.CallTo(() => DataSyncValidationHelper.StringContentPropertyMatchesNodeProperty(
                 ContentKey,
                 A<JObject>._,
                 FieldNameTransformed,

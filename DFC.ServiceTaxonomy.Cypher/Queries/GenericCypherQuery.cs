@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using DFC.ServiceTaxonomy.GraphSync.Interfaces;
-using DFC.ServiceTaxonomy.GraphSync.Models;
+using DFC.ServiceTaxonomy.DataSync.Interfaces;
+using DFC.ServiceTaxonomy.DataSync.Models;
 
 namespace DFC.ServiceTaxonomy.Cypher.Queries
 {

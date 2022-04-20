@@ -2,14 +2,14 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading.Tasks;
-using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers;
-using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
-using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.ContentItemVersions;
-using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Results.AllowSync;
-using DFC.ServiceTaxonomy.GraphSync.Handlers.Interfaces;
-using DFC.ServiceTaxonomy.GraphSync.Notifications;
-using DFC.ServiceTaxonomy.GraphSync.Orchestrators;
-using DFC.ServiceTaxonomy.GraphSync.Services;
+using DFC.ServiceTaxonomy.DataSync.DataSyncers.Helpers;
+using DFC.ServiceTaxonomy.DataSync.DataSyncers.Interfaces;
+using DFC.ServiceTaxonomy.DataSync.DataSyncers.Interfaces.ContentItemVersions;
+using DFC.ServiceTaxonomy.DataSync.DataSyncers.Interfaces.Results.AllowSync;
+using DFC.ServiceTaxonomy.DataSync.Handlers.Interfaces;
+using DFC.ServiceTaxonomy.DataSync.Notifications;
+using DFC.ServiceTaxonomy.DataSync.Orchestrators;
+using DFC.ServiceTaxonomy.DataSync.Services;
 using FakeItEasy;
 using Microsoft.Extensions.Logging;
 using OrchardCore.ContentManagement;
@@ -23,15 +23,15 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.Orchestrators
         protected abstract SyncOperation SyncOperation { get; }
         public DeleteOrchestrator DeleteOrchestrator { get; set; }
         public IContentDefinitionManager ContentDefinitionManager { get; set; }
-        public IGraphSyncNotifier Notifier { get; set; }
+        public IDataSyncNotifier Notifier { get; set; }
         public IPublishedContentItemVersion PublishedContentItemVersion { get; set; }
         public IPreviewContentItemVersion PreviewContentItemVersion { get; set; }
         public IServiceProvider ServiceProvider { get; set; }
         public ILogger<DeleteOrchestrator> Logger { get; set; }
 
         public ContentItem ContentItem { get; set; }
-        public IDeleteGraphSyncer PreviewDeleteGraphSyncer { get; set; }
-        public IDeleteGraphSyncer PublishedDeleteGraphSyncer { get; set; }
+        public IDeleteDataSyncer PreviewDeleteDataSyncer { get; set; }
+        public IDeleteDataSyncer PublishedDeleteDataSyncer { get; set; }
         public IAllowSync PreviewAllowSync { get; set; }
         public IAllowSync PublishedAllowSync { get; set; }
         public IContentManager ContentManager { get; set; }
@@ -41,15 +41,15 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.Orchestrators
         protected DeleteOrchestratorTestsBase()
         {
             ContentDefinitionManager = A.Fake<IContentDefinitionManager>();
-            Notifier = A.Fake<GraphSyncNotifier>();
+            Notifier = A.Fake<DataSyncNotifier>();
 
             PublishedContentItemVersion = A.Fake<IPublishedContentItemVersion>();
-            A.CallTo(() => PublishedContentItemVersion.GraphReplicaSetName)
-                .Returns(GraphReplicaSetNames.Published);
+            A.CallTo(() => PublishedContentItemVersion.DataSyncReplicaSetName)
+                .Returns(DataSyncReplicaSetNames.Published);
 
             PreviewContentItemVersion = A.Fake<IPreviewContentItemVersion>();
-            A.CallTo(() => PreviewContentItemVersion.GraphReplicaSetName)
-                .Returns(GraphReplicaSetNames.Preview);
+            A.CallTo(() => PreviewContentItemVersion.DataSyncReplicaSetName)
+                .Returns(DataSyncReplicaSetNames.Preview);
 
             ServiceProvider = A.Fake<IServiceProvider>();
             Logger = A.Fake<ILogger<DeleteOrchestrator>>();
@@ -61,22 +61,22 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.Orchestrators
                     t => t.Name == nameof(IContentManager))))
                 .Returns(ContentManager);
 
-            PreviewDeleteGraphSyncer = A.Fake<IDeleteGraphSyncer>();
-            PublishedDeleteGraphSyncer = A.Fake<IDeleteGraphSyncer>();
+            PreviewDeleteDataSyncer = A.Fake<IDeleteDataSyncer>();
+            PublishedDeleteDataSyncer = A.Fake<IDeleteDataSyncer>();
 
             PreviewAllowSync = A.Fake<IAllowSync>();
-            A.CallTo(() => PreviewDeleteGraphSyncer.DeleteAllowed(
+            A.CallTo(() => PreviewDeleteDataSyncer.DeleteAllowed(
                     A<ContentItem>._,
-                    A<IContentItemVersion>.That.Matches(v => v.GraphReplicaSetName == GraphReplicaSetNames.Preview),
+                    A<IContentItemVersion>.That.Matches(v => v.DataSyncReplicaSetName == DataSyncReplicaSetNames.Preview),
                     SyncOperation,
                     null,
                     null))
                 .Returns(PreviewAllowSync);
 
             PublishedAllowSync = A.Fake<IAllowSync>();
-            A.CallTo(() => PublishedDeleteGraphSyncer.DeleteAllowed(
+            A.CallTo(() => PublishedDeleteDataSyncer.DeleteAllowed(
                     A<ContentItem>._,
-                    A<IContentItemVersion>.That.Matches(v => v.GraphReplicaSetName == GraphReplicaSetNames.Published),
+                    A<IContentItemVersion>.That.Matches(v => v.DataSyncReplicaSetName == DataSyncReplicaSetNames.Published),
                     SyncOperation,
                     null,
                     null))

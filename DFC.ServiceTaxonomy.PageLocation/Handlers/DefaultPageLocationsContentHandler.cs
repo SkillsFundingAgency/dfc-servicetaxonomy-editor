@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
-using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers;
-using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
-using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.ContentItemVersions;
-using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Results.AllowSync;
-using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Results.AllowSync;
-using DFC.ServiceTaxonomy.GraphSync.Interfaces;
+using DFC.ServiceTaxonomy.DataSync.DataSyncers.Helpers;
+using DFC.ServiceTaxonomy.DataSync.DataSyncers.Interfaces;
+using DFC.ServiceTaxonomy.DataSync.DataSyncers.Interfaces.ContentItemVersions;
+using DFC.ServiceTaxonomy.DataSync.DataSyncers.Interfaces.Results.AllowSync;
+using DFC.ServiceTaxonomy.DataSync.DataSyncers.Results.AllowSync;
+using DFC.ServiceTaxonomy.DataSync.Interfaces;
 using DFC.ServiceTaxonomy.PageLocation.Indexes;
 using Microsoft.AspNetCore.Mvc.Localization;
 using Microsoft.Extensions.DependencyInjection;
@@ -23,16 +23,16 @@ namespace DFC.ServiceTaxonomy.PageLocation.Handlers
     {
         private readonly IServiceProvider _serviceProvider;
         private readonly ISession _session;
-        private readonly IGraphCluster _graphCluster;
+        private readonly IDataSyncCluster _dataSyncCluster;
         private readonly IPreviewContentItemVersion _previewContentItemVersion;
         private readonly INotifier _notifier;
         private readonly ILogger<DefaultPageLocationsContentHandler> _logger;
 
-        public DefaultPageLocationsContentHandler(IServiceProvider serviceProvider, ISession session, IGraphCluster graphCluster, IPreviewContentItemVersion previewContentItemVersion, INotifier notifier, ILogger<DefaultPageLocationsContentHandler> logger)
+        public DefaultPageLocationsContentHandler(IServiceProvider serviceProvider, ISession session, IDataSyncCluster dataSyncCluster, IPreviewContentItemVersion previewContentItemVersion, INotifier notifier, ILogger<DefaultPageLocationsContentHandler> logger)
         {
             _serviceProvider = serviceProvider;
             _session = session;
-            _graphCluster = graphCluster;
+            _dataSyncCluster = dataSyncCluster;
             _previewContentItemVersion = previewContentItemVersion;
             _notifier = notifier;
             _logger = logger;
@@ -94,20 +94,20 @@ namespace DFC.ServiceTaxonomy.PageLocation.Handlers
             // sonar can't see that the set value could be used in the event of an exception
             #pragma warning disable S1854
             AllowSyncResult allowSyncResult = AllowSyncResult.Blocked;
-            string message = $"Unable to sync '{contentItem.DisplayText}' Page to {GraphReplicaSetNames.Preview} graph(s).";
+            string message = $"Unable to sync '{contentItem.DisplayText}' Page to {DataSyncReplicaSetNames.Preview} graph(s).";
 
             try
             {
-                IMergeGraphSyncer mergeGraphSyncer = _serviceProvider.GetRequiredService<IMergeGraphSyncer>();
+                IMergeDataSyncer mergeDataSyncer = _serviceProvider.GetRequiredService<IMergeDataSyncer>();
                 IContentManager contentManager = _serviceProvider.GetRequiredService<IContentManager>();
-                IAllowSync allowSync = await mergeGraphSyncer.SyncToGraphReplicaSetIfAllowed(
-                    _graphCluster.GetGraphReplicaSet(GraphReplicaSetNames.Preview), contentItem, contentManager);
+                IAllowSync allowSync = await mergeDataSyncer.SyncToDataSyncReplicaSetIfAllowed(
+                    _dataSyncCluster.GetDataSyncReplicaSet(DataSyncReplicaSetNames.Preview), contentItem, contentManager);
                 allowSyncResult = allowSync.Result;
             }
             catch (Exception exception)
             {
-                _logger.LogError(exception, "Unable to sync '{ContentItemDisplayText}' Page to {GraphReplicaSetName} graph(s).",
-                    contentItem.DisplayText, GraphReplicaSetNames.Preview);
+                _logger.LogError(exception, "Unable to sync '{ContentItemDisplayText}' Page to {DataSyncReplicaSetName} graph(s).",
+                    contentItem.DisplayText, DataSyncReplicaSetNames.Preview);
             }
 
             if (allowSyncResult == AllowSyncResult.Blocked)

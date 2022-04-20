@@ -1,5 +1,5 @@
 ﻿using System.Threading.Tasks;
-using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts;
+using DFC.ServiceTaxonomy.DataSync.DataSyncers.Parts;
 using FakeItEasy;
 using Newtonsoft.Json.Linq;
 using Xunit;
@@ -13,7 +13,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Parts.UnpublishLa
 
         public UnpublishLaterPartGraphSyncerValidateSyncComponentTestsBase()
         {
-            ContentPartGraphSyncer = new UnpublishLaterPartGraphSyncer();
+            ContentPartGraphSyncer = new UnpublishLaterPartDataSyncer();
         }
 
         [Theory]
@@ -21,7 +21,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Parts.UnpublishLa
         [InlineData(false, false)]
         public async Task ValidateSyncComponentTests(bool expected, bool stringContentPropertyMatchesNodePropertyReturns)
         {
-            A.CallTo(() => GraphValidationHelper.DateTimeContentPropertyMatchesNodeProperty(
+            A.CallTo(() => DataSyncValidationHelper.DateTimeContentPropertyMatchesNodeProperty(
                 ContentKey,
                 A<JObject>._,
                 NodeTitlePropertyName,

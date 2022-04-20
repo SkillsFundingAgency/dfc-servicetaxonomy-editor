@@ -53,8 +53,8 @@
     <ProjectReference Include="..\DFC.ServiceTaxonomy.CustomEditor\DFC.ServiceTaxonomy.CustomEditor.csproj" />
     <ProjectReference Include="..\DFC.ServiceTaxonomy.Cypher\DFC.ServiceTaxonomy.Cypher.csproj" />
     <ProjectReference Include="..\DFC.ServiceTaxonomy.CustomFields\DFC.ServiceTaxonomy.CustomFields.csproj" />
+    <ProjectReference Include="..\DFC.ServiceTaxonomy.DataSync\DFC.ServiceTaxonomy.DataSync.csproj" />
     <ProjectReference Include="..\DFC.ServiceTaxonomy.Events\DFC.ServiceTaxonomy.Events.csproj" />
-    <ProjectReference Include="..\DFC.ServiceTaxonomy.GraphSync\DFC.ServiceTaxonomy.GraphSync.csproj" />
     <ProjectReference Include="..\DFC.ServiceTaxonomy.GraphVisualiser\DFC.ServiceTaxonomy.GraphVisualiser.csproj" />
     <ProjectReference Include="..\DFC.ServiceTaxonomy.JobProfiles.Module\DFC.ServiceTaxonomy.JobProfiles.Module.csproj" />
     <ProjectReference Include="..\DFC.ServiceTaxonomy.PageLocation\DFC.ServiceTaxonomy.PageLocation.csproj" />

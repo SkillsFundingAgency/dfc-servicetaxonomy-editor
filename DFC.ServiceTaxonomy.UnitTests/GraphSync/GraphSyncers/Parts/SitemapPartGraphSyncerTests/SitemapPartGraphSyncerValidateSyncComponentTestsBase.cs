@@ -1,5 +1,5 @@
 ﻿using System.Threading.Tasks;
-using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts;
+using DFC.ServiceTaxonomy.DataSync.DataSyncers.Parts;
 using FakeItEasy;
 using Newtonsoft.Json.Linq;
 using OrchardCore.Sitemaps.Models;
@@ -16,7 +16,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Parts.SitemapPart
             A.CallTo(() => SyncNameProvider.PropertyName("Priority")).Returns("sitemap_Priority");
             A.CallTo(() => SyncNameProvider.PropertyName("Exclude")).Returns("sitemap_Exclude");
 
-            ContentPartGraphSyncer = new SitemapPartGraphSyncer();
+            ContentPartGraphSyncer = new SitemapPartDataSyncer();
         }
 
         [Theory]
@@ -28,25 +28,25 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Parts.SitemapPart
         [InlineData(false, false, false, false, false)]
         public async Task ValidateSyncComponentTests(bool expected, bool overrideSitemapConfigMatches, bool changeFrequencyMatches, bool priorityMatches, bool exludeMatches)
         {
-            A.CallTo(() => GraphValidationHelper.BoolContentPropertyMatchesNodeProperty(
+            A.CallTo(() => DataSyncValidationHelper.BoolContentPropertyMatchesNodeProperty(
                 "OverrideSitemapConfig",
                 A<JObject>._,
                 "sitemap_OverrideSitemapConfig",
                 SourceNode)).Returns((overrideSitemapConfigMatches, ""));
 
-            A.CallTo(() => GraphValidationHelper.EnumContentPropertyMatchesNodeProperty<ChangeFrequency>(
+            A.CallTo(() => DataSyncValidationHelper.EnumContentPropertyMatchesNodeProperty<ChangeFrequency>(
                 "ChangeFrequency",
                 A<JObject>._,
                 "sitemap_ChangeFrequency",
                 SourceNode)).Returns((changeFrequencyMatches, ""));
 
-            A.CallTo(() => GraphValidationHelper.LongContentPropertyMatchesNodeProperty(
+            A.CallTo(() => DataSyncValidationHelper.LongContentPropertyMatchesNodeProperty(
                 "Priority",
                 A<JObject>._,
                 "sitemap_Priority",
                 SourceNode)).Returns((priorityMatches, ""));
 
-            A.CallTo(() => GraphValidationHelper.BoolContentPropertyMatchesNodeProperty(
+            A.CallTo(() => DataSyncValidationHelper.BoolContentPropertyMatchesNodeProperty(
                 "Exclude",
                 A<JObject>._,
                 "sitemap_Exclude",

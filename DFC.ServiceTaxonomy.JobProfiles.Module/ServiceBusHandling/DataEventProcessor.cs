@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 
 using DFC.ServiceTaxonomy.DataAccess.Repositories;
-using DFC.ServiceTaxonomy.GraphSync.Models;
+using DFC.ServiceTaxonomy.DataSync.Models;
 using DFC.ServiceTaxonomy.JobProfiles.Module.Extensions;
 using DFC.ServiceTaxonomy.JobProfiles.Module.Indexes;
 using DFC.ServiceTaxonomy.JobProfiles.Module.Models.ServiceBus;

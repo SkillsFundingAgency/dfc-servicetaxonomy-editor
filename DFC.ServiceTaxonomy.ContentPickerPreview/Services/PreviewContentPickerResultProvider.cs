@@ -73,7 +73,7 @@ namespace DFC.ServiceTaxonomy.ContentPickerPreview.Services
     //                 ContentItemId = contentItem.ContentItemId,
     //                 //DisplayText = contentItem.ToString(),
     //                 //todo: need this configurable in settings (if we can override settings for content picker!)
-    //                 // suppose could add to graph sync settings ContentPickerPreviewDisplayText
+    //                 // suppose could add to data sync settings ContentPickerPreviewDisplayText
     //                 // have c# with optimisations? or name of field? can't be too slow! global to get name from contentpicker
     //                 DisplayText = displayText,
     //                 HasPublished = await _contentManager.HasPublishedVersionAsync(contentItem)

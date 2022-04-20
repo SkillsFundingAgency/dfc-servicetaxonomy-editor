@@ -16,7 +16,6 @@ namespace DFC.ServiceTaxonomy.Events.Models
 
             //todo: use SyncNameProvider?
             // do we assume id ends with a guid, or do we need a setting to extract the eventgrid id from the full id?
-            // string userId = contentItem.Content.GraphSyncPart.Text;
 
             string itemId = userId.Substring(userId.Length - 36);
             Subject = $"/content/{contentItem.ContentType.ToLower()}/{itemId}";

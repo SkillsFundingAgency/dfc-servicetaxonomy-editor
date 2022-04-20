@@ -5,7 +5,7 @@ using OrchardCore.Modules.Manifest;
     Author = "National Careers Service",
     Website = "https://dfc-dev-stax-editor-as.azurewebsites.net",
     Version = "0.0.1",
-    Description = "Enables Cypher queries to a Neo4j graph.",
-    Category = "Graph",
+    Description = "Enables Cypher queries to a Neo4j.",
+    Category = "DataSync",
     Dependencies = new[] { "OrchardCore.Contents" }
 )]

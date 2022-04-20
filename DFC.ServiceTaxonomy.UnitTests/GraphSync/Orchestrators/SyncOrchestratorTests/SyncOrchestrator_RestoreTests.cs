@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Threading.Tasks;
-using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers;
-using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
-using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.ContentItemVersions;
-using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Results.AllowSync;
-using DFC.ServiceTaxonomy.GraphSync.Handlers.Interfaces;
-using DFC.ServiceTaxonomy.GraphSync.Services;
+using DFC.ServiceTaxonomy.DataSync.DataSyncers.Helpers;
+using DFC.ServiceTaxonomy.DataSync.DataSyncers.Interfaces;
+using DFC.ServiceTaxonomy.DataSync.DataSyncers.Interfaces.ContentItemVersions;
+using DFC.ServiceTaxonomy.DataSync.DataSyncers.Results.AllowSync;
+using DFC.ServiceTaxonomy.DataSync.Handlers.Interfaces;
+using DFC.ServiceTaxonomy.DataSync.Services;
 using FakeItEasy;
 using OrchardCore.ContentManagement;
 using Xunit;
@@ -15,29 +15,29 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.Orchestrators.SyncOrchestrator
     public class SyncOrchestrator_RestoreTests : SyncOrchestratorTestsBase
     {
         public SyncOperation SyncOperation { get; }
-        public IDeleteGraphSyncer PublishedDeleteGraphSyncer { get; set; }
+        public IDeleteDataSyncer PublishedDeleteDataSyncer { get; set; }
 
         public SyncOrchestrator_RestoreTests()
         {
             SyncOperation = SyncOperation.Restore;
 
-            PublishedDeleteGraphSyncer = A.Fake<IDeleteGraphSyncer>();
+            PublishedDeleteDataSyncer = A.Fake<IDeleteDataSyncer>();
 
-            A.CallTo(() => PublishedDeleteGraphSyncer.DeleteAllowed(
+            A.CallTo(() => PublishedDeleteDataSyncer.DeleteAllowed(
                     A<ContentItem>._,
-                    A<IContentItemVersion>.That.Matches(v => v.GraphReplicaSetName == GraphReplicaSetNames.Published),
+                    A<IContentItemVersion>.That.Matches(v => v.DataSyncReplicaSetName == DataSyncReplicaSetNames.Published),
                     SyncOperation,
                     null,
                     null))
                 .Returns(PublishedAllowSync);
 
             A.CallTo(() => ServiceProvider.GetService(A<Type>.That.Matches(
-                    t => t.Name == (nameof(IMergeGraphSyncer)))))
-                .Returns(PreviewMergeGraphSyncer);
+                    t => t.Name == (nameof(IMergeDataSyncer)))))
+                .Returns(PreviewMergeDataSyncer);
 
             A.CallTo(() => ServiceProvider.GetService(A<Type>.That.Matches(
-                    t => t.Name == (nameof(IDeleteGraphSyncer)))))
-                .Returns(PublishedDeleteGraphSyncer);
+                    t => t.Name == (nameof(IDeleteDataSyncer)))))
+                .Returns(PublishedDeleteDataSyncer);
         }
 
         [Theory]
@@ -90,7 +90,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.Orchestrators.SyncOrchestrator
 
             await SyncOrchestrator.Restore(ContentItem);
 
-            A.CallTo(() => PreviewMergeGraphSyncer.SyncToGraphReplicaSet())
+            A.CallTo(() => PreviewMergeDataSyncer.SyncToDataSyncReplicaSet())
                 .MustHaveHappened(publishedCalled, Times.Exactly);
         }
 
@@ -117,7 +117,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.Orchestrators.SyncOrchestrator
 
             await SyncOrchestrator.Restore(ContentItem);
 
-            A.CallTo(() => PublishedDeleteGraphSyncer.Delete())
+            A.CallTo(() => PublishedDeleteDataSyncer.Delete())
                 .MustHaveHappened(publishedCalled, Times.Exactly);
         }
 
@@ -130,7 +130,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.Orchestrators.SyncOrchestrator
             A.CallTo(() => PreviewAllowSync.Result)
                 .Returns(AllowSyncResult.Allowed);
 
-            A.CallTo(() => PreviewMergeGraphSyncer.SyncToGraphReplicaSet())
+            A.CallTo(() => PreviewMergeDataSyncer.SyncToDataSyncReplicaSet())
                 .Throws(() => new Exception());
 
             return Assert.ThrowsAsync<Exception>(() => SyncOrchestrator.Restore(ContentItem));
@@ -145,7 +145,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.Orchestrators.SyncOrchestrator
             A.CallTo(() => PreviewAllowSync.Result)
                 .Returns(AllowSyncResult.Allowed);
 
-            A.CallTo(() => PublishedDeleteGraphSyncer.Delete())
+            A.CallTo(() => PublishedDeleteDataSyncer.Delete())
                 .Throws(() => new Exception());
 
             return Assert.ThrowsAsync<Exception>(() => SyncOrchestrator.Restore(ContentItem));

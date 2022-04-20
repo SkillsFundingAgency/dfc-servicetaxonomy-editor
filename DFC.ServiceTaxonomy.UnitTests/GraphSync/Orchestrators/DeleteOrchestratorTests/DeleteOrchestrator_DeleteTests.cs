@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Threading.Tasks;
-using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
-using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Results.AllowSync;
-using DFC.ServiceTaxonomy.GraphSync.Handlers.Interfaces;
-using DFC.ServiceTaxonomy.GraphSync.Services;
+using DFC.ServiceTaxonomy.DataSync.DataSyncers.Interfaces;
+using DFC.ServiceTaxonomy.DataSync.DataSyncers.Results.AllowSync;
+using DFC.ServiceTaxonomy.DataSync.Handlers.Interfaces;
+using DFC.ServiceTaxonomy.DataSync.Services;
 using FakeItEasy;
 using Xunit;
 
@@ -17,10 +17,10 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.Orchestrators.DeleteOrchestrat
         {
             //todo: required?
             A.CallTo(() => ServiceProvider.GetService(A<Type>.That.Matches(
-                    t => t.Name == (nameof(IDeleteGraphSyncer)))))
-                .Returns(PublishedDeleteGraphSyncer).Once()
+                    t => t.Name == (nameof(IDeleteDataSyncer)))))
+                .Returns(PublishedDeleteDataSyncer).Once()
                 .Then
-                .Returns(PreviewDeleteGraphSyncer).Once();
+                .Returns(PreviewDeleteDataSyncer).Once();
         }
 
         [Theory]

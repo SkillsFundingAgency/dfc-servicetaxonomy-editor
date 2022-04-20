@@ -246,8 +246,8 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Drivers
              *               
              *  Preview draft               - N/A (opens new tab)
              *  
-             *  Visualise draft graph       - N/A (opens new tab)
-             *  Visualise published graph   - N/A (opens new tab)
+             *  Visualise draft data        - N/A (opens new tab)
+             *  Visualise published data    - N/A (opens new tab)
              *  
              *  Cancel                      - N/A (exits page)
              */

@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
-using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts;
-using DFC.ServiceTaxonomy.GraphSync.Services;
+using DFC.ServiceTaxonomy.DataSync.DataSyncers.Parts;
+using DFC.ServiceTaxonomy.DataSync.Services;
 using FakeItEasy;
 using Newtonsoft.Json.Linq;
 using Xunit;
@@ -14,7 +14,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Parts.TitlePartGr
 
         public TitlePartGraphSyncerValidateSyncComponentTestsBase()
         {
-            ContentPartGraphSyncer = new TitlePartGraphSyncer(new TitlePartCloneGenerator());
+            ContentPartGraphSyncer = new TitlePartDataSyncer(new TitlePartCloneGenerator());
         }
 
         [Theory]
@@ -22,7 +22,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Parts.TitlePartGr
         [InlineData(false, false)]
         public async Task ValidateSyncComponentTests(bool expected, bool stringContentPropertyMatchesNodePropertyReturns)
         {
-            A.CallTo(() => GraphValidationHelper.StringContentPropertyMatchesNodeProperty(
+            A.CallTo(() => DataSyncValidationHelper.StringContentPropertyMatchesNodeProperty(
                 ContentKey,
                 A<JObject>._,
                 NodeTitlePropertyName,

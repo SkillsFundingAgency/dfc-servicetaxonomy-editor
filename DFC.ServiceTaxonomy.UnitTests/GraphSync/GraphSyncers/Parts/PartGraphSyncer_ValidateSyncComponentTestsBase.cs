@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
-using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.ContentItemVersions;
-using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Contexts;
-using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Helpers;
-using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Parts;
-using DFC.ServiceTaxonomy.GraphSync.Interfaces;
+using DFC.ServiceTaxonomy.DataSync.DataSyncers.Interfaces;
+using DFC.ServiceTaxonomy.DataSync.DataSyncers.Interfaces.ContentItemVersions;
+using DFC.ServiceTaxonomy.DataSync.DataSyncers.Interfaces.Contexts;
+using DFC.ServiceTaxonomy.DataSync.DataSyncers.Interfaces.Helpers;
+using DFC.ServiceTaxonomy.DataSync.DataSyncers.Interfaces.Parts;
+using DFC.ServiceTaxonomy.DataSync.Interfaces;
 using FakeItEasy;
 using Newtonsoft.Json.Linq;
 using OrchardCore.ContentManagement;
@@ -20,14 +20,14 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Parts
         public ContentTypePartDefinition ContentTypePartDefinition { get; set; }
         public IContentManager ContentManager { get; set; }
         public IContentItemVersion ContentItemVersion { get; set; }
-        public ISubgraph NodeWithRelationships { get; set; }
+        public ISubDataSync NodeWithRelationships { get; set; }
         public INode SourceNode { get; set; }
         public ISyncNameProvider SyncNameProvider { get; set; }
-        public IGraphValidationHelper GraphValidationHelper { get; set; }
+        public IDataSyncValidationHelper DataSyncValidationHelper { get; set; }
         public IDictionary<string, int> ExpectedRelationshipCounts { get; set; }
-        public IValidateAndRepairGraph ValidateAndRepairGraph { get; set; }
+        public IValidateAndRepairData ValidateAndRepairData { get; set; }
         public IValidateAndRepairContext ValidateAndRepairContext { get; set; }
-        public IContentPartGraphSyncer? ContentPartGraphSyncer { get; set; }
+        public IContentPartDataSyncer? ContentPartGraphSyncer { get; set; }
 
         public PartGraphSyncer_ValidateSyncComponentTestsBase()
         {
@@ -39,16 +39,16 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Parts
             ContentItemVersion = A.Fake<IContentItemVersion>();
 
             SourceNode = A.Fake<INode>();
-            NodeWithRelationships = A.Fake<ISubgraph>();
+            NodeWithRelationships = A.Fake<ISubDataSync>();
             A.CallTo(() => NodeWithRelationships.SourceNode).Returns(SourceNode);
 
             SyncNameProvider = A.Fake<ISyncNameProvider>();
 
-            GraphValidationHelper = A.Fake<IGraphValidationHelper>();
+            DataSyncValidationHelper = A.Fake<IDataSyncValidationHelper>();
 
             ExpectedRelationshipCounts = new Dictionary<string, int>();
 
-            ValidateAndRepairGraph = A.Fake<IValidateAndRepairGraph>();
+            ValidateAndRepairData = A.Fake<IValidateAndRepairData>();
 
             ValidateAndRepairContext = A.Fake<IValidateAndRepairContext>();
             A.CallTo(() => ValidateAndRepairContext.ContentManager).Returns(ContentManager);
@@ -56,15 +56,15 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Parts
             A.CallTo(() => ValidateAndRepairContext.ContentTypePartDefinition).Returns(ContentTypePartDefinition);
             A.CallTo(() => ValidateAndRepairContext.NodeWithRelationships).Returns(NodeWithRelationships);
             A.CallTo(() => ValidateAndRepairContext.SyncNameProvider).Returns(SyncNameProvider);
-            A.CallTo(() => ValidateAndRepairContext.GraphValidationHelper).Returns(GraphValidationHelper);
+            A.CallTo(() => ValidateAndRepairContext.DataSyncValidationHelper).Returns(DataSyncValidationHelper);
             A.CallTo(() => ValidateAndRepairContext.ExpectedRelationshipCounts).Returns(ExpectedRelationshipCounts);
-            A.CallTo(() => ValidateAndRepairContext.ValidateAndRepairGraph).Returns(ValidateAndRepairGraph);
+            A.CallTo(() => ValidateAndRepairContext.ValidateAndRepairData).Returns(ValidateAndRepairData);
         }
 
         public Task<(bool validated, string failureReason)> CallValidateSyncComponent()
         {
             if (ContentPartGraphSyncer == null)
-                throw new InvalidOperationException("You must set ContentPartGraphSyncer to the IContentPartGraphSyncer you want to test dummy.");
+                throw new InvalidOperationException("You must set ContentPartDataSyncer to the IContentPartDataSyncer you want to test dummy.");
 
             return ContentPartGraphSyncer.ValidateSyncComponent(
                 Content,

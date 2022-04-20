@@ -1,5 +1,5 @@
-using DFC.ServiceTaxonomy.GraphSync.CosmosDb;
-using DFC.ServiceTaxonomy.GraphSync.Interfaces;
+using DFC.ServiceTaxonomy.DataSync.CosmosDb;
+using DFC.ServiceTaxonomy.DataSync.Interfaces;
 using FakeItEasy;
 using Microsoft.Extensions.Logging;
 using Xunit;
@@ -8,8 +8,8 @@ namespace DFC.ServiceTaxonomy.UnitTests.Neo4j.Services
 {
     public class GraphClusterTests
     {
-        internal CosmosDbGraphCluster GraphCluster { get; set; }
-        internal IGraphReplicaSetLowLevel[] ReplicaSets { get; set; }
+        internal CosmosDbDataSyncCluster DataSyncCluster { get; set; }
+        internal IDataSyncReplicaSetLowLevel[] ReplicaSets { get; set; }
         internal ILogger Logger { get; set; }
         internal IQuery<int>[] Queries { get; set; }
         internal ICommand[] Commands { get; set; }
@@ -17,16 +17,16 @@ namespace DFC.ServiceTaxonomy.UnitTests.Neo4j.Services
 
         public GraphClusterTests()
         {
-            ReplicaSets = new IGraphReplicaSetLowLevel[NumberOfReplicaSets];
+            ReplicaSets = new IDataSyncReplicaSetLowLevel[NumberOfReplicaSets];
             for (int replicaSetOrdinal = 0; replicaSetOrdinal < NumberOfReplicaSets; ++replicaSetOrdinal)
             {
-                var replicaSet = ReplicaSets[replicaSetOrdinal] = A.Fake<IGraphReplicaSetLowLevel>();
+                var replicaSet = ReplicaSets[replicaSetOrdinal] = A.Fake<IDataSyncReplicaSetLowLevel>();
                 A.CallTo(() => replicaSet.Name).Returns(replicaSetOrdinal.ToString());
             }
 
             Logger = A.Fake<ILogger>();
 
-            GraphCluster = new CosmosDbGraphCluster(ReplicaSets);
+            DataSyncCluster = new CosmosDbDataSyncCluster(ReplicaSets);
 
             Queries = new[] {A.Fake<IQuery<int>>()};
             Commands = new[] {A.Fake<ICommand>()};
@@ -36,7 +36,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.Neo4j.Services
         public void Run_Queries_OnlyRunsOnNamedReplicaSet()
         {
             const int replicaToRunOn = 5;
-            GraphCluster.Run(replicaToRunOn.ToString(), Queries);
+            DataSyncCluster.Run(replicaToRunOn.ToString(), Queries);
 
             for (int replicaSetOrdinal = 0; replicaSetOrdinal < NumberOfReplicaSets; ++replicaSetOrdinal)
             {
@@ -51,7 +51,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.Neo4j.Services
         public void Run_Commands_OnlyRunsOnNamedReplicaSet()
         {
             const int replicaToRunOn = 5;
-            GraphCluster.Run(replicaToRunOn.ToString(), Commands);
+            DataSyncCluster.Run(replicaToRunOn.ToString(), Commands);
 
             for (int replicaSetOrdinal = 0; replicaSetOrdinal < NumberOfReplicaSets; ++replicaSetOrdinal)
             {

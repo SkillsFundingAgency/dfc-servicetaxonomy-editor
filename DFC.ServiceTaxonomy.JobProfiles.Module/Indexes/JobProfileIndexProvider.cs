@@ -9,9 +9,9 @@ using OrchardCore.ContentManagement.Metadata;
 using OrchardCore.Data;
 using YesSql.Indexes;
 using DFC.ServiceTaxonomy.JobProfiles.Module.Models.Indexes;
-using DFC.ServiceTaxonomy.GraphSync.Models;
 using DFC.ServiceTaxonomy.JobProfiles.Module.Extensions;
 using System.Diagnostics.CodeAnalysis;
+using DFC.ServiceTaxonomy.DataSync.Models;
 
 namespace DFC.ServiceTaxonomy.JobProfiles.Module.Indexes
 {

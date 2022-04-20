@@ -1,5 +1,5 @@
 ﻿using DFC.ServiceTaxonomy.DataAccess.Repositories;
-using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Parts;
+using DFC.ServiceTaxonomy.DataSync.DataSyncers.Interfaces.Parts;
 using DFC.ServiceTaxonomy.Title.Drivers;
 using DFC.ServiceTaxonomy.Title.GraphSyncers;
 using DFC.ServiceTaxonomy.Title.Handlers;
@@ -31,7 +31,7 @@ namespace DFC.ServiceTaxonomy.Title
 
             services.AddSingleton<IIndexProvider, UniqueTitlePartIndexProvider>();
 
-            services.AddTransient<IContentPartGraphSyncer, UniqueTitlePartGraphSyncer>();
+            services.AddTransient<IContentPartDataSyncer, UniqueTitlePartDataSyncer>();
             services.AddTransient(typeof(IGenericIndexRepository<>), typeof(GenericIndexRepository<>));
 
         }

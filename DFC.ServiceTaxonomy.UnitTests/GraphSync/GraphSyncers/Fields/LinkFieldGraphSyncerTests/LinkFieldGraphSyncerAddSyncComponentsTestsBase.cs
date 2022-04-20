@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields;
+using DFC.ServiceTaxonomy.DataSync.DataSyncers.Fields;
 using Newtonsoft.Json.Linq;
 using Xunit;
 
@@ -10,7 +10,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Fields.LinkFieldG
     {
         public LinkFieldGraphSyncerAddSyncComponentsTestsBase()
         {
-            ContentFieldGraphSyncer = new LinkFieldGraphSyncer();
+            ContentFieldGraphSyncer = new LinkFieldDataSyncer();
         }
 
         [Fact]

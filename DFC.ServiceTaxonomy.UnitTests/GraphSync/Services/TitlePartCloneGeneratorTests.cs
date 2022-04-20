@@ -1,5 +1,5 @@
 ﻿using System.Threading.Tasks;
-using DFC.ServiceTaxonomy.GraphSync.Services;
+using DFC.ServiceTaxonomy.DataSync.Services;
 using Xunit;
 
 namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.Services

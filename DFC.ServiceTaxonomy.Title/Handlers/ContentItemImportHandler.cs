@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.DataAccess.Repositories;
-using DFC.ServiceTaxonomy.GraphSync.Recipes.Executors;
+using DFC.ServiceTaxonomy.DataSync.Recipes.Executors;
 using DFC.ServiceTaxonomy.Title.Indexes;
 using DFC.ServiceTaxonomy.Title.Models;
 using Microsoft.Extensions.Logging;

@@ -2,15 +2,15 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading.Tasks;
-using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers;
-using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
-using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.ContentItemVersions;
-using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Contexts;
-using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Results.AllowSync;
-using DFC.ServiceTaxonomy.GraphSync.Handlers.Interfaces;
-using DFC.ServiceTaxonomy.GraphSync.Interfaces;
-using DFC.ServiceTaxonomy.GraphSync.Notifications;
-using DFC.ServiceTaxonomy.GraphSync.Orchestrators;
+using DFC.ServiceTaxonomy.DataSync.DataSyncers.Helpers;
+using DFC.ServiceTaxonomy.DataSync.DataSyncers.Interfaces;
+using DFC.ServiceTaxonomy.DataSync.DataSyncers.Interfaces.ContentItemVersions;
+using DFC.ServiceTaxonomy.DataSync.DataSyncers.Interfaces.Contexts;
+using DFC.ServiceTaxonomy.DataSync.DataSyncers.Interfaces.Results.AllowSync;
+using DFC.ServiceTaxonomy.DataSync.Handlers.Interfaces;
+using DFC.ServiceTaxonomy.DataSync.Interfaces;
+using DFC.ServiceTaxonomy.DataSync.Notifications;
+using DFC.ServiceTaxonomy.DataSync.Orchestrators;
 using FakeItEasy;
 using Microsoft.Extensions.Logging;
 using OrchardCore.ContentManagement;
@@ -22,49 +22,49 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.Orchestrators
     {
         public SyncOrchestrator SyncOrchestrator { get; set; }
         public IContentDefinitionManager ContentDefinitionManager { get; set; }
-        public IGraphSyncNotifier Notifier { get; set; }
-        public IGraphCluster GraphCluster { get; set; }
+        public IDataSyncNotifier Notifier { get; set; }
+        public IDataSyncCluster DataSyncCluster { get; set; }
         public IPublishedContentItemVersion PublishedContentItemVersion { get; set; }
         public IServiceProvider ServiceProvider { get; set; }
         public ILogger<SyncOrchestrator> Logger { get; set; }
 
         public ContentItem ContentItem { get; set; }
-        public IMergeGraphSyncer PreviewMergeGraphSyncer { get; set; }
-        public IMergeGraphSyncer PublishedMergeGraphSyncer { get; set; }
+        public IMergeDataSyncer PreviewMergeDataSyncer { get; set; }
+        public IMergeDataSyncer PublishedMergeDataSyncer { get; set; }
         public IAllowSync PreviewAllowSync { get; set; }
         public IAllowSync PublishedAllowSync { get; set; }
         public IContentManager ContentManager { get; set; }
-        public IGraphReplicaSet PreviewGraphReplicaSet { get; set; }
-        public IGraphReplicaSet PublishedGraphReplicaSet { get; set; }
+        public IDataSyncReplicaSet PreviewDataSyncReplicaSet { get; set; }
+        public IDataSyncReplicaSet PublishedDataSyncReplicaSet { get; set; }
         public IContentOrchestrationHandler EventGridPublishingHandler { get; set; }
         public Activity TestActivity { get; set; }
 
         public SyncOrchestratorTestsBase()
         {
             ContentDefinitionManager = A.Fake<IContentDefinitionManager>();
-            Notifier = A.Fake<GraphSyncNotifier>();
+            Notifier = A.Fake<DataSyncNotifier>();
 
-            PreviewGraphReplicaSet = A.Fake<IGraphReplicaSet>();
-            A.CallTo(() => PreviewGraphReplicaSet.Name)
-                .Returns(GraphReplicaSetNames.Preview);
+            PreviewDataSyncReplicaSet = A.Fake<IDataSyncReplicaSet>();
+            A.CallTo(() => PreviewDataSyncReplicaSet.Name)
+                .Returns(DataSyncReplicaSetNames.Preview);
 
-            PublishedGraphReplicaSet = A.Fake<IGraphReplicaSet>();
-            A.CallTo(() => PublishedGraphReplicaSet.Name)
-                .Returns(GraphReplicaSetNames.Published);
+            PublishedDataSyncReplicaSet = A.Fake<IDataSyncReplicaSet>();
+            A.CallTo(() => PublishedDataSyncReplicaSet.Name)
+                .Returns(DataSyncReplicaSetNames.Published);
 
-            var graphReplicaSets = new Dictionary<string, IGraphReplicaSet>
+            var graphReplicaSets = new Dictionary<string, IDataSyncReplicaSet>
             {
-                { GraphReplicaSetNames.Preview, PreviewGraphReplicaSet },
-                { GraphReplicaSetNames.Published, PublishedGraphReplicaSet },
+                { DataSyncReplicaSetNames.Preview, PreviewDataSyncReplicaSet },
+                { DataSyncReplicaSetNames.Published, PublishedDataSyncReplicaSet },
             };
 
-            GraphCluster = A.Fake<IGraphCluster>();
-            A.CallTo(() => GraphCluster.GetGraphReplicaSet(A<string>._))
-                .ReturnsLazily<IGraphReplicaSet, string>(graphReplicaSetName => graphReplicaSets[graphReplicaSetName]);
+            DataSyncCluster = A.Fake<IDataSyncCluster>();
+            A.CallTo(() => DataSyncCluster.GetDataSyncReplicaSet(A<string>._))
+                .ReturnsLazily<IDataSyncReplicaSet, string>(graphReplicaSetName => graphReplicaSets[graphReplicaSetName]);
 
             PublishedContentItemVersion = A.Fake<IPublishedContentItemVersion>();
-            A.CallTo(() => PublishedContentItemVersion.GraphReplicaSetName)
-                .Returns(GraphReplicaSetNames.Published);
+            A.CallTo(() => PublishedContentItemVersion.DataSyncReplicaSetName)
+                .Returns(DataSyncReplicaSetNames.Published);
 
             ServiceProvider = A.Fake<IServiceProvider>();
             Logger = A.Fake<ILogger<SyncOrchestrator>>();
@@ -76,19 +76,19 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.Orchestrators
                     t => t.Name == nameof(IContentManager))))
                 .Returns(ContentManager);
 
-            PreviewMergeGraphSyncer = A.Fake<IMergeGraphSyncer>();
-            PublishedMergeGraphSyncer = A.Fake<IMergeGraphSyncer>();
+            PreviewMergeDataSyncer = A.Fake<IMergeDataSyncer>();
+            PublishedMergeDataSyncer = A.Fake<IMergeDataSyncer>();
 
             PreviewAllowSync = A.Fake<IAllowSync>();
-            A.CallTo(() => PreviewMergeGraphSyncer.SyncAllowed(
-                    A<IGraphReplicaSet>.That.Matches(s => s.Name == GraphReplicaSetNames.Preview),
-                    A<ContentItem>._, A<IContentManager>._, A<IGraphMergeContext?>._))
+            A.CallTo(() => PreviewMergeDataSyncer.SyncAllowed(
+                    A<IDataSyncReplicaSet>.That.Matches(s => s.Name == DataSyncReplicaSetNames.Preview),
+                    A<ContentItem>._, A<IContentManager>._, A<IDataMergeContext?>._))
                 .Returns(PreviewAllowSync);
 
             PublishedAllowSync = A.Fake<IAllowSync>();
-            A.CallTo(() => PublishedMergeGraphSyncer.SyncAllowed(
-                    A<IGraphReplicaSet>.That.Matches(s => s.Name == GraphReplicaSetNames.Published),
-                    A<ContentItem>._, A<IContentManager>._, A<IGraphMergeContext?>._))
+            A.CallTo(() => PublishedMergeDataSyncer.SyncAllowed(
+                    A<IDataSyncReplicaSet>.That.Matches(s => s.Name == DataSyncReplicaSetNames.Published),
+                    A<ContentItem>._, A<IContentManager>._, A<IDataMergeContext?>._))
                 .Returns(PublishedAllowSync);
 
             EventGridPublishingHandler = A.Fake<IContentOrchestrationHandler>();
@@ -102,7 +102,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.Orchestrators
             SyncOrchestrator = new SyncOrchestrator(
                 ContentDefinitionManager,
                 Notifier,
-                GraphCluster,
+                DataSyncCluster,
                 ServiceProvider,
                 Logger,
                 PublishedContentItemVersion,

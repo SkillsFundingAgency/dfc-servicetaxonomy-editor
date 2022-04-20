@@ -1,9 +1,9 @@
-﻿using DFC.ServiceTaxonomy.GraphSync.CSharpScripting.Interfaces;
-using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Exceptions;
-using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers;
-using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.ContentItemVersions;
-using DFC.ServiceTaxonomy.GraphSync.Models;
-using DFC.ServiceTaxonomy.GraphSync.Settings;
+﻿using DFC.ServiceTaxonomy.DataSync.CSharpScripting.Interfaces;
+using DFC.ServiceTaxonomy.DataSync.DataSyncers.Exceptions;
+using DFC.ServiceTaxonomy.DataSync.DataSyncers.Helpers;
+using DFC.ServiceTaxonomy.DataSync.DataSyncers.Interfaces.ContentItemVersions;
+using DFC.ServiceTaxonomy.DataSync.Models;
+using DFC.ServiceTaxonomy.DataSync.Settings;
 using FakeItEasy;
 using Newtonsoft.Json.Linq;
 using OrchardCore.ContentManagement.Metadata;
@@ -57,7 +57,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Helpers
         {
             SyncNameProvider.ContentType = _contentType;
 
-            GraphSyncPartSettings graphSyncPartSettings = SyncNameProvider.GraphSyncPartSettings;
+            GraphSyncPartSettings graphSyncPartSettings = SyncNameProvider.DataSyncPartSettings;
 
             Assert.NotNull(graphSyncPartSettings);
         }

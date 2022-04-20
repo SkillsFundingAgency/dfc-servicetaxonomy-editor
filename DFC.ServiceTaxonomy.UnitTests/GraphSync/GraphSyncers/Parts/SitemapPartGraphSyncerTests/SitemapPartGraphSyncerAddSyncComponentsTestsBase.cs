@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts;
+using DFC.ServiceTaxonomy.DataSync.DataSyncers.Parts;
 using FakeItEasy;
 using Newtonsoft.Json.Linq;
 using Xunit;
@@ -16,7 +16,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Parts.SitemapPart
             A.CallTo(() => SyncNameProvider.PropertyName("Priority")).Returns("sitemap_Priority");
             A.CallTo(() => SyncNameProvider.PropertyName("Exclude")).Returns("sitemap_Exclude");
 
-            ContentPartGraphSyncer = new SitemapPartGraphSyncer();
+            ContentPartGraphSyncer = new SitemapPartDataSyncer();
         }
 
         [Fact]

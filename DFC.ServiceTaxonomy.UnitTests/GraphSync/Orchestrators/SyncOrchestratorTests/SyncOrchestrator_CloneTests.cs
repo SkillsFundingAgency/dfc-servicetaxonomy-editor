@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Threading.Tasks;
-using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
-using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Results.AllowSync;
-using DFC.ServiceTaxonomy.GraphSync.Handlers.Interfaces;
+using DFC.ServiceTaxonomy.DataSync.DataSyncers.Interfaces;
+using DFC.ServiceTaxonomy.DataSync.DataSyncers.Results.AllowSync;
+using DFC.ServiceTaxonomy.DataSync.Handlers.Interfaces;
 using FakeItEasy;
 using Xunit;
 
@@ -10,18 +10,18 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.Orchestrators.SyncOrchestrator
 {
     public class SyncOrchestrator_CloneTests : SyncOrchestratorTestsBase
     {
-        public ICloneGraphSync CloneGraphSync { get; set; }
+        public ICloneDataSync CloneDataSync { get; set; }
 
         public SyncOrchestrator_CloneTests()
         {
-            CloneGraphSync = A.Fake<ICloneGraphSync>();
+            CloneDataSync = A.Fake<ICloneDataSync>();
             A.CallTo(() => ServiceProvider.GetService(A<Type>.That.Matches(
-                    t => t.Name == (nameof(ICloneGraphSync)))))
-                .Returns(CloneGraphSync);
+                    t => t.Name == (nameof(ICloneDataSync)))))
+                .Returns(CloneDataSync);
 
             A.CallTo(() => ServiceProvider.GetService(A<Type>.That.Matches(
-                    t => t.Name == (nameof(IMergeGraphSyncer)))))
-                .Returns(PreviewMergeGraphSyncer)
+                    t => t.Name == (nameof(IMergeDataSyncer)))))
+                .Returns(PreviewMergeDataSyncer)
                 .Once();
         }
 
@@ -30,7 +30,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.Orchestrators.SyncOrchestrator
         {
             await SyncOrchestrator.Clone(ContentItem);
 
-            A.CallTo(() => CloneGraphSync.MutateOnClone(ContentItem, ContentManager, null))
+            A.CallTo(() => CloneDataSync.MutateOnClone(ContentItem, ContentManager, null))
                 .MustHaveHappened();
         }
 
@@ -63,7 +63,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.Orchestrators.SyncOrchestrator
 
             await SyncOrchestrator.Clone(ContentItem);
 
-            A.CallTo(() => PreviewMergeGraphSyncer.SyncToGraphReplicaSet())
+            A.CallTo(() => PreviewMergeDataSyncer.SyncToDataSyncReplicaSet())
                 .MustHaveHappened(expectedSyncCalled?1:0, Times.Exactly);
         }
 
@@ -73,7 +73,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.Orchestrators.SyncOrchestrator
             A.CallTo(() => PreviewAllowSync.Result)
                 .Returns(AllowSyncResult.Allowed);
 
-            A.CallTo(() => PreviewMergeGraphSyncer.SyncToGraphReplicaSet())
+            A.CallTo(() => PreviewMergeDataSyncer.SyncToDataSyncReplicaSet())
                 .Throws(() => new Exception());
 
             return Assert.ThrowsAsync<Exception>(() => SyncOrchestrator.Clone(ContentItem));

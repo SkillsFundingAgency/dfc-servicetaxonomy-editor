@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
-using DFC.ServiceTaxonomy.GraphSync.Interfaces;
-using DFC.ServiceTaxonomy.GraphSync.Models;
+using DFC.ServiceTaxonomy.DataSync.Interfaces;
+using DFC.ServiceTaxonomy.DataSync.Models;
 using FakeItEasy;
 using Microsoft.Extensions.Logging;
 using Xunit.Abstractions;
@@ -10,7 +10,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.Neo4j.Services
     public class GraphReplicaSetTestsBase
     {
         internal readonly ITestOutputHelper TestOutputHelper;
-        internal List<Graph> GraphInstances { get; set; }
+        internal List<DataSync.Models.DataSync> GraphInstances { get; set; }
         internal ILogger Logger { get; set; }
         internal IQuery<int> Query { get; set; }
         internal ICommand Command { get; set; }
@@ -21,10 +21,10 @@ namespace DFC.ServiceTaxonomy.UnitTests.Neo4j.Services
         protected GraphReplicaSetTestsBase(ITestOutputHelper testOutputHelper)
         {
             TestOutputHelper = testOutputHelper;
-            GraphInstances = new List<Graph>();
+            GraphInstances = new List<DataSync.Models.DataSync>();
             for (int graphInstanceOrdinal = 0; graphInstanceOrdinal < NumberOfGraphInstances; ++graphInstanceOrdinal)
             {
-                GraphInstances.Add(A.Fake<Graph>());
+                GraphInstances.Add(A.Fake<DataSync.Models.DataSync>());
             }
             Logger = A.Fake<ILogger>();
 

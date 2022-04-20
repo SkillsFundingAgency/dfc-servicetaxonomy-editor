@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using DFC.ServiceTaxonomy.GraphSync.Interfaces;
+using DFC.ServiceTaxonomy.DataSync.Interfaces;
 using FakeItEasy;
 using Newtonsoft.Json.Linq;
 using Xunit;
@@ -13,7 +13,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Helpers.GraphVali
         public const string NodePropertyName = "nodePropertyName";
         public INode SourceNode { get; set; }
         public Dictionary<string, object> SourceNodeProperties { get; set; }
-        public ServiceTaxonomy.GraphSync.GraphSyncers.Helpers.GraphValidationHelper GraphValidationHelper { get; set; }
+        public DataSync.DataSyncers.Helpers.DataSyncValidationHelper DataSyncValidationHelper { get; set; }
 
         public GraphValidationHelper_BoolContentPropertyMatchesNodePropertyTests()
         {
@@ -23,7 +23,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Helpers.GraphVali
             SourceNodeProperties = new Dictionary<string, object>();
             A.CallTo(() => SourceNode.Properties).Returns(SourceNodeProperties);
 
-            GraphValidationHelper = new ServiceTaxonomy.GraphSync.GraphSyncers.Helpers.GraphValidationHelper();
+            DataSyncValidationHelper = new DataSync.DataSyncers.Helpers.DataSyncValidationHelper();
         }
 
         [Theory]
@@ -104,7 +104,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Helpers.GraphVali
 
         private (bool matched, string failureReason) CallBoolContentPropertyMatchesNodeProperty()
         {
-            return GraphValidationHelper.BoolContentPropertyMatchesNodeProperty(
+            return DataSyncValidationHelper.BoolContentPropertyMatchesNodeProperty(
                 ContentKey,
                 ContentItemField,
                 NodePropertyName,

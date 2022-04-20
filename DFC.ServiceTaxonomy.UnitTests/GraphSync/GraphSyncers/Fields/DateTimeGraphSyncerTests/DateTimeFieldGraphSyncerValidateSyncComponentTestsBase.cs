@@ -1,5 +1,5 @@
 ﻿using System.Threading.Tasks;
-using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields;
+using DFC.ServiceTaxonomy.DataSync.DataSyncers.Fields;
 using FakeItEasy;
 using Newtonsoft.Json.Linq;
 using Xunit;
@@ -12,7 +12,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Fields.DateTimeFi
 
         public DateTimeFieldGraphSyncerValidateSyncComponentTestsBase()
         {
-            ContentFieldGraphSyncer = new DateTimeFieldGraphSyncer();
+            ContentFieldGraphSyncer = new DateTimeFieldDataSyncer();
         }
 
         //todo: move into base?
@@ -21,7 +21,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Fields.DateTimeFi
         [InlineData(false)]
         public async Task ValidateSyncComponentTests(bool dateTimeMatches)
         {
-            A.CallTo(() => GraphValidationHelper.DateTimeContentPropertyMatchesNodeProperty(
+            A.CallTo(() => DataSyncValidationHelper.DateTimeContentPropertyMatchesNodeProperty(
                 ContentKey,
                 A<JObject>._,
                 FieldNameTransformed,

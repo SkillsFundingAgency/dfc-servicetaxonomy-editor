@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Threading.Tasks;
-using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
-using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Results.AllowSync;
-using DFC.ServiceTaxonomy.GraphSync.Handlers.Interfaces;
-using DFC.ServiceTaxonomy.GraphSync.Services;
+using DFC.ServiceTaxonomy.DataSync.DataSyncers.Interfaces;
+using DFC.ServiceTaxonomy.DataSync.DataSyncers.Results.AllowSync;
+using DFC.ServiceTaxonomy.DataSync.Handlers.Interfaces;
+using DFC.ServiceTaxonomy.DataSync.Services;
 using FakeItEasy;
 using Xunit;
 
@@ -16,8 +16,8 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.Orchestrators.DeleteOrchestrat
         public DeleteOrchestrator_UnpublishTests()
         {
             A.CallTo(() => ServiceProvider.GetService(A<Type>.That.Matches(
-                    t => t.Name == (nameof(IDeleteGraphSyncer)))))
-                .Returns(PublishedDeleteGraphSyncer)
+                    t => t.Name == (nameof(IDeleteDataSyncer)))))
+                .Returns(PublishedDeleteDataSyncer)
                 .Once();
         }
 
@@ -50,7 +50,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.Orchestrators.DeleteOrchestrat
 
             await DeleteOrchestrator.Unpublish(ContentItem);
 
-            A.CallTo(() => PublishedDeleteGraphSyncer.Delete())
+            A.CallTo(() => PublishedDeleteDataSyncer.Delete())
                 .MustHaveHappened(expectedSyncCalled?1:0, Times.Exactly);
         }
 
@@ -60,7 +60,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.Orchestrators.DeleteOrchestrat
             A.CallTo(() => PublishedAllowSync.Result)
                 .Returns(AllowSyncResult.Allowed);
 
-            A.CallTo(() => PublishedDeleteGraphSyncer.Delete())
+            A.CallTo(() => PublishedDeleteDataSyncer.Delete())
                 .Throws(() => new Exception());
 
             return Assert.ThrowsAsync<Exception>(() => DeleteOrchestrator.Unpublish(ContentItem));

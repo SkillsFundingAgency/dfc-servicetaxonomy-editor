@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.Content.Services.Interface;
-using DFC.ServiceTaxonomy.GraphSync.Handlers.Contexts;
-using DFC.ServiceTaxonomy.GraphSync.Handlers.Interfaces;
-using DFC.ServiceTaxonomy.GraphSync.Notifications;
-using DFC.ServiceTaxonomy.GraphSync.Orchestrators.Interfaces;
+using DFC.ServiceTaxonomy.DataSync.Handlers.Contexts;
+using DFC.ServiceTaxonomy.DataSync.Handlers.Interfaces;
+using DFC.ServiceTaxonomy.DataSync.Notifications;
+using DFC.ServiceTaxonomy.DataSync.Orchestrators.Interfaces;
 using DFC.ServiceTaxonomy.PageLocation.Constants;
 using DFC.ServiceTaxonomy.PageLocation.Models;
 using DFC.ServiceTaxonomy.Taxonomies.Handlers;
@@ -23,7 +23,7 @@ namespace DFC.ServiceTaxonomy.PageLocation.Handlers
         private readonly ITaxonomyHelper _taxonomyHelper;
         private readonly ISyncOrchestrator _syncOrchestrator;
         private readonly IContentItemsService _contentItemsService;
-        private readonly IGraphSyncNotifier _notifier;
+        private readonly IDataSyncNotifier _notifier;
         private readonly IEnumerable<IContentOrchestrationHandler> _contentOrchestrationHandlers;
 
         public PageLocationTaxonomyTermHandler(
@@ -31,7 +31,7 @@ namespace DFC.ServiceTaxonomy.PageLocation.Handlers
             ITaxonomyHelper taxonomyHelper,
             ISyncOrchestrator syncOrchestrator,
             IContentItemsService contentItemsService,
-            IGraphSyncNotifier notifier,
+            IDataSyncNotifier notifier,
             IEnumerable<IContentOrchestrationHandler> contentOrchestrationHandlers)
         {
             _session = session;

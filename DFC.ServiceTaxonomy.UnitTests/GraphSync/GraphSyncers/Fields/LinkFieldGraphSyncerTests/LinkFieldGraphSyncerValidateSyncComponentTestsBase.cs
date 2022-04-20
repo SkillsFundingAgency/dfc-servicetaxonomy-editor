@@ -1,5 +1,5 @@
 ﻿using System.Threading.Tasks;
-using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields;
+using DFC.ServiceTaxonomy.DataSync.DataSyncers.Fields;
 using FakeItEasy;
 using Newtonsoft.Json.Linq;
 using Xunit;
@@ -16,7 +16,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Fields.LinkFieldG
 
         public LinkFieldGraphSyncerValidateSyncComponentTestsBase()
         {
-            ContentFieldGraphSyncer = new LinkFieldGraphSyncer();
+            ContentFieldGraphSyncer = new LinkFieldDataSyncer();
         }
 
         [Theory]
@@ -29,13 +29,13 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Fields.LinkFieldG
             bool urlStringContentPropertyMatchesNodePropertyReturns,
             bool textStringContentPropertyMatchesNodePropertyReturns)
         {
-            A.CallTo(() => GraphValidationHelper.StringContentPropertyMatchesNodeProperty(
+            A.CallTo(() => DataSyncValidationHelper.StringContentPropertyMatchesNodeProperty(
                 ContentKeyText,
                 A<JObject>._,
                 FieldNameText,
                 SourceNode)).Returns((textStringContentPropertyMatchesNodePropertyReturns, ""));
 
-            A.CallTo(() => GraphValidationHelper.StringContentPropertyMatchesNodeProperty(
+            A.CallTo(() => DataSyncValidationHelper.StringContentPropertyMatchesNodeProperty(
                 ContentKeyUrl,
                 A<JObject>._,
                 FieldNameUrl,

@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Threading.Tasks;
-using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
-using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Results.AllowSync;
-using DFC.ServiceTaxonomy.GraphSync.Handlers.Interfaces;
+using DFC.ServiceTaxonomy.DataSync.DataSyncers.Interfaces;
+using DFC.ServiceTaxonomy.DataSync.DataSyncers.Results.AllowSync;
+using DFC.ServiceTaxonomy.DataSync.Handlers.Interfaces;
 using FakeItEasy;
 using Xunit;
 
@@ -13,10 +13,10 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.Orchestrators.SyncOrchestrator
         public SyncOrchestrator_PublishTests()
         {
             A.CallTo(() => ServiceProvider.GetService(A<Type>.That.Matches(
-                    t => t.Name == (nameof(IMergeGraphSyncer)))))
-                .Returns(PublishedMergeGraphSyncer).Once()
+                    t => t.Name == (nameof(IMergeDataSyncer)))))
+                .Returns(PublishedMergeDataSyncer).Once()
                 .Then
-                .Returns(PreviewMergeGraphSyncer).Once();
+                .Returns(PreviewMergeDataSyncer).Once();
         }
 
         [Theory]
@@ -69,7 +69,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.Orchestrators.SyncOrchestrator
 
             await SyncOrchestrator.Publish(ContentItem);
 
-            A.CallTo(() => PreviewMergeGraphSyncer.SyncToGraphReplicaSet())
+            A.CallTo(() => PreviewMergeDataSyncer.SyncToDataSyncReplicaSet())
                 .MustHaveHappened(publishedCalled, Times.Exactly);
         }
 
@@ -96,7 +96,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.Orchestrators.SyncOrchestrator
 
             await SyncOrchestrator.Publish(ContentItem);
 
-            A.CallTo(() => PublishedMergeGraphSyncer.SyncToGraphReplicaSet())
+            A.CallTo(() => PublishedMergeDataSyncer.SyncToDataSyncReplicaSet())
                 .MustHaveHappened(publishedCalled, Times.Exactly);
         }
 
@@ -109,7 +109,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.Orchestrators.SyncOrchestrator
             A.CallTo(() => PreviewAllowSync.Result)
                 .Returns(AllowSyncResult.Allowed);
 
-            A.CallTo(() => PreviewMergeGraphSyncer.SyncToGraphReplicaSet())
+            A.CallTo(() => PreviewMergeDataSyncer.SyncToDataSyncReplicaSet())
                 .Throws(() => new Exception());
 
             return Assert.ThrowsAsync<Exception>(() => SyncOrchestrator.Publish(ContentItem));
@@ -124,7 +124,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.Orchestrators.SyncOrchestrator
             A.CallTo(() => PreviewAllowSync.Result)
                 .Returns(AllowSyncResult.Allowed);
 
-            A.CallTo(() => PublishedMergeGraphSyncer.SyncToGraphReplicaSet())
+            A.CallTo(() => PublishedMergeDataSyncer.SyncToDataSyncReplicaSet())
                 .Throws(() => new Exception());
 
             return Assert.ThrowsAsync<Exception>(() => SyncOrchestrator.Publish(ContentItem));

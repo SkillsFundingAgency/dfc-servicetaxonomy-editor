@@ -1,5 +1,5 @@
 ﻿using System;
-using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields;
+using DFC.ServiceTaxonomy.DataSync.DataSyncers.Fields;
 using FakeItEasy;
 using Microsoft.Extensions.Logging;
 using OrchardCore.ContentFields.Settings;
@@ -8,13 +8,13 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Fields.ContentPic
 {
     public class ContentPickerFieldGraphSyncerAddSyncComponentsTestsBase : FieldGraphSyncer_AddSyncComponentsTestsBase
     {
-        public ILogger<ContentPickerFieldGraphSyncer> Logger { get; set; }
+        public ILogger<ContentPickerFieldDataSyncer> Logger { get; set; }
         public ContentPickerFieldSettings ContentPickerFieldSettings { get; set; }
 
         public ContentPickerFieldGraphSyncerAddSyncComponentsTestsBase()
         {
-            Logger = A.Fake<ILogger<ContentPickerFieldGraphSyncer>>();
-            ContentFieldGraphSyncer = new ContentPickerFieldGraphSyncer(
+            Logger = A.Fake<ILogger<ContentPickerFieldDataSyncer>>();
+            ContentFieldGraphSyncer = new ContentPickerFieldDataSyncer(
                 A.Fake<IServiceProvider>());
 
             ContentPickerFieldSettings = A.Fake<ContentPickerFieldSettings>();

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields;
+using DFC.ServiceTaxonomy.DataSync.DataSyncers.Fields;
 using FakeItEasy;
 using Newtonsoft.Json.Linq;
 using OrchardCore.ContentFields.Settings;
@@ -21,7 +21,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Fields.NumericFie
             NumericFieldSettings = new NumericFieldSettings();
             A.CallTo(() => ContentPartFieldDefinition.GetSettings<NumericFieldSettings>()).Returns(NumericFieldSettings);
 
-            ContentFieldGraphSyncer = new NumericFieldGraphSyncer();
+            ContentFieldGraphSyncer = new NumericFieldDataSyncer();
         }
 
         //todo: should we be strict when types mismatch, i.e. scale has changed? probably yes

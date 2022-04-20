@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts;
+using DFC.ServiceTaxonomy.DataSync.DataSyncers.Parts;
 using Newtonsoft.Json.Linq;
 using Xunit;
 
@@ -13,7 +13,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Parts.UnpublishLa
 
         public UnpublishLaterPartGraphSyncerAddSyncComponentsTestsBase()
         {
-            ContentPartGraphSyncer = new UnpublishLaterPartGraphSyncer();
+            ContentPartGraphSyncer = new UnpublishLaterPartDataSyncer();
         }
 
         [Fact]

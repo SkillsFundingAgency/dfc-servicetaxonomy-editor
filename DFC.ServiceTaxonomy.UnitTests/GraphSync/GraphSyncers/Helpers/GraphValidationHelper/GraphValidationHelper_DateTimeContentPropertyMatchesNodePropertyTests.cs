@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using DFC.ServiceTaxonomy.GraphSync.Interfaces;
+using DFC.ServiceTaxonomy.DataSync.Interfaces;
 using FakeItEasy;
 using Newtonsoft.Json.Linq;
 using NodaTime;
@@ -15,7 +15,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Helpers.GraphVali
         public const string NodePropertyName = "nodePropertyName";
         public INode SourceNode { get; set; }
         public Dictionary<string, object> SourceNodeProperties { get; set; }
-        public ServiceTaxonomy.GraphSync.GraphSyncers.Helpers.GraphValidationHelper GraphValidationHelper { get; set; }
+        public DataSync.DataSyncers.Helpers.DataSyncValidationHelper DataSyncValidationHelper { get; set; }
 
         public GraphValidationHelper_DateTimeContentPropertyMatchesNodePropertyTests()
         {
@@ -25,7 +25,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Helpers.GraphVali
             SourceNodeProperties = new Dictionary<string, object>();
             A.CallTo(() => SourceNode.Properties).Returns(SourceNodeProperties);
 
-            GraphValidationHelper = new ServiceTaxonomy.GraphSync.GraphSyncers.Helpers.GraphValidationHelper();
+            DataSyncValidationHelper = new DataSync.DataSyncers.Helpers.DataSyncValidationHelper();
         }
 
         [Fact]
@@ -111,7 +111,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Helpers.GraphVali
 
         private (bool matched, string failureReason) CallDateTimeContentPropertyMatchesNodeProperty()
         {
-            return GraphValidationHelper.DateTimeContentPropertyMatchesNodeProperty(
+            return DataSyncValidationHelper.DateTimeContentPropertyMatchesNodeProperty(
                 ContentKey,
                 ContentItemField,
                 NodePropertyName,

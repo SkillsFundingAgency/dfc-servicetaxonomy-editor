@@ -1,4 +1,4 @@
-﻿using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Parts;
+﻿using DFC.ServiceTaxonomy.DataSync.DataSyncers.Interfaces.Parts;
 using DFC.ServiceTaxonomy.PageLocation.Drivers;
 using DFC.ServiceTaxonomy.PageLocation.Filters;
 using DFC.ServiceTaxonomy.PageLocation.GraphSyncers;
@@ -36,7 +36,7 @@ namespace DFC.ServiceTaxonomy.PageLocation
             services.AddScoped<IDataMigration, Migrations>();
             services.AddSingleton<IIndexProvider, PageLocationPartIndexProvider>();
 
-            services.AddTransient<IContentPartGraphSyncer, PageLocationPartGraphSyncer>();
+            services.AddTransient<IContentPartDataSyncer, PageLocationPartDataSyncer>();
 
             services.AddScoped<IContentHandler, DefaultPageLocationsContentHandler>();
 

@@ -9,31 +9,31 @@ namespace DFC.ServiceTaxonomy.UnitTests.Neo4j.Services.Internal
 {
     public class GraphReplicaSetLowLevelTests : GraphReplicaSetTestsBase
     {
-        internal GraphReplicaSetLowLevel GraphReplicaSet { get; set; }
+        internal DataSyncReplicaSetLowLevel DataSyncReplicaSet { get; set; }
 
         public GraphReplicaSetLowLevelTests(ITestOutputHelper testOutputHelper)
             : base(testOutputHelper)
         {
-            GraphReplicaSet = new GraphReplicaSetLowLevel(ReplicaSetName, GraphInstances, Logger);
+            DataSyncReplicaSet = new DataSyncReplicaSetLowLevel(ReplicaSetName, DataSyncInstances, Logger);
         }
 
         [Fact]
         public void IsEnabled_InstanceDisabled_ReturnsFalse()
         {
             const int instanceToDisable = 4;
-            GraphReplicaSet.Disable(instanceToDisable);
+            DataSyncReplicaSet.Disable(instanceToDisable);
 
-            Assert.False(GraphReplicaSet.IsEnabled(instanceToDisable));
+            Assert.False(DataSyncReplicaSet.IsEnabled(instanceToDisable));
         }
 
         [Fact]
         public void IsEnabled_InstanceReenabled_ReturnsTrue()
         {
             const int instanceToDisable = 4;
-            GraphReplicaSet.Disable(instanceToDisable);
-            GraphReplicaSet.Enable(instanceToDisable);
+            DataSyncReplicaSet.Disable(instanceToDisable);
+            DataSyncReplicaSet.Enable(instanceToDisable);
 
-            Assert.True(GraphReplicaSet.IsEnabled(instanceToDisable));
+            Assert.True(DataSyncReplicaSet.IsEnabled(instanceToDisable));
         }
 
         // note: other related scenarios are covered in unit tests in GraphReplicaSetTests
@@ -43,39 +43,39 @@ namespace DFC.ServiceTaxonomy.UnitTests.Neo4j.Services.Internal
         public void Run_Query_LimitedToOneDisabledInstance_ExceptionThrown()
         {
             const int limitedToInstance = 2;
-            GraphReplicaSet = new GraphReplicaSetLowLevel(ReplicaSetName, GraphInstances, Logger, limitedToInstance);
+            DataSyncReplicaSet = new DataSyncReplicaSetLowLevel(ReplicaSetName, DataSyncInstances, Logger, limitedToInstance);
 
-            GraphReplicaSet.Disable(limitedToInstance);
+            DataSyncReplicaSet.Disable(limitedToInstance);
 
-            Assert.ThrowsAsync<InvalidOperationException>(async () => await GraphReplicaSet.Run(Query));
+            Assert.ThrowsAsync<InvalidOperationException>(async () => await DataSyncReplicaSet.Run(Query));
         }
 
         [Fact]
         public void Run_Command_LimitedToOneDisabledInstance_ExceptionThrown()
         {
             const int limitedToInstance = 2;
-            GraphReplicaSet = new GraphReplicaSetLowLevel(ReplicaSetName, GraphInstances, Logger, limitedToInstance);
+            DataSyncReplicaSet = new DataSyncReplicaSetLowLevel(ReplicaSetName, DataSyncInstances, Logger, limitedToInstance);
 
-            GraphReplicaSet.Disable(limitedToInstance);
+            DataSyncReplicaSet.Disable(limitedToInstance);
 
-            Assert.ThrowsAsync<InvalidOperationException>(async () => await GraphReplicaSet.Run(Command));
+            Assert.ThrowsAsync<InvalidOperationException>(async () => await DataSyncReplicaSet.Run(Command));
         }
 
         [Fact]
         public void Run_Command_ReplicaIsDisabled_ExceptionThrown()
         {
             const int instanceToDisable = 2;
-            GraphReplicaSet.Disable(instanceToDisable);
+            DataSyncReplicaSet.Disable(instanceToDisable);
 
-            Assert.ThrowsAsync<InvalidOperationException>(async () => await GraphReplicaSet.Run(Command));
+            Assert.ThrowsAsync<InvalidOperationException>(async () => await DataSyncReplicaSet.Run(Command));
         }
 
         [Fact]
         public void EnabledInstanceCount_ReplicaDisabled_CountAsExpected()
         {
             const int instanceToDisable = 2;
-            GraphReplicaSet.Disable(instanceToDisable);
-            int enabledInstances = GraphReplicaSet.EnabledInstanceCount();
+            DataSyncReplicaSet.Disable(instanceToDisable);
+            int enabledInstances = DataSyncReplicaSet.EnabledInstanceCount();
 
             Assert.Equal(NumberOfGraphInstances-1, enabledInstances);
         }
@@ -85,9 +85,9 @@ namespace DFC.ServiceTaxonomy.UnitTests.Neo4j.Services.Internal
         {
             for (int instance = 0; instance < NumberOfGraphInstances; ++instance)
             {
-                GraphReplicaSet.Disable(instance);
+                DataSyncReplicaSet.Disable(instance);
             }
-            int enabledInstances = GraphReplicaSet.EnabledInstanceCount();
+            int enabledInstances = DataSyncReplicaSet.EnabledInstanceCount();
 
             Assert.Equal(0, enabledInstances);
         }

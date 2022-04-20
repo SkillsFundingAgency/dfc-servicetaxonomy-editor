@@ -16,21 +16,21 @@ namespace DFC.ServiceTaxonomy.UnitTests.Neo4j.Services.Internal
 {
     public class GraphTests
     {
-        internal Graph Graph { get; set; }
+        internal DataSync DataSync { get; set; }
         internal INeoEndpoint NeoEndpoint { get; set; }
         internal ILogger Logger { get; set; }
         internal IQuery<int>[] Queries { get; set; }
         internal ICommand[] Commands { get; set; }
         internal ManualResetEventSlim TestFinished { get; set; }
-        internal const string GraphName = "Steffi";
-        internal const bool DefaultGraph = true;
+        internal const string DataSyncName = "Steffi";
+        internal const bool DefaultDataSync = true;
 
         public GraphTests()
         {
             NeoEndpoint = A.Fake<INeoEndpoint>();
             Logger = A.Fake<ILogger>();
 
-            Graph = new Graph(NeoEndpoint, GraphName, DefaultGraph, 0, Logger);
+            DataSync = new DataSync(NeoEndpoint, DataSyncName, DefaultDataSync, 0, Logger);
 
             Queries = new[] {A.Fake<IQuery<int>>()};
             Commands = new[] {A.Fake<ICommand>()};
@@ -44,19 +44,19 @@ namespace DFC.ServiceTaxonomy.UnitTests.Neo4j.Services.Internal
             // arrange
             const int inFlightRuns = 10;
 
-            A.CallTo(() => NeoEndpoint.Run(Queries, GraphName, DefaultGraph))
+            A.CallTo(() => NeoEndpoint.Run(Queries, DataSyncName, DefaultDataSync))
                 .ReturnsLazily(() =>
                 {
                     TestFinished.Wait();
                     return new List<int>();
                 });
 
-            var tasks = Enumerable.Range(0, inFlightRuns).Select(i => Task.Run(() => Graph.Run(Queries)));
+            var tasks = Enumerable.Range(0, inFlightRuns).Select(i => Task.Run(() => DataSync.Run(Queries)));
 
             await Task.WhenAny(Task.WhenAll(tasks), Task.Delay(2000));
 
             // act + assert
-            Assert.Equal((ulong)inFlightRuns, Graph.InFlightCount);
+            Assert.Equal((ulong)inFlightRuns, DataSync.InFlightCount);
 
             // clean up
             TestFinished.Set();
@@ -69,19 +69,19 @@ namespace DFC.ServiceTaxonomy.UnitTests.Neo4j.Services.Internal
             // arrange
             const int inFlightRuns = 10;
 
-            A.CallTo(() => NeoEndpoint.Run(Commands, GraphName, DefaultGraph))
+            A.CallTo(() => NeoEndpoint.Run(Commands, DataSyncName, DefaultDataSync))
                 .ReturnsLazily(() =>
                 {
                     TestFinished.Wait();
                     return Task.CompletedTask;
                 });
 
-            var tasks = Enumerable.Range(0, inFlightRuns).Select(i => Task.Run(() => Graph.Run(Commands)));
+            var tasks = Enumerable.Range(0, inFlightRuns).Select(i => Task.Run(() => DataSync.Run(Commands)));
 
             await Task.WhenAny(Task.WhenAll(tasks), Task.Delay(2000));
 
             // act + assert
-            Assert.Equal((ulong)inFlightRuns, Graph.InFlightCount);
+            Assert.Equal((ulong)inFlightRuns, DataSync.InFlightCount);
 
             // clean up
             TestFinished.Set();
@@ -95,27 +95,27 @@ namespace DFC.ServiceTaxonomy.UnitTests.Neo4j.Services.Internal
             const int inFlightQueryRuns = 5;
             const int inFlightCommandRuns = 5;
 
-            A.CallTo(() => NeoEndpoint.Run(Queries, GraphName, DefaultGraph))
+            A.CallTo(() => NeoEndpoint.Run(Queries, DataSyncName, DefaultDataSync))
                 .ReturnsLazily(() =>
                 {
                     TestFinished.Wait();
                     return new List<int>();
                 });
 
-            A.CallTo(() => NeoEndpoint.Run(Commands, GraphName, DefaultGraph))
+            A.CallTo(() => NeoEndpoint.Run(Commands, DataSyncName, DefaultDataSync))
                 .ReturnsLazily(() =>
                 {
                     TestFinished.Wait();
                     return Task.CompletedTask;
                 });
 
-            var queryTasks = Enumerable.Range(0, inFlightQueryRuns).Select(i => Task.Run(() => Graph.Run(Queries)));
-            var commandTasks = Enumerable.Range(0, inFlightCommandRuns).Select(i => Task.Run(() => Graph.Run(Commands)));
+            var queryTasks = Enumerable.Range(0, inFlightQueryRuns).Select(i => Task.Run(() => DataSync.Run(Queries)));
+            var commandTasks = Enumerable.Range(0, inFlightCommandRuns).Select(i => Task.Run(() => DataSync.Run(Commands)));
 
             await Task.WhenAny(Task.WhenAll(queryTasks), Task.WhenAll(commandTasks), Task.Delay(2000));
 
             // act + assert
-            Assert.Equal((ulong)inFlightQueryRuns + inFlightCommandRuns, Graph.InFlightCount);
+            Assert.Equal((ulong)inFlightQueryRuns + inFlightCommandRuns, DataSync.InFlightCount);
 
             // clean up
             TestFinished.Set();
@@ -125,19 +125,19 @@ namespace DFC.ServiceTaxonomy.UnitTests.Neo4j.Services.Internal
         [Fact]
         public void InFlightCount_RunQueriesThrewException_CountIs0()
         {
-            A.CallTo(() => NeoEndpoint.Run(Queries, GraphName, DefaultGraph))
+            A.CallTo(() => NeoEndpoint.Run(Queries, DataSyncName, DefaultDataSync))
                 .Throws<Exception>();
 
-            Assert.Equal(0ul, Graph.InFlightCount);
+            Assert.Equal(0ul, DataSync.InFlightCount);
         }
 
         [Fact]
         public void InFlightCount_RunCommandsThrewException_CountIs0()
         {
-            A.CallTo(() => NeoEndpoint.Run(Commands, GraphName, DefaultGraph))
+            A.CallTo(() => NeoEndpoint.Run(Commands, DataSyncName, DefaultDataSync))
                 .Throws<Exception>();
 
-            Assert.Equal(0ul, Graph.InFlightCount);
+            Assert.Equal(0ul, DataSync.InFlightCount);
         }
     }
 }

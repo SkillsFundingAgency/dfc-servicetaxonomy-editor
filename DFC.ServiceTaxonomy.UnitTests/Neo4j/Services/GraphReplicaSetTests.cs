@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
-using DFC.ServiceTaxonomy.GraphSync.Interfaces;
-using DFC.ServiceTaxonomy.GraphSync.Models;
+using DFC.ServiceTaxonomy.DataSync.Interfaces;
+using DFC.ServiceTaxonomy.DataSync.Models;
 using FakeItEasy;
 using Xunit;
 using Xunit.Abstractions;
@@ -10,12 +10,12 @@ namespace DFC.ServiceTaxonomy.UnitTests.Neo4j.Services
 {
     public class GraphReplicaSetTests : GraphReplicaSetTestsBase
     {
-        internal GraphReplicaSet GraphReplicaSet { get; set; }
+        internal DataSyncReplicaSet DataSyncReplicaSet { get; set; }
 
         public GraphReplicaSetTests(ITestOutputHelper testOutputHelper)
             : base(testOutputHelper)
         {
-            GraphReplicaSet = new GraphReplicaSet(ReplicaSetName, GraphInstances, Logger);
+            DataSyncReplicaSet = new DataSyncReplicaSet(ReplicaSetName, GraphInstances, Logger);
         }
 
         [Fact]
@@ -25,7 +25,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.Neo4j.Services
             const int numberOfIterations = NumberOfGraphInstances * iterationsPerGraphInstance;
             Parallel.For(0, numberOfIterations, async (iteration) =>
             {
-                await GraphReplicaSet.Run(Query);
+                await DataSyncReplicaSet.Run(Query);
             });
 
 
@@ -34,7 +34,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.Neo4j.Services
             {
                 var calls = Fake.GetCalls(graph).ToList();
 
-                TestOutputHelper.WriteLine($"Graph #{index}: Run() called x{calls.Count}.");
+                TestOutputHelper.WriteLine($"DataSync #{index}: Run() called x{calls.Count}.");
                 ++index;
             }
 
@@ -49,16 +49,16 @@ namespace DFC.ServiceTaxonomy.UnitTests.Neo4j.Services
         public async Task Run_Query_LimitedToOneInstance_QueryIsRunOnCorrectInstance()
         {
             const int limitedToInstance = 2;
-            GraphReplicaSet = new GraphReplicaSet(ReplicaSetName, GraphInstances, Logger, limitedToInstance);
+            DataSyncReplicaSet = new DataSyncReplicaSet(ReplicaSetName, GraphInstances, Logger, limitedToInstance);
 
-            await GraphReplicaSet.Run(Query);
+            await DataSyncReplicaSet.Run(Query);
 
             int index = 0;
             foreach (var graph in GraphInstances)
             {
                 var calls = Fake.GetCalls(graph).ToList();
 
-                TestOutputHelper.WriteLine($"Graph #{index}: Run() called x{calls.Count}.");
+                TestOutputHelper.WriteLine($"DataSync #{index}: Run() called x{calls.Count}.");
                 ++index;
             }
 
@@ -74,7 +74,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.Neo4j.Services
         [Fact]
         public async Task Run_Command_CallsEveryReplica()
         {
-            await GraphReplicaSet.Run(Command);
+            await DataSyncReplicaSet.Run(Command);
 
             foreach (var graph in GraphInstances)
             {
@@ -87,16 +87,16 @@ namespace DFC.ServiceTaxonomy.UnitTests.Neo4j.Services
         public async Task Run_Command_LimitedToOneInstance_CommandIsRunOnCorrectInstance()
         {
             const int limitedToInstance = 2;
-            GraphReplicaSet = new GraphReplicaSet(ReplicaSetName, GraphInstances, Logger, limitedToInstance);
+            DataSyncReplicaSet = new DataSyncReplicaSet(ReplicaSetName, GraphInstances, Logger, limitedToInstance);
 
-            await GraphReplicaSet.Run(Command);
+            await DataSyncReplicaSet.Run(Command);
 
             int index = 0;
             foreach (var graph in GraphInstances)
             {
                 var calls = Fake.GetCalls(graph).ToList();
 
-                TestOutputHelper.WriteLine($"Graph #{index}: Run() called x{calls.Count}.");
+                TestOutputHelper.WriteLine($"DataSync #{index}: Run() called x{calls.Count}.");
                 ++index;
             }
 
@@ -112,13 +112,13 @@ namespace DFC.ServiceTaxonomy.UnitTests.Neo4j.Services
         [Fact]
         public void InstanceCount_MatchesNumberOfInstances()
         {
-            Assert.Equal(NumberOfGraphInstances, GraphReplicaSet.InstanceCount);
+            Assert.Equal(NumberOfGraphInstances, DataSyncReplicaSet.InstanceCount);
         }
 
         [Fact]
         public void EnabledInstanceCount_MatchesNumberOfInstances()
         {
-            Assert.Equal(NumberOfGraphInstances, GraphReplicaSet.EnabledInstanceCount());
+            Assert.Equal(NumberOfGraphInstances, DataSyncReplicaSet.EnabledInstanceCount());
         }
 
         [Fact]
@@ -126,7 +126,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.Neo4j.Services
         {
             for (int instance = 0; instance < NumberOfGraphInstances; ++instance)
             {
-                Assert.True(GraphReplicaSet.IsEnabled(instance));
+                Assert.True(DataSyncReplicaSet.IsEnabled(instance));
             }
         }
     }
