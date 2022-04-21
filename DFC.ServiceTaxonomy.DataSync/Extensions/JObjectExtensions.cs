@@ -1,0 +1,57 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using Newtonsoft.Json.Linq;
+
+namespace DFC.ServiceTaxonomy.DataSync.Extensions
+{
+    public static class JObjectExtensions
+    {
+        public static DateTime? GetDateTime(this JObject jobject, string name)
+        {
+            object? val = jobject[name];
+            return !string.IsNullOrEmpty(val?.ToString())
+                ? DateTime.Parse(val.ToString()!)
+                : (DateTime?) null;
+        }
+
+        public static Dictionary<string, List<string>> GetLinks(this JObject jobject)
+        {
+            if(jobject == null)
+            {
+                throw new ArgumentNullException(nameof(jobject));
+            }
+            var result = new Dictionary<string, List<string>>();
+            var linksDictionary = jobject.ToObject<Dictionary<string, object>>() ?? new Dictionary<string, object>();
+
+            foreach (var item in linksDictionary.Where(link => link.Key != "self" && link.Key != "curies"))
+            {
+                var list = new List<string>();
+                if(item.Value is JObject itemJObject)
+                {
+                    var dict = itemJObject.ToObject<Dictionary<string, object>>();
+                    var uri = (string)dict!["href"];
+                    if (!string.IsNullOrWhiteSpace(uri))
+                    {
+                        list.Add(uri);
+                    }
+                }
+                else if (item.Value is JArray itemJArray)
+                {
+                    foreach (JToken arrayItem in itemJArray)
+                    {
+                        var dict = arrayItem.ToObject<Dictionary<string, object>>();
+                        var uri = (string)dict!["href"];
+                        if (!string.IsNullOrWhiteSpace(uri))
+                        {
+                            list.Add(uri);
+                        }
+                    }
+                }
+                result.Add(item.Key, list);
+            }
+
+            return result;
+        }
+    }
+}

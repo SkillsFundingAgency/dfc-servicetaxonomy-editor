@@ -1,0 +1,34 @@
+﻿using System;
+using System.Threading.Tasks;
+using DFC.ServiceTaxonomy.DataVisualiser.Controllers;
+using Microsoft.Extensions.Localization;
+using OrchardCore.Navigation;
+
+namespace DFC.ServiceTaxonomy.DataVisualiser.Services
+{
+    public class AdminMenuService : INavigationProvider
+    {
+        private readonly IStringLocalizer S;
+
+        public AdminMenuService(IStringLocalizer<AdminMenuService> localizer)
+        {
+            S = localizer;
+        }
+
+        public Task BuildNavigationAsync(string name, NavigationBuilder builder)
+        {
+            if (!String.Equals(name, "admin", StringComparison.OrdinalIgnoreCase))
+            {
+                return Task.CompletedTask;
+            }
+
+            builder
+                .Add(S["DataSync"], "99", graph => graph
+                   .AddClass("graph").Id("graph")
+                   .Add(S["Visualise Ontology"], "1", ontology => ontology
+                       .Action(nameof(VisualiseController.Viewer), "Visualise", new { area = typeof(Startup)!.Namespace })));
+
+            return Task.CompletedTask;
+        }
+    }
+}

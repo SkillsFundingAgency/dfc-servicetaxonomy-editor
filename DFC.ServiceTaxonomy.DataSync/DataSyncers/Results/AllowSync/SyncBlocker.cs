@@ -1,0 +1,23 @@
+﻿using DFC.ServiceTaxonomy.DataSync.DataSyncers.Interfaces.Results.AllowSync;
+
+namespace DFC.ServiceTaxonomy.DataSync.DataSyncers.Results.AllowSync
+{
+    public class SyncBlocker : ISyncBlocker
+    {
+        public string ContentType { get; }
+        public string? Title { get; }
+        public object Id { get; }
+
+        public SyncBlocker(string contentType, object id, string? title)
+        {
+            ContentType = contentType;
+            Id = id;
+            Title = title;
+        }
+
+        public override string ToString()
+        {
+            return $"'{Title ?? "n/a"}' {ContentType}";
+        }
+    }
+}

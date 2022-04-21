@@ -1,0 +1,44 @@
+using System;
+using System.Threading.Tasks;
+using DFC.ServiceTaxonomy.DataSync.DataSyncers.Interfaces.Contexts;
+using DFC.ServiceTaxonomy.DataSync.Extensions;
+using Newtonsoft.Json.Linq;
+using OrchardCore.Html.Models;
+
+namespace DFC.ServiceTaxonomy.DataSync.DataSyncers.Parts
+{
+#pragma warning disable S1481 // need the variable for the new using syntax, see https://github.com/dotnet/csharplang/issues/2235
+
+    public class HtmlBodyPartDataSyncer : ContentPartDataSyncer
+    {
+        public override string PartName => nameof(HtmlBodyPart);
+
+        private static readonly Func<string, string> _htmlBodyFieldsPropertyNameTransform = n => $"htmlbody_{n}";
+        private const string HtmlPropertyName = "Html";
+
+        public override async Task AddSyncComponents(JObject content, IDataMergeContext context)
+        {
+            // prefix field property names, so there's no possibility of a clash with the eponymous fields property names
+            using var _ = context.SyncNameProvider.PushPropertyNameTransform(_htmlBodyFieldsPropertyNameTransform);
+
+            JValue? htmlValue = (JValue?)content[HtmlPropertyName];
+            if (htmlValue != null && htmlValue.Type != JTokenType.Null)
+                context.MergeNodeCommand.Properties.Add(await context.SyncNameProvider.PropertyName(HtmlPropertyName), htmlValue.As<string>());
+        }
+
+        public override async Task<(bool validated, string failureReason)> ValidateSyncComponent(
+            JObject content,
+            IValidateAndRepairContext context)
+        {
+            // prefix field property names, so there's no possibility of a clash with the eponymous fields property names
+            using var _ = context.SyncNameProvider.PushPropertyNameTransform(_htmlBodyFieldsPropertyNameTransform);
+
+            return context.DataSyncValidationHelper.StringContentPropertyMatchesNodeProperty(
+                HtmlPropertyName,
+                content,
+                await context.SyncNameProvider!.PropertyName(HtmlPropertyName),
+                context.NodeWithRelationships.SourceNode!);
+        }
+    }
+#pragma warning restore S1481
+}

@@ -1,0 +1,255 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text.RegularExpressions;
+using System.Threading.Tasks;
+using DFC.ServiceTaxonomy.DataSync.DataSyncers.Interfaces.ContentItemVersions;
+using DFC.ServiceTaxonomy.DataSync.DataSyncers.Interfaces.Contexts;
+using DFC.ServiceTaxonomy.DataSync.DataSyncers.Interfaces.Fields;
+using DFC.ServiceTaxonomy.DataSync.DataSyncers.Interfaces.Helpers;
+using DFC.ServiceTaxonomy.DataSync.Extensions;
+using DFC.ServiceTaxonomy.DataSync.Interfaces;
+using DFC.ServiceTaxonomy.DataSync.Models;
+using Microsoft.Extensions.DependencyInjection;
+using Newtonsoft.Json.Linq;
+using OrchardCore.ContentFields.Settings;
+using OrchardCore.ContentManagement;
+
+namespace DFC.ServiceTaxonomy.DataSync.DataSyncers.Fields
+{
+    public class ContentPickerFieldDataSyncer : IContentFieldDataSyncer
+    {
+        public string FieldTypeName => "ContentPickerField";
+
+        private const string ContentItemIdsKey = "ContentItemIds";
+        //todo: move into hidden ## section?
+        private static readonly Regex _relationshipTypeRegex = new Regex("\\[:(.*?)\\]", RegexOptions.Compiled);
+        private readonly IServiceProvider _serviceProvider;
+
+        public const string ContentPickerRelationshipPropertyName = "contentPicker";
+
+        public static IEnumerable<KeyValuePair<string, object>> ContentPickerRelationshipProperties { get; } =
+            new Dictionary<string, object> { { ContentPickerRelationshipPropertyName, true } };
+
+        public ContentPickerFieldDataSyncer(IServiceProvider serviceProvider)
+        {
+            _serviceProvider = serviceProvider;
+        }
+
+        public Task AddSyncComponents(JObject contentItemField, IDataMergeContext context)
+        {
+            //todo requires 'picked' part has a data sync part
+            // add to docs & handle picked part not having data sync part or throw exception
+
+            return AddSyncComponents(context, (JArray?)contentItemField[ContentItemIdsKey]);
+        }
+
+        private async Task AddSyncComponents(IDataMergeContext context, JArray? contentItemIdsJArray = null)
+        {
+            ContentPickerFieldSettings contentPickerFieldSettings =
+                context.ContentPartFieldDefinition!.GetSettings<ContentPickerFieldSettings>();
+
+            //todo: use pickedContentSyncNameProvider in RelationshipTypeContentPicker?
+            string relationshipType = await RelationshipTypeContentPicker(contentPickerFieldSettings, context.SyncNameProvider);
+
+            //todo: support multiple pickable content types
+            string pickedContentType = contentPickerFieldSettings.DisplayedContentTypes[0];
+
+            ISyncNameProvider pickedContentSyncNameProvider = _serviceProvider.GetSyncNameProvider(pickedContentType);
+
+            IEnumerable<string> destNodeLabels = await pickedContentSyncNameProvider.NodeLabels();
+
+            if (contentItemIdsJArray?.HasValues != true)
+            {
+                context.ReplaceRelationshipsCommand.RemoveAnyRelationshipsTo(
+                    relationshipType,
+                    destNodeLabels);
+                return;
+            }
+
+            ContentItem[] foundDestinationContentItems = await GetContentItemsFromIds(
+                contentItemIdsJArray,
+                context.ContentManager,
+                context.ContentItemVersion);
+
+            /* 2021-11-29 the below logic doesnt seem to work for the alert pages recipe, it looks for it before its had chance to save it to preview (it saves it after)
+             * Currently errors aren't thrown up to the UI so probably always failed
+             * 
+            if (context.ContentItemVersion.DataSyncReplicaSetName == DataSyncReplicaSetNames.Preview
+                && foundDestinationContentItems.Count() != contentItemIdsJArray.Count)
+            {
+                throw new DataSyncException(
+                    $"Missing picked content items. Looked for {string.Join(",", contentItemIdsJArray.Values<string?>())}. Found {string.Join(",", foundDestinationContentItems.Select(i => i.ContentItemId))}. Current merge node command: {context.MergeNodeCommand}.");
+            }*/
+
+            // if we're syncing to the published data, some items may be draft only,
+            // so it's valid to have less found content items than are picked
+            //todo: we could also check when publishing and take into account how many we expect not to find as they are draft only
+
+            IEnumerable<object> foundDestinationNodeIds =
+                foundDestinationContentItems.Select(ci => GetNodeId(ci!, pickedContentSyncNameProvider, context.ContentItemVersion));
+
+            long ordinal = 0;
+
+            foreach (var item in foundDestinationNodeIds)
+            {
+                context.ReplaceRelationshipsCommand.AddRelationshipsTo(
+                relationshipType,
+                ContentPickerRelationshipProperties.Concat(new[] { new KeyValuePair<string, object>("Ordinal", ordinal++) }),
+                destNodeLabels,
+                pickedContentSyncNameProvider.IdPropertyName(),
+                item);
+            }
+        }
+
+        public Task AddSyncComponentsDetaching(IDataMergeContext context)
+        {
+            return AddSyncComponents(context);
+        }
+
+        public async Task AddRelationship(JObject contentItemField, IDescribeRelationshipsContext parentContext)
+        {
+            var describeContentItemHelper = _serviceProvider.GetRequiredService<IDescribeContentItemHelper>();
+
+            ContentPickerFieldSettings contentPickerFieldSettings =
+                parentContext.ContentPartFieldDefinition!.GetSettings<ContentPickerFieldSettings>();
+
+            JArray? contentItemIdsJArray = (JArray?)contentItemField[ContentItemIdsKey];
+
+            if (contentItemIdsJArray?.HasValues == true)
+            {
+                string relationshipType = await RelationshipTypeContentPicker(contentPickerFieldSettings, parentContext.SyncNameProvider);
+                var sourceNodeLabels = await parentContext.SyncNameProvider.NodeLabels(parentContext.ContentItem.ContentType);
+                string pickedContentType = contentPickerFieldSettings.DisplayedContentTypes[0];
+                IEnumerable<string> destNodeLabels = await parentContext.SyncNameProvider.NodeLabels(pickedContentType);
+                parentContext.AvailableRelationships.Add(new ContentItemRelationship(sourceNodeLabels, relationshipType, destNodeLabels));
+
+                //todo: do we need each child, or can we just have a hashset of types
+                foreach (var nestedItem in contentItemIdsJArray)
+                {
+                    var contentItemId = nestedItem.Value<string>();
+                    if (!string.IsNullOrWhiteSpace(contentItemId))
+                    {
+                        await describeContentItemHelper.BuildRelationships(contentItemId, parentContext);
+                    }
+                }
+            }
+        }
+
+        public async Task<(bool validated, string failureReason)> ValidateSyncComponent(
+            JObject contentItemField,
+            IValidateAndRepairContext context)
+        {
+            ContentPickerFieldSettings contentPickerFieldSettings =
+                context.ContentPartFieldDefinition!.GetSettings<ContentPickerFieldSettings>();
+
+            string relationshipType = await RelationshipTypeContentPicker(contentPickerFieldSettings, context.SyncNameProvider);
+
+            IRelationship[] actualRelationships = context.NodeWithRelationships.OutgoingRelationships
+                .Where(r => r.Type == relationshipType)
+                .ToArray();
+
+            var contentItemIds = (JArray)contentItemField[ContentItemIdsKey]!;
+
+            ContentItem[] destinationContentItems = await GetContentItemsFromIds(
+                contentItemIds,
+                context.ContentManager,
+                context.ContentItemVersion);
+
+            //todo: separate check for missing items, before check relationships
+            //todo: move into helper?
+
+            //todo: have to allow for published picker referencing draft item
+            if (destinationContentItems.Count() != actualRelationships.Length)
+            {
+                return (false, $"expecting {destinationContentItems.Count()} relationships of type {relationshipType} in data sync, but found {actualRelationships.Length}");
+            }
+
+            long ordinal = 0;
+
+            foreach (ContentItem destinationContentItem in destinationContentItems)
+            {
+                //todo: should logically be called using destination ContentType, but it makes no difference atm
+                object destinationId = context.SyncNameProvider.GetNodeIdPropertyValue(
+                    destinationContentItem.Content.GraphSyncPart, context.ContentItemVersion);
+
+                string destinationIdPropertyName =
+                    context.SyncNameProvider.IdPropertyName(destinationContentItem.ContentType);
+
+                var expectedRelationshipProperties =
+                    ContentPickerRelationshipProperties.Concat(
+                        new[] {new KeyValuePair<string, object>("Ordinal", ordinal++)});
+
+                //todo: we might want to check that all the supplied relationship properties are there,
+                // whilst not failing validation if other properties are present?
+                (bool validated, string failureReason) = context.DataSyncValidationHelper.ValidateOutgoingRelationship(
+                    context.NodeWithRelationships,
+                    relationshipType,
+                    destinationIdPropertyName,
+                    destinationId,
+                    expectedRelationshipProperties);
+
+                if (!validated)
+                    return (false, failureReason);
+
+                // keep a count of how many relationships of a type we expect to be in the data sync
+                context.ExpectedRelationshipCounts.IncreaseCount(relationshipType);
+            }
+
+            return (true, "");
+        }
+
+        private async Task<ContentItem[]> GetContentItemsFromIds(
+            JArray contentItemIds,
+            IContentManager contentManager,
+            IContentItemVersion contentItemVersion)
+        {
+            // GetAsync should be returning ContentItem? as it can be null
+
+            ContentItem?[] contentItems = await Task.WhenAll(contentItemIds
+                .Select(idJToken => idJToken.ToObject<string?>())
+                .Select(async id => await contentItemVersion.GetContentItem(contentManager, id!)));
+
+#pragma warning disable S1905
+            return contentItems
+                .Where(ci => ci != null)
+                .Cast<ContentItem>()
+                .ToArray();
+#pragma warning restore S1905
+        }
+
+        private async Task<string> RelationshipTypeContentPicker(
+            ContentPickerFieldSettings contentPickerFieldSettings,
+            ISyncNameProvider syncNameProvider)
+        {
+            //todo: handle multiple types
+            string pickedContentType = contentPickerFieldSettings.DisplayedContentTypes[0];
+
+            string? relationshipType = null;
+            if (contentPickerFieldSettings.Hint != null)
+            {
+                Match match = _relationshipTypeRegex.Match(contentPickerFieldSettings.Hint);
+                if (match.Success)
+                {
+                    relationshipType = $"{match.Groups[1].Value}";
+                }
+            }
+
+            if (relationshipType == null)
+                relationshipType = await syncNameProvider!.RelationshipTypeDefault(pickedContentType);
+
+            return relationshipType;
+        }
+
+        private object GetNodeId(
+            ContentItem pickedContentItem,
+            ISyncNameProvider syncNameProvider,
+            IContentItemVersion contentItemVersion)
+        {
+            //todo: add GetNodeId support to TaxonomyFieldDataSyncer
+
+            return syncNameProvider.GetNodeIdPropertyValue(
+                pickedContentItem.Content[nameof(GraphSyncPart)], contentItemVersion);
+        }
+    }
+}
