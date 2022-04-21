@@ -46,11 +46,13 @@ namespace DFC.ServiceTaxonomy.GraphSync.JsonConverters
                     int endNodeId = GetNumber(id.ToString());
                     int relationshipId = GetNumber(GetAsString(dataId) + id);
 
+                    bool isTwoWay = linkDictionary.ContainsKey("twoWay");
+
                     relationships.Add(new StandardRelationship
                     {
                         Type = link.Key.Replace("cont:", string.Empty),
-                        StartNodeId = idAsNumber,
-                        EndNodeId = endNodeId,
+                        StartNodeId = isTwoWay ? endNodeId : idAsNumber,
+                        EndNodeId = isTwoWay ? idAsNumber : endNodeId,
                         Id = relationshipId,
                         Properties = linkDictionary
                             .Where(pair => pair.Key != "href")
@@ -78,10 +80,11 @@ namespace DFC.ServiceTaxonomy.GraphSync.JsonConverters
 
                 int startNodeId = GetNumber(incomingItemId);
                 int relationshipId = GetNumber(GetAsString(dataId) + incomingItemId);
+                string uri = $"/{incomingItemContentType}/{incomingItemId}";
 
                 relationships.Add(new StandardRelationship
                 {
-                    Type = $"has{FirstCharToUpper(dataContentType)}",
+                    Type = $"has{FirstCharToUpper(incomingItemContentType)}",
                     StartNodeId = startNodeId,
                     EndNodeId = idAsNumber,
                     Id = relationshipId
@@ -94,6 +97,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.JsonConverters
                     {
                         { "ContentType", incomingItemContentType },
                         { "id", incomingItemId },
+                        { "uri", uri }
                     },
                     Id = startNodeId
                 });

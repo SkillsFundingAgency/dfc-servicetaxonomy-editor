@@ -284,14 +284,14 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
         {
             IRelationship? incomingRelationship =
                 nodeWithRelationships.IncomingRelationships.SingleOrDefault(r =>
-                    r.Type == relationshipType
-                    && Equals(nodeWithRelationships.Nodes.First(n => n.Id == r.StartNodeId)
-                            .Properties[destinationIdPropertyName], destinationId));
+                    r.Type.Equals(relationshipType, StringComparison.InvariantCultureIgnoreCase)
+                    && destinationId.ToString()!.EndsWith(nodeWithRelationships.Nodes.First(n => n.Id == r.StartNodeId)
+                        .Properties[destinationIdPropertyName].ToString()!, StringComparison.InvariantCultureIgnoreCase));
 
             if (incomingRelationship == null)
                 return (false, $"{IncomingRelationshipDescription(relationshipType, destinationIdPropertyName, destinationId)} not found");
 
-            if (properties != null && !AreEqual(properties, incomingRelationship.Properties))
+            if (properties != null && !AreEqual(properties, incomingRelationship.Properties.Where(pr => pr.Key != "contentType")))
                 return (false, $"{IncomingRelationshipDescription(relationshipType, destinationIdPropertyName, destinationId)} has incorrect properties. expecting {properties.ToCypherPropertiesString()}, found {incomingRelationship.Properties.ToCypherPropertiesString()}");
 
             return (true, string.Empty);

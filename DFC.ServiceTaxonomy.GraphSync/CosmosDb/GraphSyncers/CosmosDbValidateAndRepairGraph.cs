@@ -89,6 +89,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb.GraphSyncers
             ValidationScope validationScope,
             params string[] graphReplicaSetNames)
         {
+            await _session.BeginTransactionAsync();
+
             IEnumerable<ContentTypeDefinition> syncableContentTypeDefinitions = _contentDefinitionManager
                 .ListTypeDefinitions()
                 .Where(x => x.Parts.Any(p => p.Name == nameof(GraphSyncPart)));
