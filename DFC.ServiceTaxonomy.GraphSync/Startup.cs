@@ -114,11 +114,7 @@ namespace DFC.ServiceTaxonomy.GraphSync
 
             // recipe steps
             services.AddRecipeExecutionStep<CypherCommandStep>();
-            services.AddRecipeExecutionStep<CypherToContentStep>();
-            services.AddRecipeExecutionStep<CSharpContentStep>();
             services.AddRecipeExecutionStep<ContentNoCacheStep>();
-            services.AddTransient<ICypherToContentCSharpScriptGlobals, CypherToContentCSharpScriptGlobals>();
-            services.AddTransient<IContentHelper, ContentHelper>();
             services.AddTransient<IServiceTaxonomyHelper, ServiceTaxonomyHelper>();
             services.AddTransient<IGetContentItemsAsJsonQuery, GetContentItemsAsJsonQuery>();
 

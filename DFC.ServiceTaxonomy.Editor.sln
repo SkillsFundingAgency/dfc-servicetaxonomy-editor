@@ -26,8 +26,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DFC.ServiceTaxonomy.GraphVi
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DFC.ServiceTaxonomy.CustomFields", "DFC.ServiceTaxonomy.CustomFields\DFC.ServiceTaxonomy.CustomFields.csproj", "{2A5911E1-21EE-44D4-9BB6-92CB9994C79F}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DFC.ServiceTaxonomy.Cypher", "DFC.ServiceTaxonomy.Cypher\DFC.ServiceTaxonomy.Cypher.csproj", "{2E642150-CE42-4FA7-BED4-1FDC4337AC88}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DFC.ServiceTaxonomy.ContentPickerPreview", "DFC.ServiceTaxonomy.ContentPickerPreview\DFC.ServiceTaxonomy.ContentPickerPreview.csproj", "{0CDC10A8-D499-40B1-9B09-695F40C158BB}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DFC.ServiceTaxonomy.Theme", "DFC.ServiceTaxonomy.Theme\DFC.ServiceTaxonomy.Theme.csproj", "{C33C883C-B503-4FCB-9556-88C278A75BF6}"
@@ -116,12 +114,6 @@ Global
 		{2A5911E1-21EE-44D4-9BB6-92CB9994C79F}.Development|Any CPU.Build.0 = Development|Any CPU
 		{2A5911E1-21EE-44D4-9BB6-92CB9994C79F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2A5911E1-21EE-44D4-9BB6-92CB9994C79F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{2E642150-CE42-4FA7-BED4-1FDC4337AC88}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2E642150-CE42-4FA7-BED4-1FDC4337AC88}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2E642150-CE42-4FA7-BED4-1FDC4337AC88}.Development|Any CPU.ActiveCfg = Development|Any CPU
-		{2E642150-CE42-4FA7-BED4-1FDC4337AC88}.Development|Any CPU.Build.0 = Development|Any CPU
-		{2E642150-CE42-4FA7-BED4-1FDC4337AC88}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2E642150-CE42-4FA7-BED4-1FDC4337AC88}.Release|Any CPU.Build.0 = Release|Any CPU
 		{0CDC10A8-D499-40B1-9B09-695F40C158BB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{0CDC10A8-D499-40B1-9B09-695F40C158BB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0CDC10A8-D499-40B1-9B09-695F40C158BB}.Development|Any CPU.ActiveCfg = Development|Any CPU
