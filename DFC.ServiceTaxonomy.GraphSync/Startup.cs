@@ -2,8 +2,6 @@ using System;
 using System.Collections.Concurrent;
 using System.Linq;
 using System.Threading.Tasks;
-using DFC.ServiceTaxonomy.CSharpScriptGlobals.CypherToContent;
-using DFC.ServiceTaxonomy.CSharpScriptGlobals.CypherToContent.Interfaces;
 using DFC.ServiceTaxonomy.Editor.Module.Drivers;
 using DFC.ServiceTaxonomy.GraphSync.Activities;
 using DFC.ServiceTaxonomy.GraphSync.CosmosDb;
@@ -13,8 +11,6 @@ using DFC.ServiceTaxonomy.GraphSync.CosmosDb.GraphSyncers.Parts.Flow;
 using DFC.ServiceTaxonomy.GraphSync.CosmosDb.GraphSyncers.Parts.Taxonomy;
 using DFC.ServiceTaxonomy.GraphSync.CosmosDb.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.CosmosDb.Queries;
-using DFC.ServiceTaxonomy.GraphSync.CSharpScripting;
-using DFC.ServiceTaxonomy.GraphSync.CSharpScripting.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.Drivers;
 using DFC.ServiceTaxonomy.GraphSync.Exceptions;
 using DFC.ServiceTaxonomy.GraphSync.Extensions;
@@ -115,7 +111,6 @@ namespace DFC.ServiceTaxonomy.GraphSync
             // recipe steps
             services.AddRecipeExecutionStep<CypherCommandStep>();
             services.AddRecipeExecutionStep<ContentNoCacheStep>();
-            services.AddTransient<IServiceTaxonomyHelper, ServiceTaxonomyHelper>();
             services.AddTransient<IGetContentItemsAsJsonQuery, GetContentItemsAsJsonQuery>();
 
             services.AddSingleton<ICosmosDbService>(InitialiseCosmosClientInstanceAsync(_configuration.GetSection(CosmosDbOptions.CosmosDb)).GetAwaiter().GetResult());
@@ -158,7 +153,6 @@ namespace DFC.ServiceTaxonomy.GraphSync
             services.AddTransient<IVisualiseGraphSyncer, VisualiseGraphSyncer>();
 
             services.AddTransient<ISyncNameProvider, SyncNameProvider>();
-            services.AddTransient<ISyncNameProviderCSharpScriptGlobals, SyncNameProviderCSharpScriptGlobals>();
             services.AddTransient<IGraphValidationHelper, GraphValidationHelper>();
             services.AddTransient<IContentFieldsGraphSyncer, ContentFieldsGraphSyncer>();
             services.AddTransient<IBagPartEmbeddedContentItemsGraphSyncer, CosmosDbBagPartEmbeddedContentItemsGraphSyncer>();
