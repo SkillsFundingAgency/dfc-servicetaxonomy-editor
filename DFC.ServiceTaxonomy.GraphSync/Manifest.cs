@@ -6,6 +6,6 @@ using OrchardCore.Modules.Manifest;
     Website = "https://github.com/SkillsFundingAgency/dfc-servicetaxonomy-editor",
     Version = "0.0.3",
     Description = "Enables syncing content to a Cosmos db (referred to as graph).",
-    Category = "Graph",
+    Category = "Data Sync",
     Dependencies = new[] { "OrchardCore.Contents", "OrchardCore.ContentTypes", "DFC.ServiceTaxonomy.Content", "DFC.ServiceTaxonomy.JobProfiles.Module" }
 )]
