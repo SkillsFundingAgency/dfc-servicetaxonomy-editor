@@ -79,14 +79,14 @@ namespace DFC.ServiceTaxonomy.GraphSync.Notifications
             }
 
             //todo: need details of the content item with incoming relationships
-            await Add($"{syncOperation} the '{contentItem.DisplayText}' {contentType} has been cancelled, due to an issue with graph syncing.",
+            await Add($"{syncOperation} the '{contentItem.DisplayText}' {contentType} has been cancelled, due to an issue with data syncing.",
                 technicalMessage.ToString(),
                 technicalHtmlMessage: new HtmlString(technicalHtmlMessage.ToString()));
         }
 
         private async Task AddSyncBlockers(StringBuilder technicalMessage, StringBuilder technicalHtmlMessage, string graphReplicaSetName, IAllowSync allowSync)
         {
-            technicalHtmlMessage.AppendLine($"<div class=\"card mt-3\"><div class=\"card-header\">{graphReplicaSetName} graph</div><div class=\"card-body\">");
+            technicalHtmlMessage.AppendLine($"<div class=\"card mt-3\"><div class=\"card-header\">{graphReplicaSetName} data repositiory</div><div class=\"card-body\">");
 
             technicalHtmlMessage.AppendLine("<ul class=\"list-group list-group-flush\">");
             foreach (var syncBlocker in allowSync.SyncBlockers)
@@ -113,7 +113,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Notifications
 
             technicalHtmlMessage.AppendLine("</ul></div></div>");
 
-            technicalMessage.AppendLine($"{graphReplicaSetName} graph: {allowSync}");
+            technicalMessage.AppendLine($"{graphReplicaSetName} data repository: {allowSync}");
         }
 
         private string GetContentTypeDisplayName(ContentItem contentItem)
