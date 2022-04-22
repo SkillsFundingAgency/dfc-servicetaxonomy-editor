@@ -39,6 +39,23 @@ namespace DFC.ServiceTaxonomy.GraphSync.Helpers
             return (string)item;
         }
 
+        public static List<Dictionary<string, object>> GetIncomingLinks(Dictionary<string, object> item)
+        {
+            var linksSection = SafeCastToDictionary(item["_links"]);
+            var curiesSection = SafeCastToList(linksSection["curies"]);
+            int incomingPosition = curiesSection.FindIndex(curie =>
+                (string)curie["name"] == "incoming");
+
+            var incomingObject = curiesSection.Count > incomingPosition ? curiesSection[incomingPosition] : null;
+
+            if (incomingObject == null)
+            {
+                throw new MissingFieldException("Incoming property missing");
+            }
+
+            return SafeCastToList(incomingObject["items"]);
+        }
+
         public static string FirstCharToUpper(string input) =>
             input switch
             {

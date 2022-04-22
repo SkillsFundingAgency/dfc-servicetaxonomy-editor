@@ -6,15 +6,19 @@ namespace DFC.ServiceTaxonomy.GraphSync.Extensions
     {
         public static string ExtactCurieHref(this string href)
         {
-            if(string.IsNullOrEmpty(href))
+            if (string.IsNullOrEmpty(href))
             {
                 return string.Empty;
             }
-            if(href.Contains("api/execute", StringComparison.InvariantCultureIgnoreCase))
+
+            if (!href.Contains("api/execute", StringComparison.InvariantCultureIgnoreCase))
             {
-                return href.Substring(href.ToLower().IndexOf("api/execute") + 11);
+                return href;
             }
-            return href;
+
+            const int pathPrefixLenght = 11;
+            return href.Substring(href.ToLower().IndexOf("api/execute", StringComparison.Ordinal) + pathPrefixLenght);
+
         }
     }
 }

@@ -1,3 +1,4 @@
+using System;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Contexts;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Parts;
@@ -48,9 +49,29 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
                 context.SyncNameProvider.IdPropertyName(),
                 context.NodeWithRelationships.SourceNode!,
                 (contentValue, nodeValue) =>
-                    nodeValue is string nodeValueString
-                    && Equals((string)contentValue!,
-                        context.SyncNameProvider.IdPropertyValueFromNodeValue(nodeValueString, context.ContentItemVersion))));
+                {
+                    if (nodeValue is JValue {Type: JTokenType.String} nodeValueToken)
+                    {
+                        nodeValue = nodeValueToken.ToObject<string>()!;
+                    }
+
+                    if (!(nodeValue is string nodeValueString))
+                    {
+                        return false;
+                    }
+
+                    var leftValue = ((string)contentValue!)
+                        .Replace("<<contentapiprefix>>", string.Empty);
+                    var rightValue = context.SyncNameProvider.IdPropertyValueFromNodeValue(nodeValueString, context.ContentItemVersion)
+                        .Replace("<<contentapiprefix>>", string.Empty);
+
+                    if (Uri.TryCreate(rightValue, UriKind.Absolute, out var rightValueUri))
+                    {
+                        rightValue = rightValueUri.PathAndQuery.Replace("/api/execute", string.Empty);
+                    }
+
+                    return Equals(leftValue, rightValue);
+                }));
         }
     }
 }

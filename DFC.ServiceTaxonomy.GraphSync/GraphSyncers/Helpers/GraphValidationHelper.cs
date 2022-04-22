@@ -12,50 +12,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
 {
     public class GraphValidationHelper : IGraphValidationHelper
     {
-        // a bit smelly?
-        // public (bool matched, string failureReason) ContentPropertyMatchesNodeProperty<T>(
-        //     string contentKey,
-        //     JObject contentItemField,
-        //     string nodePropertyName,
-        //     INode sourceNode)
-        // {
-        //     sourceNode.Properties.TryGetValue(nodePropertyName, out object? nodePropertyValue);
-        //
-        //     JValue? contentItemFieldValue = (JValue?)contentItemField?[contentKey];
-        //     if (contentItemFieldValue == null || contentItemFieldValue.Type == JTokenType.Null)
-        //     {
-        //         bool bothNull = nodePropertyValue == null;
-        //         return (bothNull, bothNull?"":"content property value was null, but node property value was not null");
-        //     }
-        //
-        //     if (nodePropertyValue == null)
-        //     {
-        //         return (false, "node property value was null, but content property value was not null");
-        //     }
-        //
-        //     T contentPropertyValue = contentItemFieldValue.As<T>();
-        //
-        //     bool bothSame;
-        //     switch (contentPropertyValue)
-        //     {
-        //         case string s:
-        //             bothSame = Equals(contentPropertyValue, nodePropertyValue);
-        //             break;
-        //         case DateTime d:
-        //             var nodeZonedDateTime = nodePropertyValue.As<ZonedDateTime>();
-        //
-        //             //OC DateTime pickers don't support Milliseconds so ignoring conversion from Neo nanoseconds to OC millisecond
-        //             var nodeAsDateTime = new DateTime(nodeZonedDateTime.Year, nodeZonedDateTime.Month, nodeZonedDateTime.Day, nodeZonedDateTime.Hour, nodeZonedDateTime.Minute, nodeZonedDateTime.Second);
-        //
-        //             bothSame = Equals(contentPropertyValue, nodeAsDateTime);
-        //             break;
-        //         default:
-        //             throw new NotImplementedException("type is not supported");
-        //     }
-        //
-        //     return (bothSame, bothSame?"":$"content property value was '{contentPropertyValue}', but node property value was '{(string)nodePropertyValue}'");
-        // }
-
         public (bool matched, string failureReason) ContentPropertyMatchesNodeProperty(
             string contentKey,
             JObject contentItemField,
@@ -69,7 +25,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
             if (contentItemFieldValue == null || contentItemFieldValue.Type == JTokenType.Null)
             {
                 bool bothNull = nodePropertyValue == null;
-                return (bothNull, bothNull?"":"content property value was null, but node property value was not null");
+                return (bothNull, bothNull ? string.Empty : "content property value was null, but node property value was not null");
             }
 
             if (nodePropertyValue == null)
@@ -78,8 +34,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
             }
 
             bool bothSame = areBothSame(contentItemFieldValue, nodePropertyValue);
-
-            return (bothSame, bothSame?"":$"content property value was '{JValueToString(contentItemFieldValue)}', but node property value was '{nodePropertyValue}'");
+            return (bothSame, bothSame ? string.Empty : $"content property value was '{JValueToString(contentItemFieldValue)}', but node property value was '{nodePropertyValue}'");
         }
 
         private string JValueToString(JValue jvalue)
@@ -104,7 +59,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
             if (contentItemFieldArray == null || contentItemFieldArray.Type == JTokenType.Null)
             {
                 bool bothNull = nodePropertyValue == null;
-                return (bothNull, bothNull?"":"content property array was null, but node property array was not null");
+                return (bothNull, bothNull ? string.Empty : "content property array was null, but node property array was not null");
             }
 
             if (nodePropertyValue == null)
@@ -123,11 +78,11 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
             if (areSame.Any(same => !same))
                 return (false, GenerateErrorMessage());
 
-            return (true, "");
+            return (true, string.Empty);
 
             string GenerateErrorMessage(string? prefix = null)
             {
-                return $"{prefix}{(prefix!=null?": ":"")}content property array was '{string.Join(", ", contentItemFieldArray)}', but node property value was '{string.Join(", ", (IEnumerable<object>)nodePropertyValue)}'";
+                return $"{prefix}{(prefix!=null ? ": " : string.Empty)}content property array was '{string.Join(", ", contentItemFieldArray)}', but node property value was '{string.Join(", ", (IEnumerable<object>)nodePropertyValue)}'";
             }
         }
 
@@ -136,7 +91,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
             JObject contentItemField,
             string nodePropertyName,
             INode sourceNode)
-            //Func<string, string, bool> areBothSame)
         {
             sourceNode.Properties.TryGetValue(nodePropertyName, out object? nodePropertyValue);
 
@@ -149,7 +103,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
             if (contentMultilineString == null || contentMultilineString.Type == JTokenType.Null)
             {
                 bool bothEmpty = !nodeStrings.Any();
-                return (bothEmpty, bothEmpty?"":"content multiline string was null, but node property array had value(s)");
+                return (bothEmpty, bothEmpty ? string.Empty : "content multiline string was null, but node property array had value(s)");
             }
 
             string[] contentStrings = contentMultilineString.Value<string>()?.Split("\r\n") ?? new string[0];
@@ -159,16 +113,15 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
                 return (false, GenerateErrorMessage($"content multiline string had {contentStrings.Count()} lines, but node property array has {nodeStrings.Count()} items"));
             }
 
-            //var areSame = contentStrings.Zip(nodeStrings, (cv, nv) => areBothSame(cv, nv));
             var areSame = contentStrings.Zip(nodeStrings, string.Equals);
             if (areSame.Any(same => !same))
                 return (false, GenerateErrorMessage());
 
-            return (true, "");
+            return (true, string.Empty);
 
             string GenerateErrorMessage(string? prefix = null)
             {
-                return $"{prefix}{(prefix!=null?": ":"")}content multiline string was '{string.Join(", ", contentStrings)}', but node property value was '{string.Join(", ", nodeStrings)}'";
+                return $"{prefix}{(prefix!=null?": " : string.Empty)}content multiline string was '{string.Join(", ", contentStrings)}', but node property value was '{string.Join(", ", nodeStrings)}'";
             }
         }
 
@@ -179,7 +132,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
             INode sourceNode)
         {
             return ContentArrayPropertyMatchesNodeProperty(contentKey, contentItemField, nodePropertyName, sourceNode,
-                (contentValue, nodeValue) => nodeValue is string && Equals((string)contentValue!, nodeValue));
+                (contentValue, nodeValue) => EqualsCheck<string>(contentValue, nodeValue, JTokenType.String));
         }
 
         public (bool matched, string failureReason) StringContentPropertyMatchesNodeProperty(
@@ -189,7 +142,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
             INode sourceNode)
         {
             return ContentPropertyMatchesNodeProperty(contentKey, contentItemField, nodePropertyName, sourceNode,
-                (contentValue, nodeValue) => nodeValue is string && Equals((string)contentValue!, nodeValue));
+                (contentValue, nodeValue) => EqualsCheck<string>(contentValue, nodeValue, JTokenType.String));
         }
 
         public (bool matched, string failureReason) BoolContentPropertyMatchesNodeProperty(
@@ -199,7 +152,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
             INode sourceNode)
         {
             return ContentPropertyMatchesNodeProperty(contentKey, contentItemField, nodePropertyName, sourceNode,
-                (contentValue, nodeValue) => nodeValue is bool && Equals((bool)contentValue, nodeValue));
+                (contentValue, nodeValue) => EqualsCheck<bool>(contentValue, nodeValue, JTokenType.Boolean));
         }
 
         public (bool matched, string failureReason) LongContentPropertyMatchesNodeProperty(
@@ -209,7 +162,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
             INode sourceNode)
         {
             return ContentPropertyMatchesNodeProperty(contentKey, contentItemField, nodePropertyName, sourceNode,
-                (contentValue, nodeValue) => nodeValue is long && Equals((long)contentValue, nodeValue));
+                (contentValue, nodeValue) => EqualsCheck<long>(contentValue, nodeValue, JTokenType.Integer));
         }
 
         public (bool matched, string failureReason) EnumContentPropertyMatchesNodeProperty<T>(
@@ -272,7 +225,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
             if (properties != null && !AreEqual(properties, outgoingRelationship.Properties))
                 return (false, $"{RelationshipDescription(relationshipType, destinationIdPropertyName, destinationId)} has incorrect properties. expecting {properties.ToCypherPropertiesString()}, found {outgoingRelationship.Properties.ToCypherPropertiesString()}");
 
-            return (true, "");
+            return (true, string.Empty);
         }
 
         public (bool validated, string failureReason) ValidateIncomingRelationship(
@@ -284,14 +237,14 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
         {
             IRelationship? incomingRelationship =
                 nodeWithRelationships.IncomingRelationships.SingleOrDefault(r =>
-                    r.Type == relationshipType
-                    && Equals(nodeWithRelationships.Nodes.First(n => n.Id == r.StartNodeId)
-                            .Properties[destinationIdPropertyName], destinationId));
+                    r.Type.Equals(relationshipType, StringComparison.InvariantCultureIgnoreCase)
+                    && destinationId.ToString()!.EndsWith(nodeWithRelationships.Nodes.First(n => n.Id == r.StartNodeId)
+                        .Properties[destinationIdPropertyName].ToString()!, StringComparison.InvariantCultureIgnoreCase));
 
             if (incomingRelationship == null)
                 return (false, $"{IncomingRelationshipDescription(relationshipType, destinationIdPropertyName, destinationId)} not found");
 
-            if (properties != null && !AreEqual(properties, incomingRelationship.Properties))
+            if (properties != null && !AreEqual(properties, incomingRelationship.Properties.Where(pr => pr.Key != "contentType")))
                 return (false, $"{IncomingRelationshipDescription(relationshipType, destinationIdPropertyName, destinationId)} has incorrect properties. expecting {properties.ToCypherPropertiesString()}, found {incomingRelationship.Properties.ToCypherPropertiesString()}");
 
             return (true, string.Empty);
@@ -311,6 +264,28 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
             where K : notnull
         {
             return first.Count() == second.Count() && !first.Except(second).Any();
+        }
+
+        private bool EqualsCheck<T>(JValue contentValue, object nodeValue, JTokenType type)
+        {
+            T leftValue = contentValue.ToObject<T>();
+            T rightValue;
+
+            if (nodeValue is JValue jRightValue && jRightValue.Type == type)
+            {
+                rightValue = jRightValue.ToObject<T>();
+            }
+            else
+            {
+                if (!(nodeValue is T castedNodeValue))
+                {
+                    return false;
+                }
+
+                rightValue = castedNodeValue;
+            }
+
+            return Equals(leftValue, rightValue);
         }
     }
 }

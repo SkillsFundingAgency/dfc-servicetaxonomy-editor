@@ -67,9 +67,17 @@ namespace DFC.ServiceTaxonomy.GraphSync.Orchestrators
         protected string GetSyncOperationCancelledUserMessage(
             SyncOperation syncOperation,
             string displayText,
-            string contentType)
+            string contentType,
+            string? extraDetail = null)
         {
-            return $"{syncOperation} the '{displayText}' {contentType} has been cancelled, due to an issue with graph syncing.";
+            var returnMessage = $"{syncOperation} '{displayText}' ({contentType}) could not be completed";
+
+            if (!string.IsNullOrEmpty(extraDetail))
+            {
+                returnMessage += $". {extraDetail}.";
+            }
+
+            return returnMessage;
         }
 
         protected async Task<(IAllowSync, IDeleteGraphSyncer?)> GetDeleteGraphSyncerIfDeleteAllowed(
@@ -96,7 +104,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Orchestrators
                 _logger.LogError(exception, "Unable to check if the '{ContentItem}' {ContentType} can be {DeleteOperation} from the {GraphReplicaSetName} graph.",
                     contentItem.DisplayText, contentType, syncOperation.ToString("PrP", null).ToLower(), contentItemVersion.GraphReplicaSetName);
 
-                await _notifier.Add(GetSyncOperationCancelledUserMessage(syncOperation, contentItem.DisplayText, contentType),
+                await _notifier.Add(GetSyncOperationCancelledUserMessage(syncOperation, contentItem.DisplayText, contentType, exception.Message),
                     $"Unable to check if the '{contentItem.DisplayText}' {contentType} can be {syncOperation.ToString("PrP", null).ToLower()} from the {contentItemVersion.GraphReplicaSetName} graph.",
                     exception: exception);
 
@@ -146,7 +154,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Orchestrators
             _logger.LogError(exception, "{Operation} the '{ContentItem}' {ContentType} has been cancelled because the {GraphReplicaSetName} graph couldn't be updated.",
                 operation, contentItem.DisplayText, contentType, deleteGraphSyncer.GraphReplicaSetName);
 
-            _notifier.Add(GetSyncOperationCancelledUserMessage(syncOperation, contentItem.DisplayText, contentType),
+            _notifier.Add(GetSyncOperationCancelledUserMessage(syncOperation, contentItem.DisplayText, contentType, exception.Message),
                 $"{operation} the '{contentItem.DisplayText}' {contentType} has been cancelled because the {deleteGraphSyncer.GraphReplicaSetName} graph couldn't be updated.",
                 exception: exception);
         }

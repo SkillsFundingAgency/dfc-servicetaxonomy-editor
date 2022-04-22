@@ -80,7 +80,8 @@ namespace DFC.ServiceTaxonomy.GraphSync
         {
             var cosmosDbOptions = new CosmosDbOptions();
             configurationSection.Bind(cosmosDbOptions);
-             if(!cosmosDbOptions.Endpoints.Any())
+
+            if(!cosmosDbOptions.Endpoints.Any())
             {
                 throw new GraphClusterConfigurationErrorException("No endpoints configured.");
             }
@@ -89,17 +90,20 @@ namespace DFC.ServiceTaxonomy.GraphSync
             var concurrentDictionary = new ConcurrentDictionary<string, Container>();
             CosmosClient? sharedClient = null;
             var firstConnString = cosmosDbOptions.Endpoints!.Values.First().ConnectionString;
+
             if (cosmosDbOptions.Endpoints.Values.All(v => v.ConnectionString == firstConnString))
             {
                 sharedClient = new CosmosClient(firstConnString);
             }
+
             foreach (var endpoint in cosmosDbOptions.Endpoints!)
             {
                 var client = sharedClient ?? new CosmosClient(endpoint.Value.ConnectionString);
                 var db = (await client.CreateDatabaseIfNotExistsAsync(endpoint.Value.DatabaseName, ThroughputProperties.CreateManualThroughput(400))).Database;
                 var containerName = endpoint.Value.ContainerName ?? endpoint.Key;
                 var container = await db.CreateContainerIfNotExistsAsync(containerName, $"/{PartitionKeyKey}");
-                concurrentDictionary.TryAdd(containerName, container.Container);
+
+                concurrentDictionary.TryAdd(endpoint.Key, container.Container);
             }
             return new CosmosDbService(concurrentDictionary);
         }

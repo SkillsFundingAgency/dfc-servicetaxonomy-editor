@@ -46,11 +46,13 @@ namespace DFC.ServiceTaxonomy.GraphSync.JsonConverters
                     int endNodeId = GetNumber(id.ToString());
                     int relationshipId = GetNumber(GetAsString(dataId) + id);
 
+                    bool isTwoWay = linkDictionary.ContainsKey("twoWay");
+
                     relationships.Add(new StandardRelationship
                     {
                         Type = link.Key.Replace("cont:", string.Empty),
-                        StartNodeId = idAsNumber,
-                        EndNodeId = endNodeId,
+                        StartNodeId = isTwoWay ? endNodeId : idAsNumber,
+                        EndNodeId = isTwoWay ? idAsNumber : endNodeId,
                         Id = relationshipId,
                         Properties = linkDictionary
                             .Where(pair => pair.Key != "href")
@@ -78,10 +80,11 @@ namespace DFC.ServiceTaxonomy.GraphSync.JsonConverters
 
                 int startNodeId = GetNumber(incomingItemId);
                 int relationshipId = GetNumber(GetAsString(dataId) + incomingItemId);
+                string uri = $"/{incomingItemContentType}/{incomingItemId}";
 
                 relationships.Add(new StandardRelationship
                 {
-                    Type = $"has{FirstCharToUpper(dataContentType)}",
+                    Type = $"has{FirstCharToUpper(incomingItemContentType)}",
                     StartNodeId = startNodeId,
                     EndNodeId = idAsNumber,
                     Id = relationshipId
@@ -94,6 +97,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.JsonConverters
                     {
                         { "ContentType", incomingItemContentType },
                         { "id", incomingItemId },
+                        { "uri", uri }
                     },
                     Id = startNodeId
                 });
@@ -105,8 +109,14 @@ namespace DFC.ServiceTaxonomy.GraphSync.JsonConverters
             }
 
             return new Subgraph(
-                nodes,
-                relationships,
+                nodes
+                    .GroupBy(node => node.Id)
+                    .Select(nodeGroup => nodeGroup.First())
+                    .ToList(),
+                relationships
+                    .GroupBy(relationship => new { relationship.Type, relationship.StartNodeId, relationship.EndNodeId })
+                    .Select(relationshipGroup => relationshipGroup.First())
+                    .ToList(),
                 new StandardNode
                 {
                     Labels = new List<string> { dataContentType, "Resource" },
@@ -125,7 +135,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.JsonConverters
                     continue;
                 }
 
-                properties.Add(property.Key, property.Value?.ToString()!);
+                properties.Add(property.Key, property.Value!);
             }
 
             return properties;
@@ -136,7 +146,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.JsonConverters
             var curies = SafeCastToList(
                 links.SingleOrDefault(link => link.Key == "curies").Value);
 
-            int incomingPosition = curies!.FindIndex(curie =>
+            int incomingPosition = curies.FindIndex(curie =>
                 (string)curie["name"] == "incoming");
 
             var incomingObject = curies.Count > incomingPosition ? curies[incomingPosition] : null;
