@@ -277,7 +277,12 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
             }
             else
             {
-                rightValue = (T)nodeValue;
+                if (!(nodeValue is T castedNodeValue))
+                {
+                    return false;
+                }
+
+                rightValue = castedNodeValue;
             }
 
             return Equals(leftValue, rightValue);
