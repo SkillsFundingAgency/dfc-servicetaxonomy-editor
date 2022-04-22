@@ -118,7 +118,9 @@ namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb
             string itemUri = (string)commandParameters["sourceIdPropertyValue"];
             (string contentType, Guid id) = GetContentTypeAndId(itemUri);
             var item = await _cosmosDbService.GetContentItemFromDatabase(databaseName, contentType, id);
-            var existingItemRelationships = (item!["_links"] as JObject)!.GetLinks().SelectMany(l => l.Value.Select(GetContentTypeAndId));
+            var existingItemRelationships = SafeCastToDictionary(item!["_links"])
+                .GetLinks()
+                .SelectMany(l => l.Value.Select(GetContentTypeAndId));
 
             // Since the move to cosmos the destination node source ids don't appear to be populated
             if (command is CosmosDbDeleteRelationshipsCommand deleteRelationshipsCommand)
@@ -152,12 +154,12 @@ namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb
             (string contentType, Guid id) = GetContentTypeAndId(itemUri);
 
             var item = await _cosmosDbService.GetContentItemFromDatabase(databaseName, contentType, id)
-                       ?? new Dictionary<string, object>
-                            {
-                                { "id", id },
-                                { "ContentType", contentType },
-                                { "_links", BuildLinksDictionary(itemUri) },
-                            };
+                ?? new Dictionary<string, object>
+                    {
+                        { "id", id },
+                        { "ContentType", contentType },
+                        { "_links", BuildLinksDictionary(itemUri) },
+                    };
 
             foreach ((string? key, object? value) in properties.Where(p => !p.Key.Equals("ContentType")))
             {
@@ -221,6 +223,11 @@ namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb
             }
 
             var relationships = itemRelationships
+                .Where(relationship =>
+                {
+                    string href = ((string)relationship.DestinationNodeIdPropertyValues.FirstOrDefault()!).ExtactCurieHref();
+                    return !string.IsNullOrEmpty(href);
+                })
                 .Select(ExtractRelationship)
                 .ToList();
 
@@ -295,7 +302,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb
 
             string itemId = (string)itemBeforeUpdate["ContentType"] + (string)itemBeforeUpdate["id"];
 
-            var existingItemRelationships = (itemBeforeUpdate["_links"] as JObject)!
+            var existingItemRelationships = SafeCastToDictionary(itemBeforeUpdate["_links"])
                 .GetLinks()
                 .SelectMany(l => l.Value.Select(GetContentTypeAndId));
 
@@ -395,8 +402,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb
                 }
 
                 var links = SafeCastToDictionary(relationshipItem["_links"]);
-                var curies = (links["curies"] as JArray)!.ToObject<List<Dictionary<string, object>>>();
-                int incomingPosition = curies!.FindIndex(curie =>
+                var curies = SafeCastToList(links["curies"]);
+                int incomingPosition = curies.FindIndex(curie =>
                     (string)curie["name"] == "incoming");
                 var incomingObject = curies.Count > incomingPosition ? curies[incomingPosition] : null;
 
@@ -405,7 +412,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb
                     throw new MissingFieldException("Incoming collection missing");
                 }
 
-                var incomingList = (incomingObject["items"] as JArray)!.ToObject<List<Dictionary<string, object>>>();
+                var incomingList = SafeCastToList(incomingObject["items"]);
                 bool itemLinkAlreadyExists = false;
 
                 foreach (var incomingItem in incomingList!)

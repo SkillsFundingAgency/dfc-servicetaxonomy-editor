@@ -109,8 +109,14 @@ namespace DFC.ServiceTaxonomy.GraphSync.JsonConverters
             }
 
             return new Subgraph(
-                nodes,
-                relationships,
+                nodes
+                    .GroupBy(node => node.Id)
+                    .Select(nodeGroup => nodeGroup.First())
+                    .ToList(),
+                relationships
+                    .GroupBy(relationship => new { relationship.Type, relationship.StartNodeId, relationship.EndNodeId })
+                    .Select(relationshipGroup => relationshipGroup.First())
+                    .ToList(),
                 new StandardNode
                 {
                     Labels = new List<string> { dataContentType, "Resource" },
@@ -129,7 +135,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.JsonConverters
                     continue;
                 }
 
-                properties.Add(property.Key, property.Value?.ToString()!);
+                properties.Add(property.Key, property.Value!);
             }
 
             return properties;
@@ -140,7 +146,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.JsonConverters
             var curies = SafeCastToList(
                 links.SingleOrDefault(link => link.Key == "curies").Value);
 
-            int incomingPosition = curies!.FindIndex(curie =>
+            int incomingPosition = curies.FindIndex(curie =>
                 (string)curie["name"] == "incoming");
 
             var incomingObject = curies.Count > incomingPosition ? curies[incomingPosition] : null;
