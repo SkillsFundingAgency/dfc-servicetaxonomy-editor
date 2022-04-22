@@ -98,7 +98,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers
         {
             try
             {
-                if (!await _syncOrchestrator.Publish(context.ContentItem))
+                if (!await _syncOrchestrator.Restore(context.ContentItem))
                 {
                     // sad paths have already been notified to the user and logged
                     Cancel(context);
