@@ -81,7 +81,7 @@ namespace DFC.ServiceTaxonomy.GraphSync
             var cosmosDbOptions = new CosmosDbOptions();
             configurationSection.Bind(cosmosDbOptions);
 
-            if(!cosmosDbOptions.Endpoints.Any())
+            if (!cosmosDbOptions.Endpoints.Any())
             {
                 throw new GraphClusterConfigurationErrorException("No endpoints configured.");
             }
@@ -103,8 +103,12 @@ namespace DFC.ServiceTaxonomy.GraphSync
                 var containerName = endpoint.Value.ContainerName ?? endpoint.Key;
                 var container = await db.CreateContainerIfNotExistsAsync(containerName, $"/{PartitionKeyKey}");
 
-                concurrentDictionary.TryAdd(endpoint.Key, container.Container);
+                if (!concurrentDictionary.TryAdd(endpoint.Key, container.Container))
+                {
+                    throw new GraphClusterConfigurationErrorException($"Failed to configure container with key '{endpoint.Key}'");
+                }
             }
+
             return new CosmosDbService(concurrentDictionary);
         }
 
