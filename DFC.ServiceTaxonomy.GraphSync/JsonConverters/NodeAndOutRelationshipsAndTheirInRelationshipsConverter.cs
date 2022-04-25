@@ -37,15 +37,16 @@ namespace DFC.ServiceTaxonomy.GraphSync.JsonConverters
 
                 foreach (var linkDictionary in linkDictionaries)
                 {
-                    var linkDetails = GetContentTypeAndId((string)linkDictionary["href"]);
+                    (_, Guid id) = GetContentTypeAndId((string)linkDictionary["href"]);
+                    var itemContentType = (string)linkDictionary["contentType"];
 
-                    if (linkDetails.Id == Guid.Empty)
+                    if (id == Guid.Empty)
                     {
                         continue;
                     }
-                    int endNodeId = GetNumber(GetAsString(linkDetails.Id));
+                    int endNodeId = GetNumber(GetAsString(id));
                     int relationshipId = GetNumber(
-                        GetAsString(linkDetails.Id) + GetAsString(itemId));
+                        GetAsString(id) + GetAsString(itemId));
 
                     var outgoing = new OutgoingRelationship(new StandardRelationship
                     {
@@ -59,11 +60,11 @@ namespace DFC.ServiceTaxonomy.GraphSync.JsonConverters
                         Id = endNodeId,
                         Properties = new Dictionary<string, object>
                         {
-                            {"ContentType", linkDetails.ContentType},
-                            {"id", linkDetails.Id},
+                            {"ContentType", itemContentType},
+                            {"id", id},
                             {"endNodeId", endNodeId}
                         },
-                        Labels = new List<string> {linkDetails.ContentType, "Resource"}
+                        Labels = new List<string> {contentType, "Resource"}
                     });
                     relationships.Add((outgoing, new List<OutgoingRelationship>()));
                 }

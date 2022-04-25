@@ -308,7 +308,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 
                 var linkDictionary = SafeCastToDictionary(link.Value);
                 string href = (string)linkDictionary["href"];
-                (string contentType, Guid id) = GetContentTypeAndId(href);
+                (string? contentType, Guid id) = GetContentTypeAndId(href);
 
                 if (s_relationshipsToIgnore.Contains($"{rootContentType}>{parentContentType}>{contentType}"))
                 {
@@ -338,7 +338,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
                 foreach (object? detailResult in detailResults)
                 {
                     Dictionary<string, object>? detailResultProperties = SafeCastToDictionary(detailResult);
-                    (string detailResultContentType, Guid detailResultId) = GetContentTypeAndId((string)detailResultProperties!["uri"]);
+                    (string? detailResultContentType, Guid detailResultId) = GetContentTypeAndId((string)detailResultProperties!["uri"]);
 
                     int endNodeId = GetNumber(GetAsString(detailResultId));
                     int relationshipId = GetNumber(GetAsString(detailResultId) + parentId);
@@ -353,7 +353,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
                     {
                         Id = endNodeId,
                         Properties = detailResultProperties,
-                        Labels = new List<string> { detailResultContentType, "Resource" }
+                        Labels = new List<string> { detailResultContentType!, "Resource" }
                     });
 
                     returnList.AddRange(new List<(IOutgoingRelationship outgoingRelationship, IEnumerable<IOutgoingRelationship> incomingRelationships)>
@@ -378,7 +378,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             foreach (var linkDictionary in linkListDictionary!)
             {
                 string href = (string)linkDictionary["href"];
-                (string contentType, Guid id) = GetContentTypeAndId(href);
+                (string? contentType, Guid id) = GetContentTypeAndId(href);
 
                 if (s_relationshipsToIgnore.Contains($"{rootContentType}>{parentContentType}>{contentType}"))
                 {

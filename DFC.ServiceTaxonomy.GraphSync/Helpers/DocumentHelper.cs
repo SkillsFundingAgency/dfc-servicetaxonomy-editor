@@ -7,7 +7,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Helpers
 {
     public static class DocumentHelper
     {
-        public static (string ContentType, Guid Id) GetContentTypeAndId(string uri)
+        public static (string? ContentType, Guid Id) GetContentTypeAndId(string uri)
         {
             if (string.IsNullOrEmpty(uri))
             {
@@ -18,14 +18,15 @@ namespace DFC.ServiceTaxonomy.GraphSync.Helpers
             pathOnly = pathOnly.ToLower().Replace("/api/execute", string.Empty);
 
             string[] uriParts = pathOnly.Trim('/').Split('/');
-            string contentType = uriParts[0].ToLower();
 
             if (uriParts.Length == 1)
             {
-                return (contentType, Guid.Empty);
+                return (null, Guid.Parse(uriParts[0]));
             }
 
+            string contentType = uriParts[0].ToLower();
             var id = Guid.Parse(uriParts[1]);
+
             return (contentType, id);
         }
 
