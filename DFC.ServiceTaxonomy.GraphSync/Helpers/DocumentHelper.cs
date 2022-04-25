@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Globalization;
 using Newtonsoft.Json.Linq;
 
@@ -49,7 +48,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Helpers
         {
             if (item == null)
             {
-                throw new NoNullAllowedException("Item doesn't exist in graph");
+                throw new ArgumentNullException(nameof(item));
             }
 
             var linksSection = SafeCastToDictionary(item["_links"]);
