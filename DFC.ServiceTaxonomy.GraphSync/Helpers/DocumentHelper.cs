@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Globalization;
 using Newtonsoft.Json.Linq;
 
@@ -46,6 +47,11 @@ namespace DFC.ServiceTaxonomy.GraphSync.Helpers
 
         public static List<Dictionary<string, object>> GetIncomingLinks(Dictionary<string, object> item)
         {
+            if (item == null)
+            {
+                throw new NoNullAllowedException("Item doesn't exist in graph");
+            }
+
             var linksSection = SafeCastToDictionary(item["_links"]);
             var curiesSection = SafeCastToList(linksSection["curies"]);
             int incomingPosition = curiesSection.FindIndex(curie =>
