@@ -349,26 +349,19 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
                 _syncNameProviderCSharpScriptGlobals);
         }
 
-        private string GetCorrectlyCasedContentType(string contentType)
-        {
-            IEnumerable<ContentTypeDefinition>? contentTypeDefinitions = _contentDefinitionManager.ListTypeDefinitions();
-            return contentTypeDefinitions
-                .FirstOrDefault(item => item.Name.Equals(contentType, StringComparison.InvariantCultureIgnoreCase))?.Name ?? contentType;
-        }
-
         public GraphSyncPartSettings GetGraphSyncPartSettings(string contentType)
         {
             ContentTypeDefinition? contentTypeDefinition =
                 ContentDefinitionHelper.GetTypeDefinitionCaseInsensitive(contentType, _contentDefinitionManager, false);
 
             if (contentTypeDefinition == null)
-             throw new GraphSyncException($"Attempt to get {nameof(GraphSyncPartSettings)} for {correctlyCasedContentType}, but it doesn't have a {nameof(ContentTypeDefinition)}.");
+                throw new GraphSyncException($"Attempt to get {nameof(GraphSyncPartSettings)} for {contentType}, but it doesn't have a {nameof(ContentTypeDefinition)}.");
 
             ContentTypePartDefinition? contentTypePartDefinition =
                 contentTypeDefinition.Parts.FirstOrDefault(p => p.PartDefinition.Name == nameof(GraphSyncPart));
 
             if (contentTypePartDefinition == null)
-             throw new GraphSyncException($"Attempt to get {nameof(GraphSyncPartSettings)} for {correctlyCasedContentType}, but it doesn't have a {nameof(GraphSyncPart)}.");
+                throw new GraphSyncException($"Attempt to get {nameof(GraphSyncPartSettings)} for {contentType}, but it doesn't have a {nameof(GraphSyncPart)}.");
 
             return contentTypePartDefinition.GetSettings<GraphSyncPartSettings>();
         }
