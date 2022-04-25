@@ -106,6 +106,16 @@ namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb
 
                 foreach (var item in resultList)
                 {
+                    var incomingLinks = GetIncomingLinks(item);
+
+                    if (incomingLinks.Any())
+                    {
+                        var title = (string)item["skos__prefLabel"];
+
+                        throw new ValidationException(
+                            $"Content {title} is referenced by {incomingLinks.Count} other {GetItemOrItems(incomingLinks.Count)}");
+                    }
+
                     var id = new Guid((string)item["id"]);
                     await _cosmosDbService.DeleteItemAsync(databaseName, contentType, id);
                 }
