@@ -19,8 +19,13 @@ namespace DFC.ServiceTaxonomy.GraphSync.Helpers
 
             string[] uriParts = pathOnly.Trim('/').Split('/');
             string contentType = uriParts[0].ToLower();
-            var id = Guid.Parse(uriParts[1]);
 
+            if (uriParts.Length == 1)
+            {
+                return (contentType, Guid.Empty);
+            }
+
+            var id = Guid.Parse(uriParts[1]);
             return (contentType, id);
         }
 

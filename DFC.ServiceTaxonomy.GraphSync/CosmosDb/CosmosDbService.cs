@@ -18,15 +18,21 @@ namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb
 
         public CosmosDbService(ConcurrentDictionary<string, Container> containers)
         {
+            if (containers == null || containers.IsEmpty)
+            {
+                throw new GraphClusterConfigurationErrorException("No containers to setup");
+            }
+
             _containers = containers;
         }
 
         private Container GetContainer(string name)
         {
-            if(!_containers.ContainsKey(name))
+            if (!_containers.ContainsKey(name))
             {
-                throw new GraphClusterConfigurationErrorException($"'{name}' endpoint has not been created configured. Please check the configuration.");
+                throw new GraphClusterConfigurationErrorException($"'{name}' endpoint has not been configured. Please check the configuration.");
             }
+
             return _containers[name];
         }
 
