@@ -50,7 +50,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\DFC.ServiceTaxonomy.Content\DFC.ServiceTaxonomy.Content.csproj" />
-    <ProjectReference Include="..\DFC.ServiceTaxonomy.CSharpScriptGlobals.CypherToContent\DFC.ServiceTaxonomy.CSharpScriptGlobals.CypherToContent.csproj" />
     <ProjectReference Include="..\DFC.ServiceTaxonomy.CustomFields\DFC.ServiceTaxonomy.CustomFields.csproj" />
     <ProjectReference Include="..\DFC.ServiceTaxonomy.Events\DFC.ServiceTaxonomy.Events.csproj" />
     <ProjectReference Include="..\DFC.ServiceTaxonomy.Slack\DFC.ServiceTaxonomy.Slack.csproj" />

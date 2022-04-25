@@ -74,7 +74,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
 
             /* 2021-11-29 the below logic doesnt seem to work for the alert pages recipe, it looks for it before its had chance to save it to preview (it saves it after)
              * Currently errors aren't thrown up to the UI so probably always failed
-             * 
+             *
             if (context.ContentItemVersion.GraphReplicaSetName == GraphReplicaSetNames.Preview
                 && foundDestinationContentItems.Count() != contentItemIdsJArray.Count)
             {
@@ -196,7 +196,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
                 context.ExpectedRelationshipCounts.IncreaseCount(relationshipType);
             }
 
-            return (true, "");
+            return (true, string.Empty);
         }
 
         private async Task<ContentItem[]> GetContentItemsFromIds(
@@ -236,7 +236,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
             }
 
             if (relationshipType == null)
-                relationshipType = await syncNameProvider!.RelationshipTypeDefault(pickedContentType);
+                relationshipType = await syncNameProvider.RelationshipTypeDefault(pickedContentType);
 
             return relationshipType;
         }

@@ -89,6 +89,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb.GraphSyncers
             ValidationScope validationScope,
             params string[] graphReplicaSetNames)
         {
+            await _session.BeginTransactionAsync();
+
             IEnumerable<ContentTypeDefinition> syncableContentTypeDefinitions = _contentDefinitionManager
                 .ListTypeDefinitions()
                 .Where(x => x.Parts.Any(p => p.Name == nameof(GraphSyncPart)));
@@ -361,7 +363,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb.GraphSyncers
 
             var nodeLabels = await _syncNameProvider.NodeLabels();
 
-            ISubgraph? nodeWithRelationships = (await _currentGraph!.Run(
+            Subgraph? nodeWithRelationships = (await _currentGraph!.Run(
                 new CosmosDbSubgraphQuery(nodeLabels, _syncNameProvider.IdPropertyName(), nodeId)))
                 .FirstOrDefault();
 
@@ -402,7 +404,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb.GraphSyncers
                 }
             }
 
-            return (true, "");
+            return (true, string.Empty);
         }
 
         private async Task<(bool validated, string failureReason)> ValidateDeletedContentItem(

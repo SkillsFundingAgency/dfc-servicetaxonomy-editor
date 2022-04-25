@@ -15,14 +15,15 @@ namespace DFC.ServiceTaxonomy.GraphSync.Extensions
                 : (DateTime?) null;
         }
 
-        public static Dictionary<string, List<string>> GetLinks(this JObject jobject)
+        public static Dictionary<string, List<string>> GetLinks(this Dictionary<string, object> linksDictionary)
         {
-            if(jobject == null)
+            if (linksDictionary == null)
             {
-                throw new ArgumentNullException(nameof(jobject));
+                throw new ArgumentNullException(nameof(linksDictionary));
             }
+
             var result = new Dictionary<string, List<string>>();
-            var linksDictionary = jobject.ToObject<Dictionary<string, object>>() ?? new Dictionary<string, object>();
+
             foreach (var item in linksDictionary.Where(link => link.Key != "self" && link.Key != "curies"))
             {
                 var list = new List<string>();

@@ -1,5 +1,4 @@
-﻿using DFC.ServiceTaxonomy.GraphSync.CSharpScripting.Interfaces;
-using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Exceptions;
+﻿using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Exceptions;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.ContentItemVersions;
 using DFC.ServiceTaxonomy.GraphSync.Models;
@@ -14,7 +13,6 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Helpers
 {
     public class SyncNameProviderHelperTests
     {
-        public ISyncNameProviderCSharpScriptGlobals SyncNameProviderCSharpScriptGlobals { get; set; }
         public IContentDefinitionManager ContentDefinitionManager { get; set; }
         public ISuperpositionContentItemVersion SuperpositionContentItemVersion { get; set; }
 
@@ -27,8 +25,6 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Helpers
 
         public SyncNameProviderHelperTests()
         {
-            SyncNameProviderCSharpScriptGlobals = A.Fake<ISyncNameProviderCSharpScriptGlobals>();
-
             ContentDefinitionManager = A.Fake<IContentDefinitionManager>();
             ContentTypeDefinition = new ContentTypeDefinition("name", "displayName",
                 new[]
@@ -41,7 +37,6 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Helpers
             SuperpositionContentItemVersion = A.Fake<ISuperpositionContentItemVersion>();
 
             SyncNameProvider = new SyncNameProvider(
-                SyncNameProviderCSharpScriptGlobals,
                 ContentDefinitionManager,
                 SuperpositionContentItemVersion);
         }

@@ -2,8 +2,6 @@ using System;
 using System.Collections.Concurrent;
 using System.Linq;
 using System.Threading.Tasks;
-using DFC.ServiceTaxonomy.CSharpScriptGlobals.CypherToContent;
-using DFC.ServiceTaxonomy.CSharpScriptGlobals.CypherToContent.Interfaces;
 using DFC.ServiceTaxonomy.Editor.Module.Drivers;
 using DFC.ServiceTaxonomy.GraphSync.Activities;
 using DFC.ServiceTaxonomy.GraphSync.CosmosDb;
@@ -13,8 +11,6 @@ using DFC.ServiceTaxonomy.GraphSync.CosmosDb.GraphSyncers.Parts.Flow;
 using DFC.ServiceTaxonomy.GraphSync.CosmosDb.GraphSyncers.Parts.Taxonomy;
 using DFC.ServiceTaxonomy.GraphSync.CosmosDb.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.CosmosDb.Queries;
-using DFC.ServiceTaxonomy.GraphSync.CSharpScripting;
-using DFC.ServiceTaxonomy.GraphSync.CSharpScripting.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.Drivers;
 using DFC.ServiceTaxonomy.GraphSync.Exceptions;
 using DFC.ServiceTaxonomy.GraphSync.Extensions;
@@ -84,7 +80,8 @@ namespace DFC.ServiceTaxonomy.GraphSync
         {
             var cosmosDbOptions = new CosmosDbOptions();
             configurationSection.Bind(cosmosDbOptions);
-             if(!cosmosDbOptions.Endpoints.Any())
+
+            if (!cosmosDbOptions.Endpoints.Any())
             {
                 throw new GraphClusterConfigurationErrorException("No endpoints configured.");
             }
@@ -93,18 +90,25 @@ namespace DFC.ServiceTaxonomy.GraphSync
             var concurrentDictionary = new ConcurrentDictionary<string, Container>();
             CosmosClient? sharedClient = null;
             var firstConnString = cosmosDbOptions.Endpoints!.Values.First().ConnectionString;
+
             if (cosmosDbOptions.Endpoints.Values.All(v => v.ConnectionString == firstConnString))
             {
                 sharedClient = new CosmosClient(firstConnString);
             }
+
             foreach (var endpoint in cosmosDbOptions.Endpoints!)
             {
                 var client = sharedClient ?? new CosmosClient(endpoint.Value.ConnectionString);
                 var db = (await client.CreateDatabaseIfNotExistsAsync(endpoint.Value.DatabaseName, ThroughputProperties.CreateManualThroughput(400))).Database;
                 var containerName = endpoint.Value.ContainerName ?? endpoint.Key;
                 var container = await db.CreateContainerIfNotExistsAsync(containerName, $"/{PartitionKeyKey}");
-                concurrentDictionary.TryAdd(containerName, container.Container);
+
+                if (!concurrentDictionary.TryAdd(endpoint.Key, container.Container))
+                {
+                    throw new GraphClusterConfigurationErrorException($"Failed to configure container with key '{endpoint.Key}'");
+                }
             }
+
             return new CosmosDbService(concurrentDictionary);
         }
 
@@ -114,12 +118,7 @@ namespace DFC.ServiceTaxonomy.GraphSync
 
             // recipe steps
             services.AddRecipeExecutionStep<CypherCommandStep>();
-            services.AddRecipeExecutionStep<CypherToContentStep>();
-            services.AddRecipeExecutionStep<CSharpContentStep>();
             services.AddRecipeExecutionStep<ContentNoCacheStep>();
-            services.AddTransient<ICypherToContentCSharpScriptGlobals, CypherToContentCSharpScriptGlobals>();
-            services.AddTransient<IContentHelper, ContentHelper>();
-            services.AddTransient<IServiceTaxonomyHelper, ServiceTaxonomyHelper>();
             services.AddTransient<IGetContentItemsAsJsonQuery, GetContentItemsAsJsonQuery>();
 
             services.AddSingleton<ICosmosDbService>(InitialiseCosmosClientInstanceAsync(_configuration.GetSection(CosmosDbOptions.CosmosDb)).GetAwaiter().GetResult());
@@ -162,7 +161,6 @@ namespace DFC.ServiceTaxonomy.GraphSync
             services.AddTransient<IVisualiseGraphSyncer, VisualiseGraphSyncer>();
 
             services.AddTransient<ISyncNameProvider, SyncNameProvider>();
-            services.AddTransient<ISyncNameProviderCSharpScriptGlobals, SyncNameProviderCSharpScriptGlobals>();
             services.AddTransient<IGraphValidationHelper, GraphValidationHelper>();
             services.AddTransient<IContentFieldsGraphSyncer, ContentFieldsGraphSyncer>();
             services.AddTransient<IBagPartEmbeddedContentItemsGraphSyncer, CosmosDbBagPartEmbeddedContentItemsGraphSyncer>();

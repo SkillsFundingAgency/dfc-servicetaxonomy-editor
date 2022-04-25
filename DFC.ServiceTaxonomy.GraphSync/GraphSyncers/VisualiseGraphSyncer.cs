@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using DFC.ServiceTaxonomy.GraphSync.CosmosDb.Helpers;
 using DFC.ServiceTaxonomy.GraphSync.CosmosDb.Queries;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.ContentItemVersions;
@@ -23,16 +24,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
         private readonly IDescribeContentItemHelper _describeContentItemHelper;
         private readonly IGraphCluster _neoGraphCluster;
         private readonly IServiceProvider _serviceProvider;
-
-        private static readonly List<string> s_cosmosPropsToIgnore = new List<string>
-        {
-            "_rid",
-            "_self",
-            "_etag",
-            "_attachments",
-            "_ts",
-            "_links"
-        };
 
         private static readonly List<string> s_relationshipsToIgnore = new List<string>
         {
@@ -153,7 +144,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 
             foreach (string propertyName in record.Keys)
             {
-                if (s_cosmosPropsToIgnore.Contains(propertyName))
+                if (DocumentHelper.CosmosPropsToIgnore.Contains(propertyName))
                 {
                     continue;
                 }
