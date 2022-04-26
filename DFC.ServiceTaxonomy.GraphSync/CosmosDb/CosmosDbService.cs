@@ -90,10 +90,10 @@ namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb
                 .GetLinks()
                 .SelectMany(l => l.Value.Select(DocumentHelper.GetContentTypeAndId));
 
-            // remove and incoming relationship to the content item to be deleted from these related content items
-            foreach ((string, Guid) relationship in existingItemRelationships)
+            // remove an incoming relationship to the content item to be deleted from these related content items
+            foreach ((string? ContentType, Guid Id) relationship in existingItemRelationships)
             {
-                await DeleteIncomingRelationshipAsync(container, relationship.Item1, relationship.Item2, $"{contentType}{id}");
+                await DeleteIncomingRelationshipAsync(container, relationship.ContentType!, relationship.Id, $"{contentType}{id}");
             }
 
             // delete content item

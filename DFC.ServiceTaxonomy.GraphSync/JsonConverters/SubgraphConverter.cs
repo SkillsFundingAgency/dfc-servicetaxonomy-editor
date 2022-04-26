@@ -41,7 +41,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.JsonConverters
                 foreach (var linkDictionary in linkDictionaries)
                 {
                     string href = GetAsString(linkDictionary["href"]);
-                    var (contentType, id) = GetContentTypeAndId(href);
+                    var (_, id) = GetContentTypeAndId(href);
+                    var contentType = (string)linkDictionary["contentType"];
 
                     int endNodeId = GetNumber(id.ToString());
                     int relationshipId = GetNumber(GetAsString(dataId) + id);
