@@ -183,10 +183,18 @@ namespace DFC.ServiceTaxonomy.GraphSync.Notifications
             }
 
             htmlContentBuilder.AppendHtml("</div></div></div>");
-            var newEntry = new NotifyEntry { Type = type, Message = htmlContentBuilder };
+
             if (type != NotifyType.Warning || !_entries.Any(e => e.Type == NotifyType.Warning))
             {
+                var newEntry = new NotifyEntry { Type = type, Message = htmlContentBuilder };
                 _entries.Add(newEntry);
+            }
+            else
+            {
+                _logger.LogWarning("Notifier not shown. Type is {Type}. {WarningCount} warnings present. First is {FirstWarning}",
+                    type.ToString(),
+                    _entries.Count(e => e.Type == NotifyType.Warning),
+                    _entries.FirstOrDefault(e => e.Type == NotifyType.Warning)?.Message);
             }
         }
 

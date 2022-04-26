@@ -132,17 +132,17 @@ namespace DFC.ServiceTaxonomy.GraphSync.Orchestrators
                     return;
                 }
 
-                AddFailureNotifier(deleteGraphSyncer, contentItem, ex, syncOperation);
+                await AddFailureNotifier(deleteGraphSyncer, contentItem, ex, syncOperation);
                 throw;
             }
             catch (Exception ex)
             {
-                AddFailureNotifier(deleteGraphSyncer, contentItem, ex, syncOperation);
+                await AddFailureNotifier(deleteGraphSyncer, contentItem, ex, syncOperation);
                 throw;
             }
         }
 
-        private void AddFailureNotifier(IDeleteGraphSyncer deleteGraphSyncer,
+        private Task AddFailureNotifier(IDeleteGraphSyncer deleteGraphSyncer,
             ContentItem contentItem,
             Exception exception,
             SyncOperation syncOperation)
@@ -154,7 +154,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Orchestrators
             _logger.LogError(exception, "{Operation} the '{ContentItem}' {ContentType} has been cancelled because the {GraphReplicaSetName} graph couldn't be updated.",
                 operation, contentItem.DisplayText, contentType, deleteGraphSyncer.GraphReplicaSetName);
 
-            _notifier.Add(GetSyncOperationCancelledUserMessage(syncOperation, contentItem.DisplayText, contentType, exception.Message),
+            return _notifier.Add(GetSyncOperationCancelledUserMessage(syncOperation, contentItem.DisplayText, contentType, exception.Message),
                 $"{operation} the '{contentItem.DisplayText}' {contentType} has been cancelled because the {deleteGraphSyncer.GraphReplicaSetName} graph couldn't be updated.",
                 exception: exception);
         }
