@@ -132,17 +132,17 @@ namespace DFC.ServiceTaxonomy.GraphSync.Orchestrators
                     return;
                 }
 
-                await AddFailureNotifier(deleteGraphSyncer, contentItem, ex, syncOperation);
+                await AddFailureNotifierAsync(deleteGraphSyncer, contentItem, ex, syncOperation);
                 throw;
             }
             catch (Exception ex)
             {
-                await AddFailureNotifier(deleteGraphSyncer, contentItem, ex, syncOperation);
+                await AddFailureNotifierAsync(deleteGraphSyncer, contentItem, ex, syncOperation);
                 throw;
             }
         }
 
-        private Task AddFailureNotifier(IDeleteGraphSyncer deleteGraphSyncer,
+        private Task AddFailureNotifierAsync(IDeleteGraphSyncer deleteGraphSyncer,
             ContentItem contentItem,
             Exception exception,
             SyncOperation syncOperation)
