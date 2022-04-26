@@ -16,7 +16,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.JsonConverters
         public override object? ReadJson(JsonReader reader, Type objectType, object? existingValue, JsonSerializer serializer)
         {
             var data = JObject.Load(reader);
-            string contentType = (string)data["ContentType"]!;
 
             var properties = data
                 .ToObject<Dictionary<string, object>>()!
@@ -38,15 +37,16 @@ namespace DFC.ServiceTaxonomy.GraphSync.JsonConverters
                 foreach (var linkDictionary in linkDictionaries)
                 {
                     (_, Guid id) = GetContentTypeAndId((string)linkDictionary["href"]);
-                    var itemContentType = (string)linkDictionary["contentType"];
 
                     if (id == Guid.Empty)
                     {
                         continue;
                     }
+
                     int endNodeId = GetNumber(GetAsString(id));
                     int relationshipId = GetNumber(
                         GetAsString(id) + GetAsString(itemId));
+                    var itemContentType = (string)linkDictionary["contentType"];
 
                     var outgoing = new OutgoingRelationship(new StandardRelationship
                     {
@@ -64,11 +64,14 @@ namespace DFC.ServiceTaxonomy.GraphSync.JsonConverters
                             {"id", id},
                             {"endNodeId", endNodeId}
                         },
-                        Labels = new List<string> {contentType, "Resource"}
+                        Labels = new List<string> { itemContentType, "Resource" }
                     });
+
                     relationships.Add((outgoing, new List<OutgoingRelationship>()));
                 }
             }
+
+            string contentType = (string)data["ContentType"]!;
 
             var node = new StandardNode
             {
@@ -83,6 +86,5 @@ namespace DFC.ServiceTaxonomy.GraphSync.JsonConverters
         public override bool CanWrite { get { return false; } }
 
         public override void WriteJson(JsonWriter writer, object? value, JsonSerializer serializer) => throw new NotImplementedException();
-
     }
 }
