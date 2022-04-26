@@ -112,11 +112,12 @@ namespace DFC.ServiceTaxonomy.GraphSync.JsonConverters
             return new Subgraph(
                 nodes
                     .GroupBy(node => node.Id)
-                    .Select(nodeGroup => nodeGroup.First())
+                    .Select(nodeGroup => nodeGroup.OrderByDescending(node => node.Properties.Count).First())
                     .ToList(),
                 relationships
                     .GroupBy(relationship => new { relationship.Type, relationship.StartNodeId, relationship.EndNodeId })
-                    .Select(relationshipGroup => relationshipGroup.First())
+                    .Select(relationshipGroup =>
+                        relationshipGroup.OrderByDescending(relationship => relationship.Properties.Count).First())
                     .ToList(),
                 new StandardNode
                 {

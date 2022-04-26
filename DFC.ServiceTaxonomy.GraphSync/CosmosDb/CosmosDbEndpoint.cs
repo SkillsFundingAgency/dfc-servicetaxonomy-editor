@@ -49,10 +49,10 @@ namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb
         {
             foreach (var command in commands)
             {
-                string query = command.Query.Text;
-                _logger.LogWarning($"{query} called");
+                string queryType = command.Query.Text;
+                _logger.LogInformation("{QueryType} called", queryType);
 
-                switch (query)
+                switch (queryType)
                 {
                     case "DeleteNodeCommand":
                         await DeleteNodeCommand(databaseName, command);
@@ -90,7 +90,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb
                 return;
             }
 
-            var incomingLinks = GetIncomingLinks(itemInCosmos!);
+            var incomingLinks = GetIncomingLinks(itemInCosmos);
 
             if (incomingLinks.Any())
             {
@@ -459,7 +459,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb
                 var incomingList = SafeCastToList(incomingObject["items"]);
                 bool itemLinkAlreadyExists = false;
 
-                foreach (var incomingItem in incomingList!)
+                foreach (var incomingItem in incomingList)
                 {
                     string incomingContentType = (string)incomingItem["contentType"];
                     var incomingId = new Guid((string)incomingItem["id"]);

@@ -135,7 +135,17 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
                 subgraphNode.Properties = StripUndesiredProperties(subgraphNode.Properties);
             }
 
-            return subgraph;
+            return new Subgraph(
+                subgraph.Nodes
+                    .GroupBy(node => node.Id)
+                    .Select(nodeGroup => nodeGroup.OrderByDescending(node => node.Properties.Count).First())
+                    .ToList(),
+                subgraph.Relationships
+                    .GroupBy(relationship => new { relationship.Type, relationship.StartNodeId, relationship.EndNodeId })
+                    .Select(relationshipGroup =>
+                        relationshipGroup.OrderByDescending(relationship => relationship.Properties.Count).First())
+                    .ToList(),
+                subgraph.SourceNode);
         }
 
         private static Dictionary<string, object> StripUndesiredProperties(IReadOnlyDictionary<string, object> record)
@@ -168,13 +178,13 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
                 foreach (object? detailResult in detailResults)
                 {
                     var properties = SafeCastToDictionary(detailResult);
-                    string itemId = GetAsString(properties!["id"]);
+                    string itemId = GetAsString(properties["id"]);
 
                     var destinationNode = nodes.Single(node => GetAsString(node.Properties["id"]) == itemId);
                     destinationNode.Properties = properties;
 
                     var relationship = incomingResults.Relationships
-                        .Single(rel => rel.StartNodeId == destinationNode.Id);
+                        .Single(rel => rel.StartNodeId == destinationNode.Id || rel.EndNodeId == destinationNode.Id);
                     var otherNode = nodesIncludingSourceNode.Single(node => node.Id == relationship.EndNodeId);
                     string otherId = GetAsString(otherNode.Properties["id"]);
 
@@ -206,7 +216,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
                 }
 
                 var linkDictionary = SafeCastToDictionary(link.Value);
-                string linkHref = (string)linkDictionary!["href"];
+                string linkHref = (string)linkDictionary["href"];
                 var (_, linkId) = GetContentTypeAndId(linkHref);
 
                 if (linkId.ToString() != parentId)
@@ -262,7 +272,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
                 foreach (object? detailResult in detailResults)
                 {
                     var properties = SafeCastToDictionary(detailResult);
-                    string itemId = GetAsString(properties!["id"]);
+                    string itemId = GetAsString(properties["id"]);
 
                     var itemRelationship = relationships
                         .Single(relationship => GetAsString(relationship.DestinationNode.Properties["id"]) == itemId);
@@ -337,8 +347,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 
                 foreach (object? detailResult in detailResults)
                 {
-                    Dictionary<string, object>? detailResultProperties = SafeCastToDictionary(detailResult);
-                    (string? detailResultContentType, Guid detailResultId) = GetContentTypeAndId((string)detailResultProperties!["uri"]);
+                    Dictionary<string, object> detailResultProperties = SafeCastToDictionary(detailResult);
+                    (string? detailResultContentType, Guid detailResultId) = GetContentTypeAndId((string)detailResultProperties["uri"]);
 
                     int endNodeId = GetNumber(GetAsString(detailResultId));
                     int relationshipId = GetNumber(GetAsString(detailResultId) + parentId);
@@ -400,7 +410,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
         {
             string[] ids = destinationNodes
                 .Where(node => contentType.Equals((string)node.Properties["ContentType"], StringComparison.InvariantCultureIgnoreCase))
-                .Select(node => $"'{GetAsString(node.Properties["id"])}'")
+                .Select(node => GetAsString(node.Properties["id"]))
                 .ToArray();
 
             return RunQuery(ids, contentType, graphName);
