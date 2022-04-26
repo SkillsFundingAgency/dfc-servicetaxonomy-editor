@@ -82,8 +82,15 @@ namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb
             (_, Guid id) = GetContentTypeAndId(itemUri);
             var contentType = ((CosmosDbDeleteNodeCommand)command).NodeLabels.First().ToLower();
 
-            var incomingLinks =
-                GetIncomingLinks((await _cosmosDbService.GetContentItemFromDatabase(databaseName, contentType!, id))!);
+            var itemInCosmos = await _cosmosDbService.GetContentItemFromDatabase(databaseName, contentType, id);
+
+            if (itemInCosmos == null)
+            {
+                // If its not in Cosmos, we don't need to try and delete it
+                return;
+            }
+
+            var incomingLinks = GetIncomingLinks(itemInCosmos!);
 
             if (incomingLinks.Any())
             {

@@ -47,6 +47,11 @@ namespace DFC.ServiceTaxonomy.GraphSync.Helpers
 
         public static List<Dictionary<string, object>> GetIncomingLinks(Dictionary<string, object> item)
         {
+            if (item == null)
+            {
+                throw new ArgumentNullException(nameof(item));
+            }
+
             var linksSection = SafeCastToDictionary(item["_links"]);
             var curiesSection = SafeCastToList(linksSection["curies"]);
             int incomingPosition = curiesSection.FindIndex(curie =>
