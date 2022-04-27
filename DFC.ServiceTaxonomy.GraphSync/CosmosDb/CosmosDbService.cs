@@ -126,9 +126,11 @@ namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb
         {
             var returnList = new List<T>();
             var container = GetContainer(databaseName);
+
             using FeedIterator<T> resultSetIterator = container.GetItemQueryIterator<T>(
                 queryDefinition,
                 requestOptions: queryRequestOptions);
+
             while (resultSetIterator.HasMoreResults)
             {
                 FeedResponse<T> response = await resultSetIterator.ReadNextAsync();
@@ -149,6 +151,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb
             var returnList = new List<T>();
             var queryDefinition = new QueryDefinition(query);
             var container = GetContainer(databaseName);
+
             using FeedIterator<T> resultSetIterator = container.GetItemQueryIterator<T>(
                 queryDefinition,
                 requestOptions: new QueryRequestOptions
