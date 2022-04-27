@@ -14,10 +14,10 @@ namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb.Queries
     {
         private readonly string _query;
         private readonly string _parameterKey;
-        private readonly string _parameterValue;
+        private readonly object _parameterValue;
         private readonly string _contentType;
 
-        public CosmosDbNodeAndNestedOutgoingRelationshipsQuery(string query, string parameterKey, string parameterValue, string contentType)
+        public CosmosDbNodeAndNestedOutgoingRelationshipsQuery(string query, string parameterKey, object parameterValue, string contentType)
         {
             _query = query;
             _parameterKey = parameterKey;

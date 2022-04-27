@@ -43,6 +43,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb
             if (!allRelationships.Any())
             {
                 (_, var id) = DocumentHelper.GetContentTypeAndId(context.SourceNodeId);
+
                 var type = context.SourceNodeLabels.First(snl => !snl.Equals("Resource"));
                 allRelationships.Add((id.ToString(), type));
             }
@@ -50,7 +51,14 @@ namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb
             var uniqueCommands = allRelationships.Distinct();
 
             return uniqueCommands
-                .Select(c => new CosmosDbNodeAndNestedOutgoingRelationshipsQuery("SELECT * FROM c WHERE c.id = @id0", "@id0", c.id, c.contentType)).Cast<IQuery<object?>>().ToList();
+                .Select(c =>
+                    new CosmosDbNodeAndNestedOutgoingRelationshipsQuery(
+                        "SELECT * FROM c WHERE c.id = @id0",
+                        "@id0",
+                        c.id,
+                        c.contentType))
+                .Cast<IQuery<object?>>()
+                .ToList();
         }
 
         //todo: contentmanager

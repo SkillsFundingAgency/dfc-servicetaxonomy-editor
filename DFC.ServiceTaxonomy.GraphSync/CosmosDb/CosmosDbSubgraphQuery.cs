@@ -11,8 +11,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb
     public class CosmosDbSubgraphQuery : IQuery<Subgraph>
     {
         public const string? RelationshipFilterNone = null;
-        public const string RelationshipFilterIncoming = "<";
-        public const string RelationshipFilterOutgoing = ">";
 
         private IEnumerable<string> NodeLabels { get; }
         private string IdPropertyName { get; }

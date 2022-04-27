@@ -84,16 +84,20 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
         {
             var relationshipCommands = await BuildVisualisationCommands(contentItemId, contentItemVersion);
 
-            // Get all results atomically
+            // Get all results from top level
             var queryResults = await _neoGraphCluster.Run(graphName, relationshipCommands.ToArray());
             var outgoingResults = queryResults
                 .Select(queryResult => (queryResult as JObject)?.ToObject<INodeAndOutRelationshipsAndTheirInRelationships>())
                 .ToList();
 
-            await AddExtraDetailForOutgoingLinks(outgoingResults.First(), graphName);
-
-            //todo: should really always return the source node (until then, the subgraph will pull it if the main results don't)
             Subgraph subgraph = new Subgraph();
+
+            if (!outgoingResults.Any())
+            {
+                return subgraph;
+            }
+
+            await AddExtraDetailForOutgoingLinks(outgoingResults.First(), graphName);
 
             if (outgoingResults.Any())
             {
@@ -339,7 +343,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             {
                 string[] ids = contentTypeWithIds
                     .Value
-                    .Select(id => $"'{GetAsString(id)}'")
+                    .Select(id => GetAsString(id))
                     .ToArray();
 
                 string contentType = contentTypeWithIds.Key.Split('|')[0];
@@ -420,7 +424,11 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
         {
             var detailCommand = new List<IQuery<object?>>
             {
-                new CosmosDbNodeAndNestedOutgoingRelationshipsQuery("SELECT * FROM c WHERE c.id in (@idList0)", "@idList0", string.Join(',', ids), contentType)
+                new CosmosDbNodeAndNestedOutgoingRelationshipsQuery(
+                    "SELECT * FROM c WHERE ARRAY_CONTAINS(@idList0, c.id)",
+                    "@idList0",
+                    ids,
+                    contentType)
             }.ToArray();
 
             return _neoGraphCluster.Run(graphName, detailCommand);

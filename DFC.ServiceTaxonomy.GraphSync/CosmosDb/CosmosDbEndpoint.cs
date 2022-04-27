@@ -214,8 +214,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb
 
             await _cosmosDbService.UpdateItemAsync(databaseName, item);
         }
-
-
+        
         private async Task ReplaceRelationshipsCommand(string databaseName, ICommand command)
         {
             var commandParameters = command.Query.Parameters;
