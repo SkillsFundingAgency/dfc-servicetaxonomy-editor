@@ -31,7 +31,8 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module.AzureSearchIndexHandling
         {
             _logger = logger;
             _jobProfileIndexConverter = jobProfileIndexConverter;
-            _jobProfileIndexSettings = configuration.GetSection("AzureSearchSettings").Get<JobProfileIndexSettings>() ?? throw new ArgumentNullException(nameof(JobProfileIndexSettings));
+            _jobProfileIndexSettings = configuration.GetSection("AzureSearchSettings").Get<JobProfileIndexSettings>()
+                ?? throw new ArgumentNullException(nameof(configuration), $"{nameof(JobProfileIndexSettings)} configuration is invalid");
 
         }
 
@@ -65,7 +66,7 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module.AzureSearchIndexHandling
                 }
                 else                 // The creation of the index can be done at application start up
                 {
-                    Response<SearchIndex> response = await CreateIndexAsync(jobProfileIndexName, indexClient);
+                    await CreateIndexAsync(jobProfileIndexName, indexClient);
 
                     SearchClient searchClient = indexClient.GetSearchClient(jobProfileIndexName);
                     var documentUploadResponse = await UploadDocumentAsync(searchClient, jobProfileIndexDocument);
