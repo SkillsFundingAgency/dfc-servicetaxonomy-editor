@@ -25,13 +25,13 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module.AzureSearchIndexHandling
     {
         private readonly ILogger<AzureSearchDataProcessor> _logger;
         private readonly IMessageConverter<JobProfileIndex> _jobProfileIndexConverter;
-        private readonly IConfiguration _configuration;
+        private readonly JobProfileIndexSettings _jobProfileIndexSettings;
 
         public AzureSearchDataProcessor(ILogger<AzureSearchDataProcessor> logger, IMessageConverter<JobProfileIndex> jobProfileIndexConverter, IConfiguration configuration)
         {
             _logger = logger;
             _jobProfileIndexConverter = jobProfileIndexConverter;
-            _configuration = configuration;
+            _jobProfileIndexSettings = configuration.GetSection("AzureSearchSettings").Get<JobProfileIndexSettings>() ?? throw new ArgumentNullException(nameof(JobProfileIndexSettings));
 
         }
 
@@ -40,27 +40,19 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module.AzureSearchIndexHandling
             try
             {
                 var jobProfileIndexDocument = await _jobProfileIndexConverter.ConvertFromAsync(context.ContentItem);
-                var jobProfileIndexSettings = _configuration.GetSection("AzureSearchSettings").Get<JobProfileIndexSettings>();
-                var jobProfileIndexName = jobProfileIndexSettings.JobProfileSearchIndexName ?? string.Empty;
-                var searchServiceEndPoint = jobProfileIndexSettings.SearchServiceEndPoint ?? string.Empty;
-                var adminApiKey = jobProfileIndexSettings.SearchServiceAdminAPIKey ?? string.Empty;
+                var jobProfileIndexName = _jobProfileIndexSettings.JobProfileSearchIndexName ?? string.Empty;
+                SearchIndexClient indexClient = CreateSearchIndexClient(_jobProfileIndexSettings);
 
-                SearchIndexClient indexClient = new SearchIndexClient(new Uri(searchServiceEndPoint), new AzureKeyCredential(adminApiKey));
                 if (await indexClient.GetIndexesAsync().AnyAsync(index => index.Name == jobProfileIndexName))
                 {
                     SearchClient searchClient = indexClient.GetSearchClient(jobProfileIndexName);
                     if (actionType.Equals(ActionTypes.Published))
                     {
-
-                        if (await indexClient.GetIndexesAsync().AnyAsync(index => index.Name == jobProfileIndexName))
+                        var documentUploadResponse = await UploadDocumentAsync(searchClient, jobProfileIndexDocument);
+                        if (IsSuccessful(documentUploadResponse))
                         {
-                            var documentUploadResponse = await UploadDocumentAsync(searchClient, jobProfileIndexDocument);
-                            if (IsSuccessful(documentUploadResponse))
-                            {
-                                _logger.Log(LogLevel.Information, $"{jobProfileIndexDocument.IdentityField} successfully uploaded to Azure Search Index");
-                            }
+                            _logger.Log(LogLevel.Information, $"{jobProfileIndexDocument.IdentityField} successfully uploaded to Azure Search Index");
                         }
-
                     }
                     else if (actionType.Equals(ActionTypes.Deleted))
                     {
@@ -89,6 +81,15 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module.AzureSearchIndexHandling
                 _logger.LogError(ex, $"Failed to export data for item with ContentItemId = {context.ContentItem.ContentItemId}");
                 throw;
             }
+        }
+
+        private static SearchIndexClient CreateSearchIndexClient(JobProfileIndexSettings jobProfileIndexSettings)
+        {
+            var searchServiceEndPoint = jobProfileIndexSettings.SearchServiceEndPoint ?? string.Empty;
+            var adminApiKey = jobProfileIndexSettings.SearchServiceAdminAPIKey ?? string.Empty;
+
+            SearchIndexClient indexClient = new SearchIndexClient(new Uri(searchServiceEndPoint), new AzureKeyCredential(adminApiKey));
+            return indexClient;
         }
 
         private static bool IsSuccessful(Response<IndexDocumentsResult> response) =>
