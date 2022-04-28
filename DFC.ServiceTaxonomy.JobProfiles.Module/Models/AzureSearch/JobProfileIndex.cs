@@ -1,41 +1,32 @@
 ﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
+
 using Azure.Search.Documents.Indexes;
 using Azure.Search.Documents.Indexes.Models;
-using DFC.ServiceTaxonomy.JobProfiles.Module.AzureSearchIndexHandling.Attributes;
 
 namespace DFC.ServiceTaxonomy.JobProfiles.Module.Models.AzureSearch
 {
     public class JobProfileIndex
     {
-        [Key]
-        [SimpleField(IsKey = true, IsHidden = true)]
+        [SimpleField(IsKey = true)]
         public string IdentityField { get; set; } = string.Empty;
 
         [SimpleField(IsFilterable = true, IsSortable = true, IsFacetable = true)]
         public string SocCode { get; set; } = string.Empty;
 
-        [IsSuggestible]
         [SearchableField(IsFilterable = true, IsSortable = true, AnalyzerName = LexicalAnalyzerName.Values.EnLucene)]
-        [AddWeighting(7)]
         public string Title { get; set; } = string.Empty;
 
         [SearchableField(AnalyzerName = LexicalAnalyzerName.Values.EnLucene)]
-        [AddWeighting(100)]
         public string TitleAsKeyword => Title.ToLower();
 
-        [IsSuggestible]
         [SearchableField(IsFilterable = true, AnalyzerName = LexicalAnalyzerName.Values.EnLucene)]
-        [AddWeighting(6)]
         public IEnumerable<string> AlternativeTitle { get; set; } = Enumerable.Empty<string>();
 
         [SearchableField(AnalyzerName = LexicalAnalyzerName.Values.EnLucene)]
-        [AddWeighting(100)]
         public IEnumerable<string> AltTitleAsKeywords => AlternativeTitle.Select(a => a.ToLower());
 
         [SearchableField(AnalyzerName = LexicalAnalyzerName.Values.EnLucene)]
-        [AddWeighting(100)]
         public string Overview { get; set; } = string.Empty;
 
         [SimpleField(IsFilterable = true, IsSortable = true, IsFacetable = true)]
@@ -48,15 +39,12 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module.Models.AzureSearch
         public string UrlName { get; set; } = string.Empty;
 
         [SearchableField(IsFilterable = true, AnalyzerName = LexicalAnalyzerName.Values.EnLucene)]
-        [AddWeighting(4)]
         public IEnumerable<string> JobProfileCategories { get; set; } = Enumerable.Empty<string>();
 
         [SearchableField(IsFilterable = true, AnalyzerName = LexicalAnalyzerName.Values.EnLucene)]
-        [AddWeighting(3)]
         public IEnumerable<string> JobProfileSpecialism { get; set; } = Enumerable.Empty<string>();
 
         [SearchableField(IsFilterable = true, AnalyzerName = LexicalAnalyzerName.Values.EnLucene)]
-        [AddWeighting(3)]
         public IEnumerable<string> HiddenAlternativeTitle { get; set; } = Enumerable.Empty<string>();
 
         public IEnumerable<string> JobProfileCategoriesWithUrl { get; set; } = Enumerable.Empty<string>();
