@@ -50,6 +50,17 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers
 
         public void ContentPartAttached(ContentPartAttachedContext context)
         {
+            if (context.ContentPartName != nameof(GraphSyncPart))
+            {
+                return;
+            }
+
+            _logger.LogInformation(
+                "Adding {ContentPartName} to content type {ContentTypeName}.",
+                context.ContentPartName,
+                context.ContentTypeName);
+
+            _contentTypeOrchestrator.SetDefaultsForGraphSyncPart(context.ContentTypeName);
         }
 
         public void ContentPartDetached(ContentPartDetachedContext context)
