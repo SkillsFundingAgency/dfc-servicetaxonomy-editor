@@ -1,7 +1,7 @@
 ﻿{
     "name": "JobProfileContentTypes",
-    "displayName": "Job Profiles - Content types",
-    "description": "Creates all dependent content types related to the Job Profiles",
+    "displayName": "Job Profiles - Content types - Adds Publish/Unpublish Later parts",
+    "description": "Enables Publish/Unpublish Later parts and adds them to all dependent content types related to the Job Profiles",
     "author": "National Careers Service",
     "website": "https://github.com/SkillsFundingAgency/dfc-servicetaxonomy-editor",
     "version": "1.0",
