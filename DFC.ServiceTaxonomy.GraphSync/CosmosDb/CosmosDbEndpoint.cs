@@ -55,7 +55,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb
                 switch (queryType)
                 {
                     case "DeleteNodeCommand":
-                        await DeleteNodeCommand(databaseName, command);
+                    case "UnpublishNodeCommand":
+                        await DeleteNodeCommand(databaseName, command, queryType == "DeleteNodeCommand");
                         break;
                     case "DeleteNodesByType":
                         await DeleteNodesByTypeCommand(databaseName, command);
@@ -75,7 +76,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb
             }
         }
 
-        private async Task DeleteNodeCommand(string databaseName, ICommand command)
+        private async Task DeleteNodeCommand(string databaseName, ICommand command, bool blockOnIncomingLinks)
         {
             var commandParameters = command.Query.Parameters;
             string itemUri = (string)commandParameters["uri"];
@@ -92,13 +93,13 @@ namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb
 
             var incomingLinks = GetIncomingLinks(itemInCosmos);
 
-            if (incomingLinks.Any())
+            if (blockOnIncomingLinks && incomingLinks.Any())
             {
                 throw new ValidationException(
                     $"This content is referenced by {incomingLinks.Count} other {GetItemOrItems(incomingLinks.Count)}");
             }
 
-            await _cosmosDbService.DeleteItemAsync(databaseName, contentType!, id);
+            await _cosmosDbService.DeleteItemAsync(databaseName, contentType, id);
         }
 
         private async Task DeleteNodesByTypeCommand(string databaseName, ICommand command)
@@ -214,7 +215,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb
 
             await _cosmosDbService.UpdateItemAsync(databaseName, item);
         }
-        
+
         private async Task ReplaceRelationshipsCommand(string databaseName, ICommand command)
         {
             var commandParameters = command.Query.Parameters;

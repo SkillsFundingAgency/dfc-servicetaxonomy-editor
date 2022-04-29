@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using DFC.ServiceTaxonomy.GraphSync.Services;
 
 namespace DFC.ServiceTaxonomy.GraphSync.Interfaces
 {
@@ -11,6 +12,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.Interfaces
         object? IdPropertyValue { get; set; }
 
         bool DeleteNode { get; set; }
+
+        SyncOperation SyncOperation { get; set; }
 
         IEnumerable<KeyValuePair<string, object>>? DeleteIncomingRelationshipsProperties { get; set; }
     }
