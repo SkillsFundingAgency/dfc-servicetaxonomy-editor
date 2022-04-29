@@ -1,8 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.UnpublishLater.Models;
-using OrchardCore.AuditTrail.Models;
 using OrchardCore.AuditTrail.Services;
 using OrchardCore.AuditTrail.Services.Models;
 using OrchardCore.ContentManagement;
@@ -12,118 +13,78 @@ namespace DFC.ServiceTaxonomy.UnpublishLater.Handlers
 {
     public class UnpublishLaterAuditTrailEventHandler : AuditTrailEventHandlerBase
     {
-        public override Task AlterAsync(AuditTrailCreateContext context, AuditTrailEvent auditTrailEvent)
-        {
-            if (context is AuditTrailCreateContext<AuditTrailContentEvent> contentEvent
-                //&&
-                //new[] {Constants.ContentEvent_Saved, Constants.ContentEvent_Published}.Any(ev => ev.Equals(contentEvent.Name, StringComparison.CurrentCultureIgnoreCase)) &&
-                //contentEvent.AuditTrailEventItem.ContentItem.Has<ContentApprovalPart>()
-                )
-            {
-                var contentApprovalPart = contentEvent.AuditTrailEventItem.ContentItem.As<UnpublishLaterPart>();
-                if (contentApprovalPart == null)
-                {
-                    return Task.CompletedTask;
-                }
-
-            }
-            return Task.CompletedTask;
-        }
-
         public override Task CreateAsync(AuditTrailCreateContext context)
         {
-
-
             // Override event name if:
             // 1. it is audit trail content event
-            // 2. it is a Save or Publish event only
-            // 3. there is a content approval part add as part of the content type
-            if (context is AuditTrailCreateContext<AuditTrailContentEvent> contentEvent
-                //&&
-                //new[] {Constants.ContentEvent_Saved, Constants.ContentEvent_Published}.Any(ev => ev.Equals(contentEvent.Name, StringComparison.CurrentCultureIgnoreCase)) &&
-                //contentEvent.AuditTrailEventItem.ContentItem.Has<ContentApprovalPart>()
-                )
+            // 2. it is a Save, Publish or Unpublished events only - (to add cancel) 
+            // 3. there is a UnpublishLaterPart add as part of the content type
+            if (context is AuditTrailCreateContext<AuditTrailContentEvent> contentEvent &&
+                contentEvent.AuditTrailEventItem.ContentItem.Has<UnpublishLaterPart>())
             {
-                var contentApprovalPart = contentEvent.AuditTrailEventItem.ContentItem.As<UnpublishLaterPart>();
-                if (contentApprovalPart == null)
+                var unpublishLaterPart = contentEvent.AuditTrailEventItem.ContentItem.As<UnpublishLaterPart>();
+                if (unpublishLaterPart == null)
                 {
                     return Task.CompletedTask;
                 }
 
-                //if (contentEvent.Name.Equals(Constants.ContentEvent_Published,
-                //    StringComparison.InvariantCultureIgnoreCase))
+                //if (contentEvent.Name.Equals(Constants.ContentEvent_Published, StringComparison.InvariantCultureIgnoreCase))
                 //{
-                //    //ProcessPublishedEvent(contentEvent, contentApprovalPart);
+                //    if (unpublishLaterPart.ScheduledUnpublishUtc.HasValue)
+                //    {
+                //        ProcessPublishedEvent(contentEvent, unpublishLaterPart);
+                //    }
                 //}
-                //else if (contentEvent.Name.Equals(Constants.ContentEvent_Saved,
-                //    StringComparison.InvariantCultureIgnoreCase))
+                //else
+                //if (contentEvent.Name.Equals(Constants.ContentEvent_Saved, StringComparison.InvariantCultureIgnoreCase))
                 //{
-                //    ProcessSavedEvent(contentEvent, contentApprovalPart);
+                //    if (unpublishLaterPart.ScheduledUnpublishUtc.HasValue)
+                //    {
+                //        ProcessSavedEvent(contentEvent, unpublishLaterPart);
+                //    }
+                //}
+                //else if (contentEvent.Name.Equals(Constants.ContentEvent_Unpublished, StringComparison.InvariantCultureIgnoreCase))
+                //{
+                //    if (unpublishLaterPart.ScheduledUnpublishUtc.HasValue)
+                //    {
+                //        ProcessUnpublishedEvent(contentEvent, unpublishLaterPart);
+                //    }
                 //}
             }
             return Task.CompletedTask;
         }
 
-        //private static void ProcessPublishedEvent(AuditTrailCreateContext<AuditTrailContentEvent> publishedContentEvent, ContentApprovalPart contentApprovalPart)
-        //{
-        //    if (contentApprovalPart.IsForcePublished)
-        //    {
-        //        switch (contentApprovalPart.ReviewType)
-        //        {
-        //            case ReviewType.ContentDesign:
-        //                publishedContentEvent.Name = GetPublishedEventName(Constants.ReviewType_ContentDesign);
-        //                break;
-        //            case ReviewType.Stakeholder:
-        //                publishedContentEvent.Name = GetPublishedEventName(Constants.ReviewType_Stakeholder);
-        //                break;
+        private static void ProcessPublishedEvent(AuditTrailCreateContext<AuditTrailContentEvent> publishedContentEvent, UnpublishLaterPart unpublishLaterPart)
+        {
+            publishedContentEvent.Name = GetPublishedEventName(unpublishLaterPart);
+        }
 
-        //            case ReviewType.SME:
-        //                publishedContentEvent.Name = GetPublishedEventName(Constants.ReviewType_Sme);
-        //                break;
+        private static void ProcessUnpublishedEvent(AuditTrailCreateContext<AuditTrailContentEvent> publishedContentEvent, UnpublishLaterPart unpublishLaterPart)
+        {
+            publishedContentEvent.Name = GetUnpublishedEventName(unpublishLaterPart);
+        }
 
-        //            case ReviewType.UX:
-        //                publishedContentEvent.Name = GetPublishedEventName(Constants.ReviewType_Ux);
-        //                break;
-        //        }
-        //    }
-        //}
+        private static void ProcessSavedEvent(AuditTrailCreateContext<AuditTrailContentEvent> savedContentEvent, UnpublishLaterPart unpublishLaterPart)
+        {
+            savedContentEvent.Name = GetSavedEventName(unpublishLaterPart);
+        }
 
-        //private static void ProcessSavedEvent(AuditTrailCreateContext<AuditTrailContentEvent> savedContentEvent, ContentApprovalPart contentApprovalPart)
-        //{
-        //    if (contentApprovalPart.ReviewStatus == ReviewStatus.RequiresRevision)
-        //    {
-        //        savedContentEvent.Name = Constants.ContentEventName_SendBack;
-        //    }
-        //    else
-        //    {
-        //        switch (contentApprovalPart.ReviewType)
-        //        {
-        //            case ReviewType.ContentDesign:
-        //                savedContentEvent.Name = GetSavedEventName(contentApprovalPart, Constants.ReviewType_ContentDesign);
-        //                break;
-        //            case ReviewType.Stakeholder:
-        //                savedContentEvent.Name = GetSavedEventName(contentApprovalPart, Constants.ReviewType_Stakeholder);
-        //                break;
-        //            case ReviewType.SME:
-        //                savedContentEvent.Name = GetSavedEventName(contentApprovalPart, Constants.ReviewType_Sme);
-        //                break;
-        //            case ReviewType.UX:
-        //                savedContentEvent.Name = GetSavedEventName(contentApprovalPart, Constants.ReviewType_Ux);
-        //                break;
-        //        }
-        //    }
-        //}
+        private static string GetPublishedEventName(UnpublishLaterPart unpublishLaterPart)
+        {
+            var scheduledUnpublishUtc = unpublishLaterPart.ScheduledUnpublishUtc.HasValue ? unpublishLaterPart.ScheduledUnpublishUtc.Value.ToString() : "no value";
+            return $"It...hed at ({scheduledUnpublishUtc})";
+        }
 
-        //private static string GetPublishedEventName(string reviewType)
-        //{
-        //    return $"Force published ({reviewType})";
-        //}
+        private static string GetUnpublishedEventName(UnpublishLaterPart unpublishLaterPart)
+        {
+            var scheduledUnpublishUtc = unpublishLaterPart.ScheduledUnpublishUtc.HasValue ? unpublishLaterPart.ScheduledUnpublishUtc.Value.ToString() : "no value";
+            return $"Item was sheduled unpublished at ({scheduledUnpublishUtc})";
+        }
 
-        //private static string GetSavedEventName(ContentApprovalPart contentApprovalPart, string reviewType)
-        //{
-        //    return contentApprovalPart.ReviewStatus != ReviewStatus.InReview
-        //        ? $"Requested for review ({reviewType})"
-        //        : $"In review ({reviewType})";
-        //}
+        private static string GetSavedEventName(UnpublishLaterPart unpublishLaterPart)
+        {
+            var scheduledUnpublishUtc = unpublishLaterPart.ScheduledUnpublishUtc.HasValue ? unpublishLaterPart.ScheduledUnpublishUtc.Value.ToString() : "no value";
+            return $"Item is to be unpublished at ({scheduledUnpublishUtc})";
+        }
     }
 }
