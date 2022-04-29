@@ -33,7 +33,7 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module
                 .Column<string>(nameof(JobProfileIndex.JobProfileCategory))
                 .Column<string>(nameof(JobProfileIndex.RelatedCareerProfiles))
                 .Column<string>(nameof(JobProfileIndex.SOCCode))
-                .Column<string>(nameof(JobProfileIndex.HiddenAlternativeTitle), column => column.WithLength(300))
+                .Column<string>(nameof(JobProfileIndex.HiddenAlternativeTitle), column => column.WithLength(600))
                 .Column<string>(nameof(JobProfileIndex.WorkingHoursDetail))
                 .Column<string>(nameof(JobProfileIndex.WorkingPatterns))
                 .Column<string>(nameof(JobProfileIndex.WorkingPatternDetail))
@@ -195,7 +195,32 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module
             return 7;
         }
 
+        public int UpdateFrom7()
+        {
+            try
+            {
+                SchemaBuilder.AlterIndexTable<JobProfileIndex>(table => table.DropColumn(nameof(JobProfileIndex.HiddenAlternativeTitle)));
+                SchemaBuilder.AlterIndexTable<JobProfileIndex>(
+                    table => table.AddColumn<string>(nameof(JobProfileIndex.HiddenAlternativeTitle),
+                    column => column.WithLength(600)));
 
+                SchemaBuilder.AlterIndexTable<JobProfileIndex>(table => table
+                    .DropIndex($"IDX_{nameof(JobProfileIndex)}_{nameof(JobProfileIndex.ContentItemId)}"));
+
+                SchemaBuilder.AlterIndexTable<JobProfileIndex>(table => table
+                    .CreateIndex(
+                        $"IDX_{nameof(JobProfileIndex)}_{nameof(JobProfileIndex.ContentItemId)}",
+                        "DocumentId",
+                        nameof(JobProfileIndex.ContentItemId),
+                        nameof(JobProfileIndex.GraphSyncPartId)));
+            }
+            catch
+            {
+                // SQLLite will throw an error here so we ignore it as it is not concerned with column length constraints
+            }
+
+            return 8;
+        }
 
     }
 }
