@@ -41,6 +41,8 @@ using DFC.ServiceTaxonomy.GraphSync.Notifications;
 using DFC.ServiceTaxonomy.GraphSync.Orchestrators;
 using DFC.ServiceTaxonomy.GraphSync.Orchestrators.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.Recipes.Executors;
+using DFC.ServiceTaxonomy.GraphSync.Recipes.Helpers;
+using DFC.ServiceTaxonomy.GraphSync.Recipes.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.Services;
 using DFC.ServiceTaxonomy.GraphSync.Services.Interface;
 using DFC.ServiceTaxonomy.GraphSync.Settings;
@@ -119,6 +121,9 @@ namespace DFC.ServiceTaxonomy.GraphSync
             // recipe steps
             services.AddRecipeExecutionStep<CypherCommandStep>();
             services.AddRecipeExecutionStep<ContentNoCacheStep>();
+            services.AddRecipeExecutionStep<CSharpContentStep>();
+            services.AddTransient<ICypherToContentCSharpScriptGlobals, CypherToContentCSharpScriptGlobals>();
+            services.AddTransient<IContentHelper, ContentHelper>();
             services.AddTransient<IGetContentItemsAsJsonQuery, GetContentItemsAsJsonQuery>();
 
             services.AddSingleton<ICosmosDbService>(InitialiseCosmosClientInstanceAsync(_configuration.GetSection(CosmosDbOptions.CosmosDb)).GetAwaiter().GetResult());
