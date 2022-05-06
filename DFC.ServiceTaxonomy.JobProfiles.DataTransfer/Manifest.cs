@@ -6,6 +6,6 @@
     Website = "https://github.com/SkillsFundingAgency/dfc-servicetaxonomy-editor",
     Version = "0.0.1",
     Description = "Sets up handlers to send job profile messages and update indexes.",
-    Category = "Content Management",
-    Dependencies = new[] { "OrchardCore.Contents" }
+    Category = "Data Sync",
+    Dependencies = new[] { "OrchardCore.Contents", "DFC.ServiceTaxonomy.GraphSync" }
 )]
