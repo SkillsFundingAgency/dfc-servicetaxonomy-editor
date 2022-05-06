@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using OrchardCore.ContentManagement;
 
-namespace DFC.ServiceTaxonomy.JobProfiles.Module.Models.Indexes
+namespace DFC.ServiceTaxonomy.JobProfiles.DataTransfer.Models.Indexes
 {
     public class JobProfile : ContentPart
     {

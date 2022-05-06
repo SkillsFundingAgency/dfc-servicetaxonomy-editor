@@ -1,4 +1,4 @@
-﻿namespace DFC.ServiceTaxonomy.JobProfiles.Module.AzureSearchIndexHandling
+﻿namespace DFC.ServiceTaxonomy.JobProfiles.DataTransfer.AzureSearch
 {
     internal class JobProfileIndexSettings
     {

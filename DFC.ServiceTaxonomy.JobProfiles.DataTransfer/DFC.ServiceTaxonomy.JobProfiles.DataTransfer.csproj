@@ -9,8 +9,7 @@
     <AnalysisLevel>latest</AnalysisLevel>
     <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
   </PropertyGroup>
-
-  <ItemGroup>
+    <ItemGroup>
     <FrameworkReference Include="Microsoft.AspNetCore.App" />
   </ItemGroup>
 
@@ -33,15 +32,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\DFC.ServiceTaxonomy.DataAccess\DFC.ServiceTaxonomy.DataAccess.csproj" />
-    <ProjectReference Include="..\DFC.ServiceTaxonomy.GraphSync\DFC.ServiceTaxonomy.GraphSync.csproj" />
-    <ProjectReference Include="..\DFC.ServiceTaxonomy.JobProfiles.Service\DFC.ServiceTaxonomy.JobProfiles.Service.csproj" />
-    <ProjectReference Include="..\DFC.ServiceTaxonomy.PageLocation\DFC.ServiceTaxonomy.PageLocation.csproj" />
-    <ProjectReference Include="..\DFC.ServiceTaxonomy.Title\DFC.ServiceTaxonomy.Title.csproj" />
+    <PackageReference Include="Microsoft.AspNetCore.Hosting" Version="2.2.7" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Models\Indexes\" />
+    <ProjectReference Include="..\DFC.ServiceTaxonomy.GraphSync\DFC.ServiceTaxonomy.GraphSync.csproj" />
   </ItemGroup>
 
 </Project>

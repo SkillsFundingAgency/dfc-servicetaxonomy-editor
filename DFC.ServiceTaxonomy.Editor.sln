@@ -69,6 +69,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DFC.ServiceTaxonomy.DataAcc
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DFC.ServiceTaxonomy.IntegrationTests", "DFC.ServiceTaxonomy.IntegrationTests\DFC.ServiceTaxonomy.IntegrationTests.csproj", "{43E8F9E2-D8AE-4EE0-8611-448C04DD7A69}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DFC.ServiceTaxonomy.JobProfiles.DataTransfer", "DFC.ServiceTaxonomy.JobProfiles.DataTransfer\DFC.ServiceTaxonomy.JobProfiles.DataTransfer.csproj", "{21DCBE61-94A1-428F-B80A-B585904ECF11}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -214,6 +216,12 @@ Global
 		{43E8F9E2-D8AE-4EE0-8611-448C04DD7A69}.Development|Any CPU.Build.0 = Debug|Any CPU
 		{43E8F9E2-D8AE-4EE0-8611-448C04DD7A69}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{43E8F9E2-D8AE-4EE0-8611-448C04DD7A69}.Release|Any CPU.Build.0 = Release|Any CPU
+		{21DCBE61-94A1-428F-B80A-B585904ECF11}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{21DCBE61-94A1-428F-B80A-B585904ECF11}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{21DCBE61-94A1-428F-B80A-B585904ECF11}.Development|Any CPU.ActiveCfg = Debug|Any CPU
+		{21DCBE61-94A1-428F-B80A-B585904ECF11}.Development|Any CPU.Build.0 = Debug|Any CPU
+		{21DCBE61-94A1-428F-B80A-B585904ECF11}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{21DCBE61-94A1-428F-B80A-B585904ECF11}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

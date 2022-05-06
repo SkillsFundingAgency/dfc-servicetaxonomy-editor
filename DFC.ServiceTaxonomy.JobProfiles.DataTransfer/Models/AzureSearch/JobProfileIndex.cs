@@ -4,7 +4,7 @@ using System.Linq;
 using Azure.Search.Documents.Indexes;
 using Azure.Search.Documents.Indexes.Models;
 
-namespace DFC.ServiceTaxonomy.JobProfiles.Module.Models.AzureSearch
+namespace DFC.ServiceTaxonomy.JobProfiles.DataTransfer.Models.AzureSearch
 {
     public class JobProfileIndex
     {

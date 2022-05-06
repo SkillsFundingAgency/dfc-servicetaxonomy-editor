@@ -1,6 +1,6 @@
 ﻿using YesSql.Indexes;
 
-namespace DFC.ServiceTaxonomy.JobProfiles.Module.Indexes
+namespace DFC.ServiceTaxonomy.JobProfiles.DataTransfer.Indexes
 {
     public class JobProfileIndex : MapIndex
     {

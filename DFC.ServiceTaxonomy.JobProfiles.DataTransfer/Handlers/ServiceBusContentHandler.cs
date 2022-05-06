@@ -1,10 +1,12 @@
 ﻿using System.Threading.Tasks;
-using DFC.ServiceTaxonomy.JobProfiles.Module.ServiceBusHandling;
-using DFC.ServiceTaxonomy.JobProfiles.Module.ServiceBusHandling.Interfaces;
+
+using DFC.ServiceTaxonomy.JobProfiles.DataTransfer.ServiceBusHandling;
+using DFC.ServiceTaxonomy.JobProfiles.DataTransfer.ServiceBusHandling.Interfaces;
+
 using OrchardCore.ContentManagement.Handlers;
 
 
-namespace DFC.ServiceTaxonomy.JobProfiles.Module.Handlers
+namespace DFC.ServiceTaxonomy.JobProfiles.DataTransfer.Handlers
 {
     internal class ServiceBusContentHandler : ContentHandlerBase
     {

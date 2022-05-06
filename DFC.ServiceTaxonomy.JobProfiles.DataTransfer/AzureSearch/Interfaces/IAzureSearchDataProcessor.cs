@@ -1,7 +1,8 @@
 ﻿using System.Threading.Tasks;
+
 using OrchardCore.ContentManagement.Handlers;
 
-namespace DFC.ServiceTaxonomy.JobProfiles.Module.AzureSearchIndexHandling.Interfaces
+namespace DFC.ServiceTaxonomy.JobProfiles.DataTransfer.AzureSearch.Interfaces
 {
     public interface IAzureSearchDataProcessor
     {

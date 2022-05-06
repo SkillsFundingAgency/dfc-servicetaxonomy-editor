@@ -2,18 +2,21 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+
 using DFC.ServiceTaxonomy.GraphSync.Models;
-using DFC.ServiceTaxonomy.JobProfiles.Module.Extensions;
-using DFC.ServiceTaxonomy.JobProfiles.Module.Models.AzureSearch;
-using DFC.ServiceTaxonomy.JobProfiles.Module.ServiceBusHandling.Converters;
-using DFC.ServiceTaxonomy.JobProfiles.Module.ServiceBusHandling.Interfaces;
+using DFC.ServiceTaxonomy.JobProfiles.DataTransfer.Extensions;
+using DFC.ServiceTaxonomy.JobProfiles.DataTransfer.Models.AzureSearch;
+using DFC.ServiceTaxonomy.JobProfiles.DataTransfer.ServiceBusHandling.Converters;
+using DFC.ServiceTaxonomy.JobProfiles.DataTransfer.ServiceBusHandling.Interfaces;
 using DFC.ServiceTaxonomy.PageLocation.Models;
+
 using Microsoft.Extensions.DependencyInjection;
+
 using OrchardCore.ContentManagement;
 using OrchardCore.Title.Models;
 
 
-namespace DFC.ServiceTaxonomy.JobProfiles.Module.AzureSearchIndexHandling.Converters
+namespace DFC.ServiceTaxonomy.JobProfiles.DataTransfer.AzureSearch.Converters
 {
     public class JobProfileIndexMessageConverter : IMessageConverter<JobProfileIndex>
     {

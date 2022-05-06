@@ -1,10 +1,11 @@
 ﻿using System.Threading.Tasks;
-using DFC.ServiceTaxonomy.JobProfiles.Module.AzureSearchIndexHandling.Interfaces;
 
-using DFC.ServiceTaxonomy.JobProfiles.Module.ServiceBusHandling;
+using DFC.ServiceTaxonomy.JobProfiles.DataTransfer.AzureSearch.Interfaces;
+using DFC.ServiceTaxonomy.JobProfiles.DataTransfer.ServiceBusHandling;
+
 using OrchardCore.ContentManagement.Handlers;
 
-namespace DFC.ServiceTaxonomy.JobProfiles.Module.Handlers
+namespace DFC.ServiceTaxonomy.JobProfiles.DataTransfer.Handlers
 {
     public class JobProfileAzureSearchIndexHandler : ContentHandlerBase
     {

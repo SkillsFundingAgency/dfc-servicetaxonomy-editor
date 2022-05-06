@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace DFC.ServiceTaxonomy.JobProfiles.Module.Extensions
+namespace DFC.ServiceTaxonomy.JobProfiles.DataTransfer.Extensions
 {
     internal static class ListExtensions
     {

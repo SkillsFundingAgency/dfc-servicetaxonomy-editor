@@ -8,12 +8,12 @@ using OrchardCore.ContentManagement.Handlers;
 using OrchardCore.ContentManagement.Metadata;
 using OrchardCore.Data;
 using YesSql.Indexes;
-using DFC.ServiceTaxonomy.JobProfiles.Module.Models.Indexes;
+using DFC.ServiceTaxonomy.JobProfiles.DataTransfer.Models.Indexes;
 using DFC.ServiceTaxonomy.GraphSync.Models;
-using DFC.ServiceTaxonomy.JobProfiles.Module.Extensions;
+using DFC.ServiceTaxonomy.JobProfiles.DataTransfer.Extensions;
 using System.Diagnostics.CodeAnalysis;
 
-namespace DFC.ServiceTaxonomy.JobProfiles.Module.Indexes
+namespace DFC.ServiceTaxonomy.JobProfiles.DataTransfer.Indexes
 {
     public class JobProfileIndexProvider : ContentHandlerBase, IScopedIndexProvider
     {

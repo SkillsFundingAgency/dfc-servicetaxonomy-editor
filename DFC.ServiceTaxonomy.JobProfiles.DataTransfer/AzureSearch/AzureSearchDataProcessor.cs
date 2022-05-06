@@ -9,17 +9,17 @@ using Azure.Search.Documents.Indexes;
 using Azure.Search.Documents.Indexes.Models;
 using Azure.Search.Documents.Models;
 
-using DFC.ServiceTaxonomy.JobProfiles.Module.AzureSearchIndexHandling.Interfaces;
-using DFC.ServiceTaxonomy.JobProfiles.Module.Models.AzureSearch;
-using DFC.ServiceTaxonomy.JobProfiles.Module.ServiceBusHandling;
-using DFC.ServiceTaxonomy.JobProfiles.Module.ServiceBusHandling.Interfaces;
+using DFC.ServiceTaxonomy.JobProfiles.DataTransfer.AzureSearch.Interfaces;
+using DFC.ServiceTaxonomy.JobProfiles.DataTransfer.Models.AzureSearch;
+using DFC.ServiceTaxonomy.JobProfiles.DataTransfer.ServiceBusHandling;
+using DFC.ServiceTaxonomy.JobProfiles.DataTransfer.ServiceBusHandling.Interfaces;
 
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 
 using OrchardCore.ContentManagement.Handlers;
 
-namespace DFC.ServiceTaxonomy.JobProfiles.Module.AzureSearchIndexHandling
+namespace DFC.ServiceTaxonomy.JobProfiles.DataTransfer.AzureSearch
 {
     public class AzureSearchDataProcessor : IAzureSearchDataProcessor
     {
