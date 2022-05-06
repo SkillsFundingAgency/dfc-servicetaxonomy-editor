@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 
-using DFC.ServiceTaxonomy.JobProfiles.DataTransfer.ServiceBusHandling;
-using DFC.ServiceTaxonomy.JobProfiles.DataTransfer.ServiceBusHandling.Interfaces;
+using DFC.ServiceTaxonomy.JobProfiles.DataTransfer.ServiceBus;
+using DFC.ServiceTaxonomy.JobProfiles.DataTransfer.ServiceBus.Interfaces;
 
 using OrchardCore.ContentManagement.Handlers;
 

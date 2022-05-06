@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 
 using DFC.ServiceTaxonomy.JobProfiles.DataTransfer.AzureSearch.Interfaces;
-using DFC.ServiceTaxonomy.JobProfiles.DataTransfer.ServiceBusHandling;
+using DFC.ServiceTaxonomy.JobProfiles.DataTransfer.ServiceBus;
 
 using OrchardCore.ContentManagement.Handlers;
 

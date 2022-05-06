@@ -11,8 +11,8 @@ using Azure.Search.Documents.Models;
 
 using DFC.ServiceTaxonomy.JobProfiles.DataTransfer.AzureSearch.Interfaces;
 using DFC.ServiceTaxonomy.JobProfiles.DataTransfer.Models.AzureSearch;
-using DFC.ServiceTaxonomy.JobProfiles.DataTransfer.ServiceBusHandling;
-using DFC.ServiceTaxonomy.JobProfiles.DataTransfer.ServiceBusHandling.Interfaces;
+using DFC.ServiceTaxonomy.JobProfiles.DataTransfer.ServiceBus;
+using DFC.ServiceTaxonomy.JobProfiles.DataTransfer.ServiceBus.Interfaces;
 
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;

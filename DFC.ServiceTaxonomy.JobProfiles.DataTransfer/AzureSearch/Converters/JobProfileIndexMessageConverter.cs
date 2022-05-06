@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.Models;
 using DFC.ServiceTaxonomy.JobProfiles.DataTransfer.Extensions;
 using DFC.ServiceTaxonomy.JobProfiles.DataTransfer.Models.AzureSearch;
-using DFC.ServiceTaxonomy.JobProfiles.DataTransfer.ServiceBusHandling.Converters;
-using DFC.ServiceTaxonomy.JobProfiles.DataTransfer.ServiceBusHandling.Interfaces;
+using DFC.ServiceTaxonomy.JobProfiles.DataTransfer.ServiceBus.Converters;
+using DFC.ServiceTaxonomy.JobProfiles.DataTransfer.ServiceBus.Interfaces;
 using DFC.ServiceTaxonomy.PageLocation.Models;
 
 using Microsoft.Extensions.DependencyInjection;

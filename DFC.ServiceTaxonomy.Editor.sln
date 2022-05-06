@@ -61,8 +61,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DFC.ServiceTaxonomy.Version
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DFC.ServiceTaxonomy.Title", "DFC.ServiceTaxonomy.Title\DFC.ServiceTaxonomy.Title.csproj", "{969F6F82-CA94-452F-80AD-9C05E55EF7FD}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DFC.ServiceTaxonomy.JobProfiles.Service", "DFC.ServiceTaxonomy.JobProfiles.Service\DFC.ServiceTaxonomy.JobProfiles.Service.csproj", "{ED90F1C7-7EE9-4585-BBE1-0693CE5EAE48}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DFC.ServiceTaxonomy.JobProfiles.Module", "DFC.ServiceTaxonomy.JobProfiles.Module\DFC.ServiceTaxonomy.JobProfiles.Module.csproj", "{4A69A3A2-2E54-4DF1-A792-827E7DD6490B}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DFC.ServiceTaxonomy.DataAccess", "DFC.ServiceTaxonomy.DataAccess\DFC.ServiceTaxonomy.DataAccess.csproj", "{7035AE45-E57E-4293-9008-3E5564F533C7}"
@@ -192,12 +190,6 @@ Global
 		{969F6F82-CA94-452F-80AD-9C05E55EF7FD}.Development|Any CPU.Build.0 = Debug|Any CPU
 		{969F6F82-CA94-452F-80AD-9C05E55EF7FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{969F6F82-CA94-452F-80AD-9C05E55EF7FD}.Release|Any CPU.Build.0 = Release|Any CPU
-		{ED90F1C7-7EE9-4585-BBE1-0693CE5EAE48}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{ED90F1C7-7EE9-4585-BBE1-0693CE5EAE48}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{ED90F1C7-7EE9-4585-BBE1-0693CE5EAE48}.Development|Any CPU.ActiveCfg = Debug|Any CPU
-		{ED90F1C7-7EE9-4585-BBE1-0693CE5EAE48}.Development|Any CPU.Build.0 = Debug|Any CPU
-		{ED90F1C7-7EE9-4585-BBE1-0693CE5EAE48}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{ED90F1C7-7EE9-4585-BBE1-0693CE5EAE48}.Release|Any CPU.Build.0 = Release|Any CPU
 		{4A69A3A2-2E54-4DF1-A792-827E7DD6490B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{4A69A3A2-2E54-4DF1-A792-827E7DD6490B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4A69A3A2-2E54-4DF1-A792-827E7DD6490B}.Development|Any CPU.ActiveCfg = Debug|Any CPU
