@@ -5,5 +5,10 @@
         public const string ContentEvent_Removed = "Removed";
         public const string ContentEventName_DiscardDraft = "Discard draft";
         public const string UrlPart_DiscardDraft = "discarddraft";
+
+        // Content event names
+        public const string ContentEvent_Published = "Published";
+        public const string ContentEvent_Unpublished = "Unpublished";
+        public const string ContentEvent_Saved = "Saved";
     }
 }
