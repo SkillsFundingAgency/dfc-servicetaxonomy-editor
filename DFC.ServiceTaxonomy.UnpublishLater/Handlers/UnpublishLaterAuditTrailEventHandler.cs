@@ -84,8 +84,7 @@ namespace DFC.ServiceTaxonomy.UnpublishLater.Handlers
 
         private static string GetCancelUnpublishLaterEventName(UnpublishLaterPart unpublishLaterPart)
         {
-            var scheduledUnpublishUtc = unpublishLaterPart.ScheduledUnpublishUtc.HasValue ? unpublishLaterPart.ScheduledUnpublishUtc.Value.ToString() : "no value";
-            return $"CancelUnpublishLaterEvent at ({scheduledUnpublishUtc})";
+            return $"CancelUnpublishLaterEvent";
         }
         private static string GetUnpublishedEventName(UnpublishLaterPart unpublishLaterPart)
         {
