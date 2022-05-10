@@ -3,9 +3,9 @@ using System.Linq;
 using System.Threading.Tasks;
 
 using DFC.ServiceTaxonomy.GraphSync.Models;
-using DFC.ServiceTaxonomy.JobProfiles.Module.Indexes;
-using DFC.ServiceTaxonomy.JobProfiles.Module.ServiceBusHandling;
-using DFC.ServiceTaxonomy.JobProfiles.Service.Interfaces;
+using DFC.ServiceTaxonomy.JobProfiles.DataTransfer.Indexes;
+using DFC.ServiceTaxonomy.JobProfiles.DataTransfer.ServiceBus;
+using DFC.ServiceTaxonomy.JobProfiles.Module.Interfaces;
 using DFC.ServiceTaxonomy.Title.Models;
 
 using Microsoft.AspNetCore.Mvc.Localization;
