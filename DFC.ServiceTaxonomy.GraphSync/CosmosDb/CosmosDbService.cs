@@ -156,7 +156,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb
                 queryDefinition,
                 requestOptions: new QueryRequestOptions
                 {
-                    PartitionKey = new PartitionKey(contentType)
+                    PartitionKey = new PartitionKey(contentType),
+                    MaxItemCount = int.MaxValue
                 });
 
             while (resultSetIterator.HasMoreResults)

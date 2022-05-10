@@ -33,7 +33,12 @@ namespace DFC.ServiceTaxonomy.GraphSync.Models
         {
             QueryDefinition = new QueryDefinition("SELECT * FROM c WHERE c.id = @id0");
             QueryDefinition.WithParameter("@id0", id);
-            QueryRequestOptions = new QueryRequestOptions { PartitionKey = new PartitionKey(contentType) };
+
+            QueryRequestOptions = new QueryRequestOptions
+            {
+                PartitionKey = new PartitionKey(contentType),
+                MaxItemCount = int.MaxValue
+            };
         }
 
         /// <summary>
