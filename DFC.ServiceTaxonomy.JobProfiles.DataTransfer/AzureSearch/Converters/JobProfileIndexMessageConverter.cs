@@ -31,17 +31,13 @@ namespace DFC.ServiceTaxonomy.JobProfiles.DataTransfer.AzureSearch.Converters
 
             IEnumerable<string> socCode = await Helper.GetContentItemNamesAsync(contentItem.Content.JobProfile.SOCCode, contentManager);
             IEnumerable<ContentItem> jobCategories = await Helper.GetContentItemsAsync(contentItem.Content.JobProfile.JobProfileCategory, contentManager);
-            string collegeRelevantSubjects = contentItem.Content.JobProfile.Collegerelevantsubjects == null ? string.Empty : contentItem.Content.JobProfile.Collegerelevantsubjects.Html.ToString();
-            string apprenticeshipRelevantSubjects = contentItem.Content.JobProfile.Apprenticeshiprelevantsubjects is null ? string.Empty : contentItem.Content.JobProfile.Apprenticeshiprelevantsubjects.Html.ToString();
-            string UniversityRelevantSubjects = contentItem.Content.JobProfile.Universityrelevantsubjects is null ? string.Empty : contentItem.Content.JobProfile.Universityrelevantsubjects.Html.ToString();
-            string WYDDayToDayTasks = contentItem.Content.JobProfile.Daytodaytasks is null? string.Empty : contentItem.Content.JobProfile.Daytodaytasks.Html.ToString();
-            string CareerPathAndProgression = contentItem.Content.JobProfile.Careerpathandprogression == null ? string.Empty : contentItem.Content.JobProfile.Careerpathandprogression.Html.ToString();
 
             var jobProfileIndex = new JobProfileIndex();
             jobProfileIndex.IdentityField = contentItem.As<GraphSyncPart>().ExtractGuid().ToString();
             jobProfileIndex.SocCode = socCode.FirstOrDefault();
             jobProfileIndex.Title = contentItem.As<TitlePart>().Title;
-            jobProfileIndex.AlternativeTitle = new List<string> { string.IsNullOrEmpty(contentItem.Content.JobProfile.AlternativeTitle.Text.ToString()) ? string.Empty : contentItem.Content.JobProfile.AlternativeTitle.Text.ToString() };
+            string altText = string.IsNullOrEmpty(contentItem.Content.JobProfile.AlternativeTitle.Text) ? string.Empty : contentItem.Content.JobProfile.AlternativeTitle.Text.ToString();
+            jobProfileIndex.AlternativeTitle = altText.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries).Select(x => x.Trim());
             jobProfileIndex.Overview = contentItem.Content.JobProfile.Overview.Text ?? string.Empty;
             jobProfileIndex.SalaryStarter = string.IsNullOrEmpty(contentItem.Content.JobProfile.Salarystarterperyear.Value.ToString()) ? default : (double)contentItem.Content.JobProfile.Salarystarterperyear.Value;
             jobProfileIndex.SalaryExperienced = string.IsNullOrEmpty(contentItem.Content.JobProfile.Salaryexperiencedperyear.Value.ToString()) ? default : (double)contentItem.Content.JobProfile.Salaryexperiencedperyear.Value;
@@ -63,11 +59,13 @@ namespace DFC.ServiceTaxonomy.JobProfiles.DataTransfer.AzureSearch.Converters
             jobProfileIndex.EntryQualificationLowestLevel = default;
 
             jobProfileIndex.Skills = await Helper.GetRelatedSkillsAsync(contentItem.Content.JobProfile.Relatedskills, contentManager);
-            jobProfileIndex.CollegeRelevantSubjects = collegeRelevantSubjects.HTMLToText();
-            jobProfileIndex.UniversityRelevantSubjects = UniversityRelevantSubjects.HTMLToText();
-            jobProfileIndex.ApprenticeshipRelevantSubjects = apprenticeshipRelevantSubjects.HTMLToText();
-            jobProfileIndex.WYDDayToDayTasks = WYDDayToDayTasks.HTMLToText();
-            jobProfileIndex.CareerPathAndProgression = CareerPathAndProgression.HTMLToText();
+
+            jobProfileIndex.CollegeRelevantSubjects = GetHtml(contentItem.Content.JobProfile.Collegerelevantsubjects);
+            jobProfileIndex.ApprenticeshipRelevantSubjects = GetHtml(contentItem.Content.JobProfile.Apprenticeshiprelevantsubjects);
+            jobProfileIndex.UniversityRelevantSubjects = GetHtml(contentItem.Content.JobProfile.Universityrelevantsubjects);
+            jobProfileIndex.WYDDayToDayTasks = GetHtml((contentItem.Content.JobProfile.Daytodaytasks));
+            jobProfileIndex.CareerPathAndProgression = GetHtml(contentItem.Content.JobProfile.Careerpathandprogression);
+
             jobProfileIndex.WorkingPattern = await Helper.GetContentItemNamesAsync(contentItem.Content.JobProfile.WorkingPattern, contentManager);
             jobProfileIndex.WorkingPatternDetails = await Helper.GetContentItemNamesAsync(contentItem.Content.JobProfile.WorkingPatternDetails, contentManager);
             jobProfileIndex.WorkingHoursDetails = await Helper.GetContentItemNamesAsync(contentItem.Content.JobProfile.WorkingHoursDetails, contentManager);
@@ -78,15 +76,14 @@ namespace DFC.ServiceTaxonomy.JobProfiles.DataTransfer.AzureSearch.Converters
 
         }
 
-        private static IEnumerable<string> GetJobCategoriesWithUrl(IEnumerable<ContentItem> contentItems)
-        {
-            return contentItems.Select(x => $"{x.As<TitlePart>().Title}|{x.As<PageLocationPart>().UrlName}");
-        }
+        private static IEnumerable<string> GetJobCategoriesWithUrl(IEnumerable<ContentItem> contentItems) =>
+            contentItems.Select(x => $"{x.As<TitlePart>().Title}|{x.As<PageLocationPart>().UrlName}");
 
-        private static IEnumerable<string> GetJobCategoryUrls(IEnumerable<ContentItem> contentItems)
-        {
-            return contentItems.Select(x => $"{x.As<PageLocationPart>().UrlName}");
-        }
+        private static IEnumerable<string> GetJobCategoryUrls(IEnumerable<ContentItem> contentItems) =>
+            contentItems.Select(x => $"{x.As<PageLocationPart>().UrlName}");
+
+        private static string GetHtml(dynamic html) =>
+            html is null ? string.Empty : html.Html.ToString();
 
     }
 }
