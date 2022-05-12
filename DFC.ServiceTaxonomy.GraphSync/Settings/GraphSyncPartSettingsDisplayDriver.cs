@@ -51,9 +51,10 @@ namespace DFC.ServiceTaxonomy.GraphSync.Settings
 
         private void BuildGraphSyncPartSettingsList(GraphSyncPartSettingsViewModel model)
         {
-            var listToReturn = new List<SelectListItem>();
-
-            listToReturn.Add(new SelectListItem("Custom", "Custom"));
+            var listToReturn = new List<SelectListItem>
+            {
+                new SelectListItem("Custom", "Custom")
+            };
 
             foreach (var item in _graphSyncPartSettings.CurrentValue.Settings)
             {
@@ -89,7 +90,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.Settings
             }
 
             var model = new GraphSyncPartSettingsViewModel();
-
 
             if (await context.Updater.TryUpdateModelAsync(model, Prefix,
                 m => m.BagPartContentItemRelationshipType,
@@ -148,7 +148,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.Settings
 
         private bool IsEqual(string? item, string? model)
         {
-            return ((string.IsNullOrWhiteSpace(model) && string.IsNullOrWhiteSpace(item)) || model != null && model.Equals(item, StringComparison.CurrentCultureIgnoreCase));
+            return (string.IsNullOrWhiteSpace(model) && string.IsNullOrWhiteSpace(item))
+                || model != null && model.Equals(item, StringComparison.CurrentCultureIgnoreCase);
         }
     }
 }

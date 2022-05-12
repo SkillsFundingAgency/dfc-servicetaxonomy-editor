@@ -1,0 +1,469 @@
+﻿{
+    "name": "DYSACContentTypes",
+    "displayName": "DYSAC Content Types - Adds Publish/Unpublish Later parts",
+    "description": "Adds Publish/Unpublish Later parts to DYSAC content types",
+    "author": "National Careers Service",
+    "website": "https://github.com/SkillsFundingAgency/dfc-servicetaxonomy-editor",
+    "version": "1.0",
+    "issetuprecipe": false,
+    "categories": [
+        "default"
+    ],
+    "tags": [
+        "ncs"
+    ],
+    "steps": [
+        {
+            "name": "ContentDefinition",
+            "ContentTypes": [
+                {
+                    "Name": "PersonalityQuestionSet",
+                    "DisplayName": "Personality Question Set",
+                    "Settings": {
+                        "ContentTypeSettings": {
+                            "Creatable": true,
+                            "Listable": true,
+                            "Draftable": true,
+                            "Versionable": true,
+                            "Securable": true
+                        },
+                        "FullTextAspectSettings": {}
+                    },
+                    "ContentTypePartDefinitionRecords": [
+                        {
+                            "PartName": "PersonalityQuestionSet",
+                            "Name": "PersonalityQuestionSet",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "1"
+                                }
+                            }
+                        },
+                        {
+                            "PartName": "GraphSyncPart",
+                            "Name": "GraphSyncPart",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "2"
+                                },
+                                "GraphSyncPartSettings": {
+                                    "NodeNameTransform": "ContentType",
+                                    "PropertyNameTransform": "Value",
+                                    "IdPropertyName": "uri",
+                                    "GenerateIdPropertyValue": "$\"<<contentapiprefix>>/{ContentType}/{Value}\".ToLowerInvariant()",
+                                    "DisplayId": true,
+                                    "VisualiserNodeDepth": 2
+                                },
+                                "ContentIndexSettings": {
+                                    "Template": "undefined"
+                                }
+                            }
+                        },
+                        {
+                            "PartName": "TitlePart",
+                            "Name": "TitlePart",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "0"
+                                }
+                            }
+                        },
+                        {
+                            "PartName": "PublishLaterPart",
+                            "Name": "PublishLaterPart",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "1"
+                                }
+                            }
+                        },
+                        {
+                            "PartName": "UnpublishLaterPart",
+                            "Name": "UnpublishLaterPart",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "2"
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "Name": "PersonalityFilteringQuestion",
+                    "DisplayName": "Personality Filtering Question",
+                    "Settings": {
+                        "ContentTypeSettings": {
+                            "Creatable": true,
+                            "Listable": true,
+                            "Draftable": true,
+                            "Versionable": true,
+                            "Securable": true
+                        },
+                        "FullTextAspectSettings": {}
+                    },
+                    "ContentTypePartDefinitionRecords": [
+                        {
+                            "PartName": "PersonalityFilteringQuestion",
+                            "Name": "PersonalityFilteringQuestion",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "1"
+                                }
+                            }
+                        },
+                        {
+                            "PartName": "GraphSyncPart",
+                            "Name": "GraphSyncPart",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "2"
+                                },
+                                "GraphSyncPartSettings": {
+                                    "NodeNameTransform": "ContentType",
+                                    "PropertyNameTransform": "Value",
+                                    "IdPropertyName": "uri",
+                                    "GenerateIdPropertyValue": "$\"<<contentapiprefix>>/{ContentType}/{Value}\".ToLowerInvariant()",
+                                    "DisplayId": true
+                                }
+                            }
+                        },
+                        {
+                            "PartName": "TitlePart",
+                            "Name": "TitlePart",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "0"
+                                }
+                            }
+                        },
+                        {
+                            "PartName": "PublishLaterPart",
+                            "Name": "PublishLaterPart",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "1"
+                                }
+                            }
+                        },
+                        {
+                            "PartName": "UnpublishLaterPart",
+                            "Name": "UnpublishLaterPart",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "2"
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "Name": "PersonalityShortQuestion",
+                    "DisplayName": "Personality Short Question",
+                    "Settings": {
+                        "ContentTypeSettings": {
+                            "Creatable": true,
+                            "Listable": true,
+                            "Draftable": true,
+                            "Versionable": true,
+                            "Securable": true
+                        },
+                        "FullTextAspectSettings": {}
+                    },
+                    "ContentTypePartDefinitionRecords": [
+                        {
+                            "PartName": "PersonalityShortQuestion",
+                            "Name": "PersonalityShortQuestion",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "1"
+                                }
+                            }
+                        },
+                        {
+                            "PartName": "GraphSyncPart",
+                            "Name": "GraphSyncPart",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "2"
+                                },
+                                "GraphSyncPartSettings": {
+                                    "NodeNameTransform": "ContentType",
+                                    "PropertyNameTransform": "Value",
+                                    "IdPropertyName": "uri",
+                                    "GenerateIdPropertyValue": "$\"<<contentapiprefix>>/{ContentType}/{Value}\".ToLowerInvariant()",
+                                    "DisplayId": true
+                                }
+                            }
+                        },
+                        {
+                            "PartName": "TitlePart",
+                            "Name": "TitlePart",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "0"
+                                }
+                            }
+                        },
+                        {
+                            "PartName": "PublishLaterPart",
+                            "Name": "PublishLaterPart",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "1"
+                                }
+                            }
+                        },
+                        {
+                            "PartName": "UnpublishLaterPart",
+                            "Name": "UnpublishLaterPart",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "2"
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "Name": "PersonalityTrait",
+                    "DisplayName": "Personality Trait",
+                    "Settings": {
+                        "ContentTypeSettings": {
+                            "Creatable": true,
+                            "Listable": true,
+                            "Draftable": true,
+                            "Versionable": true,
+                            "Securable": true
+                        },
+                        "FullTextAspectSettings": {}
+                    },
+                    "ContentTypePartDefinitionRecords": [
+                        {
+                            "PartName": "PersonalityTrait",
+                            "Name": "PersonalityTrait",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "1"
+                                }
+                            }
+                        },
+                        {
+                            "PartName": "GraphSyncPart",
+                            "Name": "GraphSyncPart",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "2"
+                                },
+                                "GraphSyncPartSettings": {
+                                    "NodeNameTransform": "ContentType",
+                                    "PropertyNameTransform": "Value",
+                                    "IdPropertyName": "uri",
+                                    "GenerateIdPropertyValue": "$\"<<contentapiprefix>>/{ContentType}/{Value}\".ToLowerInvariant()",
+                                    "DisplayId": true
+                                },
+                                "ContentIndexSettings": {
+                                    "Template": "undefined"
+                                }
+                            }
+                        },
+                        {
+                            "PartName": "TitlePart",
+                            "Name": "TitlePart",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "0"
+                                }
+                            }
+                        },
+                        {
+                            "PartName": "PublishLaterPart",
+                            "Name": "PublishLaterPart",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "1"
+                                }
+                            }
+                        },
+                        {
+                            "PartName": "UnpublishLaterPart",
+                            "Name": "UnpublishLaterPart",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "2"
+                                }
+                            }
+                        }
+                    ]
+                }
+            ],
+            "ContentParts": [
+                {
+                    "Name": "PersonalityQuestionSet",
+                    "Settings": {},
+                    "ContentPartFieldDefinitionRecords": [
+                        {
+                            "FieldName": "ContentPickerField",
+                            "Name": "Questions",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Related questions",
+                                    "Position": "0"
+                                },
+                                "ContentPickerFieldSettings": {
+                                    "Hint": "These are the questions that make up the question set. The order of the questions here represents the order the questions will appear in the assessment.",
+                                    "Required": true,
+                                    "Multiple": true,
+                                    "DisplayedContentTypes": [
+                                        "PersonalityShortQuestion"
+                                    ]
+                                },
+                                "ContentIndexSettings": {}
+                            }
+                        }
+                    ]
+                },
+                {
+                    "Name": "PersonalityFilteringQuestion",
+                    "Settings": {},
+                    "ContentPartFieldDefinitionRecords": [
+                        {
+                            "FieldName": "ContentPickerField",
+                            "Name": "SOCSkillsMatrix",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Related Skill (Note SOCCode prefix is not used)",
+                                    "Position": "0"
+                                },
+                                "ContentPickerFieldSettings": {
+                                    "Hint": "Creates relationships of [:hasSOCSkillsMatrix].",
+                                    "Required": true,
+                                    "DisplayedContentTypes": [
+                                        "SOCSkillsMatrix"
+                                    ]
+                                },
+                                "ContentIndexSettings": {}
+                            }
+                        },
+                        {
+                            "FieldName": "TextField",
+                            "Name": "Text",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Text",
+                                    "Editor": "TextArea",
+                                    "Position": "1"
+                                },
+                                "TextFieldSettings": {},
+                                "ContentIndexSettings": {}
+                            }
+                        }
+                    ]
+                },
+                {
+                    "Name": "PersonalityTrait",
+                    "Settings": {},
+                    "ContentPartFieldDefinitionRecords": [
+                        {
+                            "FieldName": "TextField",
+                            "Name": "Description",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Result Display Text",
+                                    "Editor": "TextArea",
+                                    "Position": "0"
+                                },
+                                "TextFieldSettings": {
+                                    "Hint": "The text that describes this trait. For example 'You enjoy helping and listening to other people."
+                                },
+                                "ContentIndexSettings": {}
+                            }
+                        },
+                        {
+                            "FieldName": "TextField",
+                            "Name": "Info",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Info",
+                                    "Editor": "TextArea",
+                                    "Position": "1"
+                                },
+                                "TextFieldSettings": {},
+                                "ContentIndexSettings": {}
+                            }
+                        },
+                        {
+                            "FieldName": "ContentPickerField",
+                            "Name": "JobProfileCategories",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Job Profile Categories",
+                                    "Position": "2"
+                                },
+                                "ContentPickerFieldSettings": {
+                                    "Required": true,
+                                    "Multiple": true,
+                                    "DisplayedContentTypes": [
+                                        "JobProfileCategory"
+                                    ]
+                                },
+                                "ContentIndexSettings": {}
+                            }
+                        }
+                    ]
+                },
+                {
+                    "Name": "PersonalityShortQuestion",
+                    "Settings": {},
+                    "ContentPartFieldDefinitionRecords": [
+                        {
+                            "FieldName": "ContentPickerField",
+                            "Name": "Trait",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Related Trait",
+                                    "Position": "0"
+                                },
+                                "ContentPickerFieldSettings": {
+                                    "Hint": "This field creates an association from the question to the trait that the question contributes to in the assessment.",
+                                    "Required": true,
+                                    "DisplayedContentTypes": [
+                                        "PersonalityTrait"
+                                    ]
+                                },
+                                "ContentIndexSettings": {}
+                            }
+                        },
+                        {
+                            "FieldName": "TextField",
+                            "Name": "Impact",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Impact",
+                                    "Editor": "PredefinedList",
+                                    "Position": "1"
+                                },
+                                "TextFieldSettings": {
+                                    "Hint": "Shows whether this question contributes positively/negatively to the total for a trait."
+                                },
+                                "TextFieldPredefinedListEditorSettings": {
+                                    "Options": [
+                                        {
+                                            "name": "Positive",
+                                            "value": "Positive"
+                                        },
+                                        {
+                                            "name": "Negative",
+                                            "value": "Negative"
+                                        }
+                                    ],
+                                    "DefaultValue": "Positive"
+                                },
+                                "ContentIndexSettings": {}
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}
