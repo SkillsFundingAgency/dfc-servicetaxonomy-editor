@@ -183,7 +183,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.Notifications
             }
 
             htmlContentBuilder.AppendHtml("</div></div></div>");
-
             if (type != NotifyType.Warning || !_entries.Any(e => e.Type == NotifyType.Warning))
             {
                 var newEntry = new NotifyEntry { Type = type, Message = htmlContentBuilder };
