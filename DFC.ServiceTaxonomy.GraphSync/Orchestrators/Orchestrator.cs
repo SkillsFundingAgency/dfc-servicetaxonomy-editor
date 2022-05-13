@@ -119,7 +119,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Orchestrators
         {
             try
             {
-                await deleteGraphSyncer.Delete();
+                await deleteGraphSyncer.Delete(syncOperation);
             }
             catch (CommandValidationException ex)
             {

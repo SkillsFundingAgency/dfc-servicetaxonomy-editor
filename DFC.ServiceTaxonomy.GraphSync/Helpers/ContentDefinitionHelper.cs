@@ -31,7 +31,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Helpers
 
                 if (exceptionIfNull)
                 {
-                    throw new KeyNotFoundException("Content type not found");
+                    throw new KeyNotFoundException($"Content type not found - {contentType} (case insensitive lookup)");
                 }
 
                 return null;

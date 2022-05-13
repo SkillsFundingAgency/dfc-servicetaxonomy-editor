@@ -49,8 +49,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb.Queries
                 this.CheckIsValid();
 
                 (_, Guid id) = DocumentHelper.GetContentTypeAndId(IdPropertyValue?.ToString() ?? string.Empty);
-
-                var contentType = NodeLabels.First(nodeLabel => !nodeLabel.Equals("Resource", StringComparison.InvariantCultureIgnoreCase));
+                var contentType = NodeLabels.First(nodeLabel =>
+                    !nodeLabel.Equals("Resource", StringComparison.InvariantCultureIgnoreCase));
 
                 return new Query(id.ToString(), contentType);
             }

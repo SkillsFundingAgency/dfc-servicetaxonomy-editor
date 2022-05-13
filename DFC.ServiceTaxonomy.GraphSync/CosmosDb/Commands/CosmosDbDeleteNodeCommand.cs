@@ -4,6 +4,7 @@ using DFC.ServiceTaxonomy.GraphSync.Exceptions;
 using DFC.ServiceTaxonomy.GraphSync.Extensions;
 using DFC.ServiceTaxonomy.GraphSync.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.Models;
+using DFC.ServiceTaxonomy.GraphSync.Services;
 
 namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb.Commands
 {
@@ -15,6 +16,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb.Commands
         public object? IdPropertyValue { get; set; }
         //todo: rename command : DeleteNodeAndOutgoingRelationshipsCommand
         public bool DeleteNode { get; set; }
+        public SyncOperation SyncOperation { get; set; } = SyncOperation.Delete;
         public IEnumerable<KeyValuePair<string, object>>? DeleteIncomingRelationshipsProperties { get; set; }
 
         public List<string> ValidationErrors()
@@ -43,7 +45,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb.Commands
                     { "uri", IdPropertyValue! }
                 };
 
-                return new Query("DeleteNodeCommand", parameters);
+                var unpublish = SyncOperation == SyncOperation.Unpublish;
+                return new Query(unpublish ? "UnpublishNodeCommand" : "DeleteNodeCommand", parameters);
             }
         }
 

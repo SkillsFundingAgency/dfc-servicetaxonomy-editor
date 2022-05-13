@@ -229,6 +229,9 @@
         },
         "CosmosDbendpointspublishedContainerName": {
             "type": "string"
+        },
+        "WEBSITE_MEMORY_LIMIT_MB": {
+            "type": "string"
         }
         
     },
@@ -578,6 +581,10 @@
                             {
                                 "name": "CosmosDb__endpoints__published__ContainerName",
                                 "value": "[parameters('CosmosDbendpointspublishedContainerName')]"
+                            },
+                            {
+                                "name": "WEBSITE_MEMORY_LIMIT_MB",
+                                "value": "[parameters('WEBSITE_MEMORY_LIMIT_MB')]"
                             }   
                         ] 
                     }

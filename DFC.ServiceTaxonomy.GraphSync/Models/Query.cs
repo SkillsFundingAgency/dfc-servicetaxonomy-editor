@@ -22,7 +22,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Models
 
         public QueryRequestOptions? QueryRequestOptions { get; }
 
-        public Query(string query, string parameterKey, string parameterValue, string contentType)
+        public Query(string query, string parameterKey, object parameterValue, string contentType)
         {
             QueryDefinition = new QueryDefinition(query);
             QueryDefinition.WithParameter(parameterKey, parameterValue);
@@ -33,7 +33,12 @@ namespace DFC.ServiceTaxonomy.GraphSync.Models
         {
             QueryDefinition = new QueryDefinition("SELECT * FROM c WHERE c.id = @id0");
             QueryDefinition.WithParameter("@id0", id);
-            QueryRequestOptions = new QueryRequestOptions { PartitionKey = new PartitionKey(contentType) };
+
+            QueryRequestOptions = new QueryRequestOptions
+            {
+                PartitionKey = new PartitionKey(contentType),
+                MaxItemCount = int.MaxValue
+            };
         }
 
         /// <summary>
@@ -47,7 +52,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Models
         }
 
 
-        //// <summary>
+        /// <summary>
         /// Create a query with no query parameters.
         /// </summary>
         /// <param name="text">The query's text</param>
