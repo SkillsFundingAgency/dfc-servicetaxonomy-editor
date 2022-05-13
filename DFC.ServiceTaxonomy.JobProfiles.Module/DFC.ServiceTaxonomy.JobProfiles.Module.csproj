@@ -11,7 +11,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <EmbeddedResource Remove="efpt.config.json" />
+  </ItemGroup>
+
+  <ItemGroup>
     <FrameworkReference Include="Microsoft.AspNetCore.App" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="efpt.config.json" />
   </ItemGroup>
 
   <ItemGroup>
@@ -21,6 +29,7 @@
     </PackageReference>
     <PackageReference Include="Azure.Search.Documents" Version="11.3.0" />
     <PackageReference Include="Microsoft.Azure.ServiceBus" Version="5.2.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.21" />
     <PackageReference Include="OrchardCore.Application.Cms.Targets" Version="1.0.0" />
     <PackageReference Include="OrchardCore.ContentManagement" Version="1.0.0" />
     <PackageReference Include="OrchardCore.Module.Targets" Version="1.0.0" />
@@ -35,7 +44,7 @@
   <ItemGroup>
     <ProjectReference Include="..\DFC.ServiceTaxonomy.DataAccess\DFC.ServiceTaxonomy.DataAccess.csproj" />
     <ProjectReference Include="..\DFC.ServiceTaxonomy.GraphSync\DFC.ServiceTaxonomy.GraphSync.csproj" />
-    <ProjectReference Include="..\DFC.ServiceTaxonomy.JobProfiles.Service\DFC.ServiceTaxonomy.JobProfiles.Service.csproj" />
+    <ProjectReference Include="..\DFC.ServiceTaxonomy.JobProfiles.DataTransfer\DFC.ServiceTaxonomy.JobProfiles.DataTransfer.csproj" />
     <ProjectReference Include="..\DFC.ServiceTaxonomy.PageLocation\DFC.ServiceTaxonomy.PageLocation.csproj" />
     <ProjectReference Include="..\DFC.ServiceTaxonomy.Title\DFC.ServiceTaxonomy.Title.csproj" />
   </ItemGroup>

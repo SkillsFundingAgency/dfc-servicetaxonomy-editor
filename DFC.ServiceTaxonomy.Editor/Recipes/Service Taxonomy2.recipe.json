@@ -83,7 +83,6 @@
                 "DFC.ServiceTaxonomy.ContentPickerPreview",
                 "DFC.ServiceTaxonomy.CustomEditor",
                 "DFC.ServiceTaxonomy.CustomFields",
-                "DFC.ServiceTaxonomy.Cypher",
                 "DFC.ServiceTaxonomy.GraphLookup",
                 "DFC.ServiceTaxonomy.GraphSync",
                 "DFC.ServiceTaxonomy.GraphVisualiser",
@@ -3325,16 +3324,6 @@
                         "ContentPartSettings": {
                             "Attachable": true,
                             "Description": "Enables the content type to be synced to a graph."
-                        }
-                    },
-                    "ContentPartFieldDefinitionRecords": []
-                },
-                {
-                    "Name": "GraphLookupPart",
-                    "Settings": {
-                        "ContentPartSettings": {
-                            "Attachable": true,
-                            "Description": "Lookup node(s) from the graph and create relationships and/or set a property based on the selection."
                         }
                     },
                     "ContentPartFieldDefinitionRecords": []

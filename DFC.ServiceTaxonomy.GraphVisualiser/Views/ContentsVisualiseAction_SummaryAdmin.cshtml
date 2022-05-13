@@ -19,9 +19,9 @@
     var nameSpace = typeof(DFC.ServiceTaxonomy.GraphVisualiser.Startup)!.Namespace;
 
     <div class="dropdown-divider"></div>
-    <a asp-action="@action" asp-controller="Visualise" asp-area="@nameSpace" asp-route-contentItemId="@contentItem.ContentItemId" asp-route-graph="preview" target="_blank" class="dropdown-item btn-sm">@T["Visualise draft graph"]</a>
+    <a asp-action="@action" asp-controller="Visualise" asp-area="@nameSpace" asp-route-contentItemId="@contentItem.ContentItemId" asp-route-graph="preview" target="_blank" class="dropdown-item btn-sm">@T["Visualise draft map"]</a>
     @if (hasPublished)
     {
-        <a asp-action="@action" asp-controller="Visualise" asp-area="@nameSpace" asp-route-contentItemId="@contentItem.ContentItemId" asp-route-graph="published" target="_blank" class="dropdown-item btn-sm">@T["Visualise published graph"]</a>
+        <a asp-action="@action" asp-controller="Visualise" asp-area="@nameSpace" asp-route-contentItemId="@contentItem.ContentItemId" asp-route-graph="published" target="_blank" class="dropdown-item btn-sm">@T["Visualise published map"]</a>
     }
 }

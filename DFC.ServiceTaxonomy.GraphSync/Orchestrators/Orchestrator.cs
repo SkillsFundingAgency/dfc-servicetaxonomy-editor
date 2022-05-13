@@ -1,14 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using DFC.ServiceTaxonomy.GraphSync.Exceptions;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.ContentItemVersions;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Results.AllowSync;
 using DFC.ServiceTaxonomy.GraphSync.Handlers.Contexts;
 using DFC.ServiceTaxonomy.GraphSync.Handlers.Interfaces;
+using DFC.ServiceTaxonomy.GraphSync.Helpers;
 using DFC.ServiceTaxonomy.GraphSync.Notifications;
 using DFC.ServiceTaxonomy.GraphSync.Services;
-using DFC.ServiceTaxonomy.Neo4j.Exceptions;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using OrchardCore.ContentManagement;
@@ -58,15 +59,25 @@ namespace DFC.ServiceTaxonomy.GraphSync.Orchestrators
         //todo: temporarily protected
         protected string GetContentTypeDisplayName(ContentItem contentItem)
         {
-            return _contentDefinitionManager.GetTypeDefinition(contentItem.ContentType).DisplayName;
+            return ContentDefinitionHelper.GetTypeDefinitionCaseInsensitive(
+                contentItem.ContentType,
+                _contentDefinitionManager)!.DisplayName;
         }
 
         protected string GetSyncOperationCancelledUserMessage(
             SyncOperation syncOperation,
             string displayText,
-            string contentType)
+            string contentType,
+            string? extraDetail = null)
         {
-            return $"{syncOperation} the '{displayText}' {contentType} has been cancelled, due to an issue with graph syncing.";
+            var returnMessage = $"{syncOperation} '{displayText}' ({contentType}) could not be completed";
+
+            if (!string.IsNullOrEmpty(extraDetail))
+            {
+                returnMessage += $". {extraDetail}.";
+            }
+
+            return returnMessage;
         }
 
         protected async Task<(IAllowSync, IDeleteGraphSyncer?)> GetDeleteGraphSyncerIfDeleteAllowed(
@@ -93,7 +104,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Orchestrators
                 _logger.LogError(exception, "Unable to check if the '{ContentItem}' {ContentType} can be {DeleteOperation} from the {GraphReplicaSetName} graph.",
                     contentItem.DisplayText, contentType, syncOperation.ToString("PrP", null).ToLower(), contentItemVersion.GraphReplicaSetName);
 
-                await _notifier.Add(GetSyncOperationCancelledUserMessage(syncOperation, contentItem.DisplayText, contentType),
+                await _notifier.Add(GetSyncOperationCancelledUserMessage(syncOperation, contentItem.DisplayText, contentType, exception.Message),
                     $"Unable to check if the '{contentItem.DisplayText}' {contentType} can be {syncOperation.ToString("PrP", null).ToLower()} from the {contentItemVersion.GraphReplicaSetName} graph.",
                     exception: exception);
 
@@ -108,7 +119,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Orchestrators
         {
             try
             {
-                await deleteGraphSyncer.Delete();
+                await deleteGraphSyncer.Delete(syncOperation);
             }
             catch (CommandValidationException ex)
             {
@@ -121,17 +132,17 @@ namespace DFC.ServiceTaxonomy.GraphSync.Orchestrators
                     return;
                 }
 
-                AddFailureNotifier(deleteGraphSyncer, contentItem, ex, syncOperation);
+                await AddFailureNotifierAsync(deleteGraphSyncer, contentItem, ex, syncOperation);
                 throw;
             }
             catch (Exception ex)
             {
-                AddFailureNotifier(deleteGraphSyncer, contentItem, ex, syncOperation);
+                await AddFailureNotifierAsync(deleteGraphSyncer, contentItem, ex, syncOperation);
                 throw;
             }
         }
 
-        private void AddFailureNotifier(IDeleteGraphSyncer deleteGraphSyncer,
+        private Task AddFailureNotifierAsync(IDeleteGraphSyncer deleteGraphSyncer,
             ContentItem contentItem,
             Exception exception,
             SyncOperation syncOperation)
@@ -143,7 +154,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Orchestrators
             _logger.LogError(exception, "{Operation} the '{ContentItem}' {ContentType} has been cancelled because the {GraphReplicaSetName} graph couldn't be updated.",
                 operation, contentItem.DisplayText, contentType, deleteGraphSyncer.GraphReplicaSetName);
 
-            _notifier.Add(GetSyncOperationCancelledUserMessage(syncOperation, contentItem.DisplayText, contentType),
+            return _notifier.Add(GetSyncOperationCancelledUserMessage(syncOperation, contentItem.DisplayText, contentType, exception.Message),
                 $"{operation} the '{contentItem.DisplayText}' {contentType} has been cancelled because the {deleteGraphSyncer.GraphReplicaSetName} graph couldn't be updated.",
                 exception: exception);
         }

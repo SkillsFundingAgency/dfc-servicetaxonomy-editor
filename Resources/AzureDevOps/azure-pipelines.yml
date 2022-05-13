@@ -95,15 +95,7 @@ stages:
       inputs:
         versionSpec: '>=5.4.0'
 
-    - task: DotNetCoreCLI@2
-      displayName: 'dotnet pack - Neo4j'
-      inputs:
-        command: pack
-        packagesToPack: '**/DFC.ServiceTaxonomy.Neo4j.csproj'
-        configuration: Release
-        packDirectory: '$(build.artifactstagingdirectory)\DeploymentPackages\Nuget'
-        versioningScheme: byEnvVar
-        versionEnvVar: GitVersion.NugetVersionV2
+
 
     - task: DotNetCoreCLI@2
       displayName: 'dotnet pack - Events'

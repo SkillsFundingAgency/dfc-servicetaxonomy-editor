@@ -4,3 +4,6 @@
 // a specific target and scoped to a namespace, type, member, etc.
 
 [assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Critical Code Smell", "S927:parameter names should match base declaration and other partial definitions", Justification = "Must match partial definitions makes sense, but it's useful to give a more specific name in derived declarations and sometimes base names are not great.", Scope = "namespaceanddescendants", Target = "DFC.ServiceTaxonomy.GraphSync")]
+[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Comment", "S1135", Justification = "XXX", Scope = "namespaceanddescendants", Target = "DFC.ServiceTaxonomy.GraphSync")]
+[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Comment", "S3881", Justification = "XXX", Scope = "namespaceanddescendants", Target = "DFC.ServiceTaxonomy.GraphSync")]
+[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Comment", "S125:Remove this commented out code.", Justification = "XXX", Scope = "namespaceanddescendants", Target = "DFC.ServiceTaxonomy.GraphSync")]

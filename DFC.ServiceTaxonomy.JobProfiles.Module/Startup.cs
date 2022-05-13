@@ -1,28 +1,18 @@
 ﻿using DFC.ServiceTaxonomy.DataAccess.Repositories;
-using DFC.ServiceTaxonomy.JobProfiles.Module.AzureSearchIndexHandling;
-using DFC.ServiceTaxonomy.JobProfiles.Module.AzureSearchIndexHandling.Converters;
-using DFC.ServiceTaxonomy.JobProfiles.Module.AzureSearchIndexHandling.Interfaces;
 using DFC.ServiceTaxonomy.JobProfiles.Module.Handlers;
-using DFC.ServiceTaxonomy.JobProfiles.Module.Indexes;
-using DFC.ServiceTaxonomy.JobProfiles.Module.Models.ServiceBus;
-using DFC.ServiceTaxonomy.JobProfiles.Module.ServiceBusHandling;
-using DFC.ServiceTaxonomy.JobProfiles.Module.ServiceBusHandling.Converters;
-using DFC.ServiceTaxonomy.JobProfiles.Module.ServiceBusHandling.Interfaces;
-using DFC.ServiceTaxonomy.JobProfiles.Service.EFDataModels;
-using DFC.ServiceTaxonomy.JobProfiles.Service.Interfaces;
-using DFC.ServiceTaxonomy.JobProfiles.Service.Models;
-using DFC.ServiceTaxonomy.JobProfiles.Service.Repositories;
-using DFC.ServiceTaxonomy.JobProfiles.Service.Services;
+using DFC.ServiceTaxonomy.JobProfiles.Module.EFDataModels;
+using DFC.ServiceTaxonomy.JobProfiles.Module.Interfaces;
+using DFC.ServiceTaxonomy.JobProfiles.Module.Models;
+using DFC.ServiceTaxonomy.JobProfiles.Module.Repositories;
+using DFC.ServiceTaxonomy.JobProfiles.Module.Services;
 
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 using OrchardCore.ContentManagement.Handlers;
-using OrchardCore.Data.Migration;
 using OrchardCore.Modules;
 
-using YesSql.Indexes;
 
 namespace DFC.ServiceTaxonomy.JobProfiles.Module
 {
@@ -37,20 +27,7 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module
         {
             // CMS
             services.AddScoped<IContentHandler, SocCodeContentHandler>();
-            services.AddScoped<IDataMigration, Migrations>();
             services.AddScoped<IContentHandler, JobProfileContentHandler>();
-            services.AddScoped<IMessageConverter<JobProfileMessage>, JobProfileMessageConverter>();
-            services.AddScoped<IMessageConverter<HowToBecomeData>, HowToBecomeMessageConverter>();
-            services.AddScoped<IMessageConverter<WhatYouWillDoData>, WhatYouWillDoMessageConverter>();
-            services.AddScoped<IMessageConverter<WhatItTakesData>, WhatItTakesMessageConverter>();
-            services.AddScoped<IMessageConverter<SocCodeItem>, SocCodeMessageConverter>();
-            services.AddScoped<IMessageConverter<Models.AzureSearch.JobProfileIndex>, JobProfileIndexMessageConverter>();
-            services.AddScoped<IRelatedSkillsConverter, RelatedSkillsConverter>();
-            services.AddScoped<IDataEventProcessor, DataEventProcessor>();
-            services.AddScoped<IContentHandler, ServiceBusContentHandler>();
-            services.AddScoped<IAzureSearchDataProcessor, AzureSearchDataProcessor>();
-            services.AddScoped<IServiceBusMessageProcessor, ServiceBusMessageProcessor>();
-            services.AddScoped<IContentHandler, JobProfileAzureSearchIndexHandler>();
 
             // Repositories
             services.AddDbContext<DfcDevOnetSkillsFrameworkContext>(options => options.UseSqlServer(_configuration.GetConnectionString("SkillsFrameworkDB")));
@@ -65,8 +42,6 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module
             services.AddScoped<ISkillFrameworkBusinessRuleEngine, SkillFrameworkBusinessRuleEngine>();
             services.AddScoped<ISkillsFrameworkService, SkillsFrameworkService>();
 
-            // Index Providers
-            services.AddSingleton<IIndexProvider, JobProfileIndexProvider>();
         }
     }
 }
