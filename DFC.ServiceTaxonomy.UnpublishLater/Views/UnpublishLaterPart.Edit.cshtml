@@ -9,12 +9,12 @@
 {
     <div class="btn-group">
         <input asp-for="ScheduledUnpublishLocalDateTime" type="datetime-local" class="form-control content-preview-select" />
-        <button class="btn btn-primary btn-unpublish-later" type="submit" name="submit.Save" value="submit.UnpublishLater">@T["Unpublish Later"]</button>
+        <button class="btn btn-primary btn-unpublish-later" type="submit" name="submit.Save" value="submit.UnpublishLater">@T["Archive Later"]</button>
     </div>
     @if (Model.ScheduledUnpublishUtc.HasValue)
     {
         <div class="btn-group">
-            <button class="btn btn-primary btn-unpublish-later" type="submit" name="submit.Save" value="submit.CancelUnpublishLater">@T["Cancel Unpublish Later"]</button>
+            <button class="btn btn-primary btn-unpublish-later" type="submit" name="submit.Save" value="submit.CancelUnpublishLater">@T["Cancel Archive Later"]</button>
         </div>
     }
 }

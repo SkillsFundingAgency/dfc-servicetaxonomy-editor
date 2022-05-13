@@ -33,7 +33,8 @@ namespace DFC.ServiceTaxonomy.Slack
         {
             if (_configMonitor.CurrentValue.PublishToSlack ?? false)
             {
-                StringContent content = new(JsonConvert.SerializeObject(new { text }), Encoding.UTF8, "application/json");
+                StringContent content = new(JsonConvert.SerializeObject(new { text }), Encoding.UTF8,
+                    "application/json");
 
                 await _client.PostAsync(webhookEndpoint, content);
             }

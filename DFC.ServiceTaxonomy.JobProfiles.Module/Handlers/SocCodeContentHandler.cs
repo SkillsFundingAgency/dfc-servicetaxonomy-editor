@@ -3,11 +3,10 @@ using System.Linq;
 using System.Threading.Tasks;
 
 using DFC.ServiceTaxonomy.GraphSync.Models;
-using DFC.ServiceTaxonomy.JobProfiles.DataTransfer.Indexes;
-using DFC.ServiceTaxonomy.JobProfiles.DataTransfer.ServiceBus;
-using DFC.ServiceTaxonomy.JobProfiles.Module.Interfaces;
+using DFC.ServiceTaxonomy.JobProfiles.Module.Indexes;
+using DFC.ServiceTaxonomy.JobProfiles.Module.ServiceBusHandling;
+using DFC.ServiceTaxonomy.JobProfiles.Service.Interfaces;
 using DFC.ServiceTaxonomy.Title.Models;
-
 using Microsoft.AspNetCore.Mvc.Localization;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -72,9 +71,7 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module.Handlers
                 // Create the SOC Skills Matrix Content items
                 var socSkills = _skillsFrameworkService.GetRelatedSkillMapping(onetCode);
                 var skillContentItemsList = await _session.Query<ContentItem, ContentItemIndex>(c => c.ContentType == ContentTypes.Skill).ListAsync();
-                var socSkillsMatrixContentItemsList =
-                    await _session.Query<ContentItem, ContentItemIndex>(c => c.ContentType == ContentTypes.SOCSkillsMatrix && c.DisplayText.StartsWith(socCode)).ListAsync();
-
+                var socSkillsMatrixContentItemsList = await _session.Query<ContentItem, ContentItemIndex>(c => c.ContentType == ContentTypes.SOCSkillsMatrix).ListAsync();
                 var contentManager = _serviceProvider.GetRequiredService<IContentManager>();
                 var skillCreatedCount = 0;
                 var socSkillsMatrixCreatedCount = 0;
@@ -143,8 +140,7 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module.Handlers
                 {
                     return;
                 }
-                var socSkillsMatrixContentItemsList =
-                    await _session.Query<ContentItem, ContentItemIndex>(c => c.ContentType == ContentTypes.SOCSkillsMatrix && c.DisplayText.StartsWith(context.ContentItem.DisplayText)).ListAsync();
+                var socSkillsMatrixContentItemsList = await _session.Query<ContentItem, ContentItemIndex>(c => c.ContentType == ContentTypes.SOCSkillsMatrix && c.DisplayText.StartsWith(context.ContentItem.DisplayText)).ListAsync();
                 var contentManager = _serviceProvider.GetRequiredService<IContentManager>();
                 var removeCount = 0;
                 foreach (var socSkillsmatrix in socSkillsMatrixContentItemsList)

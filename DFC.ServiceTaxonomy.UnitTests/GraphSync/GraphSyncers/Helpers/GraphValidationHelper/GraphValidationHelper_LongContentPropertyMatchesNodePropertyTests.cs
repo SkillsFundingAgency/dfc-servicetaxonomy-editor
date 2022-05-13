@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
-using DFC.ServiceTaxonomy.GraphSync.Interfaces;
 using FakeItEasy;
+using Neo4j.Driver;
 using Newtonsoft.Json.Linq;
 using Xunit;
 

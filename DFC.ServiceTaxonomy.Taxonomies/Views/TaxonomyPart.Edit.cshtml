@@ -45,7 +45,7 @@
 
 <p>
     <ol id="menu">
-        @foreach (var menuItem in Model.TaxonomyPart.ContentItem.As<DFC.ServiceTaxonomy.Taxonomies.Models.TaxonomyPart>().Terms)
+        @foreach (var menuItem in Model.TaxonomyPart.ContentItem.As<TaxonomyPart>().Terms)
         {
             dynamic termShape = await ContentItemDisplayManager.BuildDisplayAsync(menuItem, updater, "TermAdmin");
             termShape.TaxonomyPart = Model.TaxonomyPart;

@@ -1,0 +1,19 @@
+﻿{
+    "name": "[token:recipeName]",
+    "displayName": "[token:recipeName]",
+    "description": "",
+    "author": "",
+    "website": "",
+    "version": "",
+    "issetuprecipe": false,
+    "categories": "",
+    "tags": [],
+    "steps": [
+        {
+            "name": "CypherCommand",
+            "commands": [
+                [token:commandText]
+            ]
+        }
+    ]
+}

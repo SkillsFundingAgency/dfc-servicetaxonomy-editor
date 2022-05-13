@@ -4,6 +4,9 @@ using System.Collections.Generic;
 using DFC.ServiceTaxonomy.Content.Configuration;
 using DFC.ServiceTaxonomy.CustomEditor.Configuration;
 using DFC.ServiceTaxonomy.Editor.Security;
+using DFC.ServiceTaxonomy.GraphSync.Settings;
+using DFC.ServiceTaxonomy.Neo4j.Configuration;
+
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
@@ -50,7 +53,10 @@ namespace DFC.ServiceTaxonomy.Editor
                 }));
 
             //todo: do this in each library??? if so, make sure it doesn't add services or config twice
+            services.AddGraphCluster(options =>
+                Configuration.GetSection(Neo4jOptions.Neo4j).Bind(options));
 
+            services.Configure<GraphSyncPartSettingsConfiguration>(Configuration.GetSection(nameof(GraphSyncPartSettings)));
             services.Configure<CookiePolicyOptions>(options => options.Secure = CookieSecurePolicy.Always);
             services.AddEventGridPublishing(Configuration);
 

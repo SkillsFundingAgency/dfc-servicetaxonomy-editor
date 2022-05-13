@@ -1,6 +1,6 @@
 using OrchardCore.DisplayManagement.Manifest;
 
-// coulddo: tags & basetheme? https://orchardcore.readthedocs.io/en/dev/docs/guides/create-admin-theme/
+//todo: tags & basetheme? https://orchardcore.readthedocs.io/en/dev/docs/guides/create-admin-theme/
 
 [assembly: Theme(
     Name = "Stax Theme",

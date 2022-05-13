@@ -50,22 +50,10 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers
 
         public void ContentPartAttached(ContentPartAttachedContext context)
         {
-            if (context.ContentPartName != nameof(GraphSyncPart))
-            {
-                return;
-            }
-
-            _logger.LogInformation(
-                "Adding {ContentPartName} to content type {ContentTypeName}.",
-                context.ContentPartName,
-                context.ContentTypeName);
-
-            _contentTypeOrchestrator.SetDefaultsForGraphSyncPart(context.ContentTypeName);
         }
 
         public void ContentPartDetached(ContentPartDetachedContext context)
         {
-            // TODO: if we are removing content type then ignore all this
             _logger.LogInformation("User wants to remove {ContentPart} from {ContentType}.",
                 context.ContentPartName, context.ContentTypeName);
 
@@ -81,11 +69,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers
                 return;
             }
 
-            if (context.ContentTypeName != context.ContentPartName)
-            {
-                _contentTypeOrchestrator.RemovePartFromItemsOfType(context.ContentTypeName, context.ContentPartName)
-                    .GetAwaiter().GetResult();
-            }
+            _contentTypeOrchestrator.RemovePartFromItemsOfType(context.ContentTypeName, context.ContentPartName)
+                .GetAwaiter().GetResult();
         }
 
         public void ContentPartImporting(ContentPartImportingContext context)
@@ -102,7 +87,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers
 
         public void ContentFieldDetached(ContentFieldDetachedContext context)
         {
-            // TODO: if we are removing content type then ignore all this
             _logger.LogInformation("User wants to remove {ContentField} from {ContentPart}.",
                 context.ContentFieldName, context.ContentPartName);
 

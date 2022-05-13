@@ -5,14 +5,11 @@ using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.Handlers;
-using DFC.ServiceTaxonomy.GraphSync.Models;
 using DFC.ServiceTaxonomy.GraphSync.Notifications;
 using DFC.ServiceTaxonomy.GraphSync.Orchestrators.Interfaces;
-using DFC.ServiceTaxonomy.GraphSync.Settings;
 using Microsoft.AspNetCore.Mvc.Localization;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 using OrchardCore.ContentManagement.Metadata;
 using OrchardCore.ContentManagement.Metadata.Models;
 using OrchardCore.DisplayManagement.Notify;
@@ -25,7 +22,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.Orchestrators
         private readonly IServiceProvider _serviceProvider;
         private readonly IContentDefinitionManager _contentDefinitionManager;
         private readonly IGraphSyncNotifier _notifier;
-        private readonly IOptionsMonitor<GraphSyncPartSettingsConfiguration> _graphSyncPartSettings;
         private readonly ILogger<ContentTypeOrchestrator> _logger;
 
         public const string ZombieFlag = "Zombie";
@@ -35,50 +31,13 @@ namespace DFC.ServiceTaxonomy.GraphSync.Orchestrators
             IServiceProvider serviceProvider,
             IContentDefinitionManager contentDefinitionManager,
             IGraphSyncNotifier notifier,
-            IOptionsMonitor<GraphSyncPartSettingsConfiguration> graphSyncPartSettings,
             ILogger<ContentTypeOrchestrator> logger)
         {
             _graphResyncer = graphResyncer;
             _serviceProvider = serviceProvider;
             _contentDefinitionManager = contentDefinitionManager;
             _notifier = notifier;
-            _graphSyncPartSettings = graphSyncPartSettings;
             _logger = logger;
-        }
-
-        public void SetDefaultsForGraphSyncPart(string contentTypeName)
-        {
-            try
-            {
-                var settings = _graphSyncPartSettings.CurrentValue.Settings.Single(settingBlock => settingBlock.Name == "NCS");
-
-                _contentDefinitionManager.AlterTypeDefinition(contentTypeName, builder => builder
-                    .WithPart(nameof(GraphSyncPart), part => part
-                        .WithSettings(new GraphSyncPartSettings
-                        {
-                            BagPartContentItemRelationshipType = settings.BagPartContentItemRelationshipType,
-                            PreexistingNode = settings.PreexistingNode,
-                            DisplayId = settings.DisplayId,
-                            NodeNameTransform = settings.NodeNameTransform,
-                            PropertyNameTransform = settings.PropertyNameTransform,
-                            CreateRelationshipType = settings.CreateRelationshipType,
-                            IdPropertyName = settings.IdPropertyName,
-                            GenerateIdPropertyValue = settings.GenerateIdPropertyValue,
-                            PreExistingNodeUriPrefix = settings.PreExistingNodeUriPrefix,
-                            VisualiserNodeDepth = settings.VisualiserNodeDepth,
-                            VisualiserIncomingRelationshipsPathLength = settings.VisualiserIncomingRelationshipsPathLength
-                        })));
-            }
-            catch (Exception e)
-            {
-                _logger.LogError(e, "Failed setting graph sync part defaults for {ContentType} content type.",
-                    contentTypeName);
-
-                _notifier.Add(NotifyType.Error, new LocalizedHtmlString(nameof(GraphSyncContentDefinitionHandler),
-                    $"Failed setting graph sync part defaults for {contentTypeName} content type."));
-
-                throw;
-            }
         }
 
         public async Task DeleteItemsOfType(string contentTypeName)

@@ -38,7 +38,7 @@ namespace DFC.ServiceTaxonomy.GraphVisualiser.Controllers
         private const string ContentItemIdPlaceHolder = "{ContentItemID}";
         private const string GraphPlaceHolder = "{graph}";
         private readonly IContentDefinitionManager _contentDefinitionManager;
-        private readonly IOwlGeneratorService _graphSyncToOwlGeneratorService;
+        private readonly INeo4JToOwlGeneratorService _neo4JToOwlGeneratorService;
         private readonly IOrchardToOwlGeneratorService _orchardToOwlGeneratorService;
         private readonly IVisualiseGraphSyncer _visualiseGraphSyncer;
         private readonly IContentItemVersionFactory _contentItemVersionFactory;
@@ -51,14 +51,14 @@ namespace DFC.ServiceTaxonomy.GraphVisualiser.Controllers
 
         public VisualiseController(
             IContentDefinitionManager contentDefinitionManager,
-            IOwlGeneratorService graphSyncToOwlGeneratorService,
+            INeo4JToOwlGeneratorService neo4jToOwlGeneratorService,
             IOrchardToOwlGeneratorService orchardToOwlGeneratorService,
             IVisualiseGraphSyncer visualiseGraphSyncer,
             IContentItemVersionFactory contentItemVersionFactory,
             INodeContentItemLookup nodeContentItemLookup)
         {
             _contentDefinitionManager = contentDefinitionManager ?? throw new ArgumentNullException(nameof(contentDefinitionManager));
-            _graphSyncToOwlGeneratorService = graphSyncToOwlGeneratorService ?? throw new ArgumentNullException(nameof(graphSyncToOwlGeneratorService));
+            _neo4JToOwlGeneratorService = neo4jToOwlGeneratorService ?? throw new ArgumentNullException(nameof(neo4jToOwlGeneratorService));
             _orchardToOwlGeneratorService = orchardToOwlGeneratorService ?? throw new ArgumentNullException(nameof(orchardToOwlGeneratorService));
             _visualiseGraphSyncer = visualiseGraphSyncer;
             _contentItemVersionFactory = contentItemVersionFactory;
@@ -114,7 +114,7 @@ namespace DFC.ServiceTaxonomy.GraphVisualiser.Controllers
         {
             var subgraph = await _visualiseGraphSyncer.GetVisualisationSubgraph(contentItemId, graphName, _contentItemVersion!);
 
-            var owlDataModel = _graphSyncToOwlGeneratorService.CreateOwlDataModels(
+            var owlDataModel = _neo4JToOwlGeneratorService.CreateOwlDataModels(
                 subgraph.SourceNode?.Id,
                 subgraph.Nodes!,
                 subgraph.Relationships!,

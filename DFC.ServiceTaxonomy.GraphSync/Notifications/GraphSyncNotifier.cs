@@ -8,7 +8,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Results.AllowSync;
-using DFC.ServiceTaxonomy.GraphSync.Helpers;
 using DFC.ServiceTaxonomy.GraphSync.Services;
 using DFC.ServiceTaxonomy.GraphSync.Services.Interface;
 using DFC.ServiceTaxonomy.Slack;
@@ -79,14 +78,14 @@ namespace DFC.ServiceTaxonomy.GraphSync.Notifications
             }
 
             //todo: need details of the content item with incoming relationships
-            await Add($"{syncOperation} the '{contentItem.DisplayText}' {contentType} has been cancelled, due to an issue with data syncing.",
+            await Add($"{syncOperation} the '{contentItem.DisplayText}' {contentType} has been cancelled, due to an issue with graph syncing.",
                 technicalMessage.ToString(),
                 technicalHtmlMessage: new HtmlString(technicalHtmlMessage.ToString()));
         }
 
         private async Task AddSyncBlockers(StringBuilder technicalMessage, StringBuilder technicalHtmlMessage, string graphReplicaSetName, IAllowSync allowSync)
         {
-            technicalHtmlMessage.AppendLine($"<div class=\"card mt-3\"><div class=\"card-header\">{graphReplicaSetName} data repositiory</div><div class=\"card-body\">");
+            technicalHtmlMessage.AppendLine($"<div class=\"card mt-3\"><div class=\"card-header\">{graphReplicaSetName} graph</div><div class=\"card-body\">");
 
             technicalHtmlMessage.AppendLine("<ul class=\"list-group list-group-flush\">");
             foreach (var syncBlocker in allowSync.SyncBlockers)
@@ -113,14 +112,12 @@ namespace DFC.ServiceTaxonomy.GraphSync.Notifications
 
             technicalHtmlMessage.AppendLine("</ul></div></div>");
 
-            technicalMessage.AppendLine($"{graphReplicaSetName} data repository: {allowSync}");
+            technicalMessage.AppendLine($"{graphReplicaSetName} graph: {allowSync}");
         }
 
         private string GetContentTypeDisplayName(ContentItem contentItem)
         {
-            return ContentDefinitionHelper.GetTypeDefinitionCaseInsensitive(
-                contentItem.ContentType,
-                _contentDefinitionManager)!.DisplayName;
+            return _contentDefinitionManager.GetTypeDefinition(contentItem.ContentType).DisplayName;
         }
 
         //todo: add custom styles via scss?
@@ -139,7 +136,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Notifications
             }
 
             string exceptionText = GetExceptionText(exception);
-
+            
             HtmlContentBuilder htmlContentBuilder = new HtmlContentBuilder();
 
             string traceId = Activity.Current?.TraceId.ToString() ?? "N/A";
@@ -183,18 +180,10 @@ namespace DFC.ServiceTaxonomy.GraphSync.Notifications
             }
 
             htmlContentBuilder.AppendHtml("</div></div></div>");
-
+            var newEntry = new NotifyEntry { Type = type, Message = htmlContentBuilder };
             if (type != NotifyType.Warning || !_entries.Any(e => e.Type == NotifyType.Warning))
             {
-                var newEntry = new NotifyEntry { Type = type, Message = htmlContentBuilder };
                 _entries.Add(newEntry);
-            }
-            else
-            {
-                _logger.LogWarning("Notifier not shown. Type is {Type}. {WarningCount} warnings present. First is {FirstWarning}",
-                    type.ToString(),
-                    _entries.Count(e => e.Type == NotifyType.Warning),
-                    _entries.FirstOrDefault(e => e.Type == NotifyType.Warning)?.Message);
             }
         }
 

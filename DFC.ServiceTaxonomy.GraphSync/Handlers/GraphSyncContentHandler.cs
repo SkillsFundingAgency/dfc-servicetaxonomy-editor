@@ -94,26 +94,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers
             }
         }
 
-        public override async Task RestoredAsync(RestoreContentContext context)
-        {
-            try
-            {
-                if (!await _syncOrchestrator.Restore(context.ContentItem))
-                {
-                    // sad paths have already been notified to the user and logged
-                    Cancel(context);
-                }
-            }
-            catch (Exception ex)
-            {
-                // we log the exception, even though some exceptions will have already been logged,
-                // as there might have been an 'unexpected' exception thrown
-                _logger.LogError(ex, "Exception restoring.");
-                Cancel(context);
-            }
-        }
-
-
         public override async Task UnpublishingAsync(PublishContentContext context)
         {
             try
