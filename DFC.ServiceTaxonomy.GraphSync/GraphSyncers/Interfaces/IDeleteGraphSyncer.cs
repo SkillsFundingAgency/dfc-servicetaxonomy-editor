@@ -26,7 +26,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces
             SyncOperation syncOperation,
             IEnumerable<KeyValuePair<string, object>>? deleteIncomingRelationshipsProperties = null);
 
-        Task Delete(SyncOperation syncOperation);
+        Task Delete();
 
         Task DeleteEmbedded(ContentItem contentItem);
     }

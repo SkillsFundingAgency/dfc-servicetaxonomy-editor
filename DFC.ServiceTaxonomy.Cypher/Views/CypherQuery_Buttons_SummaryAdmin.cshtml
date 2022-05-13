@@ -1,0 +1,7 @@
+﻿@model dynamic
+
+<a asp-action="@nameof(DFC.ServiceTaxonomy.Cypher.Controllers.AdminController.RunQuery)"
+   asp-controller="Admin"
+   asp-area="@typeof(DFC.ServiceTaxonomy.Cypher.Startup).Namespace"
+   asp-route-queryname="@Model.Query.Name"
+   class="btn btn-success btn-sm">@T["Run"]</a>

@@ -31,7 +31,7 @@ namespace DFC.ServiceTaxonomy.GraphVisualiser
 
             //todo:??
             //services.AddGraphCluster();
-            services.AddTransient<IOwlGeneratorService, CosmosDbToOwlGeneratorService>();
+            services.AddTransient<INeo4JToOwlGeneratorService, Neo4JToOwlGeneratorService>();
             services.AddTransient<IOrchardToOwlGeneratorService, OrchardToOwlGeneratorService>();
             services.AddScoped<INavigationProvider, AdminMenuService>();
             services.AddScoped<IContentDisplayDriver, ContentVisualiseDriver>();

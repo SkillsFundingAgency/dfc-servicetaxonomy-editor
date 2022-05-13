@@ -23,7 +23,7 @@ namespace DFC.ServiceTaxonomy.GraphVisualiser.Services
         {
             this.contentTypeDefinitions = contentTypeDefinitions;
 
-            var selectedContentTypeDefinition = GetContentTypeDefinition("Banner");// NcsJobProfile);
+            var selectedContentTypeDefinition = GetContentTypeDefinition(NcsJobProfile);
 
             if (selectedContentTypeDefinition != null)
             {

@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
-using DFC.ServiceTaxonomy.GraphSync.Interfaces;
-using DFC.ServiceTaxonomy.GraphSync.Models;
+using DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces;
+using DFC.ServiceTaxonomy.Neo4j.Queries.Interfaces;
+using DFC.ServiceTaxonomy.Neo4j.Services.Internal;
 using FakeItEasy;
 using Microsoft.Extensions.Logging;
 using Xunit.Abstractions;

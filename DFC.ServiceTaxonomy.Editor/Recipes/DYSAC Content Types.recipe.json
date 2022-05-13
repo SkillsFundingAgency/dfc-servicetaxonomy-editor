@@ -175,8 +175,8 @@
                     "DisplayName": "Personality Trait",
                     "Settings": {
                         "ContentTypeSettings": {
-                            "Creatable": true,
-                            "Listable": true,
+                            "Creatable": false,
+                            "Listable": false,
                             "Draftable": true,
                             "Versionable": true,
                             "Securable": true
@@ -234,16 +234,38 @@
                             "Name": "Questions",
                             "Settings": {
                                 "ContentPartFieldSettings": {
-                                    "DisplayName": "Related questions",
+                                    "DisplayName": "Questions",
                                     "Position": "0"
                                 },
                                 "ContentPickerFieldSettings": {
-                                    "Hint": "These are the questions that make up the question set. The order of the questions here represents the order the questions will appear in the assessment.",
-                                    "Required": true,
                                     "Multiple": true,
                                     "DisplayedContentTypes": [
                                         "PersonalityShortQuestion"
                                     ]
+                                },
+                                "ContentIndexSettings": {}
+                            }
+                        },
+                        {
+                            "FieldName": "TextField",
+                            "Name": "Type",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Type",
+                                    "Editor": "PredefinedList",
+                                    "Position": "1"
+                                },
+                                "TextFieldSettings": {
+                                    "Required": true
+                                },
+                                "TextFieldPredefinedListEditorSettings": {
+                                    "Options": [
+                                        {
+                                            "name": "Short",
+                                            "value": "short"
+                                        }
+                                    ],
+                                    "DefaultValue": "short"
                                 },
                                 "ContentIndexSettings": {}
                             }
@@ -259,7 +281,7 @@
                             "Name": "SOCSkillsMatrix",
                             "Settings": {
                                 "ContentPartFieldSettings": {
-                                    "DisplayName": "Related Skill (Note SOCCode prefix is not used)",
+                                    "DisplayName": "SOCSkillsMatrix",
                                     "Position": "0"
                                 },
                                 "ContentPickerFieldSettings": {
@@ -296,24 +318,9 @@
                             "Name": "Description",
                             "Settings": {
                                 "ContentPartFieldSettings": {
-                                    "DisplayName": "Result Display Text",
+                                    "DisplayName": "Description",
                                     "Editor": "TextArea",
                                     "Position": "0"
-                                },
-                                "TextFieldSettings": {
-                                    "Hint": "The text that describes this trait. For example 'You enjoy helping and listening to other people."
-                                },
-                                "ContentIndexSettings": {}
-                            }
-                        },
-                        {
-                            "FieldName": "TextField",
-                            "Name": "Info",
-                            "Settings": {
-                                "ContentPartFieldSettings": {
-                                    "DisplayName": "Info",
-                                    "Editor": "TextArea",
-                                    "Position": "1"
                                 },
                                 "TextFieldSettings": {},
                                 "ContentIndexSettings": {}
@@ -325,9 +332,10 @@
                             "Settings": {
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "Job Profile Categories",
-                                    "Position": "2"
+                                    "Position": "1"
                                 },
                                 "ContentPickerFieldSettings": {
+                                    "Hint": "Creates relationships of [:hasJobProfileCategory].",
                                     "Required": true,
                                     "Multiple": true,
                                     "DisplayedContentTypes": [
@@ -348,11 +356,11 @@
                             "Name": "Trait",
                             "Settings": {
                                 "ContentPartFieldSettings": {
-                                    "DisplayName": "Related Trait",
+                                    "DisplayName": "Trait",
                                     "Position": "0"
                                 },
                                 "ContentPickerFieldSettings": {
-                                    "Hint": "This field creates an association from the question to the trait that the question contributes to in the assessment.",
+                                    "Hint": "Creates relationships of [:hasPersonalityTrait].",
                                     "Required": true,
                                     "DisplayedContentTypes": [
                                         "PersonalityTrait"
@@ -370,9 +378,7 @@
                                     "Editor": "PredefinedList",
                                     "Position": "1"
                                 },
-                                "TextFieldSettings": {
-                                    "Hint": "Shows whether this question contributes positively/negatively to the total for a trait."
-                                },
+                                "TextFieldSettings": {},
                                 "TextFieldPredefinedListEditorSettings": {
                                     "Options": [
                                         {

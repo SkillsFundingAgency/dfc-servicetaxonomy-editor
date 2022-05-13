@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Threading.Tasks;
 
-using DFC.ServiceTaxonomy.JobProfiles.DataTransfer.ServiceBus;
+using DFC.ServiceTaxonomy.JobProfiles.Module.ServiceBusHandling;
 
 using Microsoft.Extensions.DependencyInjection;
 

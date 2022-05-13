@@ -6,6 +6,6 @@ using OrchardCore.Modules.Manifest;
     Website = "https://dfc-dev-stax-editor-as.azurewebsites.net",
     Version = "0.0.1",
     Description = "Enables graph visualisation.",
-    Category = "Data Sync",
+    Category = "Graph",
     Dependencies = new string[] { }
 )]

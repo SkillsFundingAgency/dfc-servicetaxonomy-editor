@@ -1,9 +1,9 @@
-using System;
+﻿using System;
 using System.Diagnostics;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using DFC.ServiceTaxonomy.CSharpScriptGlobals.CypherToContent.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.Orchestrators.Interfaces;
-using DFC.ServiceTaxonomy.GraphSync.Recipes.Interfaces;
 using Microsoft.CodeAnalysis.CSharp.Scripting;
 using Microsoft.CodeAnalysis.Scripting;
 using Microsoft.Extensions.Logging;
@@ -134,7 +134,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
                     contentType, displayText);
             }
 
-            return string.Empty;
+            return "";
         }
 
         public class CSharpContentStepModel

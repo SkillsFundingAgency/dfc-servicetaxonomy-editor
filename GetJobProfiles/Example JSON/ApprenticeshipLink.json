@@ -1,0 +1,25 @@
+﻿{
+    "ContentItemId": "4ecdprqcnsp9exnw8rb7kx72wh",
+    "ContentItemVersionId": "4p7pemdm5nkkg2zmhn3sg7hcw2",
+    "ContentType": "ApprenticeshipLink",
+    "DisplayText": "title",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-02-19T12:17:18.6030964Z",
+    "PublishedUtc": "2020-02-19T12:17:18.622044Z",
+    "CreatedUtc": "2020-02-19T12:17:18.6030964Z",
+    "Owner": "admin",
+    "Author": "admin",
+    "ApprenticeshipLink": {
+        "Link": {
+            "Url": "http://apprenticeship.url",
+            "Text": "link text"
+        }
+    },
+    "TitlePart": {
+        "Title": "title"
+    },
+    "GraphSyncPart": {
+        "Text": "http://nationalcareers.service.gov.uk/apprenticeshiplink/36527634-56b7-4491-b11c-51bfe090b07f"
+    }
+}

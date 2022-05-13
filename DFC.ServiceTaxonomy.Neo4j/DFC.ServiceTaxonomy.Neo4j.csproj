@@ -1,0 +1,40 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+      <TargetFramework>netcoreapp3.1</TargetFramework>
+      <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+      <Nullable>enable</Nullable>
+      <EnableNETAnalyzers>true</EnableNETAnalyzers>
+      <AnalysisLevel>latest</AnalysisLevel>
+      <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
+      <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+
+      <Authors>Education and Skills Funding Agency Team</Authors>
+      <Description>Execute commands and queries against Neo4j graph(s). Optionally layers a virtual cluster on top of individual graph instances.</Description>
+      <PackageTags>Neo4j;Graph;Cypher;Cluster</PackageTags>
+      <PackageLicenseExpression>MIT</PackageLicenseExpression>
+      <PackageProjectUrl>https://github.com/SkillsFundingAgency/dfc-servicetaxonomy-editor</PackageProjectUrl>
+
+      <EmbedUntrackedSources>false</EmbedUntrackedSources>
+      <IncludeSymbols>true</IncludeSymbols>
+      <PublishRepositoryUrl>true</PublishRepositoryUrl>
+      <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+      <LangVersion>default</LangVersion>
+      <PackageVersion>1.0.0</PackageVersion>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <PackageReference Include="AsyncFixer" Version="1.3.0">
+        <PrivateAssets>all</PrivateAssets>
+        <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      </PackageReference>
+      <PackageReference Include="Microsoft.Extensions.Options" Version="3.1.12" />
+      <PackageReference Include="Microsoft.Extensions.Logging" Version="3.1.12" />
+      <PackageReference Include="Neo4j.Driver" Version="4.2.0" />
+      <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="All" />
+      <PackageReference Include="SonarAnalyzer.CSharp" Version="8.15.0.24505">
+        <PrivateAssets>all</PrivateAssets>
+        <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      </PackageReference>
+    </ItemGroup>
+</Project>

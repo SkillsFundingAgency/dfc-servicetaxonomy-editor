@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
-using DFC.ServiceTaxonomy.GraphSync.Enums;
+using DFC.ServiceTaxonomy.GraphSync.GraphSyncers;
 using Microsoft.Extensions.Localization;
 using OrchardCore.Navigation;
 

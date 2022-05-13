@@ -13,7 +13,7 @@ using OrchardCore.ContentManagement;
 using DFC.ServiceTaxonomy.Taxonomies.Models;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Contexts;
 using DFC.ServiceTaxonomy.Taxonomies.Settings;
-using DFC.ServiceTaxonomy.GraphSync.Interfaces;
+using Neo4j.Driver;
 
 namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
 {

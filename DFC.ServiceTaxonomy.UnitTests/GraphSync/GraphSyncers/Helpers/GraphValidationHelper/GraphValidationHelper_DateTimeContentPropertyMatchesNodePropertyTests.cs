@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using DFC.ServiceTaxonomy.GraphSync.Interfaces;
 using FakeItEasy;
+using Neo4j.Driver;
 using Newtonsoft.Json.Linq;
-using NodaTime;
 using Xunit;
 
 namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Helpers.GraphValidationHelper
@@ -33,7 +32,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Helpers.GraphVali
         {
             const string contentDateTimeString = "2020-06-15T14:24:00Z";
             DateTime dateTime = DateTime.Parse(contentDateTimeString);
-            var nodeZonedDateTime = new ZonedDateTime(LocalDateTime.FromDateTime(dateTime), DateTimeZone.Utc, Offset.Zero);
+            ZonedDateTime nodeZonedDateTime = new ZonedDateTime(dateTime.ToUniversalTime());
 
             ContentItemField = JObject.Parse($"{{\"{ContentKey}\": \"{contentDateTimeString}\"}}");
 
@@ -59,7 +58,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Helpers.GraphVali
         public void DateTimeContentPropertyMatchesNodeProperty_PropertiesSameTypeButDifferentValues_ReturnsFalse()
         {
             const string contentDateTimeString = "2020-06-15T14:24:00Z";
-            var nodeZonedDateTime = new ZonedDateTime(new LocalDateTime(2021, 1, 1, 16, 0, 0, CalendarSystem.Gregorian), DateTimeZone.Utc, Offset.Zero);
+            ZonedDateTime nodeZonedDateTime = new ZonedDateTime(2021, 1, 1, 16, 0, 0, Zone.Of(0));
 
             ContentItemField = JObject.Parse($"{{\"{ContentKey}\": \"{contentDateTimeString}\"}}");
 

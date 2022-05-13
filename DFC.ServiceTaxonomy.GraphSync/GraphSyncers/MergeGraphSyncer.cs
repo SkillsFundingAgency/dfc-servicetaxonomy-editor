@@ -15,9 +15,10 @@ using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Parts;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Results.AllowSync;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Results.AllowSync;
-using DFC.ServiceTaxonomy.GraphSync.Interfaces;
-using DFC.ServiceTaxonomy.GraphSync.Interfaces.Queries;
 using DFC.ServiceTaxonomy.GraphSync.Models;
+using DFC.ServiceTaxonomy.GraphSync.Neo4j.Queries.Interfaces;
+using DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces;
+using DFC.ServiceTaxonomy.Neo4j.Services.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using MoreLinq;
@@ -179,7 +180,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             await SyncEmbedded();
 
             _logger.LogInformation($"Syncing {_graphMergeContext!.ContentItem.ContentType} : {_graphMergeContext.ContentItem.ContentItemId} to {MergeNodeCommand}");
-            await SyncComponentsToGraphReplicaSet();
+            await SyncComponentsToGraphReplicaSet(); //_graphMergeContext.GraphReplicaSet, recreateIncomingPreviewContentPickerRelationshipsCommands);
 
             return MergeNodeCommand;
         }
@@ -258,21 +259,13 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
                 return Enumerable.Empty<INodeWithOutgoingRelationships>();
             }
 
-            var blackListNodeLabels = new[] { "resource", "html", "htmlshared" };
-            var nodeLabels = MergeNodeCommand.NodeLabels
-                .Where(l => blackListNodeLabels.All(blnl => !blnl.Equals(l.ToLower()))).ToArray();
-            if (!nodeLabels.Any())
-            {
-                return Enumerable.Empty<INodeWithOutgoingRelationships>();
-            }
-
             // allow sync is called concurrently for preview and published
             // so we could get the before or after incoming relationships
             // either should do, but perhaps we should do it serially to consistently fetch the _before_ incoming relationships?
             IGetIncomingContentPickerRelationshipsQuery getDraftRelationshipsQuery =
                 _serviceProvider.GetRequiredService<IGetIncomingContentPickerRelationshipsQuery>();
 
-            getDraftRelationshipsQuery.NodeLabels = nodeLabels;
+            getDraftRelationshipsQuery.NodeLabels = MergeNodeCommand.NodeLabels;
             getDraftRelationshipsQuery.IdPropertyName = MergeNodeCommand.IdPropertyName;
             getDraftRelationshipsQuery.IdPropertyValue = _syncNameProvider.GetNodeIdPropertyValue(
                 graphSyncPartContent, _previewContentItemVersion);
@@ -300,6 +293,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
         }
 
         //todo: should we add a AddIdSyncComponents method?
+
         private Task SyncComponentsToGraphReplicaSet()
         {
             var commands = MoreEnumerable

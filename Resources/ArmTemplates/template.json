@@ -211,29 +211,7 @@
         },
         "SkillsFrameworkDbConnectionString": {
             "type": "securestring"
-        },
-        "CosmosDbendpointspreviewConnectionString": {
-            "type": "securestring"
-        },
-        "CosmosDbendpointspreviewDatabaseName": {
-            "type": "string"
-        },
-        "CosmosDbendpointspreviewContainerName": {
-            "type": "string"
-        },
-        "CosmosDbendpointspublishedConnectionString": {
-            "type": "securestring"
-        },
-        "CosmosDbendpointspublishedDatabaseName": {
-            "type": "string"
-        },
-        "CosmosDbendpointspublishedContainerName": {
-            "type": "string"
-        },
-        "WEBSITE_MEMORY_LIMIT_MB": {
-            "type": "string"
         }
-        
     },
     "variables": {
         "BuildingBlocksDfcBaseUrl": "https://raw.githubusercontent.com/SkillsFundingAgency/dfc-devops/master/ArmTemplates/",
@@ -557,36 +535,8 @@
                             {
                                 "name": "ConnectionStrings__SkillsFrameworkDB",
                                 "value": "[parameters('SkillsFrameworkDbConnectionString')]"
-                            },
-                            {
-                                "name": "CosmosDb__endpoints__preview__ConnectionString",
-                                "value": "[parameters('CosmosDbendpointspreviewConnectionString')]"
-                            },
-                            {
-                                "name": "CosmosDb__endpoints__preview__DatabaseName",
-                                "value": "[parameters('CosmosDbendpointspreviewDatabaseName')]"
-                            },
-                            {
-                                "name": "CosmosDb__endpoints__preview__ContainerName",
-                                "value": "[parameters('CosmosDbendpointspreviewContainerName')]"
-                            },
-                            {
-                                "name": "CosmosDb__endpoints__published__ConnectionString",
-                                "value": "[parameters('CosmosDbendpointspublishedConnectionString')]"
-                            },
-                            {
-                                "name": "CosmosDb__endpoints__published__DatabaseName",
-                                "value": "[parameters('CosmosDbendpointspublishedDatabaseName')]"
-                            },
-                            {
-                                "name": "CosmosDb__endpoints__published__ContainerName",
-                                "value": "[parameters('CosmosDbendpointspublishedContainerName')]"
-                            },
-                            {
-                                "name": "WEBSITE_MEMORY_LIMIT_MB",
-                                "value": "[parameters('WEBSITE_MEMORY_LIMIT_MB')]"
-                            }   
-                        ] 
+                            }
+                        ]
                     }
                 }
             },
