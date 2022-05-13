@@ -21,5 +21,3 @@ variables:
   value: 10
 - name: EnableAzureMonitorAlerting
   value: true
-- name: MediaStorageAccountName
-  value: dfcdevdigstr
