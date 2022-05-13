@@ -30,7 +30,7 @@ namespace Microsoft.Extensions.DependencyInjection
             var eventGridSection = configuration.GetSection("EventGrid");
             services.Configure<EventGridConfiguration>(eventGridSection);
 
-            //todo: check config for null and throw meaningful exceptions
+            //coulddo: check config for null and throw meaningful exceptions
 
             EventGridConfiguration eventGridConfig = eventGridSection.Get<EventGridConfiguration>();
 
