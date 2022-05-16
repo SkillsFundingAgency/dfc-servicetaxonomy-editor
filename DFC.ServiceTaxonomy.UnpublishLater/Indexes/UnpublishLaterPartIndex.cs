@@ -52,6 +52,7 @@ namespace DFC.ServiceTaxonomy.UnpublishLater.Indexes
         private readonly HashSet<string> _partRemoved = new HashSet<string>();
         private IContentDefinitionManager _contentDefinitionManager;
 
+
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
         public UnpublishLaterPartIndexProvider(IServiceProvider serviceProvider)
 #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
@@ -91,9 +92,8 @@ namespace DFC.ServiceTaxonomy.UnpublishLater.Indexes
             context.For<UnpublishLaterPartIndex>()
                 .When(contentItem => contentItem.Has<UnpublishLaterPart>() || _partRemoved.Contains(contentItem.ContentItemId))
                 .Map(contentItem =>
-                {
-                    // Remove index records of items that are already published or not the latest version.
-                    if (contentItem.Published || !contentItem.Latest)
+                {                    // Remove index records of items that are already published or not the latest version.
+                    if (contentItem.Latest && !contentItem.Published)
                     {
 #pragma warning disable CS8603 // Possible null reference return.
                         return null;

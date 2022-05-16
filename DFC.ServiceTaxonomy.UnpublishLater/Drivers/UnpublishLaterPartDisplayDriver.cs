@@ -54,7 +54,7 @@ namespace DFC.ServiceTaxonomy.UnpublishLater.Drivers
 
                 await updater.TryUpdateModelAsync(viewModel, Prefix);
 
-                if (viewModel.ScheduledUnpublishLocalDateTime == null || httpContext!.Request.Form["submit.Save"] == "submit.CancelUnpublishLater")
+                if (viewModel.ScheduledUnpublishLocalDateTime == null || httpContext!.Request.Form["submit.Publish"] == "submit.CancelUnpublishLater")
                 {
                     part.ScheduledUnpublishUtc = null;
                 }

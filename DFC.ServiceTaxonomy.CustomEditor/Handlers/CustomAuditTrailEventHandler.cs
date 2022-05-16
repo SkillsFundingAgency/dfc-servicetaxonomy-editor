@@ -96,7 +96,8 @@ namespace DFC.ServiceTaxonomy.CustomEditor.Handlers
 
         private static string GetCancelPublishLaterEventName(PublishLaterPart publishLaterPart)
         {
-            return $"CancelPublishLaterEvent";
+            var scheduledPublishUtc = publishLaterPart.ScheduledPublishUtc.HasValue ? publishLaterPart.ScheduledPublishUtc.Value.ToString() : "no value";
+            return $"Item will no longer be published at ({scheduledPublishUtc})";
         }
         private static string GetPublishedEventName(PublishLaterPart publishLaterPart)
         {
