@@ -40,9 +40,7 @@ namespace DFC.ServiceTaxonomy.UnpublishLater.Services
             foreach (var item in itemsToUnpublish)
             {
                 _logger.LogDebug("Unpublishing scheduled content item {ContentItemId}.", item.ContentItemId);
-                var unpublishedpart = item.As<UnpublishLaterPart>();
-                unpublishedpart.ScheduledUnpublishUtc = null;
-                unpublishedpart.Apply();
+
                 await serviceProvider.GetRequiredService<IContentManager>().UnpublishAsync(item);
             }
         }

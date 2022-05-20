@@ -23,29 +23,6 @@ namespace DFC.ServiceTaxonomy.UnpublishLater.Indexes
         public DateTime? ScheduledUnpublishUtc { get; set; }
     }
 
-    //    public class UnpublishLaterPartIndexProvider : IndexProvider<ContentItem>
-    //    {
-    //        public override void Describe(DescribeContext<ContentItem> context)
-    //        {
-    //            context.For<UnpublishLaterPartIndex>()
-    //                .Map(contentItem =>
-    //                {
-    //                    var unpublishLaterPart = contentItem.As<UnpublishLaterPart>();
-    //                    if (unpublishLaterPart == null || !unpublishLaterPart.ScheduledUnpublishUtc.HasValue)
-    //                    {
-    //#pragma warning disable CS8603 // Possible null reference return.
-    //                        return null;
-    //#pragma warning restore CS8603 // Possible null reference return.
-    //                    }
-
-    //                    return new UnpublishLaterPartIndex
-    //                    {
-    //                        ScheduledUnpublishUtc = unpublishLaterPart.ScheduledUnpublishUtc
-    //                    };
-    //                });
-    //        }
-    //    }
-
     public class UnpublishLaterPartIndexProvider : ContentHandlerBase, IIndexProvider, IScopedIndexProvider
     {
         private readonly IServiceProvider _serviceProvider;
@@ -92,8 +69,9 @@ namespace DFC.ServiceTaxonomy.UnpublishLater.Indexes
             context.For<UnpublishLaterPartIndex>()
                 .When(contentItem => contentItem.Has<UnpublishLaterPart>() || _partRemoved.Contains(contentItem.ContentItemId))
                 .Map(contentItem =>
-                {                    // Remove index records of items that are already published or not the latest version.
-                    if (contentItem.Latest && !contentItem.Published)
+                {
+                    // Remove index records of items that are already published or not the latest version.
+                    if (!contentItem.Published || !contentItem.Latest)
                     {
 #pragma warning disable CS8603 // Possible null reference return.
                         return null;

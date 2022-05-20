@@ -1,9 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.UnpublishLater.Models;
 using DFC.ServiceTaxonomy.UnpublishLater.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
+using OrchardCore.ContentManagement;
 using OrchardCore.ContentManagement.Display.ContentDisplay;
 using OrchardCore.ContentManagement.Display.Models;
 using OrchardCore.Contents;
@@ -39,10 +41,30 @@ namespace DFC.ServiceTaxonomy.UnpublishLater.Drivers
 
         public override IDisplayResult Edit(UnpublishLaterPart part, BuildPartEditorContext context)
         {
-            return Initialize<UnpublishLaterPartViewModel>(GetEditorShapeType(context),
+            var results = new List<IDisplayResult>();
+
+            if(DisplayEditor(part.ContentItem))
+            {
+                results.Add(Initialize<UnpublishLaterPartViewModel>(GetEditorShapeType(context),
                 model => PopulateViewModel(part, model))
-            .Location("Actions:10");
+            .Location("Actions:10"));
+            }
+            else if(!context.Updater.ModelState.IsValid)
+            {
+                part.ScheduledUnpublishUtc = part.Content.ScheduledUnpublishUtc.Value;
+                results.Add(Initialize<UnpublishLaterPartViewModel>(GetEditorShapeType(context),
+                model => PopulateViewModel(part, model))
+            .Location("Actions:10"));
+            }
+
+            return Combine(results.ToArray());
         }
+
+        private bool DisplayEditor(ContentItem contentItem)
+        {
+            return contentItem.Published && contentItem.Latest;
+        }
+
 
         public override async Task<IDisplayResult> UpdateAsync(UnpublishLaterPart part, IUpdateModel updater, UpdatePartEditorContext context)
         {
@@ -53,14 +75,21 @@ namespace DFC.ServiceTaxonomy.UnpublishLater.Drivers
                 var viewModel = new UnpublishLaterPartViewModel();
 
                 await updater.TryUpdateModelAsync(viewModel, Prefix);
-
-                if (viewModel.ScheduledUnpublishLocalDateTime == null || httpContext!.Request.Form["submit.Publish"] == "submit.CancelUnpublishLater")
+               
+                if (httpContext!.Request.Form[Constants.Submit_Publish_Key] == Constants.Submit_Cancel_Unpublish_Later)
                 {
                     part.ScheduledUnpublishUtc = null;
                 }
-                else
+                else if(httpContext!.Request.Form[Constants.Submit_Publish_Key] == Constants.Submit_Unpublish_Later)
                 {
-                    part.ScheduledUnpublishUtc = await _localClock.ConvertToUtcAsync(viewModel.ScheduledUnpublishLocalDateTime.Value);
+                    if(viewModel.ScheduledUnpublishLocalDateTime.HasValue)
+                    {
+                        part.ScheduledUnpublishUtc = await _localClock.ConvertToUtcAsync(viewModel.ScheduledUnpublishLocalDateTime.Value);
+                    }
+                    else
+                    {
+                        updater.ModelState.AddModelError("ScheduledUnpublishLocalDateTime", "Please select a time for unpublishing.");
+                    }
                 }
             }
 

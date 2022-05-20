@@ -26,7 +26,7 @@ namespace DFC.ServiceTaxonomy.UnpublishLater.Handlers
             // 2. it is a Save or Unpublished events only 
             // 3. there is a UnpublishLaterPart add as part of the content type
             if (context is AuditTrailCreateContext<AuditTrailContentEvent> contentEvent &&
-                new[] { Constants.ContentEvent_Saved, Constants.ContentEvent_Unpublished}.Any(ev => ev.Equals(contentEvent.Name, StringComparison.CurrentCultureIgnoreCase)) &&
+                new[] { Constants.ContentEvent_Published, Constants.ContentEvent_Unpublished}.Any(ev => ev.Equals(contentEvent.Name, StringComparison.CurrentCultureIgnoreCase)) &&
                 contentEvent.AuditTrailEventItem.ContentItem.Has<UnpublishLaterPart>())
             {
                 var unpublishLaterPart = contentEvent.AuditTrailEventItem.ContentItem.As<UnpublishLaterPart>();
@@ -36,10 +36,10 @@ namespace DFC.ServiceTaxonomy.UnpublishLater.Handlers
                 }
 
                 // Saved UnpublishLater Event & Cancelled UnpublishLater Event
-                if (contentEvent.Name.Equals(Constants.ContentEvent_Saved, StringComparison.InvariantCultureIgnoreCase))
+                if (contentEvent.Name.Equals(Constants.ContentEvent_Published, StringComparison.InvariantCultureIgnoreCase))
                 {
                     // Cancelled UnpublishLater Event
-                    if (_httpContextAccessor.HttpContext.Request.Form["submit.Save"] == "submit.CancelUnpublishLater")
+                    if (_httpContextAccessor.HttpContext.Request.Form[Constants.ContentEvent_Published] == Constants.Submit_Cancel_Unpublish_Later)
                     {
                         ProcessCancelUnpublishLaterEvent(contentEvent, unpublishLaterPart);
                     }
@@ -63,33 +63,32 @@ namespace DFC.ServiceTaxonomy.UnpublishLater.Handlers
 
         private static void ProcessSavedEvent(AuditTrailCreateContext<AuditTrailContentEvent> savedContentEvent, UnpublishLaterPart unpublishLaterPart)
         {
-            savedContentEvent.Name = GetSavedEventName(unpublishLaterPart);
+            savedContentEvent.Name = "Scheduled to be unpublished";
+            //var version = unpublishLaterPart.ContentItem.ContentItemVersionId;
+            //var contentType = unpublishLaterPart.ContentItem.ContentType;
+            //var contentName = unpublishLaterPart.ContentItem.Content.Name;
+            //var scheduledUnpublishUtc = unpublishLaterPart.ScheduledUnpublishUtc.HasValue ? unpublishLaterPart.ScheduledUnpublishUtc.Value.ToString() : "no value";
+            //savedContentEvent.AuditTrailEventItem..Name = $"{version} of the {contentType} {contentName} was scheduled to be unpublished at {scheduledUnpublishUtc}.";
         }
 
         private static void ProcessCancelUnpublishLaterEvent(AuditTrailCreateContext<AuditTrailContentEvent> cancelUnpublishLaterEvent, UnpublishLaterPart unpublishLaterPart)
         {
-            cancelUnpublishLaterEvent.Name = GetCancelUnpublishLaterEventName(unpublishLaterPart);
+            cancelUnpublishLaterEvent.Name = "Cancelled for upublishing";
+            //var version = unpublishLaterPart.ContentItem.ContentItemVersionId;
+            //var contentType = unpublishLaterPart.ContentItem.ContentType;
+            //var contentName = unpublishLaterPart.ContentItem.Content.Name;
+            //var scheduledUnpublishUtc = unpublishLaterPart.ScheduledUnpublishUtc.HasValue ? unpublishLaterPart.ScheduledUnpublishUtc.Value.ToString() : "no value";
+            //cancelUnpublishLaterEvent.Name = $"{version} of the {contentType} {contentName} cancelled an unpublish previously scheduled at {scheduledUnpublishUtc}.";
         }
 
         private static void ProcessUnpublishedEvent(AuditTrailCreateContext<AuditTrailContentEvent> publishedContentEvent, UnpublishLaterPart unpublishLaterPart)
         {
-            publishedContentEvent.Name = GetUnpublishedEventName(unpublishLaterPart);
-        }
-
-        private static string GetSavedEventName(UnpublishLaterPart unpublishLaterPart)
-        {
-            var scheduledUnpublishUtc = unpublishLaterPart.ScheduledUnpublishUtc.HasValue ? unpublishLaterPart.ScheduledUnpublishUtc.Value.ToString() : "no value";
-            return $"Item is to be unpublished at ({scheduledUnpublishUtc})";
-        }
-
-        private static string GetCancelUnpublishLaterEventName(UnpublishLaterPart unpublishLaterPart)
-        {
-            return $"CancelUnpublishLaterEvent";
-        }
-        private static string GetUnpublishedEventName(UnpublishLaterPart unpublishLaterPart)
-        {
-            var scheduledUnpublishUtc = unpublishLaterPart.ScheduledUnpublishUtc.HasValue ? unpublishLaterPart.ScheduledUnpublishUtc.Value.ToString() : "no value";
-            return $"Item was sheduled unpublished at ({scheduledUnpublishUtc})";
+            publishedContentEvent.Name = "Unpublished as per schedule";
+            //var version = unpublishLaterPart.ContentItem.ContentItemVersionId;
+            //var contentType = unpublishLaterPart.ContentItem.ContentType;
+            //var contentName = unpublishLaterPart.ContentItem.Content.Name;
+            //var scheduledUnpublishUtc = unpublishLaterPart.ScheduledUnpublishUtc.HasValue ? unpublishLaterPart.ScheduledUnpublishUtc.Value.ToString() : "no value";
+            //publishedContentEvent.Name = $"{version} of the {contentType} {contentName} was unpublished as per schedule at {scheduledUnpublishUtc}.";
         }
     }
 }

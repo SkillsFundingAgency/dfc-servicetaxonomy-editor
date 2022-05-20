@@ -7,21 +7,12 @@ namespace DFC.ServiceTaxonomy.UnpublishLater.Handlers
 {
     public class UnpublishLaterPartHandler : ContentPartHandler<UnpublishLaterPart>
     {
-        //private readonly IAuditTrailManager  _contentManager;
-        public override Task UnpublishingAsync(PublishContentContext context, UnpublishLaterPart part)
+        public override Task UnpublishedAsync(PublishContentContext context, UnpublishLaterPart part)
         {
             part.ScheduledUnpublishUtc = null;
             part.Apply();
 
             return Task.CompletedTask;
         }
-
-        //public override Task UnpublishedAsync(PublishContentContext context, UnpublishLaterPart part)
-        //{
-        //    part.ScheduledUnpublishUtc = null;
-        //    part.Apply();
-
-        //    return Task.CompletedTask;
-        //}
     }
 }

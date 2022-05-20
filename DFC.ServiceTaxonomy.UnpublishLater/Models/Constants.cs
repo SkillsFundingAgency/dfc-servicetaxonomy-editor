@@ -9,6 +9,10 @@ namespace DFC.ServiceTaxonomy.UnpublishLater.Models
         // Content event names
         public const string ContentEvent_Published = "Published";
         public const string ContentEvent_Unpublished = "Unpublished";
-        public const string ContentEvent_Saved = "Saved";
+
+        // Submit names
+        public const string Submit_Publish_Key = "submit.Publish";
+        public const string Submit_Unpublish_Later = "submit.UnpublishLater";
+        public const string Submit_Cancel_Unpublish_Later = "submit.CancelUnpublishLater";
     }
 }
