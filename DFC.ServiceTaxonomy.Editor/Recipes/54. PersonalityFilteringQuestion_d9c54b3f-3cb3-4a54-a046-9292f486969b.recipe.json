@@ -201,7 +201,7 @@
                     "PersonalityFilteringQuestion": {
                         "SOCSkillsMatrix": {
                             "ContentItemIds": [
-                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"SOCSkillsMatrix\", \"2434A-Independence, Initiative\")\u00BB"
+                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"SOCSkillsMatrix\", \"7215A-Initiative\")\u00BB"
                             ]
                         },
                         "Text": {
