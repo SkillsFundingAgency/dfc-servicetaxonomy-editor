@@ -13,8 +13,6 @@ using DFC.ServiceTaxonomy.UnpublishLater.Indexes;
 using DFC.ServiceTaxonomy.UnpublishLater.Models;
 using DFC.ServiceTaxonomy.UnpublishLater.Services;
 using DFC.ServiceTaxonomy.UnpublishLater.ViewModels;
-using YesSql.Indexes;
-using OrchardCore.AuditTrail.Services;
 
 namespace DFC.ServiceTaxonomy.UnpublishLater
 {
@@ -39,9 +37,6 @@ namespace DFC.ServiceTaxonomy.UnpublishLater
             services.AddScoped<IContentHandler>(sp => sp.GetRequiredService<UnpublishLaterPartIndexProvider>());
 
             services.AddSingleton<IBackgroundTask, ScheduledUnpublishingBackgroundTask>();
-
-            services.AddScoped<IAuditTrailEventHandler, UnpublishLaterAuditTrailEventHandler>();
-
         }
     }
 }

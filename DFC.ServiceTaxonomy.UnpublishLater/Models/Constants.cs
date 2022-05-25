@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace DFC.ServiceTaxonomy.UnpublishLater.Models
+﻿namespace DFC.ServiceTaxonomy.UnpublishLater.Models
 {
     public static class Constants
     {

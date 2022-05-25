@@ -1,57 +1,48 @@
 @model OrchardCore.Contents.AuditTrail.ViewModels.AuditTrailContentEventViewModel
+@using DFC.ServiceTaxonomy.CustomEditor.Helper
 @using Microsoft.Extensions.Localization
+@using OrchardCore.ContentManagement
 @using OrchardCore.Contents.AuditTrail.Extensions
 @using OrchardCore.Contents.AuditTrail.Services
+@using DFC.ServiceTaxonomy.CustomEditor.Constants;
+@using DFC.ServiceTaxonomy.UnpublishLater.Models;
+@using DFC.ServiceTaxonomy.CustomEditor.Handlers.CustomAuditTrailEvents;
 @inject IStringLocalizer<ViewContext> S
 
 @{
-    var contentEvent = Model.ContentEvent;
-    var contentItem = contentEvent.ContentItem;
-    var versionNumber = Model.VersionNumber;
-    var versionText = S["Version {0}", versionNumber];
+    var contentItem = Model.ContentEvent.ContentItem;
+    var versionText = S["Version {0}", Model.VersionNumber];
     var eventName = Model.Descriptor.LocalizedName(Context.RequestServices).Value.ToLowerInvariant();
     var editForLink = await Orchard.EditForLinkAsync(contentItem.DisplayText, contentItem);
     if (editForLink is TagBuilder editForLinkTagBuilder && editForLinkTagBuilder.Attributes["href"].EndsWith("Edit"))
     {
         editForLinkTagBuilder.Attributes["href"] = editForLinkTagBuilder.Attributes["href"] + "?returnUrl=" + Html.UrlEncoder.Encode(FullRequestPath);
     }
-}
-
-@if (Model.AuditTrailEvent.Name == ContentAuditTrailEventConfiguration.Restored)
-{
-    <small>
-        @T["The {0} {1} was restored as {2}",
-        contentItem.ContentType,
-            editForLink,
-        Html.ActionLink(versionText, "Display", "AuditTrailContent",
+    var versionLink = Html.ActionLink(S["Version {0}", Model.VersionNumber], "Display", "AuditTrailContent",
         new
         {
             area = "OrchardCore.Contents",
             auditTrailEventId = Model.AuditTrailEvent.EventId
-        }, null)]
-    </small>
+        }, null);
+
+    var summaryFormat = AuditTrailSummaryHelper.GetAuditTrailItemSummaryTextFormat(Model);
 }
-else if (Model.AuditTrailEvent.Name == ContentAuditTrailEventConfiguration.Removed)
+
+@if(!string.IsNullOrWhiteSpace(summaryFormat))
 {
     <small>
-        @T["The {0} {1} was {2}.",
-        contentItem.ContentType,
-        contentItem.DisplayText,
-        eventName]
+        @T[summaryFormat,
+            versionLink,
+            editForLink]
     </small>
 }
 else
 {
     <small>
         @T["{0} of the {1} {2} was {3}",
-        Html.ActionLink(versionText, "Display", "AuditTrailContent",
-        new
-        {
-            area = "OrchardCore.Contents",
-            auditTrailEventId = Model.AuditTrailEvent.EventId
-        }, null),
+        versionLink,
         contentItem.ContentType,
-            editForLink,
+        editForLink,
         eventName]
     </small>
 }
