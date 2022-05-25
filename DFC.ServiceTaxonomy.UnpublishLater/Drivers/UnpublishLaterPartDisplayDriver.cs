@@ -82,13 +82,18 @@ namespace DFC.ServiceTaxonomy.UnpublishLater.Drivers
                 }
                 else if(httpContext!.Request.Form[Constants.Submit_Publish_Key] == Constants.Submit_Unpublish_Later)
                 {
-                    if(viewModel.ScheduledUnpublishLocalDateTime.HasValue)
+                    var scheduleUnpublishLocalDateTime = viewModel.ScheduledUnpublishLocalDateTime;
+                    if(!scheduleUnpublishLocalDateTime.HasValue)
                     {
-                        part.ScheduledUnpublishUtc = await _localClock.ConvertToUtcAsync(viewModel.ScheduledUnpublishLocalDateTime.Value);
+                        updater.ModelState.AddModelError("ScheduledUnpublishLocalDateTime", "Please select a time for unpublishing.");
+                    }
+                    else if(scheduleUnpublishLocalDateTime.Value < DateTime.Now)
+                    {
+                        updater.ModelState.AddModelError("ScheduledUnpublishLocalDateTime", "Please select a time in the future for unpublishing.");
                     }
                     else
                     {
-                        updater.ModelState.AddModelError("ScheduledUnpublishLocalDateTime", "Please select a time for unpublishing.");
+                        part.ScheduledUnpublishUtc = await _localClock.ConvertToUtcAsync(viewModel.ScheduledUnpublishLocalDateTime!.Value);
                     }
                 }
             }
