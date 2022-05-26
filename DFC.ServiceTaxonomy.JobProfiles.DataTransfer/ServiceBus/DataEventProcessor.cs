@@ -111,8 +111,6 @@ namespace DFC.ServiceTaxonomy.JobProfiles.DataTransfer.ServiceBus
 
         private async Task GenerateServiceBusMessageForWYDTypes(ContentContextBase context, string actionType)
         {
-            bool isSaved = actionType.Equals(ActionTypes.Published) || actionType.Equals(ActionTypes.Draft);
-            IList<WhatYouWillDoContentItem> jobprofileData = new List<WhatYouWillDoContentItem>();
             string fieldDescription = context.ContentItem.ContentType switch
             {
                 ContentTypes.Environment => context.ContentItem.Content.Environment.Description.Text,
@@ -125,13 +123,16 @@ namespace DFC.ServiceTaxonomy.JobProfiles.DataTransfer.ServiceBus
                 b.Environment != null && b.Environment.Contains(context.ContentItem.ContentItemId) ||
                 b.Location != null && b.Location.Contains(context.ContentItem.ContentItemId)).ListAsync();
 
+            bool isSaved = actionType.Equals(ActionTypes.Published) || actionType.Equals(ActionTypes.Draft);
+            IList<WhatYouWillDoContentItem> jobprofileData = new List<WhatYouWillDoContentItem>(matches.Count());
+            Guid id = context.ContentItem.As<GraphSyncPart>().ExtractGuid();
             foreach (var item in matches)
             {
                 if (isSaved)
                 {
                     jobprofileData.Add(new WhatYouWillDoContentItem()
                     {
-                        Id = context.ContentItem.As<GraphSyncPart>().ExtractGuid(),
+                        Id = id,
                         Title = context.ContentItem.Content.TitlePart.Title,
                         Description = fieldDescription,
                         JobProfileId = Guid.Parse(item.GraphSyncPartId ?? string.Empty),
@@ -144,7 +145,7 @@ namespace DFC.ServiceTaxonomy.JobProfiles.DataTransfer.ServiceBus
                 {
                     jobprofileData.Add(new WhatYouWillDoContentItem()
                     {
-                        Id = context.ContentItem.As<GraphSyncPart>().ExtractGuid(),
+                        Id = id,
                         JobProfileId = Guid.Parse(item.GraphSyncPartId ?? string.Empty)
                     });
 
@@ -156,8 +157,6 @@ namespace DFC.ServiceTaxonomy.JobProfiles.DataTransfer.ServiceBus
 
         private async Task GenerateServiceBusMessageForTextFieldTypes(ContentContextBase context, string actionType)
         {
-            bool isSaved = actionType.Equals(ActionTypes.Published) || actionType.Equals(ActionTypes.Draft);
-            IList<TextFieldContentItem> jobprofileData = new List<TextFieldContentItem>();
             string fieldText = context.ContentItem.ContentType switch
             {
                 ContentTypes.UniversityLink => context.ContentItem.Content.UniversityLink.Text.Text,
@@ -178,13 +177,16 @@ namespace DFC.ServiceTaxonomy.JobProfiles.DataTransfer.ServiceBus
                 b.CollegeLink != null && b.CollegeLink.Contains(context.ContentItem.ContentItemId) ||
                 b.ApprenticeshipLink != null && b.ApprenticeshipLink.Contains(context.ContentItem.ContentItemId)).ListAsync();
 
+            bool isSaved = actionType.Equals(ActionTypes.Published) || actionType.Equals(ActionTypes.Draft);
+            IList<TextFieldContentItem> jobprofileData = new List<TextFieldContentItem>(matches.Count());
+            Guid id = context.ContentItem.As<GraphSyncPart>().ExtractGuid();
             foreach (var item in matches)
             {
                 if (isSaved)
                 {
                     jobprofileData.Add(new TextFieldContentItem()
                     {
-                        Id = context.ContentItem.As<GraphSyncPart>().ExtractGuid(),
+                        Id = id,
                         Title = context.ContentItem.DisplayText,
                         Text = fieldText,
                         JobProfileId = Guid.Parse(item.GraphSyncPartId ?? string.Empty),
@@ -196,7 +198,7 @@ namespace DFC.ServiceTaxonomy.JobProfiles.DataTransfer.ServiceBus
                 {
                     jobprofileData.Add(new TextFieldContentItem()
                     {
-                        Id = context.ContentItem.As<GraphSyncPart>().ExtractGuid(),
+                        Id = id,
                         JobProfileId = Guid.Parse(item.GraphSyncPartId ?? string.Empty)
                     });
 
@@ -208,9 +210,6 @@ namespace DFC.ServiceTaxonomy.JobProfiles.DataTransfer.ServiceBus
 
         private async Task GenerateServiceBusMessageForInfoTypes(ContentContextBase context, string actionType)
         {
-
-            bool isSaved = actionType.Equals(ActionTypes.Published) || actionType.Equals(ActionTypes.Draft);
-            IList<InfoContentItem> jobprofileData = new List<InfoContentItem>();
             string fieldInfo = context.ContentItem.ContentType switch
             {
                 ContentTypes.Restriction => context.ContentItem.Content.Restriction.Info.Html,
@@ -221,23 +220,25 @@ namespace DFC.ServiceTaxonomy.JobProfiles.DataTransfer.ServiceBus
                 _ => throw new ArgumentException("No valid match found"),
             };
 
-
             var matches = await _jobProfileIndexRepository.GetAll(b => b.Restriction != null && b.Restriction.Contains(context.ContentItem.ContentItemId) ||
                 b.Registration != null && b.Registration.Contains(context.ContentItem.ContentItemId) ||
                 b.ApprenticeshipRequirements != null && b.ApprenticeshipRequirements.Contains(context.ContentItem.ContentItemId) ||
                 b.CollegeRequirements != null && b.CollegeRequirements.Contains(context.ContentItem.ContentItemId) ||
                 b.UniversityRequirements != null && b.UniversityRequirements.Contains(context.ContentItem.ContentItemId)).ListAsync();
 
+            bool isSaved = actionType.Equals(ActionTypes.Published) || actionType.Equals(ActionTypes.Draft);
+            IList<InfoContentItem> jobprofileData = new List<InfoContentItem>(matches.Count());
+            Guid id = context.ContentItem.As<GraphSyncPart>().ExtractGuid();
             foreach (var item in matches)
             {
                 if (isSaved)
                 {
                     jobprofileData.Add(new InfoContentItem()
                     {
-                        Id = context.ContentItem.As<GraphSyncPart>().ExtractGuid(),
+                        Id = id,
+                        JobProfileId = Guid.Parse(item.GraphSyncPartId ?? string.Empty),
                         Title = context.ContentItem.DisplayText,
                         Info = fieldInfo,
-                        JobProfileId = Guid.Parse(item.GraphSyncPartId ?? string.Empty),
                         JobProfileTitle = item.JobProfileTitle,
                     });
                 }
@@ -245,7 +246,7 @@ namespace DFC.ServiceTaxonomy.JobProfiles.DataTransfer.ServiceBus
                 {
                     jobprofileData.Add(new InfoContentItem()
                     {
-                        Id = context.ContentItem.As<GraphSyncPart>().ExtractGuid(),
+                        Id = id,
                         JobProfileId = Guid.Parse(item.GraphSyncPartId ?? string.Empty)
                     });
 
@@ -258,8 +259,6 @@ namespace DFC.ServiceTaxonomy.JobProfiles.DataTransfer.ServiceBus
 
         private async Task GenerateServiceBusMessageForOtherReferenceTypes(ContentContextBase context, string actionType)
         {
-            bool isSaved = actionType.Equals(ActionTypes.Published) || actionType.Equals(ActionTypes.Draft);
-            IList<OtherReferenceFieldContentItem> jobprofileData = new List<OtherReferenceFieldContentItem>();
             string fieldDescription = context.ContentItem.ContentType switch
             {
                 ContentTypes.WorkingHoursDetail => context.ContentItem.Content.WorkingHoursDetail.Description.Text,
@@ -295,13 +294,16 @@ namespace DFC.ServiceTaxonomy.JobProfiles.DataTransfer.ServiceBus
                 b.JobProfileSpecialism != null && b.JobProfileSpecialism.Contains(context.ContentItem.ContentItemId) ||
                 b.ApprenticeshipEntryRequirements != null && b.ApprenticeshipEntryRequirements.Contains(context.ContentItem.ContentItemId)).ListAsync();
 
+            bool isSaved = actionType.Equals(ActionTypes.Published) || actionType.Equals(ActionTypes.Draft);
+            IList<OtherReferenceFieldContentItem> jobprofileData = new List<OtherReferenceFieldContentItem>(matches.Count());
+            Guid id = context.ContentItem.As<GraphSyncPart>().ExtractGuid();
             foreach (var item in matches)
             {
                 if (isSaved)
                 {
                     jobprofileData.Add(new OtherReferenceFieldContentItem()
                     {
-                        Id = context.ContentItem.As<GraphSyncPart>().ExtractGuid(),
+                        Id = id,
                         Title = context.ContentItem.Content.TitlePart.Title,
                         Description = fieldDescription,
                         JobProfileId = Guid.Parse(item.GraphSyncPartId ?? string.Empty),
@@ -313,7 +315,7 @@ namespace DFC.ServiceTaxonomy.JobProfiles.DataTransfer.ServiceBus
                 {
                     jobprofileData.Add(new OtherReferenceFieldContentItem()
                     {
-                        Id = context.ContentItem.As<GraphSyncPart>().ExtractGuid(),
+                        Id = id,
                         JobProfileId = Guid.Parse(item.GraphSyncPartId ?? string.Empty)
                     });
 

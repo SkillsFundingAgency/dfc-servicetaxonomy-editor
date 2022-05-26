@@ -82,8 +82,10 @@ namespace DFC.ServiceTaxonomy.JobProfiles.DataTransfer.AzureSearch.Converters
         private static IEnumerable<string> GetJobCategoryUrls(IEnumerable<ContentItem> contentItems) =>
             contentItems.Select(x => $"{x.As<PageLocationPart>().UrlName}");
 
-        private static string GetHtml(dynamic html) =>
-            html is null ? string.Empty : html.Html.ToString();
-
+        private static string GetHtml(dynamic html)
+        {
+            string strValue = html is null ? string.Empty : html.Html.ToString();
+            return strValue.HTMLToText();
+        }
     }
 }
