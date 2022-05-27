@@ -294,6 +294,16 @@
                                 "TextFieldSettings": {},
                                 "ContentIndexSettings": {}
                             }
+                        },
+                        {
+                            "FieldName": "NumericField",
+                            "Name": "Ordinal",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Ordinal",
+                                    "Position": "2"
+                                }
+                            }
                         }
                     ]
                 },
