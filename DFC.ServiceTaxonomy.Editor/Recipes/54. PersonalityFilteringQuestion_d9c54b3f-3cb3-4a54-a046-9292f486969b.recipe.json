@@ -27,11 +27,13 @@
                     "PersonalityFilteringQuestion": {
                         "SOCSkillsMatrix": {
                             "ContentItemIds": [
-                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"SOCSkillsMatrix\", \"3239J-Concern for Others\")\u00BB"
                             ]
                         },
                         "Text": {
                             "Text": "Would you be comfortable in a job where you would need to be sensitive to other people's needs and feelings?"
+                        },
+                        "Ordinal": {
+                            "Value": 2.0
                         }
                     },
                     "GraphSyncPart": {
@@ -56,11 +58,13 @@
                     "PersonalityFilteringQuestion": {
                         "SOCSkillsMatrix": {
                             "ContentItemIds": [
-                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"SOCSkillsMatrix\", \"3537A-Fine Manipulative Abilities\")\u00BB"
                             ]
                         },
                         "Text": {
                             "Text": "Can you work with your hands to do something fiddly like threading a needle?"
+                        },
+                        "Ordinal": {
+                            "Value": 4.0
                         }
                     },
                     "GraphSyncPart": {
@@ -85,11 +89,13 @@
                     "PersonalityFilteringQuestion": {
                         "SOCSkillsMatrix": {
                             "ContentItemIds": [
-                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"SOCSkillsMatrix\", \"2316B-Adaptability/Flexibility\")\u00BB"
                             ]
                         },
                         "Text": {
                             "Text": "Are you comfortable doing a variety of tasks in a job and open to things changing?"
+                        },
+                        "Ordinal": {
+                            "Value": 0.0
                         }
                     },
                     "GraphSyncPart": {
@@ -114,11 +120,13 @@
                     "PersonalityFilteringQuestion": {
                         "SOCSkillsMatrix": {
                             "ContentItemIds": [
-                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"SOCSkillsMatrix\", \"2316B-Reading Comprehension\")\u00BB"
                             ]
                         },
                         "Text": {
                             "Text": "Are you able to read well?"
+                        },
+                        "Ordinal": {
+                            "Value": 11.0
                         }
                     },
                     "GraphSyncPart": {
@@ -143,7 +151,6 @@
                     "PersonalityFilteringQuestion": {
                         "SOCSkillsMatrix": {
                             "ContentItemIds": [
-                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"SOCSkillsMatrix\", \"2316B-Stress Tolerance\")\u00BB"
                             ]
                         },
                         "Text": {
@@ -155,6 +162,9 @@
                     },
                     "TitlePart": {
                         "Title": "Stress Tolerance"
+                    },
+                    "Ordinal": {
+                        "Value": 9.0
                     }
                 },
                 {
@@ -172,7 +182,6 @@
                     "PersonalityFilteringQuestion": {
                         "SOCSkillsMatrix": {
                             "ContentItemIds": [
-                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"SOCSkillsMatrix\", \"2136B-Verbal Abilities\")\u00BB"
                             ]
                         },
                         "Text": {
@@ -184,6 +193,9 @@
                     },
                     "TitlePart": {
                         "Title": "Verbal Abilities"
+                    },
+                    "Ordinal": {
+                        "Value": 10.0
                     }
                 },
                 {
@@ -201,11 +213,13 @@
                     "PersonalityFilteringQuestion": {
                         "SOCSkillsMatrix": {
                             "ContentItemIds": [
-                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"SOCSkillsMatrix\", \"7215A-Initiative\")\u00BB"
                             ]
                         },
                         "Text": {
                             "Text": "Are you good at thinking of new ways to do something without being told?"
+                        },
+                        "Ordinal": {
+                            "Value": 5.0
                         }
                     },
                     "GraphSyncPart": {
@@ -230,11 +244,13 @@
                     "PersonalityFilteringQuestion": {
                         "SOCSkillsMatrix": {
                             "ContentItemIds": [
-                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"SOCSkillsMatrix\", \"2316B-Cooperation\")\u00BB"
                             ]
                         },
                         "Text": {
                             "Text": "Are you comfortable working in a team with other people?"
+                        },
+                        "Ordinal": {
+                            "Value": 3.0
                         }
                     },
                     "GraphSyncPart": {
@@ -259,11 +275,13 @@
                     "PersonalityFilteringQuestion": {
                         "SOCSkillsMatrix": {
                             "ContentItemIds": [
-                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"SOCSkillsMatrix\", \"2434A-Analytical Thinking\")\u00BB"
                             ]
                         },
                         "Text": {
                             "Text": "Are you comfortable analysing information to solve problems?"
+                        },
+                        "Ordinal": {
+                            "Value": 1.0
                         }
                     },
                     "GraphSyncPart": {
@@ -288,11 +306,13 @@
                     "PersonalityFilteringQuestion": {
                         "SOCSkillsMatrix": {
                             "ContentItemIds": [
-                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"SOCSkillsMatrix\", \"2316B-Speaking, Verbal Abilities\")\u00BB"
                             ]
                         },
                         "Text": {
                             "Text": "Are you comfortable talking through things with other people so that they understand?"
+                        },
+                        "Ordinal": {
+                            "Value": 8.0
                         }
                     },
                     "GraphSyncPart": {
@@ -317,11 +337,14 @@
                     "PersonalityFilteringQuestion": {
                         "SOCSkillsMatrix": {
                             "ContentItemIds": [
-                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"SOCSkillsMatrix\", \"2316B-Quantitative Abilities, Mathematics Knowledge\")\u00BB"
+
                             ]
                         },
                         "Text": {
                             "Text": "Are you confident solving maths problems using statistics, algebra and arithmetic?"
+                        },
+                        "Ordinal": {
+                            "Value": 6.0
                         }
                     },
                     "GraphSyncPart": {
@@ -346,11 +369,13 @@
                     "PersonalityFilteringQuestion": {
                         "SOCSkillsMatrix": {
                             "ContentItemIds": [
-                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"SOCSkillsMatrix\", \"2316B-Self Control\")\u00BB"
                             ]
                         },
                         "Text": {
                             "Text": "Are you able to control your emotions even in difficult situations?"
+                        },
+                        "Ordinal": {
+                            "Value": 7.0
                         }
                     },
                     "GraphSyncPart": {
