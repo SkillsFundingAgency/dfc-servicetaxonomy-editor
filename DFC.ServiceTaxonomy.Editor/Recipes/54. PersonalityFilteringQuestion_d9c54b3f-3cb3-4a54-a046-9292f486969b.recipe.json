@@ -155,6 +155,9 @@
                         },
                         "Text": {
                             "Text": "Do you think you are good at staying calm under pressure?"
+                        },
+                        "Ordinal": {
+                            "Value": 9.0
                         }
                     },
                     "GraphSyncPart": {
@@ -162,9 +165,6 @@
                     },
                     "TitlePart": {
                         "Title": "Stress Tolerance"
-                    },
-                    "Ordinal": {
-                        "Value": 9.0
                     }
                 },
                 {
@@ -186,6 +186,9 @@
                         },
                         "Text": {
                             "Text": "\t\r\nDo you think you are good at using words to describe ideas?"
+                        },
+                        "Ordinal": {
+                            "Value": 10.0
                         }
                     },
                     "GraphSyncPart": {
@@ -193,9 +196,6 @@
                     },
                     "TitlePart": {
                         "Title": "Verbal Abilities"
-                    },
-                    "Ordinal": {
-                        "Value": 10.0
                     }
                 },
                 {
