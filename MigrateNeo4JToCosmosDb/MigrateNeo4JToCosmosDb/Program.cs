@@ -75,59 +75,80 @@ var exclusions = new List<string>
 
 Console.WriteLine("Request content type (label) information.");
 
-var contentTypes = (await RunQuery(new Query("call db.labels()")))
-    .Select(label => label.Values.Values.First().As<string>())
-    .Where(label => !exclusions.Contains(label))
-    .ToList();
-
-Console.WriteLine($"{contentTypes.Count} labels (content types) received, after filtering. Looping through content types now to fetch data.");
-var contentTypeCount = 1;
-var contentTypeTotal = contentTypes.Count;
-
 var reportDictionary = new Dictionary<string, (int, int)>();
+var contentTypeCount = 1;
+var contentTypeTotal = -1;
 
-foreach (var contentType in contentTypes)
+using (var driver = GetNeo4JDriver())
 {
-    Console.WriteLine($"Requesting document data from {contentType}. Content type {contentTypeCount} of {contentTypeTotal}...");
-    var documents = await RunQuery(new Query($"match (a:{contentType}) return a"));
-    Console.WriteLine($"{documents.Count} records found for {contentType} - Content type {contentTypeCount} of {contentTypeTotal}.");
+    var contentTypes = (await RunQuery(new Query("call db.labels()"), driver))
+        .Select(label => label.Values.Values.First().As<string>())
+        .Where(label => !exclusions.Contains(label))
+        .ToList();
 
-    Console.WriteLine($"Requesting contHas relationship records for {contentType} - Content type {contentTypeCount} of {contentTypeTotal}...");
-    var contHasRelationships = await RunQuery(new Query($"match (a:{contentType})-[r]->(b) return a.uri, r, b.uri"));
-    Console.WriteLine($"{contHasRelationships.Count} contHas relationship records found for {contentType} - Content type {contentTypeCount} of {contentTypeTotal}.");
+    Console.WriteLine($"{contentTypes.Count} labels (content types) received, after filtering. Looping through content types now to fetch data.");
+    contentTypeTotal = contentTypes.Count;
 
-    Console.WriteLine($"Requesting incoming relationship records for {contentType} - Content type {contentTypeCount} of {contentTypeTotal}...");
-    var incomingRelationships = await RunQuery(new Query($"match (a:{contentType})<-[r]-(b) return a.uri, r, b.uri"));
-    Console.WriteLine($"{incomingRelationships.Count} incoming relationship records found for {contentType} - Content type {contentTypeCount} of {contentTypeTotal}.");
-
-    var documentCount = 1;
-    var documentTotal = documents.Count;
-
-    var documentGroups = documents.Chunk(parallelisationAmount);
-
-    foreach (var documentGroup in documentGroups)
+    try
     {
-        var tasks = new List<Task>();
-
-        foreach (var document in documentGroup)
+        foreach (var contentType in contentTypes)
         {
-            var documentNode = document.Values["a"] as INode;
-            var documentUri = documentNode!.Properties["uri"].As<string>();
+            Console.WriteLine(
+                $"Requesting document data from {contentType}. Content type {contentTypeCount} of {contentTypeTotal}...");
+            var documents = await RunQuery(new Query($"match (a:{contentType}) return a"), driver);
+            Console.WriteLine(
+                $"{documents.Count} records found for {contentType} - Content type {contentTypeCount} of {contentTypeTotal}.");
 
-            var relevantIncomingData = incomingRelationships
-                .Where(relationship => (string) relationship.Values["a.uri"] == documentUri).ToList();
-            var relevantContHasData = contHasRelationships
-                .Where(relationship => (string) relationship.Values["a.uri"] == documentUri).ToList();
+            Console.WriteLine(
+                $"Requesting contHas relationship records for {contentType} - Content type {contentTypeCount} of {contentTypeTotal}...");
+            var contHasRelationships =
+                await RunQuery(new Query($"match (a:{contentType})-[r]->(b) return a.uri, r, b.uri"), driver);
+            Console.WriteLine(
+                $"{contHasRelationships.Count} contHas relationship records found for {contentType} - Content type {contentTypeCount} of {contentTypeTotal}.");
 
-            tasks.Add(ProcessAndSaveDocument(documentNode, documentUri, relevantIncomingData, relevantContHasData,
-                contentType, documentCount++, documentTotal));
+            Console.WriteLine(
+                $"Requesting incoming relationship records for {contentType} - Content type {contentTypeCount} of {contentTypeTotal}...");
+            var incomingRelationships =
+                await RunQuery(new Query($"match (a:{contentType})<-[r]-(b) return a.uri, r, b.uri"), driver);
+            Console.WriteLine(
+                $"{incomingRelationships.Count} incoming relationship records found for {contentType} - Content type {contentTypeCount} of {contentTypeTotal}.");
+
+            var documentCount = 1;
+            var documentTotal = documents.Count;
+
+            var documentGroups = documents.Chunk(parallelisationAmount);
+
+            foreach (var documentGroup in documentGroups)
+            {
+                var tasks = new List<Task>();
+
+                foreach (var document in documentGroup)
+                {
+                    var documentNode = document.Values["a"] as INode;
+                    var documentUri = documentNode!.Properties["uri"].As<string>();
+
+                    var relevantIncomingData = incomingRelationships
+                        .Where(relationship => (string)relationship.Values["a.uri"] == documentUri).ToList();
+                    var relevantContHasData = contHasRelationships
+                        .Where(relationship => (string)relationship.Values["a.uri"] == documentUri).ToList();
+
+                    tasks.Add(ProcessAndSaveDocument(documentNode, documentUri, relevantIncomingData,
+                        relevantContHasData,
+                        contentType, documentCount++, documentTotal));
+                }
+
+                await Task.WhenAll(tasks);
+            }
+
+            reportDictionary.Add(contentType, (documentCount - 1, documentTotal));
+            contentTypeCount++;
         }
-
-        await Task.WhenAll(tasks);
     }
-
-    reportDictionary.Add(contentType, (documentCount - 1, documentTotal));
-    contentTypeCount++;
+    catch (Exception ex)
+    {
+        Console.WriteLine($"Error - " + ex.Message);
+        return;
+    }
 }
 
 Console.WriteLine("Finished processing. Summary report..");
@@ -396,9 +417,9 @@ Container GetContainer()
     return cosmosDb.GetDatabase(cosmosDbDatabaseName).GetContainer(cosmosDbContainerName);
 }
 
-async Task<List<IRecord>> RunQuery(Query query)
+async Task<List<IRecord>> RunQuery(Query query, IDriver driver)
 {
-    var session = GetAsyncSession();
+    var session = GetAsyncSession(driver);
 
     try
     {
@@ -411,9 +432,9 @@ async Task<List<IRecord>> RunQuery(Query query)
     }
 }
 
-IAsyncSession GetAsyncSession()
+IAsyncSession GetAsyncSession(IDriver driver)
 {
-    return GetNeo4JDriver().AsyncSession();
+    return driver.AsyncSession();
 }
 
 IDriver GetNeo4JDriver()
