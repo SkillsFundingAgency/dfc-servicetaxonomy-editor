@@ -7,23 +7,21 @@ using DFC.ServiceTaxonomy.JobProfiles.DataTransfer.Models.ServiceBus;
 using DFC.ServiceTaxonomy.JobProfiles.DataTransfer.ServiceBus;
 using DFC.ServiceTaxonomy.JobProfiles.DataTransfer.ServiceBus.Converters;
 using DFC.ServiceTaxonomy.JobProfiles.DataTransfer.ServiceBus.Interfaces;
-using Microsoft.Extensions.Configuration;
+
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 
 using OrchardCore.ContentManagement.Handlers;
 using OrchardCore.Data.Migration;
 using OrchardCore.Modules;
+using OrchardCore.Navigation;
+
 using YesSql.Indexes;
 
 namespace DFC.ServiceTaxonomy.JobProfiles.DataTransfer
 {
     public class Startup : StartupBase
     {
-        private readonly IConfiguration _configuration;
-
-        public Startup(IConfiguration configuration) =>
-            _configuration = configuration;
-
         public override void ConfigureServices(IServiceCollection services)
         {
             // CMS
@@ -40,6 +38,9 @@ namespace DFC.ServiceTaxonomy.JobProfiles.DataTransfer
             services.AddScoped<IDataEventProcessor, DataEventProcessor>();
             services.AddScoped<IServiceBusMessageProcessor, ServiceBusMessageProcessor>();
             services.AddScoped<IDataMigration, Migrations>();
+
+            services.AddScoped<INavigationProvider, AdminMenu>();
+            services.TryAddScoped<IReIndexService, ReIndexService>();
 
             // Index Providers
             services.AddSingleton<IIndexProvider, JobProfileIndexProvider>();

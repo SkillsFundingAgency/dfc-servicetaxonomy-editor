@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -7,7 +6,6 @@ using Azure;
 using Azure.Search.Documents;
 using Azure.Search.Documents.Indexes;
 using Azure.Search.Documents.Indexes.Models;
-using Azure.Search.Documents.Models;
 
 using DFC.ServiceTaxonomy.JobProfiles.DataTransfer.AzureSearch.Interfaces;
 using DFC.ServiceTaxonomy.JobProfiles.DataTransfer.Models.AzureSearch;
@@ -18,6 +16,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 
 using OrchardCore.ContentManagement.Handlers;
+
+using static DFC.ServiceTaxonomy.JobProfiles.DataTransfer.AzureSearch.SearchClientHelper;
 
 namespace DFC.ServiceTaxonomy.JobProfiles.DataTransfer.AzureSearch
 {
@@ -66,7 +66,8 @@ namespace DFC.ServiceTaxonomy.JobProfiles.DataTransfer.AzureSearch
                 }
                 else                 // The creation of the index can be done at application start up
                 {
-                    await CreateIndexAsync(jobProfileIndexName, indexClient);
+                    SearchIndex definition = GetSearchIndexDefinition(jobProfileIndexName);
+                    await indexClient.CreateIndexAsync(definition);
 
                     SearchClient searchClient = indexClient.GetSearchClient(jobProfileIndexName);
                     var documentUploadResponse = await UploadDocumentAsync(searchClient, jobProfileIndexDocument);
@@ -91,48 +92,6 @@ namespace DFC.ServiceTaxonomy.JobProfiles.DataTransfer.AzureSearch
 
             SearchIndexClient indexClient = new SearchIndexClient(new Uri(searchServiceEndPoint), new AzureKeyCredential(adminApiKey));
             return indexClient;
-        }
-
-        private static bool IsSuccessful(Response<IndexDocumentsResult> response) =>
-            response.Value.Results.All(r => r.Succeeded);
-
-        private static Task<Response<SearchIndex>> CreateIndexAsync(string indexName, SearchIndexClient indexClient)
-        {
-            FieldBuilder builder = new FieldBuilder();
-            var definition = new SearchIndex(indexName, builder.Build(typeof(JobProfileIndex)));
-            definition.Suggesters.Add(new SearchSuggester("sg", new[] {
-                nameof(JobProfileIndex.Title),
-                nameof(JobProfileIndex.AlternativeTitle)
-            }));
-            definition.ScoringProfiles.Add(new ScoringProfile("jp")
-            {
-                TextWeights = new TextWeights(
-                new Dictionary<string, double>{
-                  { nameof(JobProfileIndex.TitleAsKeyword), 100},
-                  { nameof(JobProfileIndex.AltTitleAsKeywords), 100 },
-                  { nameof(JobProfileIndex.Title), 7 },
-                  { nameof(JobProfileIndex.AlternativeTitle), 6 },
-                  { nameof(JobProfileIndex.Overview), 5 },
-                  { nameof(JobProfileIndex.JobProfileCategories), 4 },
-                  { nameof(JobProfileIndex.JobProfileSpecialism), 3 },
-                  { nameof(JobProfileIndex.HiddenAlternativeTitle), 3 }
-                })
-            });
-            return indexClient.CreateIndexAsync(definition);
-        }
-
-        private static Task<Response<IndexDocumentsResult>> UploadDocumentAsync(SearchClient searchClient, JobProfileIndex jobProfileIndexDocument)
-        {
-            IndexDocumentsBatch<JobProfileIndex> jobProfileIndexBatch = IndexDocumentsBatch.Create(IndexDocumentsAction.MergeOrUpload(jobProfileIndexDocument));
-            IndexDocumentsOptions options = new IndexDocumentsOptions { ThrowOnAnyError = true };
-            return searchClient.IndexDocumentsAsync(jobProfileIndexBatch, options);
-        }
-
-        private static Task<Response<IndexDocumentsResult>> DeleteDocumentAsync(SearchClient searchClient, JobProfileIndex jobProfileIndexDocument)
-        {
-            IndexDocumentsBatch<JobProfileIndex> jobProfileIndexBatch = IndexDocumentsBatch.Delete<JobProfileIndex>(new List<JobProfileIndex> { jobProfileIndexDocument });
-            IndexDocumentsOptions options = new IndexDocumentsOptions { ThrowOnAnyError = true };
-            return searchClient.IndexDocumentsAsync(jobProfileIndexBatch, options);
         }
     }
 }
