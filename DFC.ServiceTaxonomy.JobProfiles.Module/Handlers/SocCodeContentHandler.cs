@@ -57,7 +57,7 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module.Handlers
                 if (string.IsNullOrEmpty(socCode) || string.IsNullOrEmpty(onetCode))
                 {
                     context.Cancel = true;
-                    _notifier.Error(H["Skills information not found. Please check the SOC code and ONet Occupation code or get in touch with support."]);
+                    await _notifier.ErrorAsync(H["Skills information not found. Please check the SOC code and ONet Occupation code or get in touch with support."]);
                     return;
                 }
 
@@ -65,7 +65,7 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module.Handlers
                 if (!await _socCodeMappingRepository.UpdateMappingAsync(socCode, onetCode))
                 {
                     context.Cancel = true;
-                    _notifier.Error(H["Skills information not found. Please check the ONet Occupation code or get in touch with support."]);
+                    await _notifier.ErrorAsync(H["Skills information not found. Please check the ONet Occupation code or get in touch with support."]);
                     return;
                 }
 
@@ -129,7 +129,7 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module.Handlers
                     }
                 }
 
-                _notifier.Success(H[$"{skillCreatedCount} Skill content item{(skillCreatedCount != 1 ? "s" : string.Empty)} and {socSkillsMatrixCreatedCount} SOC Skills Matrix content item{(socSkillsMatrixCreatedCount != 1 ? "s" : string.Empty)} have been created and published."]);
+                await _notifier.SuccessAsync(H[$"{skillCreatedCount} Skill content item{(skillCreatedCount != 1 ? "s" : string.Empty)} and {socSkillsMatrixCreatedCount} SOC Skills Matrix content item{(socSkillsMatrixCreatedCount != 1 ? "s" : string.Empty)} have been created and published."]);
             }
         }
 
@@ -152,7 +152,7 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module.Handlers
                     await contentManager.RemoveAsync(socSkillsmatrix);
                     removeCount++;
                 }
-                _notifier.Success(H[$"{removeCount} SOC Skills Matrix content item{(removeCount != 1 ? "s have" : " has")} been removed."]);
+                await _notifier.SuccessAsync(H[$"{removeCount} SOC Skills Matrix content item{(removeCount != 1 ? "s have" : " has")} been removed."]);
             }
         }
 

@@ -64,7 +64,7 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Drivers
             var reviewPermission = part.ReviewType.GetRelatedPermission();
             if (part.ReviewStatus == ReviewStatus.InReview && (!context.Updater.ModelState.IsValid || !await _authorizationService.AuthorizeAsync(currentUser, reviewPermission)))
             {
-                _notifier.Warning(H["This content item is now under review and should not be modified."]);
+                await _notifier.WarningAsync(H["This content item is now under review and should not be modified."]);
             }
 
             var editorShape = GetEditorShapeType(context);
@@ -135,7 +135,7 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Drivers
                 {
                     part.ReviewStatus = ReviewStatus.ReadyForReview;
                     part.ReviewType = Enum.Parse<ReviewType>(saveType.Replace(Constants.SubmitRequestApprovalValuePrefix, ""));
-                    _notifier.Success(H["{0} is now ready to be reviewed.", part.ContentItem.DisplayText]);
+                    await _notifier.SuccessAsync(H["{0} is now ready to be reviewed.", part.ContentItem.DisplayText]);
                 }
                 else if (saveType.StartsWith(Constants.SubmitRequiresRevisionValue))
                 {
