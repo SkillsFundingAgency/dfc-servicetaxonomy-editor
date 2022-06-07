@@ -42,7 +42,7 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="TheAdmin" Version="1.0.0" />
+    <PackageReference Include="TheAdmin" Version="1.1.0" />
   </ItemGroup>
 
 </Project>
