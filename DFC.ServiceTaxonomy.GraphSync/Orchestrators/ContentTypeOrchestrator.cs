@@ -74,8 +74,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.Orchestrators
                 _logger.LogError(e, "Failed setting graph sync part defaults for {ContentType} content type.",
                     contentTypeName);
 
-                _notifier.Add(NotifyType.Error, new LocalizedHtmlString(nameof(GraphSyncContentDefinitionHandler),
-                    $"Failed setting graph sync part defaults for {contentTypeName} content type."));
+                _notifier.AddAsync(NotifyType.Error, new LocalizedHtmlString(nameof(GraphSyncContentDefinitionHandler),
+                    $"Failed setting graph sync part defaults for {contentTypeName} content type.")).ConfigureAwait(false);
 
                 throw;
             }
@@ -98,7 +98,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Orchestrators
             {
                 _logger.LogError(e, "Graph resync failed after deleting the {ContentType} content type.",
                     contentTypeName);
-                _notifier.Add(NotifyType.Error, new LocalizedHtmlString(nameof(GraphSyncContentDefinitionHandler),
+                await _notifier.AddAsync(NotifyType.Error, new LocalizedHtmlString(nameof(GraphSyncContentDefinitionHandler),
                     $"Graph resync failed after deleting the {contentTypeName} content type."));
                 throw;
             }
@@ -127,7 +127,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Orchestrators
                 //todo: do we need to cancel the session?
                 _logger.LogError(e, "Unable to update graphs following {ContentPart} part removal from {ContentType} type.",
                     contentPartName, contentTypeName);
-                _notifier.Add(NotifyType.Error, new LocalizedHtmlString(nameof(GraphSyncContentDefinitionHandler),
+                await _notifier.AddAsync(NotifyType.Error, new LocalizedHtmlString(nameof(GraphSyncContentDefinitionHandler),
                     $"Unable to update graphs following {contentPartName} part removal from {contentTypeName} type."));
                 throw;
             }
@@ -168,7 +168,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Orchestrators
             {
                 _logger.LogError(e, "Unable to update graphs following {ContentField} field removed from {ContentPart} part.",
                     contentFieldName, contentPartName);
-                _notifier.Add(NotifyType.Error, new LocalizedHtmlString(nameof(GraphSyncContentDefinitionHandler),
+                await _notifier.AddAsync(NotifyType.Error, new LocalizedHtmlString(nameof(GraphSyncContentDefinitionHandler),
                     $"Unable to update graphs following {contentFieldName} field removed from {contentPartName} part."));
                 throw;
             }
