@@ -25,7 +25,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
             if (contentItemFieldValue == null || contentItemFieldValue.Type == JTokenType.Null)
             {
                 bool bothNull = nodePropertyValue == null;
-                return (bothNull, bothNull ? string.Empty : "content property value was null, but node property value was not null");
+                return (bothNull, bothNull ? string.Empty : $"content property value was null, but node property value was not null (gvh - {nodePropertyName} - {nodePropertyValue})");
             }
 
             if (nodePropertyValue == null)
@@ -222,7 +222,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
             if (outgoingRelationship == null)
                 return (false, $"{RelationshipDescription(relationshipType, destinationIdPropertyName, destinationId)} not found");
 
-            if (properties != null && !AreEqual(properties, outgoingRelationship.Properties))
+            if (properties != null && !AreEqual(properties, outgoingRelationship.Properties.Where(pr => pr.Key != "contentType")))
                 return (false, $"{RelationshipDescription(relationshipType, destinationIdPropertyName, destinationId)} has incorrect properties. expecting {properties.ToCypherPropertiesString()}, found {outgoingRelationship.Properties.ToCypherPropertiesString()}");
 
             return (true, string.Empty);
