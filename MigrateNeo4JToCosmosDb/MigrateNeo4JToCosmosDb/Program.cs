@@ -23,6 +23,14 @@ var cosmosDbDatabaseName = Console.ReadLine()!.Trim();
 Console.WriteLine("Cosmos Db Container name: Please enter the Cosmos Db container name to write to (e.g. published)");
 var cosmosDbContainerName = Console.ReadLine()!.Trim();
 
+Console.WriteLine("Cosmos Db Connection mode: Please enter the Cosmos Db container name to write to (e.g. gateway or direct - defaults to gateway)");
+var cosmosDbConnectionMode = Console.ReadLine()!.Trim();
+
+if (!cosmosDbConnectionMode.Equals("gateway", StringComparison.InvariantCultureIgnoreCase))
+{
+    cosmosDbConnectionMode = "direct";
+}
+
 Console.WriteLine("Amount of parallelisation: The amount of saves can do at once (higher the better - but balance needed not to saturate). If container is 400RUs try 15, if 1000RUs try 35");
 var parallelisationAmountStr = Console.ReadLine()!.Trim();
 var parallelisationAmount = string.IsNullOrEmpty(parallelisationAmountStr) ? 15 : int.Parse(parallelisationAmountStr);
@@ -36,6 +44,7 @@ Console.WriteLine($"Neo4j password - {neo4JPassword}");
 Console.WriteLine($"Cosmos Db connection string - {cosmosConnectionString}");
 Console.WriteLine($"Cosmos Db database name - {cosmosDbDatabaseName}");
 Console.WriteLine($"Cosmos Db container name - {cosmosDbContainerName}");
+Console.WriteLine($"Cosmos Db connection mode - {cosmosDbConnectionMode}");
 Console.WriteLine($"Amount of parallelisation - {parallelisationAmount}");
 
 Console.WriteLine();
@@ -50,7 +59,15 @@ if (!y.Equals("y", StringComparison.InvariantCultureIgnoreCase))
     return;
 }
 
-var cosmosDb = new CosmosClient(cosmosConnectionString);
+var cosmosDb = new CosmosClient(cosmosConnectionString)
+{
+    ClientOptions =
+    {
+        ConnectionMode = cosmosDbConnectionMode == "direct" ? ConnectionMode.Direct : ConnectionMode.Gateway
+    }
+};
+
+var neo4JDriver = GraphDatabase.Driver(neo4JEndpoint,AuthTokens.Basic(neo4JUsername, neo4JPassword));
 
 var exclusions = new List<string>
 {
@@ -413,12 +430,7 @@ async Task<List<IRecord>> RunQuery(Query query)
 
 IAsyncSession GetAsyncSession()
 {
-    return GetNeo4JDriver().AsyncSession();
-}
-
-IDriver GetNeo4JDriver()
-{
-    return GraphDatabase.Driver(neo4JEndpoint,AuthTokens.Basic(neo4JUsername, neo4JPassword));
+    return neo4JDriver.AsyncSession();
 }
 
 List<Dictionary<string, object>> SafeCastToList(object value)
