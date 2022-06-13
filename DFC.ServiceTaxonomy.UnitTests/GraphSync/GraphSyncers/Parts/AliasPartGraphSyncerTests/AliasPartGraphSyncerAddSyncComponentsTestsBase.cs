@@ -24,7 +24,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Parts.AliasPartGr
 
             await CallAddSyncComponents();
 
-            IDictionary<string,object> expectedProperties = new Dictionary<string, object>
+            IDictionary<string, object?> expectedProperties = new Dictionary<string, object?>
                 {{NodeTitlePropertyName, alias}};
 
             Assert.Equal(expectedProperties, MergeNodeCommand.Properties);
@@ -37,7 +37,9 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Parts.AliasPartGr
 
             await CallAddSyncComponents();
 
-            IDictionary<string, object> expectedProperties = new Dictionary<string, object>();
+            IDictionary<string, object?> expectedProperties = new Dictionary<string, object?>
+                {{NodeTitlePropertyName, null}};
+
             Assert.Equal(expectedProperties, MergeNodeCommand.Properties);
         }
     }

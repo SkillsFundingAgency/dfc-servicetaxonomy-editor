@@ -27,7 +27,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Parts.SitemapPart
 
             await CallAddSyncComponents();
 
-            IDictionary<string,object> expectedProperties = new Dictionary<string, object>
+            IDictionary<string, object?> expectedProperties = new Dictionary<string, object?>
             {
                 {"sitemap_OverrideSitemapConfig", true},
                 {"sitemap_ChangeFrequency", "weekly"},

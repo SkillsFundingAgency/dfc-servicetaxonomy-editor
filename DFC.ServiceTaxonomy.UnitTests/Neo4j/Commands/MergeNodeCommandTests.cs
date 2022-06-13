@@ -16,7 +16,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.Neo4j.Commands
             {
                 IdPropertyName = $"{nameof(MergeNodeCommand.IdPropertyName)}",
                 NodeLabels = {"NodeLabel"},
-                Properties = new Dictionary<string, object>()
+                Properties = new Dictionary<string, object?>()
             };
         }
 

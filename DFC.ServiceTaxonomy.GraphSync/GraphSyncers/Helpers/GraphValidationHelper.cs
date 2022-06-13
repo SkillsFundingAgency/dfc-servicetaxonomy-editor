@@ -24,7 +24,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
             JValue? contentItemFieldValue = (JValue?)contentItemField?[contentKey];
             if (contentItemFieldValue == null || contentItemFieldValue.Type == JTokenType.Null)
             {
-                bool bothNull = nodePropertyValue == null;
+                bool bothNull = nodePropertyValue == null || (nodePropertyValue is JValue && ((JValue)nodePropertyValue).Type == JTokenType.Null);
                 return (bothNull, bothNull ? string.Empty : $"content property value was null, but node property value was not null (gvh - {nodePropertyName} - {nodePropertyValue})");
             }
 

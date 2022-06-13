@@ -35,7 +35,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Parts
 
             MergeNodeCommand = A.Fake<IMergeNodeCommand>();
             //todo: best way to do this?
-            MergeNodeCommand.Properties = new Dictionary<string, object>();
+            MergeNodeCommand.Properties = new Dictionary<string, object?>();
 
             ReplaceRelationshipsCommand = A.Fake<IReplaceRelationshipsCommand>();
 
