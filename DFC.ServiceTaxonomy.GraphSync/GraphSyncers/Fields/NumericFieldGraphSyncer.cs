@@ -45,7 +45,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
             if (contentItemFieldValue == null || contentItemFieldValue.Type == JTokenType.Null)
             {
                 bool bothNull = nodePropertyValue == null;
-                return (bothNull, "content property value was null, but node property value was not null");
+                return (bothNull, $"content property value was null, but node property value was not null (numeric - {nodePropertyName} - {nodePropertyValue})");
             }
 
             if (nodePropertyValue == null)

@@ -8,6 +8,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.Interfaces
 
         string? IdPropertyName { get; set; }
 
-        IDictionary<string, object> Properties { get; set; }
+        IDictionary<string, object?> Properties { get; set; }
     }
 }
