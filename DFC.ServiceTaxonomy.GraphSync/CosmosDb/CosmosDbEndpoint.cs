@@ -186,7 +186,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb
 
             if (identifier == null || !properties!.ContainsKey(identifier))
             {
-                throw new MissingFieldException("The identifier is missing - this is needed for graph sync");
+                throw new MissingFieldException("The identifier is missing - this is needed for data synchronisation");
             }
 
             var itemUri = (string)properties[identifier];
