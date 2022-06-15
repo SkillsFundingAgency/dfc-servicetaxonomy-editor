@@ -395,6 +395,38 @@
                     "TitlePart": {
                         "Title": "Self Control"
                     }
+                },
+                {
+                    "ContentItemId": "514dk1dktsywv0p59tzxhwtmde",
+                    "ContentItemVersionId": "3mc079zw963mq7afg6vdm3nbmw",
+                    "ContentType": "PersonalityFilteringQuestion",
+                    "DisplayText": "Persistence",
+                    "Latest": true,
+                    "Published": true,
+                    "ModifiedUtc": "2020-09-11T13:57:27.9313605Z",
+                    "PublishedUtc": "2020-09-11T13:57:27.9365264Z",
+                    "CreatedUtc": "2020-09-11T13:57:27.9313605Z",
+                    "Owner": "admin",
+                    "Author": "admin",
+                    "PersonalityFilteringQuestion": {
+                        "SOCSkillsMatrix": {
+                            "ContentItemIds": [
+                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"SOCSkillsMatrix\", \"2141C-Persistence\")\u00BB"
+                            ]
+                        },
+                        "Text": {
+                            "Text": "Are you able to carry on with a task even if it starts to get difficult?"
+                        },
+                        "Ordinal": {
+                            "Value": 12.0
+                        }
+                    },
+                    "GraphSyncPart": {
+                        "Text": "<<contentapiprefix>>/personalityfilteringquestion/94d29d0e-eed0-46f2-8625-7c1521a3c941"
+                    },
+                    "TitlePart": {
+                        "Title": "Persistence"
+                    }
                 }
             ]
         }
