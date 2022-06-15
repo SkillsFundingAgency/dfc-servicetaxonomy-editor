@@ -97,7 +97,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb.Queries.Models
         }
 
 
-        //todo: this belongs in a derived class in graph sync, with the current command in neo4j
         /// <summary>
         /// Creates the command with the id's set appropriately for the supplied contentItemVersions
         /// </summary>
