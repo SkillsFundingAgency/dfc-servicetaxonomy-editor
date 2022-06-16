@@ -143,7 +143,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
             INode sourceNode)
         {
             return ContentPropertyMatchesNodeProperty(contentKey, contentItemField, nodePropertyName, sourceNode,
-                (contentValue, nodeValue) => EqualsCheck<string>(contentValue, nodeValue, JTokenType.String));
+                (contentValue, nodeValue) => StringEqualsCheck(contentValue, nodeValue));
         }
 
         public (bool matched, string failureReason) BoolContentPropertyMatchesNodeProperty(
@@ -267,6 +267,30 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
             return first.Count() == second.Count() && !first.Except(second).Any();
         }
 
+        private bool StringEqualsCheck(JValue contentValue, object nodeValue)
+        {
+            var leftValue = contentValue.ToString();
+            string rightValue;
+
+            if (nodeValue is JValue jRightValue)
+            {
+                rightValue = jRightValue.ToString();
+            }
+            else
+            {
+                if (!(nodeValue is string castedNodeValue))
+                {
+                    return false;
+                }
+
+                rightValue = castedNodeValue;
+            }
+
+            SanitiseDecimalStringsForCompare(ref leftValue, ref rightValue);
+
+            return Equals(leftValue, rightValue);
+        }
+
         private bool EqualsCheck<T>(JValue contentValue, object nodeValue, JTokenType type)
         {
             T leftValue = contentValue.ToObject<T>();
@@ -287,6 +311,17 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
             }
 
             return Equals(leftValue, rightValue);
+        }
+
+        private void SanitiseDecimalStringsForCompare(ref string leftValue, ref string rightValue)
+        {
+            if(decimal.TryParse(leftValue, out var result))
+            {
+                leftValue = leftValue.TrimEnd('0');
+                rightValue = rightValue.TrimEnd('0');
+                leftValue = leftValue.EndsWith('.') ? leftValue.TrimEnd('.') : leftValue;
+                rightValue = rightValue.EndsWith('.') ? rightValue.TrimEnd('.') : rightValue;
+            }
         }
     }
 }

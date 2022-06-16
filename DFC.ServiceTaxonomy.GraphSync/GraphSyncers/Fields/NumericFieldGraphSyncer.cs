@@ -55,8 +55,16 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
 
             if (fieldSettings.Scale == 0)
             {
-                bool longsSame = nodePropertyValue is long nodePropertyValueInt
-                       && nodePropertyValueInt == (long)contentItemFieldValue;
+                bool longsSame;
+
+                if (!long.TryParse(nodePropertyValue.ToString(), out long nodePropertyValueLong))
+                {
+                    longsSame = false;
+                }
+                else
+                {
+                    longsSame = nodePropertyValueLong == (long)contentItemFieldValue;
+                }
                 return (longsSame, longsSame?"":$"long content property value was '{contentItemFieldValue}', but node property value was '{nodePropertyValue}'");
             }
 
