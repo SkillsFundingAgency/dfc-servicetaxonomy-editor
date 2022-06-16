@@ -93,8 +93,9 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
             INode sourceNode)
         {
             sourceNode.Properties.TryGetValue(nodePropertyName, out object? nodePropertyValue);
-
-            IEnumerable<string>? nodeStrings = (nodePropertyValue as IEnumerable<object>)?.Cast<string>();
+            IEnumerable<string>? nodeStrings = (nodePropertyValue as IEnumerable<object>)?
+                                                    .Select(no => no.ToString() ?? string.Empty)
+                                                    .Where(ns => !string.IsNullOrEmpty(ns));
 
             if (nodeStrings == null)
                 return (false, "expecting node property array of string");
