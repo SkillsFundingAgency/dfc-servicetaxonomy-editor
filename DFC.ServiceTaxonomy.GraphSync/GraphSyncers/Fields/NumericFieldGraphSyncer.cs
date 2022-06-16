@@ -71,8 +71,15 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
             // calculate allowable tolerance from scale setting
             double allowableDifference = 1d / Math.Pow(10d, fieldSettings.Scale + 2);
 
-            bool doublesSame = nodePropertyValue is double nodePropertyValueFloat
-                && Math.Abs(nodePropertyValueFloat - (double)contentItemFieldValue) <= allowableDifference;
+            bool doublesSame;
+            if (!double.TryParse(nodePropertyValue.ToString(), out double nodePropertyValueDouble))
+            {
+                doublesSame = false;
+            }
+            else
+            {
+                doublesSame = Math.Abs(nodePropertyValueDouble - (double)contentItemFieldValue) <= allowableDifference;
+            }
 
             return (doublesSame, doublesSame?"":$"double content property value was '{contentItemFieldValue}', but node property value was '{nodePropertyValue}' and allowable difference was {allowableDifference}");
         }
