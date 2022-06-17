@@ -277,8 +277,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb
                 .Select(relationship => relationship.Key)
                 .Distinct();
 
-
-            foreach (var itemToRemove in itemLinks.Where(link => !relationshipKeys.Contains(link.Key)))
+            foreach (var itemToRemove in itemLinks.Where(link => link.Key.StartsWith("cont:") && !relationshipKeys.Contains(link.Key)))
             {
                 itemLinks.Remove(itemToRemove.Key);
             }
