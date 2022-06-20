@@ -188,7 +188,14 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Items
                 Labels: ':{string.Join(",", sourceNode.Labels)}'
                 Properties:
                 {string.Join(Environment.NewLine, sourceNode.Properties
-                    .Select(p => $"{p.Key} = {(p.Value is IEnumerable<object> values ? string.Join(",", values.Select(v => v.ToString())) : p.Value)}"))}";
+                    .Select(ParseProperties))}";
+        }
+
+        private string ParseProperties(KeyValuePair<string, object> property)
+        {
+            var key = property.Key;
+            var propertyValue = property.Value.ToString();
+            return $"{key}: {propertyValue}";
         }
     }
 }
