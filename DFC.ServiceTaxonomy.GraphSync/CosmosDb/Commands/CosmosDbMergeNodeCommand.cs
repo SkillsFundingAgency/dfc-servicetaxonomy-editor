@@ -12,7 +12,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb.Commands
     {
         public HashSet<string> NodeLabels { get; set; } = new HashSet<string>();
         public string? IdPropertyName { get; set; }
-        public IDictionary<string, object> Properties { get; set; } = new Dictionary<string, object>();
+        public IDictionary<string, object?> Properties { get; set; } = new Dictionary<string, object?>();
 
         public virtual List<string> ValidationErrors()
         {

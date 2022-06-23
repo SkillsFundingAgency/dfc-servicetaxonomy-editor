@@ -11,24 +11,32 @@ namespace DFC.ServiceTaxonomy.JobProfiles.DataTransfer.Handlers
     {
         private readonly IAzureSearchDataProcessor _azureSearchDataProcessor;
 
-        public JobProfileAzureSearchIndexHandler(IAzureSearchDataProcessor azureSearchDataProcessor)
-        {
+        public JobProfileAzureSearchIndexHandler(IAzureSearchDataProcessor azureSearchDataProcessor) =>
             _azureSearchDataProcessor = azureSearchDataProcessor;
-        }
 
         public override async Task PublishedAsync(PublishContentContext context)
         {
-            if(context.ContentItem.ContentType == ContentTypes.JobProfile) await _azureSearchDataProcessor.ProcessContentContext(context, ActionTypes.Published);
+            // TODO: update azure search index for other content types
+            if (context.ContentItem.ContentType == ContentTypes.JobProfile)
+            {
+                await _azureSearchDataProcessor.ProcessContentContext(context, ActionTypes.Published);
+            }
         }
 
         public override async Task UnpublishedAsync(PublishContentContext context)
         {
-            if (context.ContentItem.ContentType == ContentTypes.JobProfile) await _azureSearchDataProcessor.ProcessContentContext(context, ActionTypes.Deleted);
+            if (context.ContentItem.ContentType == ContentTypes.JobProfile)
+            {
+                await _azureSearchDataProcessor.ProcessContentContext(context, ActionTypes.Deleted);
+            }
         }
 
         public override async Task RemovedAsync(RemoveContentContext context)
         {
-            if (context.ContentItem.ContentType == ContentTypes.JobProfile) await _azureSearchDataProcessor.ProcessContentContext(context, ActionTypes.Deleted);
+            if (context.ContentItem.ContentType == ContentTypes.JobProfile)
+            {
+                await _azureSearchDataProcessor.ProcessContentContext(context, ActionTypes.Deleted);
+            }
         }
 
     }

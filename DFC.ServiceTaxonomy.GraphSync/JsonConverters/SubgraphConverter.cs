@@ -104,11 +104,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.JsonConverters
                 });
             }
 
-            if (!nodes.Any() && !relationships.Any())
-            {
-                return null;
-            }
-
             return new Subgraph(
                 nodes
                     .GroupBy(node => node.Id)
@@ -166,3 +161,4 @@ namespace DFC.ServiceTaxonomy.GraphSync.JsonConverters
         public override void WriteJson(JsonWriter writer, object? value, JsonSerializer serializer) => throw new NotImplementedException();
     }
 }
+

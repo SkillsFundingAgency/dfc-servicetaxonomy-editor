@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using DFC.ServiceTaxonomy.GraphSync.CosmosDb;
 using DFC.ServiceTaxonomy.GraphSync.Interfaces;
 using Microsoft.Extensions.Logging;
 
@@ -7,7 +8,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Models
 {
     public class Graph : IGraph
     {
-        private readonly ILogger _logger;
+        private readonly ILogger<CosmosDbGraphClusterBuilder> _logger;
 
         public string GraphName { get; }
 
@@ -19,7 +20,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.Models
 
         public IEndpoint Endpoint { get; }
 
-        public Graph(IEndpoint endpoint, string graphName, bool defaultGraph, int instance, ILogger logger)
+        // ReSharper disable once ContextualLoggerProblem
+        public Graph(IEndpoint endpoint, string graphName, bool defaultGraph, int instance, ILogger<CosmosDbGraphClusterBuilder> logger)
         {
             _logger = logger;
             Endpoint = endpoint;
