@@ -32,6 +32,9 @@
                         },
                         "Text": {
                             "Text": "Would you be comfortable in a job where you would need to be sensitive to other people's needs and feelings?"
+                        },
+                        "Ordinal": {
+                            "Value": 2.0
                         }
                     },
                     "GraphSyncPart": {
@@ -60,7 +63,10 @@
                             ]
                         },
                         "Text": {
-                            "Text": "Can you work with your hands to do something fiddly like threading a needle?"
+                            "Text": "Are you able to do detailed, intricate work with your hands?"
+                        },
+                        "Ordinal": {
+                            "Value": 4.0
                         }
                     },
                     "GraphSyncPart": {
@@ -90,6 +96,9 @@
                         },
                         "Text": {
                             "Text": "Are you comfortable doing a variety of tasks in a job and open to things changing?"
+                        },
+                        "Ordinal": {
+                            "Value": 0.0
                         }
                     },
                     "GraphSyncPart": {
@@ -119,6 +128,9 @@
                         },
                         "Text": {
                             "Text": "Are you able to read well?"
+                        },
+                        "Ordinal": {
+                            "Value": 11.0
                         }
                     },
                     "GraphSyncPart": {
@@ -148,6 +160,9 @@
                         },
                         "Text": {
                             "Text": "Do you think you are good at staying calm under pressure?"
+                        },
+                        "Ordinal": {
+                            "Value": 9.0
                         }
                     },
                     "GraphSyncPart": {
@@ -177,6 +192,9 @@
                         },
                         "Text": {
                             "Text": "\t\r\nDo you think you are good at using words to describe ideas?"
+                        },
+                        "Ordinal": {
+                            "Value": 10.0
                         }
                     },
                     "GraphSyncPart": {
@@ -201,11 +219,14 @@
                     "PersonalityFilteringQuestion": {
                         "SOCSkillsMatrix": {
                             "ContentItemIds": [
-                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"SOCSkillsMatrix\", \"2434A-Independence, Initiative\")\u00BB"
+                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"SOCSkillsMatrix\", \"7215A-Initiative\")\u00BB"
                             ]
                         },
                         "Text": {
                             "Text": "Are you good at thinking of new ways to do something without being told?"
+                        },
+                        "Ordinal": {
+                            "Value": 5.0
                         }
                     },
                     "GraphSyncPart": {
@@ -235,6 +256,9 @@
                         },
                         "Text": {
                             "Text": "Are you comfortable working in a team with other people?"
+                        },
+                        "Ordinal": {
+                            "Value": 3.0
                         }
                     },
                     "GraphSyncPart": {
@@ -264,6 +288,9 @@
                         },
                         "Text": {
                             "Text": "Are you comfortable analysing information to solve problems?"
+                        },
+                        "Ordinal": {
+                            "Value": 1.0
                         }
                     },
                     "GraphSyncPart": {
@@ -293,6 +320,9 @@
                         },
                         "Text": {
                             "Text": "Are you comfortable talking through things with other people so that they understand?"
+                        },
+                        "Ordinal": {
+                            "Value": 8.0
                         }
                     },
                     "GraphSyncPart": {
@@ -322,6 +352,9 @@
                         },
                         "Text": {
                             "Text": "Are you confident solving maths problems using statistics, algebra and arithmetic?"
+                        },
+                        "Ordinal": {
+                            "Value": 6.0
                         }
                     },
                     "GraphSyncPart": {
@@ -351,6 +384,9 @@
                         },
                         "Text": {
                             "Text": "Are you able to control your emotions even in difficult situations?"
+                        },
+                        "Ordinal": {
+                            "Value": 7.0
                         }
                     },
                     "GraphSyncPart": {
@@ -358,6 +394,38 @@
                     },
                     "TitlePart": {
                         "Title": "Self Control"
+                    }
+                },
+                {
+                    "ContentItemId": "514dk1dktsywv0p59tzxhwtmde",
+                    "ContentItemVersionId": "3mc079zw963mq7afg6vdm3nbmw",
+                    "ContentType": "PersonalityFilteringQuestion",
+                    "DisplayText": "Persistence",
+                    "Latest": true,
+                    "Published": true,
+                    "ModifiedUtc": "2020-09-11T13:57:27.9313605Z",
+                    "PublishedUtc": "2020-09-11T13:57:27.9365264Z",
+                    "CreatedUtc": "2020-09-11T13:57:27.9313605Z",
+                    "Owner": "admin",
+                    "Author": "admin",
+                    "PersonalityFilteringQuestion": {
+                        "SOCSkillsMatrix": {
+                            "ContentItemIds": [
+                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"SOCSkillsMatrix\", \"2141C-Persistence\")\u00BB"
+                            ]
+                        },
+                        "Text": {
+                            "Text": "Are you able to carry on with a task even if it starts to get difficult?"
+                        },
+                        "Ordinal": {
+                            "Value": 12.0
+                        }
+                    },
+                    "GraphSyncPart": {
+                        "Text": "<<contentapiprefix>>/personalityfilteringquestion/94d29d0e-eed0-46f2-8625-7c1521a3c941"
+                    },
+                    "TitlePart": {
+                        "Title": "Persistence"
                     }
                 }
             ]

@@ -221,8 +221,8 @@
         "CosmosDbendpointspublishedContainerName":{
             "value": "__CosmosDbendpointspublishedContainerName__"
         },
-        "WEBSITE_MEMORY_LIMIT_MB":{
-            "value": "__WEBSITE_MEMORY_LIMIT_MB__"
+        "WEBSITEMEMORYLIMITMB":{
+            "value": "__WEBSITEMEMORYLIMITMB__"
         }
     }
 }

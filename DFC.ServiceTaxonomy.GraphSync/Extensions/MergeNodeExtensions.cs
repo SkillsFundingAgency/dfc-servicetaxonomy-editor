@@ -38,6 +38,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Extensions
             switch (jvalue.Type)
             {
                 case JTokenType.Null:
+                    mergeNodeCommand.Properties.Add(nodePropertyName, null);
                     return default;
                 case JTokenType.Date:
                     string utcdate = jvalue.ToString(Formatting.None).Trim('"');
@@ -45,14 +46,16 @@ namespace DFC.ServiceTaxonomy.GraphSync.Extensions
                         CultureInfo.InvariantCulture, DateTimeStyles.AdjustToUniversal);
 
                     value = (T)(object)utcTime;
+                    mergeNodeCommand.Properties.Add(nodePropertyName, value);
                     break;
                 default:
                     value = jvalue.Value<T>();
                     if (value == null)
                         throw new InvalidCastException($"Could not convert content property {jvalue} to type {typeof(T)}");
+                    mergeNodeCommand.Properties.Add(nodePropertyName, value);
                     break;
             }
-            mergeNodeCommand.Properties.Add(nodePropertyName, value);
+                        
             return value;
         }
 

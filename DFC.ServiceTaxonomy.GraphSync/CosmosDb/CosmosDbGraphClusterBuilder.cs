@@ -8,7 +8,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb
 {
     public class CosmosDbGraphClusterBuilder : ICosmosDbGraphClusterBuilder
     {
-        private readonly ILogger _logger;
+        private readonly ILogger<CosmosDbGraphClusterBuilder> _logger;
         private readonly ICosmosDbService _cosmosDbService;
 
         public CosmosDbGraphClusterBuilder(

@@ -230,12 +230,22 @@
                     "Settings": {},
                     "ContentPartFieldDefinitionRecords": [
                         {
+                            "FieldName": "TextField",
+                            "Name": "Description",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Description",
+                                    "Position": "0"
+                                }
+                            }
+                        },
+                        {
                             "FieldName": "ContentPickerField",
                             "Name": "Questions",
                             "Settings": {
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "Related questions",
-                                    "Position": "0"
+                                    "Position": "1"
                                 },
                                 "ContentPickerFieldSettings": {
                                     "Hint": "These are the questions that make up the question set. The order of the questions here represents the order the questions will appear in the assessment.",
@@ -277,12 +287,22 @@
                             "Name": "Text",
                             "Settings": {
                                 "ContentPartFieldSettings": {
-                                    "DisplayName": "Text",
+                                    "DisplayName": "Question Text",
                                     "Editor": "TextArea",
                                     "Position": "1"
                                 },
                                 "TextFieldSettings": {},
                                 "ContentIndexSettings": {}
+                            }
+                        },
+                        {
+                            "FieldName": "NumericField",
+                            "Name": "Ordinal",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Ordinal",
+                                    "Position": "2"
+                                }
                             }
                         }
                     ]
@@ -344,12 +364,22 @@
                     "Settings": {},
                     "ContentPartFieldDefinitionRecords": [
                         {
+                            "FieldName": "TextField",
+                            "Name": "Description",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Description",
+                                    "Position": "0"
+                                }
+                            }
+                        },
+                        {
                             "FieldName": "ContentPickerField",
                             "Name": "Trait",
                             "Settings": {
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "Related Trait",
-                                    "Position": "0"
+                                    "Position": "1"
                                 },
                                 "ContentPickerFieldSettings": {
                                     "Hint": "This field creates an association from the question to the trait that the question contributes to in the assessment.",
@@ -368,7 +398,7 @@
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "Impact",
                                     "Editor": "PredefinedList",
-                                    "Position": "1"
+                                    "Position": "2"
                                 },
                                 "TextFieldSettings": {
                                     "Hint": "Shows whether this question contributes positively/negatively to the total for a trait."

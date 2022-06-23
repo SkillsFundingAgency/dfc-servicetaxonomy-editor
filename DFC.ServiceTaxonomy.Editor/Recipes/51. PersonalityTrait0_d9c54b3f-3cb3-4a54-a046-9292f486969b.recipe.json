@@ -60,7 +60,8 @@
         "ContentItemIds": [
           "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022JobProfileCategory\u0022, \u0022Sports and leisure\u0022)\u00BB",
           "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022JobProfileCategory\u0022, \u0022Creative and media\u0022)\u00BB",
-          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022JobProfileCategory\u0022, \u0022Construction and trades\u0022)\u00BB"
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022JobProfileCategory\u0022, \u0022Construction and trades\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022JobProfileCategory\u0022, \u0022Computing, technology and digital\u0022)\u00BB"
         ]
       }
     },
@@ -135,7 +136,8 @@
           "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022JobProfileCategory\u0022, \u0022Sports and leisure\u0022)\u00BB",
           "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022JobProfileCategory\u0022, \u0022Creative and media\u0022)\u00BB",
           "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022JobProfileCategory\u0022, \u0022Science and research\u0022)\u00BB",
-          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022JobProfileCategory\u0022, \u0022Construction and trades\u0022)\u00BB"
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022JobProfileCategory\u0022, \u0022Construction and trades\u0022)\u00BB",
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022JobProfileCategory\u0022, \u0022Computing, technology and digital\u0022)\u00BB"
         ]
       }
     },

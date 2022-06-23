@@ -24,8 +24,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
             JValue? contentItemFieldValue = (JValue?)contentItemField?[contentKey];
             if (contentItemFieldValue == null || contentItemFieldValue.Type == JTokenType.Null)
             {
-                bool bothNull = nodePropertyValue == null;
-                return (bothNull, bothNull ? string.Empty : "content property value was null, but node property value was not null");
+                bool bothNull = nodePropertyValue == null || (nodePropertyValue is JValue && ((JValue)nodePropertyValue).Type == JTokenType.Null);
+                return (bothNull, bothNull ? string.Empty : $"content property value was null, but node property value was not null (gvh - {nodePropertyName} - {nodePropertyValue})");
             }
 
             if (nodePropertyValue == null)
@@ -93,8 +93,9 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
             INode sourceNode)
         {
             sourceNode.Properties.TryGetValue(nodePropertyName, out object? nodePropertyValue);
-
-            IEnumerable<string>? nodeStrings = (nodePropertyValue as IEnumerable<object>)?.Cast<string>();
+            IEnumerable<string>? nodeStrings = (nodePropertyValue as IEnumerable<object>)?
+                                                    .Select(no => no.ToString() ?? string.Empty)
+                                                    .Where(ns => !string.IsNullOrEmpty(ns));
 
             if (nodeStrings == null)
                 return (false, "expecting node property array of string");
@@ -142,7 +143,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
             INode sourceNode)
         {
             return ContentPropertyMatchesNodeProperty(contentKey, contentItemField, nodePropertyName, sourceNode,
-                (contentValue, nodeValue) => EqualsCheck<string>(contentValue, nodeValue, JTokenType.String));
+                (contentValue, nodeValue) => StringEqualsCheck(contentValue, nodeValue));
         }
 
         public (bool matched, string failureReason) BoolContentPropertyMatchesNodeProperty(
@@ -222,7 +223,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
             if (outgoingRelationship == null)
                 return (false, $"{RelationshipDescription(relationshipType, destinationIdPropertyName, destinationId)} not found");
 
-            if (properties != null && !AreEqual(properties, outgoingRelationship.Properties))
+            if (properties != null && !AreEqual(properties, outgoingRelationship.Properties.Where(pr => pr.Key != "contentType")))
                 return (false, $"{RelationshipDescription(relationshipType, destinationIdPropertyName, destinationId)} has incorrect properties. expecting {properties.ToCypherPropertiesString()}, found {outgoingRelationship.Properties.ToCypherPropertiesString()}");
 
             return (true, string.Empty);
@@ -266,6 +267,30 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
             return first.Count() == second.Count() && !first.Except(second).Any();
         }
 
+        private bool StringEqualsCheck(JValue contentValue, object nodeValue)
+        {
+            var leftValue = contentValue.ToString();
+            string rightValue;
+
+            if (nodeValue is JValue jRightValue)
+            {
+                rightValue = jRightValue.ToString();
+            }
+            else
+            {
+                if (!(nodeValue is string castedNodeValue))
+                {
+                    return false;
+                }
+
+                rightValue = castedNodeValue;
+            }
+
+            SanitiseDecimalStringsForCompare(ref leftValue, ref rightValue);
+
+            return Equals(leftValue, rightValue);
+        }
+
         private bool EqualsCheck<T>(JValue contentValue, object nodeValue, JTokenType type)
         {
             T leftValue = contentValue.ToObject<T>();
@@ -286,6 +311,17 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
             }
 
             return Equals(leftValue, rightValue);
+        }
+
+        private void SanitiseDecimalStringsForCompare(ref string leftValue, ref string rightValue)
+        {
+            if(decimal.TryParse(leftValue, out var result))
+            {
+                leftValue = leftValue.TrimEnd('0');
+                rightValue = rightValue.TrimEnd('0');
+                leftValue = leftValue.EndsWith('.') ? leftValue.TrimEnd('.') : leftValue;
+                rightValue = rightValue.EndsWith('.') ? rightValue.TrimEnd('.') : rightValue;
+            }
         }
     }
 }
