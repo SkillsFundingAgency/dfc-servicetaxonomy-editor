@@ -34,7 +34,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Fields.NumericFie
 
             await CallAddSyncComponents();
 
-            IDictionary<string,object> expectedProperties = new Dictionary<string, object>
+            IDictionary<string, object?> expectedProperties = new Dictionary<string, object?>
                 {{_fieldName, expectedValue}};
 
             Assert.Equal(expectedProperties, MergeNodeCommand.Properties);
@@ -52,7 +52,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Fields.NumericFie
 
             await CallAddSyncComponents();
 
-            IDictionary<string,object> expectedProperties = new Dictionary<string, object>
+            IDictionary<string, object?> expectedProperties = new Dictionary<string, object?>
                 {{_fieldName, expectedValue}};
 
             Assert.Equal(expectedProperties, MergeNodeCommand.Properties);
@@ -65,7 +65,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Fields.NumericFie
 
             await CallAddSyncComponents();
 
-            IDictionary<string, object> expectedProperties = new Dictionary<string, object>();
+            IDictionary<string, object?> expectedProperties = new Dictionary<string, object?>();
             Assert.Equal(expectedProperties, MergeNodeCommand.Properties);
         }
 

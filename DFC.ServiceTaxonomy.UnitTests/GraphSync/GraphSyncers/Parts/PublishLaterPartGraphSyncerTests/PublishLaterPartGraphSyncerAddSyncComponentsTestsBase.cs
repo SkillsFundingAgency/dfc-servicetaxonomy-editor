@@ -27,7 +27,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Parts.HtmlBodyPar
 
             await CallAddSyncComponents();
 
-            IDictionary<string, object> expectedProperties = new Dictionary<string, object>
+            IDictionary<string, object?> expectedProperties = new Dictionary<string, object?>
                 {{"publishlater_ScheduledPublishUtc", expectedDateUtc}};
 
             Assert.Equal(expectedProperties, MergeNodeCommand.Properties);
@@ -42,7 +42,9 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Parts.HtmlBodyPar
 
             await CallAddSyncComponents();
 
-            IDictionary<string, object> expectedProperties = new Dictionary<string, object>();
+
+            IDictionary<string, object?> expectedProperties = new Dictionary<string, object?>
+                {{"publishlater_ScheduledPublishUtc", null}};
             Assert.Equal(expectedProperties, MergeNodeCommand.Properties);
         }
     }

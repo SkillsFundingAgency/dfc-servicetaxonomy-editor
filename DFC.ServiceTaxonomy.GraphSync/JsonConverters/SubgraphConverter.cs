@@ -104,11 +104,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.JsonConverters
                 });
             }
 
-            if (!nodes.Any() && !relationships.Any())
-            {
-                return null;
-            }
-
             return new Subgraph(
                 nodes
                     .GroupBy(node => node.Id)

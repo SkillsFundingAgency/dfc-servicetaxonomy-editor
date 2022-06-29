@@ -120,7 +120,7 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module.Handlers
                         graphSyncPart.Apply();
                         // Fields
                         socSkillsMatrix.Content.SOCSkillsMatrix.ONetAttributeType.Text = onetSkill.Category.ToString();
-                        socSkillsMatrix.Content.SOCSkillsMatrix.ONetRank.Text = onetSkill.Score;
+                        socSkillsMatrix.Content.SOCSkillsMatrix.ONetRank.Text = onetSkill.Score.ToString();
                         socSkillsMatrix.Content.SOCSkillsMatrix.RelatedSkill.Text = skill.DisplayText;
                         socSkillsMatrix.Content.SOCSkillsMatrix.RelatedSOCcode.Text = socCode;
 

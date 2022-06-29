@@ -186,7 +186,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb
 
             if (identifier == null || !properties!.ContainsKey(identifier))
             {
-                throw new MissingFieldException("The identifier is missing - this is needed for graph sync");
+                throw new MissingFieldException("The identifier is missing - this is needed for data synchronisation");
             }
 
             var itemUri = (string)properties[identifier];
@@ -276,6 +276,11 @@ namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb
             var relationshipKeys = relationships
                 .Select(relationship => relationship.Key)
                 .Distinct();
+
+            foreach (var itemToRemove in itemLinks.Where(link => link.Key.StartsWith("cont:") && !relationshipKeys.Contains(link.Key)))
+            {
+                itemLinks.Remove(itemToRemove.Key);
+            }
 
             foreach (var relationshipKey in relationshipKeys)
             {

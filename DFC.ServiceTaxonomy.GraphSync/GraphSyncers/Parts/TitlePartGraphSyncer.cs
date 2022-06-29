@@ -24,11 +24,13 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
         //todo: configurable??
         public const string NodeTitlePropertyName = "skos__prefLabel";
 
+        public const string UniqueTitlePartNodeLabel = "uniquetitle_Title";
+
         public override Task AddSyncComponents(JObject content, IGraphMergeContext context)
         {
             string? title = context.MergeNodeCommand.AddProperty<string>(NodeTitlePropertyName, content, _contentTitlePropertyName);
             if (title == null)
-                context.MergeNodeCommand.Properties.Add(NodeTitlePropertyName, context.ContentItem.DisplayText);
+                context.MergeNodeCommand.Properties[NodeTitlePropertyName] = context.ContentItem.DisplayText;
 
             return Task.CompletedTask;
         }
@@ -37,6 +39,11 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
             JObject content,
             IValidateAndRepairContext context)
         {
+            var sourceNode = context.NodeWithRelationships.SourceNode!;
+            if (content[_contentTitlePropertyName]?.Type == JTokenType.Null && sourceNode.Properties.ContainsKey(UniqueTitlePartNodeLabel))
+            {
+                return Task.FromResult((true, string.Empty));
+            }
             return Task.FromResult(context.GraphValidationHelper.StringContentPropertyMatchesNodeProperty(
                 _contentTitlePropertyName,
                 content,
