@@ -73,9 +73,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.Orchestrators
             {
                 _logger.LogError(e, "Failed setting data synchronisation defaults for {ContentType} content type.",
                     contentTypeName);
-
                 _notifier.AddAsync(NotifyType.Error, new LocalizedHtmlString(nameof(GraphSyncContentDefinitionHandler),
-                    $"Failed setting data synchronisation defaults for {contentTypeName} content type.")).ConfigureAwait(false);
+                    $"Failed setting data synchronisation defaults for {contentTypeName} content type.")).GetAwaiter().GetResult();
 
                 throw;
             }
