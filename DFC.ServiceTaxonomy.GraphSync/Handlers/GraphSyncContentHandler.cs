@@ -182,16 +182,23 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers
                 // as there might have been an 'unexpected' exception thrown
                 _logger.LogError(ex, "Exception removing (deleting or discarding draft).");
                 Cancel(context);
+                
             }
         }
 
 #pragma warning disable S1172
+
+        private const string JobProfile = nameof(JobProfile);
 
         // some derived contexts don't have a Cancel flag,
         // so we handle them at the base context level by cancelling the session
         private void Cancel(ContentContextBase context)
         {
             _session.CancelAsync().Wait();
+            if(context.ContentItem.ContentType == JobProfile)
+            {
+                _httpContextAccessor.HttpContext.Items.Add(context.ContentItem.ContentItemId, context.GetType().Name);
+            }
         }
 
 #pragma warning restore S1172
