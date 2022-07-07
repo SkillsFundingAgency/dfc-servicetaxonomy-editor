@@ -7,6 +7,12 @@
         public const string Draft = nameof(Draft);
     }
 
+    public static class ContextTypes
+    {
+        public const string SaveDraftContentContext = nameof(SaveDraftContentContext);  
+        public const string RemoveContentContext = nameof(RemoveContentContext);  
+    }
+
     public static class ContentTypes
     {
         public const string JobProfile = nameof(JobProfile);
@@ -39,6 +45,5 @@
         public const string CollegeEntryRequirements = nameof(CollegeEntryRequirements);
         public const string ApprenticeshipRequirements = nameof(ApprenticeshipRequirements);
         public const string ApprenticeshipEntryRequirements = nameof(ApprenticeshipEntryRequirements);
-
     }
 }
