@@ -113,7 +113,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb.GraphSyncers
 
                 foreach (IGraph graph in graphReplicaSetLowLevel.GraphInstances)
                 {
-                    ValidateAndRepairResult result = results.AddNewValidateAndRepairResult(
+                    var result = results.AddNewValidateAndRepairResult(
                         graphReplicaSetName,
                         graph.Instance,
                         graph.Endpoint.Name,
@@ -124,29 +124,29 @@ namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb.GraphSyncers
                     // seems a little messy, and will make concurrent validation a pita,
                     // but stops part/field syncers needing low level graph access
                     _currentGraph = graph;
-
+                    
                     foreach (ContentTypeDefinition contentTypeDefinition in syncableContentTypeDefinitions)
                     {
-                        List<ValidationFailure> syncFailures = await ValidateContentItemsOfContentType(
+                        _ = await ValidateContentItemsOfContentType(
                             contentItemVersion,
                             contentTypeDefinition,
                             validateFrom,
                             result,
                             validationScope);
 
-                        if (syncFailures.Any())
-                        {
-                            await AttemptRepair(syncFailures, contentTypeDefinition, contentItemVersion, result);
-                        }
+                        //if (syncFailures.Any())
+                        //{
+                        //    await AttemptRepair(syncFailures, contentTypeDefinition, contentItemVersion, result);
+                        //}
                     }
                 }
             }
 
-            if (results.AnyRepairFailures)
-                return results;
+            //if (results.AnyRepairFailures)
+            //    return results;
 
-            _logger.LogInformation("Woohoo: graph passed validation or was successfully repaired at {Time}.",
-                timestamp.ToString("O"));
+            //_logger.LogInformation("Woohoo: graph passed validation or was successfully repaired at {Time}.",
+            //    timestamp.ToString("O"));
 
             _session.Save(new AuditSyncLog(timestamp));
             await _session.CurrentTransaction.CommitAsync();

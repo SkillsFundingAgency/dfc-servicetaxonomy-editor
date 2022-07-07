@@ -224,6 +224,8 @@ namespace DFC.ServiceTaxonomy.GraphSync
             // permissions
             services.AddScoped<IPermissionProvider, Permissions>();
 
+            // This is being removed but left in code if needed in the future
+            // Whilst needed for Neo4j, an alternative approach of validating and correcting for Cosmos DB is safer 
             // navigation
             services.AddScoped<INavigationProvider, AdminMenu>();
 
