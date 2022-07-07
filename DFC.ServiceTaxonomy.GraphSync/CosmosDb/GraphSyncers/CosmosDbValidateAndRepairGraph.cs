@@ -133,7 +133,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb.GraphSyncers
                             validateFrom,
                             result,
                             validationScope);
-
+                        // Removing the repair aspect but leaving in code in case needed in future
                         //if (syncFailures.Any())
                         //{
                         //    await AttemptRepair(syncFailures, contentTypeDefinition, contentItemVersion, result);
@@ -141,7 +141,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb.GraphSyncers
                     }
                 }
             }
-
+            // Removing as the repair aspect not run but leaving in code in case needed in future
             //if (results.AnyRepairFailures)
             //    return results;
 
