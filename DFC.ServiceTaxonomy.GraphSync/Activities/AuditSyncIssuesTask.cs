@@ -43,11 +43,14 @@ namespace DFC.ServiceTaxonomy.GraphSync.Activities
 #pragma warning restore S3220 // Method calls should not resolve ambiguously to overloads with "params"
         }
 
+#pragma warning disable CS1998 // Async method lacks 'await' operators and will run synchronously
         public override async Task<ActivityExecutionResult> ExecuteAsync(WorkflowExecutionContext workflowContext, ActivityContext activityContext)
+#pragma warning restore CS1998 // Async method lacks 'await' operators and will run synchronously
         {
             _logger.LogInformation($"{nameof(AuditSyncIssuesTask)} triggered.");
 
-            await _validateAndRepairGraph.ValidateGraph(Scope);
+            // Commented out to prevent from running but left in code in case needed later
+            //await _validateAndRepairGraph.ValidateGraph(Scope);
 
             return Outcomes("Done");
         }
