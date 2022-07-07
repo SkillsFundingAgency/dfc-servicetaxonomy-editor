@@ -103,7 +103,7 @@ namespace DFC.ServiceTaxonomy.JobProfiles.DataTransfer.ServiceBus
                 : new JobProfileMessage()
                 {
                     JobProfileId = context.ContentItem.As<GraphSyncPart>().ExtractGuid(),
-                    Title = context.ContentItem.Content.Title
+                    Title = context.ContentItem.Content.TitlePart.Title
                 };
 
             await _serviceBusMessageProcessor.SendJobProfileMessage(jobprofileMessage, context.ContentItem.ContentType, actionType);
