@@ -61,7 +61,6 @@ using OrchardCore.ContentTypes.Events;
 using OrchardCore.Data.Migration;
 using OrchardCore.DisplayManagement.Notify;
 using OrchardCore.Modules;
-using OrchardCore.Navigation;
 using OrchardCore.Recipes;
 using OrchardCore.Security.Permissions;
 using OrchardCore.Workflows.Helpers;
@@ -227,7 +226,7 @@ namespace DFC.ServiceTaxonomy.GraphSync
             // This is being removed but left in code if needed in the future
             // Whilst needed for Neo4j, an alternative approach of validating and correcting for Cosmos DB is safer 
             // navigation
-            services.AddScoped<INavigationProvider, AdminMenu>();
+            //services.AddScoped<INavigationProvider, AdminMenu>();
 
             //slack message publishing
             services.AddSlackMessagePublishing(_configuration, true);
