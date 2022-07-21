@@ -1,0 +1,118 @@
+{
+    "name": "00_Pages_JP_Feedback",
+    "displayName": "00_Pages_JP_Feedback",
+    "description": "",
+    "author": "",
+    "website": "",
+    "version": "",
+    "issetuprecipe": false,
+    "categories": [],
+    "tags": [],
+    "steps": [
+        {
+            "name": "Content",
+            "data": [
+                {
+                    "ContentItemId": "46s5y8gpq34fyxj1a9cnknyz5f",
+                    "ContentItemVersionId": "4cb4mhrgh1zm31z946ct8ypzxp",
+                    "ContentType": "Page",
+                    "DisplayText": "Job Profile Feedback",
+                    "Latest": true,
+                    "Published": true,
+                    "ModifiedUtc": "2022-07-18T16:45:07.8890909Z",
+                    "PublishedUtc": "2022-07-18T16:45:09.5100225Z",
+                    "CreatedUtc": "2022-07-18T16:23:06.7223561Z",
+                    "Owner": "4w147z043mc4a6dj4zqafa3pwy",
+                    "Author": "admin",
+                    "TitlePart": {
+                        "Title": "Job Profile Feedback"
+                    },
+                    "Page": {
+                        "PageLocations": {
+                            "TaxonomyContentItemId": "4eembshqzx66drajtdten34tc8",
+                            "TermContentItemIds": [
+                                "4bj8dac5hskh76gp82ncd1hkx7"
+                            ]
+                        },
+                        "Description": {
+                            "Text": null
+                        },
+                        "Herobanner": {
+                            "Html": "<p><br></p>"
+                        },
+                        "ShowHeroBanner": {
+                            "Value": false
+                        },
+                        "ShowBreadcrumb": {
+                            "Value": true
+                        },
+                        "UseBrowserWidth": {
+                            "Value": false
+                        },
+                        "TriageToolSummary": {
+                            "Html": ""
+                        },
+                        "UseInTriageTool": {
+                            "Value": false
+                        },
+                        "TriageToolFilters": {
+                            "ContentItemIds": []
+                        }
+                    },
+                    "SitemapPart": {
+                        "OverrideSitemapConfig": false,
+                        "ChangeFrequency": 0,
+                        "Priority": 5,
+                        "Exclude": false
+                    },
+                    "FlowPart": {
+                        "Widgets": [
+                            {
+                                "ContentItemId": "4xe86h4ty2xehvk17ap8f21znt",
+                                "ContentItemVersionId": null,
+                                "ContentType": "HTML",
+                                "DisplayText": null,
+                                "Latest": false,
+                                "Published": false,
+                                "ModifiedUtc": "2022-07-18T16:45:08.0338644Z",
+                                "PublishedUtc": null,
+                                "CreatedUtc": null,
+                                "Owner": null,
+                                "Author": "Ravi",
+                                "HTML": {},
+                                "HtmlBodyPart": {
+                                    "Html": "<h2 class=\"headig-small\">Thanks</h2>\n<p>Your feedback will help us improve our service.</p>\n<p><a class=\"button\" id=\"job-profile-feedback-survey-finish\" href=\"/\">Continue exploring careers</a></p>"
+                                },
+                                "GraphSyncPart": {
+                                    "Text": "<<contentapiprefix>>/html/876ed568-dd9c-4c67-b3d5-8980a08b1e07"
+                                },
+                                "FlowMetadata": {
+                                    "Alignment": 3,
+                                    "Size": 100
+                                }
+                            }
+                        ]
+                    },
+                    "GraphSyncPart": {
+                        "Text": "<<contentapiprefix>>/page/58acc2a9-534f-42fe-9e09-3efcfb260c0d"
+                    },
+                    "PageLocationPart": {
+                        "UrlName": "jp-feedback-thankyou",
+                        "DefaultPageForLocation": false,
+                        "RedirectLocations": "/jp-feedback-thankyou",
+                        "FullUrl": "/explore-careers/jp-feedback-thankyou"
+                    },
+                    "ContentApprovalPart": {
+                        "ReviewStatus": 0,
+                        "ReviewType": 0,
+                        "IsForcePublished": false
+                    },
+                    "AuditTrailPart": {
+                        "Comment": ".",
+                        "ShowComment": false
+                    }
+                }
+            ]
+        }
+    ]
+}
