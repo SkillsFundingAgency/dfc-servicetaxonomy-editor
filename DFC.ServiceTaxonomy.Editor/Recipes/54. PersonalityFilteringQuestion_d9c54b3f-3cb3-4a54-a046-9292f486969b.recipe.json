@@ -427,6 +427,38 @@
                     "TitlePart": {
                         "Title": "Persistence"
                     }
+                },
+                {
+                    "ContentItemId": "924dk1dktsywv0p59tzxhwtmdz",
+                    "ContentItemVersionId": "4mc079zw963mq7afg6vdm3nbmw",
+                    "ContentType": "PersonalityFilteringQuestion",
+                    "DisplayText": "Control Movement Abilities",
+                    "Latest": true,
+                    "Published": true,
+                    "ModifiedUtc": "2020-09-11T13:57:27.9313605Z",
+                    "PublishedUtc": "2020-09-11T13:57:27.9365264Z",
+                    "CreatedUtc": "2020-09-11T13:57:27.9313605Z",
+                    "Owner": "admin",
+                    "Author": "admin",
+                    "PersonalityFilteringQuestion": {
+                        "SOCSkillsMatrix": {
+                            "ContentItemIds": [
+                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"SOCSkillsMatrix\", \"5312A-Control Movement Abilities\")\u00BB"
+                            ]
+                        },
+                        "Text": {
+                            "Text": "Do you have good balance and co-ordination when doing things?"
+                        },
+                        "Ordinal": {
+                            "Value": 13.0
+                        }
+                    },
+                    "GraphSyncPart": {
+                        "Text": "<<contentapiprefix>>/personalityfilteringquestion/a1d29d0e-eed0-46f2-8625-7c1521a3c911"
+                    },
+                    "TitlePart": {
+                        "Title": "Control Movement Abilities"
+                    }
                 }
             ]
         }
