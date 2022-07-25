@@ -459,6 +459,2043 @@
                     "TitlePart": {
                         "Title": "Control Movement Abilities"
                     }
+                },
+                {
+                    "ContentItemId": "14ek1dktsywv0p59tzxhwtmdz",
+                    "ContentItemVersionId": "14c179zw963mq7afg6vdm3nbmw",
+                    "ContentType": "PersonalityFilteringQuestion",
+                    "DisplayText": "Achievement Orientation",
+                    "Latest": true,
+                    "Published": true,
+                    "ModifiedUtc": "2020-09-11T13:57:27.9313605Z",
+                    "PublishedUtc": "2020-09-11T13:57:27.9365264Z",
+                    "CreatedUtc": "2020-09-11T13:57:27.9313605Z",
+                    "Owner": "admin",
+                    "Author": "admin",
+                    "PersonalityFilteringQuestion": {
+                        "SOCSkillsMatrix": {
+                            "ContentItemIds": [
+                            ]
+                        },        "Text": {
+                            "Text": "Do you enjoy taking on more responsibility for things at work?"
+                        },
+                        "Ordinal": {
+                            "Value": 14.0
+                        }
+                    },    "GraphSyncPart": {
+                    "Text": "<<contentapiprefix>>/personalityfilteringquestion/14b29d0e-eed0-46f2-8625-7c1521a3c911"
+                },
+                    "TitlePart": {
+                        "Title": "Achievement Orientation"
+                    }
+                },{
+                    "ContentItemId": "15ek1dktsywv0p59tzxhwtmdz",
+                    "ContentItemVersionId": "15c179zw963mq7afg6vdm3nbmw",
+                    "ContentType": "PersonalityFilteringQuestion",
+                    "DisplayText": "Achievement Orientation, Achievement/Effort",
+                    "Latest": true,
+                    "Published": true,
+                    "ModifiedUtc": "2020-09-11T13:57:27.9313605Z",
+                    "PublishedUtc": "2020-09-11T13:57:27.9365264Z",
+                    "CreatedUtc": "2020-09-11T13:57:27.9313605Z",
+                    "Owner": "admin",
+                    "Author": "admin",
+                    "PersonalityFilteringQuestion": {
+                        "SOCSkillsMatrix": {
+                            "ContentItemIds": [
+                            ]
+                        },        "Text": {
+                            "Text": "Do you like to put in a lot of effort so that you get much better at doing things?"
+                        },
+                        "Ordinal": {
+                            "Value": 15.0
+                        }
+                    },    "GraphSyncPart": {
+                        "Text": "<<contentapiprefix>>/personalityfilteringquestion/15b29d0e-eed0-46f2-8625-7c1521a3c911"
+                    },
+                    "TitlePart": {
+                        "Title": "Achievement Orientation, Achievement/Effort"
+                    }
+                },{
+                    "ContentItemId": "16ek1dktsywv0p59tzxhwtmdz",
+                    "ContentItemVersionId": "16c179zw963mq7afg6vdm3nbmw",
+                    "ContentType": "PersonalityFilteringQuestion",
+                    "DisplayText": "Achievement/Effort",
+                    "Latest": true,
+                    "Published": true,
+                    "ModifiedUtc": "2020-09-11T13:57:27.9313605Z",
+                    "PublishedUtc": "2020-09-11T13:57:27.9365264Z",
+                    "CreatedUtc": "2020-09-11T13:57:27.9313605Z",
+                    "Owner": "admin",
+                    "Author": "admin",
+                    "PersonalityFilteringQuestion": {
+                        "SOCSkillsMatrix": {
+                            "ContentItemIds": [
+                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"SOCSkillsMatrix\", \"3543G-Achievement/Effort\")\u00BB"
+                            ]
+                        },        "Text": {
+                            "Text": "Would you feel comfortable in a job where you have to put a lot of effort in to get things done?"
+                        },
+                        "Ordinal": {
+                            "Value": 16.0
+                        }
+                    },    "GraphSyncPart": {
+                        "Text": "<<contentapiprefix>>/personalityfilteringquestion/16b29d0e-eed0-46f2-8625-7c1521a3c911"
+                    },
+                    "TitlePart": {
+                        "Title": "Achievement/Effort"
+                    }
+                },{
+                    "ContentItemId": "17ek1dktsywv0p59tzxhwtmdz",
+                    "ContentItemVersionId": "17c179zw963mq7afg6vdm3nbmw",
+                    "ContentType": "PersonalityFilteringQuestion",
+                    "DisplayText": "Active Learning",
+                    "Latest": true,
+                    "Published": true,
+                    "ModifiedUtc": "2020-09-11T13:57:27.9313605Z",
+                    "PublishedUtc": "2020-09-11T13:57:27.9365264Z",
+                    "CreatedUtc": "2020-09-11T13:57:27.9313605Z",
+                    "Owner": "admin",
+                    "Author": "admin",
+                    "PersonalityFilteringQuestion": {
+                        "SOCSkillsMatrix": {
+                            "ContentItemIds": [
+                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"SOCSkillsMatrix\", \"2112F-Active Learning\")\u00BB"
+                            ]
+                        },        "Text": {
+                            "Text": "Do you enjoy learning new things?"
+                        },
+                        "Ordinal": {
+                            "Value": 17.0
+                        }
+                    },    "GraphSyncPart": {
+                        "Text": "<<contentapiprefix>>/personalityfilteringquestion/17b29d0e-eed0-46f2-8625-7c1521a3c911"
+                    },
+                    "TitlePart": {
+                        "Title": "Active Learning"
+                    }
+                },{
+                    "ContentItemId": "18ek1dktsywv0p59tzxhwtmdz",
+                    "ContentItemVersionId": "18c179zw963mq7afg6vdm3nbmw",
+                    "ContentType": "PersonalityFilteringQuestion",
+                    "DisplayText": "Active Listening",
+                    "Latest": true,
+                    "Published": true,
+                    "ModifiedUtc": "2020-09-11T13:57:27.9313605Z",
+                    "PublishedUtc": "2020-09-11T13:57:27.9365264Z",
+                    "CreatedUtc": "2020-09-11T13:57:27.9313605Z",
+                    "Owner": "admin",
+                    "Author": "admin",
+                    "PersonalityFilteringQuestion": {
+                        "SOCSkillsMatrix": {
+                            "ContentItemIds": [
+                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"SOCSkillsMatrix\", \"3233D-Active Listening\")\u00BB"
+                            ]
+                        },        "Text": {
+                            "Text": "Do you think you are good at paying attention to what other people are saying, taking the time to understand what they mean?"
+                        },
+                        "Ordinal": {
+                            "Value": 18.0
+                        }
+                    },    "GraphSyncPart": {
+                        "Text": "<<contentapiprefix>>/personalityfilteringquestion/18b29d0e-eed0-46f2-8625-7c1521a3c911"
+                    },
+                    "TitlePart": {
+                        "Title": "Active Listening"
+                    }
+                },{
+                    "ContentItemId": "19ek1dktsywv0p59tzxhwtmdz",
+                    "ContentItemVersionId": "19c179zw963mq7afg6vdm3nbmw",
+                    "ContentType": "PersonalityFilteringQuestion",
+                    "DisplayText": "Adjustment",
+                    "Latest": true,
+                    "Published": true,
+                    "ModifiedUtc": "2020-09-11T13:57:27.9313605Z",
+                    "PublishedUtc": "2020-09-11T13:57:27.9365264Z",
+                    "CreatedUtc": "2020-09-11T13:57:27.9313605Z",
+                    "Owner": "admin",
+                    "Author": "admin",
+                    "PersonalityFilteringQuestion": {
+                        "SOCSkillsMatrix": {
+                            "ContentItemIds": [
+                            ]
+                        },        "Text": {
+                            "Text": "Do you think you are good at coping with setbacks, stress and pressures at work?"
+                        },
+                        "Ordinal": {
+                            "Value": 19.0
+                        }
+                    },    "GraphSyncPart": {
+                        "Text": "<<contentapiprefix>>/personalityfilteringquestion/19b29d0e-eed0-46f2-8625-7c1521a3c911"
+                    },
+                    "TitlePart": {
+                        "Title": "Adjustment"
+                    }
+                },{
+                    "ContentItemId": "20ek1dktsywv0p59tzxhwtmdz",
+                    "ContentItemVersionId": "20c179zw963mq7afg6vdm3nbmw",
+                    "ContentType": "PersonalityFilteringQuestion",
+                    "DisplayText": "Adjustment, Self Control",
+                    "Latest": true,
+                    "Published": true,
+                    "ModifiedUtc": "2020-09-11T13:57:27.9313605Z",
+                    "PublishedUtc": "2020-09-11T13:57:27.9365264Z",
+                    "CreatedUtc": "2020-09-11T13:57:27.9313605Z",
+                    "Owner": "admin",
+                    "Author": "admin",
+                    "PersonalityFilteringQuestion": {
+                        "SOCSkillsMatrix": {
+                            "ContentItemIds": [
+                            ]
+                        },        "Text": {
+                            "Text": "Are you good at staying calm and professional in difficult situations?"
+                        },
+                        "Ordinal": {
+                            "Value": 20.0
+                        }
+                    },    "GraphSyncPart": {
+                        "Text": "<<contentapiprefix>>/personalityfilteringquestion/20b29d0e-eed0-46f2-8625-7c1521a3c911"
+                    },
+                    "TitlePart": {
+                        "Title": "Adjustment, Self Control"
+                    }
+                },{
+                    "ContentItemId": "21ek1dktsywv0p59tzxhwtmdz",
+                    "ContentItemVersionId": "21c179zw963mq7afg6vdm3nbmw",
+                    "ContentType": "PersonalityFilteringQuestion",
+                    "DisplayText": "Attention to Detail",
+                    "Latest": true,
+                    "Published": true,
+                    "ModifiedUtc": "2020-09-11T13:57:27.9313605Z",
+                    "PublishedUtc": "2020-09-11T13:57:27.9365264Z",
+                    "CreatedUtc": "2020-09-11T13:57:27.9313605Z",
+                    "Owner": "admin",
+                    "Author": "admin",
+                    "PersonalityFilteringQuestion": {
+                        "SOCSkillsMatrix": {
+                            "ContentItemIds": [
+                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"SOCSkillsMatrix\", \"5221A-Attention to Detail\")\u00BB"
+                            ]
+                        },        "Text": {
+                            "Text": "Do you enjoy being thorough and paying attention to details?"
+                        },
+                        "Ordinal": {
+                            "Value": 21.0
+                        }
+                    },    "GraphSyncPart": {
+                        "Text": "<<contentapiprefix>>/personalityfilteringquestion/21b29d0e-eed0-46f2-8625-7c1521a3c911"
+                    },
+                    "TitlePart": {
+                        "Title": "Attention to Detail"
+                    }
+                },{
+                    "ContentItemId": "22ek1dktsywv0p59tzxhwtmdz",
+                    "ContentItemVersionId": "22c179zw963mq7afg6vdm3nbmw",
+                    "ContentType": "PersonalityFilteringQuestion",
+                    "DisplayText": "Attentiveness",
+                    "Latest": true,
+                    "Published": true,
+                    "ModifiedUtc": "2020-09-11T13:57:27.9313605Z",
+                    "PublishedUtc": "2020-09-11T13:57:27.9365264Z",
+                    "CreatedUtc": "2020-09-11T13:57:27.9313605Z",
+                    "Owner": "admin",
+                    "Author": "admin",
+                    "PersonalityFilteringQuestion": {
+                        "SOCSkillsMatrix": {
+                            "ContentItemIds": [
+                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"SOCSkillsMatrix\", \"3311F-Attentiveness\")\u00BB"
+                            ]
+                        },        "Text": {
+                            "Text": "Are you able to concentrate on a task for a long time without becoming distracted?"
+                        },
+                        "Ordinal": {
+                            "Value": 22.0
+                        }
+                    },    "GraphSyncPart": {
+                        "Text": "<<contentapiprefix>>/personalityfilteringquestion/22b29d0e-eed0-46f2-8625-7c1521a3c911"
+                    },
+                    "TitlePart": {
+                        "Title": "Attentiveness"
+                    }
+                },{
+                    "ContentItemId": "23ek1dktsywv0p59tzxhwtmdz",
+                    "ContentItemVersionId": "23c179zw963mq7afg6vdm3nbmw",
+                    "ContentType": "PersonalityFilteringQuestion",
+                    "DisplayText": "Cognitive Abilities",
+                    "Latest": true,
+                    "Published": true,
+                    "ModifiedUtc": "2020-09-11T13:57:27.9313605Z",
+                    "PublishedUtc": "2020-09-11T13:57:27.9365264Z",
+                    "CreatedUtc": "2020-09-11T13:57:27.9313605Z",
+                    "Owner": "admin",
+                    "Author": "admin",
+                    "PersonalityFilteringQuestion": {
+                        "SOCSkillsMatrix": {
+                            "ContentItemIds": [
+                            ]
+                        },        "Text": {
+                            "Text": "Are you able to pull together different pieces of information to understand problems?"
+                        },
+                        "Ordinal": {
+                            "Value": 23.0
+                        }
+                    },    "GraphSyncPart": {
+                        "Text": "<<contentapiprefix>>/personalityfilteringquestion/23b29d0e-eed0-46f2-8625-7c1521a3c911"
+                    },
+                    "TitlePart": {
+                        "Title": "Cognitive Abilities"
+                    }
+                },{
+                    "ContentItemId": "24ek1dktsywv0p59tzxhwtmdz",
+                    "ContentItemVersionId": "24c179zw963mq7afg6vdm3nbmw",
+                    "ContentType": "PersonalityFilteringQuestion",
+                    "DisplayText": "Cognitive Abilities, Troubleshooting",
+                    "Latest": true,
+                    "Published": true,
+                    "ModifiedUtc": "2020-09-11T13:57:27.9313605Z",
+                    "PublishedUtc": "2020-09-11T13:57:27.9365264Z",
+                    "CreatedUtc": "2020-09-11T13:57:27.9313605Z",
+                    "Owner": "admin",
+                    "Author": "admin",
+                    "PersonalityFilteringQuestion": {
+                        "SOCSkillsMatrix": {
+                            "ContentItemIds": [
+                            ]
+                        },        "Text": {
+                            "Text": "Would you like a job where you would assess why something is going wrong and working out what to do about it?"
+                        },
+                        "Ordinal": {
+                            "Value": 24.0
+                        }
+                    },    "GraphSyncPart": {
+                        "Text": "<<contentapiprefix>>/personalityfilteringquestion/24b29d0e-eed0-46f2-8625-7c1521a3c911"
+                    },
+                    "TitlePart": {
+                        "Title": "Cognitive Abilities, Troubleshooting"
+                    }
+                },{
+                    "ContentItemId": "25ek1dktsywv0p59tzxhwtmdz",
+                    "ContentItemVersionId": "25c179zw963mq7afg6vdm3nbmw",
+                    "ContentType": "PersonalityFilteringQuestion",
+                    "DisplayText": "Complex Problem Solving",
+                    "Latest": true,
+                    "Published": true,
+                    "ModifiedUtc": "2020-09-11T13:57:27.9313605Z",
+                    "PublishedUtc": "2020-09-11T13:57:27.9365264Z",
+                    "CreatedUtc": "2020-09-11T13:57:27.9313605Z",
+                    "Owner": "admin",
+                    "Author": "admin",
+                    "PersonalityFilteringQuestion": {
+                        "SOCSkillsMatrix": {
+                            "ContentItemIds": [
+                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"SOCSkillsMatrix\", \"3131A-Complex Problem Solving\")\u00BB"
+                            ]
+                        },        "Text": {
+                            "Text": "Do you enjoy solving complicated problems?"
+                        },
+                        "Ordinal": {
+                            "Value": 25.0
+                        }
+                    },    "GraphSyncPart": {
+                        "Text": "<<contentapiprefix>>/personalityfilteringquestion/25b29d0e-eed0-46f2-8625-7c1521a3c911"
+                    },
+                    "TitlePart": {
+                        "Title": "Complex Problem Solving"
+                    }
+                },{
+                    "ContentItemId": "26ek1dktsywv0p59tzxhwtmdz",
+                    "ContentItemVersionId": "26c179zw963mq7afg6vdm3nbmw",
+                    "ContentType": "PersonalityFilteringQuestion",
+                    "DisplayText": "Complex Problem Solving Skills",
+                    "Latest": true,
+                    "Published": true,
+                    "ModifiedUtc": "2020-09-11T13:57:27.9313605Z",
+                    "PublishedUtc": "2020-09-11T13:57:27.9365264Z",
+                    "CreatedUtc": "2020-09-11T13:57:27.9313605Z",
+                    "Owner": "admin",
+                    "Author": "admin",
+                    "PersonalityFilteringQuestion": {
+                        "SOCSkillsMatrix": {
+                            "ContentItemIds": [
+                            ]
+                        },        "Text": {
+                            "Text": "Do you think you are good at solving problems that other people find difficult?"
+                        },
+                        "Ordinal": {
+                            "Value": 26.0
+                        }
+                    },    "GraphSyncPart": {
+                        "Text": "<<contentapiprefix>>/personalityfilteringquestion/26b29d0e-eed0-46f2-8625-7c1521a3c911"
+                    },
+                    "TitlePart": {
+                        "Title": "Complex Problem Solving Skills"
+                    }
+                },{
+                    "ContentItemId": "27ek1dktsywv0p59tzxhwtmdz",
+                    "ContentItemVersionId": "27c179zw963mq7afg6vdm3nbmw",
+                    "ContentType": "PersonalityFilteringQuestion",
+                    "DisplayText": "Complex Problem Solving Skills, Complex Problem Solving",
+                    "Latest": true,
+                    "Published": true,
+                    "ModifiedUtc": "2020-09-11T13:57:27.9313605Z",
+                    "PublishedUtc": "2020-09-11T13:57:27.9365264Z",
+                    "CreatedUtc": "2020-09-11T13:57:27.9313605Z",
+                    "Owner": "admin",
+                    "Author": "admin",
+                    "PersonalityFilteringQuestion": {
+                        "SOCSkillsMatrix": {
+                            "ContentItemIds": [
+                            ]
+                        },        "Text": {
+                            "Text": "Would you be able to identify and research difficult problems, and find answers to them?"
+                        },
+                        "Ordinal": {
+                            "Value": 27.0
+                        }
+                    },    "GraphSyncPart": {
+                        "Text": "<<contentapiprefix>>/personalityfilteringquestion/27b29d0e-eed0-46f2-8625-7c1521a3c911"
+                    },
+                    "TitlePart": {
+                        "Title": "Complex Problem Solving Skills, Complex Problem Solving"
+                    }
+                },{
+                    "ContentItemId": "28ek1dktsywv0p59tzxhwtmdz",
+                    "ContentItemVersionId": "28c179zw963mq7afg6vdm3nbmw",
+                    "ContentType": "PersonalityFilteringQuestion",
+                    "DisplayText": "Coordination",
+                    "Latest": true,
+                    "Published": true,
+                    "ModifiedUtc": "2020-09-11T13:57:27.9313605Z",
+                    "PublishedUtc": "2020-09-11T13:57:27.9365264Z",
+                    "CreatedUtc": "2020-09-11T13:57:27.9313605Z",
+                    "Owner": "admin",
+                    "Author": "admin",
+                    "PersonalityFilteringQuestion": {
+                        "SOCSkillsMatrix": {
+                            "ContentItemIds": [
+                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"SOCSkillsMatrix\", \"5449B-Coordination\")\u00BB"
+                            ]
+                        },        "Text": {
+                            "Text": "Are you comfortable co-ordinating things?"
+                        },
+                        "Ordinal": {
+                            "Value": 28.0
+                        }
+                    },    "GraphSyncPart": {
+                        "Text": "<<contentapiprefix>>/personalityfilteringquestion/28b29d0e-eed0-46f2-8625-7c1521a3c911"
+                    },
+                    "TitlePart": {
+                        "Title": "Coordination"
+                    }
+                },{
+                    "ContentItemId": "29ek1dktsywv0p59tzxhwtmdz",
+                    "ContentItemVersionId": "29c179zw963mq7afg6vdm3nbmw",
+                    "ContentType": "PersonalityFilteringQuestion",
+                    "DisplayText": "Critical Thinking",
+                    "Latest": true,
+                    "Published": true,
+                    "ModifiedUtc": "2020-09-11T13:57:27.9313605Z",
+                    "PublishedUtc": "2020-09-11T13:57:27.9365264Z",
+                    "CreatedUtc": "2020-09-11T13:57:27.9313605Z",
+                    "Owner": "admin",
+                    "Author": "admin",
+                    "PersonalityFilteringQuestion": {
+                        "SOCSkillsMatrix": {
+                            "ContentItemIds": [
+                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"SOCSkillsMatrix\", \"6219D-Critical Thinking\")\u00BB"
+                            ]
+                        },        "Text": {
+                            "Text": "Are you able to look at a problem from different sides to decide the best way forward?"
+                        },
+                        "Ordinal": {
+                            "Value": 29.0
+                        }
+                    },    "GraphSyncPart": {
+                        "Text": "<<contentapiprefix>>/personalityfilteringquestion/29b29d0e-eed0-46f2-8625-7c1521a3c911"
+                    },
+                    "TitlePart": {
+                        "Title": "Critical Thinking"
+                    }
+                },{
+                    "ContentItemId": "30ek1dktsywv0p59tzxhwtmdz",
+                    "ContentItemVersionId": "30c179zw963mq7afg6vdm3nbmw",
+                    "ContentType": "PersonalityFilteringQuestion",
+                    "DisplayText": "Endurance",
+                    "Latest": true,
+                    "Published": true,
+                    "ModifiedUtc": "2020-09-11T13:57:27.9313605Z",
+                    "PublishedUtc": "2020-09-11T13:57:27.9365264Z",
+                    "CreatedUtc": "2020-09-11T13:57:27.9313605Z",
+                    "Owner": "admin",
+                    "Author": "admin",
+                    "PersonalityFilteringQuestion": {
+                        "SOCSkillsMatrix": {
+                            "ContentItemIds": [
+                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"SOCSkillsMatrix\", \"5449B-Endurance\")\u00BB"
+                            ]
+                        },        "Text": {
+                            "Text": "Would you be able to do physical work for most of the day?"
+                        },
+                        "Ordinal": {
+                            "Value": 30.0
+                        }
+                    },    "GraphSyncPart": {
+                        "Text": "<<contentapiprefix>>/personalityfilteringquestion/30b29d0e-eed0-46f2-8625-7c1521a3c911"
+                    },
+                    "TitlePart": {
+                        "Title": "Endurance"
+                    }
+                },{
+                    "ContentItemId": "31ek1dktsywv0p59tzxhwtmdz",
+                    "ContentItemVersionId": "31c179zw963mq7afg6vdm3nbmw",
+                    "ContentType": "PersonalityFilteringQuestion",
+                    "DisplayText": "Equipment Maintenance",
+                    "Latest": true,
+                    "Published": true,
+                    "ModifiedUtc": "2020-09-11T13:57:27.9313605Z",
+                    "PublishedUtc": "2020-09-11T13:57:27.9365264Z",
+                    "CreatedUtc": "2020-09-11T13:57:27.9313605Z",
+                    "Owner": "admin",
+                    "Author": "admin",
+                    "PersonalityFilteringQuestion": {
+                        "SOCSkillsMatrix": {
+                            "ContentItemIds": [
+                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"SOCSkillsMatrix\", \"5223B-Equipment Maintenance\")\u00BB"
+                            ]
+                        },        "Text": {
+                            "Text": "Would you like a job maintaining equipment?"
+                        },
+                        "Ordinal": {
+                            "Value": 31.0
+                        }
+                    },    "GraphSyncPart": {
+                        "Text": "<<contentapiprefix>>/personalityfilteringquestion/31b29d0e-eed0-46f2-8625-7c1521a3c911"
+                    },
+                    "TitlePart": {
+                        "Title": "Equipment Maintenance"
+                    }
+                },{
+                    "ContentItemId": "32ek1dktsywv0p59tzxhwtmdz",
+                    "ContentItemVersionId": "32c179zw963mq7afg6vdm3nbmw",
+                    "ContentType": "PersonalityFilteringQuestion",
+                    "DisplayText": "Equipment Selection",
+                    "Latest": true,
+                    "Published": true,
+                    "ModifiedUtc": "2020-09-11T13:57:27.9313605Z",
+                    "PublishedUtc": "2020-09-11T13:57:27.9365264Z",
+                    "CreatedUtc": "2020-09-11T13:57:27.9313605Z",
+                    "Owner": "admin",
+                    "Author": "admin",
+                    "PersonalityFilteringQuestion": {
+                        "SOCSkillsMatrix": {
+                            "ContentItemIds": [
+                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"SOCSkillsMatrix\", \"9119B-Equipment Selection\")\u00BB"
+                            ]
+                        },        "Text": {
+                            "Text": "Would you like a job that involves deciding which tools or equipment need to be used?"
+                        },
+                        "Ordinal": {
+                            "Value": 32.0
+                        }
+                    },    "GraphSyncPart": {
+                        "Text": "<<contentapiprefix>>/personalityfilteringquestion/32b29d0e-eed0-46f2-8625-7c1521a3c911"
+                    },
+                    "TitlePart": {
+                        "Title": "Equipment Selection"
+                    }
+                },{
+                    "ContentItemId": "33ek1dktsywv0p59tzxhwtmdz",
+                    "ContentItemVersionId": "33c179zw963mq7afg6vdm3nbmw",
+                    "ContentType": "PersonalityFilteringQuestion",
+                    "DisplayText": "Idea Generation and Reasoning Abilities",
+                    "Latest": true,
+                    "Published": true,
+                    "ModifiedUtc": "2020-09-11T13:57:27.9313605Z",
+                    "PublishedUtc": "2020-09-11T13:57:27.9365264Z",
+                    "CreatedUtc": "2020-09-11T13:57:27.9313605Z",
+                    "Owner": "admin",
+                    "Author": "admin",
+                    "PersonalityFilteringQuestion": {
+                        "SOCSkillsMatrix": {
+                            "ContentItemIds": [
+                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"SOCSkillsMatrix\", \"1171A-Idea Generation and Reasoning Abilities\")\u00BB"
+                            ]
+                        },        "Text": {
+                            "Text": "Do you think you are good at coming up with lots of different ways to solve problems?"
+                        },
+                        "Ordinal": {
+                            "Value": 33.0
+                        }
+                    },    "GraphSyncPart": {
+                        "Text": "<<contentapiprefix>>/personalityfilteringquestion/33b29d0e-eed0-46f2-8625-7c1521a3c911"
+                    },
+                    "TitlePart": {
+                        "Title": "Idea Generation and Reasoning Abilities"
+                    }
+                },{
+                    "ContentItemId": "34ek1dktsywv0p59tzxhwtmdz",
+                    "ContentItemVersionId": "34c179zw963mq7afg6vdm3nbmw",
+                    "ContentType": "PersonalityFilteringQuestion",
+                    "DisplayText": "Independence",
+                    "Latest": true,
+                    "Published": true,
+                    "ModifiedUtc": "2020-09-11T13:57:27.9313605Z",
+                    "PublishedUtc": "2020-09-11T13:57:27.9365264Z",
+                    "CreatedUtc": "2020-09-11T13:57:27.9313605Z",
+                    "Owner": "admin",
+                    "Author": "admin",
+                    "PersonalityFilteringQuestion": {
+                        "SOCSkillsMatrix": {
+                            "ContentItemIds": [
+                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"SOCSkillsMatrix\", \"2229J-Independence\")\u00BB"
+                            ]
+                        },        "Text": {
+                            "Text": "Would you be comfortable working by yourself?"
+                        },
+                        "Ordinal": {
+                            "Value": 34.0
+                        }
+                    },    "GraphSyncPart": {
+                        "Text": "<<contentapiprefix>>/personalityfilteringquestion/34b29d0e-eed0-46f2-8625-7c1521a3c911"
+                    },
+                    "TitlePart": {
+                        "Title": "Independence"
+                    }
+                },{
+                    "ContentItemId": "35ek1dktsywv0p59tzxhwtmdz",
+                    "ContentItemVersionId": "35c179zw963mq7afg6vdm3nbmw",
+                    "ContentType": "PersonalityFilteringQuestion",
+                    "DisplayText": "Independence, Initiative",
+                    "Latest": true,
+                    "Published": true,
+                    "ModifiedUtc": "2020-09-11T13:57:27.9313605Z",
+                    "PublishedUtc": "2020-09-11T13:57:27.9365264Z",
+                    "CreatedUtc": "2020-09-11T13:57:27.9313605Z",
+                    "Owner": "admin",
+                    "Author": "admin",
+                    "PersonalityFilteringQuestion": {
+                        "SOCSkillsMatrix": {
+                            "ContentItemIds": [
+                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"SOCSkillsMatrix\", \"3550A-Independence, Initiative\")\u00BB"
+                            ]
+                        },        "Text": {
+                            "Text": "Do you find it easy to stay motivated to get things done if you are working by yourself?"
+                        },
+                        "Ordinal": {
+                            "Value": 35.0
+                        }
+                    },    "GraphSyncPart": {
+                        "Text": "<<contentapiprefix>>/personalityfilteringquestion/35b29d0e-eed0-46f2-8625-7c1521a3c911"
+                    },
+                    "TitlePart": {
+                        "Title": "Independence, Initiative"
+                    }
+                },{
+                    "ContentItemId": "36ek1dktsywv0p59tzxhwtmdz",
+                    "ContentItemVersionId": "36c179zw963mq7afg6vdm3nbmw",
+                    "ContentType": "PersonalityFilteringQuestion",
+                    "DisplayText": "Innovation",
+                    "Latest": true,
+                    "Published": true,
+                    "ModifiedUtc": "2020-09-11T13:57:27.9313605Z",
+                    "PublishedUtc": "2020-09-11T13:57:27.9365264Z",
+                    "CreatedUtc": "2020-09-11T13:57:27.9313605Z",
+                    "Owner": "admin",
+                    "Author": "admin",
+                    "PersonalityFilteringQuestion": {
+                        "SOCSkillsMatrix": {
+                            "ContentItemIds": [
+                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"SOCSkillsMatrix\", \"3550A-Innovation\")\u00BB"
+                            ]
+                        },        "Text": {
+                            "Text": "Do you think you are good at coming up with new ways of doing things?"
+                        },
+                        "Ordinal": {
+                            "Value": 36.0
+                        }
+                    },    "GraphSyncPart": {
+                        "Text": "<<contentapiprefix>>/personalityfilteringquestion/36b29d0e-eed0-46f2-8625-7c1521a3c911"
+                    },
+                    "TitlePart": {
+                        "Title": "Innovation"
+                    }
+                },{
+                    "ContentItemId": "37ek1dktsywv0p59tzxhwtmdz",
+                    "ContentItemVersionId": "37c179zw963mq7afg6vdm3nbmw",
+                    "ContentType": "PersonalityFilteringQuestion",
+                    "DisplayText": "Installation",
+                    "Latest": true,
+                    "Published": true,
+                    "ModifiedUtc": "2020-09-11T13:57:27.9313605Z",
+                    "PublishedUtc": "2020-09-11T13:57:27.9365264Z",
+                    "CreatedUtc": "2020-09-11T13:57:27.9313605Z",
+                    "Owner": "admin",
+                    "Author": "admin",
+                    "PersonalityFilteringQuestion": {
+                        "SOCSkillsMatrix": {
+                            "ContentItemIds": [
+                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"SOCSkillsMatrix\", \"5314D-Installation\")\u00BB"
+                            ]
+                        },        "Text": {
+                            "Text": "Would you like a job where you would install equipment, machines, wiring or computer programs?"
+                        },
+                        "Ordinal": {
+                            "Value": 37.0
+                        }
+                    },    "GraphSyncPart": {
+                        "Text": "<<contentapiprefix>>/personalityfilteringquestion/37b29d0e-eed0-46f2-8625-7c1521a3c911"
+                    },
+                    "TitlePart": {
+                        "Title": "Installation"
+                    }
+                },{
+                    "ContentItemId": "38ek1dktsywv0p59tzxhwtmdz",
+                    "ContentItemVersionId": "38c179zw963mq7afg6vdm3nbmw",
+                    "ContentType": "PersonalityFilteringQuestion",
+                    "DisplayText": "Instructing",
+                    "Latest": true,
+                    "Published": true,
+                    "ModifiedUtc": "2020-09-11T13:57:27.9313605Z",
+                    "PublishedUtc": "2020-09-11T13:57:27.9365264Z",
+                    "CreatedUtc": "2020-09-11T13:57:27.9313605Z",
+                    "Owner": "admin",
+                    "Author": "admin",
+                    "PersonalityFilteringQuestion": {
+                        "SOCSkillsMatrix": {
+                            "ContentItemIds": [
+                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"SOCSkillsMatrix\", \"3443A-Instructing\")\u00BB"
+                            ]
+                        },        "Text": {
+                            "Text": "Would you like to teach other people how to do things?"
+                        },
+                        "Ordinal": {
+                            "Value": 38.0
+                        }
+                    },    "GraphSyncPart": {
+                        "Text": "<<contentapiprefix>>/personalityfilteringquestion/38b29d0e-eed0-46f2-8625-7c1521a3c911"
+                    },
+                    "TitlePart": {
+                        "Title": "Instructing"
+                    }
+                },{
+                    "ContentItemId": "39ek1dktsywv0p59tzxhwtmdz",
+                    "ContentItemVersionId": "39c179zw963mq7afg6vdm3nbmw",
+                    "ContentType": "PersonalityFilteringQuestion",
+                    "DisplayText": "Interpersonal Orientation",
+                    "Latest": true,
+                    "Published": true,
+                    "ModifiedUtc": "2020-09-11T13:57:27.9313605Z",
+                    "PublishedUtc": "2020-09-11T13:57:27.9365264Z",
+                    "CreatedUtc": "2020-09-11T13:57:27.9313605Z",
+                    "Owner": "admin",
+                    "Author": "admin",
+                    "PersonalityFilteringQuestion": {
+                        "SOCSkillsMatrix": {
+                            "ContentItemIds": [
+                            ]
+                        },        "Text": {
+                            "Text": "Do you think you are easy to get along with at work?"
+                        },
+                        "Ordinal": {
+                            "Value": 39.0
+                        }
+                    },    "GraphSyncPart": {
+                        "Text": "<<contentapiprefix>>/personalityfilteringquestion/39b29d0e-eed0-46f2-8625-7c1521a3c911"
+                    },
+                    "TitlePart": {
+                        "Title": "Interpersonal Orientation"
+                    }
+                },{
+                    "ContentItemId": "40ek1dktsywv0p59tzxhwtmdz",
+                    "ContentItemVersionId": "40c179zw963mq7afg6vdm3nbmw",
+                    "ContentType": "PersonalityFilteringQuestion",
+                    "DisplayText": "Interpersonal Orientation, Cooperation",
+                    "Latest": true,
+                    "Published": true,
+                    "ModifiedUtc": "2020-09-11T13:57:27.9313605Z",
+                    "PublishedUtc": "2020-09-11T13:57:27.9365264Z",
+                    "CreatedUtc": "2020-09-11T13:57:27.9313605Z",
+                    "Owner": "admin",
+                    "Author": "admin",
+                    "PersonalityFilteringQuestion": {
+                        "SOCSkillsMatrix": {
+                            "ContentItemIds": [
+                            ]
+                        },        "Text": {
+                            "Text": "Do you find it easy to build good relationships with people you work with?"
+                        },
+                        "Ordinal": {
+                            "Value": 40.0
+                        }
+                    },    "GraphSyncPart": {
+                        "Text": "<<contentapiprefix>>/personalityfilteringquestion/40b29d0e-eed0-46f2-8625-7c1521a3c911"
+                    },
+                    "TitlePart": {
+                        "Title": "Interpersonal Orientation, Cooperation"
+                    }
+                },{
+                    "ContentItemId": "41ek1dktsywv0p59tzxhwtmdz",
+                    "ContentItemVersionId": "41c179zw963mq7afg6vdm3nbmw",
+                    "ContentType": "PersonalityFilteringQuestion",
+                    "DisplayText": "Judgment and Decision Making",
+                    "Latest": true,
+                    "Published": true,
+                    "ModifiedUtc": "2020-09-11T13:57:27.9313605Z",
+                    "PublishedUtc": "2020-09-11T13:57:27.9365264Z",
+                    "CreatedUtc": "2020-09-11T13:57:27.9313605Z",
+                    "Owner": "admin",
+                    "Author": "admin",
+                    "PersonalityFilteringQuestion": {
+                        "SOCSkillsMatrix": {
+                            "ContentItemIds": [
+                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"SOCSkillsMatrix\", \"2318B-Judgment and Decision Making\")\u00BB"
+                            ]
+                        },        "Text": {
+                            "Text": "Are you comfortable comparing options to decide on the best one?"
+                        },
+                        "Ordinal": {
+                            "Value": 41.0
+                        }
+                    },    "GraphSyncPart": {
+                        "Text": "<<contentapiprefix>>/personalityfilteringquestion/41b29d0e-eed0-46f2-8625-7c1521a3c911"
+                    },
+                    "TitlePart": {
+                        "Title": "Judgment and Decision Making"
+                    }
+                },{
+                    "ContentItemId": "42ek1dktsywv0p59tzxhwtmdz",
+                    "ContentItemVersionId": "42c179zw963mq7afg6vdm3nbmw",
+                    "ContentType": "PersonalityFilteringQuestion",
+                    "DisplayText": "Leadership",
+                    "Latest": true,
+                    "Published": true,
+                    "ModifiedUtc": "2020-09-11T13:57:27.9313605Z",
+                    "PublishedUtc": "2020-09-11T13:57:27.9365264Z",
+                    "CreatedUtc": "2020-09-11T13:57:27.9313605Z",
+                    "Owner": "admin",
+                    "Author": "admin",
+                    "PersonalityFilteringQuestion": {
+                        "SOCSkillsMatrix": {
+                            "ContentItemIds": [
+                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"SOCSkillsMatrix\", \"2318B-Leadership\")\u00BB"
+                            ]
+                        },        "Text": {
+                            "Text": "Would you like a job where you take charge and lead people?"
+                        },
+                        "Ordinal": {
+                            "Value": 42.0
+                        }
+                    },    "GraphSyncPart": {
+                        "Text": "<<contentapiprefix>>/personalityfilteringquestion/42b29d0e-eed0-46f2-8625-7c1521a3c911"
+                    },
+                    "TitlePart": {
+                        "Title": "Leadership"
+                    }
+                },{
+                    "ContentItemId": "43ek1dktsywv0p59tzxhwtmdz",
+                    "ContentItemVersionId": "43c179zw963mq7afg6vdm3nbmw",
+                    "ContentType": "PersonalityFilteringQuestion",
+                    "DisplayText": "Leadership, Coordination,",
+                    "Latest": true,
+                    "Published": true,
+                    "ModifiedUtc": "2020-09-11T13:57:27.9313605Z",
+                    "PublishedUtc": "2020-09-11T13:57:27.9365264Z",
+                    "CreatedUtc": "2020-09-11T13:57:27.9313605Z",
+                    "Owner": "admin",
+                    "Author": "admin",
+                    "PersonalityFilteringQuestion": {
+                        "SOCSkillsMatrix": {
+                            "ContentItemIds": [
+                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"SOCSkillsMatrix\", \"1171B-Leadership, Coordination,\")\u00BB"
+                            ]
+                        },        "Text": {
+                            "Text": "Are you able to lead a team and make sure things run smoothly?"
+                        },
+                        "Ordinal": {
+                            "Value": 43.0
+                        }
+                    },    "GraphSyncPart": {
+                        "Text": "<<contentapiprefix>>/personalityfilteringquestion/43b29d0e-eed0-46f2-8625-7c1521a3c911"
+                    },
+                    "TitlePart": {
+                        "Title": "Leadership, Coordination,"
+                    }
+                },{
+                    "ContentItemId": "44ek1dktsywv0p59tzxhwtmdz",
+                    "ContentItemVersionId": "44c179zw963mq7afg6vdm3nbmw",
+                    "ContentType": "PersonalityFilteringQuestion",
+                    "DisplayText": "Learning Strategies",
+                    "Latest": true,
+                    "Published": true,
+                    "ModifiedUtc": "2020-09-11T13:57:27.9313605Z",
+                    "PublishedUtc": "2020-09-11T13:57:27.9365264Z",
+                    "CreatedUtc": "2020-09-11T13:57:27.9313605Z",
+                    "Owner": "admin",
+                    "Author": "admin",
+                    "PersonalityFilteringQuestion": {
+                        "SOCSkillsMatrix": {
+                            "ContentItemIds": [
+                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"SOCSkillsMatrix\", \"3233C-Learning Strategies\")\u00BB"
+                            ]
+                        },        "Text": {
+                            "Text": "Would you like to plan training for people?"
+                        },
+                        "Ordinal": {
+                            "Value": 44.0
+                        }
+                    },    "GraphSyncPart": {
+                        "Text": "<<contentapiprefix>>/personalityfilteringquestion/44b29d0e-eed0-46f2-8625-7c1521a3c911"
+                    },
+                    "TitlePart": {
+                        "Title": "Learning Strategies"
+                    }
+                },{
+                    "ContentItemId": "45ek1dktsywv0p59tzxhwtmdz",
+                    "ContentItemVersionId": "45c179zw963mq7afg6vdm3nbmw",
+                    "ContentType": "PersonalityFilteringQuestion",
+                    "DisplayText": "Management of Financial Resources",
+                    "Latest": true,
+                    "Published": true,
+                    "ModifiedUtc": "2020-09-11T13:57:27.9313605Z",
+                    "PublishedUtc": "2020-09-11T13:57:27.9365264Z",
+                    "CreatedUtc": "2020-09-11T13:57:27.9313605Z",
+                    "Owner": "admin",
+                    "Author": "admin",
+                    "PersonalityFilteringQuestion": {
+                        "SOCSkillsMatrix": {
+                            "ContentItemIds": [
+                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"SOCSkillsMatrix\", \"1115A-Management of Financial Resources\")\u00BB"
+                            ]
+                        },        "Text": {
+                            "Text": "Would you like a job managing budgets?"
+                        },
+                        "Ordinal": {
+                            "Value": 45.0
+                        }
+                    },    "GraphSyncPart": {
+                        "Text": "<<contentapiprefix>>/personalityfilteringquestion/45b29d0e-eed0-46f2-8625-7c1521a3c911"
+                    },
+                    "TitlePart": {
+                        "Title": "Management of Financial Resources"
+                    }
+                },{
+                    "ContentItemId": "46ek1dktsywv0p59tzxhwtmdz",
+                    "ContentItemVersionId": "46c179zw963mq7afg6vdm3nbmw",
+                    "ContentType": "PersonalityFilteringQuestion",
+                    "DisplayText": "Management of Material Resources",
+                    "Latest": true,
+                    "Published": true,
+                    "ModifiedUtc": "2020-09-11T13:57:27.9313605Z",
+                    "PublishedUtc": "2020-09-11T13:57:27.9365264Z",
+                    "CreatedUtc": "2020-09-11T13:57:27.9313605Z",
+                    "Owner": "admin",
+                    "Author": "admin",
+                    "PersonalityFilteringQuestion": {
+                        "SOCSkillsMatrix": {
+                            "ContentItemIds": [
+                            ]
+                        },        "Text": {
+                            "Text": "Would you like a job where you have to find the right equipment and materials to get something done?"
+                        },
+                        "Ordinal": {
+                            "Value": 46.0
+                        }
+                    },    "GraphSyncPart": {
+                        "Text": "<<contentapiprefix>>/personalityfilteringquestion/46b29d0e-eed0-46f2-8625-7c1521a3c911"
+                    },
+                    "TitlePart": {
+                        "Title": "Management of Material Resources"
+                    }
+                },{
+                    "ContentItemId": "47ek1dktsywv0p59tzxhwtmdz",
+                    "ContentItemVersionId": "47c179zw963mq7afg6vdm3nbmw",
+                    "ContentType": "PersonalityFilteringQuestion",
+                    "DisplayText": "Management of Personnel Resources",
+                    "Latest": true,
+                    "Published": true,
+                    "ModifiedUtc": "2020-09-11T13:57:27.9313605Z",
+                    "PublishedUtc": "2020-09-11T13:57:27.9365264Z",
+                    "CreatedUtc": "2020-09-11T13:57:27.9313605Z",
+                    "Owner": "admin",
+                    "Author": "admin",
+                    "PersonalityFilteringQuestion": {
+                        "SOCSkillsMatrix": {
+                            "ContentItemIds": [
+                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"SOCSkillsMatrix\", \"5330A-Management of Personnel Resources\")\u00BB"
+                            ]
+                        },        "Text": {
+                            "Text": "Are you comfortable managing and motivating people?"
+                        },
+                        "Ordinal": {
+                            "Value": 47.0
+                        }
+                    },    "GraphSyncPart": {
+                        "Text": "<<contentapiprefix>>/personalityfilteringquestion/47b29d0e-eed0-46f2-8625-7c1521a3c911"
+                    },
+                    "TitlePart": {
+                        "Title": "Management of Personnel Resources"
+                    }
+                },{
+                    "ContentItemId": "48ek1dktsywv0p59tzxhwtmdz",
+                    "ContentItemVersionId": "48c179zw963mq7afg6vdm3nbmw",
+                    "ContentType": "PersonalityFilteringQuestion",
+                    "DisplayText": "Mathematics",
+                    "Latest": true,
+                    "Published": true,
+                    "ModifiedUtc": "2020-09-11T13:57:27.9313605Z",
+                    "PublishedUtc": "2020-09-11T13:57:27.9365264Z",
+                    "CreatedUtc": "2020-09-11T13:57:27.9313605Z",
+                    "Owner": "admin",
+                    "Author": "admin",
+                    "PersonalityFilteringQuestion": {
+                        "SOCSkillsMatrix": {
+                            "ContentItemIds": [
+                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"SOCSkillsMatrix\", \"5414B-Mathematics\")\u00BB"
+                            ]
+                        },        "Text": {
+                            "Text": "Are you confident using maths to solve problems?"
+                        },
+                        "Ordinal": {
+                            "Value": 48.0
+                        }
+                    },    "GraphSyncPart": {
+                        "Text": "<<contentapiprefix>>/personalityfilteringquestion/48b29d0e-eed0-46f2-8625-7c1521a3c911"
+                    },
+                    "TitlePart": {
+                        "Title": "Mathematics"
+                    }
+                },{
+                    "ContentItemId": "49ek1dktsywv0p59tzxhwtmdz",
+                    "ContentItemVersionId": "49c179zw963mq7afg6vdm3nbmw",
+                    "ContentType": "PersonalityFilteringQuestion",
+                    "DisplayText": "Memory",
+                    "Latest": true,
+                    "Published": true,
+                    "ModifiedUtc": "2020-09-11T13:57:27.9313605Z",
+                    "PublishedUtc": "2020-09-11T13:57:27.9365264Z",
+                    "CreatedUtc": "2020-09-11T13:57:27.9313605Z",
+                    "Owner": "admin",
+                    "Author": "admin",
+                    "PersonalityFilteringQuestion": {
+                        "SOCSkillsMatrix": {
+                            "ContentItemIds": [
+                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"SOCSkillsMatrix\", \"3219D-Memory\")\u00BB"
+                            ]
+                        },        "Text": {
+                            "Text": "Are you good at remembering things?"
+                        },
+                        "Ordinal": {
+                            "Value": 49.0
+                        }
+                    },    "GraphSyncPart": {
+                        "Text": "<<contentapiprefix>>/personalityfilteringquestion/49b29d0e-eed0-46f2-8625-7c1521a3c911"
+                    },
+                    "TitlePart": {
+                        "Title": "Memory"
+                    }
+                },{
+                    "ContentItemId": "50ek1dktsywv0p59tzxhwtmdz",
+                    "ContentItemVersionId": "50c179zw963mq7afg6vdm3nbmw",
+                    "ContentType": "PersonalityFilteringQuestion",
+                    "DisplayText": "Monitoring",
+                    "Latest": true,
+                    "Published": true,
+                    "ModifiedUtc": "2020-09-11T13:57:27.9313605Z",
+                    "PublishedUtc": "2020-09-11T13:57:27.9365264Z",
+                    "CreatedUtc": "2020-09-11T13:57:27.9313605Z",
+                    "Owner": "admin",
+                    "Author": "admin",
+                    "PersonalityFilteringQuestion": {
+                        "SOCSkillsMatrix": {
+                            "ContentItemIds": [
+                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"SOCSkillsMatrix\", \"2318B-Monitoring\")\u00BB"
+                            ]
+                        },        "Text": {
+                            "Text": "Are you interested in checking how well things are working in order to make improvements?"
+                        },
+                        "Ordinal": {
+                            "Value": 50.0
+                        }
+                    },    "GraphSyncPart": {
+                        "Text": "<<contentapiprefix>>/personalityfilteringquestion/50b29d0e-eed0-46f2-8625-7c1521a3c911"
+                    },
+                    "TitlePart": {
+                        "Title": "Monitoring"
+                    }
+                },{
+                    "ContentItemId": "51ek1dktsywv0p59tzxhwtmdz",
+                    "ContentItemVersionId": "51c179zw963mq7afg6vdm3nbmw",
+                    "ContentType": "PersonalityFilteringQuestion",
+                    "DisplayText": "Negotiation",
+                    "Latest": true,
+                    "Published": true,
+                    "ModifiedUtc": "2020-09-11T13:57:27.9313605Z",
+                    "PublishedUtc": "2020-09-11T13:57:27.9365264Z",
+                    "CreatedUtc": "2020-09-11T13:57:27.9313605Z",
+                    "Owner": "admin",
+                    "Author": "admin",
+                    "PersonalityFilteringQuestion": {
+                        "SOCSkillsMatrix": {
+                            "ContentItemIds": [
+                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"SOCSkillsMatrix\", \"3312A-Negotiation\")\u00BB"
+                            ]
+                        },        "Text": {
+                            "Text": "Are you comfortable helping people to overcome their differences?"
+                        },
+                        "Ordinal": {
+                            "Value": 51.0
+                        }
+                    },    "GraphSyncPart": {
+                        "Text": "<<contentapiprefix>>/personalityfilteringquestion/51b29d0e-eed0-46f2-8625-7c1521a3c911"
+                    },
+                    "TitlePart": {
+                        "Title": "Negotiation"
+                    }
+                },{
+                    "ContentItemId": "52ek1dktsywv0p59tzxhwtmdz",
+                    "ContentItemVersionId": "52c179zw963mq7afg6vdm3nbmw",
+                    "ContentType": "PersonalityFilteringQuestion",
+                    "DisplayText": "Operation and Control",
+                    "Latest": true,
+                    "Published": true,
+                    "ModifiedUtc": "2020-09-11T13:57:27.9313605Z",
+                    "PublishedUtc": "2020-09-11T13:57:27.9365264Z",
+                    "CreatedUtc": "2020-09-11T13:57:27.9313605Z",
+                    "Owner": "admin",
+                    "Author": "admin",
+                    "PersonalityFilteringQuestion": {
+                        "SOCSkillsMatrix": {
+                            "ContentItemIds": [
+                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"SOCSkillsMatrix\", \"8111B-Operation and Control\")\u00BB"
+                            ]
+                        },        "Text": {
+                            "Text": "Would you be comfortable operating equipment?"
+                        },
+                        "Ordinal": {
+                            "Value": 52.0
+                        }
+                    },    "GraphSyncPart": {
+                        "Text": "<<contentapiprefix>>/personalityfilteringquestion/52b29d0e-eed0-46f2-8625-7c1521a3c911"
+                    },
+                    "TitlePart": {
+                        "Title": "Operation and Control"
+                    }
+                },{
+                    "ContentItemId": "53ek1dktsywv0p59tzxhwtmdz",
+                    "ContentItemVersionId": "53c179zw963mq7afg6vdm3nbmw",
+                    "ContentType": "PersonalityFilteringQuestion",
+                    "DisplayText": "Operation Monitoring",
+                    "Latest": true,
+                    "Published": true,
+                    "ModifiedUtc": "2020-09-11T13:57:27.9313605Z",
+                    "PublishedUtc": "2020-09-11T13:57:27.9365264Z",
+                    "CreatedUtc": "2020-09-11T13:57:27.9313605Z",
+                    "Owner": "admin",
+                    "Author": "admin",
+                    "PersonalityFilteringQuestion": {
+                        "SOCSkillsMatrix": {
+                            "ContentItemIds": [
+                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"SOCSkillsMatrix\", \"8111B-Operation Monitoring\")\u00BB"
+                            ]
+                        },        "Text": {
+                            "Text": "Would you like a job monitoring machinery to make sure it is working properly?"
+                        },
+                        "Ordinal": {
+                            "Value": 53.0
+                        }
+                    },    "GraphSyncPart": {
+                        "Text": "<<contentapiprefix>>/personalityfilteringquestion/53b29d0e-eed0-46f2-8625-7c1521a3c911"
+                    },
+                    "TitlePart": {
+                        "Title": "Operation Monitoring"
+                    }
+                },{
+                    "ContentItemId": "54ek1dktsywv0p59tzxhwtmdz",
+                    "ContentItemVersionId": "54c179zw963mq7afg6vdm3nbmw",
+                    "ContentType": "PersonalityFilteringQuestion",
+                    "DisplayText": "Operations Analysis",
+                    "Latest": true,
+                    "Published": true,
+                    "ModifiedUtc": "2020-09-11T13:57:27.9313605Z",
+                    "PublishedUtc": "2020-09-11T13:57:27.9365264Z",
+                    "CreatedUtc": "2020-09-11T13:57:27.9313605Z",
+                    "Owner": "admin",
+                    "Author": "admin",
+                    "PersonalityFilteringQuestion": {
+                        "SOCSkillsMatrix": {
+                            "ContentItemIds": [
+                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"SOCSkillsMatrix\", \"2129F-Operations Analysis\")\u00BB"
+                            ]
+                        },        "Text": {
+                            "Text": "Would you like a job where you would need to create a design based on what is needed?"
+                        },
+                        "Ordinal": {
+                            "Value": 54.0
+                        }
+                    },    "GraphSyncPart": {
+                        "Text": "<<contentapiprefix>>/personalityfilteringquestion/54b29d0e-eed0-46f2-8625-7c1521a3c911"
+                    },
+                    "TitlePart": {
+                        "Title": "Operations Analysis"
+                    }
+                },{
+                    "ContentItemId": "55ek1dktsywv0p59tzxhwtmdz",
+                    "ContentItemVersionId": "55c179zw963mq7afg6vdm3nbmw",
+                    "ContentType": "PersonalityFilteringQuestion",
+                    "DisplayText": "Persuasion",
+                    "Latest": true,
+                    "Published": true,
+                    "ModifiedUtc": "2020-09-11T13:57:27.9313605Z",
+                    "PublishedUtc": "2020-09-11T13:57:27.9365264Z",
+                    "CreatedUtc": "2020-09-11T13:57:27.9313605Z",
+                    "Owner": "admin",
+                    "Author": "admin",
+                    "PersonalityFilteringQuestion": {
+                        "SOCSkillsMatrix": {
+                            "ContentItemIds": [
+                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"SOCSkillsMatrix\", \"3543C-Persuasion\")\u00BB"
+                            ]
+                        },        "Text": {
+                            "Text": "Are you comfortable getting other people to do things?"
+                        },
+                        "Ordinal": {
+                            "Value": 55.0
+                        }
+                    },    "GraphSyncPart": {
+                        "Text": "<<contentapiprefix>>/personalityfilteringquestion/55b29d0e-eed0-46f2-8625-7c1521a3c911"
+                    },
+                    "TitlePart": {
+                        "Title": "Persuasion"
+                    }
+                },{
+                    "ContentItemId": "56ek1dktsywv0p59tzxhwtmdz",
+                    "ContentItemVersionId": "56c179zw963mq7afg6vdm3nbmw",
+                    "ContentType": "PersonalityFilteringQuestion",
+                    "DisplayText": "Persuasion, Negotiation",
+                    "Latest": true,
+                    "Published": true,
+                    "ModifiedUtc": "2020-09-11T13:57:27.9313605Z",
+                    "PublishedUtc": "2020-09-11T13:57:27.9365264Z",
+                    "CreatedUtc": "2020-09-11T13:57:27.9313605Z",
+                    "Owner": "admin",
+                    "Author": "admin",
+                    "PersonalityFilteringQuestion": {
+                        "SOCSkillsMatrix": {
+                            "ContentItemIds": [
+                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"SOCSkillsMatrix\", \"1254D-Persuasion, Negotiation\")\u00BB"
+                            ]
+                        },        "Text": {
+                            "Text": "Are you comfortable getting other people to reach an agreement with each other?"
+                        },
+                        "Ordinal": {
+                            "Value": 56.0
+                        }
+                    },    "GraphSyncPart": {
+                        "Text": "<<contentapiprefix>>/personalityfilteringquestion/56b29d0e-eed0-46f2-8625-7c1521a3c911"
+                    },
+                    "TitlePart": {
+                        "Title": "Persuasion, Negotiation"
+                    }
+                },{
+                    "ContentItemId": "57ek1dktsywv0p59tzxhwtmdz",
+                    "ContentItemVersionId": "57c179zw963mq7afg6vdm3nbmw",
+                    "ContentType": "PersonalityFilteringQuestion",
+                    "DisplayText": "Physical Abilities",
+                    "Latest": true,
+                    "Published": true,
+                    "ModifiedUtc": "2020-09-11T13:57:27.9313605Z",
+                    "PublishedUtc": "2020-09-11T13:57:27.9365264Z",
+                    "CreatedUtc": "2020-09-11T13:57:27.9313605Z",
+                    "Owner": "admin",
+                    "Author": "admin",
+                    "PersonalityFilteringQuestion": {
+                        "SOCSkillsMatrix": {
+                            "ContentItemIds": [
+                            ]
+                        },        "Text": {
+                            "Text": "Do you think you are physically strong and flexible?"
+                        },
+                        "Ordinal": {
+                            "Value": 57.0
+                        }
+                    },    "GraphSyncPart": {
+                        "Text": "<<contentapiprefix>>/personalityfilteringquestion/57b29d0e-eed0-46f2-8625-7c1521a3c911"
+                    },
+                    "TitlePart": {
+                        "Title": "Physical Abilities"
+                    }
+                },{
+                    "ContentItemId": "58ek1dktsywv0p59tzxhwtmdz",
+                    "ContentItemVersionId": "58c179zw963mq7afg6vdm3nbmw",
+                    "ContentType": "PersonalityFilteringQuestion",
+                    "DisplayText": "Physical Abilities,Endurance",
+                    "Latest": true,
+                    "Published": true,
+                    "ModifiedUtc": "2020-09-11T13:57:27.9313605Z",
+                    "PublishedUtc": "2020-09-11T13:57:27.9365264Z",
+                    "CreatedUtc": "2020-09-11T13:57:27.9313605Z",
+                    "Owner": "admin",
+                    "Author": "admin",
+                    "PersonalityFilteringQuestion": {
+                        "SOCSkillsMatrix": {
+                            "ContentItemIds": [
+                            ]
+                        },        "Text": {
+                            "Text": "Do you find it easy to do physical tasks for long periods without getting too tired?"
+                        },
+                        "Ordinal": {
+                            "Value": 58.0
+                        }
+                    },    "GraphSyncPart": {
+                        "Text": "<<contentapiprefix>>/personalityfilteringquestion/58b29d0e-eed0-46f2-8625-7c1521a3c911"
+                    },
+                    "TitlePart": {
+                        "Title": "Physical Abilities,Endurance"
+                    }
+                },{
+                    "ContentItemId": "59ek1dktsywv0p59tzxhwtmdz",
+                    "ContentItemVersionId": "59c179zw963mq7afg6vdm3nbmw",
+                    "ContentType": "PersonalityFilteringQuestion",
+                    "DisplayText": "Practical Intelligence",
+                    "Latest": true,
+                    "Published": true,
+                    "ModifiedUtc": "2020-09-11T13:57:27.9313605Z",
+                    "PublishedUtc": "2020-09-11T13:57:27.9365264Z",
+                    "CreatedUtc": "2020-09-11T13:57:27.9313605Z",
+                    "Owner": "admin",
+                    "Author": "admin",
+                    "PersonalityFilteringQuestion": {
+                        "SOCSkillsMatrix": {
+                            "ContentItemIds": [
+                            ]
+                        },        "Text": {
+                            "Text": "Do you think you are good at coming up with practical ideas to solve problems?"
+                        },
+                        "Ordinal": {
+                            "Value": 59.0
+                        }
+                    },    "GraphSyncPart": {
+                        "Text": "<<contentapiprefix>>/personalityfilteringquestion/59b29d0e-eed0-46f2-8625-7c1521a3c911"
+                    },
+                    "TitlePart": {
+                        "Title": "Practical Intelligence"
+                    }
+                },{
+                    "ContentItemId": "60ek1dktsywv0p59tzxhwtmdz",
+                    "ContentItemVersionId": "60c179zw963mq7afg6vdm3nbmw",
+                    "ContentType": "PersonalityFilteringQuestion",
+                    "DisplayText": "Programming",
+                    "Latest": true,
+                    "Published": true,
+                    "ModifiedUtc": "2020-09-11T13:57:27.9313605Z",
+                    "PublishedUtc": "2020-09-11T13:57:27.9365264Z",
+                    "CreatedUtc": "2020-09-11T13:57:27.9313605Z",
+                    "Owner": "admin",
+                    "Author": "admin",
+                    "PersonalityFilteringQuestion": {
+                        "SOCSkillsMatrix": {
+                            "ContentItemIds": [
+                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"SOCSkillsMatrix\", \"2136A-Programming\")\u00BB"
+                            ]
+                        },        "Text": {
+                            "Text": "Would you like to write computer programs?"
+                        },
+                        "Ordinal": {
+                            "Value": 60.0
+                        }
+                    },    "GraphSyncPart": {
+                        "Text": "<<contentapiprefix>>/personalityfilteringquestion/60b29d0e-eed0-46f2-8625-7c1521a3c911"
+                    },
+                    "TitlePart": {
+                        "Title": "Programming"
+                    }
+                },{
+                    "ContentItemId": "61ek1dktsywv0p59tzxhwtmdz",
+                    "ContentItemVersionId": "61c179zw963mq7afg6vdm3nbmw",
+                    "ContentType": "PersonalityFilteringQuestion",
+                    "DisplayText": "Psychomotor Abilities",
+                    "Latest": true,
+                    "Published": true,
+                    "ModifiedUtc": "2020-09-11T13:57:27.9313605Z",
+                    "PublishedUtc": "2020-09-11T13:57:27.9365264Z",
+                    "CreatedUtc": "2020-09-11T13:57:27.9313605Z",
+                    "Owner": "admin",
+                    "Author": "admin",
+                    "PersonalityFilteringQuestion": {
+                        "SOCSkillsMatrix": {
+                            "ContentItemIds": [
+                            ]
+                        },        "Text": {
+                            "Text": "Are you able to keep your arms and hands steady when working?"
+                        },
+                        "Ordinal": {
+                            "Value": 61.0
+                        }
+                    },    "GraphSyncPart": {
+                        "Text": "<<contentapiprefix>>/personalityfilteringquestion/61b29d0e-eed0-46f2-8625-7c1521a3c911"
+                    },
+                    "TitlePart": {
+                        "Title": "Psychomotor Abilities"
+                    }
+                },{
+                    "ContentItemId": "62ek1dktsywv0p59tzxhwtmdz",
+                    "ContentItemVersionId": "62c179zw963mq7afg6vdm3nbmw",
+                    "ContentType": "PersonalityFilteringQuestion",
+                    "DisplayText": "Psychomotor Abilities,Control Movement Abilities",
+                    "Latest": true,
+                    "Published": true,
+                    "ModifiedUtc": "2020-09-11T13:57:27.9313605Z",
+                    "PublishedUtc": "2020-09-11T13:57:27.9365264Z",
+                    "CreatedUtc": "2020-09-11T13:57:27.9313605Z",
+                    "Owner": "admin",
+                    "Author": "admin",
+                    "PersonalityFilteringQuestion": {
+                        "SOCSkillsMatrix": {
+                            "ContentItemIds": [
+                            ]
+                        },        "Text": {
+                            "Text": "Could you quickly adjust the controls of a machine or a vehicle?"
+                        },
+                        "Ordinal": {
+                            "Value": 62.0
+                        }
+                    },    "GraphSyncPart": {
+                        "Text": "<<contentapiprefix>>/personalityfilteringquestion/62b29d0e-eed0-46f2-8625-7c1521a3c911"
+                    },
+                    "TitlePart": {
+                        "Title": "Psychomotor Abilities,Control Movement Abilities"
+                    }
+                },{
+                    "ContentItemId": "63ek1dktsywv0p59tzxhwtmdz",
+                    "ContentItemVersionId": "63c179zw963mq7afg6vdm3nbmw",
+                    "ContentType": "PersonalityFilteringQuestion",
+                    "DisplayText": "Quality Control Analysis",
+                    "Latest": true,
+                    "Published": true,
+                    "ModifiedUtc": "2020-09-11T13:57:27.9313605Z",
+                    "PublishedUtc": "2020-09-11T13:57:27.9365264Z",
+                    "CreatedUtc": "2020-09-11T13:57:27.9313605Z",
+                    "Owner": "admin",
+                    "Author": "admin",
+                    "PersonalityFilteringQuestion": {
+                        "SOCSkillsMatrix": {
+                            "ContentItemIds": [
+                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"SOCSkillsMatrix\", \"5223B-Quality Control Analysis\")\u00BB"
+                            ]
+                        },        "Text": {
+                            "Text": "Are you interested in doing tests and inspections to check how well things are working?"
+                        },
+                        "Ordinal": {
+                            "Value": 63.0
+                        }
+                    },    "GraphSyncPart": {
+                        "Text": "<<contentapiprefix>>/personalityfilteringquestion/63b29d0e-eed0-46f2-8625-7c1521a3c911"
+                    },
+                    "TitlePart": {
+                        "Title": "Quality Control Analysis"
+                    }
+                },{
+                    "ContentItemId": "64ek1dktsywv0p59tzxhwtmdz",
+                    "ContentItemVersionId": "64c179zw963mq7afg6vdm3nbmw",
+                    "ContentType": "PersonalityFilteringQuestion",
+                    "DisplayText": "Quantitative Abilities",
+                    "Latest": true,
+                    "Published": true,
+                    "ModifiedUtc": "2020-09-11T13:57:27.9313605Z",
+                    "PublishedUtc": "2020-09-11T13:57:27.9365264Z",
+                    "CreatedUtc": "2020-09-11T13:57:27.9313605Z",
+                    "Owner": "admin",
+                    "Author": "admin",
+                    "PersonalityFilteringQuestion": {
+                        "SOCSkillsMatrix": {
+                            "ContentItemIds": [
+                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"SOCSkillsMatrix\", \"2317B-Quantitative Abilities\")\u00BB"
+                            ]
+                        },        "Text": {
+                            "Text": "Are you able to solve maths problems like multiplication and division quickly and correctly?"
+                        },
+                        "Ordinal": {
+                            "Value": 64.0
+                        }
+                    },    "GraphSyncPart": {
+                        "Text": "<<contentapiprefix>>/personalityfilteringquestion/64b29d0e-eed0-46f2-8625-7c1521a3c911"
+                    },
+                    "TitlePart": {
+                        "Title": "Quantitative Abilities"
+                    }
+                },{
+                    "ContentItemId": "65ek1dktsywv0p59tzxhwtmdz",
+                    "ContentItemVersionId": "65c179zw963mq7afg6vdm3nbmw",
+                    "ContentType": "PersonalityFilteringQuestion",
+                    "DisplayText": "Quantitative Abilities, Mathematics Skills",
+                    "Latest": true,
+                    "Published": true,
+                    "ModifiedUtc": "2020-09-11T13:57:27.9313605Z",
+                    "PublishedUtc": "2020-09-11T13:57:27.9365264Z",
+                    "CreatedUtc": "2020-09-11T13:57:27.9313605Z",
+                    "Owner": "admin",
+                    "Author": "admin",
+                    "PersonalityFilteringQuestion": {
+                        "SOCSkillsMatrix": {
+                            "ContentItemIds": [
+                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"SOCSkillsMatrix\", \"7123B-Quantitative Abilities, Mathematics Skills\")\u00BB"
+                            ]
+                        },        "Text": {
+                            "Text": "Would you be confident in choosing the right mathematical method or formula to solve a problem?"
+                        },
+                        "Ordinal": {
+                            "Value": 65.0
+                        }
+                    },    "GraphSyncPart": {
+                        "Text": "<<contentapiprefix>>/personalityfilteringquestion/65b29d0e-eed0-46f2-8625-7c1521a3c911"
+                    },
+                    "TitlePart": {
+                        "Title": "Quantitative Abilities, Mathematics Skills"
+                    }
+                },{
+                    "ContentItemId": "66ek1dktsywv0p59tzxhwtmdz",
+                    "ContentItemVersionId": "66c179zw963mq7afg6vdm3nbmw",
+                    "ContentType": "PersonalityFilteringQuestion",
+                    "DisplayText": "Repairing",
+                    "Latest": true,
+                    "Published": true,
+                    "ModifiedUtc": "2020-09-11T13:57:27.9313605Z",
+                    "PublishedUtc": "2020-09-11T13:57:27.9365264Z",
+                    "CreatedUtc": "2020-09-11T13:57:27.9313605Z",
+                    "Owner": "admin",
+                    "Author": "admin",
+                    "PersonalityFilteringQuestion": {
+                        "SOCSkillsMatrix": {
+                            "ContentItemIds": [
+                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"SOCSkillsMatrix\", \"5449A-Repairing\")\u00BB"
+                            ]
+                        },        "Text": {
+                            "Text": "Would you like a job repairing things using tools?"
+                        },
+                        "Ordinal": {
+                            "Value": 66.0
+                        }
+                    },    "GraphSyncPart": {
+                        "Text": "<<contentapiprefix>>/personalityfilteringquestion/66b29d0e-eed0-46f2-8625-7c1521a3c911"
+                    },
+                    "TitlePart": {
+                        "Title": "Repairing"
+                    }
+                },{
+                    "ContentItemId": "67ek1dktsywv0p59tzxhwtmdz",
+                    "ContentItemVersionId": "67c179zw963mq7afg6vdm3nbmw",
+                    "ContentType": "PersonalityFilteringQuestion",
+                    "DisplayText": "Resource Management Skills",
+                    "Latest": true,
+                    "Published": true,
+                    "ModifiedUtc": "2020-09-11T13:57:27.9313605Z",
+                    "PublishedUtc": "2020-09-11T13:57:27.9365264Z",
+                    "CreatedUtc": "2020-09-11T13:57:27.9313605Z",
+                    "Owner": "admin",
+                    "Author": "admin",
+                    "PersonalityFilteringQuestion": {
+                        "SOCSkillsMatrix": {
+                            "ContentItemIds": [
+                            ]
+                        },        "Text": {
+                            "Text": "Would you like to work in a job managing people, money and time?"
+                        },
+                        "Ordinal": {
+                            "Value": 67.0
+                        }
+                    },    "GraphSyncPart": {
+                        "Text": "<<contentapiprefix>>/personalityfilteringquestion/67b29d0e-eed0-46f2-8625-7c1521a3c911"
+                    },
+                    "TitlePart": {
+                        "Title": "Resource Management Skills"
+                    }
+                },{
+                    "ContentItemId": "68ek1dktsywv0p59tzxhwtmdz",
+                    "ContentItemVersionId": "68c179zw963mq7afg6vdm3nbmw",
+                    "ContentType": "PersonalityFilteringQuestion",
+                    "DisplayText": "Science",
+                    "Latest": true,
+                    "Published": true,
+                    "ModifiedUtc": "2020-09-11T13:57:27.9313605Z",
+                    "PublishedUtc": "2020-09-11T13:57:27.9365264Z",
+                    "CreatedUtc": "2020-09-11T13:57:27.9313605Z",
+                    "Owner": "admin",
+                    "Author": "admin",
+                    "PersonalityFilteringQuestion": {
+                        "SOCSkillsMatrix": {
+                            "ContentItemIds": [
+                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"SOCSkillsMatrix\", \"2112F-Science\")\u00BB"
+                            ]
+                        },        "Text": {
+                            "Text": "Would you be comfortable using scientific methods to solve problems?"
+                        },
+                        "Ordinal": {
+                            "Value": 68.0
+                        }
+                    },    "GraphSyncPart": {
+                        "Text": "<<contentapiprefix>>/personalityfilteringquestion/68b29d0e-eed0-46f2-8625-7c1521a3c911"
+                    },
+                    "TitlePart": {
+                        "Title": "Science"
+                    }
+                },{
+                    "ContentItemId": "69ek1dktsywv0p59tzxhwtmdz",
+                    "ContentItemVersionId": "69c179zw963mq7afg6vdm3nbmw",
+                    "ContentType": "PersonalityFilteringQuestion",
+                    "DisplayText": "Service Orientation",
+                    "Latest": true,
+                    "Published": true,
+                    "ModifiedUtc": "2020-09-11T13:57:27.9313605Z",
+                    "PublishedUtc": "2020-09-11T13:57:27.9365264Z",
+                    "CreatedUtc": "2020-09-11T13:57:27.9313605Z",
+                    "Owner": "admin",
+                    "Author": "admin",
+                    "PersonalityFilteringQuestion": {
+                        "SOCSkillsMatrix": {
+                            "ContentItemIds": [
+                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"SOCSkillsMatrix\", \"9272A-Service Orientation\")\u00BB"
+                            ]
+                        },        "Text": {
+                            "Text": "Do you think you go out of your way to help people?"
+                        },
+                        "Ordinal": {
+                            "Value": 69.0
+                        }
+                    },    "GraphSyncPart": {
+                        "Text": "<<contentapiprefix>>/personalityfilteringquestion/69b29d0e-eed0-46f2-8625-7c1521a3c911"
+                    },
+                    "TitlePart": {
+                        "Title": "Service Orientation"
+                    }
+                },{
+                    "ContentItemId": "70ek1dktsywv0p59tzxhwtmdz",
+                    "ContentItemVersionId": "70c179zw963mq7afg6vdm3nbmw",
+                    "ContentType": "PersonalityFilteringQuestion",
+                    "DisplayText": "Social Influence",
+                    "Latest": true,
+                    "Published": true,
+                    "ModifiedUtc": "2020-09-11T13:57:27.9313605Z",
+                    "PublishedUtc": "2020-09-11T13:57:27.9365264Z",
+                    "CreatedUtc": "2020-09-11T13:57:27.9313605Z",
+                    "Owner": "admin",
+                    "Author": "admin",
+                    "PersonalityFilteringQuestion": {
+                        "SOCSkillsMatrix": {
+                            "ContentItemIds": [
+                            ]
+                        },        "Text": {
+                            "Text": "Do people tend to follow your lead?"
+                        },
+                        "Ordinal": {
+                            "Value": 70.0
+                        }
+                    },    "GraphSyncPart": {
+                        "Text": "<<contentapiprefix>>/personalityfilteringquestion/70b29d0e-eed0-46f2-8625-7c1521a3c911"
+                    },
+                    "TitlePart": {
+                        "Title": "Social Influence"
+                    }
+                },{
+                    "ContentItemId": "71ek1dktsywv0p59tzxhwtmdz",
+                    "ContentItemVersionId": "71c179zw963mq7afg6vdm3nbmw",
+                    "ContentType": "PersonalityFilteringQuestion",
+                    "DisplayText": "Social Orientation",
+                    "Latest": true,
+                    "Published": true,
+                    "ModifiedUtc": "2020-09-11T13:57:27.9313605Z",
+                    "PublishedUtc": "2020-09-11T13:57:27.9365264Z",
+                    "CreatedUtc": "2020-09-11T13:57:27.9313605Z",
+                    "Owner": "admin",
+                    "Author": "admin",
+                    "PersonalityFilteringQuestion": {
+                        "SOCSkillsMatrix": {
+                            "ContentItemIds": [
+                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"SOCSkillsMatrix\", \"2229B-Social Orientation\")\u00BB"
+                            ]
+                        },        "Text": {
+                            "Text": "Do you prefer working in a group rather than working on your own?"
+                        },
+                        "Ordinal": {
+                            "Value": 71.0
+                        }
+                    },    "GraphSyncPart": {
+                        "Text": "<<contentapiprefix>>/personalityfilteringquestion/71b29d0e-eed0-46f2-8625-7c1521a3c911"
+                    },
+                    "TitlePart": {
+                        "Title": "Social Orientation"
+                    }
+                },{
+                    "ContentItemId": "72ek1dktsywv0p59tzxhwtmdz",
+                    "ContentItemVersionId": "72c179zw963mq7afg6vdm3nbmw",
+                    "ContentType": "PersonalityFilteringQuestion",
+                    "DisplayText": "Social Perceptiveness",
+                    "Latest": true,
+                    "Published": true,
+                    "ModifiedUtc": "2020-09-11T13:57:27.9313605Z",
+                    "PublishedUtc": "2020-09-11T13:57:27.9365264Z",
+                    "CreatedUtc": "2020-09-11T13:57:27.9313605Z",
+                    "Owner": "admin",
+                    "Author": "admin",
+                    "PersonalityFilteringQuestion": {
+                        "SOCSkillsMatrix": {
+                            "ContentItemIds": [
+                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"SOCSkillsMatrix\", \"6144C-Social Perceptiveness\")\u00BB"
+                            ]
+                        },        "Text": {
+                            "Text": "Are you good at understanding why other people do or say certain things?"
+                        },
+                        "Ordinal": {
+                            "Value": 72.0
+                        }
+                    },    "GraphSyncPart": {
+                        "Text": "<<contentapiprefix>>/personalityfilteringquestion/72b29d0e-eed0-46f2-8625-7c1521a3c911"
+                    },
+                    "TitlePart": {
+                        "Title": "Social Perceptiveness"
+                    }
+                },{
+                    "ContentItemId": "73ek1dktsywv0p59tzxhwtmdz",
+                    "ContentItemVersionId": "73c179zw963mq7afg6vdm3nbmw",
+                    "ContentType": "PersonalityFilteringQuestion",
+                    "DisplayText": "Social Skills",
+                    "Latest": true,
+                    "Published": true,
+                    "ModifiedUtc": "2020-09-11T13:57:27.9313605Z",
+                    "PublishedUtc": "2020-09-11T13:57:27.9365264Z",
+                    "CreatedUtc": "2020-09-11T13:57:27.9313605Z",
+                    "Owner": "admin",
+                    "Author": "admin",
+                    "PersonalityFilteringQuestion": {
+                        "SOCSkillsMatrix": {
+                            "ContentItemIds": [
+                            ]
+                        },        "Text": {
+                            "Text": "Do you think you are good at working with other people to get things done?"
+                        },
+                        "Ordinal": {
+                            "Value": 73.0
+                        }
+                    },    "GraphSyncPart": {
+                        "Text": "<<contentapiprefix>>/personalityfilteringquestion/73b29d0e-eed0-46f2-8625-7c1521a3c911"
+                    },
+                    "TitlePart": {
+                        "Title": "Social Skills"
+                    }
+                },{
+                    "ContentItemId": "74ek1dktsywv0p59tzxhwtmdz",
+                    "ContentItemVersionId": "74c179zw963mq7afg6vdm3nbmw",
+                    "ContentType": "PersonalityFilteringQuestion",
+                    "DisplayText": "Speaking",
+                    "Latest": true,
+                    "Published": true,
+                    "ModifiedUtc": "2020-09-11T13:57:27.9313605Z",
+                    "PublishedUtc": "2020-09-11T13:57:27.9365264Z",
+                    "CreatedUtc": "2020-09-11T13:57:27.9313605Z",
+                    "Owner": "admin",
+                    "Author": "admin",
+                    "PersonalityFilteringQuestion": {
+                        "SOCSkillsMatrix": {
+                            "ContentItemIds": [
+                            ]
+                        },        "Text": {
+                            "Text": "Are you able to talk people through instructions?"
+                        },
+                        "Ordinal": {
+                            "Value": 74.0
+                        }
+                    },    "GraphSyncPart": {
+                        "Text": "<<contentapiprefix>>/personalityfilteringquestion/74b29d0e-eed0-46f2-8625-7c1521a3c911"
+                    },
+                    "TitlePart": {
+                        "Title": "Speaking"
+                    }
+                },{
+                    "ContentItemId": "75ek1dktsywv0p59tzxhwtmdz",
+                    "ContentItemVersionId": "75c179zw963mq7afg6vdm3nbmw",
+                    "ContentType": "PersonalityFilteringQuestion",
+                    "DisplayText": "Systems Analysis",
+                    "Latest": true,
+                    "Published": true,
+                    "ModifiedUtc": "2020-09-11T13:57:27.9313605Z",
+                    "PublishedUtc": "2020-09-11T13:57:27.9365264Z",
+                    "CreatedUtc": "2020-09-11T13:57:27.9313605Z",
+                    "Owner": "admin",
+                    "Author": "admin",
+                    "PersonalityFilteringQuestion": {
+                        "SOCSkillsMatrix": {
+                            "ContentItemIds": [
+                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"SOCSkillsMatrix\", \"3561C-Systems Analysis\")\u00BB"
+                            ]
+                        },        "Text": {
+                            "Text": "Would you like a job where you assess how things work for people?"
+                        },
+                        "Ordinal": {
+                            "Value": 75.0
+                        }
+                    },    "GraphSyncPart": {
+                        "Text": "<<contentapiprefix>>/personalityfilteringquestion/75b29d0e-eed0-46f2-8625-7c1521a3c911"
+                    },
+                    "TitlePart": {
+                        "Title": "Systems Analysis"
+                    }
+                },{
+                    "ContentItemId": "76ek1dktsywv0p59tzxhwtmdz",
+                    "ContentItemVersionId": "76c179zw963mq7afg6vdm3nbmw",
+                    "ContentType": "PersonalityFilteringQuestion",
+                    "DisplayText": "Systems Analysis, Systems Evaluation",
+                    "Latest": true,
+                    "Published": true,
+                    "ModifiedUtc": "2020-09-11T13:57:27.9313605Z",
+                    "PublishedUtc": "2020-09-11T13:57:27.9365264Z",
+                    "CreatedUtc": "2020-09-11T13:57:27.9313605Z",
+                    "Owner": "admin",
+                    "Author": "admin",
+                    "PersonalityFilteringQuestion": {
+                        "SOCSkillsMatrix": {
+                            "ContentItemIds": [
+                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"SOCSkillsMatrix\", \"2135A-Systems Analysis, Systems Evaluation\")\u00BB"
+                            ]
+                        },        "Text": {
+                            "Text": "Would you like a job analysing how things work and recommending how they could be improved?"
+                        },
+                        "Ordinal": {
+                            "Value": 76.0
+                        }
+                    },    "GraphSyncPart": {
+                        "Text": "<<contentapiprefix>>/personalityfilteringquestion/76b29d0e-eed0-46f2-8625-7c1521a3c911"
+                    },
+                    "TitlePart": {
+                        "Title": "Systems Analysis, Systems Evaluation"
+                    }
+                },{
+                    "ContentItemId": "77ek1dktsywv0p59tzxhwtmdz",
+                    "ContentItemVersionId": "77c179zw963mq7afg6vdm3nbmw",
+                    "ContentType": "PersonalityFilteringQuestion",
+                    "DisplayText": "Systems Evaluation",
+                    "Latest": true,
+                    "Published": true,
+                    "ModifiedUtc": "2020-09-11T13:57:27.9313605Z",
+                    "PublishedUtc": "2020-09-11T13:57:27.9365264Z",
+                    "CreatedUtc": "2020-09-11T13:57:27.9313605Z",
+                    "Owner": "admin",
+                    "Author": "admin",
+                    "PersonalityFilteringQuestion": {
+                        "SOCSkillsMatrix": {
+                            "ContentItemIds": [
+                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"SOCSkillsMatrix\", \"3442A-Systems Evaluation\")\u00BB"
+                            ]
+                        },        "Text": {
+                            "Text": "Would you like a job where you measure how things work and suggest improvements?"
+                        },
+                        "Ordinal": {
+                            "Value": 77.0
+                        }
+                    },    "GraphSyncPart": {
+                        "Text": "<<contentapiprefix>>/personalityfilteringquestion/77b29d0e-eed0-46f2-8625-7c1521a3c911"
+                    },
+                    "TitlePart": {
+                        "Title": "Systems Evaluation"
+                    }
+                },{
+                    "ContentItemId": "78ek1dktsywv0p59tzxhwtmdz",
+                    "ContentItemVersionId": "78c179zw963mq7afg6vdm3nbmw",
+                    "ContentType": "PersonalityFilteringQuestion",
+                    "DisplayText": "Systems Skills",
+                    "Latest": true,
+                    "Published": true,
+                    "ModifiedUtc": "2020-09-11T13:57:27.9313605Z",
+                    "PublishedUtc": "2020-09-11T13:57:27.9365264Z",
+                    "CreatedUtc": "2020-09-11T13:57:27.9313605Z",
+                    "Owner": "admin",
+                    "Author": "admin",
+                    "PersonalityFilteringQuestion": {
+                        "SOCSkillsMatrix": {
+                            "ContentItemIds": [
+                            ]
+                        },        "Text": {
+                            "Text": "Could you find the best ways for people and technology to work together in an organisation?"
+                        },
+                        "Ordinal": {
+                            "Value": 78.0
+                        }
+                    },    "GraphSyncPart": {
+                        "Text": "<<contentapiprefix>>/personalityfilteringquestion/78b29d0e-eed0-46f2-8625-7c1521a3c911"
+                    },
+                    "TitlePart": {
+                        "Title": "Systems Skills"
+                    }
+                },{
+                    "ContentItemId": "79ek1dktsywv0p59tzxhwtmdz",
+                    "ContentItemVersionId": "79c179zw963mq7afg6vdm3nbmw",
+                    "ContentType": "PersonalityFilteringQuestion",
+                    "DisplayText": "Technical Skills",
+                    "Latest": true,
+                    "Published": true,
+                    "ModifiedUtc": "2020-09-11T13:57:27.9313605Z",
+                    "PublishedUtc": "2020-09-11T13:57:27.9365264Z",
+                    "CreatedUtc": "2020-09-11T13:57:27.9313605Z",
+                    "Owner": "admin",
+                    "Author": "admin",
+                    "PersonalityFilteringQuestion": {
+                        "SOCSkillsMatrix": {
+                            "ContentItemIds": [
+                            ]
+                        },        "Text": {
+                            "Text": "Do you think you could design, set up and operate machinery and equipment?"
+                        },
+                        "Ordinal": {
+                            "Value": 79.0
+                        }
+                    },    "GraphSyncPart": {
+                        "Text": "<<contentapiprefix>>/personalityfilteringquestion/79b29d0e-eed0-46f2-8625-7c1521a3c911"
+                    },
+                    "TitlePart": {
+                        "Title": "Technical Skills"
+                    }
+                },{
+                    "ContentItemId": "80ek1dktsywv0p59tzxhwtmdz",
+                    "ContentItemVersionId": "80c179zw963mq7afg6vdm3nbmw",
+                    "ContentType": "PersonalityFilteringQuestion",
+                    "DisplayText": "Technology Design",
+                    "Latest": true,
+                    "Published": true,
+                    "ModifiedUtc": "2020-09-11T13:57:27.9313605Z",
+                    "PublishedUtc": "2020-09-11T13:57:27.9365264Z",
+                    "CreatedUtc": "2020-09-11T13:57:27.9313605Z",
+                    "Owner": "admin",
+                    "Author": "admin",
+                    "PersonalityFilteringQuestion": {
+                        "SOCSkillsMatrix": {
+                            "ContentItemIds": [
+                            ]
+                        },        "Text": {
+                            "Text": "Would you like a job designing technology and equipment?"
+                        },
+                        "Ordinal": {
+                            "Value": 80.0
+                        }
+                    },    "GraphSyncPart": {
+                        "Text": "<<contentapiprefix>>/personalityfilteringquestion/80b29d0e-eed0-46f2-8625-7c1521a3c911"
+                    },
+                    "TitlePart": {
+                        "Title": "Technology Design"
+                    }
+                },{
+                    "ContentItemId": "81ek1dktsywv0p59tzxhwtmdz",
+                    "ContentItemVersionId": "81c179zw963mq7afg6vdm3nbmw",
+                    "ContentType": "PersonalityFilteringQuestion",
+                    "DisplayText": "Time Management",
+                    "Latest": true,
+                    "Published": true,
+                    "ModifiedUtc": "2020-09-11T13:57:27.9313605Z",
+                    "PublishedUtc": "2020-09-11T13:57:27.9365264Z",
+                    "CreatedUtc": "2020-09-11T13:57:27.9313605Z",
+                    "Owner": "admin",
+                    "Author": "admin",
+                    "PersonalityFilteringQuestion": {
+                        "SOCSkillsMatrix": {
+                            "ContentItemIds": [
+                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"SOCSkillsMatrix\", \"8149E-Time Management\")\u00BB"
+                            ]
+                        },        "Text": {
+                            "Text": "Do you think you are good at managing your time?"
+                        },
+                        "Ordinal": {
+                            "Value": 81.0
+                        }
+                    },    "GraphSyncPart": {
+                        "Text": "<<contentapiprefix>>/personalityfilteringquestion/81b29d0e-eed0-46f2-8625-7c1521a3c911"
+                    },
+                    "TitlePart": {
+                        "Title": "Time Management"
+                    }
+                },{
+                    "ContentItemId": "82ek1dktsywv0p59tzxhwtmdz",
+                    "ContentItemVersionId": "82c179zw963mq7afg6vdm3nbmw",
+                    "ContentType": "PersonalityFilteringQuestion",
+                    "DisplayText": "Troubleshooting",
+                    "Latest": true,
+                    "Published": true,
+                    "ModifiedUtc": "2020-09-11T13:57:27.9313605Z",
+                    "PublishedUtc": "2020-09-11T13:57:27.9365264Z",
+                    "CreatedUtc": "2020-09-11T13:57:27.9313605Z",
+                    "Owner": "admin",
+                    "Author": "admin",
+                    "PersonalityFilteringQuestion": {
+                        "SOCSkillsMatrix": {
+                            "ContentItemIds": [
+                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"SOCSkillsMatrix\", \"5223B-Troubleshooting\")\u00BB"
+                            ]
+                        },        "Text": {
+                            "Text": "Would you like a job where you find and fix faults?"
+                        },
+                        "Ordinal": {
+                            "Value": 82.0
+                        }
+                    },    "GraphSyncPart": {
+                        "Text": "<<contentapiprefix>>/personalityfilteringquestion/82b29d0e-eed0-46f2-8625-7c1521a3c911"
+                    },
+                    "TitlePart": {
+                        "Title": "Troubleshooting"
+                    }
+                },{
+                    "ContentItemId": "83ek1dktsywv0p59tzxhwtmdz",
+                    "ContentItemVersionId": "83c179zw963mq7afg6vdm3nbmw",
+                    "ContentType": "PersonalityFilteringQuestion",
+                    "DisplayText": "Verbal Abilities, Speaking",
+                    "Latest": true,
+                    "Published": true,
+                    "ModifiedUtc": "2020-09-11T13:57:27.9313605Z",
+                    "PublishedUtc": "2020-09-11T13:57:27.9365264Z",
+                    "CreatedUtc": "2020-09-11T13:57:27.9313605Z",
+                    "Owner": "admin",
+                    "Author": "admin",
+                    "PersonalityFilteringQuestion": {
+                        "SOCSkillsMatrix": {
+                            "ContentItemIds": [
+                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"SOCSkillsMatrix\", \"1121B-Verbal Abilities, Speaking\")\u00BB"
+                            ]
+                        },        "Text": {
+                            "Text": "Do you think you are good at explaining things, either by talking or writing it down?"
+                        },
+                        "Ordinal": {
+                            "Value": 83.0
+                        }
+                    },    "GraphSyncPart": {
+                        "Text": "<<contentapiprefix>>/personalityfilteringquestion/83b29d0e-eed0-46f2-8625-7c1521a3c911"
+                    },
+                    "TitlePart": {
+                        "Title": "Verbal Abilities, Speaking"
+                    }
+                },{
+                    "ContentItemId": "84ek1dktsywv0p59tzxhwtmdz",
+                    "ContentItemVersionId": "84c179zw963mq7afg6vdm3nbmw",
+                    "ContentType": "PersonalityFilteringQuestion",
+                    "DisplayText": "Writing",
+                    "Latest": true,
+                    "Published": true,
+                    "ModifiedUtc": "2020-09-11T13:57:27.9313605Z",
+                    "PublishedUtc": "2020-09-11T13:57:27.9365264Z",
+                    "CreatedUtc": "2020-09-11T13:57:27.9313605Z",
+                    "Owner": "admin",
+                    "Author": "admin",
+                    "PersonalityFilteringQuestion": {
+                        "SOCSkillsMatrix": {
+                            "ContentItemIds": [
+                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"SOCSkillsMatrix\", \"7215A-Writing\")\u00BB"
+                            ]
+                        },        "Text": {
+                            "Text": "Would you be comfortable in a job where writing was one of your main tasks?"
+                        },
+                        "Ordinal": {
+                            "Value": 84.0
+                        }
+                    },    "GraphSyncPart": {
+                        "Text": "<<contentapiprefix>>/personalityfilteringquestion/84b29d0e-eed0-46f2-8625-7c1521a3c911"
+                    },
+                    "TitlePart": {
+                        "Title": "Writing"
+                    }
                 }
             ]
         }
