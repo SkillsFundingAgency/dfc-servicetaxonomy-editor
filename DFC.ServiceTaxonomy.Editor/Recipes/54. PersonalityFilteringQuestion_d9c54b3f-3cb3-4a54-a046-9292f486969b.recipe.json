@@ -674,7 +674,7 @@
                     "PersonalityFilteringQuestion": {
                         "SOCSkillsMatrix": {
                             "ContentItemIds": [
-                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"SOCSkillsMatrix\", \"4331P-Attention to Detail\")\u00BB"
+                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"SOCSkillsMatrix\", \"5221A-Attention to Detail\")\u00BB"
                             ]
                         },        "Text": {
                             "Text": "Do you enjoy being thorough and paying attention to details?"
@@ -703,7 +703,7 @@
                     "PersonalityFilteringQuestion": {
                         "SOCSkillsMatrix": {
                             "ContentItemIds": [
-                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"SOCSkillsMatrix\", \"4331P-Attentiveness\")\u00BB"
+                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"SOCSkillsMatrix\", \"3311F-Attentiveness\")\u00BB"
                             ]
                         },        "Text": {
                             "Text": "Are you able to concentrate on a task for a long time without becoming distracted?"
@@ -1018,7 +1018,7 @@
                     "PersonalityFilteringQuestion": {
                         "SOCSkillsMatrix": {
                             "ContentItemIds": [
-                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"SOCSkillsMatrix\", \"4331P-Idea Generation and Reasoning Abilities\")\u00BB"
+                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"SOCSkillsMatrix\", \"1171A-Idea Generation and Reasoning Abilities\")\u00BB"
                             ]
                         },        "Text": {
                             "Text": "Do you think you are good at coming up with lots of different ways to solve problems?"
@@ -1479,7 +1479,7 @@
                     "PersonalityFilteringQuestion": {
                         "SOCSkillsMatrix": {
                             "ContentItemIds": [
-                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"SOCSkillsMatrix\", \"4331P-Memory\")\u00BB"
+                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"SOCSkillsMatrix\", \"3219D-Memory\")\u00BB"
                             ]
                         },        "Text": {
                             "Text": "Are you good at remembering things?"
@@ -1508,7 +1508,7 @@
                     "PersonalityFilteringQuestion": {
                         "SOCSkillsMatrix": {
                             "ContentItemIds": [
-                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"SOCSkillsMatrix\", \"4331P-Monitoring\")\u00BB"
+                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"SOCSkillsMatrix\", \"2318B-Monitoring\")\u00BB"
                             ]
                         },        "Text": {
                             "Text": "Are you interested in checking how well things are working in order to make improvements?"
@@ -2053,7 +2053,7 @@
                     "PersonalityFilteringQuestion": {
                         "SOCSkillsMatrix": {
                             "ContentItemIds": [
-                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"SOCSkillsMatrix\", \"4331P-Service Orientation\")\u00BB"
+                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"SOCSkillsMatrix\", \"9272A-Service Orientation\")\u00BB"
                             ]
                         },        "Text": {
                             "Text": "Do you think you go out of your way to help people?"
@@ -2139,7 +2139,7 @@
                     "PersonalityFilteringQuestion": {
                         "SOCSkillsMatrix": {
                             "ContentItemIds": [
-                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"SOCSkillsMatrix\", \"4331P-Social Perceptiveness\")\u00BB"
+                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"SOCSkillsMatrix\", \"6144C-Social Perceptiveness\")\u00BB"
                             ]
                         },        "Text": {
                             "Text": "Are you good at understanding why other people do or say certain things?"
