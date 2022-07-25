@@ -1,0 +1,93 @@
+{
+    "name": "00_Pages_ESFA_Welcome",
+    "displayName": "00_Pages_ESFA_Welcome",
+    "description": "",
+    "author": "",
+    "website": "",
+    "version": "",
+    "issetuprecipe": false,
+    "categories": [],
+    "tags": [],
+    "steps": [
+        {
+            "name": "Content",
+            "data": [
+                {
+                    "ContentItemId": "4qwfh4bz25gzgz4hyp79dqcy48",
+                    "ContentItemVersionId": "4n4rqgk8jmbwmyfcabm547scxz",
+                    "ContentType": "Page",
+                    "DisplayText": "ESFA Welcome",
+                    "Latest": true,
+                    "Published": true,
+                    "ModifiedUtc": "2022-07-25T10:44:50.942116Z",
+                    "PublishedUtc": "2022-07-25T10:44:53.101147Z",
+                    "CreatedUtc": "2022-07-21T14:15:10.3205997Z",
+                    "Owner": "4jddcam0255px3qdasdr6hjkwz",
+                    "Author": "admin",
+                    "TitlePart": {
+                        "Title": "ESFA Welcome"
+                    },
+                    "Page": {
+                        "PageLocations": {
+                            "TaxonomyContentItemId": "4eembshqzx66drajtdten34tc8",
+                            "TermContentItemIds": [
+                                "4y3qc9f2r818z1df41a1yryvny"
+                            ]
+                        },
+                        "Description": {
+                            "Text": null
+                        },
+                        "Herobanner": {
+                            "Html": "<p><br></p>"
+                        },
+                        "ShowHeroBanner": {
+                            "Value": false
+                        },
+                        "ShowBreadcrumb": {
+                            "Value": true
+                        },
+                        "TriageToolSummary": {
+                            "Html": ""
+                        },
+                        "UseInTriageTool": {
+                            "Value": false
+                        },
+                        "TriageToolFilters": {
+                            "ContentItemIds": []
+                        },
+                        "UseBrowserWidth": {
+                            "Value": false
+                        }
+                    },
+                    "SitemapPart": {
+                        "OverrideSitemapConfig": false,
+                        "ChangeFrequency": 0,
+                        "Priority": 5,
+                        "Exclude": false
+                    },
+                    "FlowPart": {
+                        "Widgets": []
+                    },
+                    "GraphSyncPart": {
+                        "Text": "<<contentapiprefix>>/page/313fac2d-2d34-4aa8-97bd-246f8af51b45"
+                    },
+                    "PageLocationPart": {
+                        "UrlName": "esfa-welcome",
+                        "DefaultPageForLocation": false,
+                        "RedirectLocations": null,
+                        "FullUrl": "/esfa-welcome"
+                    },
+                    "ContentApprovalPart": {
+                        "ReviewStatus": 0,
+                        "ReviewType": 0,
+                        "IsForcePublished": false
+                    },
+                    "AuditTrailPart": {
+                        "Comment": ".",
+                        "ShowComment": false
+                    }
+                }
+            ]
+        }
+    ]
+}
