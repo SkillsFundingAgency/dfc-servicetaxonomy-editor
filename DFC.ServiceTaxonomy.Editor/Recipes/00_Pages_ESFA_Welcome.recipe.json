@@ -60,10 +60,10 @@
                         }
                     },
                     "SitemapPart": {
-                        "OverrideSitemapConfig": false,
+                        "OverrideSitemapConfig": true,
                         "ChangeFrequency": 0,
                         "Priority": 5,
-                        "Exclude": false
+                        "Exclude": true
                     },
                     "FlowPart": {
                         "Widgets": []
