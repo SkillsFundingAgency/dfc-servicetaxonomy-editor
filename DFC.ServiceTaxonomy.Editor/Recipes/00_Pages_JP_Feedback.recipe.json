@@ -30,9 +30,7 @@
                     "Page": {
                         "PageLocations": {
                             "TaxonomyContentItemId": "4eembshqzx66drajtdten34tc8",
-                            "TermContentItemIds": [
-                                "4bj8dac5hskh76gp82ncd1hkx7"
-                            ]
+                            "TermContentItemIds": ["4bj8dac5hskh76gp82ncd1hkx7"]
                         },
                         "Description": {
                             "Text": null
@@ -60,10 +58,10 @@
                         }
                     },
                     "SitemapPart": {
-                        "OverrideSitemapConfig": false,
+                        "OverrideSitemapConfig": true,
                         "ChangeFrequency": 0,
                         "Priority": 5,
-                        "Exclude": false
+                        "Exclude": true
                     },
                     "FlowPart": {
                         "Widgets": [
