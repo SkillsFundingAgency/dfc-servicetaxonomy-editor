@@ -24,12 +24,12 @@ Restore a copy of the Skills Framework Database. Ideally this should be some ver
 
 You may get an error when trying to restore the bacpac file, in that event try running the following script in MSSQL against your master DB:
 
-...
+```
 sp_configure 'contained database authentication', 1;
 GO
 RECONFIGURE;
 GO
-...
+```
 
 This is mainly a read only database from the view of the STAX editor but there is some potential for updates being made so a specific individual instance for your set up is best.
 
