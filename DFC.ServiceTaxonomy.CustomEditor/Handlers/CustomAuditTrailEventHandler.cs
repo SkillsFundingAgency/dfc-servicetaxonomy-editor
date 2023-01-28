@@ -22,7 +22,7 @@ namespace DFC.ServiceTaxonomy.CustomEditor.Handlers
                 )
             {
                 // No way to divine whether a Remove event is a delete or discarded draft from the content item so need to look a the URL.
-                var isDiscard = _httpContextAccessor.HttpContext.Request.Path.Value.Contains(Constants.AuditTrail.UrlPart_DiscardDraft, StringComparison.CurrentCultureIgnoreCase);
+                var isDiscard = _httpContextAccessor.HttpContext!.Request.Path.Value!.Contains(Constants.AuditTrail.UrlPart_DiscardDraft, StringComparison.CurrentCultureIgnoreCase);
                 if(isDiscard)
                 {
                     removedEvent.Name = Constants.AuditTrail.ContentEventName_DiscardDraft;

@@ -33,7 +33,7 @@ namespace DFC.ServiceTaxonomy.VersionComparison.Services.PropertyServices
                 var key = $"{widget.ContentType}-{widget.ContentItemId}";
                 if (widget.ContentType == "HTMLShared")
                 {
-                    var linkInfo = widget.HTMLShared?.SharedContent?.ContentItemIds
+                    var linkInfo = widget.HTMLShared?.SharedContent?.ContentItemIds!
                         .Select(c => new { Id = c, Name = _contentServiceHelper.GetContentNameAsync(c).Result })
                         .ToDictionary(k => k.Id, v => v.Name);
                     widgetList.Add(new PropertyExtract { Key = key, Name = "HTMLShared", Links = linkInfo });

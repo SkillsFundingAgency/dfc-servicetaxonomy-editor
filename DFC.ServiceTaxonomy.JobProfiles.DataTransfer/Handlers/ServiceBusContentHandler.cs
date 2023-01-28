@@ -48,8 +48,8 @@ namespace DFC.ServiceTaxonomy.JobProfiles.DataTransfer.Handlers
             {
                 return false;
             }
-            return _httpContextAccessor.HttpContext.Items.TryGetValue(context.ContentItem.ContentItemId, out var result) &&
-                result.ToString() == contextType;
+            return _httpContextAccessor.HttpContext!.Items.TryGetValue(context.ContentItem.ContentItemId, out var result) &&
+                result!.ToString() == contextType;
         }
     }
 }

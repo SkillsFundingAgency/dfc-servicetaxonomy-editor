@@ -57,7 +57,7 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Services
         private async Task<List<ContentItem>> GetMyContent()
         {
             var myContent = new List<ContentItem>();
-            var user = _httpContextAccessor.HttpContext?.User.Identity.Name ?? string.Empty;
+            var user = _httpContextAccessor.HttpContext?.User.Identity!.Name ?? string.Empty;
 
             var query = _session.Query<ContentItem>().With<ContentItemIndex>(i => i.Author == user && i.Latest);
             await foreach (var item in  query.OrderByDescending(c => c.ModifiedUtc).ToAsyncEnumerable())

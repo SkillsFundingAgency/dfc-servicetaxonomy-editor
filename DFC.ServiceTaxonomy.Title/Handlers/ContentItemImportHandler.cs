@@ -27,15 +27,15 @@ namespace DFC.ServiceTaxonomy.Title.Handlers
 
         public async Task ExecuteAsync(RecipeExecutionContext context)
         {
-            ContentStepModel? model = context.Step.ToObject<ContentStepModel>();
+            ContentStepModel model = context.Step.ToObject<ContentStepModel>();
             int numberOfDuplicates = 0;
-            JArray? data = model?.Data;
+            JArray data = model?.Data;
             if (data == null)
                 return;
 
-            foreach (JToken? token in data)
+            foreach (JToken token in data)
             {
-                ContentItem? contentItem = token.ToObject<ContentItem>();
+                ContentItem contentItem = token.ToObject<ContentItem>();
                 if (contentItem == null)
                     continue;
 

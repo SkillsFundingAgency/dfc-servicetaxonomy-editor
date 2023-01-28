@@ -97,9 +97,9 @@ namespace DFC.ServiceTaxonomy.GraphSync.Notifications
                 if (contentItemId != null)
                 {
                     string editContentItemUrl = _linkGenerator.GetUriByAction(
-                        _httpContextAccessor.HttpContext,
+                        _httpContextAccessor.HttpContext!,
                         "Edit", "Admin",
-                        new {area = "OrchardCore.Contents", contentItemId});
+                        new {area = "OrchardCore.Contents", contentItemId})!;
 
                     title = $"<a href=\"{editContentItemUrl}\">'{syncBlocker.Title}'</a>";
                 }

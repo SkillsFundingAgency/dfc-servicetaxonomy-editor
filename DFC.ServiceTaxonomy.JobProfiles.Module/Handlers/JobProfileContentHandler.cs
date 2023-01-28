@@ -68,7 +68,7 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module.Handlers
             if(socCodeContentItemIds == null || !socCodeContentItemIds.Any() || socCodeContentItemIds.Count != 1)
             {
                 // Ensure any related skills are cleared
-                if(relatedSkillsIds.Any())
+                if(relatedSkillsIds!.Any())
                 {
                     context.ContentItem.Content.JobProfile.Relatedskills.ContentItemIds = null;
                 }

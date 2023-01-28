@@ -293,12 +293,12 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
 
         private bool EqualsCheck<T>(JValue contentValue, object nodeValue, JTokenType type)
         {
-            T leftValue = contentValue.ToObject<T>();
+            T leftValue = contentValue.ToObject<T>()!;
             T rightValue;
 
             if (nodeValue is JValue jRightValue && jRightValue.Type == type)
             {
-                rightValue = jRightValue.ToObject<T>();
+                rightValue = jRightValue.ToObject<T>()!;
             }
             else
             {

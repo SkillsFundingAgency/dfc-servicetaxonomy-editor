@@ -33,7 +33,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb.Queries.Models
         public IEnumerable<CommandRelationship> ToCommandRelationships(ISyncNameProvider syncNameProvider)
         {
             //todo: don't get id twice
-            var commandRelationshipGroups = OutgoingRelationships.GroupBy(
+            var commandRelationshipGroups = OutgoingRelationships!.GroupBy(
                 or => new CommandRelationship(
                     or.Relationship.Type,
                     null,
@@ -75,7 +75,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb.Queries.Models
             IContentItemVersion toContentItemVersion)
         {
             //todo: don't get id twice
-            var commandRelationshipGroups = OutgoingRelationships.GroupBy(
+            var commandRelationshipGroups = OutgoingRelationships!.GroupBy(
                 or => new CommandRelationship(
                     or.Relationship.Type,
                     null,

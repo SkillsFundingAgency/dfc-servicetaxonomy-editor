@@ -42,7 +42,9 @@ namespace DFC.ServiceTaxonomy.Taxonomies.Liquid
             else if (input.Type == FluidValues.Array)
             {
                 taxonomyContentItemId = arguments.At(0).ToStringValue();
+#pragma warning disable CS0618
                 termContentItemIds = input.Enumerate().Select(x => x.ToStringValue()).ToArray();
+#pragma warning restore CS0618
             }
             else
             {

@@ -39,7 +39,7 @@ namespace DFC.ServiceTaxonomy.Taxonomies.GraphQL
                 .ResolveLockedAsync(async x =>
                 {
                     var ids = x.Page(x.Source.TermContentItemIds);
-                    var contentManager = x.ResolveServiceProvider().GetService<IContentManager>();
+                    var contentManager = x.RequestServices!.GetService<IContentManager>();
 
                     var taxonomy = await contentManager.GetAsync(x.Source.TaxonomyContentItemId);
 
@@ -64,7 +64,7 @@ namespace DFC.ServiceTaxonomy.Taxonomies.GraphQL
                 .Description("the taxonomy content item")
                 .ResolveLockedAsync(x =>
                 {
-                    var contentManager = x.ResolveServiceProvider().GetService<IContentManager>();
+                    var contentManager = x.RequestServices!.GetService<IContentManager>();
                     return contentManager.GetAsync(x.Source.TaxonomyContentItemId);
                 });
         }

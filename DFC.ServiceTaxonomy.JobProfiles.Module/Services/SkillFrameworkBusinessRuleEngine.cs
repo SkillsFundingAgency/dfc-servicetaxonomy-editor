@@ -121,8 +121,8 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module.Services
         /// <returns></returns>
         public IEnumerable<OnetSkill> BoostMathsSkills(IEnumerable<OnetSkill> attributes)
         {
-            OnetSkill skillsMaths = attributes.FirstOrDefault(a => a.Name == MathsTitle && a.Category == CategoryType.Skill);
-            OnetSkill knowledgeMaths = attributes.FirstOrDefault(a => a.Name == MathsTitle && a.Category == CategoryType.Knowledge);
+            OnetSkill skillsMaths = attributes.FirstOrDefault(a => a.Name == MathsTitle && a.Category == CategoryType.Skill)!;
+            OnetSkill knowledgeMaths = attributes.FirstOrDefault(a => a.Name == MathsTitle && a.Category == CategoryType.Knowledge)!;
 
             //if we have both remove one
             if (skillsMaths != null && knowledgeMaths != null)
@@ -164,8 +164,8 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module.Services
             foreach (var combination in combinations)
             {
                 var topAttributes = SelectTopAttributes(attributes);
-                OnetSkill elementOne = topAttributes.FirstOrDefault(a => a.Id == combination.OnetElementOneId);
-                OnetSkill elementTwo = topAttributes.FirstOrDefault(a => a.Id == combination.OnetElementTwoId);
+                OnetSkill elementOne = topAttributes.FirstOrDefault(a => a.Id == combination.OnetElementOneId)!;
+                OnetSkill elementTwo = topAttributes.FirstOrDefault(a => a.Id == combination.OnetElementTwoId)!;
 
                 //if we have both combine them
                 if (elementOne != null && elementTwo != null)
