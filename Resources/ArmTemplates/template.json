@@ -585,7 +585,15 @@
                             {
                                 "name": "WEBSITE_MEMORY_LIMIT_MB",
                                 "value": "[parameters('WEBSITEMEMORYLIMITMB')]"
-                            }   
+                            },
+                            {
+                                "name": "DOTNET_ROLL_FORWARD",
+                                "value": "Minor"
+                            }, 
+                            {
+                                "name": "DOTNET_ROLL_FORWARD_ON_NO_CANDIDATE_FX",
+                                "value": "1"
+                            }
                         ] 
                     }
                 }
