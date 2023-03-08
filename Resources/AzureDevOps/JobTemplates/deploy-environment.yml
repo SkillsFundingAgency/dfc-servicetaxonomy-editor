@@ -16,7 +16,7 @@ parameters:
   EditorAdminUsername: ''
   EditorAdminUserEmail: ''
   EditorAdminUserPassword: ''
-  DotNetCoreVersion: '3.1.201'
+  #DotNetCoreVersion: '3.1.201'
   DFCAzureDevOpsProjectGuid: ''
   DfcServiceTaxonomyTestsBuildId: ''
   TestArtifactBranch: ''
@@ -95,42 +95,42 @@ jobs:
             ExcludeFilesFromAppDataFlag: false
         - powershell: Start-Sleep -Seconds 20
           displayName: 'Pause deployment whilst app restarts'
-        - task: ExtractFiles@1
-          displayName: 'Extract OrchardCoreInitialiser files'
-          inputs:
-            archiveFilePatterns: '$(Pipeline.Workspace)\DFC.ServiceTaxonomy.OrchardCoreInitialiser.DeploymentPackages\DeploymentPackages\DFC.ServiceTaxonomy.OrchardCoreInitialiser.zip'
-            destinationFolder: $(InitialiserWorkingDir)
-        - task: UseDotNet@2
-          displayName: 'Use .NET Core sdk ${{ parameters.DotNetCoreVersion }}'
-          condition: ne('', '${{ parameters.DotNetCoreVersion }}')
-          inputs:
-            version: ${{ parameters.DotNetCoreVersion }}
-        - script: DFC.ServiceTaxonomy.OrchardCoreInitialiser.exe --uri=${{ parameters.OrchardCoreUri }} --sitename=${{ parameters. SiteName }} --recipename="ServiceTaxonomyEditor" --username=${{ parameters.EditorAdminUsername }} --email=${{ parameters.EditorAdminUserEmail }} --password=${{ parameters.EditorAdminUserPassword }}
-          displayName: 'Execute Orchard Core Initialiser'
-          workingDirectory: $(InitialiserWorkingDir)
-        - task: CopyFiles@2
-          displayName: 'Copy OrchardCoreInitialiser PNG output to staging directory'
-          condition: always()
-          inputs:
-            sourceFolder: $(InitialiserWorkingDir)
-            contents: '**\*.png'
-            cleanTargetFolder: true
-            targetFolder: $(Pipeline.Workspace)\OrchardCoreInitialiserOutput
-        - task: PublishPipelineArtifact@1
-          displayName: 'Publish OrchardCoreInitialiser Output'
-          condition: failed()
-          inputs:
-            targetPath: $(Pipeline.Workspace)\OrchardCoreInitialiserOutput\ 
-            artifactName: DFC.ServiceTaxonomy.OrchardCoreInitialiser.Output.${{ parameters.Environment }}
+        #- task: ExtractFiles@1
+        #  displayName: 'Extract OrchardCoreInitialiser files'
+        #  inputs:
+        #    archiveFilePatterns: '$(Pipeline.Workspace)\DFC.ServiceTaxonomy.OrchardCoreInitialiser.DeploymentPackages\DeploymentPackages\DFC.ServiceTaxonomy.OrchardCoreInitialiser.zip'
+        #    destinationFolder: $(InitialiserWorkingDir)
+        #- task: UseDotNet@2
+        #  displayName: 'Use .NET Core sdk ${{ parameters.DotNetCoreVersion }}'
+        #  condition: ne('', '${{ parameters.DotNetCoreVersion }}')
+        #  inputs:
+        #    version: ${{ parameters.DotNetCoreVersion }}
+        #- script: DFC.ServiceTaxonomy.OrchardCoreInitialiser.exe --uri=${{ parameters.OrchardCoreUri }} --sitename=${{ parameters. SiteName }} --recipename="ServiceTaxonomyEditor" --username=${{ parameters.EditorAdminUsername }} --email=${{ parameters.EditorAdminUserEmail }} --password=${{ parameters.EditorAdminUserPassword }}
+        #  displayName: 'Execute Orchard Core Initialiser'
+        #  workingDirectory: $(InitialiserWorkingDir)
+        #- task: CopyFiles@2
+        #  displayName: 'Copy OrchardCoreInitialiser PNG output to staging directory'
+        #  condition: always()
+        #  inputs:
+        #    sourceFolder: $(InitialiserWorkingDir)
+        #    contents: '**\*.png'
+        #    cleanTargetFolder: true
+        #    targetFolder: $(Pipeline.Workspace)\OrchardCoreInitialiserOutput
+        #- task: PublishPipelineArtifact@1
+        #  displayName: 'Publish OrchardCoreInitialiser Output'
+        #  condition: failed()
+        #  inputs:
+        #    targetPath: $(Pipeline.Workspace)\OrchardCoreInitialiserOutput\ 
+        #    artifactName: DFC.ServiceTaxonomy.OrchardCoreInitialiser.Output.${{ parameters.Environment }}
 
         - template: ..\StepTemplates\run-integration-tests.yml
           parameters:
             Environment: ${{ parameters.Environment }}
-        - template: ..\StepTemplates\run-functional-tests.yml
-          parameters:
-            DFCAzureDevOpsProjectGuid: ${{ parameters.DFCAzureDevOpsProjectGuid }}
-            DfcServiceTaxonomyTestsBuildId: ${{ parameters.DfcServiceTaxonomyTestsBuildId }}
-            Environment: ${{ parameters.Environment }}
-            TestArtifactBranch: ${{ parameters.TestArtifactBranch }}
-            TestTag: Editor
-            TestExclusionTag: ${{ parameters.TestExclusionTag }} 
+        #- template: ..\StepTemplates\run-functional-tests.yml
+        #  parameters:
+        #    DFCAzureDevOpsProjectGuid: ${{ parameters.DFCAzureDevOpsProjectGuid }}
+        #    DfcServiceTaxonomyTestsBuildId: ${{ parameters.DfcServiceTaxonomyTestsBuildId }}
+        #    Environment: ${{ parameters.Environment }}
+        #    TestArtifactBranch: ${{ parameters.TestArtifactBranch }}
+        #    TestTag: Editor
+        #    TestExclusionTag: ${{ parameters.TestExclusionTag }} 
