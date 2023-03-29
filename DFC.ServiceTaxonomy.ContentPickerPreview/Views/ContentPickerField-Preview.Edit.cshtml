@@ -61,7 +61,7 @@
                                  select-label="@T["Select"]"
                                  deselect-label="@T["Remove"]">
                     <template slot="option" slot-scope="props">
-                        <div v-cloak><span>{{ props.option.displayText }}</span><span class="small ml-2" v-show="!props.option.hasPublished">(@T["Not published"])</span></div>
+                        <div v-cloak><span>{{ props.option.displayText }}</span><span class="small ms-2" v-show="!props.option.hasPublished">(@T["Not published"])</span></div>
                     </template>
                     <template slot="noResult">
                         @T["No result found"]
@@ -75,7 +75,7 @@
 
             @if (settings.DisplayedContentTypes.Any())
             {
-                <div class="w-xl-50 pl-4">
+                <div class="w-xl-50 ps-4">
                     @if (settings.DisplayedContentTypes.Length == 1)
                     {
                         <a asp-area="OrchardCore.Contents"
