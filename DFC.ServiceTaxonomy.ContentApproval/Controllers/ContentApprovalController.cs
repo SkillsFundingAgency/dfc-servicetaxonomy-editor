@@ -92,7 +92,7 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Controllers
                 {
                     contentItem.Alter<AuditTrailPart>(a => a.Comment = string.Empty);
                 }
-                contentItem.Author = User.Identity.Name;
+                contentItem.Author = User.Identity!.Name;
                 await _contentManager.SaveDraftAsync(contentItem);
             }
             else if (contentApprovalPart.ReviewStatus == ReviewStatus.InReview)
@@ -118,9 +118,9 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Controllers
             }
 
             var editLink = _urlHelperFactory.GetUrlHelper(Url.ActionContext).Action(
-                metadata.EditorRouteValues["action"].ToString(),
+                metadata.EditorRouteValues["action"]!.ToString(),
                 metadata.EditorRouteValues);
-            return Redirect(editLink);
+            return Redirect(editLink!);
         }
 
         public async Task<IActionResult> Edit(string contentItemId, string returnUrl)

@@ -49,7 +49,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Extensions
                     mergeNodeCommand.Properties.Add(nodePropertyName, value);
                     break;
                 default:
-                    value = jvalue.Value<T>();
+                    value = jvalue.Value<T>()!;
                     if (value == null)
                         throw new InvalidCastException($"Could not convert content property {jvalue} to type {typeof(T)}");
                     mergeNodeCommand.Properties.Add(nodePropertyName, value);

@@ -4,6 +4,6 @@ namespace DFC.ServiceTaxonomy.Title.Models
 {
     public class UniqueTitlePart : ContentPart
     {
-        public string? Title { get; set; }
+        public string Title { get; set; }
     }
 }

@@ -197,7 +197,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers
             _session.CancelAsync().Wait();
             if(context.ContentItem.ContentType == JobProfile)
             {
-                _httpContextAccessor.HttpContext.Items.Add(context.ContentItem.ContentItemId, context.GetType().Name);
+                _httpContextAccessor.HttpContext!.Items.Add(context.ContentItem.ContentItemId, context.GetType().Name);
             }
         }
 

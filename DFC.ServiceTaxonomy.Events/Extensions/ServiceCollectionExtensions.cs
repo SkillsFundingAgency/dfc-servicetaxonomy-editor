@@ -50,7 +50,7 @@ namespace Microsoft.Extensions.DependencyInjection
                         .HandleTransientHttpError()
                         .WaitAndRetryAsync(delay, (result, timespan, retryAttempt, context) =>
                         {
-                            services.GetService<ILogger<EventGridContentClient>>()
+                            services.GetService<ILogger<EventGridContentClient>>()!
                                 .LogWarning("Delaying for {Timespan}, then making retry {RetryAttempt}.",
                                     timespan, retryAttempt);
                         }))

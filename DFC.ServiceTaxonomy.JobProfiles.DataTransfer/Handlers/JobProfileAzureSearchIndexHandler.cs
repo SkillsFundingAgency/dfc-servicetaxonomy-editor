@@ -38,8 +38,8 @@ namespace DFC.ServiceTaxonomy.JobProfiles.DataTransfer.Handlers
         public override async Task RemovedAsync(RemoveContentContext context)
         {
             if (context.ContentItem.ContentType == ContentTypes.JobProfile &&
-                !(_httpContextAccessor.HttpContext.Items.TryGetValue(context.ContentItem.ContentItemId, out var result) &&
-                result.ToString() == ContextTypes.RemoveContentContext))
+                !(_httpContextAccessor.HttpContext!.Items.TryGetValue(context.ContentItem.ContentItemId, out var result) &&
+                result!.ToString() == ContextTypes.RemoveContentContext))
             {
                 await _azureSearchDataProcessor.ProcessContentContext(context, ActionTypes.Deleted);
             }

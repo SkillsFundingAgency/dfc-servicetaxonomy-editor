@@ -16,7 +16,7 @@ namespace DFC.ServiceTaxonomy.Title.Indexes
     {
         private readonly IServiceProvider _serviceProvider;
         private readonly HashSet<string> _partRemoved = new HashSet<string>();
-        private IContentDefinitionManager? _contentDefinitionManager;
+        private IContentDefinitionManager _contentDefinitionManager;
 
         public UniqueTitlePartIndexProvider(IServiceProvider serviceProvider)
         {
@@ -47,7 +47,7 @@ namespace DFC.ServiceTaxonomy.Title.Indexes
             return Task.CompletedTask;
         }
 
-        public string? CollectionName { get; set; }
+        public string CollectionName { get; set; }
         public Type ForType() => typeof(ContentItem);
         public void Describe(IDescriptor context) => Describe((DescribeContext<ContentItem>)context);
 

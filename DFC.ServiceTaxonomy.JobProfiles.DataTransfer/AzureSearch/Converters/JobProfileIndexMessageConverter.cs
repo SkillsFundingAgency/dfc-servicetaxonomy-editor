@@ -34,7 +34,7 @@ namespace DFC.ServiceTaxonomy.JobProfiles.DataTransfer.AzureSearch.Converters
 
             var jobProfileIndex = new JobProfileIndex();
             jobProfileIndex.IdentityField = contentItem.As<GraphSyncPart>().ExtractGuid().ToString();
-            jobProfileIndex.SocCode = socCode.FirstOrDefault();
+            jobProfileIndex.SocCode = socCode.FirstOrDefault()!;
             jobProfileIndex.Title = contentItem.As<TitlePart>().Title;
             string altText = string.IsNullOrEmpty(contentItem.Content.JobProfile.AlternativeTitle.Text.ToString()) ? string.Empty : contentItem.Content.JobProfile.AlternativeTitle.Text.ToString();
             jobProfileIndex.AlternativeTitle = altText.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries).Select(x => x.Trim());

@@ -9,7 +9,7 @@ namespace DFC.ServiceTaxonomy.VersionComparison.Models.Parts
 
         public string GetDisplayTextById(string contentItemId)
         {
-            return GetTerms().FirstOrDefault(t => t.ContentItemId == contentItemId).DisplayText ?? string.Empty;
+            return GetTerms().FirstOrDefault(t => t.ContentItemId == contentItemId)!.DisplayText ?? string.Empty;
         }
         private IEnumerable<TermPart> GetTerms(TermPart? term = null)
         {
