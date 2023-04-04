@@ -118,7 +118,7 @@ stages:
 
 - stage: PublishPackage
   displayName: Publish Package to NuGet
-  condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/dev'))
+  condition: succeeded()
   jobs:  
   - job: CleanArtifacts  
     displayName: Clean artifacts directory
@@ -140,7 +140,7 @@ stages:
               publishFeedCredentials: 'DFC Nuget'
 
 - stage: DeployToLab
-  condition: and(eq(dependencies.Build.result,'Succeeded'), ne(variables['Build.Reason'], 'PullRequest'))
+  condition: succeeded()
   displayName: Deploy to LAB_SERVICETAXONOMY
   variables:
   - group: dfc-shared-all
@@ -178,7 +178,7 @@ stages:
 
 - stage: DeployToDev
   dependsOn: PublishPackage
-  condition: and(eq(dependencies.Build.result,'Succeeded'), ne(variables['Build.Reason'], 'PullRequest'))
+  condition: succeeded()
   displayName: Deploy to DEV_SERVICETAXONOMY
   variables:
   - group: dfc-shared-all
@@ -215,7 +215,7 @@ stages:
       PSScriptPath: "$(Pipeline.Workspace)/${{ variables.SolutionBaseName }}.Editor.Resources.PSScripts"
 
 - stage: DeployToSit
-  condition: and(succeededOrFailed(), ne(variables['Build.Reason'], 'PullRequest'))
+  condition: succeeded()
   displayName: Deploy to SIT_SERVICETAXONOMY
   variables:
   - group: dfc-shared-all
@@ -252,7 +252,7 @@ stages:
 
 
 - stage: DeployToPP
-  condition: and(eq(dependencies.Build.result,'Succeeded'), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
+  condition: succeeded()
   displayName: Deploy to PP_SERVICETAXONOMY
   variables:
   - group: dfc-shared-all
@@ -288,7 +288,7 @@ stages:
       PSScriptPath: "$(Pipeline.Workspace)/${{ variables.SolutionBaseName }}.Editor.Resources.PSScripts"
 
 - stage: DeployToPrd
-  condition: and(eq(dependencies.Build.result,'Succeeded'), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
+  condition: succeeded()
   displayName: Deploy to PRD_SERVICETAXONOMY
   variables:
   - group: dfc-shared-all
