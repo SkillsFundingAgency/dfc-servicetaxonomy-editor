@@ -96,7 +96,7 @@
         {<text>*</text>}
     </li>
 
-    <li href="#validated-@graphResult.EndpointName-@graphResult.GraphName" class="list-group-item d-flex justify-content-between align-items-center" data-toggle="collapse">
+    <li href="#validated-@graphResult.EndpointName-@graphResult.GraphName" class="list-group-item d-flex justify-content-between align-items-center" data-bs-toggle="collapse">
         <span><i class="fas fa-chevron-right fa-fw"></i> Validated</span>
         <span class="badge badge-pill badge-primary">@graphResult.Validated.Count(x => x.Type == ValidateType.Merge)</span>
     </li>
@@ -111,7 +111,7 @@
 
     @if (Model.Scope == ValidationScope.ModifiedSinceLastValidation)
     {
-        <li href="#validateddeletes-@graphResult.EndpointName-@graphResult.GraphName" class="list-group-item d-flex justify-content-between align-items-center" data-toggle="collapse">
+        <li href="#validateddeletes-@graphResult.EndpointName-@graphResult.GraphName" class="list-group-item d-flex justify-content-between align-items-center" data-bs-toggle="collapse">
             <span><i class="fas fa-chevron-right fa-fw"></i> Validated Deletes</span>
             <span class="badge badge-pill badge-primary">@graphResult.Validated.Count(x => x.Type == ValidateType.Delete)</span>
         </li>
@@ -125,14 +125,14 @@
         </ul>
     }
 
-    <li href="#failed-validation-@graphResult.EndpointName-@graphResult.GraphName" class="list-group-item d-flex justify-content-between align-items-center" data-toggle="collapse">
+    <li href="#failed-validation-@graphResult.EndpointName-@graphResult.GraphName" class="list-group-item d-flex justify-content-between align-items-center" data-bs-toggle="collapse">
         <span><i class="fas fa-chevron-right fa-fw"></i> Failed Validation</span>
         <span class="badge badge-pill badge-primary">@graphResult.ValidationFailures.Count(x => x.Type == ValidateType.Merge)</span>
     </li>
     <ul class="list-group collapse" id="failed-validation-@graphResult.EndpointName-@graphResult.GraphName">
         @foreach (ValidationFailure validationFailure in graphResult.ValidationFailures.Where(x => x.Type == ValidateType.Merge))
         {
-            <li href="#valfail-@validationFailure.ContentItem.ContentItemId" class="list-group-item d-flex justify-content-between align-items-center" data-toggle="collapse">
+            <li href="#valfail-@validationFailure.ContentItem.ContentItemId" class="list-group-item d-flex justify-content-between align-items-center" data-bs-toggle="collapse">
                 @* todo: user id in results *@
                 <span><i class="fas fa-chevron-right fa-fw"></i> @{ await ShowContentItem(validationFailure.ContentItem); }</span>
             </li>
@@ -145,14 +145,14 @@
 
     @if (Model.Scope == ValidationScope.ModifiedSinceLastValidation)
     {
-        <li href="#deletes-failing-validation-@graphResult.EndpointName-@graphResult.GraphName" class="list-group-item d-flex justify-content-between align-items-center" data-toggle="collapse">
+        <li href="#deletes-failing-validation-@graphResult.EndpointName-@graphResult.GraphName" class="list-group-item d-flex justify-content-between align-items-center" data-bs-toggle="collapse">
             <span><i class="fas fa-chevron-right fa-fw"></i> Deletes Failing Validation</span>
             <span class="badge badge-pill badge-primary">@graphResult.ValidationFailures.Count(x => x.Type == ValidateType.Delete)</span>
         </li>
         <ul class="list-group collapse" id="deletes-failing-validation-@graphResult.EndpointName-@graphResult.GraphName">
             @foreach (ValidationFailure validationFailure in graphResult.ValidationFailures.Where(x => x.Type == ValidateType.Delete))
             {
-                <li href="#valfail-@validationFailure.ContentItem.ContentItemId" class="list-group-item d-flex justify-content-between align-items-center" data-toggle="collapse">
+                <li href="#valfail-@validationFailure.ContentItem.ContentItemId" class="list-group-item d-flex justify-content-between align-items-center" data-bs-toggle="collapse">
                     @* todo: user id in results *@
                     <span>
                         <i class="fas fa-chevron-right fa-fw"></i>
@@ -167,7 +167,7 @@
         </ul>
     }
 
-    <li href="#repaired-@graphResult.EndpointName-@graphResult.GraphName" class="list-group-item d-flex justify-content-between align-items-center" data-toggle="collapse">
+    <li href="#repaired-@graphResult.EndpointName-@graphResult.GraphName" class="list-group-item d-flex justify-content-between align-items-center" data-bs-toggle="collapse">
         <span><i class="fas fa-chevron-right fa-fw"></i> Repaired</span>
         <span class="badge badge-pill badge-primary">@graphResult.Repaired.Count(x => x.Type == ValidateType.Merge)</span>
     </li>
@@ -180,7 +180,7 @@
 
     @if (Model.Scope == ValidationScope.ModifiedSinceLastValidation)
     {
-        <li href="#repaireddeletes-@graphResult.EndpointName-@graphResult.GraphName" class="list-group-item d-flex justify-content-between align-items-center" data-toggle="collapse">
+        <li href="#repaireddeletes-@graphResult.EndpointName-@graphResult.GraphName" class="list-group-item d-flex justify-content-between align-items-center" data-bs-toggle="collapse">
             <span><i class="fas fa-chevron-right fa-fw"></i> Repaired Deletes</span>
             <span class="badge badge-pill badge-primary">@graphResult.Repaired.Count(x => x.Type == ValidateType.Delete)</span>
         </li>
@@ -194,14 +194,14 @@
         </ul>
     }
 
-    <li href="#repair-failed-@graphResult.EndpointName-@graphResult.GraphName" class="list-group-item d-flex justify-content-between align-items-center" data-toggle="collapse">
+    <li href="#repair-failed-@graphResult.EndpointName-@graphResult.GraphName" class="list-group-item d-flex justify-content-between align-items-center" data-bs-toggle="collapse">
         <span><i class="fas fa-chevron-right fa-fw"></i> Repair Failed</span>
         <span class="badge badge-pill badge-primary">@graphResult.RepairFailures.Count(x => x.Type == ValidateType.Merge)</span>
     </li>
     <ul class="list-group collapse" id="repair-failed-@graphResult.EndpointName-@graphResult.GraphName">
         @foreach (RepairFailure repairFailure in graphResult.RepairFailures.Where(x => x.Type == ValidateType.Merge))
         {
-            <li href="repfail-@repairFailure.ContentItem.ContentItemId" class="list-group-item d-flex justify-content-between align-items-center" data-toggle="collapse">
+            <li href="repfail-@repairFailure.ContentItem.ContentItemId" class="list-group-item d-flex justify-content-between align-items-center" data-bs-toggle="collapse">
                 @* todo: user id in results *@
                 <span><i class="fas fa-chevron-right fa-fw"></i> @{ await ShowContentItem(repairFailure.ContentItem); }</span>
             </li>
@@ -214,14 +214,14 @@
 
     @if (Model.Scope == ValidationScope.ModifiedSinceLastValidation)
     {
-        <li href="#deletes-repair-failed-@graphResult.EndpointName-@graphResult.GraphName" class="list-group-item d-flex justify-content-between align-items-center" data-toggle="collapse">
+        <li href="#deletes-repair-failed-@graphResult.EndpointName-@graphResult.GraphName" class="list-group-item d-flex justify-content-between align-items-center" data-bs-toggle="collapse">
             <span><i class="fas fa-chevron-right fa-fw"></i> Deletes Failing Repair</span>
             <span class="badge badge-pill badge-primary">@graphResult.RepairFailures.Count(x => x.Type == ValidateType.Delete)</span>
         </li>
         <ul class="list-group collapse" id="deletes-repair-failed-@graphResult.EndpointName-@graphResult.GraphName">
             @foreach (RepairFailure repairFailure in graphResult.RepairFailures.Where(x => x.Type == ValidateType.Delete))
             {
-                <li href="repfail-@repairFailure.ContentItem.ContentItemId" class="list-group-item d-flex justify-content-between align-items-center" data-toggle="collapse">
+                <li href="repfail-@repairFailure.ContentItem.ContentItemId" class="list-group-item d-flex justify-content-between align-items-center" data-bs-toggle="collapse">
                     @* todo: user id in results *@
                     <span><i class="fas fa-chevron-right fa-fw"></i>
                         @{ await ShowContentItem(repairFailure.ContentItem, ValidateType.Delete); }

@@ -20,7 +20,7 @@
     @if (hasPublished && hasPublishPermission)
     {
         <div class="btn-group btn-group-approval">
-            <a asp-action="Unpublish" asp-controller="Admin" asp-route-area="OrchardCore.Contents" asp-route-contentItemId="@contentItem.ContentItemId" data-url-af="UnsafeUrl RemoveUrl" data-title=@T["Unpublish"] data-message=@T["Are you sure you want to unpublish this item?"] data-ok-text="@T["Yes"]" data-cancel-text="@T["No"]" data-ok-class="btn-primary" class="btn additional-actions-btn-success">@T["Unpublish"]</a>
+            <a asp-action="Unpublish" asp-controller="Admin" asp-route-area="OrchardCore.Contents" asp-route-contentItemId="@contentItem.ContentItemId" data-url-af="UnsafeUrl RemoveUrl" data-bs-title=@T["Unpublish"] data-message=@T["Are you sure you want to unpublish this item?"] data-ok-text="@T["Yes"]" data-cancel-text="@T["No"]" data-ok-class="btn-primary" class="btn additional-actions-btn-success">@T["Unpublish"]</a>
         </div>
     }
 
@@ -34,7 +34,7 @@
     @if (hasDraft && hasEditPermission)
     {
         <div class="btn-group btn-group-approval">
-            <a asp-action="DiscardDraft" asp-controller="Admin" asp-route-area="OrchardCore.Contents" asp-route-contentItemId="@contentItem.ContentItemId" data-url-af="UnsafeUrl RemoveUrl" data-title=@T["Discard Draft"] data-message=@T["Are you sure you want to discard this draft?"] data-ok-text="@T["Yes"]" data-cancel-text="@T["No"]" data-ok-class="btn-primary" class="btn additional-actions-btn-info">@T["Discard Draft"]</a>
+            <a asp-action="DiscardDraft" asp-controller="Admin" asp-route-area="OrchardCore.Contents" asp-route-contentItemId="@contentItem.ContentItemId" data-url-af="UnsafeUrl RemoveUrl" data-bs-title=@T["Discard Draft"] data-message=@T["Are you sure you want to discard this draft?"] data-ok-text="@T["Yes"]" data-cancel-text="@T["No"]" data-ok-class="btn-primary" class="btn additional-actions-btn-info">@T["Discard Draft"]</a>
         </div>
     }
 
@@ -42,7 +42,7 @@
     {
             var deleteMessage = contentItem.ContentType == ContentTypes.SOCCode ? "Deleting this code shall lead to removal of this SOC code along with any related SOC Skills Matrix content items? Are you sure you want to delete?" : "Are you sure you want to delete this content item?";
             <div class="btn-group btn-group-approval">
-            <a remove-for="@contentItem" data-url-af="RemoveUrl UnsafeUrl" data-title="@T["Delete"]" data-message="@T[deleteMessage]" data-ok-text="@T["Ok"]" data-cancel-text="@T["Cancel"]" class="btn additional-actions-btn-danger">@T["Delete"]</a>
+            <a remove-for="@contentItem" data-url-af="RemoveUrl UnsafeUrl" data-bs-title="@T["Delete"]" data-message="@T[deleteMessage]" data-ok-text="@T["Ok"]" data-cancel-text="@T["Cancel"]" class="btn additional-actions-btn-danger">@T["Delete"]</a>
         </div>
     }
     </div>
