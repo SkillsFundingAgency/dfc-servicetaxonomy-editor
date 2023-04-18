@@ -89,7 +89,7 @@ namespace DFC.ServiceTaxonomy.VersionComparison.Controllers
 
             var selectListShape =
                 await _versionComparisonOptionsDisplayManager.BuildEditorAsync(options,
-                    _updateModelAccessor.ModelUpdater, false);
+                    _updateModelAccessor.ModelUpdater, false, "", "");
 
             var items = new List<IShape>();
             var diffItems = _diffBuilderService.BuildDiffList(versions.First(v => v.VersionNumber.ToString() == options.BaseVersion).ContentItem,

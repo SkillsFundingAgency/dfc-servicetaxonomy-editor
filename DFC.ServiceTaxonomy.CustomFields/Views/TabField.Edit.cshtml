@@ -31,11 +31,11 @@ $(function () {
         $("#@content")
             .closest(".tab-content")
             .prev(".nav-tabs")
-            .append("<li class='nav-item'><a class='nav-link' id='@content-tab' data-toggle='tab' href='#@content' role='tab' aria-controls='@content' aria-selected='false'>@Model.TabText</a></li>");
+            .append("<li class='nav-item'><a class='nav-link' id='@content-tab' data-bs-toggle='tab' href='#@content' role='tab' aria-controls='@content' aria-selected='false'>@Model.TabText</a></li>");
     //else start a new group
     } else {
         $("#@content").addClass("fade show active").wrapAll("<div class='tab-content' id='@wrapperId' />");
-        $("#@wrapperId").before("<ul class='nav nav-tabs' role='tablist'><li class='nav-item'><a class='nav-link active' id='@content-tab' data-toggle='tab' href='#@content' role='tab' aria-controls='@content' aria-selected='true'>@Model.TabText</a></li></ul>");
+        $("#@wrapperId").before("<ul class='nav nav-tabs' role='tablist'><li class='nav-item'><a class='nav-link active' id='@content-tab' data-bs-toggle='tab' href='#@content' role='tab' aria-controls='@content' aria-selected='true'>@Model.TabText</a></li></ul>");
     }
 
     //inject the stylesheet which fixes the admin theme breaking default tab styling

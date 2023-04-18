@@ -19,10 +19,10 @@ namespace DFC.ServiceTaxonomy.VersionComparison.Drivers
             m.ContentItemId = model.ContentItemId;
             m.BaseVersion = model.BaseVersion;
             m.BaseVersionSelectListItems = model.BaseVersionSelectListItems;
-            m.BaseVersionSelectListItems.First(s => s.Value == m.BaseVersion).Selected = true;
+            m.BaseVersionSelectListItems!.First(s => s.Value == m.BaseVersion).Selected = true;
             m.CompareVersion = model.CompareVersion;
             m.CompareVersionSelectListItems = model.CompareVersionSelectListItems;
-            m.CompareVersionSelectListItems.First(s => s.Value == m.CompareVersion).Selected = true;
+            m.CompareVersionSelectListItems!.First(s => s.Value == m.CompareVersion).Selected = true;
         }
     }
 }

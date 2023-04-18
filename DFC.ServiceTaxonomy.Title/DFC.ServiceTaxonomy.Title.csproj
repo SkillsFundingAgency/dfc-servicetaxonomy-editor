@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
     <AddRazorSupportForMvc>true</AddRazorSupportForMvc>
     <Configurations>Debug;Release;Development</Configurations>
   </PropertyGroup>
@@ -11,10 +11,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="OrchardCore.ContentManagement" Version="1.1.0" />
-    <PackageReference Include="OrchardCore.ContentManagement.Display" Version="1.1.0" />
-    <PackageReference Include="OrchardCore.Module.Targets" Version="1.1.0" />
-    <PackageReference Include="OrchardCore.Title" Version="1.1.0" />
+    <PackageReference Include="OrchardCore.ContentManagement" Version="1.5.0" />
+    <PackageReference Include="OrchardCore.ContentManagement.Display" Version="1.5.0" />
+    <PackageReference Include="OrchardCore.Module.Targets" Version="1.5.0" />
+    <PackageReference Include="OrchardCore.Title" Version="1.5.0" />
     <PackageReference Include="SonarAnalyzer.CSharp" Version="8.31.0.39249">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>

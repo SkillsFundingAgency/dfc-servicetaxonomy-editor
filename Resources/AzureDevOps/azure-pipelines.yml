@@ -69,13 +69,11 @@ stages:
         SolutionBaseName: $(SolutionBaseName).Editor
         BuildPlatform: 'any cpu'
         BuildConfiguration: 'release'
-        DotNetCoreVersion: '3.1.201'
     - template: AzureDevOpsTemplates\Build\StepTemplates\dfc-dotnetcore-build-notests.yml@dfc-devops
       parameters:
         SolutionBaseName: $(SolutionBaseName).OrchardCoreInitialiser
         BuildPlatform: 'any cpu'
         BuildConfiguration: 'release'
-        DotNetCoreVersion: '3.1.201'
     - powershell: |
         New-Item -Type Directory -Path $(SolutionBaseName).Editor\AppSettingsArtifact\App_Data\Sites\Default\ -Force
         Copy-Item -Path $(SolutionBaseName).Editor\App_Data\Sites\Default\appsettings.template.json -Destination $(SolutionBaseName).Editor\AppSettingsArtifact\App_Data\Sites\Default\appsettings.json
@@ -89,7 +87,6 @@ stages:
         SolutionBaseName: $(SolutionBaseName).IntegrationTests
         BuildPlatform: 'any cpu'
         BuildConfiguration: 'release'
-        DotNetCoreVersion: '3.1.201'
 
     - task: NuGetToolInstaller@1
       inputs:
@@ -121,7 +118,7 @@ stages:
 
 - stage: PublishPackage
   displayName: Publish Package to NuGet
-  condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/dev'))
+  condition: succeeded()
   jobs:  
   - job: CleanArtifacts  
     displayName: Clean artifacts directory
@@ -143,7 +140,7 @@ stages:
               publishFeedCredentials: 'DFC Nuget'
 
 - stage: DeployToLab
-  condition: and(eq(dependencies.Build.result,'Succeeded'), ne(variables['Build.Reason'], 'PullRequest'))
+  condition: succeeded()
   displayName: Deploy to LAB_SERVICETAXONOMY
   variables:
   - group: dfc-shared-all
@@ -181,7 +178,7 @@ stages:
 
 - stage: DeployToDev
   dependsOn: PublishPackage
-  condition: and(eq(dependencies.Build.result,'Succeeded'), ne(variables['Build.Reason'], 'PullRequest'))
+  condition: succeeded()
   displayName: Deploy to DEV_SERVICETAXONOMY
   variables:
   - group: dfc-shared-all
@@ -218,7 +215,7 @@ stages:
       PSScriptPath: "$(Pipeline.Workspace)/${{ variables.SolutionBaseName }}.Editor.Resources.PSScripts"
 
 - stage: DeployToSit
-  condition: and(succeededOrFailed(), ne(variables['Build.Reason'], 'PullRequest'))
+  condition: succeeded()
   displayName: Deploy to SIT_SERVICETAXONOMY
   variables:
   - group: dfc-shared-all
@@ -255,7 +252,7 @@ stages:
 
 
 - stage: DeployToPP
-  condition: and(eq(dependencies.Build.result,'Succeeded'), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
+  condition: succeeded()
   displayName: Deploy to PP_SERVICETAXONOMY
   variables:
   - group: dfc-shared-all
@@ -291,7 +288,7 @@ stages:
       PSScriptPath: "$(Pipeline.Workspace)/${{ variables.SolutionBaseName }}.Editor.Resources.PSScripts"
 
 - stage: DeployToPrd
-  condition: and(eq(dependencies.Build.result,'Succeeded'), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
+  condition: succeeded()
   displayName: Deploy to PRD_SERVICETAXONOMY
   variables:
   - group: dfc-shared-all

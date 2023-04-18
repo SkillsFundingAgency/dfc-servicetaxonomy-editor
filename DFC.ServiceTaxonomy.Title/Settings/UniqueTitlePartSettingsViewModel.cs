@@ -9,8 +9,8 @@ namespace DFC.ServiceTaxonomy.Title.Settings
             AllSettings = new List<UniqueTitlePartSettings>();
         }
         public List<UniqueTitlePartSettings> AllSettings { get; set; }
-        public string? Hint { get; set; }
-        public string? Placeholder { get; set; }
+        public string Hint { get; set; }
+        public string Placeholder { get; set; }
         public bool ReadOnlyOnPublish { get; set; }
     }
 }

@@ -97,9 +97,9 @@ namespace DFC.ServiceTaxonomy.GraphSync.Notifications
                 if (contentItemId != null)
                 {
                     string editContentItemUrl = _linkGenerator.GetUriByAction(
-                        _httpContextAccessor.HttpContext,
+                        _httpContextAccessor.HttpContext!,
                         "Edit", "Admin",
-                        new {area = "OrchardCore.Contents", contentItemId});
+                        new {area = "OrchardCore.Contents", contentItemId})!;
 
                     title = $"<a href=\"{editContentItemUrl}\">'{syncBlocker.Title}'</a>";
                 }
@@ -166,8 +166,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.Notifications
             htmlContentBuilder
                 .AppendHtml(TechnicalScript(onClickFunction, clipboardCopy))
                 .AppendHtml(userHtmlMessage ?? new HtmlString(userMessage))
-//                .AppendHtml($"<button class=\"close\" style=\"right: 1.25em;\" type=\"button\" data-toggle=\"collapse\" data-target=\"#{uniqueId}\" aria-expanded=\"false\" aria-controls=\"{uniqueId}\"><i class=\"fas fa-wrench\"></i></button>")
-                .AppendHtml($"<a class=\"close\" style=\"right: 1.25em;\" data-toggle=\"collapse\" href=\"#{uniqueId}\" role=\"button\" aria-expanded=\"false\" aria-controls=\"{uniqueId}\"><i class=\"fas fa-wrench\"></i></a>")
+//                .AppendHtml($"<button class=\"close\" style=\"right: 1.25em;\" type=\"button\" data-bs-toggle=\"collapse\" data-bs-target=\"#{uniqueId}\" aria-expanded=\"false\" aria-controls=\"{uniqueId}\"><i class=\"fas fa-wrench\"></i></button>")
+                .AppendHtml($"<a class=\"close\" style=\"right: 1.25em;\" data-bs-toggle=\"collapse\" href=\"#{uniqueId}\" role=\"button\" aria-expanded=\"false\" aria-controls=\"{uniqueId}\"><i class=\"fas fa-wrench\"></i></a>")
                 .AppendHtml($"<div class=\"collapse\" id=\"{uniqueId}\">")
                 .AppendHtml($"<div class=\"card mt-2\"><div class=\"card-header\">Technical Details <button onclick=\"{onClickFunction}()\" style=\"float: right;\" type=\"button\"><i class=\"fas fa-copy\"></i></button></div><div class=\"card-body\">")
                 .AppendHtml($"<h5 class=\"card-title\">Trace ID</h5><h6 class=\"card-subtitle text-muted\">{traceId}</h6>")

@@ -73,9 +73,9 @@
             if ($urlNameInput.val().length > 0 && $location !== undefined) {
                 var locations = [$location.text().trim()];
 
-                while ($location.parent().parent().hasClass('pl-3')) {
+                while ($location.parent().parent().hasClass('ps-3')) {
                     $location = $location
-                        .closest('.pl-3')
+                        .closest('.ps-3')
                         .prev('.custom-control')
                         .find('label')
                         .first();

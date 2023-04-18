@@ -48,7 +48,7 @@ namespace DFC.ServiceTaxonomy.Title.Drivers
             model.PartDefinition = typePartDefinition;
             model.Hint = uniqueTitlePartSettings == null ? string.Empty : uniqueTitlePartSettings.Hint;
             model.Placeholder = uniqueTitlePartSettings == null ? string.Empty : uniqueTitlePartSettings.Placeholder;
-            model.ReadOnlyOnPublish = uniqueTitlePartSettings == null ? false : uniqueTitlePartSettings.ReadOnlyOnPublish;
+            model.ReadOnlyOnPublish = uniqueTitlePartSettings is { ReadOnlyOnPublish: true };
         }
 
         public override async Task<IDisplayResult> UpdateAsync(UniqueTitlePart part, IUpdateModel updater,

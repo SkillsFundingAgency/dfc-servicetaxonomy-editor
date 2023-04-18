@@ -28,7 +28,7 @@ namespace DFC.ServiceTaxonomy.VersionComparison.Drivers
         public override async Task<IDisplayResult> DisplayAsync(ContentItem model, BuildDisplayContext context)
         {
             var results = new List<IDisplayResult>();
-            var hasAuditTrailPermissions = await _authorizationService.AuthorizeAsync(_httpContextAccessor.HttpContext.User, AuditTrailPermissions.ViewAuditTrail, model);
+            var hasAuditTrailPermissions = await _authorizationService.AuthorizeAsync(_httpContextAccessor.HttpContext!.User, AuditTrailPermissions.ViewAuditTrail, model);
             if(!hasAuditTrailPermissions)
             {
                 return Combine(results.ToArray());

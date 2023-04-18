@@ -130,8 +130,8 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Drivers
 
             if (keys.Contains(Constants.SubmitSaveKey))
             {
-                var saveType = updateModel.ModelState[Constants.SubmitSaveKey].AttemptedValue;
-                if (saveType.StartsWith(Constants.SubmitRequestApprovalValuePrefix))
+                var saveType = updateModel.ModelState[Constants.SubmitSaveKey]!.AttemptedValue;
+                if (saveType!.StartsWith(Constants.SubmitRequestApprovalValuePrefix))
                 {
                     part.ReviewStatus = ReviewStatus.ReadyForReview;
                     part.ReviewType = Enum.Parse<ReviewType>(saveType.Replace(Constants.SubmitRequestApprovalValuePrefix, ""));
@@ -151,8 +151,8 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Drivers
             else if (keys.Contains(Constants.SubmitPublishKey))
             {
                 part.ReviewStatus = ReviewStatus.NotInReview;
-                var publishType = updateModel.ModelState[Constants.SubmitPublishKey].AttemptedValue;
-                if (publishType.StartsWith(Constants.SubmitRequestApprovalValuePrefix))
+                var publishType = updateModel.ModelState[Constants.SubmitPublishKey]!.AttemptedValue;
+                if (publishType!.StartsWith(Constants.SubmitRequestApprovalValuePrefix))
                 {
                     part.IsForcePublished = true;
                     part.ReviewType = Enum.Parse<ReviewType>(publishType.Replace(Constants.SubmitRequestApprovalValuePrefix, ""));
@@ -215,7 +215,7 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Drivers
             // Only Save Draft and exit and Send back actions require a comment
             if (keys.Contains(Constants.SubmitSaveKey))
             {
-                var keyValue = modelStateDictionary[Constants.SubmitSaveKey].AttemptedValue;
+                var keyValue = modelStateDictionary[Constants.SubmitSaveKey]!.AttemptedValue;
                 return new[] {Constants.SubmitSaveKey, Constants.SubmitRequiresRevisionValue}.Any(kv =>
                     kv.Equals(keyValue, StringComparison.CurrentCultureIgnoreCase));
             }

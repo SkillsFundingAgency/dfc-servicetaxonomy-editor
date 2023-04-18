@@ -82,7 +82,7 @@ namespace DFC.ServiceTaxonomy.GraphSync
             var cosmosDbOptions = new CosmosDbOptions();
             configurationSection.Bind(cosmosDbOptions);
 
-            if (!cosmosDbOptions.Endpoints.Any())
+            if (!cosmosDbOptions.Endpoints!.Any())
             {
                 throw new GraphClusterConfigurationErrorException("No endpoints configured.");
             }
