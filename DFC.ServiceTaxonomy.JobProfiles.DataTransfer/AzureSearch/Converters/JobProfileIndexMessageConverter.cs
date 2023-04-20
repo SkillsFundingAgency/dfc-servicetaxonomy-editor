@@ -71,6 +71,8 @@ namespace DFC.ServiceTaxonomy.JobProfiles.DataTransfer.AzureSearch.Converters
             jobProfileIndex.WorkingHoursDetails = await Helper.GetContentItemNamesAsync(contentItem.Content.JobProfile.WorkingHoursDetails, contentManager);
             jobProfileIndex.MinimumHours = string.IsNullOrEmpty(contentItem.Content.JobProfile.Minimumhours.Value.ToString()) ? default : (double)contentItem.Content.JobProfile.Minimumhours.Value;
             jobProfileIndex.MaximumHours = string.IsNullOrEmpty(contentItem.Content.JobProfile.Maximumhours.Value.ToString()) ? default : (double)contentItem.Content.JobProfile.Maximumhours.Value;
+            jobProfileIndex.Soc2020 = await Helper.GetContentItemNamesAsync(contentItem.Content.JobProfile.Soc2020, contentManager);
+            jobProfileIndex.Soc2020Extension = await Helper.GetContentItemNamesAsync(contentItem.Content.JobProfile.Soc2020Extension, contentManager);
 
             return jobProfileIndex;
 
