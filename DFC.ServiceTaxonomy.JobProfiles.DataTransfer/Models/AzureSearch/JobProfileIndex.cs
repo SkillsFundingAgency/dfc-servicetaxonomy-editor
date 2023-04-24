@@ -107,10 +107,10 @@ namespace DFC.ServiceTaxonomy.JobProfiles.DataTransfer.Models.AzureSearch
         public double MaximumHours { get; set; }
 
         [SimpleField(IsFilterable = true, IsSortable = true, IsFacetable = true)]
-        public double Soc2020 { get; set; }
+        public string Soc2020 { get; set; } = string.Empty;
 
         [SimpleField(IsFilterable = true, IsSortable = true, IsFacetable = true)]
-        public double Soc2020Extension { get; set; }
+        public string Soc2020Extension { get; set; } = string.Empty;
     }
 
 }
