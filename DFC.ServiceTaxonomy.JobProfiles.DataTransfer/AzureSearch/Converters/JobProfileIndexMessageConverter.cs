@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.Models;
 using DFC.ServiceTaxonomy.JobProfiles.DataTransfer.Extensions;
 using DFC.ServiceTaxonomy.JobProfiles.DataTransfer.Models.AzureSearch;
+using DFC.ServiceTaxonomy.JobProfiles.DataTransfer.Models.ServiceBus;
 using DFC.ServiceTaxonomy.JobProfiles.DataTransfer.ServiceBus.Converters;
 using DFC.ServiceTaxonomy.JobProfiles.DataTransfer.ServiceBus.Interfaces;
 using DFC.ServiceTaxonomy.PageLocation.Models;
@@ -20,21 +21,23 @@ namespace DFC.ServiceTaxonomy.JobProfiles.DataTransfer.AzureSearch.Converters
 {
     public class JobProfileIndexMessageConverter : IMessageConverter<JobProfileIndex>
     {
+        private readonly IMessageConverter<SocCodeItem> _socCodeMessageConverter;
         private readonly IServiceProvider _serviceProvider;
 
-        public JobProfileIndexMessageConverter(IServiceProvider serviceProvider) =>
+        public JobProfileIndexMessageConverter(IMessageConverter<SocCodeItem> socCodeMessageConverter, IServiceProvider serviceProvider)
+        {
+            _socCodeMessageConverter = socCodeMessageConverter;
             _serviceProvider = serviceProvider;
+        }
 
         public async Task<JobProfileIndex> ConvertFromAsync(ContentItem contentItem)
         {
             var contentManager = _serviceProvider.GetRequiredService<IContentManager>();
 
-            IEnumerable<string> socCode = await Helper.GetContentItemNamesAsync(contentItem.Content.JobProfile.SOCCode, contentManager);
             IEnumerable<ContentItem> jobCategories = await Helper.GetContentItemsAsync(contentItem.Content.JobProfile.JobProfileCategory, contentManager);
 
             var jobProfileIndex = new JobProfileIndex();
             jobProfileIndex.IdentityField = contentItem.As<GraphSyncPart>().ExtractGuid().ToString();
-            jobProfileIndex.SocCode = socCode.FirstOrDefault()!;
             jobProfileIndex.Title = contentItem.As<TitlePart>().Title;
             string altText = string.IsNullOrEmpty(contentItem.Content.JobProfile.AlternativeTitle.Text.ToString()) ? string.Empty : contentItem.Content.JobProfile.AlternativeTitle.Text.ToString();
             jobProfileIndex.AlternativeTitle = altText.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries).Select(x => x.Trim());
@@ -71,6 +74,13 @@ namespace DFC.ServiceTaxonomy.JobProfiles.DataTransfer.AzureSearch.Converters
             jobProfileIndex.WorkingHoursDetails = await Helper.GetContentItemNamesAsync(contentItem.Content.JobProfile.WorkingHoursDetails, contentManager);
             jobProfileIndex.MinimumHours = string.IsNullOrEmpty(contentItem.Content.JobProfile.Minimumhours.Value.ToString()) ? default : (double)contentItem.Content.JobProfile.Minimumhours.Value;
             jobProfileIndex.MaximumHours = string.IsNullOrEmpty(contentItem.Content.JobProfile.Maximumhours.Value.ToString()) ? default : (double)contentItem.Content.JobProfile.Maximumhours.Value;
+
+            SocCodeItem socCode = await _socCodeMessageConverter.ConvertFromAsync(contentItem);
+
+            jobProfileIndex.SocCode = socCode.SOCCode ?? string.Empty;
+            jobProfileIndex.Soc2020 = socCode.SOC2020 ?? string.Empty;
+            jobProfileIndex.Soc2020Extension = socCode.SOC2020extension ?? string.Empty;
+
 
             return jobProfileIndex;
 
