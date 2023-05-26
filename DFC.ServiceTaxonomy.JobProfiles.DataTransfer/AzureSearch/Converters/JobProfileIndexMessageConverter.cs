@@ -62,6 +62,7 @@ namespace DFC.ServiceTaxonomy.JobProfiles.DataTransfer.AzureSearch.Converters
             jobProfileIndex.EntryQualificationLowestLevel = default;
 
             jobProfileIndex.Skills = await Helper.GetRelatedSkillsAsync(contentItem.Content.JobProfile.Relatedskills, contentManager);
+            jobProfileIndex.SkillsKeywords = string.Join(" ", jobProfileIndex.Skills);
 
             jobProfileIndex.CollegeRelevantSubjects = GetHtml(contentItem.Content.JobProfile.Collegerelevantsubjects);
             jobProfileIndex.ApprenticeshipRelevantSubjects = GetHtml(contentItem.Content.JobProfile.Apprenticeshiprelevantsubjects);

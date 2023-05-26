@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 using Azure.Search.Documents.Indexes;
@@ -72,6 +73,9 @@ namespace DFC.ServiceTaxonomy.JobProfiles.DataTransfer.Models.AzureSearch
 
         [SearchableField(IsFilterable = true)]
         public IEnumerable<string> Skills { get; set; } = Enumerable.Empty<string>();
+
+        [SearchableField(AnalyzerName = LexicalAnalyzerName.Values.EnLucene, IsSortable = true)]
+        public string SkillsKeywords { get; set; } = string.Empty;
 
         [SimpleField(IsFilterable = true, IsSortable = true)]
         public double EntryQualificationLowestLevel { get; set; }
