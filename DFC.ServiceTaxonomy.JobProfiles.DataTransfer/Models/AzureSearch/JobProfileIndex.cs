@@ -71,7 +71,7 @@ namespace DFC.ServiceTaxonomy.JobProfiles.DataTransfer.Models.AzureSearch
         [SimpleField(IsFilterable = true)]
         public IEnumerable<string> JobAreas { get; set; } = Enumerable.Empty<string>();
 
-        [SearchableField(IsFilterable = true)]
+        [SearchableField(IsFilterable = true, IsFacetable = true)]
         public IEnumerable<string> Skills { get; set; } = Enumerable.Empty<string>();
 
         [SearchableField(AnalyzerName = LexicalAnalyzerName.Values.EnLucene, IsSortable = true)]
