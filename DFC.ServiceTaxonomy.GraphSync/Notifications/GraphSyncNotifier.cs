@@ -17,6 +17,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
 using OrchardCore.ContentManagement;
 using OrchardCore.ContentManagement.Metadata;
+using Castle.Core.Logging;
 
 namespace DFC.ServiceTaxonomy.GraphSync.Notifications
 {
@@ -154,6 +155,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.Notifications
             try
             {
                 //publish to slack
+                _logger.LogInformation($"publish to slack: traceid {traceId} userMessage {userMessage} technicalMessage {technicalMessage}");
+
                 string slackMessage = BuildSlackMessage(traceId, userMessage, technicalMessage, exception);
                 await _slackMessagePublisher.SendMessageAsync(slackMessage);
             }
@@ -186,7 +189,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.Notifications
 
             if (type != NotifyType.Warning || !_entries.Any(e => e.Type == NotifyType.Warning))
             {
-                var newEntry = new NotifyEntry { Type = type, Message = htmlContentBuilder };
+                _logger.LogInformation($"Adding notify entry: type {type}");
+               var newEntry = new NotifyEntry { Type = type, Message = htmlContentBuilder };
                 _entries.Add(newEntry);
             }
             else

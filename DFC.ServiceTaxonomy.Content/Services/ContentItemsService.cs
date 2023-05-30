@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.Content.Services.Interface;
+using Microsoft.Extensions.Logging;
 using OrchardCore.ContentManagement;
 using OrchardCore.ContentManagement.Records;
 using YesSql;
@@ -12,10 +14,12 @@ namespace DFC.ServiceTaxonomy.Content.Services
     public class ContentItemsService : IContentItemsService
     {
         private readonly ISession _session;
+        private readonly ILogger<ContentItemsService> _logger;
 
-        public ContentItemsService(ISession session)
+        public ContentItemsService(ISession session, ILogger<ContentItemsService> logger)
         {
             _session = session;
+            _logger = logger;
         }
 
         public async Task<List<ContentItem>> GetPublishedOnly(string contentType)
@@ -35,6 +39,8 @@ namespace DFC.ServiceTaxonomy.Content.Services
 
         public async Task<List<ContentItem>> GetActive(string contentType)
         {
+           // _logger.LogInformation("GetActive: " + contentType);
+
             return (await _session
                 .Query<ContentItem, ContentItemIndex>()
                 .Where(x => contentType == x.ContentType && (x.Latest || x.Published))
@@ -48,7 +54,7 @@ namespace DFC.ServiceTaxonomy.Content.Services
             // this might be valid optimisation, but would need to dig deeper before enabling it
             // if (_contentManagerSession.RecallPublishedItemId(contentItemId, out ContentItem _))
             //     return true;
-
+            _logger.LogInformation($"HasExistingPublishedVersion: {contentItemId}");
             return (await _session
                 .Query<ContentItem, ContentItemIndex>(x =>
                     x.ContentItemId == contentItemId && x.Published)
@@ -73,9 +79,10 @@ namespace DFC.ServiceTaxonomy.Content.Services
             //     .ListAsync();
 
             // so instead we pick one of 4 different queries depending on whether latest or published is null
-
+            _logger.LogInformation($"Get: contentType {contentType} Latest : {latest} Published: {published}");
             if (latest != null && published != null)
             {
+            
                 return await _session
                     .Query<ContentItem, ContentItemIndex>(x =>
                         x.ContentType == contentType
@@ -117,6 +124,7 @@ namespace DFC.ServiceTaxonomy.Content.Services
             string contentType,
             DateTime since)
         {
+            _logger.LogInformation($"GetDeleted: contentType {contentType} Since : {since} ");
             return (await _session
                     .Query<ContentItem, ContentItemIndex>(x =>
                         x.ContentType == contentType &&
@@ -129,6 +137,7 @@ namespace DFC.ServiceTaxonomy.Content.Services
 
         private async Task<List<ContentItem>> Get(string contentType, bool latest, bool published)
         {
+            _logger.LogInformation($"Get: contentType {contentType} latest : {latest} published: {published}");
             return (await _session
                 .Query<ContentItem, ContentItemIndex>()
                 .Where(x => contentType == x.ContentType && x.Latest == latest && x.Published == published)

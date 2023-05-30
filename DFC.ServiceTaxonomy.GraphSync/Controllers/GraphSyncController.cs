@@ -70,6 +70,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Controllers
         {
             if (!await _authorizationService.AuthorizeAsync(User, Permissions.AdministerGraphs))
             {
+                _logger.LogWarning($"TriggerSyncValidation {scope} AuthorizeAsync Forbid");
                 return Forbid();
             }
 

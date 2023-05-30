@@ -37,7 +37,7 @@ namespace DFC.ServiceTaxonomy.Events.Services
 
             var distinctEventGroups = contentEvents.GroupBy(e => e.Data.ContentType, e => e);
 
-            //todo: add logging
+            _logger.LogInformation("Publishing Events {ContentEvent}", contentEvents);
 
             var postTasks = distinctEventGroups.Select(g =>
                 _eventGridContentRestHttpClientFactory.CreateClient(g.Key).PostAsJson("", g, cancellationToken));
