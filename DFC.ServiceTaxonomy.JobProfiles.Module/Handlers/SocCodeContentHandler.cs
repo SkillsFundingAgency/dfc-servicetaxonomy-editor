@@ -1,7 +1,6 @@
 using System;
 using System.Linq;
 using System.Threading.Tasks;
-
 using DFC.ServiceTaxonomy.GraphSync.Models;
 using DFC.ServiceTaxonomy.JobProfiles.DataTransfer.Indexes;
 using DFC.ServiceTaxonomy.JobProfiles.DataTransfer.ServiceBus;
@@ -10,7 +9,7 @@ using DFC.ServiceTaxonomy.Title.Models;
 
 using Microsoft.AspNetCore.Mvc.Localization;
 using Microsoft.Extensions.DependencyInjection;
-
+using Microsoft.Extensions.Logging;
 using OrchardCore.ContentManagement;
 using OrchardCore.ContentManagement.Handlers;
 using OrchardCore.ContentManagement.Records;
@@ -29,6 +28,7 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module.Handlers
         private readonly ISession _session;
         private readonly INotifier _notifier;
         private readonly IHtmlLocalizer<SocCodeContentHandler> H;
+        private readonly ILogger _logger;
 
 
         public SocCodeContentHandler(
@@ -37,7 +37,7 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module.Handlers
             IServiceProvider serviceProvider,
             ISession session,
             INotifier notifier,
-            IHtmlLocalizer<SocCodeContentHandler> htmlLocalizer)
+            IHtmlLocalizer<SocCodeContentHandler> htmlLocalizer, ILogger logger)
         {
             _socCodeMappingRepository = socCodeMappingRepository;
             _skillsFrameworkService = skillsFrameworkService;
@@ -45,6 +45,7 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module.Handlers
             _session = session;
             _notifier = notifier;
             H = htmlLocalizer;
+            _logger = logger;
         }
 
         public override async Task PublishingAsync(PublishContentContext context)
@@ -53,9 +54,10 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module.Handlers
             {
                 var socCode = context.ContentItem.As<TitlePart>().Title;
                 var onetCode = (string)context.ContentItem.Content.SOCCode.OnetOccupationCode.Text;
-
+                _logger.LogInformation($"PublishingAsync: context {context} socCode: {socCode} onetCode:{onetCode}");
                 if (string.IsNullOrEmpty(socCode) || string.IsNullOrEmpty(onetCode))
                 {
+                    _logger.LogInformation("Skills information not found. Please check the SOC code and ONet Occupation code or get in touch with support.");
                     context.Cancel = true;
                     await _notifier.ErrorAsync(H["Skills information not found. Please check the SOC code and ONet Occupation code or get in touch with support."]);
                     return;
@@ -64,6 +66,7 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module.Handlers
                 // update soc/onet mapping
                 if (!await _socCodeMappingRepository.UpdateMappingAsync(socCode, onetCode))
                 {
+                    _logger.LogInformation("Skills information not found. Please check the ONet Occupation code or get in touch with support.");
                     context.Cancel = true;
                     await _notifier.ErrorAsync(H["Skills information not found. Please check the ONet Occupation code or get in touch with support."]);
                     return;
@@ -128,7 +131,7 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module.Handlers
                         socSkillsMatrixCreatedCount++;
                     }
                 }
-
+                _logger.LogInformation($"{skillCreatedCount} Skill content item{(skillCreatedCount != 1 ? "s" : string.Empty)} and {socSkillsMatrixCreatedCount} SOC Skills Matrix content item{(socSkillsMatrixCreatedCount != 1 ? "s" : string.Empty)} have been created and published.");
                 await _notifier.SuccessAsync(H[$"{skillCreatedCount} Skill content item{(skillCreatedCount != 1 ? "s" : string.Empty)} and {socSkillsMatrixCreatedCount} SOC Skills Matrix content item{(socSkillsMatrixCreatedCount != 1 ? "s" : string.Empty)} have been created and published."]);
             }
         }

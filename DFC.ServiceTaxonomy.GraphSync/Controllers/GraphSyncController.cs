@@ -20,14 +20,14 @@ namespace DFC.ServiceTaxonomy.GraphSync.Controllers
         private readonly IValidateAndRepairGraph _validateAndRepairGraph;
         private readonly IAuthorizationService _authorizationService;
         private readonly IGraphSyncNotifier _notifier;
-        private readonly ILogger<GraphSyncController> _logger;
+        private readonly ILogger _logger;
         private readonly ISynonymService _synonymService;
 
         public GraphSyncController(
             IValidateAndRepairGraph validateAndRepairGraph,
             IAuthorizationService authorizationService,
             IGraphSyncNotifier notifier,
-            ILogger<GraphSyncController> logger,
+            ILogger logger,
             ISynonymService synonymService)
         {
             _validateAndRepairGraph = validateAndRepairGraph;
@@ -42,7 +42,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.Controllers
         {
             var synonyms = await _synonymService.GetSynonymsAsync(node);
 
-            var sb = new StringBuilder();
+            _logger.LogInformation($"Synonyms: GraphSync/Synonyms/{node}/{filename}");
+             var sb = new StringBuilder();
             foreach (var item in synonyms)
             {
                 sb.AppendLine(item);

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Linq;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.Content.Services.Interface;
@@ -14,9 +13,9 @@ namespace DFC.ServiceTaxonomy.Content.Services
     public class ContentItemsService : IContentItemsService
     {
         private readonly ISession _session;
-        private readonly ILogger<ContentItemsService> _logger;
+        private readonly ILogger _logger;
 
-        public ContentItemsService(ISession session, ILogger<ContentItemsService> logger)
+        public ContentItemsService(ISession session, ILogger logger)
         {
             _session = session;
             _logger = logger;

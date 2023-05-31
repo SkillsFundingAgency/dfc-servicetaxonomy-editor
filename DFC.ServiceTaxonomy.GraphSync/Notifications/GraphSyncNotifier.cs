@@ -17,7 +17,6 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
 using OrchardCore.ContentManagement;
 using OrchardCore.ContentManagement.Metadata;
-using Castle.Core.Logging;
 
 namespace DFC.ServiceTaxonomy.GraphSync.Notifications
 {

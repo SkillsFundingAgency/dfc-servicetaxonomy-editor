@@ -18,6 +18,7 @@ using OrchardCore.DisplayManagement.ModelBinding;
 using OrchardCore.DisplayManagement.Notify;
 using OrchardCore.Title.Models;
 using YesSql;
+using Microsoft.Extensions.Logging;
 
 namespace DFC.ServiceTaxonomy.Taxonomies.Controllers
 {
@@ -34,6 +35,7 @@ namespace DFC.ServiceTaxonomy.Taxonomies.Controllers
         private readonly IEnumerable<ITaxonomyTermValidator> _validators;
         private readonly IEnumerable<ITaxonomyTermHandler> _handlers;
         private readonly ITaxonomyHelper _taxonomyHelper;
+        private readonly ILogger _logger;
 
         public AdminController(
             ISession session,
@@ -46,7 +48,7 @@ namespace DFC.ServiceTaxonomy.Taxonomies.Controllers
             IUpdateModelAccessor updateModelAccessor,
             IEnumerable<ITaxonomyTermValidator> validators,
             IEnumerable<ITaxonomyTermHandler> handlers,
-            ITaxonomyHelper taxonomyHelper)
+            ITaxonomyHelper taxonomyHelper,ILogger logger)
         {
             _contentManager = contentManager;
             _authorizationService = authorizationService;
@@ -59,17 +61,22 @@ namespace DFC.ServiceTaxonomy.Taxonomies.Controllers
             _validators = validators;
             _handlers = handlers;
             _taxonomyHelper = taxonomyHelper;
+            _logger = logger;
         }
 
         public async Task<IActionResult> Create(string id, string taxonomyContentItemId, string taxonomyItemId)
         {
+            _logger.LogInformation($"Create id {id}, taxonomyContentItemId {taxonomyContentItemId} taxonomyItemId {taxonomyItemId} ");
+            
             if (String.IsNullOrWhiteSpace(id))
             {
+                _logger.LogInformation($"Create id {id} Notfound ");
                 return NotFound();
             }
 
             if (!await _authorizationService.AuthorizeAsync(User, Permissions.ManageTaxonomies))
             {
+                _logger.LogInformation($"Create User forbidden ");
                 return Forbid();
             }
 
@@ -89,8 +96,10 @@ namespace DFC.ServiceTaxonomy.Taxonomies.Controllers
         [ActionName("Create")]
         public async Task<IActionResult> CreatePost(string id, string taxonomyContentItemId, string taxonomyItemId)
         {
+            _logger.LogInformation($"CreatePost id {id}, taxonomyContentItemId {taxonomyContentItemId} taxonomyItemId {taxonomyItemId} ");
             if (!await _authorizationService.AuthorizeAsync(User, Permissions.ManageTaxonomies))
             {
+                _logger.LogInformation($"Create User forbidden ");
                 return Forbid();
             }
 
@@ -109,6 +118,7 @@ namespace DFC.ServiceTaxonomy.Taxonomies.Controllers
 
             if (taxonomy == null)
             {
+                _logger.LogInformation($"taxonomy {taxonomy} Notfound");
                 return NotFound();
             }
 
@@ -124,6 +134,8 @@ namespace DFC.ServiceTaxonomy.Taxonomies.Controllers
                 model.TaxonomyContentItemId = taxonomyContentItemId;
                 model.TaxonomyItemId = taxonomyItemId;
 
+                _logger.LogInformation($"ModelState not valid model.TaxonomyContentItemId {model.TaxonomyContentItemId}" );
+
                 return View(model);
             }
 
@@ -132,6 +144,9 @@ namespace DFC.ServiceTaxonomy.Taxonomies.Controllers
                 // Use the taxonomy as the parent if no target is specified
                 if (!ValidateTaxonomyTerm(taxonomy, contentItem))
                 {
+
+                    _logger.LogError($"Another {contentItem.ContentType} already exists with this name.");
+
                     return ValidationError($"Another {contentItem.ContentType} already exists with this name.", model, taxonomyContentItemId, taxonomyItemId);
                 }
 
@@ -145,11 +160,14 @@ namespace DFC.ServiceTaxonomy.Taxonomies.Controllers
                 // Couldn't find targeted taxonomy item
                 if (parentTaxonomyItem == null)
                 {
+                    _logger.LogError($"parentTaxonomyItem {parentTaxonomyItem} NotFound.");
                     return NotFound();
                 }
 
                 if (!ValidateTaxonomyTerm(parentTaxonomyItem.ToObject<ContentItem>(), contentItem))
                 {
+                    _logger.LogError($"Another {contentItem.ContentType} already exists with this name.");
+
                     return ValidationError($"Another {contentItem.ContentType} already exists with this name.", model, taxonomyContentItemId, taxonomyItemId);
                 }
 
@@ -170,6 +188,7 @@ namespace DFC.ServiceTaxonomy.Taxonomies.Controllers
 
                 if (!validated)
                 {
+                    _logger.LogError($"validator {taxonomyContentItemId}  errorMessage {errorMessage}");
                     return ValidationError(errorMessage, model, taxonomyContentItemId, taxonomyItemId);
                 }
             }
@@ -192,11 +211,13 @@ namespace DFC.ServiceTaxonomy.Taxonomies.Controllers
 
             if (taxonomy == null)
             {
+                _logger.LogError($"Edit taxonomy  {taxonomy} notfound");
                 return NotFound();
             }
 
             if (!await _authorizationService.AuthorizeAsync(User, Permissions.ManageTaxonomies, taxonomy))
             {
+                _logger.LogError($"AuthorizeAsync forbid");
                 return Forbid();
             }
 
@@ -206,6 +227,7 @@ namespace DFC.ServiceTaxonomy.Taxonomies.Controllers
             // Couldn't find targeted taxonomy item
             if (taxonomyItem == null)
             {
+                _logger.LogError($"taxonomyItem {taxonomyItem} notfound");
                 return NotFound();
             }
 
@@ -227,6 +249,7 @@ namespace DFC.ServiceTaxonomy.Taxonomies.Controllers
         {
             if (!await _authorizationService.AuthorizeAsync(User, Permissions.ManageTaxonomies))
             {
+                _logger.LogError($"EditPost taxonomyContentItemId{taxonomyContentItemId} forbid");
                 return Forbid();
             }
 
@@ -245,6 +268,7 @@ namespace DFC.ServiceTaxonomy.Taxonomies.Controllers
 
             if (taxonomy == null)
             {
+                _logger.LogError($"EditPost taxonomy {taxonomy} notfound");
                 return NotFound();
             }
 
@@ -254,6 +278,7 @@ namespace DFC.ServiceTaxonomy.Taxonomies.Controllers
             // Couldn't find targeted taxonomy item
             if (taxonomyItem == null)
             {
+                _logger.LogError($"EditPost taxonomyItem {taxonomyItem} notfound");
                 return NotFound();
             }
 
@@ -273,7 +298,7 @@ namespace DFC.ServiceTaxonomy.Taxonomies.Controllers
             {
                 model.TaxonomyContentItemId = taxonomyContentItemId;
                 model.TaxonomyItemId = taxonomyItemId;
-
+                _logger.LogInformation($"EditPost TaxonomyContentItemId {taxonomyContentItemId} ");
                 return View(model);
             }
 
@@ -285,6 +310,7 @@ namespace DFC.ServiceTaxonomy.Taxonomies.Controllers
 
             if (!ValidateTaxonomyTerm(parentTaxonomyTerm, contentItem))
             {
+                _logger.LogInformation($"Another {contentItem.ContentType} already exists with this name.");
                 return ValidationError($"Another {contentItem.ContentType} already exists with this name.", model, taxonomyContentItemId, taxonomyItemId);
             }
 
@@ -334,9 +360,12 @@ namespace DFC.ServiceTaxonomy.Taxonomies.Controllers
         [HttpPost]
         public async Task<IActionResult> Delete(string taxonomyContentItemId, string taxonomyItemId)
         {
+            _logger.LogInformation($"Delete taxonomyContentItemId {taxonomyContentItemId} taxonomyItemId {taxonomyItemId}");
             if (!await _authorizationService.AuthorizeAsync(User, Permissions.ManageTaxonomies))
             {
-                return Forbid();
+                
+                    _logger.LogInformation($"Delete user permission forbid");
+                    return Forbid();
             }
 
             ContentItem taxonomy;
@@ -354,6 +383,7 @@ namespace DFC.ServiceTaxonomy.Taxonomies.Controllers
 
             if (taxonomy == null)
             {
+                _logger.LogInformation($"Delete taxonomy {taxonomy} notfound");
                 return NotFound();
             }
 
@@ -363,6 +393,7 @@ namespace DFC.ServiceTaxonomy.Taxonomies.Controllers
             // Couldn't find targeted taxonomy item
             if (taxonomyItem == null)
             {
+                _logger.LogInformation($"Delete taxonomyItem {taxonomyItem} notfound");
                 return NotFound();
             }
 

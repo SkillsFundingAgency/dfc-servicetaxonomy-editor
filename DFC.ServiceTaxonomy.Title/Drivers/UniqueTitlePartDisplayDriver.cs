@@ -13,6 +13,7 @@ using YesSql;
 using DFC.ServiceTaxonomy.Title.Settings;
 using DFC.ServiceTaxonomy.DataAccess.Repositories;
 using DFC.ServiceTaxonomy.Title.Indexes;
+using Microsoft.Extensions.Logging;
 
 namespace DFC.ServiceTaxonomy.Title.Drivers
 {
@@ -20,12 +21,14 @@ namespace DFC.ServiceTaxonomy.Title.Drivers
     {
         private readonly IStringLocalizer S;
         private readonly IGenericIndexRepository<UniqueTitlePartIndex> _uniqueTitleIndexRepository;
+        private readonly ILogger _logger;
 
-        public UniqueTitlePartDisplayDriver(IStringLocalizer<UniqueTitlePartDisplayDriver> localizer, IGenericIndexRepository<UniqueTitlePartIndex> uniqueTitleIndexRepository)
+        public UniqueTitlePartDisplayDriver(IStringLocalizer<UniqueTitlePartDisplayDriver> localizer, IGenericIndexRepository<UniqueTitlePartIndex> uniqueTitleIndexRepository, ILogger logger)
         {
             S = localizer;
             _uniqueTitleIndexRepository = uniqueTitleIndexRepository;
-    }
+            _logger= logger;
+        }
 
         public override IDisplayResult Display(UniqueTitlePart part, BuildPartDisplayContext context)
         {
@@ -54,6 +57,7 @@ namespace DFC.ServiceTaxonomy.Title.Drivers
         public override async Task<IDisplayResult> UpdateAsync(UniqueTitlePart part, IUpdateModel updater,
             UpdatePartEditorContext context)
         {
+            _logger.LogInformation($"UpdateAsync: UniqueTitlePart {part}");
             var updated = await updater.TryUpdateModelAsync(part, Prefix, b => b.Title);
             if (updated)
             {

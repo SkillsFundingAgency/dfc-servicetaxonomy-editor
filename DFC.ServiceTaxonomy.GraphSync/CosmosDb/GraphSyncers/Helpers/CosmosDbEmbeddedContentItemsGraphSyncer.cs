@@ -23,6 +23,7 @@ using OrchardCore.ContentManagement;
 using OrchardCore.ContentManagement.Metadata;
 using OrchardCore.ContentManagement.Metadata.Models;
 
+
 namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb.GraphSyncers.Helpers
 {
     public abstract class CosmosDbEmbeddedContentItemsGraphSyncer : IEmbeddedContentItemsGraphSyncer
@@ -145,6 +146,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb.GraphSyncers.Helpers
             ContentItem[] embeddedContentItems = ConvertToContentItems(contentItems);
 
             List<CommandRelationship> requiredRelationships = new List<CommandRelationship>();
+            _logger.LogInformation($"GetRequiredRelationshipsAndOptionallySync: Context {context}");
 
             int relationshipOrdinal = 0;
             foreach (ContentItem contentItem in embeddedContentItems)
@@ -195,7 +197,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb.GraphSyncers.Helpers
             List<CommandRelationship> requiredRelationships = await GetRequiredRelationshipsAndOptionallySync(contentItems, context);
 
             context.ReplaceRelationshipsCommand.AddRelationshipsTo(requiredRelationships);
-
+            _logger.LogInformation($"AddSyncComponents: Context {context}");
             DeleteRelationshipsOfNonEmbeddedButAllowedContentTypes(context);
         }
 
@@ -209,6 +211,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb.GraphSyncers.Helpers
                         context.ReplaceRelationshipsCommand.SourceIdPropertyName!,
                         context.ReplaceRelationshipsCommand.SourceIdPropertyValue!)))
                 .FirstOrDefault();
+
+            _logger.LogInformation($"AllowSyncDetaching: Context {context}");
 
             if (existing?.OutgoingRelationships.Any() != true)
             {
@@ -259,6 +263,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb.GraphSyncers.Helpers
                                     r.DestinationNode.Properties[context.SyncNameProvider.IdPropertyName(contentType)],
                                     (string?)r.DestinationNode.Properties[TitlePartGraphSyncer.NodeTitlePropertyName]);
                             }));
+
+                    _logger.LogInformation($"removingRelationship: {removingRelationship} destinationNodeIdPropertyValue {destinationNodeIdPropertyValue}");
                 }
             }
         }
@@ -270,7 +276,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb.GraphSyncers.Helpers
 
             //todo: put serviceprovider into the context??
             var deleteRelationshipsCommand = _serviceProvider.GetRequiredService<IDeleteRelationshipsCommand>();
-
+            _logger.LogInformation($"AddSyncComponentsDetaching: context{context}");
             //todo: method on deleteRelationshipsCommand for this??
             deleteRelationshipsCommand.DeleteDestinationNodes = true;
             deleteRelationshipsCommand.SourceNodeLabels = new HashSet<string>(context.ReplaceRelationshipsCommand.SourceNodeLabels);
@@ -288,6 +294,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb.GraphSyncers.Helpers
 
             foreach (var possibleRelationship in possibleRelationships)
             {
+                _logger.LogInformation($"possibleRelationship: {possibleRelationship}");
                 //todo: add a RemoveAnyRelationshipsTo overload?
                 deleteRelationshipsCommand.AddRelationshipsTo(possibleRelationship.RelationshipType,
                     null,
@@ -330,6 +337,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb.GraphSyncers.Helpers
 
             IEnumerable<string> embeddableContentTypes = GetEmbeddableContentTypes(context);
 
+            _logger.LogInformation($"AllowDelete: context:{context} ");
+
             var embeddedContentItemsByType = embeddedContentItems
                 .GroupBy(ci => ci.ContentType)
                 .Where(g => embeddableContentTypes.Contains(g.Key));
@@ -342,7 +351,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb.GraphSyncers.Helpers
 
                     //todo: probably belongs in deletegraphsyncer DeleteEmbeddedAllowed
                     var allDeleteIncomingRelationshipsProperties = new HashSet<KeyValuePair<string, object>>();
-
+                    _logger.LogInformation($"contentItem: {contentItem} "); 
                     if (context.DeleteIncomingRelationshipsProperties != null)
                     {
                         allDeleteIncomingRelationshipsProperties.UnionWith(context.DeleteIncomingRelationshipsProperties);
@@ -375,11 +384,12 @@ namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb.GraphSyncers.Helpers
             var embeddedContentItemsByType = embeddedContentItems
                 .GroupBy(ci => ci.ContentType)
                 .Where(g => embeddableContentTypes.Contains(g.Key));
-
+            _logger.LogInformation($"DeleteComponents: {context} ");
             foreach (var embeddedContentItemsOfType in embeddedContentItemsByType)
             {
                 foreach (ContentItem contentItem in embeddedContentItemsOfType)
                 {
+                    _logger.LogInformation($"contentItem: {contentItem} ");
                     await context.DeleteGraphSyncer.DeleteEmbedded(contentItem);
                 }
             }
@@ -404,6 +414,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb.GraphSyncers.Helpers
         {
             if (_removingRelationships?.Any() != true)
             {
+                _logger.LogInformation($"DeleteRelationshipsOfNonEmbeddedButAllowedContentTypes: {context} not removing any relationships ");
                 // nothing to do here, not removing any relationships
                 return;
             }
@@ -417,7 +428,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb.GraphSyncers.Helpers
                 context.ReplaceRelationshipsCommand.SourceIdPropertyValue;
 
             deleteRelationshipsCommand.AddRelationshipsTo(_removingRelationships);
-
+            _logger.LogInformation($"DeleteRelationshipsOfNonEmbeddedButAllowedContentTypes:  deleteRelationshipsCommand {deleteRelationshipsCommand} ");
             context.ExtraCommands.Add(deleteRelationshipsCommand);
         }
 
@@ -428,6 +439,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb.GraphSyncers.Helpers
         {
             List<CommandRelationship> removingRelationships = new List<CommandRelationship>();
 
+            _logger.LogInformation($"GetRemovingRelationships:  deleteRelationshipsCommand existing{existing} required{required} syncNameProvider{syncNameProvider} ");
+
             var distinctExistingRelationshipsTypes = existing
                 .Select(r => (r.RelationshipType,
                     DestinationNodeLabel: syncNameProvider.GetContentTypeFromNodeLabels(r.DestinationNodeLabels)))
@@ -435,6 +448,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb.GraphSyncers.Helpers
 
             foreach (var distinctExistingRelationshipsType in distinctExistingRelationshipsTypes)
             {
+                _logger.LogInformation($"distinctExistingRelationshipsType: {distinctExistingRelationshipsType} ");
+
                 var (existingIdPropertyValues, existingRelationshipsOfType)
                     = GetIdPropertyValuesAndRelationshipsOfType(
                         existing, distinctExistingRelationshipsType, syncNameProvider);
