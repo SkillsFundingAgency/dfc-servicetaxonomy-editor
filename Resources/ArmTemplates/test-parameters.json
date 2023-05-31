@@ -223,6 +223,9 @@
         },
         "WEBSITEMEMORYLIMITMB":{
             "value": "__WEBSITEMEMORYLIMITMB__"
-        }
+        },
+        "appInsightsInstrumentationKey": {
+            "value": "deadbeef-0a0a-0a0a-0a0a-0a0a0a0a0a0a"
+        } 
     }
 }
