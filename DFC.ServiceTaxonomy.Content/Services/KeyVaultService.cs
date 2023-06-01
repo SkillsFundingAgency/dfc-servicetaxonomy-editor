@@ -13,10 +13,10 @@ namespace DFC.ServiceTaxonomy.Content.Services
     [ExcludeFromCodeCoverage]
     public class KeyVaultService : IKeyVaultService
     {
-        private readonly AzureAdSettings _azureAdSettings;  
-        private readonly ILogger _logger;
+        private readonly AzureAdSettings _azureAdSettings;
+        private readonly ILogger<KeyVaultService> _logger;
 
-        public KeyVaultService(IOptions<AzureAdSettings> azureAdSettings, ILogger logger)
+        public KeyVaultService(IOptions<AzureAdSettings> azureAdSettings, ILogger<KeyVaultService> logger)
         {
             _azureAdSettings = azureAdSettings.Value;
             _logger = logger;

@@ -25,7 +25,7 @@ namespace DFC.ServiceTaxonomy.Taxonomies.Controllers
         private readonly IContentDefinitionManager _contentDefinitionManager;
         private readonly IEnumerable<IContentHandler> _contentHandlers;
         private readonly ISession _session;
-        private readonly ILogger _logger;
+        private readonly ILogger<TagController> _logger;
 
         public TagController(
             IContentManager contentManager,

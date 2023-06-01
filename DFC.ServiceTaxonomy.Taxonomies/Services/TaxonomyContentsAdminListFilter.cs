@@ -17,9 +17,9 @@ namespace DFC.ServiceTaxonomy.Taxonomies.Services
     public class TaxonomyContentsAdminListFilter : IContentsAdminListFilter
     {
         private readonly ISiteService _siteService;
-        private readonly ILogger _logger;
+        private readonly ILogger<TaxonomyContentsAdminListFilter> _logger;
 
-        public TaxonomyContentsAdminListFilter(ISiteService siteService, ILogger logger)
+        public TaxonomyContentsAdminListFilter(ISiteService siteService, ILogger<TaxonomyContentsAdminListFilter> logger)
         {
             _siteService = siteService;
             _logger = logger;

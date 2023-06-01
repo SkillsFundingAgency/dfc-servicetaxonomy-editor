@@ -13,9 +13,9 @@ namespace DFC.ServiceTaxonomy.Taxonomies.Indexing
     public class TaxonomyFieldIndexHandler : ContentFieldIndexHandler<TaxonomyField>
     {
         private readonly IServiceProvider _serviceProvider;
-        private readonly ILogger _logger;
+        private readonly ILogger<TaxonomyFieldIndexHandler> _logger;
 
-        public TaxonomyFieldIndexHandler(IServiceProvider serviceProvider, ILogger logger)
+        public TaxonomyFieldIndexHandler(IServiceProvider serviceProvider, ILogger<TaxonomyFieldIndexHandler> logger)
         {
             _serviceProvider = serviceProvider;
             _logger= logger;

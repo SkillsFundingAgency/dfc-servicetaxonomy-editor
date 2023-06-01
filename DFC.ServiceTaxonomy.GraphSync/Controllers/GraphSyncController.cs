@@ -20,14 +20,14 @@ namespace DFC.ServiceTaxonomy.GraphSync.Controllers
         private readonly IValidateAndRepairGraph _validateAndRepairGraph;
         private readonly IAuthorizationService _authorizationService;
         private readonly IGraphSyncNotifier _notifier;
-        private readonly ILogger _logger;
+        private readonly ILogger<GraphSyncController> _logger;
         private readonly ISynonymService _synonymService;
 
         public GraphSyncController(
             IValidateAndRepairGraph validateAndRepairGraph,
             IAuthorizationService authorizationService,
             IGraphSyncNotifier notifier,
-            ILogger logger,
+            ILogger<GraphSyncController> logger,
             ISynonymService synonymService)
         {
             _validateAndRepairGraph = validateAndRepairGraph;

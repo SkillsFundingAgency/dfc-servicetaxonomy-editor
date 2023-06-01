@@ -16,9 +16,9 @@ namespace DFC.ServiceTaxonomy.ContentPickerPreview.Services
         private readonly IContentManager _contentManager;
         private readonly IContentDefinitionManager _contentDefinitionManager;
         private readonly ISession _session;
-        private readonly ILogger _logger;
+        private readonly ILogger<EditPublishedLinkContentPickerResultProvider> _logger;
 
-        public EditPublishedLinkContentPickerResultProvider(IContentManager contentManager, IContentDefinitionManager contentDefinitionManager, ISession session, ILogger logger)
+        public EditPublishedLinkContentPickerResultProvider(IContentManager contentManager, IContentDefinitionManager contentDefinitionManager, ISession session, ILogger<EditPublishedLinkContentPickerResultProvider> logger)
         {
             _contentManager = contentManager;
             _contentDefinitionManager = contentDefinitionManager;

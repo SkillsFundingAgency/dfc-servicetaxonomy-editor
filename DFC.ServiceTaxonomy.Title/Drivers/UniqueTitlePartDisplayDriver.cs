@@ -21,9 +21,9 @@ namespace DFC.ServiceTaxonomy.Title.Drivers
     {
         private readonly IStringLocalizer S;
         private readonly IGenericIndexRepository<UniqueTitlePartIndex> _uniqueTitleIndexRepository;
-        private readonly ILogger _logger;
+        private readonly ILogger<UniqueTitlePartDisplayDriver> _logger;
 
-        public UniqueTitlePartDisplayDriver(IStringLocalizer<UniqueTitlePartDisplayDriver> localizer, IGenericIndexRepository<UniqueTitlePartIndex> uniqueTitleIndexRepository, ILogger logger)
+        public UniqueTitlePartDisplayDriver(IStringLocalizer<UniqueTitlePartDisplayDriver> localizer, IGenericIndexRepository<UniqueTitlePartIndex> uniqueTitleIndexRepository, ILogger<UniqueTitlePartDisplayDriver> logger)
         {
             S = localizer;
             _uniqueTitleIndexRepository = uniqueTitleIndexRepository;

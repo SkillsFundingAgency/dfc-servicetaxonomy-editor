@@ -13,9 +13,9 @@ namespace DFC.ServiceTaxonomy.Content.Services
     public class ContentItemsService : IContentItemsService
     {
         private readonly ISession _session;
-        private readonly ILogger _logger;
+        private readonly ILogger<ContentItemsService> _logger;
 
-        public ContentItemsService(ISession session, ILogger logger)
+        public ContentItemsService(ISession session, ILogger<ContentItemsService> logger)
         {
             _session = session;
             _logger = logger;

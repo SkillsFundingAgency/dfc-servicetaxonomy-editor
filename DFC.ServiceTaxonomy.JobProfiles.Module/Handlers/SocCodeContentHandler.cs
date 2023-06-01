@@ -28,7 +28,7 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module.Handlers
         private readonly ISession _session;
         private readonly INotifier _notifier;
         private readonly IHtmlLocalizer<SocCodeContentHandler> H;
-        private readonly ILogger _logger;
+        private readonly ILogger<SocCodeContentHandler> _logger;
 
 
         public SocCodeContentHandler(
@@ -37,7 +37,7 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module.Handlers
             IServiceProvider serviceProvider,
             ISession session,
             INotifier notifier,
-            IHtmlLocalizer<SocCodeContentHandler> htmlLocalizer, ILogger logger)
+            IHtmlLocalizer<SocCodeContentHandler> htmlLocalizer, ILogger<SocCodeContentHandler> logger)
         {
             _socCodeMappingRepository = socCodeMappingRepository;
             _skillsFrameworkService = skillsFrameworkService;

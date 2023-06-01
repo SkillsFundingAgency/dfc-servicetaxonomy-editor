@@ -21,9 +21,9 @@ namespace DFC.ServiceTaxonomy.PageLocation.GraphSyncers
         private readonly IPageLocationClonePropertyGenerator _generator;
         private readonly IContentItemsService _contentItemsService;
         private readonly IContentDefinitionManager _contentDefinitionManager;
-        private readonly ILogger _logger;
+        private readonly ILogger<PageLocationPartGraphSyncer> _logger;
 
-        public PageLocationPartGraphSyncer(IPageLocationClonePropertyGenerator generator, IContentItemsService contentItemsService, IContentDefinitionManager contentDefinitionManager, ILogger logger)
+        public PageLocationPartGraphSyncer(IPageLocationClonePropertyGenerator generator, IContentItemsService contentItemsService, IContentDefinitionManager contentDefinitionManager, ILogger<PageLocationPartGraphSyncer> logger)
         {
             _generator = generator;
             _contentItemsService = contentItemsService;

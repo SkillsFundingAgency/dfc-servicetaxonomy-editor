@@ -11,11 +11,11 @@ namespace DFC.ServiceTaxonomy.Events.Services
     public class EventGridContentClient : IEventGridContentClient
     {
         private readonly IEventGridContentRestHttpClientFactory _eventGridContentRestHttpClientFactory;
-        private readonly ILogger _logger;
+        private readonly ILogger<EventGridContentClient> _logger;
 
         public EventGridContentClient(
             IEventGridContentRestHttpClientFactory eventGridContentRestHttpClientFactory,
-            ILogger logger)
+            ILogger<EventGridContentClient> logger)
         {
             _eventGridContentRestHttpClientFactory = eventGridContentRestHttpClientFactory;
             _logger = logger;

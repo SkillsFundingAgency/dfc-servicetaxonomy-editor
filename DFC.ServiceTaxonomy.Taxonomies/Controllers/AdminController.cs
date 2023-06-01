@@ -35,7 +35,7 @@ namespace DFC.ServiceTaxonomy.Taxonomies.Controllers
         private readonly IEnumerable<ITaxonomyTermValidator> _validators;
         private readonly IEnumerable<ITaxonomyTermHandler> _handlers;
         private readonly ITaxonomyHelper _taxonomyHelper;
-        private readonly ILogger _logger;
+        private readonly ILogger<AdminController> _logger;
 
         public AdminController(
             ISession session,
@@ -48,7 +48,7 @@ namespace DFC.ServiceTaxonomy.Taxonomies.Controllers
             IUpdateModelAccessor updateModelAccessor,
             IEnumerable<ITaxonomyTermValidator> validators,
             IEnumerable<ITaxonomyTermHandler> handlers,
-            ITaxonomyHelper taxonomyHelper,ILogger logger)
+            ITaxonomyHelper taxonomyHelper,ILogger<AdminController> logger)
         {
             _contentManager = contentManager;
             _authorizationService = authorizationService;

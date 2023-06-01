@@ -20,11 +20,11 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module.Handlers
     {
         private readonly IServiceProvider _serviceProvider;
         private readonly ISession _session;
-        private readonly ILogger _logger;
+        private readonly ILogger<JobProfileContentHandler> _logger;
 
         public JobProfileContentHandler(
             IServiceProvider serviceProvider,
-            ISession session, ILogger logger)
+            ISession session, ILogger<JobProfileContentHandler> logger)
         {
             _session = session;
             _serviceProvider = serviceProvider;
