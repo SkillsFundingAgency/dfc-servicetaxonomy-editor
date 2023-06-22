@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.Taxonomies.Fields;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using Newtonsoft.Json.Linq;
 using OrchardCore.ContentManagement;
 using OrchardCore.Indexing;
@@ -12,16 +13,18 @@ namespace DFC.ServiceTaxonomy.Taxonomies.Indexing
     public class TaxonomyFieldIndexHandler : ContentFieldIndexHandler<TaxonomyField>
     {
         private readonly IServiceProvider _serviceProvider;
+        private readonly ILogger<TaxonomyFieldIndexHandler> _logger;
 
-        public TaxonomyFieldIndexHandler(IServiceProvider serviceProvider)
+        public TaxonomyFieldIndexHandler(IServiceProvider serviceProvider, ILogger<TaxonomyFieldIndexHandler> logger)
         {
             _serviceProvider = serviceProvider;
+            _logger= logger;
         }
 
         public override async Task BuildIndexAsync(TaxonomyField field, BuildFieldIndexContext context)
         {
             // TODO: Also add the parents of each term, probably as a separate field
-
+            _logger.LogInformation($"BuildIndexAsync : field {field} ");
             var options = context.Settings.ToOptions();
             options |= DocumentIndexOptions.Store;
 
@@ -30,6 +33,7 @@ namespace DFC.ServiceTaxonomy.Taxonomies.Indexing
             {
                 foreach (var key in context.Keys)
                 {
+                    _logger.LogInformation($"BuildIndexAsync set : key {key} contentItemId {contentItemId} ");
                     context.DocumentIndex.Set(key, contentItemId, options);
                 }
             }
@@ -41,6 +45,7 @@ namespace DFC.ServiceTaxonomy.Taxonomies.Indexing
             var inheritedContentItems = new List<ContentItem>();
             foreach (var contentItemId in field.TermContentItemIds)
             {
+
                 TaxonomyOrchardHelperExtensions.FindTermHierarchy(taxonomy.Content.TaxonomyPart.Terms as JArray, contentItemId, inheritedContentItems);
             }
 
@@ -48,7 +53,7 @@ namespace DFC.ServiceTaxonomy.Taxonomies.Indexing
             {
                 foreach (var contentItem in inheritedContentItems)
                 {
-                    context.DocumentIndex.Set(key + ".Inherited", contentItem.ContentItemId, options);
+                   context.DocumentIndex.Set(key + ".Inherited", contentItem.ContentItemId, options);
                 }
             }
         }

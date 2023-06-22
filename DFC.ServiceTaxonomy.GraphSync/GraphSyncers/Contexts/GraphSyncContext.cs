@@ -31,7 +31,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Contexts
 
         public void AddChildContext(IGraphSyncContext graphSyncContext)
         {
-            _logger.LogDebug("Adding child to {Context}: {ChildContext}.", ToString(), graphSyncContext.ToString());
+            _logger.LogInformation("Adding child to {Context}: {ChildContext}.", ToString(), graphSyncContext.ToString());
 
             _childContexts.Add(graphSyncContext);
         }

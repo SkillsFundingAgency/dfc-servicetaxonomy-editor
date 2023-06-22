@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.JobProfiles.DataTransfer.ServiceBus;
 
 using Microsoft.Extensions.DependencyInjection;
-
+using Microsoft.Extensions.Logging;
 using Newtonsoft.Json.Linq;
 
 using OrchardCore.ContentManagement;
@@ -20,17 +20,20 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module.Handlers
     {
         private readonly IServiceProvider _serviceProvider;
         private readonly ISession _session;
+        private readonly ILogger<JobProfileContentHandler> _logger;
 
         public JobProfileContentHandler(
             IServiceProvider serviceProvider,
-            ISession session)
+            ISession session, ILogger<JobProfileContentHandler> logger)
         {
             _session = session;
             _serviceProvider = serviceProvider;
+            _logger = logger;
         }
 
         public override async Task DraftSavingAsync(SaveDraftContentContext context)
         {
+            _logger.LogInformation($"DraftSavingAsync: context {context}");
             if (context.ContentItem.ContentType == ContentTypes.JobProfile)
             {
                 var socCode = await SkillReloadRequired(context);

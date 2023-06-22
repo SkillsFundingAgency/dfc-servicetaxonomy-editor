@@ -5,6 +5,7 @@ using DFC.ServiceTaxonomy.ContentPickerPreview.Models;
 using DFC.ServiceTaxonomy.ContentPickerPreview.Services;
 using DFC.ServiceTaxonomy.ContentPickerPreview.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using OrchardCore.Admin;
 using OrchardCore.ContentFields.Settings;
 using OrchardCore.ContentManagement;
@@ -18,17 +19,20 @@ namespace DFC.ServiceTaxonomy.ContentPickerPreview.Controllers
     {
         private readonly IContentDefinitionManager _contentDefinitionManager;
         private readonly IEnumerable<IBannerContentPickerResultProvider> _resultProviders;
+        private readonly ILogger<BannerContentPickerAdminController> _logger;
 
-        public BannerContentPickerAdminController(IContentDefinitionManager contentDefinitionManager, IEnumerable<IBannerContentPickerResultProvider> resultProviders)
+        public BannerContentPickerAdminController(IContentDefinitionManager contentDefinitionManager, IEnumerable<IBannerContentPickerResultProvider> resultProviders,ILogger<BannerContentPickerAdminController> logger)
         {
             _contentDefinitionManager = contentDefinitionManager;
             _resultProviders = resultProviders;
+            _logger = logger;
         }
 
         public async Task<IActionResult> SearchContentItems(string part, string field, string query)
         {
             if (string.IsNullOrWhiteSpace(part) || string.IsNullOrWhiteSpace(field))
             {
+                _logger.LogError($"SearchContentItems Part {part} and field {field} query {query} are required parameters");
                 return BadRequest("Part and field are required parameters");
             }
 
@@ -38,6 +42,7 @@ namespace DFC.ServiceTaxonomy.ContentPickerPreview.Controllers
 
             if (fieldSettings == null)
             {
+                _logger.LogError($"SearchContentItems Part {part} and field {field} query {query} Unable to find field definition");
                 return BadRequest("Unable to find field definition");
             }
 

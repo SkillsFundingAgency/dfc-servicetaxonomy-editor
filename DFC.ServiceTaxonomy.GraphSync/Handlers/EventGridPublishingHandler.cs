@@ -74,32 +74,39 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers
 
         public Task DraftSaved(IOrchestrationContext context)
         {
+            _logger.LogInformation($"DraftSaved {context}");
             return PublishContentEvent(context, ContentEventType.Draft);
         }
 
         public Task Published(IOrchestrationContext context)
         {
+            _logger.LogInformation($"Published {context}");
             return PublishContentEvent(context, ContentEventType.Published);
         }
 
         public async Task Unpublished(IOrchestrationContext context)
         {
+            _logger.LogInformation($"Unpublished {context}");
             await PublishContentEvent(context, ContentEventType.Unpublished);
             await PublishContentEvent(context, ContentEventType.Draft);
         }
 
         public Task Cloned(IOrchestrationContext context)
         {
+            _logger.LogInformation($"Cloned {context}");
             return PublishContentEvent(context, ContentEventType.Draft);
         }
 
         public Task Deleted(IOrchestrationContext context)
         {
+
+            _logger.LogInformation($"Deleted {context}");
             return PublishContentEvent(context, ContentEventType.Deleted);
         }
 
         public async Task DraftDiscarded(IOrchestrationContext context)
         {
+            _logger.LogInformation($"DraftDiscarded {context}");
             await PublishContentEvent(context, ContentEventType.DraftDiscarded);
             await PublishContentEvent(context, ContentEventType.Published);
         }
@@ -107,8 +114,10 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers
         #pragma warning disable S4144
         public async Task Restored(IOrchestrationContext context)
         {
+           
             await PublishContentEvent(context, ContentEventType.Unpublished);
             await PublishContentEvent(context, ContentEventType.Draft);
+            _logger.LogInformation($"Restored {context}");
         }
         #pragma warning restore S4144
 
@@ -143,6 +152,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers
 
                 ContentEvent contentEvent = new ContentEvent(context.ContentItem, userId, eventType);
                 await _eventGridContentClient.Publish(contentEvent);
+
+                _logger.LogInformation($"PublishContentEvent Context : {context}, userid: {userId}, eventType:{eventType}");
             }
             catch (Exception publishException)
             {
