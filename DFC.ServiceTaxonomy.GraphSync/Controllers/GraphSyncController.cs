@@ -42,7 +42,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.Controllers
         {
             var synonyms = await _synonymService.GetSynonymsAsync(node);
 
-            var sb = new StringBuilder();
+            _logger.LogInformation($"Synonyms: GraphSync/Synonyms/{node}/{filename}");
+             var sb = new StringBuilder();
             foreach (var item in synonyms)
             {
                 sb.AppendLine(item);
@@ -70,6 +71,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Controllers
         {
             if (!await _authorizationService.AuthorizeAsync(User, Permissions.AdministerGraphs))
             {
+                _logger.LogWarning($"TriggerSyncValidation {scope} AuthorizeAsync Forbid");
                 return Forbid();
             }
 
