@@ -11,7 +11,6 @@ using Azure.Search.Documents.Indexes.Models;
 using DFC.ServiceTaxonomy.JobProfiles.DataTransfer.Models.AzureSearch;
 using DFC.ServiceTaxonomy.JobProfiles.DataTransfer.ServiceBus;
 using DFC.ServiceTaxonomy.JobProfiles.DataTransfer.ServiceBus.Interfaces;
-
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -54,7 +53,7 @@ namespace DFC.ServiceTaxonomy.JobProfiles.DataTransfer.AzureSearch
             try
             {
                 var session = _provider.GetRequiredService<ISession>();
-                var jpContentItems = await session.Query<ContentItem, ContentItemIndex>(c => c.ContentType == ContentTypes.JobProfile && c.Published && c.Latest).ListAsync();
+                var jpContentItems = await session.Query<ContentItem, ContentItemIndex>(c => c.ContentType == ContentTypes.JobProfile && c.Published).ListAsync();
                 SearchClient client = await GetSearchClientAsync(_jobProfileIndexSettings);
 
                 foreach (var item in jpContentItems)
