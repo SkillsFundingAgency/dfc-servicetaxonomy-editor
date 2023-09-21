@@ -94,6 +94,13 @@ namespace DFC.ServiceTaxonomy.JobProfiles.DataTransfer.ServiceBus.Converters
                     SocCodeData = await _socCodeMessageConverter.ConvertFromAsync(contentItem),
                     IncludeInSitemap = !contentItem.As<SitemapPart>().Exclude,
                     JobProfileCategories = GetJobCategories(jobCategories),
+
+                    SocialProofVideo = contentItem.Content.JobProfile.EnableSocialProofVideo.Value is null ? default : new SocialProofVideo(
+                        title: (string)contentItem.Content.JobProfile.SocialProofVideoTitle.Text,
+                        summary: (string)contentItem.Content.JobProfile.SocialProofVideoSummary.Text,
+                        url: (string)contentItem.Content.JobProfile.SocialProofVideoUrl.Text,
+                        transcript: (string)contentItem.Content.JobProfile.SocialProofVideoTranscript.Text
+                    ),
                 };
 
                 jobProfileMessage.CanonicalName = !string.IsNullOrEmpty(jobProfileMessage.UrlName) ? jobProfileMessage.UrlName.ToLower() : string.Empty;
