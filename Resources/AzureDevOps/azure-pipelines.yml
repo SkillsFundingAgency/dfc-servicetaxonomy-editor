@@ -136,8 +136,8 @@ stages:
             inputs:
               command: push
               packagesToPush: '$(Pipeline.Workspace)\$(SolutionBaseName).Nuget\*.nupkg;!$(Pipeline.Workspace)\$(SolutionBaseName).Nuget\*.symbols.nupkg'
-              nuGetFeedType: external
-              publishFeedCredentials: 'DFC Nuget'
+              nuGetFeedType: internal
+              publishVstsFeed: NationalCareersService
 
 - stage: DeployToLab
   condition: succeeded()
