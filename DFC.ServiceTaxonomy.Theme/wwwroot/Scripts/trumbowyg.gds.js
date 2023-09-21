@@ -339,7 +339,8 @@
         $("#mediaApp").detach().appendTo('#mediaModalHtmlField .modal-body');
         $("#mediaApp").show();
         mediaApp.selectedMedias = [];
-        var modal = $('#mediaModalHtmlField').modal();
+        var modal = new bootstrap.Modal("#mediaModalHtmlField");
+        modal.show();
         //disable an reset on click event over the button to avoid issue if press button multiple times or have multiple editor
         $('#mediaHtmlFieldSelectButton').off('click');
         $('#mediaHtmlFieldSelectButton').on('click', function (v) {
