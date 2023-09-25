@@ -95,7 +95,7 @@ namespace DFC.ServiceTaxonomy.JobProfiles.DataTransfer.ServiceBus.Converters
                     IncludeInSitemap = !contentItem.As<SitemapPart>().Exclude,
                     JobProfileCategories = GetJobCategories(jobCategories),
 
-                    SocialProofVideo = contentItem.Content.JobProfile.EnableSocialProofVideo.Value is null ? default : new SocialProofVideo(
+                    SocialProofVideo = !((bool?)contentItem.Content.JobProfile.EnableSocialProofVideo.Value ?? false) ? default : new SocialProofVideo(
                         title: (string)contentItem.Content.JobProfile.SocialProofVideoTitle.Text,
                         summary: (string)contentItem.Content.JobProfile.SocialProofVideoSummary.Text,
                         url: (string)contentItem.Content.JobProfile.SocialProofVideoUrl.Text,
