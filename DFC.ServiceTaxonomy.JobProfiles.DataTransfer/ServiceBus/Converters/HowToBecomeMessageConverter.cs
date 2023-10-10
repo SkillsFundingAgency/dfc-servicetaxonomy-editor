@@ -35,7 +35,8 @@ namespace DFC.ServiceTaxonomy.JobProfiles.DataTransfer.ServiceBus.Converters
             IEnumerable<ContentItem> relatedApprenticeshipRequirements = await Helper.GetContentItemsAsync(contentItem.Content.JobProfile.RelatedApprenticeshipRequirements, contentManager);
             IEnumerable<ContentItem> relatedApprenticeshipLinks = await Helper.GetContentItemsAsync(contentItem.Content.JobProfile.RelatedApprenticeshipLinks, contentManager);
             IEnumerable<ContentItem> relatedRegistrations = await Helper.GetContentItemsAsync(contentItem.Content.JobProfile.RelatedRegistrations, contentManager);
-
+            IEnumerable<ContentItem> realStoryField = await Helper.GetContentItemsAsync(contentItem.Content.JobProfile.RealStory, contentManager);
+            
             var howToBecomeData = new HowToBecomeData
             {
                 IntroText = contentItem.Content.JobProfile.Entryroutes.Html,
@@ -88,9 +89,31 @@ namespace DFC.ServiceTaxonomy.JobProfiles.DataTransfer.ServiceBus.Converters
                         MoreInformationLinks = GetRelatedLinkItems(relatedApprenticeshipLinks)
                     }
                 },
-                Registrations = GetRegistrations(relatedRegistrations)
+                Registrations = GetRegistrations(relatedRegistrations),
+                RealStory = GetRealStory(realStoryField),
             };
             return howToBecomeData;
+        }
+
+        private static RealStory GetRealStory(ContentItem contentItem)
+        {
+            var thumbnail = contentItem.Content.RealStory.Thumbnail.Paths[0] is null ? default : new Thumbnail(
+                path: (string)contentItem.Content.RealStory.Thumbnail.Paths[0],
+                text: (string)contentItem.Content.RealStory.Thumbnail.MediaTexts[0]
+            );
+
+            return new RealStory(
+                title: contentItem.DisplayText,
+                thumbnail: thumbnail,
+                summary: (string)contentItem.Content.RealStory.Summary.Text,
+                bodyHtml: (string)contentItem.Content.RealStory.Body.Html
+            );
+        }
+
+        private static RealStory? GetRealStory(IEnumerable<ContentItem> contentItems)
+        {
+            var contentItem = contentItems.FirstOrDefault();
+            return contentItem == null ? default : GetRealStory(contentItem);
         }
 
         private static IEnumerable<RegistrationItem> GetRegistrations(IEnumerable<ContentItem> contentItems) =>
