@@ -2,11 +2,12 @@
 {
     public sealed class SocialProofVideo
     {
-        public SocialProofVideo(string title, string summary, string url, string transcript)
+        public SocialProofVideo(string title, string summary, string url, string duration, string transcript)
         {
             Title = title;
             Summary = summary;
             Url = url;
+            Duration = duration;
             Transcript = transcript;
         }
 
@@ -31,6 +32,14 @@
         /// <para>At the time of writing this would be the URL of a video on YouTube.</para>
         /// </remarks>
         public string Url { get; }
+
+        /// <summary>
+        /// Gets the duration of the social proof video.
+        /// </summary>
+        /// <remarks>
+        /// <para>This is text that is provided by the content editor; eg "One minute watch".</para>
+        /// </remarks>
+        public string Duration { get; }
 
         /// <summary>
         /// Gets the transcript text for the social proof video.

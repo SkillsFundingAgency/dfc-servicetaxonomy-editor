@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -99,6 +99,7 @@ namespace DFC.ServiceTaxonomy.JobProfiles.DataTransfer.ServiceBus.Converters
                         title: (string)contentItem.Content.JobProfile.SocialProofVideoTitle.Text,
                         summary: (string)contentItem.Content.JobProfile.SocialProofVideoSummary.Text,
                         url: (string)contentItem.Content.JobProfile.SocialProofVideoUrl.Text,
+                       duration: (string)contentItem.Content.JobProfile.SocialProofVideoDuration.Text,
                         transcript: (string)contentItem.Content.JobProfile.SocialProofVideoTranscript.Text
                     ),
                 };
