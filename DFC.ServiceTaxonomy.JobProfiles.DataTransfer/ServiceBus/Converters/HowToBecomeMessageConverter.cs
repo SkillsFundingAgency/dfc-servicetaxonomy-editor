@@ -95,7 +95,7 @@ namespace DFC.ServiceTaxonomy.JobProfiles.DataTransfer.ServiceBus.Converters
             return howToBecomeData;
         }
 
-        private static RealStory GetRealStory(ContentItem contentItem)
+        public static RealStory GetRealStory(ContentItem contentItem)
         {
             var thumbnail = contentItem.Content.RealStory.Thumbnail.Paths[0] is null ? default : new Thumbnail(
                 path: (string)contentItem.Content.RealStory.Thumbnail.Paths[0],

@@ -8,6 +8,7 @@ using DFC.ServiceTaxonomy.GraphSync.Models;
 using DFC.ServiceTaxonomy.JobProfiles.DataTransfer.Extensions;
 using DFC.ServiceTaxonomy.JobProfiles.DataTransfer.Indexes;
 using DFC.ServiceTaxonomy.JobProfiles.DataTransfer.Models.ServiceBus;
+using DFC.ServiceTaxonomy.JobProfiles.DataTransfer.ServiceBus.Converters;
 using DFC.ServiceTaxonomy.JobProfiles.DataTransfer.ServiceBus.Interfaces;
 
 using Microsoft.Extensions.Logging;
@@ -77,6 +78,10 @@ namespace DFC.ServiceTaxonomy.JobProfiles.DataTransfer.ServiceBus
                     case ContentTypes.JobProfileSpecialism:
                     case ContentTypes.ApprenticeshipEntryRequirements:
                         await GenerateServiceBusMessageForOtherReferenceTypes(context, actionType);
+                        break;
+
+                    case ContentTypes.RealStory:
+                        await GenerateServiceBusMessageForRealStoryType(context, actionType);
                         break;
 
                     case ContentTypes.SOCSkillsMatrix:
@@ -319,6 +324,35 @@ namespace DFC.ServiceTaxonomy.JobProfiles.DataTransfer.ServiceBus
                         JobProfileId = Guid.Parse(item.GraphSyncPartId ?? string.Empty)
                     });
 
+                }
+            }
+
+            await _serviceBusMessageProcessor.SendOtherRelatedTypeMessages(jobprofileData, context.ContentItem.ContentType, actionType);
+        }
+
+        private async Task GenerateServiceBusMessageForRealStoryType(ContentContextBase context, string actionType)
+        {
+            var realStory = HowToBecomeMessageConverter.GetRealStory(context.ContentItem);
+
+            var matches = await _jobProfileIndexRepository
+                .GetAll(b => b.RealStory != null && b.RealStory.Contains(context.ContentItem.ContentItemId))
+                .ListAsync();
+
+            bool isSaved = actionType.Equals(ActionTypes.Published) || actionType.Equals(ActionTypes.Draft);
+            IList<RealStoryContentItem> jobprofileData = new List<RealStoryContentItem>(matches.Count());
+            Guid id = context.ContentItem.As<GraphSyncPart>().ExtractGuid();
+            foreach (var item in matches)
+            {
+                if (isSaved)
+                {
+                    jobprofileData.Add(new RealStoryContentItem()
+                    {
+                        Id = id,
+                        JobProfileId = Guid.Parse(item.GraphSyncPartId ?? string.Empty),
+                        Title = context.ContentItem.DisplayText,
+                        JobProfileTitle = item.JobProfileTitle,
+                        RealStory = realStory,
+                    });
                 }
             }
 
