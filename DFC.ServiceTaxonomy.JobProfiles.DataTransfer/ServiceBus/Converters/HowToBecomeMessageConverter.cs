@@ -9,7 +9,6 @@ using DFC.ServiceTaxonomy.JobProfiles.DataTransfer.Models.ServiceBus;
 using DFC.ServiceTaxonomy.JobProfiles.DataTransfer.ServiceBus.Interfaces;
 
 using Microsoft.Extensions.DependencyInjection;
-
 using OrchardCore.ContentManagement;
 using OrchardCore.Title.Models;
 
@@ -18,9 +17,14 @@ namespace DFC.ServiceTaxonomy.JobProfiles.DataTransfer.ServiceBus.Converters
     public class HowToBecomeMessageConverter : IMessageConverter<HowToBecomeData>
     {
         private readonly IServiceProvider _serviceProvider;
+        private readonly IMessageConverter<RealStory> _realStoryMessageConverter;
 
-        public HowToBecomeMessageConverter(IServiceProvider serviceProvider) =>
+        public HowToBecomeMessageConverter(IServiceProvider serviceProvider,
+            IMessageConverter<RealStory> realStoryMessageConverter)
+        {
             _serviceProvider = serviceProvider;
+            _realStoryMessageConverter = realStoryMessageConverter;
+        }
 
         public async Task<HowToBecomeData> ConvertFromAsync(ContentItem contentItem)
         {
@@ -90,30 +94,19 @@ namespace DFC.ServiceTaxonomy.JobProfiles.DataTransfer.ServiceBus.Converters
                     }
                 },
                 Registrations = GetRegistrations(relatedRegistrations),
-                RealStory = GetRealStory(realStoryField),
+                RealStory = await GetRealStory(realStoryField),
             };
             return howToBecomeData;
         }
 
-        public static RealStory GetRealStory(ContentItem contentItem)
-        {
-            var thumbnail = contentItem.Content.RealStory.Thumbnail.Paths[0] is null ? default : new Thumbnail(
-                path: (string)contentItem.Content.RealStory.Thumbnail.Paths[0],
-                text: (string)contentItem.Content.RealStory.Thumbnail.MediaTexts[0]
-            );
-
-            return new RealStory(
-                title: contentItem.DisplayText,
-                thumbnail: thumbnail,
-                summary: (string)contentItem.Content.RealStory.Summary.Text,
-                bodyHtml: (string)contentItem.Content.RealStory.Body.Html
-            );
-        }
-
-        private static RealStory? GetRealStory(IEnumerable<ContentItem> contentItems)
+        private async Task<RealStory?> GetRealStory(IEnumerable<ContentItem> contentItems)
         {
             var contentItem = contentItems.FirstOrDefault();
-            return contentItem == null ? default : GetRealStory(contentItem);
+            if (contentItem == null)
+            {
+                return null;
+            }
+            return await _realStoryMessageConverter.ConvertFromAsync(contentItem);
         }
 
         private static IEnumerable<RegistrationItem> GetRegistrations(IEnumerable<ContentItem> contentItems) =>

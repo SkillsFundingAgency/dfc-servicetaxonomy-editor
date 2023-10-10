@@ -34,6 +34,7 @@ namespace DFC.ServiceTaxonomy.JobProfiles.DataTransfer
             services.AddScoped<IMessageConverter<WhatYouWillDoData>, WhatYouWillDoMessageConverter>();
             services.AddScoped<IMessageConverter<WhatItTakesData>, WhatItTakesMessageConverter>();
             services.AddScoped<IMessageConverter<SocCodeItem>, SocCodeMessageConverter>();
+            services.AddScoped<IMessageConverter<RealStory>, RealStoryMessageConverter>();
             services.AddScoped<IRelatedSkillsConverter, RelatedSkillsConverter>();
             services.AddScoped<IDataEventProcessor, DataEventProcessor>();
             services.AddScoped<IServiceBusMessageProcessor, ServiceBusMessageProcessor>();

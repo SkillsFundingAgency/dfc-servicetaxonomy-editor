@@ -8,7 +8,6 @@ using DFC.ServiceTaxonomy.GraphSync.Models;
 using DFC.ServiceTaxonomy.JobProfiles.DataTransfer.Extensions;
 using DFC.ServiceTaxonomy.JobProfiles.DataTransfer.Indexes;
 using DFC.ServiceTaxonomy.JobProfiles.DataTransfer.Models.ServiceBus;
-using DFC.ServiceTaxonomy.JobProfiles.DataTransfer.ServiceBus.Converters;
 using DFC.ServiceTaxonomy.JobProfiles.DataTransfer.ServiceBus.Interfaces;
 
 using Microsoft.Extensions.Logging;
@@ -23,18 +22,21 @@ namespace DFC.ServiceTaxonomy.JobProfiles.DataTransfer.ServiceBus
         private readonly IServiceBusMessageProcessor _serviceBusMessageProcessor;
         private readonly ILogger<DataEventProcessor> _logger;
         private readonly IMessageConverter<JobProfileMessage> _jobprofileMessageConverter;
+        private readonly IMessageConverter<RealStory> _realStoryMessageConverter;
         private readonly IRelatedSkillsConverter _relatedSkillsConverter;
         private readonly IGenericIndexRepository<JobProfileIndex> _jobProfileIndexRepository;
 
         public DataEventProcessor(IServiceBusMessageProcessor serviceBusMessageProcessor,
                                             ILogger<DataEventProcessor> logger,
                                             IMessageConverter<JobProfileMessage> jobprofileMessageConverter,
+                                            IMessageConverter<RealStory> realStoryMessageConverter,
                                             IRelatedSkillsConverter relatedSkillsConverter,
                                             IGenericIndexRepository<JobProfileIndex> jobProfileIndexRepository)
         {
             _serviceBusMessageProcessor = serviceBusMessageProcessor;
             _logger = logger;
             _jobprofileMessageConverter = jobprofileMessageConverter;
+            _realStoryMessageConverter = realStoryMessageConverter;
             _relatedSkillsConverter = relatedSkillsConverter;
             _jobProfileIndexRepository = jobProfileIndexRepository;
         }
@@ -332,7 +334,7 @@ namespace DFC.ServiceTaxonomy.JobProfiles.DataTransfer.ServiceBus
 
         private async Task GenerateServiceBusMessageForRealStoryType(ContentContextBase context, string actionType)
         {
-            var realStory = HowToBecomeMessageConverter.GetRealStory(context.ContentItem);
+            var realStory = await _realStoryMessageConverter.ConvertFromAsync(context.ContentItem);
 
             var matches = await _jobProfileIndexRepository
                 .GetAll(b => b.RealStory != null && b.RealStory.Contains(context.ContentItem.ContentItemId))
