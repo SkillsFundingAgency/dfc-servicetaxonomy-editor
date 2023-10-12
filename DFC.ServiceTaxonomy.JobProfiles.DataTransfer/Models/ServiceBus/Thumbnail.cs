@@ -2,13 +2,13 @@
 {
     public sealed class Thumbnail
     {
-        public Thumbnail(string path, string text)
+        public Thumbnail(string url, string text)
         {
-            Path = path;
+            Url = url;
             Text = text;
         }
 
-        public string Path { get; }
+        public string Url { get; }
 
         public string Text { get; }
     }

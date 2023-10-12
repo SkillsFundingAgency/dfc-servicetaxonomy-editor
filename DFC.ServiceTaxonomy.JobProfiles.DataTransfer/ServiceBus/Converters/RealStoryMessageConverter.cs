@@ -25,7 +25,7 @@ namespace DFC.ServiceTaxonomy.JobProfiles.DataTransfer.ServiceBus.Converters
             {
                 string assetPath = contentItem.Content.RealStory.Thumbnail.Paths[0];
                 thumbnail = new Thumbnail(
-                    path: _orchardHelper.AssetUrl(assetPath),
+                    url: _orchardHelper.AssetUrl(assetPath),
                     text: (string)contentItem.Content.RealStory.Thumbnail.MediaTexts[0]
                 );
             }
