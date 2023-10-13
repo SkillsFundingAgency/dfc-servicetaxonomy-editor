@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -75,6 +75,14 @@ namespace DFC.ServiceTaxonomy.JobProfiles.DataTransfer.ServiceBus.Converters
                     CareerPathAndProgression = contentItem.Content.JobProfile.Careerpathandprogression is null ? default : (string?)contentItem.Content.JobProfile.Careerpathandprogression.Html,
                     CourseKeywords = contentItem.Content.JobProfile.Coursekeywords is null ? default : (string?)contentItem.Content.JobProfile.Coursekeywords.Text,
 
+                    Video = !((bool?)contentItem.Content.JobProfile.EnableVideo.Value ?? false) ? default : new SocialProofVideo(
+                        title: (string)contentItem.Content.JobProfile.VideoTitle.Text,
+                        summary: (string)contentItem.Content.JobProfile.VideoSummary.Text,
+                        url: (string)contentItem.Content.JobProfile.VideoUrl.Text,
+                        duration: (string)contentItem.Content.JobProfile.VideoDuration.Text,
+                        transcript: (string)contentItem.Content.JobProfile.VideoTranscript.Text
+                    ),
+
                     HowToBecomeData = await _howToBecomeMessageConverter.ConvertFromAsync(contentItem),
                     WhatYouWillDoData = await _whatYouWillDoDataMessageConverter.ConvertFromAsync(contentItem),
                     RelatedCareersData = GetRelatedCareersData(relatedCareersProfiles),
@@ -94,14 +102,6 @@ namespace DFC.ServiceTaxonomy.JobProfiles.DataTransfer.ServiceBus.Converters
                     SocCodeData = await _socCodeMessageConverter.ConvertFromAsync(contentItem),
                     IncludeInSitemap = !contentItem.As<SitemapPart>().Exclude,
                     JobProfileCategories = GetJobCategories(jobCategories),
-
-                    SocialProofVideo = !((bool?)contentItem.Content.JobProfile.EnableSocialProofVideo.Value ?? false) ? default : new SocialProofVideo(
-                        title: (string)contentItem.Content.JobProfile.SocialProofVideoTitle.Text,
-                        summary: (string)contentItem.Content.JobProfile.SocialProofVideoSummary.Text,
-                        url: (string)contentItem.Content.JobProfile.SocialProofVideoUrl.Text,
-                       duration: (string)contentItem.Content.JobProfile.SocialProofVideoDuration.Text,
-                        transcript: (string)contentItem.Content.JobProfile.SocialProofVideoTranscript.Text
-                    ),
                 };
 
                 jobProfileMessage.CanonicalName = !string.IsNullOrEmpty(jobProfileMessage.UrlName) ? jobProfileMessage.UrlName.ToLower() : string.Empty;
