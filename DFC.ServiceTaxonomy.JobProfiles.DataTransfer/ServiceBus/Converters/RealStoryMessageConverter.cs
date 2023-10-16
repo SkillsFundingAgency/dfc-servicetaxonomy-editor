@@ -32,8 +32,9 @@ namespace DFC.ServiceTaxonomy.JobProfiles.DataTransfer.ServiceBus.Converters
 
             var realStory = new RealStory(
                 title: contentItem.DisplayText,
-                thumbnail: thumbnail,
                 summary: (string)contentItem.Content.RealStory.Summary.Text,
+                thumbnail: thumbnail,
+                furtherInformationHtml: (string)contentItem.Content.RealStory.FurtherInformation.Html,
                 bodyHtml: (string)contentItem.Content.RealStory.Body.Html
             );
 

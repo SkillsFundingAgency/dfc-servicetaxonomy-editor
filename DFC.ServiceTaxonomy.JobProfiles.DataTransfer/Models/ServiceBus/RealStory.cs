@@ -2,11 +2,12 @@
 {
     public sealed class RealStory
     {
-        public RealStory(string title, Thumbnail? thumbnail, string summary, string bodyHtml)
+        public RealStory(string title, string summary, Thumbnail? thumbnail, string furtherInformationHtml, string bodyHtml)
         {
             Title = title;
-            Thumbnail = thumbnail;
             Summary = summary;
+            Thumbnail = thumbnail;
+            FurtherInformationHtml = furtherInformationHtml;
             BodyHtml = bodyHtml;
         }
 
@@ -14,6 +15,14 @@
         /// Gets the title of the real story.
         /// </summary>
         public string Title { get; }
+
+        /// <summary>
+        /// Gets the summary text for of the real story.
+        /// </summary>
+        /// <value>
+        /// Plain text.
+        /// </value>
+        public string Summary { get; }
 
         /// <summary>
         /// Gets the thumbnail of the real story.
@@ -24,12 +33,12 @@
         public Thumbnail? Thumbnail { get; }
 
         /// <summary>
-        /// Gets the summary text for of the real story.
+        /// Gets the further information HTML content that is shown below the thumbnail.
         /// </summary>
-        /// <value>
-        /// Plain text.
-        /// </value>
-        public string Summary { get; }
+        /// <remarks>
+        /// <para>This is raw HTML text that is input into a WYSIWYG field in the CMS.</para>
+        /// </remarks>
+        public string FurtherInformationHtml { get; }
 
         /// <summary>
         /// Gets the body HTML content of the real story.
