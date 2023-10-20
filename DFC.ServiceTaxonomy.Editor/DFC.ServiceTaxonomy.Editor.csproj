@@ -13,6 +13,7 @@
     <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
     <UserSecretsId>049ec31b-9ec3-4123-a3e6-b35fc9237492</UserSecretsId>
     <Configurations>Debug;Release;Development</Configurations>
+    <PreserveCompilationContext>true</PreserveCompilationContext>
   </PropertyGroup>
 
   <ItemGroup>
@@ -21,8 +22,8 @@
 
   <ItemGroup>
     <None Include="..\.editorconfig" Link=".editorconfig" />
-    <Content Remove="appsettings.Development_template.json" />
-    <None Include="appsettings.Development_template.json">
+    <Content Remove="appsettings.Development.json" />
+    <None Include="appsettings.Development.json">
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
       <CopyToPublishDirectory>Never</CopyToPublishDirectory>
     </None>
