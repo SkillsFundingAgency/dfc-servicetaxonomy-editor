@@ -20,8 +20,8 @@ namespace DFC.ServiceTaxonomy.JobProfiles.DataTransfer.ServiceBus.Converters
         public Task<RealStory> ConvertFromAsync(ContentItem contentItem)
         {
             Thumbnail? thumbnail = null;
-
-            if (contentItem.Content.RealStory.Thumbnail.Paths[0] is not null)
+            
+            if (contentItem.Content.RealStory.Thumbnail.Paths is not null && contentItem.Content.RealStory.Thumbnail.Paths.Count > 0)
             {
                 string assetPath = contentItem.Content.RealStory.Thumbnail.Paths[0];
                 thumbnail = new Thumbnail(
