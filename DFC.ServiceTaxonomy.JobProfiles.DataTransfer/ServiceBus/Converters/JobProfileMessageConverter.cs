@@ -11,7 +11,7 @@ using DFC.ServiceTaxonomy.PageLocation.Models;
 
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-
+using OrchardCore;
 using OrchardCore.ContentManagement;
 using OrchardCore.Sitemaps.Models;
 using OrchardCore.Title.Models;
@@ -21,6 +21,7 @@ namespace DFC.ServiceTaxonomy.JobProfiles.DataTransfer.ServiceBus.Converters
     internal class JobProfileMessageConverter : IMessageConverter<JobProfileMessage>
     {
         private readonly IServiceProvider _serviceProvider;
+        private readonly IOrchardHelper _orchardHelper;
         private readonly IMessageConverter<HowToBecomeData> _howToBecomeMessageConverter;
         private readonly IMessageConverter<WhatYouWillDoData> _whatYouWillDoDataMessageConverter;
         private readonly IMessageConverter<WhatItTakesData> _whatItTakesMessageConverter;
@@ -33,9 +34,11 @@ namespace DFC.ServiceTaxonomy.JobProfiles.DataTransfer.ServiceBus.Converters
             IMessageConverter<WhatItTakesData> whatItTakesMessageConverter,
             IMessageConverter<SocCodeItem> socCodeMessageConverter,
             ILogger<JobProfileMessageConverter> logger,
-            IServiceProvider serviceProvider)
+            IServiceProvider serviceProvider,
+            IOrchardHelper orchardHelper)
         {
             _serviceProvider = serviceProvider;
+            _orchardHelper = orchardHelper;
             _howToBecomeMessageConverter = howToBecomeMessageConverter;
             _whatYouWillDoDataMessageConverter = whatYouWillDoDataMessageConverter;
             _whatItTakesMessageConverter = whatItTakesMessageConverter;
@@ -60,6 +63,17 @@ namespace DFC.ServiceTaxonomy.JobProfiles.DataTransfer.ServiceBus.Converters
                 IEnumerable<ContentItem> jobProfileSpecialism = await Helper.GetContentItemsAsync(contentItem.Content.JobProfile.JobProfileSpecialism, contentManager);
                 IEnumerable<ContentItem> jobCategories = await Helper.GetContentItemsAsync(contentItem.Content.JobProfile.JobProfileCategory, contentManager);
 
+                Thumbnail? videoThumbnail = null;
+
+                if (contentItem.Content.JobProfile.VideoThumbnail.Paths is not null && contentItem.Content.JobProfile.VideoThumbnail.Paths.Count > 0)
+                {
+                    string assetPath = contentItem.Content.JobProfile.VideoThumbnail.Paths[0];
+                    videoThumbnail = new Thumbnail(
+                    url: _orchardHelper.AssetUrl(assetPath, width: 600),
+                        text: (string)contentItem.Content.JobProfile.VideoThumbnail.MediaTexts[0]
+                    );
+                }
+
                 var jobProfileMessage = new JobProfileMessage
                 {
                     JobProfileId = contentItem.As<GraphSyncPart>().ExtractGuid(),
@@ -75,10 +89,14 @@ namespace DFC.ServiceTaxonomy.JobProfiles.DataTransfer.ServiceBus.Converters
                     CareerPathAndProgression = contentItem.Content.JobProfile.Careerpathandprogression is null ? default : (string?)contentItem.Content.JobProfile.Careerpathandprogression.Html,
                     CourseKeywords = contentItem.Content.JobProfile.Coursekeywords is null ? default : (string?)contentItem.Content.JobProfile.Coursekeywords.Text,
 
-                    Video = !((bool?)contentItem.Content.JobProfile.EnableVideo.Value ?? false) ? default : new SocialProofVideo(
+                    Video = (((string?)contentItem.Content.JobProfile.VideoType.Text ?? "None") == "None") ? default : new SocialProofVideo(
+                        type: (string)contentItem.Content.JobProfile.VideoType.Text,
                         title: (string)contentItem.Content.JobProfile.VideoTitle.Text,
-                        summary: (string)contentItem.Content.JobProfile.VideoSummary.Text,
+                        summaryHtml: (string)contentItem.Content.JobProfile.VideoSummary.Html,
+                        thumbnail: videoThumbnail,
+                        furtherInformationHtml: (string)contentItem.Content.JobProfile.VideoFurtherInformation.Html,
                         url: (string)contentItem.Content.JobProfile.VideoUrl.Text,
+                        linkText: (string)contentItem.Content.JobProfile.VideoLinkText.Text,
                         duration: (string)contentItem.Content.JobProfile.VideoDuration.Text,
                         transcript: (string)contentItem.Content.JobProfile.VideoTranscript.Text
                     ),

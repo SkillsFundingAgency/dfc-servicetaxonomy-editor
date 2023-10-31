@@ -2,14 +2,23 @@
 {
     public sealed class SocialProofVideo
     {
-        public SocialProofVideo(string title, string summary, string url, string duration, string transcript)
+        public SocialProofVideo(string type, string title, string summaryHtml, Thumbnail? thumbnail, string furtherInformationHtml, string url, string? linkText, string duration, string transcript)
         {
+            Type = type;
             Title = title;
-            Summary = summary;
+            SummaryHtml = summaryHtml;
+            Thumbnail = thumbnail;
+            FurtherInformationHtml = furtherInformationHtml;
             Url = url;
+            LinkText = linkText;    
             Duration = duration;
             Transcript = transcript;
         }
+
+        /// <summary>
+        /// Gets the type of the social proof video.
+        /// </summary>
+        public string Type { get; }
 
         /// <summary>
         /// Gets the title of the social proof video. This is used to render the
@@ -18,20 +27,41 @@
         public string Title { get; }
 
         /// <summary>
-        /// Gets the summary text for of the social proof video.
+        /// Gets the summary HTML content for of the social proof video.
+        /// </summary>
+        /// <remarks>
+        /// <para>This is raw HTML text that is input into a WYSIWYG field in the CMS.</para>
+        /// </remarks>
+        public string SummaryHtml { get; }
+
+        /// <summary>
+        /// Gets the thumbnail of the video.
         /// </summary>
         /// <value>
-        /// Plain text.
+        /// A reference to the thumbnail image; otherwise, a value of <c>null</c>.
         /// </value>
-        public string Summary { get; }
+        public Thumbnail? Thumbnail { get; }
+
+        /// <summary>
+        /// Gets the further information HTML content that is shown below the thumbnail.
+        /// </summary>
+        /// <remarks>
+        /// <para>This is raw HTML text that is input into a WYSIWYG field in the CMS.</para>
+        /// </remarks>
+        public string FurtherInformationHtml { get; }
 
         /// <summary>
         /// Gets the URL of the social proof video.
         /// </summary>
-        /// <remarks>
-        /// <para>At the time of writing this would be the URL of a video on YouTube.</para>
-        /// </remarks>
         public string Url { get; }
+
+        /// <summary>
+        /// Gets the link text for showing a call to action button.
+        /// </summary>
+        /// <value>
+        /// Plain text when call to action button is present; otherwise, a value of <c>null</c>.
+        /// </value>
+        public string? LinkText { get; }
 
         /// <summary>
         /// Gets the duration of the social proof video.
