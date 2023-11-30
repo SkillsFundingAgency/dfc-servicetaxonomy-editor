@@ -45,5 +45,7 @@
         public const string CollegeEntryRequirements = nameof(CollegeEntryRequirements);
         public const string ApprenticeshipRequirements = nameof(ApprenticeshipRequirements);
         public const string ApprenticeshipEntryRequirements = nameof(ApprenticeshipEntryRequirements);
+
+        public const string RealStory = nameof(RealStory);
     }
 }

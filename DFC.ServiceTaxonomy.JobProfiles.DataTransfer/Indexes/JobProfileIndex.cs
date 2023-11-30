@@ -32,5 +32,6 @@ namespace DFC.ServiceTaxonomy.JobProfiles.DataTransfer.Indexes
         public string? Uniform { get; set; }
         public string? JobProfileTitle { get; set; }
         public string? Restriction { get; set; }
+        public string? RealStory { get; set; }
     }
 }

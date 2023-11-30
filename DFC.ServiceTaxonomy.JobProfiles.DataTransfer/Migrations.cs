@@ -222,5 +222,20 @@ namespace DFC.ServiceTaxonomy.JobProfiles.DataTransfer
             return 8;
         }
 
+        public int UpdateFrom8()
+        {
+            try
+            {
+                SchemaBuilder.AlterIndexTable<JobProfileIndex>(
+                    table => table.AddColumn<string>(nameof(JobProfileIndex.RealStory),
+                    column => column.WithLength(600)));
+            }
+            catch
+            {
+                // SQLLite will throw an error here so we ignore it as it is not concerned with column length constraints
+            }
+
+            return 9;
+        }
     }
 }

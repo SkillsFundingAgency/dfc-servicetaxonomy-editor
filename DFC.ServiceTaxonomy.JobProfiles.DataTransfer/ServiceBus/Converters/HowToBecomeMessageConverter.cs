@@ -9,7 +9,6 @@ using DFC.ServiceTaxonomy.JobProfiles.DataTransfer.Models.ServiceBus;
 using DFC.ServiceTaxonomy.JobProfiles.DataTransfer.ServiceBus.Interfaces;
 
 using Microsoft.Extensions.DependencyInjection;
-
 using OrchardCore.ContentManagement;
 using OrchardCore.Title.Models;
 
@@ -18,9 +17,14 @@ namespace DFC.ServiceTaxonomy.JobProfiles.DataTransfer.ServiceBus.Converters
     public class HowToBecomeMessageConverter : IMessageConverter<HowToBecomeData>
     {
         private readonly IServiceProvider _serviceProvider;
+        private readonly IMessageConverter<RealStory> _realStoryMessageConverter;
 
-        public HowToBecomeMessageConverter(IServiceProvider serviceProvider) =>
+        public HowToBecomeMessageConverter(IServiceProvider serviceProvider,
+            IMessageConverter<RealStory> realStoryMessageConverter)
+        {
             _serviceProvider = serviceProvider;
+            _realStoryMessageConverter = realStoryMessageConverter;
+        }
 
         public async Task<HowToBecomeData> ConvertFromAsync(ContentItem contentItem)
         {
@@ -35,7 +39,8 @@ namespace DFC.ServiceTaxonomy.JobProfiles.DataTransfer.ServiceBus.Converters
             IEnumerable<ContentItem> relatedApprenticeshipRequirements = await Helper.GetContentItemsAsync(contentItem.Content.JobProfile.RelatedApprenticeshipRequirements, contentManager);
             IEnumerable<ContentItem> relatedApprenticeshipLinks = await Helper.GetContentItemsAsync(contentItem.Content.JobProfile.RelatedApprenticeshipLinks, contentManager);
             IEnumerable<ContentItem> relatedRegistrations = await Helper.GetContentItemsAsync(contentItem.Content.JobProfile.RelatedRegistrations, contentManager);
-
+            IEnumerable<ContentItem> realStoryField = await Helper.GetContentItemsAsync(contentItem.Content.JobProfile.RealStory, contentManager);
+            
             var howToBecomeData = new HowToBecomeData
             {
                 IntroText = contentItem.Content.JobProfile.Entryroutes.Html,
@@ -88,9 +93,20 @@ namespace DFC.ServiceTaxonomy.JobProfiles.DataTransfer.ServiceBus.Converters
                         MoreInformationLinks = GetRelatedLinkItems(relatedApprenticeshipLinks)
                     }
                 },
-                Registrations = GetRegistrations(relatedRegistrations)
+                Registrations = GetRegistrations(relatedRegistrations),
+                RealStory = await GetRealStory(realStoryField),
             };
             return howToBecomeData;
+        }
+
+        private async Task<RealStory?> GetRealStory(IEnumerable<ContentItem> contentItems)
+        {
+            var contentItem = contentItems.FirstOrDefault();
+            if (contentItem == null)
+            {
+                return null;
+            }
+            return await _realStoryMessageConverter.ConvertFromAsync(contentItem);
         }
 
         private static IEnumerable<RegistrationItem> GetRegistrations(IEnumerable<ContentItem> contentItems) =>

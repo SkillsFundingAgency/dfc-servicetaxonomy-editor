@@ -22,18 +22,21 @@ namespace DFC.ServiceTaxonomy.JobProfiles.DataTransfer.ServiceBus
         private readonly IServiceBusMessageProcessor _serviceBusMessageProcessor;
         private readonly ILogger<DataEventProcessor> _logger;
         private readonly IMessageConverter<JobProfileMessage> _jobprofileMessageConverter;
+        private readonly IMessageConverter<RealStory> _realStoryMessageConverter;
         private readonly IRelatedSkillsConverter _relatedSkillsConverter;
         private readonly IGenericIndexRepository<JobProfileIndex> _jobProfileIndexRepository;
 
         public DataEventProcessor(IServiceBusMessageProcessor serviceBusMessageProcessor,
                                             ILogger<DataEventProcessor> logger,
                                             IMessageConverter<JobProfileMessage> jobprofileMessageConverter,
+                                            IMessageConverter<RealStory> realStoryMessageConverter,
                                             IRelatedSkillsConverter relatedSkillsConverter,
                                             IGenericIndexRepository<JobProfileIndex> jobProfileIndexRepository)
         {
             _serviceBusMessageProcessor = serviceBusMessageProcessor;
             _logger = logger;
             _jobprofileMessageConverter = jobprofileMessageConverter;
+            _realStoryMessageConverter = realStoryMessageConverter;
             _relatedSkillsConverter = relatedSkillsConverter;
             _jobProfileIndexRepository = jobProfileIndexRepository;
         }
@@ -77,6 +80,10 @@ namespace DFC.ServiceTaxonomy.JobProfiles.DataTransfer.ServiceBus
                     case ContentTypes.JobProfileSpecialism:
                     case ContentTypes.ApprenticeshipEntryRequirements:
                         await GenerateServiceBusMessageForOtherReferenceTypes(context, actionType);
+                        break;
+
+                    case ContentTypes.RealStory:
+                        await GenerateServiceBusMessageForRealStoryType(context, actionType);
                         break;
 
                     case ContentTypes.SOCSkillsMatrix:
@@ -319,6 +326,35 @@ namespace DFC.ServiceTaxonomy.JobProfiles.DataTransfer.ServiceBus
                         JobProfileId = Guid.Parse(item.GraphSyncPartId ?? string.Empty)
                     });
 
+                }
+            }
+
+            await _serviceBusMessageProcessor.SendOtherRelatedTypeMessages(jobprofileData, context.ContentItem.ContentType, actionType);
+        }
+
+        private async Task GenerateServiceBusMessageForRealStoryType(ContentContextBase context, string actionType)
+        {
+            var realStory = await _realStoryMessageConverter.ConvertFromAsync(context.ContentItem);
+
+            var matches = await _jobProfileIndexRepository
+                .GetAll(b => b.RealStory != null && b.RealStory.Contains(context.ContentItem.ContentItemId))
+                .ListAsync();
+
+            bool isSaved = actionType.Equals(ActionTypes.Published) || actionType.Equals(ActionTypes.Draft);
+            IList<RealStoryContentItem> jobprofileData = new List<RealStoryContentItem>(matches.Count());
+            Guid id = context.ContentItem.As<GraphSyncPart>().ExtractGuid();
+            foreach (var item in matches)
+            {
+                if (isSaved)
+                {
+                    jobprofileData.Add(new RealStoryContentItem()
+                    {
+                        Id = id,
+                        JobProfileId = Guid.Parse(item.GraphSyncPartId ?? string.Empty),
+                        Title = context.ContentItem.DisplayText,
+                        JobProfileTitle = item.JobProfileTitle,
+                        RealStory = realStory,
+                    });
                 }
             }
 
