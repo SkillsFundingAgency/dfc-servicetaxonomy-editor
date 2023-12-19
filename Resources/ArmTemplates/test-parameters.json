@@ -223,6 +223,12 @@
         },
         "WEBSITEMEMORYLIMITMB":{
             "value": "__WEBSITEMEMORYLIMITMB__"
+        },
+        "workspaceName": {
+          "value": "aTestLogAnalyticsAccount"
+        },
+        "workspaceResourceGroup": {
+            "value": "aResourceGroup"
         }
     }
 }
