@@ -140,7 +140,7 @@ stages:
               publishVstsFeed: NationalCareersService
 
 - stage: DeployToLab
-  condition: succeeded()
+  condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'))
   displayName: Deploy to LAB_SERVICETAXONOMY
   variables:
   - group: dfc-shared-all
@@ -178,7 +178,7 @@ stages:
 
 - stage: DeployToDev
   dependsOn: PublishPackage
-  condition: succeeded()
+  condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'))
   displayName: Deploy to DEV_SERVICETAXONOMY
   variables:
   - group: dfc-shared-all
@@ -215,7 +215,7 @@ stages:
       PSScriptPath: "$(Pipeline.Workspace)/${{ variables.SolutionBaseName }}.Editor.Resources.PSScripts"
 
 - stage: DeployToSit
-  condition: succeeded()
+  condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'))
   displayName: Deploy to SIT_SERVICETAXONOMY
   variables:
   - group: dfc-shared-all
@@ -252,7 +252,7 @@ stages:
 
 
 - stage: DeployToPP
-  condition: succeeded()
+  condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'))
   displayName: Deploy to PP_SERVICETAXONOMY
   variables:
   - group: dfc-shared-all
@@ -288,7 +288,7 @@ stages:
       PSScriptPath: "$(Pipeline.Workspace)/${{ variables.SolutionBaseName }}.Editor.Resources.PSScripts"
 
 - stage: DeployToPrd
-  condition: succeeded()
+  condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'))
   displayName: Deploy to PRD_SERVICETAXONOMY
   variables:
   - group: dfc-shared-all
