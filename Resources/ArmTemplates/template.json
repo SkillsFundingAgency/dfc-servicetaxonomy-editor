@@ -232,6 +232,12 @@
         },
         "WEBSITEMEMORYLIMITMB": {
             "type": "string"
+        },
+        "workspaceName": {
+            "type": "string"
+        },
+        "workspaceResourceGroup": {
+            "type": "string"
         }
         
     },
@@ -264,6 +270,12 @@
                     },
                     "attachedService": {
                         "value": ""
+                    },
+                    "workspaceName": {
+                        "value": "[parameters('workspaceName')]"
+                    },
+                    "workspaceResourceGroup": {
+                        "value": "[parameters('workspaceResourceGroup')]"
                     }
                 }
             }
