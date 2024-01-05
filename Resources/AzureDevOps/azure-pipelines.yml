@@ -4,8 +4,8 @@ parameters:
     default: refs/heads/master
 
 variables:
-  SolutionBaseName: 'DFC.ServiceTaxonomy' 
-  EditorAdminUserEmail: 'careersdevops@education.gov.uk' 
+  SolutionBaseName: 'DFC.ServiceTaxonomy'
+  EditorAdminUserEmail: 'careersdevops@education.gov.uk'
 
 resources:
   repositories:
@@ -13,7 +13,7 @@ resources:
   - repository: dfc-devops
     type: github
     name: SkillsFundingAgency/dfc-devops
-    ref: refs/tags/v1.11.2
+    ref: refs/tags/v1.14.0
     endpoint: 'SkillsFundingAgency'
 
 trigger:
@@ -80,7 +80,7 @@ stages:
       displayName: 'PowerShell Script: Copy appsettings.template.json'
     - task: PublishPipelineArtifact@1
       inputs:
-        targetPath: $(SolutionBaseName).Editor\AppSettingsArtifact\ 
+        targetPath: $(SolutionBaseName).Editor\AppSettingsArtifact\
         artifactName: $(SolutionBaseName).Editor.AppSettings
     - template: AzureDevOpsTemplates\Build\StepTemplates\dfc-dotnetcore-build-notests.yml@dfc-devops
       parameters:
@@ -119,8 +119,8 @@ stages:
 - stage: PublishPackage
   displayName: Publish Package to NuGet
   condition: succeeded()
-  jobs:  
-  - job: CleanArtifacts  
+  jobs:
+  - job: CleanArtifacts
     displayName: Clean artifacts directory
   - deployment: PublishNugetPackage
     dependsOn: CleanArtifacts
