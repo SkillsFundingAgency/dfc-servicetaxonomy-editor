@@ -8,6 +8,7 @@ namespace DFC.ServiceTaxonomy.PageLocation.Indexes
     {
         public string? ContentItemId { get; set; }
         public string? Url { get; set; }
+        public string? UrlName { get; set; }
     }
 
     public class PageLocationPartIndexProvider : IndexProvider<ContentItem>
@@ -18,13 +19,15 @@ namespace DFC.ServiceTaxonomy.PageLocation.Indexes
                 .Map(contentItem =>
                 {
                     var url = contentItem.As<PageLocationPart>()?.FullUrl;
+                    var urlName = contentItem.As<PageLocationPart>()?.UrlName;
 
                     if (!string.IsNullOrEmpty(url) && (contentItem.Published || contentItem.Latest))
                     {
                         return new PageLocationPartIndex
                         {
                             ContentItemId = contentItem.ContentItemId,
-                            Url = url
+                            Url = url,
+                            UrlName = urlName
                         };
                     }
 
