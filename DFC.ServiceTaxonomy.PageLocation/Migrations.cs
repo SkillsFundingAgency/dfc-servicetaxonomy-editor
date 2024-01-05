@@ -37,5 +37,14 @@ namespace DFC.ServiceTaxonomy.PageLocation
 
             return 2;
         }
+
+        public int UpdateFrom2()
+        {
+            SchemaBuilder.AlterIndexTable<PageLocationPartIndex>(table => table
+            .AddColumn<string>("UrlName")
+            );
+
+            return 3;
+        }
     }
 }
