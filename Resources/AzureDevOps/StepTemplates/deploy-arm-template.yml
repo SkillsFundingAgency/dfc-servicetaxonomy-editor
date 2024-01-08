@@ -26,7 +26,7 @@ steps:
     targetType: 'inline'
     script: Invoke-WebRequest -Uri ${{ parameters.SetTagsScriptUrl }} -OutFile ${{ parameters.SetTagsScriptFilePath }}
 
-- task: AzurePowerShell@3
+- task: AzurePowerShell@5
   displayName: 'Tagging Resource Group ${{ parameters.ResourceGroup }}'
   inputs:
     azureSubscription: ${{ parameters.AzureSubscription }}
