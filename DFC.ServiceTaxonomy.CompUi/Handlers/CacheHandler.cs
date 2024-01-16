@@ -11,6 +11,7 @@ using Newtonsoft.Json;
 using OrchardCore.ContentManagement.Handlers;
 using OrchardCore.Data;
 using OrchardCore.DisplayManagement.Notify;
+using static NpgsqlTypes.NpgsqlTsQuery;
 
 namespace DFC.ServiceTaxonomy.CompUi.Handlers;
 
@@ -26,6 +27,7 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
 
     private const string Published = "/PUBLISHED";
     private const string Draft = "/DRAFT";
+    private const string AllPageBanners = "PageBanners/All";
 
     public CacheHandler(IDbConnectionAccessor dbaAccessor,
         INotifier notifier,
@@ -262,6 +264,9 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
                 var status = await _sharedContentRedisInterface.InvalidateEntityAsync(nodeId);
                 _logger.LogInformation($"Published. The following NodeId will be invalidated: {nodeId}");
             }
+
+            //Additionally delete all page banners.  
+            var status = await _sharedContentRedisInterface.InvalidateEntityAsync(AllPageBanners);
         }
     }
 
