@@ -2,9 +2,9 @@
 {
     public enum DraftContentTypes
     {
-        Banner,
-        JobProfile,
+        //Banner,
+        //JobProfile,
         Page,
-        Pagebanner
+        //Pagebanner
     }
 }

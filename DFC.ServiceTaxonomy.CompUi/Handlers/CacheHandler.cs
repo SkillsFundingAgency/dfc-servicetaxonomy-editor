@@ -72,7 +72,7 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
             {
                 await using (DbConnection? connection = _dbaAccessor.CreateConnection())
                 {
-                    IEnumerable<dynamic>? results = await _dapperWrapper.QueryAsync<NodeItem>(connection,
+                    IEnumerable<NodeItem>? results = await _dapperWrapper.QueryAsync<NodeItem>(connection,
                         $"select distinct g.NodeId, d.Content from GraphSyncPartIndex g WITH (NOLOCK) " +
                         $"join ContentItemIndex i WITH (NOLOCK) on g.ContentItemId = i.ContentItemId " +
                         $"join Document d WITH (NOLOCK) on d.Id = i.DocumentId " +
@@ -83,9 +83,9 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
                     {
                         await _notifier.InformationAsync(_htmlLocalizer[$"The following NodeId will be refreshed {result.NodeId}"]);
 
-                        if (context.ContentItem.ContentType == PublishedContentTypes.Pagebanner.ToString())
+                        if (context.ContentItem.ContentType == PublishedContentTypes.Banner.ToString())
                         {
-                            await ProcessPublishedBannersAsync(result);
+                            await ProcessPublishedPageBannersAsync(result, context.ContentItem.ContentItemId);
                         }
 
                         var nodeId = ResolvePublishNodeId(result, context.ContentItem.ContentType);
@@ -127,10 +127,10 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
                         await _notifier.InformationAsync(_htmlLocalizer[$"The following NodeId will be refreshed {result.NodeId}-DRAFT"]);
 
                         //For each pagebanner then we need to get the
-                        if (context.ContentItem.ContentType == DraftContentTypes.Pagebanner.ToString())
-                        {
-                            await ProcessDraftBannersAsync(result);
-                        }
+                        //if (context.ContentItem.ContentType == DraftContentTypes.Pagebanner.ToString())
+                        //{
+                        //    await ProcessDraftBannersAsync(result);
+                        //}
 
                         var nodeId = ResolveDraftNodeId(result, context.ContentItem.ContentType);
                         var status = await _sharedContentRedisInterface.InvalidateEntityAsync(nodeId);
@@ -161,7 +161,7 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
     {
         if (contentType == PublishedContentTypes.SharedContent.ToString())
         {
-            return FormatNodeId(nodeItem.NodeId);
+            return FormatNodeId(nodeItem.NodeId); //+ Published
         }
 
         if (contentType == PublishedContentTypes.Page.ToString())
@@ -172,15 +172,36 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
 
         if (contentType == PublishedContentTypes.JobProfile.ToString())
         {
+            //JobProfile /{ jobcategory}
+            //Hi gavin.The above is going to be used for the cachekey for getting job profile by category.When a job profile is updated:
+
+            //Find the categories associated and invalid all the cachekeys where { jobcategory}
+            //are the categories on that jobprofile  like 1
+
+
             var result = JsonConvert.DeserializeObject<Page>(nodeItem.Content);
-            return string.Concat(PublishedContentTypes.Page.ToString(), "/", result, Draft);
+            return string.Concat(PublishedContentTypes.Page.ToString(), "/", result);
+        }
+
+        if (contentType == PublishedContentTypes.JobProfileCategory.ToString())
+        {
+            var result = JsonConvert.DeserializeObject<Page>(nodeItem.Content);
+            return string.Concat(PublishedContentTypes.Page.ToString(), "/", result);
         }
 
         if (contentType == PublishedContentTypes.Pagebanner.ToString())
         {
+            //returns "Pagebanner/nationalcareers.service.gov.uk/find-a-course/PUBLISHED"
             //pagebanner/find-a-course/PUBLISHED
+            //"WebPageURL": "nationalcareers.service.gov.uk/find-a-course"
+            //and don't care about banners in the page banner i.e. ContentItemIds
+            return FormatPageBannerNodeId(nodeItem);
+        }
 
-            return FormatNodeId(nodeItem.NodeId);
+        if (contentType == PublishedContentTypes.Banner.ToString())
+        {
+            //for banners do a content like 'xxx' and get all the page banners and invalidate the page banners asspociated with the banner
+
         }
 
         return string.Empty;
@@ -190,25 +211,26 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
     {
         if (contentType == DraftContentTypes.Page.ToString())
         {
+            //returns "Page/contact-us/thank-you-for-contacting-us/DRAFT"
             var result = JsonConvert.DeserializeObject<Page>(nodeItem.Content);
-            return string.Concat(DraftContentTypes.Page.ToString(), "/", result, Draft);
+            return string.Concat(DraftContentTypes.Page.ToString(), result.PageLocationParts.FullUrl, Draft);
         }
 
-        if (contentType == DraftContentTypes.JobProfile.ToString())
-        {
-            var result = JsonConvert.DeserializeObject<Page>(nodeItem.Content);
-            return string.Concat(DraftContentTypes.Page.ToString(), "/", result, Draft);
-        }
+        //if (contentType == DraftContentTypes.JobProfile.ToString())
+        //{
+        //    var result = JsonConvert.DeserializeObject<Page>(nodeItem.Content);
+        //    return string.Concat(DraftContentTypes.Page.ToString(), "/", result, Draft);
+        //}
 
-        if (contentType == DraftContentTypes.Pagebanner.ToString())
-        {
-            //pagebanner/find-a-course/DRAFT
+        //if (contentType == DraftContentTypes.Pagebanner.ToString())
+        //{
+        //    //pagebanner/find-a-course/DRAFT
 
 
-            return FormatNodeId(nodeItem.NodeId);
-        }
+        //    return FormatNodeId(nodeItem.NodeId);
+        //}
 
-            return string.Empty;
+        return string.Empty;
     }
 
     public string FormatNodeId(string nodeId)
@@ -218,60 +240,70 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
         return nodeId.Substring(Prefix.Length, nodeId.Length - Prefix.Length);
     }
 
-    private async Task ProcessDraftBannersAsync(NodeItem nodeItem)
+    //private async Task ProcessDraftBannersAsync(NodeItem nodeItem)
+    //{
+    //    var items = JsonConvert.DeserializeObject<Banners>(nodeItem.Content);
+
+    //    for (int count = 0; count < items?.PageBanner?.AddabannerItems?.ContentItemIds?.Length; count++)
+    //    {
+    //        string? item = items.PageBanner.AddabannerItems.ContentItemIds[count];
+    //        await using (DbConnection? connection = _dbaAccessor.CreateConnection())
+    //        {
+    //            //Draft banners
+    //            IEnumerable<NodeItem>? results = await _dapperWrapper.QueryAsync<NodeItem>(connection,
+    //            $"SELECT DISTINCT GSPI.NodeId, Content " +
+    //            $"FROM GraphSyncPartIndex GSPI WITH(NOLOCK) " +
+    //            $"JOIN ContentItemIndex CII WITH(NOLOCK) ON GSPI.ContentItemId = CII.ContentItemId " +
+    //            $"JOIN Document D WITH(NOLOCK) ON D.Id = CII.DocumentId " +
+    //            $"WHERE CII.Latest = 1 " +
+    //            $"AND CII.ContentItemId = '{item}' ");
+
+    //            foreach (var result in results)
+    //            {
+    //                var status = await _sharedContentRedisInterface.InvalidateEntityAsync(result.NodeId);
+    //                _logger.LogInformation($"Draft. The following NodeId will be invalidated: {result.NodeId}");
+    //            }
+    //        }            
+    //    }
+    //}
+
+    private async Task ProcessPublishedPageBannersAsync(NodeItem nodeItem, string contentItemId)
     {
-        var items = JsonConvert.DeserializeObject<PageBanners>(nodeItem.Content);
+        //for banners do a content like 'xxx' and get all the page banners and invalidate the page banners asspociated with the banner
 
-        for (int count = 0; count < items?.PageBanner?.AddabannerItems?.ContentItemIds?.Length; count++)
+        //var query = 
+
+        //var items = JsonConvert.DeserializeObject<Banners>(nodeItem.Content);
+
+        //for (int count = 0; count < items?.PageBanner?.AddabannerItems?.ContentItemIds?.Length; count++)
+        //{
+        //string? item = items.PageBanner.AddabannerItems.ContentItemIds[count];
+        await using (DbConnection? connection = _dbaAccessor.CreateConnection())
         {
-            string? item = items.PageBanner.AddabannerItems.ContentItemIds[count];
-            await using (DbConnection? connection = _dbaAccessor.CreateConnection())
+            //Draft banners
+            IEnumerable<NodeItem>? results = await _dapperWrapper.QueryAsync<NodeItem>(connection,
+            $"SELECT DISTINCT GSPI.NodeId, Content " +
+            $"FROM GraphSyncPartIndex GSPI WITH(NOLOCK) " +
+            $"JOIN ContentItemIndex CII WITH(NOLOCK) ON GSPI.ContentItemId = CII.ContentItemId " +
+            $"JOIN Document D WITH(NOLOCK) ON D.Id = CII.DocumentId " +
+            $"WHERE CII.Published = 1 AND CII.Latest = 1 " +
+            $"AND CII.ContentType = 'Pagebanner' " +
+            $"AND D.Content LIKE '%{contentItemId}%' ");
+
+            foreach (var result in results)
             {
-                //Draft banners
-                IEnumerable<NodeItem>? results = await _dapperWrapper.QueryAsync<NodeItem>(connection,
-                $"SELECT DISTINCT GSPI.NodeId, Content " +
-                $"FROM GraphSyncPartIndex GSPI WITH(NOLOCK) " +
-                $"JOIN ContentItemIndex CII WITH(NOLOCK) ON GSPI.ContentItemId = CII.ContentItemId " +
-                $"JOIN Document D WITH(NOLOCK) ON D.Id = CII.DocumentId " +
-                $"WHERE CII.Latest = 1 " +
-                $"AND CII.ContentItemId = '{item}' ");
-
-                foreach (var result in results)
-                {
-                    var status = await _sharedContentRedisInterface.InvalidateEntityAsync(result.NodeId);
-                    _logger.LogInformation($"Draft. The following NodeId will be invalidated: {result.NodeId}");
-                }
-            }            
-        }
-    }
-
-    private async Task ProcessPublishedBannersAsync(NodeItem nodeItem)
-    {
-       //var query = 
-
-        var items = JsonConvert.DeserializeObject<PageBanners>(nodeItem.Content);
-
-        for (int count = 0; count < items?.PageBanner?.AddabannerItems?.ContentItemIds?.Length; count++)
-        {
-            string? item = items.PageBanner.AddabannerItems.ContentItemIds[count];
-            await using (DbConnection? connection = _dbaAccessor.CreateConnection())
-            {
-                //Draft banners
-                IEnumerable<NodeItem>? results = await _dapperWrapper.QueryAsync<NodeItem>(connection,
-                $"SELECT DISTINCT GSPI.NodeId, Content " +
-                $"FROM GraphSyncPartIndex GSPI WITH(NOLOCK) " +
-                $"JOIN ContentItemIndex CII WITH(NOLOCK) ON GSPI.ContentItemId = CII.ContentItemId " +
-                $"JOIN Document D WITH(NOLOCK) ON D.Id = CII.DocumentId " +
-                $"WHERE CII.Published = 1 AND CII.Latest = 1 " +
-                $"AND CII.ContentItemId = '{item}' ");
-
-                foreach (var result in results)
-                {
-                    var status = await _sharedContentRedisInterface.InvalidateEntityAsync(result.NodeId);
-                    _logger.LogInformation($"Draft. The following NodeId will be invalidated: {result.NodeId}");
-                }
+                var nodeId = FormatPageBannerNodeId(result);
+                var status = await _sharedContentRedisInterface.InvalidateEntityAsync(nodeId);
+                _logger.LogInformation($"Draft. The following NodeId will be invalidated: {nodeId}");
             }
         }
+        //}
+    }
+
+    private string FormatPageBannerNodeId(NodeItem nodeItem)
+    {
+        var result = JsonConvert.DeserializeObject<PageBanners>(nodeItem.Content);
+        return string.Concat(PublishedContentTypes.Pagebanner.ToString(), "/", result.BannerParts.WebPageUrl, Published);
     }
 
     //private void async ProcessBannersAsync(NodeItem nodeItem, string query)

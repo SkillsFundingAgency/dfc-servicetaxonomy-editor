@@ -3,6 +3,7 @@
     public enum PublishedContentTypes
     {
         Banner,
+        JobProfileCategory,
         JobProfile,
         Page,
         Pagebanner,

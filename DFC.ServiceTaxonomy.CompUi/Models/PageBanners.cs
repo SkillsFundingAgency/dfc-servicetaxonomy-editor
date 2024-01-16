@@ -4,19 +4,17 @@ namespace DFC.ServiceTaxonomy.CompUi.Models
 {
     public class PageBanners
     {
-        [JsonProperty("Pagebanner")]
-        public Addabanner? PageBanner { get; set; }
-    }
+        [JsonProperty("BannerPart")]
+        public BannerParts? BannerParts { get; set; }
 
-    public class Addabanner
-    {
-        [JsonProperty("Addabanner")]
-        public Items? AddabannerItems { get; set; }
     }
-
-    public class Items
+    public class BannerParts
     {
-        [JsonProperty("ContentItemIds")]
-        public string[]? ContentItemIds { get; set; }
+        [JsonProperty("WebPageName")]
+        public string? WebPageName { get; set; }
+
+        [JsonProperty("WebPageURL")]
+        public string? WebPageUrl { get; set; }
     }
 }
+

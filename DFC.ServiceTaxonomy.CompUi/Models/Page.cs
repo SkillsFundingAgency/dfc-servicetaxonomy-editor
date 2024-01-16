@@ -11,6 +11,6 @@ namespace DFC.ServiceTaxonomy.CompUi.Models
     public class PageLocationParts
     {
         [JsonProperty("FullUrl")]
-        public string? FUllUrl { get; set; }
+        public string? FullUrl { get; set; }
     }
 }
