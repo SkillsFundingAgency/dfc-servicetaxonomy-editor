@@ -68,7 +68,7 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
                         $"select distinct g.NodeId, d.Content from GraphSyncPartIndex g WITH (NOLOCK) " +
                         $"join ContentItemIndex i WITH (NOLOCK) on g.ContentItemId = i.ContentItemId " +
                         $"join Document d WITH (NOLOCK) on d.Id = i.DocumentId " +
-                        $"where i.Published = 0 and i.Latest = 1 " +
+                        $"where i.Published = 1 and i.Latest = 1 " +
                         $"and d.Content  like '%{context.ContentItem.ContentItemId}%'");
 
                     foreach (var result in results)
@@ -202,7 +202,7 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
             $"FROM GraphSyncPartIndex GSPI WITH(NOLOCK) " +
             $"JOIN ContentItemIndex CII WITH(NOLOCK) ON GSPI.ContentItemId = CII.ContentItemId " +
             $"JOIN Document D WITH(NOLOCK) ON D.Id = CII.DocumentId " +
-            $"WHERE CII.Published = 0 AND CII.Latest = 1 " +
+            $"WHERE CII.Published = 1 AND CII.Latest = 1 " +
             $"AND CII.ContentType = 'Pagebanner' " +
             $"AND D.Content LIKE '%{contentItemId}%' ");
 
@@ -230,8 +230,7 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
             $"FROM GraphSyncPartIndex GSPI WITH(NOLOCK) " +
             $"JOIN ContentItemIndex CII WITH(NOLOCK) ON GSPI.ContentItemId = CII.ContentItemId " +
             $"JOIN Document D WITH(NOLOCK) ON D.Id = CII.DocumentId " +
-            $"WHERE CII.Published = 0 AND CII.Latest = 1 " +
-            $"AND CII.ContentType = 'Pagebanner' " +
+            $"WHERE CII.Published = 1 AND CII.Latest = 1 " +
             $"AND CII.ContentItemID =  '{contentItemId}' ");
 
             foreach (var result in results)
