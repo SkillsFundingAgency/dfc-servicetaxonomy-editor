@@ -217,7 +217,7 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
 
             //Additionally delete all page banners.  
             success = await _sharedContentRedisInterface.InvalidateEntityAsync(AllPageBanners);
-            _logger.LogInformation($"Published. The following NodeId will be invalidated: {AllPageBanners}");
+            _logger.LogInformation($"Published. The following NodeId will be invalidated: {AllPageBanners}, success: {success}");
         }
     }
 
