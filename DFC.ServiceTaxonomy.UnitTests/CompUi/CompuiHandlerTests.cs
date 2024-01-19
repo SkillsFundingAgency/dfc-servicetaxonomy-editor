@@ -40,7 +40,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.CompUi
         };
 
         private readonly List<NodeItem> _emptyNodeList = new List<NodeItem>();
-        private readonly List<NodeItem> _oneItemPagenodeList = new List<NodeItem>
+        private readonly List<NodeItem> _oneItemPageNodeList = new List<NodeItem>
             {
                 new NodeItem()
                 {
@@ -64,7 +64,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.CompUi
             _fakeNotifier = A.Fake<INotifier>();
             _fakeHtmlLocalizer = A.Fake<IHtmlLocalizer<CacheHandler>>();
             _fakeLogger = A.Fake<ILogger<CacheHandler>>();
-            _fakeDapperWrapper = A.Fake<IDapperWrapper>();
+            _fakeDapperWrapper = A.Fake<IDapperWrapper>(); 
             _fakeSharedContentRedisInterface = A.Fake<ISharedContentRedisInterface>();
             _utilities = new Utilities();
             _cacheHandler = new CacheHandler(
@@ -83,12 +83,8 @@ namespace DFC.ServiceTaxonomy.UnitTests.CompUi
         {
             //Arrange 
             var _publishContentContext = new PublishContentContext(_sharedContentContentitem, _sharedContentContentitem);
-            var nodeList = new List<NodeItem>
-            {
-                new NodeItem() { NodeId = "<<contentapiprefix>>/sharedcontent/bfee0a93-cd0d-40eb-a72d-7bb0c0cced3e" }
-            };
 
-            A.CallTo(() => _fakeDapperWrapper.QueryAsync<NodeItem>(A<DbConnection>.Ignored, A<string>.Ignored)).Returns(nodeList);
+            A.CallTo(() => _fakeDapperWrapper.QueryAsync<NodeItem>(A<DbConnection>.Ignored, A<string>.Ignored)).Returns(_oneItemPageNodeList);
             A.CallTo(() => _fakeSharedContentRedisInterface.InvalidateEntityAsync(A<string>.Ignored)).Returns(true);
 
             //Act 
@@ -104,13 +100,8 @@ namespace DFC.ServiceTaxonomy.UnitTests.CompUi
         {
             //Arrange 
             var _publishContentContext = new PublishContentContext(_sharedContentContentitem, _sharedContentContentitem);
-            var nodeList = new List<NodeItem>
-            {
-                new NodeItem() { NodeId = "<<contentapiprefix>>/sharedcontent/bfee0a93-cd0d-40eb-a72d-7bb0c0cced3e" },
-                new NodeItem() { NodeId = "<<contentapiprefix>>/sharedcontent/bfee0a93-cd0d-40eb-a72d-7bb0c0cced3e" }
-            };
 
-            A.CallTo(() => _fakeDapperWrapper.QueryAsync<NodeItem>(A<DbConnection>.Ignored, A<string>.Ignored)).Returns(nodeList);
+            A.CallTo(() => _fakeDapperWrapper.QueryAsync<NodeItem>(A<DbConnection>.Ignored, A<string>.Ignored)).Returns(_twoItemPageNodeList);
             A.CallTo(() => _fakeSharedContentRedisInterface.InvalidateEntityAsync(A<string>.Ignored)).Returns(true);
 
             //Act 
@@ -148,7 +139,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.CompUi
             //Arrange 
             var _saveDraftContentContext = new SaveDraftContentContext(pageContentitem);
 
-            A.CallTo(() => _fakeDapperWrapper.QueryAsync<NodeItem>(A<DbConnection>.Ignored, A<string>.Ignored)).Returns(_oneItemPagenodeList);
+            A.CallTo(() => _fakeDapperWrapper.QueryAsync<NodeItem>(A<DbConnection>.Ignored, A<string>.Ignored)).Returns(_oneItemPageNodeList);
             A.CallTo(() => _fakeSharedContentRedisInterface.InvalidateEntityAsync(A<string>.Ignored)).Returns(true);
 
             //Act 
