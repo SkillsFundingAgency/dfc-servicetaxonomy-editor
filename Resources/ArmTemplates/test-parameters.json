@@ -229,6 +229,9 @@
         },
         "workspaceResourceGroup": {
             "value": "aResourceGroup"
+        },
+        "CmsRedisCacheConnectionString": {
+            "value": "teststring"
         }
     }
 }

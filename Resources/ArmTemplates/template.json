@@ -238,6 +238,9 @@
         },
         "workspaceResourceGroup": {
             "type": "string"
+        },
+        "CmsRedisCacheConnectionString": {
+            "type": "securestring"
         }
         
     },
@@ -597,6 +600,10 @@
                             {
                                 "name": "WEBSITE_MEMORY_LIMIT_MB",
                                 "value": "[parameters('WEBSITEMEMORYLIMITMB')]"
+                            },
+                            {
+                                "name": "Cms__RedisCacheConnectionString",
+                                "value": "[parameters('CmsRedisCacheConnectionString')]"
                             }   
                         ] 
                     }
