@@ -14,7 +14,7 @@ using DFC.Common.SharedContent.Pkg.Netcore.Infrastructure;
 
 namespace DFC.ServiceTaxonomy.CompUi
 {
-    public class Startup
+    public class Startup : OrchardCore.Modules.StartupBase
     {
         private const string RedisCacheConnectionStringAppSettings = "Cms:RedisCacheConnectionString";
 
@@ -24,7 +24,7 @@ namespace DFC.ServiceTaxonomy.CompUi
         {
             this.configuration = configuration;
         }
-        public void ConfigureServices(IServiceCollection services)
+        public override void ConfigureServices(IServiceCollection services)
         {
             services.AddTransient<IContentHandler, CacheHandler>();
             services.AddTransient<IDapperWrapper, DapperWrapper>();
@@ -37,7 +37,7 @@ namespace DFC.ServiceTaxonomy.CompUi
             services.AddAutoMapper(typeof(Startup).Assembly);
         }
 
-        public void Configure(IApplicationBuilder builder, IEndpointRouteBuilder routes, IServiceProvider serviceProvider)
+        public override void Configure(IApplicationBuilder builder, IEndpointRouteBuilder routes, IServiceProvider serviceProvider)
         {
         }
     }
