@@ -232,7 +232,7 @@
   
         },
         "CmsRedisCacheConnectionString": {
-            "value": "__CmsRedisCacheConnectionString__"
+            "value": "__RedisCacheConnectionString__"
         }
     }
 }
