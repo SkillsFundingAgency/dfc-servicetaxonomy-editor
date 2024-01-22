@@ -14,6 +14,7 @@ using DFC.Common.SharedContent.Pkg.Netcore.Infrastructure;
 
 namespace DFC.ServiceTaxonomy.CompUi
 {
+    [RequireFeatures("OrchardCore.Apis.GraphQL", "OrchardCore.Sitemaps")]
     public class Startup : OrchardCore.Modules.StartupBase
     {
         private const string RedisCacheConnectionStringAppSettings = "Cms:RedisCacheConnectionString";
