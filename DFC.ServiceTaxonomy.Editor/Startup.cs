@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using DFC.Common.SharedContent.Pkg.Netcore;
+using DFC.Common.SharedContent.Pkg.Netcore.Infrastructure;
 using DFC.Common.SharedContent.Pkg.Netcore.Interfaces;
 using DFC.ServiceTaxonomy.Content.Configuration;
 using DFC.ServiceTaxonomy.CustomEditor.Configuration;
@@ -68,7 +69,8 @@ namespace DFC.ServiceTaxonomy.Editor
             services.Configure<AzureAdSettings>(Configuration.GetSection("AzureAdSettings"));
 
             services.AddStackExchangeRedisCache(options => { options.Configuration = Configuration.GetSection(RedisCacheConnectionStringAppSettings).Get<string>(); });
-            services.AddTransient<ISharedContentRedisInterface, SharedContentRedis>();
+            services.AddSingleton<ISharedContentRedisInterfaceStrategyFactory, SharedContentRedisStrategyFactory>();
+            services.AddScoped<ISharedContentRedisInterface, SharedContentRedis>();
 
             services.PostConfigure(SetupMediaConfig());
         }

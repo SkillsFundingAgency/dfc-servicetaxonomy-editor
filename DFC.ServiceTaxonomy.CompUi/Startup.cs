@@ -10,6 +10,7 @@ using Microsoft.Extensions.DependencyInjection;
 using OrchardCore.ContentManagement.Handlers;
 using OrchardCore.Modules;
 using Microsoft.Extensions.Configuration;
+using DFC.Common.SharedContent.Pkg.Netcore.Infrastructure;
 
 namespace DFC.ServiceTaxonomy.CompUi
 {
@@ -30,7 +31,8 @@ namespace DFC.ServiceTaxonomy.CompUi
             services.AddTransient<IUtilities, Utilities>();
 
             services.AddStackExchangeRedisCache(options => { options.Configuration = configuration.GetSection(RedisCacheConnectionStringAppSettings).Get<string>(); });
-            services.AddTransient<ISharedContentRedisInterface, SharedContentRedis>();
+            services.AddSingleton<ISharedContentRedisInterfaceStrategyFactory, SharedContentRedisStrategyFactory>();
+            services.AddScoped<ISharedContentRedisInterface, SharedContentRedis>();
 
             services.AddAutoMapper(typeof(Startup).Assembly);
         }
