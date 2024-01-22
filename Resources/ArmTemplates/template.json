@@ -240,7 +240,7 @@
             "type": "string"
         },
         "CmsRedisCacheConnectionString": {
-        "type": "string"
+            "type": "securestring"
         }
         
     },
