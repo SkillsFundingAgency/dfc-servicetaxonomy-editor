@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
-using DFC.Common.SharedContent.Pkg.Netcore.Extensions;
+using DFC.Common.SharedContent.Pkg.Netcore;
+using DFC.Common.SharedContent.Pkg.Netcore.Interfaces;
 using DFC.ServiceTaxonomy.Content.Configuration;
 using DFC.ServiceTaxonomy.CustomEditor.Configuration;
 using DFC.ServiceTaxonomy.Editor.Security;
@@ -15,6 +16,7 @@ namespace DFC.ServiceTaxonomy.Editor
 {
     public class Startup
     {
+        private const string RedisCacheConnectionStringAppSettings = "Cms:RedisCacheConnectionString";
         public Startup(IConfiguration configuration) =>
             Configuration = configuration;
 
@@ -64,9 +66,9 @@ namespace DFC.ServiceTaxonomy.Editor
             services.Configure<PagesConfiguration>(Configuration.GetSection("Pages"));
             services.Configure<JobProfilesConfiguration>(Configuration.GetSection("JobProfiles"));
             services.Configure<AzureAdSettings>(Configuration.GetSection("AzureAdSettings"));
-                        
-            services.AddSharedContentRedisInterface(Configuration.GetValue<string>("RedisCacheConnectionString") ?? "");
-            //services.AddStackExchangeRedisCache(options=> (options.Configuration))
+
+            services.AddStackExchangeRedisCache(options => { options.Configuration = Configuration.GetSection(RedisCacheConnectionStringAppSettings).Get<string>(); });
+            services.AddTransient<ISharedContentRedisInterface, SharedContentRedis>();
 
             services.PostConfigure(SetupMediaConfig());
         }
