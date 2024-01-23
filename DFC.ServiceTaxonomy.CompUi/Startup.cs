@@ -17,8 +17,6 @@ namespace DFC.ServiceTaxonomy.CompUi
     [RequireFeatures("OrchardCore.Apis.GraphQL", "OrchardCore.Sitemaps")]
     public class Startup : OrchardCore.Modules.StartupBase
     {
-        private const string RedisCacheConnectionStringAppSettings = "Cms:RedisCacheConnectionString";
-
         private IConfiguration configuration;
 
         public Startup(IConfiguration configuration)
@@ -30,10 +28,6 @@ namespace DFC.ServiceTaxonomy.CompUi
             services.AddTransient<IContentHandler, CacheHandler>();
             services.AddTransient<IDapperWrapper, DapperWrapper>();
             services.AddTransient<IUtilities, Utilities>();
-
-            services.AddStackExchangeRedisCache(options => { options.Configuration = configuration.GetSection(RedisCacheConnectionStringAppSettings).Get<string>(); });
-            services.AddSingleton<ISharedContentRedisInterfaceStrategyFactory, SharedContentRedisStrategyFactory>();
-            services.AddScoped<ISharedContentRedisInterface, SharedContentRedis>();
 
             services.AddAutoMapper(typeof(Startup).Assembly);
         }

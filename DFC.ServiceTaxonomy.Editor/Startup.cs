@@ -70,7 +70,7 @@ namespace DFC.ServiceTaxonomy.Editor
 
             services.AddStackExchangeRedisCache(options => { options.Configuration = Configuration.GetSection(RedisCacheConnectionStringAppSettings).Get<string>(); });
             services.AddSingleton<ISharedContentRedisInterfaceStrategyFactory, SharedContentRedisStrategyFactory>();
-            services.AddScoped<ISharedContentRedisInterface, SharedContentRedis>();
+            services.AddSingleton<ISharedContentRedisInterface, SharedContentRedis>();
 
             services.PostConfigure(SetupMediaConfig());
         }
