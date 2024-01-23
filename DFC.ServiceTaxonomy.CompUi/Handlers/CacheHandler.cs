@@ -163,7 +163,7 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
             return FormatJobProfileCategoryNodeId(nodeItem);
         }
 
-        if (contentType == PublishedContentTypes.PageBanner.ToString())
+        if (contentType.ToLower() == PublishedContentTypes.PageBanner.ToString().ToLower())
         {
             return FormatPageBannerNodeId(nodeItem);
         }
