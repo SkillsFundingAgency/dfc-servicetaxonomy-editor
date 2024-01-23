@@ -163,7 +163,7 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
             return FormatJobProfileCategoryNodeId(nodeItem);
         }
 
-        if (contentType == PublishedContentTypes.Pagebanner.ToString())
+        if (contentType == PublishedContentTypes.PageBanner.ToString())
         {
             return FormatPageBannerNodeId(nodeItem);
         }
@@ -234,7 +234,7 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
     private string FormatPageBannerNodeId(NodeItem nodeItem)
     {
         var result = JsonConvert.DeserializeObject<PageBanners>(nodeItem.Content);
-        return string.Concat(PublishedContentTypes.Pagebanner.ToString(), CheckLeadingChar(result.BannerParts.WebPageUrl));
+        return string.Concat(PublishedContentTypes.PageBanner.ToString(), CheckLeadingChar(result.BannerParts.WebPageUrl));
     }
 
     private string FormatJobProfileCategoryNodeId(NodeItem nodeItem)
