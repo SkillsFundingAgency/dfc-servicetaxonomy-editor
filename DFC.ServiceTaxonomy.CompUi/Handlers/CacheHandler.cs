@@ -142,7 +142,8 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
     {
         if (contentType == PublishedContentTypes.SharedContent.ToString())
         {
-            return FormatNodeId(nodeItem.NodeId);
+            const string Prefix = "<<contentapiprefix>>/sharedcontent";
+            return string.Concat(PublishedContentTypes.SharedContent.ToString(), CheckLeadingChar(nodeItem.NodeId.Substring(Prefix.Length, nodeItem.NodeId.Length - Prefix.Length)));
         }
 
         if (contentType == PublishedContentTypes.Page.ToString())
@@ -167,11 +168,6 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
             return FormatPageBannerNodeId(nodeItem);
         }
 
-        if (contentType == PublishedContentTypes.Banner.ToString())
-        {
-            return FormatNodeId(nodeItem.NodeId);
-        }
-
         return string.Empty;
     }
 
@@ -184,13 +180,6 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
         }
 
         return string.Empty;
-    }
-
-    public string FormatNodeId(string nodeId)
-    {
-        const string Prefix = "<<contentapiprefix>>/";
-
-        return nodeId.Substring(Prefix.Length, nodeId.Length - Prefix.Length);
     }
 
     private async Task ProcessPublishedPageBannersAsync(NodeItem nodeItem, string contentItemId)
