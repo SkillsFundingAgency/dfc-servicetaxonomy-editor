@@ -72,7 +72,7 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
                         $"where i.Latest = 1 " +
                         $"and d.Content  like '%{context.ContentItem.ContentItemId}%'");
 
-                    await _notifier.InformationAsync(_htmlLocalizer[$"Found {results.Count()} for {context.ContentItem.ContentItemId}" ]);
+                    await _notifier.InformationAsync(_htmlLocalizer[$"Found {results.Count()} for {context.ContentItem.ContentItemId}"]);
 
                     foreach (var result in results)
                     {
@@ -85,7 +85,7 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
 
                         if (context.ContentItem.ContentType == PublishedContentTypes.JobProfile.ToString())
                         {
-                            await ProcessPublishedJobProfileCategoryAsync(result, context.ContentItem.ContentItemId);
+                            await ProcessPublishedJobProfileCategoryAsync(result, context);
                         }
 
                         var nodeId = ResolvePublishNodeId(result, context.ContentItem.ContentType);
@@ -223,23 +223,33 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
         }
     }
 
-    private async Task ProcessPublishedJobProfileCategoryAsync(NodeItem nodeItem, string contentItemId)
+    private async Task ProcessPublishedJobProfileCategoryAsync(NodeItem nodeItem, PublishContentContext context)
     {
         await using (DbConnection? connection = _dbaAccessor.CreateConnection())
         {
-            IEnumerable<NodeItem>? results = await _dapperWrapper.QueryAsync<NodeItem>(connection,
-            $"SELECT DISTINCT GSPI.NodeId, Content " +
+            IEnumerable<JobProfileCategories>? results = await _dapperWrapper.QueryAsync<JobProfileCategories>(connection,
+            $"SELECT DISTINCT GSPI.NodeId, JSON_QUERY(Content, '$.JobProfile.JobProfileCategory.ContentItemIds') AS ContentItemIds " +
             $"FROM GraphSyncPartIndex GSPI WITH(NOLOCK) " +
             $"JOIN ContentItemIndex CII WITH(NOLOCK) ON GSPI.ContentItemId = CII.ContentItemId " +
             $"JOIN Document D WITH(NOLOCK) ON D.Id = CII.DocumentId " +
-            $"WHERE CII.Published = 1 AND CII.Latest = 1 " +
-            $"AND CII.ContentItemID =  '{contentItemId}' ");
+            $"WHERE D.Id = {context.ContentItem.Id} --AND CII.Published = 1 AND CII.Latest = 1 ");
 
             foreach (var result in results)
             {
-                var nodeId = FormatJobProfileCategoryNodeId(result);
-                var success = await _sharedContentRedisInterface.InvalidateEntityAsync(nodeId);
-                _logger.LogInformation($"Published. The following NodeId will be invalidated: {nodeId}, success: {success}.");
+                string[] contentItemId = result.ContentItemIds.TrimStart('[').TrimEnd(']').Split(',');
+                foreach (var item in contentItemId)
+                {
+                    IEnumerable<NodeItem> contentNodeId = await _dapperWrapper.QueryAsync<NodeItem>(connection,
+                    $"SELECT DISTINCT GSPI.NodeId, Content " +
+                    $"FROM GraphSyncPartIndex GSPI WITH(NOLOCK) " +
+                    $"JOIN ContentItemIndex CII WITH(NOLOCK) ON GSPI.ContentItemId = CII.ContentItemId " +
+                    $"JOIN Document D WITH(NOLOCK) ON D.Id = CII.DocumentId " +
+                    $"WHERE CII.ContentItemId = {item.Replace("\"", "'")} --AND CII.Published = 1 AND CII.Latest = 1 ");
+
+                    var nodeId = FormatJobProfileCategoryNodeId(contentNodeId.FirstOrDefault());
+                    var success = await _sharedContentRedisInterface.InvalidateEntityAsync(nodeId);
+                    _logger.LogInformation($"Published. The following NodeId will be invalidated: {nodeId}, success: {success}.");
+                }
             }
         }
     }
