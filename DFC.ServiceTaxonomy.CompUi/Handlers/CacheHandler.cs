@@ -91,6 +91,11 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
                         var nodeId = ResolvePublishNodeId(result, context.ContentItem.ContentType);
                         var success = await _sharedContentRedisInterface.InvalidateEntityAsync(nodeId);
 
+                        if (context.ContentItem.ContentType == PublishedContentTypes.JobProfileCategory.ToString())
+                        {
+                            success = await _sharedContentRedisInterface.InvalidateEntityAsync("JobProfiles/Categories");
+                        }
+
                         _logger.LogInformation($"Published. The following NodeId will be invalidated: {result.NodeId}, success: {success}.");
                     }
                 }
