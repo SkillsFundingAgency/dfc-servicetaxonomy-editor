@@ -69,7 +69,7 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
                         $"select distinct g.NodeId, d.Content from GraphSyncPartIndex g WITH (NOLOCK) " +
                         $"join ContentItemIndex i WITH (NOLOCK) on g.ContentItemId = i.ContentItemId " +
                         $"join Document d WITH (NOLOCK) on d.Id = i.DocumentId " +
-                        $"where i.Published = 1 and i.Latest = 1 " +
+                        $"where i.Latest = 1 " +
                         $"and d.Content  like '%{context.ContentItem.ContentItemId}%'");
 
                     await _notifier.InformationAsync(_htmlLocalizer[$"Found {results.Count()} for {context.ContentItem.ContentItemId}" ]);
