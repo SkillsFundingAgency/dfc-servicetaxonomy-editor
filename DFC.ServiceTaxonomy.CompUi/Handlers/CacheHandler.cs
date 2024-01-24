@@ -89,6 +89,8 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
                         }
 
                         var nodeId = ResolvePublishNodeId(result, context.ContentItem.ContentType);
+
+                        await _notifier.InformationAsync(_htmlLocalizer[$"Invalidating {nodeId}"]);
                         var success = await _sharedContentRedisInterface.InvalidateEntityAsync(nodeId);
 
                         if (context.ContentItem.ContentType == PublishedContentTypes.JobProfileCategory.ToString())
