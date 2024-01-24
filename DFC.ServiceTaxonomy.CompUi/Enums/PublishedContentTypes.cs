@@ -6,7 +6,7 @@
         JobProfileCategory,
         JobProfile,
         Page,
-        PageBanner,
+        Pagebanner,
         SharedContent
     }
 }

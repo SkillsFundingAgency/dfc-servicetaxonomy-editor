@@ -158,9 +158,9 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
 
         if (contentType == PublishedContentTypes.Page.ToString())
         {
-            _notifier.InformationAsync(_htmlLocalizer[$"Content item is {PublishedContentTypes.PageBanner.ToString()}"]);
+            _notifier.InformationAsync(_htmlLocalizer[$"Content item is {PublishedContentTypes.Pagebanner.ToString()}"]);
             var result = JsonConvert.DeserializeObject<Page>(nodeItem.Content);
-            return string.Concat(PublishedContentTypes.Page.ToString(), CheckLeadingChar(result.PageLocationParts.FullUrl), Published);
+            return string.Concat("PageBanner", CheckLeadingChar(result.PageLocationParts.FullUrl), Published);
         }
 
         if (contentType == PublishedContentTypes.JobProfile.ToString())
@@ -174,9 +174,9 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
             return FormatJobProfileCategoryNodeId(nodeItem);
         }
 
-        if (contentType.ToLower() == PublishedContentTypes.PageBanner.ToString().ToLower())
+        if (contentType == PublishedContentTypes.Pagebanner.ToString())
         {
-            _notifier.InformationAsync(_htmlLocalizer[$"Content item is {PublishedContentTypes.PageBanner.ToString()}"]);
+            _notifier.InformationAsync(_htmlLocalizer[$"Content item is {PublishedContentTypes.Pagebanner.ToString()}"]);
             return FormatPageBannerNodeId(nodeItem);
         }
 
@@ -247,7 +247,7 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
     private string FormatPageBannerNodeId(NodeItem nodeItem)
     {
         var result = JsonConvert.DeserializeObject<PageBanners>(nodeItem.Content);
-        return string.Concat(PublishedContentTypes.PageBanner.ToString(), CheckLeadingChar(result.BannerParts.WebPageUrl));
+        return string.Concat("PageBanner", CheckLeadingChar(result.BannerParts.WebPageUrl));
     }
 
     private string FormatJobProfileCategoryNodeId(NodeItem nodeItem)
