@@ -5,6 +5,7 @@ using DFC.ServiceTaxonomy.CompUi.Enums;
 using DFC.ServiceTaxonomy.CompUi.Interfaces;
 using DFC.ServiceTaxonomy.CompUi.Model;
 using DFC.ServiceTaxonomy.CompUi.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Localization;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
@@ -70,6 +71,8 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
                         $"join Document d WITH (NOLOCK) on d.Id = i.DocumentId " +
                         $"where i.Published = 1 and i.Latest = 1 " +
                         $"and d.Content  like '%{context.ContentItem.ContentItemId}%'");
+
+                    await _notifier.InformationAsync(_htmlLocalizer[$"Found {results.Count()} for {context.ContentItem.ContentItemId}" ]);
 
                     foreach (var result in results)
                     {
@@ -148,6 +151,7 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
 
         if (contentType == PublishedContentTypes.Page.ToString())
         {
+            _notifier.InformationAsync(_htmlLocalizer[$"Content item is {PublishedContentTypes.PageBanner.ToString()}"]);
             var result = JsonConvert.DeserializeObject<Page>(nodeItem.Content);
             return string.Concat(PublishedContentTypes.Page.ToString(), CheckLeadingChar(result.PageLocationParts.FullUrl), Published);
         }
@@ -165,6 +169,7 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
 
         if (contentType.ToLower() == PublishedContentTypes.PageBanner.ToString().ToLower())
         {
+            _notifier.InformationAsync(_htmlLocalizer[$"Content item is {PublishedContentTypes.PageBanner.ToString()}"]);
             return FormatPageBannerNodeId(nodeItem);
         }
 
@@ -175,6 +180,7 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
     {
         if (contentType == DraftContentTypes.Page.ToString())
         {
+            _notifier.InformationAsync(_htmlLocalizer[$"The following NodeId will be refreshed {nodeItem.Content}"]);
             var result = JsonConvert.DeserializeObject<Page>(nodeItem.Content);
             return string.Concat(DraftContentTypes.Page.ToString(), CheckLeadingChar(result.PageLocationParts.FullUrl), Draft);
         }
