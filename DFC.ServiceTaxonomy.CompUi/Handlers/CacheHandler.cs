@@ -66,11 +66,12 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
                 await using (DbConnection? connection = _dbaAccessor.CreateConnection())
                 {
                     IEnumerable<NodeItem>? results = await _dapperWrapper.QueryAsync<NodeItem>(connection,
-                        $"select distinct g.NodeId, d.Content from GraphSyncPartIndex g WITH (NOLOCK) " +
-                        $"join ContentItemIndex i WITH (NOLOCK) on g.ContentItemId = i.ContentItemId " +
-                        $"join Document d WITH (NOLOCK) on d.Id = i.DocumentId " +
-                        $"where i.Latest = 1 " +
-                        $"and d.Content  like '%{context.ContentItem.ContentItemId}%'");
+                        $"SELECT DISTINCT GSPI.NodeId, D.Content " +
+                        $"FROM Document D WITH (NOLOCK) " +
+                        $"JOIN ContentItemIndex CII WITH (NOLOCK) ON D.Id = CII.DocumentId " +
+                        $"JOIN GraphSyncPartIndex GSPI  WITH (NOLOCK) ON CII.DocumentId = GSPI.DocumentId " +
+                        $"WHERE D.Id = {context.ContentItem.Id} " +
+                        $"AND CII.Latest = 1 AND CII.Published = 1 ");  
 
                     await _notifier.InformationAsync(_htmlLocalizer[$"Found {results.Count()} for {context.ContentItem.ContentItemId}"]);
 
@@ -121,11 +122,12 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
                 await using (DbConnection? connection = _dbaAccessor.CreateConnection())
                 {
                     IEnumerable<NodeItem>? results = await _dapperWrapper.QueryAsync<NodeItem>(connection,
-                        $"select distinct g.NodeId, d.Content from GraphSyncPartIndex g WITH (NOLOCK) " +
-                        $"join ContentItemIndex i WITH (NOLOCK) on g.ContentItemId = i.ContentItemId " +
-                        $"join Document d WITH (NOLOCK) on d.Id = i.DocumentId " +
-                        $"where i.Latest = 1 " +
-                        $"and d.Content  like '%{context.ContentItem.ContentItemId}%'");
+                    $"SELECT DISTINCT GSPI.NodeId, D.Content " +
+                    $"FROM Document D WITH (NOLOCK) " +
+                    $"JOIN ContentItemIndex CII WITH (NOLOCK) ON D.Id = CII.DocumentId " +
+                    $"JOIN GraphSyncPartIndex GSPI  WITH (NOLOCK) ON CII.DocumentId = GSPI.DocumentId " +
+                    $"WHERE D.Id = {context.ContentItem.Id} " +
+                    $"AND CII.Latest = 1 ");
 
                     foreach (var result in results)
                     {
