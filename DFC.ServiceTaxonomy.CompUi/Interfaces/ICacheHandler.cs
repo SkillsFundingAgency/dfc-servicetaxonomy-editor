@@ -1,4 +1,5 @@
-﻿using OrchardCore.ContentManagement.Handlers;
+﻿using DFC.ServiceTaxonomy.CompUi.Model;
+using OrchardCore.ContentManagement.Handlers;
 
 namespace DFC.ServiceTaxonomy.CompUi.Interfaces
 {
@@ -7,5 +8,9 @@ namespace DFC.ServiceTaxonomy.CompUi.Interfaces
         Task ProcessPublishedAsync(PublishContentContext context);
 
         Task ProcessDraftSavedAsync(SaveDraftContentContext context);
+
+        string ResolvePublishNodeId(NodeItem nodeItem, string contentType);
+
+        string ResolveDraftNodeId(NodeItem nodeItem, string contentType);
     }
 }
