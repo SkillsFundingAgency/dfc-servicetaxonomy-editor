@@ -166,7 +166,7 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
         if (contentType == PublishedContentTypes.JobProfile.ToString())
         {
             var result = JsonConvert.DeserializeObject<Page>(nodeItem.Content);
-            return string.Concat(PublishedContentTypes.JobProfile.ToString(), CheckLeadingChar(result.PageLocationParts.FullUrl));
+            return string.Concat(PublishedContentTypes.JobProfile.ToString(), "s", CheckLeadingChar(result.PageLocationParts.FullUrl));
         }
 
         if (contentType == PublishedContentTypes.JobProfileCategory.ToString())
@@ -263,7 +263,7 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
     private string FormatJobProfileCategoryNodeId(NodeItem nodeItem)
     {
         var result = JsonConvert.DeserializeObject<Page>(nodeItem.Content);
-        return string.Concat(PublishedContentTypes.JobProfileCategory.ToString(), CheckLeadingChar(result.PageLocationParts.FullUrl));
+        return string.Concat(PublishedContentTypes.JobProfileCategory.ToString(), "s", CheckLeadingChar(result.PageLocationParts.FullUrl));
     }
 
     private string CheckLeadingChar(string input)
