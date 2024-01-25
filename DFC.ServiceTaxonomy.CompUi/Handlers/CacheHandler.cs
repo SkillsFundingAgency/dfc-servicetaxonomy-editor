@@ -99,6 +99,17 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
                             success = await _sharedContentRedisInterface.InvalidateEntityAsync("JobProfiles/Categories");
                         }
 
+                        if (context.ContentItem.ContentType == PublishedContentTypes.Page.ToString())
+                        {
+                            success = await _sharedContentRedisInterface.InvalidateEntityAsync($"PageLocation{Published}");
+                            success = await _sharedContentRedisInterface.InvalidateEntityAsync($"pagesurl{Published}");
+                        }
+
+                        if (context.ContentItem.ContentType == PublishedContentTypes.Pagebanner.ToString())
+                        {
+                            success = await _sharedContentRedisInterface.InvalidateEntityAsync(AllPageBanners);
+                        }
+
                         _logger.LogInformation($"Published. The following NodeId will be invalidated: {result.NodeId}, success: {success}.");
                     }
                 }
@@ -135,6 +146,12 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
 
                         var nodeId = ResolveDraftNodeId(result, context.ContentItem.ContentType);
                         var success = await _sharedContentRedisInterface.InvalidateEntityAsync(nodeId);
+
+                        if (context.ContentItem.ContentType == PublishedContentTypes.Page.ToString())
+                        {
+                            success = await _sharedContentRedisInterface.InvalidateEntityAsync($"PageLocation{Draft}");
+                            success = await _sharedContentRedisInterface.InvalidateEntityAsync($"pagesurl{Draft}");
+                        }
 
                         _logger.LogInformation($"Draft. The following NodeId will be invalidated: {result.NodeId}, status: {success}.");
                     }
@@ -249,6 +266,7 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
                     $"WHERE CII.ContentItemId = {item.Replace("\"", "'")} --AND CII.Published = 1 AND CII.Latest = 1 ");
 
                     var nodeId = FormatJobProfileCategoryNodeId(contentNodeId.FirstOrDefault());
+                    await _notifier.InformationAsync(_htmlLocalizer[$"The following NodeId will be refreshed {nodeId}"]);
                     var success = await _sharedContentRedisInterface.InvalidateEntityAsync(nodeId);
                     _logger.LogInformation($"Published. The following NodeId will be invalidated: {nodeId}, success: {success}.");
                 }
@@ -265,7 +283,7 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
     private string FormatJobProfileCategoryNodeId(NodeItem nodeItem)
     {
         var result = JsonConvert.DeserializeObject<Page>(nodeItem.Content);
-        return string.Concat(PublishedContentTypes.JobProfileCategory.ToString(), "s", CheckLeadingChar(result.PageLocationParts.FullUrl));
+        return string.Concat(PublishedContentTypes.JobProfile.ToString(), "s", CheckLeadingChar(result.PageLocationParts.FullUrl));
     }
 
     private string CheckLeadingChar(string input)

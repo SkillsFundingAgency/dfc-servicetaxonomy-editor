@@ -207,7 +207,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.CompUi
 
             //Assert
             A.CallTo(() => _fakeDapperWrapper.QueryAsync<NodeItem>(A<DbConnection>.Ignored, A<string>.Ignored)).MustHaveHappenedOnceExactly();
-            A.CallTo(() => _fakeSharedContentRedisInterface.InvalidateEntityAsync(A<string>.Ignored)).MustHaveHappenedOnceExactly();
+            A.CallTo(() => _fakeSharedContentRedisInterface.InvalidateEntityAsync(A<string>.Ignored)).MustHaveHappened(3, Times.Exactly);
         }
 
         [Fact]
@@ -224,7 +224,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.CompUi
 
             //Assert
             A.CallTo(() => _fakeDapperWrapper.QueryAsync<NodeItem>(A<DbConnection>.Ignored, A<string>.Ignored)).MustHaveHappenedOnceExactly();
-            A.CallTo(() => _fakeSharedContentRedisInterface.InvalidateEntityAsync(A<string>.Ignored)).MustHaveHappenedTwiceExactly();
+            A.CallTo(() => _fakeSharedContentRedisInterface.InvalidateEntityAsync(A<string>.Ignored)).MustHaveHappened(6, Times.Exactly);
         }
 
         [Fact]
