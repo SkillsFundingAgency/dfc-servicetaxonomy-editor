@@ -99,6 +99,17 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
                             success = await _sharedContentRedisInterface.InvalidateEntityAsync("JobProfiles/Categories");
                         }
 
+                        if (context.ContentItem.ContentType == PublishedContentTypes.Page.ToString())
+                        {
+                            success = await _sharedContentRedisInterface.InvalidateEntityAsync($"PageLocation{Published}");
+                            success = await _sharedContentRedisInterface.InvalidateEntityAsync($"pagesurl{Published}");
+                        }
+
+                        if (context.ContentItem.ContentType == PublishedContentTypes.Pagebanner.ToString())
+                        {
+                            success = await _sharedContentRedisInterface.InvalidateEntityAsync(AllPageBanners);
+                        }
+
                         _logger.LogInformation($"Published. The following NodeId will be invalidated: {result.NodeId}, success: {success}.");
                     }
                 }
@@ -135,6 +146,12 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
 
                         var nodeId = ResolveDraftNodeId(result, context.ContentItem.ContentType);
                         var success = await _sharedContentRedisInterface.InvalidateEntityAsync(nodeId);
+
+                        if (context.ContentItem.ContentType == PublishedContentTypes.Page.ToString())
+                        {
+                            success = await _sharedContentRedisInterface.InvalidateEntityAsync($"PageLocation{Draft}");
+                            success = await _sharedContentRedisInterface.InvalidateEntityAsync($"pagesurl{Draft}");
+                        }
 
                         _logger.LogInformation($"Draft. The following NodeId will be invalidated: {result.NodeId}, status: {success}.");
                     }
