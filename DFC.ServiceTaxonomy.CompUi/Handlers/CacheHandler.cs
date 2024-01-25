@@ -249,6 +249,7 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
                     $"WHERE CII.ContentItemId = {item.Replace("\"", "'")} --AND CII.Published = 1 AND CII.Latest = 1 ");
 
                     var nodeId = FormatJobProfileCategoryNodeId(contentNodeId.FirstOrDefault());
+                    await _notifier.InformationAsync(_htmlLocalizer[$"The following NodeId will be refreshed {nodeId}"]);
                     var success = await _sharedContentRedisInterface.InvalidateEntityAsync(nodeId);
                     _logger.LogInformation($"Published. The following NodeId will be invalidated: {nodeId}, success: {success}.");
                 }
