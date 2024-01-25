@@ -160,7 +160,7 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
         {
             _notifier.InformationAsync(_htmlLocalizer[$"Content item is {PublishedContentTypes.Pagebanner.ToString()}"]);
             var result = JsonConvert.DeserializeObject<Page>(nodeItem.Content);
-            return string.Concat("PageBanner", CheckLeadingChar(result.PageLocationParts.FullUrl), Published);
+            return string.Concat(PublishedContentTypes.Page.ToString(), CheckLeadingChar(result.PageLocationParts.FullUrl), Published);
         }
 
         if (contentType == PublishedContentTypes.JobProfile.ToString())
