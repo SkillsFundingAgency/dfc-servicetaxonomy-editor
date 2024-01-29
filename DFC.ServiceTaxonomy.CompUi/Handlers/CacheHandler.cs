@@ -174,7 +174,7 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
 
         if (contentType == PublishedContentTypes.Page.ToString())
         {
-            _notifier.InformationAsync(_htmlLocalizer[$"Content item is {PublishedContentTypes.Pagebanner.ToString()}"]);
+            _notifier.InformationAsync(_htmlLocalizer[$"Content item is {PublishedContentTypes.Page.ToString()}"]);
             var result = JsonConvert.DeserializeObject<Page>(nodeItem.Content);
             return string.Concat(PublishedContentTypes.Page.ToString(), CheckLeadingChar(result.PageLocationParts.FullUrl), Published);
         }
@@ -203,7 +203,7 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
     {
         if (contentType == DraftContentTypes.Page.ToString())
         {
-            _notifier.InformationAsync(_htmlLocalizer[$"The following NodeId will be refreshed {nodeItem.Content}"]);
+            _notifier.InformationAsync(_htmlLocalizer[$"Content item is {PublishedContentTypes.Page.ToString()}"]);
             var result = JsonConvert.DeserializeObject<Page>(nodeItem.Content);
             return string.Concat(DraftContentTypes.Page.ToString(), CheckLeadingChar(result.PageLocationParts.FullUrl), Draft);
         }
