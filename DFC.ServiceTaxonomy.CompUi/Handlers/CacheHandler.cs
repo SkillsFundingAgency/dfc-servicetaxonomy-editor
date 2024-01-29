@@ -147,11 +147,8 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
                         var nodeId = ResolveDraftNodeId(result, context.ContentItem.ContentType);
                         var success = await _sharedContentRedisInterface.InvalidateEntityAsync(nodeId);
 
-                        if (context.ContentItem.ContentType == PublishedContentTypes.Page.ToString())
-                        {
-                            success = await _sharedContentRedisInterface.InvalidateEntityAsync($"PageLocation{Draft}");
-                            success = await _sharedContentRedisInterface.InvalidateEntityAsync($"pagesurl{Draft}");
-                        }
+                        success = await _sharedContentRedisInterface.InvalidateEntityAsync($"PageLocation{Draft}");
+                        success = await _sharedContentRedisInterface.InvalidateEntityAsync($"pagesurl{Draft}");
 
                         _logger.LogInformation($"Draft. The following NodeId will be invalidated: {result.NodeId}, status: {success}.");
                     }
