@@ -9,7 +9,11 @@ namespace DFC.ServiceTaxonomy.CompUi.Interfaces
 
         Task ProcessDraftSavedAsync(SaveDraftContentContext context);
 
-        string ResolvePublishNodeId(NodeItem nodeItem, string contentType);
+        Task ProcessRemovedAsync(RemoveContentContext context);
+
+        Task ProcessUnpublishedAsync(PublishContentContext context);
+
+        string ResolvePublishNodeId(string nodeId, string content, string contentType);
 
         string ResolveDraftNodeId(NodeItem nodeItem, string contentType);
     }
