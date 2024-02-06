@@ -212,7 +212,7 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
                 $"FROM Document D WITH (NOLOCK) " +
                 $"JOIN ContentItemIndex CII WITH (NOLOCK) ON D.Id = CII.DocumentId " +
                 $"WHERE D.Id = {contentItemId} " +
-                $"AND CII.Latest = {Convert.ToInt32(latest)} AND CII.Published = {published} ";
+                $"AND CII.Latest = {Convert.ToInt32(latest)} AND CII.Published = {Convert.ToInt32(published)} ";
 
         return await ExecuteQuery(sql);
     }
