@@ -14,6 +14,7 @@ using DFC.ServiceTaxonomy.GraphSync.CosmosDb.Queries;
 using DFC.ServiceTaxonomy.GraphSync.Drivers;
 using DFC.ServiceTaxonomy.GraphSync.Exceptions;
 using DFC.ServiceTaxonomy.GraphSync.Extensions;
+using DFC.ServiceTaxonomy.GraphSync.GraphQL;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.ContentItemVersions;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields;
@@ -53,8 +54,10 @@ using Microsoft.Azure.Cosmos;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
+using OrchardCore.Apis;
 using OrchardCore.ContentManagement;
 using OrchardCore.ContentManagement.Display.ContentDisplay;
+using OrchardCore.ContentManagement.GraphQL.Queries;
 using OrchardCore.ContentManagement.Handlers;
 using OrchardCore.ContentTypes.Editors;
 using OrchardCore.ContentTypes.Events;
@@ -68,6 +71,7 @@ using YesSql.Indexes;
 
 namespace DFC.ServiceTaxonomy.GraphSync
 {
+    [RequireFeatures("OrchardCore.Apis.GraphQL")]
     public class Startup : StartupBase
     {
         private readonly IConfiguration _configuration;
@@ -230,6 +234,11 @@ namespace DFC.ServiceTaxonomy.GraphSync
 
             //slack message publishing
             services.AddSlackMessagePublishing(_configuration, true);
+
+            //GraphQL GraphSync Expose
+            services.AddInputObjectGraphType<GraphSyncPart, GraphSyncPartInputObjectType>();
+            services.AddObjectGraphType<GraphSyncPart, GraphSyncPartQueryObjectType>();
+            services.AddTransient<IIndexAliasProvider, GraphSyncPartIndexAliasProvider>();
         }
 
         public override void Configure(IApplicationBuilder builder, IEndpointRouteBuilder routes, IServiceProvider serviceProvider)
