@@ -19,7 +19,7 @@ namespace DFC.ServiceTaxonomy.Dysac
             _contentDefinitionManager = contentDefinitionManager;
         }
 
-        public int CreateAsync()
+        public int Create()
         {
             _contentDefinitionManager.AlterPartDefinition(nameof(JobProfileCategoriesPart), builder => builder
                 .Attachable()
@@ -28,7 +28,7 @@ namespace DFC.ServiceTaxonomy.Dysac
             return 1;
         }
 
-        public int UpdateFrom1Async()
+        public int UpdateFrom1()
         {
 
             SchemaBuilder.CreateMapIndexTable<JobProfileCategoriesPartIndex>(table => table
