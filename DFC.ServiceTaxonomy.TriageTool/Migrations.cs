@@ -19,30 +19,37 @@ namespace DFC.ServiceTaxonomy.TriageTool
             _contentDefinitionManager = contentDefinitionManager;
         }
 
-        public int CreateAsync()
+        public int Create()
         {
-            _contentDefinitionManager.AlterPartDefinition("PagePart", builder => builder
+            _contentDefinitionManager.AlterPartDefinition(nameof(PagePart), builder => builder
                 .Attachable()
                 .WithDescription("Enables the content type to be synced to a graph."));
 
             return 1;
         }
 
-        public int UpdateFrom1Async()
+        public int UpdateFrom1()
         {
-
             SchemaBuilder.CreateMapIndexTable<PageItemsPartIndex>(table => table
-            .Column<string>("ContentItemId")
-            .Column<bool>("UseInTriageTool")
-            );
+         .Column<string>(nameof(PageItemsPartIndex.ContentItemId))
+         .Column<bool>(nameof(PageItemsPartIndex.UseInTriageTool))
+         );
 
             SchemaBuilder.AlterTable(nameof(PageItemsPartIndex), table => table
-                .CreateIndex($"IDX_PageItemsPartIndex_ContentItemId", "ContentItemId"
-               ));
+                .CreateIndex($"IDX_PageItemsPartIndex_ContentItemId", "ContentItemId"));  
 
             return 2;
         }
 
-       
+        public int UpdateFrom2()
+        {
+            SchemaBuilder.AlterIndexTable<PageItemsPartIndex>(table => table
+            .AddColumn<bool>("useInTest")
+            );
+
+            return 3;
+        }
+
+
     }
 }
