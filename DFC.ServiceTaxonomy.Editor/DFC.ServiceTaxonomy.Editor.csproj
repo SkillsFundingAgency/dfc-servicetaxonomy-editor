@@ -14,6 +14,7 @@
     <UserSecretsId>049ec31b-9ec3-4123-a3e6-b35fc9237492</UserSecretsId>
     <Configurations>Debug;Release;Development</Configurations>
     <PreserveCompilationContext>true</PreserveCompilationContext>
+    <AllowUntrustedCertificate>true</AllowUntrustedCertificate>
   </PropertyGroup>
 
   <ItemGroup>
