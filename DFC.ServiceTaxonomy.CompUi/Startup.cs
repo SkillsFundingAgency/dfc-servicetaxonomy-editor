@@ -10,7 +10,7 @@ using OrchardCore.Modules;
 namespace DFC.ServiceTaxonomy.CompUi
 {
     [RequireFeatures("OrchardCore.Apis.GraphQL", "OrchardCore.Sitemaps")]
-    public class Startup : OrchardCore.Modules.StartupBase
+    public class Startup : StartupBase
     {
         private IConfiguration configuration;
 
@@ -22,6 +22,7 @@ namespace DFC.ServiceTaxonomy.CompUi
         {
             services.AddTransient<IContentHandler, CacheHandler>();
             services.AddTransient<IDapperWrapper, DapperWrapper>();
+            services.AddAutoMapper(typeof(Startup).Assembly);
         }
 
         public override void Configure(IApplicationBuilder builder, IEndpointRouteBuilder routes, IServiceProvider serviceProvider)

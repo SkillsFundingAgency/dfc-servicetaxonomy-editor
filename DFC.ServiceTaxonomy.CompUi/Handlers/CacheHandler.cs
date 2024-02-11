@@ -1,4 +1,6 @@
 ﻿using System.Data.Common;
+using System.Diagnostics;
+using AutoMapper;
 using DFC.Common.SharedContent.Pkg.Netcore.Interfaces;
 using DFC.ServiceTaxonomy.CompUi.Dapper;
 using DFC.ServiceTaxonomy.CompUi.Enums;
@@ -22,6 +24,7 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
     private readonly ILogger<CacheHandler> _logger;
     private readonly IDapperWrapper _dapperWrapper;
     private readonly ISharedContentRedisInterface _sharedContentRedisInterface;
+    private readonly IMapper _mapper;
 
     private const string Published = "/PUBLISHED";
     private const string Draft = "/DRAFT";
@@ -32,7 +35,8 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
         IHtmlLocalizer<CacheHandler> htmlLocalizer,
         ILogger<CacheHandler> logger,
         IDapperWrapper dapperWrapper,
-        ISharedContentRedisInterface sharedContentRedisInterface
+        ISharedContentRedisInterface sharedContentRedisInterface,
+        IMapper mapper
         )
     {
         _dbaAccessor = dbaAccessor;
@@ -41,6 +45,7 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
         _logger = logger;
         _dapperWrapper = dapperWrapper;
         _sharedContentRedisInterface = sharedContentRedisInterface;
+        _mapper = mapper;
     }
 
     public override async Task PublishedAsync(PublishContentContext context)
@@ -65,21 +70,30 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
 
     public async Task ProcessPublishedAsync(PublishContentContext context)
     {
-        await ProcessContentItem(context.ContentItem.ContentType, context.ContentItem.Id, context.ContentItem.Latest, context.ContentItem.Published);
+        var processing = _mapper.Map<Processing>(context);
+        processing.EventType = ProcessingEvents.Published;
+
+        await ProcessContentItem(processing);
 
         await base.PublishedAsync(context);
     }
 
     public async Task ProcessRemovedAsync(RemoveContentContext context)
     {
-        await RemoveContentItem(context.ContentItem.ContentType, context.ContentItem.Id, context.ContentItem.Latest, context.ContentItem.Published);
+        var processing = _mapper.Map<Processing>(context);
+        processing.EventType = ProcessingEvents.Removed;
+
+        await RemoveContentItem(processing);
 
         await base.RemovedAsync(context);
     }
 
     public async Task ProcessUnpublishedAsync(PublishContentContext context)
     {
-        await ProcessContentItem(context.ContentItem.ContentType, context.ContentItem.Id, context.ContentItem.Latest, context.ContentItem.Published);
+        var processing = _mapper.Map<Processing>(context);
+        processing.EventType = ProcessingEvents.Unpublished;
+
+        await ProcessContentItem(processing);
 
         await base.UnpublishedAsync(context);
     }
@@ -88,9 +102,12 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
     {
         try
         {
-            if (Enum.IsDefined(typeof(DraftContentTypes), context.ContentItem.ContentType))
+            var processing = _mapper.Map<Processing>(context);
+            processing.EventType = ProcessingEvents.DraftSaved;
+
+            if (Enum.IsDefined(typeof(DraftContentTypes), processing.ContentType))
             {
-                var results = await GetData(context.ContentItem.Id, context.ContentItem.Latest, context.ContentItem.Published);
+                var results = await GetData(processing.ContentItemId, processing.Latest, processing.Published);
 
                 foreach (var result in results)
                 {
@@ -115,11 +132,11 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
         await base.DraftSavedAsync(context);
     }
 
-    private async Task RemoveContentItem(string contentType, int contentItemId, bool latest, bool published)
+    private async Task RemoveContentItem(Processing processing)
     {
         try
         {
-            if (Enum.IsDefined(typeof(PublishedContentTypes), contentType))
+            if (Enum.IsDefined(typeof(PublishedContentTypes), processing.ContentType))
             {
                 /*
                 1.  Page -> can get Content and from that can get the "PageLocationPart":{"FullUrl":"/about-us/delete-unpublish-test" 
@@ -134,7 +151,7 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
                     <<contentapiprefix>>/pagebanner/451c79c0-fa49-42e6-91ac-42a9d140627c
                 */
 
-                var results = await GetDataWithoutGraphSyncJoin(contentItemId, latest, published);
+                var results = await GetDataWithoutGraphSyncJoin(processing.ContentItemId, processing.Latest, processing.Published);
                 var nodeId = string.Empty;
                 //string token = string.Empty;
 
@@ -164,7 +181,7 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
                     //    nodeId = "";
                     //}
 
-                    await InvalidateItems(contentType, contentItemId, nodeId, result.Content);
+                    await InvalidateItems(processing, nodeId, result.Content);
                 }
             }
         }
@@ -174,17 +191,17 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
         }
     }
 
-    private async Task ProcessContentItem(string contentType, int contentItemId, bool latest, bool published)
+    private async Task ProcessContentItem(Processing processing)
     {
         try
         {
-            if (Enum.IsDefined(typeof(PublishedContentTypes), contentType))
+            if (Enum.IsDefined(typeof(PublishedContentTypes), processing.ContentType))
             {
-                var results = await GetData(contentItemId, latest, published);
+                var results = await GetData(processing.ContentItemId, processing.Latest, processing.Published);
 
                 foreach (var result in results)
                 {
-                    await InvalidateItems(contentType, contentItemId, result.NodeId, result.Content);
+                    await InvalidateItems(processing, result.NodeId, result.Content);
                 }
             }
         }
@@ -194,73 +211,94 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
         }
     }
 
-    private async Task<IEnumerable<NodeItem>?> GetData(int contentItemId, bool latest, bool published)
+    private async Task<IEnumerable<NodeItem>?> GetData(int contentItemId, int latest, int published)
     {
         var sql = $"SELECT DISTINCT GSPI.NodeId, D.Content " +
                 $"FROM Document D WITH (NOLOCK) " +
                 $"JOIN ContentItemIndex CII WITH (NOLOCK) ON D.Id = CII.DocumentId " +
                 $"JOIN GraphSyncPartIndex GSPI  WITH (NOLOCK) ON CII.DocumentId = GSPI.DocumentId " +
                 $"WHERE D.Id = {contentItemId} " +
-                $"AND CII.Latest = {Convert.ToInt32(latest)} AND CII.Published = {Convert.ToInt32(published)} ";
+                $"AND CII.Latest = {latest} AND CII.Published = {published} ";
 
-        return await ExecuteQuery(sql);
+        return await ExecuteQuery<NodeItem>(sql);
     }
 
-    private async Task<IEnumerable<NodeItem>?> GetDataWithoutGraphSyncJoin(int contentItemId, bool latest, bool published)
+    private async Task<IEnumerable<NodeItem>?> GetDataWithoutGraphSyncJoin(int contentItemId, int latest, int published)
     {
         var sql = $"SELECT DISTINCT D.Content " +
                 $"FROM Document D WITH (NOLOCK) " +
                 $"JOIN ContentItemIndex CII WITH (NOLOCK) ON D.Id = CII.DocumentId " +
                 $"WHERE D.Id = {contentItemId} " +
-                $"AND CII.Latest = {Convert.ToInt32(latest)} AND CII.Published = {Convert.ToInt32(published)} ";
+                $"AND CII.Latest = {latest} AND CII.Published = {published} ";
 
-        return await ExecuteQuery(sql);
+        return await ExecuteQuery<NodeItem>(sql);
     }
 
-    private async Task<IEnumerable<NodeItem>?> ExecuteQuery(string sql)
+    private async Task<IEnumerable<NodeItem>?> GetContentItem(string contentItem, int latest, int published)
     {
-        IEnumerable<NodeItem>? results;
+        var sql = $"SELECT DISTINCT D.Content " +
+                $"FROM Document D WITH (NOLOCK) " +
+                $"JOIN ContentItemIndex CII WITH (NOLOCK) ON D.Id = CII.DocumentId " +
+                $"WHERE CII.ContentItemId = {contentItem} ";
+
+        return await ExecuteQuery<NodeItem>(sql);
+    }
+
+    private async Task<IEnumerable<JobProfileCategories>?> GetJobProfileCategoriesData(int contentItemId, int latest, int published)
+    {
+        var sql = $"SELECT DISTINCT JSON_QUERY(Content, '$.JobProfile.JobProfileCategory.ContentItemIds') AS ContentItemIds " +
+                $"FROM Document D WITH (NOLOCK) " +
+                $"JOIN ContentItemIndex CII WITH (NOLOCK) ON D.Id = CII.DocumentId " +
+                $"WHERE D.Id = {contentItemId} " +
+                $"AND CII.Latest = {latest} AND CII.Published = {published} ";
+
+        return await ExecuteQuery<JobProfileCategories>(sql);
+    }
+
+    private async Task<IEnumerable<T>?> ExecuteQuery<T>(string sql)
+    {
+        IEnumerable<T>? results;
 
         await using (DbConnection? connection = _dbaAccessor.CreateConnection())
         {
-            results = await _dapperWrapper.QueryAsync<NodeItem>(connection, sql);
+            results = await _dapperWrapper.QueryAsync<T>(connection, sql);
         }
 
         return results;
     }
 
-    private async Task InvalidateItems(string contentType, int contentItemId, string nodeId, string content)
+    private async Task InvalidateItems(Processing processing, string nodeId, string content)
     {
         bool success;
 
         //Todo - update NuGet package to return true/false and then handle any false values. 
-        if (contentType == PublishedContentTypes.Banner.ToString())
+        if (processing.ContentType == PublishedContentTypes.Banner.ToString())
         {
-            await ProcessPublishedPageBannersAsync(contentType);
+            await ProcessPublishedPageBannersAsync(processing.ContentType);
         }
 
-        if (contentType == PublishedContentTypes.JobProfile.ToString())
+        if (processing.ContentType == PublishedContentTypes.JobProfile.ToString())
         {
-            await ProcessPublishedJobProfileCategoryAsync(contentItemId);
+            await ProcessPublishedJobProfileCategoryAsync(processing);
         }
 
-        if (contentType == PublishedContentTypes.JobProfileCategory.ToString())
+        if (processing.ContentType == PublishedContentTypes.JobProfileCategory.ToString())
         {
             success = await _sharedContentRedisInterface.InvalidateEntityAsync("JobProfiles/Categories");
         }
 
-        if (contentType == PublishedContentTypes.Page.ToString())
+        if (processing.ContentType == PublishedContentTypes.Page.ToString())
         {
             success = await _sharedContentRedisInterface.InvalidateEntityAsync($"PageLocation{Published}");
             success = await _sharedContentRedisInterface.InvalidateEntityAsync($"pagesurl{Published}");
         }
 
-        if (contentType == PublishedContentTypes.Pagebanner.ToString())
+        if (processing.ContentType == PublishedContentTypes.Pagebanner.ToString())
         {
             success = await _sharedContentRedisInterface.InvalidateEntityAsync(AllPageBanners);
         }
 
-        var formattedNodeId = ResolvePublishNodeId(nodeId, content, contentType);
+        var formattedNodeId = ResolvePublishNodeId(nodeId, content, processing.ContentType);
         success = await _sharedContentRedisInterface.InvalidateEntityAsync(formattedNodeId);
 
         _logger.LogInformation($"The following NodeId will be invalidated: {formattedNodeId}, success: {success}.");
@@ -338,33 +376,34 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
         }
     }
 
-    private async Task ProcessPublishedJobProfileCategoryAsync(int Id)
+    private async Task ProcessPublishedJobProfileCategoryAsync(Processing processing)
     {
-        await using (DbConnection? connection = _dbaAccessor.CreateConnection())
+        IEnumerable<JobProfileCategories>? results = await GetJobProfileCategoriesData(processing.ContentItemId, processing.Latest, processing.Published);
+        
+        if (results == null)
         {
-            IEnumerable<JobProfileCategories>? results = await _dapperWrapper.QueryAsync<JobProfileCategories>(connection,
-            $"SELECT DISTINCT GSPI.NodeId, JSON_QUERY(Content, '$.JobProfile.JobProfileCategory.ContentItemIds') AS ContentItemIds " +
-            $"FROM GraphSyncPartIndex GSPI WITH(NOLOCK) " +
-            $"JOIN ContentItemIndex CII WITH(NOLOCK) ON GSPI.ContentItemId = CII.ContentItemId " +
-            $"JOIN Document D WITH(NOLOCK) ON D.Id = CII.DocumentId " +
-            $"WHERE D.Id = {Id} --AND CII.Published = 1 AND CII.Latest = 1 ");
+            _logger.LogInformation($"{processing.EventType}. Could not invalidate: {processing.ContentItemId} as no data was retrieved by ContentId: {processing.ContentItemId}, " +
+                $"Latest: {processing.Latest}, Published: {processing.Published} success: false.");
+            return;
+        }
 
-            foreach (var result in results)
+        foreach (var result in results)
+        {
+            string[] contentItemId = result.ContentItemIds.TrimStart('[').TrimEnd(']').Split(',');
+            foreach (var item in contentItemId)
             {
-                string[] contentItemId = result.ContentItemIds.TrimStart('[').TrimEnd(']').Split(',');
-                foreach (var item in contentItemId)
-                {
-                    IEnumerable<NodeItem> contentNodeId = await _dapperWrapper.QueryAsync<NodeItem>(connection,
-                    $"SELECT DISTINCT GSPI.NodeId, Content " +
-                    $"FROM GraphSyncPartIndex GSPI WITH(NOLOCK) " +
-                    $"JOIN ContentItemIndex CII WITH(NOLOCK) ON GSPI.ContentItemId = CII.ContentItemId " +
-                    $"JOIN Document D WITH(NOLOCK) ON D.Id = CII.DocumentId " +
-                    $"WHERE CII.ContentItemId = {item.Replace("\"", "'")} --AND CII.Published = 1 AND CII.Latest = 1 ");
+                IEnumerable<NodeItem>? contentNodeId = await GetContentItem(item.Replace("\"", "'"), processing.Latest, processing.Published);
 
+                if (contentItemId != null)
+                {
                     var currentNode = contentNodeId.FirstOrDefault();
                     var nodeId = FormatJobProfileCategoryNodeId(currentNode.Content);
                     var success = await _sharedContentRedisInterface.InvalidateEntityAsync(nodeId);
-                    _logger.LogInformation($"Published. The following NodeId will be invalidated: {nodeId}, success: {success}.");
+                    _logger.LogInformation($"{processing.EventType}. The following NodeId will be invalidated: {nodeId}, success: {success}.");
+                }
+                else
+                {
+                    _logger.LogInformation($"{processing.EventType}. Could not invalidate: {processing.ContentItemId} as no data was retrieved, success: false.");
                 }
             }
         }
@@ -382,6 +421,7 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
         return string.Concat(PublishedContentTypes.JobProfileCategory.ToString(), "s", CheckLeadingChar(result.PageLocationParts.FullUrl));
     }
 
+    [DebuggerStepThrough]
     private string CheckLeadingChar(string input)
     {
         if (input.FirstOrDefault() != '/')

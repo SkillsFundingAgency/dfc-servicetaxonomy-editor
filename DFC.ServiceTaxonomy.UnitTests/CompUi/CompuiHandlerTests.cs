@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Data.Common;
 using System.Threading.Tasks;
+using AutoMapper;
 using DFC.Common.SharedContent.Pkg.Netcore.Interfaces;
 using DFC.ServiceTaxonomy.CompUi.Dapper;
 using DFC.ServiceTaxonomy.CompUi.Handlers;
@@ -26,6 +27,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.CompUi
         private readonly ICacheHandler _fakeCacheHandler;
         private readonly ISharedContentRedisInterface _fakeSharedContentRedisInterface;
         public readonly CacheHandler _concreteCacheHander;
+        public readonly IMapper _mapper; 
 
         public CompuiHandlerTests()
         {
@@ -35,19 +37,22 @@ namespace DFC.ServiceTaxonomy.UnitTests.CompUi
             _fakeLogger = A.Fake<ILogger<CacheHandler>>();
             _fakeDapperWrapper = A.Fake<IDapperWrapper>();
             _fakeSharedContentRedisInterface = A.Fake<ISharedContentRedisInterface>();
+            _mapper = A.Fake<IMapper>(); 
             _fakeCacheHandler = new CacheHandler(
                 _fakeDbaAccessor,
                 _fakeNotifier,
                 _fakeHtmlLocalizer,
                 _fakeLogger,
                 _fakeDapperWrapper,
-                _fakeSharedContentRedisInterface);
+                _fakeSharedContentRedisInterface,
+                _mapper);
             _concreteCacheHander = new CacheHandler(_fakeDbaAccessor,
                 _fakeNotifier,
                 _fakeHtmlLocalizer,
                 _fakeLogger,
                 _fakeDapperWrapper,
-                _fakeSharedContentRedisInterface);
+                _fakeSharedContentRedisInterface,
+                _mapper);
         }
 
         #region Publish Tests
