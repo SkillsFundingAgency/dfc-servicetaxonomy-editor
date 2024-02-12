@@ -35,11 +35,11 @@ namespace DFC.ServiceTaxonomy.Dysac.Indexes
                     {
                         return default!;
                     }
-                    return JobProfileCategoryPartAsync(contentItem);
+                    return JobProfileCategoryPartAsync(contentItem).Result;
                 });
         }
 
-        public List<JobProfileCategoriesPartIndex> JobProfileCategoryPartAsync(ContentItem contentItem)
+        public async Task<List<JobProfileCategoriesPartIndex>> JobProfileCategoryPartAsync(ContentItem contentItem)
         {
             if ((contentItem.Published || contentItem.Latest))
             {
@@ -51,14 +51,32 @@ namespace DFC.ServiceTaxonomy.Dysac.Indexes
                     var content = JsonConvert.SerializeObject(contentItem.Content);
 
                     var root = JToken.Parse(content);
-                    jobCategoryItemIds = root.SelectToken("..JobProfileCategories.ContentItemIds").ToObject<List<string>>();
+                    /* if (root.SelectToken("..JobProfileCategories.ContentItemIds") != null)
+                     {
+                         jobCategoryItemIds = root.SelectToken("..JobProfileCategories.ContentItemIds").ToObject<List<string>>();
+                     }*/
+                    jobCategoryItemIds = root.SelectToken("..JobProfileCategory.ContentItemIds").ToObject<List<string>>();
+
+
                 }
                 else
                 {
                     jobCategoryItemIds.Add(contentItem.ContentItemId);
                 }
 
-                jobCategoryItemIds.ForEach(async delegate (string categoryItemId) {
+                /* jobCategoryItemIds.ForEach(async delegate (string categoryItemId) {
+                     var relatedProfiles = await contentItemService.GetReferencingContentItems(categoryItemId);
+
+                     var profileIds = relatedProfiles.ToList();
+
+                     indexes.Add(new JobProfileCategoriesPartIndex
+                     {
+                         ContentItemId = contentItem.ContentItemId,
+                         RelatedJobProfileContentItemIds = string.Join(',', profileIds.Select(w => w.ContentItemId)),
+                     });
+                 });*/
+                foreach (string categoryItemId in jobCategoryItemIds)
+                {
                     var relatedProfiles = await contentItemService.GetReferencingContentItems(categoryItemId);
 
                     var profileIds = relatedProfiles.ToList();
@@ -68,7 +86,8 @@ namespace DFC.ServiceTaxonomy.Dysac.Indexes
                         ContentItemId = contentItem.ContentItemId,
                         RelatedJobProfileContentItemIds = string.Join(',', profileIds.Select(w => w.ContentItemId)),
                     });
-                });
+                }
+                Task.WaitAll();
                 return indexes;
             }
 
@@ -78,5 +97,5 @@ namespace DFC.ServiceTaxonomy.Dysac.Indexes
         }
     }
 
-    
+
 }
