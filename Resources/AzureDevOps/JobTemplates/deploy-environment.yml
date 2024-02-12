@@ -1,5 +1,5 @@
 parameters:
-  AzureSubscription: ''  
+  AzureSubscription: ''
   Environment: ''
   PackageFile:  ''
   ArmTemplateFolder: ''
@@ -21,8 +21,8 @@ parameters:
   TestArtifactBranch: ''
   TestExclusionTag: ''
   MediaStorageAccountName: ''
- 
-jobs:    
+
+jobs:
 - deployment: DeployArmTemplateTo_${{ parameters.Environment }}
   workspace:
       clean: all
@@ -39,7 +39,7 @@ jobs:
             ResourceGroup: '${{ parameters.ResourceGroup }}'
             AzureSubscription: '${{ parameters.AzureSubscription }}'
             EnvironmentTag: '${{ parameters.EnvironmentTag }}'
-            ParentBusinessTag: '${{ parameters.ParentBusinessTag }}'            
+            ParentBusinessTag: '${{ parameters.ParentBusinessTag }}'
             ServiceOfferingTag: '${{ parameters.ServiceOfferingTag }}'
             PSScriptPath: '${{ parameters.PSScriptPath }}'
 
@@ -49,7 +49,7 @@ jobs:
   pool: 'NCS - CI and CD'
   displayName: "Deploy WebApp to ${{ parameters.Environment }}"
   environment: ${{ parameters.Environment }}
-  dependsOn: 
+  dependsOn:
   - DeployArmTemplateTo_${{ parameters.Environment }}
   variables:
     InitialiserWorkingDir: $(System.DefaultWorkingDirectory)\DFC.ServiceTaxonomy.OrchardCoreInitialiser\
@@ -75,6 +75,7 @@ jobs:
             Package: "${{ parameters.PackageFile }}"
             ResourceGroupName: '${{ parameters.ResourceGroup }}'
             UseWebDeploy: true
+            allowUntrusted: true
         # Tokenise appsettings.json
         - task: esfadevops.Tokenization.custom-build-task.Tokenization@0
           displayName: 'Tokenization: Transform file appsettings.json'
