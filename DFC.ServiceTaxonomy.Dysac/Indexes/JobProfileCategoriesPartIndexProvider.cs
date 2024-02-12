@@ -26,32 +26,50 @@ namespace DFC.ServiceTaxonomy.Dysac.Indexes
         {
 
             context.For<JobProfileCategoriesPartIndex>()
-                .When(contentItem => string.Equals("jobProfileCategory", contentItem.ContentType, StringComparison.OrdinalIgnoreCase))
+                .When(contentItem => string.Equals("jobProfileCategory", contentItem.ContentType, StringComparison.OrdinalIgnoreCase)
+                || string.Equals("jobProfile", contentItem.ContentType, StringComparison.OrdinalIgnoreCase))
                 .Map(contentItem =>
                 {
-                   return JobProfileCategoryPartAsync(contentItem);
+                    // Remove index records of soft deleted items.
+                    if (!contentItem.Published && !contentItem.Latest)
+                    {
+                        return default!;
+                    }
+                    return JobProfileCategoryPartAsync(contentItem);
                 });
         }
 
-        public async Task<JobProfileCategoriesPartIndex> JobProfileCategoryPartAsync(ContentItem contentItem)
+        public List<JobProfileCategoriesPartIndex> JobProfileCategoryPartAsync(ContentItem contentItem)
         {
             if ((contentItem.Published || contentItem.Latest))
             {
-                // Remove index records of soft deleted items.
-                if (!contentItem.Published && !contentItem.Latest)
+                List<string> jobCategoryItemIds = new List<string>();
+                List<JobProfileCategoriesPartIndex> indexes = new List<JobProfileCategoriesPartIndex>();
+
+                if (string.Equals("jobProfile", contentItem.ContentType, StringComparison.OrdinalIgnoreCase))
                 {
-                    return default!;
+                    var content = JsonConvert.SerializeObject(contentItem.Content);
+
+                    var root = JToken.Parse(content);
+                    jobCategoryItemIds = root.SelectToken("..JobProfileCategories.ContentItemIds").ToObject<List<string>>();
+                }
+                else
+                {
+                    jobCategoryItemIds.Add(contentItem.ContentItemId);
                 }
 
+                jobCategoryItemIds.ForEach(async delegate (string categoryItemId) {
+                    var relatedProfiles = await contentItemService.GetReferencingContentItems(categoryItemId);
 
-                var relatedItems = await contentItemService.GetReferencingContentItems(contentItem.ContentItemId);
+                    var profileIds = relatedProfiles.ToList();
 
-                /*var index = new JobProfileCategoriesPartIndex
-                {
-                    ContentItemId = contentItem.ContentItemId,
-                    RelatedJobProfileContentItemIds = string.Join(',', tiles),
-                };
-                return index;*/
+                    indexes.Add(new JobProfileCategoriesPartIndex
+                    {
+                        ContentItemId = contentItem.ContentItemId,
+                        RelatedJobProfileContentItemIds = string.Join(',', profileIds.Select(w => w.ContentItemId)),
+                    });
+                });
+                return indexes;
             }
 
 #pragma warning disable CS8603 // Possible null reference return.
