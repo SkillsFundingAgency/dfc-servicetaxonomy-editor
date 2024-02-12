@@ -418,7 +418,7 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
     private string FormatJobProfileCategoryNodeId(string content)
     {
         var result = JsonConvert.DeserializeObject<Page>(content);
-        return string.Concat(PublishedContentTypes.JobProfileCategory.ToString(), "s", CheckLeadingChar(result.PageLocationParts.FullUrl));
+        return string.Concat(PublishedContentTypes.JobProfile.ToString(), "s", CheckLeadingChar(result.PageLocationParts.FullUrl));
     }
 
     [DebuggerStepThrough]
