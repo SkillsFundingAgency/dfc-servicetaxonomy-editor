@@ -46,5 +46,15 @@ namespace DFC.ServiceTaxonomy.PageLocation
 
             return 3;
         }
+
+
+        public int UpdateFrom3()
+        {
+            SchemaBuilder.AlterIndexTable<PageLocationPartIndex>(table => table
+            .AddColumn<bool>("UseInTriageTool")
+            );
+
+            return 4;
+        }
     }
 }
