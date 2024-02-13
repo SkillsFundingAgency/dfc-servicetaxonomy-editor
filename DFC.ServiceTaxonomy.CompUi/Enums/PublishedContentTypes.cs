@@ -7,6 +7,12 @@
         JobProfile,
         Page,
         Pagebanner,
-        SharedContent
+        SharedContent,
+        TriageToolFilter,
+        TriageToolOption,
+        PersonalityFilteringQuestion,
+        PersonalityQuestionSet,
+        PersonalityShortQuestion,
+        PersonalityTrait
     }
 }
