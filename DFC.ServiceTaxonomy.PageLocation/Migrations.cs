@@ -1,7 +1,12 @@
-﻿using DFC.ServiceTaxonomy.PageLocation.Indexes;
+﻿using System.Threading.Tasks;
+using DFC.ServiceTaxonomy.PageLocation.Constants;
+using DFC.ServiceTaxonomy.PageLocation.Indexes;
+using OrchardCore.ContentManagement;
 using OrchardCore.ContentManagement.Metadata;
 using OrchardCore.ContentManagement.Metadata.Settings;
+using OrchardCore.ContentManagement.Records;
 using OrchardCore.Data.Migration;
+using YesSql;
 using YesSql.Sql;
 
 namespace DFC.ServiceTaxonomy.PageLocation
@@ -9,9 +14,11 @@ namespace DFC.ServiceTaxonomy.PageLocation
     public class Migrations : DataMigration
     {
         private readonly IContentDefinitionManager _contentDefinitionManager;
+        private readonly YesSql.ISession _session;
 
-        public Migrations(IContentDefinitionManager contentDefinitionManager)
+        public Migrations(IContentDefinitionManager contentDefinitionManager, YesSql.ISession session)
         {
+            _session = session;
             _contentDefinitionManager = contentDefinitionManager;
         }
 
@@ -55,6 +62,20 @@ namespace DFC.ServiceTaxonomy.PageLocation
             );
 
             return 4;
+        }
+
+        public async Task<int> UpdateFrom4Async()
+        {
+            var contentItems = await _session
+                .Query<ContentItem, ContentItemIndex>()
+                .Where(x => (x.ContentType == ContentTypes.Page || x.ContentType == ContentTypes.TriageToolFilters) && x.Published && x.Latest)
+                .ListAsync();
+
+            foreach (var contentItem in contentItems)
+            {
+                _session.Save(contentItem, checkConcurrency: true);
+            }
+            return 5;
         }
     }
 }

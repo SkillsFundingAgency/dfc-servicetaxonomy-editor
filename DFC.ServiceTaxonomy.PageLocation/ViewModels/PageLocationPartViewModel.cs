@@ -10,6 +10,7 @@ namespace DFC.ServiceTaxonomy.PageLocation.ViewModels
         public bool DefaultPageForLocation { get; set; }
         public string? RedirectLocations { get; set; }
         public string? FullUrl { get; set; }
+        public bool? UseInTriageTool { get; set; }
 
         [BindNever]
         public ContentItem? ContentItem { get; set; }
