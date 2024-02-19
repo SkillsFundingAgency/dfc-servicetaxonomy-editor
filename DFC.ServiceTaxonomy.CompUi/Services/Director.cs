@@ -1,5 +1,4 @@
 ﻿using DFC.ServiceTaxonomy.CompUi.Interfaces;
-using DFC.ServiceTaxonomy.CompUi.Model;
 using DFC.ServiceTaxonomy.CompUi.Models;
 
 namespace DFC.ServiceTaxonomy.CompUi.Services
@@ -32,12 +31,31 @@ namespace DFC.ServiceTaxonomy.CompUi.Services
 
         public async Task<bool> ProcessBannerAsync(Processing processing)
         {
-            return true; 
+            var success = await _builder.InvalidatePageBannerAsync(processing);
+            return true;
         }
 
-        public async Task<bool> ProcessJobProfileCategoryAsync(Processing processing) => throw new NotImplementedException();
-        public async Task<bool> ProcessJobProfileAsync(Processing processing) => throw new NotImplementedException();
-        public async Task<bool> ProcessPagebannerAsync(Processing processing) => throw new NotImplementedException();
+        public async Task<bool> ProcessPagebannerAsync(Processing processing)
+        {
+            var success = await _builder.InvalidatePageBannerAsync(processing);
+            return success;
+        }
+
+
+        public async Task<bool> ProcessJobProfileCategoryAsync(Processing processing)
+        {
+            var success = await _builder.InvalidateJobProfileCategories(processing);
+            return true;
+        }
+
+        public async Task<bool> ProcessJobProfileAsync(Processing processing)
+        {
+            //await ProcessPublishedJobProfileCategoryAsync(processing);
+            // var formattedNodeId = ResolvePublishNodeId(nodeId, content, processing.ContentType);
+            //success = await _sharedContentRedisInterface.InvalidateEntityAsync(formattedNodeId);
+            return true;
+        }
+
         public async Task<bool> ProcessTriageToolFilterAsync(Processing processing) => throw new NotImplementedException();
         public async Task<bool> ProcessTriageToolOptionAsync(Processing processing) => throw new NotImplementedException();
 
@@ -74,7 +92,17 @@ namespace DFC.ServiceTaxonomy.CompUi.Services
         }
 
         public async Task<bool> ProcessSOCCodeAsync(Processing processing) => throw new NotImplementedException();
-        public async Task<bool> ProcessSOCSkillsMatrixAsync(Processing processing) => throw new NotImplementedException();
+
+        public async Task<bool> ProcessSOCSkillsMatrixAsync(Processing processing)
+        {
+            var success = true;
+            success = await _builder.InvalidatePersonalityFilteringQuestionAsync(processing);
+            //TODO
+            //Invalidates JobProfileCategory
+            return success;
+        }
+
+
         public async Task<bool> ProcessDynamicTitlePrefixAsync(Processing processing) => throw new NotImplementedException();
     }
 }

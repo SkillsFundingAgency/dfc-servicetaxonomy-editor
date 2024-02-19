@@ -5,6 +5,9 @@ namespace DFC.ServiceTaxonomy.CompUi.Interfaces
 {
     public interface IBuilder
     {
+        Task<bool> InvalidateBannerAsync(Processing processing);
+        Task<bool> InvalidatePageBannerAsync(Processing processing);
+
         Task<IEnumerable<NodeItem>> GetDataAsync(Processing processing);
 
         Task<IEnumerable<RelatedItems>?> GetRelatedContentItemIdsAsync(Processing processing);
@@ -26,11 +29,11 @@ namespace DFC.ServiceTaxonomy.CompUi.Interfaces
 
         Task<bool> InvalidateAdditionalContentItemIdsAsync(Processing processing, IEnumerable<RelatedItems> data);
 
-        Task<string> GetSharedContentNodeIdAsync(Processing processing, IEnumerable<NodeItem> data);
+        //Task<string> GetSharedContentNodeIdAsync(Processing processing, IEnumerable<NodeItem> data);
 
         //Task<string> GetPageNodeIdAsync(Processing processing);
 
-        
+        Task<bool> InvalidateJobProfileCategories(Processing processing);   
 
         Task<bool> InvalidateNodeAsync(Processing processing);
 

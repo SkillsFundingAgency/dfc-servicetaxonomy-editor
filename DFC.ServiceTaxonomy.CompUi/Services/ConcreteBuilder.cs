@@ -1,12 +1,12 @@
 ﻿using System.Data.Common;
 using System.Diagnostics;
 using DFC.Common.SharedContent.Pkg.Netcore.Interfaces;
-using DFC.Common.SharedContent.Pkg.Netcore.Model.ContentItems;
 using DFC.ServiceTaxonomy.CompUi.Dapper;
 using DFC.ServiceTaxonomy.CompUi.Enums;
 using DFC.ServiceTaxonomy.CompUi.Interfaces;
 using DFC.ServiceTaxonomy.CompUi.Model;
 using DFC.ServiceTaxonomy.CompUi.Models;
+using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using OrchardCore.Data;
 using Page = DFC.ServiceTaxonomy.CompUi.Models.Page;
@@ -19,6 +19,7 @@ namespace DFC.ServiceTaxonomy.CompUi.Services
         private readonly IDbConnectionAccessor _dbaAccessor;
         private readonly IDapperWrapper _dapperWrapper;
         private readonly ISharedContentRedisInterface _sharedContentRedisInterface;
+        private readonly ILogger<ConcreteBuilder> _logger;
 
         private const string Published = "/PUBLISHED";
         private const string Draft = "/DRAFT";
@@ -28,12 +29,17 @@ namespace DFC.ServiceTaxonomy.CompUi.Services
         private const string DysacQuestionSet = "DYSAC/QuestionSet";
         private const string DysacShortQuestion = "DYSAC/ShortQuestion";  //TBC with the dev
         private const string DysacPersonalityTrait = "DYSAC/PersonalityTrait";  //TBC with the dev
+        private const string JobProfileCategories = "JobProfiles/Categories";
 
-        public ConcreteBuilder(IDbConnectionAccessor dbaAccessor, IDapperWrapper dapperWrapper, ISharedContentRedisInterface sharedContentRedisInterface)
+        public ConcreteBuilder(IDbConnectionAccessor dbaAccessor,
+            IDapperWrapper dapperWrapper,
+            ISharedContentRedisInterface sharedContentRedisInterface,
+            ILogger<ConcreteBuilder> logger)
         {
             _dapperWrapper = dapperWrapper;
             _dbaAccessor = dbaAccessor;
             _sharedContentRedisInterface = sharedContentRedisInterface;
+            _logger = logger;
         }
 
         public async Task<IEnumerable<NodeItem>> GetDataAsync(Processing processing)
@@ -58,25 +64,38 @@ namespace DFC.ServiceTaxonomy.CompUi.Services
             return Task.FromResult(test);
         }
 
-        //public Task<string> GetPageNodeIdAsync(Processing processing)
-        //{
-        //    //var result = JsonConvert.DeserializeObject<Page>(content);
-        //    //var test = string.Concat(PublishedContentTypes.Page.ToString(), CheckLeadingChar(result.PageLocationParts.FullUrl), Published);
-        //    Console.WriteLine("GetPageNodeIdAsync");
-        //    //throw new NotImplementedException();
-        //    var test = "test";
+        public async Task<bool> InvalidateBannerAsync(Processing processing)
+        {
+            var succcess = await InvalidatePageBannerAsync(processing);
 
-        //    return Task.FromResult(test);
-        //}
+            return succcess;
+        }
+
+        public async Task<bool> InvalidatePageBannerAsync(Processing processing)
+        {
+            var success = true;
+
+            if (!string.IsNullOrEmpty(processing.Content))
+            {
+                var result = JsonConvert.DeserializeObject<PageBanners>(processing.Content);
+
+                //TODO - check this for multiple banners.  Should be okay, however check for this anyway. 
+                var nodeId = string.Concat("PageBanner", CheckLeadingChar(result.BannerParts.WebPageUrl));
+                success = await _sharedContentRedisInterface.InvalidateEntityAsync(nodeId);
+                _logger.LogInformation($"{processing.EventType}. The following NodeId will be invalidated: {nodeId}, success: {success}.");
+
+                //Additionally delete all page banners.  
+                success = await _sharedContentRedisInterface.InvalidateEntityAsync(AllPageBanners);
+                _logger.LogInformation($"{processing.EventType}. The following NodeId will be invalidated: {AllPageBanners}, success: {success}");
+            }
+
+            return success;
+        }
 
         public async Task<bool> InvalidateSharedContentAsync(Processing processing)
         {
             var success = true;
 
-            //foreach (var result in data)
-            //{
-            //    if (result.NodeId.Length > 0)
-            //    {
             if (!string.IsNullOrEmpty(processing.Content))
             {
                 var sharedContent = JsonConvert.DeserializeObject<SharedContent>(processing.Content);
@@ -85,14 +104,19 @@ namespace DFC.ServiceTaxonomy.CompUi.Services
                     sharedContent.SharedContentText.NodeId.Length - Prefix.Length)));
                 success = await _sharedContentRedisInterface.InvalidateEntityAsync(nodeId);
             }
-            //}
 
             return success;
         }
 
         public async Task<bool> InvalidatePersonalityFilteringQuestionAsync(Processing processing)
         {
-            var success = await _sharedContentRedisInterface.InvalidateEntityAsync(DysacFilteringQuestion);
+            var success = true;
+
+            if (!string.IsNullOrEmpty(processing.Content))
+            {
+                success = await _sharedContentRedisInterface.InvalidateEntityAsync(DysacFilteringQuestion);
+                _logger.LogInformation($"{processing.EventType}. The following NodeId will be invalidated: {DysacFilteringQuestion}, success: {success}.");
+            }
 
             return success;
         }
@@ -120,8 +144,6 @@ namespace DFC.ServiceTaxonomy.CompUi.Services
         public async Task<bool> InvalidateAdditionalContentItemIdsAsync(Processing processing, IEnumerable<RelatedItems> data)
         {
             var success = true;
-
-
 
             /*       
                 TriageToolFilter - James to code
@@ -178,6 +200,17 @@ namespace DFC.ServiceTaxonomy.CompUi.Services
             //throw new NotImplementedException();
             var test = true;
             return Task.FromResult(test);
+        }
+
+        public async Task<bool> InvalidateJobProfileCategories(Processing processing)
+        {
+            var success = await _sharedContentRedisInterface.InvalidateEntityAsync(JobProfileCategories);
+
+            var result = JsonConvert.DeserializeObject<Page>(processing.Content);
+            var nodeId = string.Concat(PublishedContentTypes.JobProfile.ToString(), "s", CheckLeadingChar(result.PageLocationParts.FullUrl));
+            success = await _sharedContentRedisInterface.InvalidateEntityAsync(nodeId);
+
+            return success;
         }
 
         private async Task<IEnumerable<NodeItem>?> GetDataAsync(int contentItemId, int latest, int published)
@@ -244,17 +277,25 @@ namespace DFC.ServiceTaxonomy.CompUi.Services
             return results;
         }
 
-        private async Task<string> ExecuteQuery(string sql)
-        {
-            string results;
+        
 
-            await using (DbConnection? connection = _dbaAccessor.CreateConnection())
-            {
-                results = await _dapperWrapper.QueryAsync(connection, sql);
-            }
+        //private async Task<string> ExecuteQuery(string sql)
+        //{
+        //    string results;
 
-            return results;
-        }
+        //    await using (DbConnection? connection = _dbaAccessor.CreateConnection())
+        //    {
+        //        results = await _dapperWrapper.QueryAsync(connection, sql);
+        //    }
+
+        //    return results;
+        //}
+
+        //public string FormatPageBannerNodeId(string content)
+        //{
+        //    var result = JsonConvert.DeserializeObject<PageBanners>(content);
+        //    return string.Concat("PageBanner", CheckLeadingChar(result.BannerParts.WebPageUrl));
+        //}
 
         [DebuggerStepThrough]
         private string CheckLeadingChar(string input)
