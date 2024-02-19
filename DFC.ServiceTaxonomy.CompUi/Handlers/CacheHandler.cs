@@ -94,51 +94,49 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
     {
         switch (processing.ContentType)
         {
-            //case PublishedContentTypes.SharedContent.ToString():
-            //case PublishedContentTypes.Page.ToString():
-            case "SharedContent":
+            case nameof(PublishedContentTypes.SharedContent):
                 await _director.ProcessSharedContentAsync(processing);
                 break;
-            case "Page":
+            case nameof(PublishedContentTypes.Page):
                 await _director.ProcessPageAsync(processing);
                 break;
-            case "Banner":
+            case nameof(PublishedContentTypes.Banner):
                 await _director.ProcessBannerAsync(processing);
                 break;
-            case "JobProfileCategory":
+            case nameof(PublishedContentTypes.JobProfileCategory):
                 await _director.ProcessJobProfileCategoryAsync(processing);
                 break;
-            case "JobProfile":
+            case nameof(PublishedContentTypes.JobProfile):
                 await _director.ProcessJobProfileAsync(processing);
                 break;
-            case "Pagebanner":
+            case nameof(PublishedContentTypes.Pagebanner):
                 await _director.ProcessPagebannerAsync(processing);
                 break;
-            case "TriageToolFilter":
+            case nameof(PublishedContentTypes.TriageToolFilter):
                 await _director.ProcessTriageToolFilterAsync(processing);
                 break;
-            case "TriageToolOption":
+            case nameof(PublishedContentTypes.TriageToolOption):
                 await _director.ProcessTriageToolOptionAsync(processing);
                 break;
-            case "PersonalityFilteringQuestion":
+            case nameof(PublishedContentTypes.PersonalityFilteringQuestion):
                 await _director.ProcessPersonalityFilteringQuestionAsync(processing);
                 break;
-            case "PersonalityQuestionSet":
+            case nameof(PublishedContentTypes.PersonalityQuestionSet):
                 await _director.ProcessPersonalityQuestionSetAsync(processing);
                 break;
-            case "PersonalityShortQuestion":
+            case nameof(PublishedContentTypes.PersonalityShortQuestion):
                 await _director.ProcessPersonalityShortQuestionAsync(processing);
                 break;
-            case "PersonalityTrait":
+            case nameof(PublishedContentTypes.PersonalityTrait):
                 await _director.ProcessPersonalityTraitAsync(processing);
                 break;
-            case "SOCCode":
+            case nameof(PublishedContentTypes.SOCCode):
                 await _director.ProcessSOCCodeAsync(processing);
                 break;
-            case "SOCSkillsMatrix,":
+            case nameof(PublishedContentTypes.SOCSkillsMatrix):
                 await _director.ProcessSOCSkillsMatrixAsync(processing);
                 break;
-            case "DynamicTitlePrefix":
+            case nameof(PublishedContentTypes.DynamicTitlePrefix):
                 await _director.ProcessDynamicTitlePrefixAsync(processing);
                 break;
             default:

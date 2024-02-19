@@ -53,7 +53,7 @@ namespace DFC.ServiceTaxonomy.CompUi.Services
         {
             var data = await _builder.GetRelatedContentItemIdsAsync(processing);
             var success = await _builder.InvalidateAdditionalContentItemIdsAsync(processing, data);
-            success = await _builder.InvalidatePersonalityFilteringQuestionAsync(processing);
+            success = await _builder.InvalidatePersonalityQuestionSetAsync(processing);
             return success;
         }
 
@@ -61,7 +61,7 @@ namespace DFC.ServiceTaxonomy.CompUi.Services
         {
             var data = await _builder.GetRelatedContentItemIdsAsync(processing);
             var success = await _builder.InvalidateAdditionalContentItemIdsAsync(processing, data);
-            success = await _builder.InvalidatePersonalityFilteringQuestionAsync(processing);
+            success = await _builder.InvalidatePersonalityShortQuestionAsync(processing);
             return success;
         }
 
