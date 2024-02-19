@@ -34,12 +34,24 @@ namespace DFC.ServiceTaxonomy.CompUi.Indexes
 
                         var tiles = root.SelectTokens("..ContentItemIds[*]");
 
+                        string contentIdList = string.Join("','", tiles);
+                        if (!string.IsNullOrEmpty(contentIdList))
+                        {
+                            //contentIdList = string.Join("','", tiles);
+                            contentIdList = string.Concat("'", contentIdList, "'");
+                        }
+                        else
+                        {
+                            contentIdList = string.Empty; 
+                        }
+
                         return new RelatedContentItemIndex
                         {
                             ContentItemId = contentItem.ContentItemId,
                             ContentType = contentItem.ContentType,
-                            RelatedContentIds = string.Join(',', tiles),
+                            RelatedContentIds = contentIdList, //string.Join(',', tiles),
                         };
+                        //}
                     });
         }
     }

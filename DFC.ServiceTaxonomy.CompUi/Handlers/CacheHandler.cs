@@ -13,6 +13,7 @@ using Newtonsoft.Json;
 using OrchardCore.ContentManagement.Handlers;
 using OrchardCore.Data;
 using OrchardCore.DisplayManagement.Notify;
+using Page = DFC.ServiceTaxonomy.CompUi.Models.Page;
 
 namespace DFC.ServiceTaxonomy.CompUi.Handlers;
 
@@ -26,6 +27,9 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
     private readonly ISharedContentRedisInterface _sharedContentRedisInterface;
     private readonly IMapper _mapper;
 
+    private readonly IDirector _director;
+    private readonly IBuilder _builder;
+
     private const string Published = "/PUBLISHED";
     private const string Draft = "/DRAFT";
     private const string AllPageBanners = "PageBanners/All";
@@ -36,7 +40,9 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
         ILogger<CacheHandler> logger,
         IDapperWrapper dapperWrapper,
         ISharedContentRedisInterface sharedContentRedisInterface,
-        IMapper mapper
+        IMapper mapper,
+        IDirector director,
+        IBuilder builder
         )
     {
         _dbaAccessor = dbaAccessor;
@@ -46,6 +52,9 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
         _dapperWrapper = dapperWrapper;
         _sharedContentRedisInterface = sharedContentRedisInterface;
         _mapper = mapper;
+        _director = director;
+        _builder = builder;
+        _director.Builder = _builder;
     }
 
     public override async Task PublishedAsync(PublishContentContext context)
@@ -73,9 +82,69 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
         var processing = _mapper.Map<Processing>(context);
         processing.EventType = ProcessingEvents.Published;
 
-        await ProcessContentItem(processing);
+        await ProcessItem(processing);
+        //var test = PublishedContentTypes.SharedContent.ToString();
+
+        //await ProcessContentItem(processing);
 
         await base.PublishedAsync(context);
+    }
+
+    private async Task ProcessItem(Processing processing)
+    {
+        switch (processing.ContentType)
+        {
+            //case PublishedContentTypes.SharedContent.ToString():
+            //case PublishedContentTypes.Page.ToString():
+            case "SharedContent":
+                await _director.ProcessSharedContentAsync(processing);
+                break;
+            case "Page":
+                await _director.ProcessPageAsync(processing);
+                break;
+            case "Banner":
+                await _director.ProcessBannerAsync(processing);
+                break;
+            case "JobProfileCategory":
+                await _director.ProcessJobProfileCategoryAsync(processing);
+                break;
+            case "JobProfile":
+                await _director.ProcessJobProfileAsync(processing);
+                break;
+            case "Pagebanner":
+                await _director.ProcessPagebannerAsync(processing);
+                break;
+            case "TriageToolFilter":
+                await _director.ProcessTriageToolFilterAsync(processing);
+                break;
+            case "TriageToolOption":
+                await _director.ProcessTriageToolOptionAsync(processing);
+                break;
+            case "PersonalityFilteringQuestion":
+                await _director.ProcessPersonalityFilteringQuestionAsync(processing);
+                break;
+            case "PersonalityQuestionSet":
+                await _director.ProcessPersonalityQuestionSetAsync(processing);
+                break;
+            case "PersonalityShortQuestion":
+                await _director.ProcessPersonalityShortQuestionAsync(processing);
+                break;
+            case "PersonalityTrait":
+                await _director.ProcessPersonalityTraitAsync(processing);
+                break;
+            case "SOCCode":
+                await _director.ProcessSOCCodeAsync(processing);
+                break;
+            case "SOCSkillsMatrix,":
+                await _director.ProcessSOCSkillsMatrixAsync(processing);
+                break;
+            case "DynamicTitlePrefix":
+                await _director.ProcessDynamicTitlePrefixAsync(processing);
+                break;
+            default:
+                _logger.LogError($"DetermineProcess. Content Type could not be determined: {processing.ContentType}");
+                break;
+        }
     }
 
     public async Task ProcessRemovedAsync(RemoveContentContext context)
@@ -379,7 +448,7 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
     private async Task ProcessPublishedJobProfileCategoryAsync(Processing processing)
     {
         IEnumerable<JobProfileCategories>? results = await GetJobProfileCategoriesData(processing.ContentItemId, processing.Latest, processing.Published);
-        
+
         if (results == null)
         {
             _logger.LogInformation($"{processing.EventType}. Could not invalidate: {processing.ContentItemId} as no data was retrieved by ContentId: {processing.ContentItemId}, " +

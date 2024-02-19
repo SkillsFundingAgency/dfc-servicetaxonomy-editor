@@ -13,6 +13,9 @@
         PersonalityFilteringQuestion,
         PersonalityQuestionSet,
         PersonalityShortQuestion,
-        PersonalityTrait
+        PersonalityTrait,
+        SOCCode,
+        SOCSkillsMatrix,
+        DynamicTitlePrefix
     }
 }

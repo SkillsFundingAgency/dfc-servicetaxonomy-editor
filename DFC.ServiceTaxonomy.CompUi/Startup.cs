@@ -1,6 +1,8 @@
 using DFC.ServiceTaxonomy.CompUi.Dapper;
 using DFC.ServiceTaxonomy.CompUi.Handlers;
 using DFC.ServiceTaxonomy.CompUi.Indexes;
+using DFC.ServiceTaxonomy.CompUi.Interfaces;
+using DFC.ServiceTaxonomy.CompUi.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Configuration;
@@ -29,6 +31,10 @@ namespace DFC.ServiceTaxonomy.CompUi
 
             services.AddScoped<IDataMigration, Migrations>();
             services.AddSingleton<IIndexProvider, RelatedContentItemIndexProvider>();
+
+            services.AddScoped<IDirector, Director>();
+            services.AddScoped<IBuilder, ConcreteBuilder>();
+
         }
 
         public override void Configure(IApplicationBuilder builder, IEndpointRouteBuilder routes, IServiceProvider serviceProvider)
