@@ -27,7 +27,7 @@ namespace DFC.ServiceTaxonomy.CompUi.Interfaces
 
         Task<bool> InvalidatePersonalityTraitAsync(Processing processing);
 
-        //Task<bool> InvalidateJobProfileCategoryAsync(Processing processing);
+        Task<bool> InvalidateTriageToolFiltersAsync(Processing processing);
 
         Task<bool> InvalidateAdditionalContentItemIdsAsync(Processing processing, IEnumerable<RelatedItems> data);
 
