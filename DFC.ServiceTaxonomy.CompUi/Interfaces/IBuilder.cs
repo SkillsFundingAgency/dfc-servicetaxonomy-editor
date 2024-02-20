@@ -27,20 +27,19 @@ namespace DFC.ServiceTaxonomy.CompUi.Interfaces
 
         Task<bool> InvalidatePersonalityTraitAsync(Processing processing);
 
+        //Task<bool> InvalidateJobProfileCategoryAsync(Processing processing);
+
         Task<bool> InvalidateAdditionalContentItemIdsAsync(Processing processing, IEnumerable<RelatedItems> data);
 
         //Task<string> GetSharedContentNodeIdAsync(Processing processing, IEnumerable<NodeItem> data);
 
         //Task<string> GetPageNodeIdAsync(Processing processing);
 
-        Task<bool> InvalidateJobProfileCategories(Processing processing);   
+        Task<bool> InvalidateJobProfileCategories(Processing processing);
+        Task<bool> InvalidateJobProfileCategory();
+        Task<bool> InvalidateJobProfileOverview(Processing processing);
+        Task<bool> InvalidateJobProfile(Processing processing);
 
-        Task<bool> InvalidateNodeAsync(Processing processing);
-
-
-        
-
-        
-
+        //Task<bool> InvalidateNodeAsync(Processing processing);
     }
 }

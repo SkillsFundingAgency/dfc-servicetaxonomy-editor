@@ -41,19 +41,20 @@ namespace DFC.ServiceTaxonomy.CompUi.Services
             return success;
         }
 
-
         public async Task<bool> ProcessJobProfileCategoryAsync(Processing processing)
         {
-            var success = await _builder.InvalidateJobProfileCategories(processing);
-            return true;
+            var success = await _builder.InvalidateJobProfileCategory();
+            success = await _builder.InvalidateJobProfileOverview(processing);
+            success = await _builder.InvalidateJobProfile(processing);
+            return success;
         }
 
         public async Task<bool> ProcessJobProfileAsync(Processing processing)
         {
-            //await ProcessPublishedJobProfileCategoryAsync(processing);
-            // var formattedNodeId = ResolvePublishNodeId(nodeId, content, processing.ContentType);
-            //success = await _sharedContentRedisInterface.InvalidateEntityAsync(formattedNodeId);
-            return true;
+            var success = await _builder.InvalidateJobProfileCategories(processing);
+            success = await _builder.InvalidateJobProfileOverview(processing);
+            success = await _builder.InvalidateJobProfile(processing);
+            return success;
         }
 
         public async Task<bool> ProcessTriageToolFilterAsync(Processing processing) => throw new NotImplementedException();
@@ -61,6 +62,12 @@ namespace DFC.ServiceTaxonomy.CompUi.Services
 
         public async Task<bool> ProcessPersonalityFilteringQuestionAsync(Processing processing)
         {
+            //Issues -> speak to Zl can't create question as I don't have a SOC Skills Matrix
+
+            //Data dependencies:
+            //PersonalityFilteringQuestion
+            //SOCSkillsMatrix
+
             var data = await _builder.GetRelatedContentItemIdsAsync(processing);
             var success = await _builder.InvalidateAdditionalContentItemIdsAsync(processing, data);
             success = await _builder.InvalidatePersonalityFilteringQuestionAsync(processing);
@@ -69,6 +76,12 @@ namespace DFC.ServiceTaxonomy.CompUi.Services
 
         public async Task<bool> ProcessPersonalityQuestionSetAsync(Processing processing)
         {
+            //Data dependencies:
+            //Personality Question Set
+            //PersonalityShortQuestion
+            //Personality Trait
+            //JobProfileCategory
+
             var data = await _builder.GetRelatedContentItemIdsAsync(processing);
             var success = await _builder.InvalidateAdditionalContentItemIdsAsync(processing, data);
             success = await _builder.InvalidatePersonalityQuestionSetAsync(processing);
@@ -85,6 +98,11 @@ namespace DFC.ServiceTaxonomy.CompUi.Services
 
         public async Task<bool> ProcessPersonalityTraitAsync(Processing processing)
         {
+            //Data dependencies:
+            //Personality Trait
+            //JobProfileCategory
+            //JobProfile
+
             var data = await _builder.GetRelatedContentItemIdsAsync(processing);
             var success = await _builder.InvalidateAdditionalContentItemIdsAsync(processing, data);
             success = await _builder.InvalidatePersonalityTraitAsync(processing);

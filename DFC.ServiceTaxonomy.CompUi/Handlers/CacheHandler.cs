@@ -92,56 +92,59 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
 
     private async Task ProcessItem(Processing processing)
     {
-        switch (processing.ContentType)
+        if (Enum.IsDefined(typeof(PublishedContentTypes), processing.ContentType))
         {
-            case nameof(PublishedContentTypes.SharedContent):
-                await _director.ProcessSharedContentAsync(processing);
-                break;
-            case nameof(PublishedContentTypes.Page):
-                await _director.ProcessPageAsync(processing);
-                break;
-            case nameof(PublishedContentTypes.Banner):
-                await _director.ProcessBannerAsync(processing);
-                break;
-            case nameof(PublishedContentTypes.JobProfileCategory):
-                await _director.ProcessJobProfileCategoryAsync(processing);
-                break;
-            case nameof(PublishedContentTypes.JobProfile):
-                await _director.ProcessJobProfileAsync(processing);
-                break;
-            case nameof(PublishedContentTypes.Pagebanner):
-                await _director.ProcessPagebannerAsync(processing);
-                break;
-            case nameof(PublishedContentTypes.TriageToolFilter):
-                await _director.ProcessTriageToolFilterAsync(processing);
-                break;
-            case nameof(PublishedContentTypes.TriageToolOption):
-                await _director.ProcessTriageToolOptionAsync(processing);
-                break;
-            case nameof(PublishedContentTypes.PersonalityFilteringQuestion):
-                await _director.ProcessPersonalityFilteringQuestionAsync(processing);
-                break;
-            case nameof(PublishedContentTypes.PersonalityQuestionSet):
-                await _director.ProcessPersonalityQuestionSetAsync(processing);
-                break;
-            case nameof(PublishedContentTypes.PersonalityShortQuestion):
-                await _director.ProcessPersonalityShortQuestionAsync(processing);
-                break;
-            case nameof(PublishedContentTypes.PersonalityTrait):
-                await _director.ProcessPersonalityTraitAsync(processing);
-                break;
-            case nameof(PublishedContentTypes.SOCCode):
-                await _director.ProcessSOCCodeAsync(processing);
-                break;
-            case nameof(PublishedContentTypes.SOCSkillsMatrix):
-                await _director.ProcessSOCSkillsMatrixAsync(processing);
-                break;
-            case nameof(PublishedContentTypes.DynamicTitlePrefix):
-                await _director.ProcessDynamicTitlePrefixAsync(processing);
-                break;
-            default:
-                _logger.LogError($"DetermineProcess. Content Type could not be determined: {processing.ContentType}");
-                break;
+            switch (processing.ContentType)
+            {
+                case nameof(PublishedContentTypes.SharedContent):
+                    await _director.ProcessSharedContentAsync(processing);
+                    break;
+                case nameof(PublishedContentTypes.Page):
+                    await _director.ProcessPageAsync(processing);
+                    break;
+                case nameof(PublishedContentTypes.Banner):
+                    await _director.ProcessBannerAsync(processing);
+                    break;
+                case nameof(PublishedContentTypes.JobProfileCategory):
+                    await _director.ProcessJobProfileCategoryAsync(processing);
+                    break;
+                case nameof(PublishedContentTypes.JobProfile):
+                    await _director.ProcessJobProfileAsync(processing);
+                    break;
+                case nameof(PublishedContentTypes.Pagebanner):
+                    await _director.ProcessPagebannerAsync(processing);
+                    break;
+                case nameof(PublishedContentTypes.TriageToolFilter):
+                    await _director.ProcessTriageToolFilterAsync(processing);
+                    break;
+                case nameof(PublishedContentTypes.TriageToolOption):
+                    await _director.ProcessTriageToolOptionAsync(processing);
+                    break;
+                case nameof(PublishedContentTypes.PersonalityFilteringQuestion):
+                    await _director.ProcessPersonalityFilteringQuestionAsync(processing);
+                    break;
+                case nameof(PublishedContentTypes.PersonalityQuestionSet):
+                    await _director.ProcessPersonalityQuestionSetAsync(processing);
+                    break;
+                case nameof(PublishedContentTypes.PersonalityShortQuestion):
+                    await _director.ProcessPersonalityShortQuestionAsync(processing);
+                    break;
+                case nameof(PublishedContentTypes.PersonalityTrait):
+                    await _director.ProcessPersonalityTraitAsync(processing);
+                    break;
+                case nameof(PublishedContentTypes.SOCCode):
+                    await _director.ProcessSOCCodeAsync(processing);
+                    break;
+                case nameof(PublishedContentTypes.SOCSkillsMatrix):
+                    await _director.ProcessSOCSkillsMatrixAsync(processing);
+                    break;
+                case nameof(PublishedContentTypes.DynamicTitlePrefix):
+                    await _director.ProcessDynamicTitlePrefixAsync(processing);
+                    break;
+                default:
+                    _logger.LogError($"DetermineProcess. Content Type could not be determined: {processing.ContentType}");
+                    break;
+            }
         }
     }
 
@@ -150,7 +153,8 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
         var processing = _mapper.Map<Processing>(context);
         processing.EventType = ProcessingEvents.Removed;
 
-        await RemoveContentItem(processing);
+        await ProcessItem(processing);
+        //await RemoveContentItem(processing);
 
         await base.RemovedAsync(context);
     }
@@ -160,7 +164,8 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
         var processing = _mapper.Map<Processing>(context);
         processing.EventType = ProcessingEvents.Unpublished;
 
-        await ProcessContentItem(processing);
+        await ProcessItem(processing);
+        //await ProcessContentItem(processing);
 
         await base.UnpublishedAsync(context);
     }
@@ -174,20 +179,22 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
 
             if (Enum.IsDefined(typeof(DraftContentTypes), processing.ContentType))
             {
-                var results = await GetData(processing.ContentItemId, processing.Latest, processing.Published);
+                var success = await _director.ProcessPageAsync(processing);
 
-                foreach (var result in results)
-                {
-                    await _notifier.InformationAsync(_htmlLocalizer[$"The following NodeId will be refreshed {result.NodeId}-DRAFT"]);
+                //var results = await GetData(processing.ContentItemId, processing.Latest, processing.Published);
 
-                    var nodeId = ResolveDraftNodeId(result, context.ContentItem.ContentType);
-                    var success = await _sharedContentRedisInterface.InvalidateEntityAsync(nodeId);
+                //foreach (var result in results)
+                //{
+                //    await _notifier.InformationAsync(_htmlLocalizer[$"The following NodeId will be refreshed {result.NodeId}-DRAFT"]);
 
-                    success = await _sharedContentRedisInterface.InvalidateEntityAsync($"PageLocation{Draft}");
-                    success = await _sharedContentRedisInterface.InvalidateEntityAsync($"pagesurl{Draft}");
+                //    var nodeId = ResolveDraftNodeId(result, context.ContentItem.ContentType);
+                //    var success = await _sharedContentRedisInterface.InvalidateEntityAsync(nodeId);
 
-                    _logger.LogInformation($"Draft. The following NodeId will be invalidated: {result.NodeId}, status: {success}.");
-                }
+                //    success = await _sharedContentRedisInterface.InvalidateEntityAsync($"PageLocation{Draft}");
+                //    success = await _sharedContentRedisInterface.InvalidateEntityAsync($"pagesurl{Draft}");
+
+                //    _logger.LogInformation($"Draft. The following NodeId will be invalidated: {result.NodeId}, status: {success}.");
+                //}
             }
         }
         catch (Exception exception)
@@ -311,7 +318,7 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
         return await ExecuteQuery<NodeItem>(sql);
     }
 
-    private async Task<IEnumerable<JobProfileCategories>?> GetJobProfileCategoriesData(int contentItemId, int latest, int published)
+    private async Task<IEnumerable<JobProfileCategoriesContent>?> GetJobProfileCategoriesData(int contentItemId, int latest, int published)
     {
         var sql = $"SELECT DISTINCT JSON_QUERY(Content, '$.JobProfile.JobProfileCategory.ContentItemIds') AS ContentItemIds " +
                 $"FROM Document D WITH (NOLOCK) " +
@@ -319,7 +326,7 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
                 $"WHERE D.Id = {contentItemId} " +
                 $"AND CII.Latest = {latest} AND CII.Published = {published} ";
 
-        return await ExecuteQuery<JobProfileCategories>(sql);
+        return await ExecuteQuery<JobProfileCategoriesContent>(sql);
     }
 
     private async Task<IEnumerable<T>?> ExecuteQuery<T>(string sql)
@@ -445,7 +452,7 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
 
     private async Task ProcessPublishedJobProfileCategoryAsync(Processing processing)
     {
-        IEnumerable<JobProfileCategories>? results = await GetJobProfileCategoriesData(processing.ContentItemId, processing.Latest, processing.Published);
+        IEnumerable<JobProfileCategoriesContent>? results = await GetJobProfileCategoriesData(processing.ContentItemId, processing.Latest, processing.Published);
 
         if (results == null)
         {
@@ -456,23 +463,23 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
 
         foreach (var result in results)
         {
-            string[] contentItemId = result.ContentItemIds.TrimStart('[').TrimEnd(']').Split(',');
-            foreach (var item in contentItemId)
-            {
-                IEnumerable<NodeItem>? contentNodeId = await GetContentItem(item.Replace("\"", "'"), processing.Latest, processing.Published);
+            //string[] contentItemId = result.ContentItemIds.TrimStart('[').TrimEnd(']').Split(',');
+            //foreach (var item in contentItemId)
+            //{
+            //    IEnumerable<NodeItem>? contentNodeId = await GetContentItem(item.Replace("\"", "'"), processing.Latest, processing.Published);
 
-                if (contentItemId != null)
-                {
-                    var currentNode = contentNodeId.FirstOrDefault();
-                    var nodeId = FormatJobProfileCategoryNodeId(currentNode.Content);
-                    var success = await _sharedContentRedisInterface.InvalidateEntityAsync(nodeId);
-                    _logger.LogInformation($"{processing.EventType}. The following NodeId will be invalidated: {nodeId}, success: {success}.");
-                }
-                else
-                {
-                    _logger.LogInformation($"{processing.EventType}. Could not invalidate: {processing.ContentItemId} as no data was retrieved, success: false.");
-                }
-            }
+            //    if (contentItemId != null)
+            //    {
+            //        var currentNode = contentNodeId.FirstOrDefault();
+            //        var nodeId = FormatJobProfileCategoryNodeId(currentNode.Content);
+            //        var success = await _sharedContentRedisInterface.InvalidateEntityAsync(nodeId);
+            //        _logger.LogInformation($"{processing.EventType}. The following NodeId will be invalidated: {nodeId}, success: {success}.");
+            //    }
+            //    else
+            //    {
+            //        _logger.LogInformation($"{processing.EventType}. Could not invalidate: {processing.ContentItemId} as no data was retrieved, success: false.");
+            //    }
+            //}
         }
     }
 
