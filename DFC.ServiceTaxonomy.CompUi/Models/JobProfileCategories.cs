@@ -1,5 +1,4 @@
-﻿using System.Reflection;
-using System.Text.Json;
+﻿using System.Text.Json;
 using Newtonsoft.Json;
 
 namespace DFC.ServiceTaxonomy.CompUi.Models
@@ -7,7 +6,7 @@ namespace DFC.ServiceTaxonomy.CompUi.Models
     public class JobProfileCategoriesContent
     {
         [JsonProperty("TitlePart")]
-        public TitleDesc TitlePart {get; set;}
+        public TitleDesc? TitlePart {get; set;}
 
         //public string? NodeId { get; set; }
 
@@ -31,6 +30,6 @@ namespace DFC.ServiceTaxonomy.CompUi.Models
     public class ContentItemIds
     {
         [JsonProperty("ContentItemIds")]
-        public string[] ContentItemId { get; set; }
+        public string[]? ContentItemId { get; set; }
     }
 }

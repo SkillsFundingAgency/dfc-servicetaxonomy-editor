@@ -12,7 +12,6 @@ namespace DFC.ServiceTaxonomy.CompUi.Interfaces
         Task<bool> ProcessJobProfileAsync(Processing processing);
         Task<bool> ProcessPagebannerAsync(Processing processing);
         Task<bool> ProcessTriageToolFilterAsync(Processing processing);
-        Task<bool> ProcessTriageToolOptionAsync(Processing processing);
         Task<bool> ProcessPersonalityFilteringQuestionAsync(Processing processing);
         Task<bool> ProcessPersonalityQuestionSetAsync(Processing processing);
         Task<bool> ProcessPersonalityShortQuestionAsync(Processing processing);

@@ -83,69 +83,10 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
         processing.EventType = ProcessingEvents.Published;
 
         await ProcessItem(processing);
-        //var test = PublishedContentTypes.SharedContent.ToString();
 
         //await ProcessContentItem(processing);
 
         await base.PublishedAsync(context);
-    }
-
-    private async Task ProcessItem(Processing processing)
-    {
-        if (Enum.IsDefined(typeof(PublishedContentTypes), processing.ContentType))
-        {
-            switch (processing.ContentType)
-            {
-                case nameof(PublishedContentTypes.SharedContent):
-                    await _director.ProcessSharedContentAsync(processing);
-                    break;
-                case nameof(PublishedContentTypes.Page):
-                    await _director.ProcessPageAsync(processing);
-                    break;
-                case nameof(PublishedContentTypes.Banner):
-                    await _director.ProcessBannerAsync(processing);
-                    break;
-                case nameof(PublishedContentTypes.JobProfileCategory):
-                    await _director.ProcessJobProfileCategoryAsync(processing);
-                    break;
-                case nameof(PublishedContentTypes.JobProfile):
-                    await _director.ProcessJobProfileAsync(processing);
-                    break;
-                case nameof(PublishedContentTypes.Pagebanner):
-                    await _director.ProcessPagebannerAsync(processing);
-                    break;
-                case nameof(PublishedContentTypes.TriageToolFilter):
-                    await _director.ProcessTriageToolFilterAsync(processing);
-                    break;
-                case nameof(PublishedContentTypes.TriageToolOption):
-                    await _director.ProcessTriageToolOptionAsync(processing);
-                    break;
-                case nameof(PublishedContentTypes.PersonalityFilteringQuestion):
-                    await _director.ProcessPersonalityFilteringQuestionAsync(processing);
-                    break;
-                case nameof(PublishedContentTypes.PersonalityQuestionSet):
-                    await _director.ProcessPersonalityQuestionSetAsync(processing);
-                    break;
-                case nameof(PublishedContentTypes.PersonalityShortQuestion):
-                    await _director.ProcessPersonalityShortQuestionAsync(processing);
-                    break;
-                case nameof(PublishedContentTypes.PersonalityTrait):
-                    await _director.ProcessPersonalityTraitAsync(processing);
-                    break;
-                case nameof(PublishedContentTypes.SOCCode):
-                    await _director.ProcessSOCCodeAsync(processing);
-                    break;
-                case nameof(PublishedContentTypes.SOCSkillsMatrix):
-                    await _director.ProcessSOCSkillsMatrixAsync(processing);
-                    break;
-                case nameof(PublishedContentTypes.DynamicTitlePrefix):
-                    await _director.ProcessDynamicTitlePrefixAsync(processing);
-                    break;
-                default:
-                    _logger.LogError($"DetermineProcess. Content Type could not be determined: {processing.ContentType}");
-                    break;
-            }
-        }
     }
 
     public async Task ProcessRemovedAsync(RemoveContentContext context)
@@ -199,11 +140,73 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
         }
         catch (Exception exception)
         {
-            await _notifier.InformationAsync(_htmlLocalizer[$"Exception: {exception}"]);
-            _logger.LogError(exception, $"Draft. Exception when saving draft: {exception}");
+            //await _notifier.InformationAsync(_htmlLocalizer[$"Exception: {exception}"]);
+            _logger.LogError(exception, message: $"Draft. Exception when saving draft");
         }
 
         await base.DraftSavedAsync(context);
+    }
+
+    private async Task ProcessItem(Processing processing)
+    {
+        try
+        {
+            if (Enum.IsDefined(typeof(PublishedContentTypes), processing.ContentType))
+            {
+                switch (processing.ContentType)
+                {
+                    case nameof(PublishedContentTypes.SharedContent):
+                        await _director.ProcessSharedContentAsync(processing);
+                        break;
+                    case nameof(PublishedContentTypes.Page):
+                        await _director.ProcessPageAsync(processing);
+                        break;
+                    case nameof(PublishedContentTypes.Banner):
+                        await _director.ProcessBannerAsync(processing);
+                        break;
+                    case nameof(PublishedContentTypes.JobProfileCategory):
+                        await _director.ProcessJobProfileCategoryAsync(processing);
+                        break;
+                    case nameof(PublishedContentTypes.JobProfile):
+                        await _director.ProcessJobProfileAsync(processing);
+                        break;
+                    case nameof(PublishedContentTypes.Pagebanner):
+                        await _director.ProcessPagebannerAsync(processing);
+                        break;
+                    case nameof(PublishedContentTypes.TriageToolFilter):
+                        await _director.ProcessTriageToolFilterAsync(processing);
+                        break;
+                    case nameof(PublishedContentTypes.PersonalityFilteringQuestion):
+                        await _director.ProcessPersonalityFilteringQuestionAsync(processing);
+                        break;
+                    case nameof(PublishedContentTypes.PersonalityQuestionSet):
+                        await _director.ProcessPersonalityQuestionSetAsync(processing);
+                        break;
+                    case nameof(PublishedContentTypes.PersonalityShortQuestion):
+                        await _director.ProcessPersonalityShortQuestionAsync(processing);
+                        break;
+                    case nameof(PublishedContentTypes.PersonalityTrait):
+                        await _director.ProcessPersonalityTraitAsync(processing);
+                        break;
+                    case nameof(PublishedContentTypes.SOCCode):
+                        await _director.ProcessSOCCodeAsync(processing);
+                        break;
+                    case nameof(PublishedContentTypes.SOCSkillsMatrix):
+                        await _director.ProcessSOCSkillsMatrixAsync(processing);
+                        break;
+                    case nameof(PublishedContentTypes.DynamicTitlePrefix):
+                        await _director.ProcessDynamicTitlePrefixAsync(processing);
+                        break;
+                    default:
+                        _logger.LogError($"ProcessItem. Content Item Id: {processing.ContentItemId}, Content Type could not be determined: {processing.ContentType}, Event Type: {processing.EventType}");
+                        break;
+                }
+            }
+        }
+        catch (Exception exception)
+        {
+            _logger.LogError(exception, $"ProcessItem. Content Item Id: {processing.ContentItemId}, Content Type could not be determined: {processing.ContentType}, Event Type: {processing.EventType}.");
+        }
     }
 
     private async Task RemoveContentItem(Processing processing)
@@ -428,9 +431,9 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
         {
             IEnumerable<NodeItem>? results = await _dapperWrapper.QueryAsync<NodeItem>(connection,
             $"SELECT DISTINCT GSPI.NodeId, Content " +
-            $"FROM GraphSyncPartIndex GSPI WITH(NOLOCK) " +
-            $"JOIN ContentItemIndex CII WITH(NOLOCK) ON GSPI.ContentItemId = CII.ContentItemId " +
-            $"JOIN Document D WITH(NOLOCK) ON D.Id = CII.DocumentId " +
+            $"FROM GraphSyncPartIndex GSPI WITH (NOLOCK) " +
+            $"JOIN ContentItemIndex CII WITH (NOLOCK) ON GSPI.ContentItemId = CII.ContentItemId " +
+            $"JOIN Document D WITH (NOLOCK) ON D.Id = CII.DocumentId " +
             $"WHERE CII.Published = 1 AND CII.Latest = 1 " +
             $"AND CII.ContentType = 'Pagebanner' " +
             $"AND D.Content LIKE '%{contentItemId}%' ");

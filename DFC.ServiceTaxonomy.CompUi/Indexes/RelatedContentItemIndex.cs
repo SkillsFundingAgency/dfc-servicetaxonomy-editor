@@ -3,8 +3,6 @@ using Newtonsoft.Json.Linq;
 using Newtonsoft.Json;
 using OrchardCore.ContentManagement;
 using YesSql.Indexes;
-using DFC.Common.SharedContent.Pkg.Netcore.Model.ContentItems;
-using DFC.ServiceTaxonomy.CompUi.Models;
 
 namespace DFC.ServiceTaxonomy.CompUi.Indexes
 {
@@ -49,9 +47,8 @@ namespace DFC.ServiceTaxonomy.CompUi.Indexes
                         {
                             ContentItemId = contentItem.ContentItemId,
                             ContentType = contentItem.ContentType,
-                            RelatedContentIds = contentIdList, //string.Join(',', tiles),
+                            RelatedContentIds = contentIdList,
                         };
-                        //}
                     });
         }
     }

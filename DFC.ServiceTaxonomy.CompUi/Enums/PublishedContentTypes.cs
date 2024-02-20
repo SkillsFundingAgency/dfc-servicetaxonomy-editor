@@ -9,7 +9,6 @@
         Pagebanner,
         SharedContent,
         TriageToolFilter,
-        TriageToolOption,
         PersonalityFilteringQuestion,
         PersonalityQuestionSet,
         PersonalityShortQuestion,
