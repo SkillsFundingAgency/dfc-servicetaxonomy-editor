@@ -27,6 +27,8 @@ namespace DFC.ServiceTaxonomy.CompUi.Interfaces
 
         Task<bool> InvalidatePersonalityTraitAsync(Processing processing);
 
+        Task<bool> InvalidateTriageToolFiltersAsync(Processing processing);
+
         Task<bool> InvalidateAdditionalContentItemIdsAsync(Processing processing, IEnumerable<RelatedItems> data);
 
         //Task<string> GetSharedContentNodeIdAsync(Processing processing, IEnumerable<NodeItem> data);

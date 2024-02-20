@@ -27,6 +27,7 @@ namespace DFC.ServiceTaxonomy.CompUi.Services
         private const string Prefix = "<<contentapiprefix>>/sharedcontent";
         private const string DysacFilteringQuestion = "DYSAC/FilteringQuestion";
         private const string DysacQuestionSet = "DYSAC/QuestionSet";
+        private const string TriageToolFilters = "TriageToolFilters/All";
         private const string DysacShortQuestion = "DYSAC/ShortQuestion";  //TBC with the dev
         private const string DysacPersonalityTrait = "DYSAC/PersonalityTrait";  //TBC with the dev
         private const string JobProfileCategories = "JobProfiles/Categories";
@@ -138,6 +139,17 @@ namespace DFC.ServiceTaxonomy.CompUi.Services
         {
             var success = await _sharedContentRedisInterface.InvalidateEntityAsync(DysacPersonalityTrait);
 
+            return success;
+        }
+
+        public async Task<bool> InvalidateTriageToolFiltersAsync(Processing processing)
+        {
+            var success = true;
+            if (!string.IsNullOrEmpty(processing.Content))
+            {
+                success = await _sharedContentRedisInterface.InvalidateEntityAsync(TriageToolFilters);
+                _logger.LogInformation($"{processing.EventType}. The following NodeId will be invalidated : {TriageToolFilters}, success: {success}");
+            }
             return success;
         }
 

@@ -26,6 +26,7 @@ namespace DFC.ServiceTaxonomy.CompUi.Services
             //var data = await _builder.GetDataAsync(processing);
             var success = await _builder.InvalidateAdditionalPageNodesAsync(processing);
             success = await _builder.InvalidatePageNodeAsync(processing);
+            success = await _builder.InvalidateTriageToolFiltersAsync(processing);
             return success;
         }
 
@@ -33,6 +34,12 @@ namespace DFC.ServiceTaxonomy.CompUi.Services
         {
             var success = await _builder.InvalidatePageBannerAsync(processing);
             return true;
+        }
+
+        public async Task<bool> ProcessTriageToolFilterAsync(Processing processing)
+        {
+            var success = await _builder.InvalidateTriageToolFiltersAsync(processing);
+            return success;
         }
 
         public async Task<bool> ProcessPagebannerAsync(Processing processing)
@@ -56,7 +63,6 @@ namespace DFC.ServiceTaxonomy.CompUi.Services
             return true;
         }
 
-        public async Task<bool> ProcessTriageToolFilterAsync(Processing processing) => throw new NotImplementedException();
         public async Task<bool> ProcessTriageToolOptionAsync(Processing processing) => throw new NotImplementedException();
 
         public async Task<bool> ProcessPersonalityFilteringQuestionAsync(Processing processing)
