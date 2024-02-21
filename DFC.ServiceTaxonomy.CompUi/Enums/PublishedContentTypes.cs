@@ -15,6 +15,9 @@
         PersonalityTrait,
         SOCCode,
         SOCSkillsMatrix,
-        DynamicTitlePrefix
+        DynamicTitlePrefix,
+        WorkingPatterns,
+        WorkingPatternDetail,
+        WorkingHoursDetail
     }
 }

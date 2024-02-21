@@ -46,10 +46,13 @@ namespace DFC.ServiceTaxonomy.CompUi.Services
         }
 
         public async Task<IEnumerable<NodeItem>> GetDataAsync(Processing processing)
-            => await GetDataAsync(processing.ContentItemId, processing.Latest, processing.Published);
+            => await GetDataAsync(processing.DocumentId, processing.Latest, processing.Published);
 
         public async Task<IEnumerable<RelatedItems>?> GetRelatedContentItemIdsAsync(Processing processing)
-            => await GetRelatedContentItemIdsAsync(processing.ContentItemId);
+            => await GetRelatedContentItemIdsAsync(processing.DocumentId);
+
+        public async Task<IEnumerable<ContentItems>?> GetContentItemsByLikeQueryAsync(string contentType, string queryIds)
+            => await GetContentItemsByLikeAsync(contentType, queryIds);
 
         public async Task<bool> InvalidateBannerAsync(Processing processing) => await InvalidatePageBannerAsync(processing);
 
@@ -59,11 +62,11 @@ namespace DFC.ServiceTaxonomy.CompUi.Services
 
             if (!string.IsNullOrEmpty(processing.Content))
             {
-                var data = await GetRelatedContentItemIdsForBannersAsync(processing.ContentItemId);
+                var data = await GetRelatedContentItemIdsForBannersAsync(processing.DocumentId);
 
                 if (data == null)
                 {
-                    _logger.LogError($"Event Type: {processing.EventType}. Content Type: {processing.ContentType}. No data could be found for the following ContentItemId: {processing.ContentItemId}.");
+                    _logger.LogError($"Event Type: {processing.EventType}. Content Type: {processing.ContentType}. No data could be found for the following ContentItemId: {processing.DocumentId}.");
                     return false;
                 }
 
@@ -134,7 +137,6 @@ namespace DFC.ServiceTaxonomy.CompUi.Services
             if (!string.IsNullOrEmpty(processing.Content))
             {
                 success = await _sharedContentRedisInterface.InvalidateEntityAsync(TriageToolFilters);
-                _logger.LogInformation($"{processing.EventType}. The following NodeId will be invalidated : {TriageToolFilters}, success: {success}");
                 LogNodeInvalidation(processing, TriageToolFilters, success);
             }
             return success;
@@ -295,6 +297,7 @@ namespace DFC.ServiceTaxonomy.CompUi.Services
             var success = await _sharedContentRedisInterface.InvalidateEntityAsync(JobProfileCategories);
             return success;
         }
+
         public async Task<bool> InvalidateJobProfileAsync(Processing processing)
         {
             var result = JsonConvert.DeserializeObject<Page>(processing.Content);
@@ -303,6 +306,22 @@ namespace DFC.ServiceTaxonomy.CompUi.Services
             LogNodeInvalidation(processing, nodeId, success);
             return success;
         }
+
+        //private async Task InvalidateWorkingPatternsAsync(Processing processing)
+        //{
+
+        //}
+
+        //private async Task InvalidateWorkingPatternDetailAsync(Processing processing)
+        //{
+
+        //}
+
+        //private async Task InvalidateWorkingHoursDetailAsync(Processing processing)
+        //{
+
+        //}
+
 
         private async Task<IEnumerable<NodeItem>?> GetDataAsync(int contentItemId, int latest, int published)
         {
@@ -330,7 +349,7 @@ namespace DFC.ServiceTaxonomy.CompUi.Services
         //    return await ExecuteQuery<NodeItem>(sql);
         //}
 
-        private async Task<IEnumerable<PageBannerRelatedItems>?> GetRelatedContentItemIdsForBannersAsync(int documentId)
+        private async Task<IEnumerable<ContentItems>?> GetRelatedContentItemIdsForBannersAsync(int documentId)
         {
             try
             {
@@ -345,14 +364,7 @@ namespace DFC.ServiceTaxonomy.CompUi.Services
                         queryIds += item;
                     }
 
-                    sql = $"SELECT DISTINCT Content, ContentType FROM ContentItemIndex CII WITH(NOLOCK) " +
-                        $"JOIN Document D WITH(NOLOCK) ON D.Id = CII.DocumentId " +
-                        $"WHERE CII.Published = 1 " +
-                        $"AND CII.Latest = 1  " +
-                        $"AND CII.ContentType = 'Pagebanner' " +
-                        $"AND D.Content LIKE '%{queryIds}%' ";
-
-                    var invalidationList = await ExecuteQuery<PageBannerRelatedItems>(sql);
+                    var invalidationList = await GetContentItemsByLikeAsync("Pagebanner", queryIds); 
 
                     return invalidationList;
                 }
@@ -363,6 +375,20 @@ namespace DFC.ServiceTaxonomy.CompUi.Services
             }
 
             return null;
+        }
+
+        private async Task<IEnumerable<ContentItems>?> GetContentItemsByLikeAsync(string contentType, string queryIds)
+        {
+            var sql = $"SELECT DISTINCT Content, ContentType FROM ContentItemIndex CII WITH(NOLOCK) " +
+                                    $"JOIN Document D WITH(NOLOCK) ON D.Id = CII.DocumentId " +
+                                    $"WHERE CII.Published = 1 " +
+                                    $"AND CII.Latest = 1  " +
+                                    $"AND CII.ContentType = '{contentType}' " +
+                                    $"AND D.Content LIKE '%{queryIds}%' ";
+
+            var invalidationList = await ExecuteQuery<ContentItems>(sql);
+
+            return invalidationList;
         }
 
         private async Task<IEnumerable<RelatedItems>?> GetRelatedContentItemIdsAsync(int documentId)
@@ -459,7 +485,7 @@ namespace DFC.ServiceTaxonomy.CompUi.Services
         private void LogNodeInvalidation(Processing processing, string nodeId, bool status)
         {
             _logger.LogInformation($"Event Type: {processing.EventType}. " +
-                $"Content Item Id: {processing.ContentItemId}. " +
+                $"Content Item Id: {processing.DocumentId}. " +
                 $"Content Type: {processing.ContentType}.  " +
                 $"The following NodeId will be invalidated: {nodeId}. " +
                 $"Success: {status}.");

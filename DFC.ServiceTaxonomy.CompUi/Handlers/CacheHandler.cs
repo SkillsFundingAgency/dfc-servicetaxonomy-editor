@@ -197,15 +197,24 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
                     case nameof(PublishedContentTypes.DynamicTitlePrefix):
                         await _director.ProcessDynamicTitlePrefixAsync(processing);
                         break;
+                    case nameof(PublishedContentTypes.WorkingPatterns):
+                        await _director.ProcessWorkingPatternsAsync(processing);
+                        break;
+                    case nameof(PublishedContentTypes.WorkingPatternDetail):
+                        await _director.ProcessWorkingPatternDetailAsync(processing);
+                        break;
+                    case nameof(PublishedContentTypes.WorkingHoursDetail):
+                        await _director.ProcessWorkingHoursDetailAsync(processing);
+                        break;
                     default:
-                        _logger.LogError($"ProcessItem. Content Item Id: {processing.ContentItemId}, Content Type could not be determined: {processing.ContentType}, Event Type: {processing.EventType}");
+                        _logger.LogError($"ProcessItem. Content Item Id: {processing.DocumentId}, Content Type could not be determined: {processing.ContentType}, Event Type: {processing.EventType}");
                         break;
                 }
             }
         }
         catch (Exception exception)
         {
-            _logger.LogError(exception, $"ProcessItem. Content Item Id: {processing.ContentItemId}, Content Type could not be determined: {processing.ContentType}, Event Type: {processing.EventType}.");
+            _logger.LogError(exception, $"ProcessItem. Content Item Id: {processing.DocumentId}, Content Type could not be determined: {processing.ContentType}, Event Type: {processing.EventType}.");
         }
     }
 
@@ -228,7 +237,7 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
                     <<contentapiprefix>>/pagebanner/451c79c0-fa49-42e6-91ac-42a9d140627c
                 */
 
-                var results = await GetDataWithoutGraphSyncJoin(processing.ContentItemId, processing.Latest, processing.Published);
+                var results = await GetDataWithoutGraphSyncJoin(processing.DocumentId, processing.Latest, processing.Published);
                 var nodeId = string.Empty;
                 //string token = string.Empty;
 
@@ -274,7 +283,7 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
         {
             if (Enum.IsDefined(typeof(PublishedContentTypes), processing.ContentType))
             {
-                var results = await GetData(processing.ContentItemId, processing.Latest, processing.Published);
+                var results = await GetData(processing.DocumentId, processing.Latest, processing.Published);
 
                 foreach (var result in results)
                 {
@@ -315,7 +324,6 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
     {
         var sql = $"SELECT DISTINCT D.Content " +
                 $"FROM Document D WITH (NOLOCK) " +
-                $"JOIN ContentItemIndex CII WITH (NOLOCK) ON D.Id = CII.DocumentId " +
                 $"WHERE CII.ContentItemId = {contentItem} ";
 
         return await ExecuteQuery<NodeItem>(sql);
@@ -455,11 +463,11 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
 
     private async Task ProcessPublishedJobProfileCategoryAsync(Processing processing)
     {
-        IEnumerable<JobProfileCategoriesContent>? results = await GetJobProfileCategoriesData(processing.ContentItemId, processing.Latest, processing.Published);
+        IEnumerable<JobProfileCategoriesContent>? results = await GetJobProfileCategoriesData(processing.DocumentId, processing.Latest, processing.Published);
 
         if (results == null)
         {
-            _logger.LogInformation($"{processing.EventType}. Could not invalidate: {processing.ContentItemId} as no data was retrieved by ContentId: {processing.ContentItemId}, " +
+            _logger.LogInformation($"{processing.EventType}. Could not invalidate: {processing.DocumentId} as no data was retrieved by ContentId: {processing.DocumentId}, " +
                 $"Latest: {processing.Latest}, Published: {processing.Published} success: false.");
             return;
         }

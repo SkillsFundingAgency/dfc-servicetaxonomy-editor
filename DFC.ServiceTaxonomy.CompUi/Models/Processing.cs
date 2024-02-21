@@ -6,7 +6,8 @@ namespace DFC.ServiceTaxonomy.CompUi.Models
     {
         public string? ContentType { get; set; }
         public string? Content { get; set; }
-        public int ContentItemId { get; set; }
+        public string? ContentItemId { get; set; }
+        public int DocumentId { get; set; }
         public int Latest { get; set; }
         public int Published { get; set; }
         public ProcessingEvents EventType { get; set; }

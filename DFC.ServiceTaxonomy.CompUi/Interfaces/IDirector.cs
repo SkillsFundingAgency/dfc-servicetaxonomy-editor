@@ -19,5 +19,9 @@ namespace DFC.ServiceTaxonomy.CompUi.Interfaces
         Task<bool> ProcessSOCCodeAsync(Processing processing);
         Task<bool> ProcessSOCSkillsMatrixAsync(Processing processing);
         Task<bool> ProcessDynamicTitlePrefixAsync(Processing processing);
+        Task ProcessWorkingPatternsAsync(Processing processing);
+        Task ProcessWorkingPatternDetailAsync(Processing processing);
+        Task ProcessWorkingHoursDetailAsync(Processing processing);
+
     }
 }

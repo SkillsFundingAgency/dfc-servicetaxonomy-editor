@@ -1,4 +1,5 @@
-﻿using DFC.ServiceTaxonomy.CompUi.Interfaces;
+﻿using System.ComponentModel.DataAnnotations;
+using DFC.ServiceTaxonomy.CompUi.Interfaces;
 using DFC.ServiceTaxonomy.CompUi.Models;
 
 namespace DFC.ServiceTaxonomy.CompUi.Services
@@ -119,5 +120,26 @@ namespace DFC.ServiceTaxonomy.CompUi.Services
         }
 
         public async Task<bool> ProcessDynamicTitlePrefixAsync(Processing processing) => throw new NotImplementedException();
+
+        public async Task ProcessWorkingPatternsAsync(Processing processing)
+        {
+            //await _builder.InvalidateWorkingPatternsAsync(processing);
+            var data = await _builder.GetContentItemsByLikeQueryAsync(processing.ContentType, processing.ContentItemId);
+            await _builder.InvalidateDysacJobProfileOverviewAsync(processing);
+        }
+
+        public async Task ProcessWorkingPatternDetailAsync(Processing processing)
+        {
+            //await _builder.InvalidateWorkingPatternsAsync(processing);
+            var data = await _builder.GetContentItemsByLikeQueryAsync(processing.ContentType, processing.ContentItemId);
+            await _builder.InvalidateDysacJobProfileOverviewAsync(processing);
+        }
+
+        public async Task ProcessWorkingHoursDetailAsync(Processing processing)
+        {
+            //await _builder.InvalidateWorkingPatternsAsync(processing);
+            var data = await _builder.GetContentItemsByLikeQueryAsync(processing.ContentType, processing.ContentItemId);
+            await _builder.InvalidateDysacJobProfileOverviewAsync(processing);
+        }
     }
 }

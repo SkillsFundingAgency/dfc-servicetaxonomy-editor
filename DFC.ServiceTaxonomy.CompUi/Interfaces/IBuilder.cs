@@ -9,6 +9,7 @@ namespace DFC.ServiceTaxonomy.CompUi.Interfaces
         Task<bool> InvalidatePageBannerAsync(Processing processing);
         Task<IEnumerable<NodeItem>> GetDataAsync(Processing processing);
         Task<IEnumerable<RelatedItems>?> GetRelatedContentItemIdsAsync(Processing processing);
+        Task<IEnumerable<ContentItems>?> GetContentItemsByLikeQueryAsync(string contentType, string queryIds);
         Task<bool> InvalidatePageNodeAsync(Processing processing);
         Task<bool> InvalidateAdditionalPageNodesAsync(Processing processing);
         Task<bool> InvalidateSharedContentAsync(Processing processing);
@@ -24,6 +25,10 @@ namespace DFC.ServiceTaxonomy.CompUi.Interfaces
         Task<bool> InvalidateJobProfileCategoriesAsync(Processing processing);
         Task<bool> InvalidateJobProfileCategoryAsync();
         Task<bool> InvalidateJobProfileAsync(Processing processing);
+        //Task<bool> InvalidateWorkingPatternsAsync(Processing processing);
+        //Task<bool> InvalidateWorkingPatternDetailAsync(Processing processing);
+        //Task<bool> InvalidateWorkingHoursDetailAsync(Processing processing);
+
         //Task<bool> InvalidateDysacJobProfileCategoryAsync(Processing processing);
         //Task<bool> InvalidateNodeAsync(Processing processing);
     }
