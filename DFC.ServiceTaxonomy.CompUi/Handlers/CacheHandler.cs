@@ -1,5 +1,6 @@
 ﻿using System.Data.Common;
 using DFC.Common.SharedContent.Pkg.Netcore.Interfaces;
+using DFC.Common.SharedContent.Pkg.Netcore.Model.ContentItems.PageBanner;
 using DFC.ServiceTaxonomy.CompUi.Dapper;
 using DFC.ServiceTaxonomy.CompUi.Enums;
 using DFC.ServiceTaxonomy.CompUi.Interfaces;
@@ -260,6 +261,12 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
             success = await _sharedContentRedisInterface.InvalidateEntityAsync(AllPageBanners);
         }
 
+        if (contentType == PublishedContentTypes.SharedContent.ToString())
+        {
+            //success = await _sharedContentRedisInterface.InvalidateEntityAsync(AllPageBanners);
+            InvalidatePageWithSharedContent(contentItemId);
+        }
+
         var formattedNodeId = ResolvePublishNodeId(nodeId, content, contentType);
         success = await _sharedContentRedisInterface.InvalidateEntityAsync(formattedNodeId);
 
@@ -335,6 +342,33 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
             //Additionally delete all page banners.  
             success = await _sharedContentRedisInterface.InvalidateEntityAsync(AllPageBanners);
             _logger.LogInformation($"Published. The following NodeId will be invalidated: {AllPageBanners}, success: {success}");
+        }
+    }
+
+    private async Task InvalidatePageWithSharedContent(int contentItemId)
+    {
+        await using (DbConnection? connection = _dbaAccessor.CreateConnection())
+        {
+            IEnumerable<string>? sharedContent = await _dapperWrapper.QueryAsync<string>(connection,
+            $"SELECT ContentItemId FROM ContentItemIndex AS CII WITH (NOLOCK) " +
+            $"WHERE DocumentId = {contentItemId} AND Latest = 1 AND Published = 1 ");
+
+            IEnumerable<NodeItem>? results = await _dapperWrapper.QueryAsync<NodeItem>(connection,
+            $"SELECT DocumentId, Content  FROM ContentItemIndex AS CII WITH (NOLOCK) " +
+            $"INNER JOIN Document AS D ON D.Id = CII.DocumentId " +
+            $"WHERE Latest = 1 " +
+            $"AND Published = 1 " +
+            $"AND ContentType = 'Page' " +
+            $"AND Content LIKE '%{sharedContent.FirstOrDefault()}%' ");
+
+            var success = true;
+
+            foreach (var result in results)
+            {
+                var pageObj = JsonConvert.DeserializeObject<Page>(result.Content);
+                var formattedNodeId = string.Concat(PublishedContentTypes.Page.ToString(), CheckLeadingChar(pageObj.PageLocationParts.FullUrl), Published);
+                success = await _sharedContentRedisInterface.InvalidateEntityAsync(formattedNodeId);
+            }
         }
     }
 
