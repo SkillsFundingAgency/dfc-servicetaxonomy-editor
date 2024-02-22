@@ -13,8 +13,8 @@ namespace DFC.ServiceTaxonomy.CompUi.Interfaces
 
         Task ProcessUnpublishedAsync(PublishContentContext context);
 
-        string ResolvePublishNodeId(string nodeId, string content, string contentType);
+        //string ResolvePublishNodeId(string nodeId, string content, string contentType);
 
-        string ResolveDraftNodeId(NodeItem nodeItem, string contentType);
+        //string ResolveDraftNodeId(NodeItem nodeItem, string contentType);
     }
 }

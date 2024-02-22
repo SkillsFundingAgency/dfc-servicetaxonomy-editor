@@ -25,8 +25,8 @@ namespace DFC.ServiceTaxonomy.CompUi.Services
         private const string Draft = "/DRAFT";
         private const string AllPageBanners = "PageBanners/All";
         private const string Prefix = "<<contentapiprefix>>/sharedcontent";
-        private const string DysacFilteringQuestion = "DYSAC/FilteringQuestion";
-        private const string DysacQuestionSet = "DYSAC/QuestionSet";
+        private const string DysacFilteringQuestion = "DYSAC/FilteringQuestions";
+        private const string DysacQuestionSet = "DYSAC/QuestionSets";
         private const string DysacJobProfileCategory = "DYSAC/JobProfileCategory";
         private const string TriageToolFilters = "TriageToolFilters/All";
         private const string DysacShortQuestion = "DYSAC/ShortQuestion";
@@ -164,22 +164,6 @@ namespace DFC.ServiceTaxonomy.CompUi.Services
                 }
             }
 
-            /*       
-                PersonalityFilteringQuestion - do we need to just call the above?
-                PersonalityQuestionSet - do we need to just call the above?
-                PersonalityShortQuestion,
-                PersonalityTrait,
-            */
-
-
-            //For each contentId we have in data we need to invalidate this?
-            //What's a nice way of doing this?
-            //Have a switch statement calling the relevant method in here?  Something else?
-            //This method is for
-            //SOCCode,
-            //SOCSkillsMatrix,
-            //DynamicTitlePrefix
-
             return success;
         }
 
@@ -199,14 +183,14 @@ namespace DFC.ServiceTaxonomy.CompUi.Services
             return success;
         }
 
-        public async Task<bool> InvalidatePageNodeAsync(Processing processing)
+        public async Task<bool> InvalidatePageNodeAsync(string content, ProcessingEvents processingEvents)
         {
-            if (!string.IsNullOrEmpty(processing.Content))
+            if (!string.IsNullOrEmpty(content))
             {
-                var pageLocation = JsonConvert.DeserializeObject<Page>(processing.Content);
+                var pageLocation = JsonConvert.DeserializeObject<Page>(content);
                 string? nodeId;
 
-                if (processing.EventType == ProcessingEvents.DraftSaved)
+                if (processingEvents == ProcessingEvents.DraftSaved)
                 {
                     nodeId = string.Concat(PublishedContentTypes.Page.ToString(), CheckLeadingChar(pageLocation.PageLocationParts.FullUrl), Draft);
                 }
@@ -216,33 +200,13 @@ namespace DFC.ServiceTaxonomy.CompUi.Services
                 }
 
                 var success = await _sharedContentRedisInterface.InvalidateEntityAsync(nodeId);
-                LogNodeInvalidation(processing, nodeId, success);
+                //LogNodeInvalidation(processing, nodeId, success);
 
                 return success;
             }
 
             return true;
         }
-
-        //public Task<bool> InvalidateJobProfileCategoryAsync(Processing processing)
-        //{
-        //    var success = true;
-
-        //    if (!string.IsNullOrEmpty(processing.Content))
-        //    {
-        //        //Need to get all job profile categories 
-        //    }
-
-        //    return success;  
-        //}
-
-        //public Task<bool> InvalidateNodeAsync(Processing processing)
-        //{
-        //    //Call the NuGet package invalidate method here.  
-        //    //throw new NotImplementedException();
-        //    return Task.FromResult(test);
-        //    return Task.FromResult(test);
-        //}
 
         public async Task<bool> InvalidateJobProfileCategoriesAsync(Processing processing)
         {
@@ -259,11 +223,14 @@ namespace DFC.ServiceTaxonomy.CompUi.Services
                     {
                         var currentNode = contentId.FirstOrDefault();
                         var currentNodeResult = JsonConvert.DeserializeObject<Page>(currentNode.Content);
+
                         var categoryNode = string.Concat(PublishedContentTypes.JobProfile.ToString(), "s", CheckLeadingChar(currentNodeResult.PageLocationParts.FullUrl));
                         success = await _sharedContentRedisInterface.InvalidateEntityAsync(categoryNode);
                         LogNodeInvalidation(processing, categoryNode, success);
+
                         var nodeId = string.Concat(DysacJobProfileCategory, CheckLeadingChar(currentNodeResult.PageLocationParts.FullUrl));
                         success = await _sharedContentRedisInterface.InvalidateEntityAsync(nodeId);
+
                         LogNodeInvalidation(processing, nodeId, success);
                     }
                 }
@@ -285,12 +252,27 @@ namespace DFC.ServiceTaxonomy.CompUi.Services
             return success;
         }
 
-        //public async Task<bool> InvalidateDysacJobProfileCategoryAsync(Processing processing)
-        //{
-        //    //DysacJobProfileCategory
+        public async Task InvalidateDysacJobProfileOverviewRelatedContentItemsAsync(Processing processing)
+        {
+            var data = await GetContentItemsByLikeQueryAsync(nameof(PublishedContentTypes.JobProfile), processing.ContentItemId);
 
-        //    return true;
-        //}
+            if (data != null)
+            {
+                foreach (var item in data)
+                {
+                    var jobProfile = JsonConvert.DeserializeObject<JobProfileCategoriesContent>(item.Content);
+                    var nodeId = string.Format(JobProfileOverview, CheckLeadingChar(jobProfile.TitlePart.Title));
+                    var success = await _sharedContentRedisInterface.InvalidateEntityAsync(nodeId);
+                    LogNodeInvalidation(processing, nodeId, success);
+                }
+            }
+
+            //var jobProfile = JsonConvert.DeserializeObject<JobProfileCategoriesContent>(processing.Content);
+            //var nodeId = string.Format(JobProfileOverview, CheckLeadingChar(jobProfile.TitlePart.Title));
+            //var success = await _sharedContentRedisInterface.InvalidateEntityAsync(nodeId);
+            //LogNodeInvalidation(processing, nodeId, success);
+            //return success;
+        }
 
         public async Task<bool> InvalidateJobProfileCategoryAsync()
         {
@@ -306,22 +288,6 @@ namespace DFC.ServiceTaxonomy.CompUi.Services
             LogNodeInvalidation(processing, nodeId, success);
             return success;
         }
-
-        //private async Task InvalidateWorkingPatternsAsync(Processing processing)
-        //{
-
-        //}
-
-        //private async Task InvalidateWorkingPatternDetailAsync(Processing processing)
-        //{
-
-        //}
-
-        //private async Task InvalidateWorkingHoursDetailAsync(Processing processing)
-        //{
-
-        //}
-
 
         private async Task<IEnumerable<NodeItem>?> GetDataAsync(int contentItemId, int latest, int published)
         {
@@ -364,7 +330,7 @@ namespace DFC.ServiceTaxonomy.CompUi.Services
                         queryIds += item;
                     }
 
-                    var invalidationList = await GetContentItemsByLikeAsync("Pagebanner", queryIds); 
+                    var invalidationList = await GetContentItemsByLikeAsync("Pagebanner", queryIds);
 
                     return invalidationList;
                 }
@@ -482,6 +448,7 @@ namespace DFC.ServiceTaxonomy.CompUi.Services
             return input;
         }
 
+        [DebuggerStepThrough]
         private void LogNodeInvalidation(Processing processing, string nodeId, bool status)
         {
             _logger.LogInformation($"Event Type: {processing.EventType}. " +

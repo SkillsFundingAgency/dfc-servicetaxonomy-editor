@@ -1,4 +1,5 @@
-﻿using DFC.ServiceTaxonomy.CompUi.Model;
+﻿using DFC.ServiceTaxonomy.CompUi.Enums;
+using DFC.ServiceTaxonomy.CompUi.Model;
 using DFC.ServiceTaxonomy.CompUi.Models;
 
 namespace DFC.ServiceTaxonomy.CompUi.Interfaces
@@ -10,7 +11,7 @@ namespace DFC.ServiceTaxonomy.CompUi.Interfaces
         Task<IEnumerable<NodeItem>> GetDataAsync(Processing processing);
         Task<IEnumerable<RelatedItems>?> GetRelatedContentItemIdsAsync(Processing processing);
         Task<IEnumerable<ContentItems>?> GetContentItemsByLikeQueryAsync(string contentType, string queryIds);
-        Task<bool> InvalidatePageNodeAsync(Processing processing);
+        Task<bool> InvalidatePageNodeAsync(string content, ProcessingEvents processingEvents);
         Task<bool> InvalidateAdditionalPageNodesAsync(Processing processing);
         Task<bool> InvalidateSharedContentAsync(Processing processing);
         Task<bool> InvalidateDysacPersonalityFilteringQuestionAsync();
@@ -18,18 +19,11 @@ namespace DFC.ServiceTaxonomy.CompUi.Interfaces
         Task<bool> InvalidateDysacPersonalityShortQuestionAsync();
         Task<bool> InvalidateDysacPersonalityTraitAsync();
         Task<bool> InvalidateDysacJobProfileOverviewAsync(Processing processing);
+        Task InvalidateDysacJobProfileOverviewRelatedContentItemsAsync(Processing processing);
         Task<bool> InvalidateTriageToolFiltersAsync(Processing processing);
         Task<bool> InvalidateAdditionalContentItemIdsAsync(Processing processing, IEnumerable<RelatedItems> data);
-        //Task<string> GetSharedContentNodeIdAsync(Processing processing, IEnumerable<NodeItem> data);
-        //Task<string> GetPageNodeIdAsync(Processing processing);
         Task<bool> InvalidateJobProfileCategoriesAsync(Processing processing);
         Task<bool> InvalidateJobProfileCategoryAsync();
         Task<bool> InvalidateJobProfileAsync(Processing processing);
-        //Task<bool> InvalidateWorkingPatternsAsync(Processing processing);
-        //Task<bool> InvalidateWorkingPatternDetailAsync(Processing processing);
-        //Task<bool> InvalidateWorkingHoursDetailAsync(Processing processing);
-
-        //Task<bool> InvalidateDysacJobProfileCategoryAsync(Processing processing);
-        //Task<bool> InvalidateNodeAsync(Processing processing);
     }
 }
