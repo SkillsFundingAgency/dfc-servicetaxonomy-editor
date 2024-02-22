@@ -29,7 +29,7 @@ namespace DFC.ServiceTaxonomy.CompUi
             SchemaBuilder.CreateMapIndexTable<RelatedContentItemIndex>(table => table
                 .Column<string>("ContentItemId", c => c.WithLength(26))
                 .Column<string>("ContentType")
-                .Column<string>("RelatedContentIds")
+                .Column<string>("RelatedContentIds", c => c.WithLength(2048))
             );
 
             SchemaBuilder.AlterTable(nameof(RelatedContentItemIndex), table => table
@@ -39,18 +39,18 @@ namespace DFC.ServiceTaxonomy.CompUi
             return 2;
         }
 
-        public int UpdateFrom2()
-        {
+        //public int UpdateFrom2()
+        //{
 
-            SchemaBuilder.AlterTable(nameof(RelatedContentItemIndex), table => table
-                .AlterColumn("ContentType", c => c.WithLength(128))
-            );
+        //    SchemaBuilder.AlterTable(nameof(RelatedContentItemIndex), table => table
+        //        .AlterColumn("ContentType", c => c.WithLength(128))
+        //    );
 
-            SchemaBuilder.AlterTable(nameof(RelatedContentItemIndex), table => table
-                .AlterColumn("RelatedContentIds", c => c.WithLength(1024))
-            );
+        //    SchemaBuilder.AlterTable(nameof(RelatedContentItemIndex), table => table
+        //        .AlterColumn("RelatedContentIds", c => c.WithLength(1024))
+        //    );
 
-            return 3;
-        }
+        //    return 3;
+        //}
     }
 }
