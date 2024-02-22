@@ -4,8 +4,8 @@ parameters:
     default: refs/heads/master
 
 variables:
-  SolutionBaseName: 'DFC.ServiceTaxonomy' 
-  EditorAdminUserEmail: 'careersdevops@education.gov.uk' 
+  SolutionBaseName: 'DFC.ServiceTaxonomy'
+  EditorAdminUserEmail: 'careersdevops@education.gov.uk'
 
 resources:
   repositories:
@@ -80,7 +80,7 @@ stages:
       displayName: 'PowerShell Script: Copy appsettings.template.json'
     - task: PublishPipelineArtifact@1
       inputs:
-        targetPath: $(SolutionBaseName).Editor\AppSettingsArtifact\ 
+        targetPath: $(SolutionBaseName).Editor\AppSettingsArtifact\
         artifactName: $(SolutionBaseName).Editor.AppSettings
     - template: AzureDevOpsTemplates\Build\StepTemplates\dfc-dotnetcore-build-notests.yml@dfc-devops
       parameters:
@@ -119,8 +119,8 @@ stages:
 - stage: PublishPackage
   displayName: Publish Package to NuGet
   condition: succeeded()
-  jobs:  
-  - job: CleanArtifacts  
+  jobs:
+  - job: CleanArtifacts
     displayName: Clean artifacts directory
   - deployment: PublishNugetPackage
     dependsOn: CleanArtifacts
@@ -255,6 +255,8 @@ stages:
   condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'))
   displayName: Deploy to PP_SERVICETAXONOMY
   variables:
+  - name: VSTS_ARM_REST_IGNORE_SSL_ERRORS
+    value: true
   - group: dfc-shared-all
   - group: dfc-stax-shared-all
   - group: dfc-shared-pp

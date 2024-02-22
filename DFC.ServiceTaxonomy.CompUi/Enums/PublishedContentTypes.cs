@@ -7,6 +7,17 @@
         JobProfile,
         Page,
         Pagebanner,
-        SharedContent
+        SharedContent,
+        TriageToolFilter,
+        PersonalityFilteringQuestion,
+        PersonalityQuestionSet,
+        PersonalityShortQuestion,
+        PersonalityTrait,
+        SOCCode,
+        SOCSkillsMatrix,
+        DynamicTitlePrefix,
+        WorkingPatterns,
+        WorkingPatternDetail,
+        WorkingHoursDetail
     }
 }
