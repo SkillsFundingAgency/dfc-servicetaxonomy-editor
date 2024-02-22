@@ -364,7 +364,7 @@ namespace DFC.ServiceTaxonomy.CompUi.Services
                 //Ideally use the following query to get all the data in one go, although it will likely "break" SQL Lite:
                 //SELECT* FROM ContentItemIndex AS CII WITH(NOLOCK) WHERE ContentItemId IN
                 //(
-                //    SELECT VALUE RelatedContentId FROM RelatedContentItemIndex WITH(NOLOCK)
+                //    SELECT VALUE RelatedContentId FROM RelatedContentItemsIndex WITH(NOLOCK)
                 //    CROSS APPLY STRING_SPLIT(RelatedContentIds, ',')
                 //    WHERE DocumentId = 1963
                 //)

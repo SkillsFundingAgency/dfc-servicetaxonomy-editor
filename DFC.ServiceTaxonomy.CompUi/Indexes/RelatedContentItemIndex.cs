@@ -6,7 +6,7 @@ using YesSql.Indexes;
 
 namespace DFC.ServiceTaxonomy.CompUi.Indexes
 {
-    public class RelatedContentItemsIndex : MapIndex
+    public class RelatedContentItemIndex : MapIndex
     {
         public string? ContentItemId { get; set; }
         public string? ContentType { get; set; }
@@ -17,7 +17,7 @@ namespace DFC.ServiceTaxonomy.CompUi.Indexes
     {
         public override void Describe(DescribeContext<ContentItem> context)
         {
-            context.For<RelatedContentItemsIndex>()
+            context.For<RelatedContentItemIndex>()
             .When(contentItem => Enum.IsDefined(typeof(PublishedContentTypes), contentItem.ContentType))
                 .Map(contentItem =>
                     {
@@ -43,7 +43,7 @@ namespace DFC.ServiceTaxonomy.CompUi.Indexes
                             contentIdList = string.Empty; 
                         }
 
-                        return new RelatedContentItemsIndex
+                        return new RelatedContentItemIndex
                         {
                             ContentItemId = contentItem.ContentItemId,
                             ContentType = contentItem.ContentType,
