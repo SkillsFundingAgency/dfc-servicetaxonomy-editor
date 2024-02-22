@@ -38,5 +38,19 @@ namespace DFC.ServiceTaxonomy.CompUi
 
             return 2;
         }
+
+        public int UpdateFrom2()
+        {
+
+            SchemaBuilder.AlterTable(nameof(RelatedContentItemIndex), table => table
+                .AlterColumn("ContentType", c => c.WithLength(128))
+            );
+
+            SchemaBuilder.AlterTable(nameof(RelatedContentItemIndex), table => table
+                .AlterColumn("RelatedContentIds", c => c.WithLength(1024))
+            );
+
+            return 3;
+        }
     }
 }
