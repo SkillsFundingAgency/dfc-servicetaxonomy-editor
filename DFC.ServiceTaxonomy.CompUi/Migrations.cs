@@ -17,7 +17,7 @@ namespace DFC.ServiceTaxonomy.CompUi
 
         public int Create()
         {
-            _contentDefinitionManager.AlterPartDefinition("RelatedContentItemIndex", builder => builder
+            _contentDefinitionManager.AlterPartDefinition("RelatedContentItemsIndex", builder => builder
                 .Attachable()
                 .WithDescription("Adds the related content item Ids."));
 
@@ -26,31 +26,17 @@ namespace DFC.ServiceTaxonomy.CompUi
 
         public int UpdateFrom1()
         {
-            SchemaBuilder.CreateMapIndexTable<RelatedContentItemIndex>(table => table
+            SchemaBuilder.CreateMapIndexTable<RelatedContentItemsIndex>(table => table
                 .Column<string>("ContentItemId", c => c.WithLength(26))
                 .Column<string>("ContentType")
                 .Column<string>("RelatedContentIds", c => c.WithLength(2048))
             );
 
-            SchemaBuilder.AlterTable(nameof(RelatedContentItemIndex), table => table
+            SchemaBuilder.AlterTable(nameof(RelatedContentItemsIndex), table => table
                 .CreateIndex("IDX_RelatedContentItemIndex_ContentItemId", "ContentItemId")
             );
 
             return 2;
         }
-
-        //public int UpdateFrom2()
-        //{
-
-        //    SchemaBuilder.AlterTable(nameof(RelatedContentItemIndex), table => table
-        //        .AlterColumn("ContentType", c => c.WithLength(128))
-        //    );
-
-        //    SchemaBuilder.AlterTable(nameof(RelatedContentItemIndex), table => table
-        //        .AlterColumn("RelatedContentIds", c => c.WithLength(1024))
-        //    );
-
-        //    return 3;
-        //}
     }
 }
