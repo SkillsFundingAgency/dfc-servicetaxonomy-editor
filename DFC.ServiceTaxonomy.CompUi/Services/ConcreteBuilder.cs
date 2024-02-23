@@ -34,7 +34,7 @@ namespace DFC.ServiceTaxonomy.CompUi.Services
         private const string DysacPersonalityTrait = "DYSAC/PersonalityTrait";
         private const string JobProfileCategories = "JobProfiles/Categories";
         private const string TriageToolFilters = "TriageToolFilters/All";
-        private const string SharedContent = "sharedContent";
+        private const string SharedContent = "SharedContent";
 
         public ConcreteBuilder(IDbConnectionAccessor dbaAccessor,
             IDapperWrapper dapperWrapper,
