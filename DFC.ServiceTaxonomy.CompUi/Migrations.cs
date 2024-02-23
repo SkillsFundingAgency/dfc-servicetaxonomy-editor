@@ -60,6 +60,18 @@ namespace DFC.ServiceTaxonomy.CompUi
             return 3;
         }
 
+        public int UpdateFrom3()
+        {
+            SchemaBuilder.AlterTable(nameof(RelatedContentItemIndex), table => table
+                .DropColumn("RelatedContentIds")
+            );
+
+            SchemaBuilder.AlterTable(nameof(RelatedContentItemIndex), table => table
+                .AddColumn<string>("RelatedContentIds", c => c.WithLength(2048))
+            );
+
+            return 4;
+        }
     }
 }
 
