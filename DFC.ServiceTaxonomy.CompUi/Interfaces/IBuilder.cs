@@ -12,13 +12,13 @@ namespace DFC.ServiceTaxonomy.CompUi.Interfaces
         Task<IEnumerable<RelatedItems>?> GetRelatedContentItemIdsAsync(Processing processing);
         Task<IEnumerable<ContentItems>?> GetContentItemsByLikeQueryAsync(string contentType, string queryIds);
         Task<bool> InvalidatePageNodeAsync(string content, ProcessingEvents processingEvents);
-        Task<bool> InvalidateAdditionalPageNodesAsync(Processing processing);
+        Task InvalidateAdditionalPageNodesAsync(Processing processing);
         Task<bool> InvalidateSharedContentAsync(Processing processing);
         Task<bool> InvalidateDysacPersonalityFilteringQuestionAsync();
         Task<bool> InvalidateDysacPersonalityQuestionSetAsync(Processing processing);
         Task<bool> InvalidateDysacPersonalityShortQuestionAsync();
         Task<bool> InvalidateDysacPersonalityTraitAsync();
-        Task<bool> InvalidateDysacJobProfileOverviewAsync(Processing processing);
+        Task InvalidateDysacJobProfileOverviewAsync(Processing processing);
         Task InvalidateDysacJobProfileOverviewRelatedContentItemsAsync(Processing processing);
         Task<bool> InvalidateTriageToolFiltersAsync(Processing processing);
         Task<bool> InvalidateAdditionalContentItemIdsAsync(Processing processing, IEnumerable<RelatedItems> data);
