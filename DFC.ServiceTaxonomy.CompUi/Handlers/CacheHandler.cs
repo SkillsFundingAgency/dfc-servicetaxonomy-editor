@@ -1,56 +1,27 @@
-﻿using System.Data.Common;
-using System.Diagnostics;
-using AutoMapper;
-using DFC.Common.SharedContent.Pkg.Netcore.Interfaces;
-using DFC.ServiceTaxonomy.CompUi.Dapper;
+﻿using AutoMapper;
 using DFC.ServiceTaxonomy.CompUi.Enums;
 using DFC.ServiceTaxonomy.CompUi.Interfaces;
-using DFC.ServiceTaxonomy.CompUi.Model;
 using DFC.ServiceTaxonomy.CompUi.Models;
-using Microsoft.AspNetCore.Mvc.Localization;
 using Microsoft.Extensions.Logging;
-using Newtonsoft.Json;
 using OrchardCore.ContentManagement.Handlers;
-using OrchardCore.Data;
-using OrchardCore.DisplayManagement.Notify;
-using Page = DFC.ServiceTaxonomy.CompUi.Models.Page;
 
 namespace DFC.ServiceTaxonomy.CompUi.Handlers;
 
 public class CacheHandler : ContentHandlerBase, ICacheHandler
 {
-    private readonly IDbConnectionAccessor _dbaAccessor;
-    private readonly INotifier _notifier;
-    private readonly IHtmlLocalizer<CacheHandler> _htmlLocalizer;
     private readonly ILogger<CacheHandler> _logger;
-    private readonly IDapperWrapper _dapperWrapper;
-    private readonly ISharedContentRedisInterface _sharedContentRedisInterface;
     private readonly IMapper _mapper;
-
     private readonly IDirector _director;
     private readonly IBuilder _builder;
 
-    private const string Published = "/PUBLISHED";
-    private const string Draft = "/DRAFT";
-    private const string AllPageBanners = "PageBanners/All";
-
-    public CacheHandler(IDbConnectionAccessor dbaAccessor,
-        INotifier notifier,
-        IHtmlLocalizer<CacheHandler> htmlLocalizer,
+    public CacheHandler(
         ILogger<CacheHandler> logger,
-        IDapperWrapper dapperWrapper,
-        ISharedContentRedisInterface sharedContentRedisInterface,
         IMapper mapper,
         IDirector director,
         IBuilder builder
         )
     {
-        _dbaAccessor = dbaAccessor;
-        _notifier = notifier;
-        _htmlLocalizer = htmlLocalizer;
         _logger = logger;
-        _dapperWrapper = dapperWrapper;
-        _sharedContentRedisInterface = sharedContentRedisInterface;
         _mapper = mapper;
         _director = director;
         _builder = builder;
@@ -84,8 +55,6 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
 
         await ProcessItem(processing);
 
-        //await ProcessContentItem(processing);
-
         await base.PublishedAsync(context);
     }
 
@@ -95,7 +64,6 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
         processing.EventType = ProcessingEvents.Removed;
 
         await ProcessItem(processing);
-        //await RemoveContentItem(processing);
 
         await base.RemovedAsync(context);
     }
@@ -106,7 +74,6 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
         processing.EventType = ProcessingEvents.Unpublished;
 
         await ProcessItem(processing);
-        //await ProcessContentItem(processing);
 
         await base.UnpublishedAsync(context);
     }
@@ -121,27 +88,13 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
             if (Enum.IsDefined(typeof(DraftContentTypes), processing.ContentType))
             {
                 await _director.ProcessPageAsync(processing);
-
-                //var results = await GetData(processing.ContentItemId, processing.Latest, processing.Published);
-
-                //foreach (var result in results)
-                //{
-                //    await _notifier.InformationAsync(_htmlLocalizer[$"The following NodeId will be refreshed {result.NodeId}-DRAFT"]);
-
-                //    var nodeId = ResolveDraftNodeId(result, context.ContentItem.ContentType);
-                //    var success = await _sharedContentRedisInterface.InvalidateEntityAsync(nodeId);
-
-                //    success = await _sharedContentRedisInterface.InvalidateEntityAsync($"PageLocation{Draft}");
-                //    success = await _sharedContentRedisInterface.InvalidateEntityAsync($"pagesurl{Draft}");
-
-                //    _logger.LogInformation($"Draft. The following NodeId will be invalidated: {result.NodeId}, status: {success}.");
-                //}
             }
         }
         catch (Exception exception)
         {
-            //await _notifier.InformationAsync(_htmlLocalizer[$"Exception: {exception}"]);
-            _logger.LogError(exception, message: $"Draft. Exception when saving draft");
+            _logger.LogError(exception, message: $"Draft. Exception when invalidating draft.  " +
+                $"Content Type: {context.ContentItem.ContentType}, " +
+                $"Content item Id: {context.ContentItem.Id}.");
         }
 
         await base.DraftSavedAsync(context);
@@ -188,15 +141,15 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
                     case nameof(PublishedContentTypes.PersonalityTrait):
                         await _director.ProcessPersonalityTraitAsync(processing);
                         break;
-                    case nameof(PublishedContentTypes.SOCCode):
-                        await _director.ProcessSOCCodeAsync(processing);
-                        break;
+                    //case nameof(PublishedContentTypes.SOCCode):
+                    //    await _director.ProcessSOCCodeAsync(processing);
+                    //    break;
                     case nameof(PublishedContentTypes.SOCSkillsMatrix):
                         await _director.ProcessSOCSkillsMatrixAsync(processing);
                         break;
-                    case nameof(PublishedContentTypes.DynamicTitlePrefix):
-                        await _director.ProcessDynamicTitlePrefixAsync(processing);
-                        break;
+                    //case nameof(PublishedContentTypes.DynamicTitlePrefix):
+                    //    await _director.ProcessDynamicTitlePrefixAsync(processing);
+                    //    break;
                     case nameof(PublishedContentTypes.WorkingPatterns):
                         await _director.ProcessWorkingPatternsAsync(processing);
                         break;

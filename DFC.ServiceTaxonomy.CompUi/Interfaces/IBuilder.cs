@@ -15,7 +15,7 @@ namespace DFC.ServiceTaxonomy.CompUi.Interfaces
         Task InvalidateAdditionalPageNodesAsync(Processing processing);
         Task<bool> InvalidateSharedContentAsync(Processing processing);
         Task<bool> InvalidateDysacPersonalityFilteringQuestionAsync();
-        Task<bool> InvalidateDysacPersonalityQuestionSetAsync(Processing processing);
+        Task<bool> InvalidateDysacPersonalityQuestionSetAsync();
         Task<bool> InvalidateDysacPersonalityShortQuestionAsync();
         Task<bool> InvalidateDysacPersonalityTraitAsync();
         Task InvalidateDysacJobProfileOverviewAsync(Processing processing);

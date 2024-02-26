@@ -77,7 +77,7 @@ namespace DFC.ServiceTaxonomy.CompUi.Services
         {
             var data = await _builder.GetRelatedContentItemIdsAsync(processing);
             await _builder.InvalidateAdditionalContentItemIdsAsync(processing, data);
-            await _builder.InvalidateDysacPersonalityQuestionSetAsync(processing);
+            await _builder.InvalidateDysacPersonalityQuestionSetAsync();
         }
 
         public async Task ProcessPersonalityShortQuestionAsync(Processing processing)
