@@ -1,6 +1,7 @@
 ﻿using System.Data.Common;
 using System.Diagnostics;
 using DFC.Common.SharedContent.Pkg.Netcore.Interfaces;
+using DFC.Common.SharedContent.Pkg.Netcore.Model.ContentItems;
 using DFC.ServiceTaxonomy.CompUi.Dapper;
 using DFC.ServiceTaxonomy.CompUi.Enums;
 using DFC.ServiceTaxonomy.CompUi.Interfaces;
@@ -33,6 +34,7 @@ namespace DFC.ServiceTaxonomy.CompUi.Services
         private const string DysacPersonalityTrait = "DYSAC/Traits";
         private const string JobProfileCategories = "JobProfiles/Categories";
         private const string TriageToolFilters = "TriageToolFilters/All";
+        private const string TriagePages = "TriageToolPages";
         private const string SharedContent = "SharedContent";
 
         public ConcreteBuilder(IDbConnectionAccessor dbaAccessor,
@@ -138,6 +140,7 @@ namespace DFC.ServiceTaxonomy.CompUi.Services
             if (!string.IsNullOrEmpty(processing.Content))
             {
                 success = await _sharedContentRedisInterface.InvalidateEntityAsync(TriageToolFilters);
+                success = await _sharedContentRedisInterface.InvalidateEntityAsync(TriagePages);
                 LogNodeInvalidation(processing, TriageToolFilters, success);
             }
             return success;
@@ -202,6 +205,8 @@ namespace DFC.ServiceTaxonomy.CompUi.Services
                 }
 
                 var success = await _sharedContentRedisInterface.InvalidateEntityAsync(nodeId);
+                success = await _sharedContentRedisInterface.InvalidateEntityAsync(TriageToolFilters);
+                success = await _sharedContentRedisInterface.InvalidateEntityAsync(TriagePages);
                 LogNodeInvalidation(nameof(processingEvents), string.Empty, nameof(PublishedContentTypes.Page), nodeId, success);
 
                 return success;
