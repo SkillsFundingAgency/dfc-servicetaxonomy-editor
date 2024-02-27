@@ -13,9 +13,7 @@
         PersonalityQuestionSet,
         PersonalityShortQuestion,
         PersonalityTrait,
-        SOCCode,
         SOCSkillsMatrix,
-        DynamicTitlePrefix,
         WorkingPatterns,
         WorkingPatternDetail,
         WorkingHoursDetail

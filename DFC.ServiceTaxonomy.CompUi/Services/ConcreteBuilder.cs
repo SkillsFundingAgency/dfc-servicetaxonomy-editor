@@ -1,7 +1,6 @@
 ﻿using System.Data.Common;
 using System.Diagnostics;
 using DFC.Common.SharedContent.Pkg.Netcore.Interfaces;
-using DFC.Common.SharedContent.Pkg.Netcore.Model.ContentItems.PageBanner;
 using DFC.ServiceTaxonomy.CompUi.Dapper;
 using DFC.ServiceTaxonomy.CompUi.Enums;
 using DFC.ServiceTaxonomy.CompUi.Interfaces;
@@ -152,7 +151,7 @@ namespace DFC.ServiceTaxonomy.CompUi.Services
             {
                 switch (item.ContentType)
                 {
-                    //TODO - more testing to determine what other content items we need to cater for.
+                    //Add additional related content if necessary
 
                     case nameof(PublishedContentTypes.PersonalityTrait):
                         success = await InvalidateDysacPersonalityTraitAsync();

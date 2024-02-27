@@ -14,12 +14,5 @@ namespace DFC.ServiceTaxonomy.CompUi.Dapper
         {
             return await connection.QuerySingle(sql);
         }
-
-
-       
-        //public async Task<string> QuerySingleOrDefaultAsync(DbConnection connection, string sql)
-        //{
-        //    return await connection.QuerySingleOrDefaultAsync(sql);
-        //}
     }
 }

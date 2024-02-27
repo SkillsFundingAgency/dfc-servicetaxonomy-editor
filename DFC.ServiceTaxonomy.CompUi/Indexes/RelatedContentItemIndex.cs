@@ -35,7 +35,6 @@ namespace DFC.ServiceTaxonomy.CompUi.Indexes
                         string contentIdList = string.Join("','", tiles);
                         if (!string.IsNullOrEmpty(contentIdList))
                         {
-                            //contentIdList = string.Join("','", tiles);
                             contentIdList = string.Concat("'", contentIdList, "'");
                         }
                         else
