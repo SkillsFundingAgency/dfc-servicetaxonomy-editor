@@ -1,6 +1,5 @@
 ﻿using System.Data.Common;
 using DFC.Common.SharedContent.Pkg.Netcore.Interfaces;
-using DFC.Common.SharedContent.Pkg.Netcore.Model.ContentItems.PageBanner;
 using DFC.ServiceTaxonomy.CompUi.Dapper;
 using DFC.ServiceTaxonomy.CompUi.Enums;
 using DFC.ServiceTaxonomy.CompUi.Interfaces;
@@ -101,7 +100,7 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
                     var success = await _sharedContentRedisInterface.InvalidateEntityAsync(nodeId);
 
                     success = await _sharedContentRedisInterface.InvalidateEntityAsync($"PageLocation{Draft}");
-                    success = await _sharedContentRedisInterface.InvalidateEntityAsync($"pagesurl{Draft}");
+                    success = await _sharedContentRedisInterface.InvalidateEntityAsync($"Pagesurl{Draft}");
 
                     _logger.LogInformation($"Draft. The following NodeId will be invalidated: {result.NodeId}, status: {success}.");
                 }
@@ -247,18 +246,18 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
 
         if (contentType == PublishedContentTypes.JobProfileCategory.ToString())
         {
-            success = await _sharedContentRedisInterface.InvalidateEntityAsync("JobProfiles/Categories");
+            success = await _sharedContentRedisInterface.InvalidateEntityAsync(string.Concat("JobProfiles/Categories", Published));
         }
 
         if (contentType == PublishedContentTypes.Page.ToString())
         {
             success = await _sharedContentRedisInterface.InvalidateEntityAsync($"PageLocation{Published}");
-            success = await _sharedContentRedisInterface.InvalidateEntityAsync($"pagesurl{Published}");
+            success = await _sharedContentRedisInterface.InvalidateEntityAsync($"Pagesurl{Published}");
         }
 
         if (contentType == PublishedContentTypes.Pagebanner.ToString())
         {
-            success = await _sharedContentRedisInterface.InvalidateEntityAsync(AllPageBanners);
+            success = await _sharedContentRedisInterface.InvalidateEntityAsync(string.Concat(AllPageBanners, Published));
         }
 
         if (contentType == PublishedContentTypes.SharedContent.ToString())
@@ -278,7 +277,7 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
         if (contentType == PublishedContentTypes.SharedContent.ToString())
         {
             const string Prefix = "<<contentapiprefix>>/sharedcontent";
-            return string.Concat(PublishedContentTypes.SharedContent.ToString(), CheckLeadingChar(nodeId.Substring(Prefix.Length, nodeId.Length - Prefix.Length)));
+            return string.Concat(PublishedContentTypes.SharedContent.ToString(), CheckLeadingChar(nodeId.Substring(Prefix.Length, nodeId.Length - Prefix.Length)), Published);
         }
 
         if (contentType == PublishedContentTypes.Page.ToString())
@@ -290,7 +289,7 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
         if (contentType == PublishedContentTypes.JobProfile.ToString())
         {
             var result = JsonConvert.DeserializeObject<Page>(content);
-            return string.Concat(PublishedContentTypes.JobProfile.ToString(), "s", CheckLeadingChar(result.PageLocationParts.FullUrl));
+            return string.Concat(PublishedContentTypes.JobProfile.ToString(), "s", CheckLeadingChar(result.PageLocationParts.FullUrl), Published);
         }
 
         if (contentType == PublishedContentTypes.JobProfileCategory.ToString())
@@ -340,8 +339,8 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
             }
 
             //Additionally delete all page banners.  
-            success = await _sharedContentRedisInterface.InvalidateEntityAsync(AllPageBanners);
-            _logger.LogInformation($"Published. The following NodeId will be invalidated: {AllPageBanners}, success: {success}");
+            success = await _sharedContentRedisInterface.InvalidateEntityAsync(string.Concat(AllPageBanners, Published));
+            _logger.LogInformation($"Published. The following NodeId will be invalidated: {string.Concat(AllPageBanners, Published)}, success: {success}");
         }
     }
 
@@ -407,13 +406,13 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
     private string FormatPageBannerNodeId(string content)
     {
         var result = JsonConvert.DeserializeObject<PageBanners>(content);
-        return string.Concat("PageBanner", CheckLeadingChar(result.BannerParts.WebPageUrl));
+        return string.Concat("PageBanner", CheckLeadingChar(result.BannerParts.WebPageUrl), Published);
     }
 
     private string FormatJobProfileCategoryNodeId(string content)
     {
         var result = JsonConvert.DeserializeObject<Page>(content);
-        return string.Concat(PublishedContentTypes.JobProfile.ToString(), "s", CheckLeadingChar(result.PageLocationParts.FullUrl));
+        return string.Concat(PublishedContentTypes.JobProfile.ToString(), "s", CheckLeadingChar(result.PageLocationParts.FullUrl), Published);
     }
 
     private string CheckLeadingChar(string input)
