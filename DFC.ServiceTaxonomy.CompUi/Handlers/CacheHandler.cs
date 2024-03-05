@@ -102,6 +102,7 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
 
                     success = await _sharedContentRedisInterface.InvalidateEntityAsync($"PageLocation{Draft}");
                     success = await _sharedContentRedisInterface.InvalidateEntityAsync($"pagesurl{Draft}");
+                    success = await _sharedContentRedisInterface.InvalidateEntityAsync($"SitemapPages/ALL{Draft}");
 
                     _logger.LogInformation($"Draft. The following NodeId will be invalidated: {result.NodeId}, status: {success}.");
                 }
@@ -254,6 +255,7 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
         {
             success = await _sharedContentRedisInterface.InvalidateEntityAsync($"PageLocation{Published}");
             success = await _sharedContentRedisInterface.InvalidateEntityAsync($"pagesurl{Published}");
+            success = await _sharedContentRedisInterface.InvalidateEntityAsync($"SitemapPages/ALL{Published}");
         }
 
         if (contentType == PublishedContentTypes.Pagebanner.ToString())
