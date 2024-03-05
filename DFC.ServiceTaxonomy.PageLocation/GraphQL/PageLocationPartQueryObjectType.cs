@@ -13,9 +13,7 @@ namespace DFC.ServiceTaxonomy.PageLocation.GraphQL
             Field(x => x.DefaultPageForLocation, nullable: true);
             Field(x => x.RedirectLocations, nullable: true);
             Field(x => x.FullUrl, nullable: true);
-
+            Field(x => x.UseInTriageTool, nullable: true);
         }
     }
-        
-    
 }

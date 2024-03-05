@@ -1,4 +1,6 @@
 ﻿using DFC.ServiceTaxonomy.PageLocation.Models;
+using Newtonsoft.Json.Linq;
+using Newtonsoft.Json;
 using OrchardCore.ContentManagement;
 using YesSql.Indexes;
 
@@ -9,6 +11,7 @@ namespace DFC.ServiceTaxonomy.PageLocation.Indexes
         public string? ContentItemId { get; set; }
         public string? Url { get; set; }
         public string? UrlName { get; set; }
+        public bool? UseInTriageTool { get; set; }
     }
 
     public class PageLocationPartIndexProvider : IndexProvider<ContentItem>
@@ -23,11 +26,16 @@ namespace DFC.ServiceTaxonomy.PageLocation.Indexes
 
                     if (!string.IsNullOrEmpty(url) && (contentItem.Published || contentItem.Latest))
                     {
+                        var content = JsonConvert.SerializeObject(contentItem.Content);
+                        var root = JToken.Parse(content);
+                        var tile = (bool?)root.SelectToken("..UseInTriageTool.Value");
+
                         return new PageLocationPartIndex
                         {
                             ContentItemId = contentItem.ContentItemId,
                             Url = url,
-                            UrlName = urlName
+                            UrlName = urlName,
+                            UseInTriageTool = tile
                         };
                     }
 

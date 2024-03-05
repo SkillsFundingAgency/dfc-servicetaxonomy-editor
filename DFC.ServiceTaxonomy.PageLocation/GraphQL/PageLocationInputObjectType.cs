@@ -16,7 +16,7 @@ namespace DFC.ServiceTaxonomy.PageLocation.GraphQL
 
             AddScalarFilterFields<StringGraphType>("url", S["full Url"]);
             AddScalarFilterFields<StringGraphType>("urlName", S["Url Name"]);
-
+            AddScalarFilterFields<BooleanGraphType>("useInTriageTool", S["Use In triage tool"]);
         }
     }
 }
