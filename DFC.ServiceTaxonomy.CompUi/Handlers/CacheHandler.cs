@@ -1,6 +1,5 @@
 ﻿using System.Data.Common;
 using DFC.Common.SharedContent.Pkg.Netcore.Interfaces;
-using DFC.Common.SharedContent.Pkg.Netcore.Model.ContentItems.PageBanner;
 using DFC.ServiceTaxonomy.CompUi.Dapper;
 using DFC.ServiceTaxonomy.CompUi.Enums;
 using DFC.ServiceTaxonomy.CompUi.Interfaces;
@@ -101,7 +100,7 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
                     var success = await _sharedContentRedisInterface.InvalidateEntityAsync(nodeId);
 
                     success = await _sharedContentRedisInterface.InvalidateEntityAsync($"PageLocation{Draft}");
-                    success = await _sharedContentRedisInterface.InvalidateEntityAsync($"pagesurl{Draft}");
+                    success = await _sharedContentRedisInterface.InvalidateEntityAsync($"Pagesurl{Draft}");
                     success = await _sharedContentRedisInterface.InvalidateEntityAsync($"SitemapPages/ALL{Draft}");
 
                     _logger.LogInformation($"Draft. The following NodeId will be invalidated: {result.NodeId}, status: {success}.");
@@ -123,49 +122,11 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
         {
             if (Enum.IsDefined(typeof(PublishedContentTypes), contentType))
             {
-                /*
-                1.  Page -> can get Content and from that can get the "PageLocationPart":{"FullUrl":"/about-us/delete-unpublish-test" 
-                2.  JobProfileCategory -> can get Content and from that can get the "PageLocationPart":{"FullUrl":"/jobprofilecategorydelete"
-                3.  JobProfile -> can get Content and from that can get the  "PageLocationPart":{"FullUrl":"/jobprofiledelete"
-                4.  SharedContent -> can get Content and from that can get the"GraphSyncPart":{"Text":"<<contentapiprefix>>/sharedcontent/90bc28a8-af77-4d5d-9a77-520ffd29781f"  
-                    -> this value corresponds to the NodeId that was previously in GraphSyncPartIndex, which was <<contentapiprefix>>/sharedcontent/90bc28a8-af77-4d5d-9a77-520ffd29781f
-                and was previously invalidated with the id "SharedContent/90bc28a8-af77-4d5d-9a77-520ffd29781f"
-                5.  Banners -> can get Content and from that can get the"GraphSyncPart":{"Text":"<<contentapiprefix>>/sharedcontent/90bc28a8-af77-4d5d-9a77-520ffd29781f"  
-                6.  PageBanners -> can get Content and from that get "BannerPart":{"WebPageURL":"nationalcareers.service.gov.uk/find-a-course"
-                    return FormatPageBannerNodeId(nodeItem);
-                    <<contentapiprefix>>/pagebanner/451c79c0-fa49-42e6-91ac-42a9d140627c
-                */
-
                 var results = await GetDataWithoutGraphSyncJoin(contentItemId, latest, published);
                 var nodeId = string.Empty;
-                //string token = string.Empty;
 
                 foreach (var result in results)
                 {
-                    //Todo update the code to pull the relevant values from content value via tokens.  
-                    //var root = JToken.Parse(result.Content);
-
-                    //if (contentType == PublishedContentTypes.Pagebanner.ToString())
-                    //{
-                    //    token = (string)root.SelectToken("BannerPart.WebPageURL");
-                    //    nodeId = FormatPageBannerNodeId(result.Content);
-                    //}
-
-                    //if (contentType == PublishedContentTypes.Page.ToString()
-                    //    || contentType == PublishedContentTypes.JobProfileCategory.ToString()
-                    //    || contentType == PublishedContentTypes.JobProfile.ToString())
-                    //{
-                    //    token = (string)root.SelectToken("PageLocationPart.FullUrl");
-                    //    nodeId = "";
-                    //}
-
-                    //if (contentType == PublishedContentTypes.SharedContent.ToString()
-                    //    || contentType == PublishedContentTypes.Banner.ToString())
-                    //{
-                    //    token = (string)root.SelectToken("GraphSyncPart.Text");
-                    //    nodeId = "";
-                    //}
-
                     await InvalidateItems(contentType, contentItemId, nodeId, result.Content);
                 }
             }
@@ -248,19 +209,19 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
 
         if (contentType == PublishedContentTypes.JobProfileCategory.ToString())
         {
-            success = await _sharedContentRedisInterface.InvalidateEntityAsync("JobProfiles/Categories");
+            success = await _sharedContentRedisInterface.InvalidateEntityAsync(string.Concat("JobProfiles/Categories", Published));
         }
 
         if (contentType == PublishedContentTypes.Page.ToString())
         {
             success = await _sharedContentRedisInterface.InvalidateEntityAsync($"PageLocation{Published}");
-            success = await _sharedContentRedisInterface.InvalidateEntityAsync($"pagesurl{Published}");
+            success = await _sharedContentRedisInterface.InvalidateEntityAsync($"Pagesurl{Published}");
             success = await _sharedContentRedisInterface.InvalidateEntityAsync($"SitemapPages/ALL{Published}");
         }
 
         if (contentType == PublishedContentTypes.Pagebanner.ToString())
         {
-            success = await _sharedContentRedisInterface.InvalidateEntityAsync(AllPageBanners);
+            success = await _sharedContentRedisInterface.InvalidateEntityAsync(string.Concat(AllPageBanners, Published));
         }
 
         if (contentType == PublishedContentTypes.SharedContent.ToString())
@@ -280,7 +241,7 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
         if (contentType == PublishedContentTypes.SharedContent.ToString())
         {
             const string Prefix = "<<contentapiprefix>>/sharedcontent";
-            return string.Concat(PublishedContentTypes.SharedContent.ToString(), CheckLeadingChar(nodeId.Substring(Prefix.Length, nodeId.Length - Prefix.Length)));
+            return string.Concat(PublishedContentTypes.SharedContent.ToString(), CheckLeadingChar(nodeId.Substring(Prefix.Length, nodeId.Length - Prefix.Length)), Published);
         }
 
         if (contentType == PublishedContentTypes.Page.ToString())
@@ -292,7 +253,7 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
         if (contentType == PublishedContentTypes.JobProfile.ToString())
         {
             var result = JsonConvert.DeserializeObject<Page>(content);
-            return string.Concat(PublishedContentTypes.JobProfile.ToString(), "s", CheckLeadingChar(result.PageLocationParts.FullUrl));
+            return string.Concat(PublishedContentTypes.JobProfile.ToString(), "s", CheckLeadingChar(result.PageLocationParts.FullUrl), Published);
         }
 
         if (contentType == PublishedContentTypes.JobProfileCategory.ToString())
@@ -342,8 +303,8 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
             }
 
             //Additionally delete all page banners.  
-            success = await _sharedContentRedisInterface.InvalidateEntityAsync(AllPageBanners);
-            _logger.LogInformation($"Published. The following NodeId will be invalidated: {AllPageBanners}, success: {success}");
+            success = await _sharedContentRedisInterface.InvalidateEntityAsync(string.Concat(AllPageBanners, Published));
+            _logger.LogInformation($"Published. The following NodeId will be invalidated: {string.Concat(AllPageBanners, Published)}, success: {success}");
         }
     }
 
@@ -409,13 +370,13 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
     private string FormatPageBannerNodeId(string content)
     {
         var result = JsonConvert.DeserializeObject<PageBanners>(content);
-        return string.Concat("PageBanner", CheckLeadingChar(result.BannerParts.WebPageUrl));
+        return string.Concat("PageBanner", CheckLeadingChar(result.BannerParts.WebPageUrl), Published);
     }
 
     private string FormatJobProfileCategoryNodeId(string content)
     {
         var result = JsonConvert.DeserializeObject<Page>(content);
-        return string.Concat(PublishedContentTypes.JobProfile.ToString(), "s", CheckLeadingChar(result.PageLocationParts.FullUrl));
+        return string.Concat(PublishedContentTypes.JobProfile.ToString(), "s", CheckLeadingChar(result.PageLocationParts.FullUrl), Published);
     }
 
     private string CheckLeadingChar(string input)
