@@ -121,49 +121,11 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
         {
             if (Enum.IsDefined(typeof(PublishedContentTypes), contentType))
             {
-                /*
-                1.  Page -> can get Content and from that can get the "PageLocationPart":{"FullUrl":"/about-us/delete-unpublish-test" 
-                2.  JobProfileCategory -> can get Content and from that can get the "PageLocationPart":{"FullUrl":"/jobprofilecategorydelete"
-                3.  JobProfile -> can get Content and from that can get the  "PageLocationPart":{"FullUrl":"/jobprofiledelete"
-                4.  SharedContent -> can get Content and from that can get the"GraphSyncPart":{"Text":"<<contentapiprefix>>/sharedcontent/90bc28a8-af77-4d5d-9a77-520ffd29781f"  
-                    -> this value corresponds to the NodeId that was previously in GraphSyncPartIndex, which was <<contentapiprefix>>/sharedcontent/90bc28a8-af77-4d5d-9a77-520ffd29781f
-                and was previously invalidated with the id "SharedContent/90bc28a8-af77-4d5d-9a77-520ffd29781f"
-                5.  Banners -> can get Content and from that can get the"GraphSyncPart":{"Text":"<<contentapiprefix>>/sharedcontent/90bc28a8-af77-4d5d-9a77-520ffd29781f"  
-                6.  PageBanners -> can get Content and from that get "BannerPart":{"WebPageURL":"nationalcareers.service.gov.uk/find-a-course"
-                    return FormatPageBannerNodeId(nodeItem);
-                    <<contentapiprefix>>/pagebanner/451c79c0-fa49-42e6-91ac-42a9d140627c
-                */
-
                 var results = await GetDataWithoutGraphSyncJoin(contentItemId, latest, published);
                 var nodeId = string.Empty;
-                //string token = string.Empty;
 
                 foreach (var result in results)
                 {
-                    //Todo update the code to pull the relevant values from content value via tokens.  
-                    //var root = JToken.Parse(result.Content);
-
-                    //if (contentType == PublishedContentTypes.Pagebanner.ToString())
-                    //{
-                    //    token = (string)root.SelectToken("BannerPart.WebPageURL");
-                    //    nodeId = FormatPageBannerNodeId(result.Content);
-                    //}
-
-                    //if (contentType == PublishedContentTypes.Page.ToString()
-                    //    || contentType == PublishedContentTypes.JobProfileCategory.ToString()
-                    //    || contentType == PublishedContentTypes.JobProfile.ToString())
-                    //{
-                    //    token = (string)root.SelectToken("PageLocationPart.FullUrl");
-                    //    nodeId = "";
-                    //}
-
-                    //if (contentType == PublishedContentTypes.SharedContent.ToString()
-                    //    || contentType == PublishedContentTypes.Banner.ToString())
-                    //{
-                    //    token = (string)root.SelectToken("GraphSyncPart.Text");
-                    //    nodeId = "";
-                    //}
-
                     await InvalidateItems(contentType, contentItemId, nodeId, result.Content);
                 }
             }
