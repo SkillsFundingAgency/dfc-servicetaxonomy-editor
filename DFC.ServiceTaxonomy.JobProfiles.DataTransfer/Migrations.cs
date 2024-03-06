@@ -1,4 +1,5 @@
 ﻿using DFC.ServiceTaxonomy.JobProfiles.DataTransfer.Indexes;
+using DFC.ServiceTaxonomy.JobProfiles.DataTransfer.Models;
 using DFC.ServiceTaxonomy.JobProfiles.DataTransfer.Models.Indexes;
 
 using OrchardCore.ContentManagement.Metadata;
@@ -236,6 +237,15 @@ namespace DFC.ServiceTaxonomy.JobProfiles.DataTransfer
             }
 
             return 9;
+        }
+
+        public int UpdateFrom9()
+        {
+            _contentDefinitionManager.AlterPartDefinition(nameof(JobProfileSimplificationPart), builder => builder
+               .Attachable()
+               .WithDescription("Provides a JobProfileSimplificationPart for your content item."));
+
+            return 10;
         }
     }
 }
