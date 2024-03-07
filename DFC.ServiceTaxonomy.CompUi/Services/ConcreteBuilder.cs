@@ -134,7 +134,7 @@ namespace DFC.ServiceTaxonomy.CompUi.Services
 
         public async Task<bool> InvalidateDysacPersonalityTraitAsync()
         {
-            var dysacPersonalityTraitFullKey = string.Concat(DysacShortQuestion, Published);
+            var dysacPersonalityTraitFullKey = string.Concat(DysacPersonalityTrait, Published);
             var success = await _sharedContentRedisInterface.InvalidateEntityAsync(dysacPersonalityTraitFullKey);
             _logger.LogInformation($"The following NodeId will be invalidated: {dysacPersonalityTraitFullKey}, success: {success}.");
 
