@@ -1,5 +1,6 @@
 ﻿using System.Data.Common;
 using System.Diagnostics;
+using System.Runtime.CompilerServices;
 using DFC.Common.SharedContent.Pkg.Netcore.Interfaces;
 using DFC.Common.SharedContent.Pkg.Netcore.Model.ContentItems;
 using DFC.ServiceTaxonomy.CompUi.Dapper;
@@ -76,14 +77,15 @@ namespace DFC.ServiceTaxonomy.CompUi.Services
                 foreach (var item in data)
                 {
                     var result = JsonConvert.DeserializeObject<PageBanners>(item.Content);
-                    var nodeId = string.Concat("PageBanner", CheckLeadingChar(result.BannerParts.WebPageUrl));
+                    var nodeId = string.Concat("PageBanner", CheckLeadingChar(result.BannerParts.WebPageUrl), Published);
                     success = await _sharedContentRedisInterface.InvalidateEntityAsync(nodeId);
                     LogNodeInvalidation(processing, nodeId, success);
                 }
 
-                //Additionally delete all page banners.  
-                success = await _sharedContentRedisInterface.InvalidateEntityAsync(AllPageBanners);
-                LogNodeInvalidation(processing, AllPageBanners, success);
+                //Additionally delete all page banners.
+                var allPageBannersFullKey = string.Concat(AllPageBanners, Published);
+                success = await _sharedContentRedisInterface.InvalidateEntityAsync(allPageBannersFullKey);
+                LogNodeInvalidation(processing, allPageBannersFullKey, success);
             }
 
             return success;
@@ -98,7 +100,7 @@ namespace DFC.ServiceTaxonomy.CompUi.Services
                 var sharedContent = JsonConvert.DeserializeObject<SharedContent>(processing.Content);
                 string nodeId = string.Concat(SharedContent,
                     CheckLeadingChar(sharedContent.SharedContentText.NodeId.Substring(Prefix.Length,
-                    sharedContent.SharedContentText.NodeId.Length - Prefix.Length)));
+                    sharedContent.SharedContentText.NodeId.Length - Prefix.Length)), Published);
                 success = await _sharedContentRedisInterface.InvalidateEntityAsync(nodeId);
                 LogNodeInvalidation(processing, nodeId, success);
             }
@@ -134,7 +136,7 @@ namespace DFC.ServiceTaxonomy.CompUi.Services
 
         public async Task<bool> InvalidateDysacPersonalityTraitAsync()
         {
-            var dysacPersonalityTraitFullKey = string.Concat(DysacShortQuestion, Published);
+            var dysacPersonalityTraitFullKey = string.Concat(DysacPersonalityTrait, Published);
             var success = await _sharedContentRedisInterface.InvalidateEntityAsync(dysacPersonalityTraitFullKey);
             _logger.LogInformation($"The following NodeId will be invalidated: {dysacPersonalityTraitFullKey}, success: {success}.");
 
@@ -146,9 +148,11 @@ namespace DFC.ServiceTaxonomy.CompUi.Services
             var success = true;
             if (!string.IsNullOrEmpty(processing.Content))
             {
-                success = await _sharedContentRedisInterface.InvalidateEntityAsync(TriageToolFilters);
-                success = await _sharedContentRedisInterface.InvalidateEntityAsync(TriagePages);
-                LogNodeInvalidation(processing, TriageToolFilters, success);
+                var triageToolFiltersFullKey = string.Concat(TriageToolFilters, Published);
+                var triagePagesFullKey = string.Concat(TriagePages, Published);
+                success = await _sharedContentRedisInterface.InvalidateEntityAsync(triageToolFiltersFullKey);
+                success = await _sharedContentRedisInterface.InvalidateEntityAsync(triagePagesFullKey);
+                LogNodeInvalidation(processing, triageToolFiltersFullKey, success);
             }
             return success;
         }
@@ -212,8 +216,10 @@ namespace DFC.ServiceTaxonomy.CompUi.Services
                 }
 
                 var success = await _sharedContentRedisInterface.InvalidateEntityAsync(nodeId);
-                success = await _sharedContentRedisInterface.InvalidateEntityAsync(TriageToolFilters);
-                success = await _sharedContentRedisInterface.InvalidateEntityAsync(TriagePages);
+                var triageToolFiltersFullKey = string.Concat(TriageToolFilters, Published);
+                var triagePagesFullKey = string.Concat(TriagePages, Published);
+                success = await _sharedContentRedisInterface.InvalidateEntityAsync(triageToolFiltersFullKey);
+                success = await _sharedContentRedisInterface.InvalidateEntityAsync(triagePagesFullKey);
                 LogNodeInvalidation(nameof(processingEvents), string.Empty, nameof(PublishedContentTypes.Page), nodeId, success);
 
                 return success;
@@ -238,7 +244,7 @@ namespace DFC.ServiceTaxonomy.CompUi.Services
                         var currentNode = contentId.FirstOrDefault();
                         var currentNodeResult = JsonConvert.DeserializeObject<Page>(currentNode.Content);
 
-                        var categoryNode = string.Concat(PublishedContentTypes.JobProfile.ToString(), "s", CheckLeadingChar(currentNodeResult.PageLocationParts.FullUrl));
+                        var categoryNode = string.Concat(PublishedContentTypes.JobProfile.ToString(), "s", CheckLeadingChar(currentNodeResult.PageLocationParts.FullUrl), Published);
                         success = await _sharedContentRedisInterface.InvalidateEntityAsync(categoryNode);
                         LogNodeInvalidation(processing, categoryNode, success);
 
@@ -270,7 +276,7 @@ namespace DFC.ServiceTaxonomy.CompUi.Services
                     var currentNode = contentId.FirstOrDefault();
                     var currentNodeResult = JsonConvert.DeserializeObject<Page>(currentNode.Content);
 
-                    var nodeId = string.Concat(PublishedContentTypes.JobProfile.ToString(), "s", CheckLeadingChar(currentNodeResult.PageLocationParts.FullUrl));
+                    var nodeId = string.Concat(PublishedContentTypes.JobProfile.ToString(), "s", CheckLeadingChar(currentNodeResult.PageLocationParts.FullUrl), Published);
                     success = await _sharedContentRedisInterface.InvalidateEntityAsync(nodeId);
                     LogNodeInvalidation(nameof(ProcessingEvents.Published), relatedItems.ContentItemId, nameof(PublishedContentTypes.JobProfileCategory), nodeId, success);
 
@@ -313,14 +319,17 @@ namespace DFC.ServiceTaxonomy.CompUi.Services
 
         public async Task<bool> InvalidateJobProfileCategoryAsync()
         {
-            var success = await _sharedContentRedisInterface.InvalidateEntityAsync(JobProfileCategories);
+            var jobProfileCategoriesFullKey = string.Concat(JobProfileCategories, Published);
+            var success = await _sharedContentRedisInterface.InvalidateEntityAsync(jobProfileCategoriesFullKey);
+            _logger.LogInformation($"The following NodeId will be invalidated: {jobProfileCategoriesFullKey}, success: {success}.");
+
             return success;
         }
 
         public async Task<bool> InvalidateJobProfileAsync(Processing processing)
         {
             var result = JsonConvert.DeserializeObject<Page>(processing.Content);
-            var nodeId = string.Concat(PublishedContentTypes.JobProfile.ToString(), "s", CheckLeadingChar(result.PageLocationParts.FullUrl));
+            var nodeId = string.Concat(PublishedContentTypes.JobProfile.ToString(), "s", CheckLeadingChar(result.PageLocationParts.FullUrl), Published);
             var success = await _sharedContentRedisInterface.InvalidateEntityAsync(nodeId);
             LogNodeInvalidation(processing, nodeId, success);
             return success;
