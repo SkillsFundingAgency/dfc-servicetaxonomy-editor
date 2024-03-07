@@ -108,28 +108,35 @@ namespace DFC.ServiceTaxonomy.CompUi.Services
 
         public async Task<bool> InvalidateDysacPersonalityFilteringQuestionAsync()
         {
-            var success = await _sharedContentRedisInterface.InvalidateEntityAsync(DysacFilteringQuestion);
-            _logger.LogInformation($"The following NodeId will be invalidated: {DysacFilteringQuestion}, success: {success}.");
+            var dysacFilteringQuestionFullKey = string.Concat(DysacFilteringQuestion, Published);
+            var success = await _sharedContentRedisInterface.InvalidateEntityAsync(dysacFilteringQuestionFullKey);
+            _logger.LogInformation($"The following NodeId will be invalidated: {dysacFilteringQuestionFullKey}, success: {success}.");
 
             return success;
         }
         public async Task<bool> InvalidateDysacPersonalityQuestionSetAsync()
         {
-            var success = await _sharedContentRedisInterface.InvalidateEntityAsync(DysacQuestionSet);
+            var dysacQuestionSetFullKey = string.Concat(DysacQuestionSet, Published);
+            var success = await _sharedContentRedisInterface.InvalidateEntityAsync(dysacQuestionSetFullKey);
+            _logger.LogInformation($"The following NodeId will be invalidated: {dysacQuestionSetFullKey}, success: {success}.");
 
             return success;
         }
 
         public async Task<bool> InvalidateDysacPersonalityShortQuestionAsync()
         {
-            var success = await _sharedContentRedisInterface.InvalidateEntityAsync(DysacShortQuestion);
+            var dysacShortQuestionFullKey = string.Concat(DysacShortQuestion, Published);
+            var success = await _sharedContentRedisInterface.InvalidateEntityAsync(dysacShortQuestionFullKey);
+            _logger.LogInformation($"The following NodeId will be invalidated: {dysacShortQuestionFullKey}, success: {success}.");
 
             return success;
         }
 
         public async Task<bool> InvalidateDysacPersonalityTraitAsync()
         {
-            var success = await _sharedContentRedisInterface.InvalidateEntityAsync(DysacPersonalityTrait);
+            var dysacPersonalityTraitFullKey = string.Concat(DysacShortQuestion, Published);
+            var success = await _sharedContentRedisInterface.InvalidateEntityAsync(dysacPersonalityTraitFullKey);
+            _logger.LogInformation($"The following NodeId will be invalidated: {dysacPersonalityTraitFullKey}, success: {success}.");
 
             return success;
         }
@@ -235,7 +242,7 @@ namespace DFC.ServiceTaxonomy.CompUi.Services
                         success = await _sharedContentRedisInterface.InvalidateEntityAsync(categoryNode);
                         LogNodeInvalidation(processing, categoryNode, success);
 
-                        var nodeId = string.Concat(DysacJobProfileCategories, CheckLeadingChar(currentNodeResult.PageLocationParts.FullUrl));
+                        var nodeId = string.Concat(DysacJobProfileCategories, CheckLeadingChar(currentNodeResult.PageLocationParts.FullUrl), Published);
                         success = await _sharedContentRedisInterface.InvalidateEntityAsync(nodeId);
 
                         LogNodeInvalidation(processing, nodeId, success);
@@ -267,8 +274,9 @@ namespace DFC.ServiceTaxonomy.CompUi.Services
                     success = await _sharedContentRedisInterface.InvalidateEntityAsync(nodeId);
                     LogNodeInvalidation(nameof(ProcessingEvents.Published), relatedItems.ContentItemId, nameof(PublishedContentTypes.JobProfileCategory), nodeId, success);
 
-                    success = await _sharedContentRedisInterface.InvalidateEntityAsync(DysacJobProfileCategories);
-                    LogNodeInvalidation(nameof(ProcessingEvents.Published), relatedItems.ContentItemId, nameof(PublishedContentTypes.JobProfileCategory), DysacJobProfileCategories, success);
+                    var dysacJobProfileCategories = string.Concat(DysacJobProfileCategories, Published);
+                    success = await _sharedContentRedisInterface.InvalidateEntityAsync(dysacJobProfileCategories);
+                    LogNodeInvalidation(nameof(ProcessingEvents.Published), relatedItems.ContentItemId, nameof(PublishedContentTypes.JobProfileCategory), dysacJobProfileCategories, success);
                 }
                 return success;
             }
@@ -298,8 +306,9 @@ namespace DFC.ServiceTaxonomy.CompUi.Services
 
         private async Task ProcessJobProfileOverviewInvalidations(Processing processing, string content)
         {
-            var success = await _sharedContentRedisInterface.InvalidateEntityAsync(DysacJobProfileOverviews);
-            LogNodeInvalidation(processing, DysacJobProfileOverviews, success);
+            var dysacJobProfileOverviewsFullKey = string.Concat(DysacJobProfileOverviews, Published);
+            var success = await _sharedContentRedisInterface.InvalidateEntityAsync(dysacJobProfileOverviewsFullKey);
+            LogNodeInvalidation(processing, dysacJobProfileOverviewsFullKey, success);
         }
 
         public async Task<bool> InvalidateJobProfileCategoryAsync()
