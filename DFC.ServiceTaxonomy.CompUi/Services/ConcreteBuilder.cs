@@ -186,12 +186,14 @@ namespace DFC.ServiceTaxonomy.CompUi.Services
             if (processing.EventType == ProcessingEvents.DraftSaved)
             {
                 await _sharedContentRedisInterface.InvalidateEntityAsync($"PageLocation{Draft}");
-                await _sharedContentRedisInterface.InvalidateEntityAsync($"pagesurl{Draft}");
+                await _sharedContentRedisInterface.InvalidateEntityAsync($"Pagesurl{Draft}");
+                await _sharedContentRedisInterface.InvalidateEntityAsync($"SitemapPages/ALL{Draft}");
             }
             else
             {
                 await _sharedContentRedisInterface.InvalidateEntityAsync($"PageLocation{Published}");
-                await _sharedContentRedisInterface.InvalidateEntityAsync($"pagesurl{Published}");
+                await _sharedContentRedisInterface.InvalidateEntityAsync($"Pagesurl{Published}");
+                await _sharedContentRedisInterface.InvalidateEntityAsync($"SitemapPages/ALL{Published}");
             }
         }
 
