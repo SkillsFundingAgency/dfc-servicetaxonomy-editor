@@ -188,12 +188,15 @@ namespace DFC.ServiceTaxonomy.CompUi.Services
                 await _sharedContentRedisInterface.InvalidateEntityAsync($"PageLocation{Draft}");
                 await _sharedContentRedisInterface.InvalidateEntityAsync($"Pagesurl{Draft}");
                 await _sharedContentRedisInterface.InvalidateEntityAsync($"SitemapPages/ALL{Draft}");
+                await _sharedContentRedisInterface.InvalidateEntityAsync($"PagesApi/All{Draft}");
             }
             else
             {
                 await _sharedContentRedisInterface.InvalidateEntityAsync($"PageLocation{Published}");
                 await _sharedContentRedisInterface.InvalidateEntityAsync($"Pagesurl{Published}");
                 await _sharedContentRedisInterface.InvalidateEntityAsync($"SitemapPages/ALL{Published}");
+                await _sharedContentRedisInterface.InvalidateEntityAsync($"PagesApi/All{Published}");
+
             }
         }
 
@@ -203,17 +206,22 @@ namespace DFC.ServiceTaxonomy.CompUi.Services
             {
                 var pageLocation = JsonConvert.DeserializeObject<Page>(content);
                 string? nodeId;
+                string? pageApiId;
 
                 if (processingEvents == ProcessingEvents.DraftSaved)
                 {
                     nodeId = string.Concat(PublishedContentTypes.Page.ToString(), CheckLeadingChar(pageLocation.PageLocationParts.FullUrl), Draft);
+                    pageApiId = string.Concat("PageApi", CheckLeadingChar(pageLocation.GraphSyncParts.Text.Substring(pageLocation.GraphSyncParts.Text.LastIndexOf('/') + 1)), Draft);
                 }
                 else
                 {
                     nodeId = string.Concat(PublishedContentTypes.Page.ToString(), CheckLeadingChar(pageLocation.PageLocationParts.FullUrl), Published);
+                    pageApiId = string.Concat("PageApi", CheckLeadingChar(pageLocation.GraphSyncParts.Text.Substring(pageLocation.GraphSyncParts.Text.LastIndexOf('/') + 1)), Published);
+
                 }
 
                 var success = await _sharedContentRedisInterface.InvalidateEntityAsync(nodeId);
+                success = await _sharedContentRedisInterface.InvalidateEntityAsync(pageApiId);
                 success = await _sharedContentRedisInterface.InvalidateEntityAsync(TriageToolFilters);
                 success = await _sharedContentRedisInterface.InvalidateEntityAsync(TriagePages);
                 LogNodeInvalidation(nameof(processingEvents), string.Empty, nameof(PublishedContentTypes.Page), nodeId, success);
@@ -223,6 +231,7 @@ namespace DFC.ServiceTaxonomy.CompUi.Services
 
             return true;
         }
+
 
         public async Task<bool> InvalidateJobProfileCategoriesAsync(Processing processing)
         {
