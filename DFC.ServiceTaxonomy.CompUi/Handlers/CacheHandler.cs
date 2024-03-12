@@ -1,5 +1,6 @@
 ﻿using System.Data.Common;
 using DFC.Common.SharedContent.Pkg.Netcore.Interfaces;
+using DFC.Common.SharedContent.Pkg.Netcore.Model.ContentItems.PageBanner;
 using DFC.ServiceTaxonomy.CompUi.Dapper;
 using DFC.ServiceTaxonomy.CompUi.Enums;
 using DFC.ServiceTaxonomy.CompUi.Interfaces;
@@ -95,6 +96,9 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
                 foreach (var result in results)
                 {
                     await _notifier.InformationAsync(_htmlLocalizer[$"The following NodeId will be refreshed {result.NodeId}-DRAFT"]);
+                  
+                    var pageId = JsonConvert.DeserializeObject<Page>(result.Content);
+                    string? pageApiId = string.Concat("PageApi", CheckLeadingChar(pageId.GraphSyncParts.Text.Substring(pageId.GraphSyncParts.Text.LastIndexOf('/') + 1)), Draft);
 
                     var nodeId = ResolveDraftNodeId(result, context.ContentItem.ContentType);
                     var success = await _sharedContentRedisInterface.InvalidateEntityAsync(nodeId);
@@ -102,6 +106,9 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
                     success = await _sharedContentRedisInterface.InvalidateEntityAsync($"PageLocation{Draft}");
                     success = await _sharedContentRedisInterface.InvalidateEntityAsync($"Pagesurl{Draft}");
                     success = await _sharedContentRedisInterface.InvalidateEntityAsync($"SitemapPages/ALL{Draft}");
+                    success = await _sharedContentRedisInterface.InvalidateEntityAsync($"PagesApi/All{Draft}");
+                    success = await _sharedContentRedisInterface.InvalidateEntityAsync(pageApiId);
+
 
                     _logger.LogInformation($"Draft. The following NodeId will be invalidated: {result.NodeId}, status: {success}.");
                 }
@@ -214,9 +221,15 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
 
         if (contentType == PublishedContentTypes.Page.ToString())
         {
+            var result = JsonConvert.DeserializeObject<Page>(content);
+            string? pageApiId = string.Concat("PageApi", CheckLeadingChar(result.GraphSyncParts.Text.Substring(result.GraphSyncParts.Text.LastIndexOf('/') + 1)), Published);
+
             success = await _sharedContentRedisInterface.InvalidateEntityAsync($"PageLocation{Published}");
             success = await _sharedContentRedisInterface.InvalidateEntityAsync($"Pagesurl{Published}");
             success = await _sharedContentRedisInterface.InvalidateEntityAsync($"SitemapPages/ALL{Published}");
+            success = await _sharedContentRedisInterface.InvalidateEntityAsync($"PagesApi/All{Published}");
+            success = await _sharedContentRedisInterface.InvalidateEntityAsync(pageApiId);
+
         }
 
         if (contentType == PublishedContentTypes.Pagebanner.ToString())
@@ -249,6 +262,7 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
             var result = JsonConvert.DeserializeObject<Page>(content);
             return string.Concat(PublishedContentTypes.Page.ToString(), CheckLeadingChar(result.PageLocationParts.FullUrl), Published);
         }
+
 
         if (contentType == PublishedContentTypes.JobProfile.ToString())
         {
