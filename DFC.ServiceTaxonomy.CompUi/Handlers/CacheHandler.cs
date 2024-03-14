@@ -1,6 +1,6 @@
 ﻿using System.Data.Common;
+using System.Diagnostics;
 using DFC.Common.SharedContent.Pkg.Netcore.Interfaces;
-using DFC.Common.SharedContent.Pkg.Netcore.Model.ContentItems.PageBanner;
 using DFC.ServiceTaxonomy.CompUi.Dapper;
 using DFC.ServiceTaxonomy.CompUi.Enums;
 using DFC.ServiceTaxonomy.CompUi.Interfaces;
@@ -24,8 +24,8 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
     private readonly IDapperWrapper _dapperWrapper;
     private readonly ISharedContentRedisInterface _sharedContentRedisInterface;
 
-    private const string Published = "/PUBLISHED";
-    private const string Draft = "/DRAFT";
+    private const string PublishedFilter = "PUBLISHED";
+    private const string DraftFilter = "DRAFT";
     private const string AllPageBanners = "PageBanners/All";
 
     public CacheHandler(IDbConnectionAccessor dbaAccessor,
@@ -66,75 +66,43 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
 
     public async Task ProcessPublishedAsync(PublishContentContext context)
     {
-        await ProcessContentItem(context.ContentItem.ContentType, context.ContentItem.Id, context.ContentItem.Latest, context.ContentItem.Published);
+        await ProcessContentItem(context.ContentItem.ContentType, context.ContentItem.Id, context.ContentItem.Latest, context.ContentItem.Published, PublishedFilter);
 
         await base.PublishedAsync(context);
     }
 
     public async Task ProcessRemovedAsync(RemoveContentContext context)
     {
-        await RemoveContentItem(context.ContentItem.ContentType, context.ContentItem.Id, context.ContentItem.Latest, context.ContentItem.Published);
+        await RemoveContentItem(context.ContentItem.ContentType, context.ContentItem.Id, context.ContentItem.Latest, context.ContentItem.Published, PublishedFilter);
 
         await base.RemovedAsync(context);
     }
 
     public async Task ProcessUnpublishedAsync(PublishContentContext context)
     {
-        await ProcessContentItem(context.ContentItem.ContentType, context.ContentItem.Id, context.ContentItem.Latest, context.ContentItem.Published);
+        await ProcessContentItem(context.ContentItem.ContentType, context.ContentItem.Id, context.ContentItem.Latest, context.ContentItem.Published, PublishedFilter);
 
         await base.UnpublishedAsync(context);
     }
 
     public async Task ProcessDraftSavedAsync(SaveDraftContentContext context)
     {
-        try
-        {
-            if (Enum.IsDefined(typeof(DraftContentTypes), context.ContentItem.ContentType))
-            {
-                var results = await GetData(context.ContentItem.Id, context.ContentItem.Latest, context.ContentItem.Published);
-
-                foreach (var result in results)
-                {
-                    await _notifier.InformationAsync(_htmlLocalizer[$"The following NodeId will be refreshed {result.NodeId}-DRAFT"]);
-                  
-                    var pageId = JsonConvert.DeserializeObject<Page>(result.Content);
-                    string? pageApiId = string.Concat("PageApi", CheckLeadingChar(pageId.GraphSyncParts.Text.Substring(pageId.GraphSyncParts.Text.LastIndexOf('/') + 1)), Draft);
-
-                    var nodeId = ResolveDraftNodeId(result, context.ContentItem.ContentType);
-                    var success = await _sharedContentRedisInterface.InvalidateEntityAsync(nodeId);
-
-                    success = await _sharedContentRedisInterface.InvalidateEntityAsync($"PageLocation{Draft}");
-                    success = await _sharedContentRedisInterface.InvalidateEntityAsync($"Pagesurl{Draft}");
-                    success = await _sharedContentRedisInterface.InvalidateEntityAsync($"SitemapPages/ALL{Draft}");
-                    success = await _sharedContentRedisInterface.InvalidateEntityAsync($"PagesApi/All{Draft}");
-                    success = await _sharedContentRedisInterface.InvalidateEntityAsync(pageApiId);
-
-
-                    _logger.LogInformation($"Draft. The following NodeId will be invalidated: {result.NodeId}, status: {success}.");
-                }
-            }
-        }
-        catch (Exception exception)
-        {
-            await _notifier.InformationAsync(_htmlLocalizer[$"Exception: {exception}"]);
-            _logger.LogError(exception, $"Draft. Exception when saving draft: {exception}");
-        }
-
+        await ProcessContentItem(context.ContentItem.ContentType, context.ContentItem.Id, context.ContentItem.Latest, context.ContentItem.Published, DraftFilter);
         await base.DraftSavedAsync(context);
     }
 
-    private async Task RemoveContentItem(string contentType, int contentItemId, bool latest, bool published)
+    private async Task RemoveContentItem(string contentType, int contentItemId, bool latest, bool published, string filter)
     {
         try
         {
-            if (Enum.IsDefined(typeof(PublishedContentTypes), contentType))
+            if (Enum.IsDefined(typeof(ContentTypes), contentType))
             {
                 var results = await GetDataWithoutGraphSyncJoin(contentItemId, latest, published);
                 var nodeId = string.Empty;
 
                 foreach (var result in results)
                 {
-                    await InvalidateItems(contentType, contentItemId, nodeId, result.Content);
+                    await InvalidateItems(contentType, contentItemId, nodeId, result.Content, filter);
                 }
             }
         }
@@ -144,17 +112,17 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
         }
     }
 
-    private async Task ProcessContentItem(string contentType, int contentItemId, bool latest, bool published)
+    private async Task ProcessContentItem(string contentType, int contentItemId, bool latest, bool published, string filter)
     {
         try
         {
-            if (Enum.IsDefined(typeof(PublishedContentTypes), contentType))
+            if (Enum.IsDefined(typeof(ContentTypes), contentType))
             {
                 var results = await GetData(contentItemId, latest, published);
 
                 foreach (var result in results)
                 {
-                    await InvalidateItems(contentType, contentItemId, result.NodeId, result.Content);
+                    await InvalidateItems(contentType, contentItemId, result.NodeId, result.Content, filter);
                 }
             }
         }
@@ -199,83 +167,81 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
         return results;
     }
 
-    private async Task InvalidateItems(string contentType, int contentItemId, string nodeId, string content)
+    private async Task InvalidateItems(string contentType, int contentItemId, string nodeId, string content, string filter)
     {
         bool success;
 
-        //Todo - update NuGet package to return true/false and then handle any false values. 
-        if (contentType == PublishedContentTypes.Banner.ToString())
+        if (contentType == ContentTypes.Banner.ToString())
         {
-            await ProcessPublishedPageBannersAsync(contentType);
+            await ProcessPublishedPageBannersAsync(contentType, filter);
         }
 
-        if (contentType == PublishedContentTypes.JobProfile.ToString())
+        if (contentType == ContentTypes.JobProfile.ToString())
         {
-            await ProcessPublishedJobProfileCategoryAsync(contentItemId);
+            await ProcessPublishedJobProfileCategoryAsync(contentItemId, filter);
         }
 
-        if (contentType == PublishedContentTypes.JobProfileCategory.ToString())
+        if (contentType == ContentTypes.JobProfileCategory.ToString())
         {
-            success = await _sharedContentRedisInterface.InvalidateEntityAsync(string.Concat("JobProfiles/Categories", Published));
+            await _sharedContentRedisInterface.InvalidateEntityAsync("JobProfiles/Categories", filter);
         }
 
-        if (contentType == PublishedContentTypes.Page.ToString())
+        if (contentType == ContentTypes.Page.ToString())
         {
             var result = JsonConvert.DeserializeObject<Page>(content);
-            string? pageApiId = string.Concat("PageApi", CheckLeadingChar(result.GraphSyncParts.Text.Substring(result.GraphSyncParts.Text.LastIndexOf('/') + 1)), Published);
+            string? pageApiId = string.Concat("PageApi", CheckLeadingChar(result.GraphSyncParts.Text.Substring(result.GraphSyncParts.Text.LastIndexOf('/') + 1)));
 
-            success = await _sharedContentRedisInterface.InvalidateEntityAsync($"PageLocation{Published}");
-            success = await _sharedContentRedisInterface.InvalidateEntityAsync($"Pagesurl{Published}");
-            success = await _sharedContentRedisInterface.InvalidateEntityAsync($"SitemapPages/ALL{Published}");
-            success = await _sharedContentRedisInterface.InvalidateEntityAsync($"PagesApi/All{Published}");
-            success = await _sharedContentRedisInterface.InvalidateEntityAsync(pageApiId);
-
+            await _sharedContentRedisInterface.InvalidateEntityAsync($"PageLocation", filter);
+            await _sharedContentRedisInterface.InvalidateEntityAsync($"Pagesurl", filter);
+            await _sharedContentRedisInterface.InvalidateEntityAsync($"SitemapPages/ALL", filter);
+            await _sharedContentRedisInterface.InvalidateEntityAsync($"PagesApi/All", filter);
+            await _sharedContentRedisInterface.InvalidateEntityAsync(pageApiId, filter);
         }
 
-        if (contentType == PublishedContentTypes.Pagebanner.ToString())
+        if (contentType == ContentTypes.Pagebanner.ToString())
         {
-            success = await _sharedContentRedisInterface.InvalidateEntityAsync(string.Concat(AllPageBanners, Published));
+            await _sharedContentRedisInterface.InvalidateEntityAsync(string.Concat(AllPageBanners, filter));
         }
 
-        if (contentType == PublishedContentTypes.SharedContent.ToString())
+        if (contentType == ContentTypes.SharedContent.ToString())
         {
-            //success = await _sharedContentRedisInterface.InvalidateEntityAsync(AllPageBanners);
-            InvalidatePageWithSharedContent(contentItemId);
+            await InvalidatePageWithSharedContent(contentItemId, filter);
         }
 
-        var formattedNodeId = ResolvePublishNodeId(nodeId, content, contentType);
-        success = await _sharedContentRedisInterface.InvalidateEntityAsync(formattedNodeId);
-
-        _logger.LogInformation($"The following NodeId will be invalidated: {formattedNodeId}, success: {success}.");
+        var formattedNodeId = ResolveCacheKey(nodeId, content, contentType);
+        if (!string.IsNullOrEmpty(formattedNodeId))
+        {
+            success = await _sharedContentRedisInterface.InvalidateEntityAsync(formattedNodeId, filter);
+            _logger.LogInformation($"The following NodeId will be invalidated: {formattedNodeId}, success: {success}.");
+        }
     }
 
-    public string ResolvePublishNodeId(string nodeId, string content, string contentType)
+    public string ResolveCacheKey(string nodeId, string content, string contentType)
     {
-        if (contentType == PublishedContentTypes.SharedContent.ToString())
+        if (contentType == ContentTypes.SharedContent.ToString())
         {
             const string Prefix = "<<contentapiprefix>>/sharedcontent";
-            return string.Concat(PublishedContentTypes.SharedContent.ToString(), CheckLeadingChar(nodeId.Substring(Prefix.Length, nodeId.Length - Prefix.Length)), Published);
+            return string.Concat(ContentTypes.SharedContent.ToString(), CheckLeadingChar(nodeId.Substring(Prefix.Length, nodeId.Length - Prefix.Length)));
         }
 
-        if (contentType == PublishedContentTypes.Page.ToString())
+        if (contentType == ContentTypes.Page.ToString())
         {
             var result = JsonConvert.DeserializeObject<Page>(content);
-            return string.Concat(PublishedContentTypes.Page.ToString(), CheckLeadingChar(result.PageLocationParts.FullUrl), Published);
+            return string.Concat(ContentTypes.Page.ToString(), CheckLeadingChar(result.PageLocationParts.FullUrl));
         }
 
-
-        if (contentType == PublishedContentTypes.JobProfile.ToString())
+        if (contentType == ContentTypes.JobProfile.ToString())
         {
             var result = JsonConvert.DeserializeObject<Page>(content);
-            return string.Concat(PublishedContentTypes.JobProfile.ToString(), "s", CheckLeadingChar(result.PageLocationParts.FullUrl), Published);
+            return string.Concat(ContentTypes.JobProfile.ToString(), "s", CheckLeadingChar(result.PageLocationParts.FullUrl));
         }
 
-        if (contentType == PublishedContentTypes.JobProfileCategory.ToString())
+        if (contentType == ContentTypes.JobProfileCategory.ToString())
         {
             return FormatJobProfileCategoryNodeId(content);
         }
 
-        if (contentType == PublishedContentTypes.Pagebanner.ToString())
+        if (contentType == ContentTypes.Pagebanner.ToString())
         {
             return FormatPageBannerNodeId(content);
         }
@@ -283,18 +249,7 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
         return string.Empty;
     }
 
-    public string ResolveDraftNodeId(NodeItem nodeItem, string contentType)
-    {
-        if (contentType == DraftContentTypes.Page.ToString())
-        {
-            var result = JsonConvert.DeserializeObject<Page>(nodeItem.Content);
-            return string.Concat(DraftContentTypes.Page.ToString(), CheckLeadingChar(result.PageLocationParts.FullUrl), Draft);
-        }
-
-        return string.Empty;
-    }
-
-    private async Task ProcessPublishedPageBannersAsync(string contentItemId)
+    private async Task ProcessPublishedPageBannersAsync(string contentItemId, string filter)
     {
         await using (DbConnection? connection = _dbaAccessor.CreateConnection())
         {
@@ -312,17 +267,17 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
             foreach (var result in results)
             {
                 var nodeId = FormatPageBannerNodeId(result.Content);
-                success = await _sharedContentRedisInterface.InvalidateEntityAsync(nodeId);
+                success = await _sharedContentRedisInterface.InvalidateEntityAsync(nodeId, filter);
                 _logger.LogInformation($"Published. The following NodeId will be invalidated: {nodeId}, success: {success}.");
             }
 
             //Additionally delete all page banners.  
-            success = await _sharedContentRedisInterface.InvalidateEntityAsync(string.Concat(AllPageBanners, Published));
-            _logger.LogInformation($"Published. The following NodeId will be invalidated: {string.Concat(AllPageBanners, Published)}, success: {success}");
+            await _sharedContentRedisInterface.InvalidateEntityAsync(AllPageBanners, filter);
+            _logger.LogInformation($"Published. The following NodeId will be invalidated: {string.Concat(AllPageBanners, filter)}, success: {success}");
         }
     }
 
-    private async Task InvalidatePageWithSharedContent(int contentItemId)
+    private async Task InvalidatePageWithSharedContent(int contentItemId, string filter)
     {
         await using (DbConnection? connection = _dbaAccessor.CreateConnection())
         {
@@ -343,13 +298,13 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
             foreach (var result in results)
             {
                 var pageObj = JsonConvert.DeserializeObject<Page>(result.Content);
-                var formattedNodeId = string.Concat(PublishedContentTypes.Page.ToString(), CheckLeadingChar(pageObj.PageLocationParts.FullUrl), Published);
-                success = await _sharedContentRedisInterface.InvalidateEntityAsync(formattedNodeId);
+                var formattedNodeId = string.Concat(ContentTypes.Page.ToString(), CheckLeadingChar(pageObj.PageLocationParts.FullUrl));
+                success = await _sharedContentRedisInterface.InvalidateEntityAsync(formattedNodeId, filter);
             }
         }
     }
 
-    private async Task ProcessPublishedJobProfileCategoryAsync(int Id)
+    private async Task ProcessPublishedJobProfileCategoryAsync(int Id, string filter)
     {
         await using (DbConnection? connection = _dbaAccessor.CreateConnection())
         {
@@ -374,7 +329,7 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
 
                     var currentNode = contentNodeId.FirstOrDefault();
                     var nodeId = FormatJobProfileCategoryNodeId(currentNode.Content);
-                    var success = await _sharedContentRedisInterface.InvalidateEntityAsync(nodeId);
+                    var success = await _sharedContentRedisInterface.InvalidateEntityAsync(nodeId, filter);
                     _logger.LogInformation($"Published. The following NodeId will be invalidated: {nodeId}, success: {success}.");
                 }
             }
@@ -384,15 +339,16 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
     private string FormatPageBannerNodeId(string content)
     {
         var result = JsonConvert.DeserializeObject<PageBanners>(content);
-        return string.Concat("PageBanner", CheckLeadingChar(result.BannerParts.WebPageUrl), Published);
+        return string.Concat("PageBanner", CheckLeadingChar(result.BannerParts.WebPageUrl));
     }
 
     private string FormatJobProfileCategoryNodeId(string content)
     {
         var result = JsonConvert.DeserializeObject<Page>(content);
-        return string.Concat(PublishedContentTypes.JobProfile.ToString(), "s", CheckLeadingChar(result.PageLocationParts.FullUrl), Published);
+        return string.Concat(ContentTypes.JobProfile.ToString(), "s", CheckLeadingChar(result.PageLocationParts.FullUrl));
     }
 
+    [DebuggerStepThrough]
     private string CheckLeadingChar(string input)
     {
         if (input.FirstOrDefault() != '/')

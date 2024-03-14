@@ -1,6 +1,6 @@
 ﻿namespace DFC.ServiceTaxonomy.CompUi.Enums
 {
-    public enum PublishedContentTypes
+    public enum ContentTypes
     {
         Banner,
         JobProfileCategory,
