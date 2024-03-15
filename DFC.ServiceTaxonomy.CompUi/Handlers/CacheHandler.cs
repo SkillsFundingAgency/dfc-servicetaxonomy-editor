@@ -50,8 +50,7 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
 
     public async Task ProcessPublishedAsync(PublishContentContext context)
     {
-        var processing = _mapper.Map<Processing>(context);
-        processing.EventType = ProcessingEvents.Published;
+        var processing = GetProcessingData(context, ProcessingEvents.Published, FilterType.PUBLISHED);
 
         await ProcessItem(processing);
 
@@ -60,8 +59,7 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
 
     public async Task ProcessRemovedAsync(RemoveContentContext context)
     {
-        var processing = _mapper.Map<Processing>(context);
-        processing.EventType = ProcessingEvents.Removed;
+        var processing = GetProcessingData(context, ProcessingEvents.Removed, FilterType.PUBLISHED);
 
         await ProcessItem(processing);
 
@@ -70,8 +68,7 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
 
     public async Task ProcessUnpublishedAsync(PublishContentContext context)
     {
-        var processing = _mapper.Map<Processing>(context);
-        processing.EventType = ProcessingEvents.Unpublished;
+        var processing = GetProcessingData(context, ProcessingEvents.Unpublished, FilterType.PUBLISHED);
 
         await ProcessItem(processing);
 
@@ -80,22 +77,9 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
 
     public async Task ProcessDraftSavedAsync(SaveDraftContentContext context)
     {
-        try
-        {
-            var processing = _mapper.Map<Processing>(context);
-            processing.EventType = ProcessingEvents.DraftSaved;
+        var processing = GetProcessingData(context, ProcessingEvents.DraftSaved, FilterType.DRAFT);
 
-            if (Enum.IsDefined(typeof(DraftContentTypes), processing.ContentType))
-            {
-                await _director.ProcessPageAsync(processing);
-            }
-        }
-        catch (Exception exception)
-        {
-            _logger.LogError(exception, message: $"Draft. Exception when invalidating draft.  " +
-                $"Content Type: {context.ContentItem.ContentType}, " +
-                $"Content item Id: {context.ContentItem.Id}.");
-        }
+        await ProcessItem(processing);
 
         await base.DraftSavedAsync(context);
     }
@@ -104,53 +88,53 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
     {
         try
         {
-            if (Enum.IsDefined(typeof(PublishedContentTypes), processing.ContentType))
+            if (Enum.IsDefined(typeof(ContentTypes), processing.ContentType))
             {
                 switch (processing.ContentType)
                 {
-                    case nameof(PublishedContentTypes.SharedContent):
+                    case nameof(ContentTypes.SharedContent):
                         await _director.ProcessSharedContentAsync(processing);
                         break;
-                    case nameof(PublishedContentTypes.Page):
+                    case nameof(ContentTypes.Page):
                         await _director.ProcessPageAsync(processing);
                         break;
-                    case nameof(PublishedContentTypes.Banner):
+                    case nameof(ContentTypes.Banner):
                         await _director.ProcessBannerAsync(processing);
                         break;
-                    case nameof(PublishedContentTypes.JobProfileCategory):
+                    case nameof(ContentTypes.JobProfileCategory):
                         await _director.ProcessJobProfileCategoryAsync(processing);
                         break;
-                    case nameof(PublishedContentTypes.JobProfile):
+                    case nameof(ContentTypes.JobProfile):
                         await _director.ProcessJobProfileAsync(processing);
                         break;
-                    case nameof(PublishedContentTypes.Pagebanner):
+                    case nameof(ContentTypes.Pagebanner):
                         await _director.ProcessPagebannerAsync(processing);
                         break;
-                    case nameof(PublishedContentTypes.TriageToolFilter):
+                    case nameof(ContentTypes.TriageToolFilter):
                         await _director.ProcessTriageToolFilterAsync(processing);
                         break;
-                    case nameof(PublishedContentTypes.PersonalityFilteringQuestion):
+                    case nameof(ContentTypes.PersonalityFilteringQuestion):
                         await _director.ProcessPersonalityFilteringQuestionAsync(processing);
                         break;
-                    case nameof(PublishedContentTypes.PersonalityQuestionSet):
+                    case nameof(ContentTypes.PersonalityQuestionSet):
                         await _director.ProcessPersonalityQuestionSetAsync(processing);
                         break;
-                    case nameof(PublishedContentTypes.PersonalityShortQuestion):
+                    case nameof(ContentTypes.PersonalityShortQuestion):
                         await _director.ProcessPersonalityShortQuestionAsync(processing);
                         break;
-                    case nameof(PublishedContentTypes.PersonalityTrait):
+                    case nameof(ContentTypes.PersonalityTrait):
                         await _director.ProcessPersonalityTraitAsync(processing);
                         break;
-                    case nameof(PublishedContentTypes.SOCSkillsMatrix):
+                    case nameof(ContentTypes.SOCSkillsMatrix):
                         await _director.ProcessSOCSkillsMatrixAsync(processing);
                         break;
-                    case nameof(PublishedContentTypes.WorkingPatterns):
+                    case nameof(ContentTypes.WorkingPatterns):
                         await _director.ProcessWorkingPatternsAsync(processing);
                         break;
-                    case nameof(PublishedContentTypes.WorkingPatternDetail):
+                    case nameof(ContentTypes.WorkingPatternDetail):
                         await _director.ProcessWorkingPatternDetailAsync(processing);
                         break;
-                    case nameof(PublishedContentTypes.WorkingHoursDetail):
+                    case nameof(ContentTypes.WorkingHoursDetail):
                         await _director.ProcessWorkingHoursDetailAsync(processing);
                         break;
                     default:
@@ -163,6 +147,14 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
         {
             _logger.LogError(exception, $"ProcessItem. Content Item Id: {processing.DocumentId}, Content Type could not be determined: {processing.ContentType}, Event Type: {processing.EventType}.");
         }
+    }
+
+    private Processing GetProcessingData(ContentContextBase context, ProcessingEvents processingEvent, FilterType filterType)
+    {
+        var processing = _mapper.Map<Processing>(context);
+        processing.EventType = processingEvent;
+        processing.FilterType = filterType.ToString();
+        return processing;
     }
 }
 

@@ -18,7 +18,7 @@ namespace DFC.ServiceTaxonomy.CompUi.Indexes
         public override void Describe(DescribeContext<ContentItem> context)
         {
             context.For<RelatedContentItemIndex>()
-            .When(contentItem => Enum.IsDefined(typeof(PublishedContentTypes), contentItem.ContentType))
+            .When(contentItem => Enum.IsDefined(typeof(ContentTypes), contentItem.ContentType))
                 .Map(contentItem =>
                     {
                         if (!contentItem.Published && !contentItem.Latest)

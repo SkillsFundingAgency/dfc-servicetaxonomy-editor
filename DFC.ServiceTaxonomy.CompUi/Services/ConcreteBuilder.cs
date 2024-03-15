@@ -1,7 +1,6 @@
 ﻿using System.Data.Common;
 using System.Diagnostics;
 using DFC.Common.SharedContent.Pkg.Netcore.Interfaces;
-using DFC.Common.SharedContent.Pkg.Netcore.Model.ContentItems;
 using DFC.ServiceTaxonomy.CompUi.Dapper;
 using DFC.ServiceTaxonomy.CompUi.Enums;
 using DFC.ServiceTaxonomy.CompUi.Interfaces;
@@ -12,6 +11,7 @@ using Newtonsoft.Json;
 using OrchardCore.Data;
 using Page = DFC.ServiceTaxonomy.CompUi.Models.Page;
 using SharedContent = DFC.ServiceTaxonomy.CompUi.Models.SharedContent;
+using DFC.Common.SharedContent.Pkg.Netcore.Constant;
 
 namespace DFC.ServiceTaxonomy.CompUi.Services
 {
@@ -21,21 +21,6 @@ namespace DFC.ServiceTaxonomy.CompUi.Services
         private readonly IDapperWrapper _dapperWrapper;
         private readonly ISharedContentRedisInterface _sharedContentRedisInterface;
         private readonly ILogger<ConcreteBuilder> _logger;
-
-        private const string Published = "/PUBLISHED";
-        private const string Draft = "/DRAFT";
-        private const string AllPageBanners = "PageBanners/All";
-        private const string Prefix = "<<contentapiprefix>>/sharedcontent";
-        private const string DysacFilteringQuestion = "DYSAC/FilteringQuestions";
-        private const string DysacQuestionSet = "DYSAC/QuestionSets";
-        private const string DysacJobProfileCategories = "DYSAC/JobProfileCategories";
-        private const string DysacJobProfileOverviews = "DYSAC/JobProfileOverviews";
-        private const string DysacShortQuestion = "DYSAC/ShortQuestion";
-        private const string DysacPersonalityTrait = "DYSAC/Traits";
-        private const string JobProfileCategories = "JobProfiles/Categories";
-        private const string TriageToolFilters = "TriageToolFilters/All";
-        private const string TriagePages = "TriageToolPages";
-        private const string SharedContent = "SharedContent";
 
         public ConcreteBuilder(IDbConnectionAccessor dbaAccessor,
             IDapperWrapper dapperWrapper,
@@ -76,14 +61,14 @@ namespace DFC.ServiceTaxonomy.CompUi.Services
                 foreach (var item in data)
                 {
                     var result = JsonConvert.DeserializeObject<PageBanners>(item.Content);
-                    var nodeId = string.Concat("PageBanner", CheckLeadingChar(result.BannerParts.WebPageUrl));
-                    success = await _sharedContentRedisInterface.InvalidateEntityAsync(nodeId);
-                    LogNodeInvalidation(processing, nodeId, success);
+                    var cacheKey = string.Concat("PageBanner", CheckLeadingChar(result.BannerParts.WebPageUrl));
+                    success = await _sharedContentRedisInterface.InvalidateEntityAsync(cacheKey, processing.FilterType);
+                    LogCacheKeyInvalidation(processing, cacheKey, processing.FilterType, success);
                 }
 
                 //Additionally delete all page banners.  
-                success = await _sharedContentRedisInterface.InvalidateEntityAsync(AllPageBanners);
-                LogNodeInvalidation(processing, AllPageBanners, success);
+                success = await _sharedContentRedisInterface.InvalidateEntityAsync(ApplicationKeys.AllPageBanners, processing.FilterType);
+                LogCacheKeyInvalidation(processing, ApplicationKeys.AllPageBanners, processing.FilterType, success);
             }
 
             return success;
@@ -96,47 +81,43 @@ namespace DFC.ServiceTaxonomy.CompUi.Services
             if (!string.IsNullOrEmpty(processing.Content))
             {
                 var sharedContent = JsonConvert.DeserializeObject<SharedContent>(processing.Content);
-                string nodeId = string.Concat(SharedContent,
-                    CheckLeadingChar(sharedContent.SharedContentText.NodeId.Substring(Prefix.Length,
-                    sharedContent.SharedContentText.NodeId.Length - Prefix.Length)));
-                success = await _sharedContentRedisInterface.InvalidateEntityAsync(nodeId);
-                LogNodeInvalidation(processing, nodeId, success);
+                string cacheKey = string.Concat(ApplicationKeys.SharedContent,
+                    CheckLeadingChar(sharedContent.SharedContentText.NodeId.Substring(ApplicationKeys.Prefix.Length,
+                    sharedContent.SharedContentText.NodeId.Length - ApplicationKeys.Prefix.Length))); ;
+                success = await _sharedContentRedisInterface.InvalidateEntityAsync(cacheKey, processing.FilterType);
+                LogCacheKeyInvalidation(processing, cacheKey, processing.FilterType, success);
             }
 
             return success;
         }
 
-        public async Task<bool> InvalidateDysacPersonalityFilteringQuestionAsync()
+        public async Task<bool> InvalidateDysacPersonalityFilteringQuestionAsync(Processing processing)
         {
-            var dysacFilteringQuestionFullKey = string.Concat(DysacFilteringQuestion, Published);
-            var success = await _sharedContentRedisInterface.InvalidateEntityAsync(dysacFilteringQuestionFullKey);
-            _logger.LogInformation($"The following NodeId will be invalidated: {dysacFilteringQuestionFullKey}, success: {success}.");
+            var success = await _sharedContentRedisInterface.InvalidateEntityAsync(ApplicationKeys.DysacFilteringQuestion, processing.FilterType);
+            LogCacheKeyInvalidation(processing, ApplicationKeys.DysacFilteringQuestion, processing.FilterType, success);
 
             return success;
         }
-        public async Task<bool> InvalidateDysacPersonalityQuestionSetAsync()
+        public async Task<bool> InvalidateDysacPersonalityQuestionSetAsync(Processing processing)
         {
-            var dysacQuestionSetFullKey = string.Concat(DysacQuestionSet, Published);
-            var success = await _sharedContentRedisInterface.InvalidateEntityAsync(dysacQuestionSetFullKey);
-            _logger.LogInformation($"The following NodeId will be invalidated: {dysacQuestionSetFullKey}, success: {success}.");
-
-            return success;
-        }
-
-        public async Task<bool> InvalidateDysacPersonalityShortQuestionAsync()
-        {
-            var dysacShortQuestionFullKey = string.Concat(DysacShortQuestion, Published);
-            var success = await _sharedContentRedisInterface.InvalidateEntityAsync(dysacShortQuestionFullKey);
-            _logger.LogInformation($"The following NodeId will be invalidated: {dysacShortQuestionFullKey}, success: {success}.");
+            var success = await _sharedContentRedisInterface.InvalidateEntityAsync(ApplicationKeys.DysacQuestionSet, processing.FilterType);
+            LogCacheKeyInvalidation(processing, ApplicationKeys.DysacQuestionSet, processing.FilterType, success);
 
             return success;
         }
 
-        public async Task<bool> InvalidateDysacPersonalityTraitAsync()
+        public async Task<bool> InvalidateDysacPersonalityShortQuestionAsync(Processing processing)
         {
-            var dysacPersonalityTraitFullKey = string.Concat(DysacPersonalityTrait, Published);
-            var success = await _sharedContentRedisInterface.InvalidateEntityAsync(dysacPersonalityTraitFullKey);
-            _logger.LogInformation($"The following NodeId will be invalidated: {dysacPersonalityTraitFullKey}, success: {success}.");
+            var success = await _sharedContentRedisInterface.InvalidateEntityAsync(ApplicationKeys.DysacShortQuestion, processing.FilterType);
+            _logger.LogInformation($"The following cache key will be invalidated: {ApplicationKeys.DysacShortQuestion}, filter: {processing.FilterType}, success: {success}.");
+
+            return success;
+        }
+
+        public async Task<bool> InvalidateDysacPersonalityTraitAsync(Processing processing)
+        {
+            var success = await _sharedContentRedisInterface.InvalidateEntityAsync(ApplicationKeys.DysacPersonalityTrait, processing.FilterType);
+            _logger.LogInformation($"The following cache key will be invalidated: {ApplicationKeys.DysacPersonalityTrait}, filter: {processing.FilterType}, success: {success}.");
 
             return success;
         }
@@ -146,9 +127,10 @@ namespace DFC.ServiceTaxonomy.CompUi.Services
             var success = true;
             if (!string.IsNullOrEmpty(processing.Content))
             {
-                success = await _sharedContentRedisInterface.InvalidateEntityAsync(TriageToolFilters);
-                success = await _sharedContentRedisInterface.InvalidateEntityAsync(TriagePages);
-                LogNodeInvalidation(processing, TriageToolFilters, success);
+                success = await _sharedContentRedisInterface.InvalidateEntityAsync(ApplicationKeys.TriageToolFilters, processing.FilterType);
+                LogCacheKeyInvalidation(processing, ApplicationKeys.TriageToolFilters, processing.FilterType, success);
+                success = await _sharedContentRedisInterface.InvalidateEntityAsync(ApplicationKeys.TriagePages, processing.FilterType);
+                LogCacheKeyInvalidation(processing, ApplicationKeys.TriagePages, processing.FilterType, success);
             }
             return success;
         }
@@ -162,18 +144,17 @@ namespace DFC.ServiceTaxonomy.CompUi.Services
                 switch (item.ContentType)
                 {
                     //Add additional related content if necessary
-
-                    case nameof(PublishedContentTypes.PersonalityTrait):
-                        success = await InvalidateDysacPersonalityTraitAsync();
+                    case nameof(ContentTypes.PersonalityTrait):
+                        success = await InvalidateDysacPersonalityTraitAsync(processing);
                         break;
-                    case nameof(PublishedContentTypes.PersonalityShortQuestion):
-                        success = await InvalidateDysacPersonalityShortQuestionAsync();
+                    case nameof(ContentTypes.PersonalityShortQuestion):
+                        success = await InvalidateDysacPersonalityShortQuestionAsync(processing);
                         break;
-                    case nameof(PublishedContentTypes.JobProfileCategory):
-                        success = await InvalidateJobProfileCategoriesAsync(item);
+                    case nameof(ContentTypes.JobProfileCategory):
+                        success = await InvalidateJobProfileCategoriesAsync(processing);
                         break;
                     default:
-                        _logger.LogError($"{processing.EventType}. The content type {processing.ContentType} could not be matched.");
+                        _logger.LogError($"{processing.EventType}. The content type {processing.ContentType} could not be matched. Content Item Id: {processing.ContentItemId}");
                         break;
                 }
             }
@@ -183,45 +164,25 @@ namespace DFC.ServiceTaxonomy.CompUi.Services
 
         public async Task InvalidateAdditionalPageNodesAsync(Processing processing)
         {
-            if (processing.EventType == ProcessingEvents.DraftSaved)
-            {
-                await _sharedContentRedisInterface.InvalidateEntityAsync($"PageLocation{Draft}");
-                await _sharedContentRedisInterface.InvalidateEntityAsync($"Pagesurl{Draft}");
-                await _sharedContentRedisInterface.InvalidateEntityAsync($"SitemapPages/ALL{Draft}");
-            }
-            else
-            {
-                await _sharedContentRedisInterface.InvalidateEntityAsync($"PageLocation{Published}");
-                await _sharedContentRedisInterface.InvalidateEntityAsync($"Pagesurl{Published}");
-                await _sharedContentRedisInterface.InvalidateEntityAsync($"SitemapPages/ALL{Published}");
-            }
+            await _sharedContentRedisInterface.InvalidateEntityAsync(ApplicationKeys.PageLocationSuffix, processing.FilterType);
+            await _sharedContentRedisInterface.InvalidateEntityAsync(ApplicationKeys.PagesUrlSuffix, processing.FilterType);
+            await _sharedContentRedisInterface.InvalidateEntityAsync(ApplicationKeys.SitemapPagesAll, processing.FilterType);
         }
 
-        public async Task<bool> InvalidatePageNodeAsync(string content, ProcessingEvents processingEvents)
+        public async Task InvalidatePageNodeAsync(string content, Processing processing)
         {
             if (!string.IsNullOrEmpty(content))
             {
                 var pageLocation = JsonConvert.DeserializeObject<Page>(content);
-                string? nodeId;
+                string? cacheKey;
 
-                if (processingEvents == ProcessingEvents.DraftSaved)
-                {
-                    nodeId = string.Concat(PublishedContentTypes.Page.ToString(), CheckLeadingChar(pageLocation.PageLocationParts.FullUrl), Draft);
-                }
-                else
-                {
-                    nodeId = string.Concat(PublishedContentTypes.Page.ToString(), CheckLeadingChar(pageLocation.PageLocationParts.FullUrl), Published);
-                }
+                cacheKey = string.Concat(ContentTypes.Page.ToString(), CheckLeadingChar(pageLocation.PageLocationParts.FullUrl));
 
-                var success = await _sharedContentRedisInterface.InvalidateEntityAsync(nodeId);
-                success = await _sharedContentRedisInterface.InvalidateEntityAsync(TriageToolFilters);
-                success = await _sharedContentRedisInterface.InvalidateEntityAsync(TriagePages);
-                LogNodeInvalidation(nameof(processingEvents), string.Empty, nameof(PublishedContentTypes.Page), nodeId, success);
-
-                return success;
+                await _sharedContentRedisInterface.InvalidateEntityAsync(cacheKey, processing.FilterType);
+                await _sharedContentRedisInterface.InvalidateEntityAsync(ApplicationKeys.TriageToolFilters, processing.FilterType);
+                await _sharedContentRedisInterface.InvalidateEntityAsync(ApplicationKeys.TriagePages, processing.FilterType);
+                LogCacheKeyInvalidation(nameof(processing.EventType), string.Empty, nameof(ContentTypes.Page), cacheKey, processing.FilterType, true);
             }
-
-            return true;
         }
 
         public async Task<bool> InvalidateJobProfileCategoriesAsync(Processing processing)
@@ -240,14 +201,14 @@ namespace DFC.ServiceTaxonomy.CompUi.Services
                         var currentNode = contentId.FirstOrDefault();
                         var currentNodeResult = JsonConvert.DeserializeObject<Page>(currentNode.Content);
 
-                        var categoryNode = string.Concat(PublishedContentTypes.JobProfile.ToString(), "s", CheckLeadingChar(currentNodeResult.PageLocationParts.FullUrl));
-                        success = await _sharedContentRedisInterface.InvalidateEntityAsync(categoryNode);
-                        LogNodeInvalidation(processing, categoryNode, success);
+                        var categoryNode = string.Concat(ContentTypes.JobProfile.ToString(), "s", CheckLeadingChar(currentNodeResult.PageLocationParts.FullUrl));
+                        success = await _sharedContentRedisInterface.InvalidateEntityAsync(categoryNode, processing.FilterType);
+                        LogCacheKeyInvalidation(processing, categoryNode, processing.FilterType, success);
 
-                        var nodeId = string.Concat(DysacJobProfileCategories, CheckLeadingChar(currentNodeResult.PageLocationParts.FullUrl), Published);
-                        success = await _sharedContentRedisInterface.InvalidateEntityAsync(nodeId);
+                        var cacheKey = string.Concat(ApplicationKeys.JobProfileCategories, CheckLeadingChar(currentNodeResult.PageLocationParts.FullUrl));
+                        success = await _sharedContentRedisInterface.InvalidateEntityAsync(cacheKey, processing.FilterType);
 
-                        LogNodeInvalidation(processing, nodeId, success);
+                        LogCacheKeyInvalidation(processing, cacheKey, processing.FilterType, success);
                     }
                 }
                 return success;
@@ -259,7 +220,7 @@ namespace DFC.ServiceTaxonomy.CompUi.Services
             }
         }
 
-        public async Task<bool> InvalidateJobProfileCategoriesAsync(RelatedItems relatedItems)
+        public async Task<bool> InvalidateJobProfileCategoriesAsync(RelatedItems relatedItems, Processing processing)
         {
             var success = true;
 
@@ -272,13 +233,14 @@ namespace DFC.ServiceTaxonomy.CompUi.Services
                     var currentNode = contentId.FirstOrDefault();
                     var currentNodeResult = JsonConvert.DeserializeObject<Page>(currentNode.Content);
 
-                    var nodeId = string.Concat(PublishedContentTypes.JobProfile.ToString(), "s", CheckLeadingChar(currentNodeResult.PageLocationParts.FullUrl));
-                    success = await _sharedContentRedisInterface.InvalidateEntityAsync(nodeId);
-                    LogNodeInvalidation(nameof(ProcessingEvents.Published), relatedItems.ContentItemId, nameof(PublishedContentTypes.JobProfileCategory), nodeId, success);
+                    var cacheKey = string.Concat(ContentTypes.JobProfile.ToString(), "s", CheckLeadingChar(currentNodeResult.PageLocationParts.FullUrl));
+                    success = await _sharedContentRedisInterface.InvalidateEntityAsync(cacheKey, processing.FilterType);
+                    LogCacheKeyInvalidation(nameof(ProcessingEvents.Published), relatedItems.ContentItemId,
+                        nameof(ContentTypes.JobProfileCategory), cacheKey, processing.FilterType, success);
 
-                    var dysacJobProfileCategories = string.Concat(DysacJobProfileCategories, Published);
-                    success = await _sharedContentRedisInterface.InvalidateEntityAsync(dysacJobProfileCategories);
-                    LogNodeInvalidation(nameof(ProcessingEvents.Published), relatedItems.ContentItemId, nameof(PublishedContentTypes.JobProfileCategory), dysacJobProfileCategories, success);
+                    success = await _sharedContentRedisInterface.InvalidateEntityAsync(ApplicationKeys.JobProfileCategories, processing.FilterType);
+                    LogCacheKeyInvalidation(nameof(ProcessingEvents.Published),
+                        relatedItems.ContentItemId, nameof(ContentTypes.JobProfileCategory), ApplicationKeys.JobProfileCategories, processing.FilterType, success);
                 }
                 return success;
             }
@@ -290,41 +252,40 @@ namespace DFC.ServiceTaxonomy.CompUi.Services
 
         public async Task InvalidateDysacJobProfileOverviewAsync(Processing processing)
         {
-            await ProcessJobProfileOverviewInvalidations(processing, processing.Content);
+            await ProcessJobProfileOverviewInvalidations(processing);
         }
 
         public async Task InvalidateDysacJobProfileOverviewRelatedContentItemsAsync(Processing processing)
         {
-            var data = await GetContentItemsByLikeQueryAsync(nameof(PublishedContentTypes.JobProfile), processing.ContentItemId);
+            var data = await GetContentItemsByLikeQueryAsync(nameof(ContentTypes.JobProfile), processing.ContentItemId);
 
             if (data != null)
             {
                 foreach (var item in data)
                 {
-                    await ProcessJobProfileOverviewInvalidations(processing, item.Content);
+                    await ProcessJobProfileOverviewInvalidations(processing);
                 }
             }
         }
 
-        private async Task ProcessJobProfileOverviewInvalidations(Processing processing, string content)
+        private async Task ProcessJobProfileOverviewInvalidations(Processing processing)
         {
-            var dysacJobProfileOverviewsFullKey = string.Concat(DysacJobProfileOverviews, Published);
-            var success = await _sharedContentRedisInterface.InvalidateEntityAsync(dysacJobProfileOverviewsFullKey);
-            LogNodeInvalidation(processing, dysacJobProfileOverviewsFullKey, success);
+            var success = await _sharedContentRedisInterface.InvalidateEntityAsync(ApplicationKeys.DysacJobProfileOverviews, processing.FilterType);
+            LogCacheKeyInvalidation(processing, ApplicationKeys.DysacJobProfileOverviews, processing.FilterType, success);
         }
 
-        public async Task<bool> InvalidateJobProfileCategoryAsync()
+        public async Task<bool> InvalidateJobProfileCategoryAsync(Processing processing)
         {
-            var success = await _sharedContentRedisInterface.InvalidateEntityAsync(JobProfileCategories);
+            var success = await _sharedContentRedisInterface.InvalidateEntityAsync(ApplicationKeys.JobProfileCategories, processing.FilterType);
             return success;
         }
 
         public async Task<bool> InvalidateJobProfileAsync(Processing processing)
         {
             var result = JsonConvert.DeserializeObject<Page>(processing.Content);
-            var nodeId = string.Concat(PublishedContentTypes.JobProfile.ToString(), "s", CheckLeadingChar(result.PageLocationParts.FullUrl));
-            var success = await _sharedContentRedisInterface.InvalidateEntityAsync(nodeId);
-            LogNodeInvalidation(processing, nodeId, success);
+            var cacheKey = string.Concat(ContentTypes.JobProfile.ToString(), "s", CheckLeadingChar(result.PageLocationParts.FullUrl));
+            var success = await _sharedContentRedisInterface.InvalidateEntityAsync(cacheKey, processing.FilterType);
+            LogCacheKeyInvalidation(processing, cacheKey, processing.FilterType, success);
             return success;
         }
 
@@ -456,22 +417,22 @@ namespace DFC.ServiceTaxonomy.CompUi.Services
         }
 
         [DebuggerStepThrough]
-        private void LogNodeInvalidation(Processing processing, string nodeId, bool status)
+        private void LogCacheKeyInvalidation(Processing processing, string cacheKey, string filter, bool status)
         {
             _logger.LogInformation($"Event Type: {processing.EventType}. " +
                 $"Content Item Id: {processing.DocumentId}. " +
                 $"Content Type: {processing.ContentType}.  " +
-                $"The following NodeId will be invalidated: {nodeId}. " +
+                $"The following Cache Key will be invalidated: {cacheKey}. Filter: {filter}." +
                 $"Success: {status}.");
         }
 
         [DebuggerStepThrough]
-        private void LogNodeInvalidation(string eventType, string documentId, string contentType, string nodeId, bool status)
+        private void LogCacheKeyInvalidation(string eventType, string documentId, string contentType, string cacheKey, string filter, bool status)
         {
             _logger.LogInformation($"Event Type: {eventType}. " +
                 $"Content Item Id: {documentId}. " +
                 $"Content Type: {contentType}.  " +
-                $"The following NodeId will be invalidated: {nodeId}. " +
+                $"The following Cache Key will be invalidated: {cacheKey}. Filter: {filter}." +
                 $"Success: {status}.");
         }
     }

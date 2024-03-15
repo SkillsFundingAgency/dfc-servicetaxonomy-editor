@@ -17,13 +17,13 @@ namespace DFC.ServiceTaxonomy.CompUi.Services
         {
             await _builder.InvalidateAdditionalPageNodesAsync(processing);
 
-            var data = await _builder.GetContentItemsByLikeQueryAsync(nameof(PublishedContentTypes.Page), processing.ContentItemId);
+            var data = await _builder.GetContentItemsByLikeQueryAsync(nameof(ContentTypes.Page), processing.ContentItemId);
 
             if (data != null)
             {
                 foreach (var item in data)
                 {
-                    await _builder.InvalidatePageNodeAsync(item.Content, processing.EventType);
+                    await _builder.InvalidatePageNodeAsync(item.Content, processing);
                 }
             }
 
@@ -33,7 +33,7 @@ namespace DFC.ServiceTaxonomy.CompUi.Services
         public async Task ProcessPageAsync(Processing processing)
         {
             await _builder.InvalidateAdditionalPageNodesAsync(processing);
-            await _builder.InvalidatePageNodeAsync(processing.Content, processing.EventType);
+            await _builder.InvalidatePageNodeAsync(processing.Content, processing);
             await _builder.InvalidateTriageToolFiltersAsync(processing);
         }
 
@@ -54,14 +54,14 @@ namespace DFC.ServiceTaxonomy.CompUi.Services
 
         public async Task ProcessJobProfileCategoryAsync(Processing processing)
         {
-            await _builder.InvalidateJobProfileCategoryAsync();
-            await _builder.InvalidateDysacPersonalityTraitAsync();
+            await _builder.InvalidateJobProfileCategoryAsync(processing);
+            await _builder.InvalidateDysacPersonalityTraitAsync(processing);
             await _builder.InvalidateDysacJobProfileOverviewRelatedContentItemsAsync(processing);
         }
 
         public async Task ProcessJobProfileAsync(Processing processing)
         {
-            await _builder.InvalidateJobProfileCategoryAsync();
+            await _builder.InvalidateJobProfileCategoryAsync(processing);
             await _builder.InvalidateDysacJobProfileOverviewAsync(processing);
             await _builder.InvalidateJobProfileAsync(processing);
         }
@@ -70,36 +70,36 @@ namespace DFC.ServiceTaxonomy.CompUi.Services
         {
             var data = await _builder.GetRelatedContentItemIdsAsync(processing);
             await _builder.InvalidateAdditionalContentItemIdsAsync(processing, data);
-            await _builder.InvalidateDysacPersonalityFilteringQuestionAsync();
+            await _builder.InvalidateDysacPersonalityFilteringQuestionAsync(processing);
         }
 
         public async Task ProcessPersonalityQuestionSetAsync(Processing processing)
         {
             var data = await _builder.GetRelatedContentItemIdsAsync(processing);
             await _builder.InvalidateAdditionalContentItemIdsAsync(processing, data);
-            await _builder.InvalidateDysacPersonalityQuestionSetAsync();
+            await _builder.InvalidateDysacPersonalityQuestionSetAsync(processing);
         }
 
         public async Task ProcessPersonalityShortQuestionAsync(Processing processing)
         {
             var data = await _builder.GetRelatedContentItemIdsAsync(processing);
             await _builder.InvalidateAdditionalContentItemIdsAsync(processing, data);
-            await _builder.InvalidateDysacPersonalityShortQuestionAsync();
+            await _builder.InvalidateDysacPersonalityShortQuestionAsync(processing);
         }
 
         public async Task ProcessPersonalityTraitAsync(Processing processing)
         {
             var data = await _builder.GetRelatedContentItemIdsAsync(processing);
             await _builder.InvalidateAdditionalContentItemIdsAsync(processing, data);
-            await _builder.InvalidateDysacPersonalityTraitAsync();
+            await _builder.InvalidateDysacPersonalityTraitAsync(processing);
         }
 
         public async Task ProcessSOCCodeAsync(Processing processing) => throw new NotImplementedException();
 
         public async Task ProcessSOCSkillsMatrixAsync(Processing processing)
         {
-            await _builder.InvalidateDysacPersonalityFilteringQuestionAsync();
-            await _builder.InvalidateJobProfileCategoryAsync();
+            await _builder.InvalidateDysacPersonalityFilteringQuestionAsync(processing);
+            await _builder.InvalidateJobProfileCategoryAsync(processing);
         }
 
         public async Task ProcessDynamicTitlePrefixAsync(Processing processing) => throw new NotImplementedException();

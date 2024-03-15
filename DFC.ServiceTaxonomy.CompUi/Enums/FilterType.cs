@@ -1,7 +1,8 @@
 ﻿namespace DFC.ServiceTaxonomy.CompUi.Enums
 {
-    public enum DraftContentTypes
+    public enum FilterType
     {
-        Page,
+        DRAFT,
+        PUBLISHED
     }
 }

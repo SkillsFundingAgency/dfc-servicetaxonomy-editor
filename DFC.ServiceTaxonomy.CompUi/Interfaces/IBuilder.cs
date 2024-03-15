@@ -11,19 +11,19 @@ namespace DFC.ServiceTaxonomy.CompUi.Interfaces
         Task<IEnumerable<NodeItem>> GetDataAsync(Processing processing);
         Task<IEnumerable<RelatedItems>?> GetRelatedContentItemIdsAsync(Processing processing);
         Task<IEnumerable<ContentItems>?> GetContentItemsByLikeQueryAsync(string contentType, string queryIds);
-        Task<bool> InvalidatePageNodeAsync(string content, ProcessingEvents processingEvents);
+        Task InvalidatePageNodeAsync(string content, Processing processing);
         Task InvalidateAdditionalPageNodesAsync(Processing processing);
         Task<bool> InvalidateSharedContentAsync(Processing processing);
-        Task<bool> InvalidateDysacPersonalityFilteringQuestionAsync();
-        Task<bool> InvalidateDysacPersonalityQuestionSetAsync();
-        Task<bool> InvalidateDysacPersonalityShortQuestionAsync();
-        Task<bool> InvalidateDysacPersonalityTraitAsync();
+        Task<bool> InvalidateDysacPersonalityFilteringQuestionAsync(Processing processing);
+        Task<bool> InvalidateDysacPersonalityQuestionSetAsync(Processing processing);
+        Task<bool> InvalidateDysacPersonalityShortQuestionAsync(Processing processing);
+        Task<bool> InvalidateDysacPersonalityTraitAsync(Processing processing);
         Task InvalidateDysacJobProfileOverviewAsync(Processing processing);
         Task InvalidateDysacJobProfileOverviewRelatedContentItemsAsync(Processing processing);
         Task<bool> InvalidateTriageToolFiltersAsync(Processing processing);
         Task<bool> InvalidateAdditionalContentItemIdsAsync(Processing processing, IEnumerable<RelatedItems> data);
         Task<bool> InvalidateJobProfileCategoriesAsync(Processing processing);
-        Task<bool> InvalidateJobProfileCategoryAsync();
+        Task<bool> InvalidateJobProfileCategoryAsync(Processing processing);
         Task<bool> InvalidateJobProfileAsync(Processing processing);
     }
 }
