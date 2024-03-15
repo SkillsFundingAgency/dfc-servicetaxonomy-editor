@@ -270,8 +270,8 @@ namespace DFC.ServiceTaxonomy.CompUi.Services
 
         private async Task ProcessJobProfileOverviewInvalidations(Processing processing)
         {
-            var success = await _sharedContentRedisInterface.InvalidateEntityAsync(ApplicationKeys.DysacJobProfileOverviews, processing.FilterType);
-            LogCacheKeyInvalidation(processing, ApplicationKeys.DysacJobProfileOverviews, processing.FilterType, success);
+            var success = await _sharedContentRedisInterface.InvalidateEntityAsync(ApplicationKeys.JobProfileCategories, processing.FilterType);
+            LogCacheKeyInvalidation(processing, ApplicationKeys.JobProfileCategories, processing.FilterType, success);
         }
 
         public async Task<bool> InvalidateJobProfileCategoryAsync(Processing processing)
