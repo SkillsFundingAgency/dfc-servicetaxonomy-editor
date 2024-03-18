@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Azure;
 using DFC.Content.Pkg.Netcore.Data.Contracts;
 using DFC.ServiceTaxonomy.CompUi.Models;
 using Microsoft.AspNetCore.Http;
@@ -37,7 +38,7 @@ namespace DFC.ServiceTaxonomy.CompUi.AppRegistry
         {   
             try
             {
-                ItemResponse<ContentPageModel> response = await _container.ReadItemAsync<ContentPageModel>(itemId, new PartitionKey(partitionKey));
+                ItemResponse<ContentPageModel> response = await _container.ReadItemAsync<ContentPageModel>(itemId, new PartitionKey(partitionKey));                
                 return response.Resource;
             }
             catch (Exception ex)
@@ -51,7 +52,16 @@ namespace DFC.ServiceTaxonomy.CompUi.AppRegistry
         {
             var items = await GetPageById(nodeId, locations);
 
-            items.PageLocations.Add(nodeId, new PageLocations { Locations = locations });
+            if (items.PageLocations.Keys.Any(t => t.Contains(nodeId)))
+            {
+                items.PageLocations.Remove(nodeId);
+                items.PageLocations.Add(nodeId, new PageLocations { Locations = locations });
+            }
+            else
+            {
+                items.PageLocations.Add(nodeId, new PageLocations { Locations = locations });
+            }
+
             try
             {
                 ItemResponse<ContentPageModel> response = await _container.UpsertItemAsync<ContentPageModel>(items, new PartitionKey(items.PartitionKey));

@@ -202,23 +202,20 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
         {
             var result = JsonConvert.DeserializeObject<Page>(content);
             string? pageNodeID = string.Concat("PageApi", CheckLeadingChar(result.GraphSyncParts.Text.Substring(result.GraphSyncParts.Text.LastIndexOf('/') + 1)));
-            string? NodeId = CheckLeadingChar(result.GraphSyncParts.Text.Substring(result.GraphSyncParts.Text.LastIndexOf('/') + 1));
-            string? pageUrl = CheckLeadingChar(result.PageLocationParts.FullUrl);
-            //List<string> redirectUrl = CheckLeadingChar(result.PageLocationParts.RedirectLocations);
-            string redirectUrl = CheckLeadingChar(result.PageLocationParts.RedirectLocations);
-            List<string> locations = new List<string>()
-            {
-                pageUrl,
-                redirectUrl,
-            };
-            
-            /*foreach (string url in redirectUrl)
-            {
-                locations.Add(url);
-            }*/
+            string? NodeId = result.GraphSyncParts.Text.Substring(result.GraphSyncParts.Text.LastIndexOf('/') + 1);
+            List<string> locations = new List<string> { result.PageLocationParts.FullUrl };
 
+            if (result.PageLocationParts.RedirectLocations != null)
+            {
+                List<string> redirectUrls = result.PageLocationParts.RedirectLocations.Split(new string[] { "\r\n", "\r", "\n" }, StringSplitOptions.None).ToList();
+
+                foreach (var url in redirectUrls)
+                {
+                    locations.Add(url);
+                }
+            }
+            
             await _pageLocationUpdater.UpdatePages(NodeId, locations);
-            //await _pageLocationUpdater.FindAndUpdateAsync(pageUrl, pageNodeID, ).ConfigureAwait(false);
             await _sharedContentRedisInterface.InvalidateEntityAsync($"PageLocation", filter);
             await _sharedContentRedisInterface.InvalidateEntityAsync($"Pagesurl", filter);
             await _sharedContentRedisInterface.InvalidateEntityAsync($"SitemapPages/ALL", filter);
