@@ -251,7 +251,7 @@
         "DatabaseName": "[concat(variables('ResourcePrefix'), '-db')]",
         "WebAppName": "[concat(variables('ResourcePrefix'), '-as')]",
         "ActionGroupName": "[concat('dfc-', replace(tolower(parameters('Environment')), '-draft', ''), '-stax-shared-actgrp')]",
-        "DatabaseTier": "[if(equals(parameters('SqlElasticPoolName'), ''), 'Standard', 'ElasticPool')]"
+        "DatabaseTier": "[if(equals(parameters('SqlElasticPoolName'), ''), 'GeneralPurposeServerless', 'ElasticPool')]"
     },
     "resources": [
         {
@@ -657,6 +657,9 @@
                     },
                     "databaseTier": {
                         "value": "[variables('DatabaseTier')]"
+                    },
+                    "databaseCapacity": {
+                        "value": 4
                     }
                 }
             }
