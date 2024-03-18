@@ -15,6 +15,9 @@ namespace DFC.ServiceTaxonomy.CompUi.Models
     {
         [JsonProperty("FullUrl")]
         public string? FullUrl { get; set; }
+
+        [JsonProperty("RedirectLocations")]
+        public string RedirectLocations {  get; set; }
     }
 
     public class GraphSyncParts

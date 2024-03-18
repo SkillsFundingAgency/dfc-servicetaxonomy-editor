@@ -1,11 +1,19 @@
 ﻿using System.Data.Common;
 using System.Diagnostics;
+using System.Net;
+using System.Security.Policy;
 using DFC.Common.SharedContent.Pkg.Netcore.Interfaces;
+using DFC.Common.SharedContent.Pkg.Netcore.Model.ContentItems.PageBanner;
+using DFC.Compui.Cosmos;
+using DFC.Compui.Cosmos.Contracts;
+using DFC.Content.Pkg.Netcore.Services;
+using DFC.ServiceTaxonomy.CompUi.AppRegistry;
 using DFC.ServiceTaxonomy.CompUi.Dapper;
 using DFC.ServiceTaxonomy.CompUi.Enums;
 using DFC.ServiceTaxonomy.CompUi.Interfaces;
 using DFC.ServiceTaxonomy.CompUi.Model;
 using DFC.ServiceTaxonomy.CompUi.Models;
+using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.AspNetCore.Mvc.Localization;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
@@ -23,6 +31,8 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
     private readonly ILogger<CacheHandler> _logger;
     private readonly IDapperWrapper _dapperWrapper;
     private readonly ISharedContentRedisInterface _sharedContentRedisInterface;
+    private readonly IPageLocationUpdater _pageLocationUpdater;
+
 
     private const string PublishedFilter = "PUBLISHED";
     private const string DraftFilter = "DRAFT";
@@ -33,7 +43,8 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
         IHtmlLocalizer<CacheHandler> htmlLocalizer,
         ILogger<CacheHandler> logger,
         IDapperWrapper dapperWrapper,
-        ISharedContentRedisInterface sharedContentRedisInterface
+        ISharedContentRedisInterface sharedContentRedisInterface,
+        IPageLocationUpdater pageLocationUpdater
         )
     {
         _dbaAccessor = dbaAccessor;
@@ -42,6 +53,7 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
         _logger = logger;
         _dapperWrapper = dapperWrapper;
         _sharedContentRedisInterface = sharedContentRedisInterface;
+        _pageLocationUpdater = pageLocationUpdater;
     }
 
     public override async Task PublishedAsync(PublishContentContext context)
@@ -189,13 +201,29 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
         if (contentType == ContentTypes.Page.ToString())
         {
             var result = JsonConvert.DeserializeObject<Page>(content);
-            string? pageApiId = string.Concat("PageApi", CheckLeadingChar(result.GraphSyncParts.Text.Substring(result.GraphSyncParts.Text.LastIndexOf('/') + 1)));
+            string? pageNodeID = string.Concat("PageApi", CheckLeadingChar(result.GraphSyncParts.Text.Substring(result.GraphSyncParts.Text.LastIndexOf('/') + 1)));
+            string? NodeId = CheckLeadingChar(result.GraphSyncParts.Text.Substring(result.GraphSyncParts.Text.LastIndexOf('/') + 1));
+            string? pageUrl = CheckLeadingChar(result.PageLocationParts.FullUrl);
+            //List<string> redirectUrl = CheckLeadingChar(result.PageLocationParts.RedirectLocations);
+            string redirectUrl = CheckLeadingChar(result.PageLocationParts.RedirectLocations);
+            List<string> locations = new List<string>()
+            {
+                pageUrl,
+                redirectUrl,
+            };
+            
+            /*foreach (string url in redirectUrl)
+            {
+                locations.Add(url);
+            }*/
 
+            await _pageLocationUpdater.UpdatePages(NodeId, locations);
+            //await _pageLocationUpdater.FindAndUpdateAsync(pageUrl, pageNodeID, ).ConfigureAwait(false);
             await _sharedContentRedisInterface.InvalidateEntityAsync($"PageLocation", filter);
             await _sharedContentRedisInterface.InvalidateEntityAsync($"Pagesurl", filter);
             await _sharedContentRedisInterface.InvalidateEntityAsync($"SitemapPages/ALL", filter);
             await _sharedContentRedisInterface.InvalidateEntityAsync($"PagesApi/All", filter);
-            await _sharedContentRedisInterface.InvalidateEntityAsync(pageApiId, filter);
+            await _sharedContentRedisInterface.InvalidateEntityAsync(pageNodeID, filter);
         }
 
         if (contentType == ContentTypes.Pagebanner.ToString())
@@ -336,6 +364,8 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
         }
     }
 
+   
+
     private string FormatPageBannerNodeId(string content)
     {
         var result = JsonConvert.DeserializeObject<PageBanners>(content);
@@ -357,6 +387,20 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
         }
 
         return input;
+    }
+
+    [DebuggerStepThrough]
+    private List<string> CheckLeadingChar(List<string> inputs)
+    {
+        List<string> pageInput = new List<string>();
+        foreach (string input in inputs )
+        {
+            if (input.FirstOrDefault() != '/')
+            {
+                pageInput.Add('/' + input);
+            }
+        }
+        return pageInput;
     }
 }
 

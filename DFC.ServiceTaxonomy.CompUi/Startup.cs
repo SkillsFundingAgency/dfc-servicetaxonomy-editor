@@ -1,3 +1,4 @@
+using DFC.ServiceTaxonomy.CompUi.AppRegistry;
 using DFC.ServiceTaxonomy.CompUi.Dapper;
 using DFC.ServiceTaxonomy.CompUi.Handlers;
 using Microsoft.AspNetCore.Builder;
@@ -22,10 +23,14 @@ namespace DFC.ServiceTaxonomy.CompUi
         {
             services.AddTransient<IContentHandler, CacheHandler>();
             services.AddTransient<IDapperWrapper, DapperWrapper>();
+            services.AddSingleton<IPageLocationUpdater, PageLocationUpdater>();
+
+          
         }
 
         public override void Configure(IApplicationBuilder builder, IEndpointRouteBuilder routes, IServiceProvider serviceProvider)
         {
+
         }
     }
 }
