@@ -7,7 +7,7 @@ using DFC.ServiceTaxonomy.CompUi.Models;
 using System.Collections.Generic;
 
 
-namespace YourNamespace.Tests
+namespace DFC.ServiceTaxonomy.UnitTests.CompUi
 {
     public class DirectorTests
     {
