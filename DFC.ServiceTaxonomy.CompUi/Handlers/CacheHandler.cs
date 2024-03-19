@@ -203,7 +203,13 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
             var result = JsonConvert.DeserializeObject<Page>(content);
             string? pageNodeID = string.Concat("PageApi", CheckLeadingChar(result.GraphSyncParts.Text.Substring(result.GraphSyncParts.Text.LastIndexOf('/') + 1)));
             string? NodeId = result.GraphSyncParts.Text.Substring(result.GraphSyncParts.Text.LastIndexOf('/') + 1);
-            List<string> locations = new List<string> { result.PageLocationParts.FullUrl };
+            List<string> locations = new List<string>();
+
+            if (result.PageLocationParts.FullUrl == "/home")
+            {
+                locations.Add("/");
+            }
+            locations.Add(result.PageLocationParts.FullUrl);
 
             if (result.PageLocationParts.RedirectLocations != null)
             {
