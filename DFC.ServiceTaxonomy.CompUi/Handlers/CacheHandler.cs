@@ -111,10 +111,17 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
             {
                 var results = await GetDataWithoutGraphSyncJoin(contentItemId, latest, published);
                 var nodeId = string.Empty;
-
+                
                 foreach (var result in results)
                 {
                     await InvalidateItems(contentType, contentItemId, nodeId, result.Content, filter);
+
+                    if (contentType == ContentTypes.Page.ToString())
+                    {
+                        var pageInfo = JsonConvert.DeserializeObject<Page>(result.Content);
+                        nodeId = pageInfo.GraphSyncParts.Text.Substring(pageInfo.GraphSyncParts.Text.LastIndexOf('/') + 1);
+                        await _pageLocationUpdater.DeletePages(nodeId);
+                    }
                 }
             }
         }

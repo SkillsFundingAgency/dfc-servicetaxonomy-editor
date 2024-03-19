@@ -34,7 +34,7 @@ namespace DFC.ServiceTaxonomy.CompUi.AppRegistry
             
         }
 
-        public async Task<ContentPageModel> GetPageById(string nodeId, List<string> locations)
+        public async Task<ContentPageModel> GetPageById()
         {   
             try
             {
@@ -50,7 +50,7 @@ namespace DFC.ServiceTaxonomy.CompUi.AppRegistry
 
         public async Task<ContentPageModel> UpdatePages(string nodeId, List<string> locations)
         {
-            var items = await GetPageById(nodeId, locations);
+            var items = await GetPageById();
 
             if (items.PageLocations.Keys.Any(t => t.Contains(nodeId)))
             {
@@ -60,6 +60,29 @@ namespace DFC.ServiceTaxonomy.CompUi.AppRegistry
             else
             {
                 items.PageLocations.Add(nodeId, new PageLocations { Locations = locations });
+            }
+
+            try
+            {
+                ItemResponse<ContentPageModel> response = await _container.UpsertItemAsync<ContentPageModel>(items, new PartitionKey(items.PartitionKey));
+                return response;
+
+            }
+            catch (Exception ex)
+            {
+
+                throw new Exception(
+                    "failed");
+            }
+        }
+
+        public async Task<ContentPageModel> DeletePages(string nodeId)
+        {
+            var items = await GetPageById();
+
+            if (items.PageLocations.Keys.Any(t => t.Contains(nodeId)))
+            {
+                items.PageLocations.Remove(nodeId);
             }
 
             try

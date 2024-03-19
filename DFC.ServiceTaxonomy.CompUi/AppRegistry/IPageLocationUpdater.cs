@@ -9,8 +9,10 @@ namespace DFC.ServiceTaxonomy.CompUi.AppRegistry
 {
     public interface IPageLocationUpdater
     {
-        Task<ContentPageModel?> GetPageById(string pageId, List<string> locations);
+        Task<ContentPageModel?> GetPageById();
 
         Task<ContentPageModel> UpdatePages(string nodeId, List<string> locations);
+
+        Task<ContentPageModel> DeletePages(string nodeId);
     }
 }
