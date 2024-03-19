@@ -6,8 +6,7 @@ using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.CompUi.Models;
 using System.Collections.Generic;
 
-
-namespace YourNamespace.Tests
+namespace DFC.ServiceTaxonomy.UnitTests.CompUi
 {
     public class DirectorTests
     {
@@ -30,7 +29,7 @@ namespace YourNamespace.Tests
             //builderMock.Verify(mock => mock.InvalidatePageNodeAsync(It.IsAny<string>(), ProcessingEvents.DraftSaved), Times.AtLeastOnce);
             builderMock.Verify(mock => mock.InvalidateSharedContentAsync(processing), Times.Once);
         }
-     
+
         [Fact]
         public async Task ProcessWorkingPatternsAsync_InvokesInvalidateDysacJobProfileOverviewRelatedContentItemsAsync()
         {
@@ -127,7 +126,7 @@ namespace YourNamespace.Tests
             await director.ProcessJobProfileCategoryAsync(processing);
 
             // Assert
-            builderMock.Verify(mock => mock.InvalidateJobProfileCategoryAsync(), Times.Once);
+            builderMock.Verify(mock => mock.InvalidateJobProfileCategoryAsync(processing), Times.Once);
         }
 
         [Fact]
@@ -144,7 +143,7 @@ namespace YourNamespace.Tests
             await director.ProcessJobProfileCategoryAsync(processing);
 
             // Assert
-            builderMock.Verify(mock => mock.InvalidateDysacPersonalityTraitAsync(), Times.Once);
+            builderMock.Verify(mock => mock.InvalidateDysacPersonalityTraitAsync(processing), Times.Once);
         }
 
         [Fact]
@@ -179,7 +178,7 @@ namespace YourNamespace.Tests
             await director.ProcessJobProfileAsync(processing);
 
             // Assert
-            builderMock.Verify(mock => mock.InvalidateJobProfileCategoryAsync(), Times.Once);
+            builderMock.Verify(mock => mock.InvalidateJobProfileCategoryAsync(processing), Times.Once);
         }
 
         [Fact]
@@ -264,7 +263,7 @@ namespace YourNamespace.Tests
             await director.ProcessPersonalityFilteringQuestionAsync(processing);
 
             // Assert
-            builderMock.Verify(mock => mock.InvalidateDysacPersonalityFilteringQuestionAsync(), Times.Once);
+            builderMock.Verify(mock => mock.InvalidateDysacPersonalityFilteringQuestionAsync(processing), Times.Once);
         }
         [Fact]
         public async Task ProcessPersonalityQuestionSetAsync_InvokesGetRelatedContentItemIdsAsync()
@@ -314,7 +313,7 @@ namespace YourNamespace.Tests
             await director.ProcessPersonalityQuestionSetAsync(processing);
 
             // Assert
-            builderMock.Verify(mock => mock.InvalidateDysacPersonalityQuestionSetAsync(), Times.Once);
+            builderMock.Verify(mock => mock.InvalidateDysacPersonalityQuestionSetAsync(processing), Times.Once);
         }
 
 

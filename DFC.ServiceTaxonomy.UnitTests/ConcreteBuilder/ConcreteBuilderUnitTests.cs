@@ -11,9 +11,6 @@ using DFC.Common.SharedContent.Pkg.Netcore.Interfaces;
 using DFC.ServiceTaxonomy.CompUi.Model;
 using DFC.ServiceTaxonomy.CompUi.Models;
 
-
-
-
 namespace DFC.ServiceTaxonomy.UnitTests.CompUi
 {
     public class ConcreteBuilderTests
