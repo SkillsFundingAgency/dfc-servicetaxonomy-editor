@@ -610,6 +610,22 @@
                                 "value": "[parameters('CosmosDbendpointspublishedContainerName')]"
                             },
                             {
+                                "name": "CosmosAppRegistry__DatabaseName",
+                                "value": "[parameters('CosmosAppRegistryDatabaseName')]"
+                            },
+                            {
+                                "name": "CosmosAppRegistry__ContainerName",
+                                "value": "[parameters('CosmosAppRegistryContainerName')]"
+                            },
+                            {
+                                "name": "CosmosAppRegistry__ContainerDraftName",
+                                "value": "[parameters('CosmosAppRegistryContainerDraftName')]"
+                            },
+                            {
+                                "name": "CosmosAppRegistry__ConnectionString",
+                                "value": "[parameters('CosmosAppRegistryConnectionString')]"
+                            },
+                            {
                                 "name": "WEBSITE_MEMORY_LIMIT_MB",
                                 "value": "[parameters('WEBSITEMEMORYLIMITMB')]"
                             },
