@@ -230,6 +230,18 @@
         "CosmosDbendpointspublishedContainerName": {
             "type": "string"
         },
+        "CosmosAppRegistryDatabaseName":{
+            "type": "string"
+        },
+        "CosmosAppRegistryContainerName":{
+            "type": "string"
+        },
+        "CosmosAppRegistryContainerDraftName":{
+            "type": "string"
+        },
+        "CosmosAppRegistryConnectionString":{
+            "type": "securestring"
+        },
         "WEBSITEMEMORYLIMITMB": {
             "type": "string"
         },

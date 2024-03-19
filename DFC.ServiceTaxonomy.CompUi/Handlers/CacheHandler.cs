@@ -1,19 +1,12 @@
 ﻿using System.Data.Common;
 using System.Diagnostics;
-using System.Net;
-using System.Security.Policy;
 using DFC.Common.SharedContent.Pkg.Netcore.Interfaces;
-using DFC.Common.SharedContent.Pkg.Netcore.Model.ContentItems.PageBanner;
-using DFC.Compui.Cosmos;
-using DFC.Compui.Cosmos.Contracts;
-using DFC.Content.Pkg.Netcore.Services;
 using DFC.ServiceTaxonomy.CompUi.AppRegistry;
 using DFC.ServiceTaxonomy.CompUi.Dapper;
 using DFC.ServiceTaxonomy.CompUi.Enums;
 using DFC.ServiceTaxonomy.CompUi.Interfaces;
 using DFC.ServiceTaxonomy.CompUi.Model;
 using DFC.ServiceTaxonomy.CompUi.Models;
-using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.AspNetCore.Mvc.Localization;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
@@ -120,7 +113,7 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
                     {
                         var pageInfo = JsonConvert.DeserializeObject<Page>(result.Content);
                         nodeId = pageInfo.GraphSyncParts.Text.Substring(pageInfo.GraphSyncParts.Text.LastIndexOf('/') + 1);
-                        await _pageLocationUpdater.DeletePages(nodeId);
+                        await _pageLocationUpdater.DeletePages(nodeId, filter);
                     }
                 }
             }
@@ -221,8 +214,7 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
                     locations.Add(url);
                 }
             }
-            
-            await _pageLocationUpdater.UpdatePages(NodeId, locations);
+            await _pageLocationUpdater.UpdatePages(NodeId, locations, filter);
             await _sharedContentRedisInterface.InvalidateEntityAsync($"PageLocation", filter);
             await _sharedContentRedisInterface.InvalidateEntityAsync($"Pagesurl", filter);
             await _sharedContentRedisInterface.InvalidateEntityAsync($"SitemapPages/ALL", filter);
@@ -391,20 +383,6 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
         }
 
         return input;
-    }
-
-    [DebuggerStepThrough]
-    private List<string> CheckLeadingChar(List<string> inputs)
-    {
-        List<string> pageInput = new List<string>();
-        foreach (string input in inputs )
-        {
-            if (input.FirstOrDefault() != '/')
-            {
-                pageInput.Add('/' + input);
-            }
-        }
-        return pageInput;
     }
 }
 

@@ -1,18 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using DFC.ServiceTaxonomy.CompUi.Models;
+﻿using DFC.ServiceTaxonomy.CompUi.Models;
 
 namespace DFC.ServiceTaxonomy.CompUi.AppRegistry
 {
     public interface IPageLocationUpdater
     {
-        Task<ContentPageModel?> GetPageById();
+        Task<ContentPageModel?> GetPageById(string filter);
 
-        Task<ContentPageModel> UpdatePages(string nodeId, List<string> locations);
+        Task<ContentPageModel> UpdatePages(string nodeId, List<string> locations, string filter);
 
-        Task<ContentPageModel> DeletePages(string nodeId);
+        Task<ContentPageModel> DeletePages(string nodeId, string filter);
+
     }
 }
