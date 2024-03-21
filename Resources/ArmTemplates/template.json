@@ -239,7 +239,7 @@
         "CosmosAppRegistryContainerDraftName":{
             "type": "string"
         },
-        "CosmosAppRegistryConnectionString":{
+        "CompositeUISharedCosmosConnectionString":{
             "type": "securestring"
         },
         "WEBSITEMEMORYLIMITMB": {
@@ -623,7 +623,7 @@
                             },
                             {
                                 "name": "CosmosAppRegistry__ConnectionString",
-                                "value": "[parameters('CosmosAppRegistryConnectionString')]"
+                                "value": "[parameters('CompositeUISharedCosmosConnectionString')]"
                             },
                             {
                                 "name": "WEBSITE_MEMORY_LIMIT_MB",
