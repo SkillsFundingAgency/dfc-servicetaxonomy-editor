@@ -1,6 +1,7 @@
 ﻿using System.Data.Common;
 using System.Diagnostics;
 using DFC.Common.SharedContent.Pkg.Netcore.Interfaces;
+using DFC.ServiceTaxonomy.CompUi.AppRegistry;
 using DFC.ServiceTaxonomy.CompUi.Dapper;
 using DFC.ServiceTaxonomy.CompUi.Enums;
 using DFC.ServiceTaxonomy.CompUi.Interfaces;
@@ -23,6 +24,8 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
     private readonly ILogger<CacheHandler> _logger;
     private readonly IDapperWrapper _dapperWrapper;
     private readonly ISharedContentRedisInterface _sharedContentRedisInterface;
+    private readonly IPageLocationUpdater _pageLocationUpdater;
+
 
     private const string PublishedFilter = "PUBLISHED";
     private const string DraftFilter = "DRAFT";
@@ -33,7 +36,8 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
         IHtmlLocalizer<CacheHandler> htmlLocalizer,
         ILogger<CacheHandler> logger,
         IDapperWrapper dapperWrapper,
-        ISharedContentRedisInterface sharedContentRedisInterface
+        ISharedContentRedisInterface sharedContentRedisInterface,
+        IPageLocationUpdater pageLocationUpdater
         )
     {
         _dbaAccessor = dbaAccessor;
@@ -42,6 +46,7 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
         _logger = logger;
         _dapperWrapper = dapperWrapper;
         _sharedContentRedisInterface = sharedContentRedisInterface;
+        _pageLocationUpdater = pageLocationUpdater;
     }
 
     public override async Task PublishedAsync(PublishContentContext context)
@@ -99,10 +104,17 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
             {
                 var results = await GetDataWithoutGraphSyncJoin(contentItemId, latest, published);
                 var nodeId = string.Empty;
-
+                
                 foreach (var result in results)
                 {
                     await InvalidateItems(contentType, contentItemId, nodeId, result.Content, filter);
+
+                    if (contentType == ContentTypes.Page.ToString())
+                    {
+                        var pageInfo = JsonConvert.DeserializeObject<Page>(result.Content);
+                        nodeId = pageInfo.GraphSyncParts.Text.Substring(pageInfo.GraphSyncParts.Text.LastIndexOf('/') + 1);
+                        await _pageLocationUpdater.DeletePages(nodeId, filter);
+                    }
                 }
             }
         }
@@ -189,13 +201,31 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
         if (contentType == ContentTypes.Page.ToString())
         {
             var result = JsonConvert.DeserializeObject<Page>(content);
-            string? pageApiId = string.Concat("PageApi", CheckLeadingChar(result.GraphSyncParts.Text.Substring(result.GraphSyncParts.Text.LastIndexOf('/') + 1)));
+            string? pageNodeID = string.Concat("PageApi", CheckLeadingChar(result.GraphSyncParts.Text.Substring(result.GraphSyncParts.Text.LastIndexOf('/') + 1)));
+            string? NodeId = result.GraphSyncParts.Text.Substring(result.GraphSyncParts.Text.LastIndexOf('/') + 1);
+            List<string> locations = new List<string>();
 
+            if (result.PageLocationParts.FullUrl == "/home")
+            {
+                locations.Add("/");
+            }
+            locations.Add(result.PageLocationParts.FullUrl);
+
+            if (result.PageLocationParts.RedirectLocations != null)
+            {
+                List<string> redirectUrls = result.PageLocationParts.RedirectLocations.Split(new string[] { "\r\n", "\r", "\n" }, StringSplitOptions.None).ToList();
+
+                foreach (var url in redirectUrls)
+                {
+                    locations.Add(url);
+                }
+            }
+            await _pageLocationUpdater.UpdatePages(NodeId, locations, filter);
             await _sharedContentRedisInterface.InvalidateEntityAsync($"PageLocation", filter);
             await _sharedContentRedisInterface.InvalidateEntityAsync($"Pagesurl", filter);
             await _sharedContentRedisInterface.InvalidateEntityAsync($"SitemapPages/ALL", filter);
             await _sharedContentRedisInterface.InvalidateEntityAsync($"PagesApi/All", filter);
-            await _sharedContentRedisInterface.InvalidateEntityAsync(pageApiId, filter);
+            await _sharedContentRedisInterface.InvalidateEntityAsync(pageNodeID, filter);
         }
 
         if (contentType == ContentTypes.Pagebanner.ToString())
@@ -335,6 +365,8 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
             }
         }
     }
+
+   
 
     private string FormatPageBannerNodeId(string content)
     {

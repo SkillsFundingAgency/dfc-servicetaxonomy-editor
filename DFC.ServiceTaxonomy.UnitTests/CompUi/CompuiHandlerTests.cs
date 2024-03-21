@@ -2,6 +2,7 @@
 using System.Data.Common;
 using System.Threading.Tasks;
 using DFC.Common.SharedContent.Pkg.Netcore.Interfaces;
+using DFC.ServiceTaxonomy.CompUi.AppRegistry;
 using DFC.ServiceTaxonomy.CompUi.Dapper;
 using DFC.ServiceTaxonomy.CompUi.Handlers;
 using DFC.ServiceTaxonomy.CompUi.Interfaces;
@@ -25,6 +26,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.CompUi
         private readonly IDapperWrapper _fakeDapperWrapper;
         private readonly ICacheHandler _fakeCacheHandler;
         private readonly ISharedContentRedisInterface _fakeSharedContentRedisInterface;
+        private readonly IPageLocationUpdater _fakePageLocationUpdater;
         public readonly CacheHandler _concreteCacheHander;
 
         public CompuiHandlerTests()
@@ -35,19 +37,22 @@ namespace DFC.ServiceTaxonomy.UnitTests.CompUi
             _fakeLogger = A.Fake<ILogger<CacheHandler>>();
             _fakeDapperWrapper = A.Fake<IDapperWrapper>();
             _fakeSharedContentRedisInterface = A.Fake<ISharedContentRedisInterface>();
+            _fakePageLocationUpdater = A.Fake<IPageLocationUpdater>();
             _fakeCacheHandler = new CacheHandler(
                 _fakeDbaAccessor,
                 _fakeNotifier,
                 _fakeHtmlLocalizer,
                 _fakeLogger,
                 _fakeDapperWrapper,
-                _fakeSharedContentRedisInterface);
+                _fakeSharedContentRedisInterface,
+                _fakePageLocationUpdater);
             _concreteCacheHander = new CacheHandler(_fakeDbaAccessor,
                 _fakeNotifier,
                 _fakeHtmlLocalizer,
                 _fakeLogger,
                 _fakeDapperWrapper,
-                _fakeSharedContentRedisInterface);
+                _fakeSharedContentRedisInterface,
+                _fakePageLocationUpdater);
         }
 
         #region Publish Tests
