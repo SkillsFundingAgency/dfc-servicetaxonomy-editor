@@ -230,8 +230,8 @@
         "CosmosAppRegistryContainerDraftName":{
             "value": "__CosmosAppRegistryContainerDraftName__"
         },
-        "CosmosAppRegistryConnectionString":{
-            "value": "__CosmosAppRegistryConnectionString__"
+        "CompositeUISharedCosmosConnectionString":{
+            "value": "__CompositeUISharedCosmosConnectionString__"
         },
         "WEBSITEMEMORYLIMITMB":{
             "value": "__WEBSITEMEMORYLIMITMB__"
