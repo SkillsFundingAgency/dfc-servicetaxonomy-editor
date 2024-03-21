@@ -12,6 +12,7 @@ using OrchardCore.Data;
 using Page = DFC.ServiceTaxonomy.CompUi.Models.Page;
 using SharedContent = DFC.ServiceTaxonomy.CompUi.Models.SharedContent;
 using DFC.Common.SharedContent.Pkg.Netcore.Constant;
+using DFC.ServiceTaxonomy.CompUi.AppRegistry;
 
 namespace DFC.ServiceTaxonomy.CompUi.Services
 {
@@ -21,16 +22,20 @@ namespace DFC.ServiceTaxonomy.CompUi.Services
         private readonly IDapperWrapper _dapperWrapper;
         private readonly ISharedContentRedisInterface _sharedContentRedisInterface;
         private readonly ILogger<ConcreteBuilder> _logger;
+        private readonly IPageLocationUpdater _pageLocationUpdater;
+
 
         public ConcreteBuilder(IDbConnectionAccessor dbaAccessor,
             IDapperWrapper dapperWrapper,
             ISharedContentRedisInterface sharedContentRedisInterface,
-            ILogger<ConcreteBuilder> logger)
+            ILogger<ConcreteBuilder> logger,
+             IPageLocationUpdater pageLocationUpdater)
         {
             _dapperWrapper = dapperWrapper;
             _dbaAccessor = dbaAccessor;
             _sharedContentRedisInterface = sharedContentRedisInterface;
             _logger = logger;
+            _pageLocationUpdater = pageLocationUpdater;
         }
 
         public async Task<IEnumerable<NodeItem>> GetDataAsync(Processing processing)
@@ -173,11 +178,39 @@ namespace DFC.ServiceTaxonomy.CompUi.Services
         {
             if (!string.IsNullOrEmpty(content))
             {
-                var pageLocation = JsonConvert.DeserializeObject<Page>(content);
+                var result = JsonConvert.DeserializeObject<Page>(content);
                 string? cacheKey;
+                string? pageNodeID = string.Concat("PageApi", CheckLeadingChar(result.GraphSyncParts.Text.Substring(result.GraphSyncParts.Text.LastIndexOf('/') + 1)));
+                string? NodeId = result.GraphSyncParts.Text.Substring(result.GraphSyncParts.Text.LastIndexOf('/') + 1);
+                List<string> locations = new List<string>();
 
-                cacheKey = string.Concat(ContentTypes.Page.ToString(), CheckLeadingChar(pageLocation.PageLocationParts.FullUrl));
+                if (result.PageLocationParts.FullUrl == "/home")
+                {
+                    locations.Add("/");
+                }
+                locations.Add(result.PageLocationParts.FullUrl);
 
+                if (result.PageLocationParts.RedirectLocations != null)
+                {
+                    List<string> redirectUrls = result.PageLocationParts.RedirectLocations.Split(new string[] { "\r\n", "\r", "\n" }, StringSplitOptions.None).ToList();
+
+                    foreach (var url in redirectUrls)
+                    {
+                        locations.Add(url);
+                    }
+                }
+
+                cacheKey = string.Concat(ContentTypes.Page.ToString(), CheckLeadingChar(result.PageLocationParts.FullUrl));
+
+                if (processing.EventType == ProcessingEvents.Removed)
+                {
+                    await _pageLocationUpdater.DeletePages(NodeId, processing.FilterType);
+                }
+                else
+                {
+                    await _pageLocationUpdater.UpdatePages(NodeId, locations, processing.FilterType);
+
+                }
                 await _sharedContentRedisInterface.InvalidateEntityAsync(cacheKey, processing.FilterType);
                 await _sharedContentRedisInterface.InvalidateEntityAsync(ApplicationKeys.TriageToolFilters, processing.FilterType);
                 await _sharedContentRedisInterface.InvalidateEntityAsync(ApplicationKeys.TriagePages, processing.FilterType);
