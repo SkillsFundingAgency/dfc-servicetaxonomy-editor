@@ -7,6 +7,7 @@
         JobProfile,
         Page,
         Pagebanner,
-        SharedContent
+        SharedContent,
+        TriageToolFilter
     }
 }

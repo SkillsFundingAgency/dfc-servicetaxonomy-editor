@@ -225,12 +225,20 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
             await _sharedContentRedisInterface.InvalidateEntityAsync($"Pagesurl", filter);
             await _sharedContentRedisInterface.InvalidateEntityAsync($"SitemapPages/ALL", filter);
             await _sharedContentRedisInterface.InvalidateEntityAsync($"PagesApi/All", filter);
+            await _sharedContentRedisInterface.InvalidateEntityAsync($"TriageTool/TriageToolPages", filter);
+            await _sharedContentRedisInterface.InvalidateEntityAsync($"TriageTool/TriageToolFilters/All", filter);
             await _sharedContentRedisInterface.InvalidateEntityAsync(pageNodeID, filter);
         }
 
         if (contentType == ContentTypes.Pagebanner.ToString())
         {
             await _sharedContentRedisInterface.InvalidateEntityAsync(string.Concat(AllPageBanners, filter));
+        }
+
+        if (contentType == ContentTypes.TriageToolFilter.ToString())
+        {
+            await _sharedContentRedisInterface.InvalidateEntityAsync($"TriageTool/TriageToolPages", filter);
+            await _sharedContentRedisInterface.InvalidateEntityAsync($"TriageTool/TriageToolFilters/All", filter);
         }
 
         if (contentType == ContentTypes.SharedContent.ToString())
