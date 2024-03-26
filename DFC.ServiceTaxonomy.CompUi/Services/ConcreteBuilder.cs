@@ -238,7 +238,12 @@ namespace DFC.ServiceTaxonomy.CompUi.Services
                         success = await _sharedContentRedisInterface.InvalidateEntityAsync(categoryNode, processing.FilterType);
                         LogCacheKeyInvalidation(processing, categoryNode, processing.FilterType, success);
 
-                        var cacheKey = string.Concat(ApplicationKeys.JobProfileCategories, CheckLeadingChar(currentNodeResult.PageLocationParts.FullUrl));
+                        var cacheKey = string.Concat(ApplicationKeys.DysacJobProfileCategories, CheckLeadingChar(currentNodeResult.PageLocationParts.FullUrl));
+                        success = await _sharedContentRedisInterface.InvalidateEntityAsync(cacheKey, processing.FilterType);
+
+                        LogCacheKeyInvalidation(processing, cacheKey, processing.FilterType, success);
+
+                        cacheKey = string.Concat(ApplicationKeys.ExploreCareersJobProfileCategories, CheckLeadingChar(currentNodeResult.PageLocationParts.FullUrl));
                         success = await _sharedContentRedisInterface.InvalidateEntityAsync(cacheKey, processing.FilterType);
 
                         LogCacheKeyInvalidation(processing, cacheKey, processing.FilterType, success);
@@ -271,9 +276,13 @@ namespace DFC.ServiceTaxonomy.CompUi.Services
                     LogCacheKeyInvalidation(nameof(ProcessingEvents.Published), relatedItems.ContentItemId,
                         nameof(ContentTypes.JobProfileCategory), cacheKey, processing.FilterType, success);
 
-                    success = await _sharedContentRedisInterface.InvalidateEntityAsync(ApplicationKeys.JobProfileCategories, processing.FilterType);
+                    success = await _sharedContentRedisInterface.InvalidateEntityAsync(ApplicationKeys.DysacJobProfileCategories, processing.FilterType);
                     LogCacheKeyInvalidation(nameof(ProcessingEvents.Published),
-                        relatedItems.ContentItemId, nameof(ContentTypes.JobProfileCategory), ApplicationKeys.JobProfileCategories, processing.FilterType, success);
+                        relatedItems.ContentItemId, nameof(ContentTypes.JobProfileCategory), ApplicationKeys.DysacJobProfileCategories, processing.FilterType, success);
+
+                    success = await _sharedContentRedisInterface.InvalidateEntityAsync(ApplicationKeys.ExploreCareersJobProfileCategories, processing.FilterType);
+                    LogCacheKeyInvalidation(nameof(ProcessingEvents.Published),
+                        relatedItems.ContentItemId, nameof(ContentTypes.JobProfileCategory), ApplicationKeys.ExploreCareersJobProfileCategories, processing.FilterType, success);
                 }
                 return success;
             }
@@ -303,13 +312,14 @@ namespace DFC.ServiceTaxonomy.CompUi.Services
 
         private async Task ProcessJobProfileOverviewInvalidations(Processing processing)
         {
-            var success = await _sharedContentRedisInterface.InvalidateEntityAsync(ApplicationKeys.JobProfileCategories, processing.FilterType);
-            LogCacheKeyInvalidation(processing, ApplicationKeys.JobProfileCategories, processing.FilterType, success);
+            var success = await _sharedContentRedisInterface.InvalidateEntityAsync(ApplicationKeys.DysacJobProfileOverviews, processing.FilterType);
+            LogCacheKeyInvalidation(processing, ApplicationKeys.DysacJobProfileOverviews, processing.FilterType, success);
         }
 
         public async Task<bool> InvalidateJobProfileCategoryAsync(Processing processing)
         {
-            var success = await _sharedContentRedisInterface.InvalidateEntityAsync(ApplicationKeys.JobProfileCategories, processing.FilterType);
+            var success = await _sharedContentRedisInterface.InvalidateEntityAsync(ApplicationKeys.DysacJobProfileCategories, processing.FilterType);
+            success = await _sharedContentRedisInterface.InvalidateEntityAsync(ApplicationKeys.ExploreCareersJobProfileCategories, processing.FilterType);
             return success;
         }
 
