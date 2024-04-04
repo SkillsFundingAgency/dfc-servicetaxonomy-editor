@@ -25,5 +25,6 @@ namespace DFC.ServiceTaxonomy.CompUi.Interfaces
         Task<bool> InvalidateJobProfileCategoriesAsync(Processing processing);
         Task<bool> InvalidateJobProfileCategoryAsync(Processing processing);
         Task<bool> InvalidateJobProfileAsync(Processing processing);
+        Task InvalidateJobProfileSkillsAsync(Processing processing);
     }
 }
