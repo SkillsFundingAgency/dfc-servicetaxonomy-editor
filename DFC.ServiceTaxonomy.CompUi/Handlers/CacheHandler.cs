@@ -26,7 +26,6 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
     private readonly ISharedContentRedisInterface _sharedContentRedisInterface;
     private readonly IPageLocationUpdater _pageLocationUpdater;
 
-
     private const string PublishedFilter = "PUBLISHED";
     private const string DraftFilter = "DRAFT";
     private const string AllPageBanners = "PageBanners/All";
@@ -104,7 +103,7 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
             {
                 var results = await GetDataWithoutGraphSyncJoin(contentItemId, latest, published);
                 var nodeId = string.Empty;
-                
+
                 foreach (var result in results)
                 {
                     await InvalidateItems(contentType, contentItemId, nodeId, result.Content, filter);
@@ -195,7 +194,7 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
 
         if (contentType == ContentTypes.JobProfileCategory.ToString())
         {
-            await _sharedContentRedisInterface.InvalidateEntityAsync("JobProfiles/Categories", filter);
+            await _sharedContentRedisInterface.InvalidateEntityAsync("ExploreCareers/JobProfiles/Categories", filter);
         }
 
         if (contentType == ContentTypes.Page.ToString())
@@ -271,7 +270,7 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
         if (contentType == ContentTypes.JobProfile.ToString())
         {
             var result = JsonConvert.DeserializeObject<Page>(content);
-            return string.Concat(ContentTypes.JobProfile.ToString(), "s", CheckLeadingChar(result.PageLocationParts.FullUrl));
+            return string.Concat("ExploreCareers/JobProfiles", CheckLeadingChar(result.PageLocationParts.FullUrl));
         }
 
         if (contentType == ContentTypes.JobProfileCategory.ToString())
@@ -374,8 +373,6 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
         }
     }
 
-   
-
     private string FormatPageBannerNodeId(string content)
     {
         var result = JsonConvert.DeserializeObject<PageBanners>(content);
@@ -385,7 +382,7 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
     private string FormatJobProfileCategoryNodeId(string content)
     {
         var result = JsonConvert.DeserializeObject<Page>(content);
-        return string.Concat(ContentTypes.JobProfile.ToString(), "s", CheckLeadingChar(result.PageLocationParts.FullUrl));
+        return string.Concat("ExploreCareers/JobProfiles", CheckLeadingChar(result.PageLocationParts.FullUrl));
     }
 
     [DebuggerStepThrough]
