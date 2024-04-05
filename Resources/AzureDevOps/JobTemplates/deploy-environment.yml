@@ -75,7 +75,7 @@ jobs:
             Package: "${{ parameters.PackageFile }}"
             ResourceGroupName: '${{ parameters.ResourceGroup }}'
             UseWebDeploy: true
-            allowUntrusted: true
+            AdditionalArguments: '-allowUntrusted'
         # Tokenise appsettings.json
         - task: esfadevops.Tokenization.custom-build-task.Tokenization@0
           displayName: 'Tokenization: Transform file appsettings.json'
@@ -93,6 +93,7 @@ jobs:
             deploymentMethod: zipDeploy
             RemoveAdditionalFilesFlag: false
             ExcludeFilesFromAppDataFlag: false
+            AdditionalArguments: '-allowUntrusted'
         - powershell: Start-Sleep -Seconds 20
           displayName: 'Pause deployment whilst app restarts'
         - template: ..\StepTemplates\run-integration-tests.yml
