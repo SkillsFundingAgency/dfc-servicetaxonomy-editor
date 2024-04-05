@@ -62,6 +62,7 @@ namespace DFC.ServiceTaxonomy.CompUi.Services
         public async Task ProcessJobProfileAsync(Processing processing)
         {
             await _builder.InvalidateJobProfileCategoryAsync(processing);
+            await _builder.InvalidateCareerPathsAndProgressions(processing);
             await _builder.InvalidateDysacJobProfileOverviewAsync(processing);
             await _builder.InvalidateJobProfileAsync(processing);
             await _builder.InvalidateJobProfileSkillsAsync(processing);
