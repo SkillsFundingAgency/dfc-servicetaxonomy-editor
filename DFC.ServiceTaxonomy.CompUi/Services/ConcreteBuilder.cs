@@ -348,6 +348,14 @@ namespace DFC.ServiceTaxonomy.CompUi.Services
             LogCacheKeyInvalidation(processing, cacheKey, processing.FilterType, success);
         }
 
+        public async Task InvalidateJobProfileWhatYoullDoAsync(Processing processing)
+        {
+            var result = JsonConvert.DeserializeObject<Page>(processing.Content);
+            var cacheKey = string.Concat(ApplicationKeys.JobProfileWhatYoullDo, CheckLeadingChar(result.PageLocationParts.FullUrl));
+            var success = await _sharedContentRedisInterface.InvalidateEntityAsync(cacheKey, processing.FilterType);
+            LogCacheKeyInvalidation(processing, cacheKey, processing.FilterType, success);
+        }
+
         private async Task<IEnumerable<NodeItem>?> GetDataAsync(int contentItemId, int latest, int published)
         {
             var sql = $"SELECT DISTINCT GSPI.NodeId, D.Content " +
