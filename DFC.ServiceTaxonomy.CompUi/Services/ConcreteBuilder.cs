@@ -343,15 +343,9 @@ namespace DFC.ServiceTaxonomy.CompUi.Services
         public async Task<bool> InvalidateJobProfileRelatedCareersAsync(Processing processing)
         {
             var result = JsonConvert.DeserializeObject<Page>(processing.Content);
-            var urlName = string.Concat(ApplicationKeys.JobProfileRelatedCareersPrefix, CheckLeadingChar(result.PageLocationParts.FullUrl));
-            var nodeId = string.Concat(ApplicationKeys.JobProfileRelatedCareersPrefix, CheckLeadingChar(result.GraphSyncParts.Text.Substring(result.GraphSyncParts.Text.LastIndexOf('/') + 1)));
-
-            var success = await _sharedContentRedisInterface.InvalidateEntityAsync(urlName, processing.FilterType);
-            LogCacheKeyInvalidation(processing, urlName, processing.FilterType, success);
-            success = await _sharedContentRedisInterface.InvalidateEntityAsync(nodeId, processing.FilterType);
-            LogCacheKeyInvalidation(processing, nodeId, processing.FilterType, success);
-            success = await _sharedContentRedisInterface.InvalidateEntityAsync(ApplicationKeys.JobProfileRelatedCareersPrefixAll, processing.FilterType);
-            LogCacheKeyInvalidation(processing, ApplicationKeys.JobProfileRelatedCareersPrefixAll, processing.FilterType, success);
+            var cacheKey = string.Concat(ApplicationKeys.JobProfileRelatedCareersPrefix, CheckLeadingChar(result.PageLocationParts.FullUrl));
+            var success = await _sharedContentRedisInterface.InvalidateEntityAsync(cacheKey, processing.FilterType);
+            LogCacheKeyInvalidation(processing, cacheKey, processing.FilterType, success);
             return success;
         }
 
