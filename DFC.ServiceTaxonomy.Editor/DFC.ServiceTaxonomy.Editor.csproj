@@ -15,6 +15,7 @@
     <Configurations>Debug;Release;Development</Configurations>
     <PreserveCompilationContext>true</PreserveCompilationContext>
     <AllowUntrustedCertificate>true</AllowUntrustedCertificate>
+    <ErrorOnDuplicatePublishOutputFiles>false</ErrorOnDuplicatePublishOutputFiles>
   </PropertyGroup>
 
   <ItemGroup>

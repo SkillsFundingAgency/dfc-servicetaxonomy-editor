@@ -66,6 +66,8 @@ namespace DFC.ServiceTaxonomy.CompUi.Services
             await _builder.InvalidateJobProfileAsync(processing);
             await _builder.InvalidateJobProfileSkillsAsync(processing);
             await _builder.InvalidateJobProfileRelatedCareersAsync(processing);
+            await _builder.InvalidateJobProfileHowToBecomeAsync(processing);
+            await _builder.InvalidateJobProfileWhatYoullDoAsync(processing);
         }
 
         public async Task ProcessPersonalityFilteringQuestionAsync(Processing processing)
@@ -102,7 +104,6 @@ namespace DFC.ServiceTaxonomy.CompUi.Services
         {
             await _builder.InvalidateDysacPersonalityFilteringQuestionAsync(processing);
             await _builder.InvalidateJobProfileCategoryAsync(processing);
-            //
         }
 
         public async Task ProcessDynamicTitlePrefixAsync(Processing processing) => throw new NotImplementedException();
