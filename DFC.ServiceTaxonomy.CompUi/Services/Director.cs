@@ -69,6 +69,7 @@ namespace DFC.ServiceTaxonomy.CompUi.Services
             await _builder.InvalidateJobProfileRelatedCareersAsync(processing);
             await _builder.InvalidateJobProfileHowToBecomeAsync(processing);
             await _builder.InvalidateJobProfileWhatYoullDoAsync(processing);
+            await _builder.InvalidateJobProfileVideoAsync(processing);
         }
 
         public async Task ProcessPersonalityFilteringQuestionAsync(Processing processing)
