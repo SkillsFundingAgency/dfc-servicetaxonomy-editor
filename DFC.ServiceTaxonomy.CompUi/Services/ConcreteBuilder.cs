@@ -116,7 +116,6 @@ namespace DFC.ServiceTaxonomy.CompUi.Services
         {
             var success = await _sharedContentRedisInterface.InvalidateEntityAsync(ApplicationKeys.DysacShortQuestion, processing.FilterType);
             _logger.LogInformation($"The following cache key will be invalidated: {ApplicationKeys.DysacShortQuestion}, filter: {processing.FilterType}, success: {success}.");
-
             return success;
         }
 
@@ -324,13 +323,20 @@ namespace DFC.ServiceTaxonomy.CompUi.Services
             return success;
         }
 
-        public async Task<bool> InvalidateJobProfileAsync(Processing processing)
+        public async Task InvalidateJobProfileAsync(Processing processing)
         {
             var result = JsonConvert.DeserializeObject<Page>(processing.Content);
             var cacheKey = string.Concat(ApplicationKeys.JobProfileSuffix, CheckLeadingChar(result.PageLocationParts.FullUrl));
             var success = await _sharedContentRedisInterface.InvalidateEntityAsync(cacheKey, processing.FilterType);
             LogCacheKeyInvalidation(processing, cacheKey, processing.FilterType, success);
-            return success;
+        }
+
+        public async Task InvalidateJobProfileOverviewAsync(Processing processing)
+        {
+            var result = JsonConvert.DeserializeObject<Page>(processing.Content);
+            var cacheKey = string.Concat(ApplicationKeys.JobProfilesOverview, CheckLeadingChar(result.PageLocationParts.FullUrl));
+            var success = await _sharedContentRedisInterface.InvalidateEntityAsync(cacheKey, processing.FilterType);
+            LogCacheKeyInvalidation(processing, cacheKey, processing.FilterType, success);
         }
 
         public async Task InvalidateJobProfileSkillsAsync(Processing processing)
@@ -341,10 +347,42 @@ namespace DFC.ServiceTaxonomy.CompUi.Services
             LogCacheKeyInvalidation(processing, cacheKey, processing.FilterType, success);
         }
 
+        public async Task InvalidateJobProfileRelatedCareersAsync(Processing processing)
+        {
+            var result = JsonConvert.DeserializeObject<Page>(processing.Content);
+            var cacheKey = string.Concat(ApplicationKeys.JobProfileRelatedCareersPrefix, CheckLeadingChar(result.PageLocationParts.FullUrl));
+            var success = await _sharedContentRedisInterface.InvalidateEntityAsync(cacheKey, processing.FilterType);
+            LogCacheKeyInvalidation(processing, cacheKey, processing.FilterType, success);
+        }
+        
+        public async Task InvalidateJobProfileHowToBecomeAsync(Processing processing)
+        {
+            var result = JsonConvert.DeserializeObject<Page>(processing.Content);
+            var cacheKey = string.Concat(ApplicationKeys.JobProfileHowToBecome, CheckLeadingChar(result.PageLocationParts.FullUrl));
+            var success = await _sharedContentRedisInterface.InvalidateEntityAsync(cacheKey, processing.FilterType);
+            LogCacheKeyInvalidation(processing, cacheKey, processing.FilterType, success);
+        }
+
+        public async Task InvalidateJobProfileWhatYoullDoAsync(Processing processing)
+        {
+            var result = JsonConvert.DeserializeObject<Page>(processing.Content);
+            var cacheKey = string.Concat(ApplicationKeys.JobProfileWhatYoullDo, CheckLeadingChar(result.PageLocationParts.FullUrl));
+            var success = await _sharedContentRedisInterface.InvalidateEntityAsync(cacheKey, processing.FilterType);
+            LogCacheKeyInvalidation(processing, cacheKey, processing.FilterType, success);
+        }
+
+        public async Task InvalidateJobProfileVideoAsync(Processing processing)
+        {
+            var result = JsonConvert.DeserializeObject<Page>(processing.Content);
+            var cacheKey = string.Concat(ApplicationKeys.JobProfileVideoPrefix, CheckLeadingChar(result.PageLocationParts.FullUrl));
+            var success = await _sharedContentRedisInterface.InvalidateEntityAsync(cacheKey, processing.FilterType);
+            LogCacheKeyInvalidation(processing, cacheKey, processing.FilterType, success);
+        }
+
         public async Task InvalidateCareerPathsAndProgressions(Processing processing)
         {
             var result = JsonConvert.DeserializeObject<Page>(processing.Content);
-            var cacheKey = string.Concat(ApplicationKeys.JobProfilesCarreerPath, CheckLeadingChar(result.TitlePart.Title));
+            var cacheKey = string.Concat(ApplicationKeys.JobProfilesCarreerPath, CheckLeadingChar(result.PageLocationParts.FullUrl));
             var success = await _sharedContentRedisInterface.InvalidateEntityAsync(cacheKey, processing.FilterType);
             LogCacheKeyInvalidation(processing, cacheKey, processing.FilterType, success);
         }
