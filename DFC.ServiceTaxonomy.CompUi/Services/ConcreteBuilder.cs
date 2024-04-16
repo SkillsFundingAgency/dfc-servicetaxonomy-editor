@@ -188,6 +188,12 @@ namespace DFC.ServiceTaxonomy.CompUi.Services
                 {
                     locations.Add("/");
                 }
+
+                if (result.PageLocationParts.DefaultPageForLocation == true)
+                {
+                    locations.Add(result.PageLocationParts.FullUrl.Substring(result.PageLocationParts.FullUrl.LastIndexOf('/')));
+                }
+
                 locations.Add(result.PageLocationParts.FullUrl);
 
                 if (result.PageLocationParts.RedirectLocations != null)
