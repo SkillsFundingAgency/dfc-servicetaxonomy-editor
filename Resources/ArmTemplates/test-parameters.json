@@ -221,6 +221,18 @@
         "CosmosDbendpointspublishedContainerName":{
             "value": "__CosmosDbendpointspublishedContainerName__"
         },
+        "CosmosAppRegistryDatabaseName":{
+            "value": "__CosmosAppRegistryDatabaseName__"
+        },
+        "CosmosAppRegistryContainerName":{
+            "value": "__CosmosAppRegistryContainerName__"
+        },
+        "CosmosAppRegistryContainerDraftName":{
+            "value": "__CosmosAppRegistryContainerDraftName__"
+        },
+        "CosmosAppRegistryConnectionString":{
+            "value": "__CosmosAppRegistryConnectionString__"
+        },
         "WEBSITEMEMORYLIMITMB":{
             "value": "__WEBSITEMEMORYLIMITMB__"
         },
