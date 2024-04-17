@@ -31,5 +31,6 @@ namespace DFC.ServiceTaxonomy.CompUi.Interfaces
         Task InvalidateJobProfileWhatYoullDoAsync(Processing processing);
         Task InvalidateJobProfileHowToBecomeAsync(Processing processing);
         Task InvalidateJobProfileVideoAsync(Processing processing);
+        Task InvalidateJobProfileCurrentOpportunitiesAllAsync(Processing processing);
     }
 }
