@@ -76,6 +76,7 @@ jobs:
             ResourceGroupName: '${{ parameters.ResourceGroup }}'
             UseWebDeploy: true
             allowUntrusted: true
+            AdditionalArguments: -allowUntrusted
         # Tokenise appsettings.json
         - task: esfadevops.Tokenization.custom-build-task.Tokenization@0
           displayName: 'Tokenization: Transform file appsettings.json'
