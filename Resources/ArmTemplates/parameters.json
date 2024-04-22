@@ -221,6 +221,18 @@
         "CosmosDbendpointspublishedContainerName":{
             "value": "__CosmosDbendpointspublishedContainerName__"
         },
+        "CosmosAppRegistryDatabaseName":{
+            "value": "__CosmosAppRegistryDatabaseName__"
+        },
+        "CosmosAppRegistryContainerName":{
+            "value": "__CosmosAppRegistryContainerName__"
+        },
+        "CosmosAppRegistryContainerDraftName":{
+            "value": "__CosmosAppRegistryContainerDraftName__"
+        },
+        "CompositeUISharedCosmosConnectionString":{
+            "value": "__CompositeUISharedCosmosConnectionString__"
+        },
         "WEBSITEMEMORYLIMITMB":{
             "value": "__WEBSITEMEMORYLIMITMB__"
         },
@@ -230,6 +242,9 @@
         "workspaceResourceGroup": {
             "value": "__sharedLogAnalyticsResourceGroup__"
   
+        },
+        "CmsRedisCacheConnectionString": {
+            "value": "__RedisConnectionString__"
         }
     }
 }

@@ -5,5 +5,6 @@
         public const string Page = "Page";
         public const string PageLocation = "PageLocation";
         public const string Taxonomy = "Taxonomy";
+        public const string TriageToolFilters = "TriageToolFilters";
     }
 }

@@ -230,6 +230,18 @@
         "CosmosDbendpointspublishedContainerName": {
             "type": "string"
         },
+        "CosmosAppRegistryDatabaseName":{
+            "type": "string"
+        },
+        "CosmosAppRegistryContainerName":{
+            "type": "string"
+        },
+        "CosmosAppRegistryContainerDraftName":{
+            "type": "string"
+        },
+        "CompositeUISharedCosmosConnectionString":{
+            "type": "securestring"
+        },
         "WEBSITEMEMORYLIMITMB": {
             "type": "string"
         },
@@ -238,6 +250,9 @@
         },
         "workspaceResourceGroup": {
             "type": "string"
+        },
+        "CmsRedisCacheConnectionString": {
+            "type": "securestring"
         }
         
     },
@@ -595,8 +610,28 @@
                                 "value": "[parameters('CosmosDbendpointspublishedContainerName')]"
                             },
                             {
+                                "name": "CosmosAppRegistry__DatabaseName",
+                                "value": "[parameters('CosmosAppRegistryDatabaseName')]"
+                            },
+                            {
+                                "name": "CosmosAppRegistry__ContainerName",
+                                "value": "[parameters('CosmosAppRegistryContainerName')]"
+                            },
+                            {
+                                "name": "CosmosAppRegistry__ContainerDraftName",
+                                "value": "[parameters('CosmosAppRegistryContainerDraftName')]"
+                            },
+                            {
+                                "name": "CosmosAppRegistry__ConnectionString",
+                                "value": "[parameters('CompositeUISharedCosmosConnectionString')]"
+                            },
+                            {
                                 "name": "WEBSITE_MEMORY_LIMIT_MB",
                                 "value": "[parameters('WEBSITEMEMORYLIMITMB')]"
+                            },
+                            {
+                                "name": "Cms__RedisCacheConnectionString",
+                                "value": "[parameters('CmsRedisCacheConnectionString')]"
                             }   
                         ] 
                     }

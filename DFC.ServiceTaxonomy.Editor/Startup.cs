@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
-
+using DFC.Common.SharedContent.Pkg.Netcore;
+using DFC.Common.SharedContent.Pkg.Netcore.Infrastructure;
+using DFC.Common.SharedContent.Pkg.Netcore.Interfaces;
 using DFC.ServiceTaxonomy.Content.Configuration;
 using DFC.ServiceTaxonomy.CustomEditor.Configuration;
 using DFC.ServiceTaxonomy.Editor.Security;
@@ -9,13 +11,13 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-
 using OrchardCore.Media;
 
 namespace DFC.ServiceTaxonomy.Editor
 {
     public class Startup
     {
+        private const string RedisCacheConnectionStringAppSettings = "Cms:RedisCacheConnectionString";
         public Startup(IConfiguration configuration) =>
             Configuration = configuration;
 
@@ -66,6 +68,10 @@ namespace DFC.ServiceTaxonomy.Editor
             services.Configure<JobProfilesConfiguration>(Configuration.GetSection("JobProfiles"));
             services.Configure<AzureAdSettings>(Configuration.GetSection("AzureAdSettings"));
 
+            services.AddStackExchangeRedisCache(options => { options.Configuration = Configuration.GetSection(RedisCacheConnectionStringAppSettings).Get<string>(); });
+            services.AddSingleton<ISharedContentRedisInterfaceStrategyFactory, SharedContentRedisStrategyFactory>();
+            services.AddSingleton<ISharedContentRedisInterface, SharedContentRedis>();
+
             services.PostConfigure(SetupMediaConfig());
         }
 
@@ -95,7 +101,9 @@ namespace DFC.ServiceTaxonomy.Editor
                     ".ico",
                     ".svg"
                 };
+#pragma warning disable CS8602 // Dereference of a possibly null reference.
                 o.CdnBaseUrl = Configuration.GetValue<string>(Constants.Common.DigitalAssetsCdnKey).TrimEnd('/');
+#pragma warning restore CS8602 // Dereference of a possibly null reference.
             };
     }
 }

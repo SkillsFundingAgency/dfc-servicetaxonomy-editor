@@ -34,9 +34,11 @@ namespace DFC.ServiceTaxonomy.UnitTests.Content.Handlers
 
             var inMemoryConfigSettings = new Dictionary<string, string> { {"AzureAdSettings", "TestAdSettings"}};
 
+#pragma warning disable CS8620 // Argument cannot be used for parameter due to differences in the nullability of reference types.
             IConfiguration configuration = new ConfigurationBuilder()
                             .AddInMemoryCollection(inMemoryConfigSettings)
                             .Build();
+#pragma warning restore CS8620 // Argument cannot be used for parameter due to differences in the nullability of reference types.
 
             A.CallTo(() => _fakeCdnService.PurgeContentAsync(A<IList<string>>.Ignored)).Returns(true);
             var mediaBlobStoreEventHandler = new MediaBlobStoreEventHandler(configuration, _fakeCdnService, _logger);
@@ -60,9 +62,11 @@ namespace DFC.ServiceTaxonomy.UnitTests.Content.Handlers
 
             var inMemoryConfigSettings = new Dictionary<string, string> ();
 
+#pragma warning disable CS8620 // Argument cannot be used for parameter due to differences in the nullability of reference types.
             IConfiguration configuration = new ConfigurationBuilder()
                             .AddInMemoryCollection(inMemoryConfigSettings)
                             .Build();
+#pragma warning restore CS8620 // Argument cannot be used for parameter due to differences in the nullability of reference types.
 
             A.CallTo(() => _fakeCdnService.PurgeContentAsync(A<IList<string>>.Ignored)).Returns(true);
             var mediaBlobStoreEventHandler = new MediaBlobStoreEventHandler(configuration, _fakeCdnService, _logger);

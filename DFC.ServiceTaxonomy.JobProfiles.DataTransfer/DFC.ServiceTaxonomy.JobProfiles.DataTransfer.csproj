@@ -22,6 +22,9 @@
     <PackageReference Include="Microsoft.Azure.ServiceBus" Version="5.2.0" />
     <PackageReference Include="OrchardCore.Application.Cms.Targets" Version="1.6.0" />
     <PackageReference Include="OrchardCore.ContentManagement" Version="1.6.0" />
+    <PackageReference Include="OrchardCore.ContentManagement.GraphQL" Version="1.6.0" />
+    <PackageReference Include="OrchardCore.ContentTypes.Abstractions" Version="1.6.0" />
+    <PackageReference Include="OrchardCore.DisplayManagement" Version="1.6.0" />
     <PackageReference Include="OrchardCore.Module.Targets" Version="1.6.0" />
     <PackageReference Include="OrchardCore.Navigation.Core" Version="1.6.0" />
     <PackageReference Include="OrchardCore.Contents" Version="1.6.0" />
