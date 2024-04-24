@@ -208,6 +208,14 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
             {
                 locations.Add("/");
             }
+
+            if (result.PageLocationParts.DefaultPageForLocation == true)
+            {
+                string[] split = result.PageLocationParts.FullUrl.Split('/');
+                string url = string.Join("/", split.Take(split.Length - 1));
+                locations.Add(url);
+            }
+
             locations.Add(result.PageLocationParts.FullUrl);
 
             if (result.PageLocationParts.RedirectLocations != null)
