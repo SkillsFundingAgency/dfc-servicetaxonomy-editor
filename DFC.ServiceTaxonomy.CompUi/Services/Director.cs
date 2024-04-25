@@ -62,7 +62,11 @@ namespace DFC.ServiceTaxonomy.CompUi.Services
         public async Task ProcessJobProfileAsync(Processing processing)
         {
             await _builder.InvalidateAllJobProfileContentAsync(processing);
-            await _builder.RefreshAllJobProfileContent(processing);
+
+            if (processing.FilterType == FilterType.PUBLISHED.ToString())
+            {
+                await _builder.RefreshAllJobProfileContent(processing);
+            }
         }
 
         public async Task ProcessPersonalityFilteringQuestionAsync(Processing processing)

@@ -97,9 +97,6 @@ namespace DFC.ServiceTaxonomy.Editor
             });
 
             //Add any additional strategies that need to be refreshed here
-            //services.AddSingleton<ISharedContentRedisInterfaceStrategyWithRedisExpiry<JobProfilesOverviewResponse>, JobProfileOverviewProfileSpecificQueryStrategy>();
-
-
             services.AddSingleton<ISharedContentRedisInterfaceStrategyWithRedisExpiry<JobProfileCurrentOpportunitiesResponse>, JobProfileCurrentOpportunitiesStrategy>();
             services.AddSingleton<ISharedContentRedisInterfaceStrategy<JobProfileSkillsResponse>, JobProfileSkillsStrategy>();
             services.AddSingleton<ISharedContentRedisInterfaceStrategy<JobProfileCareerPathAndProgressionResponse>, JobProfileCareerPathAndProgressionStrategy>();
@@ -110,11 +107,8 @@ namespace DFC.ServiceTaxonomy.Editor
             services.AddSingleton<ISharedContentRedisInterfaceStrategyWithRedisExpiry<JobProfileVideoResponse>, JobProfileVideoQueryStrategy>();
             services.AddSingleton<ISharedContentRedisInterfaceStrategyWithRedisExpiry<JobProfileCurrentOpportunitiesGetbyUrlReponse>, JobProfileCurrentOpportunitiesGetByUrlStrategy>();
 
-            //services.AddStackExchangeRedisCache(options => { options.Configuration = Configuration.GetSection(RedisCacheConnectionStringAppSettings).Get<string>(); });
-                                  
+            services.AddStackExchangeRedisCache(options => { options.Configuration = Configuration.GetSection(RedisCacheConnectionStringAppSettings).Get<string>(); });
             services.AddSingleton<ISharedContentRedisInterfaceStrategyFactory, SharedContentRedisStrategyFactory>();
-            //services.AddSingleton<ISharedContentRedisInterfaceStrategy, SharedContentRedisStrategyFactory>();
-            //services.AddSingleton<ISharedContentRedisInterfaceStrategyWithRedisExpiry, SharedContentRedisStrategyFactory>();
             services.AddSingleton<ISharedContentRedisInterface, SharedContentRedis>();
             
 
