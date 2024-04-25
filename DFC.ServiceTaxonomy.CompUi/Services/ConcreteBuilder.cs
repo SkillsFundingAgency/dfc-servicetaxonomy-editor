@@ -14,6 +14,7 @@ using SharedContent = DFC.ServiceTaxonomy.CompUi.Models.SharedContent;
 using DFC.Common.SharedContent.Pkg.Netcore.Constant;
 using DFC.ServiceTaxonomy.CompUi.AppRegistry;
 
+
 namespace DFC.ServiceTaxonomy.CompUi.Services
 {
     public class ConcreteBuilder : IBuilder
@@ -29,7 +30,7 @@ namespace DFC.ServiceTaxonomy.CompUi.Services
             IDapperWrapper dapperWrapper,
             ISharedContentRedisInterface sharedContentRedisInterface,
             ILogger<ConcreteBuilder> logger,
-             IPageLocationUpdater pageLocationUpdater)
+            IPageLocationUpdater pageLocationUpdater)
         {
             _dapperWrapper = dapperWrapper;
             _dbaAccessor = dbaAccessor;
@@ -213,8 +214,8 @@ namespace DFC.ServiceTaxonomy.CompUi.Services
                 else
                 {
                     await _pageLocationUpdater.UpdatePages(NodeId, locations, processing.FilterType);
-
                 }
+
                 await _sharedContentRedisInterface.InvalidateEntityAsync(cacheKey, processing.FilterType);
                 await _sharedContentRedisInterface.InvalidateEntityAsync(ApplicationKeys.TriageToolFilters, processing.FilterType);
                 await _sharedContentRedisInterface.InvalidateEntityAsync(ApplicationKeys.TriagePages, processing.FilterType);
@@ -238,7 +239,7 @@ namespace DFC.ServiceTaxonomy.CompUi.Services
                         var currentNode = contentId.FirstOrDefault();
                         var currentNodeResult = JsonConvert.DeserializeObject<Page>(currentNode.Content);
 
-                        var categoryNode = string.Concat(ContentTypes.JobProfile.ToString(), "s", CheckLeadingChar(currentNodeResult.PageLocationParts.FullUrl));
+                        var categoryNode = string.Concat(ApplicationKeys.JobProfileSuffix, CheckLeadingChar(currentNodeResult.PageLocationParts.FullUrl));
                         success = await _sharedContentRedisInterface.InvalidateEntityAsync(categoryNode, processing.FilterType);
                         LogCacheKeyInvalidation(processing, categoryNode, processing.FilterType, success);
 
@@ -383,6 +384,14 @@ namespace DFC.ServiceTaxonomy.CompUi.Services
             LogCacheKeyInvalidation(processing, cacheKey, processing.FilterType, success);
         }
 
+        public async Task InvalidateCareerPathsAndProgressions(Processing processing)
+        {
+            var result = JsonConvert.DeserializeObject<Page>(processing.Content);
+            var cacheKey = string.Concat(ApplicationKeys.JobProfilesCarreerPath, CheckLeadingChar(result.PageLocationParts.FullUrl));
+            var success = await _sharedContentRedisInterface.InvalidateEntityAsync(cacheKey, processing.FilterType);
+            LogCacheKeyInvalidation(processing, cacheKey, processing.FilterType, success);
+         }
+            
         public async Task InvalidateJobProfileCurrentOpportunitiesAllAsync(Processing processing)
         {
             var success = await _sharedContentRedisInterface.InvalidateEntityAsync(ApplicationKeys.JobProfileCurrentOpportunitiesAllJobProfiles, processing.FilterType);
