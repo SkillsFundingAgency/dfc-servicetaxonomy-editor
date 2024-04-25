@@ -104,6 +104,7 @@ namespace DFC.ServiceTaxonomy.JobProfiles.DataTransfer.Indexes
                     jobProfileIndex.Uniform = GetContentItemListAsCsv(part.RelatedUniforms);
                     jobProfileIndex.Restriction = GetContentItemListAsCsv(part.Relatedrestrictions);
                     jobProfileIndex.RealStory = GetContentItemListAsCsv(part.RealStory);
+                    
 
                     return jobProfileIndex;
                 });

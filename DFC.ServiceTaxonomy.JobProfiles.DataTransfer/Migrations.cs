@@ -1,12 +1,15 @@
-﻿using DFC.ServiceTaxonomy.JobProfiles.DataTransfer.Indexes;
+﻿using System.Threading.Tasks;
+using DFC.ServiceTaxonomy.JobProfiles.DataTransfer.Indexes;
 using DFC.ServiceTaxonomy.JobProfiles.DataTransfer.Models;
 using DFC.ServiceTaxonomy.JobProfiles.DataTransfer.Models.Indexes;
-
+using DFC.ServiceTaxonomy.PageLocation.Indexes;
+using OrchardCore.ContentManagement;
 using OrchardCore.ContentManagement.Metadata;
 using OrchardCore.ContentManagement.Metadata.Settings;
+using OrchardCore.ContentManagement.Records;
 using OrchardCore.Data.Migration;
 using OrchardCore.Modules;
-
+using YesSql;
 using YesSql.Sql;
 
 namespace DFC.ServiceTaxonomy.JobProfiles.DataTransfer
@@ -15,9 +18,13 @@ namespace DFC.ServiceTaxonomy.JobProfiles.DataTransfer
     public class Migrations : DataMigration
     {
         private readonly IContentDefinitionManager _contentDefinitionManager;
+        private readonly YesSql.ISession _session;
 
-        public Migrations(IContentDefinitionManager contentDefinitionManager) =>
+        public Migrations(IContentDefinitionManager contentDefinitionManager, YesSql.ISession session)
+        {
             _contentDefinitionManager = contentDefinitionManager;
+            _session = session;
+        }
 
         public int Create()
         {
@@ -246,6 +253,30 @@ namespace DFC.ServiceTaxonomy.JobProfiles.DataTransfer
                .WithDescription("Provides a JobProfileSimplificationPart for your content item."));
 
             return 10;
+        }
+
+        public async Task<int> UpdateFrom10()
+        {
+
+            SchemaBuilder.CreateMapIndexTable<JobProfileSimplificationPartIndex>(table => table
+                .Column<string>("ContentItemId", c => c.WithLength(26))
+                .Column<string>("VideoThumbnailText")
+            );
+
+            SchemaBuilder.AlterTable(nameof(JobProfileSimplificationPartIndex), table => table
+                .CreateIndex("IDX_JobProfileSimplificationPartIndex_ContentItemId", "ContentItemId")
+            );
+
+            var contentItems = await _session
+                .Query<ContentItem, ContentItemIndex>()
+                .Where(x => (x.ContentType == "JobProfile") && x.Published && x.Latest)
+                .ListAsync();
+
+            foreach (var contentItem in contentItems)
+            {
+                _session.Save(contentItem, checkConcurrency: true);
+            }
+            return 11;
         }
     }
 }
