@@ -27,6 +27,9 @@ namespace DFC.ServiceTaxonomy.CompUi.Models
 
         [JsonProperty("RedirectLocations")]
         public string? RedirectLocations { get; set; }
+      
+        [JsonProperty("DefaultPageForLocation")]
+        public bool? DefaultPageForLocation { get; set; }
     }
 
     public class TitlePart

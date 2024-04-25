@@ -188,6 +188,11 @@ namespace DFC.ServiceTaxonomy.CompUi.Services
                 {
                     locations.Add("/");
                 }
+
+                if (result.PageLocationParts.DefaultPageForLocation == true)
+                {
+                    locations.Add(result.PageLocationParts.FullUrl.Substring(result.PageLocationParts.FullUrl.LastIndexOf('/')));
+                }
                 locations.Add(result.PageLocationParts.FullUrl);
 
                 if (result.PageLocationParts.RedirectLocations != null)
@@ -385,6 +390,12 @@ namespace DFC.ServiceTaxonomy.CompUi.Services
             var cacheKey = string.Concat(ApplicationKeys.JobProfilesCarreerPath, CheckLeadingChar(result.PageLocationParts.FullUrl));
             var success = await _sharedContentRedisInterface.InvalidateEntityAsync(cacheKey, processing.FilterType);
             LogCacheKeyInvalidation(processing, cacheKey, processing.FilterType, success);
+         }
+            
+        public async Task InvalidateJobProfileCurrentOpportunitiesAllAsync(Processing processing)
+        {
+            var success = await _sharedContentRedisInterface.InvalidateEntityAsync(ApplicationKeys.JobProfileCurrentOpportunitiesAllJobProfiles, processing.FilterType);
+            LogCacheKeyInvalidation(processing, ApplicationKeys.JobProfileCurrentOpportunitiesAllJobProfiles, processing.FilterType, success);
         }
 
         private async Task<IEnumerable<NodeItem>?> GetDataAsync(int contentItemId, int latest, int published)
