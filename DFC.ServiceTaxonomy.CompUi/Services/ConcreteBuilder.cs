@@ -425,10 +425,10 @@ namespace DFC.ServiceTaxonomy.CompUi.Services
                     await GetDataAsync<JobProfileSkillsResponse>(processing, string.Concat(ApplicationKeys.JobProfileSkillsSuffix, fullUrl), filter);
 
                     //The following 4 refreshes are currently failing - will need further investigation.  
-                    await GetDataAsync<JobProfileCategoriesResponseDysac>(processing, ApplicationKeys.DysacJobProfileCategories, filter);
-                    await GetDataAsync<JobProfileCategoriesResponseExploreCareers>(processing, string.Concat(ApplicationKeys.ExploreCareersJobProfileCategories, fullUrl), filter);
-                    await GetDataAsync<JobProfilesResponse>(processing, ApplicationKeys.DysacJobProfileOverviews, filter);
-                    await GetDataAsync<JobProfilesResponse>(processing, string.Concat(ApplicationKeys.JobProfileSuffix, fullUrl), filter);
+                    //await GetDataAsync<JobProfileCategoriesResponseDysac>(processing, ApplicationKeys.DysacJobProfileCategories, filter);
+                    //await GetDataAsync<JobProfileCategoriesResponseExploreCareers>(processing, string.Concat(ApplicationKeys.ExploreCareersJobProfileCategories, fullUrl), filter);
+                    //await GetDataAsync<JobProfilesResponse>(processing, ApplicationKeys.DysacJobProfileOverviews, filter);
+                    //await GetDataAsync<JobProfilesResponse>(processing, string.Concat(ApplicationKeys.JobProfileSuffix, fullUrl), filter);
 
                     //var response1 = _sharedContentRedisInterface.GetDataAsyncWithExpiry<JobProfileCurrentOpportunitiesResponse>(ApplicationKeys.JobProfileCurrentOpportunitiesAllJobProfiles, filter);
                     //var response2 = _sharedContentRedisInterface.GetDataAsyncWithExpiry<RelatedCareersResponse>(string.Concat(ApplicationKeys.JobProfileRelatedCareersPrefix, fullUrl), filter);
