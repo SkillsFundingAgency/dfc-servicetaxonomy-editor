@@ -423,28 +423,6 @@ namespace DFC.ServiceTaxonomy.CompUi.Services
                     await GetDataAsync<JobProfileWhatYoullDoResponse>(processing, string.Concat(ApplicationKeys.JobProfileWhatYoullDo, fullUrl), filter);
                     await GetDataAsync<JobProfileCareerPathAndProgressionResponse>(processing, string.Concat(ApplicationKeys.JobProfilesCarreerPath, fullUrl), filter);
                     await GetDataAsync<JobProfileSkillsResponse>(processing, string.Concat(ApplicationKeys.JobProfileSkillsSuffix, fullUrl), filter);
-
-                    //The following 4 refreshes are currently failing - will need further investigation.  
-                    //await GetDataAsync<JobProfileCategoriesResponseDysac>(processing, ApplicationKeys.DysacJobProfileCategories, filter);
-                    //await GetDataAsync<JobProfileCategoriesResponseExploreCareers>(processing, string.Concat(ApplicationKeys.ExploreCareersJobProfileCategories, fullUrl), filter);
-                    //await GetDataAsync<JobProfilesResponse>(processing, ApplicationKeys.DysacJobProfileOverviews, filter);
-                    //await GetDataAsync<JobProfilesResponse>(processing, string.Concat(ApplicationKeys.JobProfileSuffix, fullUrl), filter);
-
-                    //var response1 = _sharedContentRedisInterface.GetDataAsyncWithExpiry<JobProfileCurrentOpportunitiesResponse>(ApplicationKeys.JobProfileCurrentOpportunitiesAllJobProfiles, filter);
-                    //var response2 = _sharedContentRedisInterface.GetDataAsyncWithExpiry<RelatedCareersResponse>(string.Concat(ApplicationKeys.JobProfileRelatedCareersPrefix, fullUrl), filter);
-                    //var response3 = _sharedContentRedisInterface.GetDataAsyncWithExpiry<JobProfileHowToBecomeResponse>(string.Concat(ApplicationKeys.JobProfileHowToBecome, fullUrl), filter);
-                    //var response4 = _sharedContentRedisInterface.GetDataAsyncWithExpiry<JobProfilesOverviewResponse>(string.Concat(ApplicationKeys.JobProfilesOverview, fullUrl), filter);
-                    //var response5 = _sharedContentRedisInterface.GetDataAsyncWithExpiry<JobProfileVideoResponse>(string.Concat(ApplicationKeys.JobProfileVideoPrefix, fullUrl), filter);
-                    //var response6 = _sharedContentRedisInterface.GetDataAsyncWithExpiry<JobProfileCurrentOpportunitiesGetbyUrlReponse>(ApplicationKeys.JobProfileCurrentOpportunitiesAllJobProfiles, filter);
-                    //var response7 = _sharedContentRedisInterface.GetDataAsync<JobProfileWhatYoullDoResponse>(string.Concat(ApplicationKeys.JobProfileWhatYoullDo, fullUrl), filter);
-                    //var response8 = _sharedContentRedisInterface.GetDataAsync<JobProfileCareerPathAndProgressionResponse>(string.Concat(ApplicationKeys.JobProfilesCarreerPath, fullUrl), filter);
-                    //var response9 = _sharedContentRedisInterface.GetDataAsync<JobProfileSkillsResponse>(string.Concat(ApplicationKeys.JobProfileSkillsSuffix, fullUrl), filter);
-                    //var response10 = _sharedContentRedisInterface.GetDataAsync<JobProfileCategoriesResponseDysac>(ApplicationKeys.DysacJobProfileCategories, filter);
-                    //var response11 = _sharedContentRedisInterface.GetDataAsync<JobProfileCategoriesResponseExploreCareers>(ApplicationKeys.ExploreCareersJobProfileCategories, filter);
-                    //var response12 = _sharedContentRedisInterface.GetDataAsync<JobProfilesResponse>(ApplicationKeys.DysacJobProfileOverviews, filter);
-                    //var response13 = _sharedContentRedisInterface.GetDataAsync<JobProfilesResponse>(ApplicationKeys.JobProfileSuffix, filter);
-
-                    //await Task.WhenAll(response1, response2, response3, response4, response5, response6, response7, response8, response9, response10, response11, response12, response13);
                 }
             }
             catch (Exception exception)
@@ -495,19 +473,6 @@ namespace DFC.ServiceTaxonomy.CompUi.Services
                 await InvalidateJobProfileVideoAsync(processing);
                 await InvalidateJobProfileCurrentOpportunitiesAllAsync(processing);
                 await InvalidateCareerPathsAndProgressions(processing);
-
-                //var response1 = InvalidateJobProfileCategoryAsync(processing);
-                //var response2 = InvalidateDysacJobProfileOverviewAsync(processing);
-                //var response3 = InvalidateJobProfileAsync(processing);
-                //var response4 = InvalidateJobProfileSkillsAsync(processing);
-                //var response5 = InvalidateJobProfileOverviewAsync(processing);
-                //var response6 = InvalidateJobProfileRelatedCareersAsync(processing);
-                //var response7 = InvalidateJobProfileHowToBecomeAsync(processing);
-                //var response8 = InvalidateJobProfileWhatYoullDoAsync(processing);
-                //var response9 = InvalidateJobProfileVideoAsync(processing);
-                //var response10 = InvalidateJobProfileCurrentOpportunitiesAllAsync(processing);
-                //var response11 = InvalidateCareerPathsAndProgressions(processing);
-                //await Task.WhenAll(response1, response2, response3, response4, response5, response6, response7, response8, response9, response10);
             }
             catch (Exception exception)
             {
