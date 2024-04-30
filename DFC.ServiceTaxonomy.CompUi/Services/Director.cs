@@ -61,11 +61,11 @@ namespace DFC.ServiceTaxonomy.CompUi.Services
 
         public async Task ProcessJobProfileAsync(Processing processing)
         {
-            Task.WaitAll(_builder.InvalidateAllJobProfileContentAsync(processing));
+            await Task.WhenAll(_builder.InvalidateAllJobProfileContentAsync(processing));
 
             if (processing.FilterType == FilterType.PUBLISHED.ToString())
             {
-                await _builder.RefreshAllJobProfileContent(processing);
+                Task.WaitAll(_builder.RefreshAllJobProfileContent(processing));
             }
         }
 
