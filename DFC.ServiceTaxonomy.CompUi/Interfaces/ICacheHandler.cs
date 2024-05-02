@@ -1,4 +1,4 @@
-﻿using OrchardCore.ContentManagement.Handlers;
+using OrchardCore.ContentManagement.Handlers;
 
 namespace DFC.ServiceTaxonomy.CompUi.Interfaces
 {

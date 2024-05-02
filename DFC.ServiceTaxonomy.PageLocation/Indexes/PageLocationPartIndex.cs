@@ -11,7 +11,7 @@ namespace DFC.ServiceTaxonomy.PageLocation.Indexes
         public string? ContentItemId { get; set; }
         public string? Url { get; set; }
         public string? UrlName { get; set; }
-        public bool? UseInTriageTool {  get; set; }
+        public bool? UseInTriageTool { get; set; }
     }
 
     public class PageLocationPartIndexProvider : IndexProvider<ContentItem>

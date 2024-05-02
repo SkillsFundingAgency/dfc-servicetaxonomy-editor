@@ -1,4 +1,4 @@
-﻿using AutoMapper;
+using AutoMapper;
 using DFC.ServiceTaxonomy.CompUi.Enums;
 using DFC.ServiceTaxonomy.CompUi.Interfaces;
 using DFC.ServiceTaxonomy.CompUi.Models;
@@ -157,5 +157,3 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
         return processing;
     }
 }
-
-
