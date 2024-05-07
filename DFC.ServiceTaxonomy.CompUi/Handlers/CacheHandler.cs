@@ -137,6 +137,9 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
                     case nameof(ContentTypes.WorkingHoursDetail):
                         await _director.ProcessWorkingHoursDetailAsync(processing);
                         break;
+                    case nameof(ContentTypes.Skill):
+                        await _director.ProcessSkillsAsync(processing);
+                        break;
                     default:
                         _logger.LogError($"ProcessItem. Content Item Id: {processing.DocumentId}, Content Type could not be determined: {processing.ContentType}, Event Type: {processing.EventType}");
                         break;
