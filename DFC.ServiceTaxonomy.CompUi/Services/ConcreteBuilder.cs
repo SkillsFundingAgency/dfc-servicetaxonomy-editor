@@ -349,7 +349,14 @@ namespace DFC.ServiceTaxonomy.CompUi.Services
             var result = JsonConvert.DeserializeObject<Page>(processing.Content);
             var cacheKey = string.Concat(ApplicationKeys.JobProfileSkillsSuffix, CheckLeadingChar(result.PageLocationParts.FullUrl));
             var success = await _sharedContentRedisInterface.InvalidateEntityAsync(cacheKey, processing.FilterType);
+            success = await _sharedContentRedisInterface.InvalidateEntityAsync(ApplicationKeys.SkillsAll, processing.FilterType);
             LogCacheKeyInvalidation(processing, cacheKey, processing.FilterType, success);
+        }
+
+        public async Task InvalidateSkillsAsync(Processing processing)
+        {
+            var success = await _sharedContentRedisInterface.InvalidateEntityAsync(ApplicationKeys.SkillsAll, processing.FilterType);
+            LogCacheKeyInvalidation(processing, ApplicationKeys.SkillsAll, processing.FilterType, success);
         }
 
         public async Task InvalidateJobProfileRelatedCareersAsync(Processing processing)
