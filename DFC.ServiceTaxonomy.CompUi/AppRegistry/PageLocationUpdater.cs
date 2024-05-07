@@ -80,7 +80,7 @@ namespace DFC.ServiceTaxonomy.CompUi.AppRegistry
 
             try
             {
-                    return await _container.UpsertItemAsync<ContentPageModel>(items, new PartitionKey(items.PartitionKey));
+                return await _container.UpsertItemAsync<ContentPageModel>(items, new PartitionKey(items.PartitionKey));
             }
             catch (Exception ex)
             {

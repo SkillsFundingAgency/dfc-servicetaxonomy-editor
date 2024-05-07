@@ -1,4 +1,4 @@
-﻿using OrchardCore.ContentManagement.Handlers;
+using OrchardCore.ContentManagement.Handlers;
 
 namespace DFC.ServiceTaxonomy.CompUi.Interfaces
 {
@@ -11,7 +11,5 @@ namespace DFC.ServiceTaxonomy.CompUi.Interfaces
         Task ProcessRemovedAsync(RemoveContentContext context);
 
         Task ProcessUnpublishedAsync(PublishContentContext context);
-
-        string ResolveCacheKey(string nodeId, string content, string contentType);
     }
 }

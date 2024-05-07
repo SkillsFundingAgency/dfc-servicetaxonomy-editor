@@ -1,5 +1,3 @@
-﻿
-
 using DFC.ServiceTaxonomy.PageLocation.Models;
 using GraphQL.Types;
 using Microsoft.Extensions.Localization;

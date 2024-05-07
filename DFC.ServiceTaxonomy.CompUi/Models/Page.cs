@@ -11,18 +11,21 @@ namespace DFC.ServiceTaxonomy.CompUi.Models
         public GraphSyncParts? GraphSyncParts { get; set; }
     }
 
+    public class GraphSyncParts
+    {
+        [JsonProperty("Text")]
+        public string? Text { get; set; }
+    }
+
     public class PageLocationParts
     {
         [JsonProperty("FullUrl")]
         public string? FullUrl { get; set; }
 
         [JsonProperty("RedirectLocations")]
-        public string RedirectLocations {  get; set; }
-    }
+        public string RedirectLocations { get; set; }
 
-    public class GraphSyncParts
-    {
-        [JsonProperty("Text")]
-        public string? Text { get; set; }
+        [JsonProperty("DefaultPageForLocation")]
+        public bool? DefaultPageForLocation {  get; set; }
     }
 }

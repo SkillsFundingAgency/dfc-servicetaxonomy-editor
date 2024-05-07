@@ -5,9 +5,14 @@ namespace DFC.ServiceTaxonomy.CompUi.Dapper
 {
     internal class DapperWrapper : IDapperWrapper
     {
-        async public Task<IEnumerable<T>> QueryAsync<T>(DbConnection connection, string sql)
+        public async Task<IEnumerable<T>> QueryAsync<T>(DbConnection connection, string sql)
         {
             return await connection.QueryAsync<T>(sql);
+        }
+
+        public async Task<string> QueryAsync(DbConnection connection, string sql)
+        {
+            return await connection.QuerySingle(sql);
         }
     }
 }

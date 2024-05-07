@@ -8,6 +8,14 @@
         Page,
         Pagebanner,
         SharedContent,
-        TriageToolFilter
+        TriageToolFilter,
+        PersonalityFilteringQuestion,
+        PersonalityQuestionSet,
+        PersonalityShortQuestion,
+        PersonalityTrait,
+        SOCSkillsMatrix,
+        WorkingPatterns,
+        WorkingPatternDetail,
+        WorkingHoursDetail
     }
 }

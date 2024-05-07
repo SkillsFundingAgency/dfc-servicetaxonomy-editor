@@ -44,6 +44,7 @@ namespace DFC.ServiceTaxonomy.PageLocation.Drivers
                 model.FullUrl = pageLocationPart.FullUrl;
                 model.RedirectLocations = pageLocationPart.RedirectLocations;
                 model.PageLocationPart = pageLocationPart;
+                model.UseInTriageTool = pageLocationPart.UseInTriageTool;
                 model.ContentItem = pageLocationPart.ContentItem;
                 model.Settings = context.TypePartDefinition.GetSettings<PageLocationPartSettings>();
             });
@@ -51,7 +52,7 @@ namespace DFC.ServiceTaxonomy.PageLocation.Drivers
 
         public override async Task<IDisplayResult> UpdateAsync(PageLocationPart model, IUpdateModel updater, UpdatePartEditorContext context)
         {
-            await updater.TryUpdateModelAsync(model, Prefix, t => t.UrlName, t => t.DefaultPageForLocation, t => t.RedirectLocations, t => t.FullUrl);
+            await updater.TryUpdateModelAsync(model, Prefix, t => t.UrlName, t => t.DefaultPageForLocation, t => t.RedirectLocations, t => t.FullUrl, t => t.UseInTriageTool);
 
             await ValidateAsync(model, updater);
 
