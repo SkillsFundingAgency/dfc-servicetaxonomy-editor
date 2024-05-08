@@ -121,5 +121,10 @@ namespace DFC.ServiceTaxonomy.CompUi.Services
         {
             await _builder.InvalidateDysacJobProfileOverviewRelatedContentItemsAsync(processing);
         }
+
+        public async Task ProcessSkillsAsync(Processing processing)
+        {
+            await _builder.InvalidateSkillsAsync(processing);
+        }
     }
 }
