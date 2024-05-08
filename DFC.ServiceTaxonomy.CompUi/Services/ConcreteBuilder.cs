@@ -13,6 +13,8 @@ using Page = DFC.ServiceTaxonomy.CompUi.Models.Page;
 using SharedContent = DFC.ServiceTaxonomy.CompUi.Models.SharedContent;
 using DFC.Common.SharedContent.Pkg.Netcore.Constant;
 using DFC.ServiceTaxonomy.CompUi.AppRegistry;
+using DFC.Common.SharedContent.Pkg.Netcore.Model.Response;
+using System;
 
 
 namespace DFC.ServiceTaxonomy.CompUi.Services
@@ -24,7 +26,6 @@ namespace DFC.ServiceTaxonomy.CompUi.Services
         private readonly ISharedContentRedisInterface _sharedContentRedisInterface;
         private readonly ILogger<ConcreteBuilder> _logger;
         private readonly IPageLocationUpdater _pageLocationUpdater;
-
 
         public ConcreteBuilder(IDbConnectionAccessor dbaAccessor,
             IDapperWrapper dapperWrapper,
@@ -366,7 +367,7 @@ namespace DFC.ServiceTaxonomy.CompUi.Services
             var success = await _sharedContentRedisInterface.InvalidateEntityAsync(cacheKey, processing.FilterType);
             LogCacheKeyInvalidation(processing, cacheKey, processing.FilterType, success);
         }
-        
+
         public async Task InvalidateJobProfileHowToBecomeAsync(Processing processing)
         {
             var result = JsonConvert.DeserializeObject<Page>(processing.Content);
@@ -397,12 +398,93 @@ namespace DFC.ServiceTaxonomy.CompUi.Services
             var cacheKey = string.Concat(ApplicationKeys.JobProfilesCarreerPath, CheckLeadingChar(result.PageLocationParts.FullUrl));
             var success = await _sharedContentRedisInterface.InvalidateEntityAsync(cacheKey, processing.FilterType);
             LogCacheKeyInvalidation(processing, cacheKey, processing.FilterType, success);
-         }
-            
+        }
+
         public async Task InvalidateJobProfileCurrentOpportunitiesAllAsync(Processing processing)
         {
             var success = await _sharedContentRedisInterface.InvalidateEntityAsync(ApplicationKeys.JobProfileCurrentOpportunitiesAllJobProfiles, processing.FilterType);
             LogCacheKeyInvalidation(processing, ApplicationKeys.JobProfileCurrentOpportunitiesAllJobProfiles, processing.FilterType, success);
+        }
+
+        public async Task RefreshAllJobProfileContent(Processing processing)
+        {
+            try
+            {
+                var result = JsonConvert.DeserializeObject<Page>(processing.Content);
+                var fullUrl = CheckLeadingChar(result.PageLocationParts.FullUrl) ?? string.Empty;
+                var filter = processing.FilterType?.ToString() ?? "PUBLISHED";
+
+                if (string.IsNullOrEmpty(fullUrl))
+                {
+                    _logger.LogError($"Error occurred while retrieveing data for document Id {processing.DocumentId}.  Content Type: {processing.ContentType}. Page content could not be retrieved. No Job Profile data will be refreshed.");
+                }
+                else
+                {
+                    //Add additional job profile freshes here.  
+                    await GetDataWithExpiryAsync<JobProfileCurrentOpportunitiesResponse>(processing, ApplicationKeys.JobProfileCurrentOpportunitiesAllJobProfiles, filter);
+                    await GetDataWithExpiryAsync<RelatedCareersResponse>(processing, string.Concat(ApplicationKeys.JobProfileRelatedCareersPrefix, fullUrl), filter);
+                    await GetDataWithExpiryAsync<JobProfileHowToBecomeResponse>(processing, string.Concat(ApplicationKeys.JobProfileHowToBecome, fullUrl), filter);
+                    await GetDataWithExpiryAsync<JobProfilesOverviewResponse>(processing, string.Concat(ApplicationKeys.JobProfilesOverview, fullUrl), filter);
+                    await GetDataWithExpiryAsync<JobProfileVideoResponse>(processing, string.Concat(ApplicationKeys.JobProfileVideoPrefix, fullUrl), filter);
+                    await GetDataWithExpiryAsync<JobProfileCurrentOpportunitiesGetbyUrlReponse>(processing, ApplicationKeys.JobProfileCurrentOpportunitiesAllJobProfiles, filter);
+                    await GetDataAsync<JobProfileWhatYoullDoResponse>(processing, string.Concat(ApplicationKeys.JobProfileWhatYoullDo, fullUrl), filter);
+                    await GetDataAsync<JobProfileCareerPathAndProgressionResponse>(processing, string.Concat(ApplicationKeys.JobProfilesCarreerPath, fullUrl), filter);
+                    await GetDataAsync<JobProfileSkillsResponse>(processing, string.Concat(ApplicationKeys.JobProfileSkillsSuffix, fullUrl), filter);
+                }
+            }
+            catch (Exception exception)
+            {
+                _logger.LogError($"Error occurred while refreshing Job Profile data. Exception: {exception}.");
+            }
+        }
+
+        private async Task GetDataWithExpiryAsync<T>(Processing processing, string cacheKey, string filter)
+        {
+            try
+            {
+                await _sharedContentRedisInterface.GetDataAsyncWithExpiry<T>(cacheKey, filter);
+                LogCacheKeyRefresh(processing, cacheKey, filter);
+            }
+            catch (Exception exception)
+            {
+                _logger.LogError($"Error occurred while refreshing Job Profile data. Exception: {exception}.");
+            }
+        }
+
+        private async Task GetDataAsync<T>(Processing processing, string cacheKey, string filter)
+        {
+            try
+            {
+                await _sharedContentRedisInterface.GetDataAsync<T>(cacheKey, filter);
+                LogCacheKeyRefresh(processing, cacheKey, filter);
+            }
+            catch (Exception exception)
+            {
+                _logger.LogError($"Error occurred while refreshing Job Profile data. Exception: {exception}.");
+            }
+        }
+
+        public async Task InvalidateAllJobProfileContentAsync(Processing processing)
+        {
+            try
+            {
+                //Add additional job profile invalidations here.
+                await InvalidateJobProfileCategoryAsync(processing);
+                await InvalidateDysacJobProfileOverviewAsync(processing);
+                await InvalidateJobProfileAsync(processing);
+                await InvalidateJobProfileSkillsAsync(processing);
+                await InvalidateJobProfileOverviewAsync(processing);
+                await InvalidateJobProfileRelatedCareersAsync(processing);
+                await InvalidateJobProfileHowToBecomeAsync(processing);
+                await InvalidateJobProfileWhatYoullDoAsync(processing);
+                await InvalidateJobProfileVideoAsync(processing);
+                await InvalidateJobProfileCurrentOpportunitiesAllAsync(processing);
+                await InvalidateCareerPathsAndProgressions(processing);
+            }
+            catch (Exception exception)
+            {
+                _logger.LogError($"Error occurred while invalidating Job Profile data. Exception: {exception}.");
+            }
         }
 
         private async Task<IEnumerable<NodeItem>?> GetDataAsync(int contentItemId, int latest, int published)
@@ -550,6 +632,14 @@ namespace DFC.ServiceTaxonomy.CompUi.Services
                 $"Content Type: {contentType}.  " +
                 $"The following Cache Key will be invalidated: {cacheKey}. Filter: {filter}." +
                 $"Success: {status}.");
+        }
+
+        private void LogCacheKeyRefresh(Processing processing, string cacheKey, string filter)
+        {
+            _logger.LogInformation($"Event Type: {processing.EventType}. " +
+                $"Content Item Id: {processing.DocumentId}. " +
+                $"Content Type: {processing.ContentType}.  " +
+                $"The following Cache Key will be refreshed: {cacheKey}. Filter: {filter}.");
         }
     }
 }

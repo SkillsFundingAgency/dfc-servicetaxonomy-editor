@@ -52,9 +52,9 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
     {
         var processing = GetProcessingData(context, ProcessingEvents.Published, FilterType.PUBLISHED);
 
-        await ProcessItem(processing);
-
         await base.PublishedAsync(context);
+
+        await ProcessItem(processing);
     }
 
     public async Task ProcessRemovedAsync(RemoveContentContext context)

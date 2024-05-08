@@ -251,10 +251,24 @@
         "workspaceResourceGroup": {
             "type": "string"
         },
+        "CmsTokenEndpointUrl": {
+        "type": "string"
+        },
+        "CmsGraphApiUrl": {
+        "type": "string"
+        },
+        "CmsClientId": {
+        "type": "string"
+        },
+        "CmsClientSecret": {
+        "type": "securestring"
+        },
         "CmsRedisCacheConnectionString": {
-            "type": "securestring"
-        }
-        
+        "type": "securestring"
+        },
+        "CmsSqlApiUrl": {
+        "type": "string"
+        }   
     },
     "variables": {
         "BuildingBlocksDfcBaseUrl": "https://raw.githubusercontent.com/SkillsFundingAgency/dfc-devops/master/ArmTemplates/",
@@ -630,9 +644,29 @@
                                 "value": "[parameters('WEBSITEMEMORYLIMITMB')]"
                             },
                             {
+                                "name": "Cms__TokenEndPointUrl",
+                                "value": "[parameters('CmsTokenEndpointUrl')]"
+                            },
+                            {
+                                "name": "Cms__GraphApiUrl",
+                                "value": "[parameters('CmsGraphApiUrl')]"
+                            },
+                            {
+                                "name": "Cms__ClientId",
+                                "value": "[parameters('CmsClientId')]"
+                            },
+                            {
+                                "name": "Cms__ClientSecret",
+                                "value": "[parameters('CmsClientSecret')]"
+                            },
+                            {
                                 "name": "Cms__RedisCacheConnectionString",
                                 "value": "[parameters('CmsRedisCacheConnectionString')]"
-                            }   
+                            },
+                            {
+                                "name": "Cms__SqlApiUrl",
+                                "value": "[parameters('CmsSqlApiUrl')]"
+                            }
                         ] 
                     }
                 }

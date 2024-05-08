@@ -61,17 +61,12 @@ namespace DFC.ServiceTaxonomy.CompUi.Services
 
         public async Task ProcessJobProfileAsync(Processing processing)
         {
-            await _builder.InvalidateJobProfileCategoryAsync(processing);
-            await _builder.InvalidateCareerPathsAndProgressions(processing);
-            await _builder.InvalidateDysacJobProfileOverviewAsync(processing);
-            await _builder.InvalidateJobProfileAsync(processing);
-            await _builder.InvalidateJobProfileSkillsAsync(processing);
-            await _builder.InvalidateJobProfileOverviewAsync(processing); 
-            await _builder.InvalidateJobProfileRelatedCareersAsync(processing);
-            await _builder.InvalidateJobProfileHowToBecomeAsync(processing);
-            await _builder.InvalidateJobProfileWhatYoullDoAsync(processing);
-            await _builder.InvalidateJobProfileVideoAsync(processing);
-            await _builder.InvalidateJobProfileCurrentOpportunitiesAllAsync(processing);
+            await Task.WhenAll(_builder.InvalidateAllJobProfileContentAsync(processing));
+
+            if (processing.FilterType == FilterType.PUBLISHED.ToString())
+            {
+                Task.WaitAll(_builder.RefreshAllJobProfileContent(processing));
+            }
         }
 
         public async Task ProcessPersonalityFilteringQuestionAsync(Processing processing)
