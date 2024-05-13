@@ -191,7 +191,9 @@ namespace DFC.ServiceTaxonomy.CompUi.Services
 
                 if (result.PageLocationParts.DefaultPageForLocation == true)
                 {
-                    locations.Add(result.PageLocationParts.FullUrl.Substring(result.PageLocationParts.FullUrl.LastIndexOf('/')));
+                    string[] split = result.PageLocationParts.FullUrl.Split('/');
+                    string url = string.Join("/", split.Take(split.Length - 1));
+                    locations.Add(url);
                 }
                 locations.Add(result.PageLocationParts.FullUrl);
 
