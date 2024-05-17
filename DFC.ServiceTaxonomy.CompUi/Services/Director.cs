@@ -33,7 +33,7 @@ namespace DFC.ServiceTaxonomy.CompUi.Services
         public async Task ProcessPageAsync(Processing processing)
         {
             await _builder.InvalidateAdditionalPageNodesAsync(processing);
-            await _builder.InvalidatePageNodeAsync(processing.Content, processing);
+            await _builder.InvalidatePageNodeAsync(processing.CurrentContent, processing);
             await _builder.InvalidateTriageToolFiltersAsync(processing);
         }
 
