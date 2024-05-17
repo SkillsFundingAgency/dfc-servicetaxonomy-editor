@@ -100,30 +100,30 @@ namespace DFC.ServiceTaxonomy.CompUi.Services
 
         public async Task<bool> InvalidateDysacPersonalityFilteringQuestionAsync(Processing processing)
         {
-            var success = await _sharedContentRedisInterface.InvalidateEntityAsync(ApplicationKeys.DysacFilteringQuestion, processing.FilterType);
-            LogCacheKeyInvalidation(processing, ApplicationKeys.DysacFilteringQuestion, processing.FilterType, success);
+            var success = await _sharedContentRedisInterface.InvalidateEntityAsync(ApplicationKeys.DYSACFilteringQuestion, processing.FilterType);
+            LogCacheKeyInvalidation(processing, ApplicationKeys.DYSACFilteringQuestion, processing.FilterType, success);
 
             return success;
         }
         public async Task<bool> InvalidateDysacPersonalityQuestionSetAsync(Processing processing)
         {
-            var success = await _sharedContentRedisInterface.InvalidateEntityAsync(ApplicationKeys.DysacQuestionSet, processing.FilterType);
-            LogCacheKeyInvalidation(processing, ApplicationKeys.DysacQuestionSet, processing.FilterType, success);
+            var success = await _sharedContentRedisInterface.InvalidateEntityAsync(ApplicationKeys.DYSACQuestionSet, processing.FilterType);
+            LogCacheKeyInvalidation(processing, ApplicationKeys.DYSACQuestionSet, processing.FilterType, success);
 
             return success;
         }
 
         public async Task<bool> InvalidateDysacPersonalityShortQuestionAsync(Processing processing)
         {
-            var success = await _sharedContentRedisInterface.InvalidateEntityAsync(ApplicationKeys.DysacShortQuestion, processing.FilterType);
-            _logger.LogInformation($"The following cache key will be invalidated: {ApplicationKeys.DysacShortQuestion}, filter: {processing.FilterType}, success: {success}.");
+            var success = await _sharedContentRedisInterface.InvalidateEntityAsync(ApplicationKeys.DYSACShortQuestion, processing.FilterType);
+            _logger.LogInformation($"The following cache key will be invalidated: {ApplicationKeys.DYSACShortQuestion}, filter: {processing.FilterType}, success: {success}.");
             return success;
         }
 
         public async Task<bool> InvalidateDysacPersonalityTraitAsync(Processing processing)
         {
-            var success = await _sharedContentRedisInterface.InvalidateEntityAsync(ApplicationKeys.DysacPersonalityTrait, processing.FilterType);
-            _logger.LogInformation($"The following cache key will be invalidated: {ApplicationKeys.DysacPersonalityTrait}, filter: {processing.FilterType}, success: {success}.");
+            var success = await _sharedContentRedisInterface.InvalidateEntityAsync(ApplicationKeys.DYSACPersonalityTrait, processing.FilterType);
+            _logger.LogInformation($"The following cache key will be invalidated: {ApplicationKeys.DYSACPersonalityTrait}, filter: {processing.FilterType}, success: {success}.");
 
             return success;
         }
@@ -246,7 +246,7 @@ namespace DFC.ServiceTaxonomy.CompUi.Services
                         success = await _sharedContentRedisInterface.InvalidateEntityAsync(categoryNode, processing.FilterType);
                         LogCacheKeyInvalidation(processing, categoryNode, processing.FilterType, success);
 
-                        var cacheKey = string.Concat(ApplicationKeys.DysacJobProfileCategories, CheckLeadingChar(currentNodeResult.PageLocationParts.FullUrl));
+                        var cacheKey = string.Concat(ApplicationKeys.DYSACJobProfileCategories, CheckLeadingChar(currentNodeResult.PageLocationParts.FullUrl));
                         success = await _sharedContentRedisInterface.InvalidateEntityAsync(cacheKey, processing.FilterType);
 
                         LogCacheKeyInvalidation(processing, cacheKey, processing.FilterType, success);
@@ -284,9 +284,9 @@ namespace DFC.ServiceTaxonomy.CompUi.Services
                     LogCacheKeyInvalidation(nameof(ProcessingEvents.Published), relatedItems.ContentItemId,
                         nameof(ContentTypes.JobProfileCategory), cacheKey, processing.FilterType, success);
 
-                    success = await _sharedContentRedisInterface.InvalidateEntityAsync(ApplicationKeys.DysacJobProfileCategories, processing.FilterType);
+                    success = await _sharedContentRedisInterface.InvalidateEntityAsync(ApplicationKeys.DYSACJobProfileCategories, processing.FilterType);
                     LogCacheKeyInvalidation(nameof(ProcessingEvents.Published),
-                        relatedItems.ContentItemId, nameof(ContentTypes.JobProfileCategory), ApplicationKeys.DysacJobProfileCategories, processing.FilterType, success);
+                        relatedItems.ContentItemId, nameof(ContentTypes.JobProfileCategory), ApplicationKeys.DYSACJobProfileCategories, processing.FilterType, success);
 
                     success = await _sharedContentRedisInterface.InvalidateEntityAsync(ApplicationKeys.ExploreCareersJobProfileCategories, processing.FilterType);
                     LogCacheKeyInvalidation(nameof(ProcessingEvents.Published),
@@ -320,13 +320,13 @@ namespace DFC.ServiceTaxonomy.CompUi.Services
 
         private async Task ProcessJobProfileOverviewInvalidations(Processing processing)
         {
-            var success = await _sharedContentRedisInterface.InvalidateEntityAsync(ApplicationKeys.DysacJobProfileOverviews, processing.FilterType);
-            LogCacheKeyInvalidation(processing, ApplicationKeys.DysacJobProfileOverviews, processing.FilterType, success);
+            var success = await _sharedContentRedisInterface.InvalidateEntityAsync(ApplicationKeys.DYSACJobProfileOverviews, processing.FilterType);
+            LogCacheKeyInvalidation(processing, ApplicationKeys.DYSACJobProfileOverviews, processing.FilterType, success);
         }
 
         public async Task<bool> InvalidateJobProfileCategoryAsync(Processing processing)
         {
-            var success = await _sharedContentRedisInterface.InvalidateEntityAsync(ApplicationKeys.DysacJobProfileCategories, processing.FilterType);
+            var success = await _sharedContentRedisInterface.InvalidateEntityAsync(ApplicationKeys.DYSACJobProfileCategories, processing.FilterType);
             success = await _sharedContentRedisInterface.InvalidateEntityAsync(ApplicationKeys.ExploreCareersJobProfileCategories, processing.FilterType);
             return success;
         }
@@ -342,7 +342,7 @@ namespace DFC.ServiceTaxonomy.CompUi.Services
         public async Task InvalidateJobProfileOverviewAsync(Processing processing)
         {
             var result = JsonConvert.DeserializeObject<Page>(processing.Content);
-            var cacheKey = string.Concat(ApplicationKeys.JobProfilesOverview, CheckLeadingChar(result.PageLocationParts.FullUrl));
+            var cacheKey = string.Concat(ApplicationKeys.JobProfileOverview, CheckLeadingChar(result.PageLocationParts.FullUrl));
             var success = await _sharedContentRedisInterface.InvalidateEntityAsync(cacheKey, processing.FilterType);
             LogCacheKeyInvalidation(processing, cacheKey, processing.FilterType, success);
         }
@@ -397,7 +397,7 @@ namespace DFC.ServiceTaxonomy.CompUi.Services
         public async Task InvalidateCareerPathsAndProgressions(Processing processing)
         {
             var result = JsonConvert.DeserializeObject<Page>(processing.Content);
-            var cacheKey = string.Concat(ApplicationKeys.JobProfilesCarreerPath, CheckLeadingChar(result.PageLocationParts.FullUrl));
+            var cacheKey = string.Concat(ApplicationKeys.JobProfileCareerPath, CheckLeadingChar(result.PageLocationParts.FullUrl));
             var success = await _sharedContentRedisInterface.InvalidateEntityAsync(cacheKey, processing.FilterType);
             LogCacheKeyInvalidation(processing, cacheKey, processing.FilterType, success);
         }
@@ -426,11 +426,11 @@ namespace DFC.ServiceTaxonomy.CompUi.Services
                     await GetDataWithExpiryAsync<JobProfileCurrentOpportunitiesResponse>(processing, ApplicationKeys.JobProfileCurrentOpportunitiesAllJobProfiles, filter);
                     await GetDataWithExpiryAsync<RelatedCareersResponse>(processing, string.Concat(ApplicationKeys.JobProfileRelatedCareersPrefix, fullUrl), filter);
                     await GetDataWithExpiryAsync<JobProfileHowToBecomeResponse>(processing, string.Concat(ApplicationKeys.JobProfileHowToBecome, fullUrl), filter);
-                    await GetDataWithExpiryAsync<JobProfilesOverviewResponse>(processing, string.Concat(ApplicationKeys.JobProfilesOverview, fullUrl), filter);
+                    await GetDataWithExpiryAsync<JobProfilesOverviewResponse>(processing, string.Concat(ApplicationKeys.JobProfileOverview, fullUrl), filter);
                     await GetDataWithExpiryAsync<JobProfileVideoResponse>(processing, string.Concat(ApplicationKeys.JobProfileVideoPrefix, fullUrl), filter);
                     await GetDataWithExpiryAsync<JobProfileCurrentOpportunitiesGetbyUrlReponse>(processing, ApplicationKeys.JobProfileCurrentOpportunitiesAllJobProfiles, filter);
                     await GetDataAsync<JobProfileWhatYoullDoResponse>(processing, string.Concat(ApplicationKeys.JobProfileWhatYoullDo, fullUrl), filter);
-                    await GetDataAsync<JobProfileCareerPathAndProgressionResponse>(processing, string.Concat(ApplicationKeys.JobProfilesCarreerPath, fullUrl), filter);
+                    await GetDataAsync<JobProfileCareerPathAndProgressionResponse>(processing, string.Concat(ApplicationKeys.JobProfileCareerPath, fullUrl), filter);
                     await GetDataAsync<JobProfileSkillsResponse>(processing, string.Concat(ApplicationKeys.JobProfileSkillsSuffix, fullUrl), filter);
                 }
             }
