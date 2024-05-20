@@ -426,7 +426,7 @@ namespace DFC.ServiceTaxonomy.CompUi.Services
                 if (!string.IsNullOrWhiteSpace(result.JobProfile.CourseKeywords.Text))
                 {
                     string cacheKey = string.Concat(ApplicationKeys.JobProfileCurrentOpportunitiesCoursesPrefix, result.PageLocationParts.FullUrl, '/', ConvertCourseKeywordsString(result.JobProfile.CourseKeywords.Text));
-                    var success = await _sharedContentRedisInterface.InvalidateEntityAsync(cacheKey, processing.FilterType);
+                    var success = await _sharedContentRedisInterface.InvalidateEntityAsync(cacheKey);
                     LogCacheKeyInvalidation(processing, cacheKey, processing.FilterType, success);
                 }
             }
@@ -468,7 +468,7 @@ namespace DFC.ServiceTaxonomy.CompUi.Services
                                     }
 
                                     string cacheKey = string.Concat(ApplicationKeys.JobProfileCurrentOpportunitiesAVPrefix, '/', result.PageLocationParts.FullUrl, '/', string.Join(",", larsCodes));
-                                    var success = await _sharedContentRedisInterface.InvalidateEntityAsync(cacheKey, processing.FilterType);
+                                    var success = await _sharedContentRedisInterface.InvalidateEntityAsync(cacheKey);
                                     LogCacheKeyInvalidation(processing, cacheKey, processing.FilterType, success);
                                 }
                             }
