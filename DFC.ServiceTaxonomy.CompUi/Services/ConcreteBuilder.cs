@@ -463,17 +463,16 @@ namespace DFC.ServiceTaxonomy.CompUi.Services
                                         foreach (var larsDataItem in larsData)
                                         {
                                             var larscode = JsonConvert.DeserializeObject<ApprenticeshipStandards>(larsDataItem.Content);
-                                            larsCodes.Add(larscode.ApprenticeshipStandard.Description.Text);
+                                            larsCodes.Add(larscode.ApprenticeshipStandard.LarsCode.Text);
                                         }
                                     }
-
-                                    string cacheKey = string.Concat(ApplicationKeys.JobProfileCurrentOpportunitiesAVPrefix, result.PageLocationParts.FullUrl, '/', string.Join(",", larsCodes));
-                                    var success = await _sharedContentRedisInterface.InvalidateEntityAsync(cacheKey);
-                                    LogCacheKeyInvalidation(processing, cacheKey, processing.FilterType, success);
                                 }
                             }
                         }
                     }
+                    string cacheKey = string.Concat(ApplicationKeys.JobProfileCurrentOpportunitiesAVPrefix, result.PageLocationParts.FullUrl, '/', string.Join(",", larsCodes));
+                    var success = await _sharedContentRedisInterface.InvalidateEntityAsync(cacheKey);
+                    LogCacheKeyInvalidation(processing, cacheKey, processing.FilterType, success);
                 }
             }
             catch (Exception exception)

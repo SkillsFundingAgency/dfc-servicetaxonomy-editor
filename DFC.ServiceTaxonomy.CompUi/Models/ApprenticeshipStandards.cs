@@ -11,7 +11,7 @@ namespace DFC.ServiceTaxonomy.CompUi.Models
     public class ApprenticeshipStandard
     {
         [JsonProperty("LARScode")]
-        public LARScode? Description { get; set; }
+        public LARScode? LarsCode { get; set; }
     }
 
     public class LARScode
