@@ -412,20 +412,44 @@ namespace DFC.ServiceTaxonomy.CompUi.Services
 
                 if (result != null)
                 {
-                    if (!string.IsNullOrWhiteSpace(result.JobProfile.CourseKeywords.Text))
-                    {
-                        string cacheKey = string.Concat(ApplicationKeys.JobProfileCurrentOpportunitiesCoursesPrefix, result.PageLocationParts.FullUrl, '/', ConvertCourseKeywordsString(result.JobProfile.CourseKeywords.Text));
-                        await _sharedContentRedisInterface.InvalidateEntityAsync(cacheKey, processing.FilterType);
-                    }
+                    await InvalidateCourses(processing, result);
 
-                    if (result.JobProfile.SOCCode.ContentItemId.Count() > 0)
-                    {
-                        List<string> larsCodes = new List<string>();
+                    await InvalidateApprenticeships(processing, result);
+                }
+            }
+        }
 
-                        foreach (var item in result.JobProfile.SOCCode.ContentItemId)
+        private async Task InvalidateCourses(Processing processing, Page? result)
+        {
+            try
+            {
+                if (!string.IsNullOrWhiteSpace(result.JobProfile.CourseKeywords.Text))
+                {
+                    string cacheKey = string.Concat(ApplicationKeys.JobProfileCurrentOpportunitiesCoursesPrefix, result.PageLocationParts.FullUrl, '/', ConvertCourseKeywordsString(result.JobProfile.CourseKeywords.Text));
+                    var success = await _sharedContentRedisInterface.InvalidateEntityAsync(cacheKey, processing.FilterType);
+                    LogCacheKeyInvalidation(processing, cacheKey, processing.FilterType, success);
+                }
+            }
+            catch (Exception exception)
+            {
+                _logger.LogError($"Error occurred while invalidating data for document Id {processing.DocumentId}.  Content Type: {processing.ContentType}. The course could not be invalidated.  Exception: {exception}");
+            }
+        }
+
+        private async Task InvalidateApprenticeships(Processing processing, Page? result)
+        {
+            try
+            {
+                if (result.JobProfile.SOCCode.ContentItemId.Count() > 0)
+                {
+                    List<string> larsCodes = new List<string>();
+
+                    foreach (var item in result.JobProfile.SOCCode.ContentItemId)
+                    {
+                        IEnumerable<NodeItem>? socCodeData = await GetPublishedContentItem(item, processing.Latest, processing.Published);
+
+                        if (socCodeData != null)
                         {
-                            IEnumerable<NodeItem>? socCodeData = await GetPublishedContentItem(item, processing.Latest, processing.Published);
-
                             foreach (var socCodeItem in socCodeData)
                             {
                                 var socCode = JsonConvert.DeserializeObject<SocCode>(socCodeItem.Content);
@@ -444,12 +468,17 @@ namespace DFC.ServiceTaxonomy.CompUi.Services
                                     }
 
                                     string cacheKey = string.Concat(ApplicationKeys.JobProfileCurrentOpportunitiesAVPrefix, '/', result.PageLocationParts.FullUrl, '/', string.Join(",", larsCodes));
-                                    success = await _sharedContentRedisInterface.InvalidateEntityAsync(cacheKey, processing.FilterType);
+                                    var success = await _sharedContentRedisInterface.InvalidateEntityAsync(cacheKey, processing.FilterType);
+                                    LogCacheKeyInvalidation(processing, cacheKey, processing.FilterType, success);
                                 }
                             }
                         }
                     }
                 }
+            }
+            catch (Exception exception)
+            {
+                _logger.LogError($"Error occurred while invalidating data for document Id {processing.DocumentId}.  Content Type: {processing.ContentType}. The apprenticeship could not be invalidated.  Exception: {exception}");
             }
         }
 
