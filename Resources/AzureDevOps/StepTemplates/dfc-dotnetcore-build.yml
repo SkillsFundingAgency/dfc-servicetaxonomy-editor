@@ -19,6 +19,13 @@ steps:
    inputs:
      preferBundledVersion: false
 
+ - task: NuGetCommand@2
+   displayName: 'NuGet restore'
+   inputs:
+     restoreSolution: '${{ parameters.SolutionBaseName }}.sln'
+     feedsToUse: 'select'
+     vstsFeed: 'NationalCareersService'
+
  # task to package a web app
  - task: DotNetCoreCLI@2
    displayName: 'Publish - dotnet publish application ${{ parameters.SolutionBaseName }}'
