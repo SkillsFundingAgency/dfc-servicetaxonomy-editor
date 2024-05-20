@@ -442,8 +442,6 @@ namespace DFC.ServiceTaxonomy.CompUi.Services
             {
                 if (result.JobProfile.SOCCode.ContentItemId.Count() > 0)
                 {
-                    List<string> larsCodes = new List<string>();
-
                     foreach (var item in result.JobProfile.SOCCode.ContentItemId)
                     {
                         IEnumerable<NodeItem>? socCodeData = await GetPublishedContentItem(item, processing.Latest, processing.Published);
@@ -456,6 +454,8 @@ namespace DFC.ServiceTaxonomy.CompUi.Services
 
                                 if (socCode.SOCCode.ApprenticeshipStandards.ContentItemId.Count() > 0)
                                 {
+                                    var larsCodes = new List<string>();
+
                                     foreach (var code in socCode.SOCCode.ApprenticeshipStandards.ContentItemId)
                                     {
                                         var larsData = await GetPublishedContentItem(code, processing.Latest, processing.Published);
@@ -466,13 +466,14 @@ namespace DFC.ServiceTaxonomy.CompUi.Services
                                             larsCodes.Add(larscode.ApprenticeshipStandard.LarsCode.Text);
                                         }
                                     }
+
+                                    string cacheKey = string.Concat(ApplicationKeys.JobProfileCurrentOpportunitiesAVPrefix, result.PageLocationParts.FullUrl, '/', string.Join(",", larsCodes));
+                                    var success = await _sharedContentRedisInterface.InvalidateEntityAsync(cacheKey);
+                                    LogCacheKeyInvalidation(processing, cacheKey, processing.FilterType, success);
                                 }
                             }
                         }
                     }
-                    string cacheKey = string.Concat(ApplicationKeys.JobProfileCurrentOpportunitiesAVPrefix, result.PageLocationParts.FullUrl, '/', string.Join(",", larsCodes));
-                    var success = await _sharedContentRedisInterface.InvalidateEntityAsync(cacheKey);
-                    LogCacheKeyInvalidation(processing, cacheKey, processing.FilterType, success);
                 }
             }
             catch (Exception exception)
