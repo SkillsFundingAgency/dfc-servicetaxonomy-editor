@@ -160,7 +160,7 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
     private Processing GetProcessingData(ContentContextBase currentContext, string previousContent, ProcessingEvents processingEvent, FilterType filterType)
     {
         var processing = _mapper.Map<Processing>(currentContext);
-        processing.PreviousContent = previousContent ?? string.Empty;
+        processing.PreviousContent = previousContent;
         processing.EventType = processingEvent;
         processing.FilterType = filterType.ToString();
 
