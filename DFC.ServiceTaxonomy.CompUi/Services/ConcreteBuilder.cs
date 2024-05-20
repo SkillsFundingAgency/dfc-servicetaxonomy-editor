@@ -467,7 +467,7 @@ namespace DFC.ServiceTaxonomy.CompUi.Services
                                         }
                                     }
 
-                                    string cacheKey = string.Concat(ApplicationKeys.JobProfileCurrentOpportunitiesAVPrefix, '/', result.PageLocationParts.FullUrl, '/', string.Join(",", larsCodes));
+                                    string cacheKey = string.Concat(ApplicationKeys.JobProfileCurrentOpportunitiesAVPrefix, result.PageLocationParts.FullUrl, '/', string.Join(",", larsCodes));
                                     var success = await _sharedContentRedisInterface.InvalidateEntityAsync(cacheKey);
                                     LogCacheKeyInvalidation(processing, cacheKey, processing.FilterType, success);
                                 }

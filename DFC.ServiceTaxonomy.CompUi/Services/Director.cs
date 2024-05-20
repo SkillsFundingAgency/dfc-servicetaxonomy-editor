@@ -1,4 +1,5 @@
-﻿using DFC.ServiceTaxonomy.CompUi.Enums;
+﻿using System.Diagnostics;
+using DFC.ServiceTaxonomy.CompUi.Enums;
 using DFC.ServiceTaxonomy.CompUi.Interfaces;
 using DFC.ServiceTaxonomy.CompUi.Models;
 
@@ -63,7 +64,7 @@ namespace DFC.ServiceTaxonomy.CompUi.Services
         {
             await Task.WhenAll(_builder.InvalidateAllJobProfileContentAsync(processing));
 
-            if (processing.FilterType == FilterType.PUBLISHED.ToString())
+            if (processing.EventType == ProcessingEvents.Published)
             {
                 Task.WaitAll(_builder.RefreshAllJobProfileContent(processing));
             }

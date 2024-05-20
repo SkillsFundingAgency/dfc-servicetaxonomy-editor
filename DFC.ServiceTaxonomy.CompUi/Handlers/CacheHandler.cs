@@ -68,7 +68,7 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
 
     public async Task ProcessUnpublishedAsync(PublishContentContext context)
     {
-        var processing = GetProcessingData(context, ProcessingEvents.Unpublished, FilterType.PUBLISHED);
+        var processing = GetProcessingData(context, context.PreviousItem.Content.ToString() ?? string.Empty, ProcessingEvents.Unpublished, FilterType.PUBLISHED);
 
         await ProcessItem(processing);
 
