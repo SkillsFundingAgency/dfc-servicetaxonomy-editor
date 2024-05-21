@@ -345,6 +345,12 @@ namespace DFC.ServiceTaxonomy.CompUi.Services
             LogCacheKeyInvalidation(processing, cacheKey, processing.FilterType, success);
         }
 
+        public async Task InvalidateJobProfileApiSummaryAsync(Processing processing)
+        {
+            var success = await _sharedContentRedisInterface.InvalidateEntityAsync(ApplicationKeys.JobProfileApiSummaryAll);
+            LogCacheKeyInvalidation(processing, ApplicationKeys.JobProfileApiSummaryAll, processing.FilterType, success);
+        }
+
         public async Task InvalidateJobProfileSkillsAsync(Processing processing)
         {
             var result = JsonConvert.DeserializeObject<Page>(processing.CurrentContent);
@@ -539,6 +545,7 @@ namespace DFC.ServiceTaxonomy.CompUi.Services
                 await InvalidateJobProfileAsync(processing);
                 await InvalidateJobProfileSkillsAsync(processing);
                 await InvalidateJobProfileOverviewAsync(processing);
+                await InvalidateJobProfileApiSummaryAsync(processing);
                 await InvalidateJobProfileRelatedCareersAsync(processing);
                 await InvalidateJobProfileHowToBecomeAsync(processing);
                 await InvalidateJobProfileWhatYoullDoAsync(processing);
