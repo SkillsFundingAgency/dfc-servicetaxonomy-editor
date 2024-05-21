@@ -10,7 +10,7 @@ namespace DFC.ServiceTaxonomy.CompUi.Interfaces
         Task<bool> InvalidatePageBannerAsync(Processing processing);
         Task<IEnumerable<NodeItem>> GetDataAsync(Processing processing);
         Task<IEnumerable<RelatedItems>?> GetRelatedContentItemIdsAsync(Processing processing);
-        Task<IEnumerable<ContentItems>?> GetContentItemsByLikeQueryAsync(string contentType, string queryIds);
+        Task<IEnumerable<ProcessingContentItems>?> GetContentItemsByLikeQueryAsync(string contentType, string queryIds);
         Task InvalidatePageNodeAsync(string content, Processing processing);
         Task InvalidateAdditionalPageNodesAsync(Processing processing);
         Task<bool> InvalidateSharedContentAsync(Processing processing);

@@ -23,10 +23,4 @@ namespace DFC.ServiceTaxonomy.CompUi.Models
         [JsonProperty("JobProfileCategory")]
         public ContentItemIds? JobProfileCategory { get; set; }
     }
-
-    public class ContentItemIds
-    {
-        [JsonProperty("ContentItemIds")]
-        public string[]? ContentItemId { get; set; }
-    }
 }
