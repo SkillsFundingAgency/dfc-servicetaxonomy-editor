@@ -180,7 +180,6 @@ namespace DFC.ServiceTaxonomy.CompUi.Services
             {
                 var result = JsonConvert.DeserializeObject<Page>(content);
                 string? cacheKey;
-                string? pageNodeID = string.Concat("PageApi", CheckLeadingChar(result.GraphSyncParts.Text.Substring(result.GraphSyncParts.Text.LastIndexOf('/') + 1)));
                 string? NodeId = result.GraphSyncParts.Text.Substring(result.GraphSyncParts.Text.LastIndexOf('/') + 1);
                 List<string> locations = new List<string>();
 
@@ -406,11 +405,14 @@ namespace DFC.ServiceTaxonomy.CompUi.Services
             var success = await _sharedContentRedisInterface.InvalidateEntityAsync(ApplicationKeys.JobProfileCurrentOpportunitiesAllJobProfiles, processing.FilterType);
             LogCacheKeyInvalidation(processing, ApplicationKeys.JobProfileCurrentOpportunitiesAllJobProfiles, processing.FilterType, success);
 
-            if (!string.IsNullOrWhiteSpace(processing.PreviousContent))
+            var result = JsonConvert.DeserializeObject<Page>(processing.PreviousContent);
+            if (result != null)
             {
-                var result = JsonConvert.DeserializeObject<Page>(processing.PreviousContent);
+                string cacheKey = string.Concat(ApplicationKeys.JobProfileCurrentOpportunities, CheckLeadingChar(result.PageLocationParts.FullUrl));
+                success = await _sharedContentRedisInterface.InvalidateEntityAsync(cacheKey, processing.FilterType);
+                LogCacheKeyInvalidation(processing, cacheKey, processing.FilterType, success);
 
-                if (result != null)
+                if (!string.IsNullOrWhiteSpace(processing.PreviousContent))
                 {
                     await InvalidateCourses(processing, result);
 
@@ -462,7 +464,7 @@ namespace DFC.ServiceTaxonomy.CompUi.Services
 
                                         foreach (var larsDataItem in larsData)
                                         {
-                                            var larscode = JsonConvert.DeserializeObject<ApprenticeshipStandards>(larsDataItem.Content);
+                                            var larscode = JsonConvert.DeserializeObject<Models.ApprenticeshipStandards>(larsDataItem.Content);
                                             larsCodes.Add(larscode.ApprenticeshipStandard.LarsCode.Text);
                                         }
                                     }
