@@ -192,6 +192,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.CompUi
 
             var processing = new Processing();
             processing.FilterType = FilterType.PUBLISHED.ToString();
+            processing.EventType = ProcessingEvents.Published;
 
             // Act
             await director.ProcessJobProfileAsync(processing);

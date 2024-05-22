@@ -1,6 +1,6 @@
 ﻿namespace DFC.ServiceTaxonomy.CompUi.Models
 {
-    public class ContentItems
+    public class ProcessingContentItems
     {
         public string? Content { get; set; }
         public string? ContentType { get; set; }    

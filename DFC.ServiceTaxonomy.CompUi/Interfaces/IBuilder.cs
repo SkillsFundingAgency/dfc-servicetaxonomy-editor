@@ -1,5 +1,4 @@
-﻿using DFC.ServiceTaxonomy.CompUi.Enums;
-using DFC.ServiceTaxonomy.CompUi.Model;
+﻿using DFC.ServiceTaxonomy.CompUi.Model;
 using DFC.ServiceTaxonomy.CompUi.Models;
 
 namespace DFC.ServiceTaxonomy.CompUi.Interfaces
@@ -10,7 +9,7 @@ namespace DFC.ServiceTaxonomy.CompUi.Interfaces
         Task<bool> InvalidatePageBannerAsync(Processing processing);
         Task<IEnumerable<NodeItem>> GetDataAsync(Processing processing);
         Task<IEnumerable<RelatedItems>?> GetRelatedContentItemIdsAsync(Processing processing);
-        Task<IEnumerable<ContentItems>?> GetContentItemsByLikeQueryAsync(string contentType, string queryIds);
+        Task<IEnumerable<ProcessingContentItems>?> GetContentItemsByLikeQueryAsync(string contentType, string queryIds);
         Task InvalidatePageNodeAsync(string content, Processing processing);
         Task InvalidateAdditionalPageNodesAsync(Processing processing);
         Task<bool> InvalidateSharedContentAsync(Processing processing);
@@ -36,5 +35,6 @@ namespace DFC.ServiceTaxonomy.CompUi.Interfaces
         Task RefreshAllJobProfileContent(Processing processing);
         Task InvalidateAllJobProfileContentAsync(Processing processing);
         Task InvalidateSkillsAsync(Processing processing);
+        Task InvalidateJobProfileApiSummaryAsync(Processing processing);
     }
 }

@@ -50,11 +50,11 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
 
     public async Task ProcessPublishedAsync(PublishContentContext context)
     {
-        var processing = GetProcessingData(context, ProcessingEvents.Published, FilterType.PUBLISHED);
-
-        await base.PublishedAsync(context);
+        var processing = GetProcessingData(context, context.PreviousItem?.Content?.ToString() ?? string.Empty, ProcessingEvents.Published, FilterType.PUBLISHED);
 
         await ProcessItem(processing);
+
+        await base.PublishedAsync(context);
     }
 
     public async Task ProcessRemovedAsync(RemoveContentContext context)
@@ -68,7 +68,7 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
 
     public async Task ProcessUnpublishedAsync(PublishContentContext context)
     {
-        var processing = GetProcessingData(context, ProcessingEvents.Unpublished, FilterType.PUBLISHED);
+        var processing = GetProcessingData(context, context.PreviousItem.Content.ToString() ?? string.Empty, ProcessingEvents.Unpublished, FilterType.PUBLISHED);
 
         await base.UnpublishedAsync(context);
 
@@ -152,11 +152,18 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
         }
     }
 
-    private Processing GetProcessingData(ContentContextBase context, ProcessingEvents processingEvent, FilterType filterType)
+    private Processing GetProcessingData(ContentContextBase currentContext, ProcessingEvents processingEvent, FilterType filterType)
     {
-        var processing = _mapper.Map<Processing>(context);
+        return GetProcessingData(currentContext, string.Empty, processingEvent, filterType);
+    }
+
+    private Processing GetProcessingData(ContentContextBase currentContext, string previousContent, ProcessingEvents processingEvent, FilterType filterType)
+    {
+        var processing = _mapper.Map<Processing>(currentContext);
+        processing.PreviousContent = previousContent;
         processing.EventType = processingEvent;
         processing.FilterType = filterType.ToString();
+
         return processing;
     }
 }
