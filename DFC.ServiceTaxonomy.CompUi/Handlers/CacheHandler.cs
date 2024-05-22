@@ -52,9 +52,9 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
     {
         var processing = GetProcessingData(context, context.PreviousItem?.Content?.ToString() ?? string.Empty, ProcessingEvents.Published, FilterType.PUBLISHED);
 
-        await ProcessItem(processing);
-
         await base.PublishedAsync(context);
+
+        await ProcessItem(processing);
     }
 
     public async Task ProcessRemovedAsync(RemoveContentContext context)
@@ -72,7 +72,7 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
 
         await base.UnpublishedAsync(context);
 
-        await ProcessItem(processing);        
+        await ProcessItem(processing);
     }
 
     public async Task ProcessDraftSavedAsync(SaveDraftContentContext context)
