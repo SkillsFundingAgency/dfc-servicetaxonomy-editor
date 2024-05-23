@@ -16,6 +16,9 @@ namespace DFC.ServiceTaxonomy.CompUi.Models
 
     public class LARScode
     {
+        [JsonProperty("Value")]
+        public string? Value { get; set; }
+
         [JsonProperty("Text")]
         public string? Text { get; set; }
     }

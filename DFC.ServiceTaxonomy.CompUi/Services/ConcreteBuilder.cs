@@ -470,14 +470,21 @@ namespace DFC.ServiceTaxonomy.CompUi.Services
 
                                         foreach (var larsDataItem in larsData)
                                         {
-                                            var larscode = JsonConvert.DeserializeObject<Models.ApprenticeshipStandards>(larsDataItem.Content);
-                                            larsCodes.Add(larscode.ApprenticeshipStandard.LarsCode.Text);
+                                            var larscode = JsonConvert.DeserializeObject<ApprenticeshipStandards>(larsDataItem.Content);
+                                            larsCodes.Add(larscode.ApprenticeshipStandard.LarsCode.Text ?? larscode.ApprenticeshipStandard.LarsCode.Value);
                                         }
                                     }
 
-                                    string cacheKey = string.Concat(ApplicationKeys.JobProfileCurrentOpportunitiesAVPrefix, result.PageLocationParts.FullUrl, '/', string.Join(",", larsCodes));
-                                    var success = await _sharedContentRedisInterface.InvalidateEntityAsync(cacheKey);
-                                    LogCacheKeyInvalidation(processing, cacheKey, processing.FilterType, success);
+                                    if (larsCodes.Count > 0)
+                                    {
+                                        string cacheKey = string.Concat(ApplicationKeys.JobProfileCurrentOpportunitiesAVPrefix, result.PageLocationParts.FullUrl, '/', string.Join(",", larsCodes.OrderBy(x=>x)));
+                                        var success = await _sharedContentRedisInterface.InvalidateEntityAsync(cacheKey);
+                                        LogCacheKeyInvalidation(processing, cacheKey, processing.FilterType, success);
+                                    }
+                                    else
+                                    {
+                                        _logger.LogInformation($"No lars codes available for invalidation for apprenticeship vacancies for: {string.Concat(ApplicationKeys.JobProfileCurrentOpportunitiesAVPrefix, result.PageLocationParts.FullUrl)}");
+                                    }
                                 }
                             }
                         }
