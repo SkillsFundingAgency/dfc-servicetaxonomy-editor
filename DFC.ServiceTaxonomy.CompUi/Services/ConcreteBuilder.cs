@@ -10,9 +10,11 @@ using DFC.ServiceTaxonomy.CompUi.Enums;
 using DFC.ServiceTaxonomy.CompUi.Interfaces;
 using DFC.ServiceTaxonomy.CompUi.Model;
 using DFC.ServiceTaxonomy.CompUi.Models;
+using Microsoft.AspNetCore.Mvc.Localization;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using OrchardCore.Data;
+using OrchardCore.DisplayManagement.Notify;
 using Page = DFC.ServiceTaxonomy.CompUi.Models.Page;
 using SharedContent = DFC.ServiceTaxonomy.CompUi.Models.SharedContent;
 
@@ -25,18 +27,24 @@ namespace DFC.ServiceTaxonomy.CompUi.Services
         private readonly ISharedContentRedisInterface _sharedContentRedisInterface;
         private readonly ILogger<ConcreteBuilder> _logger;
         private readonly IPageLocationUpdater _pageLocationUpdater;
+        private readonly INotifier _notifier;
+        private readonly IHtmlLocalizer<ConcreteBuilder> _htmlLocalizer;
 
         public ConcreteBuilder(IDbConnectionAccessor dbaAccessor,
             IDapperWrapper dapperWrapper,
             ISharedContentRedisInterface sharedContentRedisInterface,
             ILogger<ConcreteBuilder> logger,
-            IPageLocationUpdater pageLocationUpdater)
+            IPageLocationUpdater pageLocationUpdater,
+            INotifier notifier,
+             IHtmlLocalizer<ConcreteBuilder> htmlLocalizer)
         {
             _dapperWrapper = dapperWrapper;
             _dbaAccessor = dbaAccessor;
             _sharedContentRedisInterface = sharedContentRedisInterface;
             _logger = logger;
             _pageLocationUpdater = pageLocationUpdater;
+            _notifier = notifier;
+            _htmlLocalizer = htmlLocalizer;
         }
 
         public async Task<IEnumerable<NodeItem>> GetDataAsync(Processing processing)
@@ -446,55 +454,105 @@ namespace DFC.ServiceTaxonomy.CompUi.Services
 
         private async Task InvalidateApprenticeships(Processing processing, Page? result)
         {
+
+            //await _notifier.InformationAsync(_htmlLocalizer[$"InvalidateApprenticeships - started"]);
+
             try
             {
                 if (result.JobProfile.SOCCode.ContentItemId.Count() > 0)
                 {
-                    foreach (var item in result.JobProfile.SOCCode.ContentItemId)
+                    //foreach (var item in result.JobProfile.SOCCode.ContentItemId)
+                    //{
+
+                    ////await _notifier.InformationAsync(_htmlLocalizer[$"Getting data for {result.JobProfile.SOCCode.ContentItemId[0]}"]);
+
+                    IEnumerable<NodeItem>? socCodeData = await GetPublishedContentItem(result.JobProfile.SOCCode.ContentItemId[0], processing.Latest, processing.Published);
+
+                    //await _notifier.InformationAsync(_htmlLocalizer[$"Got data for {result.JobProfile.SOCCode.ContentItemId[0]}"]);
+
+                    //await _notifier.InformationAsync(_htmlLocalizer[$"Data {socCodeData.Count()}"]);
+
+                    if (socCodeData != null)
                     {
-                        IEnumerable<NodeItem>? socCodeData = await GetPublishedContentItem(item, processing.Latest, processing.Published);
-
-                        if (socCodeData != null)
+                        foreach (var socCodeItem in socCodeData)
                         {
-                            foreach (var socCodeItem in socCodeData)
+                            //await _notifier.InformationAsync(_htmlLocalizer[$"Get lars code data {socCodeItem}"]);
+
+                            var socCode = JsonConvert.DeserializeObject<SocCode>(socCodeItem.Content);
+
+                            //await _notifier.InformationAsync(_htmlLocalizer[$"Got lars code data {socCode.SOCCode.ApprenticeshipStandards.ContentItemId.ToString()}"]);
+
+                            if (socCode.SOCCode.ApprenticeshipStandards.ContentItemId.Count() > 0)
                             {
-                                var socCode = JsonConvert.DeserializeObject<SocCode>(socCodeItem.Content);
+                                var larsCodes = new List<string>();
 
-                                if (socCode.SOCCode.ApprenticeshipStandards.ContentItemId.Count() > 0)
+                                //await _notifier.InformationAsync(_htmlLocalizer[$"Building lars code string "]);
+
+                                foreach (var code in socCode.SOCCode.ApprenticeshipStandards.ContentItemId)
                                 {
-                                    var larsCodes = new List<string>();
 
-                                    foreach (var code in socCode.SOCCode.ApprenticeshipStandards.ContentItemId)
-                                    {
-                                        var larsData = await GetPublishedContentItem(code, processing.Latest, processing.Published);
+                                    //await _notifier.InformationAsync(_htmlLocalizer[$"Getting  lars code data from database for : {code}"]);
 
-                                        foreach (var larsDataItem in larsData)
-                                        {
-                                            var larscode = JsonConvert.DeserializeObject<ApprenticeshipStandards>(larsDataItem.Content);
-                                            larsCodes.Add(larscode.ApprenticeshipStandard.LarsCode.Text ?? larscode.ApprenticeshipStandard.LarsCode.Value);
-                                        }
-                                    }
+                                    var larsData = await GetPublishedContentItem(code, processing.Latest, processing.Published);
 
-                                    if (larsCodes.Count > 0)
+                                    ///await _notifier.InformationAsync(_htmlLocalizer[$"Got lars code data from database: {larsData.Count()}"]);
+
+                                    foreach (var larsDataItem in larsData)
                                     {
-                                        string cacheKey = string.Concat(ApplicationKeys.JobProfileCurrentOpportunitiesAVPrefix, result.PageLocationParts.FullUrl, '/', string.Join(",", larsCodes.OrderBy(x=>x)));
-                                        var success = await _sharedContentRedisInterface.InvalidateEntityAsync(cacheKey);
-                                        LogCacheKeyInvalidation(processing, cacheKey, processing.FilterType, success);
+                                        //await _notifier.InformationAsync(_htmlLocalizer[$"About to deserialise"]);
+                                        var larscode = JsonConvert.DeserializeObject<ApprenticeshipStandards>(larsDataItem.Content);
+                                        //await _notifier.InformationAsync(_htmlLocalizer[$"Deserialised"]);
+
+                                        //await _notifier.InformationAsync(_htmlLocalizer[$"Deserialised {larscode.ApprenticeshipStandard.LarsCode.Text ?? larscode.ApprenticeshipStandard.LarsCode.Value}"]);
+
+                                        larsCodes.Add(larscode.ApprenticeshipStandard.LarsCode.Text ?? larscode.ApprenticeshipStandard.LarsCode.Value);
                                     }
-                                    else
-                                    {
-                                        _logger.LogInformation($"No lars codes available for invalidation for apprenticeship vacancies for: {string.Concat(ApplicationKeys.JobProfileCurrentOpportunitiesAVPrefix, result.PageLocationParts.FullUrl)}");
-                                    }
+                                }
+
+                                //await _notifier.InformationAsync(_htmlLocalizer[$"Got lars code string count: {larsCodes.Count()}"]);
+
+                                if (larsCodes.Count > 0)
+                                {
+
+                                    //await _notifier.InformationAsync(_htmlLocalizer[$"Generating cache key"]);
+
+                                    string cacheKey = string.Concat(ApplicationKeys.JobProfileCurrentOpportunitiesAVPrefix, CheckLeadingChar(result.PageLocationParts.FullUrl), '/', string.Join(",", larsCodes.OrderBy(x => x)));
+
+                                    await _notifier.InformationAsync(_htmlLocalizer[$"cache key generated {cacheKey}"]);
+
+                                    //await _notifier.InformationAsync(_htmlLocalizer[$"About to invalidate "]);
+
+                                    var success = await _sharedContentRedisInterface.InvalidateEntityAsync(cacheKey);
+
+                                    //await _notifier.InformationAsync(_htmlLocalizer[$"Invalidation complete "]);
+
+                                    //await _notifier.InformationAsync(_htmlLocalizer[$"About to LogCacheKeyInvalidation "]);
+
+                                    LogCacheKeyInvalidation(processing, cacheKey, processing.FilterType, success);
+
+                                    //await _notifier.InformationAsync(_htmlLocalizer[$"LogCacheKeyInvalidation complete "]);
+
+                                }
+                                else
+                                {
+                                    _logger.LogInformation($"No lars codes available for invalidation for apprenticeship vacancies for: {string.Concat(ApplicationKeys.JobProfileCurrentOpportunitiesAVPrefix, CheckLeadingChar(result.PageLocationParts.FullUrl))}");
+
+                                    await _notifier.InformationAsync(_htmlLocalizer[$"NO LARS DATA"]);
                                 }
                             }
                         }
                     }
+                    //}
                 }
             }
             catch (Exception exception)
             {
                 _logger.LogError($"Error occurred while invalidating data for document Id {processing.DocumentId}.  Content Type: {processing.ContentType}. The apprenticeship could not be invalidated.  Exception: {exception}");
+                await _notifier.InformationAsync(_htmlLocalizer[$"InvalidateApprenticeships - exception: {exception}"]);
+                throw;
             }
+
+            //await _notifier.InformationAsync(_htmlLocalizer[$"InvalidateApprenticeships - completed"]);
         }
 
         public async Task RefreshAllJobProfileContent(Processing processing)
