@@ -19,7 +19,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.CompUi
         [Fact]
         public async Task GetDataAsync_ReturnsData()
         {
-          
+
             // Arrange
             var dbaAccessorMock = new Mock<IDbConnectionAccessor>();
             var dapperWrapperMock = new Mock<IDapperWrapper>();
@@ -62,11 +62,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.CompUi
 
             // Assert
             Assert.NotNull(result);
-            Assert.Equal(expectedData, result!); 
-
+            Assert.Equal(expectedData, result!);
         }
-       
-
-
     }
 }

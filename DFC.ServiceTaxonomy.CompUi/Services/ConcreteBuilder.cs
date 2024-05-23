@@ -450,34 +450,38 @@ namespace DFC.ServiceTaxonomy.CompUi.Services
             {
                 if (result.JobProfile.SOCCode.ContentItemId.Count() > 0)
                 {
-                    foreach (var item in result.JobProfile.SOCCode.ContentItemId)
+                    IEnumerable<NodeItem>? socCodeData = await GetPublishedContentItem(result.JobProfile.SOCCode.ContentItemId[0], processing.Latest, processing.Published);
+
+                    if (socCodeData != null)
                     {
-                        IEnumerable<NodeItem>? socCodeData = await GetPublishedContentItem(item, processing.Latest, processing.Published);
-
-                        if (socCodeData != null)
+                        foreach (var socCodeItem in socCodeData)
                         {
-                            foreach (var socCodeItem in socCodeData)
+                            var socCode = JsonConvert.DeserializeObject<SocCode>(socCodeItem.Content);
+
+                            if (socCode.SOCCode.ApprenticeshipStandards.ContentItemId.Count() > 0)
                             {
-                                var socCode = JsonConvert.DeserializeObject<SocCode>(socCodeItem.Content);
+                                var larsCodes = new List<string>();
 
-                                if (socCode.SOCCode.ApprenticeshipStandards.ContentItemId.Count() > 0)
+                                foreach (var code in socCode.SOCCode.ApprenticeshipStandards.ContentItemId)
                                 {
-                                    var larsCodes = new List<string>();
 
-                                    foreach (var code in socCode.SOCCode.ApprenticeshipStandards.ContentItemId)
+                                    var larsData = await GetPublishedContentItem(code, processing.Latest, processing.Published);
+
+                                    foreach (var larsDataItem in larsData)
                                     {
-                                        var larsData = await GetPublishedContentItem(code, processing.Latest, processing.Published);
-
-                                        foreach (var larsDataItem in larsData)
-                                        {
-                                            var larscode = JsonConvert.DeserializeObject<Models.ApprenticeshipStandards>(larsDataItem.Content);
-                                            larsCodes.Add(larscode.ApprenticeshipStandard.LarsCode.Text);
-                                        }
+                                        var larscode = JsonConvert.DeserializeObject<ApprenticeshipStandards>(larsDataItem.Content);
+                                        larsCodes.Add(larscode.ApprenticeshipStandard.LarsCode.Text ?? larscode.ApprenticeshipStandard.LarsCode.Value);
                                     }
-
-                                    string cacheKey = string.Concat(ApplicationKeys.JobProfileCurrentOpportunitiesAVPrefix, result.PageLocationParts.FullUrl, '/', string.Join(",", larsCodes));
+                                }
+                                if (larsCodes.Count > 0)
+                                {
+                                    string cacheKey = string.Concat(ApplicationKeys.JobProfileCurrentOpportunitiesAVPrefix, CheckLeadingChar(result.PageLocationParts.FullUrl), '/', string.Join(",", larsCodes.OrderBy(x => x)));
                                     var success = await _sharedContentRedisInterface.InvalidateEntityAsync(cacheKey);
                                     LogCacheKeyInvalidation(processing, cacheKey, processing.FilterType, success);
+                                }
+                                else
+                                {
+                                    _logger.LogInformation($"No lars codes available for invalidation for apprenticeship vacancies for: {string.Concat(ApplicationKeys.JobProfileCurrentOpportunitiesAVPrefix, CheckLeadingChar(result.PageLocationParts.FullUrl))}");
                                 }
                             }
                         }
