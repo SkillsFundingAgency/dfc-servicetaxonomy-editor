@@ -64,10 +64,10 @@ namespace DFC.ServiceTaxonomy.CompUi.Services
         {
             await Task.WhenAll(_builder.InvalidateAllJobProfileContentAsync(processing));
 
-            if (processing.EventType == ProcessingEvents.Published)
-            {
-                Task.WaitAll(_builder.RefreshAllJobProfileContent(processing));
-            }
+            //if (processing.EventType == ProcessingEvents.Published)
+            //{
+            //    Task.WaitAll(_builder.RefreshAllJobProfileContent(processing));
+            //}
         }
 
         public async Task ProcessPersonalityFilteringQuestionAsync(Processing processing)
