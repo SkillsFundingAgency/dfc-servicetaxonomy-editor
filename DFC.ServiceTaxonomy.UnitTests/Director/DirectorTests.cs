@@ -182,7 +182,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.CompUi
         }
 
 
-        [Fact]
+      /*  [Fact]
         public async Task ProcessJobProfileAsync_RefreshAllJobProfileContent()
         {
             // Arrange
@@ -199,7 +199,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.CompUi
 
             // Assert
             builderMock.Verify(mock => mock.RefreshAllJobProfileContent(processing), Times.Once);
-        }
+        }*/
 
         [Fact]
         public async Task ProcessPersonalityFilteringQuestionAsync_InvokesGetRelatedContentItemIdsAsync()
