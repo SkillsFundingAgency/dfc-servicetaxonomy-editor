@@ -5,7 +5,6 @@ using DFC.ServiceTaxonomy.CompUi.Interfaces;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.CompUi.Models;
 using System.Collections.Generic;
-using DFC.ServiceTaxonomy.CompUi.Enums;
 
 namespace DFC.ServiceTaxonomy.UnitTests.CompUi
 {
