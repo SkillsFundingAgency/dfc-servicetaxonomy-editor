@@ -418,12 +418,9 @@ namespace DFC.ServiceTaxonomy.CompUi.Services
                 success = await _sharedContentRedisInterface.InvalidateEntityAsync(cacheKey, processing.FilterType);
                 LogCacheKeyInvalidation(processing, cacheKey, processing.FilterType, success);
 
-                if (!string.IsNullOrWhiteSpace(processing.PreviousContent))
-                {
-                    await InvalidateCourses(processing, result);
+                await InvalidateCourses(processing, result);
 
-                    await InvalidateApprenticeships(processing, result);
-                }
+                await InvalidateApprenticeships(processing, result);
             }
         }
 
@@ -530,7 +527,9 @@ namespace DFC.ServiceTaxonomy.CompUi.Services
         {
             try
             {
-                await _sharedContentRedisInterface.GetDataAsyncWithExpiry<T>(cacheKey, filter);
+                //Thread.Sleep(TimeSpan.FromSeconds(5)); 
+
+                var test = await _sharedContentRedisInterface.GetDataAsyncWithExpiry<T>(cacheKey, filter);
                 LogCacheKeyRefresh(processing, cacheKey, filter);
             }
             catch (Exception exception)
@@ -720,6 +719,7 @@ namespace DFC.ServiceTaxonomy.CompUi.Services
                 $"Success: {status}.");
         }
 
+        [DebuggerStepThrough]
         private void LogCacheKeyRefresh(Processing processing, string cacheKey, string filter)
         {
             _logger.LogInformation($"Event Type: {processing.EventType}. " +
@@ -728,6 +728,7 @@ namespace DFC.ServiceTaxonomy.CompUi.Services
                 $"The following Cache Key will be refreshed: {cacheKey}. Filter: {filter}.");
         }
 
+        [DebuggerStepThrough]
         private static string ConvertCourseKeywordsString(string input)
         {
             // Regular expression pattern to match substrings within single quotes
