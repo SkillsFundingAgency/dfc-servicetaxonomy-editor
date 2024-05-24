@@ -194,6 +194,7 @@ namespace DFC.ServiceTaxonomy.CompUi.Services
                     string url = string.Join("/", split.Take(split.Length - 1));
                     locations.Add(url);
                 }
+
                 locations.Add(result.PageLocationParts.FullUrl);
 
                 if (result.PageLocationParts.RedirectLocations != null)
