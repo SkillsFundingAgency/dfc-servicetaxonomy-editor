@@ -527,9 +527,7 @@ namespace DFC.ServiceTaxonomy.CompUi.Services
         {
             try
             {
-                //Thread.Sleep(TimeSpan.FromSeconds(5)); 
-
-                var test = await _sharedContentRedisInterface.GetDataAsyncWithExpiry<T>(cacheKey, filter);
+                await _sharedContentRedisInterface.GetDataAsyncWithExpiry<T>(cacheKey, filter);
                 LogCacheKeyRefresh(processing, cacheKey, filter);
             }
             catch (Exception exception)
