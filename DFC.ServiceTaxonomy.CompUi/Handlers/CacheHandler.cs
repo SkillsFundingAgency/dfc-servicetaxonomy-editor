@@ -50,7 +50,7 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
 
     public async Task ProcessPublishedAsync(PublishContentContext context)
     {
-        var processing = GetProcessingData(context, context.PreviousItem?.Content?.ToString() ?? string.Empty, ProcessingEvents.Published, FilterType.PUBLISHED);
+        var processing = GetProcessingData(context, context.PreviousItem?.Content?.ToString() ?? context.ContentItem.Content.ToString(), ProcessingEvents.Published, FilterType.PUBLISHED);
 
         await base.PublishedAsync(context);
 
@@ -68,7 +68,7 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
 
     public async Task ProcessUnpublishedAsync(PublishContentContext context)
     {
-        var processing = GetProcessingData(context, context.PreviousItem.Content.ToString() ?? string.Empty, ProcessingEvents.Unpublished, FilterType.PUBLISHED);
+        var processing = GetProcessingData(context, context.PreviousItem?.Content?.ToString() ?? context.ContentItem.Content.ToString(), ProcessingEvents.Unpublished, FilterType.PUBLISHED);
 
         await base.UnpublishedAsync(context);
 

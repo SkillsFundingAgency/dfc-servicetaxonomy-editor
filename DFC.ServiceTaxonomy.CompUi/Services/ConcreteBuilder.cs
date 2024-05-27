@@ -448,7 +448,7 @@ namespace DFC.ServiceTaxonomy.CompUi.Services
             {
                 if (result.JobProfile.SOCCode.ContentItemId.Count() > 0)
                 {
-                    IEnumerable<NodeItem>? socCodeData = await GetPublishedContentItem(result.JobProfile.SOCCode.ContentItemId[0], processing.Latest, processing.Published);
+                    IEnumerable<NodeItem>? socCodeData = await GetContentItem(result.JobProfile.SOCCode.ContentItemId[0], processing.Latest, processing.Published);
 
                     if (socCodeData != null)
                     {
@@ -463,7 +463,7 @@ namespace DFC.ServiceTaxonomy.CompUi.Services
                                 foreach (var code in socCode.SOCCode.ApprenticeshipStandards.ContentItemId)
                                 {
 
-                                    var larsData = await GetPublishedContentItem(code, processing.Latest, processing.Published);
+                                    var larsData = await GetContentItem(code, processing.Latest, processing.Published);
 
                                     foreach (var larsDataItem in larsData)
                                     {
