@@ -16,6 +16,7 @@
         SOCSkillsMatrix,
         WorkingPatterns,
         WorkingPatternDetail,
-        WorkingHoursDetail
+        WorkingHoursDetail,
+        Skill
     }
 }

@@ -19,7 +19,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.CompUi
         [Fact]
         public async Task GetDataAsync_ReturnsData()
         {
-          
+
             // Arrange
             var dbaAccessorMock = new Mock<IDbConnectionAccessor>();
             var dapperWrapperMock = new Mock<IDapperWrapper>();
@@ -30,7 +30,6 @@ namespace DFC.ServiceTaxonomy.UnitTests.CompUi
             var expectedData = new List<NodeItem> { new NodeItem { NodeId = "1", Content = "Data" } };
             dbaAccessorMock.Setup(mock => mock.CreateConnection()).Returns(Mock.Of<DbConnection>());
             dapperWrapperMock.Setup(mock => mock.QueryAsync<NodeItem>(It.IsAny<DbConnection>(), It.IsAny<string>())).ReturnsAsync(expectedData);
-            
             var concreteBuilder = new ConcreteBuilder(dbaAccessorMock.Object, dapperWrapperMock.Object, sharedContentRedisInterfaceMock.Object, loggerMock.Object, pageLocationUpdater.Object);
 
             // Act
@@ -62,11 +61,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.CompUi
 
             // Assert
             Assert.NotNull(result);
-            Assert.Equal(expectedData, result!); 
-
+            Assert.Equal(expectedData, result!);
         }
-       
-
-
     }
 }

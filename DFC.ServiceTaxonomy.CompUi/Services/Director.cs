@@ -1,4 +1,5 @@
-﻿using DFC.ServiceTaxonomy.CompUi.Enums;
+﻿using System.Diagnostics;
+using DFC.ServiceTaxonomy.CompUi.Enums;
 using DFC.ServiceTaxonomy.CompUi.Interfaces;
 using DFC.ServiceTaxonomy.CompUi.Models;
 
@@ -33,7 +34,7 @@ namespace DFC.ServiceTaxonomy.CompUi.Services
         public async Task ProcessPageAsync(Processing processing)
         {
             await _builder.InvalidateAdditionalPageNodesAsync(processing);
-            await _builder.InvalidatePageNodeAsync(processing.Content, processing);
+            await _builder.InvalidatePageNodeAsync(processing.CurrentContent, processing);
             await _builder.InvalidateTriageToolFiltersAsync(processing);
         }
 
@@ -61,9 +62,12 @@ namespace DFC.ServiceTaxonomy.CompUi.Services
 
         public async Task ProcessJobProfileAsync(Processing processing)
         {
-            await _builder.InvalidateJobProfileCategoryAsync(processing);
-            await _builder.InvalidateDysacJobProfileOverviewAsync(processing);
-            await _builder.InvalidateJobProfileAsync(processing);
+            await Task.WhenAll(_builder.InvalidateAllJobProfileContentAsync(processing));
+
+            //if (processing.EventType == ProcessingEvents.Published)
+            //{
+            //    Task.WaitAll(_builder.RefreshAllJobProfileContent(processing));
+            //}
         }
 
         public async Task ProcessPersonalityFilteringQuestionAsync(Processing processing)
@@ -117,6 +121,11 @@ namespace DFC.ServiceTaxonomy.CompUi.Services
         public async Task ProcessWorkingHoursDetailAsync(Processing processing)
         {
             await _builder.InvalidateDysacJobProfileOverviewRelatedContentItemsAsync(processing);
+        }
+
+        public async Task ProcessSkillsAsync(Processing processing)
+        {
+            await _builder.InvalidateSkillsAsync(processing);
         }
     }
 }

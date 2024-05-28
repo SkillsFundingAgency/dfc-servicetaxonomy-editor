@@ -255,8 +255,6 @@ stages:
   condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'))
   displayName: Deploy to PP_SERVICETAXONOMY
   variables:
-  - name: VSTS_ARM_REST_IGNORE_SSL_ERRORS
-    value: true
   - group: dfc-shared-all
   - group: dfc-stax-shared-all
   - group: dfc-shared-pp

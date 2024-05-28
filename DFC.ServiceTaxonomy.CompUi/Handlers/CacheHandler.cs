@@ -50,38 +50,38 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
 
     public async Task ProcessPublishedAsync(PublishContentContext context)
     {
-        var processing = GetProcessingData(context, ProcessingEvents.Published, FilterType.PUBLISHED);
-
-        await ProcessItem(processing);
+        var processing = GetProcessingData(context, context.PreviousItem?.Content?.ToString() ?? context.ContentItem.Content.ToString(), ProcessingEvents.Published, FilterType.PUBLISHED);
 
         await base.PublishedAsync(context);
+
+        await ProcessItem(processing);
     }
 
     public async Task ProcessRemovedAsync(RemoveContentContext context)
     {
         var processing = GetProcessingData(context, ProcessingEvents.Removed, FilterType.PUBLISHED);
 
-        await ProcessItem(processing);
-
         await base.RemovedAsync(context);
+
+        await ProcessItem(processing);
     }
 
     public async Task ProcessUnpublishedAsync(PublishContentContext context)
     {
-        var processing = GetProcessingData(context, ProcessingEvents.Unpublished, FilterType.PUBLISHED);
-
-        await ProcessItem(processing);
+        var processing = GetProcessingData(context, context.PreviousItem?.Content?.ToString() ?? context.ContentItem.Content.ToString(), ProcessingEvents.Unpublished, FilterType.PUBLISHED);
 
         await base.UnpublishedAsync(context);
+
+        await ProcessItem(processing);
     }
 
     public async Task ProcessDraftSavedAsync(SaveDraftContentContext context)
     {
         var processing = GetProcessingData(context, ProcessingEvents.DraftSaved, FilterType.DRAFT);
 
-        await ProcessItem(processing);
-
         await base.DraftSavedAsync(context);
+
+        await ProcessItem(processing);
     }
 
     private async Task ProcessItem(Processing processing)
@@ -137,6 +137,9 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
                     case nameof(ContentTypes.WorkingHoursDetail):
                         await _director.ProcessWorkingHoursDetailAsync(processing);
                         break;
+                    case nameof(ContentTypes.Skill):
+                        await _director.ProcessSkillsAsync(processing);
+                        break;
                     default:
                         _logger.LogError($"ProcessItem. Content Item Id: {processing.DocumentId}, Content Type could not be determined: {processing.ContentType}, Event Type: {processing.EventType}");
                         break;
@@ -149,11 +152,18 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
         }
     }
 
-    private Processing GetProcessingData(ContentContextBase context, ProcessingEvents processingEvent, FilterType filterType)
+    private Processing GetProcessingData(ContentContextBase currentContext, ProcessingEvents processingEvent, FilterType filterType)
     {
-        var processing = _mapper.Map<Processing>(context);
+        return GetProcessingData(currentContext, string.Empty, processingEvent, filterType);
+    }
+
+    private Processing GetProcessingData(ContentContextBase currentContext, string previousContent, ProcessingEvents processingEvent, FilterType filterType)
+    {
+        var processing = _mapper.Map<Processing>(currentContext);
+        processing.PreviousContent = previousContent;
         processing.EventType = processingEvent;
         processing.FilterType = filterType.ToString();
+
         return processing;
     }
 }
