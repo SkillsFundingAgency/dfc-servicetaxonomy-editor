@@ -164,25 +164,33 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
         processing.PreviousContent = previousContent;
         processing.EventType = processingEvent;
         processing.FilterType = filterType.ToString();
-        processing.FullUrl = FullUrl(processing.CurrentContent, processing.PreviousContent);
+        processing.FullUrl = FullUrl(processing.CurrentContent, processing.PreviousContent, processing.ContentType);
 
         return processing;
     }
 
-    private string? FullUrl(string currentContent, string previousContent)
+    private string? FullUrl(string currentContent, string previousContent, string contentType )
     {
-        var current = JsonConvert.DeserializeObject<Page>(currentContent);
-        var previous = JsonConvert.DeserializeObject<Page>(previousContent);
-
-        if (string.IsNullOrWhiteSpace(previous.PageLocationParts.FullUrl))
+        if (contentType == ContentTypes.JobProfile.ToString())
         {
-            return current.PageLocationParts.FullUrl;
-        }
-        else if (current.PageLocationParts.FullUrl.Equals(previous.PageLocationParts.FullUrl))
-        {
-            return current.PageLocationParts.FullUrl;
+            var current = JsonConvert.DeserializeObject<Page>(currentContent);
+            var previous = JsonConvert.DeserializeObject<Page>(previousContent);
+
+            if (previous?.PageLocationParts != null || current.PageLocationParts != null)
+            {
+                if (string.IsNullOrWhiteSpace(previous?.PageLocationParts.FullUrl))
+                {
+                    return current.PageLocationParts.FullUrl;
+                }
+                else if (current.PageLocationParts.FullUrl.Equals(previous?.PageLocationParts.FullUrl))
+                {
+                    return current.PageLocationParts.FullUrl;
+                }
+
+                return previous.PageLocationParts.FullUrl;
+            }
         }
 
-        return previous.PageLocationParts.FullUrl;
+        return null;
     }
 }

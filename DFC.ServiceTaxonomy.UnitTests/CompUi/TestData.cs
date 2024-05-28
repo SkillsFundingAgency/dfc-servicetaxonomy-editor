@@ -1,5 +1,4 @@
-﻿
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using DFC.ServiceTaxonomy.CompUi.Model;
 using OrchardCore.ContentManagement;
 
@@ -37,10 +36,13 @@ namespace DFC.ServiceTaxonomy.UnitTests.CompUi
             ContentItemId = "48n2h43p729ve15yfhhr3ccgmd",
             ContentType = "Pagebanner"
         };
-        private readonly ContentItem _socCodeContentitem = new ContentItem
+        private ContentItem _socCodeContentitem = new ContentItem
         {
             ContentItemId = "48n2h43p729ve15yfhhr3ccgmd",
-            ContentType = "SocCode"
+            ContentType = "SocCode",
+            Latest = true,
+            Published = true,
+            Id = 1,
         };
 
         private readonly List<NodeItem> _emptyNodeList = new List<NodeItem>();
