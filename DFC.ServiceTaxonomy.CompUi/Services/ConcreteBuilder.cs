@@ -332,16 +332,14 @@ namespace DFC.ServiceTaxonomy.CompUi.Services
 
         public async Task InvalidateJobProfileAsync(Processing processing)
         {
-            var result = JsonConvert.DeserializeObject<Page>(processing.CurrentContent);
-            var cacheKey = string.Concat(ApplicationKeys.JobProfileSuffix, CheckLeadingChar(result.PageLocationParts.FullUrl));
+            var cacheKey = string.Concat(ApplicationKeys.JobProfileSuffix, CheckLeadingChar(processing.FullUrl));
             var success = await _sharedContentRedisInterface.InvalidateEntityAsync(cacheKey, processing.FilterType);
             LogCacheKeyInvalidation(processing, cacheKey, processing.FilterType, success);
         }
 
         public async Task InvalidateJobProfileOverviewAsync(Processing processing)
         {
-            var result = JsonConvert.DeserializeObject<Page>(processing.CurrentContent);
-            var cacheKey = string.Concat(ApplicationKeys.JobProfileOverview, CheckLeadingChar(result.PageLocationParts.FullUrl));
+            var cacheKey = string.Concat(ApplicationKeys.JobProfileOverview, CheckLeadingChar(processing.FullUrl));
             var success = await _sharedContentRedisInterface.InvalidateEntityAsync(cacheKey, processing.FilterType);
             LogCacheKeyInvalidation(processing, cacheKey, processing.FilterType, success);
         }
@@ -354,8 +352,7 @@ namespace DFC.ServiceTaxonomy.CompUi.Services
 
         public async Task InvalidateJobProfileSkillsAsync(Processing processing)
         {
-            var result = JsonConvert.DeserializeObject<Page>(processing.CurrentContent);
-            var cacheKey = string.Concat(ApplicationKeys.JobProfileSkillsSuffix, CheckLeadingChar(result.PageLocationParts.FullUrl));
+            var cacheKey = string.Concat(ApplicationKeys.JobProfileSkillsSuffix, CheckLeadingChar(processing.FullUrl));
             var success = await _sharedContentRedisInterface.InvalidateEntityAsync(cacheKey, processing.FilterType);
             success = await _sharedContentRedisInterface.InvalidateEntityAsync(ApplicationKeys.SkillsAll, processing.FilterType);
             LogCacheKeyInvalidation(processing, cacheKey, processing.FilterType, success);
@@ -369,40 +366,35 @@ namespace DFC.ServiceTaxonomy.CompUi.Services
 
         public async Task InvalidateJobProfileRelatedCareersAsync(Processing processing)
         {
-            var result = JsonConvert.DeserializeObject<Page>(processing.CurrentContent);
-            var cacheKey = string.Concat(ApplicationKeys.JobProfileRelatedCareersPrefix, CheckLeadingChar(result.PageLocationParts.FullUrl));
+            var cacheKey = string.Concat(ApplicationKeys.JobProfileRelatedCareersPrefix, CheckLeadingChar(processing.FullUrl));
             var success = await _sharedContentRedisInterface.InvalidateEntityAsync(cacheKey, processing.FilterType);
             LogCacheKeyInvalidation(processing, cacheKey, processing.FilterType, success);
         }
 
         public async Task InvalidateJobProfileHowToBecomeAsync(Processing processing)
         {
-            var result = JsonConvert.DeserializeObject<Page>(processing.CurrentContent);
-            var cacheKey = string.Concat(ApplicationKeys.JobProfileHowToBecome, CheckLeadingChar(result.PageLocationParts.FullUrl));
+            var cacheKey = string.Concat(ApplicationKeys.JobProfileHowToBecome, CheckLeadingChar(processing.FullUrl));
             var success = await _sharedContentRedisInterface.InvalidateEntityAsync(cacheKey, processing.FilterType);
             LogCacheKeyInvalidation(processing, cacheKey, processing.FilterType, success);
         }
 
         public async Task InvalidateJobProfileWhatYoullDoAsync(Processing processing)
         {
-            var result = JsonConvert.DeserializeObject<Page>(processing.CurrentContent);
-            var cacheKey = string.Concat(ApplicationKeys.JobProfileWhatYoullDo, CheckLeadingChar(result.PageLocationParts.FullUrl));
+            var cacheKey = string.Concat(ApplicationKeys.JobProfileWhatYoullDo, CheckLeadingChar(processing.FullUrl));
             var success = await _sharedContentRedisInterface.InvalidateEntityAsync(cacheKey, processing.FilterType);
             LogCacheKeyInvalidation(processing, cacheKey, processing.FilterType, success);
         }
 
         public async Task InvalidateJobProfileVideoAsync(Processing processing)
         {
-            var result = JsonConvert.DeserializeObject<Page>(processing.CurrentContent);
-            var cacheKey = string.Concat(ApplicationKeys.JobProfileVideoPrefix, CheckLeadingChar(result.PageLocationParts.FullUrl));
+            var cacheKey = string.Concat(ApplicationKeys.JobProfileVideoPrefix, CheckLeadingChar(processing.FullUrl));
             var success = await _sharedContentRedisInterface.InvalidateEntityAsync(cacheKey, processing.FilterType);
             LogCacheKeyInvalidation(processing, cacheKey, processing.FilterType, success);
         }
 
         public async Task InvalidateCareerPathsAndProgressions(Processing processing)
         {
-            var result = JsonConvert.DeserializeObject<Page>(processing.CurrentContent);
-            var cacheKey = string.Concat(ApplicationKeys.JobProfileCareerPath, CheckLeadingChar(result.PageLocationParts.FullUrl));
+            var cacheKey = string.Concat(ApplicationKeys.JobProfileCareerPath, CheckLeadingChar(processing.FullUrl));
             var success = await _sharedContentRedisInterface.InvalidateEntityAsync(cacheKey, processing.FilterType);
             LogCacheKeyInvalidation(processing, cacheKey, processing.FilterType, success);
         }
@@ -415,7 +407,7 @@ namespace DFC.ServiceTaxonomy.CompUi.Services
             var result = JsonConvert.DeserializeObject<Page>(processing.PreviousContent);
             if (result != null)
             {
-                string cacheKey = string.Concat(ApplicationKeys.JobProfileCurrentOpportunities, CheckLeadingChar(result.PageLocationParts.FullUrl));
+                string cacheKey = string.Concat(ApplicationKeys.JobProfileCurrentOpportunities, CheckLeadingChar(processing.FullUrl));
                 success = await _sharedContentRedisInterface.InvalidateEntityAsync(cacheKey, processing.FilterType);
                 LogCacheKeyInvalidation(processing, cacheKey, processing.FilterType, success);
 
@@ -431,7 +423,7 @@ namespace DFC.ServiceTaxonomy.CompUi.Services
             {
                 if (!string.IsNullOrWhiteSpace(result.JobProfile.CourseKeywords.Text))
                 {
-                    string cacheKey = string.Concat(ApplicationKeys.JobProfileCurrentOpportunitiesCoursesPrefix, result.PageLocationParts.FullUrl, '/', ConvertCourseKeywordsString(result.JobProfile.CourseKeywords.Text));
+                    string cacheKey = string.Concat(ApplicationKeys.JobProfileCurrentOpportunitiesCoursesPrefix, processing.FullUrl, '/', ConvertCourseKeywordsString(result.JobProfile.CourseKeywords.Text));
                     var success = await _sharedContentRedisInterface.InvalidateEntityAsync(cacheKey);
                     LogCacheKeyInvalidation(processing, cacheKey, processing.FilterType, success);
                 }
@@ -452,35 +444,32 @@ namespace DFC.ServiceTaxonomy.CompUi.Services
 
                     if (socCodeData != null)
                     {
-                        foreach (var socCodeItem in socCodeData)
+                        var socCode = JsonConvert.DeserializeObject<SocCode>(socCodeData.FirstOrDefault().Content);
+
+                        if (socCode.SOCCode.ApprenticeshipStandards.ContentItemId.Count() > 0)
                         {
-                            var socCode = JsonConvert.DeserializeObject<SocCode>(socCodeItem.Content);
+                            var larsCodes = new List<string>();
 
-                            if (socCode.SOCCode.ApprenticeshipStandards.ContentItemId.Count() > 0)
+                            foreach (var code in socCode.SOCCode.ApprenticeshipStandards.ContentItemId)
                             {
-                                var larsCodes = new List<string>();
 
-                                foreach (var code in socCode.SOCCode.ApprenticeshipStandards.ContentItemId)
-                                {
+                                var larsData = await GetContentItem(code, processing.Latest, processing.Published);
 
-                                    var larsData = await GetContentItem(code, processing.Latest, processing.Published);
-
-                                    foreach (var larsDataItem in larsData)
-                                    {
-                                        var larscode = JsonConvert.DeserializeObject<ApprenticeshipStandards>(larsDataItem.Content);
-                                        larsCodes.Add(larscode.ApprenticeshipStandard.LarsCode.Text ?? larscode.ApprenticeshipStandard.LarsCode.Value);
-                                    }
-                                }
-                                if (larsCodes.Count > 0)
+                                foreach (var larsDataItem in larsData)
                                 {
-                                    string cacheKey = string.Concat(ApplicationKeys.JobProfileCurrentOpportunitiesAVPrefix, CheckLeadingChar(result.PageLocationParts.FullUrl), '/', string.Join(",", larsCodes.OrderBy(x => x)));
-                                    var success = await _sharedContentRedisInterface.InvalidateEntityAsync(cacheKey);
-                                    LogCacheKeyInvalidation(processing, cacheKey, processing.FilterType, success);
+                                    var larscode = JsonConvert.DeserializeObject<ApprenticeshipStandards>(larsDataItem.Content);
+                                    larsCodes.Add(larscode.ApprenticeshipStandard.LarsCode.Text ?? larscode.ApprenticeshipStandard.LarsCode.Value);
                                 }
-                                else
-                                {
-                                    _logger.LogInformation($"No lars codes available for invalidation for apprenticeship vacancies for: {string.Concat(ApplicationKeys.JobProfileCurrentOpportunitiesAVPrefix, CheckLeadingChar(result.PageLocationParts.FullUrl))}");
-                                }
+                            }
+                            if (larsCodes.Count > 0)
+                            {
+                                string cacheKey = string.Concat(ApplicationKeys.JobProfileCurrentOpportunitiesAVPrefix, CheckLeadingChar(processing.FullUrl), '/', string.Join(",", larsCodes.OrderBy(x => x)));
+                                var success = await _sharedContentRedisInterface.InvalidateEntityAsync(cacheKey);
+                                LogCacheKeyInvalidation(processing, cacheKey, processing.FilterType, success);
+                            }
+                            else
+                            {
+                                _logger.LogInformation($"No lars codes available for invalidation for apprenticeship vacancies for: {string.Concat(ApplicationKeys.JobProfileCurrentOpportunitiesAVPrefix, CheckLeadingChar(result.PageLocationParts.FullUrl))}");
                             }
                         }
                     }
@@ -496,8 +485,7 @@ namespace DFC.ServiceTaxonomy.CompUi.Services
         {
             try
             {
-                var result = JsonConvert.DeserializeObject<Page>(processing.CurrentContent);
-                var fullUrl = CheckLeadingChar(result.PageLocationParts.FullUrl) ?? string.Empty;
+                var fullUrl = CheckLeadingChar(processing.FullUrl) ?? string.Empty;
                 var filter = processing.FilterType?.ToString() ?? "PUBLISHED";
 
                 if (string.IsNullOrEmpty(fullUrl))
@@ -554,6 +542,7 @@ namespace DFC.ServiceTaxonomy.CompUi.Services
                 await InvalidateJobProfileVideoAsync(processing);
                 await InvalidateJobProfileCurrentOpportunitiesAllAsync(processing);
                 await InvalidateCareerPathsAndProgressions(processing);
+                await InvalidateJobProfileCategoriesAsync(processing);
             }
             catch (Exception exception)
             {
