@@ -22,7 +22,6 @@ Console.WriteLine("searchString {0} replaceString{1} ", searchString, replaceStr
 
 
 ListDatabasesAsync();
-Console.WriteLine("Finished");
 
 
 Console.WriteLine("Cosmos Db Database name: Please enter the Cosmos Db database name (usually 'dfc-cms-data')");
