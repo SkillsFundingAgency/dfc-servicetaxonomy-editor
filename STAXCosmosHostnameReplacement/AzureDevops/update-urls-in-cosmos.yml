@@ -42,6 +42,8 @@ stages:
 
 - stage: MigratePreProduction
   condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'))
+  dependsOn:
+  - Build
   variables:
     SearchDomainSuffix: .ase-01.dfc.preprodazure.sfa.bis.gov.uk
   jobs:
@@ -71,6 +73,8 @@ stages:
 
 - stage: MigrateProduction
   condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'))
+  dependsOn:
+    - Build
   variables:
     SearchDomainSuffix: .ase-01.dfc.prodazure.sfa.bis.gov.uk
   jobs:
