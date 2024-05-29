@@ -1,3 +1,13 @@
+parameters:
+- name: runMigrationInPreProd
+  displayName: Run the migration in Pre-Production?
+  type: boolean
+  default: false
+- name: runMigrationInProd
+  displayName: Run the migration in Production?
+  type: boolean
+  default: false
+
 trigger:  none
 pr: none
 
@@ -41,7 +51,7 @@ stages:
         publishLocation: container
 
 - stage: MigratePreProduction
-  condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'))
+  condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'), eq('${{ parameters.runMigrationInPreProd }}', true))
   dependsOn:
   - Build
   variables:
@@ -72,7 +82,7 @@ stages:
 
 
 - stage: MigrateProduction
-  condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'))
+  condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'), eq('${{ parameters.runMigrationInProd }}', true))
   dependsOn:
     - Build
   variables:
