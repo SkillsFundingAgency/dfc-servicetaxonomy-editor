@@ -1,0 +1,97 @@
+{
+    "PartitionKey": "triagetool",
+    "id": "c8b54de9-d819-4f94-9067-2f77e2396334",
+    "Path": "triagetool",
+    "TopNavigationText": null,
+    "TopNavigationOrder": 9000,
+    "CdnLocation": null,
+    "Layout": 1,
+    "IsOnline": true,
+    "OfflineHtml": "<div class=\"govuk-width-container\"><H2>Triage tool Service Unavailable</H2></div>",
+    "PhaseBannerHtml": "<div class=\"govuk-phase-banner\"><p class=\"govuk-phase-banner__content\"><strong class=\"govuk-tag govuk-phase-bannertag \">beta</strong> <span class=\"govuk-phase-banner__text\">Complete <a target=\"_blank\" class=\"govuk-link\" href=\"https://surveys.ipsosinteractive.com/mrIWeb/mrIWeb.dll?I.Project=S1039833&amp;id=&amp;cf=ovl \">Ipsos MORI survey</a> to give us your feedback about the service.</span> </p></div>",
+    "SitemapURL": "https://dfc-pp-app-triagetool-as.ase-01.dfc.preprodazure.sfa.bis.gov.uk/sitemap.xml",
+    "ExternalURL": null,
+    "RobotsURL": "https://dfc-pp-app-triagetool-as.ase-01.dfc.preprodazure.sfa.bis.gov.uk/robots.txt",
+    "DateOfRegistration": "2021-07-08T10:13:51.6603781Z",
+    "LastModifiedDate": "2024-04-29T10:36:24.6649352Z",
+    "Regions": [
+        {
+            "PageRegion": 1,
+            "IsHealthy": true,
+            "RegionEndpoint": "https://dfc-pp-app-triagetool-as.ase-01.dfc.preprodazure.sfa.bis.gov.uk/pages/{0}/head",
+            "HealthCheckRequired": true,
+            "OfflineHtml": null,
+            "DateOfRegistration": "2021-07-08T10:13:51.6597635Z",
+            "LastModifiedDate": "2024-04-29T10:36:24.6288683Z"
+        },
+        {
+            "PageRegion": 2,
+            "IsHealthy": true,
+            "RegionEndpoint": "https://dfc-pp-app-triagetool-as.ase-01.dfc.preprodazure.sfa.bis.gov.uk/pages/{0}/breadcrumb",
+            "HealthCheckRequired": true,
+            "OfflineHtml": null,
+            "DateOfRegistration": "2021-07-08T10:13:51.6601568Z",
+            "LastModifiedDate": "2024-04-29T10:36:24.6288685Z"
+        },
+        {
+            "PageRegion": 3,
+            "IsHealthy": true,
+            "RegionEndpoint": "https://dfc-pp-app-triagetool-as.ase-01.dfc.preprodazure.sfa.bis.gov.uk/pages/{0}/bodytop",
+            "HealthCheckRequired": true,
+            "OfflineHtml": null,
+            "DateOfRegistration": "2021-07-08T10:13:51.6601572Z",
+            "LastModifiedDate": "2024-04-29T10:36:24.6288689Z"
+        },
+        {
+            "PageRegion": 4,
+            "IsHealthy": true,
+            "RegionEndpoint": "https://dfc-pp-app-triagetool-as.ase-01.dfc.preprodazure.sfa.bis.gov.uk/pages/{0}/body",
+            "HealthCheckRequired": true,
+            "OfflineHtml": "<div class=\"govuk-width-container\"><H3>Triage tool Service Unavailable</H3></div>",
+            "DateOfRegistration": "2021-07-08T10:13:51.6601573Z",
+            "LastModifiedDate": "2024-04-29T10:36:24.628869Z"
+        },
+        {
+            "PageRegion": 7,
+            "IsHealthy": true,
+            "RegionEndpoint": "https://dfc-pp-app-triagetool-as.ase-01.dfc.preprodazure.sfa.bis.gov.uk/pages/{0}/bodyfooter",
+            "HealthCheckRequired": true,
+            "OfflineHtml": null,
+            "DateOfRegistration": "2021-07-08T10:13:51.6601574Z",
+            "LastModifiedDate": "2024-04-29T10:36:24.6288692Z"
+        },
+        {
+            "PageRegion": 8,
+            "IsHealthy": true,
+            "RegionEndpoint": "https://dfc-pp-app-triagetool-as.ase-01.dfc.preprodazure.sfa.bis.gov.uk/pages/{0}/herobanner",
+            "HealthCheckRequired": true,
+            "OfflineHtml": null,
+            "DateOfRegistration": "2021-07-08T10:13:51.6601575Z",
+            "LastModifiedDate": "2024-04-29T10:36:24.6288694Z"
+        }
+    ],
+    "AjaxRequests": [
+        {
+            "Name": "Ajax",
+            "IsHealthy": true,
+            "AjaxEndpoint": "https://dfc-pp-app-triagetool-as.ase-01.dfc.preprodazure.sfa.bis.gov.uk/api/TriageToolOption/GetOptions/ajax",
+            "HealthCheckRequired": true,
+            "OfflineHtml": "<div class=\"govuk-width-container\"><H3>Service Unavailable</H3></div>",
+            "DateOfRegistration": "2021-07-08T10:13:51.6603777Z",
+            "LastModifiedDate": "2024-04-29T10:36:24.6390549Z"
+        }
+    ],
+    "PageLocations": null,
+    "JavaScriptNames": {
+        "/js/dfc-app-triagetool.min.js": "hY2Xt0EO/9VOvzd8ILqang=="
+    },
+    "CssScriptNames": null,
+    "IsInteractiveApp": false,
+    "TraceId": "ac5785bb316be34269d0f3653c27498d",
+    "ParentId": "|96b3b524-46fab0d9b556b583.96b3b525_",
+    "_etag": "\"b70102ef-0000-0d00-0000-662f78290000\"",
+    "_rid": "C3dmANAVzl8XAAAAAAAAAA==",
+    "_self": "dbs/C3dmAA==/colls/C3dmANAVzl8=/docs/C3dmANAVzl8XAAAAAAAAAA==/",
+    "_attachments": "attachments/",
+    "_ts": 1714386985
+}

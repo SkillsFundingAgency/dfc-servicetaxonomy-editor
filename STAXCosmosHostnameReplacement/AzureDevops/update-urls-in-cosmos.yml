@@ -1,0 +1,37 @@
+trigger:  none
+pr: none
+
+
+pool:
+  name: NCS - CI and CD
+
+stages:
+- stage: Build
+  jobs: 
+  - job: BuildApplication
+    workspace:
+      clean: all
+    steps:
+    - task: UseDotNet@2
+      displayName: 'Use .NET Core sdk 6'
+      inputs:
+        version: 6.x
+    - task: NuGetCommand@2
+      displayName: 'NuGet restore'
+      inputs:
+        restoreSolution: 'STAXCosmosHostnameReplacement/STAXCosmosHostnameReplacement.sln'
+        feedsToUse: 'select'
+        vstsFeed: 'NationalCareersService'
+    - task: DotNetCoreCLI@2
+      displayName: 'Publish - dotnet publish application'
+      inputs:
+        command: 'publish'
+        projects: 'STAXCosmosHostnameReplacement\STAXCosmosHostnameReplacement\STAXCosmosHostnameReplacement.csproj'
+        arguments: '--self-contained true -r win-x86 --configuration ${{ parameters.BuildConfiguration }} --output $(build.artifactstagingdirectory)\Artifact'
+        publishWebProjects: false 
+    - task: PublishBuildArtifacts@1
+      displayName: 'Publish Artifact: STAXCosmosHostnameReplacement'
+      inputs:
+        pathtoPublish: $(build.artifactstagingdirectory)\Artifact
+        artifactName: STAXCosmosHostnameReplacement
+        publishLocation: container
