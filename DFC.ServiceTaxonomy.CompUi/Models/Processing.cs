@@ -13,5 +13,6 @@ namespace DFC.ServiceTaxonomy.CompUi.Models
         public string? PreviousContent { get; set; }
         public ProcessingEvents EventType { get; set; }
         public string? FilterType { get; set; }
+        public string? FullUrl { get; set; }
     }
 }
