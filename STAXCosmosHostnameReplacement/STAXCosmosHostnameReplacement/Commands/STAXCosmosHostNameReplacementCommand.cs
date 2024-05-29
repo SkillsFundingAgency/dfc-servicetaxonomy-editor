@@ -51,6 +51,7 @@ namespace STAXCosmosHostnameReplacement.Commands
 
         async Task<List<string>> GetDatabases()
         {
+            AnsiConsole.MarkupLine("Querying Cosmos account for databases");
             var databases = new List<string>();
 
             using (FeedIterator<DatabaseProperties> databaseIterator = _cosmosClient.GetDatabaseQueryIterator<DatabaseProperties>())
@@ -70,6 +71,7 @@ namespace STAXCosmosHostnameReplacement.Commands
 
         async Task<List<string>> GetContainersOnDatabase(string database)
         {
+            AnsiConsole.MarkupLine($"Querying Cosmos database {database} for collections");
             var containers = new List<string>();
 
             using (FeedIterator<ContainerProperties> iterator = _cosmosClient.GetDatabase(database).GetContainerQueryIterator<ContainerProperties>())
@@ -90,6 +92,8 @@ namespace STAXCosmosHostnameReplacement.Commands
 
         async Task UpdateMatchingDocumentsInCollection(string database, string collection, string search, string replacement)
         {
+            AnsiConsole.MarkupLine($"Processing collection {collection} on database {database}..");
+
             var container = _cosmosClient.GetDatabase(database).GetContainer(collection);
 
             QueryDefinition queryDef = new QueryDefinition("SELECT * FROM c");
@@ -106,9 +110,12 @@ namespace STAXCosmosHostnameReplacement.Commands
 
                     var replaceCount = PerformItemReplacements(jsonItem, search, replacement);
 
+                    var id = jsonItem["id"].ToString();
+
                     if(replaceCount > 0)
                     {
-                        await container.ReplaceItemAsync(jsonItem, jsonItem["id"].ToString());
+                        AnsiConsole.MarkupLine($"Found {replaceCount} instances of domain, updating document with id {id}");
+                        await container.ReplaceItemAsync(jsonItem, id);
                     }
                 }
             }
