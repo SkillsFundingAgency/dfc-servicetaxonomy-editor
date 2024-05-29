@@ -27,7 +27,7 @@ stages:
       inputs:
         command: 'publish'
         projects: 'STAXCosmosHostnameReplacement\STAXCosmosHostnameReplacement\STAXCosmosHostnameReplacement.csproj'
-        arguments: '--self-contained true -r win-x86 --configuration ${{ parameters.BuildConfiguration }} --output $(build.artifactstagingdirectory)\Artifact'
+        arguments: '--self-contained true -r win-x86 --configuration Debug --output $(build.artifactstagingdirectory)\Artifact'
         publishWebProjects: false 
     - task: PublishBuildArtifacts@1
       displayName: 'Publish Artifact: STAXCosmosHostnameReplacement'
