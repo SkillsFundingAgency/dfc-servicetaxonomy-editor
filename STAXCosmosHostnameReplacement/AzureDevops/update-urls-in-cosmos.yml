@@ -16,6 +16,8 @@ stages:
       displayName: 'Use .NET Core sdk 6'
       inputs:
         version: 6.x
+        installationPath: $(Agent.ToolsDirectory)/dotnet
+
     - task: NuGetCommand@2
       displayName: 'NuGet restore'
       inputs:
