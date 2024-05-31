@@ -6,6 +6,10 @@
             "type": "string",
             "defaultValue": ""
         },
+        "WebAppName": {
+            "type": "string",
+            "defaultValue": ""
+        },
         "Environment": {
             "type": "string"
         },
@@ -268,7 +272,7 @@
         },
         "CmsSqlApiUrl": {
         "type": "string"
-        }   
+        }
     },
     "variables": {
         "BuildingBlocksDfcBaseUrl": "https://raw.githubusercontent.com/SkillsFundingAgency/dfc-devops/master/ArmTemplates/",
@@ -278,7 +282,6 @@
         "EventGridTopicName": "[tolower(concat('dfc-', parameters('Environment'), '-stax-egt'))]",
         "AppServicePlanResourceGroup": "[if(greater(length(parameters('SharedAppServicePlanResourceGroup')), 0), parameters('SharedAppServicePlanResourceGroup'), resourceGroup().name)]",
         "DatabaseName": "[concat(variables('ResourcePrefix'), '-db')]",
-        "WebAppName": "[concat(variables('ResourcePrefix'), '-as')]",
         "ActionGroupName": "[concat('dfc-', replace(tolower(parameters('Environment')), '-draft', ''), '-stax-shared-actgrp')]",
         "DatabaseTier": "[if(equals(parameters('SqlElasticPoolName'), ''), 'GeneralPurposeServerless', 'ElasticPool')]"
     },
@@ -311,7 +314,7 @@
         },
         {
             "apiVersion": "2017-05-10",
-            "name": "[variables('WebAppName')]",
+            "name": "[parameters('WebAppName')]",
             "type": "Microsoft.Resources/deployments",
             "properties": {
                 "mode": "Incremental",
@@ -321,7 +324,7 @@
                 },
                 "parameters": {
                     "appServiceName": {
-                        "value": "[variables('WebAppName')]"
+                        "value": "[parameters('WebAppName')]"
                     },
                     "appServicePlanName": {
                         "value": "[variables('AppServicePlanName')]"
@@ -667,7 +670,7 @@
                                 "name": "Cms__SqlApiUrl",
                                 "value": "[parameters('CmsSqlApiUrl')]"
                             }
-                        ] 
+                        ]
                     }
                 }
             },

@@ -5,6 +5,9 @@
         "CustomHostName": {
             "value": "editor-foo.servicetaxonomy.nationalcareersservice.org.uk"
         },
+        "WebAppName": {
+            "value": "dfc-foo-stax-editor-as-ver2"
+        },
         "Environment": {
             "value": "dev"
         },

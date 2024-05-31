@@ -5,6 +5,9 @@
         "CustomHostName": {
             "value": "__OrchardEditorCustomHostName__"
         },
+        "WebAppName": {
+            "value": "__WebAppName__"
+        },
         "Environment": {
             "value": "__ReleaseEnvironmentName__"
         },
@@ -241,7 +244,7 @@
         },
         "workspaceResourceGroup": {
             "value": "__sharedLogAnalyticsResourceGroup__"
-  
+
         },
         "CmsTokenEndpointUrl": {
             "value": "__StaxGraphqlTokenEndpointUrl__"
