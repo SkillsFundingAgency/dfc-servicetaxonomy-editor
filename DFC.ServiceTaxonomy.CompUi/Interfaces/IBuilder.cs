@@ -1,5 +1,4 @@
-﻿using DFC.ServiceTaxonomy.CompUi.Enums;
-using DFC.ServiceTaxonomy.CompUi.Model;
+﻿using DFC.ServiceTaxonomy.CompUi.Model;
 using DFC.ServiceTaxonomy.CompUi.Models;
 
 namespace DFC.ServiceTaxonomy.CompUi.Interfaces
@@ -10,7 +9,7 @@ namespace DFC.ServiceTaxonomy.CompUi.Interfaces
         Task<bool> InvalidatePageBannerAsync(Processing processing);
         Task<IEnumerable<NodeItem>> GetDataAsync(Processing processing);
         Task<IEnumerable<RelatedItems>?> GetRelatedContentItemIdsAsync(Processing processing);
-        Task<IEnumerable<ContentItems>?> GetContentItemsByLikeQueryAsync(string contentType, string queryIds);
+        Task<IEnumerable<ProcessingContentItems>?> GetContentItemsByLikeQueryAsync(string contentType, string queryIds);
         Task InvalidatePageNodeAsync(string content, Processing processing);
         Task InvalidateAdditionalPageNodesAsync(Processing processing);
         Task<bool> InvalidateSharedContentAsync(Processing processing);
@@ -24,6 +23,18 @@ namespace DFC.ServiceTaxonomy.CompUi.Interfaces
         Task<bool> InvalidateAdditionalContentItemIdsAsync(Processing processing, IEnumerable<RelatedItems> data);
         Task<bool> InvalidateJobProfileCategoriesAsync(Processing processing);
         Task<bool> InvalidateJobProfileCategoryAsync(Processing processing);
-        Task<bool> InvalidateJobProfileAsync(Processing processing);
+        Task InvalidateJobProfileAsync(Processing processing);
+        Task InvalidateJobProfileSkillsAsync(Processing processing);
+        Task InvalidateJobProfileRelatedCareersAsync(Processing processing);
+        Task InvalidateJobProfileOverviewAsync(Processing processing);
+        Task InvalidateJobProfileWhatYoullDoAsync(Processing processing);
+        Task InvalidateJobProfileHowToBecomeAsync(Processing processing);
+        Task InvalidateJobProfileVideoAsync(Processing processing);
+        Task InvalidateCareerPathsAndProgressions(Processing processing);
+        Task InvalidateJobProfileCurrentOpportunitiesAllAsync(Processing processing);
+        Task RefreshAllJobProfileContent(Processing processing);
+        Task InvalidateAllJobProfileContentAsync(Processing processing);
+        Task InvalidateSkillsAsync(Processing processing);
+        Task InvalidateJobProfileApiSummaryAsync(Processing processing);
     }
 }

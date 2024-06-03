@@ -8,7 +8,6 @@ DFC.ServiceTaxonomy.Editor/App_Data/*
 DFC.ServiceTaxonomy.Editor/App_Data/Sites/*
 !DFC.ServiceTaxonomy.Editor/App_Data/Sites/Default/
 DFC.ServiceTaxonomy.Editor/App_Data/Sites/Default/*
-!DFC.ServiceTaxonomy.Editor/App_Data/Sites/Default/appsettings.template.json
 
 # Azure Functions localsettings file
 local.settings.json
@@ -286,3 +285,4 @@ Localization/
 /DFC.ServiceTaxonomy.Editor/appsettings.Development_template.json
 /DFC.ServiceTaxonomy.Editor/appsettings.Development_template.json
 /DFC.ServiceTaxonomy.Editor/appsettings.Development_template.json
+/DFC.ServiceTaxonomy.Editor/appsettings.json

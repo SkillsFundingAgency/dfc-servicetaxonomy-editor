@@ -9,6 +9,12 @@ namespace DFC.ServiceTaxonomy.CompUi.Models
 
         [JsonProperty("GraphSyncPart")]
         public GraphSyncParts? GraphSyncParts { get; set; }
+
+        [JsonProperty("TitlePart")]
+        public TitlePart? TitlePart { get; set; }
+
+        [JsonProperty("JobProfile")]
+        public CurrentOpportunitiesData? JobProfile { get; set; }
     }
 
     public class GraphSyncParts
@@ -23,9 +29,30 @@ namespace DFC.ServiceTaxonomy.CompUi.Models
         public string? FullUrl { get; set; }
 
         [JsonProperty("RedirectLocations")]
-        public string RedirectLocations { get; set; }
+        public string? RedirectLocations { get; set; }
 
         [JsonProperty("DefaultPageForLocation")]
-        public bool? DefaultPageForLocation {  get; set; }
+        public bool? DefaultPageForLocation { get; set; }
+    }
+
+    public class TitlePart
+    {
+        [JsonProperty("Title")]
+        public string? Title { get; set; }
+    }
+
+    public class CurrentOpportunitiesData
+    {
+        [JsonProperty("Coursekeywords")]
+        public CourseKeywords? CourseKeywords { get; set; }
+
+        [JsonProperty("SOCCode")]
+        public ContentItemIds? SOCCode { get; set; }
+    }
+
+    public class CourseKeywords
+    {
+        [JsonProperty("Text")]
+        public string? Text { get; set; }
     }
 }

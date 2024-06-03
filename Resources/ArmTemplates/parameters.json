@@ -243,8 +243,23 @@
             "value": "__sharedLogAnalyticsResourceGroup__"
   
         },
+        "CmsTokenEndpointUrl": {
+            "value": "__StaxGraphqlTokenEndpointUrl__"
+        },
+        "CmsGraphApiUrl": {
+            "value": "__StaxGraphqlApiUrl__"
+        },
+        "CmsClientId": {
+            "value": "__StaxGraphqlClientId__"
+        },
+        "CmsClientSecret": {
+            "value": "__StaxGraphqlClientSecret__"
+        },
         "CmsRedisCacheConnectionString": {
             "value": "__RedisConnectionString__"
+        },
+        "CmsSqlApiUrl": {
+            "value": "__StaxGraphqlSqlApiUrl__"
         }
     }
 }
