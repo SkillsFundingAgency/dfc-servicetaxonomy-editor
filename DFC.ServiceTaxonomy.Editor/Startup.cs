@@ -7,11 +7,6 @@ using DFC.Common.SharedContent.Pkg.Netcore.Infrastructure.Strategy;
 using DFC.Common.SharedContent.Pkg.Netcore.Interfaces;
 using DFC.Common.SharedContent.Pkg.Netcore.Model.Response;
 using DFC.Common.SharedContent.Pkg.Netcore.RequestHandler;
-using DFC.ServiceTaxonomy.CompUi.AppRegistry;
-using DFC.ServiceTaxonomy.CompUi.BackgroundTask.Activity;
-using DFC.ServiceTaxonomy.CompUi.BackgroundTask;
-using DFC.ServiceTaxonomy.CompUi.Interfaces;
-using DFC.ServiceTaxonomy.CompUi.Models;
 using DFC.ServiceTaxonomy.Content.Configuration;
 using DFC.ServiceTaxonomy.CustomEditor.Configuration;
 using DFC.ServiceTaxonomy.Editor.Security;
@@ -23,7 +18,6 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using OrchardCore.BackgroundTasks;
 using OrchardCore.Media;
 
 namespace DFC.ServiceTaxonomy.Editor
@@ -116,13 +110,7 @@ namespace DFC.ServiceTaxonomy.Editor
             services.AddStackExchangeRedisCache(options => { options.Configuration = Configuration.GetSection(RedisCacheConnectionStringAppSettings).Get<string>(); });
             services.AddSingleton<ISharedContentRedisInterfaceStrategyFactory, SharedContentRedisStrategyFactory>();
             services.AddSingleton<ISharedContentRedisInterface, SharedContentRedis>();
-
-            services.AddSingleton<IPageLocationUpdater, PageLocationUpdater>();
-            services.AddSingleton<IBackgroundTask, RefreshCacheOnPublish>();
-            services.AddSingleton<IBackgroundQueue<Processing>, BackgroundQueue<Processing>>();
-            services.AddSingleton<IBackgroundItemQueueMonitor, BackgroundItemQueueMonitor>();
-            services.AddSingleton<IJobProfileCacheRefresh, JobProfileCacheRefresh>();
-
+            
             services.PostConfigure(SetupMediaConfig());
         }
 
