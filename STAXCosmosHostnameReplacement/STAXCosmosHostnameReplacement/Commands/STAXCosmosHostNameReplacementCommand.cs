@@ -42,6 +42,11 @@ namespace STAXCosmosHostnameReplacement.Commands
 
                 foreach (var container in containers)
                 {
+                    if(string.Compare(container, "CourseSearchAuditRecords", StringComparison.OrdinalIgnoreCase) == 0)
+                    {
+                        continue;
+                    }
+
                     await UpdateMatchingDocumentsInCollection(database, container, settings.SearchDomain, settings.ReplacementDomain);
                 }
             }
