@@ -37,15 +37,15 @@ namespace DFC.ServiceTaxonomy.CompUi
 
             services.AddScoped<IDataMigration, Migrations>();
             services.AddSingleton<IIndexProvider, RelatedContentItemIndexProvider>();
-            services.AddSingleton<IPageLocationUpdater, PageLocationUpdater>();
+
+            /*services.AddSingleton<IPageLocationUpdater, PageLocationUpdater>();
             services.AddSingleton<IBackgroundTask, RefreshCacheOnPublish>();
             services.AddSingleton<IBackgroundQueue<Processing>, BackgroundQueue<Processing>>();
             services.AddSingleton<IBackgroundItemQueueMonitor, BackgroundItemQueueMonitor>();
-            services.AddSingleton<IJobProfileCacheRefresh, JobProfileCacheRefresh>();
+            services.AddSingleton<IJobProfileCacheRefresh, JobProfileCacheRefresh>();*/
 
             services.AddScoped<IDirector, Director>();
             services.AddScoped<IBuilder, ConcreteBuilder>();
-
         }
 
         public override void Configure(IApplicationBuilder builder, IEndpointRouteBuilder routes, IServiceProvider serviceProvider)
