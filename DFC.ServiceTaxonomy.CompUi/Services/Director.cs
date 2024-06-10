@@ -8,16 +8,10 @@ namespace DFC.ServiceTaxonomy.CompUi.Services
     public class Director : IDirector
     {
         private IBuilder? _builder;
-        private IBackgroundQueue<Processing>? _queue;
 
         public IBuilder Builder
         {
             set { _builder = value; }
-        }
-
-        public Director(IBackgroundQueue<Processing> queue)
-        {
-            _queue = queue;
         }
 
         public async Task ProcessSharedContentAsync(Processing processing)
@@ -69,7 +63,6 @@ namespace DFC.ServiceTaxonomy.CompUi.Services
         public async Task ProcessJobProfileAsync(Processing processing)
         {
             await Task.WhenAll(_builder.InvalidateAllJobProfileContentAsync(processing));
-            //await _queue.QueueItem(processing);
         }
 
         public async Task ProcessPersonalityFilteringQuestionAsync(Processing processing)
