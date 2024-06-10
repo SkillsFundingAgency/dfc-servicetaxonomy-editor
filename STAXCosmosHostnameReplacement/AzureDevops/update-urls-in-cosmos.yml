@@ -77,13 +77,13 @@ stages:
                 $connStrings = Get-AzCosmosDBAccountKey -ResourceGroupName dfc-pp-compui-shared-rg -Name dfc-pp-compui-shared-cdb -Type "ConnectionStrings" 
                 $connectionString = $connStrings["Secondary SQL Connection String"]
 
-                & $(System.DefaultWorkingDirectory)\Artifact\STAXCosmosHostnameReplacement.exe --connection-string "$connectionString" --search-domain "${{ variables.SearchDomainSuffix }}" --replacement-domain ".azurewebsites.net"
+                & $(Pipeline.Workspace)\STAXCosmosHostnameReplacement\STAXCosmosHostnameReplacement.exe --connection-string "$connectionString" --search-domain "${{ variables.SearchDomainSuffix }}" --replacement-domain ".azurewebsites.net"
 
                 Write-Host "Getting connection string for dfc-pp-app-sharedresources-cdb"
                 $connStrings = Get-AzCosmosDBAccountKey -ResourceGroupName dfc-pp-app-sharedresources-rg -Name dfc-pp-app-sharedresources-cdb -Type "ConnectionStrings" 
                 $connectionString = $connStrings["Secondary SQL Connection String"]
 
-                & $(System.DefaultWorkingDirectory)\Artifact\STAXCosmosHostnameReplacement.exe --connection-string "$connectionString" --search-domain "${{ variables.SearchDomainSuffix }}" --replacement-domain ".azurewebsites.net"
+                & $(Pipeline.Workspace)\STAXCosmosHostnameReplacement\STAXCosmosHostnameReplacement.exe --connection-string "$connectionString" --search-domain "${{ variables.SearchDomainSuffix }}" --replacement-domain ".azurewebsites.net"
 
 
 - stage: MigrateProduction
