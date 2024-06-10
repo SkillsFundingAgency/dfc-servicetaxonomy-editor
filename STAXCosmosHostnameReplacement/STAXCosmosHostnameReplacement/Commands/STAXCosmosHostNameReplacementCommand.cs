@@ -42,7 +42,9 @@ namespace STAXCosmosHostnameReplacement.Commands
 
                 foreach (var container in containers)
                 {
-                    if(string.Compare(container, "CourseSearchAuditRecords", StringComparison.OrdinalIgnoreCase) == 0)
+                    // Skip over immense CourseSearchAuditRecord collections.
+                    if(string.Compare(container, "CourseSearchAuditRecords", StringComparison.OrdinalIgnoreCase) == 0 ||
+                       string.Compare(container, "CourseSearchAuditRecords-draft", StringComparison.OrdinalIgnoreCase) == 0)
                     {
                         continue;
                     }
