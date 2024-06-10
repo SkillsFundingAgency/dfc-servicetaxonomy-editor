@@ -12,6 +12,7 @@ using DFC.ServiceTaxonomy.CompUi.Model;
 using DFC.ServiceTaxonomy.CompUi.Models;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
+using OrchardCore.ContentManagement;
 using OrchardCore.Data;
 using Page = DFC.ServiceTaxonomy.CompUi.Models.Page;
 using SharedContent = DFC.ServiceTaxonomy.CompUi.Models.SharedContent;
@@ -25,18 +26,21 @@ namespace DFC.ServiceTaxonomy.CompUi.Services
         private readonly ISharedContentRedisInterface _sharedContentRedisInterface;
         private readonly ILogger<ConcreteBuilder> _logger;
         private readonly IPageLocationUpdater _pageLocationUpdater;
+        private readonly IBackgroundQueue<Processing> _queue;
 
         public ConcreteBuilder(IDbConnectionAccessor dbaAccessor,
             IDapperWrapper dapperWrapper,
             ISharedContentRedisInterface sharedContentRedisInterface,
             ILogger<ConcreteBuilder> logger,
-            IPageLocationUpdater pageLocationUpdater)
+            IPageLocationUpdater pageLocationUpdater,
+            IBackgroundQueue<Processing> queue)
         {
             _dapperWrapper = dapperWrapper;
             _dbaAccessor = dbaAccessor;
             _sharedContentRedisInterface = sharedContentRedisInterface;
             _logger = logger;
             _pageLocationUpdater = pageLocationUpdater;
+            _queue = queue;
         }
 
         public async Task<IEnumerable<NodeItem>> GetDataAsync(Processing processing)
