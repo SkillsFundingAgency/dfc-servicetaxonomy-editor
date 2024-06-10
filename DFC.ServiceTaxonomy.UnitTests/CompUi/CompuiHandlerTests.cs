@@ -28,7 +28,6 @@ namespace DFC.ServiceTaxonomy.UnitTests.CompUi
         public readonly IBuilder _fakeBuilder;
         public readonly IDirector _fakeDirector;
         public readonly IBackgroundQueue<Processing> _fakeBackgroundQueue;
-        public readonly IJobProfileCacheRefresh _fakeJPRefresh;
 
         public CompuiHandlerTests()
         {
@@ -40,9 +39,8 @@ namespace DFC.ServiceTaxonomy.UnitTests.CompUi
             _mapper = A.Fake<IMapper>();
             _fakeDirector = A.Fake<IDirector>();
             _fakeBackgroundQueue = A.Fake<IBackgroundQueue<Processing>>();
-            _fakeJPRefresh = A.Fake<IJobProfileCacheRefresh>();
-            _fakeCacheHandler = new CacheHandler(_fakeLogger, _mapper, _fakeDirector, _fakeBuilder, _fakeBackgroundQueue, _fakeJPRefresh);
-            _concreteCacheHander = new CacheHandler(_fakeLogger, _mapper, _fakeDirector, _fakeBuilder, _fakeBackgroundQueue, _fakeJPRefresh);
+            _fakeCacheHandler = new CacheHandler(_fakeLogger, _mapper, _fakeDirector, _fakeBuilder, _fakeBackgroundQueue);
+            _concreteCacheHander = new CacheHandler(_fakeLogger, _mapper, _fakeDirector, _fakeBuilder, _fakeBackgroundQueue);
         }
 
         #region Publish Tests

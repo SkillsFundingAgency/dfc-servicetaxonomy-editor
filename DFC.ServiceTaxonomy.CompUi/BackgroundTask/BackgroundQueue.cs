@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Channels;
-using System.Threading.Tasks;
+﻿using System.Threading.Channels;
 using DFC.ServiceTaxonomy.CompUi.Interfaces;
 
 namespace DFC.ServiceTaxonomy.CompUi.BackgroundTask

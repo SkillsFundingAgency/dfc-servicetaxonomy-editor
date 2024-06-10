@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using DFC.ServiceTaxonomy.CompUi.Interfaces;
+﻿using DFC.ServiceTaxonomy.CompUi.Interfaces;
 using OrchardCore.BackgroundTasks;
 
 namespace DFC.ServiceTaxonomy.CompUi.BackgroundTask

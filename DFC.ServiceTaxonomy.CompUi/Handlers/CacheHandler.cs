@@ -15,16 +15,13 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
     private readonly IDirector _director;
     private readonly IBuilder _builder;
     private readonly IBackgroundQueue<Processing> _queue;
-    private readonly IJobProfileCacheRefresh _jobProfileCacheRefresh;
-    private bool test = false;
 
     public CacheHandler(
         ILogger<CacheHandler> logger,
         IMapper mapper,
         IDirector director,
         IBuilder builder,
-        IBackgroundQueue<Processing> queue,
-        IJobProfileCacheRefresh jobProfileCacheRefresh
+        IBackgroundQueue<Processing> queue
         )
     {
         _logger = logger;
@@ -33,13 +30,11 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
         _builder = builder;
         _director.Builder = _builder;
         _queue = queue;
-        _jobProfileCacheRefresh = jobProfileCacheRefresh;
     }
 
     public override async Task PublishedAsync(PublishContentContext context)
     {
         await ProcessPublishedAsync(context);
-        
     }
 
     public override async Task DraftSavedAsync(SaveDraftContentContext context)
@@ -96,6 +91,11 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
         await base.DraftSavedAsync(context);
 
         await ProcessItem(processing);
+
+        if (processing.ContentType == ContentTypes.JobProfile.ToString())
+        {
+            await _queue.QueueItem(processing);
+        }
     }
 
     private async Task ProcessItem(Processing processing)
@@ -120,7 +120,6 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
                         break;
                     case nameof(ContentTypes.JobProfile):
                         await _director.ProcessJobProfileAsync(processing);
-                        //await _jobProfileCacheRefresh.RefreshAllJobProfileContent(processing);
                         break;
                     case nameof(ContentTypes.Pagebanner):
                         await _director.ProcessPagebannerAsync(processing);
@@ -159,10 +158,6 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
                         _logger.LogError($"ProcessItem. Content Item Id: {processing.DocumentId}, Content Type could not be determined: {processing.ContentType}, Event Type: {processing.EventType}");
                         break;
                 }
-                /*if (processing.ContentType == ContentTypes.JobProfile.ToString())
-                {
-                    await _jobProfileCacheRefresh.RefreshAllJobProfileContent(processing);
-                }*/
             }
         }
         catch (Exception exception)

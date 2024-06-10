@@ -26,21 +26,18 @@ namespace DFC.ServiceTaxonomy.CompUi.Services
         private readonly ISharedContentRedisInterface _sharedContentRedisInterface;
         private readonly ILogger<ConcreteBuilder> _logger;
         private readonly IPageLocationUpdater _pageLocationUpdater;
-        private readonly IBackgroundQueue<Processing> _queue;
 
         public ConcreteBuilder(IDbConnectionAccessor dbaAccessor,
             IDapperWrapper dapperWrapper,
             ISharedContentRedisInterface sharedContentRedisInterface,
             ILogger<ConcreteBuilder> logger,
-            IPageLocationUpdater pageLocationUpdater,
-            IBackgroundQueue<Processing> queue)
+            IPageLocationUpdater pageLocationUpdater)
         {
             _dapperWrapper = dapperWrapper;
             _dbaAccessor = dbaAccessor;
             _sharedContentRedisInterface = sharedContentRedisInterface;
             _logger = logger;
             _pageLocationUpdater = pageLocationUpdater;
-            _queue = queue;
         }
 
         public async Task<IEnumerable<NodeItem>> GetDataAsync(Processing processing)
@@ -482,37 +479,6 @@ namespace DFC.ServiceTaxonomy.CompUi.Services
             catch (Exception exception)
             {
                 _logger.LogError($"Error occurred while invalidating data for document Id {processing.DocumentId}.  Content Type: {processing.ContentType}. The apprenticeship could not be invalidated.  Exception: {exception}");
-            }
-        }
-
-        public async Task RefreshAllJobProfileContent(Processing processing)
-        {
-            try
-            {
-                var fullUrl = CheckLeadingChar(processing.FullUrl) ?? string.Empty;
-                var filter = processing.FilterType?.ToString() ?? "PUBLISHED";
-
-                if (string.IsNullOrEmpty(fullUrl))
-                {
-                    _logger.LogError($"Error occurred while retrieveing data for document Id {processing.DocumentId}.  Content Type: {processing.ContentType}. Page content could not be retrieved. No Job Profile data will be refreshed.");
-                }
-                else
-                {
-                    //Add additional job profile freshes here.  
-                    await GetDataWithExpiryAsync<JobProfileCurrentOpportunitiesResponse>(processing, ApplicationKeys.JobProfileCurrentOpportunitiesAllJobProfiles, filter);
-                    await GetDataWithExpiryAsync<RelatedCareersResponse>(processing, string.Concat(ApplicationKeys.JobProfileRelatedCareersPrefix, fullUrl), filter);
-                    await GetDataWithExpiryAsync<JobProfileHowToBecomeResponse>(processing, string.Concat(ApplicationKeys.JobProfileHowToBecome, fullUrl), filter);
-                    await GetDataWithExpiryAsync<JobProfilesOverviewResponse>(processing, string.Concat(ApplicationKeys.JobProfileOverview, fullUrl), filter);
-                    await GetDataWithExpiryAsync<JobProfileVideoResponse>(processing, string.Concat(ApplicationKeys.JobProfileVideoPrefix, fullUrl), filter);
-                    await GetDataWithExpiryAsync<JobProfileCurrentOpportunitiesGetbyUrlReponse>(processing, ApplicationKeys.JobProfileCurrentOpportunitiesAllJobProfiles, filter);
-                    await GetDataWithExpiryAsync<JobProfileWhatYoullDoResponse>(processing, string.Concat(ApplicationKeys.JobProfileWhatYoullDo, fullUrl), filter);
-                    await GetDataWithExpiryAsync<JobProfileCareerPathAndProgressionResponse>(processing, string.Concat(ApplicationKeys.JobProfileCareerPath, fullUrl), filter);
-                    await GetDataWithExpiryAsync<JobProfileSkillsResponse>(processing, string.Concat(ApplicationKeys.JobProfileSkillsSuffix, fullUrl), filter);
-                }
-            }
-            catch (Exception exception)
-            {
-                _logger.LogError($"Error occurred while refreshing Job Profile data. Exception: {exception}.");
             }
         }
 
