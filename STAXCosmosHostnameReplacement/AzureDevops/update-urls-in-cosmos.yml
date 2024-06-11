@@ -60,6 +60,7 @@ stages:
   - deployment: MigratePreProduction
     displayName: "Migrate to PreProduction"
     environment: PP_Grafana
+    timeoutInMinutes: 300
     strategy:
       runOnce:
         deploy:
@@ -96,6 +97,7 @@ stages:
   - deployment: MigrateProduction
     displayName: "Migrate to Production"
     environment: PRD_Grafana
+    timeoutInMinutes: 300
     strategy:
       runOnce:
         deploy:
