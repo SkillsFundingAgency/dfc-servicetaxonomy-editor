@@ -34,6 +34,7 @@ namespace DFC.ServiceTaxonomy.CompUi
             services.AddTransient<IContentHandler, CacheHandler>();
             services.AddTransient<IDapperWrapper, DapperWrapper>();
             services.AddAutoMapper(typeof(Startup).Assembly);
+            services.AddMemoryCache();
 
             services.AddScoped<IDataMigration, Migrations>();
             services.AddSingleton<IIndexProvider, RelatedContentItemIndexProvider>();

@@ -5,6 +5,7 @@ using DFC.Common.SharedContent.Pkg.Netcore.Model.Response;
 using DFC.ServiceTaxonomy.CompUi.Interfaces;
 using DFC.ServiceTaxonomy.CompUi.Models;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
 
 namespace DFC.ServiceTaxonomy.CompUi.BackgroundTask.Activity
 {
@@ -23,7 +24,8 @@ namespace DFC.ServiceTaxonomy.CompUi.BackgroundTask.Activity
         {
             try
             {
-                var fullUrl = processing.FullUrl ?? string.Empty;
+                var current = JsonConvert.DeserializeObject<Page>(processing.CurrentContent);
+                var fullUrl = current?.PageLocationParts?.FullUrl;
                 var filter = processing.FilterType?.ToString() ?? "PUBLISHED";
 
                 if (string.IsNullOrEmpty(fullUrl))
@@ -32,7 +34,7 @@ namespace DFC.ServiceTaxonomy.CompUi.BackgroundTask.Activity
                 }
                 else
                 {
-                    //Add additional job profile freshes here.  
+                    //Add additional job profile freshes here.
                     await GetDataWithExpiryAsync<JobProfileCurrentOpportunitiesResponse>(processing, ApplicationKeys.JobProfileCurrentOpportunitiesAllJobProfiles, filter);
                     await GetDataWithExpiryAsync<RelatedCareersResponse>(processing, string.Concat(ApplicationKeys.JobProfileRelatedCareersPrefix, fullUrl), filter);
                     await GetDataWithExpiryAsync<JobProfileHowToBecomeResponse>(processing, string.Concat(ApplicationKeys.JobProfileHowToBecome, fullUrl), filter);

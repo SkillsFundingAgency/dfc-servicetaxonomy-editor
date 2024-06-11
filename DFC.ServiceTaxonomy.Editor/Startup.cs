@@ -41,6 +41,7 @@ namespace DFC.ServiceTaxonomy.Editor
 
             services.AddDistributedMemoryCache();
             services.AddSession();
+            services.AddMemoryCache();
 
             services.AddOrchardCms()
                 .ConfigureServices(se => se.ConfigureHtmlSanitizer((sanitizer) =>
@@ -89,10 +90,11 @@ namespace DFC.ServiceTaxonomy.Editor
                     EndPoint = new Uri(Configuration.GetSection(StaxGraphApiUrlAppSettings).Get<string>() ?? throw new ArgumentNullException()),
 
                     HttpMessageHandler = new CmsRequestHandler(
-                        s.GetService<IHttpClientFactory>(),
-                        s.GetService<IConfiguration>(),
-                        s.GetService<IHttpContextAccessor>() ?? throw new ArgumentNullException(),
-                        s.GetService<IMemoryCache>()),
+                         s.GetService<IHttpClientFactory>(),
+                         s.GetService<IConfiguration>(),
+                         s.GetService<IHttpContextAccessor>() ?? throw new ArgumentNullException(),
+                         s.GetService<IMemoryCache>()),
+
                 };
 #pragma warning restore S3928 // Parameter names used into ArgumentException constructors should match an existing one 
 #pragma warning restore CA2208 // Instantiate argument exceptions correctly
