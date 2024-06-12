@@ -48,3 +48,4 @@ Tutorials of note include:
 ### Chat
 
 - [Orchard Core Gitter Channel](https://gitter.im/OrchardCMS/OrchardCore)
+
