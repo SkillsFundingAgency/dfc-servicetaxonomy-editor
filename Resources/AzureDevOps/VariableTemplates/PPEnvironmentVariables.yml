@@ -4,7 +4,7 @@ variables:
 - name: ResourceGroup
   value: dfc-pp-stax-editor-rg
 - name: WebAppName
-  value: dfc-pp-stax-editor-as
+  value: dfc-pp-stax-editor-as-ver2
 - name: SqlDatabaseName
   value: dfc-pp-stax-editor-db
 - name: OrchardCoreSqlDatabaseConnStr
