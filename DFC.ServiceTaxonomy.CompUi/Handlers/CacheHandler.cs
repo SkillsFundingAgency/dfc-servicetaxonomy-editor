@@ -14,12 +14,14 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
     private readonly IMapper _mapper;
     private readonly IDirector _director;
     private readonly IBuilder _builder;
+    private readonly IBackgroundQueue<Processing> _queue;
 
     public CacheHandler(
         ILogger<CacheHandler> logger,
         IMapper mapper,
         IDirector director,
-        IBuilder builder
+        IBuilder builder,
+        IBackgroundQueue<Processing> queue
         )
     {
         _logger = logger;
@@ -27,6 +29,7 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
         _director = director;
         _builder = builder;
         _director.Builder = _builder;
+        _queue = queue;
     }
 
     public override async Task PublishedAsync(PublishContentContext context)
@@ -56,6 +59,11 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
         await base.PublishedAsync(context);
 
         await ProcessItem(processing);
+
+        if (processing.ContentType == ContentTypes.JobProfile.ToString())
+        {
+            await _queue.QueueItem(processing);
+        }
     }
 
     public async Task ProcessRemovedAsync(RemoveContentContext context)
@@ -83,6 +91,11 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
         await base.DraftSavedAsync(context);
 
         await ProcessItem(processing);
+
+        if (processing.ContentType == ContentTypes.JobProfile.ToString())
+        {
+            await _queue.QueueItem(processing);
+        }
     }
 
     private async Task ProcessItem(Processing processing)
