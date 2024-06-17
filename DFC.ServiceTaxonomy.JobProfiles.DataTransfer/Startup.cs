@@ -6,10 +6,8 @@ using DFC.ServiceTaxonomy.JobProfiles.DataTransfer.Handlers;
 using DFC.ServiceTaxonomy.JobProfiles.DataTransfer.Indexes;
 using DFC.ServiceTaxonomy.JobProfiles.DataTransfer.Models;
 using DFC.ServiceTaxonomy.JobProfiles.DataTransfer.Models.ServiceBus;
-//using DFC.ServiceTaxonomy.JobProfiles.DataTransfer.ServiceBus;
 using DFC.ServiceTaxonomy.JobProfiles.DataTransfer.ServiceBus.Converters;
 using DFC.ServiceTaxonomy.JobProfiles.DataTransfer.ServiceBus.Interfaces;
-
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using OrchardCore.Apis;
@@ -32,7 +30,6 @@ namespace DFC.ServiceTaxonomy.JobProfiles.DataTransfer
             services.AddContentPart<JobProfileSimplificationPart>();
 
             // CMS
-            //services.AddScoped<IContentHandler, ServiceBusContentHandler>();
             services.AddScoped<IContentHandler, JobProfileAzureSearchIndexHandler>();
             services.AddScoped<IMessageConverter<Models.AzureSearch.JobProfileIndex>, JobProfileIndexMessageConverter>();
             services.AddScoped<IAzureSearchDataProcessor, AzureSearchDataProcessor>();
@@ -43,8 +40,6 @@ namespace DFC.ServiceTaxonomy.JobProfiles.DataTransfer
             services.AddScoped<IMessageConverter<SocCodeItem>, SocCodeMessageConverter>();
             services.AddScoped<IMessageConverter<RealStory>, RealStoryMessageConverter>();
             services.AddScoped<IRelatedSkillsConverter, RelatedSkillsConverter>();
-            //services.AddScoped<IDataEventProcessor, DataEventProcessor>();
-            //services.AddScoped<IServiceBusMessageProcessor, ServiceBusMessageProcessor>();
             services.AddScoped<IDataMigration, Migrations>();
 
             services.AddScoped<INavigationProvider, AdminMenu>();

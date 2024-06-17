@@ -101,15 +101,6 @@
         "OwlDataGeneratorDescription": {
             "value": "__OwlDataGeneratorDescription__"
         },
-        "EventGridTopicEndpoint": {
-            "value": "__EventGridTopicUrl__"
-        },
-        "EventGridAegSasKey": {
-            "value": "__EventGridAegSasKey__"
-        },
-        "EventGridEnabled": {
-            "value": __EventGridEnabled__
-        },
         "apimProxyAddress": {
             "value": "__ApimProxyAddress__"
         },
@@ -118,9 +109,6 @@
         },
         "PreviewContentApiPrefix": {
             "value": "__PreviewContentApiPrefix__"
-        },
-        "EventGridTopicSku": {
-            "value": "__EventGridTopicSku__"
         },
         "appSharedCosmosEndpointUrl": {
             "value": "__appSharedCosmosEndpointUrl__"
@@ -175,15 +163,6 @@
         },
         "AzureAdSettingsResourceGroupName": {
             "value": "__SharedResourceGroupName__"
-        },
-        "ServiceBusSettingsServiceBusConnectionString": {
-            "value": "__ServiceBusSettingsServiceBusConnectionString__"
-        },
-        "ServiceBusSettingsServiceBusTopicName": {
-            "value": "__ServiceBusSettingsServiceBusTopicName__"
-        },
-        "ServiceBusSettingsServiceBusTopicNameForDraft": {
-            "value": "__ServiceBusSettingsServiceBusTopicNameForDraft__"
         },
         "AzureSearchSettingsJobProfileSearchIndexName": {
             "value": "__AzureSearchSettingsJobProfileSearchIndexName__"
