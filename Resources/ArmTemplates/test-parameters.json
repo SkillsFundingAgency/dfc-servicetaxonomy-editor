@@ -80,6 +80,21 @@
         "OwlDataGeneratorDescription": {
             "value": "NationalCareersService-ServiceTaxonomy"
         },
+        "EventGridTopicEndpoint": {
+            "value": "https://nationalcareers.service.gov.uk"
+        },
+        "EventGridAegSasKey": {
+            "value": "not-a-real-key"
+        },
+        "ServiceBusSettingsServiceBusConnectionString": {
+            "value": "my-string"
+        },
+        "ServiceBusSettingsServiceBusTopicName": {
+            "value": "foo-cms"
+        },
+        "ServiceBusSettingsServiceBusTopicNameForDraft": {
+            "value": "foo-cms-draft"
+        },
         "AzureSearchSettingsJobProfileSearchIndexName": {
             "value": "foo-digital-jp"
         },
@@ -89,11 +104,17 @@
         "AzureSearchSettingsSearchServiceEndPoint": {
             "value": "https://foo-beta-dev-01-search.search.windows.net/"
         },
+        "EventGridEnabled": {
+            "value": true
+        },
         "apimProxyAddress": {
             "value": "https://foo.api.nationalcareersservice.org.uk"
         },
         "ContentApiAddress": {
             "value": "https://foo.api.nationalcareersservice.org.uk"
+        },
+        "EventGridTopicSku": {
+            "value": "basic"
         },
         "appSharedCosmosEndpointUrl": {
             "value": "https://foo.api.nationalcareersservice.org.uk"
