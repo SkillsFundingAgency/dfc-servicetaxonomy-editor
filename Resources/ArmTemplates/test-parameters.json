@@ -80,12 +80,6 @@
         "OwlDataGeneratorDescription": {
             "value": "NationalCareersService-ServiceTaxonomy"
         },
-        "EventGridTopicEndpoint": {
-            "value": "https://nationalcareers.service.gov.uk"
-        },
-        "EventGridAegSasKey": {
-            "value": "not-a-real-key"
-        },
         "AzureSearchSettingsJobProfileSearchIndexName": {
             "value": "foo-digital-jp"
         },
@@ -94,9 +88,6 @@
         },
         "AzureSearchSettingsSearchServiceEndPoint": {
             "value": "https://foo-beta-dev-01-search.search.windows.net/"
-        },
-        "EventGridEnabled": {
-            "value": true
         },
         "apimProxyAddress": {
             "value": "https://foo.api.nationalcareersservice.org.uk"
