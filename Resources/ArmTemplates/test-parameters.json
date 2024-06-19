@@ -86,15 +86,6 @@
         "EventGridAegSasKey": {
             "value": "not-a-real-key"
         },
-        "ServiceBusSettingsServiceBusConnectionString": {
-            "value": "my-string"
-        },
-        "ServiceBusSettingsServiceBusTopicName": {
-            "value": "foo-cms"
-        },
-        "ServiceBusSettingsServiceBusTopicNameForDraft": {
-            "value": "foo-cms-draft"
-        },
         "AzureSearchSettingsJobProfileSearchIndexName": {
             "value": "foo-digital-jp"
         },
