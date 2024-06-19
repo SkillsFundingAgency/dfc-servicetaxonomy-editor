@@ -51,7 +51,6 @@
   <ItemGroup>
     <ProjectReference Include="..\DFC.ServiceTaxonomy.Content\DFC.ServiceTaxonomy.Content.csproj" />
     <ProjectReference Include="..\DFC.ServiceTaxonomy.CustomFields\DFC.ServiceTaxonomy.CustomFields.csproj" />
-    <ProjectReference Include="..\DFC.ServiceTaxonomy.Events\DFC.ServiceTaxonomy.Events.csproj" />
     <ProjectReference Include="..\DFC.ServiceTaxonomy.Slack\DFC.ServiceTaxonomy.Slack.csproj" />
     <ProjectReference Include="..\DFC.ServiceTaxonomy.Taxonomies\DFC.ServiceTaxonomy.Taxonomies.csproj" />
     <ProjectReference Include="..\DFC.ServiceTaxonomy.UnpublishLater\DFC.ServiceTaxonomy.UnpublishLater.csproj" />
