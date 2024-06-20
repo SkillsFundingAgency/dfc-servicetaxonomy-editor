@@ -9,6 +9,7 @@ parameters:
   ResourceGroup: ''
   PSScriptPath: ''
   ServiceOfferingTag: ''
+  WebAppName: ''
   SetTagsScriptUrl: 'https://raw.githubusercontent.com/SkillsFundingAgency/dfc-devops/master/PSScripts/Set-EsfaResourceGroupTags.ps1'
   SetTagsScriptFilePath: '$(System.DefaultWorkingDirectory)\Set-EsfaResourceGroupTags.ps1'
 
@@ -78,5 +79,5 @@ steps:
   inputs:
     azureSubscription: '${{ parameters.AzureSubscription }}'
     ScriptPath: '${{ parameters.PSScriptPath }}/Set-SqlUser.ps1'
-    ScriptArguments: "-KeyVaultName $(sharedKeyVaultName) -SqlServerName $(sharedSqlServerName) -SqlDatabaseName $(SqlDatabaseName) -EditorAdminUsername '$(ServicePrincipalName)-as-svc'"
+    ScriptArguments: "-KeyVaultName $(sharedKeyVaultName) -SqlServerName $(sharedSqlServerName) -SqlDatabaseName $(SqlDatabaseName) -EditorAdminUsername '${{ parameters.WebAppName }}-svc'"
     azurePowerShellVersion: LatestVersion
