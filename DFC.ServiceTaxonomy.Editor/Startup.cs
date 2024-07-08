@@ -67,7 +67,6 @@ namespace DFC.ServiceTaxonomy.Editor
             //todo: do this in each library??? if so, make sure it doesn't add services or config twice
 
             services.Configure<CookiePolicyOptions>(options => options.Secure = CookieSecurePolicy.Always);
-            services.AddEventGridPublishing(Configuration);
 
             services.AddOrchardCore()
                 .ConfigureServices(s =>

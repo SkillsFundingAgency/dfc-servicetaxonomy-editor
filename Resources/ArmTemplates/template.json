@@ -80,15 +80,7 @@
         "OwlDataGeneratorDescription": {
             "type": "string"
         },
-        "EventGridTopicEndpoint": {
-            "type": "string"
-        },
-        "EventGridAegSasKey": {
-            "type": "string"
-        },
-        "EventGridEnabled": {
-            "type": "bool"
-        },
+
         "apimProxyAddress": {
             "type": "string"
         },
