@@ -101,15 +101,6 @@
         "OwlDataGeneratorDescription": {
             "value": "__OwlDataGeneratorDescription__"
         },
-        "EventGridTopicEndpoint": {
-            "value": "__EventGridTopicUrl__"
-        },
-        "EventGridAegSasKey": {
-            "value": "__EventGridAegSasKey__"
-        },
-        "EventGridEnabled": {
-            "value": __EventGridEnabled__
-        },
         "apimProxyAddress": {
             "value": "__ApimProxyAddress__"
         },
@@ -139,12 +130,6 @@
         },
         "JobProfilePreviewAppPrefix": {
             "value": "__JobProfilePreviewAppPrefix__"
-        },
-        "PublishToSlack": {
-            "value": __PublishToSlack__
-        },
-        "SlackWebhookEndpoint": {
-            "value": "__SlackWebhookEndpoint__"
         },
         "MediaAzureBlobConnectionString": {
             "value": "__MediaAzureBlobConnectionString__"

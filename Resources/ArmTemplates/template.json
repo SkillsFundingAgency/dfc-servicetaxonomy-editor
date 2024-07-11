@@ -80,15 +80,6 @@
         "OwlDataGeneratorDescription": {
             "type": "string"
         },
-        "EventGridTopicEndpoint": {
-            "type": "string"
-        },
-        "EventGridAegSasKey": {
-            "type": "string"
-        },
-        "EventGridEnabled": {
-            "type": "bool"
-        },
         "apimProxyAddress": {
             "type": "string"
         },
@@ -142,15 +133,6 @@
         },
         "Neo4jReplicaSets1GraphInstances1Enabled": {
             "type": "bool"
-        },
-        "PublishToSlack": {
-            "type": "bool"
-        },
-        "SlackWebhookEndpoint": {
-            "type": "securestring",
-            "metadata": {
-                "description": "the token (everything after https://hooks.slack.com/services/) for an incoming webhook in slack"
-            }
         },
         "MediaAzureBlobConnectionString": {
             "type": "securestring"
@@ -455,18 +437,6 @@
                                 "value": "[parameters('OwlDataGeneratorDescription')]"
                             },
                             {
-                                "name": "EventGrid__Topics__0__TopicEndpoint",
-                                "value": "[parameters('EventGridTopicEndpoint')]"
-                            },
-                            {
-                                "name": "EventGrid__Topics__0__AegSasKey",
-                                "value": "[parameters('EventGridAegSasKey')]"
-                            },
-                            {
-                                "name": "EventGrid__PublishEvents",
-                                "value": "[parameters('EventGridEnabled')]"
-                            },
-                            {
                                 "name": "OrchardCore_Default_ContentApiPrefix",
                                 "value": "[concat(parameters('apimProxyAddress'), '/content/GetContent/api/Execute')]"
                             },
@@ -501,14 +471,6 @@
                             {
                                 "name": "JobProfiles__PreviewAppPrefix",
                                 "value": "[parameters('JobProfilePreviewAppPrefix')]"
-                            },
-                            {
-                                "name": "SlackMessagePublishingConfiguration__PublishToSlack",
-                                "value": "[parameters('PublishToSlack')]"
-                            },
-                            {
-                                "name": "SlackMessagePublishingConfiguration__SlackWebhookEndpoint",
-                                "value": "[parameters('SlackWebhookEndpoint')]"
                             },
                             {
                                 "name": "OrchardCore__OrchardCore_Media_Azure__ConnectionString",
