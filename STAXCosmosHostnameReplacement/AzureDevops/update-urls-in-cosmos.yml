@@ -115,13 +115,13 @@ stages:
                 $connStrings = Get-AzCosmosDBAccountKey -ResourceGroupName dfc-prd-compui-shared-rg -Name dfc-prd-compui-shared-cdb -Type "ConnectionStrings" 
                 $connectionString = $connStrings["Secondary SQL Connection String"]
 
-                & $(System.DefaultWorkingDirectory)\Artifact\STAXCosmosHostnameReplacement.exe --connection-string "$connectionString" --search-domain "${{ variables.SearchDomainSuffix }}" --replacement-domain ".azurewebsites.net"
+                & $(Pipeline.Workspace)\STAXCosmosHostnameReplacement\STAXCosmosHostnameReplacement\STAXCosmosHostnameReplacement.exe --connection-string "$connectionString" --search-domain "${{ variables.SearchDomainSuffix }}" --replacement-domain ".azurewebsites.net"
 
                 Write-Host "Getting connection string for dfc-prd-app-sharedresources-cdb"
                 $connStrings = Get-AzCosmosDBAccountKey -ResourceGroupName dfc-prd-app-sharedresources-rg -Name dfc-prd-app-sharedresources-cdb -Type "ConnectionStrings" 
                 $connectionString = $connStrings["Secondary SQL Connection String"]
 
-                & $(System.DefaultWorkingDirectory)\Artifact\STAXCosmosHostnameReplacement.exe --connection-string "$connectionString" --search-domain "${{ variables.SearchDomainSuffix }}" --replacement-domain ".azurewebsites.net"
+                & $(Pipeline.Workspace)\STAXCosmosHostnameReplacement\STAXCosmosHostnameReplacement\STAXCosmosHostnameReplacement.exe --connection-string "$connectionString" --search-domain "${{ variables.SearchDomainSuffix }}" --replacement-domain ".azurewebsites.net"
 
 
 
