@@ -98,9 +98,6 @@
         "ContentApiAddress": {
             "value": "https://foo.api.nationalcareersservice.org.uk"
         },
-        "EventGridTopicSku": {
-            "value": "basic"
-        },
         "appSharedCosmosEndpointUrl": {
             "value": "https://foo.api.nationalcareersservice.org.uk"
         },

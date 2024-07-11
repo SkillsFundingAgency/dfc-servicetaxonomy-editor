@@ -113,9 +113,6 @@
         "PreviewContentApiPrefix": {
             "value": "__PreviewContentApiPrefix__"
         },
-        "EventGridTopicSku": {
-            "value": "__EventGridTopicSku__"
-        },
         "appSharedCosmosEndpointUrl": {
             "value": "__appSharedCosmosEndpointUrl__"
         },
@@ -220,7 +217,6 @@
         },
         "workspaceResourceGroup": {
             "value": "__sharedLogAnalyticsResourceGroup__"
-
         },
         "CmsTokenEndpointUrl": {
             "value": "__StaxGraphqlTokenEndpointUrl__"

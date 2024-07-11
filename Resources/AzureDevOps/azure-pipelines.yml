@@ -95,19 +95,6 @@ stages:
       inputs:
         versionSpec: '>=5.4.0'
 
-
-
-    - task: DotNetCoreCLI@2
-      displayName: 'dotnet pack - Events'
-      inputs:
-        command: pack
-        packagesToPack: '**/DFC.ServiceTaxonomy.Events.csproj'
-        configuration: Release
-        packDirectory: '$(build.artifactstagingdirectory)\DeploymentPackages\Nuget'
-        versioningScheme: byEnvVar
-        versionEnvVar: GitVersion.NugetVersionV2
-
-
     - task: PublishPipelineArtifact@1
       inputs:
         targetPath: $(build.artifactstagingdirectory)\DeploymentPackages\Nuget
