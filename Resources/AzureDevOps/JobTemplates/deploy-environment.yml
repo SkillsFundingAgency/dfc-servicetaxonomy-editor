@@ -42,6 +42,7 @@ jobs:
             ParentBusinessTag: '${{ parameters.ParentBusinessTag }}'
             ServiceOfferingTag: '${{ parameters.ServiceOfferingTag }}'
             PSScriptPath: '${{ parameters.PSScriptPath }}'
+            WebAppName: '${{ parameters.WebAppName }}'
 
 - deployment: DeployEditorTo_${{ parameters.Environment }}
   workspace:

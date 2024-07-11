@@ -21,6 +21,9 @@ trigger:
     include:
       - dev
       - master
+  paths:
+    exclude:
+      - STAXCosmosHostnameReplacement/**
 
 pr:
   branches:
