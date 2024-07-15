@@ -10,6 +10,14 @@ namespace STAXCosmosHostnameReplacement.Commands
     {
         internal CosmosClient _cosmosClient;
 
+        List<string> collectionsToSkip = new()
+        {
+            "CourseSearchAuditRecords",
+            "CourseSearchAuditRecords-draft",
+            "assessments",
+            "assessments-draft"
+        };
+
         public override ValidationResult Validate(CommandContext context, STAXCosmosHostNameReplacementOptions settings)
         {
             if (string.IsNullOrWhiteSpace(settings.ConnectionString))
@@ -42,10 +50,12 @@ namespace STAXCosmosHostnameReplacement.Commands
 
                 foreach (var container in containers)
                 {
-                    // Skip over immense CourseSearchAuditRecord collections.
-                    if(string.Compare(container, "CourseSearchAuditRecords", StringComparison.OrdinalIgnoreCase) == 0 ||
-                       string.Compare(container, "CourseSearchAuditRecords-draft", StringComparison.OrdinalIgnoreCase) == 0)
+
+                    var match = collectionsToSkip.FirstOrDefault(x => string.Compare(container, x, StringComparison.OrdinalIgnoreCase) == 0);
+
+                    if(match != null)
                     {
+                        AnsiConsole.WriteLine($"Container {0} is in the skip list, skipping", container);
                         continue;
                     }
 
