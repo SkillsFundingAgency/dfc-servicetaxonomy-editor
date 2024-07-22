@@ -14,8 +14,8 @@ namespace STAXCosmosHostnameReplacement.Commands
         {
             "CourseSearchAuditRecords",
             "CourseSearchAuditRecords-draft",
-            "assessments",
-            "assessments-draft"
+            "assessment",
+            "assessment-draft"
         };
 
         public override ValidationResult Validate(CommandContext context, STAXCosmosHostNameReplacementOptions settings)
@@ -55,7 +55,7 @@ namespace STAXCosmosHostnameReplacement.Commands
 
                     if(match != null)
                     {
-                        AnsiConsole.WriteLine($"Container {0} is in the skip list, skipping", container);
+                        AnsiConsole.WriteLine($"Container {container} is in the skip list, skipping");
                         continue;
                     }
 
