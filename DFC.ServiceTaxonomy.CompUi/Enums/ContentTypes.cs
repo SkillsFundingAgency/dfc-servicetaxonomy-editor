@@ -17,6 +17,7 @@
         WorkingPatterns,
         WorkingPatternDetail,
         WorkingHoursDetail,
-        Skill
+        Skill,
+        Taxonomy
     }
 }

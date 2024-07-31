@@ -23,6 +23,7 @@ namespace DFC.ServiceTaxonomy.CompUi.Interfaces
         Task ProcessWorkingPatternDetailAsync(Processing processing);
         Task ProcessWorkingHoursDetailAsync(Processing processing);
         Task ProcessSkillsAsync(Processing processing);
+        Task ProcessTaxonomyAsync(Processing processing);
 
     }
 }
