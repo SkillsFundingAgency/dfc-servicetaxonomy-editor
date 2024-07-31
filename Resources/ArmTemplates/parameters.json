@@ -5,6 +5,9 @@
         "CustomHostName": {
             "value": "__OrchardEditorCustomHostName__"
         },
+        "WebAppName": {
+            "value": "__WebAppName__"
+        },
         "Environment": {
             "value": "__ReleaseEnvironmentName__"
         },
@@ -101,15 +104,6 @@
         "OwlDataGeneratorDescription": {
             "value": "__OwlDataGeneratorDescription__"
         },
-        "EventGridTopicEndpoint": {
-            "value": "__EventGridTopicUrl__"
-        },
-        "EventGridAegSasKey": {
-            "value": "__EventGridAegSasKey__"
-        },
-        "EventGridEnabled": {
-            "value": __EventGridEnabled__
-        },
         "apimProxyAddress": {
             "value": "__ApimProxyAddress__"
         },
@@ -118,9 +112,6 @@
         },
         "PreviewContentApiPrefix": {
             "value": "__PreviewContentApiPrefix__"
-        },
-        "EventGridTopicSku": {
-            "value": "__EventGridTopicSku__"
         },
         "appSharedCosmosEndpointUrl": {
             "value": "__appSharedCosmosEndpointUrl__"
@@ -139,12 +130,6 @@
         },
         "JobProfilePreviewAppPrefix": {
             "value": "__JobProfilePreviewAppPrefix__"
-        },
-        "PublishToSlack": {
-            "value": __PublishToSlack__
-        },
-        "SlackWebhookEndpoint": {
-            "value": "__SlackWebhookEndpoint__"
         },
         "MediaAzureBlobConnectionString": {
             "value": "__MediaAzureBlobConnectionString__"
@@ -232,7 +217,6 @@
         },
         "workspaceResourceGroup": {
             "value": "__sharedLogAnalyticsResourceGroup__"
-  
         },
         "CmsTokenEndpointUrl": {
             "value": "__StaxGraphqlTokenEndpointUrl__"
