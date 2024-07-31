@@ -321,28 +321,11 @@
                         },
                         {
                             "FieldName": "ContentPickerField",
-                            "Name": "Sector",
-                            "Settings": {
-                                "ContentPartFieldSettings": {
-                                    "DisplayName": "Sector",
-                                    "Position": "18"
-                                },
-                                "ContentPickerFieldSettings": {
-                                    "Required": true,
-                                    "DisplayedContentTypes": [
-                                        "JobProfileSector"
-                                    ],
-                                    "DisplayedStereotypes": []
-                                }
-                            }
-                        },
-                        {
-                            "FieldName": "ContentPickerField",
                             "Name": "JobProfile",
                             "Settings": {
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "Job profile",
-                                    "Position": "19"
+                                    "Position": "18"
                                 },
                                 "ContentPickerFieldSettings": {
                                     "Required": true,
@@ -360,7 +343,7 @@
                             "Settings": {
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "Real story title",
-                                    "Position": "20"
+                                    "Position": "19"
                                 }
                             }
                         },
@@ -371,7 +354,7 @@
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "Real story image",
                                     "Editor": "Trumbowyg",
-                                    "Position": "21"
+                                    "Position": "20"
                                 },
                                 "HtmlFieldSettings": {},
                                 "HtmlFieldTrumbowygEditorSettings": {
@@ -385,21 +368,6 @@
                             "Settings": {
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "Profile description",
-                                    "Editor": "Trumbowyg",
-                                    "Position": "4"
-                                },
-                                "HtmlFieldSettings": {},
-                                "HtmlFieldTrumbowygEditorSettings": {
-                                    "Options": "{\r\n    autogrow: true,\r\n    btns: [\r\n        [\"viewHTML\"],\r\n        [\"undo\", \"redo\"],\r\n        [\"formatting\"],\r\n        [\"strong\", \"em\", \"del\"],\r\n        [\"foreColor\", \"backColor\"],\r\n        [\"superscript\", \"subscript\"],\r\n        [\"link\"],\r\n        [\"insertShortcode\"],\r\n        [\"image\"],\r\n        [\"align\"],\r\n        [\"unorderedList\", \"orderedList\"],\r\n        [\"horizontalRule\"],\r\n        [\"removeformat\"],\r\n        [\"fullscreen\"]\r\n    ],\r\n    btnsDef: {\r\n        align: {\r\n            dropdown: [\"justifyLeft\", \"justifyCenter\", \"justifyRight\", \"justifyFull\"],\r\n            ico: \"justifyLeft\"\r\n        },\r\n        image: {\r\n            dropdown: [\"insertImage\", \"base64\", \"noembed\"],\r\n            ico: \"insertImage\"\r\n        }\r\n    }\r\n}"
-                                }
-                            }
-                        },
-                        {
-                            "FieldName": "HtmlField",
-                            "Name": "JobProfileDescription",
-                            "Settings": {
-                                "ContentPartFieldSettings": {
-                                    "DisplayName": "Job profile description",
                                     "Editor": "Trumbowyg",
                                     "Position": "5"
                                 },
@@ -445,7 +413,7 @@
                             "Settings": {
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "Video Image",
-                                    "Position": "3"
+                                    "Position": "4"
                                 }
                             }
                         },
@@ -469,7 +437,7 @@
                             "Settings": {
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "About this sector",
-                                    "Position": "2"
+                                    "Position": "3"
                                 },
                                 "TextFieldSettings": {
                                     "Required": true
@@ -483,11 +451,26 @@
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "Hero banner",
                                     "Editor": "Trumbowyg",
-                                    "Position": "1"
+                                    "Position": "2"
                                 },
                                 "HtmlFieldSettings": {},
                                 "HtmlFieldTrumbowygEditorSettings": {
                                     "Options": "{\r\n    semantic: {\r\n        'b': 'strong',\r\n        'i': 'em',\r\n        's': 'del',\r\n        'strike': 'del',\r\n        'div': 'div'\r\n    },\r\n    tagsToKeep: [\r\n      \"area\",\r\n      \"base\",\r\n      \"br\",\r\n      \"col\",\r\n      \"embed\",\r\n      \"hr\",\r\n      \"img\",\r\n      \"input\",\r\n      \"param\",\r\n      \"source\",\r\n      \"track\",\r\n      \"wbr\",\r\n\r\n      \"div\",\r\n      \"iframe\"\r\n    ],\r\n    autogrow: true,\r\n    btns: [\r\n        [\"viewHTML\"],\r\n        [\"undo\", \"redo\"],\r\n        [\"heading\", \"paragraph\", \"fontSize\"],\r\n        [\"fontWeight\"],\r\n        [\"foreColor\", \"backColor\"],\r\n        [\"links\"],\r\n        [\"image\"],\r\n        [\"align\"],\r\n        [\"list\", \"bulletList\", \"numberList\"],\r\n        [\"sectionBreak\"],\r\n        [\"removeformat\"],\r\n        [\"fullscreen\"],\r\n        [\"accordion\"],\r\n        [\"tabs\"]\r\n    ],\r\n    btnsDef: {\r\n        align: {\r\n            dropdown: [\"justifyLeft\", \"justifyCenter\", \"justifyRight\", \"justifyFull\"],\r\n            ico: \"justifyLeft\"\r\n        },\r\n        image: {\r\n            dropdown: [\"insertMedia\", \"base64\",\"youtubeLink\"],\r\n            ico: \"insertImage\"\r\n        }\r\n    },\r\n    plugins: {\r\n      colors: {\r\n          colorList: [\r\n            '0b0c0c',\r\n            '626a6e',\r\n            '1d70b8',\r\n            '003078',\r\n            '4c2c92',\r\n            'b1b4b6',\r\n            'ffdd00',\r\n            'd4351c',\r\n            \r\n            '003a69',\r\n            '347ca9',\r\n            \r\n            '00703c',\r\n            '5694ca',\r\n            'f3f2f1',\r\n            'ffffff',\r\n            '6f72af',\r\n            '912b88',\r\n            'd53880',\r\n            'f499be',\r\n            'f47738',\r\n            'b58840',\r\n            '85994b',\r\n            '28a197',\r\n          ]\r\n      }\r\n  }\r\n}"
+                                }
+                            }
+                        },
+                        {
+                            "FieldName": "HtmlField",
+                            "Name": "JobDescription",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Job description",
+                                    "Editor": "Trumbowyg",
+                                    "Position": "1"
+                                },
+                                "HtmlFieldSettings": {},
+                                "HtmlFieldTrumbowygEditorSettings": {
+                                    "Options": "{\r\n    autogrow: true,\r\n    btns: [\r\n        [\"viewHTML\"],\r\n        [\"undo\", \"redo\"],\r\n        [\"formatting\"],\r\n        [\"strong\", \"em\", \"del\"],\r\n        [\"foreColor\", \"backColor\"],\r\n        [\"superscript\", \"subscript\"],\r\n        [\"link\"],\r\n        [\"insertShortcode\"],\r\n        [\"image\"],\r\n        [\"align\"],\r\n        [\"unorderedList\", \"orderedList\"],\r\n        [\"horizontalRule\"],\r\n        [\"removeformat\"],\r\n        [\"fullscreen\"]\r\n    ],\r\n    btnsDef: {\r\n        align: {\r\n            dropdown: [\"justifyLeft\", \"justifyCenter\", \"justifyRight\", \"justifyFull\"],\r\n            ico: \"justifyLeft\"\r\n        },\r\n        image: {\r\n            dropdown: [\"insertImage\", \"base64\", \"noembed\"],\r\n            ico: \"insertImage\"\r\n        }\r\n    }\r\n}"
                                 }
                             }
                         }
