@@ -1,0 +1,136 @@
+{
+    "name": "Header content item",
+    "displayName": "Header",
+    "description": "",
+    "author": "SS Developers",
+    "website": "National Careers Service",
+    "version": "1",
+    "issetuprecipe": false,
+    "categories": [],
+    "tags": [],
+    "steps": [
+        {
+            "name": "content",
+            "data": [
+                {
+                    "ContentItemId": "[js:uuid()]",
+                    "ContentItemVersionId": "[js:uuid()]",
+                    "ContentType": "Header",
+                    "DisplayText": "National Careers Service",
+                    "Latest": true,
+                    "Published": true,
+                    "Owner": "[js: parameters('AdminUserId')]",
+                    "Author": "[js: parameters('AdminUsername')]",
+                    "Header": {
+                        "MobileMenuText": {
+                            "Text": "Menu"
+                        },
+                        "MobileMenuAriaLabel": {
+                            "Text": "Show or hide Top Level Navigation"
+                        },
+                        "LinkAltTitle": {
+                            "Text": "Go to the National Careers Service homepage"
+                        },
+                        "LinkUrl": {
+                            "Text": "/"
+                        }
+                    },
+                    "BagPart": {
+                        "ContentItems": [
+                            {
+                                "ContentItemId": "[js:uuid()]",
+                                "ContentItemVersionId": "[js:uuid()]",
+                                "ContentType": "LinkMenuItem",
+                                "DisplayText": "Explore Careers",
+                                "Latest": false,
+                                "Published": false,
+                                "Owner": "[js: parameters('AdminUserId')]",
+                                "Author": "[js: parameters('AdminUsername')]",
+                                "LinkMenuItemPart": {
+                                    "Name": "Explore Careers",
+                                    "Url": "/explore-careers"
+                                },
+                                "LinkMenuItem": {}
+                            },
+                            {
+                                "ContentItemId": "[js:uuid()]",
+                                "ContentItemVersionId": "[js:uuid()]",
+                                "ContentType": "LinkMenuItem",
+                                "DisplayText": "Skills Assessment",
+                                "Latest": false,
+                                "Published": false,
+                                "Owner": "[js: parameters('AdminUserId')]",
+                                "Author": "[js: parameters('AdminUsername')]",
+                                "LinkMenuItemPart": {
+                                    "Name": "Skills Assessment",
+                                    "Url": "/skills-assessment"
+                                },
+                                "LinkMenuItem": {}
+                            },
+                            {
+                                "ContentItemId": "[js:uuid()]",
+                                "ContentItemVersionId": "[js:uuid()]",
+                                "ContentType": "LinkMenuItem",
+                                "DisplayText": "Find a course",
+                                "Latest": false,
+                                "Published": false,
+                                "Owner": "[js: parameters('AdminUserId')]",
+                                "Author": "[js: parameters('AdminUsername')]",
+                                "LinkMenuItemPart": {
+                                    "Name": "Find a course",
+                                    "Url": "/find-a-course"
+                                },
+                                "LinkMenuItem": {}
+                            },
+                            {
+                                "ContentItemId": "[js:uuid()]",
+                                "ContentItemVersionId": "[js:uuid()]",
+                                "ContentType": "LinkMenuItem",
+                                "DisplayText": "Contact Us",
+                                "Latest": false,
+                                "Published": false,
+                                "Owner": "[js: parameters('AdminUserId')]",
+                                "Author": "[js: parameters('AdminUsername')]",
+                                "LinkMenuItemPart": {
+                                    "Name": "Contact Us",
+                                    "Url": "/contact-us"
+                                },
+                                "LinkMenuItem": {}
+                            },
+                            {
+                                "ContentItemId": "[js:uuid()]",
+                                "ContentItemVersionId": "[js:uuid()]",
+                                "ContentType": "LinkMenuItem",
+                                "DisplayText": "Actions Plans",
+                                "Latest": false,
+                                "Published": false,
+                                "Owner": "[js: parameters('AdminUserId')]",
+                                "Author": "[js: parameters('AdminUsername')]",
+                                "LinkMenuItemPart": {
+                                    "Name": "Action Plans",
+                                    "Url": "/action-plans"
+                                },
+                                "LinkMenuItem": {}
+                            },
+                            {
+                                "ContentItemId": "[js:uuid()]",
+                                "ContentItemVersionId": "[js:uuid()]",
+                                "ContentType": "LinkMenuItem",
+                                "DisplayText": "Careers advice",
+                                "Latest": false,
+                                "Published": false,
+                                "Owner": "[js: parameters('AdminUserId')]",
+                                "Author": "[js: parameters('AdminUsername')]",
+                                "LinkMenuItemPart": {
+                                    "Name": "Careers advice",
+                                    "Url": "/careers-advice"
+                                },
+                                "LinkMenuItem": {}
+                            }
+                        ]
+                    }
+                }
+            ]
+        }
+    ]
+}
