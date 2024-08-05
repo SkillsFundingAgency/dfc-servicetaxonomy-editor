@@ -237,6 +237,17 @@
                         ]
                     },
                     {
+                        "place": "Parts:2#Content;0",
+                        "displayType": null,
+                        "differentiator": "SectorLandingPage-Description",
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null,
+                        "contentType": [
+                            "SectorLandingPage"
+                        ]
+                    },
+                    {
                         "place": "Parts:6#Content;0",
                         "displayType": null,
                         "differentiator": "SectorLandingPage-Image",
@@ -284,6 +295,17 @@
                         "place": "Parts:3#Profiles;2",
                         "displayType": null,
                         "differentiator": "SectorLandingPage-JobDescription",
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null,
+                        "contentType": [
+                            "SectorLandingPage"
+                        ]
+                    },
+                    {
+                        "place": "Parts:5#Profiles;2",
+                        "displayType": null,
+                        "differentiator": "SectorLandingPage-JobProfileInspirationDescription",
                         "alternates": null,
                         "wrappers": null,
                         "shape": null,
@@ -637,17 +659,6 @@
                         "place": "Parts:1#Content;0",
                         "displayType": null,
                         "differentiator": "SectorLandingPage-AboutThisSector",
-                        "alternates": null,
-                        "wrappers": null,
-                        "shape": null,
-                        "contentType": [
-                            "SectorLandingPage"
-                        ]
-                    },
-                    {
-                        "place": "Parts:2#Content;0",
-                        "displayType": null,
-                        "differentiator": "SectorLandingPage-Description",
                         "alternates": null,
                         "wrappers": null,
                         "shape": null,
@@ -1103,9 +1114,20 @@
                         ]
                     },
                     {
-                        "place": "Parts:3#Profiles;2",
+                        "place": "Parts:2#Profiles;2",
                         "displayType": null,
                         "differentiator": "SectorLandingPage-JobProfile",
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null,
+                        "contentType": [
+                            "SectorLandingPage"
+                        ]
+                    },
+                    {
+                        "place": "Parts:4#Profiles;2",
+                        "displayType": null,
+                        "differentiator": "SectorLandingPage-JobProfileInspiration",
                         "alternates": null,
                         "wrappers": null,
                         "shape": null,
