@@ -41,7 +41,7 @@ namespace DFC.ServiceTaxonomy.Migration.Migrations
 
             logger.LogInformation($"Completed CreateAsync Migration from DFC.ServiceTaxonomy.Migration");
 
-            return 1;
+             return 1;
         }
     }
 }
