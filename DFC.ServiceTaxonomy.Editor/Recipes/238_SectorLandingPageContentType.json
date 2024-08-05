@@ -175,7 +175,7 @@
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "Image",
                                     "Editor": "Trumbowyg",
-                                    "Position": "8"
+                                    "Position": "10"
                                 },
                                 "HtmlFieldSettings": {},
                                 "HtmlFieldTrumbowygEditorSettings": {
@@ -190,7 +190,7 @@
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "Video type",
                                     "Editor": "PredefinedList",
-                                    "Position": "9"
+                                    "Position": "11"
                                 },
                                 "TextFieldSettings": {
                                     "Hint": "Specify 'None' to hide video on sector landing page."
@@ -220,7 +220,7 @@
                             "Settings": {
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "Video title",
-                                    "Position": "10"
+                                    "Position": "12"
                                 }
                             }
                         },
@@ -231,7 +231,7 @@
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "Video summary",
                                     "Editor": "Trumbowyg",
-                                    "Position": "11"
+                                    "Position": "13"
                                 },
                                 "HtmlFieldSettings": {},
                                 "HtmlFieldTrumbowygEditorSettings": {
@@ -246,7 +246,7 @@
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "Video or website URL",
                                     "Editor": "Url",
-                                    "Position": "12"
+                                    "Position": "14"
                                 },
                                 "TextFieldSettings": {}
                             }
@@ -258,7 +258,7 @@
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "Video further information",
                                     "Editor": "Trumbowyg",
-                                    "Position": "13"
+                                    "Position": "15"
                                 },
                                 "HtmlFieldSettings": {},
                                 "HtmlFieldTrumbowygEditorSettings": {
@@ -272,7 +272,7 @@
                             "Settings": {
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "Video duration",
-                                    "Position": "14"
+                                    "Position": "16"
                                 },
                                 "TextFieldSettings": {
                                     "Hint": "For example, 'One minute watch'"
@@ -285,7 +285,7 @@
                             "Settings": {
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "Video link text",
-                                    "Position": "15"
+                                    "Position": "17"
                                 },
                                 "TextFieldSettings": {
                                     "Hint": "When you provide link text, a call to action button will display linking to the video or website URL."
@@ -299,7 +299,7 @@
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "Video transcript",
                                     "Editor": "TextArea",
-                                    "Position": "16"
+                                    "Position": "18"
                                 },
                                 "TextFieldSettings": {
                                     "Hint": "This should be provided when embedding videos (for example, when embedding a YouTube video)."
@@ -312,7 +312,7 @@
                             "Settings": {
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "Within this sector Title",
-                                    "Position": "17"
+                                    "Position": "19"
                                 },
                                 "TextFieldSettings": {
                                     "Required": true
@@ -325,7 +325,7 @@
                             "Settings": {
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "Job profile",
-                                    "Position": "18"
+                                    "Position": "20"
                                 },
                                 "ContentPickerFieldSettings": {
                                     "Required": true,
@@ -343,7 +343,7 @@
                             "Settings": {
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "Real story title",
-                                    "Position": "19"
+                                    "Position": "21"
                                 }
                             }
                         },
@@ -354,7 +354,7 @@
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "Real story image",
                                     "Editor": "Trumbowyg",
-                                    "Position": "20"
+                                    "Position": "22"
                                 },
                                 "HtmlFieldSettings": {},
                                 "HtmlFieldTrumbowygEditorSettings": {
@@ -369,7 +369,7 @@
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "Profile description",
                                     "Editor": "Trumbowyg",
-                                    "Position": "5"
+                                    "Position": "7"
                                 },
                                 "HtmlFieldSettings": {},
                                 "HtmlFieldTrumbowygEditorSettings": {
@@ -384,7 +384,7 @@
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "Real story description",
                                     "Editor": "Trumbowyg",
-                                    "Position": "6"
+                                    "Position": "8"
                                 },
                                 "HtmlFieldSettings": {},
                                 "HtmlFieldTrumbowygEditorSettings": {
@@ -399,7 +399,7 @@
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "Real story image description",
                                     "Editor": "Trumbowyg",
-                                    "Position": "7"
+                                    "Position": "9"
                                 },
                                 "HtmlFieldSettings": {},
                                 "HtmlFieldTrumbowygEditorSettings": {
@@ -413,21 +413,7 @@
                             "Settings": {
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "Video Image",
-                                    "Position": "4"
-                                }
-                            }
-                        },
-                        {
-                            "FieldName": "TextField",
-                            "Name": "Description",
-                            "Settings": {
-                                "ContentPartFieldSettings": {
-                                    "DisplayName": "Description",
-                                    "Editor": "TextArea",
-                                    "Position": "0"
-                                },
-                                "TextFieldSettings": {
-                                    "Required": true
+                                    "Position": "6"
                                 }
                             }
                         },
@@ -437,10 +423,13 @@
                             "Settings": {
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "About this sector",
-                                    "Position": "3"
+                                    "Position": "5"
                                 },
                                 "TextFieldSettings": {
                                     "Required": true
+                                },
+                                "TextFieldMonacoEditorSettings": {
+                                    "Options": "{\r\n  \"automaticLayout\": true\r\n}"
                                 }
                             }
                         },
@@ -451,7 +440,7 @@
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "Hero banner",
                                     "Editor": "Trumbowyg",
-                                    "Position": "2"
+                                    "Position": "4"
                                 },
                                 "HtmlFieldSettings": {},
                                 "HtmlFieldTrumbowygEditorSettings": {
@@ -466,7 +455,56 @@
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "Job description",
                                     "Editor": "Trumbowyg",
+                                    "Position": "3"
+                                },
+                                "HtmlFieldSettings": {},
+                                "HtmlFieldTrumbowygEditorSettings": {
+                                    "Options": "{\r\n    autogrow: true,\r\n    btns: [\r\n        [\"viewHTML\"],\r\n        [\"undo\", \"redo\"],\r\n        [\"formatting\"],\r\n        [\"strong\", \"em\", \"del\"],\r\n        [\"foreColor\", \"backColor\"],\r\n        [\"superscript\", \"subscript\"],\r\n        [\"link\"],\r\n        [\"insertShortcode\"],\r\n        [\"image\"],\r\n        [\"align\"],\r\n        [\"unorderedList\", \"orderedList\"],\r\n        [\"horizontalRule\"],\r\n        [\"removeformat\"],\r\n        [\"fullscreen\"]\r\n    ],\r\n    btnsDef: {\r\n        align: {\r\n            dropdown: [\"justifyLeft\", \"justifyCenter\", \"justifyRight\", \"justifyFull\"],\r\n            ico: \"justifyLeft\"\r\n        },\r\n        image: {\r\n            dropdown: [\"insertImage\", \"base64\", \"noembed\"],\r\n            ico: \"insertImage\"\r\n        }\r\n    }\r\n}"
+                                }
+                            }
+                        },
+                        {
+                            "FieldName": "HtmlField",
+                            "Name": "Description",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Description",
+                                    "Editor": "Trumbowyg",
+                                    "Position": "0"
+                                },
+                                "HtmlFieldSettings": {},
+                                "HtmlFieldTrumbowygEditorSettings": {
+                                    "Options": "{\r\n  \tautogrow: true,\r\n    btns: [\r\n        [\"viewHTML\"],\r\n        [\"undo\", \"redo\"],\r\n        [\"formatting\"],\r\n        [\"strong\", \"em\", \"del\"],\r\n        [\"foreColor\", \"backColor\"],\r\n        [\"superscript\", \"subscript\"],\r\n        [\"link\"],\r\n        [\"insertShortcode\"],\r\n        [\"image\"],\r\n        [\"align\"],\r\n        [\"unorderedList\", \"orderedList\"],\r\n        [\"horizontalRule\"],\r\n        [\"removeformat\"],\r\n        [\"fullscreen\"]\r\n    ],\r\n    btnsDef: {\r\n        align: {\r\n            dropdown: [\"justifyLeft\", \"justifyCenter\", \"justifyRight\", \"justifyFull\"],\r\n            ico: \"justifyLeft\"\r\n        },\r\n        image: {\r\n            dropdown: [\"insertImage\", \"base64\", \"noembed\"],\r\n            ico: \"insertImage\"\r\n        }\r\n    }\r\n}",
+                                    "InsertMediaWithUrl": true
+                                }
+                            }
+                        },
+                        {
+                            "FieldName": "ContentPickerField",
+                            "Name": "JobProfileInspiration",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Job profile inspiration",
                                     "Position": "1"
+                                },
+                                "ContentPickerFieldSettings": {
+                                    "Required": true,
+                                    "Multiple": true,
+                                    "DisplayedContentTypes": [
+                                        "JobProfile"
+                                    ],
+                                    "DisplayedStereotypes": []
+                                }
+                            }
+                        },
+                        {
+                            "FieldName": "HtmlField",
+                            "Name": "JobProfileInspirationDescription",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Job profile inspiration description",
+                                    "Editor": "Trumbowyg",
+                                    "Position": "2"
                                 },
                                 "HtmlFieldSettings": {},
                                 "HtmlFieldTrumbowygEditorSettings": {
