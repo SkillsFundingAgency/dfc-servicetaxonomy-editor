@@ -41,7 +41,7 @@
                             "Name": "AuditTrailPart",
                             "Settings": {
                                 "ContentTypePartSettings": {
-                                    "Position": "6"
+                                    "Position": "7"
                                 }
                             }
                         },
@@ -50,7 +50,7 @@
                             "Name": "ContentApprovalPart",
                             "Settings": {
                                 "ContentTypePartSettings": {
-                                    "Position": "1"
+                                    "Position": "2"
                                 }
                             }
                         },
@@ -69,7 +69,7 @@
                                     "DisplayId": true
                                 },
                                 "ContentTypePartSettings": {
-                                    "Position": "2"
+                                    "Position": "3"
                                 }
                             }
                         },
@@ -78,7 +78,7 @@
                             "Name": "PageLocationPart",
                             "Settings": {
                                 "ContentTypePartSettings": {
-                                    "Position": "3"
+                                    "Position": "4"
                                 }
                             }
                         },
@@ -87,7 +87,7 @@
                             "Name": "PreviewPart",
                             "Settings": {
                                 "ContentTypePartSettings": {
-                                    "Position": "4"
+                                    "Position": "5"
                                 }
                             }
                         },
@@ -96,7 +96,16 @@
                             "Name": "SitemapPart",
                             "Settings": {
                                 "ContentTypePartSettings": {
-                                    "Position": "5"
+                                    "Position": "6"
+                                }
+                            }
+                        },
+                        {
+                            "PartName": "TitlePart",
+                            "Name": "TitlePart",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "1"
                                 }
                             }
                         }
@@ -110,6 +119,17 @@
                         "ContentPartSettings": {
                             "Attachable": true,
                             "Description": "Allows editors to enter a comment to be saved into the Audit Trail event when saving a content item."
+                        }
+                    },
+                    "ContentPartFieldDefinitionRecords": []
+                },
+                {
+                    "Name": "TitlePart",
+                    "Settings": {
+                        "ContentPartSettings": {
+                            "Attachable": true,
+                            "Description": "Provides a Title for your content item.",
+                            "DefaultPosition": "0"
                         }
                     },
                     "ContentPartFieldDefinitionRecords": []

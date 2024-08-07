@@ -226,7 +226,7 @@
                         ]
                     },
                     {
-                        "place": "Parts:0#Content;0",
+                        "place": "Parts:1#Content;0",
                         "displayType": null,
                         "differentiator": "SectorLandingPage-HeroBanner",
                         "alternates": null,
@@ -237,7 +237,7 @@
                         ]
                     },
                     {
-                        "place": "Parts:2#Content;0",
+                        "place": "Parts:3#Content;0",
                         "displayType": null,
                         "differentiator": "SectorLandingPage-Description",
                         "alternates": null,
@@ -248,7 +248,7 @@
                         ]
                     },
                     {
-                        "place": "Parts:6#Content;0",
+                        "place": "Parts:7#Content;0",
                         "displayType": null,
                         "differentiator": "SectorLandingPage-Image",
                         "alternates": null,
@@ -524,7 +524,7 @@
                         ]
                     },
                     {
-                        "place": "Parts:3#Content;0",
+                        "place": "Parts:4#Content;0",
                         "displayType": null,
                         "differentiator": null,
                         "alternates": null,
@@ -559,7 +559,7 @@
                         ]
                     },
                     {
-                        "place": "Parts:5#Content;0",
+                        "place": "Parts:6#Content;0",
                         "displayType": null,
                         "differentiator": null,
                         "alternates": null,
@@ -591,6 +591,17 @@
                         "shape": null,
                         "contentType": [
                             "JobProfile"
+                        ]
+                    },
+                    {
+                        "place": "Parts:0#Content;0",
+                        "displayType": null,
+                        "differentiator": null,
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null,
+                        "contentType": [
+                            "SectorLandingPage"
                         ]
                     }
                 ],
@@ -656,7 +667,7 @@
                         ]
                     },
                     {
-                        "place": "Parts:1#Content;0",
+                        "place": "Parts:2#Content;0",
                         "displayType": null,
                         "differentiator": "SectorLandingPage-AboutThisSector",
                         "alternates": null,
