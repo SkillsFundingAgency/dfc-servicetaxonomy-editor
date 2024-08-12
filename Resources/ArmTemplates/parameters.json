@@ -11,12 +11,6 @@
         "Environment": {
             "value": "__ReleaseEnvironmentName__"
         },
-        "KeyVaultCertificateName": {
-            "value": "__OrchardEditorKeyVaultCertName__"
-        },
-        "KeyVaultName": {
-            "value": "__sharedKeyVaultName__"
-        },
         "KeyVaultResourceGroup": {
             "value": "__SharedResourceGroupName__"
         },
