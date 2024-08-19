@@ -28,6 +28,21 @@ namespace DFC.ServiceTaxonomy.UnitTests.Migrations
             recipeMigrator.Verify(service => service.ExecuteAsync(It.IsAny<string>(), It.IsAny<IDataMigration>()), Times.Exactly(2));
             result.Should().Be(1);
         }
+
+        [Fact]
+        public async Task UpdateFrom1_ReturnsExpected()
+        {
+            //Arrange
+            recipeMigrator.Setup(service => service.ExecuteAsync(It.IsAny<string>(), It.IsAny<IDataMigration>())).ReturnsAsync(string.Empty);
+            var migration = new RecipeMigration(recipeMigrator.Object, logger.Object);
+
+            //Act
+            var result = await migration.UpdateFrom1();
+
+            //Assert
+            recipeMigrator.Verify(service => service.ExecuteAsync(It.IsAny<string>(), It.IsAny<IDataMigration>()), Times.Exactly(2));
+            result.Should().Be(2);
+        }
     }
 }
 
