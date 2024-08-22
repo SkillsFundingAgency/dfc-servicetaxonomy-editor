@@ -41,13 +41,13 @@
                                 "ContentItemId": "[js:uuid()]",
                                 "ContentItemVersionId": "[js:uuid()]",
                                 "ContentType": "LinkMenuItem",
-                                "DisplayText": "Explore Careers",
+                                "DisplayText": "Explore careers",
                                 "Latest": false,
                                 "Published": false,
                                 "Owner": "[js: parameters('AdminUserId')]",
                                 "Author": "[js: parameters('AdminUsername')]",
                                 "LinkMenuItemPart": {
-                                    "Name": "Explore Careers",
+                                    "Name": "Explore careers",
                                     "Url": "/explore-careers"
                                 },
                                 "LinkMenuItem": {}
@@ -56,13 +56,13 @@
                                 "ContentItemId": "[js:uuid()]",
                                 "ContentItemVersionId": "[js:uuid()]",
                                 "ContentType": "LinkMenuItem",
-                                "DisplayText": "Skills Assessment",
+                                "DisplayText": "Skills assessment",
                                 "Latest": false,
                                 "Published": false,
                                 "Owner": "[js: parameters('AdminUserId')]",
                                 "Author": "[js: parameters('AdminUsername')]",
                                 "LinkMenuItemPart": {
-                                    "Name": "Skills Assessment",
+                                    "Name": "Skills assessment",
                                     "Url": "/skills-assessment"
                                 },
                                 "LinkMenuItem": {}
@@ -86,13 +86,13 @@
                                 "ContentItemId": "[js:uuid()]",
                                 "ContentItemVersionId": "[js:uuid()]",
                                 "ContentType": "LinkMenuItem",
-                                "DisplayText": "Contact Us",
+                                "DisplayText": "Contact us",
                                 "Latest": false,
                                 "Published": false,
                                 "Owner": "[js: parameters('AdminUserId')]",
                                 "Author": "[js: parameters('AdminUsername')]",
                                 "LinkMenuItemPart": {
-                                    "Name": "Contact Us",
+                                    "Name": "Contact us",
                                     "Url": "/contact-us"
                                 },
                                 "LinkMenuItem": {}
@@ -101,13 +101,13 @@
                                 "ContentItemId": "[js:uuid()]",
                                 "ContentItemVersionId": "[js:uuid()]",
                                 "ContentType": "LinkMenuItem",
-                                "DisplayText": "Actions Plans",
+                                "DisplayText": "Actions plans",
                                 "Latest": false,
                                 "Published": false,
                                 "Owner": "[js: parameters('AdminUserId')]",
                                 "Author": "[js: parameters('AdminUsername')]",
                                 "LinkMenuItemPart": {
-                                    "Name": "Action Plans",
+                                    "Name": "Action plans",
                                     "Url": "/action-plans"
                                 },
                                 "LinkMenuItem": {}
@@ -116,7 +116,7 @@
                                 "ContentItemId": "[js:uuid()]",
                                 "ContentItemVersionId": "[js:uuid()]",
                                 "ContentType": "LinkMenuItem",
-                                "DisplayText": "Careers advice",
+                                "DisplayText": "Careers Advice",
                                 "Latest": false,
                                 "Published": false,
                                 "Owner": "[js: parameters('AdminUserId')]",
