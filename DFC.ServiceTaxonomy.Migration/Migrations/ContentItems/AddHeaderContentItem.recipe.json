@@ -116,7 +116,7 @@
                                 "ContentItemId": "[js:uuid()]",
                                 "ContentItemVersionId": "[js:uuid()]",
                                 "ContentType": "LinkMenuItem",
-                                "DisplayText": "Careers Advice",
+                                "DisplayText": "Careers advice",
                                 "Latest": false,
                                 "Published": false,
                                 "Owner": "[js: parameters('AdminUserId')]",
