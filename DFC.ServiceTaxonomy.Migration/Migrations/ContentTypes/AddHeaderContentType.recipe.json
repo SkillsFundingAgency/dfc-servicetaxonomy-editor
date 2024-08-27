@@ -1,0 +1,144 @@
+{
+    "name": "Header Content type",
+    "displayName": "Header content type",
+    "description": "Global Header Content",
+    "author": "SS Developers",
+    "website": "National Careers Service",
+    "version": "1",
+    "issetuprecipe": false,
+    "categories": [],
+    "tags": [],
+    "steps": [
+        {
+            "name": "ContentDefinition",
+            "ContentTypes": [
+                {
+                    "Name": "Header",
+                    "DisplayName": "Header",
+                    "Settings": {
+                        "ContentTypeSettings": {
+                            "Creatable": false,
+                            "Listable": true,
+                            "Draftable": true,
+                            "Versionable": true,
+                            "Securable": true,
+                            "Description": "Provides a Header item"
+                        },
+                        "FullTextAspectSettings": {},
+                        "GraphQLContentTypeSettings": {}
+                    },
+                    "ContentTypePartDefinitionRecords": [
+                        {
+                            "PartName": "Header",
+                            "Name": "Header",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "0"
+                                }
+                            }
+                        },
+                        {
+                            "PartName": "BagPart",
+                            "Name": "BagPart",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "DisplayName": "Menu",
+                                    "Description": "Provides a collection behavior for your content item where you can place other content items.",
+                                    "Position": "1"
+                                },
+                                "GraphQLContentTypePartSettings": {},
+                                "BagPartSettings": {
+                                    "ContainedContentTypes": [
+                                        "LinkMenuItem"
+                                    ],
+                                    "ContainedStereotypes": [],
+                                    "DisplayType": "Menu"
+                                }
+                            }
+                        },
+                        {
+                            "PartName": "TitlePart",
+                            "Name": "TitlePart",
+                            "Settings": {}
+                        }
+                    ]
+                }
+            ],
+            "ContentParts": [
+                {
+                    "Name": "BagPart",
+                    "Settings": {
+                        "ContentPartSettings": {
+                            "Attachable": true,
+                            "Reusable": true,
+                            "Description": "Provides a collection behavior for your content item where you can place other content items."
+                        }
+                    },
+                    "ContentPartFieldDefinitionRecords": []
+                },
+                {
+                    "Name": "Header",
+                    "Settings": {},
+                    "ContentPartFieldDefinitionRecords": [
+                        {
+                            "FieldName": "TextField",
+                            "Name": "MobileMenuText",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Mobile Menu Text",
+                                    "Position": "2"
+                                },
+                                "TextFieldSettings": {
+                                    "Required": true
+                                },
+                                "ContentIndexSettings": {}
+                            }
+                        },
+                        {
+                            "FieldName": "TextField",
+                            "Name": "MobileMenuAriaLabel",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Mobile Aria Label",
+                                    "Position": "3"
+                                },
+                                "TextFieldSettings": {
+                                    "Required": true
+                                },
+                                "ContentIndexSettings": {}
+                            }
+                        },
+                        {
+                            "FieldName": "TextField",
+                            "Name": "LinkAltTitle",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Alt Link Title",
+                                    "Position": "1"
+                                },
+                                "TextFieldSettings": {
+                                    "Required": true
+                                },
+                                "ContentIndexSettings": {}
+                            }
+                        },
+                        {
+                            "FieldName": "TextField",
+                            "Name": "LinkUrl",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Link Url",
+                                    "Position": "0"
+                                },
+                                "TextFieldSettings": {
+                                    "Required": true
+                                },
+                                "ContentIndexSettings": {}
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}
