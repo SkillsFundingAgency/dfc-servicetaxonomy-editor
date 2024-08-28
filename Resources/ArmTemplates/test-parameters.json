@@ -11,12 +11,6 @@
         "Environment": {
             "value": "dev"
         },
-        "KeyVaultCertificateName": {
-            "value": "editor-foo-servicetaxonomy-nationalcareersservice-org-uk"
-        },
-        "KeyVaultName": {
-            "value": "dfc-foo-shared-kv"
-        },
         "AzureAdSettingsKeyVaultAddress": {
             "value": "https://some_endpoint/"
         },
