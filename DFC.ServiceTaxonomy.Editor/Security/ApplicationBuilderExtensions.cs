@@ -1,5 +1,6 @@
 ﻿using Joonasw.AspNetCore.SecurityHeaders;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 
 namespace DFC.ServiceTaxonomy.Editor.Security
@@ -10,11 +11,11 @@ namespace DFC.ServiceTaxonomy.Editor.Security
         {
             app.Use(async (context, next) =>
                 {
-                    context.Response.Headers.Add("X-Content-Type-Options", "nosniff");
+                    context.Response.Headers.Append("X-Content-Type-Options", "nosniff");
 
                     if (!string.IsNullOrEmpty(context.Session?.Id))
                     {
-                        context.Response.Headers.Add("X-STAX-SessionId", context.Session.Id);
+                        context.Response.Headers.Append("X-STAX-SessionId", context.Session.Id);
                     }
 
                     await next();
