@@ -18,7 +18,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Fields.DateTimeFi
         [Fact]
         public async Task AddSyncComponents_DateTimeInContent_DateTimeAddedToMergeNodeCommandsProperties()
         {
-            DateTime value = new DateTime(2019, 2, 18, 20, 14, 13);
+            DateTime value = new DateTime(2019, 2, 18, 20, 14, 13, DateTimeKind.Utc);
             ContentItemField = JObject.Parse($"{{\"Value\": \"{value:o}\"}}");
 
             await CallAddSyncComponents();
