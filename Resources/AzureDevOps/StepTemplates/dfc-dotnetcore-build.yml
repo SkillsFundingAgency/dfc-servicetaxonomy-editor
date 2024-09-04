@@ -19,10 +19,11 @@ steps:
    inputs:
      preferBundledVersion: false
 
- - task: NuGetCommand@2
-   displayName: 'NuGet restore'
+ - task: DotNetCoreCLI@2
+   displayName: 'restore nuget packages'
    inputs:
-     restoreSolution: '${{ parameters.SolutionBaseName }}.sln'
+     command: 'restore'
+     projects: '${{ parameters.SolutionBaseName }}.sln'
      feedsToUse: 'select'
      vstsFeed: 'NationalCareersService'
 
