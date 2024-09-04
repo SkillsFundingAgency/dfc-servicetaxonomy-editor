@@ -92,6 +92,7 @@ stages:
         SolutionBaseName: $(SolutionBaseName).IntegrationTests
         BuildPlatform: 'any cpu'
         BuildConfiguration: 'release'
+        GitVersionVersion: 5.12.x
 
     - task: NuGetToolInstaller@1
       inputs:
