@@ -13,7 +13,7 @@ resources:
   - repository: dfc-devops
     type: github
     name: SkillsFundingAgency/dfc-devops
-    ref: refs/tags/v1.16.0
+    ref: refs/tags/v1.16.4
     endpoint: 'SkillsFundingAgency'
 
 trigger:
