@@ -74,12 +74,10 @@ else
 
     if (hasDraft && hasPreviewPermission)
     {
-        @* <a href="@($"{previewURI}{url}")" target="_blank" class="dropdown-item btn-sm">@T["View draft content"]</a> *@
         <a href="@($"{previewURI}")" target="_blank" class="dropdown-item btn-sm">@T["View draft content"]</a>
     }
     if (hasPublishPermission && hasViewPermission && hasPublished)
     {
-        @* <a href="@($"{publishedURI}{url}")" target="_blank" class="dropdown-item btn-sm">@T["View published content"]</a> *@
         <a href="@($"{publishedURI}")" target="_blank" class="dropdown-item btn-sm">@T["View published content"]</a>
     }
 }
