@@ -11,6 +11,8 @@
 @inject IAuthorizationService AuthorizationService
 @inject IOptions<PagesConfiguration> PagesConfig
 @inject IOptions<JobProfilesConfiguration> JobProfilesConfig
+@inject IOptions<FooterConfiguration> FooterConfig
+@inject IOptions<HeaderConfiguration> HeaderConfig
 @inject IContentManager ContentManager
 
 @{
@@ -21,7 +23,7 @@
     var hasClonePermission = await AuthorizationService.AuthorizeAsync(User, CommonPermissions.CloneContent, contentItem);
     var hasViewPermission = await AuthorizationService.AuthorizeAsync(User, CommonPermissions.ViewContent, contentItem);
     var hasPreviewPermission = await AuthorizationService.AuthorizeAsync(User, CommonPermissions.PreviewContent, contentItem);
-    var previewContentTypes = contentItem.ContentType == ContentTypes.Page || contentItem.ContentType == ContentTypes.JobProfile;
+    var previewContentTypes = contentItem.ContentType == ContentTypes.Page || contentItem.ContentType == ContentTypes.JobProfile || contentItem.ContentType == ContentTypes.Footer || contentItem.ContentType == ContentTypes.Header;
 
 }
 @* Publish - handle publish if content part not present in content item *@
@@ -50,24 +52,39 @@ else
 }
 
 @* View draft/View published - View dependent on content type i.e. Page content types view through CUI apps *@
-
 @if (previewContentTypes)
 {
-    var previewURI = contentItem.ContentType == ContentTypes.Page ? PagesConfig.Value.PreviewAppPrefix : JobProfilesConfig.Value.PreviewAppPrefix;
-    var publishedURI = contentItem.ContentType == ContentTypes.Page ? PagesConfig.Value.PublishedAppPrefix : JobProfilesConfig.Value.PublishedAppPrefix;
-    string url = contentItem.Content[nameof(PageLocationPart)][nameof(PageLocationPart.FullUrl)];
+    var previewURI = contentItem.ContentType switch
+    {
+        ContentTypes.Page => string.Concat(PagesConfig.Value.PreviewAppPrefix, contentItem.Content[nameof(PageLocationPart)][nameof(PageLocationPart.FullUrl)]),
+        ContentTypes.JobProfile => string.Concat(JobProfilesConfig.Value.PreviewAppPrefix, contentItem.Content[nameof(PageLocationPart)][nameof(PageLocationPart.FullUrl)]),
+        ContentTypes.Header => HeaderConfig.Value.PreviewAppPrefix,
+        ContentTypes.Footer => FooterConfig.Value.PreviewAppPrefix,
+        _ => string.Empty
+    };
+
+    var publishedURI = contentItem.ContentType switch
+    {
+        ContentTypes.Page => string.Concat(PagesConfig.Value.PublishedAppPrefix, contentItem.Content[nameof(PageLocationPart)][nameof(PageLocationPart.FullUrl)]),
+        ContentTypes.JobProfile => string.Concat(JobProfilesConfig.Value.PublishedAppPrefix, contentItem.Content[nameof(PageLocationPart)][nameof(PageLocationPart.FullUrl)]),
+        ContentTypes.Header => HeaderConfig.Value.PublishedAppPrefix,
+        ContentTypes.Footer => FooterConfig.Value.PublishedAppPrefix,
+        _ => string.Empty
+    };
+
     if (hasDraft && hasPreviewPermission)
     {
-        <a href="@($"{previewURI}{url}")" target="_blank" class="dropdown-item btn-sm">@T["View draft content"]</a>
+        @* <a href="@($"{previewURI}{url}")" target="_blank" class="dropdown-item btn-sm">@T["View draft content"]</a> *@
+        <a href="@($"{previewURI}")" target="_blank" class="dropdown-item btn-sm">@T["View draft content"]</a>
     }
     if (hasPublishPermission && hasViewPermission && hasPublished)
     {
-        <a href="@($"{publishedURI}{url}")" target="_blank" class="dropdown-item btn-sm">@T["View published content"]</a>
+        @* <a href="@($"{publishedURI}{url}")" target="_blank" class="dropdown-item btn-sm">@T["View published content"]</a> *@
+        <a href="@($"{publishedURI}")" target="_blank" class="dropdown-item btn-sm">@T["View published content"]</a>
     }
 }
 else
 {
-
     if (hasDraft && hasPreviewPermission)
     {
         <a asp-action="Preview" asp-controller="Item" asp-route-area="OrchardCore.Contents" asp-route-contentItemId="@contentItem.ContentItemId" target="_blank" class="dropdown-item btn-sm"><span>@T["View draft content"]</span></a>
