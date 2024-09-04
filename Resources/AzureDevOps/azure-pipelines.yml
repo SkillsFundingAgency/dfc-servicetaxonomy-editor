@@ -78,6 +78,7 @@ stages:
         SolutionBaseName: $(SolutionBaseName).OrchardCoreInitialiser
         BuildPlatform: 'any cpu'
         BuildConfiguration: 'release'
+        GitVersionVersion: 5.12.x
     - powershell: |
         New-Item -Type Directory -Path $(SolutionBaseName).Editor\AppSettingsArtifact\App_Data\Sites\Default\ -Force
         Copy-Item -Path $(SolutionBaseName).Editor\App_Data\Sites\Default\appsettings.template.json -Destination $(SolutionBaseName).Editor\AppSettingsArtifact\App_Data\Sites\Default\appsettings.json
