@@ -125,6 +125,18 @@
         "JobProfilePreviewAppPrefix": {
             "value": "__JobProfilePreviewAppPrefix__"
         },
+        "HeaderPublishedAppPrefix": {
+            "value": "__HeaderPublishedAppPrefix__"
+        },
+        "HeaderPreviewAppPrefix": {
+            "value": "__HeaderPreviewAppPrefix__"
+        },
+        "FooterPublishedAppPrefix": {
+            "value": "__FooterPublishedAppPrefix__"
+        },
+        "FooterPreviewAppPrefix": {
+            "value": "__FooterPreviewAppPrefix__"
+        },
         "MediaAzureBlobConnectionString": {
             "value": "__MediaAzureBlobConnectionString__"
         },
