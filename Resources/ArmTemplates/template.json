@@ -236,6 +236,12 @@
         },
         "CmsSqlApiUrl": {
         "type": "string"
+        },
+        "EventGridTopicEndPointUrl": {
+            "type": "string"
+        },
+        "EventGridTopicAccessKey": {
+            "type": "securestring"
         }
     },
     "variables": {
@@ -600,6 +606,14 @@
                             {
                                 "name": "Cms__SqlApiUrl",
                                 "value": "[parameters('CmsSqlApiUrl')]"
+                            },
+                            {
+                                "name": "EventGrid__TopicEndPointUrl",
+                                "value": "[parameters('EventGridTopicEndPointUrl')]"
+                            },
+                            {
+                                "name": "EventGrid__TopicAccessKey",
+                                "value": "[parameters('EventGridTopicAccessKey')]"
                             }
                         ]
                     }

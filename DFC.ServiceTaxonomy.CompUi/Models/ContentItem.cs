@@ -1,8 +1,9 @@
-﻿using Newtonsoft.Json;
+﻿using System.Text.Json.Serialization;
+using Newtonsoft.Json;
 
 namespace DFC.ServiceTaxonomy.CompUi.Models
 {
-    public class Page
+    public class ContentItem
     {
         [JsonProperty("PageLocationPart")]
         public PageLocationParts? PageLocationParts { get; set; }
@@ -15,12 +16,30 @@ namespace DFC.ServiceTaxonomy.CompUi.Models
 
         [JsonProperty("JobProfile")]
         public CurrentOpportunitiesData? JobProfile { get; set; }
+
+        [JsonProperty("FlowPart")]
+        public FlowPart? FlowPart { get; set; }
     }
 
     public class GraphSyncParts
     {
         [JsonProperty("Text")]
         public string? Text { get; set; }
+    }
+
+    public class FlowPart
+    {
+        [JsonProperty("Widgets")]
+        public List<Widgets>? Widgets { get; set; }
+    }
+
+    public class Widgets
+    {
+        [JsonProperty("Author")]
+        public string? Author { get; set; }
+
+        [JsonProperty("ContentItemId")]
+        public string? ContentItemId {  get; set; }
     }
 
     public class PageLocationParts
