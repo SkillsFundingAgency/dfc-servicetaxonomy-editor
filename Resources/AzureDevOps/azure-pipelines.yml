@@ -95,52 +95,11 @@ stages:
       inputs:
         versionSpec: '>=5.4.0'
 
-
-
-    - task: DotNetCoreCLI@2
-      displayName: 'dotnet pack - Events'
-      inputs:
-        command: pack
-        packagesToPack: '**/DFC.ServiceTaxonomy.Events.csproj'
-        configuration: Release
-        packDirectory: '$(build.artifactstagingdirectory)\DeploymentPackages\Nuget'
-        versioningScheme: byEnvVar
-        versionEnvVar: GitVersion.NugetVersionV2
-
-
-    - task: PublishPipelineArtifact@1
-      inputs:
-        targetPath: $(build.artifactstagingdirectory)\DeploymentPackages\Nuget
-        artifactName: $(SolutionBaseName).Nuget
-
     - task: PublishBuildArtifacts@1
       displayName: 'Publish media folder'
       inputs:
         PathtoPublish: 'media'
         artifactName: media
-
-- stage: PublishPackage
-  displayName: Publish Package to NuGet
-  condition: succeeded()
-  jobs:
-  - job: CleanArtifacts
-    displayName: Clean artifacts directory
-  - deployment: PublishNugetPackage
-    dependsOn: CleanArtifacts
-    environment: SERVICETAXONOMY_NUGET
-    workspace:
-      clean: all
-    strategy:
-      runOnce:
-        deploy:
-          steps:
-          - task: NuGetCommand@2
-            displayName: 'NuGet push'
-            inputs:
-              command: push
-              packagesToPush: '$(Pipeline.Workspace)\$(SolutionBaseName).Nuget\*.nupkg;!$(Pipeline.Workspace)\$(SolutionBaseName).Nuget\*.symbols.nupkg'
-              nuGetFeedType: internal
-              publishVstsFeed: NationalCareersService
 
 - stage: DeployToLab
   condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'))
@@ -180,7 +139,6 @@ stages:
       PSScriptPath: "$(Pipeline.Workspace)/${{ variables.SolutionBaseName }}.Editor.Resources.PSScripts"
 
 - stage: DeployToDev
-  dependsOn: PublishPackage
   condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'))
   displayName: Deploy to DEV_SERVICETAXONOMY
   variables:

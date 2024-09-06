@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using Microsoft.AspNetCore.Mvc.Localization;
-using Microsoft.Extensions.Logging;
-using OrchardCore.DisplayManagement.Notify;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,12 +8,14 @@ using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Results.AllowSync;
 using DFC.ServiceTaxonomy.GraphSync.Helpers;
 using DFC.ServiceTaxonomy.GraphSync.Services;
 using DFC.ServiceTaxonomy.GraphSync.Services.Interface;
-using DFC.ServiceTaxonomy.Slack;
 using Microsoft.AspNetCore.Html;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc.Localization;
 using Microsoft.AspNetCore.Routing;
+using Microsoft.Extensions.Logging;
 using OrchardCore.ContentManagement;
 using OrchardCore.ContentManagement.Metadata;
+using OrchardCore.DisplayManagement.Notify;
 
 namespace DFC.ServiceTaxonomy.GraphSync.Notifications
 {
@@ -37,14 +36,13 @@ namespace DFC.ServiceTaxonomy.GraphSync.Notifications
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly ILogger<GraphSyncNotifier> _logger;
         private readonly IList<NotifyEntry> _entries;
-        private readonly ISlackMessagePublisher _slackMessagePublisher;
 
         public GraphSyncNotifier(
             INodeContentItemLookup nodeContentItemLookup,
             IContentDefinitionManager contentDefinitionManager,
             LinkGenerator linkGenerator,
             IHttpContextAccessor httpContextAccessor,
-            ILogger<GraphSyncNotifier> logger, ISlackMessagePublisher slackMessagePublisher)
+            ILogger<GraphSyncNotifier> logger)
         {
             _nodeContentItemLookup = nodeContentItemLookup;
             _contentDefinitionManager = contentDefinitionManager;
@@ -52,7 +50,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.Notifications
             _httpContextAccessor = httpContextAccessor;
             _logger = logger;
             _entries = new List<NotifyEntry>();
-            _slackMessagePublisher = slackMessagePublisher;
         }
 
         public async Task AddBlocked(
@@ -99,7 +96,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Notifications
                     string editContentItemUrl = _linkGenerator.GetUriByAction(
                         _httpContextAccessor.HttpContext!,
                         "Edit", "Admin",
-                        new {area = "OrchardCore.Contents", contentItemId})!;
+                        new { area = "OrchardCore.Contents", contentItemId })!;
 
                     title = $"<a href=\"{editContentItemUrl}\">'{syncBlocker.Title}'</a>";
                 }
@@ -124,7 +121,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Notifications
         }
 
         //todo: add custom styles via scss?
-        public async Task Add(
+        public Task Add(
             string userMessage,
             string technicalMessage = "",
             Exception? exception = null,
@@ -155,9 +152,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.Notifications
             {
                 //publish to slack
                 _logger.LogInformation($"publish to slack: traceid {traceId} userMessage {userMessage} technicalMessage {technicalMessage}");
-
-                string slackMessage = BuildSlackMessage(traceId, userMessage, technicalMessage, exception);
-                await _slackMessagePublisher.SendMessageAsync(slackMessage);
             }
             catch (Exception e)
             {
@@ -168,7 +162,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Notifications
             htmlContentBuilder
                 .AppendHtml(TechnicalScript(onClickFunction, clipboardCopy))
                 .AppendHtml(userHtmlMessage ?? new HtmlString(userMessage))
-//                .AppendHtml($"<button class=\"close\" style=\"right: 1.25em;\" type=\"button\" data-bs-toggle=\"collapse\" data-bs-target=\"#{uniqueId}\" aria-expanded=\"false\" aria-controls=\"{uniqueId}\"><i class=\"fas fa-wrench\"></i></button>")
+                //                .AppendHtml($"<button class=\"close\" style=\"right: 1.25em;\" type=\"button\" data-bs-toggle=\"collapse\" data-bs-target=\"#{uniqueId}\" aria-expanded=\"false\" aria-controls=\"{uniqueId}\"><i class=\"fas fa-wrench\"></i></button>")
                 .AppendHtml($"<a class=\"close\" style=\"right: 1.25em;\" data-bs-toggle=\"collapse\" href=\"#{uniqueId}\" role=\"button\" aria-expanded=\"false\" aria-controls=\"{uniqueId}\"><i class=\"fas fa-wrench\"></i></a>")
                 .AppendHtml($"<div class=\"collapse\" id=\"{uniqueId}\">")
                 .AppendHtml($"<div class=\"card mt-2\"><div class=\"card-header\">Technical Details <button onclick=\"{onClickFunction}()\" style=\"float: right;\" type=\"button\"><i class=\"fas fa-copy\"></i></button></div><div class=\"card-body\">")
@@ -189,7 +183,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Notifications
             if (type != NotifyType.Warning || !_entries.Any(e => e.Type == NotifyType.Warning))
             {
                 _logger.LogInformation($"Adding notify entry: type {type}");
-               var newEntry = new NotifyEntry { Type = type, Message = htmlContentBuilder };
+                var newEntry = new NotifyEntry { Type = type, Message = htmlContentBuilder };
                 _entries.Add(newEntry);
             }
             else
@@ -199,22 +193,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.Notifications
                     _entries.Count(e => e.Type == NotifyType.Warning),
                     _entries.FirstOrDefault(e => e.Type == NotifyType.Warning)?.Message);
             }
-        }
 
-        private string BuildSlackMessage(string traceId, string userMessage, string technicalMessage, Exception? exception)
-        {
-            StringBuilder sb =
-                new StringBuilder(
-                    $"```Trace ID: {traceId}\r\nUser Message: {userMessage}\r\nTechnical Message: {technicalMessage}");
-
-            if (exception != null)
-            {
-                sb.Append($"\r\nException:\r\n\r\n{exception}");
-            }
-
-            sb.Append("```");
-
-            return sb.ToString();
+            return Task.CompletedTask;
         }
 
         private string GetExceptionText(Exception? exception)
@@ -283,7 +263,7 @@ User Message      : {userMessage}
 Technical Message : {technicalMessage}
 Exception         : {exceptionText}";
             //todo: we want the full exception really!
-//Exception         : {exception}";
+            //Exception         : {exception}";
         }
     }
 }

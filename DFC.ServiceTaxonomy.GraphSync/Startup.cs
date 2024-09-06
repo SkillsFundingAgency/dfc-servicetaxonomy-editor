@@ -33,7 +33,6 @@ using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts.Flow;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts.Form;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts.Taxonomy;
 using DFC.ServiceTaxonomy.GraphSync.Handlers;
-using DFC.ServiceTaxonomy.GraphSync.Handlers.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.Indexes;
 using DFC.ServiceTaxonomy.GraphSync.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.Interfaces.Queries;
@@ -47,7 +46,6 @@ using DFC.ServiceTaxonomy.GraphSync.Recipes.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.Services;
 using DFC.ServiceTaxonomy.GraphSync.Services.Interface;
 using DFC.ServiceTaxonomy.GraphSync.Settings;
-using DFC.ServiceTaxonomy.Slack;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Azure.Cosmos;
@@ -157,8 +155,7 @@ namespace DFC.ServiceTaxonomy.GraphSync
             services.AddTransient<IDeleteOrchestrator, DeleteOrchestrator>();
             services.AddTransient<ISyncOrchestrator, SyncOrchestrator>();
             services.AddTransient<IContentTypeOrchestrator, ContentTypeOrchestrator>();
-            services.AddTransient<IContentOrchestrationHandler, EventGridPublishingHandler>();
-
+            
             // syncers
             services.AddTransient<IMergeGraphSyncer, MergeGraphSyncer>();
             services.AddTransient<IDeleteGraphSyncer, DeleteGraphSyncer>();
@@ -231,9 +228,6 @@ namespace DFC.ServiceTaxonomy.GraphSync
             // Whilst needed for Neo4j, an alternative approach of validating and correcting for Cosmos DB is safer 
             // navigation
             //services.AddScoped<INavigationProvider, AdminMenu>();
-
-            //slack message publishing
-            services.AddSlackMessagePublishing(_configuration, true);
 
             //GraphQL GraphSync Expose
             services.AddInputObjectGraphType<GraphSyncPart, GraphSyncPartInputObjectType>();

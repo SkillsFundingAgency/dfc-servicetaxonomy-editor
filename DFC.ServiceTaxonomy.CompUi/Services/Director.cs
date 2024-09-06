@@ -122,5 +122,10 @@ namespace DFC.ServiceTaxonomy.CompUi.Services
         {
             await _builder.InvalidateSkillsAsync(processing);
         }
+
+        public async Task ProcessTaxonomyAsync(Processing processing)
+        {
+            await _builder.InvalidateTaxonomyAsync(processing);
+        }
     }
 }

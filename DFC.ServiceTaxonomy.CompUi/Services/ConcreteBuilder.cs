@@ -520,6 +520,13 @@ namespace DFC.ServiceTaxonomy.CompUi.Services
             }
         }
 
+        public async Task InvalidateTaxonomyAsync(Processing processing)
+        {
+                var success = await _sharedContentRedisInterface.InvalidateEntityAsync(ApplicationKeys.PageLocationSuffix, "PUBLISHED");
+                success = await _sharedContentRedisInterface.InvalidateEntityAsync(ApplicationKeys.PageLocationSuffix, "DRAFT");
+            LogCacheKeyInvalidation(processing, ApplicationKeys.SkillsAll, processing.FilterType, success);
+        }
+
         private async Task<IEnumerable<NodeItem>?> GetDataAsync(int contentItemId, int latest, int published)
         {
             var sql = $"SELECT DISTINCT GSPI.NodeId, D.Content " +
