@@ -64,8 +64,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DFC.ServiceTaxonomy.JobProf
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DFC.ServiceTaxonomy.DataAccess", "DFC.ServiceTaxonomy.DataAccess\DFC.ServiceTaxonomy.DataAccess.csproj", "{7035AE45-E57E-4293-9008-3E5564F533C7}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DFC.ServiceTaxonomy.IntegrationTests", "DFC.ServiceTaxonomy.IntegrationTests\DFC.ServiceTaxonomy.IntegrationTests.csproj", "{43E8F9E2-D8AE-4EE0-8611-448C04DD7A69}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DFC.ServiceTaxonomy.JobProfiles.DataTransfer", "DFC.ServiceTaxonomy.JobProfiles.DataTransfer\DFC.ServiceTaxonomy.JobProfiles.DataTransfer.csproj", "{21DCBE61-94A1-428F-B80A-B585904ECF11}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DFC.ServiceTaxonomy.CompUi", "DFC.ServiceTaxonomy.CompUi\DFC.ServiceTaxonomy.CompUi.csproj", "{05F30801-D861-421A-B135-4B3E0E34EB6A}"
@@ -199,12 +197,6 @@ Global
 		{7035AE45-E57E-4293-9008-3E5564F533C7}.Development|Any CPU.Build.0 = Debug|Any CPU
 		{7035AE45-E57E-4293-9008-3E5564F533C7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7035AE45-E57E-4293-9008-3E5564F533C7}.Release|Any CPU.Build.0 = Release|Any CPU
-		{43E8F9E2-D8AE-4EE0-8611-448C04DD7A69}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{43E8F9E2-D8AE-4EE0-8611-448C04DD7A69}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{43E8F9E2-D8AE-4EE0-8611-448C04DD7A69}.Development|Any CPU.ActiveCfg = Debug|Any CPU
-		{43E8F9E2-D8AE-4EE0-8611-448C04DD7A69}.Development|Any CPU.Build.0 = Debug|Any CPU
-		{43E8F9E2-D8AE-4EE0-8611-448C04DD7A69}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{43E8F9E2-D8AE-4EE0-8611-448C04DD7A69}.Release|Any CPU.Build.0 = Release|Any CPU
 		{21DCBE61-94A1-428F-B80A-B585904ECF11}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{21DCBE61-94A1-428F-B80A-B585904ECF11}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{21DCBE61-94A1-428F-B80A-B585904ECF11}.Development|Any CPU.ActiveCfg = Debug|Any CPU
@@ -247,7 +239,6 @@ Global
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{248782F2-4F59-4EC6-8403-7BC6235863E1} = {1C39E2DF-6511-4179-BA7C-2A12DBC963E3}
-		{43E8F9E2-D8AE-4EE0-8611-448C04DD7A69} = {1C39E2DF-6511-4179-BA7C-2A12DBC963E3}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B38FA84A-9199-474F-B57A-D4E40B208A6F}
