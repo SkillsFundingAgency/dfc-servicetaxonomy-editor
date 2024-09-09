@@ -3,7 +3,6 @@ using System.Diagnostics;
 using System.Text.RegularExpressions;
 using DFC.Common.SharedContent.Pkg.Netcore.Constant;
 using DFC.Common.SharedContent.Pkg.Netcore.Interfaces;
-using DFC.Common.SharedContent.Pkg.Netcore.Model.Response;
 using DFC.ServiceTaxonomy.CompUi.AppRegistry;
 using DFC.ServiceTaxonomy.CompUi.Dapper;
 using DFC.ServiceTaxonomy.CompUi.Enums;
