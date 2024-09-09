@@ -87,12 +87,6 @@ stages:
       inputs:
         targetPath: $(SolutionBaseName).Editor\AppSettingsArtifact\
         artifactName: $(SolutionBaseName).Editor.AppSettings
-    - template: AzureDevOpsTemplates\Build\StepTemplates\dfc-dotnetcore-build-notests.yml@dfc-devops
-      parameters:
-        SolutionBaseName: $(SolutionBaseName).IntegrationTests
-        BuildPlatform: 'any cpu'
-        BuildConfiguration: 'release'
-        GitVersionVersion: 5.12.x
 
     - task: NuGetToolInstaller@1
       inputs:
