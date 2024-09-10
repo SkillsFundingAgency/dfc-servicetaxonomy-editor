@@ -18,7 +18,7 @@
   "homepage": "https://github.com/SkillsFundingAgency/dfc-servicetaxonomy-editor#readme",
   "devDependencies": {
     "del": "^5.1.0",
-    "gulp": "^4.0.2",
+    "gulp": "^5.0.0",
     "gulp-csso": "^4.0.1",
     "gulp-dart-sass": "^1.0.2",
     "gulp-rename": "^2.0.0",
