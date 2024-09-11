@@ -12,7 +12,6 @@ using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using OrchardCore.BackgroundTasks;
-using OrchardCore.ContentManagement;
 using OrchardCore.ContentManagement.Handlers;
 using OrchardCore.Data.Migration;
 using OrchardCore.Modules;
@@ -43,10 +42,10 @@ namespace DFC.ServiceTaxonomy.CompUi
             services.AddSingleton<IBackgroundQueue<Processing>, BackgroundQueue<Processing>>();
             services.AddSingleton<IBackgroundItemQueueMonitor, BackgroundItemQueueMonitor>();
             services.AddSingleton<IJobProfileCacheRefresh, JobProfileCacheRefresh>();
+            services.AddScoped<IEventGridHandler, EventGridHandler>();
 
             services.AddScoped<IDirector, Director>();
             services.AddScoped<IBuilder, ConcreteBuilder>();
-
         }
 
         public override void Configure(IApplicationBuilder builder, IEndpointRouteBuilder routes, IServiceProvider serviceProvider)

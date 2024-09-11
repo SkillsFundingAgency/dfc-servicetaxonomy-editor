@@ -24,7 +24,7 @@ namespace DFC.ServiceTaxonomy.CompUi.BackgroundTask.Activity
         {
             try
             {
-                var current = JsonConvert.DeserializeObject<Page>(processing.CurrentContent);
+                var current = JsonConvert.DeserializeObject<ContentItem>(processing.CurrentContent);
                 var fullUrl = current?.PageLocationParts?.FullUrl;
                 var filter = processing.FilterType?.ToString() ?? "PUBLISHED";
 

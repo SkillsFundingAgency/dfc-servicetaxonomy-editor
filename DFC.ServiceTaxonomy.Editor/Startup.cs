@@ -10,6 +10,7 @@ using DFC.Common.SharedContent.Pkg.Netcore.RequestHandler;
 using DFC.ServiceTaxonomy.Content.Configuration;
 using DFC.ServiceTaxonomy.CustomEditor.Configuration;
 using DFC.ServiceTaxonomy.Editor.Security;
+using DfE.NCS.Framework.Event.Extension;
 using GraphQL.Client.Abstractions;
 using GraphQL.Client.Http;
 using GraphQL.Client.Serializer.Newtonsoft;
@@ -116,6 +117,8 @@ namespace DFC.ServiceTaxonomy.Editor
             services.AddStackExchangeRedisCache(options => { options.Configuration = Configuration.GetSection(RedisCacheConnectionStringAppSettings).Get<string>(); });
             services.AddSingleton<ISharedContentRedisInterfaceStrategyFactory, SharedContentRedisStrategyFactory>();
             services.AddSingleton<ISharedContentRedisInterface, SharedContentRedis>();
+
+            services.AddNcsEventGridServices(Configuration);
 
             services.PostConfigure(SetupMediaConfig());
         }

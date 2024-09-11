@@ -229,6 +229,12 @@
         },
         "CmsSqlApiUrl": {
             "value": "__StaxGraphqlSqlApiUrl__"
+        },
+        "EventGridTopicEndPointUrl": {
+            "value": "__EventGridTopicEndPointUrl__"
+        },
+        "EventGridTopicAccessKey": {
+            "value": "__EventGridTopicAccessKey__"
         }
     }
 }

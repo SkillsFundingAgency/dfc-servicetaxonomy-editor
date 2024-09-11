@@ -229,6 +229,12 @@
         },
         "CmsSqlApiUrl": {
           "value": "http://url"
+        },
+        "EventGridTopicEndPointUrl": {
+            "value": "http://url"
+        },
+        "EventGridTopicAccessKey": {
+            "value": "accesskey"
         }
     }
 }
