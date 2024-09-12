@@ -8,24 +8,33 @@
 @inject IAuthorizationService AuthorizationService
 @inject IOptions<PagesConfiguration> PagesConfig
 @inject IOptions<JobProfilesConfiguration> JobProfilesConfig
+@inject IOptions<FooterConfiguration> FooterConfig
+@inject IOptions<HeaderConfiguration> HeaderConfig
 
 @{
     ContentItem contentItem = Model.ContentItem;
     var previewId = Guid.NewGuid();
     var hasPreviewPermission = await AuthorizationService.AuthorizeAsync(User, CommonPermissions.PreviewContent, contentItem);
-    var isPreviewRequired = contentItem.ContentType == ContentTypes.Page || contentItem.ContentType == ContentTypes.JobProfile;
+    var isPreviewRequired = contentItem.ContentType == ContentTypes.Page || contentItem.ContentType == ContentTypes.JobProfile || contentItem.ContentType == ContentTypes.Footer || contentItem.ContentType == ContentTypes.Header;
 }
 
 @if (isPreviewRequired)
 {
-    var previewURI = contentItem.ContentType == ContentTypes.Page ? PagesConfig.Value.PreviewAppPrefix : JobProfilesConfig.Value.PreviewAppPrefix;
-    string url = contentItem.Content[nameof(PageLocationPart)][nameof(PageLocationPart.FullUrl)];
+    var previewURI = contentItem.ContentType switch
+    {
+        ContentTypes.Page => string.Concat(PagesConfig.Value.PreviewAppPrefix, contentItem.Content[nameof(PageLocationPart)][nameof(PageLocationPart.FullUrl)]),
+        ContentTypes.JobProfile => string.Concat(JobProfilesConfig.Value.PreviewAppPrefix, contentItem.Content[nameof(PageLocationPart)][nameof(PageLocationPart.FullUrl)]),
+        ContentTypes.Header => HeaderConfig.Value.PreviewAppPrefix,
+        ContentTypes.Footer => FooterConfig.Value.PreviewAppPrefix,
+        _ => string.Empty
+    };
+
     bool allowPagePreview = !string.IsNullOrWhiteSpace(contentItem.ContentItemVersionId) && contentItem.HasDraft();
 
     <div class="btn-group btn-group-approval">
         @if (allowPagePreview)
         {
-            <a href="@($"{previewURI}{url}")" target="_blank" class="btn btn-info">@T["Preview draft"]</a>
+            <a href="@($"{previewURI}")" target="_blank" class="btn btn-info">@T["Preview draft"]</a>
         }
         else
         {
@@ -40,7 +49,7 @@ else
         <a id="previewButton" target="_blank" class="btn btn-info" href="@Url.Action("Index", "Preview", new {area = "OrchardCore.ContentPreview", id = previewId})">@T["Preview"]</a>
     }
 
-    <div id="renderPreviewUrl" style="display: none" data-value="@Url.Action("Render", "Preview", new {area = "OrchardCore.ContentPreview"})"></div>
+    <div id="renderPreviewUrl" style="display: none" data-value="@Url.Action("Render", "Preview", new { area = "OrchardCore.ContentPreview" })"></div>
     <div id="contentItemType" style="display: none" data-value="@Model.ContentItem.ContentType"></div>
     <div id="previewId" style="display: none" data-value="@previewId"></div>
     <div id="previewContentItemId" style="display: none" data-value="@Model.ContentItem.ContentItemId"></div>

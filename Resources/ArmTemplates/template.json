@@ -105,6 +105,18 @@
         "JobProfilePreviewAppPrefix": {
             "type": "string"
         },
+        "HeaderPublishedAppPrefix": {
+            "type": "string"
+        },
+        "HeaderPreviewAppPrefix": {
+            "type": "string"
+        },
+        "FooterPublishedAppPrefix": {
+            "type": "string"
+        },
+        "FooterPreviewAppPrefix": {
+            "type": "string"
+        },
         "Neo4jEndpoints0Enabled": {
             "type": "bool"
         },
@@ -470,6 +482,22 @@
                             {
                                 "name": "JobProfiles__PreviewAppPrefix",
                                 "value": "[parameters('JobProfilePreviewAppPrefix')]"
+                            },
+                            {
+                                "name": "Header__PublishedAppPrefix",
+                                "value": "[parameters('HeaderPublishedAppPrefix')]"
+                            },
+                            {
+                                "name": "Header__PreviewAppPrefix",
+                                "value": "[parameters('HeaderPreviewAppPrefix')]"
+                            },
+                            {
+                                "name": "Footer__PublishedAppPrefix",
+                                "value": "[parameters('FooterPublishedAppPrefix')]"
+                            },
+                            {
+                                "name": "Footer__PreviewAppPrefix",
+                                "value": "[parameters('FooterPreviewAppPrefix')]"
                             },
                             {
                                 "name": "OrchardCore__OrchardCore_Media_Azure__ConnectionString",
