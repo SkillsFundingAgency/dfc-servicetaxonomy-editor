@@ -89,6 +89,18 @@
         "JobProfilePreviewAppPrefix": {
             "value": "https://localhost/"
         },
+        "HeaderPublishedAppPrefix": {
+            "value": "https://localhost/"
+        },
+        "HeaderPreviewAppPrefix": {
+            "value": "https://localhost/"
+        },
+        "FooterPublishedAppPrefix": {
+            "value": "https://localhost/"
+        },
+        "FooterPreviewAppPrefix": {
+            "value": "https://localhost/"
+        },
         "MediaAzureBlobConnectionString": {
             "value": "my-string"
         },
@@ -181,6 +193,12 @@
         },
         "CmsSqlApiUrl": {
           "value": "http://url"
+        },
+        "EventGridTopicEndPointUrl": {
+            "value": "http://url"
+        },
+        "EventGridTopicAccessKey": {
+            "value": "accesskey"
         }
     }
 }

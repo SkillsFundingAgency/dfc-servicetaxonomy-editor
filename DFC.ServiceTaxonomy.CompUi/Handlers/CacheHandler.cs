@@ -2,6 +2,7 @@ using AutoMapper;
 using DFC.ServiceTaxonomy.CompUi.Enums;
 using DFC.ServiceTaxonomy.CompUi.Interfaces;
 using DFC.ServiceTaxonomy.CompUi.Models;
+using DfE.NCS.Framework.Event.Model;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using OrchardCore.ContentManagement.Handlers;
@@ -15,6 +16,14 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
     private readonly IDirector _director;
     private readonly IBuilder _builder;
     private readonly IBackgroundQueue<Processing> _queue;
+    //private readonly IEventGridHandler _eventGridHandler;
+
+    //Temp list to allow certain content types to go through event grid process
+    private readonly List<string> eventGridContentTypes = new List<string>
+        {
+            "Footer",
+            "Header"
+        };
 
     public CacheHandler(
         ILogger<CacheHandler> logger,
@@ -54,10 +63,24 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
 
     public async Task ProcessPublishedAsync(PublishContentContext context)
     {
-        var processing = GetProcessingData(context, context.PreviousItem?.Content?.ToString() ?? context.ContentItem.Content.ToString(), ProcessingEvents.Published, FilterType.PUBLISHED);
+        var processing = GetProcessingData(context, context.PreviousItem?.Content?.ToString(), ProcessingEvents.Published, FilterType.PUBLISHED);
 
         await base.PublishedAsync(context);
 
+        //Temp check to see if the published items content type matches any of the allowed items in the list
+        //temp commented out whilst event grid is unavailable for env's
+      /*  if(eventGridContentTypes.Any(contentType => context.ContentItem.ContentType.Contains(contentType)))
+        {
+            if (context.PreviousItem == null)
+            {
+                await _eventGridHandler.SendEventMessageAsync(processing, ContentEventType.StaxCreate);
+            }
+            else
+            {
+                await _eventGridHandler.SendEventMessageAsync(processing, ContentEventType.StaxUpdate);
+            }
+        }*/
+       
         await ProcessItem(processing);
 
         if (processing.ContentType == ContentTypes.JobProfile.ToString())
@@ -189,8 +212,8 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
     {
         if (contentType == ContentTypes.JobProfile.ToString())
         {
-            var current = JsonConvert.DeserializeObject<Page>(currentContent);
-            var previous = JsonConvert.DeserializeObject<Page>(previousContent);
+            var current = JsonConvert.DeserializeObject<ContentItem>(currentContent);
+            var previous = JsonConvert.DeserializeObject<ContentItem>(previousContent);
 
             if (previous?.PageLocationParts != null || current.PageLocationParts != null)
             {

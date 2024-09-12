@@ -81,6 +81,18 @@
         "JobProfilePreviewAppPrefix": {
             "type": "string"
         },
+        "HeaderPublishedAppPrefix": {
+            "type": "string"
+        },
+        "HeaderPreviewAppPrefix": {
+            "type": "string"
+        },
+        "FooterPublishedAppPrefix": {
+            "type": "string"
+        },
+        "FooterPreviewAppPrefix": {
+            "type": "string"
+        },
         "MediaAzureBlobConnectionString": {
             "type": "securestring"
         },
@@ -188,6 +200,12 @@
         },
         "CmsSqlApiUrl": {
         "type": "string"
+        },
+        "EventGridTopicEndPointUrl": {
+            "type": "string"
+        },
+        "EventGridTopicAccessKey": {
+            "type": "securestring"
         }
     },
     "variables": {
@@ -338,6 +356,22 @@
                                 "value": "[parameters('JobProfilePreviewAppPrefix')]"
                             },
                             {
+                                "name": "Header__PublishedAppPrefix",
+                                "value": "[parameters('HeaderPublishedAppPrefix')]"
+                            },
+                            {
+                                "name": "Header__PreviewAppPrefix",
+                                "value": "[parameters('HeaderPreviewAppPrefix')]"
+                            },
+                            {
+                                "name": "Footer__PublishedAppPrefix",
+                                "value": "[parameters('FooterPublishedAppPrefix')]"
+                            },
+                            {
+                                "name": "Footer__PreviewAppPrefix",
+                                "value": "[parameters('FooterPreviewAppPrefix')]"
+                            },
+                            {
                                 "name": "OrchardCore__OrchardCore_Media_Azure__ConnectionString",
                                 "value": "[parameters('MediaAzureBlobConnectionString')]"
                             },
@@ -472,6 +506,14 @@
                             {
                                 "name": "Cms__SqlApiUrl",
                                 "value": "[parameters('CmsSqlApiUrl')]"
+                            },
+                            {
+                                "name": "EventGrid__TopicEndPointUrl",
+                                "value": "[parameters('EventGridTopicEndPointUrl')]"
+                            },
+                            {
+                                "name": "EventGrid__TopicAccessKey",
+                                "value": "[parameters('EventGridTopicAccessKey')]"
                             }
                         ]
                     }

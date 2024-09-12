@@ -77,6 +77,18 @@
         "JobProfilePreviewAppPrefix": {
             "value": "__JobProfilePreviewAppPrefix__"
         },
+        "HeaderPublishedAppPrefix": {
+            "value": "__HeaderPublishedAppPrefix__"
+        },
+        "HeaderPreviewAppPrefix": {
+            "value": "__HeaderPreviewAppPrefix__"
+        },
+        "FooterPublishedAppPrefix": {
+            "value": "__FooterPublishedAppPrefix__"
+        },
+        "FooterPreviewAppPrefix": {
+            "value": "__FooterPreviewAppPrefix__"
+        },
         "MediaAzureBlobConnectionString": {
             "value": "__MediaAzureBlobConnectionString__"
         },
@@ -181,6 +193,12 @@
         },
         "CmsSqlApiUrl": {
             "value": "__StaxGraphqlSqlApiUrl__"
+        },
+        "EventGridTopicEndPointUrl": {
+            "value": "__EventGridTopicEndPointUrl__"
+        },
+        "EventGridTopicAccessKey": {
+            "value": "__EventGridTopicAccessKey__"
         }
     }
 }
