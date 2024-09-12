@@ -1,6 +1,5 @@
 ﻿using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.Migration.Migrations;
-using FluentAssertions;
 using Microsoft.Extensions.Logging;
 using Moq;
 using OrchardCore.Data.Migration;
@@ -26,7 +25,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.Migrations
 
             //Assert
             recipeMigrator.Verify(service => service.ExecuteAsync(It.IsAny<string>(), It.IsAny<IDataMigration>()), Times.Exactly(2));
-            result.Should().Be(1);
+            result.Equals(1);
         }
 
         [Fact]
@@ -41,7 +40,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.Migrations
 
             //Assert
             recipeMigrator.Verify(service => service.ExecuteAsync(It.IsAny<string>(), It.IsAny<IDataMigration>()), Times.Exactly(2));
-            result.Should().Be(2);
+            result.Equals(2);
         }
     }
 }

@@ -23,7 +23,6 @@ namespace DFC.ServiceTaxonomy.UnitTests.CompUi
         private readonly IDapperWrapper _fakeDapperWrapper;
         private readonly ICacheHandler _fakeCacheHandler;
         private readonly ISharedContentRedisInterface _fakeSharedContentRedisInterface;
-        private readonly IEventGridHandler _eventGridHandler;
         public readonly CacheHandler _concreteCacheHander;
         public readonly IMapper _mapper;
         public readonly IBuilder _fakeBuilder;
@@ -39,10 +38,9 @@ namespace DFC.ServiceTaxonomy.UnitTests.CompUi
             _fakeBuilder = A.Fake<IBuilder>();
             _mapper = A.Fake<IMapper>();
             _fakeDirector = A.Fake<IDirector>();
-            _eventGridHandler = A.Fake<IEventGridHandler>();
             _fakeBackgroundQueue = A.Fake<IBackgroundQueue<Processing>>();
-            _fakeCacheHandler = new CacheHandler(_fakeLogger, _mapper, _fakeDirector, _fakeBuilder, _fakeBackgroundQueue, _eventGridHandler);
-            _concreteCacheHander = new CacheHandler(_fakeLogger, _mapper, _fakeDirector, _fakeBuilder, _fakeBackgroundQueue, _eventGridHandler);
+            _fakeCacheHandler = new CacheHandler(_fakeLogger, _mapper, _fakeDirector, _fakeBuilder, _fakeBackgroundQueue);
+            _concreteCacheHander = new CacheHandler(_fakeLogger, _mapper, _fakeDirector, _fakeBuilder, _fakeBackgroundQueue);
         }
 
         #region Publish Tests       
