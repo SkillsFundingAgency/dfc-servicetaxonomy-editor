@@ -3,6 +3,7 @@ using DFC.ServiceTaxonomy.CompUi.Enums;
 using DFC.ServiceTaxonomy.CompUi.Interfaces;
 using DFC.ServiceTaxonomy.CompUi.Models;
 using DfE.NCS.Framework.Event.Model;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using OrchardCore.ContentManagement.Handlers;
@@ -17,16 +18,10 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
     private readonly IBuilder _builder;
     private readonly IBackgroundQueue<Processing> _queue;
     private readonly IEventGridHandler _eventGridHandler;
+    private readonly IConfiguration _configuration;
 
-    private readonly List<string> eventGridContentTypes = new List<string>
-        {
-            "Footer",
-            "Header",
-            "Page",
-            "SharedContent",
-            "Banner",
-            "PageBanner"
-        };
+    private const string eventGridAccessAppSettings = "EventGridAllowedContentList";
+    private List<string> eventGridContentTypes;
 
     public CacheHandler(
         ILogger<CacheHandler> logger,
@@ -34,7 +29,8 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
         IDirector director,
         IBuilder builder,
         IBackgroundQueue<Processing> queue,
-        IEventGridHandler eventGridHandler
+        IEventGridHandler eventGridHandler,
+        IConfiguration configuration
         )
     {
         _logger = logger;
@@ -44,6 +40,9 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
         _director.Builder = _builder;
         _queue = queue;
         _eventGridHandler = eventGridHandler;
+        _configuration = configuration;
+
+        eventGridContentTypes = _configuration.GetSection(eventGridAccessAppSettings).Get<List<string>>() ?? new List<string>();
     }
 
     public override async Task PublishedAsync(PublishContentContext context)
