@@ -21,14 +21,9 @@ namespace DFC.ServiceTaxonomy.CompUi.Indexes
         public override void Describe(DescribeContext<ContentItem> context)
         {
             context.For<CompUiModels.RelatedContentItemIndex>()
-            .When(contentItem => Enum.IsDefined(typeof(ContentTypes), contentItem.ContentType))
+                .When(contentItem => RelatedContentTypes.Contains(contentItem.ContentType))
                 .Map(contentItem =>
                     {
-                        if (!RelatedContentTypes.Contains(contentItem.ContentType))
-                        {
-                            return default!;
-                        }
-
                         if (!contentItem.Published && !contentItem.Latest)
                         {
                             return default!;
