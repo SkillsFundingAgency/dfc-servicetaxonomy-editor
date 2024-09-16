@@ -43,8 +43,7 @@ namespace DFC.ServiceTaxonomy.CompUi
             services.AddSingleton<IBackgroundItemQueueMonitor, BackgroundItemQueueMonitor>();
             services.AddSingleton<IJobProfileCacheRefresh, JobProfileCacheRefresh>();
 
-            //Temp commented out while event grid in env's are unavailable
-            //services.AddScoped<IEventGridHandler, EventGridHandler>();
+            services.AddScoped<IEventGridHandler, EventGridHandler>();
 
             services.AddScoped<IDirector, Director>();
             services.AddScoped<IBuilder, ConcreteBuilder>();

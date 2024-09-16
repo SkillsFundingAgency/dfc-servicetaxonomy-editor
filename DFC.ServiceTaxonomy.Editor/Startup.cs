@@ -10,6 +10,7 @@ using DFC.Common.SharedContent.Pkg.Netcore.RequestHandler;
 using DFC.ServiceTaxonomy.Content.Configuration;
 using DFC.ServiceTaxonomy.CustomEditor.Configuration;
 using DFC.ServiceTaxonomy.Editor.Security;
+using DfE.NCS.Framework.Event.Extension;
 using GraphQL.Client.Abstractions;
 using GraphQL.Client.Http;
 using GraphQL.Client.Serializer.Newtonsoft;
@@ -117,8 +118,7 @@ namespace DFC.ServiceTaxonomy.Editor
             services.AddSingleton<ISharedContentRedisInterfaceStrategyFactory, SharedContentRedisStrategyFactory>();
             services.AddSingleton<ISharedContentRedisInterface, SharedContentRedis>();
 
-            //Temp commented out while event grid in env's are unavailable
-            //services.AddNcsEventGridServices(Configuration);
+            services.AddNcsEventGridServices(Configuration);
 
             services.PostConfigure(SetupMediaConfig());
         }

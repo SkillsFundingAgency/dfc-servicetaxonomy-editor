@@ -16,13 +16,16 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
     private readonly IDirector _director;
     private readonly IBuilder _builder;
     private readonly IBackgroundQueue<Processing> _queue;
-    //private readonly IEventGridHandler _eventGridHandler;
+    private readonly IEventGridHandler _eventGridHandler;
 
-    //Temp list to allow certain content types to go through event grid process
     private readonly List<string> eventGridContentTypes = new List<string>
         {
             "Footer",
-            "Header"
+            "Header",
+            "Page",
+            "SharedContent",
+            "Banner",
+            "PageBanner"
         };
 
     public CacheHandler(
@@ -30,7 +33,8 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
         IMapper mapper,
         IDirector director,
         IBuilder builder,
-        IBackgroundQueue<Processing> queue
+        IBackgroundQueue<Processing> queue,
+        IEventGridHandler eventGridHandler
         )
     {
         _logger = logger;
@@ -39,6 +43,7 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
         _builder = builder;
         _director.Builder = _builder;
         _queue = queue;
+        _eventGridHandler = eventGridHandler;
     }
 
     public override async Task PublishedAsync(PublishContentContext context)
@@ -68,8 +73,7 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
         await base.PublishedAsync(context);
 
         //Temp check to see if the published items content type matches any of the allowed items in the list
-        //temp commented out whilst event grid is unavailable for env's
-      /*  if(eventGridContentTypes.Any(contentType => context.ContentItem.ContentType.Contains(contentType)))
+        if (eventGridContentTypes.Any(contentType => context.ContentItem.ContentType.Contains(contentType)))
         {
             if (context.PreviousItem == null)
             {
@@ -79,8 +83,8 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
             {
                 await _eventGridHandler.SendEventMessageAsync(processing, ContentEventType.StaxUpdate);
             }
-        }*/
-       
+        }
+
         await ProcessItem(processing);
 
         if (processing.ContentType == ContentTypes.JobProfile.ToString())
