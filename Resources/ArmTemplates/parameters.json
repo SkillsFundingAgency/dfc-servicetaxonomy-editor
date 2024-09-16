@@ -57,7 +57,10 @@
             "value": "__ContentApiAddress__"
         },
         "PreviewContentApiPrefix": {
-            "value": "__PreviewContentApiPrefix__"
+             "value": "__PreviewContentApiPrefix__"
+        },
+        "RelatedContentItemIndexTypes": {
+            "value": "__RelatedContentItemIndexTypes__"
         },
         "appSharedCosmosEndpointUrl": {
             "value": "__appSharedCosmosEndpointUrl__"

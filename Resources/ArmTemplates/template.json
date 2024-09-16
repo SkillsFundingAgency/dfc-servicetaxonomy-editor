@@ -63,6 +63,9 @@
         "PreviewContentApiPrefix": {
             "type": "string"
         },
+        "RelatedContentItemIndexTypes": {
+            "type": "string"
+        },
         "appSharedCosmosEndpointUrl": {
             "type": "string"
         },
@@ -330,6 +333,10 @@
                             {
                                 "name": "PreviewContentApiPrefix",
                                 "value": "[concat(parameters('PreviewContentApiPrefix'), '/api/Execute')]"
+                            },
+                            {
+                                "name": "RelatedContentItemIndexTypes",
+                                "value": "[parameters('RelatedContentItemIndexTypes')]"
                             },
                             {
                                 "name": "EventStoreUrl",
