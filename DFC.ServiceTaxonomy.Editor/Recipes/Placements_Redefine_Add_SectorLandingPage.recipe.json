@@ -303,6 +303,17 @@
                         ]
                     },
                     {
+                        "place": "Parts:3#Profiles;3",
+                        "displayType": null,
+                        "differentiator": "SectorLandingPage-FurtherInspiration",
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null,
+                        "contentType": [
+                            "SectorLandingPage"
+                        ]
+                    },
+                    {
                         "place": "Parts:5#Profiles;2",
                         "displayType": null,
                         "differentiator": "SectorLandingPage-JobProfileInspirationDescription",
@@ -325,9 +336,9 @@
                         ]
                     },
                     {
-                        "place": "Parts:3#Story;3",
+                        "place": "Parts:4#Story;4",
                         "displayType": null,
-                        "differentiator": "SectorLandingPage-RealStoryImage",
+                        "differentiator": "SectorLandingPage-ExploreAllSectors",
                         "alternates": null,
                         "wrappers": null,
                         "shape": null,
@@ -1208,6 +1219,17 @@
                         "place": "Parts:4#Video;1",
                         "displayType": null,
                         "differentiator": "SectorLandingPage-VideoImage",
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null,
+                        "contentType": [
+                            "SectorLandingPage"
+                        ]
+                    },
+                    {
+                        "place": "Parts:3#Story;3",
+                        "displayType": null,
+                        "differentiator": "SectorLandingPage-RealStoryImage",
                         "alternates": null,
                         "wrappers": null,
                         "shape": null,

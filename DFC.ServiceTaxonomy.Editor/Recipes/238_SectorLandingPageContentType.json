@@ -37,24 +37,6 @@
                             }
                         },
                         {
-                            "PartName": "AuditTrailPart",
-                            "Name": "AuditTrailPart",
-                            "Settings": {
-                                "ContentTypePartSettings": {
-                                    "Position": "7"
-                                }
-                            }
-                        },
-                        {
-                            "PartName": "ContentApprovalPart",
-                            "Name": "ContentApprovalPart",
-                            "Settings": {
-                                "ContentTypePartSettings": {
-                                    "Position": "2"
-                                }
-                            }
-                        },
-                        {
                             "PartName": "GraphSyncPart",
                             "Name": "GraphSyncPart",
                             "Settings": {
@@ -92,15 +74,6 @@
                             }
                         },
                         {
-                            "PartName": "SitemapPart",
-                            "Name": "SitemapPart",
-                            "Settings": {
-                                "ContentTypePartSettings": {
-                                    "Position": "6"
-                                }
-                            }
-                        },
-                        {
                             "PartName": "TitlePart",
                             "Name": "TitlePart",
                             "Settings": {
@@ -118,16 +91,6 @@
             ],
             "ContentParts": [
                 {
-                    "Name": "AuditTrailPart",
-                    "Settings": {
-                        "ContentPartSettings": {
-                            "Attachable": true,
-                            "Description": "Allows editors to enter a comment to be saved into the Audit Trail event when saving a content item."
-                        }
-                    },
-                    "ContentPartFieldDefinitionRecords": []
-                },
-                {
                     "Name": "TitlePart",
                     "Settings": {
                         "ContentPartSettings": {
@@ -144,26 +107,6 @@
                         "ContentPartSettings": {
                             "Attachable": true,
                             "Description": "Provides a way to define the url that is used to render your content item."
-                        }
-                    },
-                    "ContentPartFieldDefinitionRecords": []
-                },
-                {
-                    "Name": "ContentApprovalPart",
-                    "Settings": {
-                        "ContentPartSettings": {
-                            "Attachable": true,
-                            "Description": "Adds publishing status workflow properties to content items."
-                        }
-                    },
-                    "ContentPartFieldDefinitionRecords": []
-                },
-                {
-                    "Name": "SitemapPart",
-                    "Settings": {
-                        "ContentPartSettings": {
-                            "Attachable": true,
-                            "Description": "Provides an optional part that allows content items to be excluded, or configured, on a content item."
                         }
                     },
                     "ContentPartFieldDefinitionRecords": []
@@ -193,21 +136,6 @@
                     "Settings": {},
                     "ContentPartFieldDefinitionRecords": [
                         {
-                            "FieldName": "HtmlField",
-                            "Name": "Image",
-                            "Settings": {
-                                "ContentPartFieldSettings": {
-                                    "DisplayName": "Image",
-                                    "Editor": "Trumbowyg",
-                                    "Position": "10"
-                                },
-                                "HtmlFieldSettings": {},
-                                "HtmlFieldTrumbowygEditorSettings": {
-                                    "Options": "{\r\n    semantic: {\r\n        'b': 'strong',\r\n        'i': 'em',\r\n        's': 'del',\r\n        'strike': 'del',\r\n        'div': 'div'\r\n    },\r\n    tagsToKeep: [\r\n      \"area\",\r\n      \"base\",\r\n      \"br\",\r\n      \"col\",\r\n      \"embed\",\r\n      \"hr\",\r\n      \"img\",\r\n      \"input\",\r\n      \"param\",\r\n      \"source\",\r\n      \"track\",\r\n      \"wbr\",\r\n\r\n      \"div\",\r\n      \"iframe\"\r\n    ],\r\n    autogrow: true,\r\n    btns: [\r\n        [\"viewHTML\"],\r\n        [\"undo\", \"redo\"],\r\n        [\"heading\", \"paragraph\", \"fontSize\"],\r\n        [\"fontWeight\"],\r\n        [\"foreColor\", \"backColor\"],\r\n        [\"links\"],\r\n        [\"image\"],\r\n        [\"align\"],\r\n        [\"list\", \"bulletList\", \"numberList\"],\r\n        [\"sectionBreak\"],\r\n        [\"removeformat\"],\r\n        [\"fullscreen\"],\r\n        [\"accordion\"],\r\n        [\"tabs\"]\r\n    ],\r\n    btnsDef: {\r\n        align: {\r\n            dropdown: [\"justifyLeft\", \"justifyCenter\", \"justifyRight\", \"justifyFull\"],\r\n            ico: \"justifyLeft\"\r\n        },\r\n        image: {\r\n            dropdown: [\"insertMedia\", \"base64\",\"youtubeLink\"],\r\n            ico: \"insertImage\"\r\n        }\r\n    },\r\n    plugins: {\r\n      colors: {\r\n          colorList: [\r\n            '0b0c0c',\r\n            '626a6e',\r\n            '1d70b8',\r\n            '003078',\r\n            '4c2c92',\r\n            'b1b4b6',\r\n            'ffdd00',\r\n            'd4351c',\r\n            \r\n            '003a69',\r\n            '347ca9',\r\n            \r\n            '00703c',\r\n            '5694ca',\r\n            'f3f2f1',\r\n            'ffffff',\r\n            '6f72af',\r\n            '912b88',\r\n            'd53880',\r\n            'f499be',\r\n            'f47738',\r\n            'b58840',\r\n            '85994b',\r\n            '28a197',\r\n          ]\r\n      }\r\n  }\r\n}"
-                                }
-                            }
-                        },
-                        {
                             "FieldName": "TextField",
                             "Name": "VideoType",
                             "Settings": {
@@ -217,7 +145,7 @@
                                     "Position": "11"
                                 },
                                 "TextFieldSettings": {
-                                    "Hint": "Specify 'None' to hide video on sector landing page."
+                                    "Hint": "Specify 'No video' to hide video on sector landing page."
                                 },
                                 "TextFieldPredefinedListEditorSettings": {
                                     "Options": [
@@ -240,31 +168,6 @@
                         },
                         {
                             "FieldName": "TextField",
-                            "Name": "VideoTitle",
-                            "Settings": {
-                                "ContentPartFieldSettings": {
-                                    "DisplayName": "Video title",
-                                    "Position": "12"
-                                }
-                            }
-                        },
-                        {
-                            "FieldName": "HtmlField",
-                            "Name": "VideoSummary",
-                            "Settings": {
-                                "ContentPartFieldSettings": {
-                                    "DisplayName": "Video summary",
-                                    "Editor": "Trumbowyg",
-                                    "Position": "13"
-                                },
-                                "HtmlFieldSettings": {},
-                                "HtmlFieldTrumbowygEditorSettings": {
-                                    "Options": "{\r\n    autogrow: true,\r\n    btns: [\r\n        [\"viewHTML\"],\r\n        [\"undo\", \"redo\"],\r\n        [\"formatting\"],\r\n        [\"strong\", \"em\", \"del\"],\r\n        [\"foreColor\", \"backColor\"],\r\n        [\"superscript\", \"subscript\"],\r\n        [\"link\"],\r\n        [\"insertShortcode\"],\r\n        [\"image\"],\r\n        [\"align\"],\r\n        [\"unorderedList\", \"orderedList\"],\r\n        [\"horizontalRule\"],\r\n        [\"removeformat\"],\r\n        [\"fullscreen\"]\r\n    ],\r\n    btnsDef: {\r\n        align: {\r\n            dropdown: [\"justifyLeft\", \"justifyCenter\", \"justifyRight\", \"justifyFull\"],\r\n            ico: \"justifyLeft\"\r\n        },\r\n        image: {\r\n            dropdown: [\"insertImage\", \"base64\", \"noembed\"],\r\n            ico: \"insertImage\"\r\n        }\r\n    }\r\n}"
-                                }
-                            }
-                        },
-                        {
-                            "FieldName": "TextField",
                             "Name": "VideoURL",
                             "Settings": {
                                 "ContentPartFieldSettings": {
@@ -273,21 +176,6 @@
                                     "Position": "14"
                                 },
                                 "TextFieldSettings": {}
-                            }
-                        },
-                        {
-                            "FieldName": "HtmlField",
-                            "Name": "VideoFurtherInformation",
-                            "Settings": {
-                                "ContentPartFieldSettings": {
-                                    "DisplayName": "Video further information",
-                                    "Editor": "Trumbowyg",
-                                    "Position": "15"
-                                },
-                                "HtmlFieldSettings": {},
-                                "HtmlFieldTrumbowygEditorSettings": {
-                                    "Options": "{\r\n    autogrow: true,\r\n    btns: [\r\n        [\"viewHTML\"],\r\n        [\"undo\", \"redo\"],\r\n        [\"formatting\"],\r\n        [\"strong\", \"em\", \"del\"],\r\n        [\"foreColor\", \"backColor\"],\r\n        [\"superscript\", \"subscript\"],\r\n        [\"link\"],\r\n        [\"insertShortcode\"],\r\n        [\"image\"],\r\n        [\"align\"],\r\n        [\"unorderedList\", \"orderedList\"],\r\n        [\"horizontalRule\"],\r\n        [\"removeformat\"],\r\n        [\"fullscreen\"]\r\n    ],\r\n    btnsDef: {\r\n        align: {\r\n            dropdown: [\"justifyLeft\", \"justifyCenter\", \"justifyRight\", \"justifyFull\"],\r\n            ico: \"justifyLeft\"\r\n        },\r\n        image: {\r\n            dropdown: [\"insertImage\", \"base64\", \"noembed\"],\r\n            ico: \"insertImage\"\r\n        }\r\n    }\r\n}"
-                                }
                             }
                         },
                         {
@@ -331,19 +219,6 @@
                             }
                         },
                         {
-                            "FieldName": "TextField",
-                            "Name": "WithinThisSectorTitle",
-                            "Settings": {
-                                "ContentPartFieldSettings": {
-                                    "DisplayName": "Within this sector Title",
-                                    "Position": "19"
-                                },
-                                "TextFieldSettings": {
-                                    "Required": true
-                                }
-                            }
-                        },
-                        {
                             "FieldName": "ContentPickerField",
                             "Name": "JobProfile",
                             "Settings": {
@@ -362,27 +237,15 @@
                             }
                         },
                         {
-                            "FieldName": "TextField",
-                            "Name": "RealStoryTitle",
-                            "Settings": {
-                                "ContentPartFieldSettings": {
-                                    "DisplayName": "Real story title",
-                                    "Position": "21"
-                                }
-                            }
-                        },
-                        {
-                            "FieldName": "HtmlField",
+                            "FieldName": "MediaField",
                             "Name": "RealStoryImage",
                             "Settings": {
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "Real story image",
-                                    "Editor": "Trumbowyg",
                                     "Position": "22"
                                 },
-                                "HtmlFieldSettings": {},
-                                "HtmlFieldTrumbowygEditorSettings": {
-                                    "Options": "{\r\n    semantic: {\r\n        'b': 'strong',\r\n        'i': 'em',\r\n        's': 'del',\r\n        'strike': 'del',\r\n        'div': 'div'\r\n    },\r\n    tagsToKeep: [\r\n      \"area\",\r\n      \"base\",\r\n      \"br\",\r\n      \"col\",\r\n      \"embed\",\r\n      \"hr\",\r\n      \"img\",\r\n      \"input\",\r\n      \"param\",\r\n      \"source\",\r\n      \"track\",\r\n      \"wbr\",\r\n\r\n      \"div\",\r\n      \"iframe\"\r\n    ],\r\n    autogrow: true,\r\n    btns: [\r\n        [\"viewHTML\"],\r\n        [\"undo\", \"redo\"],\r\n        [\"heading\", \"paragraph\", \"fontSize\"],\r\n        [\"fontWeight\"],\r\n        [\"foreColor\", \"backColor\"],\r\n        [\"links\"],\r\n        [\"image\"],\r\n        [\"align\"],\r\n        [\"list\", \"bulletList\", \"numberList\"],\r\n        [\"sectionBreak\"],\r\n        [\"removeformat\"],\r\n        [\"fullscreen\"],\r\n        [\"accordion\"],\r\n        [\"tabs\"]\r\n    ],\r\n    btnsDef: {\r\n        align: {\r\n            dropdown: [\"justifyLeft\", \"justifyCenter\", \"justifyRight\", \"justifyFull\"],\r\n            ico: \"justifyLeft\"\r\n        },\r\n        image: {\r\n            dropdown: [\"insertMedia\", \"base64\",\"youtubeLink\"],\r\n            ico: \"insertImage\"\r\n        }\r\n    },\r\n    plugins: {\r\n      colors: {\r\n          colorList: [\r\n            '0b0c0c',\r\n            '626a6e',\r\n            '1d70b8',\r\n            '003078',\r\n            '4c2c92',\r\n            'b1b4b6',\r\n            'ffdd00',\r\n            'd4351c',\r\n            \r\n            '003a69',\r\n            '347ca9',\r\n            \r\n            '00703c',\r\n            '5694ca',\r\n            'f3f2f1',\r\n            'ffffff',\r\n            '6f72af',\r\n            '912b88',\r\n            'd53880',\r\n            'f499be',\r\n            'f47738',\r\n            'b58840',\r\n            '85994b',\r\n            '28a197',\r\n          ]\r\n      }\r\n  }\r\n}"
+                                "MediaFieldSettings": {
+                                    "Multiple": false
                                 }
                             }
                         },
@@ -391,7 +254,7 @@
                             "Name": "ProfileDescription",
                             "Settings": {
                                 "ContentPartFieldSettings": {
-                                    "DisplayName": "Profile description",
+                                    "DisplayName": "Within this Sector",
                                     "Editor": "Trumbowyg",
                                     "Position": "7"
                                 },
@@ -406,7 +269,7 @@
                             "Name": "RealStoryDescription",
                             "Settings": {
                                 "ContentPartFieldSettings": {
-                                    "DisplayName": "Real story description",
+                                    "DisplayName": "Real careers story title and Intro",
                                     "Editor": "Trumbowyg",
                                     "Position": "8"
                                 },
@@ -421,9 +284,24 @@
                             "Name": "RealStoryImageDescription",
                             "Settings": {
                                 "ContentPartFieldSettings": {
-                                    "DisplayName": "Real story image description",
+                                    "DisplayName": "Real story text",
                                     "Editor": "Trumbowyg",
                                     "Position": "9"
+                                },
+                                "HtmlFieldSettings": {},
+                                "HtmlFieldTrumbowygEditorSettings": {
+                                    "Options": "{\r\n    autogrow: true,\r\n    btns: [\r\n        [\"viewHTML\"],\r\n        [\"undo\", \"redo\"],\r\n        [\"formatting\"],\r\n        [\"strong\", \"em\", \"del\"],\r\n        [\"foreColor\", \"backColor\"],\r\n        [\"superscript\", \"subscript\"],\r\n        [\"link\"],\r\n        [\"insertShortcode\"],\r\n        [\"image\"],\r\n        [\"align\"],\r\n        [\"unorderedList\", \"orderedList\"],\r\n        [\"horizontalRule\"],\r\n        [\"removeformat\"],\r\n        [\"fullscreen\"]\r\n    ],\r\n    btnsDef: {\r\n        align: {\r\n            dropdown: [\"justifyLeft\", \"justifyCenter\", \"justifyRight\", \"justifyFull\"],\r\n            ico: \"justifyLeft\"\r\n        },\r\n        image: {\r\n            dropdown: [\"insertImage\", \"base64\", \"noembed\"],\r\n            ico: \"insertImage\"\r\n        }\r\n    }\r\n}"
+                                }
+                            }
+                        },
+                        {
+                            "FieldName": "HtmlField",
+                            "Name": "ExploreAllSectors",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Explore all sectors",
+                                    "Editor": "Trumbowyg",
+                                    "Position": "10"
                                 },
                                 "HtmlFieldSettings": {},
                                 "HtmlFieldTrumbowygEditorSettings": {
@@ -438,22 +316,9 @@
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "Video Image",
                                     "Position": "6"
-                                }
-                            }
-                        },
-                        {
-                            "FieldName": "TextField",
-                            "Name": "AboutThisSector",
-                            "Settings": {
-                                "ContentPartFieldSettings": {
-                                    "DisplayName": "About this sector",
-                                    "Position": "5"
                                 },
-                                "TextFieldSettings": {
-                                    "Required": true
-                                },
-                                "TextFieldMonacoEditorSettings": {
-                                    "Options": "{\r\n  \"automaticLayout\": true\r\n}"
+                                "MediaFieldSettings": {
+                                    "Multiple": false
                                 }
                             }
                         },
@@ -477,9 +342,24 @@
                             "Name": "JobDescription",
                             "Settings": {
                                 "ContentPartFieldSettings": {
-                                    "DisplayName": "Job description",
+                                    "DisplayName": "View all careers CTA",
                                     "Editor": "Trumbowyg",
                                     "Position": "3"
+                                },
+                                "HtmlFieldSettings": {},
+                                "HtmlFieldTrumbowygEditorSettings": {
+                                    "Options": "{\r\n    autogrow: true,\r\n    btns: [\r\n        [\"viewHTML\"],\r\n        [\"undo\", \"redo\"],\r\n        [\"formatting\"],\r\n        [\"strong\", \"em\", \"del\"],\r\n        [\"foreColor\", \"backColor\"],\r\n        [\"superscript\", \"subscript\"],\r\n        [\"link\"],\r\n        [\"insertShortcode\"],\r\n        [\"image\"],\r\n        [\"align\"],\r\n        [\"unorderedList\", \"orderedList\"],\r\n        [\"horizontalRule\"],\r\n        [\"removeformat\"],\r\n        [\"fullscreen\"]\r\n    ],\r\n    btnsDef: {\r\n        align: {\r\n            dropdown: [\"justifyLeft\", \"justifyCenter\", \"justifyRight\", \"justifyFull\"],\r\n            ico: \"justifyLeft\"\r\n        },\r\n        image: {\r\n            dropdown: [\"insertImage\", \"base64\", \"noembed\"],\r\n            ico: \"insertImage\"\r\n        }\r\n    }\r\n}"
+                                }
+                            }
+                        },
+                        {
+                            "FieldName": "HtmlField",
+                            "Name": "FurtherInspiration",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Further Inspiration",
+                                    "Editor": "Trumbowyg",
+                                    "Position": "4"
                                 },
                                 "HtmlFieldSettings": {},
                                 "HtmlFieldTrumbowygEditorSettings": {
@@ -492,7 +372,7 @@
                             "Name": "Description",
                             "Settings": {
                                 "ContentPartFieldSettings": {
-                                    "DisplayName": "Description",
+                                    "DisplayName": "About this sector",
                                     "Editor": "Trumbowyg",
                                     "Position": "0"
                                 },
@@ -526,7 +406,7 @@
                             "Name": "JobProfileInspirationDescription",
                             "Settings": {
                                 "ContentPartFieldSettings": {
-                                    "DisplayName": "Job profile inspiration description",
+                                    "DisplayName": "Find out more",
                                     "Editor": "Trumbowyg",
                                     "Position": "2"
                                 },
