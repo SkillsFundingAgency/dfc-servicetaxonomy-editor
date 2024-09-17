@@ -11,11 +11,11 @@ namespace DFC.ServiceTaxonomy.CompUi.Indexes
     public class RelatedContentItemIndexProvider : IndexProvider<ContentItem>
     {
         private const string RelatedContentTypesAppSetting = "RelatedContentItemIndexTypes";
-        private string RelatedContentTypes;
+        private List<string> RelatedContentTypes;
 
         public RelatedContentItemIndexProvider(IConfiguration configuration)
         {
-            RelatedContentTypes = configuration.GetSection(RelatedContentTypesAppSetting).Get<string>();
+            RelatedContentTypes = configuration.GetSection(RelatedContentTypesAppSetting).Get<List<string>>() ?? [];
         }
 
         public override void Describe(DescribeContext<ContentItem> context)
