@@ -20,8 +20,11 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
     private readonly IEventGridHandler _eventGridHandler;
     private readonly IConfiguration _configuration;
 
-    private const string eventGridAccessAppSettings = "EventGridAllowedContentList";
+    //Temp config to retrieve allowed event grid confiugrations from app settings for allowing certain content types and pages through
+    private const string eventGridAllowedContentTypeSettings = "EventGridAllowedContentList";
+    private const string eventGridAllowedPageSettings = "EventGridAllowedPagesList";
     private List<string> eventGridContentTypes;
+    private List<string> eventGridAllowedPages;
 
     public CacheHandler(
         ILogger<CacheHandler> logger,
@@ -42,7 +45,8 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
         _eventGridHandler = eventGridHandler;
         _configuration = configuration;
 
-        eventGridContentTypes = _configuration.GetSection(eventGridAccessAppSettings).Get<List<string>>() ?? new List<string>();
+        eventGridContentTypes = _configuration.GetSection(eventGridAllowedContentTypeSettings).Get<List<string>>() ?? new List<string>();
+        eventGridAllowedPages = _configuration.GetSection(eventGridAllowedPageSettings).Get<List<string>>() ?? new List<string>();
     }
 
     public override async Task PublishedAsync(PublishContentContext context)
@@ -71,8 +75,17 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
 
         await base.PublishedAsync(context);
 
+        //Temp check to filter pages by certain allowed url's/titles
+        var current = JsonConvert.DeserializeObject<ContentItem>(processing.CurrentContent);
+        bool isFACPage = true;
+
+        if (context.ContentItem.ContentType == "Page" && !eventGridAllowedPages.Any(pageUrl => current?.PageLocationParts?.FullUrl.Contains(pageUrl)))
+        {
+            isFACPage = false;
+        }
+
         //Temp check to see if the published items content type matches any of the allowed items in the list
-        if (eventGridContentTypes.Any(contentType => context.ContentItem.ContentType.Contains(contentType)))
+        if (eventGridContentTypes.Any(contentType => context.ContentItem.ContentType.Contains(contentType)) && isFACPage)
         {
             if (context.PreviousItem == null)
             {
