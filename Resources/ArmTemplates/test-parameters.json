@@ -83,9 +83,6 @@
         "PreviewContentApiPrefix": {
             "value": "https://foo.api.nationalcareersservice.org.uk"
         },
-        "RelatedContentItemIndexTypes": {
-            "value": "my-string"
-        },
         "JobProfilePublishedAppPrefix": {
             "value": "https://localhost/"
         },
