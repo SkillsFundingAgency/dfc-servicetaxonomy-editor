@@ -6,6 +6,7 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DFC.ServiceTaxonomy.Editor", "DFC.ServiceTaxonomy.Editor\DFC.ServiceTaxonomy.Editor.csproj", "{12E7F029-43F7-4BF2-AC86-B5056D1D4DDF}"
 	ProjectSection(ProjectDependencies) = postProject
 		{314A7DCC-6A0A-419F-BAFA-EA7EC43834F6} = {314A7DCC-6A0A-419F-BAFA-EA7EC43834F6}
+		{7B0F3655-D6B7-461D-AEF2-FFAE1980CF21} = {7B0F3655-D6B7-461D-AEF2-FFAE1980CF21}
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{16DF71DE-7DEE-4E45-B613-CABA378B6D14}"
