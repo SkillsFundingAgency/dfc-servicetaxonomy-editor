@@ -47,6 +47,7 @@
     <ProjectReference Include="..\DFC.ServiceTaxonomy.Content\DFC.ServiceTaxonomy.Content.csproj" />
     <ProjectReference Include="..\DFC.ServiceTaxonomy.CustomEditor\DFC.ServiceTaxonomy.CustomEditor.csproj" />
     <ProjectReference Include="..\DFC.ServiceTaxonomy.CustomFields\DFC.ServiceTaxonomy.CustomFields.csproj" />
+    <ProjectReference Include="..\DFC.ServiceTaxonomy.ExploreCareersMigration\DFC.ServiceTaxonomy.ExploreCareersMigration.csproj" />
     <ProjectReference Include="..\DFC.ServiceTaxonomy.GraphSync\DFC.ServiceTaxonomy.GraphSync.csproj" />
     <ProjectReference Include="..\DFC.ServiceTaxonomy.GraphVisualiser\DFC.ServiceTaxonomy.GraphVisualiser.csproj" />
     <ProjectReference Include="..\DFC.ServiceTaxonomy.Headless\DFC.ServiceTaxonomy.Headless.csproj" />
