@@ -25,6 +25,12 @@
     var hasPreviewPermission = await AuthorizationService.AuthorizeAsync(User, CommonPermissions.PreviewContent, contentItem);
     var previewContentTypes = contentItem.ContentType == ContentTypes.Page || contentItem.ContentType == ContentTypes.JobProfile || contentItem.ContentType == ContentTypes.Footer || contentItem.ContentType == ContentTypes.Header;
 
+    // We do not display the Clone button if the content type is a header or footer.
+    if (contentItem.ContentType == ContentTypes.Footer || contentItem.ContentType == ContentTypes.Header)
+    {
+        hasClonePermission = false;
+    }
+
 }
 @* Publish - handle publish if content part not present in content item *@
 @if (hasDraft && !contentItem.Has<ContentApprovalPart>())
