@@ -7,12 +7,13 @@
 @model DFC.ServiceTaxonomy.CustomEditor.ViewModel.CustomContentViewModel
 @{
     var contentItem = Model.ContentItem;
-    var hasPublished = (contentItem.ContentType == ContentTypes.Footer || contentItem.ContentType == ContentTypes.Header) == false ? await ContentManager.HasPublishedVersionAsync(contentItem) : false;
-    var hasPublishPermission = (contentItem.ContentType == ContentTypes.Footer || contentItem.ContentType == ContentTypes.Header) == false ? await AuthorizationService.AuthorizeAsync(User, CommonPermissions.PublishContent, contentItem) : false;
-    var hasClonePermission = (contentItem.ContentType == ContentTypes.Footer || contentItem.ContentType == ContentTypes.Header) == false ? await AuthorizationService.AuthorizeAsync(User, CommonPermissions.CloneContent, contentItem) : false;
+    var contentTypeMatched = (contentItem.ContentType == ContentTypes.Footer || contentItem.ContentType == ContentTypes.Header);
+    var hasPublished = contentTypeMatched == false ? await ContentManager.HasPublishedVersionAsync(contentItem) : false;
+    var hasPublishPermission = contentTypeMatched == false ? await AuthorizationService.AuthorizeAsync(User, CommonPermissions.PublishContent, contentItem) : false;
+    var hasClonePermission = contentTypeMatched == false ? await AuthorizationService.AuthorizeAsync(User, CommonPermissions.CloneContent, contentItem) : false;
     var hasDraft = contentItem.HasDraft();
     var hasEditPermission = await AuthorizationService.AuthorizeAsync(User, CommonPermissions.EditContent, contentItem);
-    var hasDeletePermission = (contentItem.ContentType == ContentTypes.Footer || contentItem.ContentType == ContentTypes.Header) == false ? await AuthorizationService.AuthorizeAsync(User, CommonPermissions.DeleteContent, contentItem) : false;
+    var hasDeletePermission = contentTypeMatched == false ? await AuthorizationService.AuthorizeAsync(User, CommonPermissions.DeleteContent, contentItem) : false;
 }
 
 <div class="content-edit-additional-actions-group">

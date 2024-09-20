@@ -18,9 +18,10 @@
 @{
     ContentItem contentItem = Model.ContentItem;
     var hasDraft = contentItem.HasDraft();
+    var contentTypeMatched = (contentItem.ContentType == ContentTypes.Footer || contentItem.ContentType == ContentTypes.Header);
     var hasPublished = await ContentManager.HasPublishedVersionAsync(contentItem);
     var hasPublishPermission = await AuthorizationService.AuthorizeAsync(User, CommonPermissions.PublishContent, contentItem);
-    var hasClonePermission = (contentItem.ContentType == ContentTypes.Footer || contentItem.ContentType == ContentTypes.Header) == false ? await AuthorizationService.AuthorizeAsync(User, CommonPermissions.CloneContent, contentItem) : false;
+    var hasClonePermission = contentTypeMatched == false ? await AuthorizationService.AuthorizeAsync(User, CommonPermissions.CloneContent, contentItem) : false;
     var hasViewPermission = await AuthorizationService.AuthorizeAsync(User, CommonPermissions.ViewContent, contentItem);
     var hasPreviewPermission = await AuthorizationService.AuthorizeAsync(User, CommonPermissions.PreviewContent, contentItem);
     var previewContentTypes = contentItem.ContentType == ContentTypes.Page || contentItem.ContentType == ContentTypes.JobProfile || contentItem.ContentType == ContentTypes.Footer || contentItem.ContentType == ContentTypes.Header;
