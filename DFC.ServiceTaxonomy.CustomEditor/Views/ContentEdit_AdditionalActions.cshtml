@@ -7,21 +7,12 @@
 @model DFC.ServiceTaxonomy.CustomEditor.ViewModel.CustomContentViewModel
 @{
     var contentItem = Model.ContentItem;
-    var hasPublished = await ContentManager.HasPublishedVersionAsync(contentItem);
-    var hasPublishPermission = await AuthorizationService.AuthorizeAsync(User, CommonPermissions.PublishContent, contentItem);
-    var hasClonePermission = await AuthorizationService.AuthorizeAsync(User, CommonPermissions.CloneContent, contentItem);
+    var hasPublished = (contentItem.ContentType == ContentTypes.Footer || contentItem.ContentType == ContentTypes.Header) == false ? await ContentManager.HasPublishedVersionAsync(contentItem) : false;
+    var hasPublishPermission = (contentItem.ContentType == ContentTypes.Footer || contentItem.ContentType == ContentTypes.Header) == false ? await AuthorizationService.AuthorizeAsync(User, CommonPermissions.PublishContent, contentItem) : false;
+    var hasClonePermission = (contentItem.ContentType == ContentTypes.Footer || contentItem.ContentType == ContentTypes.Header) == false ? await AuthorizationService.AuthorizeAsync(User, CommonPermissions.CloneContent, contentItem) : false;
     var hasDraft = contentItem.HasDraft();
     var hasEditPermission = await AuthorizationService.AuthorizeAsync(User, CommonPermissions.EditContent, contentItem);
-    var hasDeletePermission = await AuthorizationService.AuthorizeAsync(User, CommonPermissions.DeleteContent, contentItem);
-
-    //We do not display the Unpublish, Delete and Clone buttons if the content type is a header or footer.
-    if (contentItem.ContentType == ContentTypes.Footer || contentItem.ContentType == ContentTypes.Header)
-    {
-        hasPublished = false;
-        hasPublishPermission = false;
-        hasClonePermission = false;
-        hasDeletePermission = false;
-    }
+    var hasDeletePermission = (contentItem.ContentType == ContentTypes.Footer || contentItem.ContentType == ContentTypes.Header) == false ? await AuthorizationService.AuthorizeAsync(User, CommonPermissions.DeleteContent, contentItem) : false;
 }
 
 <div class="content-edit-additional-actions-group">
