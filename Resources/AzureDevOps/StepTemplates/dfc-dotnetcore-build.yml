@@ -5,8 +5,6 @@ parameters:
   BuildPlatform: 'any cpu'
   BuildConfiguration: 'release'
   DotNetCoreVersion: ''
-  GitVersionConfigFilePath: Resources/AzureDevOps/GitVersion.yml
-  GitVersionVersion: '5.12.x'
 
 steps:
  - task: UseDotNet@2
@@ -15,20 +13,16 @@ steps:
    inputs:
      version: ${{ parameters.DotNetCoreVersion }}
      IncludePreviewVersions: ${{ parameters.IncludePreviewVersions }}
-     installationPath: $(Agent.TempDirectory)/dotnet
 
- - task: UseGitVersion@5
+ - task: gittools.gitversion.gitversion-task.GitVersion@4
    displayName: GitVersion
    inputs:
-     useConfigFile: true
-     configFilePath: ${{ parameters.GitVersionConfigFilePath }}
-     versionSpec: ${{ parameters.GitVersionVersion }}
+     preferBundledVersion: false
 
- - task: DotNetCoreCLI@2
-   displayName: 'restore nuget packages'
+ - task: NuGetCommand@2
+   displayName: 'NuGet restore'
    inputs:
-     command: 'restore'
-     projects: '${{ parameters.SolutionBaseName }}.sln'
+     restoreSolution: '${{ parameters.SolutionBaseName }}.sln'
      feedsToUse: 'select'
      vstsFeed: 'NationalCareersService'
 
