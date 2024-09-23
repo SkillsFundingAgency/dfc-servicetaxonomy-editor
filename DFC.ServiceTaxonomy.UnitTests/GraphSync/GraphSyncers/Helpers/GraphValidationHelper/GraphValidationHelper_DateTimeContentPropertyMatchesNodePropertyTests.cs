@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using DFC.ServiceTaxonomy.GraphSync.Interfaces;
 using FakeItEasy;
 using Newtonsoft.Json.Linq;
@@ -32,7 +33,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Helpers.GraphVali
         public void DateTimeContentPropertyMatchesNodeProperty_PropertyCorrect_ReturnsTrue()
         {
             const string contentDateTimeString = "2020-06-15T14:24:00Z";
-            DateTime dateTime = DateTime.Parse(contentDateTimeString);
+            DateTime dateTime = DateTime.Parse(contentDateTimeString, CultureInfo.InvariantCulture);
             var nodeZonedDateTime = new ZonedDateTime(LocalDateTime.FromDateTime(dateTime), DateTimeZone.Utc, Offset.Zero);
 
             ContentItemField = JObject.Parse($"{{\"{ContentKey}\": \"{contentDateTimeString}\"}}");

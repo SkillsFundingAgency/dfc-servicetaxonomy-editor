@@ -1,9 +1,6 @@
 ﻿using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
-using OpenQA.Selenium.Support;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace DFC.ServiceTaxonomy.OrchardCoreInitialiser.PageObjects
 {
