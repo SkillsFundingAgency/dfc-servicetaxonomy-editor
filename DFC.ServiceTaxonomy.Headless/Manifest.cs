@@ -6,6 +6,6 @@ using OrchardCore.Modules.Manifest;
     Website = "https://orchardcore.net",
     Version = "0.0.1",
     Description = "DFC.ServiceTaxonomy.Headless",
-    Dependencies = new[] { "OrchardCore.Contents", "OrchardCore.Media" },
+    Dependencies = new[] { "OrchardCore.Contents" , "OrchardCore.Media"},
     Category = "Content Management"
 )]
