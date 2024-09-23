@@ -2,7 +2,7 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using OrchardCore.Data.Migration;
-using StartupBase = OrchardCore.Modules.StartupBase;
+using OrchardCore.Modules;
 
 namespace DFC.ServiceTaxonomy.ExploreCareersMigration
 {
