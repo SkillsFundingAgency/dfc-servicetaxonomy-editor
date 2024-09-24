@@ -28,7 +28,7 @@ namespace DFC.ServiceTaxonomy.ExploreCareersMigration.Migrations
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Error with step 1 of DFC.ServiceTaxonomy.ExploreCareersMigration");
+                _logger.LogError(ex, "Error during step 1 of DFC.ServiceTaxonomy.ExploreCareersMigration");
             }
 
             return 1;
@@ -44,7 +44,7 @@ namespace DFC.ServiceTaxonomy.ExploreCareersMigration.Migrations
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Error with step 2 of DFC.ServiceTaxonomy.ExploreCareersMigration");
+                _logger.LogError(ex, "Error during step 2 of DFC.ServiceTaxonomy.ExploreCareersMigration");
             }
 
             return 2;
@@ -55,12 +55,12 @@ namespace DFC.ServiceTaxonomy.ExploreCareersMigration.Migrations
             try
             {
                 _logger.LogInformation($"Starting step 3 of DFC.ServiceTaxonomy.ExploreCareersMigration - Adding placements for updated Job Profile + Job Profile Sector");
-                await _recipeMigrator.ExecuteAsync("MiMigrationRecipes/explore-careers-content-types-migration-step-03.recipe.json", this);
+                await _recipeMigrator.ExecuteAsync("MigrationRecipes/explore-careers-content-types-migration-step-03.recipe.json", this);
                 _logger.LogInformation($"Completed step 3 of DFC.ServiceTaxonomy.ExploreCareersMigration");
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Error with step 3 of DFC.ServiceTaxonomy.ExploreCareersMigration");
+                _logger.LogError(ex, "Error during step 3 of DFC.ServiceTaxonomy.ExploreCareersMigration");
             }
 
             return 3;
@@ -135,7 +135,7 @@ namespace DFC.ServiceTaxonomy.ExploreCareersMigration.Migrations
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Error with step 5 of DFC.ServiceTaxonomy.ExploreCareersMigration");
+                _logger.LogError(ex, "Error during step 5 of DFC.ServiceTaxonomy.ExploreCareersMigration");
             }
 
             return 5;
@@ -151,7 +151,7 @@ namespace DFC.ServiceTaxonomy.ExploreCareersMigration.Migrations
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Error with step 6 of DFC.ServiceTaxonomy.ExploreCareersMigration");
+                _logger.LogError(ex, "Error during step 6 of DFC.ServiceTaxonomy.ExploreCareersMigration");
             }
 
             return 6;
