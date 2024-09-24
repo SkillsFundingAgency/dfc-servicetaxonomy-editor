@@ -2,8 +2,8 @@
 using Newtonsoft.Json;
 using OrchardCore.ContentManagement;
 using YesSql.Indexes;
-using DFC.ServiceTaxonomy.CompUi.Models;
 using Microsoft.Extensions.Configuration;
+
 
 namespace DFC.ServiceTaxonomy.CompUi.Indexes
 {
@@ -19,7 +19,7 @@ namespace DFC.ServiceTaxonomy.CompUi.Indexes
 
         public override void Describe(DescribeContext<ContentItem> context)
         {
-            context.For<RelatedContentItemIndex>()
+            context.For<Models.RelatedContentItemIndex>()
              .When(contentItem => RelatedContentTypes.Contains(contentItem.ContentType))
                 .Map(contentItem =>
                     {
@@ -44,7 +44,7 @@ namespace DFC.ServiceTaxonomy.CompUi.Indexes
                             contentIdList = string.Empty;
                         }
 
-                        return new RelatedContentItemIndex
+                        return new Models.RelatedContentItemIndex
                         {
                             ContentItemId = contentItem.ContentItemId,
                             ContentType = contentItem.ContentType,
