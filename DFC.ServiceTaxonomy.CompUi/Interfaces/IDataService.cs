@@ -1,0 +1,9 @@
+﻿using DFC.ServiceTaxonomy.CompUi.Models;
+
+namespace DFC.ServiceTaxonomy.CompUi.Interfaces
+{
+    public interface IDataService
+    {
+        Task<IEnumerable<RelatedContentData>> GetRelatedContentData(Processing processing);
+    }
+}

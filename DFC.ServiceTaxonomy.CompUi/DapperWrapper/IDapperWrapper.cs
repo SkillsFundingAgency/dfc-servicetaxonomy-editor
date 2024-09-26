@@ -1,6 +1,6 @@
 ﻿using System.Data.Common;
 
-namespace DFC.ServiceTaxonomy.CompUi.Dapper
+namespace DFC.ServiceTaxonomy.CompUi.DapperWrapper
 {
     public interface IDapperWrapper
     {

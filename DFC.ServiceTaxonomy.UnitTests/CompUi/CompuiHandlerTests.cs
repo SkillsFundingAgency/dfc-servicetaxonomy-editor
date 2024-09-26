@@ -3,12 +3,13 @@ using System.Data.Common;
 using System.Threading.Tasks;
 using AutoMapper;
 using DFC.Common.SharedContent.Pkg.Netcore.Interfaces;
-using DFC.ServiceTaxonomy.CompUi.Dapper;
+using DFC.ServiceTaxonomy.CompUi.DapperWrapper;
 using DFC.ServiceTaxonomy.CompUi.Handlers;
 using DFC.ServiceTaxonomy.CompUi.Interfaces;
 using DFC.ServiceTaxonomy.CompUi.Model;
 using DFC.ServiceTaxonomy.CompUi.Models;
 using FakeItEasy;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using OrchardCore.ContentManagement.Handlers;
 using OrchardCore.Data;
@@ -29,6 +30,8 @@ namespace DFC.ServiceTaxonomy.UnitTests.CompUi
         public readonly IBuilder _fakeBuilder;
         public readonly IDirector _fakeDirector;
         public readonly IBackgroundQueue<Processing> _fakeBackgroundQueue;
+        public readonly IConfiguration _configuration;
+        private readonly IDataService _relatedContentItemIndexRepository;
 
         public CompuiHandlerTests()
         {
@@ -41,8 +44,10 @@ namespace DFC.ServiceTaxonomy.UnitTests.CompUi
             _fakeDirector = A.Fake<IDirector>();
             _fakeEventHandler = A.Fake<IEventGridHandler>();
             _fakeBackgroundQueue = A.Fake<IBackgroundQueue<Processing>>();
-            _fakeCacheHandler = new CacheHandler(_fakeLogger, _mapper, _fakeDirector, _fakeBuilder, _fakeBackgroundQueue, _fakeEventHandler);
-            _concreteCacheHander = new CacheHandler(_fakeLogger, _mapper, _fakeDirector, _fakeBuilder, _fakeBackgroundQueue, _fakeEventHandler);
+            _configuration = A.Fake<IConfiguration>();
+            _relatedContentItemIndexRepository = A.Fake<IDataService>();  
+            _fakeCacheHandler = new CacheHandler(_fakeLogger, _mapper, _fakeDirector, _fakeBuilder, _fakeBackgroundQueue, _fakeEventHandler, _configuration, _relatedContentItemIndexRepository);
+            _concreteCacheHander = new CacheHandler(_fakeLogger, _mapper, _fakeDirector, _fakeBuilder, _fakeBackgroundQueue, _fakeEventHandler, _configuration, _relatedContentItemIndexRepository);
         }
 
         #region Publish Tests       
@@ -84,7 +89,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.CompUi
         #endregion
 
         #region Draft Tests
-        [Fact (Skip ="AutoMapper isn't correctly mapping the object and this causes issues further down.  Needs further investigation.  Poss. solution don't fake the Automapper for this call.")]
+        [Fact(Skip = "AutoMapper isn't correctly mapping the object and this causes issues further down.  Needs further investigation.  Poss. solution don't fake the Automapper for this call.")]
         public async Task EnsureOnlySpecifiedDraftContentTypesAreProcess()
         {
             //Arrange

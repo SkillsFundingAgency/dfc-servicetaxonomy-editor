@@ -11,5 +11,7 @@ namespace DFC.ServiceTaxonomy.CompUi.Interfaces
         Task ProcessRemovedAsync(RemoveContentContext context);
 
         Task ProcessUnpublishedAsync(PublishContentContext context);
+
+        Task ProcessCreatedAsync(CreateContentContext context);
     }
 }

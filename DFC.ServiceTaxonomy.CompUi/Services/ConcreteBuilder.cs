@@ -4,7 +4,7 @@ using System.Text.RegularExpressions;
 using DFC.Common.SharedContent.Pkg.Netcore.Constant;
 using DFC.Common.SharedContent.Pkg.Netcore.Interfaces;
 using DFC.ServiceTaxonomy.CompUi.AppRegistry;
-using DFC.ServiceTaxonomy.CompUi.Dapper;
+using DFC.ServiceTaxonomy.CompUi.DapperWrapper;
 using DFC.ServiceTaxonomy.CompUi.Enums;
 using DFC.ServiceTaxonomy.CompUi.Interfaces;
 using DFC.ServiceTaxonomy.CompUi.Model;

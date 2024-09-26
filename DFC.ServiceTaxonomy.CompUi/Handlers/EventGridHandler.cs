@@ -59,6 +59,38 @@ namespace DFC.ServiceTaxonomy.CompUi.Handlers
             }
         }
 
+        public async Task SendEventMessageAsync(RelatedContentData contentData, ContentEventType contentEventType)
+        {
+            try
+            {
+                ContentEventData? eventData = CreateEventMessageAsync(contentData);
+
+                if (eventData != null)
+                {
+                    switch (contentEventType)
+                    {
+                        case (ContentEventType.StaxCreate):
+                            await _eventGridClient.Publish(new ContentEvent(eventData, ContentEventType.StaxCreate, StaxCreateMessage + eventData.ContentType));
+                            break;
+                        case (ContentEventType.StaxUpdate):
+                            await _eventGridClient.Publish(new ContentEvent(eventData, ContentEventType.StaxUpdate, StaxUpdateMessage + eventData.ContentType));
+                            break;
+                        case (ContentEventType.StaxDelete):
+                            await _eventGridClient.Publish(new ContentEvent(eventData, ContentEventType.StaxDelete, StaxDeleteMessage + eventData.ContentType));
+                            break;
+                        default:
+                            _logger.LogError($"Current content could not be retrieved for Content Item ID: {contentData.ContentItemId}");
+                            break;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Current content could not be retrieved from published item: {ex.Message}");
+                throw;
+            }
+        }
+
         /// <summary>
         /// Creates the content event message using the published content item data
         /// </summary>
@@ -66,27 +98,50 @@ namespace DFC.ServiceTaxonomy.CompUi.Handlers
         /// <returns>Returns the content event data to be sent as part of the event grid message</returns>
         public ContentEventData? CreateEventMessageAsync(Processing processing)
         {
-                ContentItem? result;
+            ContentItem? result;
 
-                if (!string.IsNullOrEmpty(processing.CurrentContent))
+            if (!string.IsNullOrEmpty(processing.CurrentContent))
+            {
+                result = JsonConvert.DeserializeObject<ContentItem>(processing.CurrentContent);
+
+                ContentEventData eventData = new ContentEventData
                 {
-                    result = JsonConvert.DeserializeObject<ContentItem>(processing.CurrentContent);
+                    Author = processing.Author,
+                    DisplayText = processing.DisplayText,
+                    ContentItemId = processing.ContentItemId,
+                    ContentType = processing.ContentType,
+                    GraphSyncId = result?.GraphSyncParts?.Text?.Substring(result.GraphSyncParts.Text.LastIndexOf('/') + 1),
+                    FullPageUrl = string.Empty
+                };
 
-                    ContentEventData eventData = new ContentEventData
-                    {
-                        Author = processing.Author,
-                        DisplayText = processing.DisplayText,
-                        ContentItemId = processing.ContentItemId,
-                        ContentType = processing.ContentType,
-                        GraphSyncId = result?.GraphSyncParts?.Text?.Substring(result.GraphSyncParts.Text.LastIndexOf('/') + 1)
-                    };
-
-                    return eventData;
-                }
-                else
-                {
-                    return null;
-                }
+                return eventData;
+            }
+            else
+            {
+                return null;
             }
         }
+
+        public ContentEventData? CreateEventMessageAsync(RelatedContentData contentData)
+        {
+            if (contentData != null)
+            {
+                ContentEventData eventData = new ContentEventData
+                {
+                    Author = contentData.Author,
+                    DisplayText = contentData.DisplayText,
+                    ContentItemId = contentData.ContentItemId,
+                    ContentType = contentData.ContentType,
+                    GraphSyncId = contentData.GraphSyncId.Substring(contentData.GraphSyncId.LastIndexOf('/') + 1),
+                    FullPageUrl = contentData.FullPageUrl,  
+                };
+
+                return eventData;
+            }
+            else
+            {
+                return null;
+            }
+        }
+    }
 }

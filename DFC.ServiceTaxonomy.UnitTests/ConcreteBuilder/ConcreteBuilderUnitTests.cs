@@ -4,7 +4,7 @@ using DFC.ServiceTaxonomy.CompUi.Services;
 using Microsoft.Extensions.Logging;
 using System.Threading.Tasks;
 using System.Collections.Generic;
-using DFC.ServiceTaxonomy.CompUi.Dapper;
+using DFC.ServiceTaxonomy.CompUi.DapperWrapper;
 using OrchardCore.Data;
 using System.Data.Common;
 using DFC.Common.SharedContent.Pkg.Netcore.Interfaces;
