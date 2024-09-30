@@ -1,31 +1,33 @@
-﻿using DFC.ServiceTaxonomy.CompUi.Enums;
-using Newtonsoft.Json.Linq;
+﻿using Newtonsoft.Json.Linq;
 using Newtonsoft.Json;
 using OrchardCore.ContentManagement;
 using YesSql.Indexes;
+using Microsoft.Extensions.Configuration;
+
 
 namespace DFC.ServiceTaxonomy.CompUi.Indexes
 {
-    public class RelatedContentItemIndex : MapIndex
-    {
-        public string? ContentItemId { get; set; }
-        public string? ContentType { get; set; }
-        public string? RelatedContentIds { get; set; }
-    }
-
     public class RelatedContentItemIndexProvider : IndexProvider<ContentItem>
     {
+        private const string RelatedContentTypesAppSetting = "RelatedContentItemIndexTypes";
+        private List<string> RelatedContentTypes;
+
+        public RelatedContentItemIndexProvider(IConfiguration configuration)
+        {
+            RelatedContentTypes = configuration.GetSection(RelatedContentTypesAppSetting).Get<List<string>>() ?? new List<string>();
+        }
+
         public override void Describe(DescribeContext<ContentItem> context)
         {
-            context.For<RelatedContentItemIndex>()
-            .When(contentItem => Enum.IsDefined(typeof(ContentTypes), contentItem.ContentType))
+            context.For<Models.RelatedContentItemIndex>()
+             .When(contentItem => RelatedContentTypes.Contains(contentItem.ContentType))
                 .Map(contentItem =>
                     {
                         if (!contentItem.Published && !contentItem.Latest)
                         {
                             return default!;
                         }
-
+                         
                         var content = JsonConvert.SerializeObject(contentItem.Content);
 
                         var root = JToken.Parse(content);
@@ -42,7 +44,7 @@ namespace DFC.ServiceTaxonomy.CompUi.Indexes
                             contentIdList = string.Empty;
                         }
 
-                        return new RelatedContentItemIndex
+                        return new Models.RelatedContentItemIndex
                         {
                             ContentItemId = contentItem.ContentItemId,
                             ContentType = contentItem.ContentType,
