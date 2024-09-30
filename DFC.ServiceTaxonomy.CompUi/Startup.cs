@@ -1,7 +1,7 @@
 using DFC.ServiceTaxonomy.CompUi.AppRegistry;
 using DFC.ServiceTaxonomy.CompUi.BackgroundTask;
 using DFC.ServiceTaxonomy.CompUi.BackgroundTask.Activity;
-using DFC.ServiceTaxonomy.CompUi.DapperWrapper;
+using DFC.ServiceTaxonomy.CompUi.Dapper;
 using DFC.ServiceTaxonomy.CompUi.Handlers;
 using DFC.ServiceTaxonomy.CompUi.Indexes;
 using DFC.ServiceTaxonomy.CompUi.Interfaces;
@@ -32,7 +32,7 @@ namespace DFC.ServiceTaxonomy.CompUi
         public override void ConfigureServices(IServiceCollection services)
         {
             services.AddTransient<IContentHandler, CacheHandler>();
-            services.AddTransient<IDapperWrapper, DapperWrapperImp>();
+            services.AddTransient<IDapperWrapper, DapperWrapper>();
             services.AddAutoMapper(typeof(Startup).Assembly);
             services.AddMemoryCache();
 
@@ -44,7 +44,7 @@ namespace DFC.ServiceTaxonomy.CompUi
             services.AddSingleton<IBackgroundItemQueueMonitor, BackgroundItemQueueMonitor>();
             services.AddSingleton<IJobProfileCacheRefresh, JobProfileCacheRefresh>();
             services.AddSingleton<IDataService, DataService>();
-
+            
             services.AddScoped<IEventGridHandler, EventGridHandler>();
 
             services.AddScoped<IDirector, Director>();

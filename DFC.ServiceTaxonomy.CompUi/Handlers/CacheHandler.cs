@@ -1,11 +1,8 @@
-using System.Runtime.InteropServices;
 using AutoMapper;
-using DFC.Common.SharedContent.Pkg.Netcore.Model.Common;
 using DFC.ServiceTaxonomy.CompUi.Enums;
 using DFC.ServiceTaxonomy.CompUi.Interfaces;
 using DFC.ServiceTaxonomy.CompUi.Models;
 using DfE.NCS.Framework.Event.Model;
-using Microsoft.Azure.Cosmos.Serialization.HybridRow;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
@@ -82,13 +79,11 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
 
     public async Task ProcessCreatedAsync(CreateContentContext context)
     {
-        //Sort out the mapping of the processing object.  
         var processing = GetProcessingData(context, ProcessingEvents.Created, FilterType.PUBLISHED);
 
         await base.CreatedAsync(context);
 
-        //Created items need to send a StaxCreated message.
-        //await SendEventGridMessage(processing);
+        await SendEventGridMessage(processing);
     }
 
     public async Task ProcessPublishedAsync(PublishContentContext context)
@@ -107,9 +102,44 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
         }
     }
 
+    public async Task ProcessRemovedAsync(RemoveContentContext context)
+    {
+        var processing = GetProcessingData(context, ProcessingEvents.Removed, FilterType.PUBLISHED);
+
+        await base.RemovedAsync(context);
+
+        await ProcessItem(processing);
+
+        await SendEventGridMessage(processing);
+    }
+
+    public async Task ProcessUnpublishedAsync(PublishContentContext context)
+    {
+        var processing = GetProcessingData(context, context.PreviousItem?.Content?.ToString() ?? context.ContentItem.Content.ToString(), ProcessingEvents.Unpublished, FilterType.PUBLISHED);
+
+        await base.UnpublishedAsync(context);
+
+        await ProcessItem(processing);
+
+        await SendEventGridMessage(processing);
+    }
+
+    public async Task ProcessDraftSavedAsync(SaveDraftContentContext context)
+    {
+        var processing = GetProcessingData(context, ProcessingEvents.DraftSaved, FilterType.DRAFT);
+
+        await base.DraftSavedAsync(context);
+
+        await ProcessItem(processing);
+
+        if (processing.ContentType == ContentTypes.JobProfile.ToString())
+        {
+            await _queue.QueueItem(processing);
+        }
+    }
+
     public async Task SendEventGridMessage(Processing processing)
     {
-        //["Footer","Header", "Page","SharedContent","Banner","PageBanner"],
         if (!eventGridContentTypes.Contains(processing.ContentType))
         {
             return;
@@ -129,75 +159,11 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
         };
     }
 
-    private async Task SendEventGridMessageOriginal(Processing processing)
-    {
-        //Pages 
-        //if FullUrl has changed then send a create request for new URL and additionaly a send DELETE reqest fro old url.
-        //if url not chnaged then send update request only -
-
-        //Banners
-        //if content type == Banners then check related items for page content where banner contained in page then send update request to page.  Then for each page send an update.
-        //if banner updated or delete then refresh page.  Not needed for new.    
-
-        //Class for Related queries in here - don't hard cade query params - inject them in.  
-
-        //if (processing == null || processing.ContentType == null)
-        //{
-        //    return;
-        //}
-
-        //Temp check to filter pages by certain allowed url's/titles
-        var current = JsonConvert.DeserializeObject<Models.ContentItem>(processing.CurrentContent);
-        var previous = JsonConvert.DeserializeObject<Models.ContentItem>(processing.PreviousContent);
-        var pageUrlChanged = current.PageLocationParts.FullUrl == previous?.PageLocationParts?.FullUrl ? true : false;
-
-        bool isFACPage = true;
-
-        //if (context.ContentItem.ContentType == "Page" && !eventGridAllowedPages.Any(pageUrl => current?.PageLocationParts?.FullUrl.Contains(pageUrl)))
-        if (processing.ContentType == nameof(ContentTypes.Page) && !eventGridAllowedPages.Any(pageUrl => (bool)(current?.PageLocationParts?.FullUrl.Contains(pageUrl))))
-        {
-            isFACPage = false;
-        }
-
-        //Temp check to see if the published items content type matches any of the allowed items in the list
-        //if (eventGridContentTypes.Any(contentType => processin\g.ContentType.Contains(contentType)) && isFACPage)
-        //if (eventGridContentTypes.Any(contentType => processing.ContentType.Contains(contentType)) && isFACPage)
-        if (isFACPage)
-        {
-            if (processing.PreviousContent == null)
-            {
-                await _eventGridHandler.SendEventMessageAsync(processing, ContentEventType.StaxCreate);
-            }
-            else
-            {
-                if (pageUrlChanged)
-                {
-                    await _eventGridHandler.SendEventMessageAsync(processing, ContentEventType.StaxCreate);  //new Url
-                    await _eventGridHandler.SendEventMessageAsync(processing, ContentEventType.StaxDelete);  //old Url
-                }
-                await _eventGridHandler.SendEventMessageAsync(processing, ContentEventType.StaxUpdate);
-            }
-        }
-
-        if (processing.ContentType == "Banner")
-        {
-            //Get the related content
-            //Banners
-            //if content type == Banners then check related items for page content where banner contained in page then send update request to page.  Then for each page send an update.
-            //if banner updated or delete then refresh page.  Not needed for new.    
-            var result = _relatedContentItemIndexRepository.GetRelatedContentData(processing);
-        }
-    }
-
     private async Task ProcessPage(Processing processing)
     {
-        //Pages 
-        //if FullUrl has changed then send a create request for new URL and additionally a send DELETE reqest fro old url.
-        //if url not chnaged then send update request only -
-
         bool isFACPage = true;
         var current = JsonConvert.DeserializeObject<Models.ContentItem>(processing.CurrentContent);
-        var previous = JsonConvert.DeserializeObject<Models.ContentItem>(processing.PreviousContent);
+        var previous = processing.PreviousContent != null ? JsonConvert.DeserializeObject<Models.ContentItem>(processing.PreviousContent) : new Models.ContentItem();
         var pageUrlChanged = current?.PageLocationParts?.FullUrl == previous?.PageLocationParts?.FullUrl ? false : true;
 
         if (processing.ContentType == nameof(ContentTypes.Page) && !eventGridAllowedPages.Any(pageUrl => (bool)(current?.PageLocationParts?.FullUrl.Contains(pageUrl))))
@@ -205,9 +171,6 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
             isFACPage = false;
         }
 
-        //Temp check to see if the published items content type matches any of the allowed items in the list
-        //if (eventGridContentTypes.Any(contentType => processing.ContentType.Contains(contentType)) && isFACPage)
-        //Note: this check has been put in place temporarily and should be removed once SS Phase 2 has been completed.  
         if (isFACPage)
         {
             if (processing.EventType == ProcessingEvents.Created)
@@ -229,42 +192,31 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
         }
     }
 
-    private RelatedContentData TransformData(Processing processing, Models.ContentItem contentItem)
-    {
-        var contentData = _mapper.Map<RelatedContentData>(processing);
-        contentData.FullPageUrl = contentItem?.PageLocationParts?.FullUrl;
-        contentData.GraphSyncId = contentItem?.GraphSyncParts?.Text;  //--> Need to verify if the GraphSync value changs - almost certain it does.  Run some tests.
-        return contentData;
-    }
-
     private async Task ProcessSharedContent(Processing processing)
     {
-        //Get the related content
-        //SharedHTML
-        //if content type == SharedHTML then check related items for page content where SharedHTML contained in page then send update request to page.  Then for each page send an update.
-        //if banner updated or delete then refresh page.  Not needed for new.
+        var current = JsonConvert.DeserializeObject<Models.ContentItem>(processing.CurrentContent);
 
         switch (processing.EventType)
         {
             case ProcessingEvents.Published:
-                await _eventGridHandler.SendEventMessageAsync(processing, ContentEventType.StaxUpdate);
+                await _eventGridHandler.SendEventMessageAsync(TransformData(processing, current), ContentEventType.StaxUpdate);
                 break;
             case ProcessingEvents.Removed:
-                await _eventGridHandler.SendEventMessageAsync(processing, ContentEventType.StaxDelete);
+                await _eventGridHandler.SendEventMessageAsync(TransformData(processing, current), ContentEventType.StaxDelete);
                 break;
-            case ProcessingEvents.Created:  //--> Not needed? Confirm? 
-                await _eventGridHandler.SendEventMessageAsync(processing, ContentEventType.StaxCreate);
+            case ProcessingEvents.Created:
+                await _eventGridHandler.SendEventMessageAsync(TransformData(processing, current), ContentEventType.StaxCreate);
                 break;
             case ProcessingEvents.Unpublished:
-                await _eventGridHandler.SendEventMessageAsync(processing, ContentEventType.StaxDelete);
+                await _eventGridHandler.SendEventMessageAsync(TransformData(processing, current), ContentEventType.StaxDelete);
                 break;
         }
 
         if (processing.EventType != ProcessingEvents.Created)
         {
-            var result = await _relatedContentItemIndexRepository.GetRelatedContentData(processing);
+            var result = await _relatedContentItemIndexRepository.GetRelatedContentDataByContentItemIdAndPage(processing);
 
-            if (result?.Count() > 0)  //Test by creating a new SharedContent and don't reference, to make sure this does return a count of 0.  
+            if (result?.Count() > 0)
             {
                 foreach (var item in result)
                 {
@@ -277,36 +229,12 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
         }
     }
 
-    public async Task ProcessRemovedAsync(RemoveContentContext context)
+    private RelatedContentData TransformData(Processing processing, Models.ContentItem contentItem)
     {
-        var processing = GetProcessingData(context, ProcessingEvents.Removed, FilterType.PUBLISHED);
-
-        await base.RemovedAsync(context);
-
-        await ProcessItem(processing);
-    }
-
-    public async Task ProcessUnpublishedAsync(PublishContentContext context)
-    {
-        var processing = GetProcessingData(context, context.PreviousItem?.Content?.ToString() ?? context.ContentItem.Content.ToString(), ProcessingEvents.Unpublished, FilterType.PUBLISHED);
-
-        await base.UnpublishedAsync(context);
-
-        await ProcessItem(processing);
-    }
-
-    public async Task ProcessDraftSavedAsync(SaveDraftContentContext context)
-    {
-        var processing = GetProcessingData(context, ProcessingEvents.DraftSaved, FilterType.DRAFT);
-
-        await base.DraftSavedAsync(context);
-
-        await ProcessItem(processing);
-
-        if (processing.ContentType == ContentTypes.JobProfile.ToString())
-        {
-            await _queue.QueueItem(processing);
-        }
+        var contentData = _mapper.Map<RelatedContentData>(processing);
+        contentData.FullPageUrl = contentItem?.PageLocationParts != null ? contentItem?.PageLocationParts?.FullUrl : string.Empty;
+        contentData.GraphSyncId = contentItem?.GraphSyncParts?.Text != null ? contentItem?.GraphSyncParts?.Text : string.Empty;
+        return contentData;
     }
 
     private async Task ProcessItem(Processing processing)

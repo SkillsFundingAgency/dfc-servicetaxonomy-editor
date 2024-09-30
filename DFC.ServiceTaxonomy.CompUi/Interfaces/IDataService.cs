@@ -4,6 +4,6 @@ namespace DFC.ServiceTaxonomy.CompUi.Interfaces
 {
     public interface IDataService
     {
-        Task<IEnumerable<RelatedContentData>> GetRelatedContentData(Processing processing);
+        Task<IEnumerable<RelatedContentData>> GetRelatedContentDataByContentItemIdAndPage(Processing processing);
     }
 }

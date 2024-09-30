@@ -1,9 +1,9 @@
 ﻿using System.Data.Common;
 using Dapper;
 
-namespace DFC.ServiceTaxonomy.CompUi.DapperWrapper
+namespace DFC.ServiceTaxonomy.CompUi.Dapper
 {
-    internal class DapperWrapperImp : IDapperWrapper
+    internal class DapperWrapper : IDapperWrapper
     {
         public async Task<IEnumerable<T>> QueryAsync<T>(DbConnection connection, string sql)
         {

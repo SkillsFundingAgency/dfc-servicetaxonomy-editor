@@ -1,3 +1,4 @@
+using DFC.ServiceTaxonomy.CompUi.Models;
 using OrchardCore.ContentManagement.Handlers;
 
 namespace DFC.ServiceTaxonomy.CompUi.Interfaces
@@ -13,5 +14,7 @@ namespace DFC.ServiceTaxonomy.CompUi.Interfaces
         Task ProcessUnpublishedAsync(PublishContentContext context);
 
         Task ProcessCreatedAsync(CreateContentContext context);
+
+        Task SendEventGridMessage(Processing processing);
     }
 }

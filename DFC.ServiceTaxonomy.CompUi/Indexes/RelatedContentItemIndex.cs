@@ -39,7 +39,7 @@ namespace DFC.ServiceTaxonomy.CompUi.Indexes
                         }
                         else
                         {
-                            contentIdList = string.Empty; 
+                            contentIdList = string.Empty;
                         }
 
                         return new RelatedContentItemIndex
