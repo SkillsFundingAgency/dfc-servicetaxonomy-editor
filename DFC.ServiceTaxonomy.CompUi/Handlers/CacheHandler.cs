@@ -177,6 +177,10 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
             {
                 await _eventGridHandler.SendEventMessageAsync(TransformData(processing, current), ContentEventType.StaxCreate);
             }
+            else if (processing.EventType == ProcessingEvents.Unpublished)
+            {
+                await _eventGridHandler.SendEventMessageAsync(TransformData(processing, current), ContentEventType.StaxDelete);
+            }
             else
             {
                 if (pageUrlChanged)
