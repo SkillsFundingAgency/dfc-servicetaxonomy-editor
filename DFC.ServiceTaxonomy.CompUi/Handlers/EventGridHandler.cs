@@ -3,7 +3,6 @@ using DFC.ServiceTaxonomy.CompUi.Models;
 using DfE.NCS.Framework.Event.Intefrace;
 using DfE.NCS.Framework.Event.Model;
 using Microsoft.Extensions.Logging;
-using Newtonsoft.Json;
 
 namespace DFC.ServiceTaxonomy.CompUi.Handlers
 {
@@ -22,16 +21,11 @@ namespace DFC.ServiceTaxonomy.CompUi.Handlers
             _logger = logger;
         }
 
-        /// <summary>
-        /// Sends Event grid messages to Event Grid Topic using data from the published content item
-        /// </summary>
-        /// <param name="processing">Published content item data</param>
-        /// <param name="contentEventType">Publish event type</param>
-        public async Task SendEventMessageAsync(Processing processing, ContentEventType contentEventType)
+        public async Task SendEventMessageAsync(RelatedContentData contentData, ContentEventType contentEventType)
         {
             try
             {
-                ContentEventData? eventData = CreateEventMessageAsync(processing);
+                ContentEventData? eventData = CreateEventMessageAsync(contentData);
 
                 if (eventData != null)
                 {
@@ -47,7 +41,7 @@ namespace DFC.ServiceTaxonomy.CompUi.Handlers
                             await _eventGridClient.Publish(new ContentEvent(eventData, ContentEventType.StaxDelete, StaxDeleteMessage + eventData.ContentType));
                             break;
                         default:
-                            _logger.LogError($"Current content could not be retrieved for Content Item ID: {processing.ContentItemId}");
+                            _logger.LogError($"Current content could not be retrieved for Content Item ID: {contentData.ContentItemId}");
                             break;
                     }
                 }
@@ -59,34 +53,26 @@ namespace DFC.ServiceTaxonomy.CompUi.Handlers
             }
         }
 
-        /// <summary>
-        /// Creates the content event message using the published content item data
-        /// </summary>
-        /// <param name="processing">Published content item data</param>
-        /// <returns>Returns the content event data to be sent as part of the event grid message</returns>
-        public ContentEventData? CreateEventMessageAsync(Processing processing)
+        public ContentEventData? CreateEventMessageAsync(RelatedContentData contentData)
         {
-                ContentItem? result;
-
-                if (!string.IsNullOrEmpty(processing.CurrentContent))
+            if (contentData != null)
+            {
+                ContentEventData eventData = new ContentEventData
                 {
-                    result = JsonConvert.DeserializeObject<ContentItem>(processing.CurrentContent);
+                    Author = contentData.Author,
+                    DisplayText = contentData.DisplayText,
+                    ContentItemId = contentData.ContentItemId,
+                    ContentType = contentData.ContentType,
+                    GraphSyncId = contentData.GraphSyncId.Substring(contentData.GraphSyncId.LastIndexOf('/') + 1),
+                    FullPageUrl = contentData.FullPageUrl,  
+                };
 
-                    ContentEventData eventData = new ContentEventData
-                    {
-                        Author = processing.Author,
-                        DisplayText = processing.DisplayText,
-                        ContentItemId = processing.ContentItemId,
-                        ContentType = processing.ContentType,
-                        GraphSyncId = result?.GraphSyncParts?.Text?.Substring(result.GraphSyncParts.Text.LastIndexOf('/') + 1)
-                    };
-
-                    return eventData;
-                }
-                else
-                {
-                    return null;
-                }
+                return eventData;
+            }
+            else
+            {
+                return null;
             }
         }
+    }
 }
