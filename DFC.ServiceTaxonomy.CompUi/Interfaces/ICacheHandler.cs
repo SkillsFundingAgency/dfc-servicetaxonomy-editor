@@ -14,8 +14,6 @@ namespace DFC.ServiceTaxonomy.CompUi.Interfaces
 
         Task ProcessUnpublishedAsync(PublishContentContext context);
 
-        Task ProcessCreatedAsync(CreateContentContext context);
-
         Task ProcessEventGridMessage(Processing processing, ContentEventType contentEventType);
     }
 }

@@ -52,11 +52,6 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
         eventGridAllowedPages = _configuration.GetSection(eventGridAllowedPageSettings).Get<List<string>>() ?? new List<string>();
     }
 
-    public override async Task CreatedAsync(CreateContentContext context)
-    {
-        await ProcessCreatedAsync(context);
-    }
-
     public override async Task PublishedAsync(PublishContentContext context)
     {
         await ProcessPublishedAsync(context);
@@ -75,13 +70,6 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
     public override async Task UnpublishedAsync(PublishContentContext context)
     {
         await ProcessUnpublishedAsync(context);
-    }
-
-    public async Task ProcessCreatedAsync(CreateContentContext context)
-    {
-        var processing = GetProcessingData(context, ProcessingEvents.Created, FilterType.PUBLISHED);
-
-        await base.CreatedAsync(context);
     }
 
     public async Task ProcessPublishedAsync(PublishContentContext context)
