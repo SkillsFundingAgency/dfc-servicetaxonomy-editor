@@ -62,44 +62,44 @@ stages:
         targetPath: "$(System.DefaultWorkingDirectory)/Resources/PSScripts"
         artifactName: ${{ variables.SolutionBaseName }}.Editor.Resources.PSScripts
 
-  # - job: BuildDotNet
-  #   displayName: "Build the dotnet core applications"
-  #   workspace:
-  #     clean: all
-  #   steps:
-  #   - template: StepTemplates/dfc-dotnetcore-build.yml
-  #     parameters:
-  #       SolutionBaseName: $(SolutionBaseName).Editor
-  #       BuildPlatform: 'any cpu'
-  #       BuildConfiguration: 'release'
-  #   - template: AzureDevOpsTemplates\Build\StepTemplates\dfc-dotnetcore-build-notests.yml@dfc-devops
-  #     parameters:
-  #       SolutionBaseName: $(SolutionBaseName).OrchardCoreInitialiser
-  #       BuildPlatform: 'any cpu'
-  #       BuildConfiguration: 'release'
-  #   - powershell: |
-  #       New-Item -Type Directory -Path $(SolutionBaseName).Editor\AppSettingsArtifact\App_Data\Sites\Default\ -Force
-  #       Copy-Item -Path $(SolutionBaseName).Editor\App_Data\Sites\Default\appsettings.template.json -Destination $(SolutionBaseName).Editor\AppSettingsArtifact\App_Data\Sites\Default\appsettings.json
-  #     displayName: 'PowerShell Script: Copy appsettings.template.json'
-  #   - task: PublishPipelineArtifact@1
-  #     inputs:
-  #       targetPath: $(SolutionBaseName).Editor\AppSettingsArtifact\
-  #       artifactName: $(SolutionBaseName).Editor.AppSettings
-  #   - template: AzureDevOpsTemplates\Build\StepTemplates\dfc-dotnetcore-build-notests.yml@dfc-devops
-  #     parameters:
-  #       SolutionBaseName: $(SolutionBaseName).IntegrationTests
-  #       BuildPlatform: 'any cpu'
-  #       BuildConfiguration: 'release'
+  - job: BuildDotNet
+    displayName: "Build the dotnet core applications"
+    workspace:
+      clean: all
+    steps:
+    - template: StepTemplates/dfc-dotnetcore-build.yml
+      parameters:
+        SolutionBaseName: $(SolutionBaseName).Editor
+        BuildPlatform: 'any cpu'
+        BuildConfiguration: 'release'
+    - template: AzureDevOpsTemplates\Build\StepTemplates\dfc-dotnetcore-build-notests.yml@dfc-devops
+      parameters:
+        SolutionBaseName: $(SolutionBaseName).OrchardCoreInitialiser
+        BuildPlatform: 'any cpu'
+        BuildConfiguration: 'release'
+    - powershell: |
+        New-Item -Type Directory -Path $(SolutionBaseName).Editor\AppSettingsArtifact\App_Data\Sites\Default\ -Force
+        Copy-Item -Path $(SolutionBaseName).Editor\App_Data\Sites\Default\appsettings.template.json -Destination $(SolutionBaseName).Editor\AppSettingsArtifact\App_Data\Sites\Default\appsettings.json
+      displayName: 'PowerShell Script: Copy appsettings.template.json'
+    - task: PublishPipelineArtifact@1
+      inputs:
+        targetPath: $(SolutionBaseName).Editor\AppSettingsArtifact\
+        artifactName: $(SolutionBaseName).Editor.AppSettings
+    - template: AzureDevOpsTemplates\Build\StepTemplates\dfc-dotnetcore-build-notests.yml@dfc-devops
+      parameters:
+        SolutionBaseName: $(SolutionBaseName).IntegrationTests
+        BuildPlatform: 'any cpu'
+        BuildConfiguration: 'release'
 
-  #   - task: NuGetToolInstaller@1
-  #     inputs:
-  #       versionSpec: '>=5.4.0'
+    - task: NuGetToolInstaller@1
+      inputs:
+        versionSpec: '>=5.4.0'
 
-  #   - task: PublishBuildArtifacts@1
-  #     displayName: 'Publish media folder'
-  #     inputs:
-  #       PathtoPublish: 'media'
-  #       artifactName: media
+    - task: PublishBuildArtifacts@1
+      displayName: 'Publish media folder'
+      inputs:
+        PathtoPublish: 'media'
+        artifactName: media
 
 - stage: DeployToDevClone
   condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'))
