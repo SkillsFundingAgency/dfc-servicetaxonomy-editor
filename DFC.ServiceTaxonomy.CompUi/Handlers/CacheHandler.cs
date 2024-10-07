@@ -82,15 +82,6 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
         var processing = GetProcessingData(context, ProcessingEvents.Created, FilterType.PUBLISHED);
 
         await base.CreatedAsync(context);
-
-
-        //Temp check to see if the published items content type matches any of the allowed items in the list
-        var pageRouteFlag = PageRouteFlag(processing);
-
-        if (eventGridContentTypes.Any(contentType => context.ContentItem.ContentType.Contains(contentType)) && pageRouteFlag)
-        {
-            await ProcessEventGridMessage(processing, ContentEventType.StaxCreate);
-        }
     }
 
     public async Task ProcessPublishedAsync(PublishContentContext context)
@@ -101,14 +92,18 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
 
         await ProcessItem(processing);
 
-        if (context.PreviousItem != null)
-        {
-            //Temp check to see if the published items content type matches any of the allowed items in the list
-            var pageRouteFlag = PageRouteFlag(processing);
+        //Temp check to see if the published items content type matches any of the allowed items in the list
+        var pageRouteFlag = PageRouteFlag(processing);
 
-            if (eventGridContentTypes.Any(contentType => context.ContentItem.ContentType.Contains(contentType)) && pageRouteFlag)
+        if (eventGridContentTypes.Any(contentType => context.ContentItem.ContentType.Contains(contentType)) && pageRouteFlag)
+        {
+            if (context.PreviousItem != null)
             {
                 await ProcessEventGridMessage(processing, ContentEventType.StaxUpdate);
+            }
+            else if (context.PreviousItem == null)
+            {
+                await ProcessEventGridMessage(processing, ContentEventType.StaxCreate);
             }
         }
 
