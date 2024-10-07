@@ -101,12 +101,15 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
 
         await ProcessItem(processing);
 
-        //Temp check to see if the published items content type matches any of the allowed items in the list
-        var pageRouteFlag = PageRouteFlag(processing);
-
-        if (eventGridContentTypes.Any(contentType => context.ContentItem.ContentType.Contains(contentType)) && pageRouteFlag)
+        if (context.PreviousItem != null)
         {
-            await ProcessEventGridMessage(processing, ContentEventType.StaxUpdate);
+            //Temp check to see if the published items content type matches any of the allowed items in the list
+            var pageRouteFlag = PageRouteFlag(processing);
+
+            if (eventGridContentTypes.Any(contentType => context.ContentItem.ContentType.Contains(contentType)) && pageRouteFlag)
+            {
+                await ProcessEventGridMessage(processing, ContentEventType.StaxUpdate);
+            }
         }
 
         if (processing.ContentType == ContentTypes.JobProfile.ToString())
