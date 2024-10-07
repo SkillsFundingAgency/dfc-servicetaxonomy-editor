@@ -91,20 +91,6 @@ namespace DFC.ServiceTaxonomy.UnitTests.CompUi
         #endregion
 
         [Fact]
-        public async Task SendEventGridMessage_ExcludedContentType()
-        {
-            //Arrange
-            var processing = GetProcessingObj(ContentTypes.SOCSkillsMatrix, false, false);
-            var cacheHandler = ConfigureCacheHandler();
-
-            //Act
-            await cacheHandler.SendEventGridMessage(processing);
-
-            //Assert
-            A.CallTo(() => _eventGridHandler.SendEventMessageAsync(A<RelatedContentData>.Ignored, A<ContentEventType>.Ignored)).MustNotHaveHappened();
-        }
-
-        [Fact]
         public async Task SendEventGridMessage_Page_Update()
         {
             //Arrange
@@ -112,7 +98,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.CompUi
             var cacheHandler = ConfigureCacheHandler();
 
             //Act
-            await cacheHandler.SendEventGridMessage(processing);
+            await cacheHandler.ProcessEventGridMessage(processing, ContentEventType.StaxUpdate);
 
             //Assert
             A.CallTo(() => _eventGridHandler.SendEventMessageAsync(A<RelatedContentData>.Ignored, ContentEventType.StaxUpdate)).MustHaveHappenedOnceExactly();
@@ -126,7 +112,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.CompUi
             var cacheHandler = ConfigureCacheHandler();
 
             //Act
-            await cacheHandler.SendEventGridMessage(processing);
+            await cacheHandler.ProcessEventGridMessage(processing, ContentEventType.StaxUpdate);
 
             //Assert
             A.CallTo(() => _eventGridHandler.SendEventMessageAsync(A<RelatedContentData>.Ignored, ContentEventType.StaxDelete)).MustHaveHappenedOnceExactly();
@@ -141,7 +127,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.CompUi
             var cacheHandler = ConfigureCacheHandler();
 
             //Act
-            await cacheHandler.SendEventGridMessage(processing);
+            await cacheHandler.ProcessEventGridMessage(processing, ContentEventType.StaxCreate);
 
             //Assert
             A.CallTo(() => _eventGridHandler.SendEventMessageAsync(A<RelatedContentData>.Ignored, ContentEventType.StaxCreate)).MustHaveHappenedOnceExactly();
@@ -155,7 +141,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.CompUi
             var cacheHandler = ConfigureCacheHandler();
 
             //Act
-            await cacheHandler.SendEventGridMessage(processing);
+            await cacheHandler.ProcessEventGridMessage(processing, ContentEventType.StaxCreate);
 
             //Assert
             A.CallTo(() => _eventGridHandler.SendEventMessageAsync(A<RelatedContentData>.Ignored, ContentEventType.StaxCreate)).MustHaveHappenedOnceExactly();
@@ -172,7 +158,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.CompUi
             A.CallTo(() => _relatedContentItemIndexRepository.GetRelatedContentDataByContentItemIdAndPage(A<Processing>.Ignored)).Returns(contentData);
 
             //Act
-            await cacheHandler.SendEventGridMessage(processing);
+            await cacheHandler.ProcessEventGridMessage(processing, ContentEventType.StaxUpdate);
 
             //Assert
             A.CallTo(() => _eventGridHandler.SendEventMessageAsync(A<RelatedContentData>.Ignored, ContentEventType.StaxUpdate)).MustHaveHappenedTwiceExactly();
