@@ -20,4 +20,4 @@ variables:
 - name: StaxSharedAppServicePlan
   value: dfc-sit-stax-clone-shared-asp
 - name: CdnUrl
-  value: dfc-sit-clone-digital-assets.azureedge.net
+  value: https://dfc-sit-clone-digital-assets.azureedge.net
