@@ -1,3 +1,5 @@
+using DFC.ServiceTaxonomy.CompUi.Models;
+using DfE.NCS.Framework.Event.Model;
 using OrchardCore.ContentManagement.Handlers;
 
 namespace DFC.ServiceTaxonomy.CompUi.Interfaces
@@ -11,5 +13,7 @@ namespace DFC.ServiceTaxonomy.CompUi.Interfaces
         Task ProcessRemovedAsync(RemoveContentContext context);
 
         Task ProcessUnpublishedAsync(PublishContentContext context);
+
+        Task ProcessEventGridMessage(Processing processing, ContentEventType contentEventType);
     }
 }

@@ -5,6 +5,7 @@
         DraftSaved,
         Published,
         Removed,
-        Unpublished
+        Unpublished,
+        Created
     }
 }
