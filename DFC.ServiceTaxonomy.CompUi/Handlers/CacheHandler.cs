@@ -18,7 +18,6 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
     private readonly IBuilder _builder;
     private readonly IBackgroundQueue<Processing> _queue;
     private readonly IEventGridHandler _eventGridHandler;
-    private readonly IConfiguration _configuration;
     private readonly IDataService _relatedContentItemIndexRepository;
 
     //Temp config to retrieve allowed event grid confiugrations from app settings for allowing certain content types and pages through
@@ -45,11 +44,10 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
         _director.Builder = _builder;
         _queue = queue;
         _eventGridHandler = eventGridHandler;
-        _configuration = configuration;
         _relatedContentItemIndexRepository = relatedContentItemIndexRepository;
 
-        eventGridContentTypes = _configuration.GetSection(eventGridAllowedContentTypeSettings).Get<List<string>>() ?? new List<string>();
-        eventGridAllowedPages = _configuration.GetSection(eventGridAllowedPageSettings).Get<List<string>>() ?? new List<string>();
+        eventGridContentTypes = configuration.GetSection(eventGridAllowedContentTypeSettings).Get<List<string>>() ?? new List<string>();
+        eventGridAllowedPages = configuration.GetSection(eventGridAllowedPageSettings).Get<List<string>>() ?? new List<string>();
     }
 
     public override async Task PublishedAsync(PublishContentContext context)
@@ -83,16 +81,10 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
         //Temp check to see if the published items content type matches any of the allowed items in the list
         var pageRouteFlag = PageRouteFlag(processing);
 
-        if (eventGridContentTypes.Any(contentType => context.ContentItem.ContentType.Contains(contentType)) && pageRouteFlag)
+        if (pageRouteFlag && eventGridContentTypes.Any(contentType => context.ContentItem.ContentType.Contains(contentType)))
         {
-            if (context.PreviousItem != null)
-            {
-                await ProcessEventGridMessage(processing, ContentEventType.StaxUpdate);
-            }
-            else if (context.PreviousItem == null)
-            {
-                await ProcessEventGridMessage(processing, ContentEventType.StaxCreate);
-            }
+            var staxAction = context.PreviousItem == null ? ContentEventType.StaxCreate : ContentEventType.StaxUpdate;
+            await ProcessEventGridMessage(processing, staxAction);
         }
 
         if (processing.ContentType == ContentTypes.JobProfile.ToString())
@@ -129,7 +121,7 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
         //Temp check to see if the published items content type matches any of the allowed items in the list
         var pageRouteFlag = PageRouteFlag(processing);
 
-        if (eventGridContentTypes.Any(contentType => context.ContentItem.ContentType.Contains(contentType)) && pageRouteFlag)
+        if (pageRouteFlag && eventGridContentTypes.Any(contentType => context.ContentItem.ContentType.Contains(contentType)))
         {
             await ProcessEventGridMessage(processing, ContentEventType.StaxDelete);
         }
@@ -153,26 +145,25 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
     {
         var current = JsonConvert.DeserializeObject<ContentItem>(processing.CurrentContent);
 
-        if (current != null)
-        {
-            switch (processing.ContentType)
-            {
-                case nameof(ContentTypes.Page) when contentEventType == ContentEventType.StaxUpdate:
-                    await ProcessPage(processing, current);
-                    break;
-                case nameof(ContentTypes.SharedContent) when processing.EventType != ProcessingEvents.Created:
-                    await _eventGridHandler.SendEventMessageAsync(TransformData(processing, current), contentEventType);
-                    await ProcessSharedContent(processing);
-                    break;
-                default:
-                    await _eventGridHandler.SendEventMessageAsync(TransformData(processing, current), contentEventType);
-                    break;
-            };
-        }
-        else
+        if (current == null)
         {
             _logger.LogError($"Current content is null for following content content type:{processing.ContentType}");
+            return;
         }
+
+        switch (processing.ContentType)
+        {
+            case nameof(ContentTypes.Page) when contentEventType == ContentEventType.StaxUpdate:
+                await ProcessPage(processing, current);
+                break;
+            case nameof(ContentTypes.SharedContent) when processing.EventType != ProcessingEvents.Created:
+                await _eventGridHandler.SendEventMessageAsync(TransformData(processing, current), contentEventType);
+                await ProcessSharedContent(processing);
+                break;
+            default:
+                await _eventGridHandler.SendEventMessageAsync(TransformData(processing, current), contentEventType);
+                break;
+        };
        
     }
 
@@ -334,8 +325,8 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
     {
         //Temp check to filter pages by certain allowed url's/titles
         var current = JsonConvert.DeserializeObject<ContentItem>(processing.CurrentContent);
-        bool isAllowedPage = true;
-        if (processing.ContentType == "Page" && !eventGridAllowedPages.Any(pageUrl => current.PageLocationParts.FullUrl.Contains(pageUrl)))
+        var isAllowedPage = true;
+        if (processing.ContentType == nameof(ContentTypes.Page) && !eventGridAllowedPages.Any(pageUrl => current.PageLocationParts.FullUrl.Contains(pageUrl)))
         {
             isAllowedPage = false;
         }

@@ -40,10 +40,12 @@ namespace DFC.ServiceTaxonomy.CompUi.Handlers
                         case (ContentEventType.StaxDelete):
                             await _eventGridClient.Publish(new ContentEvent(eventData, ContentEventType.StaxDelete, StaxDeleteMessage + eventData.ContentType));
                             break;
-                        default:
-                            _logger.LogError($"Current content could not be retrieved for Content Item ID: {contentData.ContentItemId}");
-                            break;
                     }
+                }
+                else
+                {
+                    _logger.LogError($"Current content could not be retrieved for Content Item ID: {contentData.ContentItemId}");
+                    return;
                 }
             }
             catch (Exception ex)
