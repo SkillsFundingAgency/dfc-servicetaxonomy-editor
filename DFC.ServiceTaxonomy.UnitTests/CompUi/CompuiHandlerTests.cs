@@ -9,6 +9,7 @@ using DFC.ServiceTaxonomy.CompUi.Interfaces;
 using DFC.ServiceTaxonomy.CompUi.Model;
 using DFC.ServiceTaxonomy.CompUi.Models;
 using FakeItEasy;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using OrchardCore.ContentManagement.Handlers;
 using OrchardCore.Data;
@@ -29,6 +30,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.CompUi
         public readonly IBuilder _fakeBuilder;
         public readonly IDirector _fakeDirector;
         public readonly IBackgroundQueue<Processing> _fakeBackgroundQueue;
+        private readonly IConfiguration _fakeConfiguration;
 
         public CompuiHandlerTests()
         {
@@ -41,8 +43,9 @@ namespace DFC.ServiceTaxonomy.UnitTests.CompUi
             _fakeDirector = A.Fake<IDirector>();
             _fakeEventHandler = A.Fake<IEventGridHandler>();
             _fakeBackgroundQueue = A.Fake<IBackgroundQueue<Processing>>();
-            _fakeCacheHandler = new CacheHandler(_fakeLogger, _mapper, _fakeDirector, _fakeBuilder, _fakeBackgroundQueue, _fakeEventHandler);
-            _concreteCacheHander = new CacheHandler(_fakeLogger, _mapper, _fakeDirector, _fakeBuilder, _fakeBackgroundQueue, _fakeEventHandler);
+            _fakeConfiguration = A.Fake<IConfiguration>();
+            _fakeCacheHandler = new CacheHandler(_fakeLogger, _mapper, _fakeDirector, _fakeBuilder, _fakeBackgroundQueue, _fakeEventHandler, _fakeConfiguration);
+            _concreteCacheHander = new CacheHandler(_fakeLogger, _mapper, _fakeDirector, _fakeBuilder, _fakeBackgroundQueue, _fakeEventHandler, _fakeConfiguration);
         }
 
         #region Publish Tests       
