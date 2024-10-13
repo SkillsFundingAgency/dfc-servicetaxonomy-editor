@@ -95,7 +95,7 @@ namespace DFC.ServiceTaxonomy.TriageToolMigrations.Migrations
 
             return 5;
         }
-        public async Task<int> UpdateFrom5sync()
+        public async Task<int> UpdateFrom5Async()
         {
 
             try
@@ -111,7 +111,7 @@ namespace DFC.ServiceTaxonomy.TriageToolMigrations.Migrations
 
             return 6;
         }
-        public async Task<int> UpdateFrom6sync()
+        public async Task<int> UpdateFrom6Async()
         {
 
             try
@@ -127,7 +127,7 @@ namespace DFC.ServiceTaxonomy.TriageToolMigrations.Migrations
 
             return 7;
         }
-        public async Task<int> UpdateFrom7sync()
+        public async Task<int> UpdateFrom7Async()
         {
 
             try
@@ -143,7 +143,7 @@ namespace DFC.ServiceTaxonomy.TriageToolMigrations.Migrations
 
             return 8;
         }
-        public async Task<int> UpdateFrom8sync()
+        public async Task<int> UpdateFrom8Async()
         {
 
             try
