@@ -1,0 +1,658 @@
+{
+  "name": "",
+  "displayName": "",
+  "description": "",
+  "author": "",
+  "website": "",
+  "version": "",
+  "issetuprecipe": false,
+  "categories": [],
+  "tags": [],
+  "steps": [
+    {
+      "name": "ContentDefinition",
+      "ContentTypes": [
+        {
+          "Name": "FilterAdviceGroup",
+          "DisplayName": "Filter Advice Group",
+          "Settings": {
+            "ContentTypeSettings": {
+              "Creatable": true,
+              "Listable": true,
+              "Draftable": true,
+              "Versionable": true,
+              "Securable": true
+            },
+            "FullTextAspectSettings": {},
+            "GraphQLContentTypeSettings": {}
+          },
+          "ContentTypePartDefinitionRecords": [
+            {
+              "PartName": "FilterAdviceGroup",
+              "Name": "FilterAdviceGroup",
+              "Settings": {
+                "ContentTypePartSettings": {
+                  "Position": "1"
+                }
+              }
+            },
+            {
+              "PartName": "AuditTrailPart",
+              "Name": "AuditTrailPart",
+              "Settings": {
+                "ContentTypePartSettings": {
+                  "Position": "2"
+                }
+              }
+            },
+            {
+              "PartName": "GraphSyncPart",
+              "Name": "GraphSyncPart",
+              "Settings": {
+                "GraphSyncPartSettings": {
+                  "BagPartContentItemRelationshipType": "",
+                  "PreExistingNodeUriPrefix": "",
+                  "NodeNameTransform": "ContentType",
+                  "PropertyNameTransform": "Value",
+                  "CreateRelationshipType": "",
+                  "IdPropertyName": "uri",
+                  "GenerateIdPropertyValue": "$\"<<contentapiprefix>>/{ContentType}/{Value}\".ToLowerInvariant()",
+                  "DisplayId": true
+                },
+                "ContentTypePartSettings": {
+                  "Position": "3"
+                }
+              }
+            },
+            {
+              "PartName": "TitlePart",
+              "Name": "TitlePart",
+              "Settings": {
+                "ContentTypePartSettings": {
+                  "Position": "0"
+                }
+              }
+            }
+          ]
+        }
+      ],
+      "ContentParts": [
+        {
+          "Name": "GraphSyncPart",
+          "Settings": {
+            "ContentPartSettings": {
+              "Attachable": true,
+              "Description": "Enables the content type to be synced to a graph."
+            }
+          },
+          "ContentPartFieldDefinitionRecords": []
+        },
+        {
+          "Name": "AuditTrailPart",
+          "Settings": {
+            "ContentPartSettings": {
+              "Attachable": true,
+              "Description": "Allows editors to enter a comment to be saved into the Audit Trail event when saving a content item."
+            }
+          },
+          "ContentPartFieldDefinitionRecords": []
+        },
+        {
+          "Name": "TitlePart",
+          "Settings": {
+            "ContentPartSettings": {
+              "Attachable": true,
+              "Description": "Provides a Title for your content item.",
+              "DefaultPosition": "0"
+            }
+          },
+          "ContentPartFieldDefinitionRecords": []
+        },
+        {
+          "Name": "FilterAdviceGroup",
+          "Settings": {},
+          "ContentPartFieldDefinitionRecords": [
+            {
+              "FieldName": "TextField",
+              "Name": "FilterGroupTitle",
+              "Settings": {
+                "ContentPartFieldSettings": {
+                  "DisplayName": "Filter Group Title",
+                  "Position": "0"
+                }
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "ContentDefinition",
+      "ContentTypes": [
+        {
+          "Name": "TriageLevelTwo",
+          "DisplayName": "Triage Level Two",
+          "Settings": {
+            "ContentTypeSettings": {
+              "Creatable": true,
+              "Listable": true,
+              "Draftable": true,
+              "Versionable": true,
+              "Securable": true
+            },
+            "FullTextAspectSettings": {},
+            "GraphQLContentTypeSettings": {}
+          },
+          "ContentTypePartDefinitionRecords": [
+            {
+              "PartName": "TriageLevelTwo",
+              "Name": "TriageLevelTwo",
+              "Settings": {
+                "ContentTypePartSettings": {
+                  "Position": "1"
+                }
+              }
+            },
+            {
+              "PartName": "GraphSyncPart",
+              "Name": "GraphSyncPart",
+              "Settings": {
+                "GraphSyncPartSettings": {
+                  "BagPartContentItemRelationshipType": "",
+                  "PreExistingNodeUriPrefix": "",
+                  "NodeNameTransform": "ContentType",
+                  "PropertyNameTransform": "Value",
+                  "CreateRelationshipType": "",
+                  "IdPropertyName": "uri",
+                  "GenerateIdPropertyValue": "$\"<<contentapiprefix>>/{ContentType}/{Value}\".ToLowerInvariant()",
+                  "DisplayId": true
+                },
+                "ContentTypePartSettings": {
+                  "Position": "2"
+                }
+              }
+            },
+            {
+              "PartName": "TitlePart",
+              "Name": "TitlePart",
+              "Settings": {
+                "ContentTypePartSettings": {
+                  "Position": "0"
+                }
+              }
+            },
+            {
+              "PartName": "UniqueTitlePart",
+              "Name": "UniqueTitlePart",
+              "Settings": {
+                "ContentTypePartSettings": {
+                  "Position": "3"
+                }
+              }
+            }
+          ]
+        }
+      ],
+      "ContentParts": [
+        {
+          "Name": "GraphSyncPart",
+          "Settings": {
+            "ContentPartSettings": {
+              "Attachable": true,
+              "Description": "Enables the content type to be synced to a graph."
+            }
+          },
+          "ContentPartFieldDefinitionRecords": []
+        },
+        {
+          "Name": "TitlePart",
+          "Settings": {
+            "ContentPartSettings": {
+              "Attachable": true,
+              "Description": "Provides a Title for your content item.",
+              "DefaultPosition": "0"
+            }
+          },
+          "ContentPartFieldDefinitionRecords": []
+        },
+        {
+          "Name": "UniqueTitlePart",
+          "Settings": {
+            "ContentPartSettings": {
+              "Attachable": true,
+              "Description": "Adds Title related properties to a content item."
+            }
+          },
+          "ContentPartFieldDefinitionRecords": []
+        },
+        {
+          "Name": "TriageLevelTwo",
+          "Settings": {},
+          "ContentPartFieldDefinitionRecords": [
+            {
+              "FieldName": "TextField",
+              "Name": "Value",
+              "Settings": {
+                "ContentPartFieldSettings": {
+                  "DisplayName": "Value",
+                  "Position": "0"
+                }
+              }
+            },
+            {
+              "FieldName": "ContentPickerField",
+              "Name": "FilterAdviceGroup",
+              "Settings": {
+                "ContentPartFieldSettings": {
+                  "DisplayName": "Filter Advice Group",
+                  "Position": "2"
+                },
+                "ContentPickerFieldSettings": {
+                  "Multiple": true,
+                  "DisplayedContentTypes": [
+                    "FilterAdviceGroup"
+                  ],
+                  "DisplayedStereotypes": []
+                }
+              }
+            },
+            {
+              "FieldName": "TextField",
+              "Name": "LevelTwoTitle",
+              "Settings": {
+                "ContentPartFieldSettings": {
+                  "DisplayName": "Level Two Title",
+                  "Position": "1"
+                }
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "ContentDefinition",
+      "ContentTypes": [
+        {
+          "Name": "TriageLevelOne",
+          "DisplayName": "Triage Level One",
+          "Settings": {
+            "ContentTypeSettings": {
+              "Creatable": true,
+              "Listable": true,
+              "Draftable": true,
+              "Versionable": true,
+              "Securable": true
+            }
+          },
+          "ContentTypePartDefinitionRecords": [
+            {
+              "PartName": "TriageLevelOne",
+              "Name": "TriageLevelOne",
+              "Settings": {}
+            },
+            {
+              "PartName": "GraphSyncPart",
+              "Name": "GraphSyncPart",
+              "Settings": {
+                "GraphSyncPartSettings": {
+                  "BagPartContentItemRelationshipType": "",
+                  "PreExistingNodeUriPrefix": "",
+                  "NodeNameTransform": "ContentType",
+                  "PropertyNameTransform": "Value",
+                  "CreateRelationshipType": "",
+                  "IdPropertyName": "uri",
+                  "GenerateIdPropertyValue": "$\"<<contentapiprefix>>/{ContentType}/{Value}\".ToLowerInvariant()",
+                  "DisplayId": true
+                }
+              }
+            },
+            {
+              "PartName": "TitlePart",
+              "Name": "TitlePart",
+              "Settings": {}
+            },
+            {
+              "PartName": "UniqueTitlePart",
+              "Name": "UniqueTitlePart",
+              "Settings": {}
+            }
+          ]
+        }
+      ],
+      "ContentParts": [
+        {
+          "Name": "GraphSyncPart",
+          "Settings": {
+            "ContentPartSettings": {
+              "Attachable": true,
+              "Description": "Enables the content type to be synced to a graph."
+            }
+          },
+          "ContentPartFieldDefinitionRecords": []
+        },
+        {
+          "Name": "TitlePart",
+          "Settings": {
+            "ContentPartSettings": {
+              "Attachable": true,
+              "Description": "Provides a Title for your content item.",
+              "DefaultPosition": "0"
+            }
+          },
+          "ContentPartFieldDefinitionRecords": []
+        },
+        {
+          "Name": "UniqueTitlePart",
+          "Settings": {
+            "ContentPartSettings": {
+              "Attachable": true,
+              "Description": "Adds Title related properties to a content item."
+            }
+          },
+          "ContentPartFieldDefinitionRecords": []
+        },
+        {
+          "Name": "TriageLevelOne",
+          "Settings": {},
+          "ContentPartFieldDefinitionRecords": [
+            {
+              "FieldName": "TextField",
+              "Name": "Value",
+              "Settings": {
+                "ContentPartFieldSettings": {
+                  "DisplayName": "Value"
+                }
+              }
+            },
+            {
+              "FieldName": "NumericField",
+              "Name": "Ordinal",
+              "Settings": {
+                "ContentPartFieldSettings": {
+                  "DisplayName": "Ordinal"
+                }
+              }
+            },
+            {
+              "FieldName": "ContentPickerField",
+              "Name": "LevelTwo",
+              "Settings": {
+                "ContentPartFieldSettings": {
+                  "DisplayName": "Level Two"
+                },
+                "ContentPickerFieldSettings": {
+                  "Multiple": true,
+                  "DisplayedContentTypes": [
+                    "TriageLevelTwo"
+                  ],
+                  "DisplayedStereotypes": []
+                }
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "ContentDefinition",
+      "ContentTypes": [
+        {
+          "Name": "TriageResultTile",
+          "DisplayName": "Triage Result Tile",
+          "Settings": {
+            "ContentTypeSettings": {
+              "Creatable": true,
+              "Listable": true,
+              "Draftable": true,
+              "Versionable": true,
+              "Securable": true
+            },
+            "FullTextAspectSettings": {},
+            "GraphQLContentTypeSettings": {}
+          },
+          "ContentTypePartDefinitionRecords": [
+            {
+              "PartName": "TriageResultTile",
+              "Name": "TriageResultTile",
+              "Settings": {
+                "ContentTypePartSettings": {
+                  "Position": "1"
+                }
+              }
+            },
+            {
+              "PartName": "AuditTrailPart",
+              "Name": "AuditTrailPart",
+              "Settings": {
+                "ContentTypePartSettings": {
+                  "Position": "2"
+                }
+              }
+            },
+            {
+              "PartName": "GraphSyncPart",
+              "Name": "GraphSyncPart",
+              "Settings": {
+                "GraphSyncPartSettings": {
+                  "BagPartContentItemRelationshipType": "",
+                  "PreExistingNodeUriPrefix": "",
+                  "NodeNameTransform": "ContentType",
+                  "PropertyNameTransform": "Value",
+                  "CreateRelationshipType": "",
+                  "IdPropertyName": "uri",
+                  "GenerateIdPropertyValue": "$\"<<contentapiprefix>>/{ContentType}/{Value}\".ToLowerInvariant()",
+                  "DisplayId": true
+                },
+                "ContentTypePartSettings": {
+                  "Position": "3"
+                }
+              }
+            },
+            {
+              "PartName": "TitlePart",
+              "Name": "TitlePart",
+              "Settings": {
+                "ContentTypePartSettings": {
+                  "Position": "0"
+                }
+              }
+            }
+          ]
+        }
+      ],
+      "ContentParts": [
+        {
+          "Name": "GraphSyncPart",
+          "Settings": {
+            "ContentPartSettings": {
+              "Attachable": true,
+              "Description": "Enables the content type to be synced to a graph."
+            }
+          },
+          "ContentPartFieldDefinitionRecords": []
+        },
+        {
+          "Name": "AuditTrailPart",
+          "Settings": {
+            "ContentPartSettings": {
+              "Attachable": true,
+              "Description": "Allows editors to enter a comment to be saved into the Audit Trail event when saving a content item."
+            }
+          },
+          "ContentPartFieldDefinitionRecords": []
+        },
+        {
+          "Name": "TitlePart",
+          "Settings": {
+            "ContentPartSettings": {
+              "Attachable": true,
+              "Description": "Provides a Title for your content item.",
+              "DefaultPosition": "0"
+            }
+          },
+          "ContentPartFieldDefinitionRecords": []
+        },
+        {
+          "Name": "TriageResultTile",
+          "Settings": {},
+          "ContentPartFieldDefinitionRecords": [
+            {
+              "FieldName": "ContentPickerField",
+              "Name": "TriageLevelOne",
+              "Settings": {
+                "ContentPartFieldSettings": {
+                  "DisplayName": "Triage Level One",
+                  "Position": "0"
+                },
+                "ContentPickerFieldSettings": {
+                  "DisplayedContentTypes": [
+                    "TriageLevelOne"
+                  ],
+                  "DisplayedStereotypes": []
+                }
+              }
+            },
+            {
+              "FieldName": "ContentPickerField",
+              "Name": "TriageResult",
+              "Settings": {
+                "ContentPartFieldSettings": {
+                  "DisplayName": "Triage  Result",
+                  "Position": "1"
+                },
+                "ContentPickerFieldSettings": {
+                  "DisplayedContentTypes": [
+                    "ApplicationView",
+                    "ApprenticeshipLink",
+                    "Page"
+                  ],
+                  "DisplayedStereotypes": []
+                }
+              }
+            },
+            {
+              "FieldName": "HtmlField",
+              "Name": "TriageTileHtml",
+              "Settings": {
+                "ContentPartFieldSettings": {
+                  "DisplayName": "Triage Tile Html",
+                  "Editor": "Wysiwyg",
+                  "Position": "2"
+                },
+                "HtmlFieldSettings": {},
+                "HtmlFieldTrumbowygEditorSettings": {
+                  "Options": "{\r\n    autogrow: true,\r\n    btns: [\r\n        [\"viewHTML\"],\r\n        [\"undo\", \"redo\"],\r\n        [\"formatting\"],\r\n        [\"strong\", \"em\", \"del\"],\r\n        [\"foreColor\", \"backColor\"],\r\n        [\"superscript\", \"subscript\"],\r\n        [\"link\"],\r\n        [\"insertShortcode\"],\r\n        [\"image\"],\r\n        [\"align\"],\r\n        [\"unorderedList\", \"orderedList\"],\r\n        [\"horizontalRule\"],\r\n        [\"removeformat\"],\r\n        [\"fullscreen\"]\r\n    ],\r\n    btnsDef: {\r\n        align: {\r\n            dropdown: [\"justifyLeft\", \"justifyCenter\", \"justifyRight\", \"justifyFull\"],\r\n            ico: \"justifyLeft\"\r\n        },\r\n        image: {\r\n            dropdown: [\"insertImage\", \"base64\", \"noembed\"],\r\n            ico: \"insertImage\"\r\n        }\r\n    }\r\n}"
+                }
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "ContentDefinition",
+      "ContentTypes": [
+        {
+          "Name": "TriageFilterAdviceGroupImage",
+          "DisplayName": "Triage Filter Advice Group Image",
+          "Settings": {
+            "ContentTypeSettings": {
+              "Creatable": true,
+              "Listable": true,
+              "Draftable": true,
+              "Versionable": true,
+              "Securable": true
+            },
+            "FullTextAspectSettings": {},
+            "GraphQLContentTypeSettings": {}
+          },
+          "ContentTypePartDefinitionRecords": [
+            {
+              "PartName": "TriageFilterAdviceGroupImage",
+              "Name": "TriageFilterAdviceGroupImage",
+              "Settings": {
+                "ContentTypePartSettings": {
+                  "Position": "1"
+                }
+              }
+            },
+            {
+              "PartName": "TitlePart",
+              "Name": "TitlePart",
+              "Settings": {
+                "ContentTypePartSettings": {
+                  "Position": "0"
+                }
+              }
+            }
+          ]
+        }
+      ],
+      "ContentParts": [
+        {
+          "Name": "TitlePart",
+          "Settings": {
+            "ContentPartSettings": {
+              "Attachable": true,
+              "Description": "Provides a Title for your content item.",
+              "DefaultPosition": "0"
+            }
+          },
+          "ContentPartFieldDefinitionRecords": []
+        },
+        {
+          "Name": "TriageFilterAdviceGroupImage",
+          "Settings": {},
+          "ContentPartFieldDefinitionRecords": [
+            {
+              "FieldName": "ContentPickerField",
+              "Name": "TriageLevelOne",
+              "Settings": {
+                "ContentPartFieldSettings": {
+                  "DisplayName": "Triage Level One",
+                  "Position": "0"
+                },
+                "ContentPickerFieldSettings": {
+                  "DisplayedContentTypes": [
+                    "TriageLevelOne"
+                  ],
+                  "DisplayedStereotypes": []
+                }
+              }
+            },
+            {
+              "FieldName": "ContentPickerField",
+              "Name": "FilterAdviceGroup",
+              "Settings": {
+                "ContentPartFieldSettings": {
+                  "DisplayName": "Filter Advice Group",
+                  "Position": "1"
+                },
+                "ContentPickerFieldSettings": {
+                  "Multiple": true,
+                  "DisplayedContentTypes": [
+                    "FilterAdviceGroup"
+                  ],
+                  "DisplayedStereotypes": []
+                }
+              }
+            },
+            {
+              "FieldName": "HtmlField",
+              "Name": "ImageHtml",
+              "Settings": {
+                "ContentPartFieldSettings": {
+                  "DisplayName": "Image Html",
+                  "Editor": "Wysiwyg",
+                  "Position": "2"
+                },
+                "HtmlFieldSettings": {}
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

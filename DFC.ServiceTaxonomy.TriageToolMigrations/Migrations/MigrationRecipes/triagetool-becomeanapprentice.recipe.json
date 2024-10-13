@@ -1,0 +1,87 @@
+{
+  "name": "",
+  "displayName": "",
+  "description": "",
+  "author": "",
+  "website": "",
+  "version": "",
+  "issetuprecipe": false,
+  "categories": [],
+  "tags": [],
+  "steps": [
+    {
+      "name": "Content",
+      "data": [
+        {
+          "ContentItemId": "4en375jpt8h4p65nmrj0v8gcwz",
+          "ContentItemVersionId": "4fgq0nf0p1kfzyw1s0x1skvtdm",
+          "ContentType": "ApprenticeshipLink",
+          "DisplayText": "Become an apprentice",
+          "Latest": true,
+          "Published": true,
+          "ModifiedUtc": "2024-10-03T09:31:58.8131404Z",
+          "PublishedUtc": "2024-10-03T09:31:58.9381417Z",
+          "CreatedUtc": "2024-09-01T22:30:26.9165081Z",
+          "Owner": "41xc6z9rat7tjykwwe24q74dm6",
+          "Author": "siva.muruganandham",
+          "UniqueTitlePart": {
+            "Title": "Become an apprentice"
+          },
+          "TitlePart": {
+            "Title": "Become an apprentice"
+          },
+          "ApprenticeshipLink": {
+            "Text": {
+              "Text": "Become an apprentice\r\n"
+            },
+            "URL": {
+              "Text": "https://www.gov.uk/apply-apprenticeship"
+            },
+            "TriageLevelOne": {
+              "ContentItemIds": [
+                "4hyyfbrh8swxszn5edkbrwafxb",
+                "4e2mfha8xd23rvhzjt6exfcpck",
+                "4jg4pebz90zrc0r8ae433sbe4a"
+              ]
+            },
+            "UseInTriageTool": {
+              "Value": true
+            },
+            "TriageLevelTwo": {
+              "ContentItemIds": [
+                "4vkrdc77gkyqxsrndc1374dn4x",
+                "4z8rgat5smm8p370mezenpakdg",
+                "4e6xsrh482nzrzv2cf1fb1mp4y",
+                "4mba52z9g9cjb5k1hmgfeatew8",
+                "454xwn1mh5fv3xsqayefg6j6cs",
+                "47wr2cbp9zs27z66j6mfvhczw3",
+                "4gfdtx4ybn4b01kzvt00074cne"
+              ]
+            },
+            "FilterAdviceGroup": {
+              "ContentItemIds": [
+                "473y984829g1s47zz26jekmsxm",
+                "49a58jk21qrjwxq6er4mk5dcw6",
+                "4wp6m3fv3z5ec2143dq775v1x7",
+                "4vv6vj096w9n022dvsf4hrftmr",
+                "4tnkdnrvae1de7knse3ccx6b5a",
+                "4aqz4erv1cpgk1rx59pq6jtyxx",
+                "4870s58cy95hfz79sspsbq66wa"
+              ]
+            },
+            "TriageOrdinal": {
+              "Value": 9.0
+            }
+          },
+          "GraphSyncPart": {
+            "Text": "<<contentapiprefix>>/apprenticeshiplink/734c3ff1-cbde-4b4b-bd2e-1ddd22ac5c94"
+          },
+          "AuditTrailPart": {
+            "Comment": null,
+            "ShowComment": false
+          }
+        }
+      ]
+    }
+  ]
+}

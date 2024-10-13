@@ -1,0 +1,76 @@
+{
+  "name": "Speak To An Adviser",
+  "displayName": "Speak To An Adviser",
+  "description": "Create speak to an adviser footer",
+  "author": "",
+  "website": "",
+  "version": "",
+  "issetuprecipe": false,
+  "categories": [],
+  "tags": [],
+  "steps": [
+    {
+      "name": "Content",
+      "data": [
+        {
+          "ContentItemId": "4nvbqeg3sxkjay15qnja3s4t5y",
+          "ContentItemVersionId": "4k7bkayk23gkg15jrq3xnfh64k",
+          "ContentType": "SharedContent",
+          "DisplayText": "Speak to an adviser - Footer",
+          "Latest": true,
+          "Published": true,
+          "ModifiedUtc": "2024-10-12T20:46:45.5315582Z",
+          "PublishedUtc": "2024-10-12T20:46:45.5909811Z",
+          "CreatedUtc": "2024-09-10T09:49:41.2407706Z",
+          "Owner": "41xc6z9rat7tjykwwe24q74dm6",
+          "Author": "siva.muruganandham",
+          "SharedContent": {
+            "Content": {
+              "Html": "  <div class=\"speak-to-adviser\">\n      <div class=\"speak-to-adviser__header\">\n          <div class=\"speak-to-adviser__header-text\">\n          Speak to an adviser\n          </div>\n          <img class=\"speak-to-adviser__image\" src=\"https://lab-cdn.nationalcareersservice.org.uk/media/speak-to-an-adviser.svg\" alt=\"\">\n       </div>\n      <div class=\"speak-to-adviser__body\">\n          Wherever you are with your decisions, you can <a href=\"https://nationalcareers.service.gov.uk/contact-us\">contact us</a> to get advice from a careers adviser.</div>\n      <div class=\"speak-to-adviser__body\">\n          Call <a class=\"speak-to-adviser__phoneno\" href=\"tel:0800100900\">0800 100 900 </a> or <a href=\"https://nationalcareers.service.gov.uk/webchat/chat\">use webchat</a> to talk online.\n      </div>\n   </div>"
+            }
+          },
+          "GraphSyncPart": {
+            "Text": "<<contentapiprefix>>/sharedcontent/5a54b3d6-3001-4c72-a1f9-7e20e11ae30a"
+          },
+          "TitlePart": {
+            "Title": "Speak to an adviser - Footer"
+          },
+          "ContentApprovalPart": {
+            "ReviewStatus": 0,
+            "ReviewType": 0,
+            "IsForcePublished": false
+          }
+        },
+        {
+          "ContentItemId": "44bnztezq7c9c59a8cgjv2dxxb",
+          "ContentItemVersionId": "41tp9kx65g85k6pff8xreamcx4",
+          "ContentType": "SharedContent",
+          "DisplayText": "Home Page Footer Wrapper",
+          "Latest": true,
+          "Published": true,
+          "ModifiedUtc": "2024-10-12T00:55:43.4648084Z",
+          "PublishedUtc": "2024-10-12T00:55:43.523821Z",
+          "CreatedUtc": "2024-10-12T00:39:03.6498925Z",
+          "Owner": "41xc6z9rat7tjykwwe24q74dm6",
+          "Author": "siva.muruganandham",
+          "SharedContent": {
+            "Content": {
+              "Html": "<div class=\"home-speak-to-adviser-container-footer\"></div>"
+            }
+          },
+          "GraphSyncPart": {
+            "Text": "<<contentapiprefix>>/sharedcontent/3760a11e-fb8d-4a38-86ef-a20f2a361be9"
+          },
+          "TitlePart": {
+            "Title": "Home Page Footer Wrapper"
+          },
+          "ContentApprovalPart": {
+            "ReviewStatus": 0,
+            "ReviewType": 0,
+            "IsForcePublished": false
+          }
+        }
+      ]
+    }
+  ]
+}

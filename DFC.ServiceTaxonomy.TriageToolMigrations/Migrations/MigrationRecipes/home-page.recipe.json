@@ -1,0 +1,329 @@
+{
+  "name": "",
+  "displayName": "",
+  "description": "",
+  "author": "",
+  "website": "",
+  "version": "",
+  "issetuprecipe": false,
+  "categories": [],
+  "tags": [],
+  "steps": [
+    {
+      "name": "Content",
+      "data": [
+        {
+          "ContentItemId": "4k13ad52r5y524vc22yyytc9cs",
+          "ContentItemVersionId": "47bsn6bty4m1gtshmn6xjqnx5t",
+          "ContentType": "Page",
+          "DisplayText": "Careers advice - job profiles, information and resources",
+          "Latest": true,
+          "Published": true,
+          "ModifiedUtc": "2024-10-12T00:50:35.1461341Z",
+          "PublishedUtc": "2024-10-12T00:50:36.4718589Z",
+          "CreatedUtc": "2021-05-05T08:22:29.1776661Z",
+          "Owner": "43crnj0zkd1pa1xncekdwyzgxk",
+          "Author": "siva.muruganandham",
+          "TitlePart": {
+            "Title": "Careers advice - job profiles, information and resources"
+          },
+          "Page": {
+            "PageLocations": {
+              "TaxonomyContentItemId": "4eembshqzx66drajtdten34tc8",
+              "TermContentItemIds": [
+                "4y3qc9f2r818z1df41a1yryvny"
+              ]
+            },
+            "Description": {
+              "Text": null
+            },
+            "Herobanner": {
+              "Html": " <div class=\"ncs-hero homepage-hero\">\n    \n        \n        <div class=\"d-only\">\n            <img src=\"https://lab-cdn.nationalcareersservice.org.uk/media/headers/homepage-desktop-header.png\" alt=\"Woman sat at a laptop and wearing a headset in an office. \">\n        </div>\n\n        \n        <div class=\"m-only\">\n            <img src=\"https://lab-cdn.nationalcareersservice.org.uk/media/headers/homepage-mobile-header.png\" alt=\"Woman sat at a laptop and wearing a headset in an office. \">\n        </div>\n\n        <div class=\"content govuk-width-container\">\n            <div class=\"govuk-grid-row\">\n                <div class=\"ncs-logo\"></div>\n\n                <div class=\"govuk-grid-column-two-thirds\">\n\n                    <h1 class=\"govuk-heading-xl\">\n                        <div class=\"block mb-5\">\n\n                            <span>Welcome</span>\n                            <span>to</span>\n                            <span>the</span>\n\n                        </div>\n                        <div class=\"block ncs\">\n\n                            <span>National</span>\n                            <span>Careers</span>\n                            <span>Service</span>\n</div>\n</h1>\n                        \n                    \n\n                    <div class=\"sub-heading\">\n                        <p class=\"block\">\n                            <span>We</span>\n                            <span>provide</span>\n                            <span>careers</span>\n                            <span>information,</span>\n                            <span>advice</span>\n                            <span>and</span>\n                            <span>guidance.</span>\n                            <span>We</span>\n                            <span>can</span>\n                            <span>help</span>\n                            <span>you</span>\n                            <span>make</span>\n                            <span>decisions</span>\n                            <span>at</span>\n                            <span>all</span>\n                            <span>stages</span>\n                            <span>in</span>\n                            <span>your</span>\n                            <span>career.</span>\n                        </p>\n                    </div>\n\n                </div>\n           </div>\n        </div>\n     \n    </div>"
+            },
+            "ShowHeroBanner": {
+              "Value": true
+            },
+            "ShowBreadcrumb": {
+              "Value": false
+            },
+            "TriageToolSummary": {
+              "Html": ""
+            },
+            "UseInTriageTool": {
+              "Value": false
+            },
+            "TriageToolFilters": {
+              "ContentItemIds": []
+            },
+            "UseBrowserWidth": {
+              "Value": false
+            },
+            "TriageLevelOne": {
+              "ContentItemIds": []
+            },
+            "TriageLevelTwo": {
+              "ContentItemIds": []
+            },
+            "FilterAdviceGroup": {
+              "ContentItemIds": []
+            },
+            "TriageTileTitle": {
+              "Text": null
+            },
+            "TriageTileDescription": {
+              "Text": null
+            },
+            "TriageOrdinal": {
+              "Value": null
+            },
+            "TriageTileHtml": {
+              "Html": ""
+            }
+          },
+          "SitemapPart": {
+            "Priority": 5,
+            "OverrideSitemapConfig": false,
+            "ChangeFrequency": 0,
+            "Exclude": false
+          },
+          "FlowPart": {
+            "Widgets": [
+              {
+                "ContentItemId": "4merpb5qnfww4x0c5rcwjr44nw",
+                "ContentItemVersionId": null,
+                "ContentType": "Form",
+                "DisplayText": "Triage tool",
+                "Latest": false,
+                "Published": false,
+                "ModifiedUtc": "2024-10-12T00:50:35.2001128Z",
+                "PublishedUtc": null,
+                "CreatedUtc": null,
+                "Owner": "",
+                "Author": "siva.muruganandham",
+                "TitlePart": {
+                  "Title": "Triage tool"
+                },
+                "FormElementPart": {
+                  "Id": "triageTool"
+                },
+                "FormPart": {
+                  "Action": "/triagetool",
+                  "Method": "GET",
+                  "WorkflowTypeId": null,
+                  "EncType": "application/x-www-form-urlencoded",
+                  "EnableAntiForgeryToken": true
+                },
+                "FlowPart": {
+                  "Widgets": [
+                    {
+                      "ContentItemId": "4w4yc53ds4weywr2p6at9vr3w0",
+                      "ContentItemVersionId": null,
+                      "ContentType": "HTML",
+                      "DisplayText": "",
+                      "Latest": false,
+                      "Published": false,
+                      "ModifiedUtc": "2024-10-12T00:50:35.2056712Z",
+                      "PublishedUtc": null,
+                      "CreatedUtc": null,
+                      "Owner": "",
+                      "Author": "siva.muruganandham",
+                      "HTML": {},
+                      "HtmlBodyPart": {
+                        "Html": "<div class=\"dfc-app-pages-triage-panel govuk-!-margin-bottom-2  govuk-!-margin-bottom-5\">\n<input type=\"hidden\" value=\"in education\" id=\"education\">\n   <div class=\"govuk-error-summary  validation-summary-valid\" id=\"triage-tool-validation-summary\" data-valmsg-summary=\"true\" aria-labelledby=\"error-summary-title\" tabindex=\"-1\" data-module=\"govuk-error-summary\">\n     <h2 class=\"govuk-error-summary__title\" id=\"error-summary-title\">There is a problem</h2>\n        <div class=\"govuk-error-summary__body\">\n            <ul class=\"govuk-list govuk-error-summary__list\">\n               \n                    <li>\n                        <a href=\"#triageLevelOne\" class=\"govuk-link govuk-link--no-visited-state hidden-triage-form-error\" id=\"level-one-summary-error\">Select your education or work status</a>\n                    </li>\n                    <li>\n                        <a href=\"#triageLevelTwo\" class=\"govuk-link govuk-link--no-visited-state hidden-triage-form-error\" id=\"edu-level-two-summary-error\">Select your stage</a>\n                    </li>\n                    <li>\n                        <a href=\"#triageLevelTwo\" class=\"govuk-link govuk-link--no-visited-state hidden-triage-form-error\" id=\"level-two-summary-error\">Select your situation</a>\n                    </li>\n               \n            </ul>\n        </div>\n</div>\n\t<h2 class=\"dfc-app-pages-triage-header\">Get relevant careers advice</h2>\n<div class=\"govuk-form-group \" id=\"level-one-error-group\">\n                       \n        <h2 class=\"govuk-label dfc-app-pages-triage-sub-header\">Select which best describes your current situation to receive careers advice and information relevant to you.</h2> \n<span class=\"govuk-error-message\">\n<span id=\"level-one-error\" class=\"field-validation-error hidden-triage-form-error\">Select your education or work status</span>\n<span id=\"edu-level-two-error\" class=\"field-validation-error hidden-triage-form-error\">Select your stage</span>\n<span id=\"level-two-error\" class=\"field-validation-error hidden-triage-form-error\">Select your situation</span>\n</span>\n\t<div class=\"govuk-form-group govuk-!-margin-bottom-0\">\n\t\t<label class=\"govuk-label ncs-triage-select-label dfc-app-pages-triage-label multi-factor-select\" for=\"triageLevelOne\">\n\t\t\tI'm\n\t\t</label>\n\t\t<select class=\"govuk-select  dfc-app-pages-triage-select ncs-triage-select-!-margin-left-0 multi-factor-select\" id=\"triageLevelOne\" name=\"triage-level-one\">\n\t\t\t<option value=\"\">select your education or work status</option>\n<option value=\"in education\" class=\"edu-level-two-summary-error\">in education</option>\n\n\t\t\t<option value=\"employed\">employed</option>\n\t\t\t<option value=\"not in work\">not in work</option>\n\t\t\t\n\t\t</select>\n<label class=\"govuk-label ncs-triage-select-label dfc-app-pages-triage-label multi-factor-select\" for=\"triageLevelTwo\">\n\t\t\tand\n\t\t</label>\n\t\t<select class=\"govuk-select dfc-app-pages-triage-select ncs-triage-select-!-margin-left-0 multi-factor-select\" id=\"triageLevelTwo\" disabled=\"disabled\" name=\"triage-level-two\">\n\t\t\t<option value=\"\">select your situation</option>\n\t\t</select>\n<select class=\"govuk-select  ncs-triage-select-!-margin-left-0 single-factor-select dfc-app-pages-triage-select-jsd\" id=\"triageSelect\" name=\"triage-select\">\n\t\t\t<option value=\"\">Select your education or work situation</option>\n                       <option value=\"in education|in university\">I'm in university</option>\n<option value=\"in education|in college or sixth form\">I'm in college or sixth form</option>\n<option value=\"in education|in secondary school\">I'm in secondary school</option>\n<option value=\"employed|want to change career\">I'm employed and I want to change career</option>\n<option value=\"employed|want to progress in my career\">I want to progress in my career</option>\n<option value=\"employed|at risk of redundancy\">I'm at risk of redundancy</option>\n<option value=\"not in work|want to return to work after a break\">I want to return to work after a break</option>\n<option value=\"not in work|want to prepare to get a job\">I'm not in work and I want to prepare to get a job</option>\n<option value=\"not in work|want to change career\">I'm not in work and I want to change career</option>\n\t\t</select>\n\t\t</div>\n\t</div>\n<div><button id=\"triage-tool-submit-button\" draggable=\"false\" class=\"govuk-button dfc-app-pages-button  ncs-button__primary govuk-button--start triage-start-btn ncs-branding-margin-top-10\" data-module=\"govuk-button\">\n\t\t\tSee advice\n\t\t\t<svg class=\"govuk-button__start-icon\" xmlns=\"http://www.w3.org/2000/svg\" width=\"17.5\" height=\"19\" viewBox=\"0 0 33 40\">\n\t\t\t\t<path fill=\"currentColor\" d=\"M0 0h13l20 20-20 20H0l20-20z\"></path>\n\t\t\t</svg>\n\t\t</button></div>\n\n</div>"
+                      },
+                      "GraphSyncPart": {
+                        "Text": "<<contentapiprefix>>/html/11b21479-0f80-4cbb-95f7-5e8581fe3216"
+                      },
+                      "FlowMetadata": {
+                        "Alignment": 0,
+                        "Size": 100
+                      }
+                    }
+                  ]
+                },
+                "GraphSyncPart": {
+                  "Text": "<<contentapiprefix>>/form/157f0129-f9a7-46d9-ba47-385cce43e8ca"
+                },
+                "FlowMetadata": {
+                  "Alignment": 0,
+                  "Size": 100
+                }
+              },
+              {
+                "ContentItemId": "4d6wf1atb8f41w2vzr3sdqhzxf",
+                "ContentItemVersionId": null,
+                "ContentType": "HTML",
+                "DisplayText": "",
+                "Latest": false,
+                "Published": false,
+                "ModifiedUtc": "2024-10-12T00:50:35.2231308Z",
+                "PublishedUtc": null,
+                "CreatedUtc": null,
+                "Owner": "",
+                "Author": "siva.muruganandham",
+                "HTML": {},
+                "HtmlBodyPart": {
+                  "Html": "<div class=\"product-tile-container\">\n<div class=\"home-product-tile-mobile app-view-tile app-view-tile__skills-assessment\">\n    <div class=\"tile-header app-view-tile__skills-assessment-header\">\n           <a href=\"/discover-your-skills-and-careers\" id=\"tile-link-take-a-skills-assessment\" class=\"govuk-link app-view-tile-header-text\">Take a skills assessment </a>\n             <img src=\"https://lab-cdn.nationalcareersservice.org.uk/media/checkbox.svg\" alt=\"\" class=\"app-view-tile-header-image\">\n     </div>\n     <div class=\"tile-description\">\n        Get a summary of your skillset and see what careers are recommended for you.\n     </div>\n</div>\n\t<div class=\"home-product-tile-mobile app-view-tile app-view-tile__explore-careers \">\n    <div class=\"tile-header app-view-tile__explore-careers-header\">\n           <a href=\"/explore-careers\" id=\"tile-link-explore-careers\" class=\"govuk-link app-view-tile-header-text\"> Explore careers </a>\n             <img src=\"https://lab-cdn.nationalcareersservice.org.uk/media/compass.svg\" alt=\"\" class=\"app-view-tile-header-image\">\n     </div>\n     <div class=\"tile-description\">\n          Browse over 800 job profiles to discover what different roles involve.\n     </div>\n</div>\n<div class=\"home-product-tile-mobile app-view-tile app-view-tile__find-a-course\">\n    <div class=\"tile-header app-view-tile__find-a-course-header\">\n           <a href=\"/find-a-course\" id=\"tile-link-find-a-course\" class=\"govuk-link app-view-tile-header-text\"> Find a course </a>\n             <img src=\"https://lab-cdn.nationalcareersservice.org.uk/media/magnifying-glass.svg\" alt=\"\" class=\"app-view-tile-header-image\">\n     </div>\n     <div class=\"tile-description\">\n       Work towards a qualification by taking an online or classroom course local to you.\n     </div>\n</div>\n\t\t<div class=\"home-product-tile home-product-tile-desktop home-product-tile__skills-assessment\">\n\t\t\t<div class=\"home-product-tile-header home-product-tile-header__skills-assessment\">\n                           <a href=\"/discover-your-skills-and-careers\" id=\"tile-link-skills-assessment\" class=\"govuk-link home-product-tile-description-head \">Take a skills assessment</a>\n                            <img class=\"home-product-tile-header-image\" alt=\"\" src=\"https://lab-cdn.nationalcareersservice.org.uk/media/checkbox.svg\">\n                         </div>\n                       \n                        <p class=\"home-product-tile-description\">Answer questions about your interests and see some careers that might suit you.\n\t\t</p></div>\n\t\t\n\t\n\t\t<div class=\"home-product-tile home-product-tile-desktop home-product-tile__explore-careers\">\n\t\t\t<div class=\"home-product-tile-header home-product-tile-header__explore-careers\">\n                                      <a class=\"govuk-link home-product-tile-description-head home-product-tile-description-head-m\" id=\"tile-link-explore-careers\" href=\"/explore-careers\">Explore careers</a>\n                            <img class=\"home-product-tile-header-image\" alt=\"\" src=\"https://lab-cdn.nationalcareersservice.org.uk/media/compass.svg\">\n                         </div>\n                    \n                        <p class=\"home-product-tile-description\">Browse hundreds of job profiles to discover what different roles involve.\n\t\t</p></div>\n\n\t\t<div class=\"home-product-tile home-product-tile-desktop home-product-tile__find-a-course\">\n\t\t\t<div class=\"home-product-tile-header home-product-tile-header__find-a-course\">\n                           <a href=\"/find-a-course\" id=\"tile-link-find-a-course\" class=\"govuk-link home-product-tile-description-head home-product-tile-description-head-s\">Find a course</a>\n                            <img class=\"home-product-tile-header-image\" alt=\"\" src=\"https://lab-cdn.nationalcareersservice.org.uk/media/magnifying-glass.svg\">\n                         </div>\n                      \n                        <p class=\"home-product-tile-description\">Search for online and classroom courses near you to develop your skills.\n\t\t</p></div>\n\n</div>"
+                },
+                "GraphSyncPart": {
+                  "Text": "<<contentapiprefix>>/html/e3455725-99ce-45dc-ba2f-398220ecd2cb"
+                },
+                "FlowMetadata": {
+                  "Alignment": 0,
+                  "Size": 100
+                }
+              },
+              {
+                "ContentItemId": "4j50p6b8rkac0teagk6fr6y8d5",
+                "ContentItemVersionId": null,
+                "ContentType": "HTML",
+                "DisplayText": "",
+                "Latest": false,
+                "Published": false,
+                "ModifiedUtc": "2024-10-12T00:50:35.2345503Z",
+                "PublishedUtc": null,
+                "CreatedUtc": null,
+                "Owner": "",
+                "Author": "siva.muruganandham",
+                "HTML": {},
+                "HtmlBodyPart": {
+                  "Html": " <div class=\"speak-to-adviser speak-to-adviser-home speak-to-adviser-container-main\">\n      <div class=\"speak-to-adviser__header speak-to-adviser__header-home\">\n          <div class=\"speak-to-adviser__header-text speak-to-adviser__header-text-home\">\n          Speak to an adviser\n          </div>\n          <img class=\"speak-to-adviser__image\" src=\"https://lab-cdn.nationalcareersservice.org.uk/media/speak-to-an-adviser.svg\" alt=\"\">\n       </div>\n      <div class=\"speak-to-adviser__body\">\n          Wherever you are with your decisions, you can <a id=\"link-contact-us\" href=\"https://nationalcareers.service.gov.uk/contact-us\">contact us</a> to get advice from a careers adviser.</div>\n      <div class=\"speak-to-adviser__body\">\n          Call <a class=\"speak-to-adviser__phoneno\" id=\"link-phone-no\" href=\"tel:0800100900\">0800 100 900 </a> or <a id=\"link-web-chat\" href=\"https://nationalcareers.service.gov.uk/webchat/chat\">use webchat</a> to talk online.\n      </div>\n   </div>"
+                },
+                "GraphSyncPart": {
+                  "Text": "<<contentapiprefix>>/html/01ec1584-030b-4ed3-988a-4bd9bec14654"
+                },
+                "FlowMetadata": {
+                  "Alignment": 3,
+                  "Size": 33
+                }
+              },
+              {
+                "ContentItemId": "43tx05hwtfw6b5fdxbmdpzbpx0",
+                "ContentItemVersionId": null,
+                "ContentType": "HTML",
+                "DisplayText": "",
+                "Latest": false,
+                "Published": false,
+                "ModifiedUtc": "2024-10-12T00:50:35.2465834Z",
+                "PublishedUtc": null,
+                "CreatedUtc": null,
+                "Owner": "",
+                "Author": "siva.muruganandham",
+                "HTML": {},
+                "HtmlBodyPart": {
+                  "Html": "<section class=\"govuk-!-margin-top-6\">\n     <div class=\"govuk-grid-row\">\n\n        <div class=\"govuk-grid-column-full card\">\n\t\t<p> <strong>Meet Donna</strong> Find out how Donna balances being a mum and working full time as laboratory technician.</p>\n        <iframe id=\"homepagevideo\" class=\"home-page-video-frame\" height=\"315\" title=\"Meet Donna\" src=\"https://www.youtube-nocookie.com/embed/EtY2_HZzIcU?rel=0&amp;modestbranding=1&amp;autoplay=0&amp;origin=https://nationalcareers.service.gov.uk\" allowfullscreen=\"allowfullscreen\"></iframe>\n<p class=\"govuk-body-m\">2 minute 20 second watch</p>\n          <details class=\"govuk-details\" data-module=\"govuk-details\">\n            <summary class=\"govuk-details__summary\" id=\"link-view-transcript\"> <span class=\"govuk-details__summary-text\"> View transcript </span> </summary>\n            <div class=\"govuk-details__text\">\n              <p class=\"govuk-body\">My main ambition in life was to have a family and become a mum. So in truth, I wasn't particularly career driven. The fact that I'm now involved in research as a microtarget fabricator is something that I would never have imagined.</p>\n              <p class=\"govuk-body\">My name's Donna Wyatt, I'm a senior microtarget fabricator, here in the Central Laser Facility, at the Rutherford Appleton Laboratory.</p>\n              <p class=\"govuk-body\">My main role here is to produce microtargets for the visiting scientists to conduct their laser experiments. The lasers here at Rutherford are used in a variety of different research projects. For example, looking into improved treatments for cancer and also fusion energy. </p>\n<p class=\"govuk-body\">These microtargets that I produce are often made up of multi components that are around the same size as a human hair. So we're talking really, really small. </p>\n              <p class=\"govuk-body\">So I use a range of micro tools to create these targets and depending on the specification, these targets can take anything from two minutes to two to four hours.</p>\n              <p class=\"govuk-body\">Initially, I wasn't very confident I'd be any good at this job as I don't have a science background. To this day I still really suffer with imposter syndrome, as a lot of my colleagues went to university and I didn't. My confidence must have grown because I've been here almost 26 years.</p>\n              <p class=\"govuk-body\">Donna's one of only, maybe two or three people in the UK that has got the skills to be able to manipulate and assemble these targets to the accuracies that are required.</p>\n\n<p class=\"govuk-body\">To know that she makes sure that everything that leaves a lab to go to the experimental groups is perfect, is well assembled, and she really cares about what she does and that's incredibly important for the team and for the facility as a whole.</p>\n<p class=\"govuk-body\">Having always worked full time and having my children, I have suffered from a lot of mum guilt.</p>\n<p class=\"govuk-body\">I recently brought my now grown up son into the lab to show him what I do and how I do it. And when he left that day, he text me to say how proud he was of me. It made me realise that you can have a brilliant career and still be a good parent at the same time.</p>\n            </div>\n          </details>\n        </div>\n    </div>\n  </section>"
+                },
+                "GraphSyncPart": {
+                  "Text": "<<contentapiprefix>>/html/c619053a-3aab-433e-9183-89ed9d7bdca6"
+                },
+                "FlowMetadata": {
+                  "Alignment": 3,
+                  "Size": 66
+                }
+              },
+              {
+                "ContentItemId": "4z50rbr4q66fb6jqpvv1ht89x7",
+                "ContentItemVersionId": null,
+                "ContentType": "HTML",
+                "DisplayText": "",
+                "Latest": false,
+                "Published": false,
+                "ModifiedUtc": "2024-10-12T00:50:35.2562989Z",
+                "PublishedUtc": null,
+                "CreatedUtc": null,
+                "Owner": "",
+                "Author": "siva.muruganandham",
+                "HTML": {},
+                "HtmlBodyPart": {
+                  "Html": " \n      <div class=\"image-container\">\n                        <img src=\"https://lab-cdn.nationalcareersservice.org.uk/media/greencareers_updated.png?202409121138\" id=\"banner-img-green-careers\" alt=\"Green Careers\" data-source=\"CDN\">\n                        <div class=\"overlay-content-header overlay-header\">\n                            <span>Green careers</span>                                                    \n                        </div>\n                    <div class=\"overlay-content\">\n                        \n                            <span>If  you'd like to make a difference in your job and\n help to tackle climate change then a <a class=\"govuk-link\" id=\"banner-link-green-careers\" href=\"/careers-advice/green-careers\">\n green\n career</a> could be for you.</span>\n                        \n                    </div>\n                </div>\n      \n     \n    "
+                },
+                "GraphSyncPart": {
+                  "Text": "<<contentapiprefix>>/html/caa665ac-c993-4d92-9719-c37bf47e441d"
+                },
+                "FlowMetadata": {
+                  "Alignment": 3,
+                  "Size": 100
+                }
+              },
+              {
+                "ContentItemId": "4cy71177g4c601b6ds6cy3g2n3",
+                "ContentItemVersionId": null,
+                "ContentType": "HTMLShared",
+                "DisplayText": null,
+                "Latest": false,
+                "Published": false,
+                "ModifiedUtc": "2024-10-12T00:50:35.265871Z",
+                "PublishedUtc": null,
+                "CreatedUtc": null,
+                "Owner": null,
+                "Author": "siva.muruganandham",
+                "HTMLShared": {
+                  "SharedContent": {
+                    "ContentItemIds": [
+                      "44bnztezq7c9c59a8cgjv2dxxb",
+                      "4nvbqeg3sxkjay15qnja3s4t5y"
+                    ]
+                  }
+                },
+                "GraphSyncPart": {
+                  "Text": "<<contentapiprefix>>/htmlshared/2edf696c-d007-4968-a8f7-374630f8646f"
+                },
+                "FlowMetadata": {
+                  "Alignment": 3,
+                  "Size": 100
+                }
+              },
+              {
+                "ContentItemId": "4a0we9csddbak4amcqsr9bzfx7",
+                "ContentItemVersionId": null,
+                "ContentType": "HTMLShared",
+                "DisplayText": "",
+                "Latest": false,
+                "Published": false,
+                "ModifiedUtc": "2024-10-12T00:50:35.2816139Z",
+                "PublishedUtc": null,
+                "CreatedUtc": null,
+                "Owner": "",
+                "Author": "siva.muruganandham",
+                "HTMLShared": {
+                  "SharedContent": {
+                    "ContentItemIds": [
+                      "4c34xj4mkh8perqa11v5kqbjn0"
+                    ]
+                  }
+                },
+                "GraphSyncPart": {
+                  "Text": "<<contentapiprefix>>/htmlshared/6937bb12-a3eb-4b63-bfdc-29136727460e"
+                },
+                "FlowMetadata": {
+                  "Alignment": 3,
+                  "Size": 100
+                }
+              }
+            ]
+          },
+          "GraphSyncPart": {
+            "Text": "<<contentapiprefix>>/page/35875892-73e1-4007-9989-c09d29f9f7ae"
+          },
+          "PageLocationPart": {
+            "UrlName": "home",
+            "DefaultPageForLocation": true,
+            "RedirectLocations": null,
+            "FullUrl": "/home",
+            "UseInTriageTool": false
+          },
+          "ContentApprovalPart": {
+            "ReviewStatus": 0,
+            "ReviewType": 0,
+            "IsForcePublished": false,
+            "Comment": "CHG0058983 -update 2\r\nAdding final 8 set of Triage Tool options to home \r\npage dropdown list - CHG0058983\r\n\r\nRe-publish"
+          },
+          "AuditTrailPart": {
+            "Comment": "updated",
+            "ShowComment": false
+          }
+        }
+      ]
+    }
+  ]
+}
