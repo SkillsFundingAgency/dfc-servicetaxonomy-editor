@@ -159,5 +159,21 @@ namespace DFC.ServiceTaxonomy.TriageToolMigrations.Migrations
 
             return 9;
         }
+        public async Task<int> UpdateFrom9Async()
+        {
+
+            try
+            {
+                _logger.LogInformation($"Starting step 6 of DFC.ServiceTaxonomy.TriageToolMigrations");
+                await _recipeMigrator.ExecuteAsync("MigrationRecipes/placements.recipe.json", this);
+                _logger.LogInformation($"Completed step 4 of DFC.ServiceTaxonomy.TriageToolMigrations");
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error with step 6 of DFC.ServiceTaxonomy.TriageToolMigrations");
+            }
+
+            return 10;
+        }
     }
 }
