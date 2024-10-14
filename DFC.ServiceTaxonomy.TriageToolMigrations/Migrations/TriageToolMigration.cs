@@ -20,7 +20,7 @@ namespace DFC.ServiceTaxonomy.TriageToolMigrations.Migrations
             try
             {
                 _logger.LogInformation($"Starting step 1 of DFC.ServiceTaxonomy.TriageToolMigrations");
-                await _recipeMigrator.ExecuteAsync("MigrationRecipes/triagetool-speak-to-an-adviser.recipe.json", this);
+                await _recipeMigrator.ExecuteAsync("MigrationRecipes/triage-tool-lookup.recipe.json", this);
                 _logger.LogInformation($"Completed step 1 of DFC.ServiceTaxonomy.TriageToolMigrations");
             }
             catch (Exception ex)
@@ -37,7 +37,7 @@ namespace DFC.ServiceTaxonomy.TriageToolMigrations.Migrations
             try
             {
                 _logger.LogInformation($"Starting step 2 of DFC.ServiceTaxonomy.TriageToolMigrations");
-                await _recipeMigrator.ExecuteAsync("MigrationRecipes/triagetool-speak-to-an-adviser-update.recipe.json", this);
+                await _recipeMigrator.ExecuteAsync("MigrationRecipes/triage-tool-resulttypes.recipe.json", this);
                 _logger.LogInformation($"Completed step 2 of DFC.ServiceTaxonomy.TriageToolMigrations");
             }
             catch (Exception ex)
@@ -49,39 +49,6 @@ namespace DFC.ServiceTaxonomy.TriageToolMigrations.Migrations
         }
         public async Task<int> UpdateFrom2Async()
         {
-
-            try
-            {
-                _logger.LogInformation($"Starting step 1 of DFC.ServiceTaxonomy.TriageToolMigrations");
-                await _recipeMigrator.ExecuteAsync("MigrationRecipes/triage-tool-lookup.recipe.json", this);
-                _logger.LogInformation($"Completed step 1 of DFC.ServiceTaxonomy.TriageToolMigrations");
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "Error with step 1 of DFC.ServiceTaxonomy.TriageToolMigrations");
-            }
-
-            return 3;
-        }
-        public async Task<int> UpdateFrom3Async()
-        {
-
-            try
-            {
-                _logger.LogInformation($"Starting step 2 of DFC.ServiceTaxonomy.TriageToolMigrations");
-                await _recipeMigrator.ExecuteAsync("MigrationRecipes/triage-tool-resulttypes.recipe.json", this);
-                _logger.LogInformation($"Completed step 2 of DFC.ServiceTaxonomy.TriageToolMigrations");
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "Error with step 2 of DFC.ServiceTaxonomy.TriageToolMigrations");
-            }
-
-            return 4;
-        }
-        public async Task<int> UpdateFrom4Async()
-        {
-
             try
             {
                 _logger.LogInformation($"Starting step 3 of DFC.ServiceTaxonomy.TriageToolMigrations");
@@ -93,11 +60,10 @@ namespace DFC.ServiceTaxonomy.TriageToolMigrations.Migrations
                 _logger.LogError(ex, "Error with step 3 of DFC.ServiceTaxonomy.TriageToolMigrations");
             }
 
-            return 5;
+            return 3;
         }
-        public async Task<int> UpdateFrom5Async()
+        public async Task<int> UpdateFrom3Async()
         {
-
             try
             {
                 _logger.LogInformation($"Starting step 4 of DFC.ServiceTaxonomy.TriageToolMigrations");
@@ -109,57 +75,55 @@ namespace DFC.ServiceTaxonomy.TriageToolMigrations.Migrations
                 _logger.LogError(ex, "Error with step 4 of DFC.ServiceTaxonomy.TriageToolMigrations");
             }
 
-            return 6;
+            return 4;
         }
-        public async Task<int> UpdateFrom6Async()
+        public async Task<int> UpdateFrom4Async()
         {
-
             try
             {
                 _logger.LogInformation($"Starting step 5 of DFC.ServiceTaxonomy.TriageToolMigrations");
                 await _recipeMigrator.ExecuteAsync("MigrationRecipes/home-page.recipe.json", this);
-                _logger.LogInformation($"Completed step 4 of DFC.ServiceTaxonomy.TriageToolMigrations");
+                _logger.LogInformation($"Completed step 5 of DFC.ServiceTaxonomy.TriageToolMigrations");
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex, "Error with step 5 of DFC.ServiceTaxonomy.TriageToolMigrations");
             }
 
+            return 5;
+        }
+        public async Task<int> UpdateFrom5Async()
+        {
+            try
+            {
+                _logger.LogInformation($"Starting step 6 of DFC.ServiceTaxonomy.TriageToolMigrations");
+                await _recipeMigrator.ExecuteAsync("MigrationRecipes/triagetool-becomeanapprentice.recipe.json", this);
+                _logger.LogInformation($"Completed step 6 of DFC.ServiceTaxonomy.TriageToolMigrations");
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error with step 6 of DFC.ServiceTaxonomy.TriageToolMigrations");
+            }
+
+
+            return 6;
+        }
+        public async Task<int> UpdateFrom6Async()
+        {
+            try
+            {
+                _logger.LogInformation($"Starting step 6 of DFC.ServiceTaxonomy.TriageToolMigrations");
+                await _recipeMigrator.ExecuteAsync("MigrationRecipes/triagetool-becomeanapprentice.recipe.json", this);
+                _logger.LogInformation($"Completed step 4 of DFC.ServiceTaxonomy.TriageToolMigrations");
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error with step 6 of DFC.ServiceTaxonomy.TriageToolMigrations");
+            }
+
             return 7;
         }
         public async Task<int> UpdateFrom7Async()
-        {
-
-            try
-            {
-                _logger.LogInformation($"Starting step 6 of DFC.ServiceTaxonomy.TriageToolMigrations");
-                await _recipeMigrator.ExecuteAsync("MigrationRecipes/triagetool-becomeanapprentice.recipe.json", this);
-                _logger.LogInformation($"Completed step 4 of DFC.ServiceTaxonomy.TriageToolMigrations");
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "Error with step 6 of DFC.ServiceTaxonomy.TriageToolMigrations");
-            }
-
-            return 8;
-        }
-        public async Task<int> UpdateFrom8Async()
-        {
-
-            try
-            {
-                _logger.LogInformation($"Starting step 6 of DFC.ServiceTaxonomy.TriageToolMigrations");
-                await _recipeMigrator.ExecuteAsync("MigrationRecipes/triagetool-becomeanapprentice.recipe.json", this);
-                _logger.LogInformation($"Completed step 4 of DFC.ServiceTaxonomy.TriageToolMigrations");
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "Error with step 6 of DFC.ServiceTaxonomy.TriageToolMigrations");
-            }
-
-            return 9;
-        }
-        public async Task<int> UpdateFrom9Async()
         {
 
             try
@@ -173,7 +137,7 @@ namespace DFC.ServiceTaxonomy.TriageToolMigrations.Migrations
                 _logger.LogError(ex, "Error with step 6 of DFC.ServiceTaxonomy.TriageToolMigrations");
             }
 
-            return 10;
+            return 8;
         }
     }
 }
