@@ -204,6 +204,22 @@ namespace DFC.ServiceTaxonomy.TriageToolMigrations.Migrations
 
             return 12;
         }
+        public async Task<int> UpdateFrom12Async()
+        {
+
+            try
+            {
+                _logger.LogInformation($"Starting step 6 of DFC.ServiceTaxonomy.TriageToolMigrations");
+                await _recipeMigrator.ExecuteAsync("MigrationRecipes/keep-in-touch.recipe.json", this);
+                _logger.LogInformation($"Completed step 4 of DFC.ServiceTaxonomy.TriageToolMigrations");
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error with step 6 of DFC.ServiceTaxonomy.TriageToolMigrations");
+            }
+
+            return 13;
+        }
 
     }
 }
