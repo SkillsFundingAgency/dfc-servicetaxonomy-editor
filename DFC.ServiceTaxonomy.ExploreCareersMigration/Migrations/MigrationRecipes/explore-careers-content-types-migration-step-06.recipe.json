@@ -1,0 +1,1244 @@
+{
+    "name": "Placements",
+    "displayName": "Placements - master copy",
+    "description": "Master copy of placements",
+    "author": "National Careers Service",
+    "website": "https://github.com/SkillsFundingAgency/dfc-servicetaxonomy-editor",
+    "version": null,
+    "issetuprecipe": false,
+    "categories": [
+        "default"
+    ],
+    "tags": [
+        "ncs"
+    ],
+    "steps": [
+        {
+            "name": "Placements",
+            "Placements": {
+                "HtmlField_Edit": [
+                    {
+                        "place": "Parts:3#Content;1",
+                        "displayType": null,
+                        "differentiator": "Page-Herobanner",
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null
+                    },
+                    {
+                        "place": "Parts:1#Triage Tool;3",
+                        "displayType": null,
+                        "differentiator": "Page-TriageToolSummary",
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null
+                    },
+                    {
+                        "place": "Parts:1#Triage Tool;2",
+                        "displayType": null,
+                        "differentiator": "ApplicationView-TriageToolSummary",
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null
+                    },
+                    {
+                        "place": "Parts:0#How to become;2",
+                        "displayType": null,
+                        "differentiator": "JobProfile-Entryroutes",
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null,
+                        "contentType": [
+                            "JobProfile"
+                        ]
+                    },
+                    {
+                        "place": "Parts:1#How to become;2",
+                        "displayType": null,
+                        "differentiator": "JobProfile-Universityrelevantsubjects",
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null,
+                        "contentType": [
+                            "JobProfile"
+                        ]
+                    },
+                    {
+                        "place": "Parts:2#How to become;2",
+                        "displayType": null,
+                        "differentiator": "JobProfile-Universityfurtherrouteinfo",
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null,
+                        "contentType": [
+                            "JobProfile"
+                        ]
+                    },
+                    {
+                        "place": "Parts:6#How to become;2",
+                        "displayType": null,
+                        "differentiator": "JobProfile-Collegerelevantsubjects",
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null,
+                        "contentType": [
+                            "JobProfile"
+                        ]
+                    },
+                    {
+                        "place": "Parts:7#How to become;2",
+                        "displayType": null,
+                        "differentiator": "JobProfile-Collegefurtherrouteinfo",
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null,
+                        "contentType": [
+                            "JobProfile"
+                        ]
+                    },
+                    {
+                        "place": "Parts:11#How to become;2",
+                        "displayType": null,
+                        "differentiator": "JobProfile-Apprenticeshiprelevantsubjects",
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null,
+                        "contentType": [
+                            "JobProfile"
+                        ]
+                    },
+                    {
+                        "place": "Parts:12#How to become;2",
+                        "displayType": null,
+                        "differentiator": "JobProfile-Apprenticeshipfurtherroutesinfo",
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null,
+                        "contentType": [
+                            "JobProfile"
+                        ]
+                    },
+                    {
+                        "place": "Parts:16#How to become;2",
+                        "displayType": null,
+                        "differentiator": "JobProfile-Work",
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null,
+                        "contentType": [
+                            "JobProfile"
+                        ]
+                    },
+                    {
+                        "place": "Parts:17#How to become;2",
+                        "displayType": null,
+                        "differentiator": "JobProfile-Volunteering",
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null,
+                        "contentType": [
+                            "JobProfile"
+                        ]
+                    },
+                    {
+                        "place": "Parts:18#How to become;2",
+                        "displayType": null,
+                        "differentiator": "JobProfile-Directapplication",
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null,
+                        "contentType": [
+                            "JobProfile"
+                        ]
+                    },
+                    {
+                        "place": "Parts:19#How to become;2",
+                        "displayType": null,
+                        "differentiator": "JobProfile-Otherroutes",
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null,
+                        "contentType": [
+                            "JobProfile"
+                        ]
+                    },
+                    {
+                        "place": "Parts:21#How to become;2",
+                        "displayType": null,
+                        "differentiator": "JobProfile-Careertips",
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null,
+                        "contentType": [
+                            "JobProfile"
+                        ]
+                    },
+                    {
+                        "place": "Parts:22#How to become;2",
+                        "displayType": null,
+                        "differentiator": "JobProfile-Professionalandindustrybodies",
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null,
+                        "contentType": [
+                            "JobProfile"
+                        ]
+                    },
+                    {
+                        "place": "Parts:23#How to become;2",
+                        "displayType": null,
+                        "differentiator": "JobProfile-Furtherinformation",
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null,
+                        "contentType": [
+                            "JobProfile"
+                        ]
+                    },
+                    {
+                        "place": "Parts:1#What it takes;3",
+                        "displayType": null,
+                        "differentiator": "JobProfile-Otherrequirements",
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null,
+                        "contentType": [
+                            "JobProfile"
+                        ]
+                    },
+                    {
+                        "place": "Parts:1#What you’ll do;4",
+                        "displayType": null,
+                        "differentiator": "JobProfile-Daytodaytasks",
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null
+                    },
+                    {
+                        "place": "Parts:0#Career path & progression;5",
+                        "displayType": null,
+                        "differentiator": "JobProfile-Careerpathandprogression",
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null,
+                        "contentType": [
+                            "JobProfile"
+                        ]
+                    },
+                    {
+                        "place": "Parts:1#Content;0",
+                        "displayType": null,
+                        "differentiator": "SectorLandingPage-HeroBanner",
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null,
+                        "contentType": [
+                            "SectorLandingPage"
+                        ]
+                    },
+                    {
+                        "place": "Parts:3#Content;0",
+                        "displayType": null,
+                        "differentiator": "SectorLandingPage-Description",
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null,
+                        "contentType": [
+                            "SectorLandingPage"
+                        ]
+                    },
+                    {
+                        "place": "Parts:7#Content;0",
+                        "displayType": null,
+                        "differentiator": "SectorLandingPage-Image",
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null,
+                        "contentType": [
+                            "SectorLandingPage"
+                        ]
+                    },
+                    {
+                        "place": "Parts:2#Video;1",
+                        "displayType": null,
+                        "differentiator": "SectorLandingPage-VideoSummary",
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null,
+                        "contentType": [
+                            "SectorLandingPage"
+                        ]
+                    },
+                    {
+                        "place": "Parts:5#Video;1",
+                        "displayType": null,
+                        "differentiator": "SectorLandingPage-VideoFurtherInformation",
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null,
+                        "contentType": [
+                            "SectorLandingPage"
+                        ]
+                    },
+                    {
+                        "place": "Parts:1#Profiles;2",
+                        "displayType": null,
+                        "differentiator": "SectorLandingPage-ProfileDescription",
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null,
+                        "contentType": [
+                            "SectorLandingPage"
+                        ]
+                    },
+                    {
+                        "place": "Parts:3#Profiles;2",
+                        "displayType": null,
+                        "differentiator": "SectorLandingPage-JobDescription",
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null,
+                        "contentType": [
+                            "SectorLandingPage"
+                        ]
+                    },
+                    {
+                        "place": "Parts:3#Profiles;3",
+                        "displayType": null,
+                        "differentiator": "SectorLandingPage-FurtherInspiration",
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null,
+                        "contentType": [
+                            "SectorLandingPage"
+                        ]
+                    },
+                    {
+                        "place": "Parts:5#Profiles;2",
+                        "displayType": null,
+                        "differentiator": "SectorLandingPage-JobProfileInspirationDescription",
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null,
+                        "contentType": [
+                            "SectorLandingPage"
+                        ]
+                    },
+                    {
+                        "place": "Parts:2#Story;3",
+                        "displayType": null,
+                        "differentiator": "SectorLandingPage-RealStoryDescription",
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null,
+                        "contentType": [
+                            "SectorLandingPage"
+                        ]
+                    },
+                    {
+                        "place": "Parts:4#Story;4",
+                        "displayType": null,
+                        "differentiator": "SectorLandingPage-ExploreAllSectors",
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null,
+                        "contentType": [
+                            "SectorLandingPage"
+                        ]
+                    },
+                    {
+                        "place": "Parts:4#Story;3",
+                        "displayType": null,
+                        "differentiator": "SectorLandingPage-RealStoryImageDescription",
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null,
+                        "contentType": [
+                            "SectorLandingPage"
+                        ]
+                    }
+                ],
+                "SitemapPart_Edit": [
+                    {
+                        "place": "Parts:0#SEO;2",
+                        "displayType": null,
+                        "differentiator": null,
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null,
+                        "contentType": [
+                            "Page"
+                        ]
+                    },
+                    {
+                        "place": "Parts:0#Metadata;0",
+                        "displayType": null,
+                        "differentiator": null,
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null,
+                        "contentType": [
+                            "JobProfile"
+                        ]
+                    },
+                    {
+                        "place": "Parts:0#Header;1",
+                        "displayType": null,
+                        "differentiator": null,
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null,
+                        "contentType": [
+                            "JobProfile"
+                        ]
+                    },
+                    {
+                        "place": "Parts:0#How to become;2",
+                        "displayType": null,
+                        "differentiator": null,
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null,
+                        "contentType": [
+                            "JobProfile"
+                        ]
+                    },
+                    {
+                        "place": "Parts:0#What it takes;3",
+                        "displayType": null,
+                        "differentiator": null,
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null,
+                        "contentType": [
+                            "JobProfile"
+                        ]
+                    },
+                    {
+                        "place": "Parts:0#What you’ll do;4",
+                        "displayType": null,
+                        "differentiator": null,
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null,
+                        "contentType": [
+                            "JobProfile"
+                        ]
+                    },
+                    {
+                        "place": "Parts:0#Content;6",
+                        "displayType": null,
+                        "differentiator": null,
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null,
+                        "contentType": [
+                            "JobProfile"
+                        ]
+                    },
+                    {
+                        "place": "Parts:0#Content;0",
+                        "displayType": null,
+                        "differentiator": null,
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null,
+                        "contentType": [
+                            "SectorLandingPage"
+                        ]
+                    },
+                    {
+                        "place": "Parts:0#Video;1",
+                        "displayType": null,
+                        "differentiator": null,
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null,
+                        "contentType": [
+                            "SectorLandingPage"
+                        ]
+                    },
+                    {
+                        "place": "Parts:0#Profiles;2",
+                        "displayType": null,
+                        "differentiator": null,
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null,
+                        "contentType": [
+                            "SectorLandingPage"
+                        ]
+                    },
+                    {
+                        "place": "Parts:0#Story;3",
+                        "displayType": null,
+                        "differentiator": null,
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null,
+                        "contentType": [
+                            "SectorLandingPage"
+                        ]
+                    }
+                ],
+                "ShowHeroBanner_Edit": [
+                    {
+                        "place": "Parts:1#Content;1",
+                        "displayType": null,
+                        "differentiator": "Page-ShowHeroBanner",
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null
+                    }
+                ],
+                "ShowBreadcrumb_Edit": [
+                    {
+                        "place": "Parts:0#Content;1",
+                        "displayType": null,
+                        "differentiator": "Page-ShowBreadcrumb",
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null
+                    }
+                ],
+                "TriageToolFilters_Edit": [
+                    {
+                        "place": "Parts:2#Triage Tool;3",
+                        "displayType": null,
+                        "differentiator": null,
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null
+                    }
+                ],
+                "PageLocationPart_Edit": [
+                    {
+                        "place": "Parts:3#Metadata;0",
+                        "displayType": null,
+                        "differentiator": null,
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null,
+                        "contentType": [
+                            "Page"
+                        ]
+                    },
+                    {
+                        "place": "Parts:2#Metadata;0",
+                        "displayType": null,
+                        "differentiator": null,
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null,
+                        "contentType": [
+                            "JobProfile"
+                        ]
+                    },
+                    {
+                        "place": "Parts:4#Content;0",
+                        "displayType": null,
+                        "differentiator": null,
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null,
+                        "contentType": [
+                            "SectorLandingPage"
+                        ]
+                    }
+                ],
+                "GraphSyncPart_Edit": [
+                    {
+                        "place": "Parts:4#Metadata;0",
+                        "displayType": null,
+                        "differentiator": null,
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null,
+                        "contentType": [
+                            "Page"
+                        ]
+                    },
+                    {
+                        "place": "Parts:5#Metadata;0",
+                        "displayType": null,
+                        "differentiator": null,
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null,
+                        "contentType": [
+                            "JobProfile"
+                        ]
+                    },
+                    {
+                        "place": "Parts:6#Content;0",
+                        "displayType": null,
+                        "differentiator": null,
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null,
+                        "contentType": [
+                            "SectorLandingPage"
+                        ]
+                    }
+                ],
+                "TitlePart_Edit": [
+                    {
+                        "place": "Parts:0#Metadata;0",
+                        "displayType": null,
+                        "differentiator": null,
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null,
+                        "contentType": [
+                            "Page"
+                        ]
+                    },
+                    {
+                        "place": "Parts:0#Metadata;0",
+                        "displayType": null,
+                        "differentiator": null,
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null,
+                        "contentType": [
+                            "JobProfile"
+                        ]
+                    },
+                    {
+                        "place": "Parts:0#Content;0",
+                        "displayType": null,
+                        "differentiator": null,
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null,
+                        "contentType": [
+                            "SectorLandingPage"
+                        ]
+                    }
+                ],
+                "TextField_Edit": [
+                    {
+                        "place": "Parts:1#Metadata;0",
+                        "displayType": null,
+                        "differentiator": "Page-Description",
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null
+                    },
+                    {
+                        "place": "Parts:1#Content;0",
+                        "displayType": null,
+                        "differentiator": "ApplicationView-PageLocation",
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null
+                    },
+                    {
+                        "place": "Parts:0#Header;1",
+                        "displayType": null,
+                        "differentiator": "JobProfile-AlternativeTitle",
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null,
+                        "contentType": [
+                            "JobProfile"
+                        ]
+                    },
+                    {
+                        "place": "Parts:2#Header;1",
+                        "displayType": null,
+                        "differentiator": "JobProfile-WidgetContentTitle",
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null,
+                        "contentType": [
+                            "JobProfile"
+                        ]
+                    },
+                    {
+                        "place": "Parts:3#Header;1",
+                        "displayType": null,
+                        "differentiator": "JobProfile-Overview",
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null,
+                        "contentType": [
+                            "JobProfile"
+                        ]
+                    },
+                    {
+                        "place": "Parts:7#Metadata;0",
+                        "displayType": null,
+                        "differentiator": "JobProfile-Coursekeywords",
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null,
+                        "contentType": [
+                            "JobProfile"
+                        ]
+                    },
+                    {
+                        "place": "Parts:2#Content;0",
+                        "displayType": null,
+                        "differentiator": "SectorLandingPage-AboutThisSector",
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null,
+                        "contentType": [
+                            "SectorLandingPage"
+                        ]
+                    },
+                    {
+                        "place": "Parts:0#Video;1",
+                        "displayType": null,
+                        "differentiator": "SectorLandingPage-VideoType",
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null,
+                        "contentType": [
+                            "SectorLandingPage"
+                        ]
+                    },
+                    {
+                        "place": "Parts:1#Video;1",
+                        "displayType": null,
+                        "differentiator": "SectorLandingPage-VideoTitle",
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null,
+                        "contentType": [
+                            "SectorLandingPage"
+                        ]
+                    },
+                    {
+                        "place": "Parts:3#Video;1",
+                        "displayType": null,
+                        "differentiator": "SectorLandingPage-VideoURL",
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null,
+                        "contentType": [
+                            "SectorLandingPage"
+                        ]
+                    },
+                    {
+                        "place": "Parts:6#Video;1",
+                        "displayType": null,
+                        "differentiator": "SectorLandingPage-VideoDuration",
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null,
+                        "contentType": [
+                            "SectorLandingPage"
+                        ]
+                    },
+                    {
+                        "place": "Parts:7#Video;1",
+                        "displayType": null,
+                        "differentiator": "SectorLandingPage-VideoLinkText",
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null,
+                        "contentType": [
+                            "SectorLandingPage"
+                        ]
+                    },
+                    {
+                        "place": "Parts:8#Video;1",
+                        "displayType": null,
+                        "differentiator": "SectorLandingPage-VideoTranscript",
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null,
+                        "contentType": [
+                            "SectorLandingPage"
+                        ]
+                    },
+                    {
+                        "place": "Parts:0#Profiles;2",
+                        "displayType": null,
+                        "differentiator": "SectorLandingPage-WithinThisSectorTitle",
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null,
+                        "contentType": [
+                            "SectorLandingPage"
+                        ]
+                    },
+                    {
+                        "place": "Parts:1#Story;3",
+                        "displayType": null,
+                        "differentiator": "SectorLandingPage-RealStoryTitle",
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null,
+                        "contentType": [
+                            "SectorLandingPage"
+                        ]
+                    }
+                ],
+                "FlowPart_Edit": [
+                    {
+                        "place": "Parts:3#Content;1",
+                        "displayType": null,
+                        "differentiator": null,
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null,
+                        "contentType": [
+                            "Page"
+                        ]
+                    }
+                ],
+                "BooleanField_Edit": [
+                    {
+                        "place": "Parts:1#Content;1",
+                        "displayType": null,
+                        "differentiator": "Page-ShowBreadcrumb",
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null
+                    },
+                    {
+                        "place": "Parts:2#Content;1",
+                        "displayType": null,
+                        "differentiator": "Page-ShowHeroBanner",
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null
+                    },
+                    {
+                        "place": "Parts:0#Triage Tool;3",
+                        "displayType": null,
+                        "differentiator": "Page-UseInTriageTool",
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null
+                    },
+                    {
+                        "place": "Parts:0#Triage Tool;2",
+                        "displayType": null,
+                        "differentiator": "ApplicationView-UseInTriageTool",
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null
+                    },
+                    {
+                        "place": "Parts:0#Content;1",
+                        "displayType": null,
+                        "differentiator": "Page-UseBrowserWidth",
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null
+                    }
+                ],
+                "ContentPickerField_Edit": [
+                    {
+                        "place": "Parts:2#Triage Tool;3",
+                        "displayType": null,
+                        "differentiator": "Page-TriageToolFilters",
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null
+                    },
+                    {
+                        "place": "Parts:2#Triage Tool;2",
+                        "displayType": null,
+                        "differentiator": "ApplicationView-TriageToolFilters",
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null
+                    },
+                    {
+                        "place": "Parts:1#Header;1",
+                        "displayType": null,
+                        "differentiator": "JobProfile-HiddenAlternativeTitle",
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null,
+                        "contentType": [
+                            "JobProfile"
+                        ]
+                    },
+                    {
+                        "place": "Parts:7#Header;1",
+                        "displayType": null,
+                        "differentiator": "JobProfile-WorkingHoursDetails",
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null,
+                        "contentType": [
+                            "JobProfile"
+                        ]
+                    },
+                    {
+                        "place": "Parts:8#Header;1",
+                        "displayType": null,
+                        "differentiator": "JobProfile-WorkingPattern",
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null,
+                        "contentType": [
+                            "JobProfile"
+                        ]
+                    },
+                    {
+                        "place": "Parts:9#Header;1",
+                        "displayType": null,
+                        "differentiator": "JobProfile-WorkingPatternDetails",
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null,
+                        "contentType": [
+                            "JobProfile"
+                        ]
+                    },
+                    {
+                        "place": "Parts:3#Metadata;0",
+                        "displayType": null,
+                        "differentiator": "JobProfile-JobProfileSpecialism",
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null,
+                        "contentType": [
+                            "JobProfile"
+                        ]
+                    },
+                    {
+                        "place": "Parts:3#How to become;2",
+                        "displayType": null,
+                        "differentiator": "JobProfile-UniversityEntryRequirements",
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null,
+                        "contentType": [
+                            "JobProfile"
+                        ]
+                    },
+                    {
+                        "place": "Parts:4#How to become;2",
+                        "displayType": null,
+                        "differentiator": "JobProfile-RelatedUniversityRequirements",
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null,
+                        "contentType": [
+                            "JobProfile"
+                        ]
+                    },
+                    {
+                        "place": "Parts:5#How to become;2",
+                        "displayType": null,
+                        "differentiator": "JobProfile-RelatedUniversityLinks",
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null,
+                        "contentType": [
+                            "JobProfile"
+                        ]
+                    },
+                    {
+                        "place": "Parts:8#How to become;2",
+                        "displayType": null,
+                        "differentiator": "JobProfile-CollegeEntryRequirements",
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null,
+                        "contentType": [
+                            "JobProfile"
+                        ]
+                    },
+                    {
+                        "place": "Parts:9#How to become;2",
+                        "displayType": null,
+                        "differentiator": "JobProfile-RelatedCollegeRequirements",
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null,
+                        "contentType": [
+                            "JobProfile"
+                        ]
+                    },
+                    {
+                        "place": "Parts:10#How to become;2",
+                        "displayType": null,
+                        "differentiator": "JobProfile-RelatedCollegeLinks",
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null,
+                        "contentType": [
+                            "JobProfile"
+                        ]
+                    },
+                    {
+                        "place": "Parts:13#How to become;2",
+                        "displayType": null,
+                        "differentiator": "JobProfile-ApprenticeshipEntryRequirements",
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null,
+                        "contentType": [
+                            "JobProfile"
+                        ]
+                    },
+                    {
+                        "place": "Parts:14#How to become;2",
+                        "displayType": null,
+                        "differentiator": "JobProfile-RelatedApprenticeshipRequirements",
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null,
+                        "contentType": [
+                            "JobProfile"
+                        ]
+                    },
+                    {
+                        "place": "Parts:15#How to become;2",
+                        "displayType": null,
+                        "differentiator": "JobProfile-RelatedApprenticeshipLinks",
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null,
+                        "contentType": [
+                            "JobProfile"
+                        ]
+                    },
+                    {
+                        "place": "Parts:20#How to become;2",
+                        "displayType": null,
+                        "differentiator": "JobProfile-RelatedRegistrations",
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null,
+                        "contentType": [
+                            "JobProfile"
+                        ]
+                    },
+                    {
+                        "place": "Parts:0#What it takes;3",
+                        "displayType": null,
+                        "differentiator": "JobProfile-Relatedrestrictions",
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null,
+                        "contentType": [
+                            "JobProfile"
+                        ]
+                    },
+                    {
+                        "place": "Parts:2#What it takes;3",
+                        "displayType": null,
+                        "differentiator": "JobProfile-DigitalSkills",
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null,
+                        "contentType": [
+                            "JobProfile"
+                        ]
+                    },
+                    {
+                        "place": "Parts:3#What it takes;3",
+                        "displayType": null,
+                        "differentiator": "JobProfile-Relatedskills",
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null,
+                        "contentType": [
+                            "JobProfile"
+                        ]
+                    },
+                    {
+                        "place": "Parts:6#Metadata;0",
+                        "displayType": null,
+                        "differentiator": "JobProfile-JobProfileCategory",
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null,
+                        "contentType": [
+                            "JobProfile"
+                        ]
+                    },
+                    {
+                        "place": "Parts:6#Metadata;0",
+                        "displayType": null,
+                        "differentiator": "JobProfile-JobProfileSector",
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null,
+                        "contentType": [
+                            "JobProfile"
+                        ]
+                    },
+                    {
+                        "place": "Parts:2#What you’ll do;4",
+                        "displayType": null,
+                        "differentiator": "JobProfile-RelatedLocations",
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null,
+                        "contentType": [
+                            "JobProfile"
+                        ]
+                    },
+                    {
+                        "place": "Parts:3#What you’ll do;4",
+                        "displayType": null,
+                        "differentiator": "JobProfile-RelatedEnvironments",
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null,
+                        "contentType": [
+                            "JobProfile"
+                        ]
+                    },
+                    {
+                        "place": "Parts:4#What you’ll do;4",
+                        "displayType": null,
+                        "differentiator": "JobProfile-RelatedUniforms",
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null,
+                        "contentType": [
+                            "JobProfile"
+                        ]
+                    },
+                    {
+                        "place": "Parts:8#Metadata;0",
+                        "displayType": null,
+                        "differentiator": "JobProfile-SOCCode",
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null,
+                        "contentType": [
+                            "JobProfile"
+                        ]
+                    },
+                    {
+                        "place": "Parts:9#Metadata;0",
+                        "displayType": null,
+                        "differentiator": "JobProfile-Relatedcareerprofiles",
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null,
+                        "contentType": [
+                            "JobProfile"
+                        ]
+                    },
+                    {
+                        "place": "Parts:1#Metadata;0",
+                        "displayType": null,
+                        "differentiator": "JobProfile-DynamicTitlePrefix",
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null,
+                        "contentType": [
+                            "JobProfile"
+                        ]
+                    },
+                    {
+                        "place": "Parts:2#Profiles;2",
+                        "displayType": null,
+                        "differentiator": "SectorLandingPage-JobProfile",
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null,
+                        "contentType": [
+                            "SectorLandingPage"
+                        ]
+                    },
+                    {
+                        "place": "Parts:4#Profiles;2",
+                        "displayType": null,
+                        "differentiator": "SectorLandingPage-JobProfileInspiration",
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null,
+                        "contentType": [
+                            "SectorLandingPage"
+                        ]
+                    }
+                ],
+                "TaxonomyField_Edit": [
+                    {
+                        "place": "Parts:2#Metadata;0",
+                        "displayType": null,
+                        "differentiator": "Page-PageLocations",
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null
+                    }
+                ],
+                "NumericField_Edit": [
+                    {
+                        "place": "Parts:4#Header;1",
+                        "displayType": null,
+                        "differentiator": "JobProfile-Salarystarterperyear",
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null,
+                        "contentType": [
+                            "JobProfile"
+                        ]
+                    },
+                    {
+                        "place": "Parts:5#Header;1",
+                        "displayType": null,
+                        "differentiator": "JobProfile-Salaryexperiencedperyear",
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null,
+                        "contentType": [
+                            "JobProfile"
+                        ]
+                    },
+                    {
+                        "place": "Parts:6#Header;1",
+                        "displayType": null,
+                        "differentiator": "JobProfile-Minimumhours",
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null,
+                        "contentType": [
+                            "JobProfile"
+                        ]
+                    },
+                    {
+                        "place": "Parts:7#Header;1",
+                        "displayType": null,
+                        "differentiator": "JobProfile-Maximumhours",
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null,
+                        "contentType": [
+                            "JobProfile"
+                        ]
+                    }
+                ],
+                "MediaField_Edit": [
+                    {
+                        "place": "Parts:4#Video;1",
+                        "displayType": null,
+                        "differentiator": "SectorLandingPage-VideoImage",
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null,
+                        "contentType": [
+                            "SectorLandingPage"
+                        ]
+                    },
+                    {
+                        "place": "Parts:3#Story;3",
+                        "displayType": null,
+                        "differentiator": "SectorLandingPage-RealStoryImage",
+                        "alternates": null,
+                        "wrappers": null,
+                        "shape": null,
+                        "contentType": [
+                            "SectorLandingPage"
+                        ]
+                    }
+                ]
+            }
+        }
+    ]
+}
