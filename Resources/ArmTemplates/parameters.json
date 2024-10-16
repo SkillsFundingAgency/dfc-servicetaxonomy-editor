@@ -199,6 +199,18 @@
         },
         "EventGridTopicAccessKey": {
             "value": "__EventGridTopicAccessKey__"
+        },
+        "PreviewLoginUrl":{
+            "value": "__PreviewLoginUrl__"
+        },
+        "EncryptionKey": {
+            "value": "__EncryptionKey__"
+        },
+        "CipherTextPrefix": {
+            "value": "__CipherTextPrefix__"
+        },
+        "CipherTextValiditySeconds": {
+            "value": "__CipherTextValiditySeconds__"
         }
     }
 }

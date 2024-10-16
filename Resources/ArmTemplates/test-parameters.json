@@ -199,6 +199,18 @@
         },
         "EventGridTopicAccessKey": {
             "value": "accesskey"
+        },
+        "PreviewLoginUrl":{
+            "value": "http://url"
+        },
+        "EncryptionKey": {
+            "value": "encryptionkey"
+        },
+        "CipherTextPrefix": {
+            "value": "ciphertextprefix"
+        },
+        "CipherTextValiditySeconds": {
+            "value": 60
         }
     }
 }

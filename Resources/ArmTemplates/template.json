@@ -206,6 +206,18 @@
         },
         "EventGridTopicAccessKey": {
             "type": "securestring"
+        },
+        "PreviewLoginUrl":{
+            "type": "string"
+        },
+        "EncryptionKey": {
+            "type": "securestring"
+        },
+        "CipherTextPrefix": {
+            "type": "securestring"
+        },
+        "CipherTextValiditySeconds": {
+            "type": "int"
         }
     },
     "variables": {
@@ -514,6 +526,22 @@
                             {
                                 "name": "EventGrid__TopicAccessKey",
                                 "value": "[parameters('EventGridTopicAccessKey')]"
+                            },
+                            {
+                                "name": "NcsPreview__PreviewLoginUrl",
+                                "value": "[parameters('PreviewLoginUrl')]"
+                            },
+                            {
+                                "name": "NcsPreview__EncryptionKey",
+                                "value": "[parameters('EncryptionKey')]"
+                            },
+                            {
+                                "name": "NcsPreview__CipherTextPrefix",
+                                "value": "[parameters('CipherTextPrefix')]"
+                            },
+                            {
+                                "name": "NcsPreview__CipherTextValiditySeconds",
+                                "value": "[parameters('CipherTextValiditySeconds')]"
                             }
                         ]
                     }
