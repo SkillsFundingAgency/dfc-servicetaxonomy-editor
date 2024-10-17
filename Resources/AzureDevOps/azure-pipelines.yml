@@ -173,6 +173,8 @@ stages:
       PSScriptPath: "$(Pipeline.Workspace)/${{ variables.SolutionBaseName }}.Editor.Resources.PSScripts"
       EventGridTopicEndPointUrl: $(SSP2EventGridTopicUrl)
       EventGridTopicAccessKey: $(SSP2SharedEventGridAccessKey)
+      EncryptionKey: $(NcsPreviewEncryptionKey)
+      CipherTextPrefix: $(NcsPreviewCipherTextPrefix)
 
 - stage: DeployToSit
   condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'))
@@ -211,6 +213,8 @@ stages:
       PSScriptPath: "$(Pipeline.Workspace)/${{ variables.SolutionBaseName }}.Editor.Resources.PSScripts"
       EventGridTopicEndPointUrl: $(SSP2EventGridTopicUrl)
       EventGridTopicAccessKey: $(SSP2SharedEventGridAccessKey)
+      EncryptionKey: $(NcsPreviewEncryptionKey)
+      CipherTextPrefix: $(NcsPreviewCipherTextPrefix)
 
 
 - stage: DeployToPP

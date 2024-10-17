@@ -204,13 +204,19 @@
             "value": "__PreviewLoginUrl__"
         },
         "EncryptionKey": {
-            "value": "__EncryptionKey__"
+            "value": "__NcsPreviewEncryptionKey__"
         },
         "CipherTextPrefix": {
-            "value": "__CipherTextPrefix__"
+            "value": "__NcsPreviewCipherTextPrefix__"
         },
         "CipherTextValiditySeconds": {
             "value": "__CipherTextValiditySeconds__"
+        },
+        "PreviewRedirectUri:0:RedirectUri": {
+            "value": "__RedirectUri__"
+        },
+        "PreviewRedirectUri:0:ContentType":{
+            "value": "__ContentType__"
         }
     }
 }

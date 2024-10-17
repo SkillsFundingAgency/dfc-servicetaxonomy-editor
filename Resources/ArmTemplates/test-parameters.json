@@ -211,6 +211,12 @@
         },
         "CipherTextValiditySeconds": {
             "value": 60
+        },
+        "PreviewRedirectUri:0:RedirectUri": {
+            "value": "__RedirectUri__"
+        },
+        "PreviewRedirectUri:0:ContentType":{
+            "value": "__ContentType__"
         }
     }
 }

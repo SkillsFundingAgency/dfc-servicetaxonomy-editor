@@ -218,6 +218,12 @@
         },
         "CipherTextValiditySeconds": {
             "type": "int"
+        },
+        "PreviewRedirectUri:0:RedirectUri":{
+            "type": "string"
+        },
+        "PreviewRedirectUri:0:ContentType": {
+            "type": "string"
         }
     },
     "variables": {
@@ -542,6 +548,14 @@
                             {
                                 "name": "NcsPreview__CipherTextValiditySeconds",
                                 "value": "[parameters('CipherTextValiditySeconds')]"
+                            },
+                            {
+                                "name": "PreviewRedirectUri:0:RedirectUri",
+                                "value": "[parameters('PreviewRedirectUri:0:RedirectUri')]"
+                            },
+                            {
+                                "name": "PreviewRedirectUri:0:ContentType",
+                                "value": "[parameters('PreviewRedirectUri:0:ContentType)]"
                             }
                         ]
                     }
