@@ -195,10 +195,10 @@
             "value": "__StaxGraphqlSqlApiUrl__"
         },
         "EventGridTopicEndPointUrl": {
-            "value": "__EventGridTopicEndPointUrl__"
+            "value": "__SSP2EventGridTopicUrl__"
         },
         "EventGridTopicAccessKey": {
-            "value": "__EventGridTopicAccessKey__"
+            "value": "__SSP2SharedEventGridAccessKey__"
         },
         "PreviewLoginUrl":{
             "value": "__PreviewLoginUrl__"
