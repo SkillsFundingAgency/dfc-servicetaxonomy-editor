@@ -210,7 +210,7 @@
             "value": "__NcsPreviewCipherTextPrefix__"
         },
         "CipherTextValiditySeconds": {
-            "value": "__CipherTextValiditySeconds__"
+            "value": __CipherTextValiditySeconds__
         },
         "PreviewRedirectUri:0:RedirectUri": {
             "value": "__RedirectUri__"
