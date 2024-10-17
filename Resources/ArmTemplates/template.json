@@ -555,7 +555,7 @@
                             },
                             {
                                 "name": "PreviewRedirectUri:0:ContentType",
-                                "value": "[parameters('PreviewRedirectUri:0:ContentType)]"
+                                "value": "[parameters('PreviewRedirectUri:0:ContentType')]"
                             }
                         ]
                     }
