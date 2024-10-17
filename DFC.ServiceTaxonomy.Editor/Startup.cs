@@ -68,7 +68,7 @@ namespace DFC.ServiceTaxonomy.Editor
                 }));
 
             services.Configure<CookiePolicyOptions>(options => options.Secure = CookieSecurePolicy.Always);
-            
+
             services.AddOrchardCore()
                 .ConfigureServices(s =>
                 {
@@ -81,7 +81,6 @@ namespace DFC.ServiceTaxonomy.Editor
             services.Configure<FooterConfiguration>(Configuration.GetSection("Footer"));
             services.Configure<HeaderConfiguration>(Configuration.GetSection("Header"));
             services.Configure<AzureAdSettings>(Configuration.GetSection("AzureAdSettings"));
-            services.Configure<RedirectUriConfiguration>(Configuration.GetSection("PreviewRedirectUri"));
 
             services.AddSingleton<IGraphQLClient>(s =>
             {

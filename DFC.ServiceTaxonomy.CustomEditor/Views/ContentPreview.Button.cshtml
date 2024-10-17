@@ -13,25 +13,43 @@
 @inject IOptions<JobProfilesConfiguration> JobProfilesConfig
 @inject IOptions<FooterConfiguration> FooterConfig
 @inject IOptions<HeaderConfiguration> HeaderConfig
-@inject IOptions<RedirectUriConfiguration> RedirectUriConfig
 
 @{
 	ContentItem contentItem = Model.ContentItem;
+	var redirectUris = Configuration.GetSection(ConfigKeys.PreviewRedirectUri).Get<List<PreviewRedirectUri>>();
+	var allowedPages = Configuration.GetSection(ConfigKeys.EventGridAllowedPagesList).Get<List<string>>() ?? new List<string>();
 	var previewId = Guid.NewGuid();
 	var hasPreviewPermission = await AuthorizationService.AuthorizeAsync(User, CommonPermissions.PreviewContent, contentItem);
 	var isPreviewRequired = contentItem.ContentType == ContentTypes.Page || contentItem.ContentType == ContentTypes.JobProfile || contentItem.ContentType == ContentTypes.Footer || contentItem.ContentType == ContentTypes.Header;
+
+	//Temp keys used for proving if page is valid within allowed page list.
+	var isFacPage = true;
+	var previewURI = string.Empty;
 }
 
 @if (isPreviewRequired)
 {
-	var previewURI = contentItem.ContentType switch
+	var pageLocation = contentItem.Content[nameof(PageLocationPart)][nameof(PageLocationPart.FullUrl)].ToString();
+
+	//Temp check to see if page matches approved page routes within appsettings.
+	@if (contentItem.ContentType == "Page" && !allowedPages.Any(pageUrl => pageLocation.Contains(pageUrl)))
 	{
-		ContentTypes.Page => string.Concat(PagesConfig.Value.PreviewAppPrefix, contentItem.Content[nameof(PageLocationPart)][nameof(PageLocationPart.FullUrl)]),
-		ContentTypes.JobProfile => string.Concat(JobProfilesConfig.Value.PreviewAppPrefix, contentItem.Content[nameof(PageLocationPart)][nameof(PageLocationPart.FullUrl)]),
-		ContentTypes.Header => Configuration[$"HeaderRedirectUri"],
-		ContentTypes.Footer => Configuration[$"FooterRedirectUri"],
-		_ => string.Empty
+		isFacPage = false;
 	};
+
+	@if (isFacPage)
+	{
+		previewURI = redirectUris?.Where(uri => uri.ContentType == contentItem.ContentType).Select(uri => uri.RedirectUri).FirstOrDefault();
+	}
+	else
+	{
+		previewURI = contentItem.ContentType switch
+		{
+			ContentTypes.Page => string.Concat(PagesConfig.Value.PreviewAppPrefix, contentItem.Content[nameof(PageLocationPart)][nameof(PageLocationPart.FullUrl)]),
+			ContentTypes.JobProfile => string.Concat(JobProfilesConfig.Value.PreviewAppPrefix, contentItem.Content[nameof(PageLocationPart)][nameof(PageLocationPart.FullUrl)]),
+			_ => string.Empty
+		};
+	}
 
 	bool allowPagePreview = !string.IsNullOrWhiteSpace(contentItem.ContentItemVersionId) && contentItem.HasDraft();
 
