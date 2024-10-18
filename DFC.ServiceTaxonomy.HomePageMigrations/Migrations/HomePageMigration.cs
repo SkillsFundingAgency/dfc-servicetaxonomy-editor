@@ -52,7 +52,7 @@ namespace DFC.ServiceTaxonomy.HomePageMigrations.Migrations
             try
             {
                 _logger.LogInformation($"Starting step 3 of DFC.ServiceTaxonomy.HomePageMigration");
-                await _recipeMigrator.ExecuteAsync("MigrationRecipes/triage-lookup-result-content.recipe.json", this);
+                await _recipeMigrator.ExecuteAsync("MigrationRecipes/triage-result-tile.recipe.json", this);
                 _logger.LogInformation($"Completed step 3 of DFC.ServiceTaxonomy.HomePageMigration");
             }
             catch (Exception ex)
