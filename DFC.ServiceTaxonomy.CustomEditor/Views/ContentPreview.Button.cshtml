@@ -29,12 +29,14 @@
 
 @if (isPreviewRequired)
 {
-	var pageLocation = contentItem.Content[nameof(PageLocationPart)][nameof(PageLocationPart.FullUrl)].ToString();
-
 	//Temp check to see if page matches approved page routes within appsettings.
-	@if (contentItem.ContentType == "Page" && !allowedPages.Any(pageUrl => pageLocation.Contains(pageUrl)))
+	@if (contentItem.ContentType == "Page")
 	{
-		isFacPage = false;
+		var pageLocation = contentItem.Content[nameof(PageLocationPart)][nameof(PageLocationPart.FullUrl)].ToString();
+		@if (!allowedPages.Any(pageUrl => pageLocation.Contains(pageUrl)))
+		{
+			isFacPage = false;
+		}
 	};
 
 	@if (isFacPage)
