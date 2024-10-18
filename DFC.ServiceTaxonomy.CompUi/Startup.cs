@@ -6,6 +6,7 @@ using DFC.ServiceTaxonomy.CompUi.Handlers;
 using DFC.ServiceTaxonomy.CompUi.Indexes;
 using DFC.ServiceTaxonomy.CompUi.Interfaces;
 using DFC.ServiceTaxonomy.CompUi.Models;
+using DFC.ServiceTaxonomy.CompUi.Repository;
 using DFC.ServiceTaxonomy.CompUi.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Routing;
@@ -42,7 +43,8 @@ namespace DFC.ServiceTaxonomy.CompUi
             services.AddSingleton<IBackgroundQueue<Processing>, BackgroundQueue<Processing>>();
             services.AddSingleton<IBackgroundItemQueueMonitor, BackgroundItemQueueMonitor>();
             services.AddSingleton<IJobProfileCacheRefresh, JobProfileCacheRefresh>();
-
+            services.AddSingleton<IDataService, DataService>();
+            
             services.AddScoped<IEventGridHandler, EventGridHandler>();
 
             services.AddScoped<IDirector, Director>();
