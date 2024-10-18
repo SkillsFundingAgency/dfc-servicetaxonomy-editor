@@ -19,7 +19,7 @@ variables:
   value: https://dev-beta.nationalcareersservice.org.uk/ncspreview
 - name: CipherTextValiditySeconds
   value: 60
-- name: PreviewRedirectUri:0:RedirectUri
+- name: RedirectUri0
   value: https://dev-beta.nationalcareersservice.org.uk/find-a-course-ssp2
-- name: PreviewRedirectUri:0:ContentType
+- name: ContentType0
   value: Header
