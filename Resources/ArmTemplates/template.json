@@ -551,11 +551,11 @@
                             },
                             {
                                 "name": "PreviewRedirectUri:0:RedirectUri",
-                                "value": "[parameters('RedirectUri0')]"
+                                "value": "[parameters('PreviewRedirectUri:0:RedirectUri')]"
                             },
                             {
                                 "name": "PreviewRedirectUri:0:ContentType",
-                                "value": "[parameters('ContentType0')]"
+                                "value": "[parameters('PreviewRedirectUri:0:ContentType')]"
                             }
                         ]
                     }
