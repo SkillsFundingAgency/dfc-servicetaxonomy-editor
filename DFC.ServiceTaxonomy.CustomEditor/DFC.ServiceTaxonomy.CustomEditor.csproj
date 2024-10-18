@@ -16,6 +16,7 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="DfE.NCS.Framework.Core" Version="1.2.14" />
     <PackageReference Include="OrchardCore.Contents" Version="1.6.0" />
     <PackageReference Include="OrchardCore.Module.Targets" Version="1.6.0" />
     <PackageReference Include="SonarAnalyzer.CSharp" Version="8.15.0.24505">
@@ -26,5 +27,8 @@
   <ItemGroup>
     <ProjectReference Include="..\DFC.ServiceTaxonomy.ContentApproval\DFC.ServiceTaxonomy.ContentApproval.csproj" />
     <ProjectReference Include="..\DFC.ServiceTaxonomy.PageLocation\DFC.ServiceTaxonomy.PageLocation.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Models\" />
   </ItemGroup>
 </Project>

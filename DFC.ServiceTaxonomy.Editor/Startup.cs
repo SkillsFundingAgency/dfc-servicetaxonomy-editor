@@ -10,6 +10,8 @@ using DFC.Common.SharedContent.Pkg.Netcore.RequestHandler;
 using DFC.ServiceTaxonomy.Content.Configuration;
 using DFC.ServiceTaxonomy.CustomEditor.Configuration;
 using DFC.ServiceTaxonomy.Editor.Security;
+using DfE.NCS.Framework.Core.Crypto;
+using DfE.NCS.Framework.Core.Crypto.Interfaces;
 using DfE.NCS.Framework.Event.Extension;
 using GraphQL.Client.Abstractions;
 using GraphQL.Client.Http;
@@ -38,7 +40,7 @@ namespace DFC.ServiceTaxonomy.Editor
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddApplicationInsightsTelemetry(options =>
-                options.InstrumentationKey = Configuration["APPINSIGHTS_INSTRUMENTATIONKEY"]);
+                options.ConnectionString = Configuration["APPINSIGHTS_CONNECTIONSTRING"]);
 
             services.AddDistributedMemoryCache();
             services.AddSession();
@@ -66,7 +68,7 @@ namespace DFC.ServiceTaxonomy.Editor
                 }));
 
             services.Configure<CookiePolicyOptions>(options => options.Secure = CookieSecurePolicy.Always);
-            
+
             services.AddOrchardCore()
                 .ConfigureServices(s =>
                 {
@@ -119,6 +121,7 @@ namespace DFC.ServiceTaxonomy.Editor
             services.AddSingleton<ISharedContentRedisInterface, SharedContentRedis>();
 
             services.AddNcsEventGridServices(Configuration);
+            services.AddScoped<ICryptographyManager, CryptographyManager>();
 
             services.PostConfigure(SetupMediaConfig());
         }

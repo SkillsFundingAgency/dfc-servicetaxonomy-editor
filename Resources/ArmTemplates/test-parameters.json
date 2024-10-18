@@ -199,6 +199,36 @@
         },
         "EventGridTopicAccessKey": {
             "value": "accesskey"
+        },
+        "PreviewLoginUrl":{
+            "value": "http://url"
+        },
+        "EncryptionKey": {
+            "value": "encryptionkey"
+        },
+        "CipherTextPrefix": {
+            "value": "ciphertextprefix"
+        },
+        "CipherTextValiditySeconds": {
+            "value": 60
+        },
+        "PreviewRedirectUri:0:RedirectUri": {
+            "value": "__RedirectUri0__"
+        },
+        "PreviewRedirectUri:0:ContentType":{
+            "value": "__ContentType0__"
+        },
+        "PreviewRedirectUri:1:RedirectUri": {
+            "value": "__RedirectUri1__"
+        },
+        "PreviewRedirectUri:1:ContentType":{
+            "value": "__ContentType1__"
+        },
+        "PreviewRedirectUri:2:RedirectUri": {
+            "value": "__RedirectUri2__"
+        },
+        "PreviewRedirectUri:2:ContentType":{
+            "value": "__ContentType2__"
         }
     }
 }
