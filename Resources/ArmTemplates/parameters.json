@@ -213,10 +213,10 @@
             "value": __CipherTextValiditySeconds__
         },
         "PreviewRedirectUri:0:RedirectUri": {
-            "value": "__PreviewRedirectUri:0:RedirectUri__"
+            "value": "__RedirectUri0__"
         },
         "PreviewRedirectUri:0:ContentType":{
-            "value": "__PreviewRedirectUri:0:ContentType__"
+            "value": "__ContentType0__"
         }
     }
 }
