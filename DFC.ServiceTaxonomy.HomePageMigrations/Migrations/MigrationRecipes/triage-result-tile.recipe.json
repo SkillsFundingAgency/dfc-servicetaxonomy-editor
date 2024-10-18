@@ -36,7 +36,7 @@
               ]
             },
             "TriageTileHtml": {
-              "Html": "<div id=\"triage-result-tile-container-discover-your-skills-and-careers-employed\" class=\"triage-tile app-view-tile app-view-tile__skills-assessment\">\n    <div class=\"tile-header app-view-tile__skills-assessment-header\">\n<h3 class=\"app-view-tile-header-text\">\n           <a href=\"/skills-assessment\" id=\"triage-result-tile-link-discover-your-skills-and-careers-employed\" class=\"govuk-link\">Take a skills assessment </a></h3>\n             <img src=\"https://lab-cdn.nationalcareersservice.org.uk/media/checkbox.svg\" id=\"img-discover-your-skills-and-careers\" alt=\"discover-your-skills-and-careers\" class=\"app-view-tile-header-image\">\n     </div>\n     <p class=\"tile-description\">\n        Answer questions about your interests and see some careers that might suit you.\n     </p>\n</div>"
+              "Html": "<div id=\"triage-result-tile-container-discover-your-skills-and-careers-employed\" class=\"triage-tile app-view-tile app-view-tile__skills-assessment\">\n    <div class=\"tile-header app-view-tile__skills-assessment-header\">\n<h3 class=\"app-view-tile-header-text\">\n           <a href=\"/skills-assessment\" id=\"triage-result-tile-link-discover-your-skills-and-careers-employed\" class=\"govuk-link\">Take a skills assessment </a></h3>\n             <img src=\"https://staging-cdn.nationalcareers.service.gov.uk/media/checkbox.svg\" id=\"img-discover-your-skills-and-careers\" alt=\"discover-your-skills-and-careers\" class=\"app-view-tile-header-image\">\n     </div>\n     <p class=\"tile-description\">\n        Answer questions about your interests and see some careers that might suit you.\n     </p>\n</div>"
             }
           },
           "AuditTrailPart": {
@@ -74,7 +74,7 @@
               ]
             },
             "TriageTileHtml": {
-              "Html": "<div id=\"triage-result-tile-container-explore-careers-employed\" class=\"triage-tile app-view-tile app-view-tile__explore-careers \">\n    <div class=\"tile-header app-view-tile__explore-careers-header\">\n<h3 class=\"app-view-tile-header-text\">\n           <a href=\"/explore-careers\" id=\"triage-result-tile-link-explore-careers-employed\" class=\"govuk-link\"> Explore careers </a></h3>\n             <img src=\"https://lab-cdn.nationalcareersservice.org.uk/media/compass.svg\" id=\"img-explore-careers-employed\" alt=\"\" class=\"app-view-tile-header-image\">\n     </div>\n     <p class=\"tile-description\">\n          Browse hundreds of job profiles to discover what different roles involve.\n     </p>\n</div>"
+              "Html": "<div id=\"triage-result-tile-container-explore-careers-employed\" class=\"triage-tile app-view-tile app-view-tile__explore-careers \">\n    <div class=\"tile-header app-view-tile__explore-careers-header\">\n<h3 class=\"app-view-tile-header-text\">\n           <a href=\"/explore-careers\" id=\"triage-result-tile-link-explore-careers-employed\" class=\"govuk-link\"> Explore careers </a></h3>\n             <img src=\"https://staging-cdn.nationalcareers.service.gov.uk/media/compass.svg\" id=\"img-explore-careers-employed\" alt=\"\" class=\"app-view-tile-header-image\">\n     </div>\n     <p class=\"tile-description\">\n          Browse hundreds of job profiles to discover what different roles involve.\n     </p>\n</div>"
             }
           },
           "AuditTrailPart": {
@@ -112,7 +112,7 @@
               ]
             },
             "TriageTileHtml": {
-              "Html": "<div id=\"triage-result-tile-container-explore-careers-not-in-work\" class=\"triage-tile app-view-tile app-view-tile__explore-careers \">\n    <div class=\"tile-header app-view-tile__explore-careers-header\">\n        <h3 class=\"app-view-tile-header-text\">   <a href=\"/explore-careers\" class=\"govuk-link\" id=\"triage-result-tile-link-explore-careers-not-in-work\"> Explore careers </a></h3>\n             <img src=\"https://lab-cdn.nationalcareersservice.org.uk/media/compass.svg\" id=\"img-explore-careers-not-in-work\" alt=\"\" class=\"app-view-tile-header-image\">\n     </div>\n     <p class=\"tile-description\">\n          Browse hundreds of job profiles to discover what different roles involve.\n     </p>\n</div>"
+              "Html": "<div id=\"triage-result-tile-container-explore-careers-not-in-work\" class=\"triage-tile app-view-tile app-view-tile__explore-careers \">\n    <div class=\"tile-header app-view-tile__explore-careers-header\">\n        <h3 class=\"app-view-tile-header-text\">   <a href=\"/explore-careers\" class=\"govuk-link\" id=\"triage-result-tile-link-explore-careers-not-in-work\"> Explore careers </a></h3>\n             <img src=\"https://staging-cdn.nationalcareers.service.gov.uk/media/compass.svg\" id=\"img-explore-careers-not-in-work\" alt=\"\" class=\"app-view-tile-header-image\">\n     </div>\n     <p class=\"tile-description\">\n          Browse hundreds of job profiles to discover what different roles involve.\n     </p>\n</div>"
             }
           },
           "AuditTrailPart": {
@@ -150,7 +150,7 @@
               ]
             },
             "TriageTileHtml": {
-              "Html": "<div id=\"triage-result-tile-container-explore-careers-education\" class=\"triage-tile app-view-tile app-view-tile__explore-careers \">\n    <div class=\"tile-header app-view-tile__explore-careers-header\">\n<h3 class=\"app-view-tile-header-text\">\n           <a href=\"/explore-careers\" id=\"triage-result-tile-link-explore-careers-education\" class=\"govuk-link\"> Explore careers </a> </h3>\n             <img src=\"https://lab-cdn.nationalcareersservice.org.uk/media/compass.svg\" alt=\"\" id=\"img-explore-careers\" class=\"app-view-tile-header-image\">\n     </div>\n     <p class=\"tile-description\">\n          Browse hundreds of job profiles to discover what different roles involve.</p>\n</div>"
+              "Html": "<div id=\"triage-result-tile-container-explore-careers-education\" class=\"triage-tile app-view-tile app-view-tile__explore-careers \">\n    <div class=\"tile-header app-view-tile__explore-careers-header\">\n<h3 class=\"app-view-tile-header-text\">\n           <a href=\"/explore-careers\" id=\"triage-result-tile-link-explore-careers-education\" class=\"govuk-link\"> Explore careers </a> </h3>\n             <img src=\"https://staging-cdn.nationalcareers.service.gov.uk/media/compass.svg\" alt=\"\" id=\"img-explore-careers\" class=\"app-view-tile-header-image\">\n     </div>\n     <p class=\"tile-description\">\n          Browse hundreds of job profiles to discover what different roles involve.</p>\n</div>"
             }
           },
           "AuditTrailPart": {
@@ -188,7 +188,7 @@
               ]
             },
             "TriageTileHtml": {
-              "Html": "<div id=\"triage-result-tile-container-discover-your-skills-and-careers-education\" class=\"triage-tile app-view-tile app-view-tile__skills-assessment\">\n    <div class=\"tile-header app-view-tile__skills-assessment-header\">\n<h3 class=\"app-view-tile-header-text\">\n           <a href=\"/skills-assessment\" id=\"triage-result-tile-link-discover-your-skills-and-careers-education\" class=\"govuk-link\">Take a skills assessment</a></h3>\n             <img src=\"https://lab-cdn.nationalcareersservice.org.uk/media/checkbox.svg\" alt=\"\" class=\"app-view-tile-header-image\">\n     </div>\n     <p class=\"tile-description\">\n        Answer questions about your interests and see careers that might suit you. \n     </p>\n</div>"
+              "Html": "<div id=\"triage-result-tile-container-discover-your-skills-and-careers-education\" class=\"triage-tile app-view-tile app-view-tile__skills-assessment\">\n    <div class=\"tile-header app-view-tile__skills-assessment-header\">\n<h3 class=\"app-view-tile-header-text\">\n           <a href=\"/skills-assessment\" id=\"triage-result-tile-link-discover-your-skills-and-careers-education\" class=\"govuk-link\">Take a skills assessment</a></h3>\n             <img src=\"https://staging-cdn.nationalcareers.service.gov.uk/media/checkbox.svg\" alt=\"\" class=\"app-view-tile-header-image\">\n     </div>\n     <p class=\"tile-description\">\n        Answer questions about your interests and see careers that might suit you. \n     </p>\n</div>"
             }
           },
           "AuditTrailPart": {
@@ -226,7 +226,7 @@
               ]
             },
             "TriageTileHtml": {
-              "Html": "<div id=\"triage-result-tile-container-discover-your-skills-and-careers-not-in-work\" class=\"triage-tile app-view-tile app-view-tile__skills-assessment\">\n    <div class=\"tile-header app-view-tile__skills-assessment-header\">\n          <h3 class=\"app-view-tile-header-text\"> <a href=\"/skills-assessment\" id=\"triage-result-tile-link-discover-your-skills-and-careers-not-in-work\" class=\"govuk-link\">Take a skills assessment</a></h3>\n             <img src=\"https://lab-cdn.nationalcareersservice.org.uk/media/checkbox.svg\" alt=\"discover your skills and careers\" id=\"img-discover-your-skills-and-careers\" class=\"app-view-tile-header-image\">\n     </div>\n     <p class=\"tile-description\">\n        Answer questions about your interests and see some careers that might suit you.\n     </p>\n</div>"
+              "Html": "<div id=\"triage-result-tile-container-discover-your-skills-and-careers-not-in-work\" class=\"triage-tile app-view-tile app-view-tile__skills-assessment\">\n    <div class=\"tile-header app-view-tile__skills-assessment-header\">\n          <h3 class=\"app-view-tile-header-text\"> <a href=\"/skills-assessment\" id=\"triage-result-tile-link-discover-your-skills-and-careers-not-in-work\" class=\"govuk-link\">Take a skills assessment</a></h3>\n             <img src=\"https://staging-cdn.nationalcareers.service.gov.uk/media/checkbox.svg\" alt=\"discover your skills and careers\" id=\"img-discover-your-skills-and-careers\" class=\"app-view-tile-header-image\">\n     </div>\n     <p class=\"tile-description\">\n        Answer questions about your interests and see some careers that might suit you.\n     </p>\n</div>"
             }
           },
           "AuditTrailPart": {
@@ -264,7 +264,7 @@
               ]
             },
             "TriageTileHtml": {
-              "Html": "<div id=\"triage-result-tile-container-find-a-course-not-in-work\" class=\"triage-tile app-view-tile app-view-tile__find-a-course\">\n    <div class=\"tile-header app-view-tile__find-a-course-header\">\n         <h3 class=\"app-view-tile-header-text\">  <a href=\"/find-a-course\" id=\"triage-result-tile-link-find-a-course-not-in-work\" class=\"govuk-link\"> Find a course </a></h3>\n             <img src=\"https://lab-cdn.nationalcareersservice.org.uk/media/magnifying-glass.svg\" id=\"img-find-a-course-not-in-work\" alt=\"\" class=\"app-view-tile-header-image\">\n     </div>\n     <p class=\"tile-description\">\n       Search for online and classroom courses near you to develop your skills.\n     </p>\n</div>"
+              "Html": "<div id=\"triage-result-tile-container-find-a-course-not-in-work\" class=\"triage-tile app-view-tile app-view-tile__find-a-course\">\n    <div class=\"tile-header app-view-tile__find-a-course-header\">\n         <h3 class=\"app-view-tile-header-text\">  <a href=\"/find-a-course\" id=\"triage-result-tile-link-find-a-course-not-in-work\" class=\"govuk-link\"> Find a course </a></h3>\n             <img src=\"https://staging-cdn.nationalcareers.service.gov.uk/media/magnifying-glass.svg\" id=\"img-find-a-course-not-in-work\" alt=\"\" class=\"app-view-tile-header-image\">\n     </div>\n     <p class=\"tile-description\">\n       Search for online and classroom courses near you to develop your skills.\n     </p>\n</div>"
             }
           },
           "AuditTrailPart": {
@@ -302,7 +302,7 @@
               ]
             },
             "TriageTileHtml": {
-              "Html": "<div id=\"triage-result-tile-container-find-a-course-education\" class=\"triage-tile app-view-tile app-view-tile__find-a-course\">\n    <div class=\"tile-header app-view-tile__find-a-course-header\">\n<h3 class=\"app-view-tile-header-text\">\n           <a href=\"/find-a-course\" id=\"triage-result-tile-link-find-a-course-education\" class=\"govuk-link\"> Find a course </a> </h3>\n             <img src=\"https://lab-cdn.nationalcareersservice.org.uk/media/magnifying-glass.svg\" id=\"img-find-a-course\" alt=\"\" class=\"app-view-tile-header-image\">\n     </div>\n     <p class=\"tile-description\">\n        Work towards a qualification by taking an online or classroom course local to you.\n     </p>\n</div>"
+              "Html": "<div id=\"triage-result-tile-container-find-a-course-education\" class=\"triage-tile app-view-tile app-view-tile__find-a-course\">\n    <div class=\"tile-header app-view-tile__find-a-course-header\">\n<h3 class=\"app-view-tile-header-text\">\n           <a href=\"/find-a-course\" id=\"triage-result-tile-link-find-a-course-education\" class=\"govuk-link\"> Find a course </a> </h3>\n             <img src=\"https://staging-cdn.nationalcareers.service.gov.uk/media/magnifying-glass.svg\" id=\"img-find-a-course\" alt=\"\" class=\"app-view-tile-header-image\">\n     </div>\n     <p class=\"tile-description\">\n        Work towards a qualification by taking an online or classroom course local to you.\n     </p>\n</div>"
             }
           },
           "AuditTrailPart": {
@@ -340,7 +340,7 @@
               ]
             },
             "TriageTileHtml": {
-              "Html": "<div id=\"triage-result-tile-container-find-a-course-employed\" class=\"triage-tile app-view-tile app-view-tile__find-a-course\">\n    <div class=\"tile-header app-view-tile__find-a-course-header\">\n        <h3 class=\"app-view-tile-header-text\">   <a href=\"/find-a-course\" id=\"triage-result-tile-link-find-a-course-employed\" class=\"govuk-link\"> Find a course </a></h3>\n             <img src=\"https://lab-cdn.nationalcareersservice.org.uk/media/magnifying-glass.svg\" id=\"img-find-a-course\" alt=\"\" class=\"app-view-tile-header-image\">\n     </div>\n     <p class=\"tile-description\">\n       Search for online and classroom courses near you to develop your skills.\n     </p>\n</div>"
+              "Html": "<div id=\"triage-result-tile-container-find-a-course-employed\" class=\"triage-tile app-view-tile app-view-tile__find-a-course\">\n    <div class=\"tile-header app-view-tile__find-a-course-header\">\n        <h3 class=\"app-view-tile-header-text\">   <a href=\"/find-a-course\" id=\"triage-result-tile-link-find-a-course-employed\" class=\"govuk-link\"> Find a course </a></h3>\n             <img src=\"https://staging-cdn.nationalcareers.service.gov.uk/media/magnifying-glass.svg\" id=\"img-find-a-course\" alt=\"\" class=\"app-view-tile-header-image\">\n     </div>\n     <p class=\"tile-description\">\n       Search for online and classroom courses near you to develop your skills.\n     </p>\n</div>"
             }
           },
           "AuditTrailPart": {
