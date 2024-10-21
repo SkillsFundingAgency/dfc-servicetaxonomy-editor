@@ -6,6 +6,10 @@ namespace DFC.ServiceTaxonomy.CompUi.Dapper
     {
         Task<IEnumerable<T>> QueryAsync<T>(DbConnection connection, string sql);
 
-        Task<string> QueryAsync(DbConnection connection, string sql);      
+        Task<IEnumerable<T>> QueryAsync<T>(DbConnection connection, string sql, object? param);
+
+        Task<string> QueryAsync(DbConnection connection, string sql);
+
+        Task<string> QueryAsync(DbConnection connection, string sql, object? param);
     }
 }
