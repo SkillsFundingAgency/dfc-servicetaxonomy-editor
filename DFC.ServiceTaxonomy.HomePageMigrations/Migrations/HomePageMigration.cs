@@ -66,13 +66,13 @@ namespace DFC.ServiceTaxonomy.HomePageMigrations.Migrations
         {
             try
             {
-                _logger.LogInformation($"Starting step 3 of DFC.ServiceTaxonomy.HomePageMigration");
+                _logger.LogInformation($"Starting step 4 of DFC.ServiceTaxonomy.HomePageMigration");
                 await _recipeMigrator.ExecuteAsync("MigrationRecipes/keep-in-touch.recipe.json", this);
-                _logger.LogInformation($"Completed step 3 of DFC.ServiceTaxonomy.HomePageMigration");
+                _logger.LogInformation($"Completed step 4 of DFC.ServiceTaxonomy.HomePageMigration");
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Error with step 3 of DFC.ServiceTaxonomy.HomePageMigration");
+                _logger.LogError(ex, "Error with step 4 of DFC.ServiceTaxonomy.HomePageMigration");
             }
 
             return 4;
