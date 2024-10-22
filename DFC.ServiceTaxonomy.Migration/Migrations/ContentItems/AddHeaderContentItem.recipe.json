@@ -86,21 +86,6 @@
                                 "ContentItemId": "[js:uuid()]",
                                 "ContentItemVersionId": "[js:uuid()]",
                                 "ContentType": "LinkMenuItem",
-                                "DisplayText": "Contact us",
-                                "Latest": false,
-                                "Published": false,
-                                "Owner": "[js: parameters('AdminUserId')]",
-                                "Author": "[js: parameters('AdminUsername')]",
-                                "LinkMenuItemPart": {
-                                    "Name": "Contact us",
-                                    "Url": "/contact-us"
-                                },
-                                "LinkMenuItem": {}
-                            },
-                            {
-                                "ContentItemId": "[js:uuid()]",
-                                "ContentItemVersionId": "[js:uuid()]",
-                                "ContentType": "LinkMenuItem",
                                 "DisplayText": "Actions plans",
                                 "Latest": false,
                                 "Published": false,
@@ -124,6 +109,21 @@
                                 "LinkMenuItemPart": {
                                     "Name": "Careers advice",
                                     "Url": "/careers-advice"
+                                },
+                                "LinkMenuItem": {}
+                            },
+                            {
+                                "ContentItemId": "[js:uuid()]",
+                                "ContentItemVersionId": "[js:uuid()]",
+                                "ContentType": "LinkMenuItem",
+                                "DisplayText": "Contact us",
+                                "Latest": false,
+                                "Published": false,
+                                "Owner": "[js: parameters('AdminUserId')]",
+                                "Author": "[js: parameters('AdminUsername')]",
+                                "LinkMenuItemPart": {
+                                    "Name": "Contact us",
+                                    "Url": "/contact-us"
                                 },
                                 "LinkMenuItem": {}
                             }
