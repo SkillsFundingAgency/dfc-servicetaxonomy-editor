@@ -82,7 +82,7 @@ namespace DFC.ServiceTaxonomy.TriageToolMigrations.Migrations
             try
             {
                 _logger.LogInformation($"Starting step 5 of DFC.ServiceTaxonomy.TriageToolMigrations");
-                await _recipeMigrator.ExecuteAsync("MigrationRecipes/home-page.recipe.json", this);
+                await _recipeMigrator.ExecuteAsync("MigrationRecipes/find-a-course-app-view.recipe.json", this);
                 _logger.LogInformation($"Completed step 5 of DFC.ServiceTaxonomy.TriageToolMigrations");
             }
             catch (Exception ex)
