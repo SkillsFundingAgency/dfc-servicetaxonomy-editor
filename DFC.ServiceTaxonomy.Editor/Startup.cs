@@ -10,9 +10,6 @@ using DFC.Common.SharedContent.Pkg.Netcore.RequestHandler;
 using DFC.ServiceTaxonomy.Content.Configuration;
 using DFC.ServiceTaxonomy.CustomEditor.Configuration;
 using DFC.ServiceTaxonomy.Editor.Security;
-using DfE.NCS.Framework.Core.Crypto;
-using DfE.NCS.Framework.Core.Crypto.Interfaces;
-using DfE.NCS.Framework.Event.Extension;
 using GraphQL.Client.Abstractions;
 using GraphQL.Client.Http;
 using GraphQL.Client.Serializer.Newtonsoft;
@@ -120,8 +117,8 @@ namespace DFC.ServiceTaxonomy.Editor
             services.AddSingleton<ISharedContentRedisInterfaceStrategyFactory, SharedContentRedisStrategyFactory>();
             services.AddSingleton<ISharedContentRedisInterface, SharedContentRedis>();
 
-            services.AddNcsEventGridServices(Configuration);
-            services.AddScoped<ICryptographyManager, CryptographyManager>();
+            //services.AddNcsEventGridServices(Configuration);
+            //services.AddScoped<ICryptographyManager, CryptographyManager>();
 
             services.PostConfigure(SetupMediaConfig());
         }

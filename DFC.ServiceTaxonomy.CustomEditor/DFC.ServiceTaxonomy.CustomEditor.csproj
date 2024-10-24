@@ -19,7 +19,6 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="DfE.NCS.Framework.Core" Version="1.2.16-net60" />
     <PackageReference Include="OrchardCore.Contents" Version="1.6.0" />
     <PackageReference Include="OrchardCore.Module.Targets" Version="1.6.0" />
     <PackageReference Include="SonarAnalyzer.CSharp" Version="8.15.0.24505">

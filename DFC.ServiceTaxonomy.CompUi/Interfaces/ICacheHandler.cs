@@ -1,5 +1,5 @@
 using DFC.ServiceTaxonomy.CompUi.Models;
-using DfE.NCS.Framework.Event.Model;
+//using DfE.NCS.Framework.Event.Model;
 using OrchardCore.ContentManagement.Handlers;
 
 namespace DFC.ServiceTaxonomy.CompUi.Interfaces
@@ -14,6 +14,6 @@ namespace DFC.ServiceTaxonomy.CompUi.Interfaces
 
         Task ProcessUnpublishedAsync(PublishContentContext context);
 
-        Task ProcessEventGridMessage(Processing processing, ContentEventType contentEventType);
+        //Task ProcessEventGridMessage(Processing processing, ContentEventType contentEventType);
     }
 }
