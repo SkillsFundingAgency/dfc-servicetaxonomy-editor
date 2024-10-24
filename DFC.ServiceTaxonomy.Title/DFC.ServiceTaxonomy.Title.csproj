@@ -1,12 +1,15 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
+
   <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
     <AddRazorSupportForMvc>true</AddRazorSupportForMvc>
     <Configurations>Debug;Release;Development</Configurations>
   </PropertyGroup>
+
   <ItemGroup>
     <FrameworkReference Include="Microsoft.AspNetCore.App" />
   </ItemGroup>
+
   <ItemGroup>
     <PackageReference Include="OrchardCore.ContentManagement" Version="1.6.0" />
     <PackageReference Include="OrchardCore.ContentManagement.Display" Version="1.6.0" />
@@ -17,8 +20,10 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
   </ItemGroup>
+
   <ItemGroup>
     <ProjectReference Include="..\DFC.ServiceTaxonomy.DataAccess\DFC.ServiceTaxonomy.DataAccess.csproj" />
     <ProjectReference Include="..\DFC.ServiceTaxonomy.GraphSync\DFC.ServiceTaxonomy.GraphSync.csproj" />
   </ItemGroup>
+
 </Project>
