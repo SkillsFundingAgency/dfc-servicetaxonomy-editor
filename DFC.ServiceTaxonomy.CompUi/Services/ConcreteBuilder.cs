@@ -14,7 +14,7 @@ using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using OrchardCore.ContentManagement;
 using OrchardCore.Data;
-using Page = DFC.ServiceTaxonomy.CompUi.Models.Page;
+using ContentItem = DFC.ServiceTaxonomy.CompUi.Models.ContentItem;
 using SharedContent = DFC.ServiceTaxonomy.CompUi.Models.SharedContent;
 
 namespace DFC.ServiceTaxonomy.CompUi.Services
@@ -179,7 +179,7 @@ namespace DFC.ServiceTaxonomy.CompUi.Services
         {
             if (!string.IsNullOrEmpty(content))
             {
-                var result = JsonConvert.DeserializeObject<Page>(content);
+                var result = JsonConvert.DeserializeObject<ContentItem>(content);
                 string? cacheKey;
                 string? NodeId = result.GraphSyncParts.Text.Substring(result.GraphSyncParts.Text.LastIndexOf('/') + 1);
                 List<string> locations = new List<string>();
@@ -240,7 +240,7 @@ namespace DFC.ServiceTaxonomy.CompUi.Services
                     if (contentId != null)
                     {
                         var currentNode = contentId.FirstOrDefault();
-                        var currentNodeResult = JsonConvert.DeserializeObject<Page>(currentNode.Content);
+                        var currentNodeResult = JsonConvert.DeserializeObject<ContentItem>(currentNode.Content);
 
                         var categoryNode = string.Concat(ApplicationKeys.JobProfileSuffix, CheckLeadingChar(currentNodeResult.PageLocationParts.FullUrl));
                         success = await _sharedContentRedisInterface.InvalidateEntityAsync(categoryNode, processing.FilterType);
@@ -277,7 +277,7 @@ namespace DFC.ServiceTaxonomy.CompUi.Services
                 if (contentId != null)
                 {
                     var currentNode = contentId.FirstOrDefault();
-                    var currentNodeResult = JsonConvert.DeserializeObject<Page>(currentNode.Content);
+                    var currentNodeResult = JsonConvert.DeserializeObject<ContentItem>(currentNode.Content);
 
                     var cacheKey = string.Concat(ContentTypes.JobProfile.ToString(), "s", CheckLeadingChar(currentNodeResult.PageLocationParts.FullUrl));
                     success = await _sharedContentRedisInterface.InvalidateEntityAsync(cacheKey, processing.FilterType);
@@ -405,7 +405,7 @@ namespace DFC.ServiceTaxonomy.CompUi.Services
             var success = await _sharedContentRedisInterface.InvalidateEntityAsync(ApplicationKeys.JobProfileCurrentOpportunitiesAllJobProfiles, processing.FilterType);
             LogCacheKeyInvalidation(processing, ApplicationKeys.JobProfileCurrentOpportunitiesAllJobProfiles, processing.FilterType, success);
 
-            var result = JsonConvert.DeserializeObject<Page>(processing.PreviousContent);
+            var result = JsonConvert.DeserializeObject<ContentItem>(processing.PreviousContent);
             if (result != null)
             {
                 string cacheKey = string.Concat(ApplicationKeys.JobProfileCurrentOpportunities, CheckLeadingChar(processing.FullUrl));
@@ -418,7 +418,7 @@ namespace DFC.ServiceTaxonomy.CompUi.Services
             }
         }
 
-        private async Task InvalidateCourses(Processing processing, Page? result)
+        private async Task InvalidateCourses(Processing processing, ContentItem? result)
         {
             try
             {
@@ -435,7 +435,7 @@ namespace DFC.ServiceTaxonomy.CompUi.Services
             }
         }
 
-        private async Task InvalidateApprenticeships(Processing processing, Page? result)
+        private async Task InvalidateApprenticeships(Processing processing, ContentItem? result)
         {
             try
             {

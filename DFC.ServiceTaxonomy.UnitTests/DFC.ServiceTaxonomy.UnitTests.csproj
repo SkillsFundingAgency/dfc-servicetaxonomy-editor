@@ -35,6 +35,7 @@
     <ProjectReference Include="..\DFC.ServiceTaxonomy.CompUi\DFC.ServiceTaxonomy.CompUi.csproj" />
     <ProjectReference Include="..\DFC.ServiceTaxonomy.GraphSync\DFC.ServiceTaxonomy.GraphSync.csproj" />
     <ProjectReference Include="..\DFC.ServiceTaxonomy.JobProfiles.DataTransfer\DFC.ServiceTaxonomy.JobProfiles.DataTransfer.csproj" />
+    <ProjectReference Include="..\DFC.ServiceTaxonomy.Migration\DFC.ServiceTaxonomy.Migration.csproj" />
     <ProjectReference Include="..\DFC.ServiceTaxonomy.PageLocation\DFC.ServiceTaxonomy.PageLocation.csproj" />
   </ItemGroup>
 

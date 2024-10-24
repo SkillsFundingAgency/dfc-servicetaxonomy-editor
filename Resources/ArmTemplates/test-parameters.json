@@ -137,6 +137,18 @@
         "Neo4jReplicaSets1GraphInstances1Enabled": {
             "value": true
         },
+        "HeaderPublishedAppPrefix": {
+            "value": "https://localhost/"
+        },
+        "HeaderPreviewAppPrefix": {
+            "value": "https://localhost/"
+        },
+        "FooterPublishedAppPrefix": {
+            "value": "https://localhost/"
+        },
+        "FooterPreviewAppPrefix": {
+            "value": "https://localhost/"
+        },
         "MediaAzureBlobConnectionString": {
             "value": "my-string"
         },
@@ -229,6 +241,42 @@
         },
         "CmsSqlApiUrl": {
           "value": "http://url"
+        },
+        "EventGridTopicEndPointUrl": {
+            "value": "http://url"
+        },
+        "EventGridTopicAccessKey": {
+            "value": "accesskey"
+        },
+        "PreviewLoginUrl":{
+            "value": "http://url"
+        },
+        "EncryptionKey": {
+            "value": "encryptionkey"
+        },
+        "CipherTextPrefix": {
+            "value": "ciphertextprefix"
+        },
+        "CipherTextValiditySeconds": {
+            "value": 60
+        },
+        "PreviewRedirectUri:0:RedirectUri": {
+            "value": "__RedirectUri0__"
+        },
+        "PreviewRedirectUri:0:ContentType":{
+            "value": "__ContentType0__"
+        },
+        "PreviewRedirectUri:1:RedirectUri": {
+            "value": "__RedirectUri1__"
+        },
+        "PreviewRedirectUri:1:ContentType":{
+            "value": "__ContentType1__"
+        },
+        "PreviewRedirectUri:2:RedirectUri": {
+            "value": "__RedirectUri2__"
+        },
+        "PreviewRedirectUri:2:ContentType":{
+            "value": "__ContentType2__"
         }
     }
 }

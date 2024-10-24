@@ -31,5 +31,7 @@
     <ProjectReference Include="..\DFC.ServiceTaxonomy.ContentApproval\DFC.ServiceTaxonomy.ContentApproval.csproj" />
     <ProjectReference Include="..\DFC.ServiceTaxonomy.PageLocation\DFC.ServiceTaxonomy.PageLocation.csproj" />
   </ItemGroup>
-
+  <ItemGroup>
+    <Folder Include="Models\" />
+  </ItemGroup>
 </Project>

@@ -37,7 +37,7 @@ namespace DFC.ServiceTaxonomy.Editor
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddApplicationInsightsTelemetry(options =>
-                options.InstrumentationKey = Configuration["APPINSIGHTS_INSTRUMENTATIONKEY"]);
+                options.ConnectionString = Configuration["APPINSIGHTS_CONNECTIONSTRING"]);
 
             services.AddDistributedMemoryCache();
             services.AddSession();
@@ -64,10 +64,8 @@ namespace DFC.ServiceTaxonomy.Editor
                     sanitizer.AllowedAttributes.Remove("style");
                 }));
 
-            //todo: do this in each library??? if so, make sure it doesn't add services or config twice
-
             services.Configure<CookiePolicyOptions>(options => options.Secure = CookieSecurePolicy.Always);
-            
+
             services.AddOrchardCore()
                 .ConfigureServices(s =>
                 {
@@ -77,6 +75,8 @@ namespace DFC.ServiceTaxonomy.Editor
 
             services.Configure<PagesConfiguration>(Configuration.GetSection("Pages"));
             services.Configure<JobProfilesConfiguration>(Configuration.GetSection("JobProfiles"));
+            services.Configure<FooterConfiguration>(Configuration.GetSection("Footer"));
+            services.Configure<HeaderConfiguration>(Configuration.GetSection("Header"));
             services.Configure<AzureAdSettings>(Configuration.GetSection("AzureAdSettings"));
 
             services.AddSingleton<IGraphQLClient>(s =>
@@ -116,6 +116,9 @@ namespace DFC.ServiceTaxonomy.Editor
             services.AddStackExchangeRedisCache(options => { options.Configuration = Configuration.GetSection(RedisCacheConnectionStringAppSettings).Get<string>(); });
             services.AddSingleton<ISharedContentRedisInterfaceStrategyFactory, SharedContentRedisStrategyFactory>();
             services.AddSingleton<ISharedContentRedisInterface, SharedContentRedis>();
+
+            //services.AddNcsEventGridServices(Configuration);
+            //services.AddScoped<ICryptographyManager, CryptographyManager>();
 
             services.PostConfigure(SetupMediaConfig());
         }

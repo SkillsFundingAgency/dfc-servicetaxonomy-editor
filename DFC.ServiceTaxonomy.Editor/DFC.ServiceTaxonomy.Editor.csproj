@@ -33,7 +33,7 @@
     </PackageReference>
     <PackageReference Include="DFC.Common.SharedContent.Pkg.Netcore" Version="0.1.108" />
     <PackageReference Include="Joonasw.AspNetCore.SecurityHeaders" Version="4.0.1" />
-    <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.16.0" />
+    <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.22.0" />
     <PackageReference Include="Microsoft.ApplicationInsights.NLogTarget" Version="2.21.0" />
     <PackageReference Include="OrchardCore.Logging.NLog" Version="1.6.0" />
     <PackageReference Include="OrchardCore.Application.Cms.Targets" Version="1.6.0" />
@@ -58,6 +58,7 @@
     <ProjectReference Include="..\DFC.ServiceTaxonomy.Headless\DFC.ServiceTaxonomy.Headless.csproj" />
     <ProjectReference Include="..\DFC.ServiceTaxonomy.JobProfiles.DataTransfer\DFC.ServiceTaxonomy.JobProfiles.DataTransfer.csproj" />
     <ProjectReference Include="..\DFC.ServiceTaxonomy.JobProfiles.Module\DFC.ServiceTaxonomy.JobProfiles.Module.csproj" />
+    <ProjectReference Include="..\DFC.ServiceTaxonomy.Migration\DFC.ServiceTaxonomy.Migration.csproj" />
     <ProjectReference Include="..\DFC.ServiceTaxonomy.PageLocation\DFC.ServiceTaxonomy.PageLocation.csproj" />
     <ProjectReference Include="..\DFC.ServiceTaxonomy.Taxonomies\DFC.ServiceTaxonomy.Taxonomies.csproj" />
     <ProjectReference Include="..\DFC.ServiceTaxonomy.Theme\DFC.ServiceTaxonomy.Theme.csproj" />

@@ -1,8 +1,9 @@
-﻿using Newtonsoft.Json;
+﻿using System.Text.Json.Serialization;
+using Newtonsoft.Json;
 
 namespace DFC.ServiceTaxonomy.CompUi.Models
 {
-    public class Page
+    public class ContentItem
     {
         [JsonProperty("PageLocationPart")]
         public PageLocationParts? PageLocationParts { get; set; }

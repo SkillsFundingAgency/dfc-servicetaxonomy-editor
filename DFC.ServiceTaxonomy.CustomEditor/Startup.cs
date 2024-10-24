@@ -1,6 +1,9 @@
-﻿using DFC.ServiceTaxonomy.CustomEditor.Drivers;
+﻿using System;
+using DFC.ServiceTaxonomy.CustomEditor.Drivers;
 using DFC.ServiceTaxonomy.CustomEditor.Handlers;
 using DFC.ServiceTaxonomy.CustomEditor.Shapes;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.DependencyInjection;
 using OrchardCore.AuditTrail.Services;
 using OrchardCore.ContentManagement.Display.ContentDisplay;
@@ -16,6 +19,15 @@ namespace DFC.ServiceTaxonomy.CustomEditor
             services.AddScoped<IShapeTableProvider, SummaryAdminShapes>();
             services.AddScoped<IContentDisplayDriver, CustomContentDriver>();
             services.AddScoped<IAuditTrailEventHandler, CustomAuditTrailEventHandler>();
+        }
+
+        public override void Configure(IApplicationBuilder app, IEndpointRouteBuilder routes, IServiceProvider serviceProvider)
+        {
+            routes.MapAreaControllerRoute(
+                name: "Home",
+                areaName: "DFC.ServiceTaxonomy.CustomEditor",
+                pattern: "StaxPreview/GoToUrl",
+                defaults: new { controller = "StaxPreview", action = "GoToUrl" });
         }
     }
 }

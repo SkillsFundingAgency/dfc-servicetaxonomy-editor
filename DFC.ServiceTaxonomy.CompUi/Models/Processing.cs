@@ -4,6 +4,7 @@ namespace DFC.ServiceTaxonomy.CompUi.Models
 {
     public class Processing
     {
+        public string? Author { get; set; }
         public string? ContentType { get; set; }
         public string? ContentItemId { get; set; }
         public int DocumentId { get; set; }
@@ -14,5 +15,6 @@ namespace DFC.ServiceTaxonomy.CompUi.Models
         public ProcessingEvents EventType { get; set; }
         public string? FilterType { get; set; }
         public string? FullUrl { get; set; }
+        public string? DisplayText {  get; set; }
     }
 }
