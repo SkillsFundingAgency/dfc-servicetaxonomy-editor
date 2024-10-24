@@ -32,6 +32,8 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="DFC.Common.SharedContent.Pkg.Netcore" Version="0.1.108" />
+    <PackageReference Include="DfE.NCS.Framework.Core" Version="1.2.16-net60" />
+    <PackageReference Include="DfE.NCS.Framework.Event" Version="0.0.15-net60" />
     <PackageReference Include="Joonasw.AspNetCore.SecurityHeaders" Version="4.0.1" />
     <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.22.0" />
     <PackageReference Include="Microsoft.ApplicationInsights.NLogTarget" Version="2.21.0" />
