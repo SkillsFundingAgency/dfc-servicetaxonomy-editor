@@ -4,7 +4,7 @@ using DFC.ServiceTaxonomy.GraphSync.Interfaces;
 
 namespace DFC.ServiceTaxonomy.GraphSync.Models
 {
-#pragma warning disable S4035 // Classes implementing "IEquatable<T>" should be sealed
+    #pragma warning disable S4035 // Classes implementing "IEquatable<T>" should be sealed
     public class StandardRelationship : IRelationship
     #pragma warning restore S4035 // Classes implementing "IEquatable<T>" should be sealed
     {

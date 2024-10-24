@@ -3,7 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 
 using DFC.ServiceTaxonomy.JobProfiles.DataTransfer.ServiceBus;
-
+using Microsoft.AspNetCore.Mvc.Localization;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json.Linq;
@@ -11,6 +11,7 @@ using Newtonsoft.Json.Linq;
 using OrchardCore.ContentManagement;
 using OrchardCore.ContentManagement.Handlers;
 using OrchardCore.ContentManagement.Records;
+using OrchardCore.DisplayManagement.Notify;
 using OrchardCore.Title.Models;
 using YesSql;
 
@@ -21,14 +22,18 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module.Handlers
         private readonly IServiceProvider _serviceProvider;
         private readonly ISession _session;
         private readonly ILogger<JobProfileContentHandler> _logger;
+        private readonly INotifier _notifier;
+        private readonly IHtmlLocalizer<JobProfileContentHandler> H;
 
         public JobProfileContentHandler(
             IServiceProvider serviceProvider,
-            ISession session, ILogger<JobProfileContentHandler> logger)
+            ISession session, ILogger<JobProfileContentHandler> logger, INotifier notifier, IHtmlLocalizer<JobProfileContentHandler> htmlLocalizer)
         {
             _session = session;
             _serviceProvider = serviceProvider;
             _logger = logger;
+            _notifier = notifier;
+            H = htmlLocalizer;
         }
 
         public override async Task DraftSavingAsync(SaveDraftContentContext context)
@@ -36,11 +41,21 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module.Handlers
             _logger.LogInformation($"DraftSavingAsync: context {context}");
             if (context.ContentItem.ContentType == ContentTypes.JobProfile)
             {
-                var socCode = await SkillReloadRequired(context);
-                if(!string.IsNullOrEmpty(socCode))
+                // Only three job sectors can be selected
+                var sectorContentItemIds = (JArray)context.ContentItem.Content.JobProfile.JobProfileSector.ContentItemIds;
+                if (sectorContentItemIds.Count > 3)
                 {
-                    var socSkillsMatrixContentItemsList = await _session.Query<ContentItem, ContentItemIndex>(c => c.ContentType == ContentTypes.SOCSkillsMatrix && c.DisplayText.StartsWith(socCode) && c.Published).ListAsync();
-                    context.ContentItem.Content.JobProfile.Relatedskills.ContentItemIds = new JArray(socSkillsMatrixContentItemsList.Select(c => c.ContentItemId));
+                    _logger.LogInformation("Only three job sectors can be selected.");
+                    await _notifier.ErrorAsync(H["Only three job sectors can be selected."]);
+                }
+                else
+                {
+                    var socCode = await SkillReloadRequired(context);
+                    if (!string.IsNullOrEmpty(socCode))
+                    {
+                        var socSkillsMatrixContentItemsList = await _session.Query<ContentItem, ContentItemIndex>(c => c.ContentType == ContentTypes.SOCSkillsMatrix && c.DisplayText.StartsWith(socCode) && c.Published).ListAsync();
+                        context.ContentItem.Content.JobProfile.Relatedskills.ContentItemIds = new JArray(socSkillsMatrixContentItemsList.Select(c => c.ContentItemId));
+                    }
                 }
             }
         }
@@ -49,15 +64,26 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module.Handlers
         {
             if (context.ContentItem.ContentType == ContentTypes.JobProfile)
             {
-                var socCode = await SkillReloadRequired(context);
-                if (!string.IsNullOrEmpty(socCode))
+                // Only three job sectors can be selected
+                var sectorContentItemIds = (JArray)context.ContentItem.Content.JobProfile.JobProfileSector.ContentItemIds;
+                if (sectorContentItemIds.Count > 3)
                 {
-                    var socSkillsMatrixContentItemsList = await _session.Query<ContentItem, ContentItemIndex>(c => c.ContentType == ContentTypes.SOCSkillsMatrix && c.DisplayText.StartsWith(socCode) && c.Published).ListAsync();
-                    if (context.ContentItem.Content.JobProfile.Relatedskills != null)
+                    context.Cancel = true;
+                    _logger.LogInformation("Only three job sectors can be selected.");
+                    await _notifier.ErrorAsync(H["Only three job sectors can be selected."]);
+                }
+                else
+                {
+                    var socCode = await SkillReloadRequired(context);
+                    if (!string.IsNullOrEmpty(socCode))
                     {
-                        context.ContentItem.Content.JobProfile.Relatedskills.ContentItemIds = new JArray(socSkillsMatrixContentItemsList.Select(c => c.ContentItemId));
+                        var socSkillsMatrixContentItemsList = await _session.Query<ContentItem, ContentItemIndex>(c => c.ContentType == ContentTypes.SOCSkillsMatrix && c.DisplayText.StartsWith(socCode) && c.Published).ListAsync();
+                        if (context.ContentItem.Content.JobProfile.Relatedskills != null)
+                        {
+                            context.ContentItem.Content.JobProfile.Relatedskills.ContentItemIds = new JArray(socSkillsMatrixContentItemsList.Select(c => c.ContentItemId));
+                        }
                     }
-                    
+
                 }
             }
         }

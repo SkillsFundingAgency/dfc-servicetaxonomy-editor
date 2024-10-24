@@ -32,4 +32,6 @@ $('document').ready(function () {
     $('label[for="JobProfileNew_Directapplication_Html"]').css("font-size", ".8rem");
     $('label[for="JobProfileNew_Work_Html"]').before("<div><label> Further routes </label></div>");
 
+    // This is add for Sector landing page content type add time check required for html Description field.
+    $('#SectorLandingPage_Description_Html').attr('required', 'true');
 });

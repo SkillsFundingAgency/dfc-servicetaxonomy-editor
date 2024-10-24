@@ -9,6 +9,7 @@ using OrchardCore.DisplayManagement.ModelBinding;
 using DFC.ServiceTaxonomy.Extensions;
 using OrchardCore.DisplayManagement.Views;
 using OrchardCore.Mvc.ModelBinding;
+using YesSql;
 using DFC.ServiceTaxonomy.Title.Settings;
 using DFC.ServiceTaxonomy.DataAccess.Repositories;
 using DFC.ServiceTaxonomy.Title.Indexes;
