@@ -25,7 +25,7 @@ namespace DFC.ServiceTaxonomy.CompUi.Repository
 
         public async Task<IEnumerable<RelatedContentData>> GetRelatedContentDataByContentItemIdAndPage(Processing processing)
         {
-            IEnumerable<RelatedContentData>? resultList = [];
+            IEnumerable<RelatedContentData>? resultList = new List<RelatedContentData>(); 
 
             var sql = $"SELECT DocumentId FROM RelatedContentItemIndex WITH (NOLOCK) WHERE RelatedContentIds LIKE '%{processing.ContentItemId}%' AND ContentType = 'Page' ";
             var documentIds = await ExecuteQuery<string>(sql);
