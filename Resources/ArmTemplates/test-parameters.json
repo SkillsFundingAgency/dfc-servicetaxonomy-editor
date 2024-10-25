@@ -23,6 +23,30 @@
         "SharedAppServicePlanResourceGroup": {
             "value": "dfc-dev-stax-shared-rg"
         },
+        "Neo4jUrl": {
+            "value": "https://some_endpoint/"
+        },
+        "Neo4jUrl1": {
+            "value": "https://some_endpoint/"
+        },
+        "Neo4jUser": {
+            "value": "not-a-real-username"
+        },
+        "Neo4jPassword": {
+            "value": "not-a-real-password"
+        },
+        "Neo4jUrlDraft": {
+            "value": "https://some_endpoint/"
+        },
+        "Neo4jUrlDraft1": {
+            "value": "https://some_endpoint/"
+        },
+        "Neo4jUserDraft": {
+            "value": "not-a-real-username"
+        },
+        "Neo4jPasswordDraft": {
+            "value": "not-a-real-password"
+        },
         "SqlElasticPoolName": {
             "value": "an-elastic-pool"
         },
@@ -88,6 +112,30 @@
         },
         "JobProfilePreviewAppPrefix": {
             "value": "https://localhost/"
+        },
+        "Neo4jEndpoints0Enabled": {
+            "value": true
+        },
+        "Neo4jEndpoints1Enabled": {
+            "value": true
+        },
+        "Neo4jEndpoints2Enabled": {
+            "value": true
+        },
+        "Neo4jEndpoints3Enabled": {
+            "value": true
+        },
+        "Neo4jReplicaSets0GraphInstances0Enabled": {
+            "value": true
+        },
+        "Neo4jReplicaSets0GraphInstances1Enabled": {
+            "value": true
+        },
+        "Neo4jReplicaSets1GraphInstances0Enabled": {
+            "value": true
+        },
+        "Neo4jReplicaSets1GraphInstances1Enabled": {
+            "value": true
         },
         "HeaderPublishedAppPrefix": {
             "value": "https://localhost/"

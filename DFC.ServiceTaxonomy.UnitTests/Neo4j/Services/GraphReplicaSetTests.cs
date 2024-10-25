@@ -23,9 +23,9 @@ namespace DFC.ServiceTaxonomy.UnitTests.Neo4j.Services
         {
             const int iterationsPerGraphInstance = 5;
             const int numberOfIterations = NumberOfGraphInstances * iterationsPerGraphInstance;
-            Parallel.For(0, numberOfIterations, (iteration) =>
+            Parallel.For(0, numberOfIterations, async (iteration) =>
             {
-                GraphReplicaSet.Run(Query);
+                await GraphReplicaSet.Run(Query);
             });
 
 
