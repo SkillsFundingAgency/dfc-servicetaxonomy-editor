@@ -365,7 +365,7 @@
                             },
                             {
                                 "name": "APPINSIGHTS_CONNECTIONSTRING",
-                                "value": "[reference(variables('AppServiceAppInsightsName')).outputs.ConnectionString.value]"
+                                "value": "[reference(variables('AppServiceAppInsightsName')).outputs.instrumentationConnectionString.value]"
                             },
                             {
                                 "name": "WEBSITE_RUN_FROM_PACKAGE",
