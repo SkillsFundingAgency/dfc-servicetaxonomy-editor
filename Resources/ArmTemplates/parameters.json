@@ -21,28 +21,28 @@
             "value": "__StaxSharedResourceGroup__"
         },
         "Neo4jEndpoints0Enabled": {
-            "value": "__Neo4jEndpoints0Enabled__"
+            "value": __Neo4jEndpoints0Enabled__
         },
         "Neo4jEndpoints1Enabled": {
-            "value": "__Neo4jEndpoints1Enabled__"
+            "value": __Neo4jEndpoints1Enabled__
         },
         "Neo4jEndpoints2Enabled": {
-            "value": "__Neo4jEndpoints2Enabled__"
+            "value": __Neo4jEndpoints2Enabled__
         },
         "Neo4jEndpoints3Enabled": {
-            "value": "__Neo4jEndpoints3Enabled__"
+            "value": __Neo4jEndpoints3Enabled__
         },
         "Neo4jReplicaSets0GraphInstances0Enabled": {
-            "value": "__Neo4jReplicaSets0GraphInstances0Enabled__"
+            "value": __Neo4jReplicaSets0GraphInstances0Enabled__
         },
         "Neo4jReplicaSets0GraphInstances1Enabled": {
-            "value": "__Neo4jReplicaSets0GraphInstances1Enabled__"
+            "value": __Neo4jReplicaSets0GraphInstances1Enabled__
         },
         "Neo4jReplicaSets1GraphInstances0Enabled": {
-            "value": "__Neo4jReplicaSets1GraphInstances0Enabled__"
+            "value": __Neo4jReplicaSets1GraphInstances0Enabled__
         },
         "Neo4jReplicaSets1GraphInstances1Enabled": {
-            "value": "__Neo4jReplicaSets1GraphInstances1Enabled__"
+            "value": __Neo4jReplicaSets1GraphInstances1Enabled__
         },
         "Neo4jUrl": {
             "value": "__Neo4jUrl__"
@@ -248,7 +248,7 @@
         "EventGridTopicAccessKey": {
             "value": "__SSP2SharedEventGridAccessKey__"
         },
-        "PreviewLoginUrl":{
+        "PreviewLoginUrl": {
             "value": "__PreviewLoginUrl__"
         },
         "EncryptionKey": {
@@ -258,24 +258,24 @@
             "value": "__NcsPreviewCipherTextPrefix__"
         },
         "CipherTextValiditySeconds": {
-            "value": "__CipherTextValiditySeconds__"
+            "value": __CipherTextValiditySeconds__
         },
         "PreviewRedirectUri:0:RedirectUri": {
             "value": "__RedirectUri0__"
         },
-        "PreviewRedirectUri:0:ContentType":{
+        "PreviewRedirectUri:0:ContentType": {
             "value": "__ContentType0__"
         },
         "PreviewRedirectUri:1:RedirectUri": {
             "value": "__RedirectUri1__"
         },
-        "PreviewRedirectUri:1:ContentType":{
+        "PreviewRedirectUri:1:ContentType": {
             "value": "__ContentType1__"
         },
         "PreviewRedirectUri:2:RedirectUri": {
             "value": "__RedirectUri2__"
         },
-        "PreviewRedirectUri:2:ContentType":{
+        "PreviewRedirectUri:2:ContentType": {
             "value": "__ContentType2__"
         }
     }
