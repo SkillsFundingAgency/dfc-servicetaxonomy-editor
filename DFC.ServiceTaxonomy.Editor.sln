@@ -6,7 +6,6 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DFC.ServiceTaxonomy.Editor", "DFC.ServiceTaxonomy.Editor\DFC.ServiceTaxonomy.Editor.csproj", "{12E7F029-43F7-4BF2-AC86-B5056D1D4DDF}"
 	ProjectSection(ProjectDependencies) = postProject
 		{314A7DCC-6A0A-419F-BAFA-EA7EC43834F6} = {314A7DCC-6A0A-419F-BAFA-EA7EC43834F6}
-		{7B0F3655-D6B7-461D-AEF2-FFAE1980CF21} = {7B0F3655-D6B7-461D-AEF2-FFAE1980CF21}
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{16DF71DE-7DEE-4E45-B613-CABA378B6D14}"
@@ -74,6 +73,10 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DFC.ServiceTaxonomy.Headless", "DFC.ServiceTaxonomy.Headless\DFC.ServiceTaxonomy.Headless.csproj", "{314A7DCC-6A0A-419F-BAFA-EA7EC43834F6}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DFC.ServiceTaxonomy.ExploreCareersMigration", "DFC.ServiceTaxonomy.ExploreCareersMigration\DFC.ServiceTaxonomy.ExploreCareersMigration.csproj", "{7B0F3655-D6B7-461D-AEF2-FFAE1980CF21}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DFC.ServiceTaxonomy.TriageToolMigrations", "DFC.ServiceTaxonomy.TriageToolMigrations\DFC.ServiceTaxonomy.TriageToolMigrations.csproj", "{A149ADEA-8129-4282-81E4-3C5073F07D63}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DFC.ServiceTaxonomy.HomePageMigrations", "DFC.ServiceTaxonomy.HomePageMigrations\DFC.ServiceTaxonomy.HomePageMigrations.csproj", "{02B87632-AD45-44BE-AF5F-259F8B2FFA66}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -226,6 +229,18 @@ Global
 		{7B0F3655-D6B7-461D-AEF2-FFAE1980CF21}.Development|Any CPU.Build.0 = Debug|Any CPU
 		{7B0F3655-D6B7-461D-AEF2-FFAE1980CF21}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7B0F3655-D6B7-461D-AEF2-FFAE1980CF21}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A149ADEA-8129-4282-81E4-3C5073F07D63}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A149ADEA-8129-4282-81E4-3C5073F07D63}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A149ADEA-8129-4282-81E4-3C5073F07D63}.Development|Any CPU.ActiveCfg = Debug|Any CPU
+		{A149ADEA-8129-4282-81E4-3C5073F07D63}.Development|Any CPU.Build.0 = Debug|Any CPU
+		{A149ADEA-8129-4282-81E4-3C5073F07D63}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A149ADEA-8129-4282-81E4-3C5073F07D63}.Release|Any CPU.Build.0 = Release|Any CPU
+		{02B87632-AD45-44BE-AF5F-259F8B2FFA66}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{02B87632-AD45-44BE-AF5F-259F8B2FFA66}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{02B87632-AD45-44BE-AF5F-259F8B2FFA66}.Development|Any CPU.ActiveCfg = Debug|Any CPU
+		{02B87632-AD45-44BE-AF5F-259F8B2FFA66}.Development|Any CPU.Build.0 = Debug|Any CPU
+		{02B87632-AD45-44BE-AF5F-259F8B2FFA66}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{02B87632-AD45-44BE-AF5F-259F8B2FFA66}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -56,12 +56,14 @@
     <ProjectReference Include="..\DFC.ServiceTaxonomy.GraphSync\DFC.ServiceTaxonomy.GraphSync.csproj" />
     <ProjectReference Include="..\DFC.ServiceTaxonomy.GraphVisualiser\DFC.ServiceTaxonomy.GraphVisualiser.csproj" />
     <ProjectReference Include="..\DFC.ServiceTaxonomy.Headless\DFC.ServiceTaxonomy.Headless.csproj" />
+    <ProjectReference Include="..\DFC.ServiceTaxonomy.HomePageMigrations\DFC.ServiceTaxonomy.HomePageMigrations.csproj" />
     <ProjectReference Include="..\DFC.ServiceTaxonomy.JobProfiles.DataTransfer\DFC.ServiceTaxonomy.JobProfiles.DataTransfer.csproj" />
     <ProjectReference Include="..\DFC.ServiceTaxonomy.JobProfiles.Module\DFC.ServiceTaxonomy.JobProfiles.Module.csproj" />
     <ProjectReference Include="..\DFC.ServiceTaxonomy.PageLocation\DFC.ServiceTaxonomy.PageLocation.csproj" />
     <ProjectReference Include="..\DFC.ServiceTaxonomy.Taxonomies\DFC.ServiceTaxonomy.Taxonomies.csproj" />
     <ProjectReference Include="..\DFC.ServiceTaxonomy.Theme\DFC.ServiceTaxonomy.Theme.csproj" />
     <ProjectReference Include="..\DFC.ServiceTaxonomy.Title\DFC.ServiceTaxonomy.Title.csproj" />
+    <ProjectReference Include="..\DFC.ServiceTaxonomy.TriageToolMigrations\DFC.ServiceTaxonomy.TriageToolMigrations.csproj" />
     <ProjectReference Include="..\DFC.ServiceTaxonomy.UnpublishLater\DFC.ServiceTaxonomy.UnpublishLater.csproj" />
     <ProjectReference Include="..\DFC.ServiceTaxonomy.VersionComparison\DFC.ServiceTaxonomy.VersionComparison.csproj" />
   </ItemGroup>

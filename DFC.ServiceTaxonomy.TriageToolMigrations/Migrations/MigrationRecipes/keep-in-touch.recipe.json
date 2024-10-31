@@ -1,0 +1,48 @@
+{
+  "name": "Keep In Touch",
+  "displayName": "Keep In Touch",
+  "description": "Keep In Touch",
+  "author": "National Careers Service",
+  "website": "https://github.com/SkillsFundingAgency/dfc-servicetaxonomy-editor",
+  "version": "2.0",
+  "issetuprecipe": false,
+  "categories": [],
+  "tags": [],
+  "steps": [
+    {
+      "name": "Content",
+      "data": [
+        {
+          "ContentItemId": "4c34xj4mkh8perqa11v5kqbjn0",
+          "ContentItemVersionId": "4x0vxv3sm0ew8zcbk774c55gn8",
+          "ContentType": "SharedContent",
+          "DisplayText": "Keep in touch",
+          "Latest": true,
+          "Published": true,
+          "ModifiedUtc": "2024-10-07T08:28:12.5213832Z",
+          "PublishedUtc": "2024-10-07T08:28:12.5941671Z",
+          "CreatedUtc": "2024-09-17T13:11:54.2011052Z",
+          "Owner": "4jpdqsx21gdz74v8max5j8z8ns",
+          "Author": "SKumar",
+          "SharedContent": {
+            "Content": {
+              "Html": "<div class=\"social-icon  govuk-!-margin-top-20\"><h3 class=\"gem-c-heading govuk-heading-m   govuk-!-margin-bottom-3\">Keep in touch</h3>\n<div lang=\"en\">\n  <div class=\"gem-c-share-links gem-c-share-links--stacked brand--ncs\" data-module=\"track-click\">\n\t<ul class=\"gem-c-share-links__list\">\n\t  <li class=\"gem-c-share-links__list-item\"> <a rel=\"noopener noreferrer external\" id=\"link-social-twitter\" data-track-category=\"social media\" data-track-action=\"twitter\" class=\"gem-c-share-links__link brand__color\" href=\"https://X.com/NationalCareers\"> <span class=\"gem-c-share-links__link-icon\">\n\t\t<img class=\"gem-c-share-links__link-icon\" src=\"https://cdn.nationalcareers.service.gov.uk/nationalcareers_toolkit/images/x.svg\" alt=\"X\"> </span>\n\t\t <span class=\"govuk-visually-hidden\"> Follow on </span> </a> </li>\n\t  <li class=\"gem-c-share-links__list-item\"> <a rel=\"noopener noreferrer external\" id=\"link-social-facebook\" data-track-category=\"social media\" data-track-action=\"facebook\" class=\"gem-c-share-links__link brand__color\" href=\"https://www.facebook.com/NationalCareersService/\"> <span class=\"gem-c-share-links__link-icon\">\n\t\t<img class=\"gem-c-share-links__link-icon\" src=\"https://cdn.nationalcareers.service.gov.uk/nationalcareers_toolkit/images/facebook.svg\" alt=\"Facebook\"></span> <span class=\"govuk-visually-hidden\"> Follow on </span> </a> </li>\n\t  <li class=\"gem-c-share-links__list-item\"> <a rel=\"noopener noreferrer external\" data-track-category=\"social media\" id=\"link-social-linkedin\" data-track-action=\"linkedin\" class=\"gem-c-share-links__link brand__color\" href=\"https://www.linkedin.com/company/national-careers/\"> <span class=\"gem-c-share-links__link-icon\">\n\t\t<img class=\"gem-c-share-links__link-icon\" src=\"https://cdn.nationalcareers.service.gov.uk/nationalcareers_toolkit/images/linkedin.svg\" alt=\"LinkedIn\"></span> <span class=\"govuk-visually-hidden\"> Follow on </span> </a> </li>\n\t  <li class=\"gem-c-share-links__list-item\"> <a rel=\"noopener noreferrer external\" data-track-category=\"social media\" id=\"link-social-instagram\" data-track-action=\"instagram\" class=\"gem-c-share-links__link brand__color\" href=\"https://www.instagram.com/national_careers_service/\"> <span class=\"gem-c-share-links__link-icon\">\n\t\t<img class=\"gem-c-share-links__link-icon\" src=\"https://cdn.nationalcareers.service.gov.uk/nationalcareers_toolkit/images/instagram.svg\" alt=\"Instagram\"></span> <span class=\"govuk-visually-hidden\"> Follow on </span> </a> </li>\n\t  <li class=\"gem-c-share-links__list-item\"> <a rel=\"noopener noreferrer external\" data-track-category=\"social media\" id=\"link-social-youtube\" data-track-action=\"youtube\" class=\"gem-c-share-links__link brand__color\" href=\"https://www.youtube.com/channel/UCX6LhqOoog4lf9RKFASeVrg/featured\"> <span class=\"gem-c-share-links__link-icon\">\n\t\t<img class=\"gem-c-share-links__link-icon\" src=\"https://cdn.nationalcareers.service.gov.uk/nationalcareers_toolkit/images/youtube.svg\" alt=\"Youtube\"></span> <span class=\"govuk-visually-hidden\"> Follow on </span> </a> </li>\n\t</ul></div></div></div>"
+            }
+          },
+          "GraphSyncPart": {
+            "Text": "<<contentapiprefix>>/sharedcontent/6e1bdae9-f6ce-4f7e-b361-fbd054b576db"
+          },
+          "TitlePart": {
+            "Title": "Keep in touch"
+          },
+          "ContentApprovalPart": {
+            "ReviewStatus": 0,
+            "ReviewType": 0,
+            "IsForcePublished": false,
+            "Comment": "CHG0058983"
+          }
+        }
+      ]
+    }
+  ]
+}
