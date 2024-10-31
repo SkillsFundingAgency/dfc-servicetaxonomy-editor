@@ -364,8 +364,8 @@
                                 "value": "1"
                             },
                             {
-                                "name": "APPINSIGHTS_INSTRUMENTATIONKEY",
-                                "value": "[reference(variables('AppServiceAppInsightsName')).outputs.InstrumentationKey.value]"
+                                "name": "APPINSIGHTS_CONNECTIONSTRING",
+                                "value": "[reference(variables('AppServiceAppInsightsName')).outputs.instrumentationConnectionString.value]"
                             },
                             {
                                 "name": "WEBSITE_RUN_FROM_PACKAGE",
