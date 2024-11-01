@@ -76,6 +76,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DFC.ServiceTaxonomy.Explore
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DFC.ServiceTaxonomy.TriageToolMigrations", "DFC.ServiceTaxonomy.TriageToolMigrations\DFC.ServiceTaxonomy.TriageToolMigrations.csproj", "{A149ADEA-8129-4282-81E4-3C5073F07D63}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DFC.ServiceTaxonomy.HomePageMigrations", "DFC.ServiceTaxonomy.HomePageMigrations\DFC.ServiceTaxonomy.HomePageMigrations.csproj", "{02B87632-AD45-44BE-AF5F-259F8B2FFA66}"
+EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DFC.ServiceTaxonomy.Migration", "DFC.ServiceTaxonomy.Migration\DFC.ServiceTaxonomy.Migration.csproj", "{E7212B27-02BA-4F46-8E8B-1E790334E3FF}"
 EndProject
 Global
@@ -235,6 +237,12 @@ Global
 		{A149ADEA-8129-4282-81E4-3C5073F07D63}.Development|Any CPU.Build.0 = Debug|Any CPU
 		{A149ADEA-8129-4282-81E4-3C5073F07D63}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A149ADEA-8129-4282-81E4-3C5073F07D63}.Release|Any CPU.Build.0 = Release|Any CPU
+		{02B87632-AD45-44BE-AF5F-259F8B2FFA66}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{02B87632-AD45-44BE-AF5F-259F8B2FFA66}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{02B87632-AD45-44BE-AF5F-259F8B2FFA66}.Development|Any CPU.ActiveCfg = Debug|Any CPU
+		{02B87632-AD45-44BE-AF5F-259F8B2FFA66}.Development|Any CPU.Build.0 = Debug|Any CPU
+		{02B87632-AD45-44BE-AF5F-259F8B2FFA66}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{02B87632-AD45-44BE-AF5F-259F8B2FFA66}.Release|Any CPU.Build.0 = Release|Any CPU
 		{E7212B27-02BA-4F46-8E8B-1E790334E3FF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{E7212B27-02BA-4F46-8E8B-1E790334E3FF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E7212B27-02BA-4F46-8E8B-1E790334E3FF}.Development|Any CPU.ActiveCfg = Debug|Any CPU

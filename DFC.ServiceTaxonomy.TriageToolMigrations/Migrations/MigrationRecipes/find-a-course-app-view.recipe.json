@@ -1,0 +1,87 @@
+{
+  "name": "Find a course Application View",
+  "displayName": "Find a course Application View",
+  "description": "Find a course Application View",
+  "author": "National Careers Service",
+  "website": "https://github.com/SkillsFundingAgency/dfc-servicetaxonomy-editor",
+  "version": "2.0",
+  "issetuprecipe": false,
+  "categories": [],
+  "tags": [],
+  "steps": [
+    {
+      "name": "content",
+      "data": [
+        {
+          "ContentItemId": "4fykrhgpgtxzxvrx1mc27qz5xa",
+          "ContentItemVersionId": "4tgx4xjqy7fma7kp7d586yy6n7",
+          "ContentType": "ApplicationView",
+          "DisplayText": "Find a course",
+          "Latest": true,
+          "Published": true,
+          "ModifiedUtc": "2024-10-15T14:16:22.4115621Z",
+          "PublishedUtc": "2024-10-15T14:16:22.5087363Z",
+          "CreatedUtc": "2024-10-15T14:16:22.4115621Z",
+          "Owner": "4p8nhfxd2bqqm729wj0g41fkck",
+          "Author": "JazDamen",
+          "ApplicationView": {
+            "TriageToolFilters": {
+              "ContentItemIds": []
+            },
+            "UseInTriageTool": {
+              "Value": true
+            },
+            "TriageToolSummary": {
+              "Html": ""
+            },
+            "PageLocation": {
+              "Text": "/find-a-course"
+            },
+            "TriageLevelOne": {
+              "ContentItemIds": [
+                "4hyyfbrh8swxszn5edkbrwafxb",
+                "4e2mfha8xd23rvhzjt6exfcpck",
+                "4jg4pebz90zrc0r8ae433sbe4a"
+              ]
+            },
+            "TriageLevelTwo": {
+              "ContentItemIds": [
+                "4g08nchz7wwch5s0ew6qsgyb4g",
+                "4458n6vz5z36w51n4v5df738cr",
+                "4vkrdc77gkyqxsrndc1374dn4x",
+                "4z8rgat5smm8p370mezenpakdg",
+                "454xwn1mh5fv3xsqayefg6j6cs",
+                "47wr2cbp9zs27z66j6mfvhczw3",
+                "4mba52z9g9cjb5k1hmgfeatew8",
+                "4gfdtx4ybn4b01kzvt00074cne",
+                "4e6xsrh482nzrzv2cf1fb1mp4y"
+              ]
+            },
+            "FilterAdviceGroup": {
+              "ContentItemIds": [
+                "4z7j99hm7812vt6z96s79smb4w",
+                "4xyj42ns1n8dkty9jtjber1fdb",
+                "49a58jk21qrjwxq6er4mk5dcw6",
+                "473y984829g1s47zz26jekmsxm",
+                "4wp6m3fv3z5ec2143dq775v1x7",
+                "4tnkdnrvae1de7knse3ccx6b5a",
+                "4vv6vj096w9n022dvsf4hrftmr",
+                "4aqz4erv1cpgk1rx59pq6jtyxx",
+                "4870s58cy95hfz79sspsbq66wa"
+              ]
+            },
+            "TriageOrdinal": {
+              "Value": 8.0
+            }
+          },
+          "GraphSyncPart": {
+            "Text": "<<contentapiprefix>>/applicationview/c88917cf-9fa3-4d01-8a42-f61a20b39fb2"
+          },
+          "TitlePart": {
+            "Title": "Find a course"
+          }
+        }
+      ]
+    }
+  ]
+}
