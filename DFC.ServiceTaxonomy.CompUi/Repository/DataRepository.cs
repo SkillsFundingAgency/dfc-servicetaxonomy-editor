@@ -23,42 +23,36 @@ namespace DFC.ServiceTaxonomy.CompUi.Repository
             _logger = logger;
         }
 
-        public async Task<IEnumerable<RelatedContentData>> GetRelatedContentDataByContentItemIdAndPage(Processing processing)
+        public async Task<IEnumerable<RelatedContentData>> GetRelatedContentDataByContentItemIdAndPage(
+            Processing processing)
         {
             IEnumerable<RelatedContentData>? resultList = new List<RelatedContentData>();
 
-            var sql = $"SELECT DocumentId FROM RelatedContentItemIndex WITH (NOLOCK) WHERE RelatedContentIds LIKE '%{processing.ContentItemId}%' AND ContentType = 'Page' ";
-            var documentIds = await ExecuteQuery<string>(sql);
+            var sql = $"SELECT DocumentId FROM RelatedContentItemIndex WITH (NOLOCK) " +
+                      $"WHERE RelatedContentIds LIKE CONCAT('%', @contentItemId, '%') " +
+                      $"AND ContentType = 'Page' ";
+            var documentIds = await ExecuteQuery<string>(sql, new { contentItemId = processing.ContentItemId });
 
-            if (documentIds != null && documentIds.Count() > 0)
+            if (documentIds?.Count() > 0)
             {
-                var queryIds = string.Join(",", documentIds);
-
                 sql = $"SELECT ContentItemId, DisplayText, Author, ContentType, " +
-                    $"JSON_VALUE(Content,'$.GraphSyncPart.Text') AS GraphSyncId, " +
-                    $"JSON_VALUE(Content,'$.PageLocationPart.FullUrl') AS FullPageUrl " +
-                    $"FROM Document AS D " +
-                    $"INNER JOIN ContentItemIndex AS CII on CII.DocumentId = D.Id " +
-                    $"WHERE D.Id IN ({queryIds}) " +
-                    $"AND Latest = 1 AND Published = 1";
+                      $"JSON_VALUE(Content,'$.GraphSyncPart.Text') AS GraphSyncId, " +
+                      $"JSON_VALUE(Content,'$.PageLocationPart.FullUrl') AS FullPageUrl " +
+                      $"FROM Document AS D " +
+                      $"INNER JOIN ContentItemIndex AS CII on CII.DocumentId = D.Id " +
+                      $"WHERE D.Id IN @queryIds " +
+                      $"AND Latest = 1 AND Published = 1";
 
-                resultList = await ExecuteQuery<RelatedContentData>(sql);
+                resultList = await ExecuteQuery<RelatedContentData>(sql, new { queryIds = documentIds });
             }
 
             return resultList;
         }
 
-        private async Task<IEnumerable<T>?> ExecuteQuery<T>(string sql)
+        private async Task<IEnumerable<T>?> ExecuteQuery<T>(string sql, object? param = null)
         {
-            IEnumerable<T>? results;
-
-            await using (DbConnection? connection = _dbaAccessor.CreateConnection())
-            {
-                results = await _dapperWrapper.QueryAsync<T>(connection, sql);
-            }
-
-            return results;
+            await using DbConnection? connection = _dbaAccessor.CreateConnection();
+            return await _dapperWrapper.QueryAsync<T>(connection, sql, param);
         }
     }
 }
-
