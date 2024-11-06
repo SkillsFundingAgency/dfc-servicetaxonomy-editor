@@ -18,6 +18,7 @@
         WorkingPatternDetail,
         WorkingHoursDetail,
         Skill,
-        Taxonomy
+        Taxonomy,
+        TriageResultTile
     }
 }

@@ -133,10 +133,10 @@ namespace DFC.ServiceTaxonomy.CompUi.Services
             var success = true;
             if (!string.IsNullOrEmpty(processing.CurrentContent))
             {
-                success = await _sharedContentRedisInterface.InvalidateEntityAsync(ApplicationKeys.TriageToolFilters, processing.FilterType);
-                LogCacheKeyInvalidation(processing, ApplicationKeys.TriageToolFilters, processing.FilterType, success);
-                success = await _sharedContentRedisInterface.InvalidateEntityAsync(ApplicationKeys.TriagePages, processing.FilterType);
-                LogCacheKeyInvalidation(processing, ApplicationKeys.TriagePages, processing.FilterType, success);
+                success = await _sharedContentRedisInterface.InvalidateEntityAsync(ApplicationKeys.TriageToolLookup, processing.FilterType);
+                LogCacheKeyInvalidation(processing, ApplicationKeys.TriageToolLookup, processing.FilterType, success);
+                success = await _sharedContentRedisInterface.InvalidateEntityAsync(ApplicationKeys.TriageResults, processing.FilterType);
+                LogCacheKeyInvalidation(processing, ApplicationKeys.TriageResults, processing.FilterType, success);
             }
             return success;
         }
