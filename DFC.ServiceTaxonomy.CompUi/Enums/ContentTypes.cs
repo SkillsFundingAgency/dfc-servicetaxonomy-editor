@@ -40,6 +40,7 @@
         Uniform,
         SOCCode,
         Registration,
-        RealStory
+        RealStory,
+        TriageResultTile
     }
 }
