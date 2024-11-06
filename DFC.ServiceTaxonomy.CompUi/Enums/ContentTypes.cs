@@ -18,6 +18,13 @@
         WorkingPatternDetail,
         WorkingHoursDetail,
         Skill,
-        Taxonomy
+        Taxonomy,
+        TriageResultTile,
+        FilterAdviceGroup,
+        TriageFilterAdviceGroupImage,
+        TriageLevelOne,
+        TriageLevelTwo,
+        ApplicationView,
+        ApprenticeshipLink
     }
 }

@@ -91,7 +91,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.CompUi
             var processing = new Processing();
 
             // Act
-            await director.ProcessTriageToolFilterAsync(processing);
+            await director.ProcessTriageToolAsync(processing);
 
             // Assert
             builderMock.Verify(mock => mock.InvalidateTriageToolFiltersAsync(processing), Times.Once);
