@@ -41,6 +41,11 @@
         SOCCode,
         Registration,
         RealStory,
-        TriageResultTile
+        ApplicationView,
+        TriageResultTile,
+        TriageLevelOne,
+        TriageLevelTwo,
+        FilterAdviceGroup,
+        TriageFilterAdviceGroupImage
     }
 }
