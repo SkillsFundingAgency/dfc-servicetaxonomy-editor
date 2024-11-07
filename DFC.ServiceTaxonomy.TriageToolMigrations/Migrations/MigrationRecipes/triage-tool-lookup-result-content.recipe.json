@@ -4781,7 +4781,7 @@
               ]
             },
             "TriageTileHtml": {
-              "Html": "<div id=\"triage-result-tile-container-discover-your-skills-and-careers-education\" class=\"triage-tile app-view-tile app-view-tile__skills-assessment\">\n    <div class=\"tile-header app-view-tile__skills-assessment-header\">\n           <a href=\"/discover-your-skills-and-careers\" id=\"triage-result-tile-link-discover-your-skills-and-careers-education\" class=\"govuk-link app-view-tile-header-text\">Take a skills assessment</a>\n             <img src=\"https://staging-cdn.nationalcareers.service.gov.uk/media/checkbox.svg\" alt=\"\" class=\"app-view-tile-header-image\">\n     </div>\n     <div class=\"tile-description\">\n        Answer questions about your interests and see careers that might suit you. \n     </div>\n</div>"
+              "Html": "<div id=\"triage-result-tile-container-discover-your-skills-and-careers-education\" class=\"triage-tile app-view-tile app-view-tile__skills-assessment\">\n    <div class=\"tile-header app-view-tile__skills-assessment-header\">\n           <a href=\"/discover-your-skills-and-careers\" id=\"triage-result-tile-link-discover-your-skills-and-careers-education\" class=\"govuk-link app-view-tile-header-text\">Take a skills assessment</a>\n             <img src=\"https://cdn.nationalcareers.service.gov.uk/media/checkbox.svg\" alt=\"\" class=\"app-view-tile-header-image\">\n     </div>\n     <div class=\"tile-description\">\n        Answer questions about your interests and see careers that might suit you. \n     </div>\n</div>"
             }
           },
           "AuditTrailPart": {
@@ -4819,7 +4819,7 @@
               ]
             },
             "TriageTileHtml": {
-              "Html": "<div id=\"triage-result-tile-container-find-a-course-education\" class=\"triage-tile app-view-tile app-view-tile__find-a-course\">\n    <div class=\"tile-header app-view-tile__find-a-course-header\">\n           <a href=\"/find-a-course\" id=\"triage-result-tile-link-find-a-course-education\" class=\"govuk-link app-view-tile-header-text\"> Find a course </a>\n             <img src=\"https://staging-cdn.nationalcareers.service.gov.uk/media/magnifying-glass.svg\" id=\"img-find-a-course\" alt=\"\" class=\"app-view-tile-header-image\">\n     </div>\n     <div class=\"tile-description\">\n        Work towards a qualification by taking an online or classroom course local to you.\n     </div>\n</div>"
+              "Html": "<div id=\"triage-result-tile-container-find-a-course-education\" class=\"triage-tile app-view-tile app-view-tile__find-a-course\">\n    <div class=\"tile-header app-view-tile__find-a-course-header\">\n           <a href=\"/find-a-course\" id=\"triage-result-tile-link-find-a-course-education\" class=\"govuk-link app-view-tile-header-text\"> Find a course </a>\n             <img src=\"https://cdn.nationalcareers.service.gov.uk/media/magnifying-glass.svg\" id=\"img-find-a-course\" alt=\"\" class=\"app-view-tile-header-image\">\n     </div>\n     <div class=\"tile-description\">\n        Work towards a qualification by taking an online or classroom course local to you.\n     </div>\n</div>"
             }
           },
           "AuditTrailPart": {
@@ -4857,7 +4857,7 @@
               ]
             },
             "TriageTileHtml": {
-              "Html": "<div id=\"triage-result-tile-container-discover-your-skills-and-careers-not-in-work\" class=\"triage-tile app-view-tile app-view-tile__skills-assessment\">\n    <div class=\"tile-header app-view-tile__skills-assessment-header\">\n           <a href=\"/discover-your-skills-and-careers\" id=\"triage-result-tile-link-discover-your-skills-and-careers-not-in-work\" class=\"govuk-link app-view-tile-header-text\">Take a skills assessment</a>\n             <img src=\"https://staging-cdn.nationalcareers.service.gov.uk/media/checkbox.svg\" alt=\"discover your skills and careers\" id=\"img-discover-your-skills-and-careers\" class=\"app-view-tile-header-image\">\n     </div>\n     <div class=\"tile-description\">\n        Answer questions about your interests and see some careers that might suit you.\n     </div>\n</div>"
+              "Html": "<div id=\"triage-result-tile-container-discover-your-skills-and-careers-not-in-work\" class=\"triage-tile app-view-tile app-view-tile__skills-assessment\">\n    <div class=\"tile-header app-view-tile__skills-assessment-header\">\n           <a href=\"/discover-your-skills-and-careers\" id=\"triage-result-tile-link-discover-your-skills-and-careers-not-in-work\" class=\"govuk-link app-view-tile-header-text\">Take a skills assessment</a>\n             <img src=\"https://cdn.nationalcareers.service.gov.uk/media/checkbox.svg\" alt=\"discover your skills and careers\" id=\"img-discover-your-skills-and-careers\" class=\"app-view-tile-header-image\">\n     </div>\n     <div class=\"tile-description\">\n        Answer questions about your interests and see some careers that might suit you.\n     </div>\n</div>"
             }
           },
           "AuditTrailPart": {
@@ -4895,7 +4895,7 @@
               ]
             },
             "TriageTileHtml": {
-              "Html": "<div id=\"triage-result-tile-container-discover-your-skills-and-careers-employed\" class=\"triage-tile app-view-tile app-view-tile__skills-assessment\">\n    <div class=\"tile-header app-view-tile__skills-assessment-header\">\n           <a href=\"/discover-your-skills-and-careers\" id=\"triage-result-tile-link-discover-your-skills-and-careers-employed\" class=\"govuk-link app-view-tile-header-text\">Take a skills assessment </a>\n             <img src=\"https://staging-cdn.nationalcareers.service.gov.uk/media/checkbox.svg\" id=\"img-discover-your-skills-and-careers\" alt=\"discover-your-skills-and-careers\" class=\"app-view-tile-header-image\">\n     </div>\n     <div class=\"tile-description\">\n        Answer questions about your interests and see some careers that might suit you.\n     </div>\n</div>"
+              "Html": "<div id=\"triage-result-tile-container-discover-your-skills-and-careers-employed\" class=\"triage-tile app-view-tile app-view-tile__skills-assessment\">\n    <div class=\"tile-header app-view-tile__skills-assessment-header\">\n           <a href=\"/discover-your-skills-and-careers\" id=\"triage-result-tile-link-discover-your-skills-and-careers-employed\" class=\"govuk-link app-view-tile-header-text\">Take a skills assessment </a>\n             <img src=\"https://cdn.nationalcareers.service.gov.uk/media/checkbox.svg\" id=\"img-discover-your-skills-and-careers\" alt=\"discover-your-skills-and-careers\" class=\"app-view-tile-header-image\">\n     </div>\n     <div class=\"tile-description\">\n        Answer questions about your interests and see some careers that might suit you.\n     </div>\n</div>"
             }
           },
           "AuditTrailPart": {
@@ -4933,7 +4933,7 @@
               ]
             },
             "TriageTileHtml": {
-              "Html": "<div id=\"triage-result-tile-container-explore-careers-education\" class=\"triage-tile app-view-tile app-view-tile__explore-careers \">\n    <div class=\"tile-header app-view-tile__explore-careers-header\">\n           <a href=\"/explore-careers\" id=\"triage-result-tile-link-explore-careers-education\" class=\"govuk-link app-view-tile-header-text\"> Explore careers </a>\n             <img src=\"https://staging-cdn.nationalcareers.service.gov.uk/media/compass.svg\" alt=\"explore careers\" id=\"img-explore-careers\" class=\"app-view-tile-header-image\">\n     </div>\n     <div class=\"tile-description\">\n          Browse hundreds of job profiles to discover what different roles involve.</div>\n</div>"
+              "Html": "<div id=\"triage-result-tile-container-explore-careers-education\" class=\"triage-tile app-view-tile app-view-tile__explore-careers \">\n    <div class=\"tile-header app-view-tile__explore-careers-header\">\n           <a href=\"/explore-careers\" id=\"triage-result-tile-link-explore-careers-education\" class=\"govuk-link app-view-tile-header-text\"> Explore careers </a>\n             <img src=\"https://cdn.nationalcareers.service.gov.uk/media/compass.svg\" alt=\"explore careers\" id=\"img-explore-careers\" class=\"app-view-tile-header-image\">\n     </div>\n     <div class=\"tile-description\">\n          Browse hundreds of job profiles to discover what different roles involve.</div>\n</div>"
             }
           },
           "AuditTrailPart": {
@@ -4971,7 +4971,7 @@
               ]
             },
             "TriageTileHtml": {
-              "Html": "<div id=\"triage-result-tile-container-explore-careers-employed\" class=\"triage-tile app-view-tile app-view-tile__explore-careers \">\n    <div class=\"tile-header app-view-tile__explore-careers-header\">\n           <a href=\"/explore-careers\" id=\"triage-result-tile-link-explore-careers-employed\" class=\"govuk-link app-view-tile-header-text\"> Explore careers </a>\n             <img src=\"https://staging-cdn.nationalcareers.service.gov.uk/media/compass.svg\" id=\"img-explore-careers-employed\" alt=\"\" class=\"app-view-tile-header-image\">\n     </div>\n     <div class=\"tile-description\">\n          Browse hundreds of job profiles to discover what different roles involve.\n     </div>\n</div>"
+              "Html": "<div id=\"triage-result-tile-container-explore-careers-employed\" class=\"triage-tile app-view-tile app-view-tile__explore-careers \">\n    <div class=\"tile-header app-view-tile__explore-careers-header\">\n           <a href=\"/explore-careers\" id=\"triage-result-tile-link-explore-careers-employed\" class=\"govuk-link app-view-tile-header-text\"> Explore careers </a>\n             <img src=\"https://cdn.nationalcareers.service.gov.uk/media/compass.svg\" id=\"img-explore-careers-employed\" alt=\"\" class=\"app-view-tile-header-image\">\n     </div>\n     <div class=\"tile-description\">\n          Browse hundreds of job profiles to discover what different roles involve.\n     </div>\n</div>"
             }
           },
           "AuditTrailPart": {
@@ -5009,7 +5009,7 @@
               ]
             },
             "TriageTileHtml": {
-              "Html": "<div id=\"triage-result-tile-container-explore-careers-not-in-work\" class=\"triage-tile app-view-tile app-view-tile__explore-careers \">\n    <div class=\"tile-header app-view-tile__explore-careers-header\">\n           <a href=\"/explore-careers\" class=\"govuk-link app-view-tile-header-text\" id=\"triage-result-tile-link-explore-careers-not-in-work\"> Explore careers </a>\n             <img src=\"https://staging-cdn.nationalcareers.service.gov.uk/media/compass.svg\" id=\"img-explore-careers-not-in-work\" alt=\"\" class=\"app-view-tile-header-image\">\n     </div>\n     <div class=\"tile-description\">\n          Browse hundreds of job profiles to discover what different roles involve.\n     </div>\n</div>"
+              "Html": "<div id=\"triage-result-tile-container-explore-careers-not-in-work\" class=\"triage-tile app-view-tile app-view-tile__explore-careers \">\n    <div class=\"tile-header app-view-tile__explore-careers-header\">\n           <a href=\"/explore-careers\" class=\"govuk-link app-view-tile-header-text\" id=\"triage-result-tile-link-explore-careers-not-in-work\"> Explore careers </a>\n             <img src=\"https://cdn.nationalcareers.service.gov.uk/media/compass.svg\" id=\"img-explore-careers-not-in-work\" alt=\"\" class=\"app-view-tile-header-image\">\n     </div>\n     <div class=\"tile-description\">\n          Browse hundreds of job profiles to discover what different roles involve.\n     </div>\n</div>"
             }
           },
           "AuditTrailPart": {
@@ -5047,7 +5047,7 @@
               ]
             },
             "TriageTileHtml": {
-              "Html": "<div id=\"triage-result-tile-container-find-a-course-employed\" class=\"triage-tile app-view-tile app-view-tile__find-a-course\">\n    <div class=\"tile-header app-view-tile__find-a-course-header\">\n           <a href=\"/find-a-course\" id=\"triage-result-tile-link-find-a-course-employed\" class=\"govuk-link app-view-tile-header-text\"> Find a course </a>\n             <img src=\"https://staging-cdn.nationalcareers.service.gov.uk/media/magnifying-glass.svg\" id=\"img-find-a-course\" alt=\"\" class=\"app-view-tile-header-image\">\n     </div>\n     <div class=\"tile-description\">\n       Search for online and classroom courses near you to develop your skills.\n     </div>\n</div>"
+              "Html": "<div id=\"triage-result-tile-container-find-a-course-employed\" class=\"triage-tile app-view-tile app-view-tile__find-a-course\">\n    <div class=\"tile-header app-view-tile__find-a-course-header\">\n           <a href=\"/find-a-course\" id=\"triage-result-tile-link-find-a-course-employed\" class=\"govuk-link app-view-tile-header-text\"> Find a course </a>\n             <img src=\"https://cdn.nationalcareers.service.gov.uk/media/magnifying-glass.svg\" id=\"img-find-a-course\" alt=\"\" class=\"app-view-tile-header-image\">\n     </div>\n     <div class=\"tile-description\">\n       Search for online and classroom courses near you to develop your skills.\n     </div>\n</div>"
             }
           },
           "AuditTrailPart": {
@@ -5085,7 +5085,7 @@
               ]
             },
             "TriageTileHtml": {
-              "Html": "<div id=\"triage-result-tile-container-find-a-course-not-in-work\" class=\"triage-tile app-view-tile app-view-tile__find-a-course\">\n    <div class=\"tile-header app-view-tile__find-a-course-header\">\n           <a href=\"/find-a-course\" id=\"triage-result-tile-link-find-a-course-not-in-work\" class=\"govuk-link app-view-tile-header-text\"> Find a course </a>\n             <img src=\"https://staging-cdn.nationalcareers.service.gov.uk/media/magnifying-glass.svg\" id=\"img-find-a-course-not-in-work\" alt=\"\" class=\"app-view-tile-header-image\">\n     </div>\n     <div class=\"tile-description\">\n       Search for online and classroom courses near you to develop your skills.\n     </div>\n</div>"
+              "Html": "<div id=\"triage-result-tile-container-find-a-course-not-in-work\" class=\"triage-tile app-view-tile app-view-tile__find-a-course\">\n    <div class=\"tile-header app-view-tile__find-a-course-header\">\n           <a href=\"/find-a-course\" id=\"triage-result-tile-link-find-a-course-not-in-work\" class=\"govuk-link app-view-tile-header-text\"> Find a course </a>\n             <img src=\"https://cdn.nationalcareers.service.gov.uk/media/magnifying-glass.svg\" id=\"img-find-a-course-not-in-work\" alt=\"\" class=\"app-view-tile-header-image\">\n     </div>\n     <div class=\"tile-description\">\n       Search for online and classroom courses near you to develop your skills.\n     </div>\n</div>"
             }
           },
           "AuditTrailPart": {
@@ -5129,7 +5129,7 @@
               ]
             },
             "ImageHtml": {
-              "Html": "<img src=\"https://staging-cdn.nationalcareers.service.gov.uk/media/triage-tool/employed/desktop/cvs-and-applications-employed-desktop.png\" alt=\"\" class=\"triage-tile filter-advice-group-image-dt\">\n<img src=\"https://staging-cdn.nationalcareers.service.gov.uk/media/triage-tool/employed/mobile/cvs-and-applications-employed-mobile.png\" alt=\"\" class=\"triage-tile filter-advice-group-image\">"
+              "Html": "<img src=\"https://cdn.nationalcareers.service.gov.uk/media/triage-tool/employed/desktop/cvs-and-applications-employed-desktop.png\" alt=\"\" class=\"triage-tile filter-advice-group-image-dt\">\n<img src=\"https://cdn.nationalcareers.service.gov.uk/media/triage-tool/employed/mobile/cvs-and-applications-employed-mobile.png\" alt=\"\" class=\"triage-tile filter-advice-group-image\">"
             }
           },
           "TitlePart": {
@@ -5160,7 +5160,7 @@
               ]
             },
             "ImageHtml": {
-              "Html": "<img src=\"https://staging-cdn.nationalcareers.service.gov.uk/media/triage-tool/not-in-work/desktop/cvs-and-applications-not-in-work-desktop.png\" alt=\"\" class=\"triage-tile filter-advice-group-image-dt\">\n<img src=\"https://staging-cdn.nationalcareers.service.gov.uk/media/triage-tool/not-in-work/mobile/cvs-and-applications-not-in-work-mobile.png\" alt=\"\" class=\"triage-tile filter-advice-group-image\">"
+              "Html": "<img src=\"https://cdn.nationalcareers.service.gov.uk/media/triage-tool/not-in-work/desktop/cvs-and-applications-not-in-work-desktop.png\" alt=\"\" class=\"triage-tile filter-advice-group-image-dt\">\n<img src=\"https://cdn.nationalcareers.service.gov.uk/media/triage-tool/not-in-work/mobile/cvs-and-applications-not-in-work-mobile.png\" alt=\"\" class=\"triage-tile filter-advice-group-image\">"
             }
           },
           "TitlePart": {
@@ -5191,7 +5191,7 @@
               ]
             },
             "ImageHtml": {
-              "Html": "<img src=\"https://staging-cdn.nationalcareers.service.gov.uk/media/triage-tool/education/mobile/options-after-finishing-school-education-mobile.png\" alt=\"\" class=\"triage-tile filter-advice-group-image\">\n<img src=\"https://staging-cdn.nationalcareers.service.gov.uk/media/triage-tool/education/desktop/options-after-finishing-school-education-desktop.png\" alt=\"\" class=\"triage-tile filter-advice-group-image-dt\">"
+              "Html": "<img src=\"https://cdn.nationalcareers.service.gov.uk/media/triage-tool/education/mobile/options-after-finishing-school-education-mobile.png\" alt=\"\" class=\"triage-tile filter-advice-group-image\">\n<img src=\"https://cdn.nationalcareers.service.gov.uk/media/triage-tool/education/desktop/options-after-finishing-school-education-desktop.png\" alt=\"\" class=\"triage-tile filter-advice-group-image-dt\">"
             }
           },
           "TitlePart": {
@@ -5223,7 +5223,7 @@
               ]
             },
             "ImageHtml": {
-              "Html": "<img src=\"https://staging-cdn.nationalcareers.service.gov.uk/media/triage-tool/education/desktop/options-for-work-education-desktop.png\" alt=\"\" class=\"triage-tile filter-advice-group-image-dt\">\n<img src=\"https://staging-cdn.nationalcareers.service.gov.uk/media/triage-tool/education/mobile/options-for-work-education-mobile.png\" alt=\"\" class=\"triage-tile filter-advice-group-image\">\n"
+              "Html": "<img src=\"https://cdn.nationalcareers.service.gov.uk/media/triage-tool/education/desktop/options-for-work-education-desktop.png\" alt=\"\" class=\"triage-tile filter-advice-group-image-dt\">\n<img src=\"https://cdn.nationalcareers.service.gov.uk/media/triage-tool/education/mobile/options-for-work-education-mobile.png\" alt=\"\" class=\"triage-tile filter-advice-group-image\">\n"
             }
           },
           "TitlePart": {
@@ -5254,7 +5254,7 @@
               ]
             },
             "ImageHtml": {
-              "Html": "<img src=\"https://staging-cdn.nationalcareers.service.gov.uk/media/triage-tool/education/desktop/support-you-can-get-from-others-education-desktop.png\" alt=\"\" class=\"triage-tile filter-advice-group-image-dt\">\n<img src=\"https://staging-cdn.nationalcareers.service.gov.uk/media/triage-tool/education/mobile/support-you-can-get-from-others-education-mobile.png\" alt=\"\" class=\"triage-tile filter-advice-group-image\">"
+              "Html": "<img src=\"https://cdn.nationalcareers.service.gov.uk/media/triage-tool/education/desktop/support-you-can-get-from-others-education-desktop.png\" alt=\"\" class=\"triage-tile filter-advice-group-image-dt\">\n<img src=\"https://cdn.nationalcareers.service.gov.uk/media/triage-tool/education/mobile/support-you-can-get-from-others-education-mobile.png\" alt=\"\" class=\"triage-tile filter-advice-group-image\">"
             }
           },
           "TitlePart": {
@@ -5285,7 +5285,7 @@
               ]
             },
             "ImageHtml": {
-              "Html": "<img src=\"https://staging-cdn.nationalcareers.service.gov.uk/media/triage-tool/education/desktop/taking-a-gap-year-education-desktop.png\" alt=\"\" class=\"triage-tile filter-advice-group-image-dt\">\n<img src=\"https://staging-cdn.nationalcareers.service.gov.uk/media/triage-tool/education/mobile/taking-a-gap-year-education-mobile.png\" alt=\"\" class=\"triage-tile filter-advice-group-image\">"
+              "Html": "<img src=\"https://cdn.nationalcareers.service.gov.uk/media/triage-tool/education/desktop/taking-a-gap-year-education-desktop.png\" alt=\"\" class=\"triage-tile filter-advice-group-image-dt\">\n<img src=\"https://cdn.nationalcareers.service.gov.uk/media/triage-tool/education/mobile/taking-a-gap-year-education-mobile.png\" alt=\"\" class=\"triage-tile filter-advice-group-image\">"
             }
           },
           "TitlePart": {
@@ -5316,7 +5316,7 @@
               ]
             },
             "ImageHtml": {
-              "Html": "<img src=\"https://staging-cdn.nationalcareers.service.gov.uk/media/triage-tool/education/desktop/disability-support-education-desktop.png\" alt=\"\" class=\"triage-tile filter-advice-group-image-dt\">\n<img src=\"https://staging-cdn.nationalcareers.service.gov.uk/media/triage-tool/education/mobile/disability-support-education-mobile.png\" alt=\"\" class=\"triage-tile filter-advice-group-image\">"
+              "Html": "<img src=\"https://cdn.nationalcareers.service.gov.uk/media/triage-tool/education/desktop/disability-support-education-desktop.png\" alt=\"\" class=\"triage-tile filter-advice-group-image-dt\">\n<img src=\"https://cdn.nationalcareers.service.gov.uk/media/triage-tool/education/mobile/disability-support-education-mobile.png\" alt=\"\" class=\"triage-tile filter-advice-group-image\">"
             }
           },
           "TitlePart": {
@@ -5347,7 +5347,7 @@
               ]
             },
             "ImageHtml": {
-              "Html": "<img src=\"https://staging-cdn.nationalcareers.service.gov.uk/media/triage-tool/education/desktop/interview-tips-education-desktop.png\" alt=\"\" class=\"triage-tile filter-advice-group-image-dt\">\n<img src=\"https://staging-cdn.nationalcareers.service.gov.uk/media/triage-tool/education/mobile/interview-tips-education-mobile.png\" alt=\"\" class=\"triage-tile filter-advice-group-image\">\n"
+              "Html": "<img src=\"https://cdn.nationalcareers.service.gov.uk/media/triage-tool/education/desktop/interview-tips-education-desktop.png\" alt=\"\" class=\"triage-tile filter-advice-group-image-dt\">\n<img src=\"https://cdn.nationalcareers.service.gov.uk/media/triage-tool/education/mobile/interview-tips-education-mobile.png\" alt=\"\" class=\"triage-tile filter-advice-group-image\">\n"
             }
           },
           "TitlePart": {
@@ -5378,7 +5378,7 @@
               ]
             },
             "ImageHtml": {
-              "Html": "<img src=\"https://staging-cdn.nationalcareers.service.gov.uk/media/triage-tool/not-in-work/desktop/developing-or-assessing-your-skills-not-in-work-desktop.png\" alt=\"\" class=\"triage-tile filter-advice-group-image-dt\">\n<img src=\"https://staging-cdn.nationalcareers.service.gov.uk/media/triage-tool/not-in-work/mobile/developing-or-assessing-your-skills-not-in-work-mobile.png\" alt=\"\" class=\"triage-tile filter-advice-group-image\">"
+              "Html": "<img src=\"https://cdn.nationalcareers.service.gov.uk/media/triage-tool/not-in-work/desktop/developing-or-assessing-your-skills-not-in-work-desktop.png\" alt=\"\" class=\"triage-tile filter-advice-group-image-dt\">\n<img src=\"https://cdn.nationalcareers.service.gov.uk/media/triage-tool/not-in-work/mobile/developing-or-assessing-your-skills-not-in-work-mobile.png\" alt=\"\" class=\"triage-tile filter-advice-group-image\">"
             }
           },
           "TitlePart": {
@@ -5409,7 +5409,7 @@
               ]
             },
             "ImageHtml": {
-              "Html": "<img src=\"https://staging-cdn.nationalcareers.service.gov.uk/media/triage-tool/not-in-work/desktop/disability-support-not-in-work-desktop.png\" alt=\"\" class=\"triage-tile filter-advice-group-image-dt\">\n<img src=\"https://staging-cdn.nationalcareers.service.gov.uk/media/triage-tool/not-in-work/mobile/disability-support-not-in-work-mobile.png\" alt=\"\" class=\"triage-tile filter-advice-group-image\">"
+              "Html": "<img src=\"https://cdn.nationalcareers.service.gov.uk/media/triage-tool/not-in-work/desktop/disability-support-not-in-work-desktop.png\" alt=\"\" class=\"triage-tile filter-advice-group-image-dt\">\n<img src=\"https://cdn.nationalcareers.service.gov.uk/media/triage-tool/not-in-work/mobile/disability-support-not-in-work-mobile.png\" alt=\"\" class=\"triage-tile filter-advice-group-image\">"
             }
           },
           "TitlePart": {
@@ -5440,7 +5440,7 @@
               ]
             },
             "ImageHtml": {
-              "Html": "<img src=\"https://staging-cdn.nationalcareers.service.gov.uk/media/triage-tool/not-in-work/desktop/interview-tips-not-in-work-desktop.png\" alt=\"\" class=\"triage-tile filter-advice-group-image-dt\">\n<img src=\"https://staging-cdn.nationalcareers.service.gov.uk/media/triage-tool/not-in-work/mobile/interview-tips-not-in-work-mobile.png\" alt=\"\" class=\"triage-tile filter-advice-group-image\">"
+              "Html": "<img src=\"https://cdn.nationalcareers.service.gov.uk/media/triage-tool/not-in-work/desktop/interview-tips-not-in-work-desktop.png\" alt=\"\" class=\"triage-tile filter-advice-group-image-dt\">\n<img src=\"https://cdn.nationalcareers.service.gov.uk/media/triage-tool/not-in-work/mobile/interview-tips-not-in-work-mobile.png\" alt=\"\" class=\"triage-tile filter-advice-group-image\">"
             }
           },
           "TitlePart": {
@@ -5473,7 +5473,7 @@
               ]
             },
             "ImageHtml": {
-              "Html": "<img src=\"https://staging-cdn.nationalcareers.service.gov.uk/media/triage-tool/not-in-work/desktop/options-for-work-not-in-work-desktop.png\" alt=\"\" class=\"triage-tile filter-advice-group-image-dt\">\n<img src=\"https://staging-cdn.nationalcareers.service.gov.uk/media/triage-tool/not-in-work/mobile/options-for-work-not-in-work-mobile.png\" alt=\"\" class=\"triage-tile filter-advice-group-image\">"
+              "Html": "<img src=\"https://cdn.nationalcareers.service.gov.uk/media/triage-tool/not-in-work/desktop/options-for-work-not-in-work-desktop.png\" alt=\"\" class=\"triage-tile filter-advice-group-image-dt\">\n<img src=\"https://cdn.nationalcareers.service.gov.uk/media/triage-tool/not-in-work/mobile/options-for-work-not-in-work-mobile.png\" alt=\"\" class=\"triage-tile filter-advice-group-image\">"
             }
           },
           "TitlePart": {
@@ -5504,7 +5504,7 @@
               ]
             },
             "ImageHtml": {
-              "Html": "<img src=\"https://staging-cdn.nationalcareers.service.gov.uk/media/triage-tool/not-in-work/desktop/support-you-can-get-from-others-not-in-work-desktop.png\" alt=\"\" class=\"triage-tile filter-advice-group-image-dt\">\n<img src=\"https://staging-cdn.nationalcareers.service.gov.uk/media/triage-tool/not-in-work/mobile/support-you-can-get-from-others-not-in-work-mobile.png\" alt=\"\" class=\"triage-tile filter-advice-group-image\">\n"
+              "Html": "<img src=\"https://cdn.nationalcareers.service.gov.uk/media/triage-tool/not-in-work/desktop/support-you-can-get-from-others-not-in-work-desktop.png\" alt=\"\" class=\"triage-tile filter-advice-group-image-dt\">\n<img src=\"https://cdn.nationalcareers.service.gov.uk/media/triage-tool/not-in-work/mobile/support-you-can-get-from-others-not-in-work-mobile.png\" alt=\"\" class=\"triage-tile filter-advice-group-image\">\n"
             }
           },
           "TitlePart": {
@@ -5535,7 +5535,7 @@
               ]
             },
             "ImageHtml": {
-              "Html": "<img src=\"https://staging-cdn.nationalcareers.service.gov.uk/media/triage-tool/employed/desktop/support-you-can-get-from-others-employed-desktop.png\" alt=\"\" class=\"triage-tile filter-advice-group-image-dt\">\n<img src=\"https://staging-cdn.nationalcareers.service.gov.uk/media/triage-tool/employed/mobile/support-you-can-get-from-others-employed-mobile.png\" alt=\"\" class=\"triage-tile filter-advice-group-image\">"
+              "Html": "<img src=\"https://cdn.nationalcareers.service.gov.uk/media/triage-tool/employed/desktop/support-you-can-get-from-others-employed-desktop.png\" alt=\"\" class=\"triage-tile filter-advice-group-image-dt\">\n<img src=\"https://cdn.nationalcareers.service.gov.uk/media/triage-tool/employed/mobile/support-you-can-get-from-others-employed-mobile.png\" alt=\"\" class=\"triage-tile filter-advice-group-image\">"
             }
           },
           "TitlePart": {
@@ -5568,7 +5568,7 @@
               ]
             },
             "ImageHtml": {
-              "Html": "<img src=\"https://staging-cdn.nationalcareers.service.gov.uk/media/triage-tool/employed/desktop/options-for-work-employed-desktop.png\" alt=\"\" class=\"triage-tile filter-advice-group-image-dt\">\n<img src=\"https://staging-cdn.nationalcareers.service.gov.uk/media/triage-tool/employed/mobile/options-for-work-employed-mobile.png\" alt=\"\" class=\"triage-tile filter-advice-group-image\">\n"
+              "Html": "<img src=\"https://cdn.nationalcareers.service.gov.uk/media/triage-tool/employed/desktop/options-for-work-employed-desktop.png\" alt=\"\" class=\"triage-tile filter-advice-group-image-dt\">\n<img src=\"https://cdn.nationalcareers.service.gov.uk/media/triage-tool/employed/mobile/options-for-work-employed-mobile.png\" alt=\"\" class=\"triage-tile filter-advice-group-image\">\n"
             }
           },
           "TitlePart": {
@@ -5600,7 +5600,7 @@
               ]
             },
             "ImageHtml": {
-              "Html": "<img src=\"https://staging-cdn.nationalcareers.service.gov.uk/media/triage-tool/education/desktop/cvs-and-applications-education-desktop.png\" alt=\"\" class=\"triage-tile filter-advice-group-image-dt\">\n<img src=\"https://staging-cdn.nationalcareers.service.gov.uk/media/triage-tool/education/mobile/cvs-and-applications-education-mobile.png\" alt=\"\" class=\"triage-tile filter-advice-group-image\">"
+              "Html": "<img src=\"https://cdn.nationalcareers.service.gov.uk/media/triage-tool/education/desktop/cvs-and-applications-education-desktop.png\" alt=\"\" class=\"triage-tile filter-advice-group-image-dt\">\n<img src=\"https://cdn.nationalcareers.service.gov.uk/media/triage-tool/education/mobile/cvs-and-applications-education-mobile.png\" alt=\"\" class=\"triage-tile filter-advice-group-image\">"
             }
           },
           "TitlePart": {
@@ -5631,7 +5631,7 @@
               ]
             },
             "ImageHtml": {
-              "Html": "<img src=\"https://staging-cdn.nationalcareers.service.gov.uk/media/triage-tool/employed/desktop/interview-tips-employed-desktop.png\" alt=\"\" class=\"triage-tile filter-advice-group-image-dt\">\n<img src=\"https://staging-cdn.nationalcareers.service.gov.uk/media/triage-tool/employed/mobile/interview-tips-employed-mobile.png\" alt=\"\" class=\"triage-tile filter-advice-group-image\">\n"
+              "Html": "<img src=\"https://cdn.nationalcareers.service.gov.uk/media/triage-tool/employed/desktop/interview-tips-employed-desktop.png\" alt=\"\" class=\"triage-tile filter-advice-group-image-dt\">\n<img src=\"https://cdn.nationalcareers.service.gov.uk/media/triage-tool/employed/mobile/interview-tips-employed-mobile.png\" alt=\"\" class=\"triage-tile filter-advice-group-image\">\n"
             }
           },
           "TitlePart": {
@@ -5663,7 +5663,7 @@
               ]
             },
             "ImageHtml": {
-              "Html": "<img src=\"https://staging-cdn.nationalcareers.service.gov.uk/media/triage-tool/employed/desktop/developing-or-assessing-your-skills-employed-desktop.png\" alt=\"\" class=\"triage-tile filter-advice-group-image-dt\">\n<img src=\"https://staging-cdn.nationalcareers.service.gov.uk/media/triage-tool/employed/mobile/developing-or-assessing-your-skills-employed-mobile.png\" alt=\"\" class=\"triage-tile filter-advice-group-image\">"
+              "Html": "<img src=\"https://cdn.nationalcareers.service.gov.uk/media/triage-tool/employed/desktop/developing-or-assessing-your-skills-employed-desktop.png\" alt=\"\" class=\"triage-tile filter-advice-group-image-dt\">\n<img src=\"https://cdn.nationalcareers.service.gov.uk/media/triage-tool/employed/mobile/developing-or-assessing-your-skills-employed-mobile.png\" alt=\"\" class=\"triage-tile filter-advice-group-image\">"
             }
           },
           "TitlePart": {
@@ -5695,7 +5695,7 @@
               ]
             },
             "ImageHtml": {
-              "Html": "<img src=\"https://staging-cdn.nationalcareers.service.gov.uk/media/triage-tool/education/desktop/further-study-options-education-desktop.png\" alt=\"\" class=\"triage-tile filter-advice-group-image-dt\">\n<img src=\"https://staging-cdn.nationalcareers.service.gov.uk/media/triage-tool/education/mobile/further-study-options-education-mobile.png\" alt=\"\" class=\"triage-tile filter-advice-group-image\">\n"
+              "Html": "<img src=\"https://cdn.nationalcareers.service.gov.uk/media/triage-tool/education/desktop/further-study-options-education-desktop.png\" alt=\"\" class=\"triage-tile filter-advice-group-image-dt\">\n<img src=\"https://cdn.nationalcareers.service.gov.uk/media/triage-tool/education/mobile/further-study-options-education-mobile.png\" alt=\"\" class=\"triage-tile filter-advice-group-image\">\n"
             }
           },
           "TitlePart": {
@@ -5727,7 +5727,7 @@
               ]
             },
             "ImageHtml": {
-              "Html": "<img src=\"https://staging-cdn.nationalcareers.service.gov.uk/media/triage-tool/education/desktop/developing-or-assessing-your-skills-education-desktop.png\" alt=\"\" class=\"triage-tile filter-advice-group-image-dt\">\n<img src=\"https://staging-cdn.nationalcareers.service.gov.uk/media/triage-tool/education/mobile/developing-or-assessing-your-skills-education-mobile.png\" alt=\"\" class=\"triage-tile filter-advice-group-image\">"
+              "Html": "<img src=\"https://cdn.nationalcareers.service.gov.uk/media/triage-tool/education/desktop/developing-or-assessing-your-skills-education-desktop.png\" alt=\"\" class=\"triage-tile filter-advice-group-image-dt\">\n<img src=\"https://cdn.nationalcareers.service.gov.uk/media/triage-tool/education/mobile/developing-or-assessing-your-skills-education-mobile.png\" alt=\"\" class=\"triage-tile filter-advice-group-image\">"
             }
           },
           "TitlePart": {
@@ -5758,7 +5758,7 @@
               ]
             },
             "ImageHtml": {
-              "Html": "<img src=\"https://staging-cdn.nationalcareers.service.gov.uk/media/triage-tool/employed/desktop/disability-support-employed-desktop.png\" alt=\"\" class=\"triage-tile filter-advice-group-image-dt\">\n<img src=\"https://staging-cdn.nationalcareers.service.gov.uk/media/triage-tool/employed/mobile/disability-support-employed-mobile.png\" alt=\"\" class=\"triage-tile filter-advice-group-image\">\n\n"
+              "Html": "<img src=\"https://cdn.nationalcareers.service.gov.uk/media/triage-tool/employed/desktop/disability-support-employed-desktop.png\" alt=\"\" class=\"triage-tile filter-advice-group-image-dt\">\n<img src=\"https://cdn.nationalcareers.service.gov.uk/media/triage-tool/employed/mobile/disability-support-employed-mobile.png\" alt=\"\" class=\"triage-tile filter-advice-group-image\">\n\n"
             }
           },
           "TitlePart": {

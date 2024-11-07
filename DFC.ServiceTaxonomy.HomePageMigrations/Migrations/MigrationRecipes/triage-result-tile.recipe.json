@@ -1,0 +1,3628 @@
+{
+  "name": "Triage Tile",
+  "displayName": "Triage Tile",
+  "description": "Triage Tile",
+  "author": "National Careers Service",
+  "website": "https://github.com/SkillsFundingAgency/dfc-servicetaxonomy-editor",
+  "version": "2.0",
+  "issetuprecipe": false,
+  "categories": [],
+  "tags": [],
+  "steps": [
+    {
+      "name": "content",
+      "data": [
+        {
+          "ContentItemId": "4tr9mnc0jhntwtkfqny87nccwr",
+          "ContentItemVersionId": "4ka3tq7w1ya3ezwnayhk0a0e59",
+          "ContentType": "TriageResultTile",
+          "DisplayText": "Take a skills assessment - employed",
+          "Latest": true,
+          "Published": true,
+          "ModifiedUtc": "2024-10-17T20:07:09.9187728Z",
+          "PublishedUtc": "2024-10-17T20:07:09.9854031Z",
+          "CreatedUtc": "2024-09-01T17:12:24.881989Z",
+          "Owner": "41xc6z9rat7tjykwwe24q74dm6",
+          "Author": "siva.muruganandham",
+          "TriageResultTile": {
+            "TriageLevelOne": {
+              "ContentItemIds": [
+                "4e2mfha8xd23rvhzjt6exfcpck"
+              ]
+            },
+            "TriageResult": {
+              "ContentItemIds": [
+                "45wn8w21681fkyck3mz8fxh7d6"
+              ]
+            },
+            "TriageTileHtml": {
+              "Html": "<div id=\"triage-result-tile-container-discover-your-skills-and-careers-employed\" class=\"triage-tile app-view-tile app-view-tile__skills-assessment\">\n    <div class=\"tile-header app-view-tile__skills-assessment-header\">\n<h3 class=\"app-view-tile-header-text\">\n           <a href=\"/skills-assessment\" id=\"triage-result-tile-link-discover-your-skills-and-careers-employed\" class=\"govuk-link\">Take a skills assessment </a></h3>\n             <img src=\"https://cdn.nationalcareers.service.gov.uk/media/checkbox.svg\" id=\"img-discover-your-skills-and-careers\" alt=\"discover-your-skills-and-careers\" class=\"app-view-tile-header-image\">\n     </div>\n     <p class=\"tile-description\">\n        Answer questions about your interests and see some careers that might suit you.\n     </p>\n</div>"
+            }
+          },
+          "AuditTrailPart": {
+            "Comment": null,
+            "ShowComment": false
+          },
+          "GraphSyncPart": {
+            "Text": "<<contentapiprefix>>/triageresulttile/108c3ddb-8fd3-4b6a-97ff-f49f3413651f"
+          },
+          "TitlePart": {
+            "Title": "Take a skills assessment - employed"
+          }
+        },
+        {
+          "ContentItemId": "4sk656q5597j8r2gm8daytmang",
+          "ContentItemVersionId": "48y21hhdtefqh2eyj5ymfa8tmz",
+          "ContentType": "TriageResultTile",
+          "DisplayText": "Explore Careers - Employed",
+          "Latest": true,
+          "Published": true,
+          "ModifiedUtc": "2024-10-17T20:09:15.0902718Z",
+          "PublishedUtc": "2024-10-17T20:09:15.1583792Z",
+          "CreatedUtc": "2024-08-30T14:02:03.0942222Z",
+          "Owner": "41xc6z9rat7tjykwwe24q74dm6",
+          "Author": "siva.muruganandham",
+          "TriageResultTile": {
+            "TriageLevelOne": {
+              "ContentItemIds": [
+                "4e2mfha8xd23rvhzjt6exfcpck"
+              ]
+            },
+            "TriageResult": {
+              "ContentItemIds": [
+                "4jf6jqwpjxxkntb24e9h2zwymc"
+              ]
+            },
+            "TriageTileHtml": {
+              "Html": "<div id=\"triage-result-tile-container-explore-careers-employed\" class=\"triage-tile app-view-tile app-view-tile__explore-careers \">\n    <div class=\"tile-header app-view-tile__explore-careers-header\">\n<h3 class=\"app-view-tile-header-text\">\n           <a href=\"/explore-careers\" id=\"triage-result-tile-link-explore-careers-employed\" class=\"govuk-link\"> Explore careers </a></h3>\n             <img src=\"https://cdn.nationalcareers.service.gov.uk/media/compass.svg\" id=\"img-explore-careers-employed\" alt=\"\" class=\"app-view-tile-header-image\">\n     </div>\n     <p class=\"tile-description\">\n          Browse hundreds of job profiles to discover what different roles involve.\n     </p>\n</div>"
+            }
+          },
+          "AuditTrailPart": {
+            "Comment": null,
+            "ShowComment": false
+          },
+          "GraphSyncPart": {
+            "Text": "<<contentapiprefix>>/triageresulttile/fd6d7270-5aba-4a4a-953b-c64e9316670e"
+          },
+          "TitlePart": {
+            "Title": "Explore Careers - Employed"
+          }
+        },
+        {
+          "ContentItemId": "4m4wzzfz80hh757fx0nm2as15p",
+          "ContentItemVersionId": "4rmvfv47rhc0v624q4c8shy6m5",
+          "ContentType": "TriageResultTile",
+          "DisplayText": "Explore Careers - not in  work",
+          "Latest": true,
+          "Published": true,
+          "ModifiedUtc": "2024-10-17T20:10:17.2881334Z",
+          "PublishedUtc": "2024-10-17T20:10:17.3670526Z",
+          "CreatedUtc": "2024-08-30T14:09:56.3536466Z",
+          "Owner": "41xc6z9rat7tjykwwe24q74dm6",
+          "Author": "siva.muruganandham",
+          "TriageResultTile": {
+            "TriageLevelOne": {
+              "ContentItemIds": [
+                "4jg4pebz90zrc0r8ae433sbe4a"
+              ]
+            },
+            "TriageResult": {
+              "ContentItemIds": [
+                "4jf6jqwpjxxkntb24e9h2zwymc"
+              ]
+            },
+            "TriageTileHtml": {
+              "Html": "<div id=\"triage-result-tile-container-explore-careers-not-in-work\" class=\"triage-tile app-view-tile app-view-tile__explore-careers \">\n    <div class=\"tile-header app-view-tile__explore-careers-header\">\n        <h3 class=\"app-view-tile-header-text\">   <a href=\"/explore-careers\" class=\"govuk-link\" id=\"triage-result-tile-link-explore-careers-not-in-work\"> Explore careers </a></h3>\n             <img src=\"https://cdn.nationalcareers.service.gov.uk/media/compass.svg\" id=\"img-explore-careers-not-in-work\" alt=\"\" class=\"app-view-tile-header-image\">\n     </div>\n     <p class=\"tile-description\">\n          Browse hundreds of job profiles to discover what different roles involve.\n     </p>\n</div>"
+            }
+          },
+          "AuditTrailPart": {
+            "Comment": null,
+            "ShowComment": false
+          },
+          "GraphSyncPart": {
+            "Text": "<<contentapiprefix>>/triageresulttile/c71c3fef-b588-4fc1-8c0a-16b33ec00db7"
+          },
+          "TitlePart": {
+            "Title": "Explore Careers - not in  work"
+          }
+        },
+        {
+          "ContentItemId": "4exqf38p5bmj568x1wcbp7g7dq",
+          "ContentItemVersionId": "41ctne9fk1pms61vgj39w047w2",
+          "ContentType": "TriageResultTile",
+          "DisplayText": "Explore Careers -Education",
+          "Latest": true,
+          "Published": true,
+          "ModifiedUtc": "2024-10-17T20:16:30.281996Z",
+          "PublishedUtc": "2024-10-17T20:16:30.3454161Z",
+          "CreatedUtc": "2024-08-30T13:59:46.0358067Z",
+          "Owner": "41xc6z9rat7tjykwwe24q74dm6",
+          "Author": "siva.muruganandham",
+          "TriageResultTile": {
+            "TriageLevelOne": {
+              "ContentItemIds": [
+                "4hyyfbrh8swxszn5edkbrwafxb"
+              ]
+            },
+            "TriageResult": {
+              "ContentItemIds": [
+                "4jf6jqwpjxxkntb24e9h2zwymc"
+              ]
+            },
+            "TriageTileHtml": {
+              "Html": "<div id=\"triage-result-tile-container-explore-careers-education\" class=\"triage-tile app-view-tile app-view-tile__explore-careers \">\n    <div class=\"tile-header app-view-tile__explore-careers-header\">\n<h3 class=\"app-view-tile-header-text\">\n           <a href=\"/explore-careers\" id=\"triage-result-tile-link-explore-careers-education\" class=\"govuk-link\"> Explore careers </a> </h3>\n             <img src=\"https://cdn.nationalcareers.service.gov.uk/media/compass.svg\" alt=\"\" id=\"img-explore-careers\" class=\"app-view-tile-header-image\">\n     </div>\n     <p class=\"tile-description\">\n          Browse hundreds of job profiles to discover what different roles involve.</p>\n</div>"
+            }
+          },
+          "AuditTrailPart": {
+            "Comment": null,
+            "ShowComment": false
+          },
+          "GraphSyncPart": {
+            "Text": "<<contentapiprefix>>/triageresulttile/35748745-02df-485f-9f4c-1c4e4303b315"
+          },
+          "TitlePart": {
+            "Title": "Explore Careers -Education"
+          }
+        },
+        {
+          "ContentItemId": "4kh64fzb5vt0w62dgw9924c4nz",
+          "ContentItemVersionId": "49jk7ky2843zywf4m0grcmjbxz",
+          "ContentType": "TriageResultTile",
+          "DisplayText": "Take a skills assessment - education",
+          "Latest": true,
+          "Published": true,
+          "ModifiedUtc": "2024-10-17T20:18:38.7760221Z",
+          "PublishedUtc": "2024-10-17T20:18:38.849309Z",
+          "CreatedUtc": "2024-08-31T21:16:57.167748Z",
+          "Owner": "41xc6z9rat7tjykwwe24q74dm6",
+          "Author": "siva.muruganandham",
+          "TriageResultTile": {
+            "TriageLevelOne": {
+              "ContentItemIds": [
+                "4hyyfbrh8swxszn5edkbrwafxb"
+              ]
+            },
+            "TriageResult": {
+              "ContentItemIds": [
+                "45wn8w21681fkyck3mz8fxh7d6"
+              ]
+            },
+            "TriageTileHtml": {
+              "Html": "<div id=\"triage-result-tile-container-discover-your-skills-and-careers-education\" class=\"triage-tile app-view-tile app-view-tile__skills-assessment\">\n    <div class=\"tile-header app-view-tile__skills-assessment-header\">\n<h3 class=\"app-view-tile-header-text\">\n           <a href=\"/skills-assessment\" id=\"triage-result-tile-link-discover-your-skills-and-careers-education\" class=\"govuk-link\">Take a skills assessment</a></h3>\n             <img src=\"https://cdn.nationalcareers.service.gov.uk/media/checkbox.svg\" alt=\"\" class=\"app-view-tile-header-image\">\n     </div>\n     <p class=\"tile-description\">\n        Answer questions about your interests and see careers that might suit you. \n     </p>\n</div>"
+            }
+          },
+          "AuditTrailPart": {
+            "Comment": null,
+            "ShowComment": false
+          },
+          "GraphSyncPart": {
+            "Text": "<<contentapiprefix>>/triageresulttile/39eec211-820b-449a-800a-1aef80680ef7"
+          },
+          "TitlePart": {
+            "Title": "Take a skills assessment - education"
+          }
+        },
+        {
+          "ContentItemId": "4gsjn50dza8w0x8c3jt6aq8ndm",
+          "ContentItemVersionId": "4m5zhnyxfhjr2ywddzy35m8d5t",
+          "ContentType": "TriageResultTile",
+          "DisplayText": "Take a skills assessment - not in work",
+          "Latest": true,
+          "Published": true,
+          "ModifiedUtc": "2024-10-17T20:19:35.8965998Z",
+          "PublishedUtc": "2024-10-17T20:19:35.9442653Z",
+          "CreatedUtc": "2024-09-01T21:20:21.6199881Z",
+          "Owner": "41xc6z9rat7tjykwwe24q74dm6",
+          "Author": "siva.muruganandham",
+          "TriageResultTile": {
+            "TriageLevelOne": {
+              "ContentItemIds": [
+                "4jg4pebz90zrc0r8ae433sbe4a"
+              ]
+            },
+            "TriageResult": {
+              "ContentItemIds": [
+                "45wn8w21681fkyck3mz8fxh7d6"
+              ]
+            },
+            "TriageTileHtml": {
+              "Html": "<div id=\"triage-result-tile-container-discover-your-skills-and-careers-not-in-work\" class=\"triage-tile app-view-tile app-view-tile__skills-assessment\">\n    <div class=\"tile-header app-view-tile__skills-assessment-header\">\n          <h3 class=\"app-view-tile-header-text\"> <a href=\"/skills-assessment\" id=\"triage-result-tile-link-discover-your-skills-and-careers-not-in-work\" class=\"govuk-link\">Take a skills assessment</a></h3>\n             <img src=\"https://cdn.nationalcareers.service.gov.uk/media/checkbox.svg\" alt=\"discover your skills and careers\" id=\"img-discover-your-skills-and-careers\" class=\"app-view-tile-header-image\">\n     </div>\n     <p class=\"tile-description\">\n        Answer questions about your interests and see some careers that might suit you.\n     </p>\n</div>"
+            }
+          },
+          "AuditTrailPart": {
+            "Comment": null,
+            "ShowComment": false
+          },
+          "GraphSyncPart": {
+            "Text": "<<contentapiprefix>>/triageresulttile/c1aea758-c665-45dd-8834-76f505593f67"
+          },
+          "TitlePart": {
+            "Title": "Take a skills assessment - not in work"
+          }
+        },
+        {
+          "ContentItemId": "486b2aa24amc769gxvvvnb7mnx",
+          "ContentItemVersionId": "4rmqq27rhakdc7d0x21yfbwb4v",
+          "ContentType": "TriageResultTile",
+          "DisplayText": "Find a course - not in work",
+          "Latest": true,
+          "Published": true,
+          "ModifiedUtc": "2024-10-17T20:20:34.4021793Z",
+          "PublishedUtc": "2024-10-17T20:20:34.4647214Z",
+          "CreatedUtc": "2024-09-01T21:02:38.5390771Z",
+          "Owner": "41xc6z9rat7tjykwwe24q74dm6",
+          "Author": "siva.muruganandham",
+          "TriageResultTile": {
+            "TriageLevelOne": {
+              "ContentItemIds": [
+                "4jg4pebz90zrc0r8ae433sbe4a"
+              ]
+            },
+            "TriageResult": {
+              "ContentItemIds": [
+                "4fykrhgpgtxzxvrx1mc27qz5xa"
+              ]
+            },
+            "TriageTileHtml": {
+              "Html": "<div id=\"triage-result-tile-container-find-a-course-not-in-work\" class=\"triage-tile app-view-tile app-view-tile__find-a-course\">\n    <div class=\"tile-header app-view-tile__find-a-course-header\">\n         <h3 class=\"app-view-tile-header-text\">  <a href=\"/find-a-course\" id=\"triage-result-tile-link-find-a-course-not-in-work\" class=\"govuk-link\"> Find a course </a></h3>\n             <img src=\"https://cdn.nationalcareers.service.gov.uk/media/magnifying-glass.svg\" id=\"img-find-a-course-not-in-work\" alt=\"\" class=\"app-view-tile-header-image\">\n     </div>\n     <p class=\"tile-description\">\n       Search for online and classroom courses near you to develop your skills.\n     </p>\n</div>"
+            }
+          },
+          "AuditTrailPart": {
+            "Comment": null,
+            "ShowComment": false
+          },
+          "GraphSyncPart": {
+            "Text": "<<contentapiprefix>>/triageresulttile/5bdd5a47-84fd-4f3c-bc11-a67fe720b1fb"
+          },
+          "TitlePart": {
+            "Title": "Find a course - not in work"
+          }
+        },
+        {
+          "ContentItemId": "42j1xe3meqzjzzkcf7pfm2bncw",
+          "ContentItemVersionId": "4kk81h9zxnn01rd2nh95w39nm1",
+          "ContentType": "TriageResultTile",
+          "DisplayText": "Find a course - education",
+          "Latest": true,
+          "Published": true,
+          "ModifiedUtc": "2024-10-17T20:20:59.4676408Z",
+          "PublishedUtc": "2024-10-17T20:20:59.5149087Z",
+          "CreatedUtc": "2024-08-31T21:13:15.8963142Z",
+          "Owner": "41xc6z9rat7tjykwwe24q74dm6",
+          "Author": "siva.muruganandham",
+          "TriageResultTile": {
+            "TriageLevelOne": {
+              "ContentItemIds": [
+                "4hyyfbrh8swxszn5edkbrwafxb"
+              ]
+            },
+            "TriageResult": {
+              "ContentItemIds": [
+                "4fykrhgpgtxzxvrx1mc27qz5xa"
+              ]
+            },
+            "TriageTileHtml": {
+              "Html": "<div id=\"triage-result-tile-container-find-a-course-education\" class=\"triage-tile app-view-tile app-view-tile__find-a-course\">\n    <div class=\"tile-header app-view-tile__find-a-course-header\">\n<h3 class=\"app-view-tile-header-text\">\n           <a href=\"/find-a-course\" id=\"triage-result-tile-link-find-a-course-education\" class=\"govuk-link\"> Find a course </a> </h3>\n             <img src=\"https://cdn.nationalcareers.service.gov.uk/media/magnifying-glass.svg\" id=\"img-find-a-course\" alt=\"\" class=\"app-view-tile-header-image\">\n     </div>\n     <p class=\"tile-description\">\n        Work towards a qualification by taking an online or classroom course local to you.\n     </p>\n</div>"
+            }
+          },
+          "AuditTrailPart": {
+            "Comment": null,
+            "ShowComment": false
+          },
+          "GraphSyncPart": {
+            "Text": "<<contentapiprefix>>/triageresulttile/59240c18-3b46-4fff-867f-d9b44b30ee4c"
+          },
+          "TitlePart": {
+            "Title": "Find a course - education"
+          }
+        },
+        {
+          "ContentItemId": "4xmzdc78fskyr0b3chn34cb24b",
+          "ContentItemVersionId": "46s63qdkdkr7wx82rawkhn1ydt",
+          "ContentType": "TriageResultTile",
+          "DisplayText": "Find a course - employed",
+          "Latest": true,
+          "Published": true,
+          "ModifiedUtc": "2024-10-17T20:21:26.5088871Z",
+          "PublishedUtc": "2024-10-17T20:21:26.5580554Z",
+          "CreatedUtc": "2024-09-01T16:21:12.4511632Z",
+          "Owner": "41xc6z9rat7tjykwwe24q74dm6",
+          "Author": "siva.muruganandham",
+          "TriageResultTile": {
+            "TriageLevelOne": {
+              "ContentItemIds": [
+                "4e2mfha8xd23rvhzjt6exfcpck"
+              ]
+            },
+            "TriageResult": {
+              "ContentItemIds": [
+                "4fykrhgpgtxzxvrx1mc27qz5xa"
+              ]
+            },
+            "TriageTileHtml": {
+              "Html": "<div id=\"triage-result-tile-container-find-a-course-employed\" class=\"triage-tile app-view-tile app-view-tile__find-a-course\">\n    <div class=\"tile-header app-view-tile__find-a-course-header\">\n        <h3 class=\"app-view-tile-header-text\">   <a href=\"/find-a-course\" id=\"triage-result-tile-link-find-a-course-employed\" class=\"govuk-link\"> Find a course </a></h3>\n             <img src=\"https://cdn.nationalcareers.service.gov.uk/media/magnifying-glass.svg\" id=\"img-find-a-course\" alt=\"\" class=\"app-view-tile-header-image\">\n     </div>\n     <p class=\"tile-description\">\n       Search for online and classroom courses near you to develop your skills.\n     </p>\n</div>"
+            }
+          },
+          "AuditTrailPart": {
+            "Comment": null,
+            "ShowComment": false
+          },
+          "GraphSyncPart": {
+            "Text": "<<contentapiprefix>>/triageresulttile/88a062ad-ed9a-4cbb-96db-e56669bca203"
+          },
+          "TitlePart": {
+            "Title": "Find a course - employed"
+          }
+        },
+        {
+          "ContentItemId": "4dcj2n9fk3zys4rd0b8ryprw4t",
+          "ContentItemVersionId": "4x9z06gkaga32tcjg5j1sqyrcp",
+          "ContentType": "TriageResultTile",
+          "DisplayText": "Disability support in employment - employed",
+          "Latest": true,
+          "Published": true,
+          "ModifiedUtc": "2024-10-17T21:55:56.7647326Z",
+          "PublishedUtc": "2024-10-17T21:55:56.8478118Z",
+          "CreatedUtc": "2024-09-01T17:20:11.983648Z",
+          "Owner": "41xc6z9rat7tjykwwe24q74dm6",
+          "Author": "siva.muruganandham",
+          "TriageResultTile": {
+            "TriageLevelOne": {
+              "ContentItemIds": [
+                "4e2mfha8xd23rvhzjt6exfcpck"
+              ]
+            },
+            "TriageResult": {
+              "ContentItemIds": [
+                "4112axg01vb0s7cmmyrzchhgmr"
+              ]
+            },
+            "TriageTileHtml": {
+              "Html": " <div id=\"container-career-and-job-support-for-people-with-a-disability-employed\" class=\"triage-tile article-tile\">\n  <h3 class=\"tile-header\">\n    <a href=\"/careers-advice/career-and-job-support-for-people-with-a-disability\" id=\"link-career-and-job-support-for-people-with-a-disability-employed\" class=\"govuk-link\">Job support if you're disabled</a>\n</h3>\n   <p class=\"tile-description\">\n                            Get help finding and staying in work and see what your employment rights are.\n   </p>\n</div>"
+            }
+          },
+          "AuditTrailPart": {
+            "Comment": null,
+            "ShowComment": false
+          },
+          "GraphSyncPart": {
+            "Text": "<<contentapiprefix>>/triageresulttile/34960504-8e72-4ac6-8fd2-caa2091b6ee3"
+          },
+          "TitlePart": {
+            "Title": "Disability support in employment - employed"
+          }
+        },
+        {
+          "ContentItemId": "43yzqtgb0qpqkz9kbk9man005r",
+          "ContentItemVersionId": "4x4k3af6wygv85s63p45z3taxr",
+          "ContentType": "TriageResultTile",
+          "DisplayText": "Disability support in employment - education",
+          "Latest": true,
+          "Published": true,
+          "ModifiedUtc": "2024-10-17T21:56:58.4357385Z",
+          "PublishedUtc": "2024-10-17T21:56:58.5161035Z",
+          "CreatedUtc": "2024-08-30T21:29:53.3154714Z",
+          "Owner": "41xc6z9rat7tjykwwe24q74dm6",
+          "Author": "siva.muruganandham",
+          "TriageResultTile": {
+            "TriageLevelOne": {
+              "ContentItemIds": [
+                "4hyyfbrh8swxszn5edkbrwafxb"
+              ]
+            },
+            "TriageResult": {
+              "ContentItemIds": [
+                "4112axg01vb0s7cmmyrzchhgmr"
+              ]
+            },
+            "TriageTileHtml": {
+              "Html": " <div id=\"triage-result-tile-container-career-and-job-support-for-people-with-a-disability-education\" class=\"triage-tile article-tile\">\n  <h3 class=\"tile-header\">\n    <a href=\"/careers-advice/career-and-job-support-for-people-with-a-disability\" id=\"triage-result-tile-link-career-and-job-support-for-people-with-a-disability-education\" class=\"govuk-link\">Job support if you're disabled</a>\n</h3>\n   <p class=\"tile-description\">\n                            Get help finding and staying in work and see what your employment rights are.\n   </p>\n</div>"
+            }
+          },
+          "AuditTrailPart": {
+            "Comment": null,
+            "ShowComment": false
+          },
+          "GraphSyncPart": {
+            "Text": "<<contentapiprefix>>/triageresulttile/e19ffb09-c818-4400-b634-b05ebe763928"
+          },
+          "TitlePart": {
+            "Title": "Disability support in employment - education"
+          }
+        },
+        {
+          "ContentItemId": "4ha3xt81bznt6sr29j9yjzff4x",
+          "ContentItemVersionId": "4djfk4e649jn4snsde5t8na3c7",
+          "ContentType": "TriageResultTile",
+          "DisplayText": "Disability support in employment - not in work",
+          "Latest": true,
+          "Published": true,
+          "ModifiedUtc": "2024-10-17T21:57:30.0221657Z",
+          "PublishedUtc": "2024-10-17T21:57:30.1464025Z",
+          "CreatedUtc": "2024-09-01T21:48:39.3627727Z",
+          "Owner": "41xc6z9rat7tjykwwe24q74dm6",
+          "Author": "siva.muruganandham",
+          "TriageResultTile": {
+            "TriageLevelOne": {
+              "ContentItemIds": [
+                "4jg4pebz90zrc0r8ae433sbe4a"
+              ]
+            },
+            "TriageResult": {
+              "ContentItemIds": [
+                "4112axg01vb0s7cmmyrzchhgmr"
+              ]
+            },
+            "TriageTileHtml": {
+              "Html": " <div id=\"triage-result-tile-container-career-and-job-support-for-people-with-a-disability-not-in-work\" class=\"triage-tile  article-tile\">\n  <h3 class=\"tile-header\">\n    <a href=\"/careers-advice/career-and-job-support-for-people-with-a-disability\" id=\"triage-result-tile-link-career-and-job-support-for-people-with-a-disability-not-in-work\" class=\"govuk-link\">Job support if you're disabled</a>\n</h3>\n   <p class=\"tile-description\">\n                            Get help finding and staying in work and see what your employment rights are.\n   </p>\n</div>"
+            }
+          },
+          "AuditTrailPart": {
+            "Comment": null,
+            "ShowComment": false
+          },
+          "GraphSyncPart": {
+            "Text": "<<contentapiprefix>>/triageresulttile/245ad971-0737-41f4-a255-1e663832b667"
+          },
+          "TitlePart": {
+            "Title": "Disability support in employment - not in work"
+          }
+        },
+        {
+          "ContentItemId": "4ksj4b482zfr22ds8m3smsgaw4",
+          "ContentItemVersionId": "46q6q921mad2a47ndkyefwxwn9",
+          "ContentType": "TriageResultTile",
+          "DisplayText": "Disability support in education- employed",
+          "Latest": true,
+          "Published": true,
+          "ModifiedUtc": "2024-10-17T21:57:56.7499145Z",
+          "PublishedUtc": "2024-10-17T21:57:56.8298519Z",
+          "CreatedUtc": "2024-09-01T17:19:03.4832258Z",
+          "Owner": "41xc6z9rat7tjykwwe24q74dm6",
+          "Author": "siva.muruganandham",
+          "TriageResultTile": {
+            "TriageLevelOne": {
+              "ContentItemIds": [
+                "4e2mfha8xd23rvhzjt6exfcpck"
+              ]
+            },
+            "TriageResult": {
+              "ContentItemIds": [
+                "4wecv4dyx73cq1sn0dfnn2p5nx"
+              ]
+            },
+            "TriageTileHtml": {
+              "Html": " <div id=\"container-education-advice-disabled-special-educational-needs-employed\" class=\"triage-tile  article-tile\">\n  <h3 class=\"tile-header\">\n    <a href=\"/careers-advice/education-advice-disabled-special-educational-needs\" id=\"link-education-advice-disabled-special-educational-needs-employed\" class=\"govuk-link\">Education support if you're disabled</a>\n</h3>\n   <p class=\"tile-description\">\n                            See what support you can get and what reasonable adjustments you can ask for.\n   </p>\n</div>"
+            }
+          },
+          "AuditTrailPart": {
+            "Comment": null,
+            "ShowComment": false
+          },
+          "GraphSyncPart": {
+            "Text": "<<contentapiprefix>>/triageresulttile/d0ede2af-cfa9-46fe-96bf-79a0ae7133d2"
+          },
+          "TitlePart": {
+            "Title": "Disability support in education- employed"
+          }
+        },
+        {
+          "ContentItemId": "4tzq5chg3tp3ntarac586kgy5x",
+          "ContentItemVersionId": "4tj8m3a1m141d5rdhjc7ghnfwg",
+          "ContentType": "TriageResultTile",
+          "DisplayText": "Disability support in education- education",
+          "Latest": true,
+          "Published": true,
+          "ModifiedUtc": "2024-10-17T21:58:29.5711777Z",
+          "PublishedUtc": "2024-10-17T21:58:29.6502718Z",
+          "CreatedUtc": "2024-08-30T21:19:23.1027578Z",
+          "Owner": "41xc6z9rat7tjykwwe24q74dm6",
+          "Author": "siva.muruganandham",
+          "TriageResultTile": {
+            "TriageLevelOne": {
+              "ContentItemIds": [
+                "4hyyfbrh8swxszn5edkbrwafxb"
+              ]
+            },
+            "TriageResult": {
+              "ContentItemIds": [
+                "4wecv4dyx73cq1sn0dfnn2p5nx"
+              ]
+            },
+            "TriageTileHtml": {
+              "Html": " <div id=\"triage-result-tile-container-education-advice-disabled-special-educational-needs-education\" class=\"triage-tile article-tile\">\n  <h3 class=\"tile-header\">\n    <a href=\"/careers-advice/education-advice-disabled-special-educational-needs\" id=\"triage-result-tile-link-education-advice-disabled-special-educational-needs-education\" class=\"govuk-link\">Education support if you're disabled</a>\n</h3>\n   <p class=\"tile-description\">\n                            See what support you can get and what reasonable adjustments you can ask for.\n   </p>\n</div>"
+            }
+          },
+          "AuditTrailPart": {
+            "Comment": null,
+            "ShowComment": false
+          },
+          "GraphSyncPart": {
+            "Text": "<<contentapiprefix>>/triageresulttile/6ccbc964-bd59-4f34-881f-b6282e012d5b"
+          },
+          "TitlePart": {
+            "Title": "Disability support in education- education"
+          }
+        },
+        {
+          "ContentItemId": "4ky3m0yysngyz7snb0ff1y2rwb",
+          "ContentItemVersionId": "44bahf8t3srg876j33w4p3mrd3",
+          "ContentType": "TriageResultTile",
+          "DisplayText": "Disability support in education- not in work",
+          "Latest": true,
+          "Published": true,
+          "ModifiedUtc": "2024-10-17T21:59:05.77974Z",
+          "PublishedUtc": "2024-10-17T21:59:05.8893319Z",
+          "CreatedUtc": "2024-09-01T21:51:05.1082057Z",
+          "Owner": "41xc6z9rat7tjykwwe24q74dm6",
+          "Author": "siva.muruganandham",
+          "TriageResultTile": {
+            "TriageLevelOne": {
+              "ContentItemIds": [
+                "4jg4pebz90zrc0r8ae433sbe4a"
+              ]
+            },
+            "TriageResult": {
+              "ContentItemIds": [
+                "4wecv4dyx73cq1sn0dfnn2p5nx"
+              ]
+            },
+            "TriageTileHtml": {
+              "Html": " <div id=\"triage-result-tile-container-education-advice-disabled-special-educational-needs-not-in-work\" class=\"triage-tile article-tile\">\n  <h3 class=\"tile-header\">\n    <a href=\"/careers-advice/education-advice-disabled-special-educational-needs\" id=\"triage-result-tile-link-education-advice-disabled-special-educational-needs-not-in-work\" class=\"govuk-link\">Education support if you're disabled</a>\n</h3>\n   <p class=\"tile-description\">\n                            See what support you can get and what reasonable adjustments you can ask for.\n   </p>\n</div>"
+            }
+          },
+          "AuditTrailPart": {
+            "Comment": null,
+            "ShowComment": false
+          },
+          "GraphSyncPart": {
+            "Text": "<<contentapiprefix>>/triageresulttile/876f5040-7c33-42f9-a9e7-031a258e87eb"
+          },
+          "TitlePart": {
+            "Title": "Disability support in education- not in work"
+          }
+        },
+        {
+          "ContentItemId": "4mhf9h5t0qfsc5m78cws1anj45",
+          "ContentItemVersionId": "4dqqtd46t8svb6qx4495vy0cme",
+          "ContentType": "TriageResultTile",
+          "DisplayText": "Dealing with losing your job - employed",
+          "Latest": true,
+          "Published": true,
+          "ModifiedUtc": "2024-10-17T22:00:20.9210877Z",
+          "PublishedUtc": "2024-10-17T22:00:21.0023976Z",
+          "CreatedUtc": "2024-09-01T20:49:30.3458052Z",
+          "Owner": "41xc6z9rat7tjykwwe24q74dm6",
+          "Author": "siva.muruganandham",
+          "TriageResultTile": {
+            "TriageLevelOne": {
+              "ContentItemIds": [
+                "4e2mfha8xd23rvhzjt6exfcpck"
+              ]
+            },
+            "TriageResult": {
+              "ContentItemIds": [
+                "4ejpgnwrjg14c55ngrtadpw5nv"
+              ]
+            },
+            "TriageTileHtml": {
+              "Html": " <div id=\"triage-result-tile-container-advice-for-if-you-lose-your-job-employed\" class=\"triage-tile article-tile\">\n  <h3 class=\"tile-header\">\n    <a href=\"/careers-advice/advice-for-if-you-lose-your-job\" id=\"triage-result-tile-link-advice-for-if-you-lose-your-job-employed\" class=\"govuk-link\">Redundancy and dealing with losing your job</a>\n</h3>\n \n   <p class=\"tile-description\">\n                        How to understand the skills you already have and prepare to find a new job.\n   </p>\n</div>"
+            }
+          },
+          "AuditTrailPart": {
+            "Comment": null,
+            "ShowComment": false
+          },
+          "GraphSyncPart": {
+            "Text": "<<contentapiprefix>>/triageresulttile/b2d8dddc-3f36-43ea-838b-f04c3e9d7c79"
+          },
+          "TitlePart": {
+            "Title": "Dealing with losing your job - employed"
+          }
+        },
+        {
+          "ContentItemId": "41mxmyvr3f5z6rfs39km6cn8cn",
+          "ContentItemVersionId": "485smymdam6qp2qt3nf59sxr50",
+          "ContentType": "TriageResultTile",
+          "DisplayText": "Dealing with losing your job - not in work",
+          "Latest": true,
+          "Published": true,
+          "ModifiedUtc": "2024-10-17T22:00:51.8665131Z",
+          "PublishedUtc": "2024-10-17T22:00:51.9473721Z",
+          "CreatedUtc": "2024-09-04T20:55:59.2406054Z",
+          "Owner": "41xc6z9rat7tjykwwe24q74dm6",
+          "Author": "siva.muruganandham",
+          "TriageResultTile": {
+            "TriageLevelOne": {
+              "ContentItemIds": [
+                "4jg4pebz90zrc0r8ae433sbe4a"
+              ]
+            },
+            "TriageResult": {
+              "ContentItemIds": [
+                "4ejpgnwrjg14c55ngrtadpw5nv"
+              ]
+            },
+            "TriageTileHtml": {
+              "Html": " <div id=\"triage-result-tile-container-advice-for-if-you-lose-your-job\" class=\"triage-tile article-tile\">\n  <h3 class=\"tile-header\">\n    <a href=\"/careers-advice/advice-for-if-you-lose-your-job\" id=\"triage-result-tile-link-advice-for-if-you-lose-your-job\" class=\"govuk-link\">Redundancy and dealing with losing your job</a>\n</h3>\n \n   <p class=\"tile-description\">\n                        How to prepare to find a new job and understand the skills you already have. \n   </p>\n</div>"
+            }
+          },
+          "AuditTrailPart": {
+            "Comment": null,
+            "ShowComment": false
+          },
+          "GraphSyncPart": {
+            "Text": "<<contentapiprefix>>/triageresulttile/2843dbb4-2cef-4aba-8663-a9171370dd44"
+          },
+          "TitlePart": {
+            "Title": "Dealing with losing your job - not in work"
+          }
+        },
+        {
+          "ContentItemId": "42tdanh114gg46fgkavvy5cfwd",
+          "ContentItemVersionId": "4xtpfrhpkgeg9wpctgaawac0da",
+          "ContentType": "TriageResultTile",
+          "DisplayText": "Benefits of digital skills  - employed",
+          "Latest": true,
+          "Published": true,
+          "ModifiedUtc": "2024-10-17T22:01:53.2578373Z",
+          "PublishedUtc": "2024-10-17T22:01:53.3885919Z",
+          "CreatedUtc": "2024-09-01T17:17:43.2613438Z",
+          "Owner": "41xc6z9rat7tjykwwe24q74dm6",
+          "Author": "siva.muruganandham",
+          "TriageResultTile": {
+            "TriageLevelOne": {
+              "ContentItemIds": [
+                "4e2mfha8xd23rvhzjt6exfcpck"
+              ]
+            },
+            "TriageResult": {
+              "ContentItemIds": [
+                "46hefwbsfg87030e024bn5t04g"
+              ]
+            },
+            "TriageTileHtml": {
+              "Html": " <div id=\"triage-result-tile-container-build-foundation-digital-skills-to-help-your-career-employed\" class=\"triage-tile article-tile\">\n  <h3 class=\"tile-header\">\n    <a href=\"/careers-advice/build-foundation-digital-skills-to-help-your-career\" id=\"triage-result-tile-link-build-foundation-digital-skills-to-help-your-career-employed\" class=\"govuk-link\">Digital skills to help your career</a>\n</h3>\n   <p class=\"tile-description\">\n                        See how to improve your digital skills to help you in the next step of your career.\n   </p>\n</div>"
+            }
+          },
+          "AuditTrailPart": {
+            "Comment": null,
+            "ShowComment": false
+          },
+          "GraphSyncPart": {
+            "Text": "<<contentapiprefix>>/triageresulttile/30f3e3b8-ee08-465e-8e40-e6ae0722aefd"
+          },
+          "TitlePart": {
+            "Title": "Benefits of digital skills  - employed"
+          }
+        },
+        {
+          "ContentItemId": "4e41knprf8nxb38n8b9b4tjhn0",
+          "ContentItemVersionId": "4bzad0vc9wbm5x1hv28k6nhex8",
+          "ContentType": "TriageResultTile",
+          "DisplayText": "Benefits of digital skills  - not in work",
+          "Latest": true,
+          "Published": true,
+          "ModifiedUtc": "2024-10-17T22:02:41.1524629Z",
+          "PublishedUtc": "2024-10-17T22:02:41.2327358Z",
+          "CreatedUtc": "2024-09-01T21:25:55.4168035Z",
+          "Owner": "41xc6z9rat7tjykwwe24q74dm6",
+          "Author": "siva.muruganandham",
+          "TriageResultTile": {
+            "TriageLevelOne": {
+              "ContentItemIds": [
+                "4jg4pebz90zrc0r8ae433sbe4a"
+              ]
+            },
+            "TriageResult": {
+              "ContentItemIds": [
+                "46hefwbsfg87030e024bn5t04g"
+              ]
+            },
+            "TriageTileHtml": {
+              "Html": " <div id=\"triage-result-tile-container-build-foundation-digital-skills-to-help-your-career-not-in-work\" class=\"triage-tile  article-tile\">\n  <h3 class=\"tile-header\">\n    <a href=\"/careers-advice/build-foundation-digital-skills-to-help-your-career\" id=\"triage-result-tile-link-build-foundation-digital-skills-to-help-your-career-not-in-work\" class=\"govuk-link\">Digital skills to help your career</a>\n</h3>\n   <p class=\"tile-description\">\n                        See how to improve your digital skills to help you when applying for jobs.\n   </p>\n</div>"
+            }
+          },
+          "AuditTrailPart": {
+            "Comment": null,
+            "ShowComment": false
+          },
+          "GraphSyncPart": {
+            "Text": "<<contentapiprefix>>/triageresulttile/7c349e37-a6e0-48d4-8ba8-5ad3d5b3a641"
+          },
+          "TitlePart": {
+            "Title": "Benefits of digital skills  - not in work"
+          }
+        },
+        {
+          "ContentItemId": "4nswdgpqf1tvh2yxq36099fzdc",
+          "ContentItemVersionId": "4dj54dc1v17fzsw7eygns9t74b",
+          "ContentType": "TriageResultTile",
+          "DisplayText": "Become an apprentice - employed",
+          "Latest": true,
+          "Published": true,
+          "ModifiedUtc": "2024-10-17T22:03:50.3786131Z",
+          "PublishedUtc": "2024-10-17T22:03:50.4593142Z",
+          "CreatedUtc": "2024-09-04T21:21:04.3524053Z",
+          "Owner": "41xc6z9rat7tjykwwe24q74dm6",
+          "Author": "siva.muruganandham",
+          "TriageResultTile": {
+            "TriageLevelOne": {
+              "ContentItemIds": [
+                "4e2mfha8xd23rvhzjt6exfcpck"
+              ]
+            },
+            "TriageResult": {
+              "ContentItemIds": [
+                "4en375jpt8h4p65nmrj0v8gcwz"
+              ]
+            },
+            "TriageTileHtml": {
+              "Html": " <div id=\"triage-result-tile-container-apply-apprenticeship-employed\" class=\"triage-tile article-tile\">\n  <h3 class=\"tile-header\">\n    <a href=\"https://www.gov.uk/apply-apprenticeship\" id=\"triage-result-tile-link-apply-apprenticeship-employed\" class=\"govuk-link\">Find an apprenticeship on GOV.UK</a>\n</h3>\n \n   <p class=\"tile-description\">\n                        Start a new role that combines work with training and study.\n\n   </p>\n</div>"
+            }
+          },
+          "AuditTrailPart": {
+            "Comment": null,
+            "ShowComment": false
+          },
+          "GraphSyncPart": {
+            "Text": "<<contentapiprefix>>/triageresulttile/dfaf5309-86e3-4709-a93d-3acbdc864714"
+          },
+          "TitlePart": {
+            "Title": "Become an apprentice - employed"
+          }
+        },
+        {
+          "ContentItemId": "47n841g22t3h4vdcvemev49nn6",
+          "ContentItemVersionId": "4jgx660mxdx0vzazg35vkvypnb",
+          "ContentType": "TriageResultTile",
+          "DisplayText": "Become an apprentice - not in work",
+          "Latest": true,
+          "Published": true,
+          "ModifiedUtc": "2024-10-17T22:04:42.1662225Z",
+          "PublishedUtc": "2024-10-17T22:04:42.2505321Z",
+          "CreatedUtc": "2024-09-04T21:19:37.7812071Z",
+          "Owner": "41xc6z9rat7tjykwwe24q74dm6",
+          "Author": "siva.muruganandham",
+          "TriageResultTile": {
+            "TriageLevelOne": {
+              "ContentItemIds": [
+                "4jg4pebz90zrc0r8ae433sbe4a"
+              ]
+            },
+            "TriageResult": {
+              "ContentItemIds": [
+                "4en375jpt8h4p65nmrj0v8gcwz"
+              ]
+            },
+            "TriageTileHtml": {
+              "Html": " <div id=\"triage-result-tile-container-apply-apprenticeship-not-in-work\" class=\"triage-tile article-tile\">\n  <h3 class=\"tile-header\">\n    <a href=\"https://www.gov.uk/apply-apprenticeship\" id=\"triage-result-tile-link-apply-apprenticeship-not-in-work\" class=\"govuk-link\">Find an apprenticeship on GOV.UK</a>\n</h3>\n \n   <p class=\"tile-description\">\n                        Apprenticeships are real jobs that combine work with training and study.\n\n   </p>\n</div>"
+            }
+          },
+          "AuditTrailPart": {
+            "Comment": null,
+            "ShowComment": false
+          },
+          "GraphSyncPart": {
+            "Text": "<<contentapiprefix>>/triageresulttile/914ac205-efa1-466b-8276-d7fe0d958490"
+          },
+          "TitlePart": {
+            "Title": "Become an apprentice - not in work"
+          }
+        },
+        {
+          "ContentItemId": "4xww2cjan57hp2mtk8dktvqexm",
+          "ContentItemVersionId": "4nh67ab13j7pcsxasrcy8rh0dg",
+          "ContentType": "TriageResultTile",
+          "DisplayText": "Become an apprentice - education",
+          "Latest": true,
+          "Published": true,
+          "ModifiedUtc": "2024-10-17T22:05:23.1508198Z",
+          "PublishedUtc": "2024-10-17T22:05:23.2327458Z",
+          "CreatedUtc": "2024-09-04T21:22:02.4357601Z",
+          "Owner": "41xc6z9rat7tjykwwe24q74dm6",
+          "Author": "siva.muruganandham",
+          "TriageResultTile": {
+            "TriageLevelOne": {
+              "ContentItemIds": [
+                "4hyyfbrh8swxszn5edkbrwafxb"
+              ]
+            },
+            "TriageResult": {
+              "ContentItemIds": [
+                "4en375jpt8h4p65nmrj0v8gcwz"
+              ]
+            },
+            "TriageTileHtml": {
+              "Html": " <div id=\"triage-result-tile-container-apply-apprenticeship-education\" class=\"triage-tile article-tile\">\n  <h3 class=\"tile-header\">\n    <a href=\"https://www.gov.uk/apply-apprenticeship\" id=\"triage-result-tile-link-apply-apprenticeship-education\" class=\"govuk-link\">Find an apprenticeship on GOV.UK</a>\n</h3>\n \n   <p class=\"tile-description\">\n                        Apprenticeships are real jobs that allow you to earn a wage while you learn.\n   </p>\n</div>"
+            }
+          },
+          "AuditTrailPart": {
+            "Comment": null,
+            "ShowComment": false
+          },
+          "GraphSyncPart": {
+            "Text": "<<contentapiprefix>>/triageresulttile/c446ffb0-547d-415b-9802-057024ca0136"
+          },
+          "TitlePart": {
+            "Title": "Become an apprentice - education"
+          }
+        },
+        {
+          "ContentItemId": "49kpz1ebzzq0ewy668js3q9cc0",
+          "ContentItemVersionId": "4vp0dtyz0k19c74bvtjnarjt4g",
+          "ContentType": "TriageResultTile",
+          "DisplayText": "How to apply for a graduate scheme - education",
+          "Latest": true,
+          "Published": true,
+          "ModifiedUtc": "2024-10-17T22:05:49.7050657Z",
+          "PublishedUtc": "2024-10-17T22:05:49.7839638Z",
+          "CreatedUtc": "2024-08-30T21:39:22.3146495Z",
+          "Owner": "41xc6z9rat7tjykwwe24q74dm6",
+          "Author": "siva.muruganandham",
+          "TriageResultTile": {
+            "TriageLevelOne": {
+              "ContentItemIds": [
+                "4hyyfbrh8swxszn5edkbrwafxb"
+              ]
+            },
+            "TriageResult": {
+              "ContentItemIds": [
+                "4x66nywwrnw04te55j59r3k3c9"
+              ]
+            },
+            "TriageTileHtml": {
+              "Html": " <div id=\"triage-result-tile-container-how-to-find-graduate-schemes-education\" class=\"triage-tile  article-tile\">\n  <h3 class=\"tile-header\">\n    <a href=\"/careers-advice/how-to-find-graduate-schemes\" id=\"triage-result-tile-link-how-to-find-graduate-schemes-education\" class=\"govuk-link\">Graduate schemes: getting a place</a>\n</h3>\n   <p class=\"tile-description\">\n                            Get advice on what graduate schemes are, where to find them and application tips.</p></div>\n<p></p>"
+            }
+          },
+          "AuditTrailPart": {
+            "Comment": null,
+            "ShowComment": false
+          },
+          "GraphSyncPart": {
+            "Text": "<<contentapiprefix>>/triageresulttile/8c53f4ab-8baf-4a7e-a039-fe8a7fd44f6a"
+          },
+          "TitlePart": {
+            "Title": "How to apply for a graduate scheme - education"
+          }
+        },
+        {
+          "ContentItemId": "4jmwptwb7km17r0q9ys3sfwb5d",
+          "ContentItemVersionId": "4ypsk57wd965tscxvg3y0phkcm",
+          "ContentType": "TriageResultTile",
+          "DisplayText": "Advice about volunteering - not in work",
+          "Latest": true,
+          "Published": true,
+          "ModifiedUtc": "2024-10-17T22:06:26.7603938Z",
+          "PublishedUtc": "2024-10-17T22:06:26.8430107Z",
+          "CreatedUtc": "2024-09-01T21:12:51.2411274Z",
+          "Owner": "41xc6z9rat7tjykwwe24q74dm6",
+          "Author": "siva.muruganandham",
+          "TriageResultTile": {
+            "TriageLevelOne": {
+              "ContentItemIds": [
+                "4jg4pebz90zrc0r8ae433sbe4a"
+              ]
+            },
+            "TriageResult": {
+              "ContentItemIds": [
+                "422a2m00vymfr4sa7vbwsa2cd0"
+              ]
+            },
+            "TriageTileHtml": {
+              "Html": " <div id=\"triage-result-tile-container-advice-on-volunteering-not-in-work\" class=\"triage-tile article-tile\">\n  <h3 class=\"tile-header\">\n    <a href=\"/careers-advice/advice-on-volunteering\" id=\"triage-result-tile-link-advice-on-volunteering-not-in-work\" class=\"govuk-link\">Volunteering advice</a>\n</h3>\n   <p class=\"tile-description\">\n                            Find out how to become a volunteer and learn new skills to support your career.\n\n   </p>\n</div>"
+            }
+          },
+          "AuditTrailPart": {
+            "Comment": null,
+            "ShowComment": false
+          },
+          "GraphSyncPart": {
+            "Text": "<<contentapiprefix>>/triageresulttile/e22bcb3e-e36b-4fc2-ad02-2da4b3bf47e5"
+          },
+          "TitlePart": {
+            "Title": "Advice about volunteering - not in work"
+          }
+        },
+        {
+          "ContentItemId": "4zc0t6149rb8h5sv9y741xc8me",
+          "ContentItemVersionId": "4nh05ffy3y776tmxhame53x1d5",
+          "ContentType": "TriageResultTile",
+          "DisplayText": "Advice about volunteering - employed",
+          "Latest": true,
+          "Published": true,
+          "ModifiedUtc": "2024-10-17T22:07:29.4505698Z",
+          "PublishedUtc": "2024-10-17T22:07:29.5303246Z",
+          "CreatedUtc": "2024-09-01T18:50:12.1668193Z",
+          "Owner": "41xc6z9rat7tjykwwe24q74dm6",
+          "Author": "siva.muruganandham",
+          "TriageResultTile": {
+            "TriageLevelOne": {
+              "ContentItemIds": [
+                "4e2mfha8xd23rvhzjt6exfcpck"
+              ]
+            },
+            "TriageResult": {
+              "ContentItemIds": [
+                "422a2m00vymfr4sa7vbwsa2cd0"
+              ]
+            },
+            "TriageTileHtml": {
+              "Html": " <div id=\"triage-result-tile-container-advice-on-volunteering-employed\" class=\"triage-tile article-tile\">\n  <h3 class=\"tile-header\">\n    <a href=\"/careers-advice/advice-on-volunteering\" id=\"triage-result-tile-link-advice-on-volunteering-employed\" class=\"govuk-link\">Volunteering advice</a>\n</h3>\n   <p class=\"tile-description\">\n                            Find out how to become a volunteer and learn new skills to support your career.\n   </p>\n</div>"
+            }
+          },
+          "AuditTrailPart": {
+            "Comment": null,
+            "ShowComment": false
+          },
+          "GraphSyncPart": {
+            "Text": "<<contentapiprefix>>/triageresulttile/64f4d4e1-59c4-4882-889c-c1ad7ee8e528"
+          },
+          "TitlePart": {
+            "Title": "Advice about volunteering - employed"
+          }
+        },
+        {
+          "ContentItemId": "4zzftvpjhg6m0tj7mep87qx3xv",
+          "ContentItemVersionId": "412tbe7cmg3dvrm7fbv80xes47",
+          "ContentType": "TriageResultTile",
+          "DisplayText": "Tips to become a volunteer - education",
+          "Latest": true,
+          "Published": true,
+          "ModifiedUtc": "2024-10-17T22:07:57.6756869Z",
+          "PublishedUtc": "2024-10-17T22:07:57.7565438Z",
+          "CreatedUtc": "2024-08-30T22:26:49.9804843Z",
+          "Owner": "41xc6z9rat7tjykwwe24q74dm6",
+          "Author": "siva.muruganandham",
+          "TriageResultTile": {
+            "TriageLevelOne": {
+              "ContentItemIds": [
+                "4hyyfbrh8swxszn5edkbrwafxb"
+              ]
+            },
+            "TriageResult": {
+              "ContentItemIds": [
+                "422a2m00vymfr4sa7vbwsa2cd0"
+              ]
+            },
+            "TriageTileHtml": {
+              "Html": " <div id=\"triage-result-tile-container-advice-on-volunteering-education\" class=\"triage-tile article-tile\">\n  <h3 class=\"tile-header\">\n    <a href=\"/careers-advice/advice-on-volunteering\" id=\"triage-result-tile-link-advice-on-volunteering-education\" class=\"govuk-link\">Volunteering advice</a>\n</h3>\n   <p class=\"tile-description\">\n                       Find out how to become a volunteer and learn new skills to support your career.\n   </p>\n</div>"
+            }
+          },
+          "AuditTrailPart": {
+            "Comment": null,
+            "ShowComment": false
+          },
+          "GraphSyncPart": {
+            "Text": "<<contentapiprefix>>/triageresulttile/54443685-70d2-4701-b0fe-02fec58bbb7a"
+          },
+          "TitlePart": {
+            "Title": "Tips to become a volunteer - education"
+          }
+        },
+        {
+          "ContentItemId": "4cw26jrpv8090632pbvng7etn1",
+          "ContentItemVersionId": "4vjjba0rcg4phv4zd94svh6xc8",
+          "ContentType": "TriageResultTile",
+          "DisplayText": "The benefits of a virtual internship  - education",
+          "Latest": true,
+          "Published": true,
+          "ModifiedUtc": "2024-10-17T22:08:24.957474Z",
+          "PublishedUtc": "2024-10-17T22:08:25.0424785Z",
+          "CreatedUtc": "2024-08-30T22:14:04.6650811Z",
+          "Owner": "41xc6z9rat7tjykwwe24q74dm6",
+          "Author": "siva.muruganandham",
+          "TriageResultTile": {
+            "TriageLevelOne": {
+              "ContentItemIds": [
+                "4hyyfbrh8swxszn5edkbrwafxb"
+              ]
+            },
+            "TriageResult": {
+              "ContentItemIds": [
+                "4nynmwce80fxk4hhx94nenvk4v"
+              ]
+            },
+            "TriageTileHtml": {
+              "Html": " <div id=\"triage-result-tile-container-how-to-find-a-virtual-internships-education\" class=\"triage-tile article-tile\">\n  <h3 class=\"tile-header\">\n    <a href=\"/careers-advice/how-to-find-a-virtual-internships\" id=\"triage-result-tile-link-how-to-find-a-virtual-internships-education\" class=\"govuk-link\"> How to find an internship</a>\n</h3>\n   <p class=\"tile-description\">\n                         Tips for how to find an internship to gain work skills and test out career ideas.  \n   </p>\n</div>"
+            }
+          },
+          "AuditTrailPart": {
+            "Comment": null,
+            "ShowComment": false
+          },
+          "GraphSyncPart": {
+            "Text": "<<contentapiprefix>>/triageresulttile/0fc8ed8d-c33b-4129-b7e1-e3342c6683ac"
+          },
+          "TitlePart": {
+            "Title": "The benefits of a virtual internship  - education"
+          }
+        },
+        {
+          "ContentItemId": "44hmx3ahw91w8x7msvta7rrn4h",
+          "ContentItemVersionId": "4m4er1mpt2k98x7zaeqdqse2nd",
+          "ContentType": "TriageResultTile",
+          "DisplayText": "The benefits of a virtual internship  - not in work",
+          "Latest": true,
+          "Published": true,
+          "ModifiedUtc": "2024-10-17T22:08:50.8546622Z",
+          "PublishedUtc": "2024-10-17T22:08:50.9382538Z",
+          "CreatedUtc": "2024-09-04T21:09:31.3051069Z",
+          "Owner": "41xc6z9rat7tjykwwe24q74dm6",
+          "Author": "siva.muruganandham",
+          "TriageResultTile": {
+            "TriageLevelOne": {
+              "ContentItemIds": [
+                "4jg4pebz90zrc0r8ae433sbe4a"
+              ]
+            },
+            "TriageResult": {
+              "ContentItemIds": [
+                "4nynmwce80fxk4hhx94nenvk4v"
+              ]
+            },
+            "TriageTileHtml": {
+              "Html": " <div id=\"triage-result-tile-container-how-to-find-a-virtual-internships-not-in-work\" class=\"triage-tile article-tile\">\n  <h3 class=\"tile-header\">\n    <a href=\"/careers-advice/how-to-find-a-virtual-internships\" id=\"triage-result-tile-link-how-to-find-a-virtual-internships-not-in-work\" class=\"govuk-link\"> How to find an internship</a>\n</h3>\n   <p class=\"tile-description\">\n                         Tips for how to find a remote internship so you can gain work skills from home.\n\n   </p>\n</div>"
+            }
+          },
+          "AuditTrailPart": {
+            "Comment": null,
+            "ShowComment": false
+          },
+          "GraphSyncPart": {
+            "Text": "<<contentapiprefix>>/triageresulttile/89ed8c9c-c440-4b54-8551-0eba1831ca9a"
+          },
+          "TitlePart": {
+            "Title": "The benefits of a virtual internship  - not in work"
+          }
+        },
+        {
+          "ContentItemId": "45prkwjbqmsam69e8j4pg7g7ns",
+          "ContentItemVersionId": "4zzx82xcbfjff1511apjrvw1nz",
+          "ContentType": "TriageResultTile",
+          "DisplayText": "Tips for taking psychometric tests - not in work",
+          "Latest": true,
+          "Published": true,
+          "ModifiedUtc": "2024-10-17T22:09:22.0888411Z",
+          "PublishedUtc": "2024-10-17T22:09:22.1905969Z",
+          "CreatedUtc": "2024-09-01T22:00:56.8437889Z",
+          "Owner": "41xc6z9rat7tjykwwe24q74dm6",
+          "Author": "siva.muruganandham",
+          "TriageResultTile": {
+            "TriageLevelOne": {
+              "ContentItemIds": [
+                "4jg4pebz90zrc0r8ae433sbe4a"
+              ]
+            },
+            "TriageResult": {
+              "ContentItemIds": [
+                "480p3x28gb76zsqh4kykq4c548"
+              ]
+            },
+            "TriageTileHtml": {
+              "Html": " <div id=\"triage-result-tile-container-how-to-prepare-for-psychometric-tests-not-in-work\" class=\"triage-tile article-tile\">\n  <h3 class=\"tile-header\">\n   <a href=\"/careers-advice/how-to-prepare-for-psychometric-tests\" id=\"triage-result-tile-link-how-to-prepare-for-psychometric-tests-not-in-work\" class=\"govuk-link\">Psychometric tests: prepare and practise</a>\n</h3>\n <p class=\"tile-description\">\n                       Find out what to expect from a test which assesses how you think and your personality.\n   </p>\n</div>"
+            }
+          },
+          "AuditTrailPart": {
+            "Comment": null,
+            "ShowComment": false
+          },
+          "GraphSyncPart": {
+            "Text": "<<contentapiprefix>>/triageresulttile/56a24136-2b0f-4b7e-ba9d-42888948c72c"
+          },
+          "TitlePart": {
+            "Title": "Tips for taking psychometric tests - not in work"
+          }
+        },
+        {
+          "ContentItemId": "44sknqynk34xz0z7e6d93qxadz",
+          "ContentItemVersionId": "4n6vfdcb7kqpm5zz97qqb0ca5r",
+          "ContentType": "TriageResultTile",
+          "DisplayText": "Tips for taking psychometric tests - employed",
+          "Latest": true,
+          "Published": true,
+          "ModifiedUtc": "2024-10-17T22:09:54.1400834Z",
+          "PublishedUtc": "2024-10-17T22:09:54.2227994Z",
+          "CreatedUtc": "2024-09-01T17:03:27.8116483Z",
+          "Owner": "41xc6z9rat7tjykwwe24q74dm6",
+          "Author": "siva.muruganandham",
+          "TriageResultTile": {
+            "TriageLevelOne": {
+              "ContentItemIds": [
+                "4e2mfha8xd23rvhzjt6exfcpck"
+              ]
+            },
+            "TriageResult": {
+              "ContentItemIds": [
+                "480p3x28gb76zsqh4kykq4c548"
+              ]
+            },
+            "TriageTileHtml": {
+              "Html": " <div id=\"triage-result-tile-container-how-to-prepare-for-psychometric-tests-employed\" class=\"triage-tile article-tile\">\n  <h3 class=\"tile-header\">\n   <a href=\"/careers-advice/how-to-prepare-for-psychometric-tests\" id=\"triage-result-tile-link-how-to-prepare-for-psychometric-tests-employed\" class=\"govuk-link\"> Psychometric tests: prepare and practise</a>\n</h3>\n\n   <p class=\"tile-description\">\n                       Find out what to expect from a test which assesses how you think and your personality.\n   </p>\n</div>"
+            }
+          },
+          "AuditTrailPart": {
+            "Comment": null,
+            "ShowComment": false
+          },
+          "GraphSyncPart": {
+            "Text": "<<contentapiprefix>>/triageresulttile/445c81a0-781d-4494-9952-0b51849b602a"
+          },
+          "TitlePart": {
+            "Title": "Tips for taking psychometric tests - employed"
+          }
+        },
+        {
+          "ContentItemId": "4y73cg7ryqvksw7zaqnctv29m3",
+          "ContentItemVersionId": "477f22jxb27wwt4f6hgt6sajce",
+          "ContentType": "TriageResultTile",
+          "DisplayText": "Tips for taking psychometric tests - education",
+          "Latest": true,
+          "Published": true,
+          "ModifiedUtc": "2024-10-17T22:10:43.6731144Z",
+          "PublishedUtc": "2024-10-17T22:10:43.7565631Z",
+          "CreatedUtc": "2024-08-30T22:25:51.093309Z",
+          "Owner": "41xc6z9rat7tjykwwe24q74dm6",
+          "Author": "siva.muruganandham",
+          "TriageResultTile": {
+            "TriageLevelOne": {
+              "ContentItemIds": [
+                "4hyyfbrh8swxszn5edkbrwafxb"
+              ]
+            },
+            "TriageResult": {
+              "ContentItemIds": [
+                "480p3x28gb76zsqh4kykq4c548"
+              ]
+            },
+            "TriageTileHtml": {
+              "Html": " <div id=\"triage-result-tile-container-how-to-prepare-for-psychometric-tests-education\" class=\"triage-tile article-tile\">\n  <h3 class=\"tile-header\">\n    <a href=\"/careers-advice/how-to-prepare-for-psychometric-tests\" id=\"triage-result-tile-link-how-to-prepare-for-psychometric-tests-education\" class=\"govuk-link\">Psychometric tests: prepare and practise</a>\n</h3>\n   <p class=\"tile-description\">\n                       Find out what to expect from a test which assesses how you think and your personality.\n   </p>\n</div>"
+            }
+          },
+          "AuditTrailPart": {
+            "Comment": null,
+            "ShowComment": false
+          },
+          "GraphSyncPart": {
+            "Text": "<<contentapiprefix>>/triageresulttile/51f8145d-d226-485f-82fa-c673f9fc90ff"
+          },
+          "TitlePart": {
+            "Title": "Tips for taking psychometric tests - education"
+          }
+        },
+        {
+          "ContentItemId": "4sm86sjn4jxz57frd4y6646qcw",
+          "ContentItemVersionId": "4m9apxq05mc1dytw1gkcfv5nxq",
+          "ContentType": "TriageResultTile",
+          "DisplayText": "How to answer interview questions - not in work",
+          "Latest": true,
+          "Published": true,
+          "ModifiedUtc": "2024-10-17T22:11:37.9214212Z",
+          "PublishedUtc": "2024-10-17T22:11:38.00179Z",
+          "CreatedUtc": "2024-09-01T21:55:58.6098438Z",
+          "Owner": "41xc6z9rat7tjykwwe24q74dm6",
+          "Author": "siva.muruganandham",
+          "TriageResultTile": {
+            "TriageLevelOne": {
+              "ContentItemIds": [
+                "4jg4pebz90zrc0r8ae433sbe4a"
+              ]
+            },
+            "TriageResult": {
+              "ContentItemIds": [
+                "44hpw2gakwgqpzhm3wtqgkymxv"
+              ]
+            },
+            "TriageTileHtml": {
+              "Html": " <div id=\"triage-result-tile-container-top-10-interview-questions-not-in-work\" class=\"triage-tile article-tile\">\n  <h3 class=\"tile-header\">\n    <a href=\"/careers-advice/top-10-interview-questions\" id=\"triage-result-tile-link-top-10-interview-questions-not-in-work\" class=\"govuk-link\">How to answer common interview questions</a>\n</h3>\n\n   <p class=\"tile-description\">\n                            See common interview questions and example answers.\n   </p>\n</div>"
+            }
+          },
+          "AuditTrailPart": {
+            "Comment": null,
+            "ShowComment": false
+          },
+          "GraphSyncPart": {
+            "Text": "<<contentapiprefix>>/triageresulttile/40e0fdf3-1c59-421e-845f-a52ad199d3ea"
+          },
+          "TitlePart": {
+            "Title": "How to answer interview questions - not in work"
+          }
+        },
+        {
+          "ContentItemId": "4kg67m8y8d1xmtmnhpmhd5qz56",
+          "ContentItemVersionId": "4bw5w9pbnbrs40gfaqjzfd9vde",
+          "ContentType": "TriageResultTile",
+          "DisplayText": "How to answer interview questions - employed",
+          "Latest": true,
+          "Published": true,
+          "ModifiedUtc": "2024-10-17T22:12:19.5990393Z",
+          "PublishedUtc": "2024-10-17T22:12:19.6793424Z",
+          "CreatedUtc": "2024-09-01T16:55:03.4938107Z",
+          "Owner": "41xc6z9rat7tjykwwe24q74dm6",
+          "Author": "siva.muruganandham",
+          "TriageResultTile": {
+            "TriageLevelOne": {
+              "ContentItemIds": [
+                "4e2mfha8xd23rvhzjt6exfcpck"
+              ]
+            },
+            "TriageResult": {
+              "ContentItemIds": [
+                "44hpw2gakwgqpzhm3wtqgkymxv"
+              ]
+            },
+            "TriageTileHtml": {
+              "Html": " <div id=\"triage-result-tile-container-top-10-interview-questions-employed\" class=\"triage-tile article-tile\">\n  <h3 class=\"tile-header\">\n    <a href=\"/careers-advice/top-10-interview-questions\" id=\"triage-result-tile-link-top-10-interview-questions-employed\" class=\"govuk-link\">How to answer common interview questions</a>\n</h3>\n   <p class=\"tile-description\">\n                            See common interview questions and example answers.\n   </p>\n</div>"
+            }
+          },
+          "AuditTrailPart": {
+            "Comment": null,
+            "ShowComment": false
+          },
+          "GraphSyncPart": {
+            "Text": "<<contentapiprefix>>/triageresulttile/b7132ddf-58fe-4471-a5cb-5137425d2932"
+          },
+          "TitlePart": {
+            "Title": "How to answer interview questions - employed"
+          }
+        },
+        {
+          "ContentItemId": "415kyv9dzzyra70bxwp5mdy2nw",
+          "ContentItemVersionId": "4v1dwbk3gs1aby16x7jnrse4wj",
+          "ContentType": "TriageResultTile",
+          "DisplayText": "How to answer interview questions - education",
+          "Latest": true,
+          "Published": true,
+          "ModifiedUtc": "2024-10-17T22:12:57.704433Z",
+          "PublishedUtc": "2024-10-17T22:12:57.7844447Z",
+          "CreatedUtc": "2024-08-30T21:37:12.2707199Z",
+          "Owner": "41xc6z9rat7tjykwwe24q74dm6",
+          "Author": "siva.muruganandham",
+          "TriageResultTile": {
+            "TriageLevelOne": {
+              "ContentItemIds": [
+                "4hyyfbrh8swxszn5edkbrwafxb"
+              ]
+            },
+            "TriageResult": {
+              "ContentItemIds": [
+                "44hpw2gakwgqpzhm3wtqgkymxv"
+              ]
+            },
+            "TriageTileHtml": {
+              "Html": " <div id=\"triage-result-tile-container-top-10-interview-questions-education\" class=\"triage-tile article-tile\">\n  <h3 class=\"tile-header\">\n    <a href=\"/careers-advice/top-10-interview-questions\" id=\"triage-result-tile-link-top-10-interview-questions-education\" class=\"govuk-link\">How to answer common interview questions</a>\n</h3>\n\n   <p class=\"tile-description\">\n                            See common interview questions and example answers.\n   </p>\n</div>"
+            }
+          },
+          "AuditTrailPart": {
+            "Comment": null,
+            "ShowComment": false
+          },
+          "GraphSyncPart": {
+            "Text": "<<contentapiprefix>>/triageresulttile/5672ba9d-345d-4e4a-968c-36e7f58bfb9c"
+          },
+          "TitlePart": {
+            "Title": "How to answer interview questions - education"
+          }
+        },
+        {
+          "ContentItemId": "4wred7fb1rd9vtzb1kpcz52rmn",
+          "ContentItemVersionId": "4phd8gwxyxgybwz45mppk0pbca",
+          "ContentType": "TriageResultTile",
+          "DisplayText": "Tips for application forms - employed",
+          "Latest": true,
+          "Published": true,
+          "ModifiedUtc": "2024-10-17T22:13:31.419377Z",
+          "PublishedUtc": "2024-10-17T22:13:31.4992033Z",
+          "CreatedUtc": "2024-09-01T16:36:39.9290366Z",
+          "Owner": "41xc6z9rat7tjykwwe24q74dm6",
+          "Author": "siva.muruganandham",
+          "TriageResultTile": {
+            "TriageLevelOne": {
+              "ContentItemIds": [
+                "4e2mfha8xd23rvhzjt6exfcpck"
+              ]
+            },
+            "TriageResult": {
+              "ContentItemIds": [
+                "4bj9z1tmf9we1vtyd5y6mnyvm7"
+              ]
+            },
+            "TriageTileHtml": {
+              "Html": " <div id=\"triage-result-tile-container-application-forms-employed\" class=\"triage-tile article-tile\">\n  <h3 class=\"tile-header\">\n    <a href=\"/careers-advice/application-forms\" id=\"triage-result-tile-link-application-forms-employed\" class=\"govuk-link\">How to complete an application form</a>\n</h3>\n   <p class=\"tile-description\">\n                        Find advice on what to include in a job application and tips on how to structure your answers.\n   </p>\n</div>"
+            }
+          },
+          "AuditTrailPart": {
+            "Comment": null,
+            "ShowComment": false
+          },
+          "GraphSyncPart": {
+            "Text": "<<contentapiprefix>>/triageresulttile/6b23f3f0-506b-4a05-919a-241654ae0514"
+          },
+          "TitlePart": {
+            "Title": "Tips for application forms - employed"
+          }
+        },
+        {
+          "ContentItemId": "4cztg562693jmtqp5bh72k6ecz",
+          "ContentItemVersionId": "4hyxhvewwkd0q5sseg1c1z1ech",
+          "ContentType": "TriageResultTile",
+          "DisplayText": "Tips for application forms - not in work",
+          "Latest": true,
+          "Published": true,
+          "ModifiedUtc": "2024-10-17T22:14:03.9058434Z",
+          "PublishedUtc": "2024-10-17T22:14:03.9915451Z",
+          "CreatedUtc": "2024-09-01T21:33:30.7259697Z",
+          "Owner": "41xc6z9rat7tjykwwe24q74dm6",
+          "Author": "siva.muruganandham",
+          "TriageResultTile": {
+            "TriageLevelOne": {
+              "ContentItemIds": [
+                "4jg4pebz90zrc0r8ae433sbe4a"
+              ]
+            },
+            "TriageResult": {
+              "ContentItemIds": [
+                "4bj9z1tmf9we1vtyd5y6mnyvm7"
+              ]
+            },
+            "TriageTileHtml": {
+              "Html": " <div id=\"triage-result-tile-container-application-forms-not-in-work\" class=\"triage-tile article-tile\">\n  <h3 class=\"tile-header\">\n    <a href=\"/careers-advice/application-forms\" id=\"triage-result-tile-link-application-forms-not-in-work\" class=\"govuk-link\">How to complete an application form</a>\n</h3>\n   <p class=\"tile-description\">\n                        Find advice on what to include in a job application and tips on how to structure your answers.\n   </p>\n</div>"
+            }
+          },
+          "AuditTrailPart": {
+            "Comment": null,
+            "ShowComment": false
+          },
+          "GraphSyncPart": {
+            "Text": "<<contentapiprefix>>/triageresulttile/c346f11e-d979-4689-8b43-821841cfbb38"
+          },
+          "TitlePart": {
+            "Title": "Tips for application forms - not in work"
+          }
+        },
+        {
+          "ContentItemId": "45nxf00ag17aksgx6fm8zcc6d3",
+          "ContentItemVersionId": "4608kmajgy7f1yama77w57me4w",
+          "ContentType": "TriageResultTile",
+          "DisplayText": "Tips for application forms - education",
+          "Latest": true,
+          "Published": true,
+          "ModifiedUtc": "2024-10-17T22:14:38.036615Z",
+          "PublishedUtc": "2024-10-17T22:14:38.1171102Z",
+          "CreatedUtc": "2024-08-30T22:23:17.3686414Z",
+          "Owner": "41xc6z9rat7tjykwwe24q74dm6",
+          "Author": "siva.muruganandham",
+          "TriageResultTile": {
+            "TriageLevelOne": {
+              "ContentItemIds": [
+                "4hyyfbrh8swxszn5edkbrwafxb"
+              ]
+            },
+            "TriageResult": {
+              "ContentItemIds": [
+                "4bj9z1tmf9we1vtyd5y6mnyvm7"
+              ]
+            },
+            "TriageTileHtml": {
+              "Html": " <div id=\"triage-result-tile-container-tips-application-forms-education\" class=\"triage-tile article-tile\">\n  <h3 class=\"tile-header\">\n    <a href=\"/careers-advice/application-forms\" id=\"triage-result-tile-link-tips-application-forms-education\" class=\"govuk-link\">How to complete an application form</a>\n</h3>\n   <p class=\"tile-description\">\n                        Find advice on what to include in an application and tips on how to structure your answers.\n   </p>\n</div>"
+            }
+          },
+          "AuditTrailPart": {
+            "Comment": null,
+            "ShowComment": false
+          },
+          "GraphSyncPart": {
+            "Text": "<<contentapiprefix>>/triageresulttile/a22337a3-282e-43f5-abbb-b81359317970"
+          },
+          "TitlePart": {
+            "Title": "Tips for application forms - education"
+          }
+        },
+        {
+          "ContentItemId": "4ts116je02ywarpvb7eg1dzwce",
+          "ContentItemVersionId": "41jfsz5j6rbwx7n1dpj729z3dk",
+          "ContentType": "TriageResultTile",
+          "DisplayText": "How to develop your soft skills  - not in work",
+          "Latest": true,
+          "Published": true,
+          "ModifiedUtc": "2024-10-17T22:15:34.877647Z",
+          "PublishedUtc": "2024-10-17T22:15:34.958493Z",
+          "CreatedUtc": "2024-09-01T21:23:26.9712566Z",
+          "Owner": "41xc6z9rat7tjykwwe24q74dm6",
+          "Author": "siva.muruganandham",
+          "TriageResultTile": {
+            "TriageLevelOne": {
+              "ContentItemIds": [
+                "4jg4pebz90zrc0r8ae433sbe4a"
+              ]
+            },
+            "TriageResult": {
+              "ContentItemIds": [
+                "4het8a9ng2dzw2afk8xtt5tb4h"
+              ]
+            },
+            "TriageTileHtml": {
+              "Html": " <div id=\"triage-result-tile-container-how-to-develop-your-soft-skills-not-in-work\" class=\"triage-tile article-tile\">\n  <h3 class=\"tile-header\">\n    <a href=\"/careers-advice/how-to-develop-your-soft-skills\" id=\"triage-result-tile-link-how-to-develop-your-soft-skills-not-in-work\" class=\"govuk-link\">Develop your soft skills</a>\n</h3>\n\n   <p class=\"tile-description\">\n                            Learn how to build soft skills such as leadership, problem solving and communication. \n   </p>\n</div>"
+            }
+          },
+          "AuditTrailPart": {
+            "Comment": null,
+            "ShowComment": false
+          },
+          "GraphSyncPart": {
+            "Text": "<<contentapiprefix>>/triageresulttile/c1aab249-d0f3-439e-ab3d-3b666c144e96"
+          },
+          "TitlePart": {
+            "Title": "How to develop your soft skills  - not in work"
+          }
+        },
+        {
+          "ContentItemId": "413v64x3py4qdvfbd5tkrhyrme",
+          "ContentItemVersionId": "4e2grbpsy4wz43sw365thn9vm7",
+          "ContentType": "TriageResultTile",
+          "DisplayText": "How to develop your soft skills  - employed",
+          "Latest": true,
+          "Published": true,
+          "ModifiedUtc": "2024-10-17T22:16:07.416031Z",
+          "PublishedUtc": "2024-10-17T22:16:07.4979875Z",
+          "CreatedUtc": "2024-09-01T17:15:36.8040837Z",
+          "Owner": "41xc6z9rat7tjykwwe24q74dm6",
+          "Author": "siva.muruganandham",
+          "TriageResultTile": {
+            "TriageLevelOne": {
+              "ContentItemIds": [
+                "4e2mfha8xd23rvhzjt6exfcpck"
+              ]
+            },
+            "TriageResult": {
+              "ContentItemIds": [
+                "4het8a9ng2dzw2afk8xtt5tb4h"
+              ]
+            },
+            "TriageTileHtml": {
+              "Html": " <div id=\"triage-result-tile-container-how-to-develop-your-soft-skills-employed\" class=\"triage-tile article-tile\">\n  <h3 class=\"tile-header\">\n    <a href=\"/careers-advice/how-to-develop-your-soft-skills\" id=\"triage-result-tile-link-how-to-develop-your-soft-skills-employed\" class=\"govuk-link\">Develop your soft skills</a>\n</h3>\n    <p class=\"tile-description\">\n                            Learn how to build soft skills such as leadership, problem solving and communication. \n   </p>\n</div>"
+            }
+          },
+          "AuditTrailPart": {
+            "Comment": null,
+            "ShowComment": false
+          },
+          "GraphSyncPart": {
+            "Text": "<<contentapiprefix>>/triageresulttile/551702d9-d6ab-4d1b-b2ee-ea7fb8178322"
+          },
+          "TitlePart": {
+            "Title": "How to develop your soft skills  - employed"
+          }
+        },
+        {
+          "ContentItemId": "4rwrcvhd51enm6t0e7x37rmv5m",
+          "ContentItemVersionId": "42g7fzfgfzxz9w6rjm6ab1face",
+          "ContentType": "TriageResultTile",
+          "DisplayText": "How to develop your soft skills  - education",
+          "Latest": true,
+          "Published": true,
+          "ModifiedUtc": "2024-10-17T22:16:56.6023431Z",
+          "PublishedUtc": "2024-10-17T22:16:56.6827847Z",
+          "CreatedUtc": "2024-08-30T21:54:31.1589737Z",
+          "Owner": "41xc6z9rat7tjykwwe24q74dm6",
+          "Author": "siva.muruganandham",
+          "TriageResultTile": {
+            "TriageLevelOne": {
+              "ContentItemIds": [
+                "4hyyfbrh8swxszn5edkbrwafxb"
+              ]
+            },
+            "TriageResult": {
+              "ContentItemIds": [
+                "4het8a9ng2dzw2afk8xtt5tb4h"
+              ]
+            },
+            "TriageTileHtml": {
+              "Html": " <div id=\"triage-result-tile-container-how-to-develop-your-soft-skills-education\" class=\"triage-tile article-tile\">\n  <h3 class=\"tile-header\">\n    <a href=\"/careers-advice/how-to-develop-your-soft-skills\" id=\"triage-result-tile-link-how-to-develop-your-soft-skills-education\" class=\"govuk-link\">Develop your soft skills</a>\n</h3>\n \n   <p class=\"tile-description\">\n                            Learn how to build soft skills such as leadership, problem solving and communication. \n   </p>\n</div>"
+            }
+          },
+          "AuditTrailPart": {
+            "Comment": null,
+            "ShowComment": false
+          },
+          "GraphSyncPart": {
+            "Text": "<<contentapiprefix>>/triageresulttile/cfdba1aa-dc60-4562-a834-cdecee45297c"
+          },
+          "TitlePart": {
+            "Title": "How to develop your soft skills  - education"
+          }
+        },
+        {
+          "ContentItemId": "467w23xntyv3nrq35k310qkx52",
+          "ContentItemVersionId": "4askx0q6yp41317tfzft71484v",
+          "ContentType": "TriageResultTile",
+          "DisplayText": "The benefits of online learning - not in work",
+          "Latest": true,
+          "Published": true,
+          "ModifiedUtc": "2024-10-17T22:17:41.3036505Z",
+          "PublishedUtc": "2024-10-17T22:17:41.3845334Z",
+          "CreatedUtc": "2024-09-01T21:24:43.5534256Z",
+          "Owner": "41xc6z9rat7tjykwwe24q74dm6",
+          "Author": "siva.muruganandham",
+          "TriageResultTile": {
+            "TriageLevelOne": {
+              "ContentItemIds": [
+                "4jg4pebz90zrc0r8ae433sbe4a"
+              ]
+            },
+            "TriageResult": {
+              "ContentItemIds": [
+                "4qefyn75rzpzmzqkb2159cv1cm"
+              ]
+            },
+            "TriageTileHtml": {
+              "Html": " <div id=\"triage-result-tile-container-getting-the-most-out-of-online-learning-not-in-work\" class=\"triage-tile article-tile\">\n  <h3 class=\"tile-header\">\n    <a href=\"/careers-advice/getting-the-most-out-of-online-learning\" id=\"triage-result-tile-link-getting-the-most-out-of-online-learning-not-in-work\" class=\"govuk-link\">Get the most out of online learning</a>\n</h3>\n   <p class=\"tile-description\">\n                        Get advice on how you can prepare and benefit from an online course.\n   </p>\n</div>"
+            }
+          },
+          "AuditTrailPart": {
+            "Comment": null,
+            "ShowComment": false
+          },
+          "GraphSyncPart": {
+            "Text": "<<contentapiprefix>>/triageresulttile/f2067e88-cc88-4e1f-bbb3-e6f4b40c3b90"
+          },
+          "TitlePart": {
+            "Title": "The benefits of online learning - not in work"
+          }
+        },
+        {
+          "ContentItemId": "4w20hj7c5n23q3hjphs6z3dj5h",
+          "ContentItemVersionId": "4wzmg99xndk67sp05w2fgq83dg",
+          "ContentType": "TriageResultTile",
+          "DisplayText": "The benefits of online learning - employed",
+          "Latest": true,
+          "Published": true,
+          "ModifiedUtc": "2024-10-17T22:21:19.29805Z",
+          "PublishedUtc": "2024-10-17T22:21:19.3801768Z",
+          "CreatedUtc": "2024-09-01T17:16:43.2658918Z",
+          "Owner": "41xc6z9rat7tjykwwe24q74dm6",
+          "Author": "siva.muruganandham",
+          "TriageResultTile": {
+            "TriageLevelOne": {
+              "ContentItemIds": [
+                "4e2mfha8xd23rvhzjt6exfcpck"
+              ]
+            },
+            "TriageResult": {
+              "ContentItemIds": [
+                "4qefyn75rzpzmzqkb2159cv1cm"
+              ]
+            },
+            "TriageTileHtml": {
+              "Html": " <div id=\"triage-result-tile-container-getting-the-most-out-of-online-learning-employed\" class=\"triage-tile  article-tile\">\n  <h3 class=\"tile-header\">\n   <a href=\"/careers-advice/getting-the-most-out-of-online-learning\" id=\"triage-result-tile-link-getting-the-most-out-of-online-learning-employed\" class=\"govuk-link\">Get the most out of online learning</a>\n</h3>\n   <p class=\"tile-description\">\n                        Get advice on how you can prepare and benefit from an online course.\n   </p>\n</div>"
+            }
+          },
+          "AuditTrailPart": {
+            "Comment": null,
+            "ShowComment": false
+          },
+          "GraphSyncPart": {
+            "Text": "<<contentapiprefix>>/triageresulttile/0a7d4f9e-0b8e-412d-ac3a-25ca8a6114db"
+          },
+          "TitlePart": {
+            "Title": "The benefits of online learning - employed"
+          }
+        },
+        {
+          "ContentItemId": "44pagm57fsezn1qyvdvfe40456",
+          "ContentItemVersionId": "4a4xm5xa8zngm17hdna13e53x5",
+          "ContentType": "TriageResultTile",
+          "DisplayText": "The benefits of online learning - education",
+          "Latest": true,
+          "Published": true,
+          "ModifiedUtc": "2024-10-17T22:21:43.8923146Z",
+          "PublishedUtc": "2024-10-17T22:21:43.9757675Z",
+          "CreatedUtc": "2024-08-30T22:17:12.9376496Z",
+          "Owner": "41xc6z9rat7tjykwwe24q74dm6",
+          "Author": "siva.muruganandham",
+          "TriageResultTile": {
+            "TriageLevelOne": {
+              "ContentItemIds": [
+                "4hyyfbrh8swxszn5edkbrwafxb"
+              ]
+            },
+            "TriageResult": {
+              "ContentItemIds": [
+                "4qefyn75rzpzmzqkb2159cv1cm"
+              ]
+            },
+            "TriageTileHtml": {
+              "Html": " <div id=\"triage-result-tile-container-getting-the-most-out-of-online-learning-education\" class=\"triage-tile article-tile\">\n  <h3 class=\"tile-header\">\n    <a href=\"/careers-advice/getting-the-most-out-of-online-learning\" id=\"triage-result-tile-link-getting-the-most-out-of-online-learning-education\" class=\"govuk-link\">Get the most out of online learning</a>\n</h3>\n   <p class=\"tile-description\">\n                        Get advice on how you can prepare and benefit from an online course.\n   </p>\n</div>"
+            }
+          },
+          "AuditTrailPart": {
+            "Comment": null,
+            "ShowComment": false
+          },
+          "GraphSyncPart": {
+            "Text": "<<contentapiprefix>>/triageresulttile/8c9c3ae7-259f-4e92-a5f3-bb0b5d4b1c0d"
+          },
+          "TitlePart": {
+            "Title": "The benefits of online learning - education"
+          }
+        },
+        {
+          "ContentItemId": "4m9nc3h3qjp5vy3xqby8y0fax3",
+          "ContentItemVersionId": "4xf4qq1hw72m5vf562pqdbwxcb",
+          "ContentType": "TriageResultTile",
+          "DisplayText": "The benefits of work experience - education",
+          "Latest": true,
+          "Published": true,
+          "ModifiedUtc": "2024-10-17T22:22:11.5784726Z",
+          "PublishedUtc": "2024-10-17T22:22:11.6592345Z",
+          "CreatedUtc": "2024-08-30T22:19:28.3356376Z",
+          "Owner": "41xc6z9rat7tjykwwe24q74dm6",
+          "Author": "siva.muruganandham",
+          "TriageResultTile": {
+            "TriageLevelOne": {
+              "ContentItemIds": [
+                "4hyyfbrh8swxszn5edkbrwafxb"
+              ]
+            },
+            "TriageResult": {
+              "ContentItemIds": [
+                "49prrwpsf47t2454cr67awhv4k"
+              ]
+            },
+            "TriageTileHtml": {
+              "Html": " <div id=\"triage-result-tile-container-types-of-work-experience-education\" class=\"triage-tile article-tile\">\n  <h3 class=\"tile-header\">\n    <a href=\"/careers-advice/types-of-work-experience\" id=\"triage-result-tile-link-types-of-work-experience-education\" class=\"govuk-link\">How to get work experience</a>\n</h3>\n   <p class=\"tile-description\">\n                        Find out how work experience can help you try out a career to see if it’s right for you.\n   </p>\n</div>"
+            }
+          },
+          "AuditTrailPart": {
+            "Comment": null,
+            "ShowComment": false
+          },
+          "GraphSyncPart": {
+            "Text": "<<contentapiprefix>>/triageresulttile/bc8af38a-17fa-4da9-b3c9-c3ff6ab9acaf"
+          },
+          "TitlePart": {
+            "Title": "The benefits of work experience - education"
+          }
+        },
+        {
+          "ContentItemId": "4bgz71hqp9r84x9qjs5fhnh2xf",
+          "ContentItemVersionId": "4mt7x88n3kag23qsjvf78veaw7",
+          "ContentType": "TriageResultTile",
+          "DisplayText": "Work experience - employed",
+          "Latest": true,
+          "Published": true,
+          "ModifiedUtc": "2024-10-17T22:22:37.5321467Z",
+          "PublishedUtc": "2024-10-17T22:22:37.6138348Z",
+          "CreatedUtc": "2024-09-01T18:20:29.9909308Z",
+          "Owner": "41xc6z9rat7tjykwwe24q74dm6",
+          "Author": "siva.muruganandham",
+          "TriageResultTile": {
+            "TriageLevelOne": {
+              "ContentItemIds": [
+                "4e2mfha8xd23rvhzjt6exfcpck"
+              ]
+            },
+            "TriageResult": {
+              "ContentItemIds": [
+                "49prrwpsf47t2454cr67awhv4k"
+              ]
+            },
+            "TriageTileHtml": {
+              "Html": " <div id=\"triage-result-tile-container-types-of-work-experience-employed\" class=\"triage-tile article-tile\">\n  <h3 class=\"tile-header\">\n    <a href=\"/careers-advice/types-of-work-experience\" id=\"triage-result-tile-link-types-of-work-experience-employed\" class=\"govuk-link\">How to get work experience</a>\n</h3>\n \n   <p class=\"tile-description\">\n                        Find out why work experience is important and how it can help you develop.\n   </p>\n</div>"
+            }
+          },
+          "AuditTrailPart": {
+            "Comment": null,
+            "ShowComment": false
+          },
+          "GraphSyncPart": {
+            "Text": "<<contentapiprefix>>/triageresulttile/32d84edb-bdcd-4d01-9376-96dd68469e2d"
+          },
+          "TitlePart": {
+            "Title": "Work experience - employed"
+          }
+        },
+        {
+          "ContentItemId": "4h3n01b3ffs9ar9y9s6ecmr94e",
+          "ContentItemVersionId": "4sm0msm4nde09wn6gc64csqx4p",
+          "ContentType": "TriageResultTile",
+          "DisplayText": "Work experience - not in work",
+          "Latest": true,
+          "Published": true,
+          "ModifiedUtc": "2024-10-17T22:23:13.2043065Z",
+          "PublishedUtc": "2024-10-17T22:23:13.2890433Z",
+          "CreatedUtc": "2024-09-01T21:03:29.9404597Z",
+          "Owner": "41xc6z9rat7tjykwwe24q74dm6",
+          "Author": "siva.muruganandham",
+          "TriageResultTile": {
+            "TriageLevelOne": {
+              "ContentItemIds": [
+                "4jg4pebz90zrc0r8ae433sbe4a"
+              ]
+            },
+            "TriageResult": {
+              "ContentItemIds": [
+                "49prrwpsf47t2454cr67awhv4k"
+              ]
+            },
+            "TriageTileHtml": {
+              "Html": " <div id=\"triage-result-tile-container-types-of-work-experience-not-in-work\" class=\"triage-tile  article-tile\">\n  <h3 class=\"tile-header\">\n    <a href=\"/careers-advice/types-of-work-experience\" id=\"triage-result-tile-link-types-of-work-experience-not-in-work\" class=\"govuk-link\">How to get work experience</a>\n</h3>\n \n   <p class=\"tile-description\">\n                         See how work experience can help you find work and learn how to find placements.\n   </p>\n</div>"
+            }
+          },
+          "AuditTrailPart": {
+            "Comment": null,
+            "ShowComment": false
+          },
+          "GraphSyncPart": {
+            "Text": "<<contentapiprefix>>/triageresulttile/bbd6a11d-7b58-4067-b4cc-d87b496ebfe4"
+          },
+          "TitlePart": {
+            "Title": "Work experience - not in work"
+          }
+        },
+        {
+          "ContentItemId": "45b3ce7qdvs6qx1sarjtjzednc",
+          "ContentItemVersionId": "4r6x3vt5xd77jx0ajn0xtnfsmt",
+          "ContentType": "TriageResultTile",
+          "DisplayText": "Having a mentor - not in work",
+          "Latest": true,
+          "Published": true,
+          "ModifiedUtc": "2024-10-17T22:24:58.9983071Z",
+          "PublishedUtc": "2024-10-17T22:24:59.0939851Z",
+          "CreatedUtc": "2024-09-01T21:28:58.9984229Z",
+          "Owner": "41xc6z9rat7tjykwwe24q74dm6",
+          "Author": "siva.muruganandham",
+          "TriageResultTile": {
+            "TriageLevelOne": {
+              "ContentItemIds": [
+                "4jg4pebz90zrc0r8ae433sbe4a"
+              ]
+            },
+            "TriageResult": {
+              "ContentItemIds": [
+                "41730vatwphnzs0hbx8stbcb51"
+              ]
+            },
+            "TriageTileHtml": {
+              "Html": " <div id=\"triage-result-tile-container-getting-the-most-out-of-mentoring\" class=\"triage-tile article-tile\">\n  <h3 class=\"tile-header\">\n    <a href=\"/careers-advice/getting-the-most-out-of-mentoring/\" id=\"triage-result-tile-link-getting-the-most-out-of-mentoring\" class=\"govuk-link\">How to get a mentor</a>\n</h3>\n   <p class=\"tile-description\">\n                            Learn where to find a mentor and how they can support you in your career.\n   </p>\n</div>"
+            }
+          },
+          "AuditTrailPart": {
+            "Comment": null,
+            "ShowComment": false
+          },
+          "GraphSyncPart": {
+            "Text": "<<contentapiprefix>>/triageresulttile/8a944b2b-c908-4d4a-9413-fa20f9369180"
+          },
+          "TitlePart": {
+            "Title": "Having a mentor - not in work"
+          }
+        },
+        {
+          "ContentItemId": "4z714q7q2z277wwkg2e94vbyny",
+          "ContentItemVersionId": "41r96mw2drcrn5g7p8st592pnj",
+          "ContentType": "TriageResultTile",
+          "DisplayText": "Having a mentor - employed",
+          "Latest": true,
+          "Published": true,
+          "ModifiedUtc": "2024-10-17T22:25:49.6464422Z",
+          "PublishedUtc": "2024-10-17T22:25:49.7264501Z",
+          "CreatedUtc": "2024-09-01T17:06:18.6609784Z",
+          "Owner": "41xc6z9rat7tjykwwe24q74dm6",
+          "Author": "siva.muruganandham",
+          "TriageResultTile": {
+            "TriageLevelOne": {
+              "ContentItemIds": [
+                "4e2mfha8xd23rvhzjt6exfcpck"
+              ]
+            },
+            "TriageResult": {
+              "ContentItemIds": [
+                "41730vatwphnzs0hbx8stbcb51"
+              ]
+            },
+            "TriageTileHtml": {
+              "Html": " <div id=\"triage-result-tile-container-getting-the-most-out-of-mentoring-employed\" class=\"triage-tile article-tile\">\n  <h3 class=\"tile-header\">\n    <a href=\"/careers-advice/getting-the-most-out-of-mentoring\" id=\"triage-result-tile-link-getting-the-most-out-of-mentoring-employed\" class=\"govuk-link\">How to get a mentor</a>\n</h3>\n   <p class=\"tile-description\">\n                            Learn where to find a mentor and how they can support you in your career.\n   </p>\n</div>"
+            }
+          },
+          "AuditTrailPart": {
+            "Comment": null,
+            "ShowComment": false
+          },
+          "GraphSyncPart": {
+            "Text": "<<contentapiprefix>>/triageresulttile/95f69e67-02cc-47fa-b2ec-c74afe47a0ab"
+          },
+          "TitlePart": {
+            "Title": "Having a mentor - employed"
+          }
+        },
+        {
+          "ContentItemId": "4c1r5007jh245rdsnypdcjsf5j",
+          "ContentItemVersionId": "4wcv7mjb2x8qhr6mc7624yjym8",
+          "ContentType": "TriageResultTile",
+          "DisplayText": "Having a mentor - education",
+          "Latest": true,
+          "Published": true,
+          "ModifiedUtc": "2024-10-17T22:26:18.4203572Z",
+          "PublishedUtc": "2024-10-17T22:26:18.5124759Z",
+          "CreatedUtc": "2024-08-30T21:35:35.2649277Z",
+          "Owner": "41xc6z9rat7tjykwwe24q74dm6",
+          "Author": "siva.muruganandham",
+          "TriageResultTile": {
+            "TriageLevelOne": {
+              "ContentItemIds": [
+                "4hyyfbrh8swxszn5edkbrwafxb"
+              ]
+            },
+            "TriageResult": {
+              "ContentItemIds": [
+                "41730vatwphnzs0hbx8stbcb51"
+              ]
+            },
+            "TriageTileHtml": {
+              "Html": " <div id=\"triage-result-tile-container-getting-the-most-out-of-mentoring-education\" class=\"triage-tile article-tile\">\n  <h3 class=\"tile-header\">\n    <a href=\"/careers-advice/getting-the-most-out-of-mentoring\" id=\"triage-result-tile-link-getting-the-most-out-of-mentoring-education\" class=\"govuk-link\">How to get a mentor</a>\n</h3>\n   <p class=\"tile-description\">\n                            Learn where to find a mentor and how they can support you in starting your career.\n   </p>\n</div>"
+            }
+          },
+          "AuditTrailPart": {
+            "Comment": null,
+            "ShowComment": false
+          },
+          "GraphSyncPart": {
+            "Text": "<<contentapiprefix>>/triageresulttile/351814b4-a098-4354-812e-88a19b9e928f"
+          },
+          "TitlePart": {
+            "Title": "Having a mentor - education"
+          }
+        },
+        {
+          "ContentItemId": "4zk16w7a4tqtz572t975j9py40",
+          "ContentItemVersionId": "4893wawy4y2xvxdd8ped4ss6wm",
+          "ContentType": "TriageResultTile",
+          "DisplayText": "Networking - not in work",
+          "Latest": true,
+          "Published": true,
+          "ModifiedUtc": "2024-10-17T22:26:45.3159234Z",
+          "PublishedUtc": "2024-10-17T22:26:45.4007994Z",
+          "CreatedUtc": "2024-09-01T21:27:47.6343029Z",
+          "Owner": "41xc6z9rat7tjykwwe24q74dm6",
+          "Author": "siva.muruganandham",
+          "TriageResultTile": {
+            "TriageLevelOne": {
+              "ContentItemIds": [
+                "4jg4pebz90zrc0r8ae433sbe4a"
+              ]
+            },
+            "TriageResult": {
+              "ContentItemIds": [
+                "44agy6p73g7v66tq326dcthjmj"
+              ]
+            },
+            "TriageTileHtml": {
+              "Html": " <div id=\"triage-result-tile-container-networking-not-in-work\" class=\"triage-tile  article-tile\">\n  <h3 class=\"tile-header\">\n    <a href=\"/careers-advice/networking\" id=\"triage-result-tile-link-networking-not-in-work\" class=\"govuk-link\">Networking: tips to help your career</a>\n</h3>\n   <p class=\"tile-description\">\n                         Use your network to find job opportunities, build your reputation and get support.\n   </p>\n</div>"
+            }
+          },
+          "AuditTrailPart": {
+            "Comment": null,
+            "ShowComment": false
+          },
+          "GraphSyncPart": {
+            "Text": "<<contentapiprefix>>/triageresulttile/17d94a0e-127c-4ae6-8ca7-718a794a73e3"
+          },
+          "TitlePart": {
+            "Title": "Networking - not in work"
+          }
+        },
+        {
+          "ContentItemId": "4sa9yam92bvv8539p4cptyb9w9",
+          "ContentItemVersionId": "4w3gaj94kkb0562mnj2gk1bsd0",
+          "ContentType": "TriageResultTile",
+          "DisplayText": "Networking - employed",
+          "Latest": true,
+          "Published": true,
+          "ModifiedUtc": "2024-10-17T22:27:22.4904078Z",
+          "PublishedUtc": "2024-10-17T22:27:22.5723423Z",
+          "CreatedUtc": "2024-09-01T17:04:58.528158Z",
+          "Owner": "41xc6z9rat7tjykwwe24q74dm6",
+          "Author": "siva.muruganandham",
+          "TriageResultTile": {
+            "TriageLevelOne": {
+              "ContentItemIds": [
+                "4e2mfha8xd23rvhzjt6exfcpck"
+              ]
+            },
+            "TriageResult": {
+              "ContentItemIds": [
+                "44agy6p73g7v66tq326dcthjmj"
+              ]
+            },
+            "TriageTileHtml": {
+              "Html": " <div id=\"triage-result-tile-container-networking-employed\" class=\"triage-tile  article-tile\">\n  <h3 class=\"tile-header\">\n    <a href=\"/careers-advice/networking\" id=\"triage-result-tile-link-networking-employed\" class=\"govuk-link\">Networking: tips to help your career</a>\n</h3>\n   <p class=\"tile-description\">\n                         Use your network to find job opportunities, build your reputation and get support.\n   </p>\n</div>"
+            }
+          },
+          "AuditTrailPart": {
+            "Comment": null,
+            "ShowComment": false
+          },
+          "GraphSyncPart": {
+            "Text": "<<contentapiprefix>>/triageresulttile/8c99dc5b-4aa6-4545-800b-e35117be063f"
+          },
+          "TitlePart": {
+            "Title": "Networking - employed"
+          }
+        },
+        {
+          "ContentItemId": "4rt2z75hyy4wew5avf35sdae4r",
+          "ContentItemVersionId": "45cgne3k6jtvrtqf3ppmge68dh",
+          "ContentType": "TriageResultTile",
+          "DisplayText": "Networking - education",
+          "Latest": true,
+          "Published": true,
+          "ModifiedUtc": "2024-10-17T22:27:53.6197029Z",
+          "PublishedUtc": "2024-10-17T22:27:53.7011082Z",
+          "CreatedUtc": "2024-08-30T22:03:08.517495Z",
+          "Owner": "41xc6z9rat7tjykwwe24q74dm6",
+          "Author": "siva.muruganandham",
+          "TriageResultTile": {
+            "TriageLevelOne": {
+              "ContentItemIds": [
+                "4hyyfbrh8swxszn5edkbrwafxb"
+              ]
+            },
+            "TriageResult": {
+              "ContentItemIds": [
+                "44agy6p73g7v66tq326dcthjmj"
+              ]
+            },
+            "TriageTileHtml": {
+              "Html": " <div id=\"triage-result-tile-container-networking-education\" class=\"triage-tile article-tile\">\n  <h3 class=\"tile-header\">\n    <a href=\"/careers-advice/networking\" id=\"triage-result-tile-link-networking-education\" class=\"govuk-link\">Networking: tips to help your career</a>\n</h3>\n   <p class=\"tile-description\">\n                         Use your network for support as you start your career and build your reputation.\n   </p>\n</div>"
+            }
+          },
+          "AuditTrailPart": {
+            "Comment": null,
+            "ShowComment": false
+          },
+          "GraphSyncPart": {
+            "Text": "<<contentapiprefix>>/triageresulttile/4d79c1ad-a659-4f14-b9a7-01d3542218ed"
+          },
+          "TitlePart": {
+            "Title": "Networking - education"
+          }
+        },
+        {
+          "ContentItemId": "4tqfvsckm5smxzvvct4v6bxtn6",
+          "ContentItemVersionId": "4sa1jhaykf5wsrn35k4dnmz5xw",
+          "ContentType": "TriageResultTile",
+          "DisplayText": "The STAR method - education",
+          "Latest": true,
+          "Published": true,
+          "ModifiedUtc": "2024-10-17T22:28:33.0789612Z",
+          "PublishedUtc": "2024-10-17T22:28:33.1688557Z",
+          "CreatedUtc": "2024-09-04T13:04:06.9364652Z",
+          "Owner": "41xc6z9rat7tjykwwe24q74dm6",
+          "Author": "siva.muruganandham",
+          "TriageResultTile": {
+            "TriageLevelOne": {
+              "ContentItemIds": [
+                "4hyyfbrh8swxszn5edkbrwafxb"
+              ]
+            },
+            "TriageResult": {
+              "ContentItemIds": [
+                "43vbphj9349c912v8rhptv0vmz"
+              ]
+            },
+            "TriageTileHtml": {
+              "Html": " <div id=\"triage-result-tile-container-the-star-method-education\" class=\"triage-tile article-tile\">\n  <h3 class=\"tile-header\">\n    <a href=\"/careers-advice/interview-advice/the-star-method\" id=\"triage-result-tile-link-the-star-method-education\" class=\"govuk-link\">The STAR method</a>\n</h3>\n   <p class=\"tile-description\">\n                          Use the STAR method to structure your answers in a CV, application or interview.\n   </p>\n</div>"
+            }
+          },
+          "AuditTrailPart": {
+            "Comment": null,
+            "ShowComment": false
+          },
+          "GraphSyncPart": {
+            "Text": "<<contentapiprefix>>/triageresulttile/12dea6aa-87d8-4022-a101-b21b117e264c"
+          },
+          "TitlePart": {
+            "Title": "The STAR method - education"
+          }
+        },
+        {
+          "ContentItemId": "4d3j31fkhwfkqx3wrb0rvrhaw8",
+          "ContentItemVersionId": "4n7t44c9000ry5mp05bjttbkwc",
+          "ContentType": "TriageResultTile",
+          "DisplayText": "Explore green careers - education",
+          "Latest": true,
+          "Published": true,
+          "ModifiedUtc": "2024-10-17T22:29:05.3515481Z",
+          "PublishedUtc": "2024-10-17T22:29:05.437353Z",
+          "CreatedUtc": "2024-08-30T21:32:11.2109629Z",
+          "Owner": "41xc6z9rat7tjykwwe24q74dm6",
+          "Author": "siva.muruganandham",
+          "TriageResultTile": {
+            "TriageLevelOne": {
+              "ContentItemIds": [
+                "4hyyfbrh8swxszn5edkbrwafxb"
+              ]
+            },
+            "TriageResult": {
+              "ContentItemIds": [
+                "4zrs1nwbx4q4cve9yj6g2p6nn4"
+              ]
+            },
+            "TriageTileHtml": {
+              "Html": " <div id=\"triage-result-tile-container-explore-green-careers-education\" class=\"triage-tile article-tile\">\n  <h3 class=\"tile-header\">\n    <a href=\"/careers-advice/green-careers\" id=\"triage-result-tile-link-explore-green-careers-education\" class=\"govuk-link\"> Explore green careers </a>\n</h3>\n   <p class=\"tile-description\">\n                            Understand how green jobs can positively impact the planet in different ways.\n   </p>\n</div>"
+            }
+          },
+          "AuditTrailPart": {
+            "Comment": null,
+            "ShowComment": false
+          },
+          "GraphSyncPart": {
+            "Text": "<<contentapiprefix>>/triageresulttile/2a558816-54a7-4dd4-a53c-e0c55aafcb65"
+          },
+          "TitlePart": {
+            "Title": "Explore green careers - education"
+          }
+        },
+        {
+          "ContentItemId": "496wyj3m38w97zjfskr3qt1f50",
+          "ContentItemVersionId": "49b5jh3gc15jtycczrm11gxh43",
+          "ContentType": "TriageResultTile",
+          "DisplayText": "How to write a CV   - education",
+          "Latest": true,
+          "Published": true,
+          "ModifiedUtc": "2024-10-17T22:29:36.2563125Z",
+          "PublishedUtc": "2024-10-17T22:29:36.3364643Z",
+          "CreatedUtc": "2024-08-30T21:57:54.312552Z",
+          "Owner": "41xc6z9rat7tjykwwe24q74dm6",
+          "Author": "siva.muruganandham",
+          "TriageResultTile": {
+            "TriageLevelOne": {
+              "ContentItemIds": [
+                "4hyyfbrh8swxszn5edkbrwafxb"
+              ]
+            },
+            "TriageResult": {
+              "ContentItemIds": [
+                "4gz0n7qp3zwc02thpa7fksqan3"
+              ]
+            },
+            "TriageTileHtml": {
+              "Html": " <div id=\"triage-result-tile-container-how-to-write-a-cv-sections-education\" class=\"triage-tile  article-tile\">\n  <h3 class=\"tile-header\">\n    <a href=\"/careers-advice/cv-sections\" id=\"triage-result-tile-link-how-to-write-a-cv-sections-education\" class=\"govuk-link\">How to write a CV</a>\n</h3>\n   <p class=\"tile-description\">\n                          Tips on what to include in each section of your CV to make it stand out.\n   </p>\n</div>"
+            }
+          },
+          "AuditTrailPart": {
+            "Comment": null,
+            "ShowComment": false
+          },
+          "GraphSyncPart": {
+            "Text": "<<contentapiprefix>>/triageresulttile/1dc09e03-491f-4bc8-8f52-5f1c54b9972c"
+          },
+          "TitlePart": {
+            "Title": "How to write a CV   - education"
+          }
+        },
+        {
+          "ContentItemId": "47b15c12sfrwhzq3w5qvbyghx1",
+          "ContentItemVersionId": "473693hykwbd602cqws796q4mx",
+          "ContentType": "TriageResultTile",
+          "DisplayText": "Gap year advice - education",
+          "Latest": true,
+          "Published": true,
+          "ModifiedUtc": "2024-10-17T22:30:15.4951645Z",
+          "PublishedUtc": "2024-10-17T22:30:15.5586422Z",
+          "CreatedUtc": "2024-08-30T21:33:46.8045459Z",
+          "Owner": "41xc6z9rat7tjykwwe24q74dm6",
+          "Author": "siva.muruganandham",
+          "TriageResultTile": {
+            "TriageLevelOne": {
+              "ContentItemIds": [
+                "4hyyfbrh8swxszn5edkbrwafxb"
+              ]
+            },
+            "TriageResult": {
+              "ContentItemIds": [
+                "4zjr6aaex1wgbtfvd205wt57wf"
+              ]
+            },
+            "TriageTileHtml": {
+              "Html": " <div id=\"triage-result-tile-container-advice-on-a-gap-year-education\" class=\"triage-tile article-tile\">\n  <h3 class=\"tile-header\">\n    <a href=\"/careers-advice/advice-on-a-gap-year\" id=\"triage-result-tile-link-advice-on-a-gap-year-education\" class=\"govuk-link\"> Gap year advice </a>\n</h3>\n   <p class=\"tile-description\">\n                            Taking time off can help you develop yourself and your skills before your next step.\n   </p>\n</div>"
+            }
+          },
+          "AuditTrailPart": {
+            "Comment": null,
+            "ShowComment": false
+          },
+          "GraphSyncPart": {
+            "Text": "<<contentapiprefix>>/triageresulttile/a76d21cd-9501-4a70-863c-6749a152cb96"
+          },
+          "TitlePart": {
+            "Title": "Gap year advice - education"
+          }
+        },
+        {
+          "ContentItemId": "486jrqw6mkckcz3qrspd4dr04s",
+          "ContentItemVersionId": "4jcdzk14n82kjs9v19n3rct8mf",
+          "ContentType": "TriageResultTile",
+          "DisplayText": "How to write a cover letter   - education",
+          "Latest": true,
+          "Published": true,
+          "ModifiedUtc": "2024-10-17T22:30:50.4472576Z",
+          "PublishedUtc": "2024-10-17T22:30:50.5286245Z",
+          "CreatedUtc": "2024-08-30T21:56:17.7588669Z",
+          "Owner": "41xc6z9rat7tjykwwe24q74dm6",
+          "Author": "siva.muruganandham",
+          "TriageResultTile": {
+            "TriageLevelOne": {
+              "ContentItemIds": [
+                "4hyyfbrh8swxszn5edkbrwafxb"
+              ]
+            },
+            "TriageResult": {
+              "ContentItemIds": [
+                "40kr98f2gmed4v0rcmnenmxpdk"
+              ]
+            },
+            "TriageTileHtml": {
+              "Html": " <div id=\"triage-result-tile-container-how-to-write-a-cover-letter-education\" class=\"triage-tile article-tile\">\n  <h3 class=\"tile-header\">\n    <a href=\"/careers-advice/covering-letter\" id=\"triage-result-tile-link-how-to-write-a-cover-letter-education\" class=\"govuk-link\">How to write a cover letter</a>\n</h3>\n   <p class=\"tile-description\">\n                          Advice on how to write a cover letter to show why you are right for the job. \n   </p>\n</div>"
+            }
+          },
+          "AuditTrailPart": {
+            "Comment": null,
+            "ShowComment": false
+          },
+          "GraphSyncPart": {
+            "Text": "<<contentapiprefix>>/triageresulttile/eb0cf8ee-564b-4888-af34-bd0bc98505a2"
+          },
+          "TitlePart": {
+            "Title": "How to write a cover letter   - education"
+          }
+        },
+        {
+          "ContentItemId": "42wh3p51aw0phvvbd2y0k9t24w",
+          "ContentItemVersionId": "44yga3m597bs25hvdvvkes6vx7",
+          "ContentType": "TriageResultTile",
+          "DisplayText": "How to deal with setbacks  - education",
+          "Latest": true,
+          "Published": true,
+          "ModifiedUtc": "2024-10-17T22:31:27.3520657Z",
+          "PublishedUtc": "2024-10-17T22:31:27.430145Z",
+          "CreatedUtc": "2024-08-30T21:53:12.6642919Z",
+          "Owner": "41xc6z9rat7tjykwwe24q74dm6",
+          "Author": "siva.muruganandham",
+          "TriageResultTile": {
+            "TriageLevelOne": {
+              "ContentItemIds": [
+                "4hyyfbrh8swxszn5edkbrwafxb"
+              ]
+            },
+            "TriageResult": {
+              "ContentItemIds": [
+                "45pvecx33brj15ws13zp6dv8xp"
+              ]
+            },
+            "TriageTileHtml": {
+              "Html": " <div id=\"triage-result-tile-container-how-to-bounce-back-in-a-tough-jobs-market-education\" class=\"triage-tile article-tile\">\n  <h3 class=\"tile-header\">\n    <a href=\"/careers-advice/how-to-bounce-back-in-a-tough-jobs-market\" id=\"triage-result-tile-link-how-to-bounce-back-in-a-tough-jobs-market-education\" class=\"govuk-link\">How to deal with setbacks</a>\n</h3>\n   <p class=\"tile-description\">\n                            Tips to stay positive if you are rejected or do not get the grades you hoped for.\n   </p>\n</div>"
+            }
+          },
+          "AuditTrailPart": {
+            "Comment": null,
+            "ShowComment": false
+          },
+          "GraphSyncPart": {
+            "Text": "<<contentapiprefix>>/triageresulttile/2b45751b-8c91-434c-9cd3-7c2dd3d823a2"
+          },
+          "TitlePart": {
+            "Title": "How to deal with setbacks  - education"
+          }
+        },
+        {
+          "ContentItemId": "45xxda3w9p322zpqtgb2veyqnt",
+          "ContentItemVersionId": "42ncgzqb4z0ht3et781q9q1z5s",
+          "ContentType": "TriageResultTile",
+          "DisplayText": "Make the most of a careers fair  - education",
+          "Latest": true,
+          "Published": true,
+          "ModifiedUtc": "2024-10-17T22:32:01.0690418Z",
+          "PublishedUtc": "2024-10-17T22:32:01.1500816Z",
+          "CreatedUtc": "2024-08-30T21:58:49.8435659Z",
+          "Owner": "41xc6z9rat7tjykwwe24q74dm6",
+          "Author": "siva.muruganandham",
+          "TriageResultTile": {
+            "TriageLevelOne": {
+              "ContentItemIds": [
+                "4hyyfbrh8swxszn5edkbrwafxb"
+              ]
+            },
+            "TriageResult": {
+              "ContentItemIds": [
+                "4jdtqh2czf8hwztezq8epsf8d5"
+              ]
+            },
+            "TriageTileHtml": {
+              "Html": " <div id=\"triage-result-tile-container-making-the-most-of-virtual-job-fairs-education\" class=\"triage-tile  article-tile\">\n  <h3 class=\"tile-header\">\n    <a href=\"/careers-advice/making-the-most-of-virtual-job-fairs\" id=\"triage-result-tile-link-making-the-most-of-virtual-job-fairs-education\" class=\"govuk-link\">Make the most of a careers fair</a>\n</h3>\n   <p class=\"tile-description\">\n                          Learn how to prepare for a careers fair and what to do when you're there.\n   </p>\n</div>"
+            }
+          },
+          "AuditTrailPart": {
+            "Comment": null,
+            "ShowComment": false
+          },
+          "GraphSyncPart": {
+            "Text": "<<contentapiprefix>>/triageresulttile/b2b41839-5c1e-489c-bc08-81c1462e73bd"
+          },
+          "TitlePart": {
+            "Title": "Make the most of a careers fair  - education"
+          }
+        },
+        {
+          "ContentItemId": "4vpj7s851y6cj618vcmhjmmdwv",
+          "ContentItemVersionId": "4p592avbhtqghtr3p1jmjhrwdt",
+          "ContentType": "TriageResultTile",
+          "DisplayText": "Phone interview tips  - education",
+          "Latest": true,
+          "Published": true,
+          "ModifiedUtc": "2024-10-17T22:32:36.4232961Z",
+          "PublishedUtc": "2024-10-17T22:32:36.5043976Z",
+          "CreatedUtc": "2024-08-30T22:04:18.1194073Z",
+          "Owner": "41xc6z9rat7tjykwwe24q74dm6",
+          "Author": "siva.muruganandham",
+          "TriageResultTile": {
+            "TriageLevelOne": {
+              "ContentItemIds": [
+                "4hyyfbrh8swxszn5edkbrwafxb"
+              ]
+            },
+            "TriageResult": {
+              "ContentItemIds": [
+                "493jyc5vac0dx70n75wbzqks5b"
+              ]
+            },
+            "TriageTileHtml": {
+              "Html": " <div id=\"triage-result-tile-container-how-to-do-well-in-telephone-interviews-education\" class=\" triage-tile article-tile\">\n  <h3 class=\"tile-header\">\n    <a href=\"/careers-advice/how-to-do-well-in-telephone-interviews\" id=\"triage-result-tile-link-how-to-do-well-in-telephone-interviews-education\" class=\"govuk-link\">Phone interview tips</a>\n</h3>\n   <p class=\"tile-description\">\n                         Get advice on what to do before, during and after a phone interview. \n   </p>\n</div>"
+            }
+          },
+          "AuditTrailPart": {
+            "Comment": null,
+            "ShowComment": false
+          },
+          "GraphSyncPart": {
+            "Text": "<<contentapiprefix>>/triageresulttile/d11448e1-b170-4f73-98e9-af3e37cdebb7"
+          },
+          "TitlePart": {
+            "Title": "Phone interview tips  - education"
+          }
+        },
+        {
+          "ContentItemId": "4c2h6d8ncavke2200p864fq9m9",
+          "ContentItemVersionId": "4crtc5197agtm2bs056tvtmj4r",
+          "ContentType": "TriageResultTile",
+          "DisplayText": "Post 16 options - education",
+          "Latest": true,
+          "Published": true,
+          "ModifiedUtc": "2024-10-17T22:33:32.8052898Z",
+          "PublishedUtc": "2024-10-17T22:33:32.8839798Z",
+          "CreatedUtc": "2024-08-30T22:05:51.7167488Z",
+          "Owner": "41xc6z9rat7tjykwwe24q74dm6",
+          "Author": "siva.muruganandham",
+          "TriageResultTile": {
+            "TriageLevelOne": {
+              "ContentItemIds": [
+                "4hyyfbrh8swxszn5edkbrwafxb"
+              ]
+            },
+            "TriageResult": {
+              "ContentItemIds": [
+                "4ydf724wqg339vndrnkf3hav5j"
+              ]
+            },
+            "TriageTileHtml": {
+              "Html": " <div id=\"triage-result-tile-container-career-choices-at-16-education\" class=\"triage-tile  article-tile\">\n  <h3 class=\"tile-header\">\n    <a href=\"/careers-advice/career-choices-at-16\" id=\"triage-result-tile-link-career-choices-at-16-education\" class=\"govuk-link\">Post 16 options</a>\n</h3>\n   <p class=\"tile-description\">\n                         Understand what your options are after GCSEs and what your next step could be.\n   </p>\n</div>"
+            }
+          },
+          "AuditTrailPart": {
+            "Comment": null,
+            "ShowComment": false
+          },
+          "GraphSyncPart": {
+            "Text": "<<contentapiprefix>>/triageresulttile/1d698a4d-571d-4b94-b350-751654a3dc76"
+          },
+          "TitlePart": {
+            "Title": "Post 16 options - education"
+          }
+        },
+        {
+          "ContentItemId": "4h3x2m95sgev4y3x2qsk6tjm4a",
+          "ContentItemVersionId": "4vkx76w9ykp1hxtrvjasgc1751",
+          "ContentType": "TriageResultTile",
+          "DisplayText": "Post 18 options - education",
+          "Latest": true,
+          "Published": true,
+          "ModifiedUtc": "2024-10-17T22:38:10.3500634Z",
+          "PublishedUtc": "2024-10-17T22:38:10.3847535Z",
+          "CreatedUtc": "2024-08-30T22:07:49.6052347Z",
+          "Owner": "41xc6z9rat7tjykwwe24q74dm6",
+          "Author": "siva.muruganandham",
+          "TriageResultTile": {
+            "TriageLevelOne": {
+              "ContentItemIds": [
+                "4hyyfbrh8swxszn5edkbrwafxb"
+              ]
+            },
+            "TriageResult": {
+              "ContentItemIds": [
+                "46mrj2qh7aqgk1fm1szxy3nkxy"
+              ]
+            },
+            "TriageTileHtml": {
+              "Html": " <div id=\"triage-result-tile-container-career-choices-at-18-education\" class=\"triage-tile article-tile\">\n  <h3 class=\"tile-header\">\n    <a href=\"/careers-advice/career-choices-at-18\" id=\"triage-result-tile-link-career-choices-at-18-education\" class=\"govuk-link\">Post 18 options</a>\n</h3>\n   <p class=\"tile-description\">\n                         Find guidance on the variety of options available to you after your A levels.\n   </p>\n</div>"
+            }
+          },
+          "AuditTrailPart": {
+            "Comment": null,
+            "ShowComment": false
+          },
+          "GraphSyncPart": {
+            "Text": "<<contentapiprefix>>/triageresulttile/76f84b52-127a-4aee-91f5-654a19f28f4f"
+          },
+          "TitlePart": {
+            "Title": "Post 18 options - education"
+          }
+        },
+        {
+          "ContentItemId": "4rwsv7wx76v987br9krm39qyxz",
+          "ContentItemVersionId": "4kbgyt581dh19x7adxetpcy2nn",
+          "ContentType": "TriageResultTile",
+          "DisplayText": "Postgraduate study options - education",
+          "Latest": true,
+          "Published": true,
+          "ModifiedUtc": "2024-10-17T22:38:41.0067753Z",
+          "PublishedUtc": "2024-10-17T22:38:41.0876739Z",
+          "CreatedUtc": "2024-08-30T22:09:52.4655749Z",
+          "Owner": "41xc6z9rat7tjykwwe24q74dm6",
+          "Author": "siva.muruganandham",
+          "TriageResultTile": {
+            "TriageLevelOne": {
+              "ContentItemIds": [
+                "4hyyfbrh8swxszn5edkbrwafxb"
+              ]
+            },
+            "TriageResult": {
+              "ContentItemIds": [
+                "4hyw561df73e0vmy4hr01fxam9"
+              ]
+            },
+            "TriageTileHtml": {
+              "Html": " <div id=\"triage-result-tile-container-advice-on-further-study-options-education\" class=\"triage-tile article-tile\">\n  <h3 class=\"tile-header\">\n    <a href=\"/careers-advice/advice-on-further-study-options\" id=\"triage-result-tile-link-advice-on-further-study-options-education\" class=\"govuk-link\">Postgraduate study options</a>\n</h3>\n   <p class=\"tile-description\">\n                         Discover what postgraduate courses you can do to progress your career after university.\n   </p>\n</div>"
+            }
+          },
+          "AuditTrailPart": {
+            "Comment": null,
+            "ShowComment": false
+          },
+          "GraphSyncPart": {
+            "Text": "<<contentapiprefix>>/triageresulttile/8b8779ff-dc47-425c-9aba-e21ed9b7fb2a"
+          },
+          "TitlePart": {
+            "Title": "Postgraduate study options - education"
+          }
+        },
+        {
+          "ContentItemId": "4n90ncbads7nyrmm63a7z89hnf",
+          "ContentItemVersionId": "4wv2xqf0mrz9dv95wy44r07dnz",
+          "ContentType": "TriageResultTile",
+          "DisplayText": "Stand out on LinkedIn  - education",
+          "Latest": true,
+          "Published": true,
+          "ModifiedUtc": "2024-10-17T22:39:08.1223791Z",
+          "PublishedUtc": "2024-10-17T22:39:08.202053Z",
+          "CreatedUtc": "2024-08-30T22:11:30.2015615Z",
+          "Owner": "41xc6z9rat7tjykwwe24q74dm6",
+          "Author": "siva.muruganandham",
+          "TriageResultTile": {
+            "TriageLevelOne": {
+              "ContentItemIds": [
+                "4hyyfbrh8swxszn5edkbrwafxb"
+              ]
+            },
+            "TriageResult": {
+              "ContentItemIds": [
+                "4fsce225sxsatskh2k4kk3s3de"
+              ]
+            },
+            "TriageTileHtml": {
+              "Html": " <div id=\"triage-result-tile-container-create-a-linkedin-profile-education\" class=\"triage-tile article-tile\">\n  <h3 class=\"tile-header\">\n    <a href=\"/careers-advice/create-a-linkedin-profile\" id=\"triage-result-tile-link-create-a-linkedin-profile-education\" class=\"govuk-link\">Stand out on LinkedIn</a>\n</h3>\n   <p class=\"tile-description\">\n                         See our guide to create a LinkedIn profile that shows your skills and accomplishments. \n   </p>\n</div>"
+            }
+          },
+          "AuditTrailPart": {
+            "Comment": null,
+            "ShowComment": false
+          },
+          "GraphSyncPart": {
+            "Text": "<<contentapiprefix>>/triageresulttile/f0ee6b0e-708a-459d-8e12-c1aa9276216f"
+          },
+          "TitlePart": {
+            "Title": "Stand out on LinkedIn  - education"
+          }
+        },
+        {
+          "ContentItemId": "4sqy9akhczs78xm32006vcnmmd",
+          "ContentItemVersionId": "4bnwfnseergp60p075gqe2ercz",
+          "ContentType": "TriageResultTile",
+          "DisplayText": "Video interview tips- education",
+          "Latest": true,
+          "Published": true,
+          "ModifiedUtc": "2024-10-17T22:39:37.12616Z",
+          "PublishedUtc": "2024-10-17T22:39:37.2046818Z",
+          "CreatedUtc": "2024-08-30T22:31:41.2163245Z",
+          "Owner": "41xc6z9rat7tjykwwe24q74dm6",
+          "Author": "siva.muruganandham",
+          "TriageResultTile": {
+            "TriageLevelOne": {
+              "ContentItemIds": [
+                "4hyyfbrh8swxszn5edkbrwafxb"
+              ]
+            },
+            "TriageResult": {
+              "ContentItemIds": [
+                "47ecehnbq43h3vw1wrf3xrdpdx"
+              ]
+            },
+            "TriageTileHtml": {
+              "Html": " <div id=\"triage-result-container-link-how-to-do-well-in-video-interviews-education\" class=\"triage-tile  article-tile\">\n  <h3 class=\"tile-header\">\n    <a href=\"/careers-advice/how-to-do-well-in-video-interviews\" id=\"triage-result-tile-link-how-to-do-well-in-video-interviews-education\" class=\"govuk-link\">Video interview tips</a>\n</h3>\n   <p class=\"tile-description\">\n                       Tips for what to consider if you need to prepare for a video interview.\n   </p>\n</div>"
+            }
+          },
+          "AuditTrailPart": {
+            "Comment": null,
+            "ShowComment": false
+          },
+          "GraphSyncPart": {
+            "Text": "<<contentapiprefix>>/triageresulttile/c2740936-41e5-49e0-8dda-e57638d5b4a2"
+          },
+          "TitlePart": {
+            "Title": "Video interview tips- education"
+          }
+        },
+        {
+          "ContentItemId": "4tqpgvx00g3qk7a3r0rcc8fnnk",
+          "ContentItemVersionId": "485zgas0avyzg0t5rvx5nrnjw2",
+          "ContentType": "TriageResultTile",
+          "DisplayText": "Where to find job vacancies - education",
+          "Latest": true,
+          "Published": true,
+          "ModifiedUtc": "2024-10-17T22:40:10.8378182Z",
+          "PublishedUtc": "2024-10-17T22:40:10.9199548Z",
+          "CreatedUtc": "2024-08-30T22:33:06.2028955Z",
+          "Owner": "41xc6z9rat7tjykwwe24q74dm6",
+          "Author": "siva.muruganandham",
+          "TriageResultTile": {
+            "TriageLevelOne": {
+              "ContentItemIds": [
+                "4hyyfbrh8swxszn5edkbrwafxb"
+              ]
+            },
+            "TriageResult": {
+              "ContentItemIds": [
+                "4az54radmrd6bwv6ysv0jeaqn9"
+              ]
+            },
+            "TriageTileHtml": {
+              "Html": " <div id=\"triage-result-tile-container-advertised-job-vacancies-education\" class=\"triage-tile  article-tile\">\n  <h3 class=\"tile-header\">\n    <a href=\"/careers-advice/advertised-job-vacancies\" id=\"triage-result-tile-link-advertised-job-vacancies-education\" class=\"govuk-link\">Where to find job vacancies</a>\n</h3>\n   <p class=\"tile-description\">\n                      Discover where to look for job vacancies and get advice for job hunting.\n   </p>\n</div>"
+            }
+          },
+          "AuditTrailPart": {
+            "Comment": null,
+            "ShowComment": false
+          },
+          "GraphSyncPart": {
+            "Text": "<<contentapiprefix>>/triageresulttile/53c8401c-f019-4acc-9633-5e982b37978d"
+          },
+          "TitlePart": {
+            "Title": "Where to find job vacancies - education"
+          }
+        },
+        {
+          "ContentItemId": "4505j6grr08gbxjcwty3kvtyw8",
+          "ContentItemVersionId": "405r1m1ee40kfsjrq5bb7h4xd3",
+          "ContentType": "TriageResultTile",
+          "DisplayText": "How to do well in an interview  - education",
+          "Latest": true,
+          "Published": true,
+          "ModifiedUtc": "2024-10-17T22:40:37.7986979Z",
+          "PublishedUtc": "2024-10-17T22:40:37.8796585Z",
+          "CreatedUtc": "2024-08-30T21:55:30.5930537Z",
+          "Owner": "41xc6z9rat7tjykwwe24q74dm6",
+          "Author": "siva.muruganandham",
+          "TriageResultTile": {
+            "TriageLevelOne": {
+              "ContentItemIds": [
+                "4hyyfbrh8swxszn5edkbrwafxb"
+              ]
+            },
+            "TriageResult": {
+              "ContentItemIds": [
+                "49t5vkz83ssxgyxmk9vxv93fxp"
+              ]
+            },
+            "TriageTileHtml": {
+              "Html": " <div id=\"triage-result-tile-container-interview-advices-education\" class=\"triage-tile  article-tile\">\n  <h3 class=\"tile-header\">\n    <a href=\"/careers-advice/interview-advice\" id=\"triage-result-tile-link-interview-advices-education\" class=\"govuk-link\">How to do well in an interview</a>\n</h3>\n   <p class=\"tile-description\">\n                           Learn what to expect from an interview and what you should prepare.\n   </p>\n</div>"
+            }
+          },
+          "AuditTrailPart": {
+            "Comment": null,
+            "ShowComment": false
+          },
+          "GraphSyncPart": {
+            "Text": "<<contentapiprefix>>/triageresulttile/d63a9ee3-caa1-460a-ab39-7c3df9fb2668"
+          },
+          "TitlePart": {
+            "Title": "How to do well in an interview  - education"
+          }
+        },
+        {
+          "ContentItemId": "4xy0tpbyyht1kr0hjdqrw3f5ma",
+          "ContentItemVersionId": "4zkd66m1yx2392qx8n1nbk4759",
+          "ContentType": "TriageResultTile",
+          "DisplayText": "The STAR method - not in work",
+          "Latest": true,
+          "Published": true,
+          "ModifiedUtc": "2024-10-17T22:42:07.6330848Z",
+          "PublishedUtc": "2024-10-17T22:42:07.7135044Z",
+          "CreatedUtc": "2024-09-04T13:06:38.3132613Z",
+          "Owner": "41xc6z9rat7tjykwwe24q74dm6",
+          "Author": "siva.muruganandham",
+          "TriageResultTile": {
+            "TriageLevelOne": {
+              "ContentItemIds": [
+                "4jg4pebz90zrc0r8ae433sbe4a"
+              ]
+            },
+            "TriageResult": {
+              "ContentItemIds": [
+                "43vbphj9349c912v8rhptv0vmz"
+              ]
+            },
+            "TriageTileHtml": {
+              "Html": " <div id=\"triage-result-tile-container-the-star-method-not-in-work\" class=\"triage-tile article-tile\">\n  <h3 class=\"tile-header\">\n    <a href=\"/careers-advice/interview-advice/the-star-method\" id=\"triage-result-tile-link-the-star-method-not-in-work\" class=\"govuk-link\">The STAR method</a>\n</h3>\n   <p class=\"tile-description\">\n                          Use the STAR method to structure your answers in a CV, application or interview.\n   </p>\n</div>"
+            }
+          },
+          "AuditTrailPart": {
+            "Comment": null,
+            "ShowComment": false
+          },
+          "GraphSyncPart": {
+            "Text": "<<contentapiprefix>>/triageresulttile/0db6791d-9881-4c0a-b4c9-85b47dbe0711"
+          },
+          "TitlePart": {
+            "Title": "The STAR method - not in work"
+          }
+        },
+        {
+          "ContentItemId": "4watp82ka0emtyfht85xytttw4",
+          "ContentItemVersionId": "4t5gbct09q9ma6v8h22cqbn7mp",
+          "ContentType": "TriageResultTile",
+          "DisplayText": "The STAR method - employed",
+          "Latest": true,
+          "Published": true,
+          "ModifiedUtc": "2024-10-17T22:42:32.9964233Z",
+          "PublishedUtc": "2024-10-17T22:42:33.0825295Z",
+          "CreatedUtc": "2024-09-04T13:05:58.1152666Z",
+          "Owner": "41xc6z9rat7tjykwwe24q74dm6",
+          "Author": "siva.muruganandham",
+          "TriageResultTile": {
+            "TriageLevelOne": {
+              "ContentItemIds": [
+                "4e2mfha8xd23rvhzjt6exfcpck"
+              ]
+            },
+            "TriageResult": {
+              "ContentItemIds": [
+                "43vbphj9349c912v8rhptv0vmz"
+              ]
+            },
+            "TriageTileHtml": {
+              "Html": " <div id=\"triage-result-tile-container-the-star-method-employed\" class=\"triage-tile article-tile\">\n  <h3 class=\"tile-header\">\n    <a href=\"/careers-advice/interview-advice/the-star-method\" id=\"triage-result-tile-link-the-star-method-employed\" class=\"govuk-link\">The STAR method</a>\n</h3>\n   <p class=\"tile-description\">\n                          Use the STAR method to structure your answers in a CV, application or interview.\n   </p>\n</div>"
+            }
+          },
+          "AuditTrailPart": {
+            "Comment": null,
+            "ShowComment": false
+          },
+          "GraphSyncPart": {
+            "Text": "<<contentapiprefix>>/triageresulttile/6b03c9f9-dec0-4c9a-b2d9-03714f776cc7"
+          },
+          "TitlePart": {
+            "Title": "The STAR method - employed"
+          }
+        },
+        {
+          "ContentItemId": "4f6v3kqceqc4441xr32px0n9cv",
+          "ContentItemVersionId": "499gpzsgb35dwymbctf57fpv5e",
+          "ContentType": "TriageResultTile",
+          "DisplayText": "Understand and develop your skills- education",
+          "Latest": true,
+          "Published": true,
+          "ModifiedUtc": "2024-10-17T22:43:05.5077658Z",
+          "PublishedUtc": "2024-10-17T22:43:05.590601Z",
+          "CreatedUtc": "2024-08-30T22:29:43.5492054Z",
+          "Owner": "41xc6z9rat7tjykwwe24q74dm6",
+          "Author": "siva.muruganandham",
+          "TriageResultTile": {
+            "TriageLevelOne": {
+              "ContentItemIds": [
+                "4hyyfbrh8swxszn5edkbrwafxb"
+              ]
+            },
+            "TriageResult": {
+              "ContentItemIds": [
+                "4jx56pz1bg65f6jp65nvs90v5f"
+              ]
+            },
+            "TriageTileHtml": {
+              "Html": " <div id=\"triage-result-container-identifying-skills-and-upskilling-education\" class=\"triage-tile article-tile\">\n  <h3 class=\"tile-header\">\n    <a href=\"/careers-advice/identifying-skills-and-upskilling\" id=\"triage-result-tile-identifying-skills-and-upskilling-education\" class=\"govuk-link\">Understand and develop your skills</a>\n</h3>\n   <p class=\"tile-description\">\n                       Learn about the skills you have and find out how to build skills for a career you’re interested in.\n   </p>\n</div>"
+            }
+          },
+          "AuditTrailPart": {
+            "Comment": null,
+            "ShowComment": false
+          },
+          "GraphSyncPart": {
+            "Text": "<<contentapiprefix>>/triageresulttile/4a583695-cdad-4750-9276-bc37617aa3b1"
+          },
+          "TitlePart": {
+            "Title": "Understand and develop your skills- education"
+          }
+        },
+        {
+          "ContentItemId": "45g0an1dfk5fstxeb6ntab3h4f",
+          "ContentItemVersionId": "44dmk4rjtyxk4yyc6e7n25qvxt",
+          "ContentType": "TriageResultTile",
+          "DisplayText": "How to write a CV   - employed",
+          "Latest": true,
+          "Published": true,
+          "ModifiedUtc": "2024-10-17T22:43:41.1866964Z",
+          "PublishedUtc": "2024-10-17T22:43:41.2678619Z",
+          "CreatedUtc": "2024-09-01T16:27:57.7329574Z",
+          "Owner": "41xc6z9rat7tjykwwe24q74dm6",
+          "Author": "siva.muruganandham",
+          "TriageResultTile": {
+            "TriageLevelOne": {
+              "ContentItemIds": [
+                "4e2mfha8xd23rvhzjt6exfcpck"
+              ]
+            },
+            "TriageResult": {
+              "ContentItemIds": [
+                "4gz0n7qp3zwc02thpa7fksqan3"
+              ]
+            },
+            "TriageTileHtml": {
+              "Html": " <div id=\"triage-result-tile-container-cv-sections-employed\" class=\"triage-tile article-tile\">\n  <h3 class=\"tile-header\">\n    <a href=\"/careers-advice/cv-sections\" id=\"triage-result-tile-link-cv-sections-employed\" class=\"govuk-link\">How to write a CV</a>\n</h3>\n   <p class=\"tile-description\">\n                          Tips on what to include in each section of your CV to make it stand out.</p>\n</div>"
+            }
+          },
+          "AuditTrailPart": {
+            "Comment": null,
+            "ShowComment": false
+          },
+          "GraphSyncPart": {
+            "Text": "<<contentapiprefix>>/triageresulttile/eca1f21a-53b2-4ced-a347-49438e86123c"
+          },
+          "TitlePart": {
+            "Title": "How to write a CV   - employed"
+          }
+        },
+        {
+          "ContentItemId": "4tp7pv96d76kmsrkknvsd3mwng",
+          "ContentItemVersionId": "4y3zwe60tnwqk69q2has4bkf46",
+          "ContentType": "TriageResultTile",
+          "DisplayText": "Benefits of digital skills  - education",
+          "Latest": true,
+          "Published": true,
+          "ModifiedUtc": "2024-10-17T22:44:43.3602447Z",
+          "PublishedUtc": "2024-10-17T22:44:43.4400171Z",
+          "CreatedUtc": "2024-08-30T22:15:33.8489132Z",
+          "Owner": "41xc6z9rat7tjykwwe24q74dm6",
+          "Author": "siva.muruganandham",
+          "TriageResultTile": {
+            "TriageLevelOne": {
+              "ContentItemIds": [
+                "4hyyfbrh8swxszn5edkbrwafxb"
+              ]
+            },
+            "TriageResult": {
+              "ContentItemIds": [
+                "46hefwbsfg87030e024bn5t04g"
+              ]
+            },
+            "TriageTileHtml": {
+              "Html": " <div id=\"triage-result-tile-container-build-foundation-digital-skills-to-help-your-career-education\" class=\"triage-tile  article-tile\">\n  <h3 class=\"tile-header\">\n    <a href=\"/careers-advice/build-foundation-digital-skills-to-help-your-career\" id=\"triage-result-tile-link-build-foundation-digital-skills-to-help-your-career-education\" class=\"govuk-link\">  Benefits of digital skills</a>\n</h3>\n   <p class=\"tile-description\">\n                        Learn what digital skills are in demand and see how to improve your digital skills.\n   </p>\n</div>"
+            }
+          },
+          "AuditTrailPart": {
+            "Comment": null,
+            "ShowComment": false
+          },
+          "GraphSyncPart": {
+            "Text": "<<contentapiprefix>>/triageresulttile/03ca4400-f7b2-4860-886e-ea3f2f3f10a7"
+          },
+          "TitlePart": {
+            "Title": "Benefits of digital skills  - education"
+          }
+        },
+        {
+          "ContentItemId": "40h5vrty1554wtaktx475w31w1",
+          "ContentItemVersionId": "4txvjx2s1qqp0248xtg3yxah5v",
+          "ContentType": "TriageResultTile",
+          "DisplayText": "Make the most of a careers fair  - not in work",
+          "Latest": true,
+          "Published": true,
+          "ModifiedUtc": "2024-10-17T22:45:14.8196137Z",
+          "PublishedUtc": "2024-10-17T22:45:14.898193Z",
+          "CreatedUtc": "2024-09-17T15:13:47.7091469Z",
+          "Owner": "41xc6z9rat7tjykwwe24q74dm6",
+          "Author": "siva.muruganandham",
+          "TriageResultTile": {
+            "TriageLevelOne": {
+              "ContentItemIds": [
+                "4jg4pebz90zrc0r8ae433sbe4a"
+              ]
+            },
+            "TriageResult": {
+              "ContentItemIds": [
+                "4jdtqh2czf8hwztezq8epsf8d5"
+              ]
+            },
+            "TriageTileHtml": {
+              "Html": " <div id=\"triage-result-tile-container-making-the-most-of-virtual-job-fairs-not-in-work\" class=\"triage-tile  article-tile\">\n  <h3 class=\"tile-header\">\n    <a href=\"/careers-advice/making-the-most-of-virtual-job-fairs\" id=\"triage-result-tile-link-making-the-most-of-virtual-job-fairs-not-in-work\" class=\"govuk-link\">Make the most of a careers fair</a>\n</h3>\n   <p class=\"tile-description\">\n                          Learn how to prepare for a careers fair and what to do when you're there.\n   </p>\n</div>"
+            }
+          },
+          "AuditTrailPart": {
+            "Comment": null,
+            "ShowComment": false
+          },
+          "GraphSyncPart": {
+            "Text": "<<contentapiprefix>>/triageresulttile/a9047ebf-0ec0-4198-a113-bed2ecc0ab99"
+          },
+          "TitlePart": {
+            "Title": "Make the most of a careers fair  - not in work"
+          }
+        },
+        {
+          "ContentItemId": "4878b4t8pd3pmz5ahz117qgenk",
+          "ContentItemVersionId": "4edk6wvsg6r8dyt6vv4pmkt6nh",
+          "ContentType": "TriageResultTile",
+          "DisplayText": "Make the most of a careers fair  - employed",
+          "Latest": true,
+          "Published": true,
+          "ModifiedUtc": "2024-10-17T22:45:52.3901275Z",
+          "PublishedUtc": "2024-10-17T22:45:52.4829185Z",
+          "CreatedUtc": "2024-09-17T15:13:23.790664Z",
+          "Owner": "41xc6z9rat7tjykwwe24q74dm6",
+          "Author": "siva.muruganandham",
+          "TriageResultTile": {
+            "TriageLevelOne": {
+              "ContentItemIds": [
+                "4e2mfha8xd23rvhzjt6exfcpck"
+              ]
+            },
+            "TriageResult": {
+              "ContentItemIds": [
+                "4jdtqh2czf8hwztezq8epsf8d5"
+              ]
+            },
+            "TriageTileHtml": {
+              "Html": " <div id=\"triage-result-tile-container-making-the-most-of-virtual-job-fairs-employed\" class=\"triage-tile  article-tile\">\n  <h3 class=\"tile-header\">\n    <a href=\"/careers-advice/making-the-most-of-virtual-job-fairs\" id=\"triage-result-tile-link-making-the-most-of-virtual-job-fairs-employed\" class=\"govuk-link\">Make the most of a careers fair</a>\n</h3>\n   <p class=\"tile-description\">\n                          Learn how to prepare for a careers fair and what to do when you're there.\n   </p>\n</div>"
+            }
+          },
+          "AuditTrailPart": {
+            "Comment": null,
+            "ShowComment": false
+          },
+          "GraphSyncPart": {
+            "Text": "<<contentapiprefix>>/triageresulttile/3d93bfc1-b52e-4207-8da6-5dcca2f1f6ce"
+          },
+          "TitlePart": {
+            "Title": "Make the most of a careers fair  - employed"
+          }
+        },
+        {
+          "ContentItemId": "41n7wxx95x2rx218azbffc09mh",
+          "ContentItemVersionId": "4rpkxb7s3v3895gfr1scp404w2",
+          "ContentType": "TriageResultTile",
+          "DisplayText": "How to write a cover letter   - employed",
+          "Latest": true,
+          "Published": true,
+          "ModifiedUtc": "2024-10-17T22:46:27.1614795Z",
+          "PublishedUtc": "2024-10-17T22:46:27.2401529Z",
+          "CreatedUtc": "2024-09-01T16:41:54.084464Z",
+          "Owner": "41xc6z9rat7tjykwwe24q74dm6",
+          "Author": "siva.muruganandham",
+          "TriageResultTile": {
+            "TriageLevelOne": {
+              "ContentItemIds": [
+                "4e2mfha8xd23rvhzjt6exfcpck"
+              ]
+            },
+            "TriageResult": {
+              "ContentItemIds": [
+                "40kr98f2gmed4v0rcmnenmxpdk"
+              ]
+            },
+            "TriageTileHtml": {
+              "Html": " <div id=\"triage-result-tile-container-covering-letter-employed\" class=\"triage-tile article-tile\">\n  <h3 class=\"tile-header\">\n    <a href=\"/careers-advice/covering-letter\" id=\"triage-result-tile-link-covering-letter-employed\" class=\"govuk-link\">How to write a cover letter</a>\n</h3>\n   <p class=\"tile-description\">\n                          Advice on how to write a cover letter to show why you are right for the job. \n   </p>\n</div>"
+            }
+          },
+          "AuditTrailPart": {
+            "Comment": null,
+            "ShowComment": false
+          },
+          "GraphSyncPart": {
+            "Text": "<<contentapiprefix>>/triageresulttile/4423aaed-2025-457a-a76a-05e293013ea5"
+          },
+          "TitlePart": {
+            "Title": "How to write a cover letter   - employed"
+          }
+        },
+        {
+          "ContentItemId": "49edchje0q0d1x9r0vjxpc9exj",
+          "ContentItemVersionId": "4z3hqwkakztgfsr00hh8nw12xw",
+          "ContentType": "TriageResultTile",
+          "DisplayText": "Stand out on LinkedIn  - employed",
+          "Latest": true,
+          "Published": true,
+          "ModifiedUtc": "2024-10-17T22:47:05.3124548Z",
+          "PublishedUtc": "2024-10-17T22:47:05.3993006Z",
+          "CreatedUtc": "2024-09-01T16:43:33.2633083Z",
+          "Owner": "41xc6z9rat7tjykwwe24q74dm6",
+          "Author": "siva.muruganandham",
+          "TriageResultTile": {
+            "TriageLevelOne": {
+              "ContentItemIds": [
+                "4e2mfha8xd23rvhzjt6exfcpck"
+              ]
+            },
+            "TriageResult": {
+              "ContentItemIds": [
+                "4fsce225sxsatskh2k4kk3s3de"
+              ]
+            },
+            "TriageTileHtml": {
+              "Html": " <div id=\"triage-result-tile-container-create-a-linkedin-profile-employed\" class=\"triage-tile article-tile\">\n  <h3 class=\"tile-header\">\n    <a href=\"/careers-advice/create-a-linkedin-profile\" id=\"triage-result-tile-link-create-a-linkedin-profile-employed\" class=\"govuk-link\">Stand out on LinkedIn</a>\n</h3>\n   <p class=\"tile-description\">\n                         See our guide to create a LinkedIn profile that shows your skills and accomplishments. \n   </p>\n</div>"
+            }
+          },
+          "AuditTrailPart": {
+            "Comment": null,
+            "ShowComment": false
+          },
+          "GraphSyncPart": {
+            "Text": "<<contentapiprefix>>/triageresulttile/d61072ed-e60b-4331-bdad-6e010e1c3e3d"
+          },
+          "TitlePart": {
+            "Title": "Stand out on LinkedIn  - employed"
+          }
+        },
+        {
+          "ContentItemId": "45nb5afaw47jrvpxc79h59c5c0",
+          "ContentItemVersionId": "42xxgk3pjhz0g01e4245n5kbx7",
+          "ContentType": "TriageResultTile",
+          "DisplayText": "How to deal with setbacks  - employed",
+          "Latest": true,
+          "Published": true,
+          "ModifiedUtc": "2024-10-17T22:47:37.1771203Z",
+          "PublishedUtc": "2024-10-17T22:47:37.2593229Z",
+          "CreatedUtc": "2024-09-01T16:48:56.1217732Z",
+          "Owner": "41xc6z9rat7tjykwwe24q74dm6",
+          "Author": "siva.muruganandham",
+          "TriageResultTile": {
+            "TriageLevelOne": {
+              "ContentItemIds": [
+                "4e2mfha8xd23rvhzjt6exfcpck"
+              ]
+            },
+            "TriageResult": {
+              "ContentItemIds": [
+                "45pvecx33brj15ws13zp6dv8xp"
+              ]
+            },
+            "TriageTileHtml": {
+              "Html": " <div id=\"triage-result-tile-container-how-to-bounce-back-in-a-tough-jobs-market-employed\" class=\"triage-tile  article-tile\">\n  <h3 class=\"tile-header\">\n   <a href=\"/careers-advice/how-to-bounce-back-in-a-tough-jobs-market\" id=\"triage-result-tile-link-how-to-bounce-back-in-a-tough-jobs-market-employed\" class=\"govuk-link\">How to deal with setbacks</a>\n</h3>\n   <p class=\"tile-description\">\n                            View advice on how to stay positive if you experience rejection when looking for jobs.\n   </p>\n</div>"
+            }
+          },
+          "AuditTrailPart": {
+            "Comment": null,
+            "ShowComment": false
+          },
+          "GraphSyncPart": {
+            "Text": "<<contentapiprefix>>/triageresulttile/faa5b21b-2bda-4c9c-99ab-131656953467"
+          },
+          "TitlePart": {
+            "Title": "How to deal with setbacks  - employed"
+          }
+        },
+        {
+          "ContentItemId": "42w20thtet537y6qd2d2bskpnf",
+          "ContentItemVersionId": "4c3ct7axvay1yrd7dtayfbkdmt",
+          "ContentType": "TriageResultTile",
+          "DisplayText": "How to do well in an interview  - employed",
+          "Latest": true,
+          "Published": true,
+          "ModifiedUtc": "2024-10-17T22:48:12.5014144Z",
+          "PublishedUtc": "2024-10-17T22:48:12.5822163Z",
+          "CreatedUtc": "2024-09-01T16:57:59.0395345Z",
+          "Owner": "41xc6z9rat7tjykwwe24q74dm6",
+          "Author": "siva.muruganandham",
+          "TriageResultTile": {
+            "TriageLevelOne": {
+              "ContentItemIds": [
+                "4e2mfha8xd23rvhzjt6exfcpck"
+              ]
+            },
+            "TriageResult": {
+              "ContentItemIds": [
+                "49t5vkz83ssxgyxmk9vxv93fxp"
+              ]
+            },
+            "TriageTileHtml": {
+              "Html": " <div id=\"triage-result-tile-container-interview-advice-employed\" class=\"triage-tile  article-tile\">\n  <h3 class=\"tile-header\">\n    <a href=\"/careers-advice/interview-advice\" id=\"triage-result-tile-link-interview-advice-employed\" class=\"govuk-link\">How to do well in an interview</a>\n</h3>\n   <p class=\"tile-description\">\n                           Remind yourself of what to expect from an interview and what you should prepare.\n   </p>\n</div>"
+            }
+          },
+          "AuditTrailPart": {
+            "Comment": null,
+            "ShowComment": false
+          },
+          "GraphSyncPart": {
+            "Text": "<<contentapiprefix>>/triageresulttile/cc931127-16ce-4203-85ff-aa42e4dd6449"
+          },
+          "TitlePart": {
+            "Title": "How to do well in an interview  - employed"
+          }
+        },
+        {
+          "ContentItemId": "44kwm8yr5fwk2xnkwkpcy1xdcj",
+          "ContentItemVersionId": "46xsczrkt4yza3xqx5b4fjw54b",
+          "ContentType": "TriageResultTile",
+          "DisplayText": "Video interview tips- employed",
+          "Latest": true,
+          "Published": true,
+          "ModifiedUtc": "2024-10-17T22:48:44.0038665Z",
+          "PublishedUtc": "2024-10-17T22:48:44.0886713Z",
+          "CreatedUtc": "2024-09-01T16:59:59.3733288Z",
+          "Owner": "41xc6z9rat7tjykwwe24q74dm6",
+          "Author": "siva.muruganandham",
+          "TriageResultTile": {
+            "TriageLevelOne": {
+              "ContentItemIds": [
+                "4e2mfha8xd23rvhzjt6exfcpck"
+              ]
+            },
+            "TriageResult": {
+              "ContentItemIds": [
+                "47ecehnbq43h3vw1wrf3xrdpdx"
+              ]
+            },
+            "TriageTileHtml": {
+              "Html": " <div id=\"triage-result-tile-container-how-to-do-well-in-video-interviews-employed\" class=\"triage-tile article-tile\">\n  <h3 class=\"tile-header\">\n    <a href=\"/careers-advice/how-to-do-well-in-video-interviews\" id=\"triage-result-tile-link-how-to-do-well-in-video-interviews-employed\" class=\"govuk-link\">Video interview tips</a>\n</h3>\n   <p class=\"tile-description\">\n                       Tips for what to consider if you need to prepare for a video interview.\n   </p>\n</div>"
+            }
+          },
+          "AuditTrailPart": {
+            "Comment": null,
+            "ShowComment": false
+          },
+          "GraphSyncPart": {
+            "Text": "<<contentapiprefix>>/triageresulttile/195eab04-a23b-4853-b79b-51c1b95d1248"
+          },
+          "TitlePart": {
+            "Title": "Video interview tips- employed"
+          }
+        },
+        {
+          "ContentItemId": "4nd6x1egy2hvh0b3sgvk6vnpdf",
+          "ContentItemVersionId": "42qqzkrj0j9c7yn71fqz65mzw5",
+          "ContentType": "TriageResultTile",
+          "DisplayText": "Phone interview tips  - employed",
+          "Latest": true,
+          "Published": true,
+          "ModifiedUtc": "2024-10-17T22:49:15.4231935Z",
+          "PublishedUtc": "2024-10-17T22:49:15.5030913Z",
+          "CreatedUtc": "2024-09-01T17:02:18.9277143Z",
+          "Owner": "41xc6z9rat7tjykwwe24q74dm6",
+          "Author": "siva.muruganandham",
+          "TriageResultTile": {
+            "TriageLevelOne": {
+              "ContentItemIds": [
+                "4e2mfha8xd23rvhzjt6exfcpck"
+              ]
+            },
+            "TriageResult": {
+              "ContentItemIds": [
+                "493jyc5vac0dx70n75wbzqks5b"
+              ]
+            },
+            "TriageTileHtml": {
+              "Html": " <div id=\"triage-result-tile-container-how-to-do-well-in-telephone-interviews-employed\" class=\"triage-tile article-tile\">\n  <h3 class=\"tile-header\">\n    <a href=\"/careers-advice/how-to-do-well-in-telephone-interviews\" id=\"triage-result-tile-link-how-to-do-well-in-telephone-interviews-employed\" class=\"govuk-link\">Phone interview tips</a>\n</h3>\n   <p class=\"tile-description\">\n                         Get advice on what to do before, during and after a phone interview. \n   </p>\n</div>"
+            }
+          },
+          "AuditTrailPart": {
+            "Comment": null,
+            "ShowComment": false
+          },
+          "GraphSyncPart": {
+            "Text": "<<contentapiprefix>>/triageresulttile/0d5b2c29-eaa8-45cb-93a2-b52cca71c8ff"
+          },
+          "TitlePart": {
+            "Title": "Phone interview tips  - employed"
+          }
+        },
+        {
+          "ContentItemId": "4yew54r3dmdk00qjhe6ff2ywwx",
+          "ContentItemVersionId": "4nxtqd4edkjt8rh7hw81nwac4y",
+          "ContentType": "TriageResultTile",
+          "DisplayText": "Understand and develop your skills- employment",
+          "Latest": true,
+          "Published": true,
+          "ModifiedUtc": "2024-10-17T22:49:54.8634174Z",
+          "PublishedUtc": "2024-10-17T22:49:54.9443209Z",
+          "CreatedUtc": "2024-09-01T18:37:37.0991192Z",
+          "Owner": "41xc6z9rat7tjykwwe24q74dm6",
+          "Author": "siva.muruganandham",
+          "TriageResultTile": {
+            "TriageLevelOne": {
+              "ContentItemIds": [
+                "4e2mfha8xd23rvhzjt6exfcpck"
+              ]
+            },
+            "TriageResult": {
+              "ContentItemIds": [
+                "4jx56pz1bg65f6jp65nvs90v5f"
+              ]
+            },
+            "TriageTileHtml": {
+              "Html": " <div id=\"triage-result-tile-container-identifying-skills-and-upskilling-employed\" class=\"triage-tile article-tile\">\n  <h3 class=\"tile-header\">\n    <a href=\"/careers-advice/identifying-skills-and-upskilling\" id=\"triage-result-tile-link-identifying-skills-and-upskilling-employed\" class=\"govuk-link\">Understand and develop your skills</a>\n</h3>\n   <p class=\"tile-description\">\n                       Learn about the skills you have and find out how to build skills to benefit your career.\n\n   </p>\n</div>"
+            }
+          },
+          "AuditTrailPart": {
+            "Comment": null,
+            "ShowComment": false
+          },
+          "GraphSyncPart": {
+            "Text": "<<contentapiprefix>>/triageresulttile/86f34593-822c-4748-8f25-68f309defdad"
+          },
+          "TitlePart": {
+            "Title": "Understand and develop your skills- employment"
+          }
+        },
+        {
+          "ContentItemId": "433hs0cttadfx34wrdfq7qxxnk",
+          "ContentItemVersionId": "4qqx96nmvtm3gvkjpbwaj4y8mc",
+          "ContentType": "TriageResultTile",
+          "DisplayText": "Explain a gap in employment  - employed",
+          "Latest": true,
+          "Published": true,
+          "ModifiedUtc": "2024-10-17T22:50:23.8582131Z",
+          "PublishedUtc": "2024-10-17T22:50:23.9369775Z",
+          "CreatedUtc": "2024-09-01T19:05:14.4091349Z",
+          "Owner": "41xc6z9rat7tjykwwe24q74dm6",
+          "Author": "siva.muruganandham",
+          "TriageResultTile": {
+            "TriageLevelOne": {
+              "ContentItemIds": [
+                "4e2mfha8xd23rvhzjt6exfcpck"
+              ]
+            },
+            "TriageResult": {
+              "ContentItemIds": [
+                "4kbdjrbkj8evcxc5vxnhyrg2dg"
+              ]
+            },
+            "TriageTileHtml": {
+              "Html": " <div id=\"triage-result-tile-container-explain-gaps-in-work-history-employed\" class=\"triage-tile article-tile\">\n  <h3 class=\"tile-header\">\n    <a href=\"/careers-advice/explain-gaps-in-work-history\" id=\"triage-result-tile-link-explain-gaps-in-work-history-employed\" class=\"govuk-link\">Explain a gap in employment</a>\n</h3>\n    <p class=\"tile-description\">\n                           Find guidance on when and how to explain any gaps in your work history to an employer.\n   </p>\n</div>"
+            }
+          },
+          "AuditTrailPart": {
+            "Comment": null,
+            "ShowComment": false
+          },
+          "GraphSyncPart": {
+            "Text": "<<contentapiprefix>>/triageresulttile/700a1dc3-1ccd-4df3-b2fd-f893cb3c375e"
+          },
+          "TitlePart": {
+            "Title": "Explain a gap in employment  - employed"
+          }
+        },
+        {
+          "ContentItemId": "4kq5v7sf50v716pg4ysykwnbnh",
+          "ContentItemVersionId": "46sv3ep27genpymvhjvmdkbhwh",
+          "ContentType": "TriageResultTile",
+          "DisplayText": "Where to find job vacancies - not in work",
+          "Latest": true,
+          "Published": true,
+          "ModifiedUtc": "2024-10-17T22:50:49.0279068Z",
+          "PublishedUtc": "2024-10-17T22:50:49.1090147Z",
+          "CreatedUtc": "2024-09-01T21:00:23.7887561Z",
+          "Owner": "41xc6z9rat7tjykwwe24q74dm6",
+          "Author": "siva.muruganandham",
+          "TriageResultTile": {
+            "TriageLevelOne": {
+              "ContentItemIds": [
+                "4jg4pebz90zrc0r8ae433sbe4a"
+              ]
+            },
+            "TriageResult": {
+              "ContentItemIds": [
+                "4az54radmrd6bwv6ysv0jeaqn9"
+              ]
+            },
+            "TriageTileHtml": {
+              "Html": " <div id=\"triage-result-tile-container-advertised-job-vacancies-not-in-work\" class=\"triage-tile article-tile\">\n  <h3 class=\"tile-header\">\n    <a href=\"/careers-advice/advertised-job-vacancies\" id=\"triage-result-tile-link-advertised-job-vacancies-not-in-work\" class=\"govuk-link\">Where to find job vacancies</a>\n</h3>\n   <p class=\"tile-description\">\n                      Discover where to look for job vacancies and get advice for job hunting.\n   </p>\n</div>"
+            }
+          },
+          "AuditTrailPart": {
+            "Comment": null,
+            "ShowComment": false
+          },
+          "GraphSyncPart": {
+            "Text": "<<contentapiprefix>>/triageresulttile/8eda4948-4762-469a-983f-c6aabdcf4851"
+          },
+          "TitlePart": {
+            "Title": "Where to find job vacancies - not in work"
+          }
+        },
+        {
+          "ContentItemId": "4rbk9q7twjawk222tjc7k0b0xf",
+          "ContentItemVersionId": "41devrnpc0krm0hvg4wym949nd",
+          "ContentType": "TriageResultTile",
+          "DisplayText": "Explore green careers - not in work",
+          "Latest": true,
+          "Published": true,
+          "ModifiedUtc": "2024-10-17T22:51:21.5112558Z",
+          "PublishedUtc": "2024-10-17T22:51:21.5929326Z",
+          "CreatedUtc": "2024-09-01T21:11:50.1885064Z",
+          "Owner": "41xc6z9rat7tjykwwe24q74dm6",
+          "Author": "siva.muruganandham",
+          "TriageResultTile": {
+            "TriageLevelOne": {
+              "ContentItemIds": [
+                "4jg4pebz90zrc0r8ae433sbe4a"
+              ]
+            },
+            "TriageResult": {
+              "ContentItemIds": [
+                "4zrs1nwbx4q4cve9yj6g2p6nn4"
+              ]
+            },
+            "TriageTileHtml": {
+              "Html": " <div id=\"triage-result-tile-container-green-careers-not-in-work\" class=\"triage-tile article-tile\">\n  <h3 class=\"tile-header\">\n    <a href=\"/careers-advice/green-careers\" id=\"triage-result-tile-link-green-careers-not-in-work\" class=\"govuk-link\"> Explore green careers </a>\n</h3>\n   <p class=\"tile-description\">\n                            Understand how green jobs can positively impact the planet in different ways.\n   </p>\n</div>"
+            }
+          },
+          "AuditTrailPart": {
+            "Comment": null,
+            "ShowComment": false
+          },
+          "GraphSyncPart": {
+            "Text": "<<contentapiprefix>>/triageresulttile/f4995370-0142-4fd0-b160-0ee44ef00740"
+          },
+          "TitlePart": {
+            "Title": "Explore green careers - not in work"
+          }
+        },
+        {
+          "ContentItemId": "4bqtnz5mxr35378a2rjatdvbnw",
+          "ContentItemVersionId": "4j53x9mmk637qs3xmhbjr8vf43",
+          "ContentType": "TriageResultTile",
+          "DisplayText": "Video interview tips- not in work",
+          "Latest": true,
+          "Published": true,
+          "ModifiedUtc": "2024-10-17T22:51:49.8304031Z",
+          "PublishedUtc": "2024-10-17T22:51:49.9092112Z",
+          "CreatedUtc": "2024-09-01T21:58:31.8908494Z",
+          "Owner": "41xc6z9rat7tjykwwe24q74dm6",
+          "Author": "siva.muruganandham",
+          "TriageResultTile": {
+            "TriageLevelOne": {
+              "ContentItemIds": [
+                "4jg4pebz90zrc0r8ae433sbe4a"
+              ]
+            },
+            "TriageResult": {
+              "ContentItemIds": [
+                "47ecehnbq43h3vw1wrf3xrdpdx"
+              ]
+            },
+            "TriageTileHtml": {
+              "Html": " <div id=\"triage-result-tile-container-how-to-do-well-in-video-interviews-not-in-work\" class=\"triage-tile article-tile\">\n  <h3 class=\"tile-header\">\n    <a href=\"/careers-advice/how-to-do-well-in-video-interviews\" id=\"triage-result-tile-link-how-to-do-well-in-video-interviews-not-in-work\" class=\"govuk-link\"> Video interview tips</a>\n</h3>\n   <p class=\"tile-description\">\n                       Tips for what to consider if you need to prepare for a video interview.\n   </p>\n</div>"
+            }
+          },
+          "AuditTrailPart": {
+            "Comment": null,
+            "ShowComment": false
+          },
+          "GraphSyncPart": {
+            "Text": "<<contentapiprefix>>/triageresulttile/13285683-7495-4195-847b-f3fa252588c2"
+          },
+          "TitlePart": {
+            "Title": "Video interview tips- not in work"
+          }
+        },
+        {
+          "ContentItemId": "4pq8qyxwd9qpt08bb3ysksyvcm",
+          "ContentItemVersionId": "4a5m45xa93pj607wrz7ennk5dg",
+          "ContentType": "TriageResultTile",
+          "DisplayText": "Understand and develop your skills- not in work",
+          "Latest": true,
+          "Published": true,
+          "ModifiedUtc": "2024-10-17T22:52:15.0226699Z",
+          "PublishedUtc": "2024-10-17T22:52:15.1050878Z",
+          "CreatedUtc": "2024-09-01T21:21:33.4252395Z",
+          "Owner": "41xc6z9rat7tjykwwe24q74dm6",
+          "Author": "siva.muruganandham",
+          "TriageResultTile": {
+            "TriageLevelOne": {
+              "ContentItemIds": [
+                "4jg4pebz90zrc0r8ae433sbe4a"
+              ]
+            },
+            "TriageResult": {
+              "ContentItemIds": [
+                "4jx56pz1bg65f6jp65nvs90v5f"
+              ]
+            },
+            "TriageTileHtml": {
+              "Html": " <div id=\"triage-result-tile-container-identifying-skills-and-upskilling-not-in-work\" class=\"triage-tile article-tile\">\n  <h3 class=\"tile-header\">\n    <a href=\"/careers-advice/identifying-skills-and-upskilling\" id=\"triage-result-tile-link-identifying-skills-and-upskilling-not-in-work\" class=\"govuk-link\">Understand and develop your skills</a>\n</h3>\n\n   <p class=\"tile-description\">\n                       Learn about the skills you have and find out how to build skills for a job you’re interested in.\n   </p>\n</div>"
+            }
+          },
+          "AuditTrailPart": {
+            "Comment": null,
+            "ShowComment": false
+          },
+          "GraphSyncPart": {
+            "Text": "<<contentapiprefix>>/triageresulttile/3cc1104e-66ce-48da-b7b9-bb7705f92eb7"
+          },
+          "TitlePart": {
+            "Title": "Understand and develop your skills- not in work"
+          }
+        },
+        {
+          "ContentItemId": "4wbg5f8y35w0cz86nmkzjt2nnc",
+          "ContentItemVersionId": "4njhywacd35xhtzb3j55awz6nd",
+          "ContentType": "TriageResultTile",
+          "DisplayText": "How to write a CV   - not in work",
+          "Latest": true,
+          "Published": true,
+          "ModifiedUtc": "2024-10-17T22:52:45.6353266Z",
+          "PublishedUtc": "2024-10-17T22:52:45.7175424Z",
+          "CreatedUtc": "2024-09-01T21:32:14.9161589Z",
+          "Owner": "41xc6z9rat7tjykwwe24q74dm6",
+          "Author": "siva.muruganandham",
+          "TriageResultTile": {
+            "TriageLevelOne": {
+              "ContentItemIds": [
+                "4jg4pebz90zrc0r8ae433sbe4a"
+              ]
+            },
+            "TriageResult": {
+              "ContentItemIds": [
+                "4gz0n7qp3zwc02thpa7fksqan3"
+              ]
+            },
+            "TriageTileHtml": {
+              "Html": " <div id=\"triage-result-tile-container-cv-sections-not-in-work\" class=\"triage-tile article-tile\">\n  <h3 class=\"tile-header\">\n    <a href=\"/careers-advice/cv-sections\" id=\"triage-result-tile-link-cv-sections-not-in-work\" class=\"govuk-link\">How to write a CV</a>\n</h3>\n   <p class=\"tile-description\">\n                          Tips on what to include in each section of your CV to stand out to employers.\n   </p>\n</div>"
+            }
+          },
+          "AuditTrailPart": {
+            "Comment": null,
+            "ShowComment": false
+          },
+          "GraphSyncPart": {
+            "Text": "<<contentapiprefix>>/triageresulttile/48b8abba-5fbc-4b11-a7bd-e79bb82ede13"
+          },
+          "TitlePart": {
+            "Title": "How to write a CV   - not in work"
+          }
+        },
+        {
+          "ContentItemId": "47ra3qdx6vmyq7kv88j9j9s1xs",
+          "ContentItemVersionId": "4zb7qsw18qkp15m3xsdw1vx8wt",
+          "ContentType": "TriageResultTile",
+          "DisplayText": "Explain a gap in employment  - not in work",
+          "Latest": true,
+          "Published": true,
+          "ModifiedUtc": "2024-10-17T22:53:17.2288078Z",
+          "PublishedUtc": "2024-10-17T22:53:17.3074854Z",
+          "CreatedUtc": "2024-09-01T21:30:49.1707426Z",
+          "Owner": "41xc6z9rat7tjykwwe24q74dm6",
+          "Author": "siva.muruganandham",
+          "TriageResultTile": {
+            "TriageLevelOne": {
+              "ContentItemIds": [
+                "4jg4pebz90zrc0r8ae433sbe4a"
+              ]
+            },
+            "TriageResult": {
+              "ContentItemIds": [
+                "4kbdjrbkj8evcxc5vxnhyrg2dg"
+              ]
+            },
+            "TriageTileHtml": {
+              "Html": " <div id=\"triage-result-tile-container-explain-gaps-in-work-history-not-in-work\" class=\"triage-tile  article-tile\">\n  <h3 class=\"tile-header\">\n    <a href=\"/careers-advice/explain-gaps-in-work-history\" id=\"triage-result-tile-link-explain-gaps-in-work-history-not-in-work\" class=\"govuk-link\">Explain a gap in employment</a>\n</h3>\n \n   <p class=\"tile-description\">\n                           Find guidance on when and how to explain any gaps in your work history to an employer.\n\n   </p>\n</div>"
+            }
+          },
+          "AuditTrailPart": {
+            "Comment": null,
+            "ShowComment": false
+          },
+          "GraphSyncPart": {
+            "Text": "<<contentapiprefix>>/triageresulttile/c7cacfcd-bbf4-4642-9018-2857a9908d9b"
+          },
+          "TitlePart": {
+            "Title": "Explain a gap in employment  - not in work"
+          }
+        },
+        {
+          "ContentItemId": "4yvydn1rdkps6vppcakw1437cq",
+          "ContentItemVersionId": "4045y212td9tnxk0e683gmqf4c",
+          "ContentType": "TriageResultTile",
+          "DisplayText": "How to write a cover letter   - not in work",
+          "Latest": true,
+          "Published": true,
+          "ModifiedUtc": "2024-10-17T22:53:59.4154409Z",
+          "PublishedUtc": "2024-10-17T22:53:59.4961567Z",
+          "CreatedUtc": "2024-09-01T21:39:02.3261618Z",
+          "Owner": "41xc6z9rat7tjykwwe24q74dm6",
+          "Author": "siva.muruganandham",
+          "TriageResultTile": {
+            "TriageLevelOne": {
+              "ContentItemIds": [
+                "4jg4pebz90zrc0r8ae433sbe4a"
+              ]
+            },
+            "TriageResult": {
+              "ContentItemIds": [
+                "40kr98f2gmed4v0rcmnenmxpdk"
+              ]
+            },
+            "TriageTileHtml": {
+              "Html": " <div id=\"triage-result-tile-container-covering-letter-not-in-work\" class=\"triage-tile article-tile\">\n  <h3 class=\"tile-header\">\n    <a href=\"/careers-advice/covering-letter\" id=\"triage-result-tile-link-covering-letter-not-in-work\" class=\"govuk-link\">How to write a cover letter</a>\n</h3>\n   <p class=\"tile-description\">\n                          Advice on how to write a cover letter to show why you are right for the job. \n   </p>\n</div>"
+            }
+          },
+          "AuditTrailPart": {
+            "Comment": null,
+            "ShowComment": false
+          },
+          "GraphSyncPart": {
+            "Text": "<<contentapiprefix>>/triageresulttile/67941161-7bb8-4f9f-accd-6aedd6220d16"
+          },
+          "TitlePart": {
+            "Title": "How to write a cover letter   - not in work"
+          }
+        },
+        {
+          "ContentItemId": "4mmrk9jgtdq8gv15mrk93fz7xc",
+          "ContentItemVersionId": "4bct1yyqk1x2d75pgb83esspnm",
+          "ContentType": "TriageResultTile",
+          "DisplayText": "Stand out on LinkedIn  - not in work",
+          "Latest": true,
+          "Published": true,
+          "ModifiedUtc": "2024-10-17T22:54:34.9412567Z",
+          "PublishedUtc": "2024-10-17T22:54:35.0220699Z",
+          "CreatedUtc": "2024-09-01T21:41:27.4920755Z",
+          "Owner": "41xc6z9rat7tjykwwe24q74dm6",
+          "Author": "siva.muruganandham",
+          "TriageResultTile": {
+            "TriageLevelOne": {
+              "ContentItemIds": [
+                "4jg4pebz90zrc0r8ae433sbe4a"
+              ]
+            },
+            "TriageResult": {
+              "ContentItemIds": [
+                "4fsce225sxsatskh2k4kk3s3de"
+              ]
+            },
+            "TriageTileHtml": {
+              "Html": " <div id=\"triage-result-tile-container-create-a-linkedin-profile-not-in-work\" class=\"triage-tile  article-tile\">\n  <h3 class=\"tile-header\">\n    <a href=\"/careers-advice/create-a-linkedin-profile/\" id=\"triage-result-tile-link-create-a-linkedin-profile-not-in-work\" class=\"govuk-link\">Stand out on LinkedIn</a>\n</h3>\n   <p class=\"tile-description\">\n                         See our guide to create a LinkedIn profile that shows your skills and accomplishments. \n   </p>\n</div>"
+            }
+          },
+          "AuditTrailPart": {
+            "Comment": null,
+            "ShowComment": false
+          },
+          "GraphSyncPart": {
+            "Text": "<<contentapiprefix>>/triageresulttile/c7e021f6-288a-4e98-927f-a855cf2bcc55"
+          },
+          "TitlePart": {
+            "Title": "Stand out on LinkedIn  - not in work"
+          }
+        },
+        {
+          "ContentItemId": "4yv6js9pvysqf0crn1qg0mrg5z",
+          "ContentItemVersionId": "4sby4r5qzz6rfs3pctc00syec1",
+          "ContentType": "TriageResultTile",
+          "DisplayText": "How to deal with setbacks  - not in work",
+          "Latest": true,
+          "Published": true,
+          "ModifiedUtc": "2024-10-17T22:55:02.9018296Z",
+          "PublishedUtc": "2024-10-17T22:55:02.9821169Z",
+          "CreatedUtc": "2024-09-01T21:44:32.5094246Z",
+          "Owner": "41xc6z9rat7tjykwwe24q74dm6",
+          "Author": "siva.muruganandham",
+          "TriageResultTile": {
+            "TriageLevelOne": {
+              "ContentItemIds": [
+                "4jg4pebz90zrc0r8ae433sbe4a"
+              ]
+            },
+            "TriageResult": {
+              "ContentItemIds": [
+                "45pvecx33brj15ws13zp6dv8xp"
+              ]
+            },
+            "TriageTileHtml": {
+              "Html": " <div id=\"triage-result-tile-container-how-to-bounce-back-in-a-tough-jobs-market-not-in-work\" class=\"triage-tile article-tile\">\n  <h3 class=\"tile-header\">\n    <a href=\"/careers-advice/how-to-bounce-back-in-a-tough-jobs-market\" id=\"triage-result-tile-link-how-to-bounce-back-in-a-tough-jobs-market-not-in-work\" class=\"govuk-link\">How to deal with setbacks</a>\n</h3>\n   <p class=\"tile-description\">\n                            View advice on how to stay positive if you experience rejection when looking for jobs.\n   </p>\n</div>"
+            }
+          },
+          "AuditTrailPart": {
+            "Comment": null,
+            "ShowComment": false
+          },
+          "GraphSyncPart": {
+            "Text": "<<contentapiprefix>>/triageresulttile/893a1592-e898-4708-a08f-0c6042415359"
+          },
+          "TitlePart": {
+            "Title": "How to deal with setbacks  - not in work"
+          }
+        },
+        {
+          "ContentItemId": "44bmk8m8hp3ff4w1tzgbxey7d4",
+          "ContentItemVersionId": "42bjebs05jwae67mst1hasp5wa",
+          "ContentType": "TriageResultTile",
+          "DisplayText": "How to do well in an interview  - not in work",
+          "Latest": true,
+          "Published": true,
+          "ModifiedUtc": "2024-10-17T22:55:45.1930991Z",
+          "PublishedUtc": "2024-10-17T22:55:45.2810551Z",
+          "CreatedUtc": "2024-09-01T21:56:51.1393752Z",
+          "Owner": "41xc6z9rat7tjykwwe24q74dm6",
+          "Author": "siva.muruganandham",
+          "TriageResultTile": {
+            "TriageLevelOne": {
+              "ContentItemIds": [
+                "4jg4pebz90zrc0r8ae433sbe4a"
+              ]
+            },
+            "TriageResult": {
+              "ContentItemIds": [
+                "49t5vkz83ssxgyxmk9vxv93fxp"
+              ]
+            },
+            "TriageTileHtml": {
+              "Html": " <div id=\"triage-result-tile-container-interview-advice-not-in-work\" class=\"triage-tile article-tile\">\n  <h3 class=\"tile-header\">\n    <a href=\"/careers-advice/interview-advice\" id=\"triage-result-tile-link-interview-advice-not-in-work\" class=\"govuk-link\">How to do well in an interview</a>\n</h3>\n   <p class=\"tile-description\">\n                           Learn what to expect from an interview and what you should prepare.\n   </p>\n</div>"
+            }
+          },
+          "AuditTrailPart": {
+            "Comment": null,
+            "ShowComment": false
+          },
+          "GraphSyncPart": {
+            "Text": "<<contentapiprefix>>/triageresulttile/439f7e5e-8bd7-4412-b904-e28e69b1fc0d"
+          },
+          "TitlePart": {
+            "Title": "How to do well in an interview  - not in work"
+          }
+        },
+        {
+          "ContentItemId": "4kcztahthr2ch3wch4fy2ht2wz",
+          "ContentItemVersionId": "4h4qbfgbp0q2x7k1kx1k9pd8mj",
+          "ContentType": "TriageResultTile",
+          "DisplayText": "Phone interview tips  - not in work",
+          "Latest": true,
+          "Published": true,
+          "ModifiedUtc": "2024-10-17T22:56:27.5540343Z",
+          "PublishedUtc": "2024-10-17T22:56:27.6346964Z",
+          "CreatedUtc": "2024-09-01T21:59:53.0783107Z",
+          "Owner": "41xc6z9rat7tjykwwe24q74dm6",
+          "Author": "siva.muruganandham",
+          "TriageResultTile": {
+            "TriageLevelOne": {
+              "ContentItemIds": [
+                "4jg4pebz90zrc0r8ae433sbe4a"
+              ]
+            },
+            "TriageResult": {
+              "ContentItemIds": [
+                "493jyc5vac0dx70n75wbzqks5b"
+              ]
+            },
+            "TriageTileHtml": {
+              "Html": " <div id=\"triage-result-tile-container-how-to-do-well-in-telephone-interviews-not-in-work\" class=\"triage-tile article-tile\">\n  <h3 class=\"tile-header\">\n    <a href=\"/careers-advice/how-to-do-well-in-telephone-interviews\" id=\"triage-result-tile-link-how-to-do-well-in-telephone-interviews-not-in-work\" class=\"govuk-link\">Phone interview tips</a>\n</h3>\n   <p class=\"tile-description\">\n                         Get advice on what to do before, during and after a phone interview. \n   </p>\n</div>"
+            }
+          },
+          "AuditTrailPart": {
+            "Comment": null,
+            "ShowComment": false
+          },
+          "GraphSyncPart": {
+            "Text": "<<contentapiprefix>>/triageresulttile/2cc32b70-0896-4ffe-9fce-18515185b20e"
+          },
+          "TitlePart": {
+            "Title": "Phone interview tips  - not in work"
+          }
+        },
+        {
+          "ContentItemId": "4qfes6mwgsb6t7cq08c0fb3pcf",
+          "ContentItemVersionId": "4187zb8f1e5d24dq09a6d62cwq",
+          "ContentType": "TriageResultTile",
+          "DisplayText": "Explore green careers - employed",
+          "Latest": true,
+          "Published": true,
+          "ModifiedUtc": "2024-10-17T22:57:01.2935546Z",
+          "PublishedUtc": "2024-10-17T22:57:01.3756398Z",
+          "CreatedUtc": "2024-09-01T16:24:40.1721409Z",
+          "Owner": "41xc6z9rat7tjykwwe24q74dm6",
+          "Author": "siva.muruganandham",
+          "TriageResultTile": {
+            "TriageLevelOne": {
+              "ContentItemIds": [
+                "4e2mfha8xd23rvhzjt6exfcpck"
+              ]
+            },
+            "TriageResult": {
+              "ContentItemIds": [
+                "4zrs1nwbx4q4cve9yj6g2p6nn4"
+              ]
+            },
+            "TriageTileHtml": {
+              "Html": " <div id=\"triage-result-tile-container-green-careers-employed\" class=\"triage-tile article-tile\">\n  <h3 class=\"tile-header\">\n    <a href=\"/careers-advice/green-careers\" id=\"triage-result-tile-link-green-careers-employed\" class=\"govuk-link\"> Explore green careers </a>\n</h3>\n   <p class=\"tile-description\">\n                            Understand how green jobs can positively impact the planet in different ways.\n   </p>\n</div>"
+            }
+          },
+          "AuditTrailPart": {
+            "Comment": null,
+            "ShowComment": false
+          },
+          "GraphSyncPart": {
+            "Text": "<<contentapiprefix>>/triageresulttile/89856b0b-e769-45e1-ae3c-7de883a93ca2"
+          },
+          "TitlePart": {
+            "Title": "Explore green careers - employed"
+          }
+        },
+        {
+          "ContentItemId": "4rehm2qdsfv6q10bd758azcrnr",
+          "ContentItemVersionId": "41rshn0etfjkqvafewykafq3cc",
+          "ContentType": "TriageResultTile",
+          "DisplayText": "Where to find job vacancies - employed",
+          "Latest": true,
+          "Published": true,
+          "ModifiedUtc": "2024-10-17T22:57:34.7460611Z",
+          "PublishedUtc": "2024-10-17T22:57:34.8287567Z",
+          "CreatedUtc": "2024-09-01T16:23:30.4574981Z",
+          "Owner": "41xc6z9rat7tjykwwe24q74dm6",
+          "Author": "siva.muruganandham",
+          "TriageResultTile": {
+            "TriageLevelOne": {
+              "ContentItemIds": [
+                "4e2mfha8xd23rvhzjt6exfcpck"
+              ]
+            },
+            "TriageResult": {
+              "ContentItemIds": [
+                "4az54radmrd6bwv6ysv0jeaqn9"
+              ]
+            },
+            "TriageTileHtml": {
+              "Html": " <div id=\"triage-result-tile-container-advertised-job-vacancies-employed\" class=\"triage-tile article-tile\">\n  <h3 class=\"tile-header\">\n    <a href=\"/careers-advice/advertised-job-vacancies\" id=\"triage-result-tile-link-advertised-job-vacancies-employed\" class=\"govuk-link\">Where to find job vacancies</a>\n</h3>\n   <p class=\"tile-description\">\n                      Discover where to look for job vacancies and get advice for job hunting.\n   </p>\n</div>"
+            }
+          },
+          "AuditTrailPart": {
+            "Comment": null,
+            "ShowComment": false
+          },
+          "GraphSyncPart": {
+            "Text": "<<contentapiprefix>>/triageresulttile/d16115a3-1feb-47b7-abc3-e1a5184c2aea"
+          },
+          "TitlePart": {
+            "Title": "Where to find job vacancies - employed"
+          }
+        }
+      ]
+    }
+  ]
+}

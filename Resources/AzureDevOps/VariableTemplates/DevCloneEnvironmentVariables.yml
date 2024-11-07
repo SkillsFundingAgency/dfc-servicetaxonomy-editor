@@ -28,11 +28,11 @@ variables:
 - name: CipherTextValiditySeconds
   value: 60
 - name: RedirectUri0
-  value: https://dev-beta.nationalcareersservice.org.uk/find-a-course-ssp2
+  value: https://dev-beta.nationalcareersservice.org.uk/find-a-course
 - name: ContentType0
   value: Header
 - name: RedirectUri1
-  value: https://dev-beta.nationalcareersservice.org.uk/find-a-course-ssp2
+  value: https://dev-beta.nationalcareersservice.org.uk/find-a-course
 - name: ContentType1
   value: Footer
 - name: RedirectUri2
