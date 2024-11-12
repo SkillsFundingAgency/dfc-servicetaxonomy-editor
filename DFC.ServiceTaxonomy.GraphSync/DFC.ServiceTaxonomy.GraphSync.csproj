@@ -19,23 +19,23 @@
     <PackageReference Include="Microsoft.Azure.Cosmos" Version="3.32.1" />
     <PackageReference Include="Microsoft.CodeAnalysis.CSharp.Scripting" Version="4.5.0" />
     <PackageReference Include="morelinq" Version="3.4.0" />
-    <PackageReference Include="OrchardCore.ContentFields" Version="1.6.0" />
-    <PackageReference Include="OrchardCore.ContentTypes" Version="1.6.0" />
-    <PackageReference Include="OrchardCore.Flows" Version="1.6.0" />
-    <PackageReference Include="OrchardCore.Forms" Version="1.6.0" />
-    <PackageReference Include="OrchardCore.Html" Version="1.6.0" />
-    <PackageReference Include="OrchardCore.Module.Targets" Version="1.6.0" />
-    <PackageReference Include="OrchardCore.ContentManagement" Version="1.6.0" />
-    <PackageReference Include="OrchardCore.ContentManagement.Display" Version="1.6.0" />
-    <PackageReference Include="OrchardCore.ContentTypes.Abstractions" Version="1.6.0" />
-    <PackageReference Include="OrchardCore.DisplayManagement" Version="1.6.0" />
-    <PackageReference Include="OrchardCore.PublishLater" Version="1.6.0" />
-    <PackageReference Include="OrchardCore.Title" Version="1.6.0" />
-    <PackageReference Include="OrchardCore.Autoroute" Version="1.6.0" />
-    <PackageReference Include="OrchardCore.Alias" Version="1.6.0" />
-    <PackageReference Include="OrchardCore.Workflows" Version="1.6.0" />
-    <PackageReference Include="OrchardCore.Abstractions" Version="1.6.0" />
-    <PackageReference Include="OrchardCore.Sitemaps" Version="1.6.0" />
+    <PackageReference Include="OrchardCore.ContentFields" Version="1.7.0" />
+    <PackageReference Include="OrchardCore.ContentTypes" Version="1.7.0" />
+    <PackageReference Include="OrchardCore.Flows" Version="1.7.0" />
+    <PackageReference Include="OrchardCore.Forms" Version="1.7.0" />
+    <PackageReference Include="OrchardCore.Html" Version="1.7.0" />
+    <PackageReference Include="OrchardCore.Module.Targets" Version="1.7.0" />
+    <PackageReference Include="OrchardCore.ContentManagement" Version="1.7.0" />
+    <PackageReference Include="OrchardCore.ContentManagement.Display" Version="1.7.0" />
+    <PackageReference Include="OrchardCore.ContentTypes.Abstractions" Version="1.7.0" />
+    <PackageReference Include="OrchardCore.DisplayManagement" Version="1.7.0" />
+    <PackageReference Include="OrchardCore.PublishLater" Version="1.7.0" />
+    <PackageReference Include="OrchardCore.Title" Version="1.7.0" />
+    <PackageReference Include="OrchardCore.Autoroute" Version="1.7.0" />
+    <PackageReference Include="OrchardCore.Alias" Version="1.7.0" />
+    <PackageReference Include="OrchardCore.Workflows" Version="1.7.0" />
+    <PackageReference Include="OrchardCore.Abstractions" Version="1.7.0" />
+    <PackageReference Include="OrchardCore.Sitemaps" Version="1.7.0" />
     <PackageReference Include="SonarAnalyzer.CSharp" Version="8.15.0.24505">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>

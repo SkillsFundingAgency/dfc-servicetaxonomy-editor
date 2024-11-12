@@ -24,19 +24,19 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="OrchardCore.Admin" Version="1.6.0" />
-    <PackageReference Include="OrchardCore.Infrastructure" Version="1.6.0" />
-    <PackageReference Include="OrchardCore.Infrastructure.Abstractions" Version="1.6.0" />
-    <PackageReference Include="OrchardCore.Theme.Targets" Version="1.6.0" />
-    <PackageReference Include="OrchardCore.ContentManagement" Version="1.6.0" />
-    <PackageReference Include="OrchardCore.ContentManagement.Abstractions" Version="1.6.0" />
-    <PackageReference Include="OrchardCore.DisplayManagement" Version="1.6.0" />
-    <PackageReference Include="OrchardCore.Users" Version="1.6.0" />
-    <PackageReference Include="OrchardCore.ResourceManagement" Version="1.6.0" />
+    <PackageReference Include="OrchardCore.Admin" Version="1.7.0" />
+    <PackageReference Include="OrchardCore.Infrastructure" Version="1.7.0" />
+    <PackageReference Include="OrchardCore.Infrastructure.Abstractions" Version="1.7.0" />
+    <PackageReference Include="OrchardCore.Theme.Targets" Version="1.7.0" />
+    <PackageReference Include="OrchardCore.ContentManagement" Version="1.7.0" />
+    <PackageReference Include="OrchardCore.ContentManagement.Abstractions" Version="1.7.0" />
+    <PackageReference Include="OrchardCore.DisplayManagement" Version="1.7.0" />
+    <PackageReference Include="OrchardCore.Users" Version="1.7.0" />
+    <PackageReference Include="OrchardCore.ResourceManagement" Version="1.7.0" />
     <PackageReference Include="SonarAnalyzer.CSharp" Version="8.15.0.24505">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="TheAdmin" Version="1.6.0" />
+    <PackageReference Include="TheAdmin" Version="1.7.0" />
   </ItemGroup>
 </Project>

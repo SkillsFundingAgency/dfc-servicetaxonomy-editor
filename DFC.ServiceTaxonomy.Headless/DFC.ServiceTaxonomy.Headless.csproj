@@ -9,12 +9,12 @@
     <FrameworkReference Include="Microsoft.AspNetCore.App" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="OrchardCore.Apis.GraphQL" Version="1.6.0" />
-    <PackageReference Include="OrchardCore.ContentManagement" Version="1.6.0" />
-    <PackageReference Include="OrchardCore.ContentTypes.Abstractions" Version="1.6.0" />
-    <PackageReference Include="OrchardCore.DisplayManagement" Version="1.6.0" />
-    <PackageReference Include="OrchardCore.Media" Version="1.6.0" />
-    <PackageReference Include="OrchardCore.Module.Targets" Version="1.6.0" />
-    <PackageReference Include="OrchardCore.Sitemaps" Version="1.6.0" />
+    <PackageReference Include="OrchardCore.Apis.GraphQL" Version="1.7.0" />
+    <PackageReference Include="OrchardCore.ContentManagement" Version="1.7.0" />
+    <PackageReference Include="OrchardCore.ContentTypes.Abstractions" Version="1.7.0" />
+    <PackageReference Include="OrchardCore.DisplayManagement" Version="1.7.0" />
+    <PackageReference Include="OrchardCore.Media" Version="1.7.0" />
+    <PackageReference Include="OrchardCore.Module.Targets" Version="1.7.0" />
+    <PackageReference Include="OrchardCore.Sitemaps" Version="1.7.0" />
   </ItemGroup>
 </Project>
