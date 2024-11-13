@@ -28,12 +28,12 @@ namespace DFC.ServiceTaxonomy.ContentApproval
 
         public async Task<int> CreateAsync()
         {
-            _contentDefinitionManager.AlterPartDefinition(nameof(ContentApprovalItemStatusDashboardPart), builder => builder
+            await _contentDefinitionManager.AlterPartDefinitionAsync(nameof(ContentApprovalItemStatusDashboardPart), builder => builder
                 .Attachable()
                 .WithDescription("Adds content approval dashboard cards.")
             );
 
-            _contentDefinitionManager.AlterPartDefinition(nameof(ContentApprovalPart), part => part
+            await _contentDefinitionManager.AlterPartDefinitionAsync(nameof(ContentApprovalPart), part => part
                 .Attachable()
                 .WithDescription("Adds publishing status workflow properties to content items.")
             );
@@ -41,7 +41,7 @@ namespace DFC.ServiceTaxonomy.ContentApproval
 
             try
             {
-                SchemaBuilder.DropMapIndexTable<ContentApprovalPartIndex>();
+                await SchemaBuilder.DropMapIndexTableAsync<ContentApprovalPartIndex>();
             }
             catch (Exception e)
             {
@@ -49,12 +49,12 @@ namespace DFC.ServiceTaxonomy.ContentApproval
                 _logger.LogWarning(e, "ContentApprovalPartIndex could not be deleted");
             }
 
-            SchemaBuilder.CreateMapIndexTable<ContentApprovalPartIndex>(table => table
+            await SchemaBuilder.CreateMapIndexTableAsync<ContentApprovalPartIndex>(table => table
                 .Column<int>(nameof(ContentApprovalPartIndex.ReviewStatus))
                 .Column<int>(nameof(ContentApprovalPartIndex.ReviewType))
                 .Column<bool>(nameof(ContentApprovalPart.IsForcePublished)));
 
-            SchemaBuilder.AlterIndexTable<ContentApprovalPartIndex>(table => table
+            await SchemaBuilder.AlterIndexTableAsync<ContentApprovalPartIndex>(table => table
                 .CreateIndex(
                     $"IDX_{nameof(ContentApprovalPartIndex)}_{nameof(ContentApprovalPartIndex.ReviewStatus)}",
                     "DocumentId",
@@ -78,7 +78,7 @@ namespace DFC.ServiceTaxonomy.ContentApproval
         {
             try
             {
-                SchemaBuilder.DropMapIndexTable<ContentApprovalPartIndex>();
+                SchemaBuilder.DropMapIndexTableAsync<ContentApprovalPartIndex>();
             }
             catch (Exception e)
             {
@@ -86,20 +86,20 @@ namespace DFC.ServiceTaxonomy.ContentApproval
                 _logger.LogWarning(e, "ContentApprovalPartIndex could not be deleted");
             }
 
-            _contentDefinitionManager.DeletePartDefinition(nameof(ContentApprovalPart));
+            _contentDefinitionManager.DeletePartDefinitionAsync(nameof(ContentApprovalPart));
 
-            SchemaBuilder.CreateMapIndexTable<ContentApprovalPartIndex>(table => table
+            SchemaBuilder.CreateMapIndexTableAsync<ContentApprovalPartIndex>(table => table
                 .Column<int>(nameof(ContentApprovalPartIndex.ReviewStatus))
                 .Column<int>(nameof(ContentApprovalPartIndex.ReviewType)));
 
-            SchemaBuilder.AlterIndexTable<ContentApprovalPartIndex>(table => table
+            SchemaBuilder.AlterIndexTableAsync<ContentApprovalPartIndex>(table => table
                 .CreateIndex(
                     $"IDX_{nameof(ContentApprovalPartIndex)}_{nameof(ContentApprovalPartIndex.ReviewStatus)}",
                     "DocumentId",
                     nameof(ContentApprovalPartIndex.ReviewStatus),
                     nameof(ContentApprovalPartIndex.ReviewType)));
 
-            _contentDefinitionManager.AlterPartDefinition(nameof(ContentApprovalPart), part => part
+            _contentDefinitionManager.AlterPartDefinitionAsync(nameof(ContentApprovalPart), part => part
                 .Attachable()
                 .WithDescription("Adds publishing status workflow properties to content items.")
             );
@@ -111,7 +111,7 @@ namespace DFC.ServiceTaxonomy.ContentApproval
         {
             try
             {
-                SchemaBuilder.DropMapIndexTable<ContentApprovalPartIndex>();
+                await SchemaBuilder.DropMapIndexTableAsync<ContentApprovalPartIndex>();
             }
             catch (Exception e)
             {
@@ -119,12 +119,12 @@ namespace DFC.ServiceTaxonomy.ContentApproval
                 _logger.LogWarning(e, "ContentApprovalPartIndex could not be deleted");
             }
 
-            SchemaBuilder.CreateMapIndexTable<ContentApprovalPartIndex>(table => table
+            await SchemaBuilder.CreateMapIndexTableAsync<ContentApprovalPartIndex>(table => table
                 .Column<int>(nameof(ContentApprovalPartIndex.ReviewStatus))
                 .Column<int>(nameof(ContentApprovalPartIndex.ReviewType))
                 .Column<bool>(nameof(ContentApprovalPart.IsForcePublished)));
 
-            SchemaBuilder.AlterIndexTable<ContentApprovalPartIndex>(table => table
+            await SchemaBuilder.AlterIndexTableAsync<ContentApprovalPartIndex>(table => table
                 .CreateIndex(
                     $"IDX_{nameof(ContentApprovalPartIndex)}_{nameof(ContentApprovalPartIndex.ReviewStatus)}",
                     "DocumentId",
