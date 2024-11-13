@@ -33,7 +33,7 @@ namespace DFC.ServiceTaxonomy.ContentPickerPreview.Services
             if (searchContext.DisplayAllContentTypes)
             {
                 contentTypes = _contentDefinitionManager
-                    .ListTypeDefinitions()
+                    .ListTypeDefinitionsAsync().GetAwaiter().GetResult()
                     .Where(x => string.IsNullOrEmpty(x.GetSettings<ContentTypeSettings>().Stereotype))
                     .Select(x => x.Name)
                     .AsEnumerable();
