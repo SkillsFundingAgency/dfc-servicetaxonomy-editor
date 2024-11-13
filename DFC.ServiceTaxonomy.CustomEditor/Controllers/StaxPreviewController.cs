@@ -27,6 +27,7 @@ namespace DFC.ServiceTaxonomy.CustomEditor.Controllers
 
         public ActionResult GotoUrl(string path)
         {
+            _logger.LogTrace($"Running preview url redirect for path: {path}");
             var previewLoginUrl = _configuration[ConfigKeys.StaxPreviewUrl];
             long validFromTicks = DateTime.UtcNow.Ticks;
 
