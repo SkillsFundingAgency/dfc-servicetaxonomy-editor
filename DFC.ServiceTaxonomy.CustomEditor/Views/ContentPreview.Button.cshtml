@@ -24,6 +24,9 @@
 	var isAllowedContent = allowedContentTypes.Any(a => a.Contains(contentItem.ContentType));
 	var isPreviewRequired = contentItem.ContentType == ContentTypes.Page || contentItem.ContentType == ContentTypes.JobProfile || contentItem.ContentType == ContentTypes.Footer || contentItem.ContentType == ContentTypes.Header;
 
+	//Temp key used to determine if preview button should use new redirect url.
+	var isNcsPreview = false;
+
 	//Temp keys used for proving if page is valid within allowed page list.
 	var previewURI = string.Empty;
 }
@@ -31,22 +34,24 @@
 @if (isPreviewRequired)
 {
 	//Temp check to see if page matches approved page routes within appsettings.
-	@if(contentItem.ContentType == "Page" && isAllowedContent)
+	@if (contentItem.ContentType == "Page" && isAllowedContent)
 	{
 		var pageLocation = contentItem.Content[nameof(PageLocationPart)][nameof(PageLocationPart.FullUrl)].ToString();
 		@if (allowedPages.Any(pageUrl => pageLocation.Contains(pageUrl)))
 		{
 			var redirectUri = redirectUris?.Where(uri => uri.ContentType == contentItem.ContentType).Select(uri => uri.RedirectUri).FirstOrDefault();
 			previewURI = string.Concat(redirectUri, pageLocation);
+			isNcsPreview = true;
 		}
 		else
 		{
 			previewURI = string.Concat(PagesConfig.Value.PreviewAppPrefix, pageLocation);
 		}
 	}
-	else if(isAllowedContent)
+	else if (isAllowedContent)
 	{
 		previewURI = redirectUris?.Where(uri => uri.ContentType == contentItem.ContentType).Select(uri => uri.RedirectUri).FirstOrDefault();
+		isNcsPreview = true;
 	}
 	else
 	{
@@ -63,7 +68,14 @@
 	<div class="btn-group btn-group-approval">
 		@if (allowPagePreview)
 		{
-			<a href="@($"{previewURI}")" target="_blank" class="btn btn-info" onclick="handlePreviewClick(); return false;">@T["Preview draft"]</a>
+			@if (isNcsPreview)
+			{
+				<a href="@($"{previewURI}")" target="_blank" class="btn btn-info" onclick="handlePreviewClick(); return false;">@T["Preview draft"]</a>
+			}
+			else
+			{
+				<a href="@($"{previewURI}")" target="_blank" class="btn btn-info">@T["Preview draft"]</a>
+			}
 		}
 		else
 		{
