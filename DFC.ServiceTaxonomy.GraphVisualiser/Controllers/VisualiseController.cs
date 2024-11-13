@@ -102,7 +102,7 @@ namespace DFC.ServiceTaxonomy.GraphVisualiser.Controllers
 
         private ActionResult GetOntology()
         {
-            var contentTypeDefinitions = _contentDefinitionManager.ListTypeDefinitions();
+            var contentTypeDefinitions = _contentDefinitionManager.ListTypeDefinitionsAsync().GetAwaiter().GetResult();
 
             var owlDataModel = _orchardToOwlGeneratorService.CreateOwlDataModels(contentTypeDefinitions);
             var owlResponseString = JsonSerializer.Serialize(owlDataModel, _jsonOptions);
