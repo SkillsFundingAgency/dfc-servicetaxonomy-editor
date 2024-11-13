@@ -24,7 +24,7 @@ namespace DFC.ServiceTaxonomy.PageLocation
 
         public int Create()
         {
-            _contentDefinitionManager.AlterPartDefinition("PageLocationPart", builder => builder
+            _contentDefinitionManager.AlterPartDefinitionAsync("PageLocationPart", builder => builder
                 .Attachable()
                 .WithDescription("Adds the page location part."));
 
@@ -33,12 +33,12 @@ namespace DFC.ServiceTaxonomy.PageLocation
 
         public int UpdateFrom1()
         {
-            SchemaBuilder.CreateMapIndexTable<PageLocationPartIndex>(table => table
+            SchemaBuilder.CreateMapIndexTableAsync<PageLocationPartIndex>(table => table
                 .Column<string>("ContentItemId", c => c.WithLength(26))
                 .Column<string>("Url")
             );
 
-            SchemaBuilder.AlterTable(nameof(PageLocationPartIndex), table => table
+            SchemaBuilder.AlterTableAsync(nameof(PageLocationPartIndex), table => table
                 .CreateIndex("IDX_PageLocationPartIndex_ContentItemId", "ContentItemId")
             );
 
@@ -47,7 +47,7 @@ namespace DFC.ServiceTaxonomy.PageLocation
 
         public int UpdateFrom2()
         {
-            SchemaBuilder.AlterIndexTable<PageLocationPartIndex>(table => table
+            SchemaBuilder.AlterIndexTableAsync<PageLocationPartIndex>(table => table
             .AddColumn<string>("UrlName")
             );
 
@@ -57,7 +57,7 @@ namespace DFC.ServiceTaxonomy.PageLocation
 
         public int UpdateFrom3()
         {
-            SchemaBuilder.AlterIndexTable<PageLocationPartIndex>(table => table
+            SchemaBuilder.AlterIndexTableAsync<PageLocationPartIndex>(table => table
             .AddColumn<bool>("UseInTriageTool")
             );
 
@@ -73,7 +73,7 @@ namespace DFC.ServiceTaxonomy.PageLocation
 
             foreach (var contentItem in contentItems)
             {
-                _session.Save(contentItem, checkConcurrency: true);
+                await _session.SaveAsync(contentItem, checkConcurrency: true);
             }
             return 5;
         }
