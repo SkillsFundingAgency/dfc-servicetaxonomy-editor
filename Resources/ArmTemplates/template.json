@@ -266,12 +266,6 @@
         },
         "PreviewRedirectUri:1:ContentType": {
             "type": "string"
-        },
-        "PreviewRedirectUri:2:RedirectUri":{
-            "type": "string"
-        },
-        "PreviewRedirectUri:2:ContentType": {
-            "type": "string"
         }
     },
     "variables": {
@@ -678,14 +672,6 @@
                             {
                                 "name": "PreviewRedirectUri:1:ContentType",
                                 "value": "[parameters('PreviewRedirectUri:1:ContentType')]"
-                            },
-                            {
-                                "name": "PreviewRedirectUri:2:RedirectUri",
-                                "value": "[parameters('PreviewRedirectUri:2:RedirectUri')]"
-                            },
-                            {
-                                "name": "PreviewRedirectUri:2:ContentType",
-                                "value": "[parameters('PreviewRedirectUri:2:ContentType')]"
                             }
                         ]
                     }
