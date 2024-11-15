@@ -39,8 +39,7 @@
 		var pageLocation = contentItem.Content[nameof(PageLocationPart)][nameof(PageLocationPart.FullUrl)].ToString();
 		@if (allowedPages.Any(pageUrl => pageLocation.Contains(pageUrl)))
 		{
-			var redirectUri = redirectUris?.Where(uri => uri.ContentType == contentItem.ContentType).Select(uri => uri.RedirectUri).FirstOrDefault();
-			previewURI = string.Concat(redirectUri, pageLocation);
+			previewURI = pageLocation;
 			isNcsPreview = true;
 		}
 		else

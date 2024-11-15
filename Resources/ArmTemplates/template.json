@@ -129,18 +129,6 @@
         "Neo4jReplicaSets1GraphInstances1Enabled": {
             "type": "bool"
         },
-        "HeaderPublishedAppPrefix": {
-            "type": "string"
-        },
-        "HeaderPreviewAppPrefix": {
-            "type": "string"
-        },
-        "FooterPublishedAppPrefix": {
-            "type": "string"
-        },
-        "FooterPreviewAppPrefix": {
-            "type": "string"
-        },
         "MediaAzureBlobConnectionString": {
             "type": "securestring"
         },
@@ -514,22 +502,6 @@
                             {
                                 "name": "JobProfiles__PreviewAppPrefix",
                                 "value": "[parameters('JobProfilePreviewAppPrefix')]"
-                            },
-                            {
-                                "name": "Header__PublishedAppPrefix",
-                                "value": "[parameters('HeaderPublishedAppPrefix')]"
-                            },
-                            {
-                                "name": "Header__PreviewAppPrefix",
-                                "value": "[parameters('HeaderPreviewAppPrefix')]"
-                            },
-                            {
-                                "name": "Footer__PublishedAppPrefix",
-                                "value": "[parameters('FooterPublishedAppPrefix')]"
-                            },
-                            {
-                                "name": "Footer__PreviewAppPrefix",
-                                "value": "[parameters('FooterPreviewAppPrefix')]"
                             },
                             {
                                 "name": "OrchardCore__OrchardCore_Media_Azure__ConnectionString",
