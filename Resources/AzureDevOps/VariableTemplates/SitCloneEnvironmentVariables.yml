@@ -3,6 +3,8 @@ variables:
   value: sit
 - name: ResourceGroup
   value: dfc-sit-stax-editor-rg
+- name: StorageAccountResourceGroupName
+  value: dfc-sit-dig-rg
 - name: WebAppName
   value: dfc-sit-clone-stax-editor-as
 - name: SqlDatabaseName

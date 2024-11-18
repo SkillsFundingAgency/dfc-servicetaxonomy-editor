@@ -21,11 +21,9 @@ steps:
     azureSubscription: ${{ parameters.AzureSubscription }}
     ScriptPath: '${{ parameters.PSScriptPath }}/fetchStorageKeyAndBuildConnectionString.ps1'
     ScriptArguments: >
-      -StorageAccountResourceGroupName '${{ parameters.ResourceGroup }}' 
+      -StorageAccountResourceGroupName '${{ parameters.StorageAccountResourceGroupName }}' 
       -StorageAccountName '$(MediaStorageAccountName)'
     azurePowerShellVersion: LatestVersion
-
-
 
 - task: esfadevops.Tokenization.custom-build-task.Tokenization@0
   displayName: 'Tokenization: Transform file parameters.json'
