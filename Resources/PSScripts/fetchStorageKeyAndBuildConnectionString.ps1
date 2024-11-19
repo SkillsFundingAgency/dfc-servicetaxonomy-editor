@@ -41,8 +41,15 @@ if (!$storageAccountExists) {
 }
 
 try {
+    Write-Host "Building connection string for $StorageAccountName in $StorageAccountResourceGroupName."
+
     $storageAccountKey = (Get-AzStorageAccountKey -ResourceGroupName $StorageAccountResourceGroupName -AccountName $StorageAccountName).Value[0]
     
+    if (!$storageAccountKey) {
+        Write-Error "Could not fetch storageAccountKey for $storageAccountName. Something went wrong."
+        exit 1
+    }
+
     $connectionString = "DefaultEndpointsProtocol=https;AccountName=$StorageAccountName;AccountKey=$storageAccountKey;EndpointSuffix=core.windows.net"
 
     Write-Host "##vso[task.setvariable variable=MediaAzureBlobConnectionString;isoutput=true;issecret=true]$connectionString"
