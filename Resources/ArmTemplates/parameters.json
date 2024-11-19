@@ -126,8 +126,7 @@
             "value": "__JobProfilePreviewAppPrefix__"
         },
         "MediaAzureBlobConnectionString": {
-            "value": "$(setStorageConnectionString.MediaAzureBlobConnectionString)"
-
+            "value": "__MediaAzureBlobConnectionString__"
         },
         "MediaContainerName":{
             "value": "__MediaContainerName__"
