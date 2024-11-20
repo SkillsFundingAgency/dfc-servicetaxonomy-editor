@@ -1,0 +1,41 @@
+variables:
+- name: ReleaseEnvironmentName
+  value: sit
+- name: ResourceGroup
+  value: dfc-sit-stax-editor-rg
+- name: WebAppName
+  value: dfc-sit-clone-stax-editor-as
+- name: SqlDatabaseName
+  value: dfc-sit-clone-stax-editor-db
+- name: ClonePipelineSqlUserName
+  value: dfc-sit-stax-editor-as-svc
+- name: OrchardCoreSqlDatabaseConnStr
+  value: 'Server=tcp:$(sharedSqlServerName).database.windows.net,1433;Initial Catalog=$(SqlDatabaseName);Persist Security Info=False;User ID=$(ClonePipelineSqlUserName);Password=$(OrchardEditorSqlUserPassword);MultipleActiveResultSets=True;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;'
+- name: FunctionalTestsSqlDatabaseConnStr
+  value: 'Server=tcp:$(sharedSqlServerName).database.windows.net,1433;Initial Catalog=$(SqlDatabaseName);Persist Security Info=False;User ID=$(FunctionalTestsUser);Password=$(FunctionalTestsUserPassword);MultipleActiveResultSets=True;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;'
+- name: ExceptionCountThreshold
+  value: 10
+- name: EnableAzureMonitorAlerting
+  value: true
+- name: MediaStorageAccountName
+  value: dfcsitclonedigstr
+- name: StaxSharedAppServicePlan
+  value: dfc-sit-stax-clone-shared-asp
+- name: CdnUrl
+  value: https://dfc-sit-clone-digital-assets.azureedge.net
+- name: PreviewLoginUrl
+  value: https://sit-beta.nationalcareersservice.org.uk/ncspreview
+- name: CipherTextValiditySeconds
+  value: 60
+- name: RedirectUri0
+  value: https://sit-beta.nationalcareersservice.org.uk/find-a-course
+- name: ContentType0
+  value: Header
+- name: RedirectUri1
+  value: https://sit-beta.nationalcareersservice.org.uk/find-a-course
+- name: ContentType1
+  value: Footer
+- name: RedirectUri2
+  value: https://sit-beta.nationalcareersservice.org.uk
+- name: ContentType2
+  value: Page
