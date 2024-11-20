@@ -129,6 +129,18 @@
         "Neo4jReplicaSets1GraphInstances1Enabled": {
             "type": "bool"
         },
+        "HeaderPublishedAppPrefix": {
+            "type": "string"
+        },
+        "HeaderPreviewAppPrefix": {
+            "type": "string"
+        },
+        "FooterPublishedAppPrefix": {
+            "type": "string"
+        },
+        "FooterPreviewAppPrefix": {
+            "type": "string"
+        },
         "MediaAzureBlobConnectionString": {
             "type": "securestring"
         },
@@ -236,6 +248,42 @@
         },
         "CmsSqlApiUrl": {
         "type": "string"
+        },
+        "EventGridTopicEndPointUrl": {
+            "type": "string"
+        },
+        "EventGridTopicAccessKey": {
+            "type": "securestring"
+        },
+        "PreviewLoginUrl":{
+            "type": "string"
+        },
+        "EncryptionKey": {
+            "type": "securestring"
+        },
+        "CipherTextPrefix": {
+            "type": "securestring"
+        },
+        "CipherTextValiditySeconds": {
+            "type": "int"
+        },
+        "PreviewRedirectUri:0:RedirectUri":{
+            "type": "string"
+        },
+        "PreviewRedirectUri:0:ContentType": {
+            "type": "string"
+        },
+        "PreviewRedirectUri:1:RedirectUri":{
+            "type": "string"
+        },
+        "PreviewRedirectUri:1:ContentType": {
+            "type": "string"
+        },
+        "PreviewRedirectUri:2:RedirectUri":{
+            "type": "string"
+        },
+        "PreviewRedirectUri:2:ContentType": {
+            "type": "string"
         }
     },
     "variables": {
@@ -316,8 +364,8 @@
                                 "value": "1"
                             },
                             {
-                                "name": "APPINSIGHTS_INSTRUMENTATIONKEY",
-                                "value": "[reference(variables('AppServiceAppInsightsName')).outputs.InstrumentationKey.value]"
+                                "name": "APPINSIGHTS_CONNECTIONSTRING",
+                                "value": "[reference(variables('AppServiceAppInsightsName')).outputs.instrumentationConnectionString.value]"
                             },
                             {
                                 "name": "WEBSITE_RUN_FROM_PACKAGE",
@@ -468,6 +516,22 @@
                                 "value": "[parameters('JobProfilePreviewAppPrefix')]"
                             },
                             {
+                                "name": "Header__PublishedAppPrefix",
+                                "value": "[parameters('HeaderPublishedAppPrefix')]"
+                            },
+                            {
+                                "name": "Header__PreviewAppPrefix",
+                                "value": "[parameters('HeaderPreviewAppPrefix')]"
+                            },
+                            {
+                                "name": "Footer__PublishedAppPrefix",
+                                "value": "[parameters('FooterPublishedAppPrefix')]"
+                            },
+                            {
+                                "name": "Footer__PreviewAppPrefix",
+                                "value": "[parameters('FooterPreviewAppPrefix')]"
+                            },
+                            {
                                 "name": "OrchardCore__OrchardCore_Media_Azure__ConnectionString",
                                 "value": "[parameters('MediaAzureBlobConnectionString')]"
                             },
@@ -602,6 +666,54 @@
                             {
                                 "name": "Cms__SqlApiUrl",
                                 "value": "[parameters('CmsSqlApiUrl')]"
+                            },
+                            {
+                                "name": "EventGrid__TopicEndPointUrl",
+                                "value": "[parameters('EventGridTopicEndPointUrl')]"
+                            },
+                            {
+                                "name": "EventGrid__TopicAccessKey",
+                                "value": "[parameters('EventGridTopicAccessKey')]"
+                            },
+                            {
+                                "name": "NcsPreview__PreviewLoginUrl",
+                                "value": "[parameters('PreviewLoginUrl')]"
+                            },
+                            {
+                                "name": "NcsPreview__EncryptionKey",
+                                "value": "[parameters('EncryptionKey')]"
+                            },
+                            {
+                                "name": "NcsPreview__CipherTextPrefix",
+                                "value": "[parameters('CipherTextPrefix')]"
+                            },
+                            {
+                                "name": "NcsPreview__CipherTextValiditySeconds",
+                                "value": "[parameters('CipherTextValiditySeconds')]"
+                            },
+                            {
+                                "name": "PreviewRedirectUri:0:RedirectUri",
+                                "value": "[parameters('PreviewRedirectUri:0:RedirectUri')]"
+                            },
+                            {
+                                "name": "PreviewRedirectUri:0:ContentType",
+                                "value": "[parameters('PreviewRedirectUri:0:ContentType')]"
+                            },
+                            {
+                                "name": "PreviewRedirectUri:1:RedirectUri",
+                                "value": "[parameters('PreviewRedirectUri:1:RedirectUri')]"
+                            },
+                            {
+                                "name": "PreviewRedirectUri:1:ContentType",
+                                "value": "[parameters('PreviewRedirectUri:1:ContentType')]"
+                            },
+                            {
+                                "name": "PreviewRedirectUri:2:RedirectUri",
+                                "value": "[parameters('PreviewRedirectUri:2:RedirectUri')]"
+                            },
+                            {
+                                "name": "PreviewRedirectUri:2:ContentType",
+                                "value": "[parameters('PreviewRedirectUri:2:ContentType')]"
                             }
                         ]
                     }

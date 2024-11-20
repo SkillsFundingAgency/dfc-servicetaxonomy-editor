@@ -15,3 +15,19 @@ variables:
   value: 10
 - name: EnableAzureMonitorAlerting
   value: true
+- name: PreviewLoginUrl
+  value: https://dev-beta.nationalcareersservice.org.uk/ncspreview
+- name: CipherTextValiditySeconds
+  value: 60
+- name: RedirectUri0
+  value: https://dev-beta.nationalcareersservice.org.uk/find-a-course
+- name: ContentType0
+  value: Header
+- name: RedirectUri1
+  value: https://dev-beta.nationalcareersservice.org.uk/find-a-course
+- name: ContentType1
+  value: Footer
+- name: RedirectUri2
+  value: https://dev-beta.nationalcareersservice.org.uk
+- name: ContentType2
+  value: Page

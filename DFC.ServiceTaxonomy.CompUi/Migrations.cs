@@ -1,4 +1,4 @@
-﻿using DFC.ServiceTaxonomy.CompUi.Indexes;
+﻿using DFC.ServiceTaxonomy.CompUi.Models;
 using OrchardCore.ContentManagement.Metadata;
 using OrchardCore.ContentManagement.Metadata.Settings;
 using OrchardCore.Data.Migration;
