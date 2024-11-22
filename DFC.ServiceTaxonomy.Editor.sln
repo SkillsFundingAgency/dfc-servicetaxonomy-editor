@@ -1,4 +1,4 @@
-﻿
+
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.32112.339
@@ -76,7 +76,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DFC.ServiceTaxonomy.TriageT
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DFC.ServiceTaxonomy.HomePageMigrations", "DFC.ServiceTaxonomy.HomePageMigrations\DFC.ServiceTaxonomy.HomePageMigrations.csproj", "{02B87632-AD45-44BE-AF5F-259F8B2FFA66}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DFC.ServiceTaxonomy.Migration", "DFC.ServiceTaxonomy.Migration\DFC.ServiceTaxonomy.Migration.csproj", "{E7212B27-02BA-4F46-8E8B-1E790334E3FF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DFC.ServiceTaxonomy.Migration", "DFC.ServiceTaxonomy.Migration\DFC.ServiceTaxonomy.Migration.csproj", "{E7212B27-02BA-4F46-8E8B-1E790334E3FF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
