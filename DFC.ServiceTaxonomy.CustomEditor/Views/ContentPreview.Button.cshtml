@@ -51,11 +51,11 @@
 	{
 		previewURI = contentItem.ContentType switch
 		{
-			ContentTypes.JobProfile => contentItem.Content[nameof(PageLocationPart)][nameof(PageLocationPart.FullUrl)].ToString(),
-			ContentTypes.JobProfileSector => contentItem.Content[nameof(PageLocationPart)][nameof(PageLocationPart.FullUrl)].ToString(),
-			ContentTypes.SectorLandingPage => contentItem.Content[nameof(PageLocationPart)][nameof(PageLocationPart.FullUrl)].ToString(),
-			ContentTypes.Header => redirectUris?.Where(uri => uri.ContentType == contentItem.ContentType).Select(uri => uri.RedirectUri).FirstOrDefault(),
-			ContentTypes.Footer => redirectUris?.Where(uri => uri.ContentType == contentItem.ContentType).Select(uri => uri.RedirectUri).FirstOrDefault(),
+			ContentTypes.JobProfile => string.Concat(redirectUris.Where(Uri => Uri.ContentType == ContentTypes.JobProfile).Select(uri => uri.RedirectUri).FirstOrDefault(), contentItem.Content[nameof(PageLocationPart)][nameof(PageLocationPart.FullUrl)].ToString()),
+			ContentTypes.JobProfileSector => redirectUris.Where(Uri => Uri.ContentType == ContentTypes.JobProfileSector).Select(uri => uri.RedirectUri).FirstOrDefault(),
+			ContentTypes.SectorLandingPage => string.Concat(redirectUris.Where(Uri => Uri.ContentType == ContentTypes.JobProfileSector).Select(uri => uri.RedirectUri).FirstOrDefault(), contentItem.Content[nameof(PageLocationPart)][nameof(PageLocationPart.FullUrl)].ToString()),
+			ContentTypes.Header => redirectUris?.Where(uri => uri.ContentType == ContentTypes.Header).Select(uri => uri.RedirectUri).FirstOrDefault(),
+			ContentTypes.Footer => redirectUris?.Where(uri => uri.ContentType == ContentTypes.Footer).Select(uri => uri.RedirectUri).FirstOrDefault(),
 			_ => string.Empty
 		};
 		isNcsPreview = true;
