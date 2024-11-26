@@ -33,6 +33,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\DFC.ServiceTaxonomy.CompUi\DFC.ServiceTaxonomy.CompUi.csproj" />
+    <ProjectReference Include="..\DFC.ServiceTaxonomy.CustomEditor\DFC.ServiceTaxonomy.CustomEditor.csproj" />
     <ProjectReference Include="..\DFC.ServiceTaxonomy.GraphSync\DFC.ServiceTaxonomy.GraphSync.csproj" />
     <ProjectReference Include="..\DFC.ServiceTaxonomy.JobProfiles.DataTransfer\DFC.ServiceTaxonomy.JobProfiles.DataTransfer.csproj" />
     <ProjectReference Include="..\DFC.ServiceTaxonomy.Migration\DFC.ServiceTaxonomy.Migration.csproj" />
