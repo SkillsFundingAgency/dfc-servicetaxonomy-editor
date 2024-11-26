@@ -33,7 +33,7 @@
 
 @if (isPreviewRequired.Any(previewItem => previewItem.Contains(contentItem.ContentType)))
 {
-	//Temp check to see if page matches approved page routes within appsettings.
+	//Temp check to see if page url matches approved page routes within appsettings.
 	@if (contentItem.ContentType == ContentTypes.Page && isAllowedContent)
 	{
 		var pageLocation = contentItem.Content[nameof(PageLocationPart)][nameof(PageLocationPart.FullUrl)].ToString();
