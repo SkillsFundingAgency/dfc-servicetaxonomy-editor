@@ -52,7 +52,7 @@ try {
 
     $connectionString = "DefaultEndpointsProtocol=https;AccountName=$StorageAccountName;AccountKey=$storageAccountKey;EndpointSuffix=core.windows.net"
 
-    Write-Host "##vso[task.setvariable variable=MediaAzureBlobConnectionString;isoutput=true]$connectionString"
+    Write-Host "##vso[task.setvariable variable=MediaAzureBlobConnectionString;issecret=true]$connectionString"
     
     Write-Host "Storage account connection string has been built and set as a pipeline variable."
 } 
