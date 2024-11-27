@@ -23,14 +23,12 @@ namespace DFC.ServiceTaxonomy.CompUi.Repository
             _logger = logger;
         }
 
-        public async Task<IEnumerable<RelatedContentData>> GetRelatedContentDataByContentItemIdAndPage(
-            Processing processing)
+        public async Task<IEnumerable<RelatedContentData>> GetRelatedContentDataByContentItemIdAndPage(Processing processing)
         {
             IEnumerable<RelatedContentData>? resultList = new List<RelatedContentData>();
 
             var sql = $"SELECT DocumentId FROM RelatedContentItemIndex WITH (NOLOCK) " +
-                      $"WHERE RelatedContentIds LIKE CONCAT('%', @contentItemId, '%') " +
-                      $"AND ContentType = 'Page' ";
+                      $"WHERE RelatedContentIds LIKE CONCAT('%', @contentItemId, '%') ";
             var documentIds = await ExecuteQuery<string>(sql, new { contentItemId = processing.ContentItemId });
 
             if (documentIds?.Count() > 0)
@@ -44,6 +42,57 @@ namespace DFC.ServiceTaxonomy.CompUi.Repository
                       $"AND Latest = 1 AND Published = 1";
 
                 resultList = await ExecuteQuery<RelatedContentData>(sql, new { queryIds = documentIds });
+            }
+
+            return resultList;
+        }
+
+        /// <summary>
+        /// Get the related content Ids for a particular item, where there is no link from the actual item back to the item being processed. 
+        /// </summary>
+        /// <param name="processing"></param>
+        /// <returns>IEnumerable<RelatedContentData></returns>
+        public async Task<IEnumerable<RelatedContentData>> GetRelatedContentDataByContentItemId(Processing processing)
+        {
+            IEnumerable<RelatedContentData>? resultList = new List<RelatedContentData>();
+
+            try
+            {
+                var sql = $"SELECT RelatedContentIds FROM RelatedContentItemIndex WITH (NOLOCK) " +
+                    $"WHERE ContentItemId = @contentItemId ";
+                var relatedContentIds = await ExecuteQuery<string>(sql, new { contentItemId = processing.ContentItemId });
+
+                if (relatedContentIds != null)
+                {
+                    var items = relatedContentIds?.FirstOrDefault()?.ToString().Split(',');
+                    var documentIdList = new List<int>();
+                    foreach (var itemId in items)
+                    {
+                        sql = $"SELECT DocumentId FROM RelatedContentItemIndex WITH (NOLOCK) " +
+                          $"WHERE ContentItemId = @contentItemId " +
+                          $"AND ContentType = 'JobProfile' ";
+                        var documentIds = await ExecuteQuery<int>(sql, new { contentItemId =  itemId.Replace("'", "") });
+
+                        documentIdList.AddRange(documentIds);
+                    }
+
+                    if (documentIdList?.Count() > 0)
+                    {
+                        sql = $"SELECT ContentItemId, DisplayText, Author, ContentType, " +
+                              $"JSON_VALUE(Content,'$.GraphSyncPart.Text') AS GraphSyncId, " +
+                              $"JSON_VALUE(Content,'$.PageLocationPart.FullUrl') AS FullPageUrl " +
+                              $"FROM Document AS D " +
+                              $"INNER JOIN ContentItemIndex AS CII on CII.DocumentId = D.Id " +
+                              $"WHERE D.Id IN @queryIds " +
+                              $"AND Latest = 1 AND Published = 1 ";
+
+                        resultList = await ExecuteQuery<RelatedContentData>(sql, new { queryIds = documentIdList });
+                    }
+                }
+            }
+            catch (Exception exception)
+            {
+                _logger.LogError(exception.ToString());
             }
 
             return resultList;

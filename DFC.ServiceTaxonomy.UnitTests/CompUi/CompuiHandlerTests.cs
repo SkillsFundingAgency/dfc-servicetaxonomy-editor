@@ -153,7 +153,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.CompUi
             //Arrange
             var processing = GetProcessingObj(ContentTypes.SharedContent, false, false);
             var cacheHandler = ConfigureCacheHandler();
-            var contentData = GetRelatedContentData();
+            var contentData = GetRelatedContentData(ContentTypes.Page);
 
             A.CallTo(() => _relatedContentItemIndexRepository.GetRelatedContentDataByContentItemIdAndPage(A<Processing>.Ignored)).Returns(contentData);
 
@@ -162,6 +162,68 @@ namespace DFC.ServiceTaxonomy.UnitTests.CompUi
 
             //Assert
             A.CallTo(() => _eventGridHandler.SendEventMessageAsync(A<RelatedContentData>.Ignored, ContentEventType.StaxUpdate)).MustHaveHappenedTwiceExactly();
+        }
+
+        [Fact]
+        public async Task SendEventGridMessage_ProcessJobProfilesLinkingtoSectorLandingPages_Update()
+        {
+            //Arrange
+            var processing = GetProcessingObj(ContentTypes.SectorLandingPage, false, false);
+            var cacheHandler = ConfigureCacheHandler();
+            var contentData = GetRelatedContentData(ContentTypes.JobProfile);
+
+            A.CallTo(() => _relatedContentItemIndexRepository.GetRelatedContentDataByContentItemId(A<Processing>.Ignored)).Returns(contentData);
+
+            //Act
+            await cacheHandler.ProcessEventGridMessage(processing, ContentEventType.StaxUpdate);
+
+            //Assert
+            A.CallTo(() => _eventGridHandler.SendEventMessageAsync(A<RelatedContentData>.Ignored, ContentEventType.StaxUpdate)).MustHaveHappenedTwiceExactly();
+        }
+
+        [Fact]
+        public async Task SendEventGridMessage_SendSkillsEventGridMessage_Update()
+        {
+            //Arrange
+            var processing = GetProcessingObj(ContentTypes.Skill, false, false);
+            var cacheHandler = ConfigureCacheHandler();
+
+            //Act
+            await cacheHandler.ProcessEventGridMessage(processing, ContentEventType.StaxUpdate);
+
+            //Assert
+            A.CallTo(() => _eventGridHandler.SendEventMessageAsync(A<RelatedContentData>.Ignored, ContentEventType.StaxUpdate)).MustHaveHappenedOnceExactly();
+        }
+
+        [Fact]
+        public async Task SendEventGridMessage_SendJobProfileSectorEventGridMessage_Update()
+        {
+            //Arrange
+            var processing = GetProcessingObj(ContentTypes.JobProfileSector, false, false);
+            var cacheHandler = ConfigureCacheHandler();
+
+            //Act
+            await cacheHandler.ProcessEventGridMessage(processing, ContentEventType.StaxUpdate);
+
+            //Assert
+            A.CallTo(() => _eventGridHandler.SendEventMessageAsync(A<RelatedContentData>.Ignored, ContentEventType.StaxUpdate)).MustHaveHappenedOnceExactly();
+        }
+
+        [Fact]
+        public async Task SendEventGridMessage_SendJobProfileCategoryEventGridMessage_Update()
+        {
+            //Arrange
+            var processing = GetProcessingObj(ContentTypes.JobProfileCategory, false, false);
+            var cacheHandler = ConfigureCacheHandler();
+            var contentData = GetRelatedContentData(ContentTypes.JobProfile);
+
+            A.CallTo(() => _relatedContentItemIndexRepository.GetRelatedContentDataByContentItemIdAndPage(A<Processing>.Ignored)).Returns(contentData);
+
+            //Act
+            await cacheHandler.ProcessEventGridMessage(processing, ContentEventType.StaxUpdate);
+
+            //Assert
+            A.CallTo(() => _eventGridHandler.SendEventMessageAsync(A<RelatedContentData>.Ignored, ContentEventType.StaxUpdate)).MustHaveHappenedTwiceOrMore();
         }
 
         private ICacheHandler ConfigureCacheHandler()
@@ -211,17 +273,17 @@ namespace DFC.ServiceTaxonomy.UnitTests.CompUi
             return processing;
         }
 
-        private List<RelatedContentData> GetRelatedContentData()
+        private List<RelatedContentData> GetRelatedContentData(ContentTypes contentType)
         {
             var contentDataList = new List<RelatedContentData>{
                 new RelatedContentData
                 {
                     Author = "Test",
                     ContentItemId = "123",
-                    ContentType = "Page",
+                    ContentType = contentType.ToString(),
                     DisplayText = "Test Page",
                     FullPageUrl = "somepageurl",
-                    GraphSyncId = "789"
+                    GraphSyncId = "789",
                 }};
 
             return contentDataList;
