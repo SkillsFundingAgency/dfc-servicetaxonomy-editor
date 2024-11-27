@@ -22,19 +22,19 @@
 	var previewId = Guid.NewGuid();
 	var hasPreviewPermission = await AuthorizationService.AuthorizeAsync(User, CommonPermissions.PreviewContent, contentItem);
 	var isAllowedContent = allowedContentTypes.Any(a => a.Contains(contentItem.ContentType));
-	var isPreviewRequired = contentItem.ContentType == ContentTypes.Page || contentItem.ContentType == ContentTypes.JobProfile || contentItem.ContentType == ContentTypes.Footer || contentItem.ContentType == ContentTypes.Header;
+	var isPreviewRequired = Configuration.GetSection(ConfigKeys.RequiredPreviewContentItems).Get<List<string>>() ?? new List<string>();
 
-	//Temp key used to determine if preview button should use new redirect url.
+	//Temp key used to determine if preview button should use new redirect url. Can be removed when page filtering is no longer needed.
 	var isNcsPreview = false;
 
 	//Temp keys used for proving if page is valid within allowed page list.
 	var previewURI = string.Empty;
 }
 
-@if (isPreviewRequired)
+@if (isPreviewRequired.Any(previewItem => previewItem.Contains(contentItem.ContentType)))
 {
-	//Temp check to see if page matches approved page routes within appsettings.
-	@if (contentItem.ContentType == "Page" && isAllowedContent)
+	//Temp check to see if page url matches approved page routes within appsettings.
+	@if (contentItem.ContentType == ContentTypes.Page && isAllowedContent)
 	{
 		var pageLocation = contentItem.Content[nameof(PageLocationPart)][nameof(PageLocationPart.FullUrl)].ToString();
 		@if (allowedPages.Any(pageUrl => pageLocation.Contains(pageUrl)))
@@ -49,17 +49,16 @@
 	}
 	else if (isAllowedContent)
 	{
-		previewURI = redirectUris?.Where(uri => uri.ContentType == contentItem.ContentType).Select(uri => uri.RedirectUri).FirstOrDefault();
-		isNcsPreview = true;
-	}
-	else
-	{
-		//Once job profile preview functionality is added, can remove this else section and tidy up if else statement above.
 		previewURI = contentItem.ContentType switch
 		{
-			ContentTypes.JobProfile => string.Concat(JobProfilesConfig.Value.PreviewAppPrefix, contentItem.Content[nameof(PageLocationPart)][nameof(PageLocationPart.FullUrl)]),
+			ContentTypes.JobProfile => string.Concat(redirectUris.Where(Uri => Uri.ContentType == ContentTypes.JobProfile).Select(uri => uri.RedirectUri).FirstOrDefault(), contentItem.Content[nameof(PageLocationPart)][nameof(PageLocationPart.FullUrl)].ToString()),
+			ContentTypes.JobProfileSector => redirectUris.Where(Uri => Uri.ContentType == ContentTypes.JobProfileSector).Select(uri => uri.RedirectUri).FirstOrDefault(),
+			ContentTypes.SectorLandingPage => string.Concat(redirectUris.Where(Uri => Uri.ContentType == ContentTypes.JobProfileSector).Select(uri => uri.RedirectUri).FirstOrDefault(), contentItem.Content[nameof(PageLocationPart)][nameof(PageLocationPart.FullUrl)].ToString()),
+			ContentTypes.Header => redirectUris?.Where(uri => uri.ContentType == ContentTypes.Header).Select(uri => uri.RedirectUri).FirstOrDefault(),
+			ContentTypes.Footer => redirectUris?.Where(uri => uri.ContentType == ContentTypes.Footer).Select(uri => uri.RedirectUri).FirstOrDefault(),
 			_ => string.Empty
 		};
+		isNcsPreview = true;
 	}
 
 	bool allowPagePreview = !string.IsNullOrWhiteSpace(contentItem.ContentItemVersionId) && contentItem.HasDraft();

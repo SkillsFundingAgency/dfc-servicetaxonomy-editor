@@ -259,6 +259,18 @@
         },
         "PreviewRedirectUri:1:ContentType":{
             "value": "__ContentType1__"
+        },
+        "PreviewRedirectUri:2:RedirectUri": {
+            "value": "__RedirectUri2__"
+        },
+        "PreviewRedirectUri:2:ContentType":{
+            "value": "__ContentType2__"
+        },
+        "PreviewRedirectUri:3:RedirectUri": {
+            "value": "__RedirectUri3__"
+        },
+        "PreviewRedirectUri:3:ContentType":{
+            "value": "__ContentType3__"
         }
     }
 }

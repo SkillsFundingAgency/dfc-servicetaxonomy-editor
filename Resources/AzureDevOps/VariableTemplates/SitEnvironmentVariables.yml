@@ -27,3 +27,11 @@ variables:
   value: /find-a-course
 - name: ContentType1
   value: Footer
+- name: RedirectUri2
+  value: /explore-careers-ssp2/job-sector
+- name: ContentType2
+  value: JobProfileSector
+- name: RedirectUri3
+  value: /job-profiles-ssp2
+- name: ContentType3
+  value: JobProfile
