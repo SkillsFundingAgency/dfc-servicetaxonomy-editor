@@ -129,18 +129,6 @@
         "Neo4jReplicaSets1GraphInstances1Enabled": {
             "type": "bool"
         },
-        "HeaderPublishedAppPrefix": {
-            "type": "string"
-        },
-        "HeaderPreviewAppPrefix": {
-            "type": "string"
-        },
-        "FooterPublishedAppPrefix": {
-            "type": "string"
-        },
-        "FooterPreviewAppPrefix": {
-            "type": "string"
-        },
         "MediaAzureBlobConnectionString": {
             "type": "securestring"
         },
@@ -283,6 +271,12 @@
             "type": "string"
         },
         "PreviewRedirectUri:2:ContentType": {
+            "type": "string"
+        },
+        "PreviewRedirectUri:3:RedirectUri":{
+            "type": "string"
+        },
+        "PreviewRedirectUri:3:ContentType": {
             "type": "string"
         }
     },
@@ -516,22 +510,6 @@
                                 "value": "[parameters('JobProfilePreviewAppPrefix')]"
                             },
                             {
-                                "name": "Header__PublishedAppPrefix",
-                                "value": "[parameters('HeaderPublishedAppPrefix')]"
-                            },
-                            {
-                                "name": "Header__PreviewAppPrefix",
-                                "value": "[parameters('HeaderPreviewAppPrefix')]"
-                            },
-                            {
-                                "name": "Footer__PublishedAppPrefix",
-                                "value": "[parameters('FooterPublishedAppPrefix')]"
-                            },
-                            {
-                                "name": "Footer__PreviewAppPrefix",
-                                "value": "[parameters('FooterPreviewAppPrefix')]"
-                            },
-                            {
                                 "name": "OrchardCore__OrchardCore_Media_Azure__ConnectionString",
                                 "value": "[parameters('MediaAzureBlobConnectionString')]"
                             },
@@ -714,6 +692,14 @@
                             {
                                 "name": "PreviewRedirectUri:2:ContentType",
                                 "value": "[parameters('PreviewRedirectUri:2:ContentType')]"
+                            },
+                            {
+                                "name": "PreviewRedirectUri:3:RedirectUri",
+                                "value": "[parameters('PreviewRedirectUri:3:RedirectUri')]"
+                            },
+                            {
+                                "name": "PreviewRedirectUri:3:ContentType",
+                                "value": "[parameters('PreviewRedirectUri:3:ContentType')]"
                             }
                         ]
                     }
