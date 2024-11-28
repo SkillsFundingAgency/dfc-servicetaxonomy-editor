@@ -11,7 +11,7 @@
   <ItemGroup>
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.0" />
     <PackageReference Include="DFC.Common.SharedContent.Pkg.Netcore" Version="0.1.108" />
-    <PackageReference Include="DfE.NCS.Framework.Event" Version="0.0.15-net60" />
+    <PackageReference Include="DfE.NCS.Framework.Event" Version="1.0.0" />
     <PackageReference Include="Microsoft.Azure.Cosmos" Version="3.38.1" />
     <PackageReference Include="OrchardCore.Data.Abstractions" Version="1.6.0" />
     <PackageReference Include="OrchardCore.Module.Targets" Version="1.6.0" />
