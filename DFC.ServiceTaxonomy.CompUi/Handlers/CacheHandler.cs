@@ -46,7 +46,7 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
         _eventGridHandler = eventGridHandler;
         _relatedContentItemIndexRepository = relatedContentItemIndexRepository;
 
-        eventGridContentTypes = configuration.GetSection(eventGridAllowedContentTypeSettings).Get<List<string>>()?.ConvertAll(x => x.ToLower()) ?? new List<string>();
+        eventGridContentTypes = configuration.GetSection(eventGridAllowedContentTypeSettings).Get<List<string>>() ?? new List<string>();
         eventGridAllowedPages = configuration.GetSection(eventGridAllowedPageSettings).Get<List<string>>() ?? new List<string>();
     }
 
@@ -81,7 +81,7 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
         //Temp check to see if the published items content type matches any of the allowed items in the list
         var pageRouteFlag = PageRouteFlag(processing);
 
-        if (pageRouteFlag && eventGridContentTypes.Any(contentType => context.ContentItem.ContentType.ToLower().Contains(contentType)))
+        if (pageRouteFlag && eventGridContentTypes.Any(contentType => context.ContentItem.ContentType.Contains(contentType, StringComparison.OrdinalIgnoreCase)))
         {
             var staxAction = context.PreviousItem == null ? ContentEventType.StaxCreate : ContentEventType.StaxUpdate;
             await ProcessEventGridMessage(processing, staxAction);
@@ -104,7 +104,7 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
         //Temp check to see if the published items content type matches any of the allowed items in the list
         var pageRouteFlag = PageRouteFlag(processing);
 
-        if (eventGridContentTypes.Any(contentType => context.ContentItem.ContentType.ToLower().Contains(contentType)) && pageRouteFlag)
+        if (eventGridContentTypes.Any(contentType => context.ContentItem.ContentType.Contains(contentType, StringComparison.OrdinalIgnoreCase)) && pageRouteFlag)
         {
             await ProcessEventGridMessage(processing, ContentEventType.StaxDelete);
         }
@@ -121,7 +121,7 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
         //Temp check to see if the published items content type matches any of the allowed items in the list
         var pageRouteFlag = PageRouteFlag(processing);
 
-        if (pageRouteFlag && eventGridContentTypes.Any(contentType => context.ContentItem.ContentType.ToLower().Contains(contentType.ToLower())))
+        if (pageRouteFlag && eventGridContentTypes.Any(contentType => context.ContentItem.ContentType.Contains(contentType, StringComparison.OrdinalIgnoreCase)))
         {
             await ProcessEventGridMessage(processing, ContentEventType.StaxDelete);
         }
@@ -147,7 +147,7 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
 
         if (current == null)
         {
-            _logger.LogError($"Current content is null for following content type:{processing.ContentType}");
+            _logger.LogError($"Current content is null for following content type: {processing.ContentType}.");
             return;
         }
 
@@ -198,32 +198,20 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
     {
         var result = await _relatedContentItemIndexRepository.GetRelatedContentDataByContentItemId(processing);
 
-        if (result?.Count() > 0)
-        {
-            foreach (var item in result)
-            {
-                if (item.ContentType == nameof(ContentTypes.JobProfile))
-                {
-                    await _eventGridHandler.SendEventMessageAsync(item, ContentEventType.StaxUpdate);
-                }
-            }
-        }
+        result?
+            .Where(x => x.ContentType == nameof(ContentTypes.JobProfile))
+            .ToList().ForEach(x => _eventGridHandler.SendEventMessageAsync(x, ContentEventType.StaxUpdate));
     }
 
     private async Task ProcessSharedContent(Processing processing)
     {
         var result = await _relatedContentItemIndexRepository.GetRelatedContentDataByContentItemIdAndPage(processing);
 
-        if (result?.Count() > 0)
-        {
-            foreach (var item in result)
-            {
-                if (item.ContentType == nameof(ContentTypes.Page) || item.ContentType == nameof(ContentTypes.JobProfile))
-                {
-                    await _eventGridHandler.SendEventMessageAsync(item, ContentEventType.StaxUpdate);
-                }
-            }
-        }
+        //Note that the following limits sending messages for only Pages and JobProfiles.  This may be removed when working on DYSAC
+        //as we'll need to send messages for PersonalityQuestionSet, PersonalityFilteringQuestion, PersonalityTrait & PersonalityShortQuestion etc.
+        result?
+            .Where(x => x.ContentType == nameof(ContentTypes.JobProfile) || x.ContentType == nameof(ContentTypes.JobProfile))
+            .ToList().ForEach(x => _eventGridHandler.SendEventMessageAsync(x, ContentEventType.StaxUpdate));
     }
 
     private RelatedContentData TransformData(Processing processing, ContentItem contentItem)
