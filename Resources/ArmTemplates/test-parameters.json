@@ -137,18 +137,6 @@
         "Neo4jReplicaSets1GraphInstances1Enabled": {
             "value": true
         },
-        "HeaderPublishedAppPrefix": {
-            "value": "https://localhost/"
-        },
-        "HeaderPreviewAppPrefix": {
-            "value": "https://localhost/"
-        },
-        "FooterPublishedAppPrefix": {
-            "value": "https://localhost/"
-        },
-        "FooterPreviewAppPrefix": {
-            "value": "https://localhost/"
-        },
         "MediaAzureBlobConnectionString": {
             "value": "my-string"
         },
@@ -277,6 +265,12 @@
         },
         "PreviewRedirectUri:2:ContentType":{
             "value": "__ContentType2__"
+        },
+        "PreviewRedirectUri:3:RedirectUri": {
+            "value": "__RedirectUri3__"
+        },
+        "PreviewRedirectUri:3:ContentType":{
+            "value": "__ContentType3__"
         }
     }
 }

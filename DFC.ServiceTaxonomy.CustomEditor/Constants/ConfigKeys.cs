@@ -14,5 +14,7 @@
 
         public const string CipherTextPrefix = "NcsPreview:CipherTextPrefix";
 
+        public const string RequiredPreviewContentItems = "RequiredPreviewContentItems";
+
     }
 }

@@ -20,14 +20,18 @@ variables:
 - name: CipherTextValiditySeconds
   value: 60
 - name: RedirectUri0
-  value: https://nationalcareers.service.gov.uk/find-a-course
+  value: /find-a-course
 - name: ContentType0
   value: Header
 - name: RedirectUri1
-  value: https://nationalcareers.service.gov.uk/find-a-course
+  value: /find-a-course
 - name: ContentType1
   value: Footer
 - name: RedirectUri2
-  value: https://nationalcareers.service.gov.uk
+  value: /explore-careers/job-sector
 - name: ContentType2
-  value: Page
+  value: JobProfileSector
+- name: RedirectUri3
+  value: /job-profiles
+- name: ContentType3
+  value: JobProfile
