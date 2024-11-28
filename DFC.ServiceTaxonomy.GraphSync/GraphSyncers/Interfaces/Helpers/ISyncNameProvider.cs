@@ -10,7 +10,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Helpers
 {
     //todo: rename to something like IGraphArtifactNamer?
     // we group methods by whether they work off the set ContentType property, or pass in a contentType
-    #pragma warning disable S4136
+#pragma warning disable S4136
     public interface ISyncNameProvider
     {
         /// <summary>
