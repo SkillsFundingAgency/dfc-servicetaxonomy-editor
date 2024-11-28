@@ -18,6 +18,8 @@
         WorkingPatternDetail,
         WorkingHoursDetail,
         Skill,
-        Taxonomy
+        Taxonomy,
+        JobProfileSector,
+        SectorLandingPage
     }
 }
