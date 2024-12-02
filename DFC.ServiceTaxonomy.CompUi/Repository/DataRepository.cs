@@ -41,7 +41,7 @@ namespace DFC.ServiceTaxonomy.CompUi.Repository
                           $"FROM Document AS D " +
                           $"INNER JOIN ContentItemIndex AS CII on CII.DocumentId = D.Id " +
                           $"WHERE D.Id IN @queryIds " +
-                          $"AND Latest = 1 AND Published = 1";
+                          $"AND Published = 1";
 
                     resultList = await ExecuteQuery<RelatedContentData>(sql, new { queryIds = documentIds });
                 }
@@ -90,7 +90,7 @@ namespace DFC.ServiceTaxonomy.CompUi.Repository
                               $"FROM Document AS D " +
                               $"INNER JOIN ContentItemIndex AS CII on CII.DocumentId = D.Id " +
                               $"WHERE D.Id IN @queryIds " +
-                              $"AND Latest = 1 AND Published = 1 ";
+                              $"AND Published = 1 ";
 
                         resultList = await ExecuteQuery<RelatedContentData>(sql, new { queryIds = documentIdList });
                     }

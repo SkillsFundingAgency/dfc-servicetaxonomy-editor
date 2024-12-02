@@ -169,8 +169,43 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
                 await ProcessSharedContent(processing);
                 break;
             case nameof(ContentTypes.Skill) when contentEventType == ContentEventType.StaxUpdate:
+                await _eventGridHandler.SendEventMessageAsync(TransformData(processing, current), contentEventType);
+                break;
             case nameof(ContentTypes.JobProfileSector) when contentEventType == ContentEventType.StaxUpdate:
                 await _eventGridHandler.SendEventMessageAsync(TransformData(processing, current), contentEventType);
+                await ProcessSharedContent(processing);
+                break;
+            case nameof(ContentTypes.JobProfile) when contentEventType == ContentEventType.StaxUpdate:
+                await ProcessGenericContentType(processing, current);
+                break;
+            case nameof(ContentTypes.HiddenAlternativeTitle):
+            case nameof(ContentTypes.WorkingHoursDetail):
+            case nameof(ContentTypes.WorkingPatternDetail):
+            case nameof(ContentTypes.WorkingPatterns):
+            case nameof(ContentTypes.JobProfileSpecialism):
+            case nameof(ContentTypes.UniversityEntryRequirements):
+            case nameof(ContentTypes.UniversityLink):
+            case nameof(ContentTypes.UniversityRequirements):
+            case nameof(ContentTypes.CollegeEntryRequirements):
+            case nameof(ContentTypes.CollegeLink):
+            case nameof(ContentTypes.CollegeRequirements):
+            case nameof(ContentTypes.ApprenticeshipEntryRequirements):
+            case nameof(ContentTypes.ApprenticeshipLink):
+            case nameof(ContentTypes.ApprenticeshipRequirements):
+            case nameof(ContentTypes.Restriction):
+            case nameof(ContentTypes.DigitalSkills):
+            case nameof(ContentTypes.Location):
+            case nameof(ContentTypes.Environment):
+            case nameof(ContentTypes.Uniform):
+            case nameof(ContentTypes.SOCCode):
+            case nameof(ContentTypes.Registration):
+            case nameof(ContentTypes.DynamicTitlePrefix):
+            case nameof(ContentTypes.RealStory):
+                // Only want the message to be sent for related items to update an affected job profile.
+                if (contentEventType == ContentEventType.StaxUpdate)
+                {
+                    await ProcessSharedContent(processing);
+                }
                 break;
             default:
                 await _eventGridHandler.SendEventMessageAsync(TransformData(processing, current), contentEventType);
@@ -196,7 +231,7 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
 
     private async Task ProcessJobProfilesLinkingtoSectorLandingPages(Processing processing)
     {
-        var result = await _relatedContentItemIndexRepository.GetRelatedContentDataByContentItemId(processing);
+        var result = await _relatedContentItemIndexRepository.GetRelatedContentDataByContentItemIdAndPage(processing);
 
         result?
             .Where(x => x.ContentType == nameof(ContentTypes.JobProfile))
