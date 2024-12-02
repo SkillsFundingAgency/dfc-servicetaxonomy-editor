@@ -20,6 +20,26 @@
         Skill,
         Taxonomy,
         JobProfileSector,
-        SectorLandingPage
+        SectorLandingPage,
+        HiddenAlternativeTitle,
+        JobProfileSpecialism,
+        UniversityEntryRequirements,
+        UniversityRequirements,
+        UniversityLink,
+        CollegeEntryRequirements,
+        CollegeRequirements,
+        CollegeLink,
+        ApprenticeshipEntryRequirements,
+        ApprenticeshipRequirements,
+        ApprenticeshipLink,
+        Restriction,
+        DigitalSkills,
+        DynamicTitlePrefix,
+        Location,
+        Environment,
+        Uniform,
+        SOCCode,
+        Registration,
+        RealStory
     }
 }

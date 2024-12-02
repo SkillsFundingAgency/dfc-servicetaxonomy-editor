@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data.Common;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -172,7 +173,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.CompUi
             var cacheHandler = ConfigureCacheHandler();
             var contentData = GetRelatedContentData(ContentTypes.JobProfile);
 
-            A.CallTo(() => _relatedContentItemIndexRepository.GetRelatedContentDataByContentItemId(A<Processing>.Ignored)).Returns(contentData);
+            A.CallTo(() => _relatedContentItemIndexRepository.GetRelatedContentDataByContentItemIdAndPage(A<Processing>.Ignored)).Returns(contentData);
 
             //Act
             await cacheHandler.ProcessEventGridMessage(processing, ContentEventType.StaxUpdate);
@@ -224,6 +225,60 @@ namespace DFC.ServiceTaxonomy.UnitTests.CompUi
 
             //Assert
             A.CallTo(() => _eventGridHandler.SendEventMessageAsync(A<RelatedContentData>.Ignored, ContentEventType.StaxUpdate)).MustHaveHappenedTwiceOrMore();
+        }
+
+        [Fact]
+        public async Task SendEventGridMessage_SendJobProfileEventGridMessage_Update()
+        {
+            //Arrange
+            var processing = GetProcessingObj(ContentTypes.JobProfile, false, false);
+            var cacheHandler = ConfigureCacheHandler();
+
+            //Act
+            await cacheHandler.ProcessEventGridMessage(processing, ContentEventType.StaxUpdate);
+
+            //Assert
+            A.CallTo(() => _eventGridHandler.SendEventMessageAsync(A<RelatedContentData>.Ignored, ContentEventType.StaxUpdate)).MustHaveHappenedOnceExactly();
+        }
+
+        [Theory]
+        [InlineData((ContentTypes.DynamicTitlePrefix))]
+        [InlineData((ContentTypes.HiddenAlternativeTitle))]
+        [InlineData((ContentTypes.WorkingHoursDetail))]
+        [InlineData((ContentTypes.WorkingPatternDetail))]
+        [InlineData((ContentTypes.WorkingPatterns))]
+        [InlineData((ContentTypes.JobProfileSpecialism))]
+        [InlineData((ContentTypes.UniversityEntryRequirements))]
+        [InlineData((ContentTypes.UniversityLink))]
+        [InlineData((ContentTypes.UniversityRequirements))]
+        [InlineData((ContentTypes.CollegeEntryRequirements))]
+        [InlineData((ContentTypes.CollegeLink))]
+        [InlineData((ContentTypes.CollegeRequirements))]
+        [InlineData((ContentTypes.ApprenticeshipEntryRequirements))]
+        [InlineData((ContentTypes.ApprenticeshipLink))]
+        [InlineData((ContentTypes.ApprenticeshipRequirements))]
+        [InlineData((ContentTypes.Restriction))]
+        [InlineData((ContentTypes.DigitalSkills))]
+        [InlineData((ContentTypes.Location))]
+        [InlineData((ContentTypes.Environment))]
+        [InlineData((ContentTypes.Uniform))]
+        [InlineData((ContentTypes.SOCCode))]
+        [InlineData((ContentTypes.Registration))]
+        [InlineData((ContentTypes.RealStory))]
+        public async Task SendEventGridMessage_SendRelatedJobProfileItems_Update(ContentTypes contentType)
+        {
+            //Arrange
+            var processing = GetProcessingObj(contentType, false, false);
+            var cacheHandler = ConfigureCacheHandler();
+            var contentData = GetRelatedContentData(ContentTypes.JobProfile);
+
+            A.CallTo(() => _relatedContentItemIndexRepository.GetRelatedContentDataByContentItemIdAndPage(A<Processing>.Ignored)).Returns(contentData);
+
+            //Act
+            await cacheHandler.ProcessEventGridMessage(processing, ContentEventType.StaxUpdate);
+
+            //Assert
+            A.CallTo(() => _eventGridHandler.SendEventMessageAsync(A<RelatedContentData>.Ignored, ContentEventType.StaxUpdate)).MustHaveHappenedOnceOrMore();
         }
 
         private ICacheHandler ConfigureCacheHandler()
