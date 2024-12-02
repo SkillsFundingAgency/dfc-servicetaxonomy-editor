@@ -169,8 +169,11 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
                 await ProcessSharedContent(processing);
                 break;
             case nameof(ContentTypes.Skill) when contentEventType == ContentEventType.StaxUpdate:
+                await _eventGridHandler.SendEventMessageAsync(TransformData(processing, current), contentEventType);
+                break;
             case nameof(ContentTypes.JobProfileSector) when contentEventType == ContentEventType.StaxUpdate:
                 await _eventGridHandler.SendEventMessageAsync(TransformData(processing, current), contentEventType);
+                await ProcessSharedContent(processing);
                 break;
             default:
                 await _eventGridHandler.SendEventMessageAsync(TransformData(processing, current), contentEventType);
