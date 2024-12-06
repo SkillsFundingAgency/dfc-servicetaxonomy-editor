@@ -77,9 +77,6 @@ namespace DFC.ServiceTaxonomy.Editor
                 }, order: 10);
 
             services.Configure<PagesConfiguration>(Configuration.GetSection("Pages"));
-            services.Configure<JobProfilesConfiguration>(Configuration.GetSection("JobProfiles"));
-            services.Configure<FooterConfiguration>(Configuration.GetSection("Footer"));
-            services.Configure<HeaderConfiguration>(Configuration.GetSection("Header"));
             services.Configure<AzureAdSettings>(Configuration.GetSection("AzureAdSettings"));
 
             services.AddSingleton<IGraphQLClient>(s =>

@@ -16,7 +16,6 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
     private readonly IMapper _mapper;
     private readonly IDirector _director;
     private readonly IBuilder _builder;
-    private readonly IBackgroundQueue<Processing> _queue;
     private readonly IEventGridHandler _eventGridHandler;
     private readonly IDataService _relatedContentItemIndexRepository;
 
@@ -31,7 +30,6 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
         IMapper mapper,
         IDirector director,
         IBuilder builder,
-        IBackgroundQueue<Processing> queue,
         IEventGridHandler eventGridHandler,
         IConfiguration configuration,
         IDataService relatedContentItemIndexRepository
@@ -42,7 +40,6 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
         _director = director;
         _builder = builder;
         _director.Builder = _builder;
-        _queue = queue;
         _eventGridHandler = eventGridHandler;
         _relatedContentItemIndexRepository = relatedContentItemIndexRepository;
 
@@ -85,11 +82,6 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
         {
             var staxAction = context.PreviousItem == null ? ContentEventType.StaxCreate : ContentEventType.StaxUpdate;
             await ProcessEventGridMessage(processing, staxAction);
-        }
-
-        if (processing.ContentType == ContentTypes.JobProfile.ToString())
-        {
-            await _queue.QueueItem(processing);
         }
     }
 
@@ -134,11 +126,6 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
         await base.DraftSavedAsync(context);
 
         await ProcessItem(processing);
-
-        if (processing.ContentType == ContentTypes.JobProfile.ToString())
-        {
-            await _queue.QueueItem(processing);
-        }
     }
 
     public async Task ProcessEventGridMessage(Processing processing, ContentEventType contentEventType)
@@ -276,9 +263,6 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
                         break;
                     case nameof(ContentTypes.JobProfileCategory):
                         await _director.ProcessJobProfileCategoryAsync(processing);
-                        break;
-                    case nameof(ContentTypes.JobProfile):
-                        await _director.ProcessJobProfileAsync(processing);
                         break;
                     case nameof(ContentTypes.Pagebanner):
                         await _director.ProcessPagebannerAsync(processing);

@@ -23,18 +23,7 @@ namespace DFC.ServiceTaxonomy.CompUi.Interfaces
         Task<bool> InvalidateAdditionalContentItemIdsAsync(Processing processing, IEnumerable<RelatedItems> data);
         Task<bool> InvalidateJobProfileCategoriesAsync(Processing processing);
         Task<bool> InvalidateJobProfileCategoryAsync(Processing processing);
-        Task InvalidateJobProfileAsync(Processing processing);
-        Task InvalidateJobProfileSkillsAsync(Processing processing);
-        Task InvalidateJobProfileRelatedCareersAsync(Processing processing);
-        Task InvalidateJobProfileOverviewAsync(Processing processing);
-        Task InvalidateJobProfileWhatYoullDoAsync(Processing processing);
-        Task InvalidateJobProfileHowToBecomeAsync(Processing processing);
-        Task InvalidateJobProfileVideoAsync(Processing processing);
-        Task InvalidateCareerPathsAndProgressions(Processing processing);
-        Task InvalidateJobProfileCurrentOpportunitiesAllAsync(Processing processing);
-        Task InvalidateAllJobProfileContentAsync(Processing processing);
         Task InvalidateSkillsAsync(Processing processing);
-        Task InvalidateJobProfileApiSummaryAsync(Processing processing);
         Task InvalidateTaxonomyAsync(Processing processing);
     }
 }

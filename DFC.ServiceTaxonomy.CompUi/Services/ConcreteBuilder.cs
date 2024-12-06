@@ -3,7 +3,6 @@ using System.Diagnostics;
 using System.Text.RegularExpressions;
 using DFC.Common.SharedContent.Pkg.Netcore.Constant;
 using DFC.Common.SharedContent.Pkg.Netcore.Interfaces;
-using DFC.Common.SharedContent.Pkg.Netcore.Model.Response;
 using DFC.ServiceTaxonomy.CompUi.AppRegistry;
 using DFC.ServiceTaxonomy.CompUi.Dapper;
 using DFC.ServiceTaxonomy.CompUi.Enums;
@@ -331,155 +330,10 @@ namespace DFC.ServiceTaxonomy.CompUi.Services
             return success;
         }
 
-        public async Task InvalidateJobProfileAsync(Processing processing)
-        {
-            var cacheKey = string.Concat(ApplicationKeys.JobProfileSuffix, CheckLeadingChar(processing.FullUrl));
-            var success = await _sharedContentRedisInterface.InvalidateEntityAsync(cacheKey, processing.FilterType);
-            LogCacheKeyInvalidation(processing, cacheKey, processing.FilterType, success);
-        }
-
-        public async Task InvalidateJobProfileOverviewAsync(Processing processing)
-        {
-            var cacheKey = string.Concat(ApplicationKeys.JobProfileOverview, CheckLeadingChar(processing.FullUrl));
-            var success = await _sharedContentRedisInterface.InvalidateEntityAsync(cacheKey, processing.FilterType);
-            LogCacheKeyInvalidation(processing, cacheKey, processing.FilterType, success);
-        }
-
-        public async Task InvalidateJobProfileApiSummaryAsync(Processing processing)
-        {
-            var success = await _sharedContentRedisInterface.InvalidateEntityAsync(ApplicationKeys.JobProfileApiSummaryAll);
-            LogCacheKeyInvalidation(processing, ApplicationKeys.JobProfileApiSummaryAll, processing.FilterType, success);
-        }
-
-        public async Task InvalidateJobProfileSkillsAsync(Processing processing)
-        {
-            var cacheKey = string.Concat(ApplicationKeys.JobProfileSkillsSuffix, CheckLeadingChar(processing.FullUrl));
-            var success = await _sharedContentRedisInterface.InvalidateEntityAsync(cacheKey, processing.FilterType);
-            success = await _sharedContentRedisInterface.InvalidateEntityAsync(ApplicationKeys.SkillsAll, processing.FilterType);
-            LogCacheKeyInvalidation(processing, cacheKey, processing.FilterType, success);
-        }
-
         public async Task InvalidateSkillsAsync(Processing processing)
         {
             var success = await _sharedContentRedisInterface.InvalidateEntityAsync(ApplicationKeys.SkillsAll, processing.FilterType);
             LogCacheKeyInvalidation(processing, ApplicationKeys.SkillsAll, processing.FilterType, success);
-        }
-
-        public async Task InvalidateJobProfileRelatedCareersAsync(Processing processing)
-        {
-            var cacheKey = string.Concat(ApplicationKeys.JobProfileRelatedCareersPrefix, CheckLeadingChar(processing.FullUrl));
-            var success = await _sharedContentRedisInterface.InvalidateEntityAsync(cacheKey, processing.FilterType);
-            LogCacheKeyInvalidation(processing, cacheKey, processing.FilterType, success);
-        }
-
-        public async Task InvalidateJobProfileHowToBecomeAsync(Processing processing)
-        {
-            var cacheKey = string.Concat(ApplicationKeys.JobProfileHowToBecome, CheckLeadingChar(processing.FullUrl));
-            var success = await _sharedContentRedisInterface.InvalidateEntityAsync(cacheKey, processing.FilterType);
-            LogCacheKeyInvalidation(processing, cacheKey, processing.FilterType, success);
-        }
-
-        public async Task InvalidateJobProfileWhatYoullDoAsync(Processing processing)
-        {
-            var cacheKey = string.Concat(ApplicationKeys.JobProfileWhatYoullDo, CheckLeadingChar(processing.FullUrl));
-            var success = await _sharedContentRedisInterface.InvalidateEntityAsync(cacheKey, processing.FilterType);
-            LogCacheKeyInvalidation(processing, cacheKey, processing.FilterType, success);
-        }
-
-        public async Task InvalidateJobProfileVideoAsync(Processing processing)
-        {
-            var cacheKey = string.Concat(ApplicationKeys.JobProfileVideoPrefix, CheckLeadingChar(processing.FullUrl));
-            var success = await _sharedContentRedisInterface.InvalidateEntityAsync(cacheKey, processing.FilterType);
-            LogCacheKeyInvalidation(processing, cacheKey, processing.FilterType, success);
-        }
-
-        public async Task InvalidateCareerPathsAndProgressions(Processing processing)
-        {
-            var cacheKey = string.Concat(ApplicationKeys.JobProfileCareerPath, CheckLeadingChar(processing.FullUrl));
-            var success = await _sharedContentRedisInterface.InvalidateEntityAsync(cacheKey, processing.FilterType);
-            LogCacheKeyInvalidation(processing, cacheKey, processing.FilterType, success);
-        }
-
-        public async Task InvalidateJobProfileCurrentOpportunitiesAllAsync(Processing processing)
-        {
-            var success = await _sharedContentRedisInterface.InvalidateEntityAsync(ApplicationKeys.JobProfileCurrentOpportunitiesAllJobProfiles, processing.FilterType);
-            LogCacheKeyInvalidation(processing, ApplicationKeys.JobProfileCurrentOpportunitiesAllJobProfiles, processing.FilterType, success);
-
-            var result = JsonConvert.DeserializeObject<ContentItem>(processing.PreviousContent);
-            if (result != null)
-            {
-                string cacheKey = string.Concat(ApplicationKeys.JobProfileCurrentOpportunities, CheckLeadingChar(processing.FullUrl));
-                success = await _sharedContentRedisInterface.InvalidateEntityAsync(cacheKey, processing.FilterType);
-                LogCacheKeyInvalidation(processing, cacheKey, processing.FilterType, success);
-
-                await InvalidateCourses(processing, result);
-
-                await InvalidateApprenticeships(processing, result);
-            }
-        }
-
-        private async Task InvalidateCourses(Processing processing, ContentItem? result)
-        {
-            try
-            {
-                if (!string.IsNullOrWhiteSpace(result.JobProfile.CourseKeywords.Text))
-                {
-                    string cacheKey = string.Concat(ApplicationKeys.JobProfileCurrentOpportunitiesCoursesPrefix, processing.FullUrl, '/', ConvertCourseKeywordsString(result.JobProfile.CourseKeywords.Text));
-                    var success = await _sharedContentRedisInterface.InvalidateEntityAsync(cacheKey);
-                    LogCacheKeyInvalidation(processing, cacheKey, processing.FilterType, success);
-                }
-            }
-            catch (Exception exception)
-            {
-                _logger.LogError($"Error occurred while invalidating data for document Id {processing.DocumentId}.  Content Type: {processing.ContentType}. The course could not be invalidated.  Exception: {exception}");
-            }
-        }
-
-        private async Task InvalidateApprenticeships(Processing processing, ContentItem? result)
-        {
-            try
-            {
-                if (result.JobProfile.SOCCode.ContentItemId.Count() > 0)
-                {
-                    IEnumerable<NodeItem>? socCodeData = await GetContentItem(result.JobProfile.SOCCode.ContentItemId[0], processing.Latest, processing.Published);
-
-                    if (socCodeData != null)
-                    {
-                        var socCode = JsonConvert.DeserializeObject<SocCode>(socCodeData.FirstOrDefault().Content);
-
-                        if (socCode.SOCCode.ApprenticeshipStandards.ContentItemId.Count() > 0)
-                        {
-                            var larsCodes = new List<string>();
-
-                            foreach (var code in socCode.SOCCode.ApprenticeshipStandards.ContentItemId)
-                            {
-
-                                var larsData = await GetContentItem(code, processing.Latest, processing.Published);
-
-                                foreach (var larsDataItem in larsData)
-                                {
-                                    var larscode = JsonConvert.DeserializeObject<ApprenticeshipStandards>(larsDataItem.Content);
-                                    larsCodes.Add(larscode.ApprenticeshipStandard.LarsCode.Text ?? larscode.ApprenticeshipStandard.LarsCode.Value);
-                                }
-                            }
-                            if (larsCodes.Count > 0)
-                            {
-                                string cacheKey = string.Concat(ApplicationKeys.JobProfileCurrentOpportunitiesAVPrefix, CheckLeadingChar(processing.FullUrl), '/', string.Join(",", larsCodes.OrderBy(x => x)));
-                                var success = await _sharedContentRedisInterface.InvalidateEntityAsync(cacheKey);
-                                LogCacheKeyInvalidation(processing, cacheKey, processing.FilterType, success);
-                            }
-                            else
-                            {
-                                _logger.LogInformation($"No lars codes available for invalidation for apprenticeship vacancies for: {string.Concat(ApplicationKeys.JobProfileCurrentOpportunitiesAVPrefix, CheckLeadingChar(result.PageLocationParts.FullUrl))}");
-                            }
-                        }
-                    }
-                }
-            }
-            catch (Exception exception)
-            {
-                _logger.LogError($"Error occurred while invalidating data for document Id {processing.DocumentId}.  Content Type: {processing.ContentType}. The apprenticeship could not be invalidated.  Exception: {exception}");
-            }
         }
 
         private async Task GetDataWithExpiryAsync<T>(Processing processing, string cacheKey, string filter)
@@ -492,31 +346,6 @@ namespace DFC.ServiceTaxonomy.CompUi.Services
             catch (Exception exception)
             {
                 _logger.LogError($"Error occurred while refreshing Job Profile data. Exception: {exception}.");
-            }
-        }
-
-        public async Task InvalidateAllJobProfileContentAsync(Processing processing)
-        {
-            try
-            {
-                //Add additional job profile invalidations here.
-                await InvalidateJobProfileCategoryAsync(processing);
-                await InvalidateDysacJobProfileOverviewAsync(processing);
-                await InvalidateJobProfileAsync(processing);
-                await InvalidateJobProfileSkillsAsync(processing);
-                await InvalidateJobProfileOverviewAsync(processing);
-                await InvalidateJobProfileApiSummaryAsync(processing);
-                await InvalidateJobProfileRelatedCareersAsync(processing);
-                await InvalidateJobProfileHowToBecomeAsync(processing);
-                await InvalidateJobProfileWhatYoullDoAsync(processing);
-                await InvalidateJobProfileVideoAsync(processing);
-                await InvalidateJobProfileCurrentOpportunitiesAllAsync(processing);
-                await InvalidateCareerPathsAndProgressions(processing);
-                await InvalidateJobProfileCategoriesAsync(processing);
-            }
-            catch (Exception exception)
-            {
-                _logger.LogError($"Error occurred while invalidating Job Profile data. Exception: {exception}.");
             }
         }
 

@@ -107,12 +107,6 @@
         "PreviewContentApiPrefix": {
             "value": "https://foo.api.nationalcareersservice.org.uk"
         },
-        "JobProfilePublishedAppPrefix": {
-            "value": "https://localhost/"
-        },
-        "JobProfilePreviewAppPrefix": {
-            "value": "https://localhost/"
-        },
         "Neo4jEndpoints0Enabled": {
             "value": true
         },

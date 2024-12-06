@@ -3,6 +3,7 @@
 @using DFC.ServiceTaxonomy.CustomEditor.Configuration
 @using DFC.ServiceTaxonomy.CustomEditor.Constants
 @using DFC.ServiceTaxonomy.PageLocation.Models
+@using Microsoft.Extensions.Configuration
 @using OrchardCore.Contents
 @using OrchardCore.ContentManagement
 @using Microsoft.AspNetCore.Authorization
@@ -10,9 +11,7 @@
 
 @inject IAuthorizationService AuthorizationService
 @inject IOptions<PagesConfiguration> PagesConfig
-@inject IOptions<JobProfilesConfiguration> JobProfilesConfig
-@inject IOptions<FooterConfiguration> FooterConfig
-@inject IOptions<HeaderConfiguration> HeaderConfig
+@inject IConfiguration Configuration
 @inject IContentManager ContentManager
 
 @{
@@ -24,6 +23,7 @@
     var hasClonePermission = contentTypeMatched == false ? await AuthorizationService.AuthorizeAsync(User, CommonPermissions.CloneContent, contentItem) : false;
     var hasViewPermission = await AuthorizationService.AuthorizeAsync(User, CommonPermissions.ViewContent, contentItem);
     var hasPreviewPermission = await AuthorizationService.AuthorizeAsync(User, CommonPermissions.PreviewContent, contentItem);
+	var redirectUris = Configuration.GetSection(ConfigKeys.PreviewRedirectUri).Get<List<PreviewRedirectUri>>();
     var previewContentTypes = contentItem.ContentType == ContentTypes.Page || contentItem.ContentType == ContentTypes.JobProfile || contentItem.ContentType == ContentTypes.Footer || contentItem.ContentType == ContentTypes.Header;
 }
 @* Publish - handle publish if content part not present in content item *@
@@ -57,19 +57,15 @@ else
     var previewURI = contentItem.ContentType switch
     {
         ContentTypes.Page => string.Concat(PagesConfig.Value.PreviewAppPrefix, contentItem.Content[nameof(PageLocationPart)][nameof(PageLocationPart.FullUrl)]),
-        ContentTypes.JobProfile => string.Concat(JobProfilesConfig.Value.PreviewAppPrefix, contentItem.Content[nameof(PageLocationPart)][nameof(PageLocationPart.FullUrl)]),
-        ContentTypes.Header => HeaderConfig.Value.PreviewAppPrefix,
-        ContentTypes.Footer => FooterConfig.Value.PreviewAppPrefix,
-        _ => string.Empty
+		ContentTypes.JobProfile => string.Concat(redirectUris.Where(Uri => Uri.ContentType == ContentTypes.JobProfile).Select(uri => uri.RedirectUri).FirstOrDefault(), contentItem.Content[nameof(PageLocationPart)][nameof(PageLocationPart.FullUrl)].ToString()),
+		_ => string.Empty
     };
 
     var publishedURI = contentItem.ContentType switch
     {
         ContentTypes.Page => string.Concat(PagesConfig.Value.PublishedAppPrefix, contentItem.Content[nameof(PageLocationPart)][nameof(PageLocationPart.FullUrl)]),
-        ContentTypes.JobProfile => string.Concat(JobProfilesConfig.Value.PublishedAppPrefix, contentItem.Content[nameof(PageLocationPart)][nameof(PageLocationPart.FullUrl)]),
-        ContentTypes.Header => HeaderConfig.Value.PublishedAppPrefix,
-        ContentTypes.Footer => FooterConfig.Value.PublishedAppPrefix,
-        _ => string.Empty
+		ContentTypes.JobProfile => string.Concat(redirectUris.Where(Uri => Uri.ContentType == ContentTypes.JobProfile).Select(uri => uri.RedirectUri).FirstOrDefault(), contentItem.Content[nameof(PageLocationPart)][nameof(PageLocationPart.FullUrl)].ToString()),
+		_ => string.Empty
     };
 
     if (hasDraft && hasPreviewPermission)

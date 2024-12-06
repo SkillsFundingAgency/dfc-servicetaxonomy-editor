@@ -1,6 +1,4 @@
 using DFC.ServiceTaxonomy.CompUi.AppRegistry;
-using DFC.ServiceTaxonomy.CompUi.BackgroundTask;
-using DFC.ServiceTaxonomy.CompUi.BackgroundTask.Activity;
 using DFC.ServiceTaxonomy.CompUi.Dapper;
 using DFC.ServiceTaxonomy.CompUi.Handlers;
 using DFC.ServiceTaxonomy.CompUi.Indexes;
@@ -40,10 +38,6 @@ namespace DFC.ServiceTaxonomy.CompUi
             services.AddScoped<IDataMigration, Migrations>();
             services.AddSingleton<IIndexProvider, RelatedContentItemIndexProvider>();
             services.AddSingleton<IPageLocationUpdater, PageLocationUpdater>();
-            services.AddSingleton<IBackgroundTask, RefreshCacheOnPublish>();
-            services.AddSingleton<IBackgroundQueue<Processing>, BackgroundQueue<Processing>>();
-            services.AddSingleton<IBackgroundItemQueueMonitor, BackgroundItemQueueMonitor>();
-            services.AddSingleton<IJobProfileCacheRefresh, JobProfileCacheRefresh>();
             services.AddSingleton<IDataService, DataService>();
             
             services.AddScoped<IEventGridHandler, EventGridHandler>();
