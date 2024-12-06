@@ -31,7 +31,6 @@ namespace DFC.ServiceTaxonomy.UnitTests.CompUi
         public readonly IMapper _mapper;
         public readonly IBuilder _fakeBuilder;
         public readonly IDirector _fakeDirector;
-        public readonly IBackgroundQueue<Processing> _fakeBackgroundQueue;
         public readonly IConfiguration _configuration;
         private readonly IDataService _relatedContentItemIndexRepository;
         private readonly IEventGridHandler _eventGridHandler;
@@ -46,11 +45,10 @@ namespace DFC.ServiceTaxonomy.UnitTests.CompUi
             _mapper = A.Fake<IMapper>();
             _fakeDirector = A.Fake<IDirector>();
             _fakeEventHandler = A.Fake<IEventGridHandler>();
-            _fakeBackgroundQueue = A.Fake<IBackgroundQueue<Processing>>();
             _configuration = A.Fake<IConfiguration>();
             _relatedContentItemIndexRepository = A.Fake<IDataService>();
             _eventGridHandler = A.Fake<IEventGridHandler>();
-            _fakeCacheHandler = new CacheHandler(_fakeLogger, _mapper, _fakeDirector, _fakeBuilder, _fakeBackgroundQueue, _fakeEventHandler, _configuration, _relatedContentItemIndexRepository);
+            _fakeCacheHandler = new CacheHandler(_fakeLogger, _mapper, _fakeDirector, _fakeBuilder, _fakeEventHandler, _configuration, _relatedContentItemIndexRepository);
         }
 
         #region Publish Tests       
@@ -301,7 +299,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.CompUi
                                 .Build();
 #pragma warning restore CS8620 // Argument cannot be used for parameter due to differences in the nullability of reference types.
 
-            ICacheHandler eventGridSendMessageCacheHandler = new CacheHandler(_fakeLogger, _mapper, _fakeDirector, _fakeBuilder, _fakeBackgroundQueue, _eventGridHandler, configuration, _relatedContentItemIndexRepository);
+            ICacheHandler eventGridSendMessageCacheHandler = new CacheHandler(_fakeLogger, _mapper, _fakeDirector, _fakeBuilder, _eventGridHandler, configuration, _relatedContentItemIndexRepository);
 
             return eventGridSendMessageCacheHandler;
         }

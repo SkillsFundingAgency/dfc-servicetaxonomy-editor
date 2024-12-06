@@ -99,12 +99,6 @@
         "PreviewAppPrefix": {
             "type": "string"
         },
-        "JobProfilePublishedAppPrefix": {
-            "type": "string"
-        },
-        "JobProfilePreviewAppPrefix": {
-            "type": "string"
-        },
         "Neo4jEndpoints0Enabled": {
             "type": "bool"
         },
@@ -500,14 +494,6 @@
                             {
                                 "name": "Pages__PreviewAppPrefix",
                                 "value": "[parameters('PreviewAppPrefix')]"
-                            },
-                            {
-                                "name": "JobProfiles__PublishedAppPrefix",
-                                "value": "[parameters('JobProfilePublishedAppPrefix')]"
-                            },
-                            {
-                                "name": "JobProfiles__PreviewAppPrefix",
-                                "value": "[parameters('JobProfilePreviewAppPrefix')]"
                             },
                             {
                                 "name": "OrchardCore__OrchardCore_Media_Azure__ConnectionString",
