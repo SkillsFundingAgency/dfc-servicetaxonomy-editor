@@ -265,6 +265,9 @@
         },
         "PreviewRedirectUri:3:ContentType":{
             "value": "__ContentType3__"
+        },
+        "BaseUrlPath":{
+            "value": "__BaseUrlPath__"
         }
     }
 }

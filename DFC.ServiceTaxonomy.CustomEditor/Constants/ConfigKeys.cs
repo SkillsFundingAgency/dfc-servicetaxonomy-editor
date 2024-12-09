@@ -16,5 +16,7 @@
 
         public const string RequiredPreviewContentItems = "RequiredPreviewContentItems";
 
+        public const string BaseUrlPath = "BaseUrlPath";
+
     }
 }

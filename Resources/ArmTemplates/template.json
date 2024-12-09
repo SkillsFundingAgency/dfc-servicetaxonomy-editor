@@ -272,6 +272,9 @@
         },
         "PreviewRedirectUri:3:ContentType": {
             "type": "string"
+        },
+        "BaseUrlPath": {
+            "type": "string"
         }
     },
     "variables": {
@@ -686,6 +689,10 @@
                             {
                                 "name": "PreviewRedirectUri:3:ContentType",
                                 "value": "[parameters('PreviewRedirectUri:3:ContentType')]"
+                            },
+                            {
+                                "name": "BaseUrlPath",
+                                "value": "[parameters('BaseUrlPath')]"
                             }
                         ]
                     }

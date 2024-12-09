@@ -35,3 +35,6 @@ variables:
   value: /job-profiles-ssp2
 - name: ContentType3
   value: JobProfile
+- name: BaseUrlPath
+  value: https://sit-beta.nationalcareersservice.org.uk
+

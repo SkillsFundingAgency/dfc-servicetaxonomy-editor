@@ -29,9 +29,13 @@
 	var allowedPages = Configuration.GetSection(ConfigKeys.EventGridAllowedPagesList).Get<List<string>>() ?? new List<string>();
 	var isAllowedContent = allowedContentTypes.Any(a => a.Contains(contentItem.ContentType));
 	var isPreviewRequired = Configuration.GetSection(ConfigKeys.RequiredPreviewContentItems).Get<List<string>>() ?? new List<string>();
+	var baseUrl = Configuration.GetSection(ConfigKeys.BaseUrlPath).Get<string>() ?? string.Empty;
 
 	//Temp key used to determine if preview button should use new redirect url. Can be removed when page filtering is no longer needed.
 	var isNcsPreview = false;
+
+	//Temp key used for pages still using old draft preview flow, can be removed once all page urls are added to preview function.
+	var previewURL = string.Empty;
 }
 @* Publish - handle publish if content part not present in content item *@
 @if (hasDraft && !contentItem.Has<ContentApprovalPart>())
@@ -72,7 +76,8 @@ else
 		}
 		else
 		{
-			contentItemUrl = string.Concat(PagesConfig.Value.PreviewAppPrefix, pageLocation);
+			contentItemUrl = string.Concat(PagesConfig.Value.PublishedAppPrefix, pageLocation);
+			previewURL = string.Concat(PagesConfig.Value.PreviewAppPrefix, pageLocation);
 		}
 	}
 	else if (isAllowedContent)
@@ -97,13 +102,20 @@ else
 		}
 		else
 		{
-			<a href="@($"{contentItemUrl}")" target="_blank" class="dropdown-item btn-sm">@T["View draft content"]</a>
+			<a href="@($"{previewURL}")" target="_blank" class="dropdown-item btn-sm">@T["View draft content"]</a>
 		}
-    }
-    if (hasPublishPermission && hasViewPermission && hasPublished)
-    {
-		<a href="@($"{contentItemUrl}")" target="_blank" class="dropdown-item btn-sm">@T["View published content"]</a>
-    }
+	}
+	if (hasPublishPermission && hasViewPermission && hasPublished)
+	{
+		if (isNcsPreview)
+		{
+			<a href="@string.Concat(baseUrl, contentItemUrl)" target="_blank" class="dropdown-item btn-sm">@T["View published content"]</a>
+		}
+		else
+		{
+			<a href="@($"{contentItemUrl}")" target="_blank" class="dropdown-item btn-sm">@T["View published content"]</a>
+		}
+	}
 }
 else
 {
