@@ -1,9 +1,13 @@
 ﻿using System;
-using System.Runtime.Serialization;
+using System.Diagnostics.CodeAnalysis;
 
 namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Exceptions
 {
     [Serializable]
+    [SuppressMessage(
+        "Maintainability",
+        "S3925: ISerializable should be implemented correctly",
+        Justification = "Exception(SerializationInfo info, StreamingContext context) is obsolete and should not be called.")]
     public class SetArgumentNullException : Exception
     {
         public SetArgumentNullException()
@@ -17,11 +21,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Exceptions
 
         public SetArgumentNullException(string? message, Exception? innerException)
         : base(message, innerException)
-        {
-        }
-
-        protected SetArgumentNullException(SerializationInfo info, StreamingContext context)
-            : base(info, context)
         {
         }
     }

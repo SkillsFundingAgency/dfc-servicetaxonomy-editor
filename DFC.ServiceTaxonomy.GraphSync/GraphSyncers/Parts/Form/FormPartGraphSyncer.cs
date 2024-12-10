@@ -7,7 +7,7 @@ using OrchardCore.Forms.Models;
 
 namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts.Form
 {
-   public class FormPartGraphSyncer : ContentPartGraphSyncer
+    public class FormPartGraphSyncer : ContentPartGraphSyncer
     {
         public override string PartName => nameof(FormPart);
         private static readonly Func<string, string> _formFieldsPropertyNameTransform = n => $"form_{n}";

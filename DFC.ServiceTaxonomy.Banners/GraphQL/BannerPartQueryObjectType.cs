@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using DFC.ServiceTaxonomy.Banners.Models;
+﻿using DFC.ServiceTaxonomy.Banners.Models;
 using GraphQL.Types;
 
 namespace DFC.ServiceTaxonomy.Banners.GraphQL
