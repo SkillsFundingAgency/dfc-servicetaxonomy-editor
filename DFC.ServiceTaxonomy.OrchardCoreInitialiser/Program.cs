@@ -2,7 +2,6 @@
 using Mono.Options;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
-using OpenQA.Selenium.Edge;
 using System;
 using System.Collections.Generic;
 

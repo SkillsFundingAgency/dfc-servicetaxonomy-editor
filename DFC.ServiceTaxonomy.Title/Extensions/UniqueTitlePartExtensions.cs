@@ -3,7 +3,6 @@ using System.ComponentModel.DataAnnotations;
 using DFC.ServiceTaxonomy.Title.Indexes;
 using Microsoft.Extensions.Localization;
 using DFC.ServiceTaxonomy.Title.Models;
-using YesSql;
 using DFC.ServiceTaxonomy.DataAccess.Repositories;
 
 namespace DFC.ServiceTaxonomy.Extensions

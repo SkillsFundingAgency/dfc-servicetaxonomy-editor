@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using DFC.ServiceTaxonomy.Banners.Indexes;
 using DFC.ServiceTaxonomy.Banners.Models;
 using OrchardCore.ContentManagement.GraphQL.Queries;

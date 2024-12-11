@@ -5,7 +5,6 @@ using DFC.ServiceTaxonomy.Taxonomies.Fields;
 using DFC.ServiceTaxonomy.Taxonomies.ViewModels;
 using Newtonsoft.Json.Linq;
 using OrchardCore.ContentManagement;
-using OrchardCore.DisplayManagement.Handlers;
 
 namespace DFC.ServiceTaxonomy.Taxonomies.Drivers
 {

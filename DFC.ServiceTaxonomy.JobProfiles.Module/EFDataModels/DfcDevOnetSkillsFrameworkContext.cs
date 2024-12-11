@@ -189,7 +189,7 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module.EFDataModels
             modelBuilder.Entity<DfcGdscombination>(entity =>
             {
                 entity.HasIndex(e => new { e.OnetElementOneId, e.OnetElementTwoId })
-                    .HasName("UQ_DFC_GDSCombinations")
+                    .HasDatabaseName("UQ_DFC_GDSCombinations")
                     .IsUnique();
 
                 entity.Property(e => e.CombinedElementId).IsUnicode(false);
