@@ -83,12 +83,6 @@
         "PreviewContentApiPrefix": {
             "value": "https://foo.api.nationalcareersservice.org.uk"
         },
-        "JobProfilePublishedAppPrefix": {
-            "value": "https://localhost/"
-        },
-        "JobProfilePreviewAppPrefix": {
-            "value": "https://localhost/"
-        },
         "MediaAzureBlobConnectionString": {
             "value": "my-string"
         },

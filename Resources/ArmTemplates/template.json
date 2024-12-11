@@ -75,12 +75,6 @@
         "PreviewAppPrefix": {
             "type": "string"
         },
-        "JobProfilePublishedAppPrefix": {
-            "type": "string"
-        },
-        "JobProfilePreviewAppPrefix": {
-            "type": "string"
-        },
         "MediaAzureBlobConnectionString": {
             "type": "securestring"
         },
