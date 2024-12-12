@@ -14,43 +14,43 @@ namespace DFC.ServiceTaxonomy.CompUi.Indexes
 
         public RelatedContentItemIndexProvider(IConfiguration configuration)
         {
-            RelatedContentTypes = configuration.GetSection(RelatedContentTypesAppSetting).Get<List<string>>() ?? new List<string>();
+            RelatedContentTypes = configuration.GetSection(RelatedContentTypesAppSetting).Get<List<string>>()?.ConvertAll(x => x.ToLower()) ?? new List<string>();
         }
 
         public override void Describe(DescribeContext<ContentItem> context)
         {
             context.For<Models.RelatedContentItemIndex>()
-             .When(contentItem => RelatedContentTypes.Contains(contentItem.ContentType))
+             .When(contentItem => RelatedContentTypes.Contains(contentItem.ContentType.ToLower()))
                 .Map(contentItem =>
+                {
+                    if (!contentItem.Published && !contentItem.Latest)
                     {
-                        if (!contentItem.Published && !contentItem.Latest)
-                        {
-                            return default!;
-                        }
-                         
-                        var content = JsonConvert.SerializeObject(contentItem.Content);
+                        return default!;
+                    }
 
-                        var root = JToken.Parse(content);
+                    var content = JsonConvert.SerializeObject(contentItem.Content);
 
-                        var tiles = root.SelectTokens("..ContentItemIds[*]");
+                    var root = JToken.Parse(content);
 
-                        string contentIdList = string.Join("','", tiles);
-                        if (!string.IsNullOrEmpty(contentIdList))
-                        {
-                            contentIdList = string.Concat("'", contentIdList, "'");
-                        }
-                        else
-                        {
-                            contentIdList = string.Empty;
-                        }
+                    var tiles = root.SelectTokens("..ContentItemIds[*]");
 
-                        return new Models.RelatedContentItemIndex
-                        {
-                            ContentItemId = contentItem.ContentItemId,
-                            ContentType = contentItem.ContentType,
-                            RelatedContentIds = contentIdList,
-                        };
-                    });
+                    string contentIdList = string.Join("','", tiles);
+                    if (!string.IsNullOrEmpty(contentIdList))
+                    {
+                        contentIdList = string.Concat("'", contentIdList, "'");
+                    }
+                    else
+                    {
+                        contentIdList = string.Empty;
+                    }
+
+                    return new Models.RelatedContentItemIndex
+                    {
+                        ContentItemId = contentItem.ContentItemId,
+                        ContentType = contentItem.ContentType,
+                        RelatedContentIds = contentIdList,
+                    };
+                });
         }
     }
 }
