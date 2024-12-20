@@ -1,7 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
-
   <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
     <TieredCompilation>true</TieredCompilation>
     <AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>
     <PreserveCompilationReferences>true</PreserveCompilationReferences>
@@ -17,23 +16,20 @@
     <AllowUntrustedCertificate>true</AllowUntrustedCertificate>
     <ErrorOnDuplicatePublishOutputFiles>false</ErrorOnDuplicatePublishOutputFiles>
   </PropertyGroup>
-
   <ItemGroup>
     <Folder Include="Localization\" />
   </ItemGroup>
-
   <ItemGroup>
     <None Include="..\.editorconfig" Link=".editorconfig" />
   </ItemGroup>
-
   <ItemGroup>
     <PackageReference Include="AsyncFixer" Version="1.3.0">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="DFC.Common.SharedContent.Pkg.Netcore" Version="0.1.108" />
-    <PackageReference Include="DfE.NCS.Framework.Core" Version="1.2.16-net60" />
-    <PackageReference Include="DfE.NCS.Framework.Event" Version="0.0.15-net60" />
+    <PackageReference Include="DfE.NCS.Framework.Core" Version="2.0.3" />
+    <PackageReference Include="DfE.NCS.Framework.Event" Version="1.0.0" />
     <PackageReference Include="Joonasw.AspNetCore.SecurityHeaders" Version="4.0.1" />
     <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.22.0" />
     <PackageReference Include="Microsoft.ApplicationInsights.NLogTarget" Version="2.21.0" />
@@ -45,7 +41,6 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
   </ItemGroup>
-
   <ItemGroup>
     <ProjectReference Include="..\DFC.ServiceTaxonomy.Banners\DFC.ServiceTaxonomy.Banners.csproj" />
     <ProjectReference Include="..\DFC.ServiceTaxonomy.CompUi\DFC.ServiceTaxonomy.CompUi.csproj" />
@@ -70,7 +65,6 @@
     <ProjectReference Include="..\DFC.ServiceTaxonomy.UnpublishLater\DFC.ServiceTaxonomy.UnpublishLater.csproj" />
     <ProjectReference Include="..\DFC.ServiceTaxonomy.VersionComparison\DFC.ServiceTaxonomy.VersionComparison.csproj" />
   </ItemGroup>
-
   <ItemGroup>
     <Content Update="Recipes\237. JobProfile.recipe.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -79,5 +73,4 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
-
 </Project>

@@ -5,7 +5,7 @@ using OrchardCore.ContentTypes.Events;
 
 namespace DFC.ServiceTaxonomy.GraphSync.Handlers
 {
-    #pragma warning disable S1186
+#pragma warning disable S1186
     public class GraphSyncContentDefinitionHandler : IContentDefinitionEventHandler
     {
         private readonly IContentTypeOrchestrator _contentTypeOrchestrator;
