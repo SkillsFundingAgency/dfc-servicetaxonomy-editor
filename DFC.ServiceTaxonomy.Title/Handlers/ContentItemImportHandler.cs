@@ -29,7 +29,7 @@ namespace DFC.ServiceTaxonomy.Title.Handlers
         {
             ContentStepModel model = context.Step.ToObject<ContentStepModel>();
             int numberOfDuplicates = 0;
-          
+
             JArray data = model?.Data;
             if (data == null)
                 return;
@@ -48,7 +48,7 @@ namespace DFC.ServiceTaxonomy.Title.Handlers
                     var matches = await _uniqueTitleIndexRepository.GetCount(b =>
                             b.Title == part.Title && b.ContentItemId != part.ContentItem.ContentItemId && b.ContentType == part.ContentItem.ContentType);
 
-                    _logger.LogInformation($"ExecuteAsync UniqueTitlePart {part.Title}"); 
+                    _logger.LogInformation($"ExecuteAsync UniqueTitlePart {part.Title}");
                     if (matches > 0)
                     {
                         numberOfDuplicates += 1;
@@ -58,7 +58,7 @@ namespace DFC.ServiceTaxonomy.Title.Handlers
                 }
             }
 
-            if(numberOfDuplicates > 0)
+            if (numberOfDuplicates > 0)
             {
                 _logger.LogError($"Total Number of Duplicate items = {numberOfDuplicates} ");
                 throw new ArgumentException("The Title is already in use on another content item");

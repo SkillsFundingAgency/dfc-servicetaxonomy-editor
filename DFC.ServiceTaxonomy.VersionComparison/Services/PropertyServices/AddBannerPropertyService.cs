@@ -27,9 +27,9 @@ namespace DFC.ServiceTaxonomy.VersionComparison.Services.PropertyServices
             var addBanner = jToken?.ToObject<AddBanner>();
             if (addBanner?.ContentItemIds?.Any() ?? false)
             {
-                var linkInfo = addBanner.ContentItemIds.Select(c => new {Id = c, Name = _contentServiceHelper.GetContentNameAsync(c).Result})
+                var linkInfo = addBanner.ContentItemIds.Select(c => new { Id = c, Name = _contentServiceHelper.GetContentNameAsync(c).Result })
                     .ToDictionary(k => k.Id, v => v.Name);
-                properties.Add(new PropertyExtract { Name = propertyName, Links = linkInfo});
+                properties.Add(new PropertyExtract { Name = propertyName, Links = linkInfo });
             }
 
             return properties;

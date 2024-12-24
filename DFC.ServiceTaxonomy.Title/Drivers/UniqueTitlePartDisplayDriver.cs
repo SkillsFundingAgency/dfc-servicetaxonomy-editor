@@ -1,18 +1,18 @@
 ﻿using System.Threading.Tasks;
+using DFC.ServiceTaxonomy.DataAccess.Repositories;
+using DFC.ServiceTaxonomy.Extensions;
+using DFC.ServiceTaxonomy.Title.Indexes;
 using DFC.ServiceTaxonomy.Title.Models;
+using DFC.ServiceTaxonomy.Title.Settings;
 using DFC.ServiceTaxonomy.Title.ViewModels;
 using Microsoft.Extensions.Localization;
+using Microsoft.Extensions.Logging;
 using OrchardCore.ContentManagement.Display.ContentDisplay;
 using OrchardCore.ContentManagement.Display.Models;
 using OrchardCore.ContentManagement.Metadata.Models;
 using OrchardCore.DisplayManagement.ModelBinding;
-using DFC.ServiceTaxonomy.Extensions;
 using OrchardCore.DisplayManagement.Views;
 using OrchardCore.Mvc.ModelBinding;
-using DFC.ServiceTaxonomy.Title.Settings;
-using DFC.ServiceTaxonomy.DataAccess.Repositories;
-using DFC.ServiceTaxonomy.Title.Indexes;
-using Microsoft.Extensions.Logging;
 
 namespace DFC.ServiceTaxonomy.Title.Drivers
 {
@@ -26,7 +26,7 @@ namespace DFC.ServiceTaxonomy.Title.Drivers
         {
             S = localizer;
             _uniqueTitleIndexRepository = uniqueTitleIndexRepository;
-            _logger= logger;
+            _logger = logger;
         }
 
         public override IDisplayResult Display(UniqueTitlePart part, BuildPartDisplayContext context)

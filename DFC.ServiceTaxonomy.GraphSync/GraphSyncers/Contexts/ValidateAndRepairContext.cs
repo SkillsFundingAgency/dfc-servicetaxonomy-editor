@@ -24,7 +24,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Contexts
             ISyncNameProvider syncNameProvider,
             IGraphValidationHelper graphValidationHelper,
             IValidateAndRepairGraph validateAndRepairGraph,
-            ILogger logger)
+            ILogger<GraphOperationContext> logger)
             : base(contentItem, syncNameProvider, contentManager, contentItemVersion, logger)
         {
             ContentItemVersion = contentItemVersion;

@@ -7,9 +7,9 @@ using DFC.ServiceTaxonomy.GraphSync.CosmosDb.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.Extensions;
 using DFC.ServiceTaxonomy.GraphSync.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.Models;
-using Newtonsoft.Json.Linq;
 using Microsoft.Extensions.Logging;
 using Microsoft.Rest;
+using Newtonsoft.Json.Linq;
 using static DFC.ServiceTaxonomy.GraphSync.Helpers.DocumentHelper;
 
 namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb
@@ -402,7 +402,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb
 
             var existingList = CanCastToList(itemLinks[key])
                 ? SafeCastToList(itemLinks[key])
-                : new List<Dictionary<string, object>> {SafeCastToDictionary(itemLinks[key])};
+                : new List<Dictionary<string, object>> { SafeCastToDictionary(itemLinks[key]) };
 
             var anyAdditions = false;
 

@@ -77,7 +77,7 @@ namespace DFC.ServiceTaxonomy.PageLocation.Handlers
 
                 foreach (var page in pages.Where(x => x.Content.Page.PageLocations.TermContentItemIds[0] == context.ContentItem.Content.Page.PageLocations.TermContentItemIds[0]))
                 {
-                  
+
                     var latestPreview = await _previewContentItemVersion.GetContentItem(contentManager, page.ContentItemId);
 
                     if (latestPreview != null && Convert.ToBoolean(latestPreview.Content.PageLocationPart.DefaultPageForLocation.Value))
@@ -99,7 +99,7 @@ namespace DFC.ServiceTaxonomy.PageLocation.Handlers
         private async Task SyncToPreviewGraph(ContentItem contentItem)
         {
             // sonar can't see that the set value could be used in the event of an exception
-            #pragma warning disable S1854
+#pragma warning disable S1854
             AllowSyncResult allowSyncResult = AllowSyncResult.Blocked;
             string message = $"Unable to sync '{contentItem.DisplayText}' Page to {GraphReplicaSetNames.Preview} graph(s).";
 
@@ -121,7 +121,7 @@ namespace DFC.ServiceTaxonomy.PageLocation.Handlers
             {
                 await _notifier.AddAsync(NotifyType.Error, new LocalizedHtmlString(nameof(DefaultPageLocationsContentHandler), message));
             }
-            #pragma warning restore S1854
+#pragma warning restore S1854
         }
     }
 }

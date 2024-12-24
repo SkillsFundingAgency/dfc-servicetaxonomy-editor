@@ -8,7 +8,7 @@ using OrchardCore.Contents.AuditTrail.Models;
 
 namespace DFC.ServiceTaxonomy.ContentApproval.Handlers
 {
-    public class ContentApprovalContentHandler: ContentPartHandler<ContentApprovalPart>
+    public class ContentApprovalContentHandler : ContentPartHandler<ContentApprovalPart>
     {
         private readonly IContentManager _contentManager;
 

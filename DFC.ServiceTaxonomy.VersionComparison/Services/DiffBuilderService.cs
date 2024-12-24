@@ -75,7 +75,8 @@ namespace DFC.ServiceTaxonomy.VersionComparison.Services
             {
                 var basePartContainsKey = basePartDictionary.ContainsKey(key);
                 var comparePartContainsKey = comparePartDictionary.ContainsKey(key);
-                diffList.Add(new DiffItem{
+                diffList.Add(new DiffItem
+                {
                     Name = basePartContainsKey ? basePartDictionary[key].Name : comparePartDictionary[key].Name,
                     BaseItem = basePartContainsKey ? basePartDictionary[key].Value : string.Empty,
                     BaseURLs = basePartContainsKey ? basePartDictionary[key].Links : null,

@@ -55,7 +55,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Extensions
                     mergeNodeCommand.Properties.Add(nodePropertyName, value);
                     break;
             }
-                        
+
             return value;
         }
 

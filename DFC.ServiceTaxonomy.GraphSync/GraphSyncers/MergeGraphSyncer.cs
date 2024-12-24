@@ -280,11 +280,11 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             IEnumerable<INodeWithOutgoingRelationships?> incomingContentPickerRelationshipsOrDefault =
                 await _graphCluster.Run(_previewContentItemVersion.GraphReplicaSetName, getDraftRelationshipsQuery);
 
-            #pragma warning disable S1905 // Sonar needs updating to know about nullable references
+#pragma warning disable S1905 // Sonar needs updating to know about nullable references
             return incomingContentPickerRelationshipsOrDefault
                     .Where(n => n != null)
                     .Cast<INodeWithOutgoingRelationships>();
-            #pragma warning restore S1905
+#pragma warning restore S1905
         }
 
         private async Task AddContentPartSyncComponents()

@@ -1,9 +1,9 @@
-﻿using DFC.ServiceTaxonomy.OrchardCoreInitialiser.PageObjects;
+﻿using System;
+using System.Collections.Generic;
+using DFC.ServiceTaxonomy.OrchardCoreInitialiser.PageObjects;
 using Mono.Options;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
-using System;
-using System.Collections.Generic;
 
 
 namespace DFC.ServiceTaxonomy.OrchardCoreInitialiser
@@ -41,9 +41,9 @@ namespace DFC.ServiceTaxonomy.OrchardCoreInitialiser
                 { "h|help",     "show this message and exit",                   h => shouldShowHelp = h != null },
             };
 
-            
 
-            List <string> extra;
+
+            List<string> extra;
             try
             {
                 // parse the command line
@@ -77,9 +77,9 @@ namespace DFC.ServiceTaxonomy.OrchardCoreInitialiser
                 errorMessage += "\tpassword\n";
             }
 
-            if ( missingArgs && !shouldShowHelp )
+            if (missingArgs && !shouldShowHelp)
             {
-                Console.WriteLine(errorMessage+"\n");
+                Console.WriteLine(errorMessage + "\n");
                 shouldShowHelp = true;
             }
 
@@ -94,19 +94,19 @@ namespace DFC.ServiceTaxonomy.OrchardCoreInitialiser
                 Console.WriteLine("Adding trailing slash to uri");
                 uri += "/";
             }
-            
+
             Console.WriteLine("uri = " + uri);
             Console.WriteLine("siteName = " + siteName);
             Console.WriteLine("recipeName = " + recipeName);
             Console.WriteLine("databaseType = " + databaseType);
             Console.WriteLine("tablePrefix = " + tablePrefix);
-            Console.WriteLine("sqlConnectionString = " + new String('#',sqlConnectionString.Length));
+            Console.WriteLine("sqlConnectionString = " + new String('#', sqlConnectionString.Length));
             Console.WriteLine("userName = " + userName);
             Console.WriteLine("email = " + email);
             Console.WriteLine("password = " + new String('#', password.Length));
             Console.WriteLine("runPublishIfAlreadySetUp = " + runPublishIfAlreadySetUp.ToString());
 
-            IWebDriver webDriver= null;
+            IWebDriver webDriver = null;
             try
             {
                 ChromeOptions options = new ChromeOptions();
@@ -115,7 +115,7 @@ namespace DFC.ServiceTaxonomy.OrchardCoreInitialiser
                     Console.WriteLine("Running on build server, using headless browser");
                     options.AddArgument("--headless");
                 }
-                
+
                 webDriver = new ChromeDriver(Environment.CurrentDirectory, options);
 
                 // setup page
@@ -156,9 +156,9 @@ namespace DFC.ServiceTaxonomy.OrchardCoreInitialiser
                     Console.WriteLine(string.Format("Initial configuration already completed, navigating to {0}", uri));
                     webDriver.Navigate().GoToUrl(uri);
                 }
-                   
+
             }
-            catch( Exception e)
+            catch (Exception e)
             {
                 Console.WriteLine("An error was encountered:\n" + e);
                 if (webDriver != null)

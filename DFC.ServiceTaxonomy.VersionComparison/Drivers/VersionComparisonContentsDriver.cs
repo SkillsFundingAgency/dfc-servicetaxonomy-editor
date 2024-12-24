@@ -29,7 +29,7 @@ namespace DFC.ServiceTaxonomy.VersionComparison.Drivers
         {
             var results = new List<IDisplayResult>();
             var hasAuditTrailPermissions = await _authorizationService.AuthorizeAsync(_httpContextAccessor.HttpContext!.User, AuditTrailPermissions.ViewAuditTrail, model);
-            if(!hasAuditTrailPermissions)
+            if (!hasAuditTrailPermissions)
             {
                 return Combine(results.ToArray());
             }

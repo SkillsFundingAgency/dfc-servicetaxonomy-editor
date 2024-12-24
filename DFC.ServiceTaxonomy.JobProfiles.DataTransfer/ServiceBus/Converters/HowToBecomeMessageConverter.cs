@@ -40,7 +40,7 @@ namespace DFC.ServiceTaxonomy.JobProfiles.DataTransfer.ServiceBus.Converters
             IEnumerable<ContentItem> relatedApprenticeshipLinks = await Helper.GetContentItemsAsync(contentItem.Content.JobProfile.RelatedApprenticeshipLinks, contentManager);
             IEnumerable<ContentItem> relatedRegistrations = await Helper.GetContentItemsAsync(contentItem.Content.JobProfile.RelatedRegistrations, contentManager);
             IEnumerable<ContentItem> realStoryField = await Helper.GetContentItemsAsync(contentItem.Content.JobProfile.RealStory, contentManager);
-            
+
             var howToBecomeData = new HowToBecomeData
             {
                 IntroText = contentItem.Content.JobProfile.Entryroutes.Html,

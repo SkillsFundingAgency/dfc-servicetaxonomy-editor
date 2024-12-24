@@ -62,14 +62,14 @@ namespace DFC.ServiceTaxonomy.Title
             SchemaBuilder.AlterIndexTable<UniqueTitlePartIndex>(table => table
      .DropIndex($"IDX_{nameof(UniqueTitlePartIndex)}_{nameof(UniqueTitlePartIndex.ContentItemId)}"));
 
- SchemaBuilder.AlterIndexTable<UniqueTitlePartIndex>(table => table
-                .CreateIndex(
-                    $"IDX_{nameof(UniqueTitlePartIndex)}_{nameof(UniqueTitlePartIndex.ContentItemId)}",
-                    "DocumentId",
-                    nameof(UniqueTitlePartIndex.Title),
-                    nameof(UniqueTitlePartIndex.Latest),
-                    nameof(UniqueTitlePartIndex.Published),
-                    nameof(UniqueTitlePartIndex.ContentType)));
+            SchemaBuilder.AlterIndexTable<UniqueTitlePartIndex>(table => table
+                           .CreateIndex(
+                               $"IDX_{nameof(UniqueTitlePartIndex)}_{nameof(UniqueTitlePartIndex.ContentItemId)}",
+                               "DocumentId",
+                               nameof(UniqueTitlePartIndex.Title),
+                               nameof(UniqueTitlePartIndex.Latest),
+                               nameof(UniqueTitlePartIndex.Published),
+                               nameof(UniqueTitlePartIndex.ContentType)));
 
             return 2;
         }

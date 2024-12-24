@@ -8,7 +8,6 @@ using OrchardCore.ContentManagement;
 using OrchardCore.Contents.Services;
 using OrchardCore.Contents.ViewModels;
 using OrchardCore.DisplayManagement.ModelBinding;
-using OrchardCore.Entities;
 using OrchardCore.Settings;
 using YesSql;
 
@@ -39,7 +38,7 @@ namespace DFC.ServiceTaxonomy.Taxonomies.Services
                     {
                         if (viewModel.SelectedContentItemId.StartsWith("Taxonomy:", StringComparison.OrdinalIgnoreCase))
                         {
-                            _logger.LogInformation($"FilterAsync: Taxonomy {viewModel.SelectedContentItemId} "); 
+                            _logger.LogInformation($"FilterAsync: Taxonomy {viewModel.SelectedContentItemId} ");
                             viewModel.SelectedContentItemId = viewModel.SelectedContentItemId.Substring(9);
                             query.All(
                                 x => query.With<TaxonomyIndex>(x => x.TaxonomyContentItemId == viewModel.SelectedContentItemId)

@@ -16,7 +16,7 @@ namespace DFC.ServiceTaxonomy.VersionComparison.Services.PropertyServices
         public IList<PropertyExtract> Process(string propertyName, JToken? jToken)
         {
             var objectValue = jToken?.ToObject<ObjectValue>();
-            return new List<PropertyExtract> {new PropertyExtract {Key = propertyName, Name = propertyName, Value = objectValue?.ToString()}};
+            return new List<PropertyExtract> { new PropertyExtract { Key = propertyName, Name = propertyName, Value = objectValue?.ToString() } };
         }
     }
 }

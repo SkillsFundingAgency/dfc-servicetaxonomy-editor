@@ -14,7 +14,7 @@ namespace DFC.ServiceTaxonomy.CustomFields.Drivers
         public override IDisplayResult Display(TabField field, BuildFieldDisplayContext context)
         {
             return Initialize<EmptyViewModel>(GetDisplayShapeType(context), model =>
-            {})
+            { })
             .Location("Content")
             .Location("SummaryAdmin", "");
         }

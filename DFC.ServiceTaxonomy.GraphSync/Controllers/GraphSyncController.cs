@@ -43,7 +43,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Controllers
             var synonyms = await _synonymService.GetSynonymsAsync(node);
 
             _logger.LogInformation($"Synonyms: GraphSync/Synonyms/{node}/{filename}");
-             var sb = new StringBuilder();
+            var sb = new StringBuilder();
             foreach (var item in synonyms)
             {
                 sb.AppendLine(item);

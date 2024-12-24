@@ -70,12 +70,12 @@ namespace DFC.ServiceTaxonomy.GraphVisualiser.Controllers
             return View();
         }
 
-        #pragma warning disable S4457
+#pragma warning disable S4457
         //todo: params not always coming through!
         public async Task<ActionResult> Data(
             [FromQuery] string? graph,
             [FromQuery] string? contentItemId)
-            //[FromQuery] string? containingContentItemId)
+        //[FromQuery] string? containingContentItemId)
         {
             if (string.IsNullOrWhiteSpace(contentItemId))
                 return GetOntology();
@@ -87,7 +87,7 @@ namespace DFC.ServiceTaxonomy.GraphVisualiser.Controllers
 
             return await GetData(contentItemId, graph!);
         }
-        #pragma warning restore S4457
+#pragma warning restore S4457
 
         public async Task<ActionResult> NodeLink([FromQuery] string nodeId, [FromQuery] string route, [FromQuery] string graph)
         {

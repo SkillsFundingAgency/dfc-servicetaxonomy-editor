@@ -125,7 +125,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Orchestrators
                 await _notifier.AddBlocked(
                     SyncOperation.Publish,
                     contentItem,
-                    new []{(GraphReplicaSetNames.Published, publishedAllowSync)});
+                    new[] { (GraphReplicaSetNames.Published, publishedAllowSync) });
                 return false;
             }
 
@@ -140,7 +140,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Orchestrators
                 await _notifier.AddBlocked(
                     SyncOperation.Publish,
                     contentItem,
-                    new []{(GraphReplicaSetNames.Preview, previewAllowSync)});
+                    new[] { (GraphReplicaSetNames.Preview, previewAllowSync) });
                 return false;
             }
 
@@ -178,7 +178,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Orchestrators
 
             if (publishedAllowSync.Result == AllowSyncResult.Blocked)
             {
-                await _notifier.AddBlocked(SyncOperation.Update, publishedContentItem, new []{(GraphReplicaSetNames.Published, publishedAllowSync)});
+                await _notifier.AddBlocked(SyncOperation.Update, publishedContentItem, new[] { (GraphReplicaSetNames.Published, publishedAllowSync) });
                 return false;
             }
 
@@ -188,7 +188,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Orchestrators
 
             if (previewAllowSync.Result == AllowSyncResult.Blocked)
             {
-                await _notifier.AddBlocked(SyncOperation.Update, previewContentItem, new []{(GraphReplicaSetNames.Preview, previewAllowSync)});
+                await _notifier.AddBlocked(SyncOperation.Update, previewContentItem, new[] { (GraphReplicaSetNames.Preview, previewAllowSync) });
                 return false;
             }
 
@@ -262,7 +262,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Orchestrators
             switch (allowSync.Result)
             {
                 case AllowSyncResult.Blocked:
-                    await _notifier.AddBlocked(syncOperation, contentItem, new []{(replicaSetName, allowSync)});
+                    await _notifier.AddBlocked(syncOperation, contentItem, new[] { (replicaSetName, allowSync) });
                     return false;
                 case AllowSyncResult.Allowed:
                     await SyncToGraphReplicaSet(syncOperation, mergeGraphSyncer!, contentItem);

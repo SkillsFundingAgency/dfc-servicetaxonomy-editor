@@ -94,10 +94,10 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module.Handlers
             var relatedSkillsIds = context.ContentItem.Content.JobProfile.Relatedskills == null ? default : (JArray)context.ContentItem.Content.JobProfile.Relatedskills.ContentItemIds;
 
             // If no SOC code assigned then no need to create the skill relationships
-            if(socCodeContentItemIds == null || !socCodeContentItemIds.Any() || socCodeContentItemIds.Count != 1)
+            if (socCodeContentItemIds == null || !socCodeContentItemIds.Any() || socCodeContentItemIds.Count != 1)
             {
                 // Ensure any related skills are cleared
-                if(relatedSkillsIds!.Any())
+                if (relatedSkillsIds!.Any())
                 {
                     context.ContentItem.Content.JobProfile.Relatedskills.ContentItemIds = null;
                 }
@@ -116,7 +116,7 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module.Handlers
             // Check skills relate to SOC code
             var relatedSkillsContentItems = await contentManager.GetAsync(relatedSkillsIds.Select(r => r.Value<string>()), true);
             // if no related to soc code then clear and reload
-            if(!relatedSkillsContentItems.Any(c => c.DisplayText.StartsWith(socCode)))
+            if (!relatedSkillsContentItems.Any(c => c.DisplayText.StartsWith(socCode)))
             {
                 context.ContentItem.Content.JobProfile.Relatedskills.ContentItemIds = null;
                 return socCode;

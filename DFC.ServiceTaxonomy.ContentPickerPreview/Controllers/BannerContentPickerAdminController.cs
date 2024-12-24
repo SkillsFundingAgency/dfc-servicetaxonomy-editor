@@ -21,7 +21,7 @@ namespace DFC.ServiceTaxonomy.ContentPickerPreview.Controllers
         private readonly IEnumerable<IBannerContentPickerResultProvider> _resultProviders;
         private readonly ILogger<BannerContentPickerAdminController> _logger;
 
-        public BannerContentPickerAdminController(IContentDefinitionManager contentDefinitionManager, IEnumerable<IBannerContentPickerResultProvider> resultProviders,ILogger<BannerContentPickerAdminController> logger)
+        public BannerContentPickerAdminController(IContentDefinitionManager contentDefinitionManager, IEnumerable<IBannerContentPickerResultProvider> resultProviders, ILogger<BannerContentPickerAdminController> logger)
         {
             _contentDefinitionManager = contentDefinitionManager;
             _resultProviders = resultProviders;

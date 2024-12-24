@@ -18,7 +18,7 @@ namespace DFC.ServiceTaxonomy.Taxonomies.Indexing
         public TaxonomyFieldIndexHandler(IServiceProvider serviceProvider, ILogger<TaxonomyFieldIndexHandler> logger)
         {
             _serviceProvider = serviceProvider;
-            _logger= logger;
+            _logger = logger;
         }
 
         public override async Task BuildIndexAsync(TaxonomyField field, BuildFieldIndexContext context)
@@ -53,7 +53,7 @@ namespace DFC.ServiceTaxonomy.Taxonomies.Indexing
             {
                 foreach (var contentItem in inheritedContentItems)
                 {
-                   context.DocumentIndex.Set(key + ".Inherited", contentItem.ContentItemId, options);
+                    context.DocumentIndex.Set(key + ".Inherited", contentItem.ContentItemId, options);
                 }
             }
         }

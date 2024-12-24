@@ -9,6 +9,7 @@ using DFC.ServiceTaxonomy.Taxonomies.Validation;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Localization;
+using Microsoft.Extensions.Logging;
 using Newtonsoft.Json.Linq;
 using OrchardCore.ContentManagement;
 using OrchardCore.ContentManagement.Display;
@@ -18,7 +19,6 @@ using OrchardCore.DisplayManagement.ModelBinding;
 using OrchardCore.DisplayManagement.Notify;
 using OrchardCore.Title.Models;
 using YesSql;
-using Microsoft.Extensions.Logging;
 
 namespace DFC.ServiceTaxonomy.Taxonomies.Controllers
 {
@@ -48,7 +48,7 @@ namespace DFC.ServiceTaxonomy.Taxonomies.Controllers
             IUpdateModelAccessor updateModelAccessor,
             IEnumerable<ITaxonomyTermValidator> validators,
             IEnumerable<ITaxonomyTermHandler> handlers,
-            ITaxonomyHelper taxonomyHelper,ILogger<AdminController> logger)
+            ITaxonomyHelper taxonomyHelper, ILogger<AdminController> logger)
         {
             _contentManager = contentManager;
             _authorizationService = authorizationService;
@@ -67,7 +67,7 @@ namespace DFC.ServiceTaxonomy.Taxonomies.Controllers
         public async Task<IActionResult> Create(string id, string taxonomyContentItemId, string taxonomyItemId)
         {
             _logger.LogInformation($"Create id {id}, taxonomyContentItemId {taxonomyContentItemId} taxonomyItemId {taxonomyItemId} ");
-            
+
             if (String.IsNullOrWhiteSpace(id))
             {
                 _logger.LogInformation($"Create id {id} Notfound ");
@@ -134,7 +134,7 @@ namespace DFC.ServiceTaxonomy.Taxonomies.Controllers
                 model.TaxonomyContentItemId = taxonomyContentItemId;
                 model.TaxonomyItemId = taxonomyItemId;
 
-                _logger.LogInformation($"ModelState not valid model.TaxonomyContentItemId {model.TaxonomyContentItemId}" );
+                _logger.LogInformation($"ModelState not valid model.TaxonomyContentItemId {model.TaxonomyContentItemId}");
 
                 return View(model);
             }
@@ -287,7 +287,7 @@ namespace DFC.ServiceTaxonomy.Taxonomies.Controllers
             // Create a new item to take into account the current type definition.
             var contentItem = await _contentManager.NewAsync(existing.ContentType);
 
-            contentItem.Merge(existing);            
+            contentItem.Merge(existing);
             contentItem.Weld<TermPart>();
             contentItem.Alter<TermPart>(t => t.TaxonomyContentItemId = taxonomyContentItemId);
             contentItem.ContentItemId = existing.ContentItemId;
@@ -325,7 +325,7 @@ namespace DFC.ServiceTaxonomy.Taxonomies.Controllers
 
             foreach (var validator in _validators)
             {
-                if(validator.GetType().Name == "PageLocationModificationValidator" &&
+                if (validator.GetType().Name == "PageLocationModificationValidator" &&
                     existing.As<TitlePart>().Title == contentItem.As<TitlePart>().Title)
                 {
                     continue;
@@ -363,9 +363,9 @@ namespace DFC.ServiceTaxonomy.Taxonomies.Controllers
             _logger.LogInformation($"Delete taxonomyContentItemId {taxonomyContentItemId} taxonomyItemId {taxonomyItemId}");
             if (!await _authorizationService.AuthorizeAsync(User, Permissions.ManageTaxonomies))
             {
-                
-                    _logger.LogInformation($"Delete user permission forbid");
-                    return Forbid();
+
+                _logger.LogInformation($"Delete user permission forbid");
+                return Forbid();
             }
 
             ContentItem taxonomy;

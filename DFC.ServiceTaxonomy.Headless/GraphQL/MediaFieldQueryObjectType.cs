@@ -1,8 +1,8 @@
 using GraphQL.Types;
 using Microsoft.Extensions.DependencyInjection;
 using OrchardCore.Apis.GraphQL;
-using OrchardCore.Media.Fields;
 using OrchardCore.Media;
+using OrchardCore.Media.Fields;
 
 
 //Custom Media Field object type overriding existing graphql object type to expose the media field alt text field

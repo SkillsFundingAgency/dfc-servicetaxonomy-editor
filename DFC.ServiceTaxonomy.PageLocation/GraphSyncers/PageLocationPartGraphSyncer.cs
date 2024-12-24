@@ -28,7 +28,7 @@ namespace DFC.ServiceTaxonomy.PageLocation.GraphSyncers
             _generator = generator;
             _contentItemsService = contentItemsService;
             _contentDefinitionManager = contentDefinitionManager;
-            _logger= logger;
+            _logger = logger;
         }
 
         public override string PartName => nameof(PageLocationPart);

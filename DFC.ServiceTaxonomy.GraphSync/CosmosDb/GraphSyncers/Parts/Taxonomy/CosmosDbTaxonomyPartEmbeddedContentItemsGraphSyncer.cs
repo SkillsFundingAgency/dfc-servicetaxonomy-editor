@@ -2,17 +2,17 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using DFC.ServiceTaxonomy.GraphSync.CosmosDb.GraphSyncers.Helpers;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Contexts;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.EmbeddedContentItemsGraphSyncer;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Helpers;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Results.AllowSync;
+using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts.Taxonomy;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Results.AllowSync;
-using Newtonsoft.Json.Linq;
-using OrchardCore.ContentManagement.Metadata;
 using DFC.ServiceTaxonomy.Taxonomies.Models;
 using Microsoft.Extensions.Logging;
-using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts.Taxonomy;
-using DFC.ServiceTaxonomy.GraphSync.CosmosDb.GraphSyncers.Helpers;
+using Newtonsoft.Json.Linq;
+using OrchardCore.ContentManagement.Metadata;
 
 namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb.GraphSyncers.Parts.Taxonomy
 {

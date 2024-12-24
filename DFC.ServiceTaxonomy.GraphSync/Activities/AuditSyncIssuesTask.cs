@@ -23,7 +23,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Activities
         }
 
         private readonly IValidateAndRepairGraph _validateAndRepairGraph;
-        private readonly ILogger _logger;
+        private readonly ILogger<AuditSyncIssuesTask> _logger;
         private IStringLocalizer T { get; }
 
         public override string Name => nameof(AuditSyncIssuesTask);

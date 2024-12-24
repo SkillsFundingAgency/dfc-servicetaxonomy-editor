@@ -33,7 +33,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb
 
             if (node.Equals("Skill", StringComparison.CurrentCultureIgnoreCase))
             {
-                return await ExecuteSynonymQueryAsync(new CosmosDbMatchSynonymsQuery(string.Join(":",sourceNodeName), "SkillLabel", "skos__prefLabel", "hasAltLabel", "hasPrefLabel", "hasHiddenLabel"));
+                return await ExecuteSynonymQueryAsync(new CosmosDbMatchSynonymsQuery(string.Join(":", sourceNodeName), "SkillLabel", "skos__prefLabel", "hasAltLabel", "hasPrefLabel", "hasHiddenLabel"));
             }
 
             if (node.Equals("Occupation", StringComparison.CurrentCultureIgnoreCase))

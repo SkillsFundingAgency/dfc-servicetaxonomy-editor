@@ -26,7 +26,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb.Queries
         {
             var validationErrors = new List<string>();
 
-            if(RelationshipTypes.Length == 0)
+            if (RelationshipTypes.Length == 0)
             {
                 validationErrors.Add("At least one RelationshipType must be provided.");
             }

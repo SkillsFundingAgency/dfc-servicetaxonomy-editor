@@ -13,7 +13,7 @@ namespace DFC.ServiceTaxonomy.VersionComparison.Services.PropertyServices
 
         public IList<PropertyExtract> Process(string propertyName, JToken? jToken)
         {
-            return new List<PropertyExtract> { new PropertyExtract{ Name = propertyName, Key = propertyName} };
+            return new List<PropertyExtract> { new PropertyExtract { Name = propertyName, Key = propertyName } };
         }
     }
 }

@@ -253,16 +253,16 @@ namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb.GraphSyncers.Helpers
                         .Where(ir => !ir.Relationship.Properties.ContainsKey(
                             CosmosDbNodeWithOutgoingRelationshipsCommand.TwoWayRelationshipPropertyName));
 
-                        allowSync.AddSyncBlockers(
-                            nonTwoWayIncomingRelationshipsToEmbeddedItems.Select(r =>
-                            {
-                                string contentType =
-                                    context.SyncNameProvider.GetContentTypeFromNodeLabels(r.DestinationNode.Labels);
-                                return new SyncBlocker(
-                                    contentType,
-                                    r.DestinationNode.Properties[context.SyncNameProvider.IdPropertyName(contentType)],
-                                    (string?)r.DestinationNode.Properties[TitlePartGraphSyncer.NodeTitlePropertyName]);
-                            }));
+                    allowSync.AddSyncBlockers(
+                        nonTwoWayIncomingRelationshipsToEmbeddedItems.Select(r =>
+                        {
+                            string contentType =
+                                context.SyncNameProvider.GetContentTypeFromNodeLabels(r.DestinationNode.Labels);
+                            return new SyncBlocker(
+                                contentType,
+                                r.DestinationNode.Properties[context.SyncNameProvider.IdPropertyName(contentType)],
+                                (string?)r.DestinationNode.Properties[TitlePartGraphSyncer.NodeTitlePropertyName]);
+                        }));
 
                     _logger.LogInformation($"removingRelationship: {removingRelationship} destinationNodeIdPropertyValue {destinationNodeIdPropertyValue}");
                 }
@@ -351,7 +351,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb.GraphSyncers.Helpers
 
                     //todo: probably belongs in deletegraphsyncer DeleteEmbeddedAllowed
                     var allDeleteIncomingRelationshipsProperties = new HashSet<KeyValuePair<string, object>>();
-                    _logger.LogInformation($"contentItem: {contentItem} "); 
+                    _logger.LogInformation($"contentItem: {contentItem} ");
                     if (context.DeleteIncomingRelationshipsProperties != null)
                     {
                         allDeleteIncomingRelationshipsProperties.UnionWith(context.DeleteIncomingRelationshipsProperties);

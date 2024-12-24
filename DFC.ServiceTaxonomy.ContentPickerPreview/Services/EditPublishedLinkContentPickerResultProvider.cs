@@ -46,7 +46,7 @@ namespace DFC.ServiceTaxonomy.ContentPickerPreview.Services
             {
                 query.With<ContentItemIndex>(x => x.DisplayText.Contains(searchContext.Query) || x.ContentType.Contains(searchContext.Query));
             }
-            _logger.LogInformation($"Search: query {query}"); 
+            _logger.LogInformation($"Search: query {query}");
             var contentItems = await query.Take(50).ListAsync();
 
             var results = new List<ContentPickerResult>();

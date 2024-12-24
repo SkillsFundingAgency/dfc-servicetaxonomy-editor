@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Threading.Tasks;
+using DFC.ServiceTaxonomy.ContentApproval.Indexes;
+using DFC.ServiceTaxonomy.ContentApproval.Models;
 using Microsoft.Extensions.Logging;
-using OrchardCore.Data.Migration;
 using OrchardCore.ContentManagement.Metadata;
 using OrchardCore.ContentManagement.Metadata.Settings;
-using OrchardCore.Recipes.Services;
-using DFC.ServiceTaxonomy.ContentApproval.Models;
-using DFC.ServiceTaxonomy.ContentApproval.Indexes;
+using OrchardCore.Data.Migration;
 using OrchardCore.Modules;
+using OrchardCore.Recipes.Services;
 using YesSql.Sql;
 
 namespace DFC.ServiceTaxonomy.ContentApproval

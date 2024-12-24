@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
-using DFC.ServiceTaxonomy.GraphSync.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.Extensions;
+using DFC.ServiceTaxonomy.GraphSync.Interfaces;
 
 namespace DFC.ServiceTaxonomy.GraphSync.Models
 {

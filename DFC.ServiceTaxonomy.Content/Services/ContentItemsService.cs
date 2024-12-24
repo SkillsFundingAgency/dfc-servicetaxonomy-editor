@@ -38,7 +38,7 @@ namespace DFC.ServiceTaxonomy.Content.Services
 
         public async Task<List<ContentItem>> GetActive(string contentType)
         {
-           // _logger.LogInformation("GetActive: " + contentType);
+            // _logger.LogInformation("GetActive: " + contentType);
 
             return (await _session
                 .Query<ContentItem, ContentItemIndex>()
@@ -81,7 +81,7 @@ namespace DFC.ServiceTaxonomy.Content.Services
             _logger.LogInformation($"Get: contentType {contentType} Latest : {latest} Published: {published}");
             if (latest != null && published != null)
             {
-            
+
                 return await _session
                     .Query<ContentItem, ContentItemIndex>(x =>
                         x.ContentType == contentType

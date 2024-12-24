@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Threading.Tasks;
-using DFC.ServiceTaxonomy.Title.Models;
 using DFC.ServiceTaxonomy.GraphSync.Extensions;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Contexts;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts;
+using DFC.ServiceTaxonomy.Title.Models;
 using Newtonsoft.Json.Linq;
 
 namespace DFC.ServiceTaxonomy.Title.GraphSyncers

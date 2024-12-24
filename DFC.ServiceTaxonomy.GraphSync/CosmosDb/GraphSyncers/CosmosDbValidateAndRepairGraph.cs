@@ -91,7 +91,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb.GraphSyncers
         {
             await _session.BeginTransactionAsync();
 
-            var typeDefinitionsList =  await _contentDefinitionManager
+            var typeDefinitionsList = await _contentDefinitionManager
                 .ListTypeDefinitionsAsync();
             IEnumerable<ContentTypeDefinition> syncableContentTypeDefinitions = typeDefinitionsList
                 .Where(x => x.Parts.Any(p => p.Name == nameof(GraphSyncPart)));
@@ -125,7 +125,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb.GraphSyncers
                     // seems a little messy, and will make concurrent validation a pita,
                     // but stops part/field syncers needing low level graph access
                     _currentGraph = graph;
-                    
+
                     foreach (ContentTypeDefinition contentTypeDefinition in syncableContentTypeDefinitions)
                     {
                         _ = await ValidateContentItemsOfContentType(

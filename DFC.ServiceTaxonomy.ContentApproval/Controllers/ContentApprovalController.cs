@@ -31,11 +31,11 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Controllers
             _notifier = notifier;
             H = htmlLocalizer;
             _urlHelperFactory = urlHelperFactory;
-            _logger= logger;
+            _logger = logger;
         }
         public async Task<IActionResult> RequestApproval(string contentItemId, string returnUrl, string reviewType)
         {
-            if(string.IsNullOrWhiteSpace(contentItemId) || string.IsNullOrWhiteSpace(reviewType))
+            if (string.IsNullOrWhiteSpace(contentItemId) || string.IsNullOrWhiteSpace(reviewType))
             {
                 _logger.LogError($"RequestApproval BadRequest contentItemId:{contentItemId} returnUrl: {returnUrl} reviewType:{reviewType}");
                 return BadRequest();
@@ -80,7 +80,7 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Controllers
                 await _notifier.WarningAsync(H["An appropriate review type hasn't been selected. Please resubmit for review."]);
                 contentItem.Alter<ContentApprovalPart>(p => p.ReviewStatus = ReviewStatus.NotInReview);
                 await _contentManager.SaveDraftAsync(contentItem);
-                _logger.LogInformation ($"An appropriate review type hasn't been selected. Please resubmit for review. contentItemId:{contentItemId} returnUrl: {returnUrl}");
+                _logger.LogInformation($"An appropriate review type hasn't been selected. Please resubmit for review. contentItemId:{contentItemId} returnUrl: {returnUrl}");
 
                 return Redirect(returnUrl);
             }
@@ -155,7 +155,7 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Controllers
             }
 
             var reviewStatus = contentItem.As<ContentApprovalPart>()?.ReviewStatus ?? ReviewStatus.NotInReview;
-            if(reviewStatus == ReviewStatus.InReview)
+            if (reviewStatus == ReviewStatus.InReview)
             {
                 await _notifier.WarningAsync(H["This item is already in review with {0} and therefore cannot be edited.", contentItem.Author]);
                 return Redirect(returnUrl);

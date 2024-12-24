@@ -21,7 +21,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Contexts
             IContentItemVersion contentItemVersion,
             IServiceProvider serviceProvider,
             ICloneContext? parentContext = null)
-            : base (
+            : base(
                 contentItem,
                 syncNameProvider,
                 contentManager,
