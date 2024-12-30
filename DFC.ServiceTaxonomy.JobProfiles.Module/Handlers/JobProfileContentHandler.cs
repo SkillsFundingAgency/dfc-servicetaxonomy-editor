@@ -38,7 +38,7 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module.Handlers
 
         public override async Task DraftSavingAsync(SaveDraftContentContext context)
         {
-            _logger.LogInformation($"DraftSavingAsync: context {context}");
+            _logger.LogInformation("DraftSavingAsync: context {Context}", context);
             if (context.ContentItem.ContentType == ContentTypes.JobProfile)
             {
                 // Only three job sectors can be selected

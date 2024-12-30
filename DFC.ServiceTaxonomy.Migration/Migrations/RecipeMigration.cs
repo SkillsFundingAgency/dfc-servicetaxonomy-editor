@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using System.Diagnostics;
+using Microsoft.Extensions.Logging;
 using OrchardCore.Data.Migration;
 using OrchardCore.Recipes.Services;
 
@@ -19,7 +20,7 @@ namespace DFC.ServiceTaxonomy.Migration.Migrations
         {
             try
             {
-                logger.LogInformation($" Started CreateAsync Migration from DFC.ServiceTaxonomy.Migration");
+                logger.LogInformation("Started CreateAsync Migration from DFC.ServiceTaxonomy.Migration");
 
                 var recipes = new string[]
                 {
@@ -34,12 +35,12 @@ namespace DFC.ServiceTaxonomy.Migration.Migrations
             }
             catch (Exception exception)
             {
-                logger.LogError($"CreateAsync Migration failed {exception.Message}", exception);
+                logger.LogError(exception, "CreateAsync Migration failed. Exception Message: {Message}. Stack Trace: {StackTrace}", exception.Message, exception.StackTrace);
 
                 throw;
             }
 
-            logger.LogInformation($"Completed CreateAsync Migration from DFC.ServiceTaxonomy.Migration");
+            logger.LogInformation("Completed CreateAsync Migration from DFC.ServiceTaxonomy.Migration");
 
             return 1;
         }
@@ -48,7 +49,7 @@ namespace DFC.ServiceTaxonomy.Migration.Migrations
         {
             try
             {
-                logger.LogInformation($" Started UpdateFrom1 Migration from DFC.ServiceTaxonomy.Migration");
+                logger.LogInformation("Started UpdateFrom1 Migration from DFC.ServiceTaxonomy.Migration");
 
                 var recipes = new string[]
                 {
@@ -63,12 +64,12 @@ namespace DFC.ServiceTaxonomy.Migration.Migrations
             }
             catch (Exception exception)
             {
-                logger.LogError($"UpdateFrom1 Migration failed {exception.Message}", exception);
+                logger.LogError("UpdateFrom1 Migration failed. Exception Message: {Message}. Stack Trace: {StackTrace}", exception.Message, exception.StackTrace);
 
                 throw;
             }
 
-            logger.LogInformation($"Completed UpdateFrom1 Migration from DFC.ServiceTaxonomy.Migration");
+            logger.LogInformation("Completed UpdateFrom1 Migration from DFC.ServiceTaxonomy.Migration");
 
             return 2;
         }

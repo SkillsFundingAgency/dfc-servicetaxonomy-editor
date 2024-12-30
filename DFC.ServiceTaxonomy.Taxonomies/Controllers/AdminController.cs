@@ -66,17 +66,17 @@ namespace DFC.ServiceTaxonomy.Taxonomies.Controllers
 
         public async Task<IActionResult> Create(string id, string taxonomyContentItemId, string taxonomyItemId)
         {
-            _logger.LogInformation($"Create id {id}, taxonomyContentItemId {taxonomyContentItemId} taxonomyItemId {taxonomyItemId} ");
+            _logger.LogInformation("Create id {Id}, taxonomyContentItemId {TaxonomyContentItemId} taxonomyItemId {TaxonomyItemId} ", id, taxonomyContentItemId, taxonomyItemId);
 
             if (String.IsNullOrWhiteSpace(id))
             {
-                _logger.LogInformation($"Create id {id} Notfound ");
+                _logger.LogInformation("Create id {Id} Notfound ", id);
                 return NotFound();
             }
 
             if (!await _authorizationService.AuthorizeAsync(User, Permissions.ManageTaxonomies))
             {
-                _logger.LogInformation($"Create User forbidden ");
+                _logger.LogInformation("Create User forbidden ");
                 return Forbid();
             }
 
@@ -96,10 +96,10 @@ namespace DFC.ServiceTaxonomy.Taxonomies.Controllers
         [ActionName("Create")]
         public async Task<IActionResult> CreatePost(string id, string taxonomyContentItemId, string taxonomyItemId)
         {
-            _logger.LogInformation($"CreatePost id {id}, taxonomyContentItemId {taxonomyContentItemId} taxonomyItemId {taxonomyItemId} ");
+            _logger.LogInformation("CreatePost id {Id}, taxonomyContentItemId {TaxonomyContentItemId} taxonomyItemId {TaxonomyItemId} ", id, taxonomyContentItemId, taxonomyItemId);
             if (!await _authorizationService.AuthorizeAsync(User, Permissions.ManageTaxonomies))
             {
-                _logger.LogInformation($"Create User forbidden ");
+                _logger.LogInformation("Create User forbidden ");
                 return Forbid();
             }
 
@@ -118,7 +118,7 @@ namespace DFC.ServiceTaxonomy.Taxonomies.Controllers
 
             if (taxonomy == null)
             {
-                _logger.LogInformation($"taxonomy {taxonomy} Notfound");
+                _logger.LogInformation("Taxonomy {Taxonomy} not found", taxonomy);
                 return NotFound();
             }
 
@@ -145,7 +145,7 @@ namespace DFC.ServiceTaxonomy.Taxonomies.Controllers
                 if (!ValidateTaxonomyTerm(taxonomy, contentItem))
                 {
 
-                    _logger.LogError($"Another {contentItem.ContentType} already exists with this name.");
+                    _logger.LogError("Another {ContentType} already exists with this name.", contentItem.ContentItem);
 
                     return ValidationError($"Another {contentItem.ContentType} already exists with this name.", model, taxonomyContentItemId, taxonomyItemId);
                 }
@@ -166,7 +166,7 @@ namespace DFC.ServiceTaxonomy.Taxonomies.Controllers
 
                 if (!ValidateTaxonomyTerm(parentTaxonomyItem.ToObject<ContentItem>(), contentItem))
                 {
-                    _logger.LogError($"Another {contentItem.ContentType} already exists with this name.");
+                    _logger.LogError("Another {ContentType} already exists with this name.", contentItem.ContentType);
 
                     return ValidationError($"Another {contentItem.ContentType} already exists with this name.", model, taxonomyContentItemId, taxonomyItemId);
                 }
@@ -188,7 +188,7 @@ namespace DFC.ServiceTaxonomy.Taxonomies.Controllers
 
                 if (!validated)
                 {
-                    _logger.LogError($"validator {taxonomyContentItemId}  errorMessage {errorMessage}");
+                    _logger.LogError("Validator: {TaxonomyContentItemId}  ErrorMessage: {ErrorMessage}", taxonomyContentItemId, errorMessage);
                     return ValidationError(errorMessage, model, taxonomyContentItemId, taxonomyItemId);
                 }
             }
@@ -211,13 +211,13 @@ namespace DFC.ServiceTaxonomy.Taxonomies.Controllers
 
             if (taxonomy == null)
             {
-                _logger.LogError($"Edit taxonomy  {taxonomy} notfound");
+                _logger.LogError("Edit taxonomy {Taxonomy} not found", taxonomy);
                 return NotFound();
             }
 
             if (!await _authorizationService.AuthorizeAsync(User, Permissions.ManageTaxonomies, taxonomy))
             {
-                _logger.LogError($"AuthorizeAsync forbid");
+                _logger.LogError("Authorization failed for managing taxonomies.");
                 return Forbid();
             }
 
@@ -227,7 +227,7 @@ namespace DFC.ServiceTaxonomy.Taxonomies.Controllers
             // Couldn't find targeted taxonomy item
             if (taxonomyItem == null)
             {
-                _logger.LogError($"taxonomyItem {taxonomyItem} notfound");
+                _logger.LogError("Taxonomy item {TaxonomyItem} not found", taxonomyItem);
                 return NotFound();
             }
 
@@ -249,7 +249,7 @@ namespace DFC.ServiceTaxonomy.Taxonomies.Controllers
         {
             if (!await _authorizationService.AuthorizeAsync(User, Permissions.ManageTaxonomies))
             {
-                _logger.LogError($"EditPost taxonomyContentItemId{taxonomyContentItemId} forbid");
+                _logger.LogError("Authorization failed for managing taxonomies - EditPost - TaxonomyContentItemId: {TaxonomyContentItemId}", taxonomyContentItemId);
                 return Forbid();
             }
 
@@ -268,7 +268,7 @@ namespace DFC.ServiceTaxonomy.Taxonomies.Controllers
 
             if (taxonomy == null)
             {
-                _logger.LogError($"EditPost taxonomy {taxonomy} notfound");
+                _logger.LogError("EditPost - Taxonomy {taxonomy} not found", taxonomy);
                 return NotFound();
             }
 
@@ -278,7 +278,7 @@ namespace DFC.ServiceTaxonomy.Taxonomies.Controllers
             // Couldn't find targeted taxonomy item
             if (taxonomyItem == null)
             {
-                _logger.LogError($"EditPost taxonomyItem {taxonomyItem} notfound");
+                _logger.LogError("EditPost - Taxonomy item {taxonomyItem} not found", taxonomyItem);
                 return NotFound();
             }
 
@@ -298,7 +298,7 @@ namespace DFC.ServiceTaxonomy.Taxonomies.Controllers
             {
                 model.TaxonomyContentItemId = taxonomyContentItemId;
                 model.TaxonomyItemId = taxonomyItemId;
-                _logger.LogInformation($"EditPost TaxonomyContentItemId {taxonomyContentItemId} ");
+                _logger.LogInformation("EditPost - TaxonomyContentItemId: {TaxonomyContentItemId} ", taxonomyContentItemId);
                 return View(model);
             }
 
@@ -310,7 +310,7 @@ namespace DFC.ServiceTaxonomy.Taxonomies.Controllers
 
             if (!ValidateTaxonomyTerm(parentTaxonomyTerm, contentItem))
             {
-                _logger.LogInformation($"Another {contentItem.ContentType} already exists with this name.");
+                _logger.LogInformation("Another {ContentType} already exists with this name.", contentItem.ContentType);
                 return ValidationError($"Another {contentItem.ContentType} already exists with this name.", model, taxonomyContentItemId, taxonomyItemId);
             }
 
@@ -360,11 +360,11 @@ namespace DFC.ServiceTaxonomy.Taxonomies.Controllers
         [HttpPost]
         public async Task<IActionResult> Delete(string taxonomyContentItemId, string taxonomyItemId)
         {
-            _logger.LogInformation($"Delete taxonomyContentItemId {taxonomyContentItemId} taxonomyItemId {taxonomyItemId}");
+            _logger.LogInformation("Delete taxonomyContentItemId {TaxonomyContentItemId} taxonomyItemId {TaxonomyItemId}", taxonomyContentItemId, taxonomyItemId);
             if (!await _authorizationService.AuthorizeAsync(User, Permissions.ManageTaxonomies))
             {
 
-                _logger.LogInformation($"Delete user permission forbid");
+                _logger.LogInformation("Delete - Authorization failed for managing taxonomies.");
                 return Forbid();
             }
 
@@ -383,7 +383,7 @@ namespace DFC.ServiceTaxonomy.Taxonomies.Controllers
 
             if (taxonomy == null)
             {
-                _logger.LogInformation($"Delete taxonomy {taxonomy} notfound");
+                _logger.LogInformation("Delete taxonomy {Taxonomy} not found", taxonomy);
                 return NotFound();
             }
 

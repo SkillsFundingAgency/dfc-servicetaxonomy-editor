@@ -178,7 +178,10 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 
             await SyncEmbedded();
 
-            _logger.LogInformation($"Syncing {_graphMergeContext!.ContentItem.ContentType} : {_graphMergeContext.ContentItem.ContentItemId} to {MergeNodeCommand}");
+            _logger.LogInformation("Syncing {ContentType} : {ContentItemId} to {MergeNodeCommand}",
+                _graphMergeContext!.ContentItem.ContentType,
+                _graphMergeContext.ContentItem.ContentItemId,
+                MergeNodeCommand);
             await SyncComponentsToGraphReplicaSet();
 
             return MergeNodeCommand;

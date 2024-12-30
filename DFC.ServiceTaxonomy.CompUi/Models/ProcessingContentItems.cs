@@ -3,6 +3,6 @@
     public class ProcessingContentItems
     {
         public string? Content { get; set; }
-        public string? ContentType { get; set; }    
+        public string? ContentType { get; set; }
     }
 }

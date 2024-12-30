@@ -12,11 +12,11 @@ namespace DFC.ServiceTaxonomy.CompUi.BackgroundTask.Activity
     public class JobProfileCacheRefresh : IJobProfileCacheRefresh
     {
         private readonly ISharedContentRedisInterface sharedContentRedisInterface;
-        private readonly ILogger<JobProfileCacheRefresh> logger;
+        private readonly ILogger<JobProfileCacheRefresh> _logger;
 
         public JobProfileCacheRefresh(ISharedContentRedisInterface sharedContentRedisInterface, ILogger<JobProfileCacheRefresh> logger)
         {
-            this.logger = logger;
+            this._logger = logger;
             this.sharedContentRedisInterface = sharedContentRedisInterface;
         }
 
@@ -30,7 +30,9 @@ namespace DFC.ServiceTaxonomy.CompUi.BackgroundTask.Activity
 
                 if (string.IsNullOrEmpty(fullUrl))
                 {
-                    logger.LogError($"Error occurred while retrieveing data for document Id {processing.DocumentId}.  Content Type: {processing.ContentType}. Page content could not be retrieved. No Job Profile data will be refreshed.");
+                    _logger.LogError("Error occurred while retrieveing data for document Id {DocumentId}.  Content Type: {ContentType}. Page content could not be retrieved. No Job Profile data will be refreshed.",
+                        processing.DocumentId,
+                        processing.ContentType);
                 }
                 else
                 {
@@ -47,7 +49,7 @@ namespace DFC.ServiceTaxonomy.CompUi.BackgroundTask.Activity
             }
             catch (Exception exception)
             {
-                logger.LogError($"Error occurred while refreshing Job Profile data. Exception: {exception}.");
+                _logger.LogError(exception, "Error occurred while refreshing Job Profile data. Exception Message: {Message}. Stack Trace: {StackTrace}.", exception.Message, exception.StackTrace);
             }
         }
 
@@ -60,17 +62,19 @@ namespace DFC.ServiceTaxonomy.CompUi.BackgroundTask.Activity
             }
             catch (Exception exception)
             {
-                logger.LogError($"Error occurred while refreshing Job Profile data. Exception: {exception}.");
+                _logger.LogError(exception, "Error occurred while refreshing Job Profile data. Exception Message: {Message}. Stack Trace: {StackTrace}.", exception.Message, exception.StackTrace);
             }
         }
 
         [DebuggerStepThrough]
         private void LogCacheKeyRefresh(Processing processing, string cacheKey, string filter)
         {
-            logger.LogInformation($"Event Type: {processing.EventType}. " +
-                $"Content Item Id: {processing.DocumentId}. " +
-                $"Content Type: {processing.ContentType}.  " +
-                $"The following Cache Key will be refreshed: {cacheKey}. Filter: {filter}.");
+            _logger.LogInformation("Event Type: {EventType}.\nContent Item Id: {DocumentId}.\nContent Type: {ContentType}.\nThe following Cache Key will be refreshed: {cacheKey}. Filter: {filter}.",
+                processing.EventType,
+                processing.DocumentId,
+                processing.ContentType,
+                cacheKey,
+                filter);
         }
     }
 }

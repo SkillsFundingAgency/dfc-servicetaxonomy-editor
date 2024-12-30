@@ -28,7 +28,7 @@ namespace DFC.ServiceTaxonomy.ContentPickerPreview.Services
 
         public async Task<IEnumerable<ContentPickerResult>> Search(ContentPickerSearchContext searchContext)
         {
-            _logger.LogInformation($"Search: searchContext {searchContext}");
+            _logger.LogInformation("Search: searchContext {SearchContext}", searchContext);
             var contentTypes = searchContext.ContentTypes;
             if (searchContext.DisplayAllContentTypes)
             {
@@ -46,11 +46,11 @@ namespace DFC.ServiceTaxonomy.ContentPickerPreview.Services
             {
                 query.With<ContentItemIndex>(x => x.DisplayText.Contains(searchContext.Query) || x.ContentType.Contains(searchContext.Query));
             }
-            _logger.LogInformation($"Search: query {query}");
+            _logger.LogInformation("Search: query {query}", query);
             var contentItems = await query.Take(50).ListAsync();
 
             var results = new List<ContentPickerResult>();
-            _logger.LogInformation($"Search: results {results}");
+            _logger.LogInformation("Search: results {results}", results);
             foreach (var contentItem in contentItems)
             {
                 results.Add(new ContentPickerResult

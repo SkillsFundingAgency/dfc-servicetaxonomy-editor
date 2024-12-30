@@ -34,7 +34,7 @@ namespace DFC.ServiceTaxonomy.Title.Handlers
             if (data == null)
                 return;
 
-            _logger.LogInformation($"ExecuteAsync data {data}");
+            _logger.LogInformation("ExecuteAsync data {Data}", data);
 
             foreach (JToken token in data)
             {
@@ -48,7 +48,7 @@ namespace DFC.ServiceTaxonomy.Title.Handlers
                     var matches = await _uniqueTitleIndexRepository.GetCount(b =>
                             b.Title == part.Title && b.ContentItemId != part.ContentItem.ContentItemId && b.ContentType == part.ContentItem.ContentType);
 
-                    _logger.LogInformation($"ExecuteAsync UniqueTitlePart {part.Title}");
+                    _logger.LogInformation("ExecuteAsync UniqueTitlePart {Title}", part.Title);
                     if (matches > 0)
                     {
                         numberOfDuplicates += 1;

@@ -24,7 +24,7 @@ namespace DFC.ServiceTaxonomy.Taxonomies.Indexing
         public override async Task BuildIndexAsync(TaxonomyField field, BuildFieldIndexContext context)
         {
             // TODO: Also add the parents of each term, probably as a separate field
-            _logger.LogInformation($"BuildIndexAsync : field {field} ");
+            _logger.LogInformation("BuildIndexAsync : field {field} ", field);
             var options = context.Settings.ToOptions();
             options |= DocumentIndexOptions.Store;
 
@@ -33,7 +33,7 @@ namespace DFC.ServiceTaxonomy.Taxonomies.Indexing
             {
                 foreach (var key in context.Keys)
                 {
-                    _logger.LogInformation($"BuildIndexAsync set : key {key} contentItemId {contentItemId} ");
+                    _logger.LogInformation("BuildIndexAsync set : key {key} contentItemId {contentItemId} ", key, contentItemId);
                     context.DocumentIndex.Set(key, contentItemId, options);
                 }
             }

@@ -42,7 +42,7 @@ namespace DFC.ServiceTaxonomy.PageLocation.Handlers
         {
             if (context.ContentItem.ContentType == "Page" && Convert.ToBoolean(context.ContentItem.Content.PageLocationPart.DefaultPageForLocation.Value))
             {
-                _logger.LogInformation($"PublishedAsync Page {context.ContentItem.ContentType}");
+                _logger.LogInformation("PublishedAsync Page {ContentType}", context.ContentItem.ContentType);
                 IContentManager contentManager = _serviceProvider.GetRequiredService<IContentManager>();
 
                 //TODO : find out how to query for only pages marked as default - probably need to make a new index
@@ -54,7 +54,7 @@ namespace DFC.ServiceTaxonomy.PageLocation.Handlers
 
                     if (latestPublished != null && Convert.ToBoolean(latestPublished.Content.PageLocationPart.DefaultPageForLocation.Value))
                     {
-                        _logger.LogInformation($"PublishedAsync page {page} latestPublished {latestPublished}");
+                        _logger.LogInformation("PublishedAsync page {Page} latestPublished {LatestPublished}", page, latestPublished);
 
                         latestPublished!.Content.PageLocationPart.DefaultPageForLocation.Value = false;
                         latestPublished.Published = false;
@@ -68,7 +68,7 @@ namespace DFC.ServiceTaxonomy.PageLocation.Handlers
         {
             if (context.ContentItem.ContentType == "Page" && Convert.ToBoolean(context.ContentItem.Content.PageLocationPart.DefaultPageForLocation.Value))
             {
-                _logger.LogInformation($"DraftSavedAsync {context.ContentItem.ContentType}");
+                _logger.LogInformation("DraftSavedAsync {ContentType}", context.ContentItem.ContentType);
 
                 IContentManager contentManager = _serviceProvider.GetRequiredService<IContentManager>();
 
@@ -82,7 +82,7 @@ namespace DFC.ServiceTaxonomy.PageLocation.Handlers
 
                     if (latestPreview != null && Convert.ToBoolean(latestPreview.Content.PageLocationPart.DefaultPageForLocation.Value))
                     {
-                        _logger.LogInformation($"page {page} latestPreview {latestPreview}");
+                        _logger.LogInformation("Page {Page} latestPreview {LatestPreview}", page, latestPreview);
                         latestPreview!.Content.PageLocationPart.DefaultPageForLocation.Value = false;
 
                         await contentManager.SaveDraftAsync(latestPreview);

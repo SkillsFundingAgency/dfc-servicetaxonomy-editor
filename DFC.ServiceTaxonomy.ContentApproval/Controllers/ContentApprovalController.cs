@@ -37,7 +37,7 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Controllers
         {
             if (string.IsNullOrWhiteSpace(contentItemId) || string.IsNullOrWhiteSpace(reviewType))
             {
-                _logger.LogError($"RequestApproval BadRequest contentItemId:{contentItemId} returnUrl: {returnUrl} reviewType:{reviewType}");
+                _logger.LogError("RequestApproval BadRequest contentItemId:{ContentItemId} returnUrl: {ReturnUrl} reviewType:{ReviewType}", contentItemId, returnUrl, reviewType);
                 return BadRequest();
             }
 
@@ -45,20 +45,20 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Controllers
 
             if (contentItem == null)
             {
-                _logger.LogError($"RequestApproval Notfound contentItemId:{contentItemId} returnUrl: {returnUrl} reviewType:{reviewType}");
+                _logger.LogError("RequestApproval Notfound contentItemId:{ContentItemId} returnUrl: {ReturnUrl} reviewType:{ReviewType}", contentItemId, returnUrl, reviewType);
                 return NotFound();
             }
 
             if (!await _authorizationService.AuthorizeAsync(User, Permissions.RequestReviewPermissions.RequestReviewPermission, contentItem))
             {
-                _logger.LogError($"RequestApproval Forbit contentItemId:{contentItemId} returnUrl: {returnUrl} reviewType:{reviewType}");
+                _logger.LogError("RequestApproval Forbit contentItemId:{ContentItemId} returnUrl: {ReturnUrl} reviewType:{ReviewType}", contentItemId, returnUrl, reviewType);
                 return Forbid();
             }
 
             contentItem.Alter<ContentApprovalPart>(p => p.ReviewStatus = ReviewStatus.ReadyForReview);
             contentItem.Alter<ContentApprovalPart>(p => p.ReviewType = Enum.Parse<ReviewType>(reviewType));
             await _contentManager.SaveDraftAsync(contentItem);
-            _logger.LogInformation($"{contentItem.DisplayText} is now ready to be reviewed");
+            _logger.LogInformation("{DisplayText} is now ready to be reviewed", contentItem.DisplayText);
             await _notifier.SuccessAsync(H["{0} is now ready to be reviewed.", contentItem.DisplayText]);
 
             return Redirect(returnUrl);
@@ -70,7 +70,7 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Controllers
             var contentApprovalPart = contentItem?.As<ContentApprovalPart>();
             if (contentItem == null || contentApprovalPart == null)
             {
-                _logger.LogError($"Review NotFound contentItemId:{contentItemId} returnUrl: {returnUrl}");
+                _logger.LogError("Review NotFound contentItemId:{ContentItemId} returnUrl: {ReturnUrl}", contentItemId, returnUrl);
 
                 return NotFound();
             }
@@ -80,14 +80,14 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Controllers
                 await _notifier.WarningAsync(H["An appropriate review type hasn't been selected. Please resubmit for review."]);
                 contentItem.Alter<ContentApprovalPart>(p => p.ReviewStatus = ReviewStatus.NotInReview);
                 await _contentManager.SaveDraftAsync(contentItem);
-                _logger.LogInformation($"An appropriate review type hasn't been selected. Please resubmit for review. contentItemId:{contentItemId} returnUrl: {returnUrl}");
+                _logger.LogInformation("An appropriate review type hasn't been selected. Please resubmit for review. contentItemId:{ContentItemId} returnUrl: {ReturnUrl}", contentItemId, returnUrl);
 
                 return Redirect(returnUrl);
             }
 
             if (!await _authorizationService.AuthorizeAsync(User, contentApprovalPart.ReviewType.GetRelatedPermission(), contentItem))
             {
-                _logger.LogInformation($"Review Forbid contentItemId:{contentItemId} returnUrl: {returnUrl}");
+                _logger.LogInformation("Review Forbid contentItemId:{ContentItemId} returnUrl: {ReturnUrl}", contentItemId, returnUrl);
 
                 return Forbid();
             }
@@ -95,7 +95,7 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Controllers
             if (contentApprovalPart.ReviewStatus == ReviewStatus.NotInReview)
             {
                 await _notifier.WarningAsync(H["This item is no longer available for review."]);
-                _logger.LogInformation($"Review no longer available contentItemId:{contentItemId} returnUrl: {returnUrl}");
+                _logger.LogInformation("Review no longer available contentItemId:{ContentItemId} returnUrl: {ReturnUrl}", contentItemId, returnUrl);
 
                 return Redirect(returnUrl);
             }
@@ -112,7 +112,7 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Controllers
             }
             else if (contentApprovalPart.ReviewStatus == ReviewStatus.InReview)
             {
-                _logger.LogInformation($"Review Forbid contentItemId:{contentItemId} returnUrl: {returnUrl}");
+                _logger.LogInformation("Review Forbid contentItemId:{ContentItemId} returnUrl: {ReturnUrl}", contentItemId, returnUrl);
 
                 await _notifier.WarningAsync(H["This content item has already been selected for review."]);
             }
@@ -126,7 +126,7 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Controllers
             if (metadata.EditorRouteValues == null)
             {
                 await _notifier.ErrorAsync(H["Could not redirect for review: {0}", contentItem.DisplayText]);
-                _logger.LogError($"RedirectToEdit Could not redirect for review returnurl: {returnUrl} contentItem {contentItem} ");
+                _logger.LogError("RedirectToEdit Could not redirect for review returnurl: {ReturnUrl} contentItem: {ContentItemId}", returnUrl, contentItem);
 
                 return Redirect(returnUrl);
             }

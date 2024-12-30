@@ -164,7 +164,7 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
                 await _eventGridHandler.SendEventMessageAsync(TransformData(processing, current), contentEventType);
                 break;
         };
-       
+
     }
 
     private async Task ProcessPage(Processing processing, ContentItem currentContent)

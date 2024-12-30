@@ -1,8 +1,8 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using OrchardCore.ContentManagement;
 using YesSql.Indexes;
-using Microsoft.Extensions.Configuration;
 
 
 namespace DFC.ServiceTaxonomy.CompUi.Indexes
@@ -27,7 +27,7 @@ namespace DFC.ServiceTaxonomy.CompUi.Indexes
                         {
                             return default!;
                         }
-                         
+
                         var content = JsonConvert.SerializeObject(contentItem.Content);
 
                         var root = JToken.Parse(content);

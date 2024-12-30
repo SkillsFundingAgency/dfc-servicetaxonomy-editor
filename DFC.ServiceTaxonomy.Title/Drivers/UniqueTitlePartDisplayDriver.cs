@@ -56,7 +56,7 @@ namespace DFC.ServiceTaxonomy.Title.Drivers
         public override async Task<IDisplayResult> UpdateAsync(UniqueTitlePart part, IUpdateModel updater,
             UpdatePartEditorContext context)
         {
-            _logger.LogInformation($"UpdateAsync: UniqueTitlePart {part}");
+            _logger.LogInformation("UpdateAsync: UniqueTitlePart {Part}", part);
             var updated = await updater.TryUpdateModelAsync(part, Prefix, b => b.Title);
             if (updated)
             {
