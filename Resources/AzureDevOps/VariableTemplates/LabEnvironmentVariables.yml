@@ -28,11 +28,11 @@ variables:
 - name: ContentType1
   value: Footer
 - name: RedirectUri2
-  value: /explore-careers-ssp2/job-sector
+  value: /explore-careers/job-sector
 - name: ContentType2
   value: JobProfileSector
 - name: RedirectUri3
-  value: /job-profiles-ssp2
+  value: /job-profiles
 - name: ContentType3
   value: JobProfile
 - name: BaseUrlPath
