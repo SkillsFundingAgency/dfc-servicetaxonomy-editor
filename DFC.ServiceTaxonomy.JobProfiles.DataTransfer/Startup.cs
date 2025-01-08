@@ -47,6 +47,7 @@ namespace DFC.ServiceTaxonomy.JobProfiles.DataTransfer
             services.TryAddScoped<IReIndexService, ReIndexService>();
 
             services.AddInputObjectGraphType<JobProfileSimplificationPart, JobProfileSimplificationInputObjectType>();
+            services.AddObjectGraphType<SocSkillMatrixContentItem, SocSkillsMatrixQueryObjectType>();
             services.AddTransient<IIndexAliasProvider, JobProfileSimplificationPartIndexAliasProvider>();
 
             // Index Providers
