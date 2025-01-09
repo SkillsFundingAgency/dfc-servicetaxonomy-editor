@@ -92,7 +92,11 @@ namespace DFC.ServiceTaxonomy.CompUi.Services
             await _builder.InvalidateDysacPersonalityTraitAsync(processing);
         }
 
-        public async Task ProcessSOCCodeAsync(Processing processing) => throw new NotImplementedException();
+        public async Task ProcessSOCCodeAsync(Processing processing)
+        {
+            await Task.CompletedTask;
+            throw new NotImplementedException();
+        }
 
         public async Task ProcessSOCSkillsMatrixAsync(Processing processing)
         {
@@ -100,7 +104,12 @@ namespace DFC.ServiceTaxonomy.CompUi.Services
             await _builder.InvalidateJobProfileCategoryAsync(processing);
         }
 
-        public async Task ProcessDynamicTitlePrefixAsync(Processing processing) => throw new NotImplementedException();
+        public async Task ProcessDynamicTitlePrefixAsync(Processing processing)
+        {
+            await Task.CompletedTask;
+            throw new NotImplementedException();
+        }
+
 
         public async Task ProcessWorkingPatternsAsync(Processing processing)
         {

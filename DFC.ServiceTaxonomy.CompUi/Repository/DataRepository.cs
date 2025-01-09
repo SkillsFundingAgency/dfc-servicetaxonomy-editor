@@ -46,7 +46,7 @@ namespace DFC.ServiceTaxonomy.CompUi.Repository
                 resultList = await ExecuteQuery<RelatedContentData>(sql, new { queryIds = documentIds });
             }
 
-            return resultList;
+            return resultList ?? Enumerable.Empty<RelatedContentData>();
         }
 
         private async Task<IEnumerable<T>?> ExecuteQuery<T>(string sql, object? param = null)
