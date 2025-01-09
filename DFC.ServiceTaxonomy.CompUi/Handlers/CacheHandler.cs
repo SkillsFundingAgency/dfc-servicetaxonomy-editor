@@ -243,8 +243,6 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
     {
         var result = await _relatedContentItemIndexRepository.GetRelatedContentDataByContentItemIdAndPage(processing);
 
-        //Note that the following limits sending messages for only Pages and JobProfiles.  This may be removed when working on DYSAC
-        //as we'll need to send messages for PersonalityQuestionSet, PersonalityFilteringQuestion, PersonalityTrait & PersonalityShortQuestion etc.
         result?
             .Where(x => x.ContentType == nameof(ContentTypes.JobProfile))
             .ToList().ForEach(x => _eventGridHandler.SendEventMessageAsync(x, ContentEventType.StaxUpdate));
