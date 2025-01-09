@@ -6,7 +6,7 @@ variables:
 - name: StorageAccountResourceGroupName
   value: dfc-dev-dig-rg
 - name: MediaStorageAccountName
-  value: dfcdevclonedigstr
+  value: dfcdevdigstr
 - name: WebAppName
   value: dfc-dev-stax-editor-as
 - name: SqlDatabaseName

@@ -39,3 +39,5 @@ variables:
   value: https://lab.nationalcareersservice.org.uk
 - name: StorageAccountResourceGroupName
   value: dfc-lab-dig-rg
+- name: MediaStorageAccountName
+  value: dfclabdigstr
