@@ -165,6 +165,9 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
             case nameof(ContentTypes.JobProfile) when contentEventType == ContentEventType.StaxUpdate:
                 await ProcessGenericContentType(processing, current);
                 break;
+            case nameof(ContentTypes.SOCSkillsMatrix) when contentEventType == ContentEventType.StaxUpdate:
+                await ProcessSocSkillsMatrix(processing);
+                break;
             case nameof(ContentTypes.HiddenAlternativeTitle):
             case nameof(ContentTypes.WorkingHoursDetail):
             case nameof(ContentTypes.WorkingPatternDetail):
@@ -233,6 +236,17 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
         //as we'll need to send messages for PersonalityQuestionSet, PersonalityFilteringQuestion, PersonalityTrait & PersonalityShortQuestion etc.
         result?
             .Where(x => x.ContentType == nameof(ContentTypes.Page) || x.ContentType == nameof(ContentTypes.JobProfile))
+            .ToList().ForEach(x => _eventGridHandler.SendEventMessageAsync(x, ContentEventType.StaxUpdate));
+    }
+
+    private async Task ProcessSocSkillsMatrix(Processing processing)
+    {
+        var result = await _relatedContentItemIndexRepository.GetRelatedContentDataByContentItemIdAndPage(processing);
+
+        //Note that the following limits sending messages for only Pages and JobProfiles.  This may be removed when working on DYSAC
+        //as we'll need to send messages for PersonalityQuestionSet, PersonalityFilteringQuestion, PersonalityTrait & PersonalityShortQuestion etc.
+        result?
+            .Where(x => x.ContentType == nameof(ContentTypes.JobProfile))
             .ToList().ForEach(x => _eventGridHandler.SendEventMessageAsync(x, ContentEventType.StaxUpdate));
     }
 
