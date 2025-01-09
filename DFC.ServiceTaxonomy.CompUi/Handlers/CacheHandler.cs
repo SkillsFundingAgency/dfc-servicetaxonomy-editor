@@ -166,7 +166,7 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
                 await ProcessGenericContentType(processing, current);
                 break;
             case nameof(ContentTypes.SOCSkillsMatrix) when contentEventType == ContentEventType.StaxUpdate:
-                await ProcessSocSkillsMatrix(processing);
+                await ProcessSharedContent(processing);
                 break;
             case nameof(ContentTypes.HiddenAlternativeTitle):
             case nameof(ContentTypes.WorkingHoursDetail):
@@ -236,15 +236,6 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
         //as we'll need to send messages for PersonalityQuestionSet, PersonalityFilteringQuestion, PersonalityTrait & PersonalityShortQuestion etc.
         result?
             .Where(x => x.ContentType == nameof(ContentTypes.Page) || x.ContentType == nameof(ContentTypes.JobProfile))
-            .ToList().ForEach(x => _eventGridHandler.SendEventMessageAsync(x, ContentEventType.StaxUpdate));
-    }
-
-    private async Task ProcessSocSkillsMatrix(Processing processing)
-    {
-        var result = await _relatedContentItemIndexRepository.GetRelatedContentDataByContentItemIdAndPage(processing);
-
-        result?
-            .Where(x => x.ContentType == nameof(ContentTypes.JobProfile))
             .ToList().ForEach(x => _eventGridHandler.SendEventMessageAsync(x, ContentEventType.StaxUpdate));
     }
 
