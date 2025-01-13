@@ -40,4 +40,4 @@ variables:
 - name: ContentType3
   value: JobProfile
 - name: BaseUrlPath
-  value: https://staging.nationalcareersservice.gov.uk
+  value: https://staging.nationalcareers.service.gov.uk
