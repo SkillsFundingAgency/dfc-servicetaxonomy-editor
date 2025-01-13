@@ -101,7 +101,7 @@ namespace DFC.ServiceTaxonomy.CompUi.Repository
                 _logger.LogError(exception, "An exception occured while getting the related content data for {ContentItemId}.", processing.ContentItemId);
             }
 
-            return resultList;
+            return resultList ?? Enumerable.Empty<RelatedContentData>();
         }
 
         private async Task<IEnumerable<T>?> ExecuteQuery<T>(string sql, object? param = null)

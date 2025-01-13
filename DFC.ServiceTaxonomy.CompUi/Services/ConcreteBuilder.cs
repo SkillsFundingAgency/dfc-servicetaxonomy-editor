@@ -40,7 +40,14 @@ namespace DFC.ServiceTaxonomy.CompUi.Services
         }
 
         public async Task<IEnumerable<NodeItem>> GetDataAsync(Processing processing)
-            => await GetDataAsync(processing.DocumentId, processing.Latest, processing.Published);
+        {
+            var result = await GetDataAsync(processing.DocumentId, processing.Latest, processing.Published);
+            if (result == null)
+            {
+                throw new InvalidOperationException("No data found for the given processing parameters.");
+            }
+            return result;
+        }
 
         public async Task<IEnumerable<RelatedItems>?> GetRelatedContentItemIdsAsync(Processing processing)
             => await GetRelatedContentItemIdsAsync(processing.DocumentId);
