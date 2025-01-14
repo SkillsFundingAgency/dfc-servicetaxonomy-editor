@@ -7,6 +7,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using OrchardCore.ContentManagement.Handlers;
+using ContentItem = DFC.ServiceTaxonomy.CompUi.Models.ContentItem;
 
 namespace DFC.ServiceTaxonomy.CompUi.Handlers;
 
@@ -194,6 +195,19 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
                     await ProcessSharedContent(processing);
                 }
                 break;
+            case nameof(ContentTypes.PersonalityQuestionSet):
+            case nameof(ContentTypes.PersonalityFilteringQuestion):
+                await _eventGridHandler.SendEventMessageAsync(TransformData(processing, current), contentEventType);
+                break;
+            case nameof(ContentTypes.PersonalityShortQuestion):
+            case nameof(ContentTypes.PersonalityTrait):
+                await _eventGridHandler.SendEventMessageAsync(TransformData(processing, current), contentEventType);
+                await ProcessSharedContent(processing);
+                break;
+            case nameof(ContentTypes.SOCSkillsMatrix):
+                await _eventGridHandler.SendEventMessageAsync(TransformData(processing, current), contentEventType);
+                await ProcessSharedContent(processing);
+                break;
             default:
                 await _eventGridHandler.SendEventMessageAsync(TransformData(processing, current), contentEventType);
                 break;
@@ -225,6 +239,11 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
             .ToList().ForEach(x => _eventGridHandler.SendEventMessageAsync(x, ContentEventType.StaxUpdate));
     }
 
+    /// <summary>
+    /// This method gets the related content items from RelatedContentItemIndex table the current item and then updates the related items where required too. 
+    /// </summary>
+    /// <param name="processing">The Processing object.</param>
+    /// <returns>A Task is returned</returns>
     private async Task ProcessSharedContent(Processing processing)
     {
         var result = await _relatedContentItemIndexRepository.GetRelatedContentDataByContentItemIdAndPage(processing);
@@ -232,7 +251,11 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
         //Note that the following limits sending messages for only Pages and JobProfiles.  This may be removed when working on DYSAC
         //as we'll need to send messages for PersonalityQuestionSet, PersonalityFilteringQuestion, PersonalityTrait & PersonalityShortQuestion etc.
         result?
-            .Where(x => x.ContentType == nameof(ContentTypes.Page) || x.ContentType == nameof(ContentTypes.JobProfile))
+            .Where(x => x.ContentType == nameof(ContentTypes.Page)
+                || x.ContentType == nameof(ContentTypes.JobProfile)
+                || x.ContentType == nameof(ContentTypes.PersonalityQuestionSet)
+                || x.ContentType == nameof(ContentTypes.PersonalityShortQuestion)
+                || x.ContentType == nameof(ContentTypes.PersonalityTrait))
             .ToList().ForEach(x => _eventGridHandler.SendEventMessageAsync(x, ContentEventType.StaxUpdate));
     }
 
