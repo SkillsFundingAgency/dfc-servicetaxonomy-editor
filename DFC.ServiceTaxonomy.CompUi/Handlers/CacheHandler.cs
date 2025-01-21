@@ -195,16 +195,16 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
                     await ProcessSharedContent(processing);
                 }
                 break;
-            case nameof(ContentTypes.PersonalityQuestionSet):
-            case nameof(ContentTypes.PersonalityFilteringQuestion):
+            case nameof(ContentTypes.PersonalityQuestionSet) when contentEventType == ContentEventType.StaxUpdate:
+            case nameof(ContentTypes.PersonalityFilteringQuestion) when contentEventType == ContentEventType.StaxUpdate:
                 await _eventGridHandler.SendEventMessageAsync(TransformData(processing, current), contentEventType);
                 break;
-            case nameof(ContentTypes.PersonalityShortQuestion):
-            case nameof(ContentTypes.PersonalityTrait):
+            case nameof(ContentTypes.PersonalityShortQuestion) when contentEventType == ContentEventType.StaxUpdate:
+            case nameof(ContentTypes.PersonalityTrait) when contentEventType == ContentEventType.StaxUpdate:
                 await _eventGridHandler.SendEventMessageAsync(TransformData(processing, current), contentEventType);
                 await ProcessSharedContent(processing);
                 break;
-            case nameof(ContentTypes.SOCSkillsMatrix):
+            case nameof(ContentTypes.SOCSkillsMatrix) when contentEventType == ContentEventType.StaxUpdate:
                 await _eventGridHandler.SendEventMessageAsync(TransformData(processing, current), contentEventType);
                 await ProcessSharedContent(processing);
                 break;
