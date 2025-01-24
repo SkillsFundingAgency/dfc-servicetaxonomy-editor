@@ -146,7 +146,7 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
                 break;
             case nameof(ContentTypes.SharedContent) when processing.EventType != ProcessingEvents.Created:
                 await _eventGridHandler.SendEventMessageAsync(TransformData(processing, current), contentEventType);
-                await ProcessSharedContent(processing);
+                await ProcessRelatedContent(processing);
                 break;
             case nameof(ContentTypes.SectorLandingPage) when contentEventType == ContentEventType.StaxUpdate:
                 await ProcessGenericContentType(processing, current);
@@ -154,14 +154,14 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
                 break;
             case nameof(ContentTypes.JobProfileCategory) when contentEventType == ContentEventType.StaxUpdate:
                 await ProcessGenericContentType(processing, current);
-                await ProcessSharedContent(processing);
+                await ProcessRelatedContent(processing);
                 break;
             case nameof(ContentTypes.Skill) when contentEventType == ContentEventType.StaxUpdate:
                 await _eventGridHandler.SendEventMessageAsync(TransformData(processing, current), contentEventType);
                 break;
             case nameof(ContentTypes.JobProfileSector) when contentEventType == ContentEventType.StaxUpdate:
                 await _eventGridHandler.SendEventMessageAsync(TransformData(processing, current), contentEventType);
-                await ProcessSharedContent(processing);
+                await ProcessRelatedContent(processing);
                 break;
             case nameof(ContentTypes.JobProfile) when contentEventType == ContentEventType.StaxUpdate:
                 await ProcessGenericContentType(processing, current);
@@ -192,21 +192,23 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
                 // Only want the message to be sent for related items to update an affected job profile.
                 if (contentEventType == ContentEventType.StaxUpdate)
                 {
-                    await ProcessSharedContent(processing);
+                    await ProcessRelatedContent(processing);
                 }
                 break;
-            case nameof(ContentTypes.PersonalityQuestionSet) when contentEventType == ContentEventType.StaxUpdate:
-            case nameof(ContentTypes.PersonalityFilteringQuestion) when contentEventType == ContentEventType.StaxUpdate:
+            case nameof(ContentTypes.PersonalityQuestionSet):
+            case nameof(ContentTypes.PersonalityFilteringQuestion):
                 await _eventGridHandler.SendEventMessageAsync(TransformData(processing, current), contentEventType);
                 break;
-            case nameof(ContentTypes.PersonalityShortQuestion) when contentEventType == ContentEventType.StaxUpdate:
-            case nameof(ContentTypes.PersonalityTrait) when contentEventType == ContentEventType.StaxUpdate:
-                await _eventGridHandler.SendEventMessageAsync(TransformData(processing, current), contentEventType);
-                await ProcessSharedContent(processing);
+            case nameof(ContentTypes.PersonalityShortQuestion):
+                await ProcessRelatedContent(processing);
                 break;
-            case nameof(ContentTypes.SOCSkillsMatrix) when contentEventType == ContentEventType.StaxUpdate:
+            case nameof(ContentTypes.PersonalityTrait):
                 await _eventGridHandler.SendEventMessageAsync(TransformData(processing, current), contentEventType);
-                await ProcessSharedContent(processing);
+                await ProcessRelatedContent(processing);
+                break;
+            case nameof(ContentTypes.SOCSkillsMatrix):
+                await _eventGridHandler.SendEventMessageAsync(TransformData(processing, current), contentEventType);
+                await ProcessRelatedContent(processing);
                 break;
             default:
                 await _eventGridHandler.SendEventMessageAsync(TransformData(processing, current), contentEventType);
@@ -244,18 +246,16 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
     /// </summary>
     /// <param name="processing">The Processing object.</param>
     /// <returns>A Task is returned</returns>
-    private async Task ProcessSharedContent(Processing processing)
+    private async Task ProcessRelatedContent(Processing processing)
     {
         var result = await _relatedContentItemIndexRepository.GetRelatedContentDataByContentItemIdAndPage(processing);
 
-        //Note that the following limits sending messages for only Pages and JobProfiles.  This may be removed when working on DYSAC
-        //as we'll need to send messages for PersonalityQuestionSet, PersonalityFilteringQuestion, PersonalityTrait & PersonalityShortQuestion etc.
         result?
             .Where(x => x.ContentType == nameof(ContentTypes.Page)
                 || x.ContentType == nameof(ContentTypes.JobProfile)
                 || x.ContentType == nameof(ContentTypes.PersonalityQuestionSet)
-                || x.ContentType == nameof(ContentTypes.PersonalityShortQuestion)
-                || x.ContentType == nameof(ContentTypes.PersonalityTrait))
+                || x.ContentType == nameof(ContentTypes.PersonalityTrait)
+                || x.ContentType == nameof(ContentTypes.PersonalityFilteringQuestion))
             .ToList().ForEach(x => _eventGridHandler.SendEventMessageAsync(x, ContentEventType.StaxUpdate));
     }
 

@@ -230,7 +230,7 @@ namespace DFC.ServiceTaxonomy.CompUi.Services
             var success = true;
             var jobProfileCategories = JsonConvert.DeserializeObject<JobProfileCategoriesContent>(processing.CurrentContent);
 
-            if (jobProfileCategories != null)
+            if (jobProfileCategories != null && jobProfileCategories.JobProfile != null)
             {
                 foreach (var category in jobProfileCategories.JobProfile.JobProfileCategory.ContentItemId)
                 {
