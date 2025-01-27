@@ -7,6 +7,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using OrchardCore.ContentManagement.Handlers;
+using ContentItem = DFC.ServiceTaxonomy.CompUi.Models.ContentItem;
 
 namespace DFC.ServiceTaxonomy.CompUi.Handlers;
 
@@ -145,7 +146,7 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
                 break;
             case nameof(ContentTypes.SharedContent) when processing.EventType != ProcessingEvents.Created:
                 await _eventGridHandler.SendEventMessageAsync(TransformData(processing, current), contentEventType);
-                await ProcessSharedContent(processing);
+                await ProcessRelatedContent(processing);
                 break;
             case nameof(ContentTypes.SectorLandingPage) when contentEventType == ContentEventType.StaxUpdate:
                 await ProcessGenericContentType(processing, current);
@@ -153,14 +154,14 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
                 break;
             case nameof(ContentTypes.JobProfileCategory) when contentEventType == ContentEventType.StaxUpdate:
                 await ProcessGenericContentType(processing, current);
-                await ProcessSharedContent(processing);
+                await ProcessRelatedContent(processing);
                 break;
             case nameof(ContentTypes.Skill) when contentEventType == ContentEventType.StaxUpdate:
                 await _eventGridHandler.SendEventMessageAsync(TransformData(processing, current), contentEventType);
                 break;
             case nameof(ContentTypes.JobProfileSector) when contentEventType == ContentEventType.StaxUpdate:
                 await _eventGridHandler.SendEventMessageAsync(TransformData(processing, current), contentEventType);
-                await ProcessSharedContent(processing);
+                await ProcessRelatedContent(processing);
                 break;
             case nameof(ContentTypes.JobProfile) when contentEventType == ContentEventType.StaxUpdate:
                 await ProcessGenericContentType(processing, current);
@@ -191,8 +192,23 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
                 // Only want the message to be sent for related items to update an affected job profile.
                 if (contentEventType == ContentEventType.StaxUpdate)
                 {
-                    await ProcessSharedContent(processing);
+                    await ProcessRelatedContent(processing);
                 }
+                break;
+            case nameof(ContentTypes.PersonalityQuestionSet):
+            case nameof(ContentTypes.PersonalityFilteringQuestion):
+                await _eventGridHandler.SendEventMessageAsync(TransformData(processing, current), contentEventType);
+                break;
+            case nameof(ContentTypes.PersonalityShortQuestion):
+                await ProcessRelatedContent(processing);
+                break;
+            case nameof(ContentTypes.PersonalityTrait):
+                await _eventGridHandler.SendEventMessageAsync(TransformData(processing, current), contentEventType);
+                await ProcessRelatedContent(processing);
+                break;
+            case nameof(ContentTypes.SOCSkillsMatrix):
+                await _eventGridHandler.SendEventMessageAsync(TransformData(processing, current), contentEventType);
+                await ProcessRelatedContent(processing);
                 break;
             default:
                 await _eventGridHandler.SendEventMessageAsync(TransformData(processing, current), contentEventType);
@@ -225,14 +241,25 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
             .ToList().ForEach(x => _eventGridHandler.SendEventMessageAsync(x, ContentEventType.StaxUpdate));
     }
 
-    private async Task ProcessSharedContent(Processing processing)
+    /// <summary>
+    /// This method gets the related content items from RelatedContentItemIndex table the current item and then updates the related items where required too. 
+    /// </summary>
+    /// <param name="processing">The Processing object.</param>
+    /// <returns>A Task is returned</returns>
+    private async Task ProcessRelatedContent(Processing processing)
     {
         var result = await _relatedContentItemIndexRepository.GetRelatedContentDataByContentItemIdAndPage(processing);
 
-        //Note that the following limits sending messages for only Pages and JobProfiles.  This may be removed when working on DYSAC
-        //as we'll need to send messages for PersonalityQuestionSet, PersonalityFilteringQuestion, PersonalityTrait & PersonalityShortQuestion etc.
+        var contentTypes = new List<string> {
+            nameof(ContentTypes.Page),
+            nameof(ContentTypes.JobProfile),
+            nameof(ContentTypes.PersonalityQuestionSet),
+            nameof(ContentTypes.PersonalityTrait),
+            nameof(ContentTypes.PersonalityFilteringQuestion),
+        };
+
         result?
-            .Where(x => x.ContentType == nameof(ContentTypes.Page) || x.ContentType == nameof(ContentTypes.JobProfile))
+            .Where(x => contentTypes.Contains(x.ContentType))
             .ToList().ForEach(x => _eventGridHandler.SendEventMessageAsync(x, ContentEventType.StaxUpdate));
     }
 

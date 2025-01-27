@@ -240,29 +240,33 @@ namespace DFC.ServiceTaxonomy.UnitTests.CompUi
         }
 
         [Theory]
-        [InlineData((ContentTypes.DynamicTitlePrefix))]
-        [InlineData((ContentTypes.HiddenAlternativeTitle))]
-        [InlineData((ContentTypes.WorkingHoursDetail))]
-        [InlineData((ContentTypes.WorkingPatternDetail))]
-        [InlineData((ContentTypes.WorkingPatterns))]
-        [InlineData((ContentTypes.JobProfileSpecialism))]
-        [InlineData((ContentTypes.UniversityEntryRequirements))]
-        [InlineData((ContentTypes.UniversityLink))]
-        [InlineData((ContentTypes.UniversityRequirements))]
-        [InlineData((ContentTypes.CollegeEntryRequirements))]
-        [InlineData((ContentTypes.CollegeLink))]
-        [InlineData((ContentTypes.CollegeRequirements))]
-        [InlineData((ContentTypes.ApprenticeshipEntryRequirements))]
-        [InlineData((ContentTypes.ApprenticeshipLink))]
-        [InlineData((ContentTypes.ApprenticeshipRequirements))]
-        [InlineData((ContentTypes.Restriction))]
-        [InlineData((ContentTypes.DigitalSkills))]
-        [InlineData((ContentTypes.Location))]
-        [InlineData((ContentTypes.Environment))]
-        [InlineData((ContentTypes.Uniform))]
-        [InlineData((ContentTypes.SOCCode))]
-        [InlineData((ContentTypes.Registration))]
-        [InlineData((ContentTypes.RealStory))]
+        [InlineData(ContentTypes.ApprenticeshipEntryRequirements)]
+        [InlineData(ContentTypes.ApprenticeshipLink)]
+        [InlineData(ContentTypes.ApprenticeshipRequirements)]
+        [InlineData(ContentTypes.CollegeEntryRequirements)]
+        [InlineData(ContentTypes.CollegeLink)]
+        [InlineData(ContentTypes.CollegeRequirements)]
+        [InlineData(ContentTypes.DigitalSkills)]
+        [InlineData(ContentTypes.DynamicTitlePrefix)]
+        [InlineData(ContentTypes.Environment)]
+        [InlineData(ContentTypes.HiddenAlternativeTitle)]
+        [InlineData(ContentTypes.JobProfileSpecialism)]
+        [InlineData(ContentTypes.Location)]
+        [InlineData(ContentTypes.PersonalityFilteringQuestion)]
+        [InlineData(ContentTypes.PersonalityQuestionSet)]
+        [InlineData(ContentTypes.PersonalityShortQuestion)]
+        [InlineData(ContentTypes.PersonalityTrait)]
+        [InlineData(ContentTypes.RealStory)]
+        [InlineData(ContentTypes.Registration)]
+        [InlineData(ContentTypes.Restriction)]
+        [InlineData(ContentTypes.SOCCode)]
+        [InlineData(ContentTypes.Uniform)]
+        [InlineData(ContentTypes.UniversityEntryRequirements)]
+        [InlineData(ContentTypes.UniversityLink)]
+        [InlineData(ContentTypes.UniversityRequirements)]
+        [InlineData(ContentTypes.WorkingHoursDetail)]
+        [InlineData(ContentTypes.WorkingPatternDetail)]
+        [InlineData(ContentTypes.WorkingPatterns)]
         public async Task SendEventGridMessage_SendRelatedJobProfileItems_Update(ContentTypes contentType)
         {
             //Arrange
@@ -282,13 +286,45 @@ namespace DFC.ServiceTaxonomy.UnitTests.CompUi
         private ICacheHandler ConfigureCacheHandler()
         {
             var inMemoryConfigSettings = new Dictionary<string, string> {
-                { "EventGridAllowedContentList:0",  "Footer" },
-                { "EventGridAllowedContentList:1",  "Header" },
-                { "EventGridAllowedContentList:2",  "Page" },
-                { "EventGridAllowedContentList:3",  "Footer" },
-                { "EventGridAllowedContentList:4",  "SharedContent" },
-                { "EventGridAllowedContentList:5",  "Banner" },
-                { "EventGridAllowedContentList:6",  "PageBanner" },
+                { "EventGridAllowedContentList:0", "ApprenticeshipEntryRequirements" },
+                { "EventGridAllowedContentList:1", "ApprenticeshipLink" },
+                { "EventGridAllowedContentList:2", "ApprenticeshipRequirements" },
+                { "EventGridAllowedContentList:3", "Banner" },
+                { "EventGridAllowedContentList:4", "CollegeEntryRequirements" },
+                { "EventGridAllowedContentList:5", "CollegeLink" },
+                { "EventGridAllowedContentList:6", "CollegeRequirements" },
+                { "EventGridAllowedContentList:7", "DigitalSkills" },
+                { "EventGridAllowedContentList:8", "DynamicTitlePrefix" },
+                { "EventGridAllowedContentList:9", "Environment" },
+                { "EventGridAllowedContentList:10", "Footer" },
+                { "EventGridAllowedContentList:11", "Header" },
+                { "EventGridAllowedContentList:12", "HiddenAlternativeTitle" },
+                { "EventGridAllowedContentList:13", "JobProfile" },
+                { "EventGridAllowedContentList:14", "JobProfileCategory" },
+                { "EventGridAllowedContentList:15", "JobProfileSector" },
+                { "EventGridAllowedContentList:16", "JobProfileSpecialism" },
+                { "EventGridAllowedContentList:17", "Location" },
+                { "EventGridAllowedContentList:18", "Page" },
+                { "EventGridAllowedContentList:19", "Pagebanner" },
+                { "EventGridAllowedContentList:20", "PersonalityFilteringQuestion" },
+                { "EventGridAllowedContentList:21", "PersonalityQuestionSet" },
+                { "EventGridAllowedContentList:22", "PersonalityShortQuestion" },
+                { "EventGridAllowedContentList:23", "PersonalityTrait" },
+                { "EventGridAllowedContentList:24", "RealStory" },
+                { "EventGridAllowedContentList:25", "Registration" },
+                { "EventGridAllowedContentList:26", "Restriction" },
+                { "EventGridAllowedContentList:27", "SectorLandingPage" },
+                { "EventGridAllowedContentList:28", "SharedContent" },
+                { "EventGridAllowedContentList:29", "Skill" },
+                { "EventGridAllowedContentList:30", "SOCCode" },
+                { "EventGridAllowedContentList:31", "Taxonomy" },
+                { "EventGridAllowedContentList:32", "Uniform" },
+                { "EventGridAllowedContentList:33", "UniversityEntryRequirements" },
+                { "EventGridAllowedContentList:34", "UniversityLink" },
+                { "EventGridAllowedContentList:35", "UniversityRequirements" },
+                { "EventGridAllowedContentList:36", "WorkingHoursDetail" },
+                { "EventGridAllowedContentList:37", "WorkingPatternDetail" },
+                { "EventGridAllowedContentList:38", "WorkingPatterns" },
                 { "EventGridAllowedPagesList:0", "find-a-course" },
                 { "EventGridAllowedPagesList:1", "404" }
             };
