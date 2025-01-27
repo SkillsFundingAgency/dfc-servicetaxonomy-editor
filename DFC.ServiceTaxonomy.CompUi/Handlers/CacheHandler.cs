@@ -250,12 +250,16 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
     {
         var result = await _relatedContentItemIndexRepository.GetRelatedContentDataByContentItemIdAndPage(processing);
 
+        var contentTypes = new List<string> {
+            nameof(ContentTypes.Page),
+            nameof(ContentTypes.JobProfile),
+            nameof(ContentTypes.PersonalityQuestionSet),
+            nameof(ContentTypes.PersonalityTrait),
+            nameof(ContentTypes.PersonalityFilteringQuestion),
+        };
+
         result?
-            .Where(x => x.ContentType == nameof(ContentTypes.Page)
-                || x.ContentType == nameof(ContentTypes.JobProfile)
-                || x.ContentType == nameof(ContentTypes.PersonalityQuestionSet)
-                || x.ContentType == nameof(ContentTypes.PersonalityTrait)
-                || x.ContentType == nameof(ContentTypes.PersonalityFilteringQuestion))
+            .Where(x => contentTypes.Contains(x.ContentType))
             .ToList().ForEach(x => _eventGridHandler.SendEventMessageAsync(x, ContentEventType.StaxUpdate));
     }
 
