@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data.Common;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -30,7 +31,6 @@ namespace DFC.ServiceTaxonomy.UnitTests.CompUi
         public readonly IMapper _mapper;
         public readonly IBuilder _fakeBuilder;
         public readonly IDirector _fakeDirector;
-        public readonly IBackgroundQueue<Processing> _fakeBackgroundQueue;
         public readonly IConfiguration _configuration;
         private readonly IDataService _relatedContentItemIndexRepository;
         private readonly IEventGridHandler _eventGridHandler;
@@ -45,11 +45,10 @@ namespace DFC.ServiceTaxonomy.UnitTests.CompUi
             _mapper = A.Fake<IMapper>();
             _fakeDirector = A.Fake<IDirector>();
             _fakeEventHandler = A.Fake<IEventGridHandler>();
-            _fakeBackgroundQueue = A.Fake<IBackgroundQueue<Processing>>();
             _configuration = A.Fake<IConfiguration>();
             _relatedContentItemIndexRepository = A.Fake<IDataService>();
             _eventGridHandler = A.Fake<IEventGridHandler>();
-            _fakeCacheHandler = new CacheHandler(_fakeLogger, _mapper, _fakeDirector, _fakeBuilder, _fakeBackgroundQueue, _fakeEventHandler, _configuration, _relatedContentItemIndexRepository);
+            _fakeCacheHandler = new CacheHandler(_fakeLogger, _mapper, _fakeDirector, _fakeBuilder, _fakeEventHandler, _configuration, _relatedContentItemIndexRepository);
         }
 
         #region Publish Tests       
@@ -153,7 +152,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.CompUi
             //Arrange
             var processing = GetProcessingObj(ContentTypes.SharedContent, false, false);
             var cacheHandler = ConfigureCacheHandler();
-            var contentData = GetRelatedContentData();
+            var contentData = GetRelatedContentData(ContentTypes.Page);
 
             A.CallTo(() => _relatedContentItemIndexRepository.GetRelatedContentDataByContentItemIdAndPage(A<Processing>.Ignored)).Returns(contentData);
 
@@ -162,6 +161,122 @@ namespace DFC.ServiceTaxonomy.UnitTests.CompUi
 
             //Assert
             A.CallTo(() => _eventGridHandler.SendEventMessageAsync(A<RelatedContentData>.Ignored, ContentEventType.StaxUpdate)).MustHaveHappenedTwiceExactly();
+        }
+
+        [Fact]
+        public async Task SendEventGridMessage_ProcessJobProfilesLinkingtoSectorLandingPages_Update()
+        {
+            //Arrange
+            var processing = GetProcessingObj(ContentTypes.SectorLandingPage, false, false);
+            var cacheHandler = ConfigureCacheHandler();
+            var contentData = GetRelatedContentData(ContentTypes.JobProfile);
+
+            A.CallTo(() => _relatedContentItemIndexRepository.GetRelatedContentDataByContentItemIdAndPage(A<Processing>.Ignored)).Returns(contentData);
+
+            //Act
+            await cacheHandler.ProcessEventGridMessage(processing, ContentEventType.StaxUpdate);
+
+            //Assert
+            A.CallTo(() => _eventGridHandler.SendEventMessageAsync(A<RelatedContentData>.Ignored, ContentEventType.StaxUpdate)).MustHaveHappenedTwiceExactly();
+        }
+
+        [Fact]
+        public async Task SendEventGridMessage_SendSkillsEventGridMessage_Update()
+        {
+            //Arrange
+            var processing = GetProcessingObj(ContentTypes.Skill, false, false);
+            var cacheHandler = ConfigureCacheHandler();
+
+            //Act
+            await cacheHandler.ProcessEventGridMessage(processing, ContentEventType.StaxUpdate);
+
+            //Assert
+            A.CallTo(() => _eventGridHandler.SendEventMessageAsync(A<RelatedContentData>.Ignored, ContentEventType.StaxUpdate)).MustHaveHappenedOnceExactly();
+        }
+
+        [Fact]
+        public async Task SendEventGridMessage_SendJobProfileSectorEventGridMessage_Update()
+        {
+            //Arrange
+            var processing = GetProcessingObj(ContentTypes.JobProfileSector, false, false);
+            var cacheHandler = ConfigureCacheHandler();
+
+            //Act
+            await cacheHandler.ProcessEventGridMessage(processing, ContentEventType.StaxUpdate);
+
+            //Assert
+            A.CallTo(() => _eventGridHandler.SendEventMessageAsync(A<RelatedContentData>.Ignored, ContentEventType.StaxUpdate)).MustHaveHappenedOnceExactly();
+        }
+
+        [Fact]
+        public async Task SendEventGridMessage_SendJobProfileCategoryEventGridMessage_Update()
+        {
+            //Arrange
+            var processing = GetProcessingObj(ContentTypes.JobProfileCategory, false, false);
+            var cacheHandler = ConfigureCacheHandler();
+            var contentData = GetRelatedContentData(ContentTypes.JobProfile);
+
+            A.CallTo(() => _relatedContentItemIndexRepository.GetRelatedContentDataByContentItemIdAndPage(A<Processing>.Ignored)).Returns(contentData);
+
+            //Act
+            await cacheHandler.ProcessEventGridMessage(processing, ContentEventType.StaxUpdate);
+
+            //Assert
+            A.CallTo(() => _eventGridHandler.SendEventMessageAsync(A<RelatedContentData>.Ignored, ContentEventType.StaxUpdate)).MustHaveHappenedTwiceOrMore();
+        }
+
+        [Fact]
+        public async Task SendEventGridMessage_SendJobProfileEventGridMessage_Update()
+        {
+            //Arrange
+            var processing = GetProcessingObj(ContentTypes.JobProfile, false, false);
+            var cacheHandler = ConfigureCacheHandler();
+
+            //Act
+            await cacheHandler.ProcessEventGridMessage(processing, ContentEventType.StaxUpdate);
+
+            //Assert
+            A.CallTo(() => _eventGridHandler.SendEventMessageAsync(A<RelatedContentData>.Ignored, ContentEventType.StaxUpdate)).MustHaveHappenedOnceExactly();
+        }
+
+        [Theory]
+        [InlineData((ContentTypes.DynamicTitlePrefix))]
+        [InlineData((ContentTypes.HiddenAlternativeTitle))]
+        [InlineData((ContentTypes.WorkingHoursDetail))]
+        [InlineData((ContentTypes.WorkingPatternDetail))]
+        [InlineData((ContentTypes.WorkingPatterns))]
+        [InlineData((ContentTypes.JobProfileSpecialism))]
+        [InlineData((ContentTypes.UniversityEntryRequirements))]
+        [InlineData((ContentTypes.UniversityLink))]
+        [InlineData((ContentTypes.UniversityRequirements))]
+        [InlineData((ContentTypes.CollegeEntryRequirements))]
+        [InlineData((ContentTypes.CollegeLink))]
+        [InlineData((ContentTypes.CollegeRequirements))]
+        [InlineData((ContentTypes.ApprenticeshipEntryRequirements))]
+        [InlineData((ContentTypes.ApprenticeshipLink))]
+        [InlineData((ContentTypes.ApprenticeshipRequirements))]
+        [InlineData((ContentTypes.Restriction))]
+        [InlineData((ContentTypes.DigitalSkills))]
+        [InlineData((ContentTypes.Location))]
+        [InlineData((ContentTypes.Environment))]
+        [InlineData((ContentTypes.Uniform))]
+        [InlineData((ContentTypes.SOCCode))]
+        [InlineData((ContentTypes.Registration))]
+        [InlineData((ContentTypes.RealStory))]
+        public async Task SendEventGridMessage_SendRelatedJobProfileItems_Update(ContentTypes contentType)
+        {
+            //Arrange
+            var processing = GetProcessingObj(contentType, false, false);
+            var cacheHandler = ConfigureCacheHandler();
+            var contentData = GetRelatedContentData(ContentTypes.JobProfile);
+
+            A.CallTo(() => _relatedContentItemIndexRepository.GetRelatedContentDataByContentItemIdAndPage(A<Processing>.Ignored)).Returns(contentData);
+
+            //Act
+            await cacheHandler.ProcessEventGridMessage(processing, ContentEventType.StaxUpdate);
+
+            //Assert
+            A.CallTo(() => _eventGridHandler.SendEventMessageAsync(A<RelatedContentData>.Ignored, ContentEventType.StaxUpdate)).MustHaveHappenedOnceOrMore();
         }
 
         private ICacheHandler ConfigureCacheHandler()
@@ -184,7 +299,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.CompUi
                                 .Build();
 #pragma warning restore CS8620 // Argument cannot be used for parameter due to differences in the nullability of reference types.
 
-            ICacheHandler eventGridSendMessageCacheHandler = new CacheHandler(_fakeLogger, _mapper, _fakeDirector, _fakeBuilder, _fakeBackgroundQueue, _eventGridHandler, configuration, _relatedContentItemIndexRepository);
+            ICacheHandler eventGridSendMessageCacheHandler = new CacheHandler(_fakeLogger, _mapper, _fakeDirector, _fakeBuilder, _eventGridHandler, configuration, _relatedContentItemIndexRepository);
 
             return eventGridSendMessageCacheHandler;
         }
@@ -211,17 +326,17 @@ namespace DFC.ServiceTaxonomy.UnitTests.CompUi
             return processing;
         }
 
-        private List<RelatedContentData> GetRelatedContentData()
+        private List<RelatedContentData> GetRelatedContentData(ContentTypes contentType)
         {
             var contentDataList = new List<RelatedContentData>{
                 new RelatedContentData
                 {
                     Author = "Test",
                     ContentItemId = "123",
-                    ContentType = "Page",
+                    ContentType = contentType.ToString(),
                     DisplayText = "Test Page",
                     FullPageUrl = "somepageurl",
-                    GraphSyncId = "789"
+                    GraphSyncId = "789",
                 }};
 
             return contentDataList;

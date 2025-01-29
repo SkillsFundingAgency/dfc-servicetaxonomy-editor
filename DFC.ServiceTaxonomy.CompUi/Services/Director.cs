@@ -59,11 +59,6 @@ namespace DFC.ServiceTaxonomy.CompUi.Services
             await _builder.InvalidateDysacJobProfileOverviewRelatedContentItemsAsync(processing);
         }
 
-        public async Task ProcessJobProfileAsync(Processing processing)
-        {
-            await Task.WhenAll(_builder.InvalidateAllJobProfileContentAsync(processing));
-        }
-
         public async Task ProcessPersonalityFilteringQuestionAsync(Processing processing)
         {
             var data = await _builder.GetRelatedContentItemIdsAsync(processing);

@@ -3,6 +3,10 @@ variables:
   value: sit
 - name: ResourceGroup
   value: dfc-sit-stax-editor-rg
+- name: StorageAccountResourceGroupName
+  value: dfc-sit-dig-rg
+- name: MediaStorageAccountName
+  value: dfcsitdigstr
 - name: WebAppName
   value: dfc-sit-stax-editor-as
 - name: SqlDatabaseName
@@ -27,3 +31,14 @@ variables:
   value: /find-a-course
 - name: ContentType1
   value: Footer
+- name: RedirectUri2
+  value: /explore-careers/job-sector
+- name: ContentType2
+  value: JobProfileSector
+- name: RedirectUri3
+  value: /job-profiles
+- name: ContentType3
+  value: JobProfile
+- name: BaseUrlPath
+  value: https://sit-beta.nationalcareersservice.org.uk
+

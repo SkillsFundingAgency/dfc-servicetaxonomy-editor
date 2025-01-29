@@ -3,6 +3,8 @@ variables:
   value: dev
 - name: ResourceGroup
   value: dfc-dev-stax-editor-rg
+- name: StorageAccountResourceGroupName
+  value: dfc-dev-dig-rg
 - name: WebAppName
   value: dfc-dev-clone-stax-editor-as
 - name: SqlDatabaseName
@@ -35,3 +37,14 @@ variables:
   value: /find-a-course
 - name: ContentType1
   value: Footer
+- name: RedirectUri2
+  value: /explore-careers/job-sector
+- name: ContentType2
+  value: JobProfileSector
+- name: RedirectUri3
+  value: /job-profiles
+- name: ContentType3
+  value: JobProfile
+- name: BaseUrlPath
+  value: https://dev-beta.nationalcareersservice.org.uk
+
