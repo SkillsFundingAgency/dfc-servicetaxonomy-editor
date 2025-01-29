@@ -3,17 +3,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.Extensions;
+using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Contexts;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.ContentItemVersions;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Contexts;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Fields;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Helpers;
+using DFC.ServiceTaxonomy.GraphSync.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.Models;
+using DFC.ServiceTaxonomy.Taxonomies.Models;
+using DFC.ServiceTaxonomy.Taxonomies.Settings;
 using Newtonsoft.Json.Linq;
 using OrchardCore.ContentManagement;
-using DFC.ServiceTaxonomy.Taxonomies.Models;
-using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Contexts;
-using DFC.ServiceTaxonomy.Taxonomies.Settings;
-using DFC.ServiceTaxonomy.GraphSync.Interfaces;
 
 namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
 {
@@ -122,7 +122,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
 
             //todo: factor out common code
             //todo: check for null
-            ContentItem? taxonomyContentItem =  await context.ContentItemVersion.GetContentItem(
+            ContentItem? taxonomyContentItem = await context.ContentItemVersion.GetContentItem(
                 context.ContentManager,
                 taxonomyFieldSettings.TaxonomyContentItemId);
 

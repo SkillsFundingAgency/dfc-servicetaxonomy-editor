@@ -182,7 +182,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers
                 // as there might have been an 'unexpected' exception thrown
                 _logger.LogError(ex, "Exception removing (deleting or discarding draft).");
                 Cancel(context);
-                
+
             }
         }
 
@@ -195,7 +195,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers
         private void Cancel(ContentContextBase context)
         {
             _session.CancelAsync().Wait();
-            if(context.ContentItem.ContentType == JobProfile)
+            if (context.ContentItem.ContentType == JobProfile)
             {
                 _httpContextAccessor.HttpContext!.Items.Add(context.ContentItem.ContentItemId, context.GetType().Name);
             }

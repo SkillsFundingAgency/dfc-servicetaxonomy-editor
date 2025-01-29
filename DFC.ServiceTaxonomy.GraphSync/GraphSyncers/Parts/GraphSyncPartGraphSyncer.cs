@@ -50,7 +50,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
                 context.NodeWithRelationships.SourceNode!,
                 (contentValue, nodeValue) =>
                 {
-                    if (nodeValue is JValue {Type: JTokenType.String} nodeValueToken)
+                    if (nodeValue is JValue { Type: JTokenType.String } nodeValueToken)
                     {
                         nodeValue = nodeValueToken.ToObject<string>()!;
                     }

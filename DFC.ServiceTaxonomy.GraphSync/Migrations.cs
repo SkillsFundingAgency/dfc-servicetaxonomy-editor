@@ -37,7 +37,7 @@ namespace DFC.ServiceTaxonomy.GraphSync
 
         public int UpdateFrom2()
         {
-            SchemaBuilder.CreateMapIndexTableAsync<GraphSyncPartIndex>( table => table
+            SchemaBuilder.CreateMapIndexTableAsync<GraphSyncPartIndex>(table => table
                 .Column<string>("ContentItemId", c => c.WithLength(26))
                 .Column<string>("NodeId")
             );

@@ -66,7 +66,7 @@ namespace DFC.ServiceTaxonomy.CompUi.Handlers
                     ContentItemId = contentData.ContentItemId,
                     ContentType = contentData.ContentType,
                     GraphSyncId = contentData.GraphSyncId.Substring(contentData.GraphSyncId.LastIndexOf('/') + 1),
-                    FullPageUrl = contentData.FullPageUrl,  
+                    FullPageUrl = contentData.FullPageUrl,
                 };
 
                 return eventData;

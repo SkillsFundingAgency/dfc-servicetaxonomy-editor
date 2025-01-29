@@ -11,7 +11,7 @@ namespace DFC.ServiceTaxonomy.DataAccess.Repositories
         Task<int> GetCount();
 
         Task<int> GetCount(Expression<Func<T, bool>> whereExpression);
-        
+
         Task<T> FirstOrDefault(Expression<Func<T, bool>> whereExpression);
 
         IQueryIndex<T> GetAll();
@@ -19,6 +19,6 @@ namespace DFC.ServiceTaxonomy.DataAccess.Repositories
         IQueryIndex<T> GetAll(Expression<Func<T, bool>> whereExpression);
 
         IQueryIndex<T> GetAll(Expression<Func<T, bool>> whereExpression, Expression<Func<T, Object>> orderBy, bool descending);
-        
+
     }
 }

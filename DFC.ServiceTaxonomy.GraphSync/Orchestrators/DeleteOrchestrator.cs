@@ -129,7 +129,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Orchestrators
                     await _notifier.AddBlocked(
                         syncOperation,
                         contentItem,
-                        new[] {(contentItemVersion.GraphReplicaSetName, allowSync)});
+                        new[] { (contentItemVersion.GraphReplicaSetName, allowSync) });
                     return false;
 
                 case AllowSyncResult.Allowed:

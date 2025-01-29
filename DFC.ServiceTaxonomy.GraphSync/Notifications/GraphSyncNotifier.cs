@@ -151,7 +151,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Notifications
             try
             {
                 //publish to slack
-                _logger.LogInformation($"publish to slack: traceid {traceId} userMessage {userMessage} technicalMessage {technicalMessage}");
+                _logger.LogInformation("publish to slack: traceid {TraceId} userMessage {UserMessage} technicalMessage {TechnicalMessage}", traceId, userMessage, technicalMessage);
             }
             catch (Exception e)
             {
@@ -182,7 +182,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Notifications
 
             if (type != NotifyType.Warning || !_entries.Any(e => e.Type == NotifyType.Warning))
             {
-                _logger.LogInformation($"Adding notify entry: type {type}");
+                _logger.LogInformation("Adding notify entry: type {Type}", type);
                 var newEntry = new NotifyEntry { Type = type, Message = htmlContentBuilder };
                 _entries.Add(newEntry);
             }

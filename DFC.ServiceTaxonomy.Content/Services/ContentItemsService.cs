@@ -38,8 +38,6 @@ namespace DFC.ServiceTaxonomy.Content.Services
 
         public async Task<List<ContentItem>> GetActive(string contentType)
         {
-           // _logger.LogInformation("GetActive: " + contentType);
-
             return (await _session
                 .Query<ContentItem, ContentItemIndex>()
                 .Where(x => contentType == x.ContentType && (x.Latest || x.Published))
@@ -53,7 +51,7 @@ namespace DFC.ServiceTaxonomy.Content.Services
             // this might be valid optimisation, but would need to dig deeper before enabling it
             // if (_contentManagerSession.RecallPublishedItemId(contentItemId, out ContentItem _))
             //     return true;
-            _logger.LogInformation($"HasExistingPublishedVersion: {contentItemId}");
+            _logger.LogInformation("HasExistingPublishedVersion: {ContentItemId}", contentItemId);
             return (await _session
                 .Query<ContentItem, ContentItemIndex>(x =>
                     x.ContentItemId == contentItemId && x.Published)
@@ -78,10 +76,10 @@ namespace DFC.ServiceTaxonomy.Content.Services
             //     .ListAsync();
 
             // so instead we pick one of 4 different queries depending on whether latest or published is null
-            _logger.LogInformation($"Get: contentType {contentType} Latest : {latest} Published: {published}");
+            _logger.LogInformation("Get: contentType {ContentType} Latest : {Latest} Published: {Published}", contentType, latest, published);
             if (latest != null && published != null)
             {
-            
+
                 return await _session
                     .Query<ContentItem, ContentItemIndex>(x =>
                         x.ContentType == contentType
@@ -123,7 +121,7 @@ namespace DFC.ServiceTaxonomy.Content.Services
             string contentType,
             DateTime since)
         {
-            _logger.LogInformation($"GetDeleted: contentType {contentType} Since : {since} ");
+            _logger.LogInformation("GetDeleted: contentType {ContentType} Since : {Since}", contentType, since);
             return (await _session
                     .Query<ContentItem, ContentItemIndex>(x =>
                         x.ContentType == contentType &&
@@ -136,7 +134,7 @@ namespace DFC.ServiceTaxonomy.Content.Services
 
         private async Task<List<ContentItem>> Get(string contentType, bool latest, bool published)
         {
-            _logger.LogInformation($"Get: contentType {contentType} latest : {latest} published: {published}");
+            _logger.LogInformation("Get: contentType {ContentType} latest : {Latest} published: {Published}", contentType, latest, published);
             return (await _session
                 .Query<ContentItem, ContentItemIndex>()
                 .Where(x => contentType == x.ContentType && x.Latest == latest && x.Published == published)

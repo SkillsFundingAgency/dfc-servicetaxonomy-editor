@@ -1,8 +1,8 @@
 using System.Threading.Tasks;
+using DFC.ServiceTaxonomy.Taxonomies.Fields;
 using OrchardCore.ContentManagement.Metadata.Models;
 using OrchardCore.ContentTypes.Editors;
 using OrchardCore.DisplayManagement.Views;
-using DFC.ServiceTaxonomy.Taxonomies.Fields;
 
 namespace DFC.ServiceTaxonomy.Taxonomies.Settings
 {

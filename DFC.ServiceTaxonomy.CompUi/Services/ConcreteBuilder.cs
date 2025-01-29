@@ -122,14 +122,14 @@ namespace DFC.ServiceTaxonomy.CompUi.Services
         public async Task<bool> InvalidateDysacPersonalityShortQuestionAsync(Processing processing)
         {
             var success = await _sharedContentRedisInterface.InvalidateEntityAsync(ApplicationKeys.DYSACShortQuestion, processing.FilterType);
-            _logger.LogInformation($"The following cache key will be invalidated: {ApplicationKeys.DYSACShortQuestion}, filter: {processing.FilterType}, success: {success}.");
+            _logger.LogInformation("The following cache key will be invalidated: {DYSACShortQuestion}, filter: {FilterType}, success: {success}.", ApplicationKeys.DYSACShortQuestion, processing.FilterType, success);
             return success;
         }
 
         public async Task<bool> InvalidateDysacPersonalityTraitAsync(Processing processing)
         {
             var success = await _sharedContentRedisInterface.InvalidateEntityAsync(ApplicationKeys.DYSACPersonalityTrait, processing.FilterType);
-            _logger.LogInformation($"The following cache key will be invalidated: {ApplicationKeys.DYSACPersonalityTrait}, filter: {processing.FilterType}, success: {success}.");
+            _logger.LogInformation("The following cache key will be invalidated: {DYSACPersonalityTrait}, filter: {FilterType}, success: {success}.", ApplicationKeys.DYSACPersonalityTrait, processing.FilterType, success);
 
             return success;
         }
@@ -267,7 +267,7 @@ namespace DFC.ServiceTaxonomy.CompUi.Services
             }
             else
             {
-                _logger.LogError($"Event Type: {processing.EventType}. Content Type: {processing.ContentType}. No data could be found.");
+                _logger.LogError("Event Type: {EventType}. Content Type: {ContentType}. No data could be found.", processing.EventType, processing.ContentType);
                 return false;
             }
         }
@@ -437,7 +437,11 @@ namespace DFC.ServiceTaxonomy.CompUi.Services
             }
             catch (Exception exception)
             {
-                _logger.LogError($"Error occurred while invalidating data for document Id {processing.DocumentId}.  Content Type: {processing.ContentType}. The course could not be invalidated.  Exception: {exception}");
+                _logger.LogError(exception, "Error occurred while invalidating data for document Id {DocumentId}.  Content Type: {ContentType}. The course could not be invalidated. Exception Message: {Message}. Stack Trace: {StackTrace}.",
+                    processing.DocumentId,
+                    processing.ContentType,
+                    exception.Message,
+                    exception.StackTrace);
             }
         }
 
@@ -476,7 +480,7 @@ namespace DFC.ServiceTaxonomy.CompUi.Services
                             }
                             else
                             {
-                                _logger.LogInformation($"No lars codes available for invalidation for apprenticeship vacancies for: {string.Concat(ApplicationKeys.JobProfileCurrentOpportunitiesAVPrefix, CheckLeadingChar(result.PageLocationParts.FullUrl))}");
+                                _logger.LogInformation("No lars codes available for invalidation for apprenticeship vacancies for: {Url}", string.Concat(ApplicationKeys.JobProfileCurrentOpportunitiesAVPrefix, CheckLeadingChar(result.PageLocationParts.FullUrl)));
                             }
                         }
                     }
@@ -484,7 +488,11 @@ namespace DFC.ServiceTaxonomy.CompUi.Services
             }
             catch (Exception exception)
             {
-                _logger.LogError($"Error occurred while invalidating data for document Id {processing.DocumentId}.  Content Type: {processing.ContentType}. The apprenticeship could not be invalidated.  Exception: {exception}");
+                _logger.LogError(exception, "Error occurred while invalidating data for document Id {DocumentId}.  Content Type: {ContentType}. The apprenticeship could not be invalidated. Exception Message: {Message}. Stack Trace: {StackTrace}.",
+                    processing.DocumentId,
+                    processing.ContentType,
+                    exception.Message,
+                    exception.StackTrace);
             }
         }
 
@@ -497,7 +505,7 @@ namespace DFC.ServiceTaxonomy.CompUi.Services
             }
             catch (Exception exception)
             {
-                _logger.LogError($"Error occurred while refreshing Job Profile data. Exception: {exception}.");
+                _logger.LogError(exception, "Error occurred while refreshing Job Profile data. Exception Message: {Message}. Stack Trace: {StackTrace}.", exception.Message, exception.StackTrace);
             }
         }
 
@@ -522,14 +530,14 @@ namespace DFC.ServiceTaxonomy.CompUi.Services
             }
             catch (Exception exception)
             {
-                _logger.LogError($"Error occurred while invalidating Job Profile data. Exception: {exception}.");
+                _logger.LogError(exception, "Error occurred while invalidating Job Profile data. Exception Message: {Message}. Stack Trace: {StackTrace}.", exception.Message, exception.StackTrace);
             }
         }
 
         public async Task InvalidateTaxonomyAsync(Processing processing)
         {
-                var success = await _sharedContentRedisInterface.InvalidateEntityAsync(ApplicationKeys.PageLocationSuffix, "PUBLISHED");
-                success = await _sharedContentRedisInterface.InvalidateEntityAsync(ApplicationKeys.PageLocationSuffix, "DRAFT");
+            var success = await _sharedContentRedisInterface.InvalidateEntityAsync(ApplicationKeys.PageLocationSuffix, "PUBLISHED");
+            success = await _sharedContentRedisInterface.InvalidateEntityAsync(ApplicationKeys.PageLocationSuffix, "DRAFT");
             LogCacheKeyInvalidation(processing, ApplicationKeys.SkillsAll, processing.FilterType, success);
         }
 
@@ -567,7 +575,7 @@ namespace DFC.ServiceTaxonomy.CompUi.Services
             }
             catch (Exception exception)
             {
-                _logger.LogError($"Error occurred while retrieveing data for document Id {documentId}.  Exception: {exception}.");
+                _logger.LogError(exception, "Error occurred while retrieveing data for document Id {DocumentId}.  Exception Message: {Message}. Stack Trace: {StackTrace}.", documentId, exception.Message, exception.StackTrace);
             }
 
             return null;
@@ -673,30 +681,36 @@ namespace DFC.ServiceTaxonomy.CompUi.Services
         [DebuggerStepThrough]
         private void LogCacheKeyInvalidation(Processing processing, string cacheKey, string filter, bool status)
         {
-            _logger.LogInformation($"Event Type: {processing.EventType}. " +
-                $"Content Item Id: {processing.DocumentId}. " +
-                $"Content Type: {processing.ContentType}.  " +
-                $"The following Cache Key will be invalidated: {cacheKey}. Filter: {filter}." +
-                $"Success: {status}.");
+            _logger.LogInformation("Event Type: {EventType}.\nContent Item Id: {DocumentId}.\nContent Type: {ContentType}.\nThe following Cache Key will be invalidated: {CacheKey}. Filter: {Filter}.\nSuccess: {Status}.",
+                processing.EventType,
+                processing.DocumentId,
+                processing.ContentType,
+                cacheKey,
+                filter,
+                status);
         }
 
         [DebuggerStepThrough]
         private void LogCacheKeyInvalidation(string eventType, string documentId, string contentType, string cacheKey, string filter, bool status)
         {
-            _logger.LogInformation($"Event Type: {eventType}. " +
-                $"Content Item Id: {documentId}. " +
-                $"Content Type: {contentType}.  " +
-                $"The following Cache Key will be invalidated: {cacheKey}. Filter: {filter}." +
-                $"Success: {status}.");
+            _logger.LogInformation("Event Type: {EventType}.\nContent Item Id: {DocumentId}.\nContent Type: {ContentType}.\nThe following Cache Key will be invalidated: {CacheKey}. Filter: {Filter}.\nSuccess: {Status}.",
+                eventType,
+                documentId,
+                contentType,
+                cacheKey,
+                filter,
+                status);
         }
 
         [DebuggerStepThrough]
         private void LogCacheKeyRefresh(Processing processing, string cacheKey, string filter)
         {
-            _logger.LogInformation($"Event Type: {processing.EventType}. " +
-                $"Content Item Id: {processing.DocumentId}. " +
-                $"Content Type: {processing.ContentType}.  " +
-                $"The following Cache Key will be refreshed: {cacheKey}. Filter: {filter}.");
+            _logger.LogInformation("Event Type: {EventType}.\nContent Item Id: {DocumentId}.\nContent Type: {ContentType}.\nThe following Cache Key will be refreshed: {CacheKey}. Filter: {Filter}.",
+                processing.EventType,
+                processing.DocumentId,
+                processing.ContentType,
+                cacheKey,
+                filter);
         }
 
         [DebuggerStepThrough]

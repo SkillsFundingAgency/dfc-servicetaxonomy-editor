@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using DFC.ServiceTaxonomy.GraphSync.Interfaces;
-using DFC.ServiceTaxonomy.GraphSync.Models;
 using DFC.ServiceTaxonomy.GraphSync.Exceptions;
 using DFC.ServiceTaxonomy.GraphSync.Extensions;
 using DFC.ServiceTaxonomy.GraphSync.Helpers;
+using DFC.ServiceTaxonomy.GraphSync.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.Interfaces.Queries;
+using DFC.ServiceTaxonomy.GraphSync.Models;
 
 namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb.Queries
 {
@@ -32,7 +32,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb.Queries
         {
             var validationErrors = new List<string>();
 
-            if(!NodeLabels.Any())
+            if (!NodeLabels.Any())
             {
                 validationErrors.Add("At least one NodeLabel must be provided.");
             }

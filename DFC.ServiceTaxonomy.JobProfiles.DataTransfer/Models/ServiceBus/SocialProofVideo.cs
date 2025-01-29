@@ -10,7 +10,7 @@
             Thumbnail = thumbnail;
             FurtherInformationHtml = furtherInformationHtml;
             Url = url;
-            LinkText = linkText;    
+            LinkText = linkText;
             Duration = duration;
             Transcript = transcript;
         }

@@ -44,7 +44,7 @@ namespace DFC.ServiceTaxonomy.CompUi
             services.AddSingleton<IBackgroundItemQueueMonitor, BackgroundItemQueueMonitor>();
             services.AddSingleton<IJobProfileCacheRefresh, JobProfileCacheRefresh>();
             services.AddSingleton<IDataService, DataService>();
-            
+
             services.AddScoped<IEventGridHandler, EventGridHandler>();
 
             services.AddScoped<IDirector, Director>();

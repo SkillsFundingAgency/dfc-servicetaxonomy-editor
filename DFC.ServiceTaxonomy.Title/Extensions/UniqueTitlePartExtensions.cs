@@ -1,15 +1,15 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using DFC.ServiceTaxonomy.Title.Indexes;
-using Microsoft.Extensions.Localization;
-using DFC.ServiceTaxonomy.Title.Models;
 using DFC.ServiceTaxonomy.DataAccess.Repositories;
+using DFC.ServiceTaxonomy.Title.Indexes;
+using DFC.ServiceTaxonomy.Title.Models;
+using Microsoft.Extensions.Localization;
 
 namespace DFC.ServiceTaxonomy.Extensions
 {
     public static class UniqueTitlePartExtensions
     {
-        public static async IAsyncEnumerable<ValidationResult> ValidateAsync(this UniqueTitlePart part, IStringLocalizer S,IGenericIndexRepository<UniqueTitlePartIndex> uniqueTitleIndexRepository)
+        public static async IAsyncEnumerable<ValidationResult> ValidateAsync(this UniqueTitlePart part, IStringLocalizer S, IGenericIndexRepository<UniqueTitlePartIndex> uniqueTitleIndexRepository)
         {
             if (string.IsNullOrWhiteSpace(part.Title))
             {

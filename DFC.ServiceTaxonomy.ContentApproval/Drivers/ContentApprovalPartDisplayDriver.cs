@@ -216,7 +216,7 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Drivers
             if (keys.Contains(Constants.SubmitSaveKey))
             {
                 var keyValue = modelStateDictionary[Constants.SubmitSaveKey]!.AttemptedValue;
-                return new[] {Constants.SubmitSaveKey, Constants.SubmitRequiresRevisionValue}.Any(kv =>
+                return new[] { Constants.SubmitSaveKey, Constants.SubmitRequiresRevisionValue }.Any(kv =>
                     kv.Equals(keyValue, StringComparison.CurrentCultureIgnoreCase));
             }
 

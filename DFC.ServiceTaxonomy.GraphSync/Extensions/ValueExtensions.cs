@@ -59,7 +59,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Extensions
         // Remarks:
         //     Throws System.InvalidCastException if the specified cast is not possible.
         public static T As<T>(this object value)
-        #pragma warning disable CS8603 // Possible null reference return.
+#pragma warning disable CS8603 // Possible null reference return.
         {
             if (value is JValue jValue)
             {
@@ -80,6 +80,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.Extensions
 
             return (T)Activator.CreateInstance(toType, new object[] { 1 })!;
         }
-        #pragma warning restore CS8603 // Possible null reference return.
+#pragma warning restore CS8603 // Possible null reference return.
     }
 }

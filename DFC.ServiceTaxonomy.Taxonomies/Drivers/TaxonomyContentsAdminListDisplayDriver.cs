@@ -1,23 +1,23 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Collections.Generic;
 using DFC.ServiceTaxonomy.Taxonomies.Fields;
+using DFC.ServiceTaxonomy.Taxonomies.Models;
+using DFC.ServiceTaxonomy.Taxonomies.Settings;
+using DFC.ServiceTaxonomy.Taxonomies.ViewModels;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Localization;
 using Newtonsoft.Json.Linq;
 using OrchardCore.ContentManagement;
+using OrchardCore.ContentManagement.Metadata;
+using OrchardCore.Contents.ViewModels;
 using OrchardCore.DisplayManagement;
 using OrchardCore.DisplayManagement.Handlers;
-using OrchardCore.Contents.ViewModels;
 using OrchardCore.DisplayManagement.ModelBinding;
 using OrchardCore.DisplayManagement.Views;
 using OrchardCore.Entities;
 using OrchardCore.Settings;
-using DFC.ServiceTaxonomy.Taxonomies.Models;
-using DFC.ServiceTaxonomy.Taxonomies.Settings;
-using DFC.ServiceTaxonomy.Taxonomies.ViewModels;
-using OrchardCore.ContentManagement.Metadata;
 
 namespace DFC.ServiceTaxonomy.Taxonomies.Drivers
 {

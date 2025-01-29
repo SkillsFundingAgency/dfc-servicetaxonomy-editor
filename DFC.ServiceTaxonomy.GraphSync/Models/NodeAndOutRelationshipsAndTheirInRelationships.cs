@@ -2,10 +2,10 @@
 using System.Linq;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Helpers;
 using DFC.ServiceTaxonomy.GraphSync.Interfaces;
-using OrchardCore.Workflows.Helpers;
 using DFC.ServiceTaxonomy.GraphSync.Interfaces.Queries;
-using Newtonsoft.Json;
 using DFC.ServiceTaxonomy.GraphSync.JsonConverters;
+using Newtonsoft.Json;
+using OrchardCore.Workflows.Helpers;
 
 namespace DFC.ServiceTaxonomy.GraphSync.Models
 {
