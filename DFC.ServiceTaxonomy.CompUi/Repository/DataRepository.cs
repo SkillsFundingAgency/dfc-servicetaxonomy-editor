@@ -23,27 +23,82 @@ namespace DFC.ServiceTaxonomy.CompUi.Repository
             _logger = logger;
         }
 
-        public async Task<IEnumerable<RelatedContentData>> GetRelatedContentDataByContentItemIdAndPage(
-            Processing processing)
+        public async Task<IEnumerable<RelatedContentData>> GetRelatedContentDataByContentItemIdAndPage(Processing processing)
         {
             IEnumerable<RelatedContentData>? resultList = new List<RelatedContentData>();
 
-            var sql = $"SELECT DocumentId FROM RelatedContentItemIndex WITH (NOLOCK) " +
-                      $"WHERE RelatedContentIds LIKE CONCAT('%', @contentItemId, '%') " +
-                      $"AND ContentType = 'Page' ";
-            var documentIds = await ExecuteQuery<string>(sql, new { contentItemId = processing.ContentItemId });
-
-            if (documentIds?.Count() > 0)
+            try
             {
-                sql = $"SELECT ContentItemId, DisplayText, Author, ContentType, " +
-                      $"JSON_VALUE(Content,'$.GraphSyncPart.Text') AS GraphSyncId, " +
-                      $"JSON_VALUE(Content,'$.PageLocationPart.FullUrl') AS FullPageUrl " +
-                      $"FROM Document AS D " +
-                      $"INNER JOIN ContentItemIndex AS CII on CII.DocumentId = D.Id " +
-                      $"WHERE D.Id IN @queryIds " +
-                      $"AND Latest = 1 AND Published = 1";
+                var sql = $"SELECT DocumentId FROM RelatedContentItemIndex WITH (NOLOCK) " +
+                      $"WHERE RelatedContentIds LIKE CONCAT('%', @contentItemId, '%') ";
+                var documentIds = await ExecuteQuery<string>(sql, new { contentItemId = processing.ContentItemId });
 
-                resultList = await ExecuteQuery<RelatedContentData>(sql, new { queryIds = documentIds });
+                if (documentIds?.Count() > 0)
+                {
+                    sql = $"SELECT ContentItemId, DisplayText, Author, ContentType, " +
+                          $"JSON_VALUE(Content,'$.GraphSyncPart.Text') AS GraphSyncId, " +
+                          $"JSON_VALUE(Content,'$.PageLocationPart.FullUrl') AS FullPageUrl " +
+                          $"FROM Document AS D " +
+                          $"INNER JOIN ContentItemIndex AS CII on CII.DocumentId = D.Id " +
+                          $"WHERE D.Id IN @queryIds " +
+                          $"AND Published = 1";
+
+                    resultList = await ExecuteQuery<RelatedContentData>(sql, new { queryIds = documentIds });
+                }
+            }
+            catch (Exception exception)
+            {
+                _logger.LogError(exception, "An exception occured while getting the related content data for {ContentItemId}.", processing.ContentItemId);
+            }
+
+            return resultList;
+        }
+
+        /// <summary>
+        /// Get the related content Ids for a particular item, where there is no link from the actual item back to the item being processed. 
+        /// </summary>
+        /// <param name="processing"></param>
+        /// <returns>IEnumerable<RelatedContentData></returns>
+        public async Task<IEnumerable<RelatedContentData>> GetRelatedContentDataByContentItemId(Processing processing)
+        {
+            IEnumerable<RelatedContentData>? resultList = new List<RelatedContentData>();
+
+            try
+            {
+                var sql = $"SELECT RelatedContentIds FROM RelatedContentItemIndex WITH (NOLOCK) " +
+                    $"WHERE ContentItemId = @contentItemId ";
+                var relatedContentIds = await ExecuteQuery<string>(sql, new { contentItemId = processing.ContentItemId });
+
+                if (relatedContentIds != null)
+                {
+                    var items = relatedContentIds?.FirstOrDefault()?.ToString().Split(',');
+
+                    sql = $"SELECT DocumentId FROM RelatedContentItemIndex WITH (NOLOCK) " +
+                      $"WHERE ContentItemId = @contentItemId " +
+                      $"AND ContentType = 'JobProfile' ";
+
+                    var documentIdList =
+                        (await Task.WhenAll(items.Select(x =>
+                            ExecuteQuery<int>(sql, new { contentItemId = x.Replace("'", "") }))))
+                        .SelectMany(x => x).ToList();
+
+                    if (documentIdList?.Count() > 0)
+                    {
+                        sql = $"SELECT ContentItemId, DisplayText, Author, ContentType, " +
+                              $"JSON_VALUE(Content,'$.GraphSyncPart.Text') AS GraphSyncId, " +
+                              $"JSON_VALUE(Content,'$.PageLocationPart.FullUrl') AS FullPageUrl " +
+                              $"FROM Document AS D " +
+                              $"INNER JOIN ContentItemIndex AS CII on CII.DocumentId = D.Id " +
+                              $"WHERE D.Id IN @queryIds " +
+                              $"AND Published = 1 ";
+
+                        resultList = await ExecuteQuery<RelatedContentData>(sql, new { queryIds = documentIdList });
+                    }
+                }
+            }
+            catch (Exception exception)
+            {
+                _logger.LogError(exception, "An exception occured while getting the related content data for {ContentItemId}.", processing.ContentItemId);
             }
 
             return resultList;

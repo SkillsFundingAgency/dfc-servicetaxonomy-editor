@@ -7,5 +7,7 @@
         public const string SOCCode = nameof(SOCCode);
         public const string Header = nameof(Header);
         public const string Footer = nameof(Footer);
+        public const string SectorLandingPage = nameof(SectorLandingPage);
+        public const string JobProfileSector = nameof(JobProfileSector);
     }
 }

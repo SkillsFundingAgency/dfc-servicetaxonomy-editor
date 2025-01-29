@@ -75,12 +75,6 @@
         "PreviewAppPrefix": {
             "type": "string"
         },
-        "JobProfilePublishedAppPrefix": {
-            "type": "string"
-        },
-        "JobProfilePreviewAppPrefix": {
-            "type": "string"
-        },
         "MediaAzureBlobConnectionString": {
             "type": "securestring"
         },
@@ -217,6 +211,21 @@
             "type": "string"
         },
         "PreviewRedirectUri:1:ContentType": {
+            "type": "string"
+        },
+        "PreviewRedirectUri:2:RedirectUri":{
+            "type": "string"
+        },
+        "PreviewRedirectUri:2:ContentType": {
+            "type": "string"
+        },
+        "PreviewRedirectUri:3:RedirectUri":{
+            "type": "string"
+        },
+        "PreviewRedirectUri:3:ContentType": {
+            "type": "string"
+        },
+        "BaseUrlPath": {
             "type": "string"
         }
     },
@@ -360,14 +369,6 @@
                             {
                                 "name": "Pages__PreviewAppPrefix",
                                 "value": "[parameters('PreviewAppPrefix')]"
-                            },
-                            {
-                                "name": "JobProfiles__PublishedAppPrefix",
-                                "value": "[parameters('JobProfilePublishedAppPrefix')]"
-                            },
-                            {
-                                "name": "JobProfiles__PreviewAppPrefix",
-                                "value": "[parameters('JobProfilePreviewAppPrefix')]"
                             },
                             {
                                 "name": "OrchardCore__OrchardCore_Media_Azure__ConnectionString",
@@ -544,6 +545,26 @@
                             {
                                 "name": "PreviewRedirectUri:1:ContentType",
                                 "value": "[parameters('PreviewRedirectUri:1:ContentType')]"
+                            },
+                            {
+                                "name": "PreviewRedirectUri:2:RedirectUri",
+                                "value": "[parameters('PreviewRedirectUri:2:RedirectUri')]"
+                            },
+                            {
+                                "name": "PreviewRedirectUri:2:ContentType",
+                                "value": "[parameters('PreviewRedirectUri:2:ContentType')]"
+                            },
+                            {
+                                "name": "PreviewRedirectUri:3:RedirectUri",
+                                "value": "[parameters('PreviewRedirectUri:3:RedirectUri')]"
+                            },
+                            {
+                                "name": "PreviewRedirectUri:3:ContentType",
+                                "value": "[parameters('PreviewRedirectUri:3:ContentType')]"
+                            },
+                            {
+                                "name": "BaseUrlPath",
+                                "value": "[parameters('BaseUrlPath')]"
                             }
                         ]
                     }
