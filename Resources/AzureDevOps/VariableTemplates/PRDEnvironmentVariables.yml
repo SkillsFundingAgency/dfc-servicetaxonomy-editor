@@ -3,6 +3,10 @@ variables:
   value: prd
 - name: ResourceGroup
   value: dfc-prd-stax-editor-rg
+- name: StorageAccountResourceGroupName
+  value: dfc-prd-dig-rg
+- name: MediaStorageAccountName
+  value: dfcprddigstr
 - name: WebAppName
   value: dfc-prd-stax-editor-as-ver2
 - name: SqlDatabaseName
@@ -15,3 +19,25 @@ variables:
   value: 10
 - name: EnableAzureMonitorAlerting
   value: true
+- name: PreviewLoginUrl
+  value: https://nationalcareers.service.gov.uk/ncspreview
+- name: CipherTextValiditySeconds
+  value: 60
+- name: RedirectUri0
+  value: /find-a-course
+- name: ContentType0
+  value: Header
+- name: RedirectUri1
+  value: /find-a-course
+- name: ContentType1
+  value: Footer
+- name: RedirectUri2
+  value: /explore-careers/job-sector
+- name: ContentType2
+  value: JobProfileSector
+- name: RedirectUri3
+  value: /job-profiles
+- name: ContentType3
+  value: JobProfile
+- name: BaseUrlPath
+  value: https://nationalcareers.service.gov.uk

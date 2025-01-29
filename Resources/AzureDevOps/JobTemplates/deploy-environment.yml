@@ -43,6 +43,8 @@ jobs:
             ServiceOfferingTag: '${{ parameters.ServiceOfferingTag }}'
             PSScriptPath: '${{ parameters.PSScriptPath }}'
             WebAppName: '${{ parameters.WebAppName }}'
+            StorageAccountResourceGroupName: '$(StorageAccountResourceGroupName)'
+            MediaStorageAccountName: '$(MediaStorageAccountName)'
 
 - deployment: DeployEditorTo_${{ parameters.Environment }}
   workspace:
@@ -97,6 +99,3 @@ jobs:
             AdditionalArguments: '-allowUntrusted'
         - powershell: Start-Sleep -Seconds 20
           displayName: 'Pause deployment whilst app restarts'
-        - template: ..\StepTemplates\run-integration-tests.yml
-          parameters:
-            Environment: ${{ parameters.Environment }}

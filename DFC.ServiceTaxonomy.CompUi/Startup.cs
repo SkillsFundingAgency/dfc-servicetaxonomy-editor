@@ -1,18 +1,16 @@
 using DFC.ServiceTaxonomy.CompUi.AppRegistry;
-using DFC.ServiceTaxonomy.CompUi.BackgroundTask;
-using DFC.ServiceTaxonomy.CompUi.BackgroundTask.Activity;
 using DFC.ServiceTaxonomy.CompUi.Dapper;
 using DFC.ServiceTaxonomy.CompUi.Handlers;
 using DFC.ServiceTaxonomy.CompUi.Indexes;
 using DFC.ServiceTaxonomy.CompUi.Interfaces;
 using DFC.ServiceTaxonomy.CompUi.Models;
+using DFC.ServiceTaxonomy.CompUi.Repository;
 using DFC.ServiceTaxonomy.CompUi.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using OrchardCore.BackgroundTasks;
-using OrchardCore.ContentManagement;
 using OrchardCore.ContentManagement.Handlers;
 using OrchardCore.Data.Migration;
 using OrchardCore.Modules;
@@ -39,14 +37,12 @@ namespace DFC.ServiceTaxonomy.CompUi
             services.AddScoped<IDataMigration, Migrations>();
             services.AddSingleton<IIndexProvider, RelatedContentItemIndexProvider>();
             services.AddSingleton<IPageLocationUpdater, PageLocationUpdater>();
-            services.AddSingleton<IBackgroundTask, RefreshCacheOnPublish>();
-            services.AddSingleton<IBackgroundQueue<Processing>, BackgroundQueue<Processing>>();
-            services.AddSingleton<IBackgroundItemQueueMonitor, BackgroundItemQueueMonitor>();
-            services.AddSingleton<IJobProfileCacheRefresh, JobProfileCacheRefresh>();
+            services.AddSingleton<IDataService, DataService>();
+            
+            services.AddScoped<IEventGridHandler, EventGridHandler>();
 
             services.AddScoped<IDirector, Director>();
             services.AddScoped<IBuilder, ConcreteBuilder>();
-
         }
 
         public override void Configure(IApplicationBuilder builder, IEndpointRouteBuilder routes, IServiceProvider serviceProvider)

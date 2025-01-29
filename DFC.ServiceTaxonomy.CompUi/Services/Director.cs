@@ -1,5 +1,4 @@
-﻿using System.Diagnostics;
-using DFC.ServiceTaxonomy.CompUi.Enums;
+﻿using DFC.ServiceTaxonomy.CompUi.Enums;
 using DFC.ServiceTaxonomy.CompUi.Interfaces;
 using DFC.ServiceTaxonomy.CompUi.Models;
 
@@ -59,11 +58,6 @@ namespace DFC.ServiceTaxonomy.CompUi.Services
             await _builder.InvalidateJobProfileCategoryAsync(processing);
             await _builder.InvalidateDysacPersonalityTraitAsync(processing);
             await _builder.InvalidateDysacJobProfileOverviewRelatedContentItemsAsync(processing);
-        }
-
-        public async Task ProcessJobProfileAsync(Processing processing)
-        {
-            await Task.WhenAll(_builder.InvalidateAllJobProfileContentAsync(processing));
         }
 
         public async Task ProcessPersonalityFilteringQuestionAsync(Processing processing)

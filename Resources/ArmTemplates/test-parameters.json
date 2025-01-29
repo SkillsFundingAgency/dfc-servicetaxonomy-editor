@@ -23,30 +23,6 @@
         "SharedAppServicePlanResourceGroup": {
             "value": "dfc-dev-stax-shared-rg"
         },
-        "Neo4jUrl": {
-            "value": "https://some_endpoint/"
-        },
-        "Neo4jUrl1": {
-            "value": "https://some_endpoint/"
-        },
-        "Neo4jUser": {
-            "value": "not-a-real-username"
-        },
-        "Neo4jPassword": {
-            "value": "not-a-real-password"
-        },
-        "Neo4jUrlDraft": {
-            "value": "https://some_endpoint/"
-        },
-        "Neo4jUrlDraft1": {
-            "value": "https://some_endpoint/"
-        },
-        "Neo4jUserDraft": {
-            "value": "not-a-real-username"
-        },
-        "Neo4jPasswordDraft": {
-            "value": "not-a-real-password"
-        },
         "SqlElasticPoolName": {
             "value": "an-elastic-pool"
         },
@@ -106,36 +82,6 @@
         },
         "PreviewContentApiPrefix": {
             "value": "https://foo.api.nationalcareersservice.org.uk"
-        },
-        "JobProfilePublishedAppPrefix": {
-            "value": "https://localhost/"
-        },
-        "JobProfilePreviewAppPrefix": {
-            "value": "https://localhost/"
-        },
-        "Neo4jEndpoints0Enabled": {
-            "value": true
-        },
-        "Neo4jEndpoints1Enabled": {
-            "value": true
-        },
-        "Neo4jEndpoints2Enabled": {
-            "value": true
-        },
-        "Neo4jEndpoints3Enabled": {
-            "value": true
-        },
-        "Neo4jReplicaSets0GraphInstances0Enabled": {
-            "value": true
-        },
-        "Neo4jReplicaSets0GraphInstances1Enabled": {
-            "value": true
-        },
-        "Neo4jReplicaSets1GraphInstances0Enabled": {
-            "value": true
-        },
-        "Neo4jReplicaSets1GraphInstances1Enabled": {
-            "value": true
         },
         "MediaAzureBlobConnectionString": {
             "value": "my-string"
@@ -229,6 +175,51 @@
         },
         "CmsSqlApiUrl": {
           "value": "http://url"
+        },
+        "EventGridTopicEndPointUrl": {
+            "value": "http://url"
+        },
+        "EventGridTopicAccessKey": {
+            "value": "accesskey"
+        },
+        "PreviewLoginUrl":{
+            "value": "http://url"
+        },
+        "EncryptionKey": {
+            "value": "encryptionkey"
+        },
+        "CipherTextPrefix": {
+            "value": "ciphertextprefix"
+        },
+        "CipherTextValiditySeconds": {
+            "value": 60
+        },
+        "PreviewRedirectUri:0:RedirectUri": {
+            "value": "__RedirectUri0__"
+        },
+        "PreviewRedirectUri:0:ContentType":{
+            "value": "__ContentType0__"
+        },
+        "PreviewRedirectUri:1:RedirectUri": {
+            "value": "__RedirectUri1__"
+        },
+        "PreviewRedirectUri:1:ContentType":{
+            "value": "__ContentType1__"
+        },
+        "PreviewRedirectUri:2:RedirectUri": {
+            "value": "__RedirectUri2__"
+        },
+        "PreviewRedirectUri:2:ContentType":{
+            "value": "__ContentType2__"
+        },
+        "PreviewRedirectUri:3:RedirectUri": {
+            "value": "__RedirectUri3__"
+        },
+        "PreviewRedirectUri:3:ContentType":{
+            "value": "__ContentType3__"
+        },
+        "BaseUrlPath":{
+            "value": "__BaseUrlPath__"
         }
     }
 }

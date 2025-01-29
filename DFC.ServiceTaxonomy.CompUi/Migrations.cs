@@ -1,4 +1,4 @@
-﻿using DFC.ServiceTaxonomy.CompUi.Indexes;
+﻿using DFC.ServiceTaxonomy.CompUi.Models;
 using OrchardCore.ContentManagement.Metadata;
 using OrchardCore.ContentManagement.Metadata.Settings;
 using OrchardCore.Data.Migration;
@@ -41,21 +41,21 @@ namespace DFC.ServiceTaxonomy.CompUi
 
         public int UpdateFrom2()
         {
-                SchemaBuilder.AlterTable(nameof(RelatedContentItemIndex), table => table
-                    .DropColumn("ContentType")
-                );
+            SchemaBuilder.AlterTable(nameof(RelatedContentItemIndex), table => table
+                .DropColumn("ContentType")
+            );
 
-                SchemaBuilder.AlterTable(nameof(RelatedContentItemIndex), table => table
-                    .DropColumn("RelatedContentIds")
-                );
+            SchemaBuilder.AlterTable(nameof(RelatedContentItemIndex), table => table
+                .DropColumn("RelatedContentIds")
+            );
 
-                SchemaBuilder.AlterTable(nameof(RelatedContentItemIndex), table => table
-                    .AddColumn<string>("ContentType", c => c.WithLength(128))
-                );
+            SchemaBuilder.AlterTable(nameof(RelatedContentItemIndex), table => table
+                .AddColumn<string>("ContentType", c => c.WithLength(128))
+            );
 
-                SchemaBuilder.AlterTable(nameof(RelatedContentItemIndex), table => table
-                    .AddColumn<string>("RelatedContentIds", c => c.WithLength(1024))
-                );
+            SchemaBuilder.AlterTable(nameof(RelatedContentItemIndex), table => table
+                .AddColumn<string>("RelatedContentIds", c => c.WithLength(1024))
+            );
 
             return 3;
         }
@@ -72,7 +72,14 @@ namespace DFC.ServiceTaxonomy.CompUi
 
             return 4;
         }
+
+        public int UpdateFrom4()
+        {
+            SchemaBuilder.AlterTable(nameof(RelatedContentItemIndex), table => table
+                .AlterColumn(nameof(RelatedContentItemIndex.RelatedContentIds), c => c.WithType(typeof(string), int.MaxValue - 1))
+            );
+
+            return 5;
+        }
     }
 }
-
-

@@ -7,6 +7,8 @@ parameters:
   EnvironmentTag: ''
   ParentBusinessTag: ''
   ResourceGroup: ''
+  StorageAccountResourceGroupName: ''
+  MediaStorageAccountName: ''
   PSScriptPath: ''
   ServiceOfferingTag: ''
   WebAppName: ''
@@ -14,6 +16,17 @@ parameters:
   SetTagsScriptFilePath: '$(System.DefaultWorkingDirectory)\Set-EsfaResourceGroupTags.ps1'
 
 steps:
+- task: AzurePowerShell@5
+  name: 'setStorageConnectionString'
+  displayName: 'Build Storage Connection String'
+  inputs:
+    azureSubscription: ${{ parameters.AzureSubscription }}
+    ScriptPath: '${{ parameters.PSScriptPath }}/fetchStorageKeyAndBuildConnectionString.ps1'
+    ScriptArguments: >
+      -StorageAccountResourceGroupName '${{ parameters.StorageAccountResourceGroupName }}' 
+      -StorageAccountName '$(MediaStorageAccountName)'
+    azurePowerShellVersion: LatestVersion
+
 - task: esfadevops.Tokenization.custom-build-task.Tokenization@0
   displayName: 'Tokenization: Transform file parameters.json'
   inputs:

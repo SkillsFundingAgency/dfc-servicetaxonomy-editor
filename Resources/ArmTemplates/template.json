@@ -24,30 +24,6 @@
             "type": "string",
             "defaultValue": ""
         },
-        "Neo4jUrl": {
-            "type": "string"
-        },
-        "Neo4jUrl1": {
-            "type": "string"
-        },
-        "Neo4jUser": {
-            "type": "string"
-        },
-        "Neo4jPassword": {
-            "type": "securestring"
-        },
-        "Neo4jUrlDraft": {
-            "type": "string"
-        },
-        "Neo4jUrlDraft1": {
-            "type": "string"
-        },
-        "Neo4jUserDraft": {
-            "type": "string"
-        },
-        "Neo4jPasswordDraft": {
-            "type": "securestring"
-        },
         "SqlElasticPoolName": {
             "type": "string"
         },
@@ -98,36 +74,6 @@
         },
         "PreviewAppPrefix": {
             "type": "string"
-        },
-        "JobProfilePublishedAppPrefix": {
-            "type": "string"
-        },
-        "JobProfilePreviewAppPrefix": {
-            "type": "string"
-        },
-        "Neo4jEndpoints0Enabled": {
-            "type": "bool"
-        },
-        "Neo4jEndpoints1Enabled": {
-            "type": "bool"
-        },
-        "Neo4jEndpoints2Enabled": {
-            "type": "bool"
-        },
-        "Neo4jEndpoints3Enabled": {
-            "type": "bool"
-        },
-        "Neo4jReplicaSets0GraphInstances0Enabled": {
-            "type": "bool"
-        },
-        "Neo4jReplicaSets0GraphInstances1Enabled": {
-            "type": "bool"
-        },
-        "Neo4jReplicaSets1GraphInstances0Enabled": {
-            "type": "bool"
-        },
-        "Neo4jReplicaSets1GraphInstances1Enabled": {
-            "type": "bool"
         },
         "MediaAzureBlobConnectionString": {
             "type": "securestring"
@@ -236,6 +182,51 @@
         },
         "CmsSqlApiUrl": {
         "type": "string"
+        },
+        "EventGridTopicEndPointUrl": {
+            "type": "string"
+        },
+        "EventGridTopicAccessKey": {
+            "type": "securestring"
+        },
+        "PreviewLoginUrl":{
+            "type": "string"
+        },
+        "EncryptionKey": {
+            "type": "securestring"
+        },
+        "CipherTextPrefix": {
+            "type": "securestring"
+        },
+        "CipherTextValiditySeconds": {
+            "type": "int"
+        },
+        "PreviewRedirectUri:0:RedirectUri":{
+            "type": "string"
+        },
+        "PreviewRedirectUri:0:ContentType": {
+            "type": "string"
+        },
+        "PreviewRedirectUri:1:RedirectUri":{
+            "type": "string"
+        },
+        "PreviewRedirectUri:1:ContentType": {
+            "type": "string"
+        },
+        "PreviewRedirectUri:2:RedirectUri":{
+            "type": "string"
+        },
+        "PreviewRedirectUri:2:ContentType": {
+            "type": "string"
+        },
+        "PreviewRedirectUri:3:RedirectUri":{
+            "type": "string"
+        },
+        "PreviewRedirectUri:3:ContentType": {
+            "type": "string"
+        },
+        "BaseUrlPath": {
+            "type": "string"
         }
     },
     "variables": {
@@ -316,92 +307,12 @@
                                 "value": "1"
                             },
                             {
-                                "name": "APPINSIGHTS_INSTRUMENTATIONKEY",
-                                "value": "[reference(variables('AppServiceAppInsightsName')).outputs.InstrumentationKey.value]"
+                                "name": "APPINSIGHTS_CONNECTIONSTRING",
+                                "value": "[reference(variables('AppServiceAppInsightsName')).outputs.instrumentationConnectionString.value]"
                             },
                             {
                                 "name": "WEBSITE_RUN_FROM_PACKAGE",
                                 "value": "0"
-                            },
-                            {
-                                "name": "Neo4j__Endpoints__0__Uri",
-                                "value": "[parameters('Neo4jUrl')]"
-                            },
-                            {
-                                "name": "Neo4j__Endpoints__0__Username",
-                                "value": "[parameters('Neo4jUser')]"
-                            },
-                            {
-                                "name": "Neo4j__Endpoints__0__Password",
-                                "value": "[parameters('Neo4jPassword')]"
-                            },
-                            {
-                                "name": "Neo4j__Endpoints__0__Enabled",
-                                "value": "[parameters('Neo4jEndpoints0Enabled')]"
-                            },
-                            {
-                                "name": "Neo4j__ReplicaSets__0__GraphInstances__0__Enabled",
-                                "value": "[parameters('Neo4jReplicaSets0GraphInstances0Enabled')]"
-                            },
-                            {
-                                "name": "Neo4j__Endpoints__1__Uri",
-                                "value": "[parameters('Neo4jUrl1')]"
-                            },
-                            {
-                                "name": "Neo4j__Endpoints__1__Username",
-                                "value": "[parameters('Neo4jUser')]"
-                            },
-                            {
-                                "name": "Neo4j__Endpoints__1__Password",
-                                "value": "[parameters('Neo4jPassword')]"
-                            },
-                            {
-                                "name": "Neo4j__Endpoints__1__Enabled",
-                                "value": "[parameters('Neo4jEndpoints1Enabled')]"
-                            },
-                            {
-                                "name": "Neo4j__ReplicaSets__0__GraphInstances__1__Enabled",
-                                "value": "[parameters('Neo4jReplicaSets0GraphInstances1Enabled')]"
-                            },
-                            {
-                                "name": "Neo4j__Endpoints__2__Uri",
-                                "value": "[parameters('Neo4jUrlDraft')]"
-                            },
-                            {
-                                "name": "Neo4j__Endpoints__2__Username",
-                                "value": "[parameters('Neo4jUserDraft')]"
-                            },
-                            {
-                                "name": "Neo4j__Endpoints__2__Password",
-                                "value": "[parameters('Neo4jPasswordDraft')]"
-                            },
-                            {
-                                "name": "Neo4j__Endpoints__2__Enabled",
-                                "value": "[parameters('Neo4jEndpoints2Enabled')]"
-                            },
-                            {
-                                "name": "Neo4j__ReplicaSets__1__GraphInstances__0__Enabled",
-                                "value": "[parameters('Neo4jReplicaSets1GraphInstances0Enabled')]"
-                            },
-                            {
-                                "name": "Neo4j__Endpoints__3__Uri",
-                                "value": "[parameters('Neo4jUrlDraft1')]"
-                            },
-                            {
-                                "name": "Neo4j__Endpoints__3__Username",
-                                "value": "[parameters('Neo4jUserDraft')]"
-                            },
-                            {
-                                "name": "Neo4j__Endpoints__3__Password",
-                                "value": "[parameters('Neo4jPasswordDraft')]"
-                            },
-                            {
-                                "name": "Neo4j__Endpoints__3__Enabled",
-                                "value": "[parameters('Neo4jEndpoints3Enabled')]"
-                            },
-                            {
-                                "name": "Neo4j__ReplicaSets__1__GraphInstances__1__Enabled",
-                                "value": "[parameters('Neo4jReplicaSets1GraphInstances1Enabled')]"
                             },
                             {
                                 "name": "OwlDataGeneratorConfigModel__DefaultLanguage",
@@ -458,14 +369,6 @@
                             {
                                 "name": "Pages__PreviewAppPrefix",
                                 "value": "[parameters('PreviewAppPrefix')]"
-                            },
-                            {
-                                "name": "JobProfiles__PublishedAppPrefix",
-                                "value": "[parameters('JobProfilePublishedAppPrefix')]"
-                            },
-                            {
-                                "name": "JobProfiles__PreviewAppPrefix",
-                                "value": "[parameters('JobProfilePreviewAppPrefix')]"
                             },
                             {
                                 "name": "OrchardCore__OrchardCore_Media_Azure__ConnectionString",
@@ -602,6 +505,66 @@
                             {
                                 "name": "Cms__SqlApiUrl",
                                 "value": "[parameters('CmsSqlApiUrl')]"
+                            },
+                            {
+                                "name": "EventGrid__TopicEndPointUrl",
+                                "value": "[parameters('EventGridTopicEndPointUrl')]"
+                            },
+                            {
+                                "name": "EventGrid__TopicAccessKey",
+                                "value": "[parameters('EventGridTopicAccessKey')]"
+                            },
+                            {
+                                "name": "NcsPreview__PreviewLoginUrl",
+                                "value": "[parameters('PreviewLoginUrl')]"
+                            },
+                            {
+                                "name": "NcsPreview__EncryptionKey",
+                                "value": "[parameters('EncryptionKey')]"
+                            },
+                            {
+                                "name": "NcsPreview__CipherTextPrefix",
+                                "value": "[parameters('CipherTextPrefix')]"
+                            },
+                            {
+                                "name": "NcsPreview__CipherTextValiditySeconds",
+                                "value": "[parameters('CipherTextValiditySeconds')]"
+                            },
+                            {
+                                "name": "PreviewRedirectUri:0:RedirectUri",
+                                "value": "[parameters('PreviewRedirectUri:0:RedirectUri')]"
+                            },
+                            {
+                                "name": "PreviewRedirectUri:0:ContentType",
+                                "value": "[parameters('PreviewRedirectUri:0:ContentType')]"
+                            },
+                            {
+                                "name": "PreviewRedirectUri:1:RedirectUri",
+                                "value": "[parameters('PreviewRedirectUri:1:RedirectUri')]"
+                            },
+                            {
+                                "name": "PreviewRedirectUri:1:ContentType",
+                                "value": "[parameters('PreviewRedirectUri:1:ContentType')]"
+                            },
+                            {
+                                "name": "PreviewRedirectUri:2:RedirectUri",
+                                "value": "[parameters('PreviewRedirectUri:2:RedirectUri')]"
+                            },
+                            {
+                                "name": "PreviewRedirectUri:2:ContentType",
+                                "value": "[parameters('PreviewRedirectUri:2:ContentType')]"
+                            },
+                            {
+                                "name": "PreviewRedirectUri:3:RedirectUri",
+                                "value": "[parameters('PreviewRedirectUri:3:RedirectUri')]"
+                            },
+                            {
+                                "name": "PreviewRedirectUri:3:ContentType",
+                                "value": "[parameters('PreviewRedirectUri:3:ContentType')]"
+                            },
+                            {
+                                "name": "BaseUrlPath",
+                                "value": "[parameters('BaseUrlPath')]"
                             }
                         ]
                     }

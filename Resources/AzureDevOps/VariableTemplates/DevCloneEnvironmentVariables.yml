@@ -1,0 +1,50 @@
+variables:
+- name: ReleaseEnvironmentName
+  value: dev
+- name: ResourceGroup
+  value: dfc-dev-stax-editor-rg
+- name: StorageAccountResourceGroupName
+  value: dfc-dev-dig-rg
+- name: WebAppName
+  value: dfc-dev-clone-stax-editor-as
+- name: SqlDatabaseName
+  value: dfc-dev-clone-stax-editor-db
+- name: ClonePipelineSqlUserName
+  value: dfc-dev-stax-editor-as-svc
+- name: OrchardCoreSqlDatabaseConnStr
+  value: 'Server=tcp:$(sharedSqlServerName).database.windows.net,1433;Initial Catalog=$(SqlDatabaseName);Persist Security Info=False;User ID=$(ClonePipelineSqlUserName);Password=$(OrchardEditorSqlUserPassword);MultipleActiveResultSets=True;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;'
+- name: FunctionalTestsSqlDatabaseConnStr
+  value: 'Server=tcp:$(sharedSqlServerName).database.windows.net,1433;Initial Catalog=$(SqlDatabaseName);Persist Security Info=False;User ID=$(FunctionalTestsUser);Password=$(FunctionalTestsUserPassword);MultipleActiveResultSets=True;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;'
+- name: ExceptionCountThreshold
+  value: 10
+- name: EnableAzureMonitorAlerting
+  value: true
+- name: MediaStorageAccountName
+  value: dfcdevclonedigstr
+- name: StaxSharedAppServicePlan 
+  value: dfc-dev-stax-clone-shared-asp
+- name: CdnUrl
+  value: https://dfc-dev-clone-digital-assets.azureedge.net
+- name: PreviewLoginUrl
+  value: https://dev-beta.nationalcareersservice.org.uk/ncspreview
+- name: CipherTextValiditySeconds
+  value: 60
+- name: RedirectUri0
+  value: /find-a-course
+- name: ContentType0
+  value: Header
+- name: RedirectUri1
+  value: /find-a-course
+- name: ContentType1
+  value: Footer
+- name: RedirectUri2
+  value: /explore-careers/job-sector
+- name: ContentType2
+  value: JobProfileSector
+- name: RedirectUri3
+  value: /job-profiles
+- name: ContentType3
+  value: JobProfile
+- name: BaseUrlPath
+  value: https://dev-beta.nationalcareersservice.org.uk
+

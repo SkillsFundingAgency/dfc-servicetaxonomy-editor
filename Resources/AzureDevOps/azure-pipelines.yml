@@ -13,7 +13,7 @@ resources:
   - repository: dfc-devops
     type: github
     name: SkillsFundingAgency/dfc-devops
-    ref: refs/tags/v1.16.0
+    ref: refs/tags/v1.16.4
     endpoint: 'SkillsFundingAgency'
 
 trigger:
@@ -72,11 +72,13 @@ stages:
         SolutionBaseName: $(SolutionBaseName).Editor
         BuildPlatform: 'any cpu'
         BuildConfiguration: 'release'
+        DotNetCoreVersion: '8.x'
     - template: AzureDevOpsTemplates\Build\StepTemplates\dfc-dotnetcore-build-notests.yml@dfc-devops
       parameters:
         SolutionBaseName: $(SolutionBaseName).OrchardCoreInitialiser
         BuildPlatform: 'any cpu'
         BuildConfiguration: 'release'
+        GitVersionVersion: 5.12.x
     - powershell: |
         New-Item -Type Directory -Path $(SolutionBaseName).Editor\AppSettingsArtifact\App_Data\Sites\Default\ -Force
         Copy-Item -Path $(SolutionBaseName).Editor\App_Data\Sites\Default\appsettings.template.json -Destination $(SolutionBaseName).Editor\AppSettingsArtifact\App_Data\Sites\Default\appsettings.json
@@ -85,11 +87,6 @@ stages:
       inputs:
         targetPath: $(SolutionBaseName).Editor\AppSettingsArtifact\
         artifactName: $(SolutionBaseName).Editor.AppSettings
-    - template: AzureDevOpsTemplates\Build\StepTemplates\dfc-dotnetcore-build-notests.yml@dfc-devops
-      parameters:
-        SolutionBaseName: $(SolutionBaseName).IntegrationTests
-        BuildPlatform: 'any cpu'
-        BuildConfiguration: 'release'
 
     - task: NuGetToolInstaller@1
       inputs:
@@ -174,6 +171,10 @@ stages:
       TestExclusionTag: 'NotDev'
       MediaStorageAccountName: $(MediaStorageAccountName)
       PSScriptPath: "$(Pipeline.Workspace)/${{ variables.SolutionBaseName }}.Editor.Resources.PSScripts"
+      EventGridTopicEndPointUrl: $(SSP2EventGridTopicUrl)
+      EventGridTopicAccessKey: $(SSP2SharedEventGridAccessKey)
+      EncryptionKey: $(NcsPreviewEncryptionKey)
+      CipherTextPrefix: $(NcsPreviewCipherTextPrefix)
 
 - stage: DeployToSit
   condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'))
@@ -210,6 +211,10 @@ stages:
       TestExclusionTag: 'NotSit'
       MediaStorageAccountName: $(MediaStorageAccountName)
       PSScriptPath: "$(Pipeline.Workspace)/${{ variables.SolutionBaseName }}.Editor.Resources.PSScripts"
+      EventGridTopicEndPointUrl: $(SSP2EventGridTopicUrl)
+      EventGridTopicAccessKey: $(SSP2SharedEventGridAccessKey)
+      EncryptionKey: $(NcsPreviewEncryptionKey)
+      CipherTextPrefix: $(NcsPreviewCipherTextPrefix)
 
 
 - stage: DeployToPP
