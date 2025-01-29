@@ -27,7 +27,7 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="DFC.Common.SharedContent.Pkg.Netcore" Version="0.1.108" />
+    <PackageReference Include="DFC.Common.SharedContent.Pkg.Netcore" Version="0.1.119" />
     <PackageReference Include="DfE.NCS.Framework.Core" Version="2.0.3" />
     <PackageReference Include="DfE.NCS.Framework.Event" Version="1.0.0" />
     <PackageReference Include="Joonasw.AspNetCore.SecurityHeaders" Version="4.0.1" />

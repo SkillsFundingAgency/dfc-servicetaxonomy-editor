@@ -268,7 +268,14 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
                         await _director.ProcessPagebannerAsync(processing);
                         break;
                     case nameof(ContentTypes.TriageToolFilter):
-                        await _director.ProcessTriageToolFilterAsync(processing);
+                    case nameof(ContentTypes.TriageResultTile):
+                    case nameof(ContentTypes.FilterAdviceGroup):
+                    case nameof(ContentTypes.TriageFilterAdviceGroupImage):
+                    case nameof(ContentTypes.TriageLevelOne):
+                    case nameof(ContentTypes.TriageLevelTwo):
+                    case nameof(ContentTypes.ApplicationView):
+                    case nameof(ContentTypes.ApprenticeshipLink):
+                        await _director.ProcessTriageToolAsync(processing);
                         break;
                     case nameof(ContentTypes.PersonalityFilteringQuestion):
                         await _director.ProcessPersonalityFilteringQuestionAsync(processing);
