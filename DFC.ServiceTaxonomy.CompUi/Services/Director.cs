@@ -16,6 +16,7 @@ namespace DFC.ServiceTaxonomy.CompUi.Services
         public async Task ProcessSharedContentAsync(Processing processing)
         {
             await _builder.InvalidateAdditionalPageNodesAsync(processing);
+            await _builder.InvalidateTriageToolFiltersAsync(processing);
 
             var data = await _builder.GetContentItemsByLikeQueryAsync(nameof(ContentTypes.Page), processing.ContentItemId);
 
@@ -42,7 +43,7 @@ namespace DFC.ServiceTaxonomy.CompUi.Services
             await _builder.InvalidatePageBannerAsync(processing);
         }
 
-        public async Task ProcessTriageToolFilterAsync(Processing processing)
+        public async Task ProcessTriageToolAsync(Processing processing)
         {
             await _builder.InvalidateTriageToolFiltersAsync(processing);
         }
