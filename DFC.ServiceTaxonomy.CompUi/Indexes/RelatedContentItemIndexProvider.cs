@@ -14,20 +14,20 @@ namespace DFC.ServiceTaxonomy.CompUi.Indexes
 
         public RelatedContentItemIndexProvider(IConfiguration configuration)
         {
-            RelatedContentTypes = configuration.GetSection(RelatedContentTypesAppSetting).Get<List<string>>() ?? new List<string>();
+            RelatedContentTypes = configuration.GetSection(RelatedContentTypesAppSetting).Get<List<string>>()?.ConvertAll(x =>x.ToLower()) ?? new List<string>();
         }
 
         public override void Describe(DescribeContext<ContentItem> context)
         {
             context.For<Models.RelatedContentItemIndex>()
-             .When(contentItem => RelatedContentTypes.Contains(contentItem.ContentType))
+             .When(contentItem => RelatedContentTypes.Contains(contentItem.ContentType.ToLower()))
                 .Map(contentItem =>
                     {
                         if (!contentItem.Published && !contentItem.Latest)
                         {
                             return default!;
                         }
-                         
+
                         var content = JsonConvert.SerializeObject(contentItem.Content);
 
                         var root = JToken.Parse(content);

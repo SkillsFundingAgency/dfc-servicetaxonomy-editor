@@ -164,43 +164,6 @@ namespace DFC.ServiceTaxonomy.UnitTests.CompUi
         }
 
         [Fact]
-        public async Task ProcessJobProfileAsync_InvalidateAllJobProfileContentAsync()
-        {
-            // Arrange
-            var builderMock = new Mock<IBuilder>();
-            var director = new Director();
-            director.Builder = builderMock.Object;
-
-            var processing = new Processing();
-
-            // Act
-            await director.ProcessJobProfileAsync(processing);
-
-            // Assert
-            builderMock.Verify(mock => mock.InvalidateAllJobProfileContentAsync(processing), Times.Once);
-        }
-
-
-        //[Fact]
-        //public async Task ProcessJobProfileAsync_RefreshAllJobProfileContent()
-        //{
-        //    // Arrange
-        //    var builderMock = new Mock<IBuilder>();
-        //    var director = new Director();
-        //    director.Builder = builderMock.Object;
-
-        //    var processing = new Processing();
-        //    processing.FilterType = FilterType.PUBLISHED.ToString();
-        //    processing.EventType = ProcessingEvents.Published;
-
-        //    // Act
-        //    await director.ProcessJobProfileAsync(processing);
-
-        //    // Assert
-        //    builderMock.Verify(mock => mock.RefreshAllJobProfileContent(processing), Times.Once);
-        //}
-
-        [Fact]
         public async Task ProcessPersonalityFilteringQuestionAsync_InvokesGetRelatedContentItemIdsAsync()
         {
             // Arrange
