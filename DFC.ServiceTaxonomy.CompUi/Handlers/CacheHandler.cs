@@ -250,20 +250,20 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
     {
         var result = await _relatedContentItemIndexRepository.GetRelatedContentDataByContentItemIdAndPage(processing);
 
-            //Here we are placing a restriction of sending only one Event Grid message for PersonalityShortQuestion if we are processing a PersonalityTrait.  As PersonalityTrait will be related
-            //to mulitple PersonalityShortQuestion it doesn't make sense to send serveral duplicate messages, when one will suffice.  
-            if (result.ToList().Any(x => x.ContentType == nameof(ContentTypes.PersonalityShortQuestion)) && processing.ContentType == nameof(ContentTypes.PersonalityTrait))
+        //Here we are placing a restriction of sending only one Event Grid message for PersonalityShortQuestion if we are processing a PersonalityTrait.  As PersonalityTrait will be related
+        //to mulitple PersonalityShortQuestion it doesn't make sense to send serveral duplicate messages, when one will suffice.  
+        if (result.ToList().Any(x => x.ContentType == nameof(ContentTypes.PersonalityShortQuestion)) && processing.ContentType == nameof(ContentTypes.PersonalityTrait))
+        {
+            var item = result.FirstOrDefault(x => x.ContentType == nameof(ContentTypes.PersonalityShortQuestion));
+
+            if (item != null)
             {
-                var item = result.FirstOrDefault(x => x.ContentType == nameof(ContentTypes.PersonalityShortQuestion));
-
-                if (item != null)
-                {
-                    await _eventGridHandler.SendEventMessageAsync(item, ContentEventType.StaxUpdate);
-                }
+                await _eventGridHandler.SendEventMessageAsync(item, ContentEventType.StaxUpdate);
             }
+        }
 
-            //Create a list of content types that we want to send Event Grid messagesfor .  Messages will not be sent for any other items not in the list. 
-            var contentTypes = new List<string> {
+        //Create a list of content types that we want to send Event Grid messagesfor .  Messages will not be sent for any other items not in the list. 
+        var contentTypes = new List<string> {
             nameof(ContentTypes.Page),
             nameof(ContentTypes.JobProfile),
             nameof(ContentTypes.PersonalityQuestionSet),
@@ -271,10 +271,9 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
             nameof(ContentTypes.PersonalityFilteringQuestion),
             };
 
-            result?
-            .Where(x => contentTypes.Contains(x.ContentType))
-            .ToList().ForEach(x => _eventGridHandler.SendEventMessageAsync(x, ContentEventType.StaxUpdate));
-        }
+        result?
+        .Where(x => contentTypes.Contains(x.ContentType))
+        .ToList().ForEach(x => _eventGridHandler.SendEventMessageAsync(x, ContentEventType.StaxUpdate));
     }
 
     private RelatedContentData TransformData(Processing processing, ContentItem contentItem)
