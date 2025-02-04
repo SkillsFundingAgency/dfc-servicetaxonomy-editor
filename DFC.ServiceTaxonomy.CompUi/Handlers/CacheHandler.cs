@@ -252,6 +252,8 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
 
         if (result != null)
         {
+            //Here we are placing a restriction of sending only one Event Grid message for PersonalityShortQuestion if we are processing a PersonalityTrait.  As PersonalityTrait will be related
+            //to mulitple PersonalityShortQuestion it doesn't make sense to send serveral duplicate messages, when one will suffice.  
             if (result.ToList().Any(x => x.ContentType == nameof(ContentTypes.PersonalityShortQuestion)) && processing.ContentType == nameof(ContentTypes.PersonalityTrait))
             {
                 var item = result.FirstOrDefault(x => x.ContentType == nameof(ContentTypes.PersonalityShortQuestion));
@@ -262,6 +264,7 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
                 }
             }
 
+            //Create a list of content types that we want to send Event Grid messagesfor .  Messages will not be sent for any other items not in the list.  
             var contentTypes = new List<string> {
             nameof(ContentTypes.Page),
             nameof(ContentTypes.JobProfile),
