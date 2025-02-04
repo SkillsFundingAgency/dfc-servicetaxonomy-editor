@@ -3,6 +3,10 @@ variables:
   value: pp
 - name: ResourceGroup
   value: dfc-pp-stax-editor-rg
+- name: StorageAccountResourceGroupName
+  value: dfc-pp-dig-rg
+- name: MediaStorageAccountName
+  value: dfcppdigstr
 - name: WebAppName
   value: dfc-pp-stax-editor-as-ver2
 - name: SqlDatabaseName
@@ -36,4 +40,4 @@ variables:
 - name: ContentType3
   value: JobProfile
 - name: BaseUrlPath
-  value: https://staging.nationalcareersservice.gov.uk
+  value: https://staging.nationalcareers.service.gov.uk
