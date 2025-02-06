@@ -10,7 +10,7 @@ namespace DFC.ServiceTaxonomy.CompUi.Interfaces
         Task ProcessBannerAsync(Processing processing);
         Task ProcessJobProfileCategoryAsync(Processing processing);
         Task ProcessPagebannerAsync(Processing processing);
-        Task ProcessTriageToolFilterAsync(Processing processing);
+        Task ProcessTriageToolAsync(Processing processing);
         Task ProcessPersonalityFilteringQuestionAsync(Processing processing);
         Task ProcessPersonalityQuestionSetAsync(Processing processing);
         Task ProcessPersonalityShortQuestionAsync(Processing processing);
