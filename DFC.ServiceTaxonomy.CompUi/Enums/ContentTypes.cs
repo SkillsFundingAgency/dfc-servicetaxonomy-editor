@@ -40,6 +40,12 @@
         Uniform,
         SOCCode,
         Registration,
-        RealStory
+        RealStory,
+        ApplicationView,
+        TriageResultTile,
+        TriageLevelOne,
+        TriageLevelTwo,
+        FilterAdviceGroup,
+        TriageFilterAdviceGroupImage
     }
 }
