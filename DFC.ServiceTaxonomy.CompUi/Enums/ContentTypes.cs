@@ -2,6 +2,7 @@
 {
     public enum ContentTypes
     {
+        ApplicationView,
         ApprenticeshipEntryRequirements,
         ApprenticeshipLink,
         ApprenticeshipRequirements,
@@ -12,6 +13,7 @@
         DigitalSkills,
         DynamicTitlePrefix,
         Environment,
+        FilterAdviceGroup,
         HiddenAlternativeTitle,
         JobProfile,
         JobProfileCategory,
@@ -34,6 +36,9 @@
         SOCSkillsMatrix,
         Taxonomy,
         TriageToolFilter,
+        TriageLevelOne,
+        TriageLevelTwo,
+        TriageResultTile,
         Uniform,
         UniversityEntryRequirements,
         UniversityLink,
@@ -41,7 +46,5 @@
         WorkingHoursDetail,
         WorkingPatternDetail,
         WorkingPatterns,
-
-
     }
 }

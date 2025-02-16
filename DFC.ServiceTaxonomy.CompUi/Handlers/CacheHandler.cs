@@ -15,22 +15,22 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
 {
     private readonly ILogger<CacheHandler> _logger;
     private readonly IMapper _mapper;
-    private readonly IDirector _director;
-    private readonly IBuilder _builder;
     private readonly IEventGridHandler _eventGridHandler;
     private readonly IDataService _relatedContentItemIndexRepository;
 
     //Temp config to retrieve allowed event grid confiugrations from app settings for allowing certain content types and pages through
     private const string eventGridAllowedContentTypeSettings = "EventGridAllowedContentList";
     private const string eventGridAllowedPageSettings = "EventGridAllowedPagesList";
+
+    private const string MetadataPage = "page-metadata";
+    private const string MetadataJobProfile = "jobprofile-metadata";
+    private const string MetadataJobProfileCategory = "jobprofilecategory-metadata";
     private List<string> eventGridContentTypes;
     private List<string> eventGridAllowedPages;
 
     public CacheHandler(
         ILogger<CacheHandler> logger,
         IMapper mapper,
-        IDirector director,
-        IBuilder builder,
         IEventGridHandler eventGridHandler,
         IConfiguration configuration,
         IDataService relatedContentItemIndexRepository
@@ -38,9 +38,6 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
     {
         _logger = logger;
         _mapper = mapper;
-        _director = director;
-        _builder = builder;
-        _director.Builder = _builder;
         _eventGridHandler = eventGridHandler;
         _relatedContentItemIndexRepository = relatedContentItemIndexRepository;
 
@@ -74,8 +71,6 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
 
         await base.PublishedAsync(context);
 
-        await ProcessItem(processing);
-
         //Temp check to see if the published items content type matches any of the allowed items in the list
         var pageRouteFlag = PageRouteFlag(processing);
 
@@ -92,8 +87,6 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
 
         await base.RemovedAsync(context);
 
-        await ProcessItem(processing);
-
         //Temp check to see if the published items content type matches any of the allowed items in the list
         var pageRouteFlag = PageRouteFlag(processing);
 
@@ -109,8 +102,6 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
 
         await base.UnpublishedAsync(context);
 
-        await ProcessItem(processing);
-
         //Temp check to see if the published items content type matches any of the allowed items in the list
         var pageRouteFlag = PageRouteFlag(processing);
 
@@ -125,8 +116,6 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
         var processing = GetProcessingData(context, ProcessingEvents.DraftSaved, FilterType.DRAFT);
 
         await base.DraftSavedAsync(context);
-
-        await ProcessItem(processing);
     }
 
     public async Task ProcessEventGridMessage(Processing processing, ContentEventType contentEventType)
@@ -141,8 +130,13 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
 
         switch (processing.ContentType)
         {
-            case nameof(ContentTypes.Page) when contentEventType == ContentEventType.StaxUpdate:
-                await ProcessGenericContentType(processing, current);
+            case nameof(ContentTypes.Page): //when contentEventType == ContentEventType.StaxUpdate:
+                await SendMetadataOnlyMessage(MetadataPage, contentEventType);
+
+                if (contentEventType == ContentEventType.StaxUpdate)
+                {
+                    await ProcessGenericContentType(processing, current);
+                }
                 break;
             case nameof(ContentTypes.SharedContent) when processing.EventType != ProcessingEvents.Created:
                 await _eventGridHandler.SendEventMessageAsync(TransformData(processing, current), contentEventType);
@@ -152,9 +146,14 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
                 await ProcessGenericContentType(processing, current);
                 await ProcessJobProfilesLinkingtoSectorLandingPages(processing);
                 break;
-            case nameof(ContentTypes.JobProfileCategory) when contentEventType == ContentEventType.StaxUpdate:
-                await ProcessGenericContentType(processing, current);
-                await ProcessRelatedContent(processing);
+            case nameof(ContentTypes.JobProfileCategory): //when contentEventType == ContentEventType.StaxUpdate:
+                await SendMetadataOnlyMessage(MetadataJobProfileCategory, contentEventType);
+
+                if (contentEventType == ContentEventType.StaxUpdate)
+                {
+                    await ProcessGenericContentType(processing, current);
+                    await ProcessRelatedContent(processing);
+                }
                 break;
             case nameof(ContentTypes.Skill) when contentEventType == ContentEventType.StaxUpdate:
                 await _eventGridHandler.SendEventMessageAsync(TransformData(processing, current), contentEventType);
@@ -163,32 +162,37 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
                 await _eventGridHandler.SendEventMessageAsync(TransformData(processing, current), contentEventType);
                 await ProcessRelatedContent(processing);
                 break;
-            case nameof(ContentTypes.JobProfile) when contentEventType == ContentEventType.StaxUpdate:
-                await ProcessGenericContentType(processing, current);
+            case nameof(ContentTypes.JobProfile):  //when contentEventType == ContentEventType.StaxUpdate:
+                await SendMetadataOnlyMessage(MetadataJobProfile, contentEventType);
+
+                if (contentEventType == ContentEventType.StaxUpdate)
+                {
+                    await ProcessGenericContentType(processing, current);
+                }
                 break;
-            case nameof(ContentTypes.HiddenAlternativeTitle):
-            case nameof(ContentTypes.WorkingHoursDetail):
-            case nameof(ContentTypes.WorkingPatternDetail):
-            case nameof(ContentTypes.WorkingPatterns):
-            case nameof(ContentTypes.JobProfileSpecialism):
-            case nameof(ContentTypes.UniversityEntryRequirements):
-            case nameof(ContentTypes.UniversityLink):
-            case nameof(ContentTypes.UniversityRequirements):
-            case nameof(ContentTypes.CollegeEntryRequirements):
-            case nameof(ContentTypes.CollegeLink):
-            case nameof(ContentTypes.CollegeRequirements):
             case nameof(ContentTypes.ApprenticeshipEntryRequirements):
             case nameof(ContentTypes.ApprenticeshipLink):
             case nameof(ContentTypes.ApprenticeshipRequirements):
-            case nameof(ContentTypes.Restriction):
+            case nameof(ContentTypes.CollegeEntryRequirements):
+            case nameof(ContentTypes.CollegeLink):
+            case nameof(ContentTypes.CollegeRequirements):
             case nameof(ContentTypes.DigitalSkills):
-            case nameof(ContentTypes.Location):
-            case nameof(ContentTypes.Environment):
-            case nameof(ContentTypes.Uniform):
-            case nameof(ContentTypes.SOCCode):
-            case nameof(ContentTypes.Registration):
             case nameof(ContentTypes.DynamicTitlePrefix):
+            case nameof(ContentTypes.Environment):
+            case nameof(ContentTypes.HiddenAlternativeTitle):
+            case nameof(ContentTypes.JobProfileSpecialism):
+            case nameof(ContentTypes.Location):
             case nameof(ContentTypes.RealStory):
+            case nameof(ContentTypes.Registration):
+            case nameof(ContentTypes.Restriction):
+            case nameof(ContentTypes.SOCCode):
+            case nameof(ContentTypes.Uniform):
+            case nameof(ContentTypes.UniversityEntryRequirements):
+            case nameof(ContentTypes.UniversityLink):
+            case nameof(ContentTypes.UniversityRequirements):
+            case nameof(ContentTypes.WorkingHoursDetail):
+            case nameof(ContentTypes.WorkingPatternDetail):
+            case nameof(ContentTypes.WorkingPatterns):
                 // Only want the message to be sent for related items to update an affected job profile.
                 if (contentEventType == ContentEventType.StaxUpdate)
                 {
@@ -203,12 +207,21 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
                 await ProcessRelatedContent(processing);
                 break;
             case nameof(ContentTypes.PersonalityTrait):
-                await _eventGridHandler.SendEventMessageAsync(TransformData(processing, current), contentEventType);
-                await ProcessRelatedContent(processing);
-                break;
             case nameof(ContentTypes.SOCSkillsMatrix):
                 await _eventGridHandler.SendEventMessageAsync(TransformData(processing, current), contentEventType);
                 await ProcessRelatedContent(processing);
+                break;
+
+
+            //To be merged into the above list when complete
+            case nameof(ContentTypes.ApplicationView):
+            case nameof(ContentTypes.FilterAdviceGroup):
+            case nameof(ContentTypes.TriageLevelOne):
+            case nameof(ContentTypes.TriageLevelTwo):
+            case nameof(ContentTypes.TriageResultTile):
+            case nameof(ContentTypes.TriageToolFilter):
+                await _eventGridHandler.SendEventMessageAsync(TransformData(processing, current), contentEventType);
+                //await ProcessRelatedContent(processing);
                 break;
             default:
                 await _eventGridHandler.SendEventMessageAsync(TransformData(processing, current), contentEventType);
@@ -250,106 +263,67 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
     {
         var result = await _relatedContentItemIndexRepository.GetRelatedContentDataByContentItemIdAndPage(processing);
 
-        //Here we are placing a restriction of sending only one Event Grid message for PersonalityShortQuestion if we are processing a PersonalityTrait.  As PersonalityTrait will be related
-        //to mulitple PersonalityShortQuestion it doesn't make sense to send serveral duplicate messages, when one will suffice.  
-        if (result.ToList().Any(x => x.ContentType == nameof(ContentTypes.PersonalityShortQuestion)) && processing.ContentType == nameof(ContentTypes.PersonalityTrait))
+        if (result.Count() > 0)
         {
-            var item = result.FirstOrDefault(x => x.ContentType == nameof(ContentTypes.PersonalityShortQuestion));
-
-            if (item != null)
-            {
-                await _eventGridHandler.SendEventMessageAsync(item, ContentEventType.StaxUpdate);
-            }
+            SendDistinctEventGridMessage(result);
+            SendMultipleEventGridMessages(result);
         }
+    }
 
-        //Create a list of content types that we want to send Event Grid messagesfor .  Messages will not be sent for any other items not in the list. 
+    private void SendDistinctEventGridMessage(IEnumerable<RelatedContentData> dataList)
+    {
+        //Here we are placing a restriction of sending only one Event Grid message for content types listed below, as it doesn't make sense to send serveral duplicate messages relating to the same content.
+        var contentTypes = new List<string> {
+            nameof(ContentTypes.PersonalityShortQuestion),
+            nameof(ContentTypes.PersonalityFilteringQuestion),
+            nameof(ContentTypes.PersonalityTrait),
+            nameof(ContentTypes.ApprenticeshipLink),
+        };
+
+        if (dataList.ToList().Any(x => contentTypes.Any(y => y == x.ContentType)))
+        {
+            dataList?
+            .Where(x => contentTypes.Contains(x.ContentType))
+            .DistinctBy(x => x.ContentType)
+            .ToList().ForEach(x => _eventGridHandler.SendEventMessageAsync(x, ContentEventType.StaxUpdate));
+        }
+    }
+
+    private void SendMultipleEventGridMessages(IEnumerable<RelatedContentData> dataList)
+    {
+        //Create a list of content types that we want to send Event Grid messages for.  Messages will not be sent for any other content types not in the list. 
         var contentTypes = new List<string> {
             nameof(ContentTypes.Page),
             nameof(ContentTypes.JobProfile),
             nameof(ContentTypes.PersonalityQuestionSet),
-            nameof(ContentTypes.PersonalityTrait),
-            nameof(ContentTypes.PersonalityFilteringQuestion),
-            };
+        };
 
-        result?
+        dataList?
         .Where(x => contentTypes.Contains(x.ContentType))
         .ToList().ForEach(x => _eventGridHandler.SendEventMessageAsync(x, ContentEventType.StaxUpdate));
+    }
+
+    private async Task SendMetadataOnlyMessage(string metadata, ContentEventType eventType)
+    {
+        var messageData = new RelatedContentData()
+        {
+            DisplayText = string.Empty,
+            Author = "STAX automated message",
+            ContentItemId = string.Empty,
+            ContentType = metadata,
+            FullPageUrl = string.Empty,
+            GraphSyncId = string.Empty,
+        };
+
+        await _eventGridHandler.SendEventMessageAsync(messageData, eventType);
     }
 
     private RelatedContentData TransformData(Processing processing, ContentItem contentItem)
     {
         var contentData = _mapper.Map<RelatedContentData>(processing);
-        contentData.FullPageUrl = contentItem?.PageLocationParts != null ? contentItem?.PageLocationParts?.FullUrl : string.Empty;
-        contentData.GraphSyncId = contentItem?.GraphSyncParts?.Text != null ? contentItem?.GraphSyncParts?.Text : string.Empty;
+        contentData.FullPageUrl = (contentItem?.PageLocationParts?.FullUrl) ?? string.Empty;
+        contentData.GraphSyncId = (contentItem?.GraphSyncParts?.Text) ?? string.Empty;
         return contentData;
-    }
-
-    private async Task ProcessItem(Processing processing)
-    {
-        try
-        {
-            if (Enum.IsDefined(typeof(ContentTypes), processing.ContentType))
-            {
-                switch (processing.ContentType)
-                {
-                    case nameof(ContentTypes.SharedContent):
-                        await _director.ProcessSharedContentAsync(processing);
-                        break;
-                    case nameof(ContentTypes.Page):
-                        await _director.ProcessPageAsync(processing);
-                        break;
-                    case nameof(ContentTypes.Banner):
-                        await _director.ProcessBannerAsync(processing);
-                        break;
-                    case nameof(ContentTypes.JobProfileCategory):
-                        await _director.ProcessJobProfileCategoryAsync(processing);
-                        break;
-                    case nameof(ContentTypes.Pagebanner):
-                        await _director.ProcessPagebannerAsync(processing);
-                        break;
-                    case nameof(ContentTypes.TriageToolFilter):
-                        await _director.ProcessTriageToolFilterAsync(processing);
-                        break;
-                    case nameof(ContentTypes.PersonalityFilteringQuestion):
-                        await _director.ProcessPersonalityFilteringQuestionAsync(processing);
-                        break;
-                    case nameof(ContentTypes.PersonalityQuestionSet):
-                        await _director.ProcessPersonalityQuestionSetAsync(processing);
-                        break;
-                    case nameof(ContentTypes.PersonalityShortQuestion):
-                        await _director.ProcessPersonalityShortQuestionAsync(processing);
-                        break;
-                    case nameof(ContentTypes.PersonalityTrait):
-                        await _director.ProcessPersonalityTraitAsync(processing);
-                        break;
-                    case nameof(ContentTypes.SOCSkillsMatrix):
-                        await _director.ProcessSOCSkillsMatrixAsync(processing);
-                        break;
-                    case nameof(ContentTypes.WorkingPatterns):
-                        await _director.ProcessWorkingPatternsAsync(processing);
-                        break;
-                    case nameof(ContentTypes.WorkingPatternDetail):
-                        await _director.ProcessWorkingPatternDetailAsync(processing);
-                        break;
-                    case nameof(ContentTypes.WorkingHoursDetail):
-                        await _director.ProcessWorkingHoursDetailAsync(processing);
-                        break;
-                    case nameof(ContentTypes.Skill):
-                        await _director.ProcessSkillsAsync(processing);
-                        break;
-                    case nameof(ContentTypes.Taxonomy):
-                        await _director.ProcessTaxonomyAsync(processing);
-                        break;
-                    default:
-                        _logger.LogError($"ProcessItem. Content Item Id: {processing.DocumentId}, Content Type could not be determined: {processing.ContentType}, Event Type: {processing.EventType}");
-                        break;
-                }
-            }
-        }
-        catch (Exception exception)
-        {
-            _logger.LogError(exception, $"ProcessItem. Content Item Id: {processing.DocumentId}, Content Type could not be determined: {processing.ContentType}, Event Type: {processing.EventType}.");
-        }
     }
 
     private Processing GetProcessingData(ContentContextBase currentContext, ProcessingEvents processingEvent, FilterType filterType)
