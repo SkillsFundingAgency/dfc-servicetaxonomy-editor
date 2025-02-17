@@ -257,54 +257,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.CompUi
         [DebuggerStepThrough]
         private ICacheHandler ConfigureCacheHandler()
         {
-            var inMemoryConfigSettings = new Dictionary<string, string> {
-                { "EventGridAllowedContentList:0", "ApprenticeshipEntryRequirements" },
-                { "EventGridAllowedContentList:1", "ApprenticeshipLink" },
-                { "EventGridAllowedContentList:2", "ApprenticeshipRequirements" },
-                { "EventGridAllowedContentList:3", "Banner" },
-                { "EventGridAllowedContentList:4", "CollegeEntryRequirements" },
-                { "EventGridAllowedContentList:5", "CollegeLink" },
-                { "EventGridAllowedContentList:6", "CollegeRequirements" },
-                { "EventGridAllowedContentList:7", "DigitalSkills" },
-                { "EventGridAllowedContentList:8", "DynamicTitlePrefix" },
-                { "EventGridAllowedContentList:9", "Environment" },
-                { "EventGridAllowedContentList:10", "Footer" },
-                { "EventGridAllowedContentList:11", "Header" },
-                { "EventGridAllowedContentList:12", "HiddenAlternativeTitle" },
-                { "EventGridAllowedContentList:13", "JobProfile" },
-                { "EventGridAllowedContentList:14", "JobProfileCategory" },
-                { "EventGridAllowedContentList:15", "JobProfileSector" },
-                { "EventGridAllowedContentList:16", "JobProfileSpecialism" },
-                { "EventGridAllowedContentList:17", "Location" },
-                { "EventGridAllowedContentList:18", "Page" },
-                { "EventGridAllowedContentList:19", "Pagebanner" },
-                { "EventGridAllowedContentList:20", "PersonalityFilteringQuestion" },
-                { "EventGridAllowedContentList:21", "PersonalityQuestionSet" },
-                { "EventGridAllowedContentList:22", "PersonalityShortQuestion" },
-                { "EventGridAllowedContentList:23", "PersonalityTrait" },
-                { "EventGridAllowedContentList:24", "RealStory" },
-                { "EventGridAllowedContentList:25", "Registration" },
-                { "EventGridAllowedContentList:26", "Restriction" },
-                { "EventGridAllowedContentList:27", "SectorLandingPage" },
-                { "EventGridAllowedContentList:28", "SharedContent" },
-                { "EventGridAllowedContentList:29", "Skill" },
-                { "EventGridAllowedContentList:30", "SOCCode" },
-                { "EventGridAllowedContentList:31", "Taxonomy" },
-                { "EventGridAllowedContentList:32", "Uniform" },
-                { "EventGridAllowedContentList:33", "UniversityEntryRequirements" },
-                { "EventGridAllowedContentList:34", "UniversityLink" },
-                { "EventGridAllowedContentList:35", "UniversityRequirements" },
-                { "EventGridAllowedContentList:36", "WorkingHoursDetail" },
-                { "EventGridAllowedContentList:37", "WorkingPatternDetail" },
-                { "EventGridAllowedContentList:38", "WorkingPatterns" },
-                { "EventGridAllowedContentList:39", "ApplicationView" },
-                { "EventGridAllowedContentList:40", "FilterAdviceGroup" },
-                { "EventGridAllowedContentList:41", "TriageLevelOne" },
-                { "EventGridAllowedContentList:42", "TriageLevelTwo" },
-                { "EventGridAllowedContentList:43", "TriageResultTile" },
-                { "EventGridAllowedPagesList:0", "find-a-course" },
-                { "EventGridAllowedPagesList:1", "404" }
-            };
+            var inMemoryConfigSettings = new Dictionary<string, string>();
 
 #pragma warning disable CS8620 // Argument cannot be used for parameter due to differences in the nullability of reference types.
             var configuration = new ConfigurationBuilder()
