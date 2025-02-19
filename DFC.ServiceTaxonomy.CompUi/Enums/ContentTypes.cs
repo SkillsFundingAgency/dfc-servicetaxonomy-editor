@@ -39,6 +39,7 @@
         TriageLevelOne,
         TriageLevelTwo,
         TriageResultTile,
+        TriageFilterAdviceGroupImage,
         Uniform,
         UniversityEntryRequirements,
         UniversityLink,

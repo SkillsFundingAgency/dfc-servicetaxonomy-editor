@@ -93,7 +93,7 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
 
             switch (processing.ContentType)
             {
-                case nameof(ContentTypes.Page): //when contentEventType == ContentEventType.StaxUpdate:
+                case nameof(ContentTypes.Page):
                     await SendMetadataOnlyMessage(MetadataPage, contentEventType);
 
                     if (contentEventType == ContentEventType.StaxUpdate)
@@ -109,7 +109,7 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
                     await ProcessGenericContentType(processing, current);
                     await ProcessJobProfilesLinkingtoSectorLandingPages(processing);
                     break;
-                case nameof(ContentTypes.JobProfileCategory): //when contentEventType == ContentEventType.StaxUpdate:
+                case nameof(ContentTypes.JobProfileCategory):
                     await SendMetadataOnlyMessage(MetadataJobProfileCategory, contentEventType);
 
                     if (contentEventType == ContentEventType.StaxUpdate)
@@ -125,7 +125,7 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
                     await _eventGridHandler.SendEventMessageAsync(TransformData(processing, current), contentEventType);
                     await ProcessRelatedContent(processing);
                     break;
-                case nameof(ContentTypes.JobProfile):  //when contentEventType == ContentEventType.StaxUpdate:
+                case nameof(ContentTypes.JobProfile):
                     await SendMetadataOnlyMessage(MetadataJobProfile, contentEventType);
 
                     if (contentEventType == ContentEventType.StaxUpdate)
@@ -133,8 +133,16 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
                         await ProcessGenericContentType(processing, current);
                     }
                     break;
-                case nameof(ContentTypes.ApprenticeshipEntryRequirements):
                 case nameof(ContentTypes.ApprenticeshipLink):
+                    await _eventGridHandler.SendEventMessageAsync(TransformData(processing, current), contentEventType);
+
+                    // Only want the message to be sent for related items to update an affected job profile.
+                    if (contentEventType == ContentEventType.StaxUpdate)
+                    {
+                        await ProcessRelatedContent(processing);
+                    }
+                    break;
+                case nameof(ContentTypes.ApprenticeshipEntryRequirements):
                 case nameof(ContentTypes.ApprenticeshipRequirements):
                 case nameof(ContentTypes.CollegeEntryRequirements):
                 case nameof(ContentTypes.CollegeLink):
@@ -174,17 +182,14 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
                     await _eventGridHandler.SendEventMessageAsync(TransformData(processing, current), contentEventType);
                     await ProcessRelatedContent(processing);
                     break;
-
-
-                //To be merged into the above list when complete
                 case nameof(ContentTypes.ApplicationView):
                 case nameof(ContentTypes.FilterAdviceGroup):
                 case nameof(ContentTypes.TriageLevelOne):
                 case nameof(ContentTypes.TriageLevelTwo):
                 case nameof(ContentTypes.TriageResultTile):
                 case nameof(ContentTypes.TriageToolFilter):
+                case nameof(ContentTypes.TriageFilterAdviceGroupImage):
                     await _eventGridHandler.SendEventMessageAsync(TransformData(processing, current), contentEventType);
-                    //await ProcessRelatedContent(processing);
                     break;
                 default:
                     await _eventGridHandler.SendEventMessageAsync(TransformData(processing, current), contentEventType);
