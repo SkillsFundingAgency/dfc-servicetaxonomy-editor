@@ -14,51 +14,26 @@
 @{
     ContentItem contentItem = Model.ContentItem;
     var redirectUris = Configuration.GetSection(ConfigKeys.PreviewRedirectUri).Get<List<PreviewRedirectUri>>();
-    var allowedPages = Configuration.GetSection(ConfigKeys.EventGridAllowedPagesList).Get<List<string>>() ?? new List<string>();
-    var allowedContentTypes = Configuration.GetSection(ConfigKeys.EventGridAllowedContentType).Get<List<string>>() ?? new List<string>();
     var previewId = Guid.NewGuid();
     var hasPreviewPermission = await AuthorizationService.AuthorizeAsync(User, CommonPermissions.PreviewContent, contentItem);
-    var isAllowedContent = allowedContentTypes.Any(a => a.Contains(contentItem.ContentType));
     var isPreviewRequired = Configuration.GetSection(ConfigKeys.RequiredPreviewContentItems).Get<List<string>>() ?? new List<string>();
-
-    //Temp key used to determine if preview button should use new redirect url. Can be removed when page filtering is no longer needed.
-    var isNcsPreview = false;
-
-    //Temp keys used for proving if page is valid within allowed page list.
     var previewURI = string.Empty;
 }
 
 @if (isPreviewRequired.Any(previewItem => previewItem.Contains(contentItem.ContentType)))
 {
-    //Temp check to see if page url matches approved page routes within appsettings.
-    @if (contentItem.ContentType == ContentTypes.Page && isAllowedContent)
+    if (redirectUris?.Count > 0)
     {
-        var pageLocation = contentItem.Content[nameof(PageLocationPart)][nameof(PageLocationPart.FullUrl)].ToString();
-        @if (allowedPages.Any(pageUrl => pageLocation.Contains(pageUrl)))
+        previewURI = contentItem.ContentType switch
         {
-            previewURI = pageLocation;
-            isNcsPreview = true;
-        }
-        else
-        {
-            previewURI = string.Concat(PagesConfig.Value.PreviewAppPrefix, pageLocation);
-        }
-    }
-    else if (isAllowedContent)
-    {
-        if (redirectUris?.Count > 0)
-        {
-            previewURI = contentItem.ContentType switch
-            {
-                ContentTypes.JobProfile => string.Concat(redirectUris.Where(Uri => Uri.ContentType == ContentTypes.JobProfile).Select(uri => uri.RedirectUri).FirstOrDefault(), contentItem.Content[nameof(PageLocationPart)][nameof(PageLocationPart.FullUrl)].ToString()),
-                ContentTypes.JobProfileSector => redirectUris.Where(Uri => Uri.ContentType == ContentTypes.JobProfileSector).Select(uri => uri.RedirectUri).FirstOrDefault(),
-                ContentTypes.SectorLandingPage => string.Concat(redirectUris.Where(Uri => Uri.ContentType == ContentTypes.JobProfileSector).Select(uri => uri.RedirectUri).FirstOrDefault(), contentItem.Content[nameof(PageLocationPart)][nameof(PageLocationPart.FullUrl)].ToString()),
-                ContentTypes.Header => redirectUris?.Where(uri => uri.ContentType == ContentTypes.Header).Select(uri => uri.RedirectUri).FirstOrDefault(),
-                ContentTypes.Footer => redirectUris?.Where(uri => uri.ContentType == ContentTypes.Footer).Select(uri => uri.RedirectUri).FirstOrDefault(),
-                _ => string.Empty
-            };
-        }
-        isNcsPreview = true;
+			ContentTypes.Page => string.Concat(contentItem.Content[nameof(PageLocationPart)][nameof(PageLocationPart.FullUrl)].ToString()),
+            ContentTypes.JobProfile => string.Concat(redirectUris.Where(Uri => Uri.ContentType == ContentTypes.JobProfile).Select(uri => uri.RedirectUri).FirstOrDefault(), contentItem.Content[nameof(PageLocationPart)][nameof(PageLocationPart.FullUrl)].ToString()),
+            ContentTypes.JobProfileSector => redirectUris.Where(Uri => Uri.ContentType == ContentTypes.JobProfileSector).Select(uri => uri.RedirectUri).FirstOrDefault(),
+            ContentTypes.SectorLandingPage => string.Concat(redirectUris.Where(Uri => Uri.ContentType == ContentTypes.JobProfileSector).Select(uri => uri.RedirectUri).FirstOrDefault(), contentItem.Content[nameof(PageLocationPart)][nameof(PageLocationPart.FullUrl)].ToString()),
+            ContentTypes.Header => redirectUris?.Where(uri => uri.ContentType == ContentTypes.Header).Select(uri => uri.RedirectUri).FirstOrDefault(),
+            ContentTypes.Footer => redirectUris?.Where(uri => uri.ContentType == ContentTypes.Footer).Select(uri => uri.RedirectUri).FirstOrDefault(),
+            _ => string.Empty
+        };
     }
 
     bool allowPagePreview = !string.IsNullOrWhiteSpace(contentItem.ContentItemVersionId) && contentItem.HasDraft();
@@ -66,14 +41,7 @@
     <div class="btn-group btn-group-approval">
         @if (allowPagePreview)
         {
-            @if (isNcsPreview)
-            {
-                <a href="@($"{previewURI}")" target="_blank" class="btn btn-info" onclick="handlePreviewClick(); return false;">@T["Preview draft"]</a>
-            }
-            else
-            {
-                <a href="@($"{previewURI}")" target="_blank" class="btn btn-info">@T["Preview draft"]</a>
-            }
+            <a href="@($"{previewURI}")" target="_blank" class="btn btn-info" onclick="handlePreviewClick(); return false;">@T["Preview draft"]</a>
         }
         else
         {
