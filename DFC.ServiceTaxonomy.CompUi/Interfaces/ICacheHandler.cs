@@ -8,8 +8,6 @@ namespace DFC.ServiceTaxonomy.CompUi.Interfaces
     {
         Task ProcessPublishedAsync(PublishContentContext context);
 
-        Task ProcessDraftSavedAsync(SaveDraftContentContext context);
-
         Task ProcessRemovedAsync(RemoveContentContext context);
 
         Task ProcessUnpublishedAsync(PublishContentContext context);
