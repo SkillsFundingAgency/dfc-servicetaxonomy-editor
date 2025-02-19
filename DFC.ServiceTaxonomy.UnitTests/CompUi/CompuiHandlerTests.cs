@@ -211,7 +211,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.CompUi
 
         [Theory]
         [InlineData(ContentTypes.ApprenticeshipEntryRequirements, ContentTypes.JobProfile, 2, 2)]
-        [InlineData(ContentTypes.ApprenticeshipLink, ContentTypes.JobProfile, 2, 2)]
+        [InlineData(ContentTypes.ApprenticeshipLink, ContentTypes.JobProfile, 3, 2)]
         [InlineData(ContentTypes.ApprenticeshipRequirements, ContentTypes.JobProfile, 2, 2)]
         [InlineData(ContentTypes.CollegeEntryRequirements, ContentTypes.JobProfile, 2, 2)]
         [InlineData(ContentTypes.CollegeLink, ContentTypes.JobProfile, 2, 2)]
