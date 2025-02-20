@@ -127,9 +127,6 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
                     };
 
                     break;
-                case nameof(ContentTypes.Skill) when contentEventType == ContentEventType.StaxUpdate:
-                    await _eventGridHandler.SendEventMessageAsync(TransformData(processing, current), contentEventType);
-                    break;
                 case nameof(ContentTypes.JobProfileSector) when contentEventType == ContentEventType.StaxUpdate:
                     await _eventGridHandler.SendEventMessageAsync(TransformData(processing, current), contentEventType);
                     await ProcessRelatedContent(processing);
@@ -176,17 +173,6 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
                 case nameof(ContentTypes.SOCSkillsMatrix):
                     await _eventGridHandler.SendEventMessageAsync(TransformData(processing, current), contentEventType);
                     await ProcessRelatedContent(processing);
-                    break;
-                case nameof(ContentTypes.PersonalityQuestionSet):
-                case nameof(ContentTypes.PersonalityFilteringQuestion):
-                case nameof(ContentTypes.ApplicationView):
-                case nameof(ContentTypes.FilterAdviceGroup):
-                case nameof(ContentTypes.TriageLevelOne):
-                case nameof(ContentTypes.TriageLevelTwo):
-                case nameof(ContentTypes.TriageResultTile):
-                case nameof(ContentTypes.TriageToolFilter):
-                case nameof(ContentTypes.TriageFilterAdviceGroupImage):
-                    await _eventGridHandler.SendEventMessageAsync(TransformData(processing, current), contentEventType);
                     break;
                 default:
                     await _eventGridHandler.SendEventMessageAsync(TransformData(processing, current), contentEventType);
