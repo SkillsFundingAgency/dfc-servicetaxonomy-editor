@@ -12,6 +12,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="CsvHelper" Version="33.0.1" />
+    <PackageReference Include="DfE.NCS.Web.ExploreCareers.Data" Version="1.0.7" />
     <PackageReference Include="OrchardCore.ContentManagement" Version="1.6.0" />
     <PackageReference Include="OrchardCore.ContentTypes.Abstractions" Version="1.6.0" />
     <PackageReference Include="OrchardCore.DisplayManagement" Version="1.6.0" />
