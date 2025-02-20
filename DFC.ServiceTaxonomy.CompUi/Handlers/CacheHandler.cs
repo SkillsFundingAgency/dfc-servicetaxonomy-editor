@@ -93,12 +93,17 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
             {
                 case nameof(ContentTypes.Page):
                 case nameof(ContentTypes.JobProfile):
-                    await _eventGridHandler.SendEventMessageAsync(new RelatedContentData { ContentType = processing.ContentType + MetadataValue }, contentEventType);
+                    await _eventGridHandler.SendEventMessageAsync(new RelatedContentData { ContentType = processing.ContentType.ToLower() + MetadataValue }, contentEventType);
 
                     if (contentEventType == ContentEventType.StaxUpdate)
                     {
                         await ProcessContentUrlUpdate(processing, current);
                     }
+                    else
+                    {
+                        await _eventGridHandler.SendEventMessageAsync(TransformData(processing, current), contentEventType);
+                    };
+
                     break;
                 case nameof(ContentTypes.SharedContent) when contentEventType != ContentEventType.StaxCreate:
                     await _eventGridHandler.SendEventMessageAsync(TransformData(processing, current), contentEventType);
@@ -109,13 +114,18 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
                     await ProcessRelatedContent(processing);
                     break;
                 case nameof(ContentTypes.JobProfileCategory):
-                    await _eventGridHandler.SendEventMessageAsync(new RelatedContentData { ContentType = processing.ContentType + MetadataValue }, contentEventType);
+                    await _eventGridHandler.SendEventMessageAsync(new RelatedContentData { ContentType = processing.ContentType.ToLower() + MetadataValue }, contentEventType);
 
                     if (contentEventType == ContentEventType.StaxUpdate)
                     {
                         await ProcessContentUrlUpdate(processing, current);
                         await ProcessRelatedContent(processing);
                     }
+                    else
+                    {
+                        await _eventGridHandler.SendEventMessageAsync(TransformData(processing, current), contentEventType);
+                    };
+
                     break;
                 case nameof(ContentTypes.Skill) when contentEventType == ContentEventType.StaxUpdate:
                     await _eventGridHandler.SendEventMessageAsync(TransformData(processing, current), contentEventType);
@@ -162,9 +172,6 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
                         await ProcessRelatedContent(processing);
                     }
                     break;
-               /* case nameof(ContentTypes.PersonalityShortQuestion):
-                    await ProcessRelatedContent(processing);
-                    break;*/
                 case nameof(ContentTypes.PersonalityTrait):
                 case nameof(ContentTypes.SOCSkillsMatrix):
                     await _eventGridHandler.SendEventMessageAsync(TransformData(processing, current), contentEventType);
@@ -203,15 +210,6 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
             await _eventGridHandler.SendEventMessageAsync(TransformData(processing, currentContent), ContentEventType.StaxUpdate);
         }
     }
-
-   /* private async Task ProcessJobProfilesLinkingtoSectorLandingPages(Processing processing)
-    {
-        var result = await _relatedContentItemIndexRepository.GetRelatedContentDataByContentItemIdAndPage(processing);
-
-        result?
-            .Where(x => x.ContentType == nameof(ContentTypes.JobProfile))
-            .ToList().ForEach(x => _eventGridHandler.SendEventMessageAsync(x, ContentEventType.StaxUpdate));
-    }*/
 
     /// <summary>
     /// This method gets the related content items from RelatedContentItemIndex table the current item and then updates the related items where required too. 
