@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using DFC.ServiceTaxonomy.JobProfiles.Exporter.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using OrchardCore.Admin;
 
@@ -7,10 +8,12 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Exporter.Controllers
     public class AdminController : Controller
     {
         private readonly IAuthorizationService _authorizationService;
+        private readonly IJobProfilesService _jobProfilesService;
 
-        public AdminController(IAuthorizationService authorizationService)
+        public AdminController(IAuthorizationService authorizationService, IJobProfilesService jobProfilesService)
         {
             _authorizationService = authorizationService;
+            _jobProfilesService = jobProfilesService;
         }
 
         [Admin]
@@ -22,7 +25,11 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Exporter.Controllers
                 return Forbid();
             }
 
-            return View();
+            var csvStream = await _jobProfilesService.GenerateCsvStreamAsync();
+            csvStream.Position = 0;
+
+            string fileName = $"job_profiles_{DateTime.UtcNow:dd-MM-yyyy}.csv";
+            return File(csvStream, "text/csv", fileName);
         }
     }
 }
