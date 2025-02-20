@@ -36,8 +36,8 @@ namespace DFC.ServiceTaxonomy.Title.Indexes
 
                 // Search for this part.
                 var contentTypeDefinition =
-                    _contentDefinitionManager.GetTypeDefinition(context.ContentItem.ContentType);
-                if (!contentTypeDefinition.Parts.Any(ctpd => ctpd.Name == nameof(UniqueTitlePart)))
+                    _contentDefinitionManager.GetTypeDefinitionAsync(context.ContentItem.ContentType);
+                if (!contentTypeDefinition.Result.Parts.Any(ctpd => ctpd.Name == nameof(UniqueTitlePart)))
                 {
                     context.ContentItem.Remove<UniqueTitlePart>();
                     _partRemoved.Add(context.ContentItem.ContentItemId);
