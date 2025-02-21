@@ -339,8 +339,13 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
     {
         if (contentType == ContentTypes.JobProfile.ToString())
         {
-            var current = JsonConvert.DeserializeObject<Models.ContentItem>(currentContent);
-            var previous = JsonConvert.DeserializeObject<Models.ContentItem>(previousContent);
+            var current = JsonConvert.DeserializeObject<ContentItem>(currentContent);
+
+            ContentItem? previous = null;
+            if (previousContent != null)
+            {
+                previous = JsonConvert.DeserializeObject<ContentItem>(previousContent);
+            }
 
             if (previous?.PageLocationParts != null || current.PageLocationParts != null)
             {
