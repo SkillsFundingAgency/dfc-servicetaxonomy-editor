@@ -2,7 +2,6 @@
 {
     public enum ProcessingEvents
     {
-        DraftSaved,
         Published,
         Removed,
         Unpublished,
