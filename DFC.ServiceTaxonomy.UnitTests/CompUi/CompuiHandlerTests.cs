@@ -2,11 +2,9 @@
 using System.Diagnostics;
 using System.Threading.Tasks;
 using AutoMapper;
-using DFC.ServiceTaxonomy.CompUi.Dapper;
 using DFC.ServiceTaxonomy.CompUi.Enums;
 using DFC.ServiceTaxonomy.CompUi.Handlers;
 using DFC.ServiceTaxonomy.CompUi.Interfaces;
-using DFC.ServiceTaxonomy.CompUi.Model;
 using DFC.ServiceTaxonomy.CompUi.Models;
 using DfE.NCS.Framework.Event.Model;
 using FakeItEasy;
@@ -19,9 +17,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.CompUi
 {
     public partial class CompuiHandlerTests
     {
-        private readonly IDbConnectionAccessor _fakeDbaAccessor;
         private readonly ILogger<CacheHandler> _fakeLogger;
-        private readonly IDapperWrapper _fakeDapperWrapper;
         public readonly IMapper _mapper;
         public readonly IConfiguration _configuration;
         private readonly IDataService _relatedContentItemIndexRepository;
@@ -29,35 +25,12 @@ namespace DFC.ServiceTaxonomy.UnitTests.CompUi
 
         public CompuiHandlerTests()
         {
-            _fakeDbaAccessor = A.Fake<IDbConnectionAccessor>();
             _fakeLogger = A.Fake<ILogger<CacheHandler>>();
-            _fakeDapperWrapper = A.Fake<IDapperWrapper>();
             _mapper = A.Fake<IMapper>();
             _configuration = A.Fake<IConfiguration>();
             _relatedContentItemIndexRepository = A.Fake<IDataService>();
             _eventGridHandler = A.Fake<IEventGridHandler>();
         }
-
-        #region Publish Tests       
-        [Fact]
-        public async Task PublishNoNodeIdsFoundInDatabase()
-        {
-            //Arrange 
-            var nodeList = new List<NodeItem>();
-            var fakeConnection = _fakeDbaAccessor.CreateConnection();
-
-            A.CallTo(() => _fakeDapperWrapper.QueryAsync<NodeItem>(fakeConnection, A<string>.Ignored)).Returns(nodeList);
-            //A.CallTo(() => _fakeSharedContentRedisInterface.InvalidateEntityAsync(A<string>.Ignored)).Returns(true);
-
-            //Act 
-            //var result =
-            await _fakeDapperWrapper.QueryAsync<NodeItem>(fakeConnection, "SELECT * FROM TABLE");
-
-            //Assert
-            A.CallTo(() => _fakeDapperWrapper.QueryAsync<NodeItem>(fakeConnection, A<string>.Ignored)).MustHaveHappenedOnceExactly();
-            //A.CallTo(() => _fakeSharedContentRedisInterface.InvalidateEntityAsync(A<string>.Ignored)).MustNotHaveHappened();
-        }
-        #endregion
 
         [Fact]
         public async Task SendEventGridMessage_Page_Update()
@@ -99,7 +72,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.CompUi
             await cacheHandler.ProcessEventGridMessage(processing, ContentEventType.StaxCreate);
 
             //Assert
-            A.CallTo(() => _eventGridHandler.SendEventMessageAsync(A<RelatedContentData>.Ignored, ContentEventType.StaxCreate)).MustHaveHappenedOnceExactly();
+            A.CallTo(() => _eventGridHandler.SendEventMessageAsync(A<RelatedContentData>.Ignored, ContentEventType.StaxCreate)).MustHaveHappenedTwiceExactly();
         }
 
         [Fact]

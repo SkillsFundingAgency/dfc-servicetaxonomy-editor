@@ -18,9 +18,7 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
     private readonly IEventGridHandler _eventGridHandler;
     private readonly IDataService _relatedContentItemIndexRepository;
 
-    private const string MetadataPage = "page-metadata";
-    private const string MetadataJobProfile = "jobprofile-metadata";
-    private const string MetadataJobProfileCategory = "jobprofilecategory-metadata";
+    private const string MetadataValue = "-metadata";
 
     public CacheHandler(
         ILogger<CacheHandler> logger,
@@ -53,7 +51,7 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
 
     public async Task ProcessPublishedAsync(PublishContentContext context)
     {
-        var processing = GetProcessingData(context, context.PreviousItem?.Content?.ToString(), ProcessingEvents.Published, FilterType.PUBLISHED);
+        var processing = GetProcessingData(context, context.PreviousItem?.Content?.ToString() ?? string.Empty);
 
         await base.PublishedAsync(context);
 
@@ -63,7 +61,7 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
 
     public async Task ProcessRemovedAsync(RemoveContentContext context)
     {
-        var processing = GetProcessingData(context, ProcessingEvents.Removed, FilterType.PUBLISHED);
+        var processing = GetProcessingData(context, string.Empty);
 
         await base.RemovedAsync(context);
 
@@ -72,7 +70,7 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
 
     public async Task ProcessUnpublishedAsync(PublishContentContext context)
     {
-        var processing = GetProcessingData(context, context.PreviousItem?.Content?.ToString() ?? context.ContentItem.Content.ToString(), ProcessingEvents.Unpublished, FilterType.PUBLISHED);
+        var processing = GetProcessingData(context, context.PreviousItem?.Content?.ToString() ?? context.ContentItem.Content.ToString());
 
         await base.UnpublishedAsync(context);
 
@@ -94,44 +92,44 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
             switch (processing.ContentType)
             {
                 case nameof(ContentTypes.Page):
-                    await SendMetadataOnlyMessage(MetadataPage, contentEventType);
+                case nameof(ContentTypes.JobProfile):
+                    await _eventGridHandler.SendEventMessageAsync(new RelatedContentData { ContentType = processing.ContentType.ToLower() + MetadataValue }, contentEventType);
 
                     if (contentEventType == ContentEventType.StaxUpdate)
                     {
-                        await ProcessGenericContentType(processing, current);
+                        await ProcessContentUrlUpdate(processing, current);
                     }
+                    else
+                    {
+                        await _eventGridHandler.SendEventMessageAsync(TransformData(processing, current), contentEventType);
+                    };
+
                     break;
-                case nameof(ContentTypes.SharedContent) when processing.EventType != ProcessingEvents.Created:
+                case nameof(ContentTypes.SharedContent) when contentEventType != ContentEventType.StaxCreate:
                     await _eventGridHandler.SendEventMessageAsync(TransformData(processing, current), contentEventType);
                     await ProcessRelatedContent(processing);
                     break;
                 case nameof(ContentTypes.SectorLandingPage) when contentEventType == ContentEventType.StaxUpdate:
-                    await ProcessGenericContentType(processing, current);
-                    await ProcessJobProfilesLinkingtoSectorLandingPages(processing);
+                    await ProcessContentUrlUpdate(processing, current);
+                    await ProcessRelatedContent(processing);
                     break;
                 case nameof(ContentTypes.JobProfileCategory):
-                    await SendMetadataOnlyMessage(MetadataJobProfileCategory, contentEventType);
+                    await _eventGridHandler.SendEventMessageAsync(new RelatedContentData { ContentType = processing.ContentType.ToLower() + MetadataValue }, contentEventType);
 
                     if (contentEventType == ContentEventType.StaxUpdate)
                     {
-                        await ProcessGenericContentType(processing, current);
+                        await ProcessContentUrlUpdate(processing, current);
                         await ProcessRelatedContent(processing);
                     }
-                    break;
-                case nameof(ContentTypes.Skill) when contentEventType == ContentEventType.StaxUpdate:
-                    await _eventGridHandler.SendEventMessageAsync(TransformData(processing, current), contentEventType);
+                    else
+                    {
+                        await _eventGridHandler.SendEventMessageAsync(TransformData(processing, current), contentEventType);
+                    };
+
                     break;
                 case nameof(ContentTypes.JobProfileSector) when contentEventType == ContentEventType.StaxUpdate:
                     await _eventGridHandler.SendEventMessageAsync(TransformData(processing, current), contentEventType);
                     await ProcessRelatedContent(processing);
-                    break;
-                case nameof(ContentTypes.JobProfile):
-                    await SendMetadataOnlyMessage(MetadataJobProfile, contentEventType);
-
-                    if (contentEventType == ContentEventType.StaxUpdate)
-                    {
-                        await ProcessGenericContentType(processing, current);
-                    }
                     break;
                 case nameof(ContentTypes.ApprenticeshipLink):
                     await _eventGridHandler.SendEventMessageAsync(TransformData(processing, current), contentEventType);
@@ -164,32 +162,17 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
                 case nameof(ContentTypes.WorkingHoursDetail):
                 case nameof(ContentTypes.WorkingPatternDetail):
                 case nameof(ContentTypes.WorkingPatterns):
+                case nameof(ContentTypes.PersonalityShortQuestion):
                     // Only want the message to be sent for related items to update an affected job profile.
                     if (contentEventType == ContentEventType.StaxUpdate)
                     {
                         await ProcessRelatedContent(processing);
                     }
                     break;
-                case nameof(ContentTypes.PersonalityQuestionSet):
-                case nameof(ContentTypes.PersonalityFilteringQuestion):
-                    await _eventGridHandler.SendEventMessageAsync(TransformData(processing, current), contentEventType);
-                    break;
-                case nameof(ContentTypes.PersonalityShortQuestion):
-                    await ProcessRelatedContent(processing);
-                    break;
                 case nameof(ContentTypes.PersonalityTrait):
                 case nameof(ContentTypes.SOCSkillsMatrix):
                     await _eventGridHandler.SendEventMessageAsync(TransformData(processing, current), contentEventType);
                     await ProcessRelatedContent(processing);
-                    break;
-                case nameof(ContentTypes.ApplicationView):
-                case nameof(ContentTypes.FilterAdviceGroup):
-                case nameof(ContentTypes.TriageLevelOne):
-                case nameof(ContentTypes.TriageLevelTwo):
-                case nameof(ContentTypes.TriageResultTile):
-                case nameof(ContentTypes.TriageToolFilter):
-                case nameof(ContentTypes.TriageFilterAdviceGroupImage):
-                    await _eventGridHandler.SendEventMessageAsync(TransformData(processing, current), contentEventType);
                     break;
                 default:
                     await _eventGridHandler.SendEventMessageAsync(TransformData(processing, current), contentEventType);
@@ -198,9 +181,9 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
         }
     }
 
-    private async Task ProcessGenericContentType(Processing processing, ContentItem currentContent)
+    private async Task ProcessContentUrlUpdate(Processing processing, ContentItem currentContent)
     {
-        var previous = processing.PreviousContent != null ? JsonConvert.DeserializeObject<ContentItem>(processing.PreviousContent) : new ContentItem();
+        var previous = !string.IsNullOrEmpty(processing.PreviousContent) ? JsonConvert.DeserializeObject<ContentItem>(processing.PreviousContent) : new ContentItem();
         var pageUrlChanged = currentContent?.PageLocationParts?.FullUrl == previous?.PageLocationParts?.FullUrl ? false : true;
 
         if (pageUrlChanged)
@@ -212,15 +195,6 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
         {
             await _eventGridHandler.SendEventMessageAsync(TransformData(processing, currentContent), ContentEventType.StaxUpdate);
         }
-    }
-
-    private async Task ProcessJobProfilesLinkingtoSectorLandingPages(Processing processing)
-    {
-        var result = await _relatedContentItemIndexRepository.GetRelatedContentDataByContentItemIdAndPage(processing);
-
-        result?
-            .Where(x => x.ContentType == nameof(ContentTypes.JobProfile))
-            .ToList().ForEach(x => _eventGridHandler.SendEventMessageAsync(x, ContentEventType.StaxUpdate));
     }
 
     /// <summary>
@@ -272,21 +246,6 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
         .ToList().ForEach(x => _eventGridHandler.SendEventMessageAsync(x, ContentEventType.StaxUpdate));
     }
 
-    private async Task SendMetadataOnlyMessage(string metadata, ContentEventType eventType)
-    {
-        var messageData = new RelatedContentData()
-        {
-            DisplayText = string.Empty,
-            Author = "STAX automated message",
-            ContentItemId = string.Empty,
-            ContentType = metadata,
-            FullPageUrl = string.Empty,
-            GraphSyncId = string.Empty,
-        };
-
-        await _eventGridHandler.SendEventMessageAsync(messageData, eventType);
-    }
-
     private RelatedContentData TransformData(Processing processing, ContentItem contentItem)
     {
         var contentData = _mapper.Map<RelatedContentData>(processing);
@@ -295,44 +254,11 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
         return contentData;
     }
 
-    private Processing GetProcessingData(ContentContextBase currentContext, ProcessingEvents processingEvent, FilterType filterType)
-    {
-        return GetProcessingData(currentContext, string.Empty, processingEvent, filterType);
-    }
-
-    private Processing GetProcessingData(ContentContextBase currentContext, string previousContent, ProcessingEvents processingEvent, FilterType filterType)
+    private Processing GetProcessingData(ContentContextBase currentContext, string previousContent)
     {
         var processing = _mapper.Map<Processing>(currentContext);
         processing.PreviousContent = previousContent;
-        processing.EventType = processingEvent;
-        processing.FilterType = filterType.ToString();
-        processing.FullUrl = FullUrl(processing.CurrentContent, processing.PreviousContent, processing.ContentType);
 
         return processing;
-    }
-
-    private string? FullUrl(string currentContent, string previousContent, string contentType)
-    {
-        if (contentType == ContentTypes.JobProfile.ToString())
-        {
-            var current = JsonConvert.DeserializeObject<Models.ContentItem>(currentContent);
-            var previous = JsonConvert.DeserializeObject<Models.ContentItem>(previousContent);
-
-            if (previous?.PageLocationParts != null || current.PageLocationParts != null)
-            {
-                if (string.IsNullOrWhiteSpace(previous?.PageLocationParts.FullUrl))
-                {
-                    return current.PageLocationParts.FullUrl;
-                }
-                else if (current.PageLocationParts.FullUrl.Equals(previous?.PageLocationParts.FullUrl))
-                {
-                    return current.PageLocationParts.FullUrl;
-                }
-
-                return previous.PageLocationParts.FullUrl;
-            }
-        }
-
-        return null;
     }
 }
