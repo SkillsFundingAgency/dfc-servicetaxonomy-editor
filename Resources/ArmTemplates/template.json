@@ -324,6 +324,7 @@
                 "RedisCache__CacheExpirySeconds": "[parameters('RedisCacheCacheExpirySeconds')]",
                 "RedisCache__CacheKeyPrefix": "[parameters('RedisCacheCacheKeyPrefix')]",
                 "RedisCache__ConnectionString": "[format('@Microsoft.KeyVault(VaultName={0};SecretName=RedisConnectionString)', parameters('keyVaultName'))]",
+                "KeyVaultName": "[parameters('KeyVaultName')]"
             }
         },
         {
