@@ -1,10 +1,10 @@
 using OrchardCore.Modules.Manifest;
 
 [assembly: Module(
-    Name = "DFC.ServiceTaxonomy.JobProfiles.Exporter",
-    Author = "The Orchard Core Team",
-    Website = "https://orchardcore.net",
+    Name = "Job profiles data exporter",
+    Author = "National Careers Service",
+    Website = "https://github.com/SkillsFundingAgency/dfc-servicetaxonomy-editor",
     Version = "0.0.1",
-    Description = "DFC.ServiceTaxonomy.JobProfiles.Exporter",
+    Description = "Enables export option for job profiles data",
     Category = "DFC.ServiceTaxonomy.JobProfiles.Exporter"
 )]
