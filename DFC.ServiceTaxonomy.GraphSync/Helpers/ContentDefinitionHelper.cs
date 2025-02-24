@@ -18,8 +18,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.Helpers
         {
             try
             {
-                ContentTypeDefinition? contentTypeDefinition = contentDefinitionManager.GetTypeDefinition(
-                    GetCorrectlyCasedContentType(contentType, contentDefinitionManager));
+                ContentTypeDefinition? contentTypeDefinition = contentDefinitionManager.GetTypeDefinitionAsync(
+                    GetCorrectlyCasedContentType(contentType, contentDefinitionManager)).Result;
 
                 if (contentTypeDefinition != null)
                 {
@@ -56,7 +56,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Helpers
                 return typeFromCache;
             }
 
-            IEnumerable<ContentTypeDefinition>? contentTypeDefinitions = contentDefinitionManager.ListTypeDefinitions();
+            IEnumerable<ContentTypeDefinition>? contentTypeDefinitions = contentDefinitionManager.ListTypeDefinitionsAsync().Result;
             string correctlyCasedContentType = contentTypeDefinitions
                 .FirstOrDefault(item => item.Name.Equals(contentType, StringComparison.InvariantCultureIgnoreCase))?.Name ?? contentType;
 

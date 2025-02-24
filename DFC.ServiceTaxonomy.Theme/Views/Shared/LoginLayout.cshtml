@@ -1,9 +1,7 @@
-﻿@inject DarkModeService DarkModeService;
-@{
-    var darkMode = await DarkModeService.IsDarkModeAsync();
-}
+﻿@inject ThemeTogglerService ThemeTogglerService;
+
 <!DOCTYPE html>
-<html lang="@Orchard.CultureName()" dir="@Orchard.CultureDir()" data-theme="@DarkModeService.CurrentTheme">
+<html lang="@Orchard.CultureName()" dir="@Orchard.CultureDir()" data-theme="@ThemeTogglerService.CurrentTheme()">
 <head>
     <title>@RenderTitleSegments(Site.SiteName, "before")</title>
     <meta charset="utf-8">
