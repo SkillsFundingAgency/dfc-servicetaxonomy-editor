@@ -20,7 +20,7 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Exporter
                             .AddClass("icon-class-fa-solid fa-file-export")
                             .AddClass("export")
                             .Id("export")
-                            .Add(S["Export"], "1", export => export
+                            .Add(S["Export URLs"], "1", export => export
                                 .Permission(Permissions.ManageJobProfilesExporter)
                                 .Action("TriggerExport", "Admin", new { area = typeof(Startup)!.Namespace }))
                     );
