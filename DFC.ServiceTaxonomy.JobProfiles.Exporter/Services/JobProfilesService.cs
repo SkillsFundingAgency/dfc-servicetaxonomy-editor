@@ -166,7 +166,12 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Exporter.Services
         private static List<string> ExtractUrls(JsonElement element)
         {
             var urls = new List<string>();
+
+            #if NET9_0_OR_GREATER
+            System.Threading.Lock lockObj = new object();
+            #else
             var lockObj = new object();
+            #endif
 
             ExtractUrlsInternal(element);
             return urls;
