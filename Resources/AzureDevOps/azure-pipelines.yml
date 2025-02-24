@@ -175,6 +175,7 @@ stages:
       EventGridTopicAccessKey: $(SSP2SharedEventGridAccessKey)
       EncryptionKey: $(NcsPreviewEncryptionKey)
       CipherTextPrefix: $(NcsPreviewCipherTextPrefix)
+      RedisCacheConnectionString: $(RedisConnectionString)
 
 - stage: DeployToSit
   condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'))
