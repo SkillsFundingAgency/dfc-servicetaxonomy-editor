@@ -75,15 +75,9 @@ else
 	}
 	if (hasPublishPermission && hasViewPermission && hasPublished)
 	{
-		if (baseUrl != contentItemUrl)
-		{
-			<a href="@string.Concat(baseUrl, contentItemUrl)" target="_blank" class="dropdown-item btn-sm">@T["View published content"]</a>
-		}
-		else
-		{
-			// Used for header and footer view action flow
-			<a href="@($"{contentItemUrl}")" target="_blank" class="dropdown-item btn-sm">@T["View published content"]</a>
-		}
+		//Check for matching urls for header and footer content items
+		var publishedUrl = !string.Equals(baseUrl, contentItemUrl) ? string.Concat(baseUrl, contentItemUrl) : contentItemUrl;
+		<a href="@($"{publishedUrl}")" target="_blank" class="dropdown-item btn-sm">@T["View published content"]</a>
 	}
 }
 else
