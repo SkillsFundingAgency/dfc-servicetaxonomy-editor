@@ -227,6 +227,18 @@
         },
         "BaseUrlPath": {
             "type": "string"
+        },
+        "RedisCacheCacheEnabled":{
+            "type": "string"
+        },
+        "RedisCacheCacheExpirySeconds":{
+            "type": "int"
+        },
+        "RedisCacheCacheKeyPrefix":{
+            "type": "string"
+        },
+        "RedisCacheConnectionString":{
+            "type": "string"
         }
     },
     "variables": {
@@ -304,7 +316,11 @@
                 "PreviewRedirectUri:2:ContentType": "[parameters('PreviewRedirectUri:2:ContentType')]",
                 "PreviewRedirectUri:3:RedirectUri": "[parameters('PreviewRedirectUri:3:RedirectUri')]",
                 "PreviewRedirectUri:3:ContentType": "[parameters('PreviewRedirectUri:3:ContentType')]",
-                "BaseUrlPath": "[parameters('BaseUrlPath')]"
+                "BaseUrlPath": "[parameters('BaseUrlPath')]",
+                "RedisCacheCacheEnabled": "[parameters('RedisCacheCacheEnabled')]",
+                "RedisCacheCacheExpirySeconds": "[parameters('RedisCacheCacheExpirySeconds')]",
+                "RedisCacheCacheKeyPrefix": "[parameters('RedisCacheCacheKeyPrefix')]",
+                "RedisCacheConnectionString": "[parameters('RedisCacheConnectionString')]",
             }
         },
         {

@@ -220,6 +220,18 @@
         },
         "BaseUrlPath": {
             "value": "__BaseUrlPath__"
+        },
+        "RedisCacheCacheEnabled": {
+            "value": "__RedisCacheCacheEnabled__"
+        },
+        "RedisCacheCacheExpirySeconds": {
+            "value": "__RedisCacheCacheExpirySeconds__"
+        },
+        "RedisCacheCacheKeyPrefix": {
+            "value": "__RedisCacheCacheKeyPrefix__"
+        },
+        "RedisCacheConnectionString": {
+            "value": "__RedisCacheConnectionString__"
         }
     }
 }
