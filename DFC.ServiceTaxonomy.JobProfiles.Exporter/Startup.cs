@@ -26,6 +26,8 @@ public class Startup : StartupBase
 
     public override void ConfigureServices(IServiceCollection services)
     {
+        services.AddLogging();
+
         services.AddNcsCoreServices(Configuration);
 
         services.AddScoped<ICmsPreviewHandler, CmsPreviewHandler>();
