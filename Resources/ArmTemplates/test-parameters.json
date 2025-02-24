@@ -232,6 +232,9 @@
         },
         "RedisCacheConnectionString": {
             "value": "__RedisCacheConnectionString__"
+        },
+        "KeyVaultName": {
+            "value": "__KeyVaultName__"
         }
     }
 }
