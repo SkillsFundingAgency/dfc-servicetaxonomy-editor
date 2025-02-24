@@ -19,6 +19,7 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Exporter.Services
         private readonly IJobProfileDataRepository<JobProfileWhatYouWillDo> _whatYouWillDoRepository;
         private readonly IJobProfileDataRepository<JobProfileWhatItTakes> _whatItTakesRepository;
         private readonly ILogger<JobProfilesService> _logger;
+        private static readonly Regex UrlRegex = new(@"https?:\/\/[^\s""<>]+", RegexOptions.Compiled | RegexOptions.CultureInvariant);
 
         public JobProfilesService(
             IJobProfileRepository jobProfileRepository,
@@ -36,10 +37,80 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Exporter.Services
             _logger = logger;
         }
 
+        public async Task<MemoryStream> GenerateCsvStreamAsync()
+        {
+            _logger.LogInformation("Attempting to generate the CSV stream");
+
+            var jobProfilesUrls = await GetAllJobProfilesUrls();
+
+            var memoryStream = new MemoryStream();
+
+            await using (var writer = new StreamWriter(memoryStream, Encoding.UTF8, leaveOpen: true))
+            await using (var csv = new CsvWriter(writer, new CsvConfiguration(CultureInfo.InvariantCulture)))
+            {
+                csv.WriteField("Job Profile Name");
+                csv.WriteField("Full URL");
+                await csv.NextRecordAsync();
+
+                const int batchSize = 50;
+                int totalProfiles = jobProfilesUrls.Count;
+
+                for (int i = 0; i < totalProfiles; i += batchSize)
+                {
+                    var batch = jobProfilesUrls.Skip(i).Take(batchSize).ToList();
+
+                    var results = await Task.WhenAll(batch.Select(async url =>
+                    {
+                        string fullUrl = $"https://nationalcareers.service.gov.uk/job-profiles{url}";
+                        var dynamicUrls = new List<string>();
+
+                        try
+                        {
+                            var results = await GetAllUrlsForJobProfile(url);
+                            dynamicUrls.AddRange(results.SelectMany(r => r));
+                            _logger.LogInformation("Fetched {Count} URLs for job profile: {Url}", dynamicUrls.Count, url);
+                        }
+                        catch (Exception ex)
+                        {
+                            _logger.LogError(ex, "Failed to retrieve URLs for job profile: {Url}", url);
+                            dynamicUrls.Add("Error: Failed to retrieve URLs");
+                        }
+
+                        return new
+                        {
+                            JobProfileName = url,
+                            FullUrl = fullUrl,
+                            Urls = dynamicUrls
+                        };
+                    }));
+
+                    foreach (var result in results)
+                    {
+                        csv.WriteField(result.JobProfileName);
+                        csv.WriteField(result.FullUrl);
+
+                        foreach (string url in result.Urls)
+                        {
+                            csv.WriteField(url);
+                        }
+                        await csv.NextRecordAsync();
+                    }
+                }
+                await writer.FlushAsync();
+            }
+            memoryStream.Position = 0;
+
+            _logger.LogInformation("Successfully generated the CSV stream. {Count} job profiles processed", jobProfilesUrls.Count);
+
+            return memoryStream;
+        }
+
         public async Task<List<string>> GetAllJobProfilesUrls()
         {
             try
             {
+                _logger.LogInformation("Attempting to fetch all job profiles");
+
                 var jobProfiles = await _jobProfileRepository.LoadAll(new LoadAllRepoRequest());
 
                 List<string> fullUrls = jobProfiles
@@ -48,6 +119,7 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Exporter.Services
                     .OrderBy(url => url)
                     .ToList();
 
+                _logger.LogInformation("Found {Count} job profiles", fullUrls.Count);
                 return fullUrls;
             }
             catch (Exception ex)
@@ -57,57 +129,25 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Exporter.Services
             }
         }
 
-        public async Task<MemoryStream> GenerateCsvStreamAsync()
+        private async Task<List<string>[]> GetAllUrlsForJobProfile(string url)
         {
-            var jobProfilesUrls = await GetAllJobProfilesUrls();
-            var memoryStream = new MemoryStream();
-            var writer = new StreamWriter(memoryStream, Encoding.UTF8);
-            var csv = new CsvWriter(writer, new CsvConfiguration(CultureInfo.InvariantCulture));
-
-            // Dynamically determine column headers
-            bool headerWritten = false;
-
-            foreach (string url in jobProfilesUrls)
+            try
             {
-                string fullUrl = $"https://nationalcareers.service.gov.uk/job-profiles{url}";
-                var dynamicUrls = new List<string>();
-
-                dynamicUrls.AddRange(await GetUrls(_howToBecomeRepository, url));
-                dynamicUrls.AddRange(await GetUrls(_careerPathRepository, url));
-                dynamicUrls.AddRange(await GetUrls(_whatItTakesRepository, url));
-                dynamicUrls.AddRange(await GetUrls(_whatYouWillDoRepository, url));
-
-                var record = new Dictionary<string, string>
+                var urlTasks = new[]
                 {
-                    { "Job Profile Name", url },
-                    { "Full URL", fullUrl }
+                    GetUrls(_howToBecomeRepository, url),
+                    GetUrls(_careerPathRepository, url),
+                    GetUrls(_whatItTakesRepository, url),
+                    GetUrls(_whatYouWillDoRepository, url)
                 };
 
-                for (int i = 0; i < dynamicUrls.Count; i++)
-                {
-                    record[$"URL {i + 1}"] = dynamicUrls[i];
-                }
-
-                if (!headerWritten)
-                {
-                    foreach (string column in record.Keys)
-                    {
-                        csv.WriteField(column);
-                    }
-                    await csv.NextRecordAsync();
-                    headerWritten = true;
-                }
-
-                foreach (string value in record.Values)
-                {
-                    csv.WriteField(value);
-                }
-                await csv.NextRecordAsync();
+                return await Task.WhenAll(urlTasks);
             }
-
-            await writer.FlushAsync();
-            memoryStream.Position = 0;
-            return memoryStream;
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Failed to retrieve URLs for job profile: {Url}", url);
+                throw;
+            }
         }
 
         private static async Task<List<string>> GetUrls<T>(IJobProfileDataRepository<T> repository, string jobProfileName) where T : class
@@ -119,52 +159,53 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Exporter.Services
             }
 
             string json = JsonSerializer.Serialize(data);
-            return ExtractHtmlUrls(json);
+            using var jsonDoc = JsonDocument.Parse(json);
+            return ExtractUrls(jsonDoc.RootElement);
         }
 
-        private static List<string> ExtractHtmlUrls(string jsonString)
+        private static List<string> ExtractUrls(JsonElement element)
         {
             var urls = new List<string>();
-            var jsonDoc = JsonDocument.Parse(jsonString);
-            ExtractUrls(jsonDoc.RootElement, urls);
+            var lockObj = new object();
+
+            ExtractUrlsInternal(element);
             return urls;
+
+            void ExtractUrlsInternal(JsonElement element)
+            {
+                if (element.ValueKind == JsonValueKind.Object)
+                {
+                    foreach (var property in element.EnumerateObject())
+                    {
+                        if (property.Name == "html" && property.Value.ValueKind == JsonValueKind.String)
+                        {
+                            lock (lockObj)
+                            {
+                                ExtractUrlsFromHtml(property.Value.GetString(), urls);
+                            }
+                        }
+                        else
+                        {
+                            ExtractUrlsInternal(property.Value);
+                        }
+                    }
+                }
+                else if (element.ValueKind == JsonValueKind.Array)
+                {
+                    Parallel.ForEach(element.EnumerateArray(), ExtractUrlsInternal);
+                }
+            }
         }
 
-        private static void ExtractUrls(JsonElement element, List<string> urls)
-        {
-            if (element.ValueKind == JsonValueKind.Object)
-            {
-                foreach (var property in element.EnumerateObject())
-                {
-                    if (property.Name == "html" && property.Value.ValueKind == JsonValueKind.String)
-                    {
-                        string htmlContent = property.Value.GetString();
-                        ExtractUrlsFromHtml(htmlContent, urls);
-                    }
-                    else
-                    {
-                        ExtractUrls(property.Value, urls);
-                    }
-                }
-            }
-            else if (element.ValueKind == JsonValueKind.Array)
-            {
-                foreach (var item in element.EnumerateArray())
-                {
-                    ExtractUrls(item, urls);
-                }
-            }
-        }
         private static void ExtractUrlsFromHtml(string html, List<string> urls)
         {
             if (string.IsNullOrWhiteSpace(html)) return;
 
-            const string pattern = @"https?:\/\/[^\s""<>]+";
-            foreach (Match match in Regex.Matches(html, pattern))
+            foreach (var match in UrlRegex.EnumerateMatches(html))
             {
-                urls.Add(match.Value);
+                string matchedUrl = html.Substring(match.Index, match.Length);
+                urls.Add(matchedUrl);
             }
         }
     }
 }
-
