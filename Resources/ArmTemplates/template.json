@@ -228,16 +228,19 @@
         "BaseUrlPath": {
             "type": "string"
         },
-        "RedisCacheCacheEnabled":{
+        "RedisCacheCacheEnabled": {
             "type": "string"
         },
-        "RedisCacheCacheExpirySeconds":{
+        "RedisCacheCacheExpirySeconds": {
             "type": "int"
         },
-        "RedisCacheCacheKeyPrefix":{
+        "RedisCacheCacheKeyPrefix": {
             "type": "string"
         },
-        "RedisCacheConnectionString":{
+        "RedisCacheConnectionString": {
+            "type": "string"
+        },
+        "KeyVaultName": {
             "type": "string"
         }
     },
@@ -320,7 +323,7 @@
                 "RedisCache__CacheEnabled": "[parameters('RedisCacheCacheEnabled')]",
                 "RedisCache__CacheExpirySeconds": "[parameters('RedisCacheCacheExpirySeconds')]",
                 "RedisCache__CacheKeyPrefix": "[parameters('RedisCacheCacheKeyPrefix')]",
-                "RedisCache__ConnectionString": "[parameters('RedisCacheConnectionString')]",
+                "RedisCache__ConnectionString": "[format('@Microsoft.KeyVault(VaultName={0};SecretName=RedisConnectionString)', parameters('keyVaultName'))]",
             }
         },
         {
