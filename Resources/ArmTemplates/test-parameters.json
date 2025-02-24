@@ -65,11 +65,17 @@
         "apimProxyAddress": {
             "value": "https://foo.api.nationalcareersservice.org.uk"
         },
+        "ContentApiAddress": {
+            "value": "https://foo.api.nationalcareersservice.org.uk"
+        },
         "appSharedCosmosEndpointUrl": {
             "value": "https://foo.api.nationalcareersservice.org.uk"
         },
         "appSharedCosmosPrimaryKey": {
             "value": "not-a-real-key"
+        },
+        "PreviewContentApiPrefix": {
+            "value": "https://foo.api.nationalcareersservice.org.uk"
         },
         "MediaAzureBlobConnectionString": {
             "value": "my-string"

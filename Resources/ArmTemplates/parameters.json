@@ -53,6 +53,12 @@
         "apimProxyAddress": {
             "value": "__ApimProxyAddress__"
         },
+        "ContentApiAddress": {
+            "value": "__ContentApiAddress__"
+        },
+        "PreviewContentApiPrefix": {
+            "value": "__PreviewContentApiPrefix__"
+        },
         "appSharedCosmosEndpointUrl": {
             "value": "__appSharedCosmosEndpointUrl__"
         },
