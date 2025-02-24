@@ -225,7 +225,7 @@
             "value": "__RedisCacheCacheEnabled__"
         },
         "RedisCacheCacheExpirySeconds": {
-            "value": "__RedisCacheCacheExpirySeconds__"
+            "value": __RedisCacheCacheExpirySeconds__
         },
         "RedisCacheCacheKeyPrefix": {
             "value": "__RedisCacheCacheKeyPrefix__"
