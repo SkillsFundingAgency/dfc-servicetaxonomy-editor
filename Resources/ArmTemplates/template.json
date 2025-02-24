@@ -317,10 +317,10 @@
                 "PreviewRedirectUri:3:RedirectUri": "[parameters('PreviewRedirectUri:3:RedirectUri')]",
                 "PreviewRedirectUri:3:ContentType": "[parameters('PreviewRedirectUri:3:ContentType')]",
                 "BaseUrlPath": "[parameters('BaseUrlPath')]",
-                "RedisCacheCacheEnabled": "[parameters('RedisCacheCacheEnabled')]",
-                "RedisCacheCacheExpirySeconds": "[parameters('RedisCacheCacheExpirySeconds')]",
-                "RedisCacheCacheKeyPrefix": "[parameters('RedisCacheCacheKeyPrefix')]",
-                "RedisCacheConnectionString": "[parameters('RedisCacheConnectionString')]",
+                "RedisCache__CacheEnabled": "[parameters('RedisCacheCacheEnabled')]",
+                "RedisCache__CacheExpirySeconds": "[parameters('RedisCacheCacheExpirySeconds')]",
+                "RedisCache__CacheKeyPrefix": "[parameters('RedisCacheCacheKeyPrefix')]",
+                "RedisCache__ConnectionString": "[parameters('RedisCacheConnectionString')]",
             }
         },
         {
