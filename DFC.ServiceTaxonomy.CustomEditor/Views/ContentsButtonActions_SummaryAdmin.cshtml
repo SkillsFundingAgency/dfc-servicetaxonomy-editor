@@ -10,148 +10,114 @@
 @using Microsoft.Extensions.Options
 
 @inject IAuthorizationService AuthorizationService
-@inject IOptions<PagesConfiguration> PagesConfig
 @inject IConfiguration Configuration
 @inject IContentManager ContentManager
 
 @{
-    ContentItem contentItem = Model.ContentItem;
-    var hasDraft = contentItem.HasDraft();
-    var contentTypeMatched = (contentItem.ContentType == ContentTypes.Footer || contentItem.ContentType == ContentTypes.Header);
-    var hasPublished = await ContentManager.HasPublishedVersionAsync(contentItem);
-    var hasPublishPermission = await AuthorizationService.AuthorizeAsync(User, CommonPermissions.PublishContent, contentItem);
-    var hasClonePermission = contentTypeMatched == false ? await AuthorizationService.AuthorizeAsync(User, CommonPermissions.CloneContent, contentItem) : false;
-    var hasViewPermission = await AuthorizationService.AuthorizeAsync(User, CommonPermissions.ViewContent, contentItem);
-    var hasPreviewPermission = await AuthorizationService.AuthorizeAsync(User, CommonPermissions.PreviewContent, contentItem);
-    var redirectUris = Configuration.GetSection(ConfigKeys.PreviewRedirectUri).Get<List<PreviewRedirectUri>>();
-    var contentItemUrl = string.Empty;
-    var allowedContentTypes = Configuration.GetSection(ConfigKeys.EventGridAllowedContentType).Get<List<string>>() ?? new List<string>();
-    var allowedPages = Configuration.GetSection(ConfigKeys.EventGridAllowedPagesList).Get<List<string>>() ?? new List<string>();
-    var isAllowedContent = allowedContentTypes.Any(a => a.Contains(contentItem.ContentType));
-    var isPreviewRequired = Configuration.GetSection(ConfigKeys.RequiredPreviewContentItems).Get<List<string>>() ?? new List<string>();
-    var baseUrl = Configuration.GetSection(ConfigKeys.BaseUrlPath).Get<string>() ?? string.Empty;
-
-    //Temp key used to determine if preview button should use new redirect url. Can be removed when page filtering is no longer needed.
-    var isNcsPreview = false;
-
-    //Temp key used for pages still using old draft preview flow, can be removed once all page urls are added to preview function.
-    var previewURL = string.Empty;
+	ContentItem contentItem = Model.ContentItem;
+	var hasDraft = contentItem.HasDraft();
+	var contentTypeMatched = (contentItem.ContentType == ContentTypes.Footer || contentItem.ContentType == ContentTypes.Header);
+	var hasPublished = await ContentManager.HasPublishedVersionAsync(contentItem);
+	var hasPublishPermission = await AuthorizationService.AuthorizeAsync(User, CommonPermissions.PublishContent, contentItem);
+	var hasClonePermission = contentTypeMatched == false ? await AuthorizationService.AuthorizeAsync(User, CommonPermissions.CloneContent, contentItem) : false;
+	var hasViewPermission = await AuthorizationService.AuthorizeAsync(User, CommonPermissions.ViewContent, contentItem);
+	var hasPreviewPermission = await AuthorizationService.AuthorizeAsync(User, CommonPermissions.PreviewContent, contentItem);
+	var redirectUris = Configuration.GetSection(ConfigKeys.PreviewRedirectUri).Get<List<PreviewRedirectUri>>();
+	var contentItemUrl = string.Empty;
+	var isPreviewRequired = Configuration.GetSection(ConfigKeys.RequiredPreviewContentItems).Get<List<string>>() ?? new List<string>();
+	var baseUrl = Configuration.GetSection(ConfigKeys.BaseUrlPath).Get<string>() ?? string.Empty;
 }
 @* Publish - handle publish if content part not present in content item *@
 @if (hasDraft && !contentItem.Has<ContentApprovalPart>())
 {
-    if (hasPublishPermission)
-    {
-        <a asp-action="Publish" asp-controller="Admin" asp-route-area="OrchardCore.Contents" asp-route-contentItemId="@contentItem.ContentItemId" asp-route-returnUrl="@FullRequestPath" data-url-af="UnsafeUrl" class="dropdown-item btn-sm">@T["Publish Draft"]</a>
-        <div class="dropdown-divider"></div>
-    }
+	if (hasPublishPermission)
+	{
+		<a asp-action="Publish" asp-controller="Admin" asp-route-area="OrchardCore.Contents" asp-route-contentItemId="@contentItem.ContentItemId" asp-route-returnUrl="@FullRequestPath" data-url-af="UnsafeUrl" class="dropdown-item btn-sm">@T["Publish Draft"]</a>
+		<div class="dropdown-divider"></div>
+	}
 }
 
 @* Edit - handle edit dependent on whether content approval applies to content item *@
 @if (contentItem.Has<ContentApprovalPart>())
 {
-    var isInReview = contentItem.As<ContentApprovalPart>()?.ReviewStatus == ReviewStatus.InReview;
-    var hasEditPermission = await AuthorizationService.AuthorizeAsync(User, CommonPermissions.EditContent, contentItem) && User.HasClaim(c => c.Value == CommonPermissions.EditContent.Name);
-    if (!isInReview && hasEditPermission)
-    {
-        <a asp-action="Edit" asp-controller="ContentApproval" asp-route-area="DFC.ServiceTaxonomy.ContentApproval" asp-route-contentItemId="@contentItem.ContentItemId" asp-route-returnUrl="@FullRequestPath" data-url-af="UnsafeUrl" class="dropdown-item btn-sm"><span>@T["Edit"]</span></a>
-    }
+	var isInReview = contentItem.As<ContentApprovalPart>()?.ReviewStatus == ReviewStatus.InReview;
+	var hasEditPermission = await AuthorizationService.AuthorizeAsync(User, CommonPermissions.EditContent, contentItem) && User.HasClaim(c => c.Value == CommonPermissions.EditContent.Name);
+	if (!isInReview && hasEditPermission)
+	{
+		<a asp-action="Edit" asp-controller="ContentApproval" asp-route-area="DFC.ServiceTaxonomy.ContentApproval" asp-route-contentItemId="@contentItem.ContentItemId" asp-route-returnUrl="@FullRequestPath" data-url-af="UnsafeUrl" class="dropdown-item btn-sm"><span>@T["Edit"]</span></a>
+	}
 }
 else
 {
-    <a edit-for="@contentItem" asp-route-returnUrl="@FullRequestPath" data-url-af="UnsafeUrl" class="dropdown-item btn-sm">@T["Edit"]</a>
+	<a edit-for="@contentItem" asp-route-returnUrl="@FullRequestPath" data-url-af="UnsafeUrl" class="dropdown-item btn-sm">@T["Edit"]</a>
 }
 
 @* View draft/View published - View dependent on content type i.e. Page content types view through CUI apps *@
 @if (isPreviewRequired.Any(previewItem => previewItem.Contains(contentItem.ContentType)))
 {
-    //Temp check to see if page url matches approved page routes within appsettings.
-    @if (contentItem.ContentType == ContentTypes.Page && isAllowedContent)
-    {
-        var pageLocation = contentItem.Content[nameof(PageLocationPart)][nameof(PageLocationPart.FullUrl)].ToString();
-        @if (allowedPages.Any(pageUrl => pageLocation.Contains(pageUrl)))
-        {
-            contentItemUrl = pageLocation;
-            isNcsPreview = true;
-        }
-        else
-        {
-            contentItemUrl = string.Concat(PagesConfig.Value.PublishedAppPrefix, pageLocation);
-            previewURL = string.Concat(PagesConfig.Value.PreviewAppPrefix, pageLocation);
-        }
-    }
-    else if (isAllowedContent)
-    {
-        if (redirectUris?.Count > 0)
-        {
-            contentItemUrl = contentItem.ContentType switch
-            {
-                ContentTypes.JobProfile => string.Concat(redirectUris.Where(Uri => Uri.ContentType == ContentTypes.JobProfile).Select(uri => uri.RedirectUri).FirstOrDefault(), contentItem.Content[nameof(PageLocationPart)][nameof(PageLocationPart.FullUrl)].ToString()),
-                ContentTypes.JobProfileSector => redirectUris.Where(Uri => Uri.ContentType == ContentTypes.JobProfileSector).Select(uri => uri.RedirectUri).FirstOrDefault(),
-                ContentTypes.SectorLandingPage => string.Concat(redirectUris.Where(Uri => Uri.ContentType == ContentTypes.JobProfileSector).Select(uri => uri.RedirectUri).FirstOrDefault(), contentItem.Content[nameof(PageLocationPart)][nameof(PageLocationPart.FullUrl)].ToString()),
-                ContentTypes.Header => redirectUris?.Where(uri => uri.ContentType == ContentTypes.Header).Select(uri => uri.RedirectUri).FirstOrDefault(),
-                ContentTypes.Footer => redirectUris?.Where(uri => uri.ContentType == ContentTypes.Footer).Select(uri => uri.RedirectUri).FirstOrDefault(),
-                _ => string.Empty
-            };
-        }
-        isNcsPreview = true;
-    }
+	if (redirectUris?.Count > 0)
+	{
+		contentItemUrl = contentItem.ContentType switch
+		{
+			ContentTypes.Page => string.Concat(contentItem.Content[nameof(PageLocationPart)][nameof(PageLocationPart.FullUrl)].ToString()),
+			ContentTypes.JobProfile => string.Concat(redirectUris.Where(Uri => Uri.ContentType == ContentTypes.JobProfile).Select(uri => uri.RedirectUri).FirstOrDefault(), contentItem.Content[nameof(PageLocationPart)][nameof(PageLocationPart.FullUrl)].ToString()),
+			ContentTypes.JobProfileSector => redirectUris.Where(Uri => Uri.ContentType == ContentTypes.JobProfileSector).Select(uri => uri.RedirectUri).FirstOrDefault(),
+			ContentTypes.SectorLandingPage => string.Concat(redirectUris.Where(Uri => Uri.ContentType == ContentTypes.JobProfileSector).Select(uri => uri.RedirectUri).FirstOrDefault(), contentItem.Content[nameof(PageLocationPart)][nameof(PageLocationPart.FullUrl)].ToString()),
+			ContentTypes.Header => baseUrl,
+			ContentTypes.Footer => baseUrl,
+			_ => string.Empty
+		};
+	}
 
-    if (hasDraft && hasPreviewPermission)
-    {
-        if (isNcsPreview)
-        {
-            <a href="@($"{contentItemUrl}")" target="_blank" class="dropdown-item btn-sm" onclick="handlePreviewClick(this); return false;">@T["View draft content"]</a>
-        }
-        else
-        {
-            <a href="@($"{previewURL}")" target="_blank" class="dropdown-item btn-sm">@T["View draft content"]</a>
-        }
-    }
-    if (hasPublishPermission && hasViewPermission && hasPublished)
-    {
-        if (isNcsPreview)
-        {
-            <a href="@string.Concat(baseUrl, contentItemUrl)" target="_blank" class="dropdown-item btn-sm">@T["View published content"]</a>
-        }
-        else
-        {
-            <a href="@($"{contentItemUrl}")" target="_blank" class="dropdown-item btn-sm">@T["View published content"]</a>
-        }
-    }
+	if (hasDraft && hasPreviewPermission)
+	{
+		<a href="@($"{contentItemUrl}")" target="_blank" class="dropdown-item btn-sm" onclick="handlePreviewClick(this); return false;">@T["View draft content"]</a>
+	}
+	if (hasPublishPermission && hasViewPermission && hasPublished)
+	{
+		if (baseUrl != contentItemUrl)
+		{
+			<a href="@string.Concat(baseUrl, contentItemUrl)" target="_blank" class="dropdown-item btn-sm">@T["View published content"]</a>
+		}
+		else
+		{
+			// Used for header and footer view action flow
+			<a href="@($"{contentItemUrl}")" target="_blank" class="dropdown-item btn-sm">@T["View published content"]</a>
+		}
+	}
 }
 else
 {
-    if (hasDraft && hasPreviewPermission)
-    {
-        <a asp-action="Preview" asp-controller="Item" asp-route-area="OrchardCore.Contents" asp-route-contentItemId="@contentItem.ContentItemId" target="_blank" class="dropdown-item btn-sm"><span>@T["View draft content"]</span></a>
-    }
-    if (hasPublishPermission && hasViewPermission && hasPublished)
-    {
-        <a display-for="@contentItem" target="_blank" class="dropdown-item btn-sm" itemprop="">@T["View published content"]</a>
-    }
+	if (hasDraft && hasPreviewPermission)
+	{
+		<a asp-action="Preview" asp-controller="Item" asp-route-area="OrchardCore.Contents" asp-route-contentItemId="@contentItem.ContentItemId" target="_blank" class="dropdown-item btn-sm"><span>@T["View draft content"]</span></a>
+	}
+	if (hasPublishPermission && hasViewPermission && hasPublished)
+	{
+		<a display-for="@contentItem" target="_blank" class="dropdown-item btn-sm" itemprop="">@T["View published content"]</a>
+	}
 }
 
 @*Clone - OOTB clone button remains in Actions menu*@
 @if (hasClonePermission)
 {
-    <a asp-action="Clone" asp-controller="Admin" asp-route-area="OrchardCore.Contents" asp-route-contentItemId="@contentItem.ContentItemId" asp-route-returnUrl="@FullRequestPath" data-url-af="UnsafeUrl" class="dropdown-item btn-sm">@T["Clone"]</a>
+	<a asp-action="Clone" asp-controller="Admin" asp-route-area="OrchardCore.Contents" asp-route-contentItemId="@contentItem.ContentItemId" asp-route-returnUrl="@FullRequestPath" data-url-af="UnsafeUrl" class="dropdown-item btn-sm">@T["Clone"]</a>
 }
 
 <script>
-    async function handlePreviewClick(item) {
-        const response = await fetch("/StaxPreview/GotoUrl?Path=" + item.getAttribute("href"))
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                return response.text();
-            })
-            .then(url => {
-                window.open(url, '_blank');
-            })
-            .catch(error => {
-                console.error('There was a problem with the fetch operation:', error);
-            });
-    }
+	async function handlePreviewClick(item) {
+		const response = await fetch("/StaxPreview/GotoUrl?Path=" + item.getAttribute("href"))
+			.then(response => {
+				if (!response.ok) {
+					throw new Error('Network response was not ok');
+				}
+				return response.text();
+			})
+			.then(url => {
+				window.open(url, '_blank');
+			})
+			.catch(error => {
+				console.error('There was a problem with the fetch operation:', error);
+			});
+	}
 </script>

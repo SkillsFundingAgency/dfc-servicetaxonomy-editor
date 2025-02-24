@@ -9,7 +9,6 @@
 @using OrchardCore.Contents
 @inject IAuthorizationService AuthorizationService
 @inject IConfiguration Configuration
-@inject IOptions<PagesConfiguration> PagesConfig
 
 @{
     ContentItem contentItem = Model.ContentItem;
@@ -17,6 +16,7 @@
     var previewId = Guid.NewGuid();
     var hasPreviewPermission = await AuthorizationService.AuthorizeAsync(User, CommonPermissions.PreviewContent, contentItem);
     var isPreviewRequired = Configuration.GetSection(ConfigKeys.RequiredPreviewContentItems).Get<List<string>>() ?? new List<string>();
+	var baseUrl = Configuration.GetSection(ConfigKeys.BaseUrlPath).Get<string>() ?? string.Empty;
     var previewURI = string.Empty;
 }
 
@@ -30,8 +30,8 @@
             ContentTypes.JobProfile => string.Concat(redirectUris.Where(Uri => Uri.ContentType == ContentTypes.JobProfile).Select(uri => uri.RedirectUri).FirstOrDefault(), contentItem.Content[nameof(PageLocationPart)][nameof(PageLocationPart.FullUrl)].ToString()),
             ContentTypes.JobProfileSector => redirectUris.Where(Uri => Uri.ContentType == ContentTypes.JobProfileSector).Select(uri => uri.RedirectUri).FirstOrDefault(),
             ContentTypes.SectorLandingPage => string.Concat(redirectUris.Where(Uri => Uri.ContentType == ContentTypes.JobProfileSector).Select(uri => uri.RedirectUri).FirstOrDefault(), contentItem.Content[nameof(PageLocationPart)][nameof(PageLocationPart.FullUrl)].ToString()),
-            ContentTypes.Header => redirectUris?.Where(uri => uri.ContentType == ContentTypes.Header).Select(uri => uri.RedirectUri).FirstOrDefault(),
-            ContentTypes.Footer => redirectUris?.Where(uri => uri.ContentType == ContentTypes.Footer).Select(uri => uri.RedirectUri).FirstOrDefault(),
+            ContentTypes.Header => baseUrl,
+			ContentTypes.Footer => baseUrl,
             _ => string.Empty
         };
     }

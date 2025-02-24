@@ -57,23 +57,11 @@
         "apimProxyAddress": {
             "type": "string"
         },
-        "ContentApiAddress": {
-            "type": "string"
-        },
-        "PreviewContentApiPrefix": {
-            "type": "string"
-        },
         "appSharedCosmosEndpointUrl": {
             "type": "string"
         },
         "appSharedCosmosPrimaryKey": {
             "type": "securestring"
-        },
-        "PublishedAppPrefix": {
-            "type": "string"
-        },
-        "PreviewAppPrefix": {
-            "type": "string"
         },
         "MediaAzureBlobConnectionString": {
             "type": "securestring"
@@ -220,12 +208,8 @@
                 "OwlDataGeneratorConfigModel__HeaderVersion": "[parameters('OwlDataGeneratorHeaderVersion')]",
                 "OwlDataGeneratorConfigModel__DescriptionLabel": "[parameters('OwlDataGeneratorDescription')]",
                 "OrchardCore_Default_ContentApiPrefix": "[concat(parameters('apimProxyAddress'), '/content/GetContent/api/Execute')]",
-                "ContentApiPrefix": "[concat(parameters('ContentApiAddress'), '/api/Execute')]",
-                "PreviewContentApiPrefix": "[concat(parameters('PreviewContentApiPrefix'), '/api/Execute')]",
                 "EventStoreUrl": "[parameters('appSharedCosmosEndpointUrl')]",
                 "EventStoreKey": "[parameters('appSharedCosmosPrimaryKey')]",
-                "Pages__PublishedAppPrefix": "[parameters('PublishedAppPrefix')]",
-                "Pages__PreviewAppPrefix": "[parameters('PreviewAppPrefix')]",
                 "OrchardCore__OrchardCore_Media_Azure__ConnectionString": "[parameters('MediaAzureBlobConnectionString')]",
                 "OrchardCore__OrchardCore_Media_Azure__ContainerName": "[parameters('MediaContainerName')]",
                 "OrchardCore__OrchardCore_Media_Azure__BasePath": "[parameters('MediaBasePath')]",
