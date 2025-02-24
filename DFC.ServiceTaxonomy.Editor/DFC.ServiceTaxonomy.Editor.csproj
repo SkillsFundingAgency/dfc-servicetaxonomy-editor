@@ -32,9 +32,9 @@
     <PackageReference Include="Joonasw.AspNetCore.SecurityHeaders" Version="4.0.1" />
     <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.22.0" />
     <PackageReference Include="Microsoft.ApplicationInsights.NLogTarget" Version="2.21.0" />
-    <PackageReference Include="OrchardCore.Logging.NLog" Version="1.6.0" />
-    <PackageReference Include="OrchardCore.Application.Cms.Targets" Version="1.6.0" />
-    <PackageReference Include="OrchardCore.ContentManagement" Version="1.6.0" />
+    <PackageReference Include="OrchardCore.Logging.NLog" Version="1.8.4" />
+    <PackageReference Include="OrchardCore.Application.Cms.Targets" Version="1.8.4" />
+    <PackageReference Include="OrchardCore.ContentManagement" Version="1.8.4" />
     <PackageReference Include="SonarAnalyzer.CSharp" Version="8.15.0.24505">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -48,11 +48,9 @@
     <ProjectReference Include="..\DFC.ServiceTaxonomy.Content\DFC.ServiceTaxonomy.Content.csproj" />
     <ProjectReference Include="..\DFC.ServiceTaxonomy.CustomEditor\DFC.ServiceTaxonomy.CustomEditor.csproj" />
     <ProjectReference Include="..\DFC.ServiceTaxonomy.CustomFields\DFC.ServiceTaxonomy.CustomFields.csproj" />
-    <ProjectReference Include="..\DFC.ServiceTaxonomy.ExploreCareersMigration\DFC.ServiceTaxonomy.ExploreCareersMigration.csproj" />
     <ProjectReference Include="..\DFC.ServiceTaxonomy.GraphSync\DFC.ServiceTaxonomy.GraphSync.csproj" />
     <ProjectReference Include="..\DFC.ServiceTaxonomy.GraphVisualiser\DFC.ServiceTaxonomy.GraphVisualiser.csproj" />
     <ProjectReference Include="..\DFC.ServiceTaxonomy.Headless\DFC.ServiceTaxonomy.Headless.csproj" />
-    <ProjectReference Include="..\DFC.ServiceTaxonomy.HomePageMigrations\DFC.ServiceTaxonomy.HomePageMigrations.csproj" />
     <ProjectReference Include="..\DFC.ServiceTaxonomy.JobProfiles.DataTransfer\DFC.ServiceTaxonomy.JobProfiles.DataTransfer.csproj" />
     <ProjectReference Include="..\DFC.ServiceTaxonomy.JobProfiles.Module\DFC.ServiceTaxonomy.JobProfiles.Module.csproj" />
     <ProjectReference Include="..\DFC.ServiceTaxonomy.Migration\DFC.ServiceTaxonomy.Migration.csproj" />
@@ -60,7 +58,6 @@
     <ProjectReference Include="..\DFC.ServiceTaxonomy.Taxonomies\DFC.ServiceTaxonomy.Taxonomies.csproj" />
     <ProjectReference Include="..\DFC.ServiceTaxonomy.Theme\DFC.ServiceTaxonomy.Theme.csproj" />
     <ProjectReference Include="..\DFC.ServiceTaxonomy.Title\DFC.ServiceTaxonomy.Title.csproj" />
-    <ProjectReference Include="..\DFC.ServiceTaxonomy.TriageToolMigrations\DFC.ServiceTaxonomy.TriageToolMigrations.csproj" />
     <ProjectReference Include="..\DFC.ServiceTaxonomy.UnpublishLater\DFC.ServiceTaxonomy.UnpublishLater.csproj" />
     <ProjectReference Include="..\DFC.ServiceTaxonomy.VersionComparison\DFC.ServiceTaxonomy.VersionComparison.csproj" />
   </ItemGroup>

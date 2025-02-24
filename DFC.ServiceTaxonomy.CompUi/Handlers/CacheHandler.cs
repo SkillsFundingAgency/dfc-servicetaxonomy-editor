@@ -249,8 +249,8 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
     private RelatedContentData TransformData(Processing processing, ContentItem contentItem)
     {
         var contentData = _mapper.Map<RelatedContentData>(processing);
-        contentData.FullPageUrl = (contentItem?.PageLocationParts?.FullUrl) ?? string.Empty;
-        contentData.GraphSyncId = (contentItem?.GraphSyncParts?.Text) ?? string.Empty;
+        contentData.FullPageUrl = contentItem?.PageLocationParts?.FullUrl ?? string.Empty;
+        contentData.GraphSyncId = contentItem?.GraphSyncParts?.Text ?? string.Empty;
         return contentData;
     }
 

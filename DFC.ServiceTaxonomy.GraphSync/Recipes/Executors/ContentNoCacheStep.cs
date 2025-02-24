@@ -67,7 +67,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
                     // assume item doesn't currently exist (for speed!)
 
                     _logger.LogInformation("Saving '{DisplayText}' {ContentType} to SQL DB.", contentItem.DisplayText, contentItem.ContentType);
-                    _session.Save(contentItem);
+                    await _session.SaveAsync(contentItem);
                     _logger.LogInformation("Publishing '{DisplayText}' {ContentType} to graphs.", contentItem.DisplayText, contentItem.ContentType);
                     await _syncOrchestrator.Publish(contentItem);
                 }
