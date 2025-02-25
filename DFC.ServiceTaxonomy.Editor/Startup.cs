@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using DFC.ServiceTaxonomy.Content.Configuration;
-using DFC.ServiceTaxonomy.CustomEditor.Configuration;
 using DFC.ServiceTaxonomy.Editor.Security;
 using DfE.NCS.Framework.Core.Crypto;
 using DfE.NCS.Framework.Core.Crypto.Interfaces;
@@ -63,7 +62,6 @@ namespace DFC.ServiceTaxonomy.Editor
                     s.AddAntiforgery(options => options.Cookie.Name = "staxantiforgery_Default");
                 }, order: 10);
 
-            services.Configure<PagesConfiguration>(Configuration.GetSection("Pages"));
             services.Configure<AzureAdSettings>(Configuration.GetSection("AzureAdSettings"));
 
             services.AddNcsEventGridServices(Configuration);
