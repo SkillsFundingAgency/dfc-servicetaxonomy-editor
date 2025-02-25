@@ -136,9 +136,9 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Exporter.Services
                 var urlTasks = new[]
                 {
                     GetUrls(_howToBecomeRepository, url),
-                    GetUrls(_careerPathRepository, url),
                     GetUrls(_whatItTakesRepository, url),
-                    GetUrls(_whatYouWillDoRepository, url)
+                    GetUrls(_whatYouWillDoRepository, url),
+                    GetUrls(_careerPathRepository, url)
                 };
 
                 return await Task.WhenAll(urlTasks);
