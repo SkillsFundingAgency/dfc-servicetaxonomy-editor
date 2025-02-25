@@ -42,65 +42,84 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Exporter.Services
             _logger.LogInformation("Attempting to generate the CSV stream");
 
             var jobProfilesUrls = await GetAllJobProfilesUrls();
-
             var memoryStream = new MemoryStream();
+
+            string[] sectionNames = { "How to Become", "What It Takes", "What You'll Do", "Career Path and Progression" };
+            int[] maxUrlsPerSection = new int[sectionNames.Length];
+
+            const int batchSize = 50;
+            int totalProfiles = jobProfilesUrls.Count;
+
+            var allProfilesData = new List<(string JobProfileName, string FullUrl, List<string>[] SectionUrls)>();
+
+            // First Pass: Find maximum URLs per section
+            for (int i = 0; i < totalProfiles; i += batchSize)
+            {
+                var batch = jobProfilesUrls.Skip(i).Take(batchSize).ToList();
+
+                var batchResults = await Task.WhenAll(batch.Select(async jobProfileName =>
+                {
+                    var sectionUrls = await GetAllUrlsForJobProfile(jobProfileName);
+
+                    lock (maxUrlsPerSection)
+                    {
+                        for (int j = 0; j < sectionUrls.Length; j++)
+                        {
+                            maxUrlsPerSection[j] = Math.Max(maxUrlsPerSection[j], sectionUrls[j].Count);
+                        }
+                    }
+
+                    return (JobProfileName: jobProfileName, FullUrl: $"https://nationalcareers.service.gov.uk/job-profiles{jobProfileName}", SectionUrls: sectionUrls);
+                }));
+
+                allProfilesData.AddRange(batchResults);
+            }
 
             await using (var writer = new StreamWriter(memoryStream, Encoding.UTF8, leaveOpen: true))
             await using (var csv = new CsvWriter(writer, new CsvConfiguration(CultureInfo.InvariantCulture)))
             {
                 csv.WriteField("Job Profile Name");
                 csv.WriteField("Full URL");
+
+                for (int sectionIndex = 0; sectionIndex < sectionNames.Length; sectionIndex++)
+                {
+                    for (int j = 1; j <= maxUrlsPerSection[sectionIndex]; j++)
+                    {
+                        csv.WriteField($"{sectionNames[sectionIndex]} URL {j}");
+                    }
+                }
+
                 await csv.NextRecordAsync();
 
-                const int batchSize = 50;
-                int totalProfiles = jobProfilesUrls.Count;
-
+                // Second Pass: Write CSV data
                 for (int i = 0; i < totalProfiles; i += batchSize)
                 {
-                    var batch = jobProfilesUrls.Skip(i).Take(batchSize).ToList();
+                    var batch = allProfilesData.Skip(i).Take(batchSize).ToList();
 
-                    var results = await Task.WhenAll(batch.Select(async url =>
+                    foreach (var profile in batch)
                     {
-                        string fullUrl = $"https://nationalcareers.service.gov.uk/job-profiles{url}";
-                        var dynamicUrls = new List<string>();
+                        csv.WriteField(profile.JobProfileName);
+                        csv.WriteField(profile.FullUrl);
 
-                        try
+                        for (int sectionIndex = 0; sectionIndex < profile.SectionUrls.Length; sectionIndex++)
                         {
-                            var results = await GetAllUrlsForJobProfile(url);
-                            dynamicUrls.AddRange(results.SelectMany(r => r));
-                            _logger.LogInformation("Fetched {Count} URLs for job profile: {Url}", dynamicUrls.Count, url);
-                        }
-                        catch (Exception ex)
-                        {
-                            _logger.LogError(ex, "Failed to retrieve URLs for job profile: {Url}", url);
-                            dynamicUrls.Add("Error: Failed to retrieve URLs");
+                            var urls = profile.SectionUrls[sectionIndex];
+
+                            for (int j = 0; j < maxUrlsPerSection[sectionIndex]; j++)
+                            {
+                                csv.WriteField(j < urls.Count ? urls[j] : "");
+                            }
                         }
 
-                        return new
-                        {
-                            JobProfileName = url,
-                            FullUrl = fullUrl,
-                            Urls = dynamicUrls
-                        };
-                    }));
-
-                    foreach (var result in results)
-                    {
-                        csv.WriteField(result.JobProfileName);
-                        csv.WriteField(result.FullUrl);
-
-                        foreach (string url in result.Urls)
-                        {
-                            csv.WriteField(url);
-                        }
                         await csv.NextRecordAsync();
                     }
                 }
+
                 await writer.FlushAsync();
             }
-            memoryStream.Position = 0;
 
-            _logger.LogInformation("Successfully generated the CSV stream. {Count} job profiles processed", jobProfilesUrls.Count);
+            memoryStream.Position = 0;
+            _logger.LogInformation("Successfully generated the CSV stream. {Count} job profiles processed", totalProfiles);
 
             return memoryStream;
         }
