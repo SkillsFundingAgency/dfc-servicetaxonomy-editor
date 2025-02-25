@@ -47,7 +47,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb.GraphSyncers.Helpers
             _logger = logger;
 
             _contentTypes = contentDefinitionManager
-                .ListTypeDefinitions()
+                .ListTypeDefinitionsAsync().Result
                 .Where(x => x.Parts.Any(p => p.Name == nameof(GraphSyncPart)))
                 .ToDictionary(x => x.Name);
         }

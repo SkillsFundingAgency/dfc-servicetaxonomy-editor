@@ -19,7 +19,7 @@ namespace DFC.ServiceTaxonomy.GraphSync
 
         public int Create()
         {
-            _contentDefinitionManager.AlterPartDefinition("GraphSyncPart", builder => builder
+            _contentDefinitionManager.AlterPartDefinitionAsync("GraphSyncPart", builder => builder
                 .Attachable()
                 .WithDescription("Enables the content type to be synced to a graph."));
 
@@ -28,7 +28,7 @@ namespace DFC.ServiceTaxonomy.GraphSync
 
         public int UpdateFrom1()
         {
-            SchemaBuilder.CreateTable(nameof(AuditSyncLog), table => table
+            SchemaBuilder.CreateTableAsync(nameof(AuditSyncLog), table => table
                 .Column<DateTime?>("LastSynced")
             );
 
@@ -37,12 +37,12 @@ namespace DFC.ServiceTaxonomy.GraphSync
 
         public int UpdateFrom2()
         {
-            SchemaBuilder.CreateMapIndexTable<GraphSyncPartIndex>( table => table
+            SchemaBuilder.CreateMapIndexTableAsync<GraphSyncPartIndex>( table => table
                 .Column<string>("ContentItemId", c => c.WithLength(26))
                 .Column<string>("NodeId")
             );
 
-            SchemaBuilder.AlterTable(nameof(GraphSyncPartIndex), table => table
+            SchemaBuilder.AlterTableAsync(nameof(GraphSyncPartIndex), table => table
                 .CreateIndex("IDX_GraphSyncPartIndex_NodeId", "NodeId")
             );
 
@@ -51,7 +51,7 @@ namespace DFC.ServiceTaxonomy.GraphSync
 
         public int UpdateFrom3()
         {
-            SchemaBuilder.DropTable(nameof(AuditSyncLog));
+            SchemaBuilder.DropTableAsync(nameof(AuditSyncLog));
 
             return 4;
         }

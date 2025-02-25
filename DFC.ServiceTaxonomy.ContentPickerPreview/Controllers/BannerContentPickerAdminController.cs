@@ -36,7 +36,7 @@ namespace DFC.ServiceTaxonomy.ContentPickerPreview.Controllers
                 return BadRequest("Part and field are required parameters");
             }
 
-            ContentPartFieldDefinition? partFieldDefinition = _contentDefinitionManager.GetPartDefinition(part)?.Fields.FirstOrDefault(f => f.Name == field);
+            ContentPartFieldDefinition? partFieldDefinition = _contentDefinitionManager.GetPartDefinitionAsync(part)?.Result.Fields.FirstOrDefault(f => f.Name == field);
 
             ContentPickerFieldSettings? fieldSettings = partFieldDefinition?.GetSettings<ContentPickerFieldSettings>();
 

@@ -17,7 +17,7 @@ namespace DFC.ServiceTaxonomy.CompUi
 
         public int Create()
         {
-            _contentDefinitionManager.AlterPartDefinition(nameof(RelatedContentItemIndex), builder => builder
+            _contentDefinitionManager.AlterPartDefinitionAsync(nameof(RelatedContentItemIndex), builder => builder
                 .Attachable()
                 .WithDescription("Adds the related content item Ids."));
 
@@ -26,13 +26,13 @@ namespace DFC.ServiceTaxonomy.CompUi
 
         public int UpdateFrom1()
         {
-            SchemaBuilder.CreateMapIndexTable<RelatedContentItemIndex>(table => table
+            SchemaBuilder.CreateMapIndexTableAsync<RelatedContentItemIndex>(table => table
                 .Column<string>("ContentItemId", c => c.WithLength(26))
                 .Column<string>("ContentType")
                 .Column<string>("RelatedContentIds", c => c.WithLength(2048))
             );
 
-            SchemaBuilder.AlterTable(nameof(RelatedContentItemIndex), table => table
+            SchemaBuilder.AlterTableAsync(nameof(RelatedContentItemIndex), table => table
                 .CreateIndex("IDX_RelatedContentItemIndex_ContentItemId", "ContentItemId")
             );
 
@@ -41,19 +41,19 @@ namespace DFC.ServiceTaxonomy.CompUi
 
         public int UpdateFrom2()
         {
-            SchemaBuilder.AlterTable(nameof(RelatedContentItemIndex), table => table
+            SchemaBuilder.AlterTableAsync(nameof(RelatedContentItemIndex), table => table
                 .DropColumn("ContentType")
             );
 
-            SchemaBuilder.AlterTable(nameof(RelatedContentItemIndex), table => table
+            SchemaBuilder.AlterTableAsync(nameof(RelatedContentItemIndex), table => table
                 .DropColumn("RelatedContentIds")
             );
 
-            SchemaBuilder.AlterTable(nameof(RelatedContentItemIndex), table => table
+            SchemaBuilder.AlterTableAsync(nameof(RelatedContentItemIndex), table => table
                 .AddColumn<string>("ContentType", c => c.WithLength(128))
             );
 
-            SchemaBuilder.AlterTable(nameof(RelatedContentItemIndex), table => table
+            SchemaBuilder.AlterTableAsync(nameof(RelatedContentItemIndex), table => table
                 .AddColumn<string>("RelatedContentIds", c => c.WithLength(1024))
             );
 
@@ -62,11 +62,11 @@ namespace DFC.ServiceTaxonomy.CompUi
 
         public int UpdateFrom3()
         {
-            SchemaBuilder.AlterTable(nameof(RelatedContentItemIndex), table => table
+            SchemaBuilder.AlterTableAsync(nameof(RelatedContentItemIndex), table => table
                 .DropColumn("RelatedContentIds")
             );
 
-            SchemaBuilder.AlterTable(nameof(RelatedContentItemIndex), table => table
+            SchemaBuilder.AlterTableAsync(nameof(RelatedContentItemIndex), table => table
                 .AddColumn<string>("RelatedContentIds", c => c.WithLength(2048))
             );
 
@@ -75,7 +75,7 @@ namespace DFC.ServiceTaxonomy.CompUi
 
         public int UpdateFrom4()
         {
-            SchemaBuilder.AlterTable(nameof(RelatedContentItemIndex), table => table
+            SchemaBuilder.AlterTableAsync(nameof(RelatedContentItemIndex), table => table
                 .AlterColumn(nameof(RelatedContentItemIndex.RelatedContentIds), c => c.WithType(typeof(string), int.MaxValue - 1))
             );
 

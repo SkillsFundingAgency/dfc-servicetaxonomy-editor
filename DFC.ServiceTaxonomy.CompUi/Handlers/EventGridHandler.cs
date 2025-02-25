@@ -61,12 +61,12 @@ namespace DFC.ServiceTaxonomy.CompUi.Handlers
             {
                 ContentEventData eventData = new ContentEventData
                 {
-                    Author = contentData.Author,
-                    DisplayText = contentData.DisplayText,
-                    ContentItemId = contentData.ContentItemId,
-                    ContentType = contentData.ContentType,
-                    GraphSyncId = contentData.GraphSyncId.Substring(contentData.GraphSyncId.LastIndexOf('/') + 1),
-                    FullPageUrl = contentData.FullPageUrl,  
+                    Author = contentData?.Author ?? string.Empty,
+                    DisplayText = contentData?.DisplayText ?? string.Empty,
+                    ContentItemId = contentData?.ContentItemId ?? string.Empty,
+                    ContentType = contentData?.ContentType,
+                    GraphSyncId = contentData?.GraphSyncId?.Substring(contentData.GraphSyncId.LastIndexOf('/') + 1) ?? string.Empty,
+                    FullPageUrl = contentData?.FullPageUrl ?? string.Empty
                 };
 
                 return eventData;

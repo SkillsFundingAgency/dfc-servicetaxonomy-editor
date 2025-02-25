@@ -21,17 +21,17 @@ namespace DFC.ServiceTaxonomy.Title
 
         public int Create()
         {
-            _contentDefinitionManager.AlterPartDefinition(nameof(UniqueTitlePart), part => part
+            _contentDefinitionManager.AlterPartDefinitionAsync(nameof(UniqueTitlePart), part => part
                 .Attachable()
                 .WithDescription("Adds Title related properties to a content item.")
             );
-            SchemaBuilder.CreateMapIndexTable<UniqueTitlePartIndex>(table => table
+            SchemaBuilder.CreateMapIndexTableAsync<UniqueTitlePartIndex>(table => table
                 .Column<string>(nameof(UniqueTitlePartIndex.ContentItemId))
                 .Column<string>(nameof(UniqueTitlePartIndex.Title))
                 .Column<bool>(nameof(UniqueTitlePartIndex.Latest))
                 .Column<bool>(nameof(UniqueTitlePartIndex.Published)));
 
-            SchemaBuilder.AlterIndexTable<UniqueTitlePartIndex>(table => table
+            SchemaBuilder.AlterIndexTableAsync<UniqueTitlePartIndex>(table => table
                 .CreateIndex(
                     $"IDX_{nameof(UniqueTitlePartIndex)}_{nameof(UniqueTitlePartIndex.ContentItemId)}",
                     "DocumentId",
@@ -44,14 +44,14 @@ namespace DFC.ServiceTaxonomy.Title
 
         public int UpdateFrom1()
         {
-            _contentDefinitionManager.AlterPartDefinition(nameof(UniqueTitlePart), part => part
+            _contentDefinitionManager.AlterPartDefinitionAsync(nameof(UniqueTitlePart), part => part
                 .Attachable()
                 .WithDescription("Adds Title related properties to a content item.")
             );
 
             //SchemaBuilder.DropMapIndexTable<UniqueTitlePartIndex>();
 
-            SchemaBuilder.AlterIndexTable<UniqueTitlePartIndex>(table => table.AddColumn<string>(nameof(UniqueTitlePartIndex.ContentType)));
+            SchemaBuilder.AlterIndexTableAsync<UniqueTitlePartIndex>(table => table.AddColumn<string>(nameof(UniqueTitlePartIndex.ContentType)));
             //SchemaBuilder.CreateMapIndexTable<UniqueTitlePartIndex>(table => table
             //    .Column<string>(nameof(UniqueTitlePartIndex.ContentItemId))
             //    .Column<string>(nameof(UniqueTitlePartIndex.Title))
@@ -59,10 +59,10 @@ namespace DFC.ServiceTaxonomy.Title
             //    .Column<bool>(nameof(UniqueTitlePartIndex.Published))
             //    .Column<bool>(nameof(UniqueTitlePartIndex.ContentType)));
 
-            SchemaBuilder.AlterIndexTable<UniqueTitlePartIndex>(table => table
-     .DropIndex($"IDX_{nameof(UniqueTitlePartIndex)}_{nameof(UniqueTitlePartIndex.ContentItemId)}"));
+            SchemaBuilder.AlterIndexTableAsync<UniqueTitlePartIndex>(table => table
+                .DropIndex($"IDX_{nameof(UniqueTitlePartIndex)}_{nameof(UniqueTitlePartIndex.ContentItemId)}"));
 
- SchemaBuilder.AlterIndexTable<UniqueTitlePartIndex>(table => table
+            SchemaBuilder.AlterIndexTableAsync<UniqueTitlePartIndex>(table => table
                 .CreateIndex(
                     $"IDX_{nameof(UniqueTitlePartIndex)}_{nameof(UniqueTitlePartIndex.ContentItemId)}",
                     "DocumentId",

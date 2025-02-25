@@ -18,15 +18,15 @@ namespace DFC.ServiceTaxonomy.UnpublishLater
 
         public int Create()
         {
-            _contentDefinitionManager.AlterPartDefinition(nameof(UnpublishLaterPart), builder => builder
+            _contentDefinitionManager.AlterPartDefinitionAsync(nameof(UnpublishLaterPart), builder => builder
                 .Attachable()
                 .WithDescription("Adds the ability to schedule content items to be unpublished at a given future date and time."));
 
-            SchemaBuilder.CreateMapIndexTable<UnpublishLaterPartIndex>(table => table
+            SchemaBuilder.CreateMapIndexTableAsync<UnpublishLaterPartIndex>(table => table
                 .Column<string>(nameof(UnpublishLaterPartIndex.ScheduledUnpublishUtc))
             );
 
-            SchemaBuilder.AlterTable(nameof(UnpublishLaterPartIndex), table => table
+            SchemaBuilder.AlterTableAsync(nameof(UnpublishLaterPartIndex), table => table
                 .CreateIndex(
                     $"IDX_{nameof(UnpublishLaterPartIndex)}_{nameof(UnpublishLaterPartIndex.ScheduledUnpublishUtc)}",
                     nameof(UnpublishLaterPartIndex.ScheduledUnpublishUtc))
