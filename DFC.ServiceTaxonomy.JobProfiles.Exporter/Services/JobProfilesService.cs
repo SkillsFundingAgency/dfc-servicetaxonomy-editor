@@ -85,7 +85,7 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Exporter.Services
                 {
                     for (int j = 1; j <= maxUrlsPerSection[sectionIndex]; j++)
                     {
-                        csv.WriteField($"{sectionNames[sectionIndex]} URL {j}");
+                        csv.WriteField($"{sectionNames[sectionIndex]}");
                     }
                 }
 
