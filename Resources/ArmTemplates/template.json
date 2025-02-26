@@ -69,12 +69,6 @@
         "appSharedCosmosPrimaryKey": {
             "type": "securestring"
         },
-        "PublishedAppPrefix": {
-            "type": "string"
-        },
-        "PreviewAppPrefix": {
-            "type": "string"
-        },
         "MediaAzureBlobConnectionString": {
             "type": "securestring"
         },
@@ -224,8 +218,6 @@
                 "PreviewContentApiPrefix": "[concat(parameters('PreviewContentApiPrefix'), '/api/Execute')]",
                 "EventStoreUrl": "[parameters('appSharedCosmosEndpointUrl')]",
                 "EventStoreKey": "[parameters('appSharedCosmosPrimaryKey')]",
-                "Pages__PublishedAppPrefix": "[parameters('PublishedAppPrefix')]",
-                "Pages__PreviewAppPrefix": "[parameters('PreviewAppPrefix')]",
                 "OrchardCore__OrchardCore_Media_Azure__ConnectionString": "[parameters('MediaAzureBlobConnectionString')]",
                 "OrchardCore__OrchardCore_Media_Azure__ContainerName": "[parameters('MediaContainerName')]",
                 "OrchardCore__OrchardCore_Media_Azure__BasePath": "[parameters('MediaBasePath')]",
