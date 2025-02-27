@@ -65,12 +65,6 @@
         "appSharedCosmosPrimaryKey": {
             "value": "__appSharedCosmosPrimaryKey__"
         },
-        "PublishedAppPrefix": {
-            "value": "__PublishedAppPrefix__"
-        },
-        "PreviewAppPrefix": {
-            "value": "__PreviewAppPrefix__"
-        },
         "MediaAzureBlobConnectionString": {
             "value": "__MediaAzureBlobConnectionString__"
         },

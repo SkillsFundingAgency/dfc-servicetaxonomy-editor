@@ -67,7 +67,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
 
                     // assume item doesn't currently exist (for speed!)
 
-                    _session.Save(contentItem);
+                    await _session.SaveAsync(contentItem);
                     await _syncOrchestrator.Publish(contentItem);
                 }
 

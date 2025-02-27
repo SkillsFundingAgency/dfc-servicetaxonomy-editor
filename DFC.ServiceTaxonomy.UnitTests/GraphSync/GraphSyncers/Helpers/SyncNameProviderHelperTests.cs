@@ -32,7 +32,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Helpers
                     new ContentTypePartDefinition(nameof(GraphSyncPart), new ContentPartDefinition(nameof(GraphSyncPart)), null)
                 },
                 new JObject());
-            A.CallTo(() => ContentDefinitionManager.GetTypeDefinition(_contentType)).Returns(ContentTypeDefinition);
+            A.CallTo(() => ContentDefinitionManager.GetTypeDefinitionAsync(_contentType)).Returns(ContentTypeDefinition);
 
             SuperpositionContentItemVersion = A.Fake<ISuperpositionContentItemVersion>();
 
