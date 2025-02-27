@@ -25,10 +25,19 @@ namespace DFC.ServiceTaxonomy.CompUi.AppRegistry
 
         public PageLocationUpdater(ILogger<PageLocationUpdater> logger, IConfiguration configuration)
         {
-            ConnectionString = configuration.GetSection(ConnectionStringAppSetting).Get<string>();
-            DatabaseName = configuration.GetSection(DatabaseNameAppSettings).Get<string>();
-            ContainerName = configuration.GetSection(ContainerNameAppSettings).Get<string>();
-            ContainerDraftName = configuration.GetSection(ContainerDraftNameAppSettings).Get<string>();
+            if (configuration == null)
+            {
+                throw new ArgumentNullException(nameof(configuration));
+            }
+
+            ConnectionString = configuration.GetSection(ConnectionStringAppSetting).Get<string>()
+                               ?? throw new InvalidOperationException($"Configuration value for {ConnectionStringAppSetting} is missing or null.");
+            DatabaseName = configuration.GetSection(DatabaseNameAppSettings).Get<string>()
+                           ?? throw new InvalidOperationException($"Configuration value for {DatabaseNameAppSettings} is missing or null.");
+            ContainerName = configuration.GetSection(ContainerNameAppSettings).Get<string>()
+                            ?? throw new InvalidOperationException($"Configuration value for {ContainerNameAppSettings} is missing or null.");
+            ContainerDraftName = configuration.GetSection(ContainerDraftNameAppSettings).Get<string>()
+                                 ?? throw new InvalidOperationException($"Configuration value for {ContainerDraftNameAppSettings} is missing or null.");
 
             _client = new CosmosClient(ConnectionString, new CosmosClientOptions { ConnectionMode = ConnectionMode.Gateway });
             _database = _client.GetDatabase(DatabaseName);
@@ -53,7 +62,8 @@ namespace DFC.ServiceTaxonomy.CompUi.AppRegistry
                         }
                     }
                 }
-                return appRegistry.FirstOrDefault();
+                var result = appRegistry.FirstOrDefault();
+                return result == null ? throw new InvalidOperationException("No content page found for the given filter.") : result;
             }
             catch (Exception ex)
             {

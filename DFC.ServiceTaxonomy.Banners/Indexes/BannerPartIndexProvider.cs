@@ -36,7 +36,7 @@ namespace DFC.ServiceTaxonomy.Banners.Indexes
 
                 // Search for this part.
                 var contentTypeDefinition =
-                    _contentDefinitionManager.GetTypeDefinition(context.ContentItem.ContentType);
+                    _contentDefinitionManager.GetTypeDefinitionAsync(context.ContentItem.ContentType).Result;
                 if (!contentTypeDefinition.Parts.Any(ctpd => ctpd.Name == nameof(BannerPart)))
                 {
                     context.ContentItem.Remove<BannerPart>();

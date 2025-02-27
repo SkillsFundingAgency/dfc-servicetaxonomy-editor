@@ -33,7 +33,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb.GraphSyncers.Parts.Flow
 
         protected override IEnumerable<string> GetEmbeddableContentTypes(IGraphSyncContext context)
         {
-            return _contentDefinitionManager.ListTypeDefinitions()
+            return _contentDefinitionManager.ListTypeDefinitionsAsync().Result
                 .Where(t => t.GetSettings<ContentTypeSettings>().Stereotype == "Widget")
                 .Select(t => t.Name);
         }
