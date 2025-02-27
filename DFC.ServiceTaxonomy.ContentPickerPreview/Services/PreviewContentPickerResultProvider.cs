@@ -1,14 +1,15 @@
 ﻿using OrchardCore.ContentFields.Services;
 using OrchardCore.ContentManagement;
 using OrchardCore.ContentManagement.Metadata;
+using OrchardCore.Liquid;
 using YesSql;
 
 namespace DFC.ServiceTaxonomy.ContentPickerPreview.Services
 {
     public class PreviewContentPickerResultProvider : DefaultContentPickerResultProvider, IContentPickerResultProvider
     {
-        public PreviewContentPickerResultProvider(IContentManager contentManager, IContentDefinitionManager contentDefinitionManager, ISession session)
-            : base(contentManager, contentDefinitionManager, session)
+        public PreviewContentPickerResultProvider(IContentManager contentManager, IContentDefinitionManager contentDefinitionManager, ISession session, ILiquidTemplateManager templateManager)
+            : base(contentManager, contentDefinitionManager, session, templateManager)
         {
         }
 
