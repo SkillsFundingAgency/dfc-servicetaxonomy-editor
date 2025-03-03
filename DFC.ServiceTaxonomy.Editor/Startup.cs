@@ -5,6 +5,7 @@ using DFC.ServiceTaxonomy.Editor.Security;
 using DfE.NCS.Framework.Core.Crypto;
 using DfE.NCS.Framework.Core.Crypto.Interfaces;
 using DfE.NCS.Framework.Event.Extension;
+using DfE.NCS.Framework.SharedContent.Middleware;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
@@ -79,6 +80,7 @@ namespace DFC.ServiceTaxonomy.Editor
 
             app.UseSession();
             app.UseCookiePolicy();
+            app.UseMiddleware<NcsSessionCookieMiddleware>();
             // UseSecurityHeaders must come before UseOrchardCore
             app.UsePoweredByOrchardCore(false);
             app.UseSecurityHeaders(Configuration)
