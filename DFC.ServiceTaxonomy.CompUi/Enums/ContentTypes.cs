@@ -14,6 +14,8 @@
         DynamicTitlePrefix,
         Environment,
         FilterAdviceGroup,
+        Footer,
+        Header,
         HiddenAlternativeTitle,
         JobProfile,
         JobProfileCategory,
