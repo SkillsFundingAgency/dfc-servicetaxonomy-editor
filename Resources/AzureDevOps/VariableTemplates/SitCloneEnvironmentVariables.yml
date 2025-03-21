@@ -37,6 +37,14 @@ variables:
   value: /job-profiles
 - name: ContentType1
   value: JobProfile
+- name: RedirectUri2
+  value: /
+- name: ContentType2
+  value: Header
+- name: RedirectUri3
+  value: /
+- name: ContentType3
+  value: Footer
 - name: BaseUrlPath
   value: https://sit-beta.nationalcareersservice.org.uk
 
