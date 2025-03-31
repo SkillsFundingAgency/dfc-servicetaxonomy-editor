@@ -74,12 +74,6 @@
         "appSharedCosmosPrimaryKey": {
             "value": "not-a-real-key"
         },
-        "PublishedAppPrefix": {
-            "value": "https://foo.api.nationalcareersservice.org.uk"
-        },
-        "PreviewAppPrefix": {
-            "value": "https://foo.api.nationalcareersservice.org.uk"
-        },
         "PreviewContentApiPrefix": {
             "value": "https://foo.api.nationalcareersservice.org.uk"
         },
@@ -137,18 +131,6 @@
         "CosmosDbendpointspublishedContainerName":{
             "value": "__CosmosDbendpointspublishedContainerName__"
         },
-        "CosmosAppRegistryDatabaseName":{
-            "value": "__CosmosAppRegistryDatabaseName__"
-        },
-        "CosmosAppRegistryContainerName":{
-            "value": "__CosmosAppRegistryContainerName__"
-        },
-        "CosmosAppRegistryContainerDraftName":{
-            "value": "__CosmosAppRegistryContainerDraftName__"
-        },
-        "CompositeUISharedCosmosConnectionString":{
-            "value": "__CompositeUISharedCosmosConnectionString__"
-        },
         "WEBSITEMEMORYLIMITMB":{
             "value": "__WEBSITEMEMORYLIMITMB__"
         },
@@ -157,24 +139,6 @@
         },
         "workspaceResourceGroup": {
             "value": "aResourceGroup"
-        },
-        "CmsTokenEndpointUrl": {
-          "value": "http://url"
-        },
-        "CmsGraphApiUrl": {
-          "value": "http://url"
-        },
-        "CmsClientId": {
-          "value": "clientid"
-        },
-        "CmsClientSecret": {
-          "value": "clientsecret"
-        },
-        "CmsRedisCacheConnectionString": {
-          "value": "teststring"
-        },
-        "CmsSqlApiUrl": {
-          "value": "http://url"
         },
         "EventGridTopicEndPointUrl": {
             "value": "http://url"

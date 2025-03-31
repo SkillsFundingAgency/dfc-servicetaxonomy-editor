@@ -65,12 +65,6 @@
         "appSharedCosmosPrimaryKey": {
             "value": "__appSharedCosmosPrimaryKey__"
         },
-        "PublishedAppPrefix": {
-            "value": "__PublishedAppPrefix__"
-        },
-        "PreviewAppPrefix": {
-            "value": "__PreviewAppPrefix__"
-        },
         "MediaAzureBlobConnectionString": {
             "value": "__MediaAzureBlobConnectionString__"
         },
@@ -137,18 +131,6 @@
         "CosmosDbendpointspublishedContainerName":{
             "value": "__CosmosDbendpointspublishedContainerName__"
         },
-        "CosmosAppRegistryDatabaseName":{
-            "value": "__CosmosAppRegistryDatabaseName__"
-        },
-        "CosmosAppRegistryContainerName":{
-            "value": "__CosmosAppRegistryContainerName__"
-        },
-        "CosmosAppRegistryContainerDraftName":{
-            "value": "__CosmosAppRegistryContainerDraftName__"
-        },
-        "CompositeUISharedCosmosConnectionString":{
-            "value": "__CompositeUISharedCosmosConnectionString__"
-        },
         "WEBSITEMEMORYLIMITMB":{
             "value": "__WEBSITEMEMORYLIMITMB__"
         },
@@ -157,24 +139,6 @@
         },
         "workspaceResourceGroup": {
             "value": "__sharedLogAnalyticsResourceGroup__"
-        },
-        "CmsTokenEndpointUrl": {
-            "value": "__StaxGraphqlTokenEndpointUrl__"
-        },
-        "CmsGraphApiUrl": {
-            "value": "__StaxGraphqlApiUrl__"
-        },
-        "CmsClientId": {
-            "value": "__StaxGraphqlClientId__"
-        },
-        "CmsClientSecret": {
-            "value": "__StaxGraphqlClientSecret__"
-        },
-        "CmsRedisCacheConnectionString": {
-            "value": "__RedisConnectionString__"
-        },
-        "CmsSqlApiUrl": {
-            "value": "__StaxGraphqlSqlApiUrl__"
         },
         "EventGridTopicEndPointUrl": {
             "value": "__SSP2EventGridTopicUrl__"

@@ -69,12 +69,6 @@
         "appSharedCosmosPrimaryKey": {
             "type": "securestring"
         },
-        "PublishedAppPrefix": {
-            "type": "string"
-        },
-        "PreviewAppPrefix": {
-            "type": "string"
-        },
         "MediaAzureBlobConnectionString": {
             "type": "securestring"
         },
@@ -144,18 +138,6 @@
         "CosmosDbendpointspublishedContainerName": {
             "type": "string"
         },
-        "CosmosAppRegistryDatabaseName": {
-            "type": "string"
-        },
-        "CosmosAppRegistryContainerName": {
-            "type": "string"
-        },
-        "CosmosAppRegistryContainerDraftName": {
-            "type": "string"
-        },
-        "CompositeUISharedCosmosConnectionString": {
-            "type": "securestring"
-        },
         "WEBSITEMEMORYLIMITMB": {
             "type": "string"
         },
@@ -163,24 +145,6 @@
             "type": "string"
         },
         "workspaceResourceGroup": {
-            "type": "string"
-        },
-        "CmsTokenEndpointUrl": {
-            "type": "string"
-        },
-        "CmsGraphApiUrl": {
-            "type": "string"
-        },
-        "CmsClientId": {
-            "type": "string"
-        },
-        "CmsClientSecret": {
-            "type": "securestring"
-        },
-        "CmsRedisCacheConnectionString": {
-            "type": "securestring"
-        },
-        "CmsSqlApiUrl": {
             "type": "string"
         },
         "EventGridTopicEndPointUrl": {
@@ -254,8 +218,6 @@
                 "PreviewContentApiPrefix": "[concat(parameters('PreviewContentApiPrefix'), '/api/Execute')]",
                 "EventStoreUrl": "[parameters('appSharedCosmosEndpointUrl')]",
                 "EventStoreKey": "[parameters('appSharedCosmosPrimaryKey')]",
-                "Pages__PublishedAppPrefix": "[parameters('PublishedAppPrefix')]",
-                "Pages__PreviewAppPrefix": "[parameters('PreviewAppPrefix')]",
                 "OrchardCore__OrchardCore_Media_Azure__ConnectionString": "[parameters('MediaAzureBlobConnectionString')]",
                 "OrchardCore__OrchardCore_Media_Azure__ContainerName": "[parameters('MediaContainerName')]",
                 "OrchardCore__OrchardCore_Media_Azure__BasePath": "[parameters('MediaBasePath')]",
@@ -279,17 +241,7 @@
                 "CosmosDb__endpoints__published__ConnectionString": "[parameters('CosmosDbendpointspublishedConnectionString')]",
                 "CosmosDb__endpoints__published__DatabaseName": "[parameters('CosmosDbendpointspublishedDatabaseName')]",
                 "CosmosDb__endpoints__published__ContainerName": "[parameters('CosmosDbendpointspublishedContainerName')]",
-                "CosmosAppRegistry__DatabaseName": "[parameters('CosmosAppRegistryDatabaseName')]",
-                "CosmosAppRegistry__ContainerName": "[parameters('CosmosAppRegistryContainerName')]",
-                "CosmosAppRegistry__ContainerDraftName": "[parameters('CosmosAppRegistryContainerDraftName')]",
-                "CosmosAppRegistry__ConnectionString": "[parameters('CompositeUISharedCosmosConnectionString')]",
                 "WEBSITE_MEMORY_LIMIT_MB": "[parameters('WEBSITEMEMORYLIMITMB')]",
-                "Cms__TokenEndPointUrl": "[parameters('CmsTokenEndpointUrl')]",
-                "Cms__GraphApiUrl": "[parameters('CmsGraphApiUrl')]",
-                "Cms__ClientId": "[parameters('CmsClientId')]",
-                "Cms__ClientSecret": "[parameters('CmsClientSecret')]",
-                "Cms__RedisCacheConnectionString": "[parameters('CmsRedisCacheConnectionString')]",
-                "Cms__SqlApiUrl": "[parameters('CmsSqlApiUrl')]",
                 "EventGrid__TopicEndPointUrl": "[parameters('EventGridTopicEndPointUrl')]",
                 "EventGrid__TopicAccessKey": "[parameters('EventGridTopicAccessKey')]",
                 "NcsPreview__PreviewLoginUrl": "[parameters('PreviewLoginUrl')]",
