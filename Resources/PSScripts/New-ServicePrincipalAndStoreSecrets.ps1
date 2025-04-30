@@ -151,13 +151,19 @@ if (!$vaultKey){
 
 Write-Verbose "Getting ServicePrincipal $($RepoName)-appregistration-tenant-id secret from KeyVault $($KeyVault.VaultName)"
 $vaultKey = Get-AzKeyVaultSecret -Name "$($RepoName)-appregistration-tenant-id" -VaultName $KeyVault.VaultName
+Write-Output $vaultKey
 IF (!$vaultKey){
-    Write-Verbose "ServicePrincipal $($RepoName)-appregistration-tenant-id secret not found in KeyVault $($KeyVault.VaultName)"
-    Write-Verbose "Adding ServicePrincipal $($RepoName)-appregistration-tenant-id secret to KeyVault $($KeyVault.VaultName)"
-    $SecureTenantId = ConvertTo-SecureString -String $TenantId -AsPlainText -Force
-    $Secret3 = Set-AzKeyVaultSecret -Name "$($RepoName)-appregistration-tenant-id" -SecretValue $SecureTenantId -VaultName $KeyVault.VaultName
-    $Secret3.Id
-    Write-Verbose "Added ServicePrincipal $($RepoName)-appregistration-tenant-id secret to KeyVault $($KeyVault.VaultName)"
+    try {
+        Write-Verbose "ServicePrincipal $($RepoName)-appregistration-tenant-id secret not found in KeyVault $($KeyVault.VaultName)"
+        Write-Verbose "Adding ServicePrincipal $($RepoName)-appregistration-tenant-id secret to KeyVault $($KeyVault.VaultName)"
+        $SecureTenantId = ConvertTo-SecureString -String $TenantId -AsPlainText -Force
+        $Secret3 = Set-AzKeyVaultSecret -Name "$($RepoName)-appregistration-tenant-id" -SecretValue $SecureTenantId -VaultName $KeyVault.VaultName
+        $Secret3.Id
+        Write-Verbose "Added ServicePrincipal $($RepoName)-appregistration-tenant-id secret to KeyVault $($KeyVault.VaultName)"
+    } catch {
+        Write-Host "An error occured"
+        Write-Host $_
+    }
 } else {
     Write-Verbose "ServicePrincipal $($RepoName)-appregistration-tenant-id secret already in KeyVault $($KeyVault.VaultName)"
 }
