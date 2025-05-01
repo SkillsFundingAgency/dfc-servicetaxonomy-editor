@@ -69,18 +69,6 @@
         "appSharedCosmosPrimaryKey": {
             "type": "securestring"
         },
-        "PublishedAppPrefix": {
-            "type": "string"
-        },
-        "PreviewAppPrefix": {
-            "type": "string"
-        },
-        "JobProfilePublishedAppPrefix": {
-            "type": "string"
-        },
-        "JobProfilePreviewAppPrefix": {
-            "type": "string"
-        },
         "MediaAzureBlobConnectionString": {
             "type": "securestring"
         },
@@ -99,7 +87,7 @@
         "AzureAdSettingsSubscriptionId": {
             "type": "string"
         },
-         "AzureAdSettingsKeyVaultAddress": {
+        "AzureAdSettingsKeyVaultAddress": {
             "type": "string"
         },
         "AzureAdSettingsCdnProfileName": {
@@ -150,18 +138,6 @@
         "CosmosDbendpointspublishedContainerName": {
             "type": "string"
         },
-        "CosmosAppRegistryDatabaseName":{
-            "type": "string"
-        },
-        "CosmosAppRegistryContainerName":{
-            "type": "string"
-        },
-        "CosmosAppRegistryContainerDraftName":{
-            "type": "string"
-        },
-        "CompositeUISharedCosmosConnectionString":{
-            "type": "securestring"
-        },
         "WEBSITEMEMORYLIMITMB": {
             "type": "string"
         },
@@ -171,31 +147,13 @@
         "workspaceResourceGroup": {
             "type": "string"
         },
-        "CmsTokenEndpointUrl": {
-        "type": "string"
-        },
-        "CmsGraphApiUrl": {
-        "type": "string"
-        },
-        "CmsClientId": {
-        "type": "string"
-        },
-        "CmsClientSecret": {
-        "type": "securestring"
-        },
-        "CmsRedisCacheConnectionString": {
-        "type": "securestring"
-        },
-        "CmsSqlApiUrl": {
-        "type": "string"
-        },
         "EventGridTopicEndPointUrl": {
             "type": "string"
         },
         "EventGridTopicAccessKey": {
             "type": "securestring"
         },
-        "PreviewLoginUrl":{
+        "PreviewLoginUrl": {
             "type": "string"
         },
         "EncryptionKey": {
@@ -207,463 +165,105 @@
         "CipherTextValiditySeconds": {
             "type": "int"
         },
-        "PreviewRedirectUri:0:RedirectUri":{
+        "PreviewRedirectUri:0:RedirectUri": {
             "type": "string"
         },
         "PreviewRedirectUri:0:ContentType": {
             "type": "string"
         },
-        "PreviewRedirectUri:1:RedirectUri":{
+        "PreviewRedirectUri:1:RedirectUri": {
             "type": "string"
         },
         "PreviewRedirectUri:1:ContentType": {
             "type": "string"
+        },
+        "PreviewRedirectUri:2:RedirectUri": {
+            "type": "string"
+        },
+        "PreviewRedirectUri:2:ContentType": {
+            "type": "string"
+        },
+        "PreviewRedirectUri:3:RedirectUri": {
+            "type": "string"
+        },
+        "PreviewRedirectUri:3:ContentType": {
+            "type": "string"
+        },
+        "BaseUrlPath": {
+            "type": "string"
         }
     },
     "variables": {
-        "BuildingBlocksDfcBaseUrl": "https://raw.githubusercontent.com/SkillsFundingAgency/dfc-devops/master/ArmTemplates/",
         "ResourcePrefix": "[tolower(concat('dfc-', parameters('Environment'), '-stax-editor'))]",
-        "AppServiceAppInsightsName": "[concat(variables('ResourcePrefix'), '-ai')]",
-        "AppServicePlanName": "[if(greater(length(parameters('SharedAppServicePlanName')), 0), parameters('SharedAppServicePlanName'), concat(variables('ResourcePrefix'), '-asp'))]",
-        "AppServicePlanResourceGroup": "[if(greater(length(parameters('SharedAppServicePlanResourceGroup')), 0), parameters('SharedAppServicePlanResourceGroup'), resourceGroup().name)]",
-        "DatabaseName": "[concat(variables('ResourcePrefix'), '-db')]",
-        "ActionGroupName": "[concat('dfc-', replace(tolower(parameters('Environment')), '-draft', ''), '-stax-shared-actgrp')]",
-        "DatabaseTier": "[if(equals(parameters('SqlElasticPoolName'), ''), 'GeneralPurposeServerless', 'ElasticPool')]"
+        "AppServiceAppInsightsName": "[concat(variables('ResourcePrefix'), '-ai')]"
     },
     "resources": [
         {
-            "apiVersion": "2017-05-10",
-            "name": "[variables('AppServiceAppInsightsName')]",
-            "type": "Microsoft.Resources/deployments",
+            "type": "Microsoft.Web/sites/config",
+            "apiVersion": "2023-12-01",
+            "name": "[format('{0}/{1}', parameters('WebAppName'), 'appsettings')]",
             "properties": {
-                "mode": "Incremental",
-                "templateLink": {
-                    "uri": "[concat(variables('BuildingBlocksDfcBaseUrl'), 'application-insights.json')]",
-                    "contentVersion": "1.0.0.0"
-                },
-                "parameters": {
-                    "appInsightsName": {
-                        "value": "[variables('AppServiceAppInsightsName')]"
-                    },
-                    "attachedService": {
-                        "value": ""
-                    },
-                    "workspaceName": {
-                        "value": "[parameters('workspaceName')]"
-                    },
-                    "workspaceResourceGroup": {
-                        "value": "[parameters('workspaceResourceGroup')]"
-                    }
-                }
+                "MSDEPLOY_RENAME_LOCKED_FILES": "1",
+                "APPINSIGHTS_CONNECTIONSTRING": "[reference(resourceId('Microsoft.Insights/components', variables('AppServiceAppInsightsName')), '2020-02-02').ConnectionString]",
+                "WEBSITE_RUN_FROM_PACKAGE": "0",
+                "OwlDataGeneratorConfigModel__DefaultLanguage": "[parameters('OwlDataGeneratorDefaultLanguage')]",
+                "OwlDataGeneratorConfigModel__NamespaceName": "[parameters('OwlDataGeneratorDefaultNamespace')]",
+                "OwlDataGeneratorConfigModel__NamespaceIri": "[parameters('OwlDataGeneratorNamespaceUri')]",
+                "OwlDataGeneratorConfigModel__HeaderIri": "[parameters('OwlDataGeneratorHeaderUri')]",
+                "OwlDataGeneratorConfigModel__HeaderAuthor": "[parameters('OwlDataGeneratorHeaderAuthor')]",
+                "OwlDataGeneratorConfigModel__HeaderVersion": "[parameters('OwlDataGeneratorHeaderVersion')]",
+                "OwlDataGeneratorConfigModel__DescriptionLabel": "[parameters('OwlDataGeneratorDescription')]",
+                "OrchardCore_Default_ContentApiPrefix": "[concat(parameters('apimProxyAddress'), '/content/GetContent/api/Execute')]",
+                "ContentApiPrefix": "[concat(parameters('ContentApiAddress'), '/api/Execute')]",
+                "PreviewContentApiPrefix": "[concat(parameters('PreviewContentApiPrefix'), '/api/Execute')]",
+                "EventStoreUrl": "[parameters('appSharedCosmosEndpointUrl')]",
+                "EventStoreKey": "[parameters('appSharedCosmosPrimaryKey')]",
+                "OrchardCore__OrchardCore_Media_Azure__ConnectionString": "[parameters('MediaAzureBlobConnectionString')]",
+                "OrchardCore__OrchardCore_Media_Azure__ContainerName": "[parameters('MediaContainerName')]",
+                "OrchardCore__OrchardCore_Media_Azure__BasePath": "[parameters('MediaBasePath')]",
+                "OrchardCore__OrchardCore_Media_Azure__CreateContainer": false,
+                "DigitalAssetsCdn": "[parameters('DigitalAssetsCdn')]",
+                "AzureAdSettings__ClientId": "dfc-servicetaxonomy-editor-appregistration-id",
+                "AzureAdSettings__ClientSecret": "dfc-servicetaxonomy-editor-appregistration-secret",
+                "AzureAdSettings__Authority": "[parameters('AzureAdSettingsAuthority')]",
+                "AzureAdSettings__KeyVaultAddress": "[parameters('AzureAdSettingsKeyVaultAddress')]",
+                "AzureAdSettings__SubscriptionId": "[parameters('AzureAdSettingsSubscriptionId')]",
+                "AzureAdSettings__CdnProfileName": "[parameters('AzureAdSettingsCdnProfileName')]",
+                "AzureAdSettings__CdnEndpointName": "[parameters('AzureAdSettingsCdnEndpointName')]",
+                "AzureAdSettings__ResourceGroupName": "[parameters('AzureAdSettingsResourceGroupName')]",
+                "AzureSearchSettings__JobProfileSearchIndexName": "[parameters('AzureSearchSettingsJobProfileSearchIndexName')]",
+                "AzureSearchSettings__SearchServiceAdminAPIKey": "[parameters('AzureSearchSettingsSearchServiceAdminAPIKey')]",
+                "AzureSearchSettings__SearchServiceEndPoint": "[parameters('AzureSearchSettingsSearchServiceEndPoint')]",
+                "ConnectionStrings__SkillsFrameworkDB": "[parameters('SkillsFrameworkDbConnectionString')]",
+                "CosmosDb__endpoints__preview__ConnectionString": "[parameters('CosmosDbendpointspreviewConnectionString')]",
+                "CosmosDb__endpoints__preview__DatabaseName": "[parameters('CosmosDbendpointspreviewDatabaseName')]",
+                "CosmosDb__endpoints__preview__ContainerName": "[parameters('CosmosDbendpointspreviewContainerName')]",
+                "CosmosDb__endpoints__published__ConnectionString": "[parameters('CosmosDbendpointspublishedConnectionString')]",
+                "CosmosDb__endpoints__published__DatabaseName": "[parameters('CosmosDbendpointspublishedDatabaseName')]",
+                "CosmosDb__endpoints__published__ContainerName": "[parameters('CosmosDbendpointspublishedContainerName')]",
+                "WEBSITE_MEMORY_LIMIT_MB": "[parameters('WEBSITEMEMORYLIMITMB')]",
+                "EventGrid__TopicEndPointUrl": "[parameters('EventGridTopicEndPointUrl')]",
+                "EventGrid__TopicAccessKey": "[parameters('EventGridTopicAccessKey')]",
+                "NcsPreview__PreviewLoginUrl": "[parameters('PreviewLoginUrl')]",
+                "NcsPreview__EncryptionKey": "[parameters('EncryptionKey')]",
+                "NcsPreview__CipherTextPrefix": "[parameters('CipherTextPrefix')]",
+                "NcsPreview__CipherTextValiditySeconds": "[parameters('CipherTextValiditySeconds')]",
+                "PreviewRedirectUri:0:RedirectUri": "[parameters('PreviewRedirectUri:0:RedirectUri')]",
+                "PreviewRedirectUri:0:ContentType": "[parameters('PreviewRedirectUri:0:ContentType')]",
+                "PreviewRedirectUri:1:RedirectUri": "[parameters('PreviewRedirectUri:1:RedirectUri')]",
+                "PreviewRedirectUri:1:ContentType": "[parameters('PreviewRedirectUri:1:ContentType')]",
+                "PreviewRedirectUri:2:RedirectUri": "[parameters('PreviewRedirectUri:2:RedirectUri')]",
+                "PreviewRedirectUri:2:ContentType": "[parameters('PreviewRedirectUri:2:ContentType')]",
+                "PreviewRedirectUri:3:RedirectUri": "[parameters('PreviewRedirectUri:3:RedirectUri')]",
+                "PreviewRedirectUri:3:ContentType": "[parameters('PreviewRedirectUri:3:ContentType')]",
+                "BaseUrlPath": "[parameters('BaseUrlPath')]"
             }
         },
         {
-            "apiVersion": "2017-05-10",
-            "name": "[parameters('WebAppName')]",
-            "type": "Microsoft.Resources/deployments",
-            "properties": {
-                "mode": "Incremental",
-                "templateLink": {
-                    "uri": "[concat(variables('BuildingBlocksDfcBaseUrl'), 'app-service.json')]",
-                    "contentVersion": "1.0.0.0"
-                },
-                "parameters": {
-                    "appServiceName": {
-                        "value": "[parameters('WebAppName')]"
-                    },
-                    "appServicePlanName": {
-                        "value": "[variables('AppServicePlanName')]"
-                    },
-                    "appServicePlanResourceGroup": {
-                        "value": "[variables('AppServicePlanResourceGroup')]"
-                    },
-                    "appServiceType": {
-                        "value": "app"
-                    },
-                    "customHostName": {
-                        "value": "[parameters('CustomHostName')]"
-                    },
-                  
-                    "certificateThumbprint": {
-                        "value": ""
-                    },
-              
-                    "deployStagingSlot": {
-                        "value": false
-                    },
-                    "appServiceAppSettings": {
-                        "value": [
-                            {
-                                "name": "MSDEPLOY_RENAME_LOCKED_FILES",
-                                "value": "1"
-                            },
-                            {
-                                "name": "APPINSIGHTS_CONNECTIONSTRING",
-                                "value": "[reference(variables('AppServiceAppInsightsName')).outputs.instrumentationConnectionString.value]"
-                            },
-                            {
-                                "name": "WEBSITE_RUN_FROM_PACKAGE",
-                                "value": "0"
-                            },
-                            {
-                                "name": "OwlDataGeneratorConfigModel__DefaultLanguage",
-                                "value": "[parameters('OwlDataGeneratorDefaultLanguage')]"
-                            },
-                            {
-                                "name": "OwlDataGeneratorConfigModel__NamespaceName",
-                                "value": "[parameters('OwlDataGeneratorDefaultNamespace')]"
-                            },
-                            {
-                                "name": "OwlDataGeneratorConfigModel__NamespaceIri",
-                                "value": "[parameters('OwlDataGeneratorNamespaceUri')]"
-                            },
-                            {
-                                "name": "OwlDataGeneratorConfigModel__HeaderIri",
-                                "value": "[parameters('OwlDataGeneratorHeaderUri')]"
-                            },
-                            {
-                                "name": "OwlDataGeneratorConfigModel__HeaderAuthor",
-                                "value": "[parameters('OwlDataGeneratorHeaderAuthor')]"
-                            },
-                            {
-                                "name": "OwlDataGeneratorConfigModel__HeaderVersion",
-                                "value": "[parameters('OwlDataGeneratorHeaderVersion')]"
-                            },
-                            {
-                                "name": "OwlDataGeneratorConfigModel__DescriptionLabel",
-                                "value": "[parameters('OwlDataGeneratorDescription')]"
-                            },
-                            {
-                                "name": "OrchardCore_Default_ContentApiPrefix",
-                                "value": "[concat(parameters('apimProxyAddress'), '/content/GetContent/api/Execute')]"
-                            },
-                            {
-                                "name": "ContentApiPrefix",
-                                "value": "[concat(parameters('ContentApiAddress'), '/api/Execute')]"
-                            },
-                            {
-                                "name": "PreviewContentApiPrefix",
-                                "value": "[concat(parameters('PreviewContentApiPrefix'), '/api/Execute')]"
-                            },
-                            {
-                                "name": "EventStoreUrl",
-                                "value": "[parameters('appSharedCosmosEndpointUrl')]"
-                            },
-                            {
-                                "name": "EventStoreKey",
-                                "value": "[parameters('appSharedCosmosPrimaryKey')]"
-                            },
-                            {
-                                "name": "Pages__PublishedAppPrefix",
-                                "value": "[parameters('PublishedAppPrefix')]"
-                            },
-                            {
-                                "name": "Pages__PreviewAppPrefix",
-                                "value": "[parameters('PreviewAppPrefix')]"
-                            },
-                            {
-                                "name": "JobProfiles__PublishedAppPrefix",
-                                "value": "[parameters('JobProfilePublishedAppPrefix')]"
-                            },
-                            {
-                                "name": "JobProfiles__PreviewAppPrefix",
-                                "value": "[parameters('JobProfilePreviewAppPrefix')]"
-                            },
-                            {
-                                "name": "OrchardCore__OrchardCore_Media_Azure__ConnectionString",
-                                "value": "[parameters('MediaAzureBlobConnectionString')]"
-                            },
-                            {
-                                "name": "OrchardCore__OrchardCore_Media_Azure__ContainerName",
-                                "value": "[parameters('MediaContainerName')]"
-                            },
-                            {
-                                "name": "OrchardCore__OrchardCore_Media_Azure__BasePath",
-                                "value": "[parameters('MediaBasePath')]"
-                            },
-                            {
-                                "name": "OrchardCore__OrchardCore_Media_Azure__CreateContainer",
-                                "value": false
-                            },
-                            {
-                                "name": "DigitalAssetsCdn",
-                                "value": "[parameters('DigitalAssetsCdn')]"
-                            },
-                            {
-                                "name": "AzureAdSettings__ClientId",
-                                "value": "dfc-servicetaxonomy-editor-appregistration-id"
-                            },
-                            {
-                                "name": "AzureAdSettings__ClientSecret",
-                                "value": "dfc-servicetaxonomy-editor-appregistration-secret"
-                            },
-                            {
-                                "name": "AzureAdSettings__Authority",
-                                "value": "[parameters('AzureAdSettingsAuthority')]"
-                            },
-                            {
-                                "name": "AzureAdSettings__KeyVaultAddress",
-                                "value": "[parameters('AzureAdSettingsKeyVaultAddress')]"
-                            },
-                            {
-                                "name": "AzureAdSettings__SubscriptionId",
-                                "value": "[parameters('AzureAdSettingsSubscriptionId')]"
-                            },
-                            {
-                                "name": "AzureAdSettings__CdnProfileName",
-                                "value": "[parameters('AzureAdSettingsCdnProfileName')]"
-                            },
-                            {
-                                "name": "AzureAdSettings__CdnEndpointName",
-                                "value": "[parameters('AzureAdSettingsCdnEndpointName')]"
-                            },
-                            {
-                                "name": "AzureAdSettings__ResourceGroupName",
-                                "value": "[parameters('AzureAdSettingsResourceGroupName')]"
-                            },
-                            {
-                                "name": "AzureSearchSettings__JobProfileSearchIndexName",
-                                "value": "[parameters('AzureSearchSettingsJobProfileSearchIndexName')]"
-                            },
-                            {
-                                "name": "AzureSearchSettings__SearchServiceAdminAPIKey",
-                                "value": "[parameters('AzureSearchSettingsSearchServiceAdminAPIKey')]"
-                            },
-                            {
-                                "name": "AzureSearchSettings__SearchServiceEndPoint",
-                                "value": "[parameters('AzureSearchSettingsSearchServiceEndPoint')]"
-                            },
-                            {
-                                "name": "ConnectionStrings__SkillsFrameworkDB",
-                                "value": "[parameters('SkillsFrameworkDbConnectionString')]"
-                            },
-                            {
-                                "name": "CosmosDb__endpoints__preview__ConnectionString",
-                                "value": "[parameters('CosmosDbendpointspreviewConnectionString')]"
-                            },
-                            {
-                                "name": "CosmosDb__endpoints__preview__DatabaseName",
-                                "value": "[parameters('CosmosDbendpointspreviewDatabaseName')]"
-                            },
-                            {
-                                "name": "CosmosDb__endpoints__preview__ContainerName",
-                                "value": "[parameters('CosmosDbendpointspreviewContainerName')]"
-                            },
-                            {
-                                "name": "CosmosDb__endpoints__published__ConnectionString",
-                                "value": "[parameters('CosmosDbendpointspublishedConnectionString')]"
-                            },
-                            {
-                                "name": "CosmosDb__endpoints__published__DatabaseName",
-                                "value": "[parameters('CosmosDbendpointspublishedDatabaseName')]"
-                            },
-                            {
-                                "name": "CosmosDb__endpoints__published__ContainerName",
-                                "value": "[parameters('CosmosDbendpointspublishedContainerName')]"
-                            },
-                            {
-                                "name": "CosmosAppRegistry__DatabaseName",
-                                "value": "[parameters('CosmosAppRegistryDatabaseName')]"
-                            },
-                            {
-                                "name": "CosmosAppRegistry__ContainerName",
-                                "value": "[parameters('CosmosAppRegistryContainerName')]"
-                            },
-                            {
-                                "name": "CosmosAppRegistry__ContainerDraftName",
-                                "value": "[parameters('CosmosAppRegistryContainerDraftName')]"
-                            },
-                            {
-                                "name": "CosmosAppRegistry__ConnectionString",
-                                "value": "[parameters('CompositeUISharedCosmosConnectionString')]"
-                            },
-                            {
-                                "name": "WEBSITE_MEMORY_LIMIT_MB",
-                                "value": "[parameters('WEBSITEMEMORYLIMITMB')]"
-                            },
-                            {
-                                "name": "Cms__TokenEndPointUrl",
-                                "value": "[parameters('CmsTokenEndpointUrl')]"
-                            },
-                            {
-                                "name": "Cms__GraphApiUrl",
-                                "value": "[parameters('CmsGraphApiUrl')]"
-                            },
-                            {
-                                "name": "Cms__ClientId",
-                                "value": "[parameters('CmsClientId')]"
-                            },
-                            {
-                                "name": "Cms__ClientSecret",
-                                "value": "[parameters('CmsClientSecret')]"
-                            },
-                            {
-                                "name": "Cms__RedisCacheConnectionString",
-                                "value": "[parameters('CmsRedisCacheConnectionString')]"
-                            },
-                            {
-                                "name": "Cms__SqlApiUrl",
-                                "value": "[parameters('CmsSqlApiUrl')]"
-                            },
-                            {
-                                "name": "EventGrid__TopicEndPointUrl",
-                                "value": "[parameters('EventGridTopicEndPointUrl')]"
-                            },
-                            {
-                                "name": "EventGrid__TopicAccessKey",
-                                "value": "[parameters('EventGridTopicAccessKey')]"
-                            },
-                            {
-                                "name": "NcsPreview__PreviewLoginUrl",
-                                "value": "[parameters('PreviewLoginUrl')]"
-                            },
-                            {
-                                "name": "NcsPreview__EncryptionKey",
-                                "value": "[parameters('EncryptionKey')]"
-                            },
-                            {
-                                "name": "NcsPreview__CipherTextPrefix",
-                                "value": "[parameters('CipherTextPrefix')]"
-                            },
-                            {
-                                "name": "NcsPreview__CipherTextValiditySeconds",
-                                "value": "[parameters('CipherTextValiditySeconds')]"
-                            },
-                            {
-                                "name": "PreviewRedirectUri:0:RedirectUri",
-                                "value": "[parameters('PreviewRedirectUri:0:RedirectUri')]"
-                            },
-                            {
-                                "name": "PreviewRedirectUri:0:ContentType",
-                                "value": "[parameters('PreviewRedirectUri:0:ContentType')]"
-                            },
-                            {
-                                "name": "PreviewRedirectUri:1:RedirectUri",
-                                "value": "[parameters('PreviewRedirectUri:1:RedirectUri')]"
-                            },
-                            {
-                                "name": "PreviewRedirectUri:1:ContentType",
-                                "value": "[parameters('PreviewRedirectUri:1:ContentType')]"
-                            }
-                        ]
-                    }
-                }
-            },
-            "dependsOn": [
-                "[variables('AppServiceAppInsightsName')]"
-            ]
-        },
-        {
-            "apiVersion": "2017-05-10",
-            "name": "[variables('DatabaseName')]",
-            "type": "Microsoft.Resources/deployments",
-            "resourceGroup": "[parameters('SqlResourceGroupName')]",
-            "properties": {
-                "mode": "Incremental",
-                "templateLink": {
-                    "uri": "[concat(variables('BuildingBlocksDfcBaseUrl'), 'SqlServer/sql-database.json')]",
-                    "contentVersion": "1.0.0.0"
-                },
-                "parameters": {
-                    "databaseName": {
-                        "value": "[variables('DatabaseName')]"
-                    },
-                    "sqlServerName": {
-                        "value": "[parameters('SqlServerName')]"
-                    },
-                    "elasticPoolName": {
-                        "value": "[parameters('SqlElasticPoolName')]"
-                    },
-                    "databaseTier": {
-                        "value": "[variables('DatabaseTier')]"
-                    },
-                    "databaseCapacity": {
-                        "value": 4
-                    }
-                }
-            }
-        },
-        {
-            "apiVersion": "2019-05-01",
-            "name": "[concat(variables('AppServiceAppInsightsName'), '-metric-exceptions')]",
-            "type": "Microsoft.Resources/deployments",
-            "dependsOn": [
-                "[variables('AppServiceAppInsightsName')]"
-            ],
-            "properties": {
-                "mode": "Incremental",
-                "templateLink": {
-                    "uri": "[concat(variables('BuildingBlocksDfcBaseUrl'), 'Application-Insights/metric-alerts.json')]",
-                    "contentVersion": "1.0.0.0"
-                },
-                "parameters": {
-                    "enabled": {
-                        "value": "[parameters('enableAlerts')]"
-                    },
-                    "alertName": {
-                        "value": "[concat(variables('AppServiceAppInsightsName'), '-metric-exceptions')]"
-                    },
-                    "alertSeverity": {
-                        "value": 3
-                    },
-                    "metricName": {
-                        "value": "exceptions/count"
-                    },
-                    "operator": {
-                        "value": "GreaterThan"
-                    },
-                    "threshold": {
-                        "value": "[parameters('ExceptionCountThreshold')]"
-                    },
-                    "aggregation": {
-                        "value": "Count"
-                    },
-                    "windowSize": {
-                        "value": "PT5M"
-                    },
-                    "evaluationFrequency": {
-                        "value": "PT1M"
-                    },
-                    "actionGroupName": {
-                        "value": "[variables('ActionGroupName')]"
-                    },
-                    "actionGroupResourceGroup": {
-                        "value": "[variables('AppServicePlanResourceGroup')]"
-                    },
-                    "resourceId": {
-                        "value": "[resourceId('Microsoft.Insights/Components', variables('AppServiceAppInsightsName'))]"
-                    }
-                }
-            }
-        },
-        {
-            "apiVersion": "2019-05-01",
-            "name": "[concat(variables('AppServiceAppInsightsName'), '-failure-anomaly-v2')]",
-            "type": "Microsoft.Resources/deployments",
-            "dependsOn": [
-                "[variables('AppServiceAppInsightsName')]"
-            ],
-            "properties": {
-                "mode": "Incremental",
-                "templateLink": {
-                    "uri": "[concat(variables('BuildingBlocksDfcBaseUrl'), 'Application-Insights/failure-anomaly-rule.json')]",
-                    "contentVersion": "1.0.0.0"
-                },
-                "parameters": {
-                    "alertName": {
-                        "value": "[concat(variables('AppServiceAppInsightsName'), '-failure-anomaly-v2')]"
-                    },
-                    "enabled": {
-                        "value": "[parameters('enableAlerts')]"
-                    },
-                    "resourceId": {
-                        "value": "[resourceId('Microsoft.Insights/Components', variables('AppServiceAppInsightsName'))]"
-                    },
-                    "actionGroupId": {
-                        "value": "[resourceId(variables('AppServicePlanResourceGroup'), 'microsoft.insights/actionGroups', variables('ActionGroupName'))]"
-                    }
-                }
-            }
+            "type": "Microsoft.Web/sites/config",
+            "apiVersion": "2023-12-01",
+            "name": "[format('{0}/{1}', parameters('WebAppName'), 'connectionstrings')]",
+            "properties": {}
         }
     ],
     "outputs": {}

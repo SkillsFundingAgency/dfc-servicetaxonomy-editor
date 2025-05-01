@@ -37,7 +37,7 @@ namespace DFC.ServiceTaxonomy.VersionComparison.Services
                     $"The base content type '{baseVersion.ContentType}' is different to the compare content type '{compareVersion.ContentType}'");
             }
 
-            var contentType = _contentDefinitionManager.GetTypeDefinition(baseVersion.ContentType);
+            var contentType = _contentDefinitionManager.GetTypeDefinitionAsync(baseVersion.ContentType).Result;
             var partsLIst = contentType.Parts
                 .Select(p => p)
                 .Where(p => partsBlackList.All(bl => !bl.Equals(p.Name, StringComparison.InvariantCultureIgnoreCase)))

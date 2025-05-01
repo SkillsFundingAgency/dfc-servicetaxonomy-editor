@@ -54,7 +54,7 @@ namespace DFC.ServiceTaxonomy.Taxonomies.Drivers
             var taxonomyContentItemIds = settings.TaxonomyContentItemIds;
             if (!String.IsNullOrEmpty(model.SelectedContentType))
             {
-                var contentTypeDefinition = _contentDefinitionManager.GetTypeDefinition(model.SelectedContentType);
+                var contentTypeDefinition = await _contentDefinitionManager.GetTypeDefinitionAsync(model.SelectedContentType);
                 var fieldDefinitions = contentTypeDefinition
                     .Parts.SelectMany(x => x.PartDefinition.Fields.Where(f => f.FieldDefinition.Name == nameof(TaxonomyField)));
                 var fieldTaxonomyContentItemIds = fieldDefinitions.Select(x => x.GetSettings<TaxonomyFieldSettings>().TaxonomyContentItemId);

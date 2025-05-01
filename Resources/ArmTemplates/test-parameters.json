@@ -74,20 +74,8 @@
         "appSharedCosmosPrimaryKey": {
             "value": "not-a-real-key"
         },
-        "PublishedAppPrefix": {
-            "value": "https://foo.api.nationalcareersservice.org.uk"
-        },
-        "PreviewAppPrefix": {
-            "value": "https://foo.api.nationalcareersservice.org.uk"
-        },
         "PreviewContentApiPrefix": {
             "value": "https://foo.api.nationalcareersservice.org.uk"
-        },
-        "JobProfilePublishedAppPrefix": {
-            "value": "https://localhost/"
-        },
-        "JobProfilePreviewAppPrefix": {
-            "value": "https://localhost/"
         },
         "MediaAzureBlobConnectionString": {
             "value": "my-string"
@@ -143,18 +131,6 @@
         "CosmosDbendpointspublishedContainerName":{
             "value": "__CosmosDbendpointspublishedContainerName__"
         },
-        "CosmosAppRegistryDatabaseName":{
-            "value": "__CosmosAppRegistryDatabaseName__"
-        },
-        "CosmosAppRegistryContainerName":{
-            "value": "__CosmosAppRegistryContainerName__"
-        },
-        "CosmosAppRegistryContainerDraftName":{
-            "value": "__CosmosAppRegistryContainerDraftName__"
-        },
-        "CompositeUISharedCosmosConnectionString":{
-            "value": "__CompositeUISharedCosmosConnectionString__"
-        },
         "WEBSITEMEMORYLIMITMB":{
             "value": "__WEBSITEMEMORYLIMITMB__"
         },
@@ -163,24 +139,6 @@
         },
         "workspaceResourceGroup": {
             "value": "aResourceGroup"
-        },
-        "CmsTokenEndpointUrl": {
-          "value": "http://url"
-        },
-        "CmsGraphApiUrl": {
-          "value": "http://url"
-        },
-        "CmsClientId": {
-          "value": "clientid"
-        },
-        "CmsClientSecret": {
-          "value": "clientsecret"
-        },
-        "CmsRedisCacheConnectionString": {
-          "value": "teststring"
-        },
-        "CmsSqlApiUrl": {
-          "value": "http://url"
         },
         "EventGridTopicEndPointUrl": {
             "value": "http://url"
@@ -211,6 +169,21 @@
         },
         "PreviewRedirectUri:1:ContentType":{
             "value": "__ContentType1__"
+        },
+        "PreviewRedirectUri:2:RedirectUri": {
+            "value": "__RedirectUri2__"
+        },
+        "PreviewRedirectUri:2:ContentType":{
+            "value": "__ContentType2__"
+        },
+        "PreviewRedirectUri:3:RedirectUri": {
+            "value": "__RedirectUri3__"
+        },
+        "PreviewRedirectUri:3:ContentType":{
+            "value": "__ContentType3__"
+        },
+        "BaseUrlPath":{
+            "value": "__BaseUrlPath__"
         }
     }
 }
