@@ -63,7 +63,7 @@ function New-Password{
 }
 
 # $Context = Get-AzContext
-$AzureDevOpsServicePrincipal = Get-AzADServicePrincipal -ObjectId $Context.Account.Id
+$AzureDevOpsServicePrincipal = Get-AzADServicePrincipal -ObjectId "0dd45e4e-fb6f-4487-b70a-360d097097cf"
 # Comment above line and uncomment line below to test localy with your user account
 #$AzureDevOpsServicePrincipal = Get-AzADUser -UserPrincipalName $Context.Account.Id
 
