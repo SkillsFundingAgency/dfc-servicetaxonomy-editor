@@ -86,6 +86,21 @@
                                 "ContentItemId": "[js:uuid()]",
                                 "ContentItemVersionId": "[js:uuid()]",
                                 "ContentType": "LinkMenuItem",
+                                "DisplayText": "Actions plans",
+                                "Latest": false,
+                                "Published": false,
+                                "Owner": "[js: parameters('AdminUserId')]",
+                                "Author": "[js: parameters('AdminUsername')]",
+                                "LinkMenuItemPart": {
+                                    "Name": "Action plans",
+                                    "Url": "/action-plans"
+                                },
+                                "LinkMenuItem": {}
+                            },
+                            {
+                                "ContentItemId": "[js:uuid()]",
+                                "ContentItemVersionId": "[js:uuid()]",
+                                "ContentType": "LinkMenuItem",
                                 "DisplayText": "Careers advice",
                                 "Latest": false,
                                 "Published": false,
