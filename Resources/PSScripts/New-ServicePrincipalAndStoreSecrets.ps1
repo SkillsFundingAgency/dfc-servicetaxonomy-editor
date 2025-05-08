@@ -162,27 +162,4 @@ IF (!$vaultKey){
     Write-Verbose "ServicePrincipal $($RepoName)-appregistration-tenant-id secret already in KeyVault $($KeyVault.VaultName)"
 }
 
-# This uses the old CDN which no longer exists in some environments.
-# $roleAssignment = Get-AzRoleAssignment `
-#     -ResourceType "Microsoft.Cdn/profiles"  `
-#     -ResourceName $CdnProfileName  `
-#     -ResourceGroupName $SharedResourceGroupName  `
-#     -RoleDefinitionName "Contributor" | Where-Object {$_.DisplayName -eq "$($AdServicePrincipal.DisplayName)"}
-# if (!$roleAssignment) {
-#     Write-Verbose "'Contributor' Role assignment to $($AdServicePrincipal.ServicePrincipalNames) for $($CdnProfileName) NOT FOUND"
-#     Write-Verbose "Adding 'Contributor' Role assignment to $($AdServicePrincipal.ServicePrincipalNames) for $($CdnProfileName)"
-#     New-AzRoleAssignment -ApplicationId $AdServicePrincipal.ApplicationId  `
-#         -ResourceType "Microsoft.Cdn/profiles"  `
-#         -ResourceName $CdnProfileName  `
-#         -ResourceGroupName $SharedResourceGroupName  `
-#         -RoleDefinitionName "Contributor"
-#     Write-Verbose "Added 'Contributor' Role assignment to $($AdServicePrincipal.ServicePrincipalNames) for $($CdnProfileName)"
-# } else {
-#     Write-Verbose "$($roleAssignment.DisplayName) has CONTRIBUTOR permissions for $($CdnProfileName)"   
-# }
-
-
-
-
-
 $AdServicePrincipal
