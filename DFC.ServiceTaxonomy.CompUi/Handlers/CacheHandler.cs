@@ -109,6 +109,9 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
                     await _eventGridHandler.SendEventMessageAsync(TransformData(processing, current), contentEventType);
                     await ProcessRelatedContent(processing);
                     break;
+                case nameof(ContentTypes.BasicCard) when contentEventType != ContentEventType.StaxCreate:
+                    await ProcessRelatedContent(processing);
+                    break;
                 case nameof(ContentTypes.SectorLandingPage) when contentEventType == ContentEventType.StaxUpdate:
                     await ProcessContentUrlUpdate(processing, current);
                     await ProcessRelatedContent(processing);
