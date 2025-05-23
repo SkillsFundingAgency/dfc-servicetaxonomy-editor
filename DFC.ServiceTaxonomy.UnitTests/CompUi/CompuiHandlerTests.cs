@@ -105,6 +105,36 @@ namespace DFC.ServiceTaxonomy.UnitTests.CompUi
             //Assert
             A.CallTo(() => _eventGridHandler.SendEventMessageAsync(A<RelatedContentData>.Ignored, ContentEventType.StaxUpdate)).MustHaveHappenedTwiceExactly();
         }
+        [Fact]
+        public async Task SendEventGridMessage_BasicCardAdded_Create()
+        {
+            //Arrange
+            var processing = GetProcessingObj(ContentTypes.BasicCard, false, true);
+            var cacheHandler = ConfigureCacheHandler();
+
+            //Act
+            await cacheHandler.ProcessEventGridMessage(processing, ContentEventType.StaxCreate);
+
+            //Assert
+            A.CallTo(() => _eventGridHandler.SendEventMessageAsync(A<RelatedContentData>.Ignored, ContentEventType.StaxCreate)).MustHaveHappenedOnceExactly();
+        }
+
+        [Fact]
+        public async Task SendEventGridMessage_BasicCardUpdated_Update()
+        {
+            //Arrange
+            var processing = GetProcessingObj(ContentTypes.BasicCard, false, false);
+            var cacheHandler = ConfigureCacheHandler();
+            var contentData = GetRelatedContentData(ContentTypes.Page, 1);
+
+            A.CallTo(() => _relatedContentItemIndexRepository.GetRelatedContentDataByContentItemIdAndPage(A<Processing>.Ignored)).Returns(contentData);
+
+            //Act
+            await cacheHandler.ProcessEventGridMessage(processing, ContentEventType.StaxUpdate);
+
+            //Assert
+            A.CallTo(() => _eventGridHandler.SendEventMessageAsync(A<RelatedContentData>.Ignored, ContentEventType.StaxUpdate)).MustHaveHappenedOnceExactly();
+        }
 
         [Fact]
         public async Task SendEventGridMessage_ProcessJobProfilesLinkingtoSectorLandingPages_Update()
