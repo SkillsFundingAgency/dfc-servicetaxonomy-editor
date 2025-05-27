@@ -72,5 +72,86 @@ namespace DFC.ServiceTaxonomy.Migration.Migrations
 
             return 2;
         }
+        public async Task<int> UpdateFrom2()
+        {
+            try
+            {
+                logger.LogInformation($" Started UpdateFrom2 Migration from DFC.ServiceTaxonomy.Migration");
+
+                var recipes = new string[]
+                {
+                    $"{Constants.ContentTypesLocation}AddBasicCardContentType.recipe.json",
+                };
+
+                foreach (var recipe in recipes)
+                {
+                    await recipeMigrator.ExecuteAsync(recipe, this);
+                }
+            }
+            catch (Exception exception)
+            {
+                logger.LogError($"UpdateFrom2 Migration failed {exception.Message}", exception);
+
+                throw;
+            }
+
+            logger.LogInformation($"Completed UpdateFrom2 Migration from DFC.ServiceTaxonomy.Migration");
+
+            return 3;
+        }
+        public async Task<int> UpdateFrom3()
+        {
+            try
+            {
+                logger.LogInformation($" Started UpdateFrom3 Migration from DFC.ServiceTaxonomy.Migration");
+
+                var recipes = new string[]
+                {
+                    $"{Constants.PlacementsLocation}AllPlacements.recipe.json",
+                };
+
+                foreach (var recipe in recipes)
+                {
+                    await recipeMigrator.ExecuteAsync(recipe, this);
+                }
+            }
+            catch (Exception exception)
+            {
+                logger.LogError($"UpdateFrom3 Migration failed {exception.Message}", exception);
+
+                throw;
+            }
+
+            logger.LogInformation($"Completed UpdateFrom3 Migration from DFC.ServiceTaxonomy.Migration");
+
+            return 4;
+        }
+        public async Task<int> UpdateFrom4()
+        {
+            try
+            {
+                logger.LogInformation($" Started UpdateFrom4 Migration from DFC.ServiceTaxonomy.Migration");
+
+                var recipes = new string[]
+                {
+                    $"{Constants.TemplatesLocation}AllTemplates.recipe.json",
+                };
+
+                foreach (var recipe in recipes)
+                {
+                    await recipeMigrator.ExecuteAsync(recipe, this);
+                }
+            }
+            catch (Exception exception)
+            {
+                logger.LogError($"UpdateFrom4 Migration failed {exception.Message}", exception);
+
+                throw;
+            }
+
+            logger.LogInformation($"Completed UpdateFrom4 Migration from DFC.ServiceTaxonomy.Migration");
+
+            return 5;
+        }
     }
 }
