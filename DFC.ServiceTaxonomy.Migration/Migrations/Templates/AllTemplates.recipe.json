@@ -1,26 +1,30 @@
 {
-  "name": "All Templates",
-  "displayName": "All Templates",
-  "description": "All Templates",
-  "author": "FAC Developers",
-  "website": "National Careers Service",
-  "version": "1",
-  "issetuprecipe": false,
-  "categories": [],
-  "tags": [],
-  "steps": [
-    {
-      "name": "Templates",
-      "Templates": {
-        "Widget__CardContainer": {
-          "Content": "{% assign isPreview = Request.Headers.IsPreview | raw %}\r\n\r\n<div class=\"card-container\">\r\n   \r\n    {% assign contentItems = Model.ContentItem.Content.CardContainer.Cards.ContentItemIds %}\r\n    {% for contentItem in contentItems %}\r\n    {% if isPreview == \"True\" %}\r\n        {% assign id = \"ContentItemId:\" | append: contentItem %}               \r\n        {{ Content.Latest[id] | shape_build_display: \"BasicCard\" | shape_render  }}\r\n    {% else %}     \r\n        {% assign contentData = Content.ContentItemId[contentItem]  %}\r\n        {{ contentData | shape_build_display: \"BasicCard\" | shape_render }}\r\n    {% endif %}\r\n    {% endfor %}\r\n     \r\n</div>",
-          "Description": "Card Container widget template"
-        },
-        "Content_BasicCard": {
-          "Content": "{% assign card = Model.ContentItem.Content.BasicCard %}\r\n{%if card.DesktopImage.Paths and card.DesktopImage.Paths.first%}\r\n <div class=\"\">     \r\n    <img src=\"{{card.DesktopImage.Paths.first | asset_url}}\" alt=\"{{card.AltText.Text}}\" class=\"ncs-basic-card-image-d\">        \r\n    <img src=\"{{card.MobileImage.Paths.first | asset_url}}\" alt=\"{{card.AltText.Text}}\" class=\"ncs-basic-card-image-m\">        \r\n </div>\r\n{%else%}\r\n    <div class=\"ncs-card-basic card-default-size\">\r\n        <div class=\"card-header\">\r\n            <h3>\r\n                <a href=\"{{ card.LinkName.Url }}\"> {{ card.LinkName.Text }} </a>\r\n            </h3>\r\n        </div>\r\n\r\n        <div class=\"card-content\">\r\n        {{ card.Description.Html | raw }}\r\n        </div>\r\n        \r\n    </div>\r\n{%endif%}\r\n",
-          "Description": "Basic Card Template"
+    "name": "All Templates",
+    "displayName": "All Templates",
+    "description": "All Templates",
+    "author": "FAC Developers",
+    "website": "National Careers Service",
+    "version": "1",
+    "issetuprecipe": false,
+    "categories": [],
+    "tags": [],
+    "steps": [
+        {
+            "name": "Templates",
+            "Templates": {
+                "Widget__CardContainer": {
+                    "Content": "{% assign isPreview = Request.Headers.IsPreview | raw %}\r\n\r\n<div class=\"card-container\">\r\n    {% assign contentItems = Model.ContentItem.Content.CardContainer.Cards.ContentItemIds %}\r\n    {% for contentItem in contentItems %}\r\n        {% if isPreview == \"True\" %}\r\n            {% assign id = \"ContentItemId:\" | append: contentItem %}               \r\n            {{ Content.Latest[id] | shape_build_display:  Content.Latest[id].ContentType | shape_render  }}\r\n        {% else %}  \r\n            {% assign contentData = Content.ContentItemId[contentItem]  %}\r\n            {{ contentData | shape_build_display: contentData.ContentType | shape_render }}\r\n        {% endif %}\r\n    {% endfor %}\r\n</div>",
+                    "Description": "Card Container widget template"
+                },
+                "Content_BasicCard": {
+                    "Content": "{% assign card = Model.ContentItem.Content.BasicCard %}\r\n{%if card.DesktopImage.Paths and card.DesktopImage.Paths.first and card.Description.Html != \"\"%}\r\n <div class=\"ncs-card-with-image card-with-image-default-size\">\r\n    <div class=\"card-image\">\r\n        <img src=\"{{card.DesktopImage.Paths.first | asset_url}}\" alt=\"{{card.AltText.Text}}\" class=\"ncs-card-with-image-d\">        \r\n        <img src=\"{{card.MobileImage.Paths.first | asset_url}}\" alt=\"{{card.AltText.Text}}\" class=\"ncs-card-with-image-m\">    \r\n    </div>\r\n    <div class=\"card-content-section card-content-default-size\">\r\n        <div class=\"card-header\">\r\n           <h3> <a href=\"{{ card.LinkName.Url }}\"> {{ card.LinkName.Text }} </a></h3>\r\n        </div>\r\n        <div class=\"card-content\">\r\n             {{ card.Description.Html | raw }}\r\n        </div>\r\n    </div>\r\n</div>\r\n{%else%}\r\n    {%if card.DesktopImage.Paths and card.DesktopImage.Paths.first %}\r\n        <div class=\"\">     \r\n            <img src=\"{{card.DesktopImage.Paths.first | asset_url}}\" alt=\"{{card.AltText.Text}}\" class=\"ncs-basic-card-image-d\">        \r\n            <img src=\"{{card.MobileImage.Paths.first | asset_url}}\" alt=\"{{card.AltText.Text}}\" class=\"ncs-basic-card-image-m\">        \r\n        </div>\r\n    {%else%}\r\n        <div class=\"ncs-card-basic card-default-size\">\r\n            <div class=\"card-header\">\r\n                <h3>\r\n                    <a href=\"{{ card.LinkName.Url }}\"> {{ card.LinkName.Text }} </a>\r\n                </h3>\r\n            </div>\r\n            <div class=\"card-content\">\r\n            {{ card.Description.Html | raw }}\r\n            </div>\r\n        </div>\r\n    {%endif%}\r\n{%endif%}\r\n",
+                    "Description": "Basic Card Template"
+                },
+                "Content_ProductCard": {
+                    "Content": "{% assign card = Model.ContentItem.Content.ProductCard %}\r\n{% assign dysacIconPath = \"checkbox.svg\" %}\r\n{% assign facIconPath = \"magnifying-glass.svg\" %}\r\n{% assign ecIconPath = \"compass.svg\" %}\r\n{% assign templateId = card.Template.ContentItemIds.first %}\r\n{% assign template = Content.ContentItemId[templateId].DisplayText%}\r\n\r\n{% if template == \"Find a course\"%}\r\n {%assign headerStyle = \"fac-product-card-header\"%}\r\n {%assign iconPath = facIconPath %}\r\n {%assign borderStyle = \"fac-product-card\"%}\r\n{%endif%}\r\n{% if template == \"Skills assessment\"%}\r\n {%assign headerStyle = \"dysac-product-card-header\"%}\r\n {%assign iconPath = dysacIconPath %}\r\n {%assign borderStyle = \"dysac-product-card\"%}\r\n{%endif%}\r\n{% if template == \"Explore careers\"%}\r\n {%assign headerStyle = \"ec-product-card-header\"%}\r\n {%assign iconPath = ecIconPath %}\r\n {%assign borderStyle = \"ec-product-card\"%}\r\n{%endif%}\r\n\r\n<div class=\"ncs-card-product {{borderStyle}} product-card-default-size\">\r\n    <div class=\"card-header {{headerStyle}}\">\r\n        <h3>\r\n            <a href=\"{{ card.LinkTitle.Url }}\"> {{ card.LinkTitle.Text }} </a>\r\n        </h3>\r\n        <img src=\"{{iconPath | asset_url}}\"/>\r\n    </div>\r\n    <div class=\"content\">\r\n        {{ card.Description.Html | raw }}\r\n    </div>\r\n</div>    ",
+                    "Description": "Product Card Template"
+                }
+            }
         }
-      }
-    }
-  ]
+    ]
 }
