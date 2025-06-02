@@ -162,6 +162,8 @@ namespace DFC.ServiceTaxonomy.Migration.Migrations
                 var recipes = new string[]
                 {
                     $"{Constants.ContentTypesLocation}AddCardContainerContentType.recipe.json",
+                    $"{Constants.ContentTypesLocation}UpdatePageContentType.recipe.json",
+                    $"{Constants.TemplatesLocation}AllTemplates.recipe.json"
                 };
 
                 foreach (var recipe in recipes)
@@ -181,60 +183,5 @@ namespace DFC.ServiceTaxonomy.Migration.Migrations
             return 6;
         }
 
-        public async Task<int> UpdateFrom6()
-        {
-            try
-            {
-                logger.LogInformation($" Started UpdateFrom6 Migration from DFC.ServiceTaxonomy.Migration");
-
-                var recipes = new string[]
-                {
-                    $"{Constants.ContentTypesLocation}UpdatePageContentType.recipe.json",
-                };
-
-                foreach (var recipe in recipes)
-                {
-                    await recipeMigrator.ExecuteAsync(recipe, this);
-                }
-            }
-            catch (Exception exception)
-            {
-                logger.LogError($"UpdateFrom6 Migration failed {exception.Message}", exception);
-
-                throw;
-            }
-
-            logger.LogInformation($"Completed UpdateFrom6 Migration from DFC.ServiceTaxonomy.Migration");
-
-            return 7;
-        }
-
-        public async Task<int> UpdateFrom7()
-        {
-            try
-            {
-                logger.LogInformation($" Started UpdateFrom7 Migration from DFC.ServiceTaxonomy.Migration");
-
-                var recipes = new string[]
-                {
-                    $"{Constants.TemplatesLocation}AllTemplates.recipe.json",
-                };
-
-                foreach (var recipe in recipes)
-                {
-                    await recipeMigrator.ExecuteAsync(recipe, this);
-                }
-            }
-            catch (Exception exception)
-            {
-                logger.LogError($"UpdateFrom7 Migration failed {exception.Message}", exception);
-
-                throw;
-            }
-
-            logger.LogInformation($"Completed UpdateFrom7 Migration from DFC.ServiceTaxonomy.Migration");
-
-            return 8;
-        }
     }
 }
