@@ -161,9 +161,13 @@ namespace DFC.ServiceTaxonomy.Migration.Migrations
 
                 var recipes = new string[]
                 {
+                    $"{Constants.ContentTypesLocation}AddProductCardTypeContentType.recipe.json",
+                    $"{Constants.ContentItemsLocation}AddProductCardTypeContentItem.recipe.json",
+                    $"{Constants.ContentTypesLocation}AddProductCardContentType.recipe.json",
                     $"{Constants.ContentTypesLocation}AddCardContainerContentType.recipe.json",
                     $"{Constants.ContentTypesLocation}UpdatePageContentType.recipe.json",
-                    $"{Constants.TemplatesLocation}AllTemplates.recipe.json"
+                    $"{Constants.TemplatesLocation}AllTemplates.recipe.json",
+                    $"{Constants.PlacementsLocation}AllPlacements.recipe.json"
                 };
 
                 foreach (var recipe in recipes)
