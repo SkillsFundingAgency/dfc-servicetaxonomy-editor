@@ -1,0 +1,101 @@
+{
+  "name": "Card Container Content Type",
+  "displayName": "Card Container Content Type",
+  "description": "Card Container",
+  "author": "FAC Developers",
+  "website": "1",
+  "version": "",
+  "issetuprecipe": false,
+  "categories": [],
+  "tags": [],
+  "steps": [
+    {
+      "name": "ContentDefinition",
+      "ContentTypes": [
+        {
+          "Name": "CardContainer",
+          "DisplayName": "Card Container",
+          "Settings": {
+            "ContentTypeSettings": {
+              "Creatable": true,
+              "Listable": true,
+              "Draftable": true,
+              "Versionable": true,
+              "Stereotype": "Widget",
+              "Securable": true
+            },
+            "FullTextAspectSettings": {},
+            "GraphQLContentTypeSettings": {}
+          },
+          "ContentTypePartDefinitionRecords": [
+            {
+              "PartName": "CardContainer",
+              "Name": "CardContainer",
+              "Settings": {
+                "ContentTypePartSettings": {
+                  "Position": "0"
+                }
+              }
+            },
+            {
+              "PartName": "GraphSyncPart",
+              "Name": "GraphSyncPart",
+              "Settings": {
+                "GraphSyncPartSettings": {
+                  "BagPartContentItemRelationshipType": "",
+                  "PreExistingNodeUriPrefix": "",
+                  "NodeNameTransform": "ContentType",
+                  "PropertyNameTransform": "Value",
+                  "CreateRelationshipType": "",
+                  "IdPropertyName": "uri",
+                  "GenerateIdPropertyValue": "$\"<<contentapiprefix>>/{ContentType}/{Value}\".ToLowerInvariant()",
+                  "DisplayId": true
+                },
+                "ContentTypePartSettings": {
+                  "Position": "1"
+                }
+              }
+            }
+          ]
+        }
+      ],
+      "ContentParts": [
+        {
+          "Name": "GraphSyncPart",
+          "Settings": {
+            "ContentPartSettings": {
+              "Attachable": true,
+              "Description": "Enables the content type to be synced to a graph."
+            }
+          },
+          "ContentPartFieldDefinitionRecords": []
+        },
+        {
+          "Name": "CardContainer",
+          "Settings": {},
+          "ContentPartFieldDefinitionRecords": [
+            {
+              "FieldName": "ContentPickerField",
+              "Name": "Cards",
+              "Settings": {
+                "ContentPartFieldSettings": {
+                  "DisplayName": "Cards",
+                  "Position": "0"
+                },
+                "ContentPickerFieldSettings": {
+                  "Required": true,
+                  "Multiple": true,
+                  "DisplayedContentTypes": [
+                    "BasicCard",
+                    "ProductCard"
+                  ],
+                  "DisplayedStereotypes": []
+                }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,105 @@
+{
+  "name": "Product Card Type Content",
+  "displayName": "Product Card Type Content",
+  "description": "Product Card Type Content",
+  "author": "FAC Developers",
+  "website": "National Careers Service",
+  "version": "1",
+  "issetuprecipe": false,
+  "categories": [],
+  "tags": [],
+  "steps": [
+    {
+      "name": "content",
+      "data": [
+        {
+          "ContentItemId": "4k45ajxnmkn6k4spa5yb65ezwp",
+          "ContentItemVersionId": "4ggs7yze094z0th1y9tn9q0ecf",
+          "ContentType": "ProductCardType",
+          "DisplayText": "Explore careers",
+          "Latest": true,
+          "Published": true,
+          "ModifiedUtc": "2025-05-28T10:03:53.5731681Z",
+          "PublishedUtc": "2025-05-28T10:03:53.6527523Z",
+          "CreatedUtc": "2025-05-28T10:03:53.5731681Z",
+          "Owner": "44j1gcevhh5q8zm2ms3256zdc7",
+          "Author": "siva.muruganandham",
+          "ProductCardType": {},
+          "TitlePart": {
+            "Title": "Explore careers"
+          },
+          "AuditTrailPart": {
+            "Comment": "created",
+            "ShowComment": false
+          },
+          "ContentApprovalPart": {
+            "ReviewStatus": 0,
+            "ReviewType": 0,
+            "IsForcePublished": false
+          },
+          "GraphSyncPart": {
+            "Text": "<<contentapiprefix>>/productcardtype/3009bb1d-ae49-4754-a3fd-8a1ade967d70"
+          }
+        },
+        {
+          "ContentItemId": "42n43v7jmg9bjw6r2w9j2nptmy",
+          "ContentItemVersionId": "4bskvf0ss2vjwx8wwnxh8gdfx3",
+          "ContentType": "ProductCardType",
+          "DisplayText": "Find a course",
+          "Latest": true,
+          "Published": true,
+          "ModifiedUtc": "2025-05-28T10:05:20.5764688Z",
+          "PublishedUtc": "2025-05-28T10:05:20.6082355Z",
+          "CreatedUtc": "2025-05-28T10:04:37.8201009Z",
+          "Owner": "44j1gcevhh5q8zm2ms3256zdc7",
+          "Author": "siva.muruganandham",
+          "ProductCardType": {},
+          "TitlePart": {
+            "Title": "Find a course"
+          },
+          "AuditTrailPart": {
+            "Comment": "created",
+            "ShowComment": false
+          },
+          "ContentApprovalPart": {
+            "ReviewStatus": 0,
+            "ReviewType": 0,
+            "IsForcePublished": false
+          },
+          "GraphSyncPart": {
+            "Text": "<<contentapiprefix>>/productcardtype/cca49fe1-527a-4627-b0c3-320e28e2bc14"
+          }
+        },
+        {
+          "ContentItemId": "4a09y6110ze8zxk5n6dgj93e43",
+          "ContentItemVersionId": "4xycw3wtmaeb7vf5dxjv9qc55j",
+          "ContentType": "ProductCardType",
+          "DisplayText": "Skills assessment",
+          "Latest": true,
+          "Published": true,
+          "ModifiedUtc": "2025-05-28T10:05:37.6092294Z",
+          "PublishedUtc": "2025-05-28T10:05:37.6326206Z",
+          "CreatedUtc": "2025-05-28T10:05:37.6092294Z",
+          "Owner": "44j1gcevhh5q8zm2ms3256zdc7",
+          "Author": "siva.muruganandham",
+          "ProductCardType": {},
+          "TitlePart": {
+            "Title": "Skills assessment"
+          },
+          "AuditTrailPart": {
+            "Comment": "created",
+            "ShowComment": false
+          },
+          "ContentApprovalPart": {
+            "ReviewStatus": 0,
+            "ReviewType": 0,
+            "IsForcePublished": false
+          },
+          "GraphSyncPart": {
+            "Text": "<<contentapiprefix>>/productcardtype/f27c88a4-d972-4779-8007-fbff5c76811f"
+          }
+        }
+      ]
+    }
+  ]
+}
