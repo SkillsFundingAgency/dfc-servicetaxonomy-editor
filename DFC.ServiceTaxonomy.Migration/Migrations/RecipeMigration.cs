@@ -167,7 +167,9 @@ namespace DFC.ServiceTaxonomy.Migration.Migrations
                     $"{Constants.ContentTypesLocation}AddCardContainerContentType.recipe.json",
                     $"{Constants.ContentTypesLocation}UpdatePageContentType.recipe.json",
                     $"{Constants.TemplatesLocation}AllTemplates.recipe.json",
-                    $"{Constants.PlacementsLocation}AllPlacements.recipe.json"
+                    $"{Constants.PlacementsLocation}AllPlacements.recipe.json",
+                    $"{Constants.ContentItemsLocation}AddCardsContentItem.recipe.json",
+                    $"{Constants.ContentItemsLocation}AddFacHomeAndCoursePageContentItem.recipe.json"
                 };
 
                 foreach (var recipe in recipes)
