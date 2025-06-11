@@ -14,13 +14,13 @@
       "data": [
         {
           "ContentItemId": "4wa9djbm33nkp5811s14rr7t40",
-          "ContentItemVersionId": "4de8j8nsqxy1e1aw2zxh9mzem6",
+          "ContentItemVersionId": "4x926nbbhhgxy6g23zsfgxewcn",
           "ContentType": "Page",
           "DisplayText": "Find a Course Home ",
           "Latest": true,
           "Published": true,
-          "ModifiedUtc": "2025-06-08T21:57:10.5023159Z",
-          "PublishedUtc": "2025-06-08T21:57:11.0044753Z",
+          "ModifiedUtc": "2025-06-10T22:12:17.3959839Z",
+          "PublishedUtc": "2025-06-10T22:12:17.8939101Z",
           "CreatedUtc": "2025-06-04T12:48:49.7032571Z",
           "Owner": "44j1gcevhh5q8zm2ms3256zdc7",
           "Author": "siva.muruganandham",
@@ -38,7 +38,7 @@
               "Text": "Search"
             },
             "Herobanner": {
-              "Html": "<div class=\"fac-search-for-course-hero\">\n    <div class=\"content govuk-width-container\">\n        <div class=\"govuk-grid-row\">\n            <div class=\"govuk-grid-column-two-thirds\">\n                    <h1 class=\"govuk-heading-xl\">\n                        Find a course\n                    </h1>\n                    \n                        <p>\n                          Search for online and classroom based courses near you, to help you get a job or develop your skills.\n                        </p>\n                </div>\n            </div>\n        </div>\n    </div>\n"
+                "Html": "<div class=\"fac-search-for-course-hero\">\n    <div class=\"content govuk-width-container\">\n        <div class=\"govuk-grid-row\">\n            <div class=\"govuk-grid-column-full fac-landing-header-container\">\n             <div class=\"fac-landing-heading\">\n                    <h1 class=\"govuk-heading-xl\">\n                        Find a course\n                    </h1>\n                    \n                        <p>\n                          Search for online and classroom based courses near you, to help you get a job or develop your skills.\n                        </p>\n             </div>\n             <div class=\"fac-image-container\">\n                    \n                <img src=\"https://cdn.nationalcareers.service.gov.uk/media/magnifying-glass.svg\" alt=\"\">\n\n             </div>\n       </div>\n \n            </div>\n        </div>\n    </div>\n"
             },
             "ShowHeroBanner": {
               "Value": false
@@ -86,7 +86,7 @@
                 "DisplayText": "",
                 "Latest": false,
                 "Published": false,
-                "ModifiedUtc": "2025-06-08T21:57:10.5375245Z",
+                "ModifiedUtc": "2025-06-10T22:12:17.4278393Z",
                 "PublishedUtc": null,
                 "CreatedUtc": null,
                 "Owner": "",
@@ -126,7 +126,7 @@
             "IsForcePublished": false
           },
           "AuditTrailPart": {
-            "Comment": "updated banner",
+            "Comment": "updated style",
             "ShowComment": false
           }
         },
