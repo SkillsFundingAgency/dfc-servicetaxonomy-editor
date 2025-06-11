@@ -188,6 +188,33 @@ namespace DFC.ServiceTaxonomy.Migration.Migrations
 
             return 6;
         }
+        public async Task<int> UpdateFrom6()
+        {
+            try
+            {
+                logger.LogInformation($" Started UpdateFrom6 Migration from DFC.ServiceTaxonomy.Migration");
 
+                var recipes = new string[]
+                {
+                    $"{Constants.TemplatesLocation}AllTemplates.recipe.json",
+                    $"{Constants.ContentItemsLocation}AddFacHomeAndCoursePageContentItem.recipe.json"
+                };
+
+                foreach (var recipe in recipes)
+                {
+                    await recipeMigrator.ExecuteAsync(recipe, this);
+                }
+            }
+            catch (Exception exception)
+            {
+                logger.LogError($"UpdateFrom5 Migration failed {exception.Message}", exception);
+
+                throw;
+            }
+
+            logger.LogInformation($"Completed UpdateFrom6 Migration from DFC.ServiceTaxonomy.Migration");
+
+            return 7;
+        }
     }
 }
