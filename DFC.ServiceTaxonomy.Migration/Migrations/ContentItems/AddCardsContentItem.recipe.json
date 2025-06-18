@@ -140,13 +140,13 @@
         },
         {
           "ContentItemId": "41s9kcgpfcg6pw8n5xycfgftdr",
-          "ContentItemVersionId": "4zybnrsjqbg4dygty0z87csenk",
+          "ContentItemVersionId": "4t81nhw939kpz0s9ddrqtszw5z",
           "ContentType": "BasicCard",
           "DisplayText": "Personal learning support image",
           "Latest": true,
           "Published": true,
-          "ModifiedUtc": "2025-06-06T15:03:46.3701333Z",
-          "PublishedUtc": "2025-06-06T15:03:46.4220314Z",
+          "ModifiedUtc": "2025-06-12T08:16:57.7038833Z",
+          "PublishedUtc": "2025-06-12T08:16:57.7743533Z",
           "CreatedUtc": "2025-05-27T12:50:47.8007696Z",
           "Owner": "44j1gcevhh5q8zm2ms3256zdc7",
           "Author": "siva.muruganandham",
@@ -168,7 +168,7 @@
               ]
             },
             "AltText": {
-              "Text": "decorative"
+              "Text": null
             },
             "Description": {
               "Html": ""
@@ -185,7 +185,7 @@
             "Title": "Personal learning support image"
           },
           "AuditTrailPart": {
-            "Comment": "image updated",
+            "Comment": "Updated",
             "ShowComment": false
           },
           "ContentApprovalPart": {
@@ -196,13 +196,13 @@
         },
         {
           "ContentItemId": "4jqa8258hwgxf2dae553p5j7x3",
-          "ContentItemVersionId": "4y2mfrja3jj51wfmyx8c6xmkcx",
+          "ContentItemVersionId": "4gts5q68btcrc32c5zac2mt650",
           "ContentType": "BasicCard",
           "DisplayText": "CWI Search all courses ",
           "Latest": true,
           "Published": true,
-          "ModifiedUtc": "2025-06-06T12:12:57.7317643Z",
-          "PublishedUtc": "2025-06-06T12:12:57.7845753Z",
+          "ModifiedUtc": "2025-06-12T08:17:55.6964841Z",
+          "PublishedUtc": "2025-06-12T08:17:55.7579445Z",
           "CreatedUtc": "2025-06-04T20:37:10.0260718Z",
           "Owner": "44j1gcevhh5q8zm2ms3256zdc7",
           "Author": "siva.muruganandham",
@@ -224,7 +224,7 @@
               ]
             },
             "AltText": {
-              "Text": "decorative"
+              "Text": null
             },
             "Description": {
               "Html": "<p>Browse all available courses to find the one that's right for you.</p>"
@@ -241,7 +241,7 @@
             "Title": "CWI Search all courses "
           },
           "AuditTrailPart": {
-            "Comment": "created",
+            "Comment": "updated",
             "ShowComment": false
           },
           "ContentApprovalPart": {
@@ -252,13 +252,13 @@
         },
         {
           "ContentItemId": "433w7hsb9d24v652epd3ytms5w",
-          "ContentItemVersionId": "47z6ypp6esjpg794ne8s1dn0cd",
+          "ContentItemVersionId": "4kmt0s917j9sexh9rnt23x724k",
           "ContentType": "BasicCard",
           "DisplayText": "CWI Find an apprenticeship on GOV.UK",
           "Latest": true,
           "Published": true,
-          "ModifiedUtc": "2025-06-06T12:11:54.192662Z",
-          "PublishedUtc": "2025-06-06T12:11:54.2637768Z",
+          "ModifiedUtc": "2025-06-12T08:17:24.4622349Z",
+          "PublishedUtc": "2025-06-12T08:17:24.5252956Z",
           "CreatedUtc": "2025-06-04T20:38:41.4220838Z",
           "Owner": "44j1gcevhh5q8zm2ms3256zdc7",
           "Author": "siva.muruganandham",
@@ -280,7 +280,7 @@
               ]
             },
             "AltText": {
-              "Text": "decorative"
+              "Text": null
             },
             "Description": {
               "Html": "<p>Search apprenticeships near you based on your interests if you're in England and any age over 16.</p>"
@@ -297,7 +297,7 @@
             "Title": "CWI Find an apprenticeship on GOV.UK"
           },
           "AuditTrailPart": {
-            "Comment": "created",
+            "Comment": "updated",
             "ShowComment": false
           },
           "ContentApprovalPart": {
@@ -308,13 +308,13 @@
         },
         {
           "ContentItemId": "43w4kqk5g505pxjm25vfv93m4p",
-          "ContentItemVersionId": "40wdx125hyqndt6xy5nj0xfhc5",
+          "ContentItemVersionId": "4rj0myc33fjbq6d60r4zhxgydv",
           "ContentType": "BasicCard",
           "DisplayText": "CWI Get Course support",
           "Latest": true,
           "Published": true,
-          "ModifiedUtc": "2025-06-06T12:10:40.8367982Z",
-          "PublishedUtc": "2025-06-06T12:10:40.8888582Z",
+          "ModifiedUtc": "2025-06-12T08:18:22.3141517Z",
+          "PublishedUtc": "2025-06-12T08:18:22.3765955Z",
           "CreatedUtc": "2025-06-04T19:42:42.2157721Z",
           "Owner": "44j1gcevhh5q8zm2ms3256zdc7",
           "Author": "siva.muruganandham",
@@ -336,7 +336,7 @@
               ]
             },
             "AltText": {
-              "Text": "decorative"
+              "Text": null
             },
             "Description": {
               "Html": "<p>See what support you can get with funding, childcare or disability adjustments. Or, get help to choose a course that suits you. </p>"
@@ -353,7 +353,7 @@
             "Title": "CWI Get Course support"
           },
           "AuditTrailPart": {
-            "Comment": "created",
+            "Comment": "updated",
             "ShowComment": false
           },
           "ContentApprovalPart": {
@@ -364,13 +364,13 @@
         },
         {
           "ContentItemId": "4e7y3n4n9nzzf43bp3hgkj3s4c",
-          "ContentItemVersionId": "4rmw1t6kv2h8fy4c6g58gybbnv",
+          "ContentItemVersionId": "4xsyw6htvzq5bxkh7hh2gk0ad9",
           "ContentType": "BasicCard",
           "DisplayText": "Help to choose a course image",
           "Latest": true,
           "Published": true,
-          "ModifiedUtc": "2025-06-06T12:05:59.3937739Z",
-          "PublishedUtc": "2025-06-06T12:05:59.4615058Z",
+          "ModifiedUtc": "2025-06-12T08:19:00.143118Z",
+          "PublishedUtc": "2025-06-12T08:19:00.2362738Z",
           "CreatedUtc": "2025-06-04T09:34:56.1707048Z",
           "Owner": "4pdct3saf0gv75hpzc67rmwmmq",
           "Author": "siva.muruganandham",
@@ -392,7 +392,7 @@
               ]
             },
             "AltText": {
-              "Text": "decorative"
+              "Text": null
             },
             "Description": {
               "Html": ""
@@ -409,7 +409,7 @@
             "Title": "Help to choose a course image"
           },
           "AuditTrailPart": {
-            "Comment": "updated image",
+            "Comment": "updated",
             "ShowComment": false
           },
           "ContentApprovalPart": {
