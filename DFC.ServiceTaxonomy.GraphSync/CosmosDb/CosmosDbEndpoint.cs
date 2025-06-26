@@ -509,7 +509,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb
 
                 if (linkedItemFromCosmos == null)
                 {
-                    throw new ValidationException($"{linkedItemFromCosmos}");
+                    throw new ValidationException("Failed to delete Content Item. Linked items from cosmos returned NULL.");
                 }
 
                 Dictionary<string, object> linkedItemLinks = SafeCastToDictionary(linkedItemFromCosmos["_links"]);
@@ -517,7 +517,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb
 
                 if (keysInLinkedItem == null)
                 {
-                    throw new ValidationException($"{keysInLinkedItem}");
+                    throw new ValidationException("Failed to delete Content Item. Keys in linked items returned NULL.");
                 }
 
                 foreach (var key in keysInLinkedItem)
