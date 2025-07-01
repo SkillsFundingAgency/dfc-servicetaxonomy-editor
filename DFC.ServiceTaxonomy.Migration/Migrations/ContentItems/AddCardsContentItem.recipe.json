@@ -1,0 +1,760 @@
+{
+  "name": "Card Contents",
+  "displayName": "Card Contents",
+  "description": "Card Contents",
+  "author": "FAC Developers",
+  "website": "National Careers Service",
+  "version": "1",
+  "issetuprecipe": false,
+  "categories": [],
+  "tags": [],
+  "steps": [
+    {
+      "name": "Content",
+      "data": [
+        {
+          "ContentItemId": "4rktmanh4jsgawsekpn3b304xp",
+          "ContentItemVersionId": "4ehs8ngvxzxcrtg8vw3n28tkd8",
+          "ContentType": "ProductCard",
+          "DisplayText": "Explore Careers - Product card",
+          "Latest": true,
+          "Published": true,
+          "ModifiedUtc": "2025-06-04T10:23:16.2746644Z",
+          "PublishedUtc": "2025-06-04T10:23:16.3439979Z",
+          "CreatedUtc": "2025-05-29T14:57:26.1505805Z",
+          "Owner": "44j1gcevhh5q8zm2ms3256zdc7",
+          "Author": "j.mulforddamen",
+          "ProductCard": {
+            "Template": {
+              "ContentItemIds": [
+                "4k45ajxnmkn6k4spa5yb65ezwp"
+              ]
+            },
+            "LinkTitle": {
+              "Url": "/explore-careers",
+              "Text": "Explore careers"
+            },
+            "Description": {
+              "Html": "<p>Browse careers you're interested in to see what qualifications you might need.</p>"
+            }
+          },
+          "AuditTrailPart": {
+            "Comment": ".",
+            "ShowComment": false
+          },
+          "ContentApprovalPart": {
+            "ReviewStatus": 0,
+            "ReviewType": 0,
+            "IsForcePublished": false
+          },
+          "TitlePart": {
+            "Title": "Explore Careers - Product card"
+          },
+          "GraphSyncPart": {
+            "Text": "<<contentapiprefix>>/productcard/62b20ef0-3561-4159-9444-a0d4583471ac"
+          }
+        },
+        {
+          "ContentItemId": "4w8sk304vpcj92e5pnbtpz23xj",
+          "ContentItemVersionId": "49xbv7cg1n6kb4gv2dhtc5vf5e",
+          "ContentType": "ProductCard",
+          "DisplayText": "Skills assessment - Product card",
+          "Latest": true,
+          "Published": true,
+          "ModifiedUtc": "2025-05-29T14:59:28.1256985Z",
+          "PublishedUtc": "2025-05-29T14:59:28.2175351Z",
+          "CreatedUtc": "2025-05-29T14:58:43.252968Z",
+          "Owner": "44j1gcevhh5q8zm2ms3256zdc7",
+          "Author": "siva.muruganandham",
+          "ProductCard": {
+            "Template": {
+              "ContentItemIds": [
+                "4a09y6110ze8zxk5n6dgj93e43"
+              ]
+            },
+            "LinkTitle": {
+              "Url": "www.nationalcareers.co.uk",
+              "Text": "Skils assessment"
+            },
+            "Description": {
+              "Html": "<p>skilss assessment</p>"
+            }
+          },
+          "AuditTrailPart": {
+            "Comment": "created",
+            "ShowComment": false
+          },
+          "ContentApprovalPart": {
+            "ReviewStatus": 0,
+            "ReviewType": 0,
+            "IsForcePublished": false
+          },
+          "TitlePart": {
+            "Title": "Skills assessment - Product card"
+          },
+          "GraphSyncPart": {
+            "Text": "<<contentapiprefix>>/productcard/647c67ae-4c31-4052-8b9e-f23ccadc5e66"
+          }
+        },
+        {
+          "ContentItemId": "4gevz53jhpwzjttf8sh6agh2mc",
+          "ContentItemVersionId": "4ajg26nc4pzkx4a5yp7y22pmwx",
+          "ContentType": "ProductCard",
+          "DisplayText": "Find a course card",
+          "Latest": true,
+          "Published": true,
+          "ModifiedUtc": "2025-05-29T11:22:04.9798963Z",
+          "PublishedUtc": "2025-05-29T11:22:05.0093435Z",
+          "CreatedUtc": "2025-05-29T11:22:04.9798963Z",
+          "Owner": "44j1gcevhh5q8zm2ms3256zdc7",
+          "Author": "siva.muruganandham",
+          "ProductCard": {
+            "Template": {
+              "ContentItemIds": [
+                "42n43v7jmg9bjw6r2w9j2nptmy"
+              ]
+            },
+            "LinkTitle": {
+              "Url": "www.nationalcareers.co.uk",
+              "Text": "Find a course"
+            },
+            "Description": {
+              "Html": "<p>Find a course</p>"
+            }
+          },
+          "AuditTrailPart": {
+            "Comment": "created",
+            "ShowComment": false
+          },
+          "ContentApprovalPart": {
+            "ReviewStatus": 0,
+            "ReviewType": 0,
+            "IsForcePublished": false
+          },
+          "TitlePart": {
+            "Title": "Find a course card"
+          },
+          "GraphSyncPart": {
+            "Text": "<<contentapiprefix>>/productcard/70c30500-0931-4063-8b67-ab1ea8efad57"
+          }
+        },
+        {
+          "ContentItemId": "41s9kcgpfcg6pw8n5xycfgftdr",
+          "ContentItemVersionId": "4t81nhw939kpz0s9ddrqtszw5z",
+          "ContentType": "BasicCard",
+          "DisplayText": "Personal learning support image",
+          "Latest": true,
+          "Published": true,
+          "ModifiedUtc": "2025-06-12T08:16:57.7038833Z",
+          "PublishedUtc": "2025-06-12T08:16:57.7743533Z",
+          "CreatedUtc": "2025-05-27T12:50:47.8007696Z",
+          "Owner": "44j1gcevhh5q8zm2ms3256zdc7",
+          "Author": "siva.muruganandham",
+          "BasicCard": {
+            "MobileImage": {
+              "Paths": [
+                "find-a-course/course-support/mobile/personal-learning-support-title-mobile-2.png"
+              ],
+              "MediaTexts": [
+                ""
+              ]
+            },
+            "DesktopImage": {
+              "Paths": [
+                "find-a-course/course-support/desktop/personal-learning-support-title-desktop-2.png"
+              ],
+              "MediaTexts": [
+                ""
+              ]
+            },
+            "AltText": {
+              "Text": null
+            },
+            "Description": {
+              "Html": ""
+            },
+            "LinkName": {
+              "Url": null,
+              "Text": null
+            }
+          },
+          "GraphSyncPart": {
+            "Text": "<<contentapiprefix>>/basiccard/1daa38b0-86c0-432f-a0f4-1cce73441df1"
+          },
+          "TitlePart": {
+            "Title": "Personal learning support image"
+          },
+          "AuditTrailPart": {
+            "Comment": "Updated",
+            "ShowComment": false
+          },
+          "ContentApprovalPart": {
+            "ReviewStatus": 0,
+            "ReviewType": 0,
+            "IsForcePublished": false
+          }
+        },
+        {
+          "ContentItemId": "4jqa8258hwgxf2dae553p5j7x3",
+          "ContentItemVersionId": "4gts5q68btcrc32c5zac2mt650",
+          "ContentType": "BasicCard",
+          "DisplayText": "CWI Search all courses ",
+          "Latest": true,
+          "Published": true,
+          "ModifiedUtc": "2025-06-12T08:17:55.6964841Z",
+          "PublishedUtc": "2025-06-12T08:17:55.7579445Z",
+          "CreatedUtc": "2025-06-04T20:37:10.0260718Z",
+          "Owner": "44j1gcevhh5q8zm2ms3256zdc7",
+          "Author": "siva.muruganandham",
+          "BasicCard": {
+            "MobileImage": {
+              "Paths": [
+                "find-a-course/landing-page/mobile/search-all-courses-card-mobile.png"
+              ],
+              "MediaTexts": [
+                ""
+              ]
+            },
+            "DesktopImage": {
+              "Paths": [
+                "find-a-course/landing-page/desktop/search-all-courses-card-desktop.png"
+              ],
+              "MediaTexts": [
+                ""
+              ]
+            },
+            "AltText": {
+              "Text": null
+            },
+            "Description": {
+              "Html": "<p>Browse all available courses to find the one that's right for you.</p>"
+            },
+            "LinkName": {
+              "Url": "find-a-course/searchcourse",
+              "Text": "Search all courses"
+            }
+          },
+          "GraphSyncPart": {
+            "Text": "<<contentapiprefix>>/basiccard/9a539b54-9a0c-4beb-aa7e-fac01518a55b"
+          },
+          "TitlePart": {
+            "Title": "CWI Search all courses "
+          },
+          "AuditTrailPart": {
+            "Comment": "updated",
+            "ShowComment": false
+          },
+          "ContentApprovalPart": {
+            "ReviewStatus": 0,
+            "ReviewType": 0,
+            "IsForcePublished": false
+          }
+        },
+        {
+          "ContentItemId": "433w7hsb9d24v652epd3ytms5w",
+          "ContentItemVersionId": "4kmt0s917j9sexh9rnt23x724k",
+          "ContentType": "BasicCard",
+          "DisplayText": "CWI Find an apprenticeship on GOV.UK",
+          "Latest": true,
+          "Published": true,
+          "ModifiedUtc": "2025-06-12T08:17:24.4622349Z",
+          "PublishedUtc": "2025-06-12T08:17:24.5252956Z",
+          "CreatedUtc": "2025-06-04T20:38:41.4220838Z",
+          "Owner": "44j1gcevhh5q8zm2ms3256zdc7",
+          "Author": "siva.muruganandham",
+          "BasicCard": {
+            "MobileImage": {
+              "Paths": [
+                "find-a-course/landing-page/mobile/apprenticeships-card-mobile.png"
+              ],
+              "MediaTexts": [
+                ""
+              ]
+            },
+            "DesktopImage": {
+              "Paths": [
+                "find-a-course/landing-page/desktop/apprenticeships-card-desktop.png"
+              ],
+              "MediaTexts": [
+                ""
+              ]
+            },
+            "AltText": {
+              "Text": null
+            },
+            "Description": {
+              "Html": "<p>Search apprenticeships near you based on your interests if you're in England and any age over 16.</p>"
+            },
+            "LinkName": {
+              "Url": "https://www.gov.uk/apply-apprenticeship",
+              "Text": "Find an apprenticeship on GOV.UK"
+            }
+          },
+          "GraphSyncPart": {
+            "Text": "<<contentapiprefix>>/basiccard/c077e00f-1a04-4508-9017-73d5c1c70669"
+          },
+          "TitlePart": {
+            "Title": "CWI Find an apprenticeship on GOV.UK"
+          },
+          "AuditTrailPart": {
+            "Comment": "updated",
+            "ShowComment": false
+          },
+          "ContentApprovalPart": {
+            "ReviewStatus": 0,
+            "ReviewType": 0,
+            "IsForcePublished": false
+          }
+        },
+        {
+          "ContentItemId": "43w4kqk5g505pxjm25vfv93m4p",
+          "ContentItemVersionId": "4rj0myc33fjbq6d60r4zhxgydv",
+          "ContentType": "BasicCard",
+          "DisplayText": "CWI Get Course support",
+          "Latest": true,
+          "Published": true,
+          "ModifiedUtc": "2025-06-12T08:18:22.3141517Z",
+          "PublishedUtc": "2025-06-12T08:18:22.3765955Z",
+          "CreatedUtc": "2025-06-04T19:42:42.2157721Z",
+          "Owner": "44j1gcevhh5q8zm2ms3256zdc7",
+          "Author": "siva.muruganandham",
+          "BasicCard": {
+            "MobileImage": {
+              "Paths": [
+                "find-a-course/landing-page/mobile/get-course-support-card-mobile-2.png"
+              ],
+              "MediaTexts": [
+                ""
+              ]
+            },
+            "DesktopImage": {
+              "Paths": [
+                "find-a-course/landing-page/desktop/get-course-support-card-desktop.png"
+              ],
+              "MediaTexts": [
+                ""
+              ]
+            },
+            "AltText": {
+              "Text": null
+            },
+            "Description": {
+              "Html": "<p>See what support you can get with funding, childcare or disability adjustments. Or, get help to choose a course that suits you. </p>"
+            },
+            "LinkName": {
+              "Url": "find-a-course/course-support",
+              "Text": "Get course support"
+            }
+          },
+          "GraphSyncPart": {
+            "Text": "<<contentapiprefix>>/basiccard/9c58c485-1853-4bf3-98d2-72e10613d148"
+          },
+          "TitlePart": {
+            "Title": "CWI Get Course support"
+          },
+          "AuditTrailPart": {
+            "Comment": "updated",
+            "ShowComment": false
+          },
+          "ContentApprovalPart": {
+            "ReviewStatus": 0,
+            "ReviewType": 0,
+            "IsForcePublished": false
+          }
+        },
+        {
+          "ContentItemId": "4e7y3n4n9nzzf43bp3hgkj3s4c",
+          "ContentItemVersionId": "4xsyw6htvzq5bxkh7hh2gk0ad9",
+          "ContentType": "BasicCard",
+          "DisplayText": "Help to choose a course image",
+          "Latest": true,
+          "Published": true,
+          "ModifiedUtc": "2025-06-12T08:19:00.143118Z",
+          "PublishedUtc": "2025-06-12T08:19:00.2362738Z",
+          "CreatedUtc": "2025-06-04T09:34:56.1707048Z",
+          "Owner": "4pdct3saf0gv75hpzc67rmwmmq",
+          "Author": "siva.muruganandham",
+          "BasicCard": {
+            "MobileImage": {
+              "Paths": [
+                "find-a-course/course-support/mobile/help-to-choose-a-course-title-mobile.png"
+              ],
+              "MediaTexts": [
+                ""
+              ]
+            },
+            "DesktopImage": {
+              "Paths": [
+                "find-a-course/course-support/desktop/help-to-choose-a-course-title-desktop.png"
+              ],
+              "MediaTexts": [
+                ""
+              ]
+            },
+            "AltText": {
+              "Text": null
+            },
+            "Description": {
+              "Html": ""
+            },
+            "LinkName": {
+              "Url": null,
+              "Text": null
+            }
+          },
+          "GraphSyncPart": {
+            "Text": "<<contentapiprefix>>/basiccard/7ee7138d-b3ae-4ccc-a82b-5da9361393be"
+          },
+          "TitlePart": {
+            "Title": "Help to choose a course image"
+          },
+          "AuditTrailPart": {
+            "Comment": "updated",
+            "ShowComment": false
+          },
+          "ContentApprovalPart": {
+            "ReviewStatus": 0,
+            "ReviewType": 0,
+            "IsForcePublished": false
+          }
+        },
+        {
+          "ContentItemId": "4dtd9zstdvrbmvkr11xt5jkk4w",
+          "ContentItemVersionId": "4x4j5t2m73p4qsh76drx7qy2c0",
+          "ContentType": "BasicCard",
+          "DisplayText": "Mental health support card",
+          "Latest": true,
+          "Published": true,
+          "ModifiedUtc": "2025-06-04T10:22:58.2788625Z",
+          "PublishedUtc": "2025-06-04T10:22:58.3499116Z",
+          "CreatedUtc": "2025-06-04T09:52:56.4691085Z",
+          "Owner": "4pdct3saf0gv75hpzc67rmwmmq",
+          "Author": "j.mulforddamen",
+          "BasicCard": {
+            "MobileImage": {
+              "Paths": [],
+              "MediaTexts": []
+            },
+            "DesktopImage": {
+              "Paths": [],
+              "MediaTexts": []
+            },
+            "AltText": {
+              "Text": null
+            },
+            "Description": {
+              "Html": "<p>Learn how to manage your mental health if you’re feeling worried when looking for a course.</p>"
+            },
+            "LinkName": {
+              "Url": "https://www.mind.org.uk/information-support/tips-for-everyday-living/",
+              "Text": "Get mental health support from Mind"
+            }
+          },
+          "GraphSyncPart": {
+            "Text": "<<contentapiprefix>>/basiccard/49d64e3e-0c42-4704-9488-d9d6ffcf4b6b"
+          },
+          "TitlePart": {
+            "Title": "Mental health support card"
+          },
+          "AuditTrailPart": {
+            "Comment": ".",
+            "ShowComment": false
+          },
+          "ContentApprovalPart": {
+            "ReviewStatus": 0,
+            "ReviewType": 0,
+            "IsForcePublished": false
+          }
+        },
+        {
+          "ContentItemId": "4mw087d8d3f1jv04fwm7b766cw",
+          "ContentItemVersionId": "4bmpddw6mc6j1186vw818nc3mf",
+          "ContentType": "BasicCard",
+          "DisplayText": "Understand and develop your skills card",
+          "Latest": true,
+          "Published": true,
+          "ModifiedUtc": "2025-06-04T09:55:32.1365158Z",
+          "PublishedUtc": "2025-06-04T09:55:32.1627715Z",
+          "CreatedUtc": "2025-06-04T09:55:32.1365158Z",
+          "Owner": "4pdct3saf0gv75hpzc67rmwmmq",
+          "Author": "j.mulforddamen",
+          "BasicCard": {
+            "MobileImage": {
+              "Paths": [],
+              "MediaTexts": []
+            },
+            "DesktopImage": {
+              "Paths": [],
+              "MediaTexts": []
+            },
+            "AltText": {
+              "Text": null
+            },
+            "Description": {
+              "Html": "<p>If you’re not sure what course is for you, take a step back and see how to identify the skills you want to develop.</p>"
+            },
+            "LinkName": {
+              "Url": "/careers-advice/identifying-skills-and-upskilling",
+              "Text": "Understand and develop your skills"
+            }
+          },
+          "GraphSyncPart": {
+            "Text": "<<contentapiprefix>>/basiccard/a62b3ddd-0d80-4d40-8ba7-bb3046630600"
+          },
+          "TitlePart": {
+            "Title": "Understand and develop your skills card"
+          },
+          "AuditTrailPart": {
+            "Comment": "adding.",
+            "ShowComment": false
+          },
+          "ContentApprovalPart": {
+            "ReviewStatus": 0,
+            "ReviewType": 0,
+            "IsForcePublished": false
+          }
+        },
+        {
+          "ContentItemId": "4tzbwvv2xagh503brz7md4a55v",
+          "ContentItemVersionId": "44x0j7sj3c290sq77vwtr1gjws",
+          "ContentType": "BasicCard",
+          "DisplayText": "What course types mean card",
+          "Latest": true,
+          "Published": true,
+          "ModifiedUtc": "2025-06-04T09:54:44.7710902Z",
+          "PublishedUtc": "2025-06-04T09:54:44.793844Z",
+          "CreatedUtc": "2025-06-04T09:54:44.7710902Z",
+          "Owner": "4pdct3saf0gv75hpzc67rmwmmq",
+          "Author": "j.mulforddamen",
+          "BasicCard": {
+            "MobileImage": {
+              "Paths": [],
+              "MediaTexts": []
+            },
+            "DesktopImage": {
+              "Paths": [],
+              "MediaTexts": []
+            },
+            "AltText": {
+              "Text": null
+            },
+            "Description": {
+              "Html": "<p>Find out about the different course types available to gain skills for the job you want.</p>"
+            },
+            "LinkName": {
+              "Url": "https://www.skillsforcareers.education.gov.uk/your-training-options",
+              "Text": "What course types mean on the Skills for Careers website"
+            }
+          },
+          "GraphSyncPart": {
+            "Text": "<<contentapiprefix>>/basiccard/c6603ae6-5194-4403-b9a7-e7fbcdabbcf3"
+          },
+          "TitlePart": {
+            "Title": "What course types mean card"
+          },
+          "AuditTrailPart": {
+            "Comment": "adding.",
+            "ShowComment": false
+          },
+          "ContentApprovalPart": {
+            "ReviewStatus": 0,
+            "ReviewType": 0,
+            "IsForcePublished": false
+          }
+        },
+        {
+          "ContentItemId": "4a603syp84bqm2bn1x3s2tv3nz",
+          "ContentItemVersionId": "4h5ja0ez7ynmgs5qh8rgf300cy",
+          "ContentType": "BasicCard",
+          "DisplayText": "Access free courses and training card",
+          "Latest": true,
+          "Published": true,
+          "ModifiedUtc": "2025-06-04T09:54:00.4047506Z",
+          "PublishedUtc": "2025-06-04T09:54:00.4293322Z",
+          "CreatedUtc": "2025-06-04T09:54:00.4047506Z",
+          "Owner": "4pdct3saf0gv75hpzc67rmwmmq",
+          "Author": "j.mulforddamen",
+          "BasicCard": {
+            "MobileImage": {
+              "Paths": [],
+              "MediaTexts": []
+            },
+            "DesktopImage": {
+              "Paths": [],
+              "MediaTexts": []
+            },
+            "AltText": {
+              "Text": null
+            },
+            "Description": {
+              "Html": "<p>Get tips to find free training that’s high quality and fits your needs.</p>"
+            },
+            "LinkName": {
+              "Url": "/careers-advice/accessing-free-training-and-courses",
+              "Text": "See how to access free courses and training"
+            }
+          },
+          "GraphSyncPart": {
+            "Text": "<<contentapiprefix>>/basiccard/26beed38-8598-4982-bae1-5ef659f8e828"
+          },
+          "TitlePart": {
+            "Title": "Access free courses and training card"
+          },
+          "AuditTrailPart": {
+            "Comment": "adding.",
+            "ShowComment": false
+          },
+          "ContentApprovalPart": {
+            "ReviewStatus": 0,
+            "ReviewType": 0,
+            "IsForcePublished": false
+          }
+        },
+        {
+          "ContentItemId": "4wnq2vpyqhwr2t2yx9d949q948",
+          "ContentItemVersionId": "4bkv4pef6hzyxwnm9rthbj485z",
+          "ContentType": "BasicCard",
+          "DisplayText": "Education support if you're disabled card",
+          "Latest": true,
+          "Published": true,
+          "ModifiedUtc": "2025-06-04T09:52:04.6445051Z",
+          "PublishedUtc": "2025-06-04T09:52:04.6718749Z",
+          "CreatedUtc": "2025-06-04T09:52:04.6445051Z",
+          "Owner": "4pdct3saf0gv75hpzc67rmwmmq",
+          "Author": "j.mulforddamen",
+          "BasicCard": {
+            "MobileImage": {
+              "Paths": [],
+              "MediaTexts": []
+            },
+            "DesktopImage": {
+              "Paths": [],
+              "MediaTexts": []
+            },
+            "AltText": {
+              "Text": null
+            },
+            "Description": {
+              "Html": "<p>See what support you can get with studying if you’re disabled, neurodivergent, or have a learning difficulty like dyslexia.</p>"
+            },
+            "LinkName": {
+              "Url": "/careers-advice/education-advice-disabled-special-educational-needs",
+              "Text": "Education support if you’re disabled"
+            }
+          },
+          "GraphSyncPart": {
+            "Text": "<<contentapiprefix>>/basiccard/e7216295-e4b0-424a-95e9-9c53bbf8c8e9"
+          },
+          "TitlePart": {
+            "Title": "Education support if you're disabled card"
+          },
+          "AuditTrailPart": {
+            "Comment": "adding card.",
+            "ShowComment": false
+          },
+          "ContentApprovalPart": {
+            "ReviewStatus": 0,
+            "ReviewType": 0,
+            "IsForcePublished": false
+          }
+        },
+        {
+          "ContentItemId": "4a5j0qq85s6z849cexh2rszy4b",
+          "ContentItemVersionId": "4g7n07sx44erc4j7z1nfhergwp",
+          "ContentType": "BasicCard",
+          "DisplayText": "Help from childcare choices",
+          "Latest": true,
+          "Published": true,
+          "ModifiedUtc": "2025-06-04T09:38:30.5820126Z",
+          "PublishedUtc": "2025-06-04T09:38:30.6094951Z",
+          "CreatedUtc": "2025-06-04T09:38:30.5820126Z",
+          "Owner": "4pdct3saf0gv75hpzc67rmwmmq",
+          "Author": "j.mulforddamen",
+          "BasicCard": {
+            "MobileImage": {
+              "Paths": [],
+              "MediaTexts": []
+            },
+            "DesktopImage": {
+              "Paths": [],
+              "MediaTexts": []
+            },
+            "AltText": {
+              "Text": null
+            },
+            "Description": {
+              "Html": "<p>Find out if you’re eligible to get help with childcare while you're studying.</p>"
+            },
+            "LinkName": {
+              "Url": "https://www.childcarechoices.gov.uk/",
+              "Text": "Get help from Childcare Choices"
+            }
+          },
+          "GraphSyncPart": {
+            "Text": "<<contentapiprefix>>/basiccard/fc8b3bc7-b8b5-414c-bb3b-9efbb4a0b93d"
+          },
+          "TitlePart": {
+            "Title": "Help from childcare choices"
+          },
+          "AuditTrailPart": {
+            "Comment": "adding. ",
+            "ShowComment": false
+          },
+          "ContentApprovalPart": {
+            "ReviewStatus": 0,
+            "ReviewType": 0,
+            "IsForcePublished": false
+          }
+        },
+        {
+          "ContentItemId": "4eam6efn5tqppyahas0nn7c7d7",
+          "ContentItemVersionId": "4d2v21pkxmmpjzvty6v7pmq7mq",
+          "ContentType": "BasicCard",
+          "DisplayText": "Help with funding card",
+          "Latest": true,
+          "Published": true,
+          "ModifiedUtc": "2025-06-04T09:37:08.7669573Z",
+          "PublishedUtc": "2025-06-04T09:37:08.8002692Z",
+          "CreatedUtc": "2025-06-04T09:37:08.7669573Z",
+          "Owner": "4pdct3saf0gv75hpzc67rmwmmq",
+          "Author": "j.mulforddamen",
+          "BasicCard": {
+            "MobileImage": {
+              "Paths": [],
+              "MediaTexts": []
+            },
+            "DesktopImage": {
+              "Paths": [],
+              "MediaTexts": []
+            },
+            "AltText": {
+              "Text": null
+            },
+            "Description": {
+              "Html": "<p>See what financial support is available to help you pay for a course.</p>\n"
+            },
+            "LinkName": {
+              "Url": "https://www.skillsforcareers.education.gov.uk/pages/common/money-and-learning-costs-support",
+              "Text": "Help with funding on the Skills for Careers website"
+            }
+          },
+          "GraphSyncPart": {
+            "Text": "<<contentapiprefix>>/basiccard/88ea6225-209e-45f1-9a6c-c8740a7c3660"
+          },
+          "TitlePart": {
+            "Title": "Help with funding card"
+          },
+          "AuditTrailPart": {
+            "Comment": "publishing card.",
+            "ShowComment": false
+          },
+          "ContentApprovalPart": {
+            "ReviewStatus": 0,
+            "ReviewType": 0,
+            "IsForcePublished": false
+          }
+        }
+      ]
+    }
+  ]
+}

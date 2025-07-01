@@ -49,5 +49,7 @@
         WorkingHoursDetail,
         WorkingPatternDetail,
         WorkingPatterns,
+        BasicCard,
+        ProductCard,
     }
 }
