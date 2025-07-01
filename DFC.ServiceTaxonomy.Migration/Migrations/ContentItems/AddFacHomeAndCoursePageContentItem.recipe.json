@@ -1,0 +1,362 @@
+{
+  "name": "FAC Home Page And Course Support Pages",
+  "displayName": "FAC Home Page And Course Support Pages",
+  "description": "FAC Home Page And Course Support Pages",
+  "author": "FAC Developers",
+  "website": "National Careers Service",
+  "version": "1",
+  "issetuprecipe": false,
+  "categories": [],
+  "tags": [],
+  "steps": [
+    {
+      "name": "Content",
+      "data": [
+        {
+          "ContentItemId": "4wa9djbm33nkp5811s14rr7t40",
+          "ContentItemVersionId": "4vjw36rc3q2xc3cffmve73x7nk",
+          "ContentType": "Page",
+          "DisplayText": "Find a Course Home ",
+          "Latest": true,
+          "Published": true,
+          "ModifiedUtc": "2025-06-17T10:23:09.6613536Z",
+          "PublishedUtc": "2025-06-17T10:23:10.2319139Z",
+          "CreatedUtc": "2025-06-04T12:48:49.7032571Z",
+          "Owner": "44j1gcevhh5q8zm2ms3256zdc7",
+          "Author": "siva.muruganandham",
+          "TitlePart": {
+            "Title": "Find a Course Home "
+          },
+          "Page": {
+            "PageLocations": {
+              "TaxonomyContentItemId": "4eembshqzx66drajtdten34tc8",
+              "TermContentItemIds": [
+                "4adkbgv2ceg0ew44w9xcqc26cg"
+              ]
+            },
+            "Description": {
+              "Text": "Search"
+            },
+            "Herobanner": {
+                "Html": "<div class=\"fac-search-for-course-hero\">\n    <div class=\"content govuk-width-container\">\n        <div class=\"govuk-grid-row\">\n            <div class=\"govuk-grid-column-full fac-landing-header-container\">\n             <div class=\"fac-landing-heading\">\n                    <h1 class=\"govuk-heading-xl\">\n                        Find a course\n                    </h1>\n                    \n                        <p>\n                          Search for online and classroom based courses near you, to help you get a job or develop your skills.\n                        </p>\n             </div>\n             <div class=\"fac-image-container\">\n                    \n                <img src=\"https://cdn.nationalcareers.service.gov.uk/media/magnifying-glass.svg\" alt=\"\">\n\n             </div>\n       </div>\n \n            </div>\n        </div>\n    </div>\n"
+            },
+            "ShowHeroBanner": {
+              "Value": true
+            },
+            "ShowBreadcrumb": {
+              "Value": false
+            },
+            "UseBrowserWidth": {
+              "Value": false
+            },
+            "UseInTriageTool": {
+              "Value": false
+            },
+            "TriageLevelOne": {
+              "ContentItemIds": []
+            },
+            "TriageLevelTwo": {
+              "ContentItemIds": []
+            },
+            "FilterAdviceGroup": {
+              "ContentItemIds": []
+            },
+            "TriageOrdinal": {
+              "Value": null
+            },
+            "TriageToolFilters": {
+              "ContentItemIds": []
+            },
+            "TriageToolSummary": {
+              "Html": ""
+            }
+          },
+          "SitemapPart": {
+            "OverrideSitemapConfig": false,
+            "ChangeFrequency": 0,
+            "Priority": 5,
+            "Exclude": false
+          },
+          "FlowPart": {
+            "Widgets": [
+              {
+                "ContentItemId": "43b8aqr6124tt2gw7yd7mcvwc7",
+                "ContentItemVersionId": null,
+                "ContentType": "CardContainer",
+                "DisplayText": "",
+                "Latest": false,
+                "Published": false,
+                "ModifiedUtc": "2025-06-17T10:23:09.6970212Z",
+                "PublishedUtc": null,
+                "CreatedUtc": null,
+                "Owner": "",
+                "Author": "siva.muruganandham",
+                "CardContainer": {
+                  "Cards": {
+                    "ContentItemIds": [
+                      "43w4kqk5g505pxjm25vfv93m4p",
+                      "4jqa8258hwgxf2dae553p5j7x3",
+                      "433w7hsb9d24v652epd3ytms5w"
+                    ]
+                  }
+                },
+                "GraphSyncPart": {
+                  "Text": "<<contentapiprefix>>/cardcontainer/afca2321-2914-4e05-b160-fe2cfbc66a23"
+                },
+                "FlowMetadata": {
+                  "Alignment": 0,
+                  "Size": 100
+                }
+              }
+            ]
+          },
+          "GraphSyncPart": {
+            "Text": "<<contentapiprefix>>/page/87e8565d-7c1f-40b9-9f97-c927bae2a034"
+          },
+          "PageLocationPart": {
+            "UrlName": "search",
+            "DefaultPageForLocation": false,
+            "RedirectLocations": null,
+            "FullUrl": "/find-a-course/search",
+            "UseInTriageTool": false
+          },
+          "ContentApprovalPart": {
+            "ReviewStatus": 0,
+            "ReviewType": 0,
+            "IsForcePublished": false
+          },
+          "AuditTrailPart": {
+            "Comment": "updated",
+            "ShowComment": false
+          }
+        },
+        {
+          "ContentItemId": "4qearhdf3013h3954t6zzpx4nt",
+          "ContentItemVersionId": "4zd1pe6rwc0bs3tzr0z3s9zcxc",
+          "ContentType": "Page",
+          "DisplayText": "Course support",
+          "Latest": true,
+          "Published": true,
+          "ModifiedUtc": "2025-06-13T14:00:19.9110735Z",
+          "PublishedUtc": "2025-06-13T14:00:20.4796774Z",
+          "CreatedUtc": "2025-06-04T09:41:42.0022842Z",
+          "Owner": "4pdct3saf0gv75hpzc67rmwmmq",
+          "Author": "siva.muruganandham",
+          "TitlePart": {
+            "Title": "Course support"
+          },
+          "Page": {
+            "PageLocations": {
+              "TaxonomyContentItemId": "4eembshqzx66drajtdten34tc8",
+              "TermContentItemIds": [
+                "4adkbgv2ceg0ew44w9xcqc26cg"
+              ]
+            },
+            "Description": {
+              "Text": null
+            },
+            "Herobanner": {
+              "Html": "<div class=\"fac-search-for-course-hero\">\n    <div class=\"content govuk-width-container\">\n        <div class=\"govuk-grid-row\">\n            <div class=\"govuk-grid-column-two-thirds\">\n                   <h1 class=\"govuk-heading-xl\">\n                        Course support\n                    </h1>\n                    \n                        <p>\n                           Get support with funding, childcare or disability adjustments.&nbsp;Or, get help to choose a course that suits you.&nbsp;\n                        </p>\n            </div>\n        </div>\n    </div>\n</div>"
+            },
+            "ShowHeroBanner": {
+              "Value": true
+            },
+            "ShowBreadcrumb": {
+              "Value": true
+            },
+            "UseBrowserWidth": {
+              "Value": false
+            },
+            "UseInTriageTool": {
+              "Value": false
+            },
+            "TriageLevelOne": {
+              "ContentItemIds": []
+            },
+            "TriageLevelTwo": {
+              "ContentItemIds": []
+            },
+            "FilterAdviceGroup": {
+              "ContentItemIds": []
+            },
+            "TriageOrdinal": {
+              "Value": null
+            },
+            "TriageToolFilters": {
+              "ContentItemIds": []
+            },
+            "TriageToolSummary": {
+              "Html": ""
+            }
+          },
+          "SitemapPart": {
+            "OverrideSitemapConfig": false,
+            "ChangeFrequency": 0,
+            "Priority": 5,
+            "Exclude": false
+          },
+          "FlowPart": {
+            "Widgets": [
+              {
+                "ContentItemId": "4eka2rn76frxqyzeemr1jv3pmb",
+                "ContentItemVersionId": null,
+                "ContentType": "HTML",
+                "DisplayText": "",
+                "Latest": false,
+                "Published": false,
+                "ModifiedUtc": "2025-06-13T14:00:19.9432369Z",
+                "PublishedUtc": null,
+                "CreatedUtc": null,
+                "Owner": "",
+                "Author": "siva.muruganandham",
+                "HTML": {},
+                "HtmlBodyPart": {
+                  "Html": "<h2>Personal learning support</h2>\n<p>Find out what support you can get before starting a course.</p>"
+                },
+                "GraphSyncPart": {
+                  "Text": "<<contentapiprefix>>/html/ec49bcbe-980a-42db-8cae-c382d24902e5"
+                },
+                "FlowMetadata": {
+                  "Alignment": 0,
+                  "Size": 66
+                }
+              },
+              {
+                "ContentItemId": "4z4bx3st07azb520gdv2xdwzny",
+                "ContentItemVersionId": null,
+                "ContentType": "CardContainer",
+                "DisplayText": "",
+                "Latest": false,
+                "Published": false,
+                "ModifiedUtc": "2025-06-13T14:00:19.9680845Z",
+                "PublishedUtc": null,
+                "CreatedUtc": null,
+                "Owner": "",
+                "Author": "siva.muruganandham",
+                "CardContainer": {
+                  "Cards": {
+                    "ContentItemIds": [
+                      "41s9kcgpfcg6pw8n5xycfgftdr",
+                      "4eam6efn5tqppyahas0nn7c7d7",
+                      "4a5j0qq85s6z849cexh2rszy4b",
+                      "4wnq2vpyqhwr2t2yx9d949q948",
+                      "4dtd9zstdvrbmvkr11xt5jkk4w"
+                    ]
+                  }
+                },
+                "GraphSyncPart": {
+                  "Text": "<<contentapiprefix>>/cardcontainer/0d7eb5a3-233c-40ee-9b80-3ef6e89c2109"
+                },
+                "FlowMetadata": {
+                  "Alignment": 0,
+                  "Size": 100
+                }
+              },
+              {
+                "ContentItemId": "43ajmabj51wx3720n2kgf9wf46",
+                "ContentItemVersionId": null,
+                "ContentType": "HTML",
+                "DisplayText": "",
+                "Latest": false,
+                "Published": false,
+                "ModifiedUtc": "2025-06-13T14:00:19.9810594Z",
+                "PublishedUtc": null,
+                "CreatedUtc": null,
+                "Owner": "",
+                "Author": "siva.muruganandham",
+                "HTML": {},
+                "HtmlBodyPart": {
+                  "Html": "<h2>Help to choose a course</h2>\n<p>Understand the different courses available to you or consider how to develop your skills. </p>"
+                },
+                "GraphSyncPart": {
+                  "Text": "<<contentapiprefix>>/html/b35f2194-beea-41ea-b778-7dc7fea4038f"
+                },
+                "FlowMetadata": {
+                  "Alignment": 0,
+                  "Size": 66
+                }
+              },
+              {
+                "ContentItemId": "4b2dsg773szq000kj4cp4br0da",
+                "ContentItemVersionId": null,
+                "ContentType": "CardContainer",
+                "DisplayText": "",
+                "Latest": false,
+                "Published": false,
+                "ModifiedUtc": "2025-06-13T14:00:19.9863549Z",
+                "PublishedUtc": null,
+                "CreatedUtc": null,
+                "Owner": "",
+                "Author": "siva.muruganandham",
+                "CardContainer": {
+                  "Cards": {
+                    "ContentItemIds": [
+                      "4e7y3n4n9nzzf43bp3hgkj3s4c",
+                      "4a603syp84bqm2bn1x3s2tv3nz",
+                      "4tzbwvv2xagh503brz7md4a55v",
+                      "4mw087d8d3f1jv04fwm7b766cw",
+                      "4rktmanh4jsgawsekpn3b304xp"
+                    ]
+                  }
+                },
+                "GraphSyncPart": {
+                  "Text": "<<contentapiprefix>>/cardcontainer/fc106786-aa5c-4e74-a9a7-bddc3770373e"
+                },
+                "FlowMetadata": {
+                  "Alignment": 0,
+                  "Size": 100
+                }
+              },
+              {
+                "ContentItemId": "4hw42r16h01w0xmdhan9c62ecv",
+                "ContentItemVersionId": null,
+                "ContentType": "HTMLShared",
+                "DisplayText": "",
+                "Latest": false,
+                "Published": false,
+                "ModifiedUtc": "2025-06-13T14:00:19.9982584Z",
+                "PublishedUtc": null,
+                "CreatedUtc": null,
+                "Owner": "",
+                "Author": "siva.muruganandham",
+                "HTMLShared": {
+                  "SharedContent": {
+                    "ContentItemIds": [
+                      "4nvbqeg3sxkjay15qnja3s4t5y"
+                    ]
+                  }
+                },
+                "GraphSyncPart": {
+                  "Text": "<<contentapiprefix>>/htmlshared/3cbf20de-6f7a-4015-bc2c-39bbe30c6b2d"
+                },
+                "FlowMetadata": {
+                  "Alignment": 0,
+                  "Size": 100
+                }
+              }
+            ]
+          },
+          "GraphSyncPart": {
+            "Text": "<<contentapiprefix>>/page/92e50717-b492-4600-a5c0-477cc7fcfb27"
+          },
+          "PageLocationPart": {
+            "UrlName": "course-support",
+            "DefaultPageForLocation": false,
+            "RedirectLocations": null,
+            "FullUrl": "/find-a-course/course-support",
+            "UseInTriageTool": false
+          },
+          "ContentApprovalPart": {
+            "ReviewStatus": 0,
+            "ReviewType": 0,
+            "IsForcePublished": false
+          },
+          "AuditTrailPart": {
+            "Comment": "updated",
+            "ShowComment": false
+          }
+        }
+      ]
+    }
+  ]
+}
