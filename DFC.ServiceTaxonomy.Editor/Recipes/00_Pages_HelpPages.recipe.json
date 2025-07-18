@@ -411,34 +411,6 @@
                         "ChangeFrequency": 0,
                         "Exclude": false
                     },
-                    "FlowPart": {
-                        "Widgets": [
-                            {
-                                "ContentItemId": "4zf78m9fq1j5k0ktz8fxr5h9ny",
-                                "ContentItemVersionId": null,
-                                "ContentType": "HTML",
-                                "DisplayText": "",
-                                "Latest": false,
-                                "Published": false,
-                                "ModifiedUtc": "2021-06-10T11:01:50.8279668Z",
-                                "PublishedUtc": null,
-                                "CreatedUtc": null,
-                                "Owner": null,
-                                "Author": "admin",
-                                "HTML": {},
-                                "HtmlBodyPart": {
-                                    "Html": "<h1 class=\"filter-results-heading\">Information sources</h1>\n<h2>Skills assessments</h2>\n<p>The National Careers Service worked with occupational psychology subject matter experts, SHL Group Limited, to create the 'Discover your skills and careers' and 'Skills health check' assessment tools.</p>\n<h2>Skills and working environment information</h2>\n<p style=\"text-align: left\"><img src=\"https://staging-cdn.nationalcareers.service.gov.uk/media/onet-in-it.svg?202107091014\" alt=\"O*NET in-it\" data-source=\"CDN\" height=\"60\" width=\"130\"><br></p>\n<p>This website includes information from <a href=\"https://www.onetonline.org/\">O*NET OnLine</a> by the U.S. Department of Labor, Employment and Training Administration (USDOL/ETA). Used under the <a href=\"https://creativecommons.org/licenses/by/4.0/\">CC BY 4.0</a>    license. O*NET® is a trademark of USDOL/ETA. The National Careers Service has modified all or some of this information. USDOL/ETA has not approved, endorsed, or tested these modifications.</p>\n<div>\n    <h2>Our career adviser subject matter experts </h2>\n    <p>Our subject matter experts use content from LMI, ONET and their own experience to create our job profiles.</p>\n    <p>We're constantly working to improve our information and your feedback is important to us. Please <a href=\"/contact-us/select-option\">email</a> us with your feedback.</p>\n    <h2>Labour market information</h2>\n    <p>This website uses labour market information (LMI) from <a href=\"http://www.lmiforall.org.uk\">LMI for All</a> to show data such as average salaries, working hours and predicted growth for different jobs and industries. This data was last updated in 2020, except predicted growth data, which was last updated in 2019.</p>\n    <p>LMI for All is funded by the Department for Education.</p>\n</div>"
-                                },
-                                "GraphSyncPart": {
-                                    "Text": "<<contentapiprefix>>/html/fc2bf38e-860f-4533-b784-710818106017"
-                                },
-                                "FlowMetadata": {
-                                    "Alignment": 0,
-                                    "Size": 66
-                                }
-                            }
-                        ]
-                    },
                     "GraphSyncPart": {
                         "Text": "<<contentapiprefix>>/page/a8f37eb9-49a1-434e-9d1f-d1b5bceb9ad9"
                     },
@@ -495,34 +467,6 @@
                         "OverrideSitemapConfig": false,
                         "ChangeFrequency": 0,
                         "Exclude": false
-                    },
-                    "FlowPart": {
-                        "Widgets": [
-                            {
-                                "ContentItemId": "471nchej957vq6h35qvabyvkcj",
-                                "ContentItemVersionId": null,
-                                "ContentType": "HTML",
-                                "DisplayText": "",
-                                "Latest": false,
-                                "Published": false,
-                                "ModifiedUtc": "2021-06-10T11:00:44.7978555Z",
-                                "PublishedUtc": null,
-                                "CreatedUtc": null,
-                                "Owner": null,
-                                "Author": "admin",
-                                "HTML": {},
-                                "HtmlBodyPart": {
-                                    "Html": "<h1 class=\"heading-xlarge\" style=\"text-align: left\">Salary information </h1>\n<p>Source: Labour market information (LMI) derived from the Office for National Statistics. Where LMI salary data was found unsuitable for a small number of job profiles, that information has been provided by a National Careers Service subject matter expert.</p>\n<h2 class=\"heading-medium\">About LMI</h2>\n    <p>LMIforall provides (the most recently available) Gross Weekly Pay Data (average, median and decile) for one year based on a combination of data from ASHE (Annual Survey of Hours and Earnings) and the Labour Force Survey (LFS). The salary data is organised\n        around the Standard Occupational Classification (SOC2010 4-digit categories). SOC codes classify all jobs into 369 detailed categories, according to the tasks that are undertaken, and the level and nature of the skills and qualifications required\n        to do the job. For privacy reasons, the actual numbers are not made public, but the estimates are designed to be close enough to the actual data for meaningful statistics.</p>\n    <p>Information on earnings and paid hours worked is obtained from employers and does not cover:</p>\n    <ul class=\"govuk-list govuk-list--bullet\">\n        <li>Self-employed</li>\n        <li>Employees not paid during the reference period (exclude payments of arrears from another period made during the survey period; any payments due as a result of a pay settlement but not yet paid at the time of the survey will also be excluded)</li>\n        <li>Earnings of employees not on adult rates of pay, most of whom will be young people</li>\n        <li><span style=\"color: rgba(65, 64, 66, 1); text-decoration: none\">Survey and hence salary figures does not fully cover certain types of seasonal work, for example employees taken on for only summer or winter work.</span></li>\n        <li>Jobs within the armed forces</li>\n    </ul>"
-                                },
-                                "GraphSyncPart": {
-                                    "Text": "<<contentapiprefix>>/html/d68e4356-bdc3-4d0c-b977-4d63a42d96da"
-                                },
-                                "FlowMetadata": {
-                                    "Alignment": 0,
-                                    "Size": 66
-                                }
-                            }
-                        ]
                     },
                     "GraphSyncPart": {
                         "Text": "<<contentapiprefix>>/page/c27bb702-2c2e-4caa-8e29-d440a9d95d38"
