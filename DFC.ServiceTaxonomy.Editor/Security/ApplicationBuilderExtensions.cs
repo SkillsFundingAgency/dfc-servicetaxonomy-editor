@@ -31,19 +31,22 @@ namespace DFC.ServiceTaxonomy.Editor.Security
                         .AllowUnsafeInline()
                         .AllowUnsafeEval()
                         .From("code.jquery.com")
+                        .From("cdn.jsdelivr.net")
                         .From("cdnjs.cloudflare.com");
 
                     csp.AllowStyles.FromSelf()
                         .AllowUnsafeInline()
                         .From("fonts.googleapis.com")
                         .From("code.jquery.com")
+                        .From("cdn.jsdelivr.net")
                         .From("cdnjs.cloudflare.com");
 
                     csp.AllowImages.FromSelf()
                         .DataScheme();
 
                     csp.AllowFonts.FromSelf()
-                        .From("fonts.gstatic.com");
+                        .From("fonts.gstatic.com")
+                        .From("cdn.jsdelivr.net");
 
                     csp.AllowConnections
                         .ToSelf();
