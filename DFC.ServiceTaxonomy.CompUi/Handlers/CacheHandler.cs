@@ -104,6 +104,8 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
                         await _eventGridHandler.SendEventMessageAsync(TransformData(processing, current), contentEventType);
                     };
 
+                    await ProcessRelatedContent(processing);
+                    
                     break;
                 case nameof(ContentTypes.SharedContent) when contentEventType != ContentEventType.StaxCreate:
                     await _eventGridHandler.SendEventMessageAsync(TransformData(processing, current), contentEventType);
@@ -228,6 +230,7 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
             nameof(ContentTypes.PersonalityFilteringQuestion),
             nameof(ContentTypes.PersonalityTrait),
             nameof(ContentTypes.ApprenticeshipLink),
+            nameof(ContentTypes.SectorLandingPage),
         };
 
         if (dataList.ToList().Any(x => contentTypes.Any(y => y == x.ContentType)))
