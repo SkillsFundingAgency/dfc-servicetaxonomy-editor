@@ -2,9 +2,6 @@
     "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
-        "CustomHostName": {
-            "value": "editor-foo.servicetaxonomy.nationalcareersservice.org.uk"
-        },
         "WebAppName": {
             "value": "dfc-foo-stax-editor-as-ver2"
         },
@@ -13,24 +10,6 @@
         },
         "AzureAdSettingsKeyVaultAddress": {
             "value": "https://some_endpoint/"
-        },
-        "KeyVaultResourceGroup": {
-            "value": "dfc-foo-shared-rg"
-        },
-        "SharedAppServicePlanName": {
-            "value": "dfc-dev-stax-shared-asp"
-        },
-        "SharedAppServicePlanResourceGroup": {
-            "value": "dfc-dev-stax-shared-rg"
-        },
-        "SqlElasticPoolName": {
-            "value": "an-elastic-pool"
-        },
-        "SqlServerName": {
-            "value": "a-sql-server"
-        },
-        "SqlResourceGroupName": {
-            "value": "dfc-dev-shared-rg"
         },
         "OwlDataGeneratorDefaultLanguage": {
             "value": "en"
@@ -56,9 +35,6 @@
         "AzureSearchSettingsJobProfileSearchIndexName": {
             "value": "foo-digital-jp"
         },
-        "AzureSearchSettingsSearchServiceAdminAPIKey": {
-            "value": "not-a-real-key"
-        },
         "AzureSearchSettingsSearchServiceEndPoint": {
             "value": "https://foo-beta-dev-01-search.search.windows.net/"
         },
@@ -71,14 +47,8 @@
         "appSharedCosmosEndpointUrl": {
             "value": "https://foo.api.nationalcareersservice.org.uk"
         },
-        "appSharedCosmosPrimaryKey": {
-            "value": "not-a-real-key"
-        },
         "PreviewContentApiPrefix": {
             "value": "https://foo.api.nationalcareersservice.org.uk"
-        },
-        "MediaAzureBlobConnectionString": {
-            "value": "my-string"
         },
         "MediaContainerName": {
             "value": "my-string"
@@ -104,26 +74,11 @@
         "AzureAdSettingsResourceGroupName": {
             "value": "AzureAdSettingsResourceGroupName"
         },
-        "enableAlerts": {
-            "value": false
-        },
-        "ExceptionCountThreshold": {
-            "value": "0"
-        },
-        "SkillsFrameworkDbConnectionString": {
-            "value": "connectionstring"
-        },
-        "CosmosDbendpointspreviewConnectionString":{
-            "value": "__CosmosDbendpointspreviewConnectionString__"
-        },
         "CosmosDbendpointspreviewDatabaseName":{
             "value": "__CosmosDbendpointspreviewDatabaseName__"
         },
         "CosmosDbendpointspreviewContainerName":{
             "value": "__CosmosDbendpointspreviewContainerName__"
-        },
-        "CosmosDbendpointspublishedConnectionString":{
-            "value": "__CosmosDbendpointspublishedConnectionString__"
         },
         "CosmosDbendpointspublishedDatabaseName":{
             "value": "__CosmosDbendpointspublishedDatabaseName__"
@@ -134,26 +89,11 @@
         "WEBSITEMEMORYLIMITMB":{
             "value": "__WEBSITEMEMORYLIMITMB__"
         },
-        "workspaceName": {
-            "value": "aTestLogAnalyticsAccount"
-        },
-        "workspaceResourceGroup": {
-            "value": "aResourceGroup"
-        },
         "EventGridTopicEndPointUrl": {
             "value": "http://url"
         },
-        "EventGridTopicAccessKey": {
-            "value": "accesskey"
-        },
         "PreviewLoginUrl":{
             "value": "http://url"
-        },
-        "EncryptionKey": {
-            "value": "encryptionkey"
-        },
-        "CipherTextPrefix": {
-            "value": "ciphertextprefix"
         },
         "CipherTextValiditySeconds": {
             "value": 60
@@ -184,6 +124,9 @@
         },
         "BaseUrlPath":{
             "value": "__BaseUrlPath__"
+        },
+        "keyVaultName": {
+            "value": "__sharedKeyVaultName__"
         }
     }
 }
