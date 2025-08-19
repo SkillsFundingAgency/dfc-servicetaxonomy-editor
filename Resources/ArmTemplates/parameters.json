@@ -2,32 +2,11 @@
     "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
-        "CustomHostName": {
-            "value": "__OrchardEditorCustomHostName__"
-        },
         "WebAppName": {
             "value": "__WebAppName__"
         },
         "Environment": {
             "value": "__ReleaseEnvironmentName__"
-        },
-        "KeyVaultResourceGroup": {
-            "value": "__SharedResourceGroupName__"
-        },
-        "SharedAppServicePlanName": {
-            "value": "__StaxSharedAppServicePlan__"
-        },
-        "SharedAppServicePlanResourceGroup": {
-            "value": "__StaxSharedResourceGroup__"
-        },
-        "SqlElasticPoolName": {
-            "value": "__elasticPoolName__"
-        },
-        "SqlServerName": {
-            "value": "__sharedSqlServerName__"
-        },
-        "SqlResourceGroupName": {
-            "value": "__SharedResourceGroupName__"
         },
         "OwlDataGeneratorDefaultLanguage": {
             "value": "__OwlDataGeneratorDefaultLanguage__"
@@ -62,12 +41,6 @@
         "appSharedCosmosEndpointUrl": {
             "value": "__appSharedCosmosEndpointUrl__"
         },
-        "appSharedCosmosPrimaryKey": {
-            "value": "__appSharedCosmosPrimaryKey__"
-        },
-        "MediaAzureBlobConnectionString": {
-            "value": "__MediaAzureBlobConnectionString__"
-        },
         "MediaContainerName":{
             "value": "__MediaContainerName__"
         },
@@ -98,32 +71,14 @@
         "AzureSearchSettingsJobProfileSearchIndexName": {
             "value": "__AzureSearchSettingsJobProfileSearchIndexName__"
         },
-        "AzureSearchSettingsSearchServiceAdminAPIKey": {
-            "value": "__AzureSearchSettingsSearchServiceAdminAPIKey__"
-        },
         "AzureSearchSettingsSearchServiceEndPoint": {
             "value": "__AzureSearchSettingsSearchServiceEndPoint__"
-        },
-        "enableAlerts": {
-            "value": __EnableAzureMonitorAlerting__
-        },
-        "ExceptionCountThreshold": {
-            "value": "__ExceptionCountThreshold__"
-        },
-        "SkillsFrameworkDbConnectionString": {
-            "value": "__SkillsFrameworkDbConnectionString__"
-        },
-        "CosmosDbendpointspreviewConnectionString":{
-            "value": "__CosmosDbendpointspreviewConnectionString__"
         },
         "CosmosDbendpointspreviewDatabaseName":{
             "value": "__CosmosDbendpointspreviewDatabaseName__"
         },
         "CosmosDbendpointspreviewContainerName":{
             "value": "__CosmosDbendpointspreviewContainerName__"
-        },
-        "CosmosDbendpointspublishedConnectionString":{
-            "value": "__CosmosDbendpointspublishedConnectionString__"
         },
         "CosmosDbendpointspublishedDatabaseName":{
             "value": "__CosmosDbendpointspublishedDatabaseName__"
@@ -134,26 +89,11 @@
         "WEBSITEMEMORYLIMITMB":{
             "value": "__WEBSITEMEMORYLIMITMB__"
         },
-        "workspaceName": {
-            "value": "__sharedLogAnalyticsWorkspace__"
-        },
-        "workspaceResourceGroup": {
-            "value": "__sharedLogAnalyticsResourceGroup__"
-        },
         "EventGridTopicEndPointUrl": {
             "value": "__SSP2EventGridTopicUrl__"
         },
-        "EventGridTopicAccessKey": {
-            "value": "__SSP2SharedEventGridAccessKey__"
-        },
         "PreviewLoginUrl": {
             "value": "__PreviewLoginUrl__"
-        },
-        "EncryptionKey": {
-            "value": "__NcsPreviewEncryptionKey__"
-        },
-        "CipherTextPrefix": {
-            "value": "__NcsPreviewCipherTextPrefix__"
         },
         "CipherTextValiditySeconds": {
             "value": __CipherTextValiditySeconds__
@@ -184,6 +124,9 @@
         },
         "BaseUrlPath": {
             "value": "__BaseUrlPath__"
+        },
+        "keyVaultName": {
+            "value": "__sharedKeyVaultName__"
         }
     }
 }
