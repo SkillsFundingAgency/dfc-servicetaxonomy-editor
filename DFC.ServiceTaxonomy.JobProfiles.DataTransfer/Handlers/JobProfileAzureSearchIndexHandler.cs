@@ -39,7 +39,7 @@ namespace DFC.ServiceTaxonomy.JobProfiles.DataTransfer.Handlers
         {
             if (context.ContentItem.ContentType == ContentTypes.JobProfile &&
                 !(_httpContextAccessor.HttpContext!.Items.TryGetValue(context.ContentItem.ContentItemId, out var result) &&
-                result!.ToString() == ContextTypes.RemoveContentContext))
+                result!.ToString() == ContextTypes.RemoveContentContext) && context.NoActiveVersionLeft)
             {
                 await _azureSearchDataProcessor.ProcessContentContext(context, ActionTypes.Deleted);
             }
