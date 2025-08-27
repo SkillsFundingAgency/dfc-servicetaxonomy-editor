@@ -64,6 +64,8 @@ function New-Password{
 
 $Context = Get-AzContext
 $AzureDevOpsServicePrincipal = Get-AzADServicePrincipal -ApplicationId $Context.Account.Id
+# $AzureDevOpsServicePrincipal = Get-AzADServicePrincipal -ObjectId "0dd45e4e-fb6f-4487-b70a-360d097097cf"
+
 # Comment above line and uncomment line below to test localy with your user account
 #$AzureDevOpsServicePrincipal = Get-AzADUser -UserPrincipalName $Context.Account.Id
 
@@ -161,5 +163,28 @@ IF (!$vaultKey){
 } else {
     Write-Verbose "ServicePrincipal $($RepoName)-appregistration-tenant-id secret already in KeyVault $($KeyVault.VaultName)"
 }
+
+# This uses the old CDN which no longer exists in some environments.
+ # $roleAssignment = Get-AzRoleAssignment `
+ #     -ResourceType "Microsoft.Cdn/profiles"  `
+ #     -ResourceName $CdnProfileName  `
+ #     -ResourceGroupName $SharedResourceGroupName  `
+ #     -RoleDefinitionName "Contributor" | Where-Object {$_.DisplayName -eq "$($AdServicePrincipal.DisplayName)"}
+ # if (!$roleAssignment) {
+ #     Write-Verbose "'Contributor' Role assignment to $($AdServicePrincipal.ServicePrincipalNames) for $($CdnProfileName) NOT FOUND"
+ #     Write-Verbose "Adding 'Contributor' Role assignment to $($AdServicePrincipal.ServicePrincipalNames) for $($CdnProfileName)"
+ #     New-AzRoleAssignment -ApplicationId $AdServicePrincipal.ApplicationId  `
+ #         -ResourceType "Microsoft.Cdn/profiles"  `
+ #         -ResourceName $CdnProfileName  `
+ #         -ResourceGroupName $SharedResourceGroupName  `
+ #         -RoleDefinitionName "Contributor"
+ #     Write-Verbose "Added 'Contributor' Role assignment to $($AdServicePrincipal.ServicePrincipalNames) for $($CdnProfileName)"
+ # } else {
+ #     Write-Verbose "$($roleAssignment.DisplayName) has CONTRIBUTOR permissions for $($CdnProfileName)"   
+ # }
+
+
+
+
 
 $AdServicePrincipal

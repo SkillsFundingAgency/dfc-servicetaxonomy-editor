@@ -171,10 +171,7 @@ stages:
       TestExclusionTag: 'NotDev'
       MediaStorageAccountName: $(MediaStorageAccountName)
       PSScriptPath: "$(Pipeline.Workspace)/${{ variables.SolutionBaseName }}.Editor.Resources.PSScripts"
-      EventGridTopicEndPointUrl: $(SSP2EventGridTopicUrl)
-      EventGridTopicAccessKey: $(SSP2SharedEventGridAccessKey)
-      EncryptionKey: $(NcsPreviewEncryptionKey)
-      CipherTextPrefix: $(NcsPreviewCipherTextPrefix)
+
 
 - stage: DeployToSit
   condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'))
@@ -211,10 +208,7 @@ stages:
       TestExclusionTag: 'NotSit'
       MediaStorageAccountName: $(MediaStorageAccountName)
       PSScriptPath: "$(Pipeline.Workspace)/${{ variables.SolutionBaseName }}.Editor.Resources.PSScripts"
-      EventGridTopicEndPointUrl: $(SSP2EventGridTopicUrl)
-      EventGridTopicAccessKey: $(SSP2SharedEventGridAccessKey)
-      EncryptionKey: $(NcsPreviewEncryptionKey)
-      CipherTextPrefix: $(NcsPreviewCipherTextPrefix)
+
 
 
 - stage: DeployToPP
@@ -287,3 +281,24 @@ stages:
       TestArtifactBranch: ${{ parameters.DfcServiceTaxonomyTestBranch }}
       MediaStorageAccountName: $(MediaStorageAccountName)
       PSScriptPath: "$(Pipeline.Workspace)/${{ variables.SolutionBaseName }}.Editor.Resources.PSScripts"
+
+  - job: RetainPipeline
+    displayName: Retain Pipeline
+    steps:
+    - task: PowerShell@2
+      condition: and(succeeded(), not(canceled()))
+      name: RetainPipelineArtifacts
+      displayName: Retain pipeline artifacts
+      inputs:
+        failOnStderr: true
+        targetType: 'inline'
+        script: |
+          $contentType = "application/json";
+          $headers = @{ Authorization = 'Bearer $(System.AccessToken)' };
+          $rawRequest = @{ daysValid = 365; definitionId = $(System.DefinitionId); ownerId = 'User:$(Build.RequestedForId)'; protectPipeline = $false; runId = $(Build.BuildId) };
+          $request = ConvertTo-Json @($rawRequest);
+          $uri = "$(System.CollectionUri)$(System.TeamProject)/_apis/build/retention/leases?api-version=6.0-preview.1";
+          $newLease = Invoke-RestMethod -uri $uri -method POST -Headers $headers -ContentType $contentType -Body $request;
+          $newLeaseId = $newLease.Value[0].LeaseId
+          echo "##vso[task.setvariable variable=newLeaseId;isOutput=true]$newLeaseId";
+        pwsh: true

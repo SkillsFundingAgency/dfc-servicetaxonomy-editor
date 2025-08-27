@@ -2,35 +2,11 @@
     "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
-        "CustomHostName": {
-            "type": "string",
-            "defaultValue": ""
-        },
         "WebAppName": {
             "type": "string",
             "defaultValue": ""
         },
         "Environment": {
-            "type": "string"
-        },
-        "KeyVaultResourceGroup": {
-            "type": "string"
-        },
-        "SharedAppServicePlanName": {
-            "type": "string",
-            "defaultValue": ""
-        },
-        "SharedAppServicePlanResourceGroup": {
-            "type": "string",
-            "defaultValue": ""
-        },
-        "SqlElasticPoolName": {
-            "type": "string"
-        },
-        "SqlServerName": {
-            "type": "string"
-        },
-        "SqlResourceGroupName": {
             "type": "string"
         },
         "OwlDataGeneratorDefaultLanguage": {
@@ -66,12 +42,6 @@
         "appSharedCosmosEndpointUrl": {
             "type": "string"
         },
-        "appSharedCosmosPrimaryKey": {
-            "type": "securestring"
-        },
-        "MediaAzureBlobConnectionString": {
-            "type": "securestring"
-        },
         "MediaContainerName": {
             "type": "string"
         },
@@ -99,38 +69,17 @@
         "AzureAdSettingsResourceGroupName": {
             "type": "string"
         },
-        "enableAlerts": {
-            "type": "bool",
-            "metadata": {
-                "description": "Enable or disable alerting"
-            }
-        },
-        "ExceptionCountThreshold": {
-            "type": "string"
-        },
         "AzureSearchSettingsJobProfileSearchIndexName": {
-            "type": "string"
-        },
-        "AzureSearchSettingsSearchServiceAdminAPIKey": {
             "type": "string"
         },
         "AzureSearchSettingsSearchServiceEndPoint": {
             "type": "string"
-        },
-        "SkillsFrameworkDbConnectionString": {
-            "type": "securestring"
-        },
-        "CosmosDbendpointspreviewConnectionString": {
-            "type": "securestring"
         },
         "CosmosDbendpointspreviewDatabaseName": {
             "type": "string"
         },
         "CosmosDbendpointspreviewContainerName": {
             "type": "string"
-        },
-        "CosmosDbendpointspublishedConnectionString": {
-            "type": "securestring"
         },
         "CosmosDbendpointspublishedDatabaseName": {
             "type": "string"
@@ -141,26 +90,11 @@
         "WEBSITEMEMORYLIMITMB": {
             "type": "string"
         },
-        "workspaceName": {
-            "type": "string"
-        },
-        "workspaceResourceGroup": {
-            "type": "string"
-        },
         "EventGridTopicEndPointUrl": {
             "type": "string"
         },
-        "EventGridTopicAccessKey": {
-            "type": "securestring"
-        },
         "PreviewLoginUrl": {
             "type": "string"
-        },
-        "EncryptionKey": {
-            "type": "securestring"
-        },
-        "CipherTextPrefix": {
-            "type": "securestring"
         },
         "CipherTextValiditySeconds": {
             "type": "int"
@@ -191,6 +125,9 @@
         },
         "BaseUrlPath": {
             "type": "string"
+        },
+        "keyVaultName": {
+            "type": "string"
         }
     },
     "variables": {
@@ -217,8 +154,8 @@
                 "ContentApiPrefix": "[concat(parameters('ContentApiAddress'), '/api/Execute')]",
                 "PreviewContentApiPrefix": "[concat(parameters('PreviewContentApiPrefix'), '/api/Execute')]",
                 "EventStoreUrl": "[parameters('appSharedCosmosEndpointUrl')]",
-                "EventStoreKey": "[parameters('appSharedCosmosPrimaryKey')]",
-                "OrchardCore__OrchardCore_Media_Azure__ConnectionString": "[parameters('MediaAzureBlobConnectionString')]",
+                "EventStoreKey": "[format('@Microsoft.KeyVault(VaultName={0};SecretName=AppSharedCosmosAccessKey)', parameters('keyVaultName'))]",
+                "OrchardCore__OrchardCore_Media_Azure__ConnectionString": "[format('@Microsoft.KeyVault(VaultName={0};SecretName=DigStorageAccountConnectionString)', parameters('keyVaultName'))]",
                 "OrchardCore__OrchardCore_Media_Azure__ContainerName": "[parameters('MediaContainerName')]",
                 "OrchardCore__OrchardCore_Media_Azure__BasePath": "[parameters('MediaBasePath')]",
                 "OrchardCore__OrchardCore_Media_Azure__CreateContainer": false,
@@ -232,21 +169,21 @@
                 "AzureAdSettings__CdnEndpointName": "[parameters('AzureAdSettingsCdnEndpointName')]",
                 "AzureAdSettings__ResourceGroupName": "[parameters('AzureAdSettingsResourceGroupName')]",
                 "AzureSearchSettings__JobProfileSearchIndexName": "[parameters('AzureSearchSettingsJobProfileSearchIndexName')]",
-                "AzureSearchSettings__SearchServiceAdminAPIKey": "[parameters('AzureSearchSettingsSearchServiceAdminAPIKey')]",
+                "AzureSearchSettings__SearchServiceAdminAPIKey": "[format('@Microsoft.KeyVault(VaultName={0};SecretName=SearchServiceAdminAPIKey)', parameters('keyVaultName'))]",
                 "AzureSearchSettings__SearchServiceEndPoint": "[parameters('AzureSearchSettingsSearchServiceEndPoint')]",
-                "ConnectionStrings__SkillsFrameworkDB": "[parameters('SkillsFrameworkDbConnectionString')]",
-                "CosmosDb__endpoints__preview__ConnectionString": "[parameters('CosmosDbendpointspreviewConnectionString')]",
+                "ConnectionStrings__SkillsFrameworkDB": "[format('@Microsoft.KeyVault(VaultName={0};SecretName=SkillsFrameworkDbConnectionString)', parameters('keyVaultName'))]",
+                "CosmosDb__endpoints__preview__ConnectionString": "[format('@Microsoft.KeyVault(VaultName={0};SecretName=AppSharedCosmosConnectionString)', parameters('keyVaultName'))]",
                 "CosmosDb__endpoints__preview__DatabaseName": "[parameters('CosmosDbendpointspreviewDatabaseName')]",
                 "CosmosDb__endpoints__preview__ContainerName": "[parameters('CosmosDbendpointspreviewContainerName')]",
-                "CosmosDb__endpoints__published__ConnectionString": "[parameters('CosmosDbendpointspublishedConnectionString')]",
+                "CosmosDb__endpoints__published__ConnectionString": "[format('@Microsoft.KeyVault(VaultName={0};SecretName=AppSharedCosmosConnectionString)', parameters('keyVaultName'))]",
                 "CosmosDb__endpoints__published__DatabaseName": "[parameters('CosmosDbendpointspublishedDatabaseName')]",
                 "CosmosDb__endpoints__published__ContainerName": "[parameters('CosmosDbendpointspublishedContainerName')]",
                 "WEBSITE_MEMORY_LIMIT_MB": "[parameters('WEBSITEMEMORYLIMITMB')]",
                 "EventGrid__TopicEndPointUrl": "[parameters('EventGridTopicEndPointUrl')]",
-                "EventGrid__TopicAccessKey": "[parameters('EventGridTopicAccessKey')]",
+                "EventGrid__TopicAccessKey": "[format('@Microsoft.KeyVault(VaultName={0};SecretName=SharedEventGridAccessKey)', parameters('keyVaultName'))]",
                 "NcsPreview__PreviewLoginUrl": "[parameters('PreviewLoginUrl')]",
-                "NcsPreview__EncryptionKey": "[parameters('EncryptionKey')]",
-                "NcsPreview__CipherTextPrefix": "[parameters('CipherTextPrefix')]",
+                "NcsPreview__EncryptionKey": "[format('@Microsoft.KeyVault(VaultName={0};SecretName=NcsPreviewEncryptionKey)', parameters('keyVaultName'))]",
+                "NcsPreview__CipherTextPrefix": "[format('@Microsoft.KeyVault(VaultName={0};SecretName=NcsPreviewCipherTextPrefix)', parameters('keyVaultName'))]",
                 "NcsPreview__CipherTextValiditySeconds": "[parameters('CipherTextValiditySeconds')]",
                 "PreviewRedirectUri:0:RedirectUri": "[parameters('PreviewRedirectUri:0:RedirectUri')]",
                 "PreviewRedirectUri:0:ContentType": "[parameters('PreviewRedirectUri:0:ContentType')]",
