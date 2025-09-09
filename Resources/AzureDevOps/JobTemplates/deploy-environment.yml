@@ -27,7 +27,6 @@ jobs:
 - job: ValidateBranch_${{ parameters.Environment }}
   pool: 'NCS - CI and CD'
   displayName: "Validate branch before Deploy WebApp to ${{ parameters.Environment }}"
-  environment: ${{ parameters.Environment }}
   steps:
      - ${{ if and(eq(parameters.performBranchCheck, true), or(eq(parameters.EnvironmentName, 'Pp'), eq(parameters.EnvironmentName, 'Prd'))) }}:
             - template: ../StepTemplates/compare-branch.yml
