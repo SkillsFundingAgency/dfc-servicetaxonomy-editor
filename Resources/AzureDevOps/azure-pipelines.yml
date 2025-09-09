@@ -20,10 +20,9 @@ resources:
     ref: refs/tags/v1.16.4
     endpoint: 'SkillsFundingAgency'
   - repository: Infra
-    name: SkillsFundingAgency/dfe-ncs-infrastructure
+    name: dfe-ncs-infrastructure
     type: git
     ref: main
-    endpoint: 'SkillsFundingAgency'
 
 trigger:
   branches:
