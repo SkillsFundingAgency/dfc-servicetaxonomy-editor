@@ -21,14 +21,28 @@ parameters:
   TestArtifactBranch: ''
   TestExclusionTag: ''
   MediaStorageAccountName: ''
-
+  PerformBranchCheck: true
+ 
 jobs:
+- job: ValidateBranch_${{ parameters.Environment }}
+  pool: 'NCS - CI and CD'
+  displayName: "Validate branch before Deploy WebApp to ${{ parameters.Environment }}"
+  environment: ${{ parameters.Environment }}
+  steps:
+     - ${{ if and(eq(parameters.performBranchCheck, true), or(eq(parameters.EnvironmentName, 'Pp'), eq(parameters.EnvironmentName, 'Prd'))) }}:
+            - template: ../StepTemplates/compare-branch.yml
+              parameters:
+                defaultBranch: 'master'
+
 - deployment: DeployArmTemplateTo_${{ parameters.Environment }}
   workspace:
       clean: all
   pool: 'NCS - CI and CD'
   displayName: "Deploy arm templates to ${{ parameters.Environment }}"
   environment: ${{ parameters.Environment }}
+  dependsOn:
+  - ValidateBranch_${{ parameters.Environment }}
+  condition: succeeded()
   strategy:
     runOnce:
       deploy:
@@ -60,6 +74,10 @@ jobs:
     runOnce:
       deploy:
         steps:
+        - ${{ if and(eq(parameters.performBranchCheck, true), or(eq(parameters.Environment, 'DEV_SERVICETAXONOMY'), eq(parameters.Environment, 'PRD_SERVICETAXONOMY'))) }}:
+            - template: ../StepTemplates/compare-branch.yml
+              parameters:
+                defaultBranch: 'master'  
         - task: AzureFileCopy@2
           displayName: 'AzureBlob File Copy media'
           inputs:
