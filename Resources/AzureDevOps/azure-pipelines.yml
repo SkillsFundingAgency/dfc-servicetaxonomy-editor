@@ -20,7 +20,7 @@ resources:
     ref: refs/tags/v1.16.4
     endpoint: 'SkillsFundingAgency'
   - repository: Infra
-    name: National%20Careers%20Service%20(NCS)/dfe-ncs-infrastructure
+    name: National Careers Service (NCS)/dfe-ncs-infrastructure
     type: git
     ref: main
 
