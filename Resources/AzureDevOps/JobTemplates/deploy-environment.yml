@@ -29,7 +29,7 @@ jobs:
   displayName: "Validate branch before Deploy WebApp to ${{ parameters.Environment }}"
   steps:
      - ${{ if and(eq(parameters.performBranchCheck, true), or(eq(parameters.Environment, 'DEV_SERVICETAXONOMY'), eq(parameters.Environment, 'Prd'))) }}:
-            - template: ../StepTemplates/compare-branch.yml
+            - template: AzureDevOps/StepTemplates/CompareBranch.yml@Infra
               parameters:
                 defaultBranch: 'master'
 
