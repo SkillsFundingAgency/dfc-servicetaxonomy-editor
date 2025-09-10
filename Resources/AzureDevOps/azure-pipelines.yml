@@ -22,7 +22,7 @@ resources:
   - repository: Infra
     name: National Careers Service (NCS)/dfe-ncs-infrastructure
     type: git
-    ref: main
+    ref: refs/heads/develop
 
 trigger:
   branches:

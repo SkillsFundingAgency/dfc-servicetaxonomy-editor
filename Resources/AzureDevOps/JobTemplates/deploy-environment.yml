@@ -74,7 +74,7 @@ jobs:
       deploy:
         steps:
         - ${{ if and(eq(parameters.performBranchCheck, true), or(eq(parameters.Environment, 'DEV_SERVICETAXONOMY'), eq(parameters.Environment, 'PRD_SERVICETAXONOMY'))) }}:
-            - template: ../StepTemplates/compare-branch.yml
+            - template: AzureDevOps/StepTemplates/CompareBranch.yml@Infra
               parameters:
                 defaultBranch: 'master'  
         - task: AzureFileCopy@2
