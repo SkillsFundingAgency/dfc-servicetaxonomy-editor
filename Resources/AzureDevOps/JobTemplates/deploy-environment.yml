@@ -21,12 +21,24 @@ parameters:
   TestArtifactBranch: ''
   TestExclusionTag: ''
   MediaStorageAccountName: ''
+  PerformBranchCheck: true
 
 jobs:
+- job: ValidateBranch_${{ parameters.Environment }}
+  pool: 'NCS - CI and CD'
+  displayName: "Validate branch before Deploy WebApp to ${{ parameters.Environment }}"
+  steps:
+     - ${{ if and(eq(parameters.performBranchCheck, true), or(eq(parameters.Environment, 'PP_SERVICETAXONOMY'), eq(parameters.Environment, 'PRD_SERVICETAXONOMY'))) }}:
+            - template: AzureDevOps/StepTemplates/CompareBranch.yml@Infra
+              parameters:
+                defaultBranch: 'master'
+
 - deployment: DeployArmTemplateTo_${{ parameters.Environment }}
   workspace:
       clean: all
   pool: 'NCS - CI and CD'
+  dependsOn:
+  - ValidateBranch_${{ parameters.Environment }}
   displayName: "Deploy arm templates to ${{ parameters.Environment }}"
   environment: ${{ parameters.Environment }}
   strategy:
