@@ -95,8 +95,12 @@ namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb
 
             if (blockOnIncomingLinks && incomingLinks.Any())
             {
-                throw new ValidationException(
-                    $"This content is referenced by {incomingLinks.Count} other {GetItemOrItems(incomingLinks.Count)}");
+                if (!contentType.Contains("apprenticeshipstandard"))
+                {
+                    throw new ValidationException($"This content is referenced by {incomingLinks.Count} other {GetItemOrItems(incomingLinks.Count)}");
+                }
+
+                await RemoveItemFromIncomingLinks(databaseName, incomingLinks, id);
             }
 
             await _cosmosDbService.DeleteItemAsync(databaseName, contentType, id);
@@ -492,6 +496,60 @@ namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb
                 relationshipItem["_links"] = links;
 
                 await _cosmosDbService.UpdateItemAsync(databaseName, relationshipItem);
+            }
+        }
+
+        private async Task RemoveItemFromIncomingLinks(string databaseName, List<Dictionary<string, object>> incomingLinks, Guid itemId)
+        {
+            foreach (var linkedItem in incomingLinks)
+            {
+                string contentTypeOfLinkedItem = (string)linkedItem["contentType"];
+                var linkedItemId = new Guid((string)linkedItem["id"]);
+                var linkedItemFromCosmos = await _cosmosDbService.GetContentItemFromDatabase(databaseName, contentTypeOfLinkedItem, linkedItemId);
+
+                if (linkedItemFromCosmos == null)
+                {
+                    throw new ValidationException("Failed to delete Content Item. Linked items from cosmos returned NULL.");
+                }
+
+                Dictionary<string, object> linkedItemLinks = SafeCastToDictionary(linkedItemFromCosmos["_links"]);
+                var keysInLinkedItem = linkedItemLinks.Keys.Where(key => key.Contains("cont:")).ToList();
+
+                if (keysInLinkedItem == null)
+                {
+                    throw new ValidationException("Failed to delete Content Item. Keys in linked items returned NULL.");
+                }
+
+                foreach (var key in keysInLinkedItem)
+                {
+                    if (CanCastToList(linkedItemLinks[key]))
+                    {
+                        List<Dictionary<string, object>>  listOfItemsInContKey = SafeCastToList(linkedItemLinks[key]);
+                        var itemToRemove = listOfItemsInContKey.FirstOrDefault(dict => dict.ContainsKey("href") && (dict["href"].ToString() ?? "").Contains(itemId.ToString()));
+
+                        if (itemToRemove != null)
+                        {
+                            listOfItemsInContKey.Remove(itemToRemove);
+                            linkedItemLinks[key] = listOfItemsInContKey;
+                            break;
+                        }
+
+                    }
+                    else
+                    {
+                        Dictionary<string, object> itemInContKey = SafeCastToDictionary(linkedItemLinks[key]);
+                        var isIdInCurrentKey = (itemInContKey["href"].ToString() ?? "").Contains(itemId.ToString());
+
+                        if (isIdInCurrentKey)
+                        {
+                            linkedItemLinks.Remove(key);
+                            break;
+                        }
+                    }
+                }
+
+                linkedItemFromCosmos["_links"] = linkedItemLinks;
+                await _cosmosDbService.UpdateItemAsync(databaseName, linkedItemFromCosmos);
             }
         }
 

@@ -43,6 +43,8 @@ jobs:
             ServiceOfferingTag: '${{ parameters.ServiceOfferingTag }}'
             PSScriptPath: '${{ parameters.PSScriptPath }}'
             WebAppName: '${{ parameters.WebAppName }}'
+            StorageAccountResourceGroupName: '$(StorageAccountResourceGroupName)'
+            MediaStorageAccountName: '$(MediaStorageAccountName)'
 
 - deployment: DeployEditorTo_${{ parameters.Environment }}
   workspace:

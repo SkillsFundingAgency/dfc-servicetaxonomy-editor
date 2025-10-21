@@ -2,32 +2,11 @@
     "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
-        "CustomHostName": {
-            "value": "__OrchardEditorCustomHostName__"
-        },
         "WebAppName": {
             "value": "__WebAppName__"
         },
         "Environment": {
             "value": "__ReleaseEnvironmentName__"
-        },
-        "KeyVaultResourceGroup": {
-            "value": "__SharedResourceGroupName__"
-        },
-        "SharedAppServicePlanName": {
-            "value": "__StaxSharedAppServicePlan__"
-        },
-        "SharedAppServicePlanResourceGroup": {
-            "value": "__StaxSharedResourceGroup__"
-        },
-        "SqlElasticPoolName": {
-            "value": "__elasticPoolName__"
-        },
-        "SqlServerName": {
-            "value": "__sharedSqlServerName__"
-        },
-        "SqlResourceGroupName": {
-            "value": "__SharedResourceGroupName__"
         },
         "OwlDataGeneratorDefaultLanguage": {
             "value": "__OwlDataGeneratorDefaultLanguage__"
@@ -62,24 +41,6 @@
         "appSharedCosmosEndpointUrl": {
             "value": "__appSharedCosmosEndpointUrl__"
         },
-        "appSharedCosmosPrimaryKey": {
-            "value": "__appSharedCosmosPrimaryKey__"
-        },
-        "PublishedAppPrefix": {
-            "value": "__PublishedAppPrefix__"
-        },
-        "PreviewAppPrefix": {
-            "value": "__PreviewAppPrefix__"
-        },
-        "JobProfilePublishedAppPrefix": {
-            "value": "__JobProfilePublishedAppPrefix__"
-        },
-        "JobProfilePreviewAppPrefix": {
-            "value": "__JobProfilePreviewAppPrefix__"
-        },
-        "MediaAzureBlobConnectionString": {
-            "value": "__MediaAzureBlobConnectionString__"
-        },
         "MediaContainerName":{
             "value": "__MediaContainerName__"
         },
@@ -110,23 +71,8 @@
         "AzureSearchSettingsJobProfileSearchIndexName": {
             "value": "__AzureSearchSettingsJobProfileSearchIndexName__"
         },
-        "AzureSearchSettingsSearchServiceAdminAPIKey": {
-            "value": "__AzureSearchSettingsSearchServiceAdminAPIKey__"
-        },
         "AzureSearchSettingsSearchServiceEndPoint": {
             "value": "__AzureSearchSettingsSearchServiceEndPoint__"
-        },
-        "enableAlerts": {
-            "value": __EnableAzureMonitorAlerting__
-        },
-        "ExceptionCountThreshold": {
-            "value": "__ExceptionCountThreshold__"
-        },
-        "SkillsFrameworkDbConnectionString": {
-            "value": "__SkillsFrameworkDbConnectionString__"
-        },
-        "CosmosDbendpointspreviewConnectionString":{
-            "value": "__CosmosDbendpointspreviewConnectionString__"
         },
         "CosmosDbendpointspreviewDatabaseName":{
             "value": "__CosmosDbendpointspreviewDatabaseName__"
@@ -134,68 +80,20 @@
         "CosmosDbendpointspreviewContainerName":{
             "value": "__CosmosDbendpointspreviewContainerName__"
         },
-        "CosmosDbendpointspublishedConnectionString":{
-            "value": "__CosmosDbendpointspublishedConnectionString__"
-        },
         "CosmosDbendpointspublishedDatabaseName":{
             "value": "__CosmosDbendpointspublishedDatabaseName__"
         },
         "CosmosDbendpointspublishedContainerName":{
             "value": "__CosmosDbendpointspublishedContainerName__"
         },
-        "CosmosAppRegistryDatabaseName":{
-            "value": "__CosmosAppRegistryDatabaseName__"
-        },
-        "CosmosAppRegistryContainerName":{
-            "value": "__CosmosAppRegistryContainerName__"
-        },
-        "CosmosAppRegistryContainerDraftName":{
-            "value": "__CosmosAppRegistryContainerDraftName__"
-        },
-        "CompositeUISharedCosmosConnectionString":{
-            "value": "__CompositeUISharedCosmosConnectionString__"
-        },
         "WEBSITEMEMORYLIMITMB":{
             "value": "__WEBSITEMEMORYLIMITMB__"
-        },
-        "workspaceName": {
-            "value": "__sharedLogAnalyticsWorkspace__"
-        },
-        "workspaceResourceGroup": {
-            "value": "__sharedLogAnalyticsResourceGroup__"
-        },
-        "CmsTokenEndpointUrl": {
-            "value": "__StaxGraphqlTokenEndpointUrl__"
-        },
-        "CmsGraphApiUrl": {
-            "value": "__StaxGraphqlApiUrl__"
-        },
-        "CmsClientId": {
-            "value": "__StaxGraphqlClientId__"
-        },
-        "CmsClientSecret": {
-            "value": "__StaxGraphqlClientSecret__"
-        },
-        "CmsRedisCacheConnectionString": {
-            "value": "__RedisConnectionString__"
-        },
-        "CmsSqlApiUrl": {
-            "value": "__StaxGraphqlSqlApiUrl__"
         },
         "EventGridTopicEndPointUrl": {
             "value": "__SSP2EventGridTopicUrl__"
         },
-        "EventGridTopicAccessKey": {
-            "value": "__SSP2SharedEventGridAccessKey__"
-        },
         "PreviewLoginUrl": {
             "value": "__PreviewLoginUrl__"
-        },
-        "EncryptionKey": {
-            "value": "__NcsPreviewEncryptionKey__"
-        },
-        "CipherTextPrefix": {
-            "value": "__NcsPreviewCipherTextPrefix__"
         },
         "CipherTextValiditySeconds": {
             "value": __CipherTextValiditySeconds__
@@ -211,6 +109,24 @@
         },
         "PreviewRedirectUri:1:ContentType": {
             "value": "__ContentType1__"
+        },
+        "PreviewRedirectUri:2:RedirectUri": {
+            "value": "__RedirectUri2__"
+        },
+        "PreviewRedirectUri:2:ContentType": {
+            "value": "__ContentType2__"
+        },
+        "PreviewRedirectUri:3:RedirectUri": {
+            "value": "__RedirectUri3__"
+        },
+        "PreviewRedirectUri:3:ContentType": {
+            "value": "__ContentType3__"
+        },
+        "BaseUrlPath": {
+            "value": "__BaseUrlPath__"
+        },
+        "keyVaultName": {
+            "value": "__sharedKeyVaultName__"
         }
     }
 }
