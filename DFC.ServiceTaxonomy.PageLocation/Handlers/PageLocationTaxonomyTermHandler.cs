@@ -81,7 +81,7 @@ namespace DFC.ServiceTaxonomy.PageLocation.Handlers
 
                     page.Alter<PageLocationPart>(part => part.FullUrl = fullUrl);
 
-                    _session.Save(page);
+                    await _session.SaveAsync(page);
                 }
 
                 try
@@ -115,7 +115,7 @@ namespace DFC.ServiceTaxonomy.PageLocation.Handlers
                                 {
                                     page.Published = false;
                                 }
-                                _session.Save(page);
+                                await _session.SaveAsync(page);
                             }
                         }
 
@@ -137,7 +137,7 @@ namespace DFC.ServiceTaxonomy.PageLocation.Handlers
                             foreach (var incorrectPage in incorrectPages)
                             {
                                 incorrectPage.Latest = false;
-                                _session.Save(incorrectPage);
+                                await _session.SaveAsync(incorrectPage);
                             }
                             pages = pages.Take(1).ToList();
                         }

@@ -91,8 +91,9 @@ namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb.GraphSyncers
         {
             await _session.BeginTransactionAsync();
 
-            IEnumerable<ContentTypeDefinition> syncableContentTypeDefinitions = _contentDefinitionManager
-                .ListTypeDefinitions()
+            var typeDefinitionsList =  await _contentDefinitionManager
+                .ListTypeDefinitionsAsync();
+            IEnumerable<ContentTypeDefinition> syncableContentTypeDefinitions = typeDefinitionsList
                 .Where(x => x.Parts.Any(p => p.Name == nameof(GraphSyncPart)));
 
             DateTime timestamp = DateTime.UtcNow;
@@ -148,7 +149,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb.GraphSyncers
             //_logger.LogInformation("Woohoo: graph passed validation or was successfully repaired at {Time}.",
             //    timestamp.ToString("O"));
 
-            _session.Save(new AuditSyncLog(timestamp));
+            await _session.SaveAsync(new AuditSyncLog(timestamp));
             await _session.CurrentTransaction.CommitAsync();
 
             return results;

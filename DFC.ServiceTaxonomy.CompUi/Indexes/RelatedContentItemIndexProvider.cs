@@ -14,7 +14,7 @@ namespace DFC.ServiceTaxonomy.CompUi.Indexes
 
         public RelatedContentItemIndexProvider(IConfiguration configuration)
         {
-            RelatedContentTypes = configuration.GetSection(RelatedContentTypesAppSetting).Get<List<string>>()?.ConvertAll(x =>x.ToLower()) ?? new List<string>();
+            RelatedContentTypes = configuration.GetSection(RelatedContentTypesAppSetting).Get<List<string>>()?.ConvertAll(x => x.ToLower()) ?? new List<string>();
         }
 
         public override void Describe(DescribeContext<ContentItem> context)
@@ -22,35 +22,35 @@ namespace DFC.ServiceTaxonomy.CompUi.Indexes
             context.For<Models.RelatedContentItemIndex>()
              .When(contentItem => RelatedContentTypes.Contains(contentItem.ContentType.ToLower()))
                 .Map(contentItem =>
+                {
+                    if (!contentItem.Published && !contentItem.Latest)
                     {
-                        if (!contentItem.Published && !contentItem.Latest)
-                        {
-                            return default!;
-                        }
+                        return default!;
+                    }
 
-                        var content = JsonConvert.SerializeObject(contentItem.Content);
+                    var content = JsonConvert.SerializeObject(contentItem.Content);
 
-                        var root = JToken.Parse(content);
+                    var root = JToken.Parse(content);
 
-                        var tiles = root.SelectTokens("..ContentItemIds[*]");
+                    var tiles = root.SelectTokens("..ContentItemIds[*]");
 
-                        string contentIdList = string.Join("','", tiles);
-                        if (!string.IsNullOrEmpty(contentIdList))
-                        {
-                            contentIdList = string.Concat("'", contentIdList, "'");
-                        }
-                        else
-                        {
-                            contentIdList = string.Empty;
-                        }
+                    string contentIdList = string.Join("','", tiles);
+                    if (!string.IsNullOrEmpty(contentIdList))
+                    {
+                        contentIdList = string.Concat("'", contentIdList, "'");
+                    }
+                    else
+                    {
+                        contentIdList = string.Empty;
+                    }
 
-                        return new Models.RelatedContentItemIndex
-                        {
-                            ContentItemId = contentItem.ContentItemId,
-                            ContentType = contentItem.ContentType,
-                            RelatedContentIds = contentIdList,
-                        };
-                    });
+                    return new Models.RelatedContentItemIndex
+                    {
+                        ContentItemId = contentItem.ContentItemId,
+                        ContentType = contentItem.ContentType,
+                        RelatedContentIds = contentIdList,
+                    };
+                });
         }
     }
 }

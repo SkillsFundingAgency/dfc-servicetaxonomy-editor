@@ -21,12 +21,12 @@ namespace DFC.ServiceTaxonomy.JobProfiles.DataTransfer
 
         public int Create()
         {
-            _contentDefinitionManager.AlterPartDefinition(nameof(JobProfile), part => part
+            _contentDefinitionManager.AlterPartDefinitionAsync(nameof(JobProfile), part => part
                 .Attachable()
                 .WithDescription("Creates JobProfile related metadata record. ")
             );
 
-            SchemaBuilder.CreateMapIndexTable<JobProfileIndex>(table => table
+            SchemaBuilder.CreateMapIndexTableAsync<JobProfileIndex>(table => table
                 .Column<string>(nameof(JobProfileIndex.ContentItemId))
                 .Column<string>(nameof(JobProfileIndex.GraphSyncPartId))
                 .Column<string>(nameof(JobProfileIndex.DynamicTitlePrefix))
@@ -57,7 +57,7 @@ namespace DFC.ServiceTaxonomy.JobProfiles.DataTransfer
                 .Column<string>(nameof(JobProfileIndex.Restriction)));
 
 
-            SchemaBuilder.AlterIndexTable<JobProfileIndex>(table => table
+            SchemaBuilder.AlterIndexTableAsync<JobProfileIndex>(table => table
                 .CreateIndex(
                     $"IDX_{nameof(JobProfileIndex)}_{nameof(JobProfileIndex.ContentItemId)}",
                     "DocumentId",
@@ -69,12 +69,12 @@ namespace DFC.ServiceTaxonomy.JobProfiles.DataTransfer
 
         public int UpdateFrom1()
         {
-            SchemaBuilder.AlterIndexTable<JobProfileIndex>(table => table.AddColumn<string>(nameof(JobProfileIndex.JobProfileTitle)));
+            SchemaBuilder.AlterIndexTableAsync<JobProfileIndex>(table => table.AddColumn<string>(nameof(JobProfileIndex.JobProfileTitle)));
 
-            SchemaBuilder.AlterIndexTable<JobProfileIndex>(table => table
+            SchemaBuilder.AlterIndexTableAsync<JobProfileIndex>(table => table
                 .DropIndex($"IDX_{nameof(JobProfileIndex)}_{nameof(JobProfileIndex.ContentItemId)}"));
 
-            SchemaBuilder.AlterIndexTable<JobProfileIndex>(table => table
+            SchemaBuilder.AlterIndexTableAsync<JobProfileIndex>(table => table
                 .CreateIndex(
                     $"IDX_{nameof(JobProfileIndex)}_{nameof(JobProfileIndex.ContentItemId)}",
                     "DocumentId",
@@ -86,12 +86,12 @@ namespace DFC.ServiceTaxonomy.JobProfiles.DataTransfer
 
         public int UpdateFrom2()
         {
-            SchemaBuilder.AlterIndexTable<JobProfileIndex>(table => table.AddColumn<string>(nameof(JobProfileIndex.Restriction)));
+            SchemaBuilder.AlterIndexTableAsync<JobProfileIndex>(table => table.AddColumn<string>(nameof(JobProfileIndex.Restriction)));
 
-            SchemaBuilder.AlterIndexTable<JobProfileIndex>(table => table
+            SchemaBuilder.AlterIndexTableAsync<JobProfileIndex>(table => table
                 .DropIndex($"IDX_{nameof(JobProfileIndex)}_{nameof(JobProfileIndex.ContentItemId)}"));
 
-            SchemaBuilder.AlterIndexTable<JobProfileIndex>(table => table
+            SchemaBuilder.AlterIndexTableAsync<JobProfileIndex>(table => table
                 .CreateIndex(
                     $"IDX_{nameof(JobProfileIndex)}_{nameof(JobProfileIndex.ContentItemId)}",
                     "DocumentId",
@@ -103,14 +103,14 @@ namespace DFC.ServiceTaxonomy.JobProfiles.DataTransfer
 
         public int UpdateFrom3()
         {
-            SchemaBuilder.AlterIndexTable<JobProfileIndex>(table => table.DropColumn("Digitalskills"));
+            SchemaBuilder.AlterIndexTableAsync<JobProfileIndex>(table => table.DropColumn("Digitalskills"));
 
-            SchemaBuilder.AlterIndexTable<JobProfileIndex>(table => table.AddColumn<string>(nameof(JobProfileIndex.DigitalSkills)));
+            SchemaBuilder.AlterIndexTableAsync<JobProfileIndex>(table => table.AddColumn<string>(nameof(JobProfileIndex.DigitalSkills)));
 
-            SchemaBuilder.AlterIndexTable<JobProfileIndex>(table => table
+            SchemaBuilder.AlterIndexTableAsync<JobProfileIndex>(table => table
                 .DropIndex($"IDX_{nameof(JobProfileIndex)}_{nameof(JobProfileIndex.ContentItemId)}"));
 
-            SchemaBuilder.AlterIndexTable<JobProfileIndex>(table => table
+            SchemaBuilder.AlterIndexTableAsync<JobProfileIndex>(table => table
                 .CreateIndex(
                     $"IDX_{nameof(JobProfileIndex)}_{nameof(JobProfileIndex.ContentItemId)}",
                     "DocumentId",
@@ -122,12 +122,12 @@ namespace DFC.ServiceTaxonomy.JobProfiles.DataTransfer
 
         public int UpdateFrom4()
         {
-            SchemaBuilder.AlterIndexTable<JobProfileIndex>(table => table.AddColumn<string>(nameof(JobProfileIndex.RelatedSkills)));
+            SchemaBuilder.AlterIndexTableAsync<JobProfileIndex>(table => table.AddColumn<string>(nameof(JobProfileIndex.RelatedSkills)));
 
-            SchemaBuilder.AlterIndexTable<JobProfileIndex>(table => table
+            SchemaBuilder.AlterIndexTableAsync<JobProfileIndex>(table => table
                 .DropIndex($"IDX_{nameof(JobProfileIndex)}_{nameof(JobProfileIndex.ContentItemId)}"));
 
-            SchemaBuilder.AlterIndexTable<JobProfileIndex>(table => table
+            SchemaBuilder.AlterIndexTableAsync<JobProfileIndex>(table => table
                 .CreateIndex(
                     $"IDX_{nameof(JobProfileIndex)}_{nameof(JobProfileIndex.ContentItemId)}",
                     "DocumentId",
@@ -141,15 +141,15 @@ namespace DFC.ServiceTaxonomy.JobProfiles.DataTransfer
         {
             try
             {
-                SchemaBuilder.AlterIndexTable<JobProfileIndex>(table => table.DropColumn(nameof(JobProfileIndex.RelatedSkills)));
-                SchemaBuilder.AlterIndexTable<JobProfileIndex>(
+                SchemaBuilder.AlterIndexTableAsync<JobProfileIndex>(table => table.DropColumn(nameof(JobProfileIndex.RelatedSkills)));
+                SchemaBuilder.AlterIndexTableAsync<JobProfileIndex>(
                     table => table.AddColumn<string>(nameof(JobProfileIndex.RelatedSkills),
                     column => column.WithLength(1024)));
 
-                SchemaBuilder.AlterIndexTable<JobProfileIndex>(table => table
+                SchemaBuilder.AlterIndexTableAsync<JobProfileIndex>(table => table
                     .DropIndex($"IDX_{nameof(JobProfileIndex)}_{nameof(JobProfileIndex.ContentItemId)}"));
 
-                SchemaBuilder.AlterIndexTable<JobProfileIndex>(table => table
+                SchemaBuilder.AlterIndexTableAsync<JobProfileIndex>(table => table
                     .CreateIndex(
                         $"IDX_{nameof(JobProfileIndex)}_{nameof(JobProfileIndex.ContentItemId)}",
                         "DocumentId",
@@ -168,20 +168,20 @@ namespace DFC.ServiceTaxonomy.JobProfiles.DataTransfer
         {
             try
             {
-                SchemaBuilder.AlterIndexTable<JobProfileIndex>(table => table.DropColumn(nameof(JobProfileIndex.RelatedSkills)));
-                SchemaBuilder.AlterIndexTable<JobProfileIndex>(
+                SchemaBuilder.AlterIndexTableAsync<JobProfileIndex>(table => table.DropColumn(nameof(JobProfileIndex.RelatedSkills)));
+                SchemaBuilder.AlterIndexTableAsync<JobProfileIndex>(
                     table => table.AddColumn<string>(nameof(JobProfileIndex.RelatedSkills),
                     column => column.WithLength(600)));
 
-                SchemaBuilder.AlterIndexTable<JobProfileIndex>(table => table.DropColumn(nameof(JobProfileIndex.HiddenAlternativeTitle)));
-                SchemaBuilder.AlterIndexTable<JobProfileIndex>(
+                SchemaBuilder.AlterIndexTableAsync<JobProfileIndex>(table => table.DropColumn(nameof(JobProfileIndex.HiddenAlternativeTitle)));
+                SchemaBuilder.AlterIndexTableAsync<JobProfileIndex>(
                     table => table.AddColumn<string>(nameof(JobProfileIndex.HiddenAlternativeTitle),
                     column => column.WithLength(300)));
 
-                SchemaBuilder.AlterIndexTable<JobProfileIndex>(table => table
+                SchemaBuilder.AlterIndexTableAsync<JobProfileIndex>(table => table
                     .DropIndex($"IDX_{nameof(JobProfileIndex)}_{nameof(JobProfileIndex.ContentItemId)}"));
 
-                SchemaBuilder.AlterIndexTable<JobProfileIndex>(table => table
+                SchemaBuilder.AlterIndexTableAsync<JobProfileIndex>(table => table
                     .CreateIndex(
                         $"IDX_{nameof(JobProfileIndex)}_{nameof(JobProfileIndex.ContentItemId)}",
                         "DocumentId",
@@ -200,15 +200,15 @@ namespace DFC.ServiceTaxonomy.JobProfiles.DataTransfer
         {
             try
             {
-                SchemaBuilder.AlterIndexTable<JobProfileIndex>(table => table.DropColumn(nameof(JobProfileIndex.HiddenAlternativeTitle)));
-                SchemaBuilder.AlterIndexTable<JobProfileIndex>(
+                SchemaBuilder.AlterIndexTableAsync<JobProfileIndex>(table => table.DropColumn(nameof(JobProfileIndex.HiddenAlternativeTitle)));
+                SchemaBuilder.AlterIndexTableAsync<JobProfileIndex>(
                     table => table.AddColumn<string>(nameof(JobProfileIndex.HiddenAlternativeTitle),
                     column => column.WithLength(600)));
 
-                SchemaBuilder.AlterIndexTable<JobProfileIndex>(table => table
+                SchemaBuilder.AlterIndexTableAsync<JobProfileIndex>(table => table
                     .DropIndex($"IDX_{nameof(JobProfileIndex)}_{nameof(JobProfileIndex.ContentItemId)}"));
 
-                SchemaBuilder.AlterIndexTable<JobProfileIndex>(table => table
+                SchemaBuilder.AlterIndexTableAsync<JobProfileIndex>(table => table
                     .CreateIndex(
                         $"IDX_{nameof(JobProfileIndex)}_{nameof(JobProfileIndex.ContentItemId)}",
                         "DocumentId",
@@ -227,7 +227,7 @@ namespace DFC.ServiceTaxonomy.JobProfiles.DataTransfer
         {
             try
             {
-                SchemaBuilder.AlterIndexTable<JobProfileIndex>(
+                SchemaBuilder.AlterIndexTableAsync<JobProfileIndex>(
                     table => table.AddColumn<string>(nameof(JobProfileIndex.RealStory),
                     column => column.WithLength(600)));
             }
@@ -241,7 +241,7 @@ namespace DFC.ServiceTaxonomy.JobProfiles.DataTransfer
 
         public int UpdateFrom9()
         {
-            _contentDefinitionManager.AlterPartDefinition(nameof(JobProfileSimplificationPart), builder => builder
+            _contentDefinitionManager.AlterPartDefinitionAsync(nameof(JobProfileSimplificationPart), builder => builder
                .Attachable()
                .WithDescription("Provides a JobProfileSimplificationPart for your content item."));
 

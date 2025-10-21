@@ -105,7 +105,7 @@ namespace DFC.ServiceTaxonomy.Taxonomies.Controllers
 
             ContentItem taxonomy;
 
-            var contentTypeDefinition = _contentDefinitionManager.GetTypeDefinition("Taxonomy");
+            var contentTypeDefinition = await _contentDefinitionManager.GetTypeDefinitionAsync("Taxonomy");
 
             if (!contentTypeDefinition.GetSettings<ContentTypeSettings>().Draftable)
             {
@@ -255,7 +255,7 @@ namespace DFC.ServiceTaxonomy.Taxonomies.Controllers
 
             ContentItem taxonomy;
 
-            var contentTypeDefinition = _contentDefinitionManager.GetTypeDefinition("Taxonomy");
+            var contentTypeDefinition = await _contentDefinitionManager.GetTypeDefinitionAsync("Taxonomy");
 
             if (!contentTypeDefinition.GetSettings<ContentTypeSettings>().Draftable)
             {
@@ -370,7 +370,7 @@ namespace DFC.ServiceTaxonomy.Taxonomies.Controllers
 
             ContentItem taxonomy;
 
-            var contentTypeDefinition = _contentDefinitionManager.GetTypeDefinition("Taxonomy");
+            var contentTypeDefinition = await _contentDefinitionManager.GetTypeDefinitionAsync("Taxonomy");
 
             if (!contentTypeDefinition.GetSettings<ContentTypeSettings>().Draftable)
             {

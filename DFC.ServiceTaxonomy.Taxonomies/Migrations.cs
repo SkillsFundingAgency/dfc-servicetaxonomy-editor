@@ -20,7 +20,7 @@ namespace DFC.ServiceTaxonomy.Taxonomies
 
         public int Create()
         {
-            _contentDefinitionManager.AlterTypeDefinition("Taxonomy", taxonomy => taxonomy
+            _contentDefinitionManager.AlterTypeDefinitionAsync("Taxonomy", taxonomy => taxonomy
                 .Draftable()
                 .Versionable()
                 .Creatable()
@@ -42,7 +42,7 @@ namespace DFC.ServiceTaxonomy.Taxonomies
                 .WithPart("TaxonomyPart", part => part.WithPosition("4"))
             );
 
-            SchemaBuilder.CreateMapIndexTable<TaxonomyIndex>(table => table
+            SchemaBuilder.CreateMapIndexTableAsync<TaxonomyIndex>(table => table
                 .Column<string>("TaxonomyContentItemId", c => c.WithLength(26))
                 .Column<string>("ContentItemId", c => c.WithLength(26))
                 .Column<string>("ContentType", column => column.WithLength(ContentItemIndex.MaxContentTypeSize))
@@ -51,11 +51,11 @@ namespace DFC.ServiceTaxonomy.Taxonomies
                 .Column<string>("TermContentItemId", column => column.WithLength(26))
             );
 
-            SchemaBuilder.AlterIndexTable<TaxonomyIndex>(table => table
+            SchemaBuilder.AlterIndexTableAsync<TaxonomyIndex>(table => table
                 .CreateIndex("IDX_TaxonomyIndex_List", "ContentType", "ContentPart", "ContentField")
             );
 
-            SchemaBuilder.AlterIndexTable<TaxonomyIndex>(table => table
+            SchemaBuilder.AlterIndexTableAsync<TaxonomyIndex>(table => table
                 .CreateIndex("IDX_TaxonomyIndex_Search", "TermContentItemId")
             );
 
@@ -67,13 +67,13 @@ namespace DFC.ServiceTaxonomy.Taxonomies
         // This code can be removed in a later version.
         public int UpdateFrom1()
         {
-            _contentDefinitionManager.MigrateFieldSettings<TaxonomyField, TaxonomyFieldSettings>();
+            _contentDefinitionManager.MigrateFieldSettingsAsync<TaxonomyField, TaxonomyFieldSettings>();
             return 2;
         }
 
         public int UpdateFrom2()
         {
-            _contentDefinitionManager.AlterTypeDefinition("Taxonomy", taxonomy => taxonomy
+            _contentDefinitionManager.AlterTypeDefinitionAsync("Taxonomy", taxonomy => taxonomy
                 .WithPart("AutoroutePart", part => part
                     .WithPosition("3")
                     .WithSettings(new AutoroutePartSettings

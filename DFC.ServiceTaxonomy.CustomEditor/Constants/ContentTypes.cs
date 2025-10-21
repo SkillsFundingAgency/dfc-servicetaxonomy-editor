@@ -9,5 +9,6 @@
         public const string Footer = nameof(Footer);
         public const string SectorLandingPage = nameof(SectorLandingPage);
         public const string JobProfileSector = nameof(JobProfileSector);
+        public const string ApprenticeshipStandard = nameof(ApprenticeshipStandard);
     }
 }

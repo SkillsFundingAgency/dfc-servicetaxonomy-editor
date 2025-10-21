@@ -100,7 +100,7 @@
                                        asp-action="Create"
                                        asp-route-id="@contentType"
                                        class="dropdown-item create-button">
-                                        @ContentDefinitionManager.GetTypeDefinition(contentType).DisplayName
+                                        @ContentDefinitionManager.GetTypeDefinitionAsync(contentType).Result.DisplayName
                                     </a>
                                 }
                             </div>

@@ -222,54 +222,6 @@
                     }
                 },
                 {
-                    "ContentItemId": "43m7q20x3pvq20qxn0x6sk5fcx",
-                    "ContentItemVersionId": "47frkt10z87br1s2scp9dhm1xk",
-                    "ContentType": "ApplicationView",
-                    "DisplayText": "Skills health check",
-                    "Latest": true,
-                    "Published": true,
-                    "ModifiedUtc": "2021-05-28T12:58:11.5316038Z",
-                    "PublishedUtc": "2021-05-28T12:58:11.5473719Z",
-                    "CreatedUtc": "2021-05-28T08:44:31.6020118Z",
-                    "Owner": "4c0dn95m0jzd15fm01m6c13awt",
-                    "Author": "admin",
-                    "ApplicationView": {
-                        "PageLocations": {
-                            "TaxonomyContentItemId": "4eembshqzx66drajtdten34tc8",
-                            "TermContentItemIds": [
-                                "4rk5qs3dmjc22t2wfvnvwe1p4x"
-                            ]
-                        },
-                        "TriageToolFilters": {
-                            "ContentItemIds": [
-                                "4vw3zfe67cafr590t9ff7v3jm6",
-                                "4fstdnjr95bbh6sthnb2vjrens"
-                            ]
-                        },
-                        "UseInTriageTool": {
-                            "Value": true
-                        },
-                        "TriageToolSummary": {
-                            "Html": "<p>Take a number of quizzes and activities to explore your skills, interests and motivations.</p>"
-                        },
-                        "PageLocation": {
-                            "Text": "/skills-assessment/skills-health-check/home"
-                        }
-                    },
-                    "GraphSyncPart": {
-                        "Text": "<<contentapiprefix>>/applicationview/7cf963c7-0995-4d46-a3a9-7bbca03a0741"
-                    },
-                    "PageLocationPart": {
-                        "UrlName": "skills-health-check",
-                        "DefaultPageForLocation": false,
-                        "RedirectLocations": null,
-                        "FullUrl": "/skills-assessment/skills-health-check"
-                    },
-                    "TitlePart": {
-                        "Title": "Skills health check"
-                    }
-                },
-                {
                     "ContentItemId": "4em3h5pc157v829dnzrc7y68dg",
                     "ContentItemVersionId": "4ws87sk1me2ya1bqwsmczradcd",
                     "ContentType": "ApplicationView",

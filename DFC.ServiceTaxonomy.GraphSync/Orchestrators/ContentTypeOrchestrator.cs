@@ -52,7 +52,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Orchestrators
             {
                 var settings = _graphSyncPartSettings.CurrentValue.Settings.Single(settingBlock => settingBlock.Name == "NCS");
 
-                _contentDefinitionManager.AlterTypeDefinition(contentTypeName, builder => builder
+                _contentDefinitionManager.AlterTypeDefinitionAsync(contentTypeName, builder => builder
                     .WithPart(nameof(GraphSyncPart), part => part
                         .WithSettings(new GraphSyncPartSettings
                         {
@@ -107,7 +107,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Orchestrators
         {
             try
             {
-                IEnumerable<ContentTypeDefinition> contentTypeDefinitions = _contentDefinitionManager.ListTypeDefinitions();
+                IEnumerable<ContentTypeDefinition> contentTypeDefinitions = await _contentDefinitionManager.ListTypeDefinitionsAsync();
                 var affectedContentTypeDefinition = contentTypeDefinitions
                     .Single(t => t.Name == contentTypeName);
 
@@ -136,7 +136,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Orchestrators
         {
             try
             {
-                IEnumerable<ContentTypeDefinition> contentTypeDefinitions = _contentDefinitionManager.ListTypeDefinitions();
+                IEnumerable<ContentTypeDefinition> contentTypeDefinitions = await _contentDefinitionManager.ListTypeDefinitionsAsync();
                 var affectedContentTypeDefinitions = contentTypeDefinitions
                     .Where(t => t.Parts
                         .Any(p => p.PartDefinition.Name == contentPartName))
