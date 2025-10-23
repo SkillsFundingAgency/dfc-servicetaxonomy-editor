@@ -17,7 +17,6 @@
             { name: 'h4', class: "govuk-heading-s" }
         ],
         fontSizes: [
-            { name: '14px', class: 'govuk-!-font-size-14' },
             { name: '16px', class: 'govuk-!-font-size-16' },
             { name: '19px', class: 'govuk-!-font-size-19' },
             { name: '24px', class: 'govuk-!-font-size-24' },
@@ -869,7 +868,7 @@
             var accordionH2End = '</h2>';
             var accordionButton =
                 '<span class="govuk-accordion__section-button" id="accordion-default-heading-' + textIdTag + '">Heading</span>';
-            var accordionText = '<div id="accordion-default-content-' + textIdTag + '" class="govuk-accordion__section-content" aria-labelledby="accordion-default-heading-' + textIdTag + '"> <p class="govuk-body">This is the content for Writing well for the web.</p></div>';
+            var accordionText = '<div id="accordion-default-content-' + textIdTag + '" class="govuk-accordion__section-content"> <p class="govuk-body">This is the content for Writing well for the web.</p></div>';
 
 
             var html = accordionSection + accordionHeader + accordionH2 + accordionButton.replace(new RegExp(textIdTag, 'g'), id) + accordionH2End + divEnd;
