@@ -71,6 +71,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DFC.ServiceTaxonomy.Headles
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DFC.ServiceTaxonomy.Migration", "DFC.ServiceTaxonomy.Migration\DFC.ServiceTaxonomy.Migration.csproj", "{E7212B27-02BA-4F46-8E8B-1E790334E3FF}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DFC.ServiceTaxonomy.JobProfiles.Exporter", "DFC.ServiceTaxonomy.JobProfiles.Exporter\DFC.ServiceTaxonomy.JobProfiles.Exporter.csproj", "{84CF95DE-3E05-4F8C-8A0C-298A09A7AE4D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -234,6 +236,12 @@ Global
 		{E7212B27-02BA-4F46-8E8B-1E790334E3FF}.Development|Any CPU.Build.0 = Debug|Any CPU
 		{E7212B27-02BA-4F46-8E8B-1E790334E3FF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E7212B27-02BA-4F46-8E8B-1E790334E3FF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{84CF95DE-3E05-4F8C-8A0C-298A09A7AE4D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{84CF95DE-3E05-4F8C-8A0C-298A09A7AE4D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{84CF95DE-3E05-4F8C-8A0C-298A09A7AE4D}.Development|Any CPU.ActiveCfg = Debug|Any CPU
+		{84CF95DE-3E05-4F8C-8A0C-298A09A7AE4D}.Development|Any CPU.Build.0 = Debug|Any CPU
+		{84CF95DE-3E05-4F8C-8A0C-298A09A7AE4D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{84CF95DE-3E05-4F8C-8A0C-298A09A7AE4D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
