@@ -7,7 +7,11 @@
     <EnableNETAnalyzers>true</EnableNETAnalyzers>
     <AnalysisLevel>latest</AnalysisLevel>
     <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
+    <EnableDefaultSassItems>false</EnableDefaultSassItems>
   </PropertyGroup>
+  <ItemGroup>
+    <SassFile Include="wwwroot/Styles/trumbowyg_scoped_govuk_frontend.scss" Exclude="govuk-frontend/**/*.css" />
+  </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Remove="wwwroot\Styles\version-comparison.scss" />
   </ItemGroup>
@@ -24,6 +28,7 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="DartSassBuilder" Version="1.1.0" />
     <PackageReference Include="GovUk.Frontend.AspNetCore" Version="2.0.0" />
     <PackageReference Include="OrchardCore.Admin" Version="1.8.4" />
     <PackageReference Include="OrchardCore.Infrastructure" Version="1.8.4" />
