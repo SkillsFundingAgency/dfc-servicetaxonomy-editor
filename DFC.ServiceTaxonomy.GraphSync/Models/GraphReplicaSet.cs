@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using Microsoft.Extensions.Logging;
 using System.Linq;
 using System.Numerics;
 using System.Threading;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.Interfaces;
+using Microsoft.Extensions.Logging;
 
 namespace DFC.ServiceTaxonomy.GraphSync.Models
 {

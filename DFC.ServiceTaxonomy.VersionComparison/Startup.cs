@@ -1,8 +1,8 @@
 ﻿using System;
 using DFC.ServiceTaxonomy.VersionComparison.Controllers;
 using DFC.ServiceTaxonomy.VersionComparison.Drivers;
-using DFC.ServiceTaxonomy.VersionComparison.Services;
 using DFC.ServiceTaxonomy.VersionComparison.Models;
+using DFC.ServiceTaxonomy.VersionComparison.Services;
 using DFC.ServiceTaxonomy.VersionComparison.Services.PropertyServices;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Routing;

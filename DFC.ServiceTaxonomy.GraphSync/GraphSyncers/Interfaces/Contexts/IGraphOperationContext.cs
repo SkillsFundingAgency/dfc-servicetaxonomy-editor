@@ -12,7 +12,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Contexts
         IContentManager ContentManager { get; }
         IContentItemVersion ContentItemVersion { get; }
         ContentTypePartDefinition ContentTypePartDefinition { get; }
-        IContentPartFieldDefinition? ContentPartFieldDefinition  { get; }
+        IContentPartFieldDefinition? ContentPartFieldDefinition { get; }
 
         ISyncNameProvider SyncNameProvider { get; }
 

@@ -12,7 +12,7 @@ namespace DFC.ServiceTaxonomy.CustomFields.Settings
         public override IDisplayResult Edit(ContentPartFieldDefinition partFieldDefinition)
         {
             return Initialize<EditAccordionFieldSettingsViewModel>("AccordionFieldSettings_Edit", model =>
-            {})
+            { })
             .Location("Content");
 
         }

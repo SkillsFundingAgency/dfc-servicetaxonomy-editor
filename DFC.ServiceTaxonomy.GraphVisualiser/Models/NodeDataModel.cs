@@ -29,8 +29,8 @@ namespace DFC.ServiceTaxonomy.GraphVisualiser.Models
             Id = $"Class{node.Id}";
             Key = 1;
             Type = type;
-            Label = GetPropertyValue(node, new[] {prefLabel, "Description", "FurtherInfo"});
-            Comment = GetPropertyValue(node, new[] {"Description"});
+            Label = GetPropertyValue(node, new[] { prefLabel, "Description", "FurtherInfo" });
+            Comment = GetPropertyValue(node, new[] { "Description" });
             StaxProperties = node.Properties
                 .Where(p => p.Key != prefLabel)
                 .Select(p => $"{p.Key}:{p.Value}")

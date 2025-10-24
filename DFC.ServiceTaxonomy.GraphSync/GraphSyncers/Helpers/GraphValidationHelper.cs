@@ -82,7 +82,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
 
             string GenerateErrorMessage(string? prefix = null)
             {
-                return $"{prefix}{(prefix!=null ? ": " : string.Empty)}content property array was '{string.Join(", ", contentItemFieldArray)}', but node property value was '{string.Join(", ", (IEnumerable<object>)nodePropertyValue)}'";
+                return $"{prefix}{(prefix != null ? ": " : string.Empty)}content property array was '{string.Join(", ", contentItemFieldArray)}', but node property value was '{string.Join(", ", (IEnumerable<object>)nodePropertyValue)}'";
             }
         }
 
@@ -122,7 +122,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
 
             string GenerateErrorMessage(string? prefix = null)
             {
-                return $"{prefix}{(prefix!=null?": " : string.Empty)}content multiline string was '{string.Join(", ", contentStrings)}', but node property value was '{string.Join(", ", nodeStrings)}'";
+                return $"{prefix}{(prefix != null ? ": " : string.Empty)}content multiline string was '{string.Join(", ", contentStrings)}', but node property value was '{string.Join(", ", nodeStrings)}'";
             }
         }
 
@@ -315,7 +315,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
 
         private void SanitiseDecimalStringsForCompare(ref string leftValue, ref string rightValue)
         {
-            if(decimal.TryParse(leftValue, out var result))
+            if (decimal.TryParse(leftValue, out var result))
             {
                 leftValue = leftValue.TrimEnd('0');
                 rightValue = rightValue.TrimEnd('0');

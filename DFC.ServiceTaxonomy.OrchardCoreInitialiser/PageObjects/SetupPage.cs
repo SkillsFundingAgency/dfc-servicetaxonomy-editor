@@ -1,6 +1,6 @@
-﻿using OpenQA.Selenium;
+﻿using System;
+using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
-using System;
 
 namespace DFC.ServiceTaxonomy.OrchardCoreInitialiser.PageObjects
 {
@@ -25,7 +25,7 @@ namespace DFC.ServiceTaxonomy.OrchardCoreInitialiser.PageObjects
             bool bLoaded = false;
             var elements = _webDriver.FindElements(By.ClassName("lead"));
 
-            foreach ( var element in elements)
+            foreach (var element in elements)
             {
                 if (element.Text == "Please answer a few questions to configure your site.")
                     bLoaded = true;
@@ -45,7 +45,7 @@ namespace DFC.ServiceTaxonomy.OrchardCoreInitialiser.PageObjects
             }
             catch (Exception e)
             {
-                if (e.Message.StartsWith("no such element:") )
+                if (e.Message.StartsWith("no such element:"))
                 {
                     bSuccess = true;
                 }
@@ -63,22 +63,22 @@ namespace DFC.ServiceTaxonomy.OrchardCoreInitialiser.PageObjects
             {
                 _webDriver.FindElement(By.Id("SiteName")).SendKeys(siteName);
             }
-            catch ( Exception e)
+            catch (Exception e)
             {
                 throw new Exception("Setup page: Unable to enter a value for SiteName", e);
             }
             return this;
         }
 
-        public SetupPage selectRecipe(string recipeName )
+        public SetupPage selectRecipe(string recipeName)
         {
             try
             {
                 _webDriver.FindElement(By.Id("recipeButton")).Click();
                 var element = _webDriver.FindElement(By.XPath($"//a[@data-recipe-name='{recipeName}']"));
                 element.Click();
-             }
-            catch( Exception e)
+            }
+            catch (Exception e)
             {
                 throw new Exception("Setup page: Unable to select a Recipe", e);
             }
@@ -101,7 +101,7 @@ namespace DFC.ServiceTaxonomy.OrchardCoreInitialiser.PageObjects
             return this;
         }
 
-        public SetupPage selectDatabase( string databaseType)
+        public SetupPage selectDatabase(string databaseType)
         {
             try
             {
@@ -156,7 +156,7 @@ namespace DFC.ServiceTaxonomy.OrchardCoreInitialiser.PageObjects
             {
                 throw new Exception("Setup page: Exception in function enterUsername", e);
             }
- 
+
             return this;
         }
 
@@ -170,7 +170,7 @@ namespace DFC.ServiceTaxonomy.OrchardCoreInitialiser.PageObjects
             {
                 throw new Exception("Setup page: Exception in function enterEmail", e);
             }
- 
+
             return this;
         }
 
@@ -185,7 +185,7 @@ namespace DFC.ServiceTaxonomy.OrchardCoreInitialiser.PageObjects
             {
                 throw new Exception("Setup page: Exception in function enterPassword", e);
             }
- 
+
             return this;
         }
 
@@ -199,7 +199,7 @@ namespace DFC.ServiceTaxonomy.OrchardCoreInitialiser.PageObjects
             {
                 throw new Exception("Setup page: Exception in function submitForm", e);
             }
-            
+
             return this;
         }
     }

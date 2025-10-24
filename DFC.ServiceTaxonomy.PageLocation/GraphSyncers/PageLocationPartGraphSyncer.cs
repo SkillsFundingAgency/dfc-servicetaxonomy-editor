@@ -28,7 +28,7 @@ namespace DFC.ServiceTaxonomy.PageLocation.GraphSyncers
             _generator = generator;
             _contentItemsService = contentItemsService;
             _contentDefinitionManager = contentDefinitionManager;
-            _logger= logger;
+            _logger = logger;
         }
 
         public override string PartName => nameof(PageLocationPart);
@@ -43,7 +43,7 @@ namespace DFC.ServiceTaxonomy.PageLocation.GraphSyncers
 
         public override async Task AddSyncComponents(JObject content, IGraphMergeContext context)
         {
-            _logger.LogInformation($"AddSyncComponents");
+            _logger.LogInformation("AddSyncComponents");
             using var _ = context.SyncNameProvider.PushPropertyNameTransform(_pageLocationPropertyNameTransform);
 
             context.MergeNodeCommand.AddProperty<string>(await context.SyncNameProvider.PropertyName(UrlNamePropertyName), content, UrlNamePropertyName);
@@ -54,10 +54,10 @@ namespace DFC.ServiceTaxonomy.PageLocation.GraphSyncers
             //TODO : if this setting changes, do we need to also check/remove these properties from the node?
             if (settings.DisplayRedirectLocationsAndDefaultPageForLocation)
             {
-                _logger.LogInformation($"DisplayRedirectLocationsAndDefaultPageForLocation {settings.DisplayRedirectLocationsAndDefaultPageForLocation}");
+                _logger.LogInformation("DisplayRedirectLocationsAndDefaultPageForLocation {DisplayRedirectLocationsAndDefaultPageForLocation}", settings.DisplayRedirectLocationsAndDefaultPageForLocation);
                 context.MergeNodeCommand.AddProperty<bool>(await context.SyncNameProvider.PropertyName(DefaultPageForLocationPropertyName), content, DefaultPageForLocationPropertyName);
 
-                _logger.LogInformation($"RedirectLocationsPropertyName {context.SyncNameProvider.PropertyName(RedirectLocationsPropertyName)}");
+                _logger.LogInformation("RedirectLocationsPropertyName {RedirectLocationsPropertyName}", context.SyncNameProvider.PropertyName(RedirectLocationsPropertyName));
 
                 context.MergeNodeCommand.AddArrayPropertyFromMultilineString(
                     await context.SyncNameProvider.PropertyName(RedirectLocationsPropertyName), content,
@@ -77,7 +77,7 @@ namespace DFC.ServiceTaxonomy.PageLocation.GraphSyncers
                 await context.SyncNameProvider.PropertyName(UrlNamePropertyName),
                 context.NodeWithRelationships.SourceNode!);
 
-            _logger.LogInformation($"ValidateSyncComponent UrlNamePropertyName {UrlNamePropertyName} ");
+            _logger.LogInformation("ValidateSyncComponent UrlNamePropertyName {UrlNamePropertyName}", UrlNamePropertyName);
 
             if (!matched)
                 return (false, $"{UrlNamePropertyName} did not validate: {failureReason}");
@@ -90,7 +90,7 @@ namespace DFC.ServiceTaxonomy.PageLocation.GraphSyncers
 
             if (!matched)
             {
-                _logger.LogInformation($"FullUrlPropertyName {FullUrlPropertyName} did not validate");
+                _logger.LogInformation("FullUrlPropertyName {FullUrlPropertyName} did not validate", FullUrlPropertyName);
                 return (false, $"{FullUrlPropertyName} did not validate: {failureReason}");
             }
 
@@ -106,7 +106,7 @@ namespace DFC.ServiceTaxonomy.PageLocation.GraphSyncers
 
                 if (!matched)
                 {
-                    _logger.LogInformation($"DefaultPageForLocationPropertyName {DefaultPageForLocationPropertyName} did not validate");
+                    _logger.LogInformation("DefaultPageForLocationPropertyName {DefaultPageForLocationPropertyName} did not validate", DefaultPageForLocationPropertyName);
                     return (false, $"{DefaultPageForLocationPropertyName} did not validate: {failureReason}");
 
                 }
@@ -130,7 +130,7 @@ namespace DFC.ServiceTaxonomy.PageLocation.GraphSyncers
 
             if (string.IsNullOrWhiteSpace(urlName) || string.IsNullOrWhiteSpace(fullUrl))
             {
-                _logger.LogInformation($"MutateOnClone Cannot mutate {nameof(PageLocationPart)}");
+                _logger.LogInformation("MutateOnClone Cannot mutate {PageLocationPart}", nameof(PageLocationPart));
                 throw new InvalidOperationException($"Cannot mutate {nameof(PageLocationPart)} if {nameof(PageLocationPart.UrlName)} or {nameof(PageLocationPart.FullUrl)} are missing.");
             }
 

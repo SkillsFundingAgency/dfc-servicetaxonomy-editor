@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using DFC.ServiceTaxonomy.GraphSync.Models;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using System.Linq;
 using DFC.ServiceTaxonomy.GraphSync.CosmosDb.Helpers;
 using DFC.ServiceTaxonomy.GraphSync.Interfaces;
+using DFC.ServiceTaxonomy.GraphSync.Models;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using static DFC.ServiceTaxonomy.GraphSync.Helpers.DocumentHelper;
 using static DFC.ServiceTaxonomy.GraphSync.Helpers.UniqueNumberHelper;
 

@@ -2,7 +2,7 @@
 {
     class AddActivity
     {
- 
+
         //public AddActivity(ScenarioContext context)//IWebDriver driver, ScenarioContext context)
         //{
         //    _scenarioContext = context;
@@ -12,7 +12,7 @@
         //{
         //    _scenarioContext.GetWebDriver().FindElement(By.Id("TitlePart_Title")).SendKeys(action);
         //    return this;
-           
+
         //}
 
         //public AddActivity EnterURI(string uri)

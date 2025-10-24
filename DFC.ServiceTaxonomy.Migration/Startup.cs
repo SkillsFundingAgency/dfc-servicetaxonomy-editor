@@ -1,8 +1,8 @@
 ﻿using DFC.ServiceTaxonomy.Migration.Migrations;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using OrchardCore.Data.Migration;
 using OrchardCore.Modules;
-using Microsoft.Extensions.Configuration;
 
 namespace DFC.ServiceTaxonomy.Migration
 {

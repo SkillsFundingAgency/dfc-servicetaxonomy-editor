@@ -35,11 +35,11 @@ namespace DFC.ServiceTaxonomy.Content.Services
 
                 if (accessToken == null)
                 {
-                    _logger.LogError($"Error purging media content:{string.Join(",", contentPaths)}");
+                    _logger.LogError("Error purging media content:{ContentPaths}", string.Join(",", contentPaths));
                     return hasErrors;
                 }
 
-                _logger.LogInformation($"Obtained an authentication token to access cdn. Token: {accessToken}");
+                _logger.LogInformation("Obtained an authentication token to access cdn. Token: {AccessToken}", accessToken);
 
                 CdnManagementClient cdnManagementClient = new CdnManagementClient(new TokenCredentials(accessToken))
                 {
@@ -51,13 +51,13 @@ namespace DFC.ServiceTaxonomy.Content.Services
                                                            _azureAdSettings.CdnEndpointName,
                                                            contentPaths);
 
-                _logger.LogInformation($"Removed content: {string.Join(',', contentPaths)} from CDN.");
+                _logger.LogInformation("Removed content: {ContentPaths} from CDN.", string.Join(',', contentPaths));
 
                 hasErrors = false;
             }
             catch (Exception exception)
             {
-                _logger.LogError(exception, $"Error purging media content:{string.Join(",", contentPaths)}");
+                _logger.LogError(exception, "Error purging media content:{ContentPaths}. Exception Message: {Message}. Stack Trace: {StackTrace}.", string.Join(",", contentPaths), exception.Message, exception.StackTrace);
                 hasErrors = true;
             }
 

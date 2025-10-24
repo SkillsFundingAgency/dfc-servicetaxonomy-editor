@@ -33,7 +33,7 @@ namespace DFC.ServiceTaxonomy.CompUi
             services.AddScoped<IDataMigration, Migrations>();
             services.AddSingleton<IIndexProvider, RelatedContentItemIndexProvider>();
             services.AddSingleton<IDataService, DataService>();
-            
+
             services.AddScoped<IEventGridHandler, EventGridHandler>();
         }
 

@@ -54,7 +54,7 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module.Handlers
             {
                 var socCode = context.ContentItem.As<TitlePart>().Title;
                 var onetCode = (string)context.ContentItem.Content.SOCCode.OnetOccupationCode.Text;
-                _logger.LogInformation($"PublishingAsync: context {context} socCode: {socCode} onetCode:{onetCode}");
+                _logger.LogInformation("PublishingAsync: context {Context} socCode: {SocCode} onetCode:{OnetCode}", context, socCode, onetCode);
                 if (string.IsNullOrEmpty(socCode) || string.IsNullOrEmpty(onetCode))
                 {
                     _logger.LogInformation("Skills information not found. Please check the SOC code and ONet Occupation code or get in touch with support.");
@@ -131,7 +131,7 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module.Handlers
                         socSkillsMatrixCreatedCount++;
                     }
                 }
-                _logger.LogInformation($"{skillCreatedCount} Skill content item{(skillCreatedCount != 1 ? "s" : string.Empty)} and {socSkillsMatrixCreatedCount} SOC Skills Matrix content item{(socSkillsMatrixCreatedCount != 1 ? "s" : string.Empty)} have been created and published.");
+                _logger.LogInformation("{skillCreatedCount} Skill content item{SkillCreatedCount} and {socSkillsMatrixCreatedCount} SOC Skills Matrix content item{socSkillsMatrixCreatedCount} have been created and published.", skillCreatedCount, skillCreatedCount != 1 ? "s" : string.Empty, socSkillsMatrixCreatedCount, socSkillsMatrixCreatedCount != 1 ? "s" : string.Empty);
                 await _notifier.SuccessAsync(H[$"{skillCreatedCount} Skill content item{(skillCreatedCount != 1 ? "s" : string.Empty)} and {socSkillsMatrixCreatedCount} SOC Skills Matrix content item{(socSkillsMatrixCreatedCount != 1 ? "s" : string.Empty)} have been created and published."]);
             }
         }

@@ -22,7 +22,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Orchestrators
         protected readonly IContentDefinitionManager _contentDefinitionManager;
         protected readonly IGraphSyncNotifier _notifier;
         protected readonly IServiceProvider _serviceProvider;
-        protected readonly ILogger _logger;
+        protected readonly ILogger<Orchestrator> _logger;
         private readonly IEnumerable<IContentOrchestrationHandler> _contentOrchestrationHandlers;
 
         protected Orchestrator(
@@ -30,7 +30,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Orchestrators
             IGraphSyncNotifier notifier,
             IServiceProvider serviceProvider,
             IEnumerable<IContentOrchestrationHandler> contentOrchestrationHandlers,
-            ILogger logger)
+            ILogger<Orchestrator> logger)
         {
             _contentDefinitionManager = contentDefinitionManager;
             _notifier = notifier;

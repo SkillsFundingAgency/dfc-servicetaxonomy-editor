@@ -9,8 +9,8 @@
 
     public static class ContextTypes
     {
-        public const string SaveDraftContentContext = nameof(SaveDraftContentContext);  
-        public const string RemoveContentContext = nameof(RemoveContentContext);  
+        public const string SaveDraftContentContext = nameof(SaveDraftContentContext);
+        public const string RemoveContentContext = nameof(RemoveContentContext);
     }
 
     public static class ContentTypes

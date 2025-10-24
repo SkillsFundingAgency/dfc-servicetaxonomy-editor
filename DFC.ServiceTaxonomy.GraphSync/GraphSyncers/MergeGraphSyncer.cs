@@ -178,7 +178,10 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 
             await SyncEmbedded();
 
-            _logger.LogInformation($"Syncing {_graphMergeContext!.ContentItem.ContentType} : {_graphMergeContext.ContentItem.ContentItemId} to {MergeNodeCommand}");
+            _logger.LogInformation("Syncing {ContentType} : {ContentItemId} to {MergeNodeCommand}",
+                _graphMergeContext!.ContentItem.ContentType,
+                _graphMergeContext.ContentItem.ContentItemId,
+                MergeNodeCommand);
             await SyncComponentsToGraphReplicaSet();
 
             return MergeNodeCommand;
@@ -280,11 +283,11 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             IEnumerable<INodeWithOutgoingRelationships?> incomingContentPickerRelationshipsOrDefault =
                 await _graphCluster.Run(_previewContentItemVersion.GraphReplicaSetName, getDraftRelationshipsQuery);
 
-            #pragma warning disable S1905 // Sonar needs updating to know about nullable references
+#pragma warning disable S1905 // Sonar needs updating to know about nullable references
             return incomingContentPickerRelationshipsOrDefault
                     .Where(n => n != null)
                     .Cast<INodeWithOutgoingRelationships>();
-            #pragma warning restore S1905
+#pragma warning restore S1905
         }
 
         private async Task AddContentPartSyncComponents()

@@ -8,8 +8,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphQL
         public GraphSyncPartQueryObjectType()
         {
             Name = $"{nameof(GraphSyncPart)}";
-            
-            Field("NodeId",x => x.Text, nullable: true);
+
+            Field("NodeId", x => x.Text, nullable: true);
         }
     }
 }

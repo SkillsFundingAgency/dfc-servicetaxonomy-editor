@@ -1,5 +1,5 @@
-﻿using OpenQA.Selenium;
-using System;
+﻿using System;
+using OpenQA.Selenium;
 
 
 
@@ -17,7 +17,7 @@ namespace DFC.ServiceTaxonomy.OrchardCoreInitialiser.PageObjects
 
         }
 
-        public StartPage NavigateTo( string sBaseUrl, string sPath)
+        public StartPage NavigateTo(string sBaseUrl, string sPath)
         {
             _webDriver.Navigate().GoToUrl(sBaseUrl + sPath);
             return this;

@@ -6,7 +6,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Fields
 {
     public interface IContentFieldGraphSyncer
     {
-        string FieldTypeName {get;}
+        string FieldTypeName { get; }
 
         Task AddSyncComponents(JObject contentItemField, IGraphMergeContext context);
 

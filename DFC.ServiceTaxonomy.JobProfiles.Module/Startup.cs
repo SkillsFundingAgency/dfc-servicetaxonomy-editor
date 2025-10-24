@@ -1,15 +1,13 @@
 ﻿using DFC.ServiceTaxonomy.DataAccess.Repositories;
-using DFC.ServiceTaxonomy.JobProfiles.Module.Handlers;
 using DFC.ServiceTaxonomy.JobProfiles.Module.EFDataModels;
+using DFC.ServiceTaxonomy.JobProfiles.Module.Handlers;
 using DFC.ServiceTaxonomy.JobProfiles.Module.Interfaces;
 using DFC.ServiceTaxonomy.JobProfiles.Module.Models;
 using DFC.ServiceTaxonomy.JobProfiles.Module.Repositories;
 using DFC.ServiceTaxonomy.JobProfiles.Module.Services;
-
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-
 using OrchardCore.ContentManagement.Handlers;
 using OrchardCore.Modules;
 

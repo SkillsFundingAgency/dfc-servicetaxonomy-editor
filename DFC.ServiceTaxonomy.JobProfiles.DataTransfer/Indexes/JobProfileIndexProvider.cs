@@ -1,17 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
+using DFC.ServiceTaxonomy.GraphSync.Models;
+using DFC.ServiceTaxonomy.JobProfiles.DataTransfer.Extensions;
+using DFC.ServiceTaxonomy.JobProfiles.DataTransfer.Models.Indexes;
 using Microsoft.Extensions.DependencyInjection;
 using OrchardCore.ContentManagement;
 using OrchardCore.ContentManagement.Handlers;
 using OrchardCore.ContentManagement.Metadata;
 using OrchardCore.Data;
 using YesSql.Indexes;
-using DFC.ServiceTaxonomy.JobProfiles.DataTransfer.Models.Indexes;
-using DFC.ServiceTaxonomy.GraphSync.Models;
-using DFC.ServiceTaxonomy.JobProfiles.DataTransfer.Extensions;
-using System.Diagnostics.CodeAnalysis;
 
 namespace DFC.ServiceTaxonomy.JobProfiles.DataTransfer.Indexes
 {
@@ -111,7 +111,7 @@ namespace DFC.ServiceTaxonomy.JobProfiles.DataTransfer.Indexes
 
         private string? GetContentItemListAsCsv(dynamic contentItemIdField)
         {
-            if(contentItemIdField == null || contentItemIdField?.ContentItemIds == null)
+            if (contentItemIdField == null || contentItemIdField?.ContentItemIds == null)
             {
                 return null;
             }

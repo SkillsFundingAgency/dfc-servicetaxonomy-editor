@@ -25,7 +25,7 @@ namespace DFC.ServiceTaxonomy.Content.Handlers
 
         public override Task MediaDeletedFileAsync(MediaDeletedContext context)
         {
-            if(_configuration.GetChildren().Any(item => item.Key == "AzureAdSettings"))
+            if (_configuration.GetChildren().Any(item => item.Key == "AzureAdSettings"))
             {
                 _cdnService.PurgeContentAsync(new List<string>() { $"{AssetsRequestPath}/{context.Path}" });
             }

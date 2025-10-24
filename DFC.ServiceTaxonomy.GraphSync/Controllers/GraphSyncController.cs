@@ -42,8 +42,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.Controllers
         {
             var synonyms = await _synonymService.GetSynonymsAsync(node);
 
-            _logger.LogInformation($"Synonyms: GraphSync/Synonyms/{node}/{filename}");
-             var sb = new StringBuilder();
+            _logger.LogInformation("Synonyms: GraphSync/Synonyms/{Node}/{Filename}", node, filename);
+            var sb = new StringBuilder();
             foreach (var item in synonyms)
             {
                 sb.AppendLine(item);
@@ -71,7 +71,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Controllers
         {
             if (!await _authorizationService.AuthorizeAsync(User, Permissions.AdministerGraphs))
             {
-                _logger.LogWarning($"TriggerSyncValidation {scope} AuthorizeAsync Forbid");
+                _logger.LogWarning("TriggerSyncValidation {Scope} AuthorizeAsync Forbid", scope);
                 return Forbid();
             }
 
@@ -85,7 +85,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Controllers
             }
             catch (Exception e)
             {
-                _logger.LogWarning(e, "User triggered sync validation failed.");
+                _logger.LogError(e, "User triggered sync validation failed. Exception Message: {Message}. Stack Trace: {StackTrace}.", e.Message, e.StackTrace);
                 await _notifier.Add("Unable to validate data synchronisation.", exception: e);
             }
             return View(new TriggerSyncValidationViewModel

@@ -28,12 +28,12 @@ namespace DFC.ServiceTaxonomy.Content.Services
 
             try
             {
-              
+
                 var secretClient = new SecretClient(vaultUri, new DefaultAzureCredential());
 
                 Azure.Response<KeyVaultSecret> response = await secretClient.GetSecretAsync(keyVaultKey);
 
-            
+
                 return response.Value.Value;
             }
             catch (AuthenticationFailedException exception)

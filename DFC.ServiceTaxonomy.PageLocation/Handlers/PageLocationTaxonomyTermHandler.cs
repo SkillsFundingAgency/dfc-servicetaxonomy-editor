@@ -102,7 +102,7 @@ namespace DFC.ServiceTaxonomy.PageLocation.Handlers
                             // If all pages are flagged as published then this needs to be corrected so that only the latest one is.
                             var removePublishFlag = pages.All(p => p.Published);
                             // If none of the pages are published flag the oldest is flagged as published.
-                            if(pages.All(p=> !p.Published))
+                            if (pages.All(p => !p.Published))
                             {
                                 pages.Last().Published = true;
                             }
@@ -111,7 +111,7 @@ namespace DFC.ServiceTaxonomy.PageLocation.Handlers
                             foreach (var page in incorrectPages)
                             {
                                 page.Latest = false;
-                                if(removePublishFlag)
+                                if (removePublishFlag)
                                 {
                                     page.Published = false;
                                 }
