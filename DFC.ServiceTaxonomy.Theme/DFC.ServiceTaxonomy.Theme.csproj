@@ -10,7 +10,7 @@
     <EnableDefaultSassItems>false</EnableDefaultSassItems>
   </PropertyGroup>
   <ItemGroup>
-    <SassFile Include="wwwroot/Styles/trumbowyg_scoped_govuk_frontend.scss" Exclude="govuk-frontend/**/*.css" />
+    <SassFile Include="wwwroot/Styles/trumbowyg_scoped_govuk_frontend.scss" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Remove="wwwroot\Styles\version-comparison.scss" />

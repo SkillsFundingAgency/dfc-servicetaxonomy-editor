@@ -1,7 +1,7 @@
 ﻿@use "sass:meta";
 .trumbowyg-box,
 .trumbowyg-editor {
-    @import "../../govuk-frontend/all";
+    @import "../../govuk-frontend/src/govuk/all";
 }
 $font-face-light-url-woff2: "/DFC.ServiceTaxonomy.Theme/Fonts/light-94a07e06a1-v2.woff2";
 $font-face-light-url-woff: "/DFC.ServiceTaxonomy.Theme/Fonts/light-f591b13f7d-v2.woff";
