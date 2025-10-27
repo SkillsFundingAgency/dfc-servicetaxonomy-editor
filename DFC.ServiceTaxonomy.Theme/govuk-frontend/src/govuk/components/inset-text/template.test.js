@@ -1,5 +1,7 @@
 const { render } = require('@govuk-frontend/helpers/nunjucks')
 const { getExamples } = require('@govuk-frontend/lib/components')
+const { indent } = require('nunjucks/src/filters')
+const { outdent } = require('outdent')
 
 describe('Inset text', () => {
   let examples
@@ -22,7 +24,7 @@ describe('Inset text', () => {
       const $ = render('inset-text', examples.id)
 
       const $component = $('.govuk-inset-text')
-      expect($component.attr('id')).toEqual('my-inset-text')
+      expect($component.attr('id')).toBe('my-inset-text')
     })
 
     it('renders nested components using `call`', () => {
@@ -37,7 +39,7 @@ describe('Inset text', () => {
       const $ = render('inset-text', examples['html as text'])
 
       const content = $('.govuk-inset-text').html().trim()
-      expect(content).toEqual(
+      expect(content).toBe(
         'It can take &lt;b&gt;up to 8 weeks&lt;/b&gt; to register a lasting power of attorney if there are no mistakes in the application.'
       )
     })
@@ -48,14 +50,23 @@ describe('Inset text', () => {
       const mainContent = $('.govuk-inset-text .govuk-body:first-child')
         .text()
         .trim()
+
       const warningContent = $('.govuk-inset-text .govuk-warning-text__text')
         .text()
         .trim()
-      expect(mainContent).toEqual(
+
+      expect(mainContent).toBe(
         'It can take up to 8 weeks to register a lasting power of attorney if there are no mistakes in the application.'
       )
+
       expect(warningContent).toEqual(
-        'Warning\n    You can be fined up to £5,000 if you don’t register.'
+        indent(
+          outdent`
+            Warning
+            You can be fined up to £5,000 if you don’t register.
+          `,
+          6
+        )
       )
     })
 
@@ -63,7 +74,7 @@ describe('Inset text', () => {
       const $ = render('inset-text', examples.attributes)
 
       const $component = $('.govuk-inset-text')
-      expect($component.attr('data-attribute')).toEqual('my data value')
+      expect($component.attr('data-attribute')).toBe('my data value')
     })
   })
 })

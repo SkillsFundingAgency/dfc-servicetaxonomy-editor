@@ -14,6 +14,24 @@ describe('Radios', () => {
     examples = await getExamples('radios')
   })
 
+  describe('input position', () => {
+    // Check that the input sits above the label, enabling its proper detection
+    // when exploring by touch or using automation tools like Selenium
+    it('displays the input above the label', async () => {
+      await render(page, 'radios', examples.default)
+
+      const $firstInput = await page.$('.govuk-radios__input')
+
+      const clickPosition = await $firstInput.clickablePoint()
+      const elementTagNames = await page.evaluate(
+        ({ x, y }) => document.elementsFromPoint(x, y).map((el) => el.tagName),
+        clickPosition
+      )
+      expect(elementTagNames[0]).toBe('INPUT')
+      expect(elementTagNames[1]).toBe('LABEL')
+    })
+  })
+
   describe('with conditional reveals', () => {
     describe('when JavaScript is unavailable or fails', () => {
       beforeAll(async () => {
@@ -35,9 +53,11 @@ describe('Radios', () => {
           $component = await page.$('.govuk-radios')
           $inputs = await $component.$$('.govuk-radios__input')
           $conditionals = await $component.$$('.govuk-radios__conditional')
+        })
 
-          expect($inputs.length).toBe(3)
-          expect($conditionals.length).toBe(3)
+        it('includes the expected number of inputs and conditionals', () => {
+          expect($inputs).toHaveLength(3)
+          expect($conditionals).toHaveLength(3)
         })
 
         it('has no ARIA attributes applied', async () => {
@@ -48,8 +68,8 @@ describe('Radios', () => {
             '.govuk-radios__input[aria-controls]'
           )
 
-          expect($inputsWithAriaExpanded.length).toBe(0)
-          expect($inputsWithAriaControls.length).toBe(0)
+          expect($inputsWithAriaExpanded).toHaveLength(0)
+          expect($inputsWithAriaControls).toHaveLength(0)
         })
 
         it('falls back to making all conditional content visible', async () => {
@@ -181,11 +201,13 @@ describe('Radios', () => {
       describe('with conditional items with special characters', () => {
         it('does not error when ID of revealed content contains special characters', async () => {
           // Errors logged to the console will cause this test to fail
-          await render(
-            page,
-            'radios',
-            examples['with conditional items with special characters']
-          )
+          return expect(
+            render(
+              page,
+              'radios',
+              examples['with conditional items with special characters']
+            )
+          ).resolves.not.toThrow()
         })
       })
     })
