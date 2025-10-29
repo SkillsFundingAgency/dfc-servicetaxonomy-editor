@@ -1,0 +1,1 @@
+powershell -ExecutionPolicy Bypass Invoke-WebRequest -Uri '$(DigitalAssetsCdn)/nationalcareers_toolkit/css/all.css' -OutFile 'wwwroot/Styles/digital-assets-all.css'
