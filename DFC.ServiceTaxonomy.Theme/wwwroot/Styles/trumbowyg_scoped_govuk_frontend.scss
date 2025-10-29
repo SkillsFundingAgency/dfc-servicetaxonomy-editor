@@ -122,7 +122,7 @@ $font-face-bold-url-woff: "/DFC.ServiceTaxonomy.Theme/Fonts/bold-affa96571d-v2.w
         padding-bottom: 15px;
     }
 
-    @include meta.load-css("../../node_modules/nationalcareers_toolkit/assets/dist/css/all");
+    @include meta.load-css("digital-assets-all");
 }
 
 // TO DO: Remove the following two @includes when @font-face:src/url updates in nationalcareers_toolkit

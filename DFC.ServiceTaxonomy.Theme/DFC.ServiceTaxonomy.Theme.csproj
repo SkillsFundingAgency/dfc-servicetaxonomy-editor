@@ -1,4 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
+  <Target Name="DownloadTrumbowygCss" BeforeTargets="BeforeBuild">
+    <Exec Command="powershell -ExecutionPolicy Bypass -Command Invoke-WebRequest -Uri 'https://dev-cdn.nationalcareersservice.org.uk/nationalcareers_toolkit/css/all.css' -OutFile 'wwwroot/Styles/digital-assets-all.scss'" />
+  </Target>
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
     <AddRazorSupportForMvc>true</AddRazorSupportForMvc>
@@ -7,7 +10,12 @@
     <EnableNETAnalyzers>true</EnableNETAnalyzers>
     <AnalysisLevel>latest</AnalysisLevel>
     <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
+    <EnableDefaultSassItems>false</EnableDefaultSassItems>
+    <DartSassOutputStyle>expanded</DartSassOutputStyle>
   </PropertyGroup>
+  <ItemGroup>
+    <SassFile Include="wwwroot/Styles/*.scss" />
+  </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Remove="wwwroot\Styles\version-comparison.scss" />
   </ItemGroup>
@@ -24,7 +32,7 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="GovUk.Frontend.AspNetCore" Version="1.5.0" />
+    <PackageReference Include="DartSassBuilder" Version="1.1.0" />
     <PackageReference Include="OrchardCore.Admin" Version="1.8.4" />
     <PackageReference Include="OrchardCore.Infrastructure" Version="1.8.4" />
     <PackageReference Include="OrchardCore.Infrastructure.Abstractions" Version="1.8.4" />
