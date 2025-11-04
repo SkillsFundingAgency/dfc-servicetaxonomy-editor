@@ -7,11 +7,7 @@
     <EnableNETAnalyzers>true</EnableNETAnalyzers>
     <AnalysisLevel>latest</AnalysisLevel>
     <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
-    <EnableDefaultSassItems>false</EnableDefaultSassItems>
   </PropertyGroup>
-  <ItemGroup>
-    <SassFile Include="wwwroot/Styles/*.scss" />
-  </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Remove="wwwroot\Styles\version-comparison.scss" />
   </ItemGroup>
