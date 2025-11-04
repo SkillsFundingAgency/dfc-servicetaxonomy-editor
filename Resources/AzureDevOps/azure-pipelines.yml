@@ -50,12 +50,12 @@ stages:
         ArmTemplateRoot: "$(System.DefaultWorkingDirectory)/Resources/ArmTemplates"
 
     - task: Npm@1
-        displayName: "Run npm install"
-        inputs:
-          command: 'install' 
-          workingDir: '$(System.DefaultWorkingDirectory)/DFC.ServiceTaxonomy.Theme'
-          customRegistry: useFeed
-          customFeed: NationalCareersService
+      displayName: "Run npm install"
+      inputs:
+        command: 'install' 
+        workingDir: '$(System.DefaultWorkingDirectory)/DFC.ServiceTaxonomy.Theme'
+        customRegistry: useFeed
+        customFeed: NationalCareersService
     - task: gulp@1
       displayName: "Run gulp"
       inputs:
