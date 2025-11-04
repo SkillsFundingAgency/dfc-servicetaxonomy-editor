@@ -56,12 +56,12 @@ stages:
           workingDir: '$(System.DefaultWorkingDirectory)/DFC.ServiceTaxonomy.Theme'
           customRegistry: useFeed
           customFeed: NationalCareersService
-      - task: gulp@1
-        displayName: "Run gulp"
-        inputs:
-          workingDirectory: '$(System.DefaultWorkingDirectory)/DFC.ServiceTaxonomy.Theme'
-          gulpFile: '$(System.DefaultWorkingDirectory)/DFC.ServiceTaxonomy.Theme/gulpfile.js'
-          targets: build
+    - task: gulp@1
+      displayName: "Run gulp"
+      inputs:
+        workingDirectory: '$(System.DefaultWorkingDirectory)/DFC.ServiceTaxonomy.Theme'
+        gulpFile: '$(System.DefaultWorkingDirectory)/DFC.ServiceTaxonomy.Theme/gulpfile.js'
+        targets: build
 
     - task: CopyFiles@2
       displayName: 'Copy PSScripts Files to: $(Build.ArtifactStagingDirectory)'
