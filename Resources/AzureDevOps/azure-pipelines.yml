@@ -90,7 +90,7 @@ stages:
       inputs:
         workingDirectory: '$(System.DefaultWorkingDirectory)/DFC.ServiceTaxonomy.Theme'
         gulpFile: '$(System.DefaultWorkingDirectory)/DFC.ServiceTaxonomy.Theme/gulpfile.js'
-        targets: build
+        targets: default
 
     - template: StepTemplates/dfc-dotnetcore-build.yml
       parameters:
