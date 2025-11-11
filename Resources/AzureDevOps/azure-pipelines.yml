@@ -77,9 +77,6 @@ stages:
           $newPath = "C:\hostedtoolcache\windows\node\20.15.0\x64;C:\hostedtoolcache\windows\Python\3.12.4\x64;$currentPath"
           Write-Host "##vso[task.prependpath]$newPath"
 
-    - task: npmAuthenticate@0
-      inputs:
-        workingFile: '$(npmroot)/.npmrc'
     - task: Npm@1
       displayName: "Run npm install"
       inputs:
@@ -87,12 +84,14 @@ stages:
         workingDir: '$(System.DefaultWorkingDirectory)/DFC.ServiceTaxonomy.Theme'
         customRegistry: useFeed
         customFeed: NationalCareersService
+
     - task: gulp@1
       displayName: "Run gulp"
       inputs:
         workingDirectory: '$(System.DefaultWorkingDirectory)/DFC.ServiceTaxonomy.Theme'
         gulpFile: '$(System.DefaultWorkingDirectory)/DFC.ServiceTaxonomy.Theme/gulpfile.js'
-        targets: build
+        targets: default
+
     - template: StepTemplates/dfc-dotnetcore-build.yml
       parameters:
         SolutionBaseName: $(SolutionBaseName).Editor
