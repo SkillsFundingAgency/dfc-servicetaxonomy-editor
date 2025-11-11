@@ -79,9 +79,9 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
 
     public async Task ProcessEventGridMessage(Processing processing, ContentEventType contentEventType)
     {
-        if (Enum.IsDefined(typeof(ContentTypes), processing.ContentType))
+        if (Enum.IsDefined(typeof(ContentTypes), processing.ContentType!))
         {
-            var current = JsonConvert.DeserializeObject<ContentItem>(processing.CurrentContent);
+            var current = JsonConvert.DeserializeObject<ContentItem>(processing.CurrentContent!);
 
             if (current == null)
             {
@@ -197,12 +197,12 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
 
         if (pageUrlChanged)
         {
-            await _eventGridHandler.SendEventMessageAsync(TransformData(processing, previous), ContentEventType.StaxDelete);
-            await _eventGridHandler.SendEventMessageAsync(TransformData(processing, currentContent), ContentEventType.StaxCreate);
+            await _eventGridHandler.SendEventMessageAsync(TransformData(processing, previous!), ContentEventType.StaxDelete);
+            await _eventGridHandler.SendEventMessageAsync(TransformData(processing, currentContent!), ContentEventType.StaxCreate);
         }
         else
         {
-            await _eventGridHandler.SendEventMessageAsync(TransformData(processing, currentContent), ContentEventType.StaxUpdate);
+            await _eventGridHandler.SendEventMessageAsync(TransformData(processing, currentContent!), ContentEventType.StaxUpdate);
         }
     }
 
@@ -236,7 +236,7 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
         if (dataList.ToList().Any(x => contentTypes.Any(y => y == x.ContentType)))
         {
             dataList?
-            .Where(x => contentTypes.Contains(x.ContentType))
+            .Where(x => contentTypes.Contains(x.ContentType!))
             .DistinctBy(x => x.ContentType)
             .ToList().ForEach(x => _eventGridHandler.SendEventMessageAsync(x, ContentEventType.StaxUpdate));
         }
@@ -252,7 +252,7 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
         };
 
         dataList?
-        .Where(x => contentTypes.Contains(x.ContentType))
+        .Where(x => contentTypes.Contains(x.ContentType!))
         .ToList().ForEach(x => _eventGridHandler.SendEventMessageAsync(x, ContentEventType.StaxUpdate));
     }
 
