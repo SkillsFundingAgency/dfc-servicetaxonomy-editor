@@ -18,15 +18,6 @@ namespace DFC.ServiceTaxonomy.Theme
             {
                 options.Filters.Add(typeof(ResourceInjectionFilter));
             });
-
-            //todo: this has just changed, but it back
-            // services.ConfigureHtmlSanitizer(sanitizer =>
-            // {
-            //     //todo: presumably sanitizer removes, rather than replaces
-            //     // only want to sanitize local urls, although our csp policy will block external urls anyway
-            //     sanitizer.AllowedSchemes.Remove("http");
-            //     sanitizer.AllowedAttributes.Add("class");
-            // });
         }
     }
 }
