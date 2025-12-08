@@ -28,7 +28,7 @@ jobs:
   pool: 'NCS - CI and CD'
   displayName: "Validate branch before Deploy WebApp to ${{ parameters.Environment }}"
   steps:
-     - ${{ if and(eq(parameters.performBranchCheck, true), or(eq(parameters.Environment, 'PP_SERVICETAXONOMY'), eq(parameters.Environment, 'PRD_SERVICETAXONOMY'))) }}:
+     - ${{ if and(eq(parameters.PerformBranchCheck, true), or(eq(parameters.Environment, 'PP_SERVICETAXONOMY'), eq(parameters.Environment, 'PRD_SERVICETAXONOMY'))) }}:
             - template: AzureDevOps/StepTemplates/CompareBranch.yml@Infra
               parameters:
                 defaultBranch: 'master'
