@@ -56,7 +56,10 @@ namespace DFC.ServiceTaxonomy.GraphSync.Extensions
 #pragma warning restore S907 // "goto" statement should not be used
                     }
                 default:
-                    value = jvalue.Value<T>()!;
+                    if (typeof(T) == typeof(bool) && bool.TryParse(jvalue.ToString(), out bool boolValue))
+                        value = (T) Convert.ChangeType(boolValue, typeof(T)) ;
+                    else
+                        value = jvalue.Value<T>()!;
                     if (value == null)
                         throw new InvalidCastException($"Could not convert content property {jvalue} to type {typeof(T)}");
                     mergeNodeCommand.Properties.Add(nodePropertyName, value);
