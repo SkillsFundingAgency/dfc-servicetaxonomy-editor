@@ -1,9 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json.Nodes;
 using DFC.ServiceTaxonomy.Taxonomies.Fields;
 using DFC.ServiceTaxonomy.Taxonomies.ViewModels;
-using Newtonsoft.Json.Linq;
 using OrchardCore.ContentManagement;
 
 namespace DFC.ServiceTaxonomy.Taxonomies.Drivers
@@ -19,7 +19,7 @@ namespace DFC.ServiceTaxonomy.Taxonomies.Drivers
             {
                 var children = Array.Empty<ContentItem>();
 
-                if (contentItem.Content.Terms is JArray termsArray)
+                if (contentItem.Content.Terms is JsonArray termsArray)
                 {
                     children = termsArray.ToObject<ContentItem[]>();
                 }

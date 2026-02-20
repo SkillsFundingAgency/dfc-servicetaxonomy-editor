@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
+using System.Text.Json.Nodes;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts;
-using Newtonsoft.Json.Linq;
 using Xunit;
 
 namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Parts.AutoroutePartGraphSyncerTests
@@ -20,7 +20,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Parts.AutoroutePa
         {
             const string path = "path";
 
-            Content = JObject.Parse($"{{\"Path\": \"{path}\"}}");
+            Content = JObject.Parse($"{{\"Path\": \"{path}\"}}")!;
 
             await CallAddSyncComponents();
 
@@ -33,7 +33,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Parts.AutoroutePa
         [Fact]
         public async Task AddSyncComponents_NullTitleInContent_TitleNotAddedToMergeNodeCommandsProperties()
         {
-            Content = JObject.Parse("{\"Path\": null}");
+            Content = JObject.Parse("{\"Path\": null}")!;
 
             await CallAddSyncComponents();
 

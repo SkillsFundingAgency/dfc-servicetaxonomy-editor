@@ -3,13 +3,14 @@ using DFC.ServiceTaxonomy.CustomFields.Fields;
 using DFC.ServiceTaxonomy.CustomFields.ViewModels;
 using OrchardCore.ContentManagement.Metadata.Models;
 using OrchardCore.ContentTypes.Editors;
+using OrchardCore.DisplayManagement.Handlers;
 using OrchardCore.DisplayManagement.Views;
 
 namespace DFC.ServiceTaxonomy.CustomFields.Settings
 {
     public class TabFieldSettingsDriver : ContentPartFieldDefinitionDisplayDriver<TabField>
     {
-        public override IDisplayResult Edit(ContentPartFieldDefinition partFieldDefinition)
+        public async override Task<IDisplayResult> EditAsync(ContentPartFieldDefinition partFieldDefinition, BuildEditorContext context)
         {
             return Initialize<EditTabFieldSettingsViewModel>("TabFieldSettings_Edit", model =>
             {
@@ -27,7 +28,7 @@ namespace DFC.ServiceTaxonomy.CustomFields.Settings
                 context.Builder.WithSettings(new TabFieldSettings());
             }
 
-            return Edit(partFieldDefinition);
+            return await EditAsync(partFieldDefinition, context);
         }
     }
 }

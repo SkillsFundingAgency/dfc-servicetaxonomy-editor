@@ -1,9 +1,11 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Text.Json;
+using System.Text.Json.Nodes;
+using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.Taxonomies.Models;
 using Microsoft.Extensions.DependencyInjection;
-using Newtonsoft.Json.Linq;
 using OrchardCore.ContentManagement;
 using OrchardCore.DisplayManagement;
 using OrchardCore.DisplayManagement.Descriptors;
@@ -13,7 +15,7 @@ namespace DFC.ServiceTaxonomy.Taxonomies
 {
     public class TermShapes : IShapeTableProvider
     {
-        public void Discover(ShapeTableBuilder builder)
+        public async ValueTask DiscoverAsync(ShapeTableBuilder builder)
         {
             // Add standard alternates to a TermPart because it is rendered by a content display driver not a part display driver
             builder.Describe("TermPart")
@@ -88,7 +90,7 @@ namespace DFC.ServiceTaxonomy.Taxonomies
                     string termContentItemId = termShape.TermContentItemId;
                     if (!String.IsNullOrEmpty(termContentItemId))
                     {
-                        level = FindTerm(taxonomyContentItem.Content.TaxonomyPart.Terms as JArray, termContentItemId, level, out var termContentItem);
+                        level = FindTerm(taxonomyContentItem.Content.TaxonomyPart.Terms as JsonArray, termContentItemId, level, out var termContentItem);
 
                         if (termContentItem == null)
                         {
@@ -132,7 +134,7 @@ namespace DFC.ServiceTaxonomy.Taxonomies
                     foreach (var termContentItem in termItems)
                     {
                         ContentItem[] childTerms = null;
-                        if (termContentItem.Content.Terms is JArray termsArray)
+                        if (termContentItem.Content.Terms is JsonArray termsArray)
                         {
                             childTerms = termsArray.ToObject<ContentItem[]>();
                         }
@@ -170,7 +172,7 @@ namespace DFC.ServiceTaxonomy.Taxonomies
                         foreach (var termContentItem in termItem.Terms)
                         {
                             ContentItem[] childTerms = null;
-                            if (termContentItem.Content.Terms is JArray termsArray)
+                            if (termContentItem.Content.Terms is JsonArray termsArray)
                             {
                                 childTerms = termsArray.ToObject<ContentItem[]>();
                             }
@@ -247,11 +249,11 @@ namespace DFC.ServiceTaxonomy.Taxonomies
                 });
         }
 
-        private int FindTerm(JArray termsArray, string termContentItemId, int level, out ContentItem contentItem)
+        private int FindTerm(JsonArray termsArray, string termContentItemId, int level, out ContentItem contentItem)
         {
-            foreach (JObject term in termsArray)
+            foreach (JsonObject term in termsArray)
             {
-                var contentItemId = term.GetValue("ContentItemId").ToString();
+                var contentItemId = term["ContentItemId"].GetValue<string>();
 
                 if (contentItemId == termContentItemId)
                 {
@@ -259,8 +261,9 @@ namespace DFC.ServiceTaxonomy.Taxonomies
                     return level;
                 }
 
-                if (term.GetValue("Terms") is JArray children)
+                if (term["terms"].GetValueKind() is JsonValueKind.Array)
                 {
+                    var children = term["terms"].GetValue<JsonArray>();
                     level += 1;
                     level = FindTerm(children, termContentItemId, level, out var foundContentItem);
 

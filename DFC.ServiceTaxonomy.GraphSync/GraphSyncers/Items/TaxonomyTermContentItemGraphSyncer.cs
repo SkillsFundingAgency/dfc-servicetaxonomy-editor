@@ -1,9 +1,9 @@
-﻿using System.Threading.Tasks;
+﻿using System.Text.Json.Nodes;
+using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Contexts;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Items;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Parts;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Results.AllowSync;
-using Newtonsoft.Json.Linq;
 using OrchardCore.ContentManagement;
 
 namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Items
@@ -26,7 +26,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Items
         {
             // this check means a 'Terms' content type using a hierarchical taxonomy won't sync,
             // but I think orchard core would blow up first anyway ;)
-            return ((JObject)contentItem.Content).ContainsKey(Terms)
+            return ((JsonObject)contentItem.Content).ContainsKey(Terms)
                    && contentItem.ContentType != Terms;
         }
 
@@ -66,7 +66,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Items
         public Task<(bool validated, string failureReason)> ValidateSyncComponent(
             IValidateAndRepairItemSyncContext context)
         {
-            return _taxonomyPartGraphSyncer.ValidateSyncComponentForNonLeafEmbeddedTerm((JObject)context.ContentItem.Content, context);
+            return _taxonomyPartGraphSyncer.ValidateSyncComponentForNonLeafEmbeddedTerm((JsonObject)context.ContentItem.Content, context);
         }
     }
 }

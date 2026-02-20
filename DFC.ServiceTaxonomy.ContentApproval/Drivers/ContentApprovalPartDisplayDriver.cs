@@ -49,7 +49,7 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Drivers
                     .Location("SummaryAdmin", "Actions:First"));
             }
 
-            return Combine(results.ToArray());
+            return await CombineAsync(results.ToArray());
         }
 
         public override async Task<IDisplayResult?> EditAsync(ContentApprovalPart part, BuildPartEditorContext context)
@@ -98,10 +98,10 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Drivers
                     .Location("Actions:First"));
             }
 
-            return Combine(results.ToArray());
+            return await CombineAsync(results.ToArray());
         }
 
-        public override async Task<IDisplayResult?> UpdateAsync(ContentApprovalPart part, IUpdateModel updateModel, UpdatePartEditorContext context)
+        public override async Task<IDisplayResult?> UpdateAsync(ContentApprovalPart part, UpdatePartEditorContext context)
         {
             var isPreview = _httpContextAccessor.HttpContext?.Features.Get<ContentPreviewFeature>()?.Previewing ?? false;
             if (isPreview)
@@ -114,23 +114,23 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Drivers
 
             if (part.ReviewStatus == ReviewStatus.InReview && !await _authorizationService.AuthorizeAsync(currentUser, part.ReviewType.GetRelatedPermission()))
             {
-                updateModel.ModelState.AddModelError("ReviewStatus", "This item is currently under review and cannot be modified at this time.");
+                context.Updater.ModelState.AddModelError("ReviewStatus", "This item is currently under review and cannot be modified at this time.");
                 return await EditAsync(part, context);
             }
 
-            await updateModel.TryUpdateModelAsync(viewModel, Prefix);
-            var keys = updateModel.ModelState.Keys;
+            await context.Updater.TryUpdateModelAsync(viewModel, Prefix);
+            var keys = context.Updater.ModelState.Keys;
 
             // For Publish, Force-Publish, Save Draft & Exit and Send Back actions the user must enter a comment for the audit trail
-            if (!await IsAuditTrailCommentValid(part, updateModel))
+            if (!await IsAuditTrailCommentValid(part, context.Updater))
             {
-                updateModel.ModelState.AddModelError("Comment", "Please update the comment field before submitting.");
+                context.Updater.ModelState.AddModelError("Comment", "Please update the comment field before submitting.");
                 return await EditAsync(part, context);
             }
 
             if (keys.Contains(Constants.SubmitSaveKey))
             {
-                var saveType = updateModel.ModelState[Constants.SubmitSaveKey]!.AttemptedValue;
+                var saveType = context.Updater.ModelState[Constants.SubmitSaveKey]!.AttemptedValue;
                 if (saveType!.StartsWith(Constants.SubmitRequestApprovalValuePrefix))
                 {
                     part.ReviewStatus = ReviewStatus.ReadyForReview;
@@ -151,7 +151,7 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Drivers
             else if (keys.Contains(Constants.SubmitPublishKey))
             {
                 part.ReviewStatus = ReviewStatus.NotInReview;
-                var publishType = updateModel.ModelState[Constants.SubmitPublishKey]!.AttemptedValue;
+                var publishType = context.Updater.ModelState[Constants.SubmitPublishKey]!.AttemptedValue;
                 if (publishType!.StartsWith(Constants.SubmitRequestApprovalValuePrefix))
                 {
                     part.IsForcePublished = true;

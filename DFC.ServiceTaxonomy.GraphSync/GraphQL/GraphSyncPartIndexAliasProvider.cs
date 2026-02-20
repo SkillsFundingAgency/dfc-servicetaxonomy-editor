@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.Indexes;
 using OrchardCore.ContentManagement.GraphQL.Queries;
 
@@ -16,7 +17,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphQL
             }
         };
 
-        public IEnumerable<IndexAlias> GetAliases()
+        public async ValueTask<IEnumerable<IndexAlias>> GetAliasesAsync()
         {
             return _aliases;
         }

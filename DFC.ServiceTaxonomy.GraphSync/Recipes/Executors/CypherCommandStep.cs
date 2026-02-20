@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Text.Json;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.ContentItemVersions;
 using DFC.ServiceTaxonomy.GraphSync.Interfaces;
@@ -49,7 +50,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
             {
                 _logger.LogInformation("Running {StepName} for {RecipeName} recipe.", StepName, context.RecipeDescriptor.Name);
 
-                var step = context.Step.ToObject<CypherCommandStepModel>();
+                var step = context.Step.Deserialize<CypherCommandStepModel>();
 
                 foreach (string? command in step!.Commands ?? Enumerable.Empty<string?>())
                 {

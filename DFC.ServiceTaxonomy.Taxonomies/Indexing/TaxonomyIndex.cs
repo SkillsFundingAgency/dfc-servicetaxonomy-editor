@@ -1,9 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json.Nodes;
 using DFC.ServiceTaxonomy.Taxonomies.Fields;
 using Microsoft.Extensions.DependencyInjection;
-using Newtonsoft.Json.Linq;
 using OrchardCore.ContentManagement;
 using OrchardCore.ContentManagement.Metadata;
 using OrchardCore.Data;
@@ -79,14 +79,14 @@ namespace DFC.ServiceTaxonomy.Taxonomies.Indexing
                     // Get all field values
                     foreach (var fieldDefinition in fieldDefinitions)
                     {
-                        var jPart = (JObject)contentItem.Content[fieldDefinition.PartDefinition.Name];
+                        var jPart = (JsonObject)contentItem.Content[fieldDefinition.PartDefinition.Name];
 
                         if (jPart == null)
                         {
                             continue;
                         }
 
-                        var jField = (JObject)jPart[fieldDefinition.Name];
+                        var jField = (JsonObject)jPart[fieldDefinition.Name];
 
                         if (jField == null)
                         {

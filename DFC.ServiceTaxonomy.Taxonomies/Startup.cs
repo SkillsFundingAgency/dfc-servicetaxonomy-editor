@@ -131,7 +131,7 @@ namespace DFC.ServiceTaxonomy.Taxonomies
             services.AddScoped<IContentsAdminListFilter, TaxonomyContentsAdminListFilter>();
             services.AddScoped<IDisplayDriver<ContentOptionsViewModel>, TaxonomyContentsAdminListDisplayDriver>();
 
-            services.AddScoped<INavigationProvider, AdminMenu>();
+            services.AddNavigationProvider<AdminMenu>();
             services.AddScoped<IDisplayDriver<ISite>, TaxonomyContentsAdminListSettingsDisplayDriver>();
         }
     }

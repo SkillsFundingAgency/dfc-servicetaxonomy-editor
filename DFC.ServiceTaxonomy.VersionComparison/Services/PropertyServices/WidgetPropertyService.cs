@@ -1,8 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json;
+using System.Text.Json.Nodes;
 using DFC.ServiceTaxonomy.VersionComparison.Models;
 using DFC.ServiceTaxonomy.VersionComparison.Models.Parts;
-using Newtonsoft.Json.Linq;
 
 namespace DFC.ServiceTaxonomy.VersionComparison.Services.PropertyServices
 {
@@ -15,15 +16,15 @@ namespace DFC.ServiceTaxonomy.VersionComparison.Services.PropertyServices
             _contentServiceHelper = contentServiceHelper;
         }
 
-        public bool CanProcess(JToken? jToken, string? propertyName = null)
+        public bool CanProcess(JsonElement? jElement, string? propertyName = null)
         {
-            return jToken != null && jToken.Type == JTokenType.Array && !string.IsNullOrWhiteSpace(propertyName) && propertyName.StartsWith("Widgets");
+            return jElement != null && jElement.GetValueOrDefault().ValueKind == JsonValueKind.Array && !string.IsNullOrWhiteSpace(propertyName) && propertyName.StartsWith("Widgets");
         }
 
-        public IList<PropertyExtract> Process(string propertyName, JToken? jToken)
+        public IList<PropertyExtract> Process(string propertyName, JsonElement? jElement)
         {
             var widgetList = new List<PropertyExtract>();
-            var widgets = jToken?.Select(w => w.ToObject<Widget>()).ToList() ?? new List<Widget?>();
+            var widgets = JArray.FromObject(jElement)!.Select(w => w.ToObject<Widget>()).ToList() ?? new List<Widget?>();
             foreach (var widget in widgets)
             {
                 if (widget == null)

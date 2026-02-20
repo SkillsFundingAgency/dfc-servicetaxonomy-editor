@@ -31,7 +31,7 @@ namespace DFC.ServiceTaxonomy.VersionComparison.Drivers
             var hasAuditTrailPermissions = await _authorizationService.AuthorizeAsync(_httpContextAccessor.HttpContext!.User, AuditTrailPermissions.ViewAuditTrail, model);
             if(!hasAuditTrailPermissions)
             {
-                return Combine(results.ToArray());
+                return await CombineAsync(results.ToArray());
             }
 
             var versions = await _auditTrailQueryService.GetVersions(model.ContentItemId);
@@ -42,7 +42,7 @@ namespace DFC.ServiceTaxonomy.VersionComparison.Drivers
                 results.Add(compareVersionsButton);
             }
 
-            return Combine(results.ToArray());
+            return await CombineAsync(results.ToArray());
         }
     }
 }

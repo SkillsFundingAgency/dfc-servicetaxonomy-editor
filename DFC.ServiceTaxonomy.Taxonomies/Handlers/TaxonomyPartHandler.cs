@@ -1,6 +1,6 @@
+using System.Text.Json.Nodes;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.Taxonomies.Models;
-using Newtonsoft.Json.Linq;
 using OrchardCore.ContentManagement.Handlers;
 using OrchardCore.ContentManagement.Routing;
 
@@ -14,7 +14,7 @@ namespace DFC.ServiceTaxonomy.Taxonomies.Handlers
             {
                 aspect.Accessors.Add((jObject) =>
                 {
-                    return jObject["TaxonomyPart"]["Terms"] as JArray;
+                    return jObject["TaxonomyPart"]["Terms"] as JsonArray;
                 });
 
                 return Task.CompletedTask;

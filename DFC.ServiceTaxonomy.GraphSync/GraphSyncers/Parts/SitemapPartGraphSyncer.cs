@@ -1,8 +1,9 @@
 ﻿using System;
+using System.Text.Json;
+using System.Text.Json.Nodes;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.Extensions;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Contexts;
-using Newtonsoft.Json.Linq;
 using OrchardCore.Sitemaps.Models;
 
 namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
@@ -21,32 +22,32 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
             PriorityPropertyName = "Priority",
             ExcludePropertyName = "Exclude";
 
-        public override async Task AddSyncComponents(JObject content, IGraphMergeContext context)
+        public override async Task AddSyncComponents(JsonObject content, IGraphMergeContext context)
         {
             using var _ = context.SyncNameProvider.PushPropertyNameTransform(_sitemapPropertyNameTransform);
 
             //todo: helper for these?
-            JValue? value = (JValue?)content[OverrideSitemapConfigPropertyName];
-            if (value != null && value.Type != JTokenType.Null) //first bool?
+            JsonValue? value = (JsonValue?)content[OverrideSitemapConfigPropertyName];
+            if (value != null && value.GetValueKind() != JsonValueKind.Null) //first bool?
                 context.MergeNodeCommand.Properties.Add(await context.SyncNameProvider.PropertyName(OverrideSitemapConfigPropertyName), value.As<bool>());
 
             //todo: we want the change frequency value lowercase (as the sitemap xml format wants it lowercase),
             // but we probably want enums to serialise using normal casing, so can Enum.Parse etc.
             // add flag to any enum helpers, such as EnumContentPropertyMatchesNodeProperty
-            value = (JValue?)content[ChangeFrequencyPropertyName];
-            if (value != null && value.Type != JTokenType.Null)
+            value = (JsonValue?)content[ChangeFrequencyPropertyName];
+            if (value != null && value.GetValueKind() != JsonValueKind.Null)
                 context.MergeNodeCommand.Properties.Add(await context.SyncNameProvider.PropertyName(ChangeFrequencyPropertyName), ((ChangeFrequency)value.As<int>()).ToString().ToLowerInvariant());
 
-            value = (JValue?)content[PriorityPropertyName];
-            if (value != null && value.Type != JTokenType.Null)
+            value = (JsonValue?)content[PriorityPropertyName];
+            if (value != null && value.GetValueKind() != JsonValueKind.Null)
                 context.MergeNodeCommand.Properties.Add(await context.SyncNameProvider.PropertyName(PriorityPropertyName), value.As<int>());
 
-            value = (JValue?)content[ExcludePropertyName];
-            if (value != null && value.Type != JTokenType.Null)
+            value = (JsonValue?)content[ExcludePropertyName];
+            if (value != null && value.GetValueKind() != JsonValueKind.Null)
                 context.MergeNodeCommand.Properties.Add(await context.SyncNameProvider.PropertyName(ExcludePropertyName), value.As<bool>());
         }
 
-        public override async Task<(bool validated, string failureReason)> ValidateSyncComponent(JObject content,
+        public override async Task<(bool validated, string failureReason)> ValidateSyncComponent(JsonObject content,
             IValidateAndRepairContext context)
         {
             using var _ = context.SyncNameProvider.PushPropertyNameTransform(_sitemapPropertyNameTransform);

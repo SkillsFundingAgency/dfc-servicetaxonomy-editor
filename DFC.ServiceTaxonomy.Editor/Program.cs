@@ -58,7 +58,7 @@ namespace DFC.ServiceTaxonomy.Editor
         public static LoggingConfiguration ConfigureNLog(this IHostEnvironment env, string configFileRelativePath)
         {
             LogManager.Setup().SetupExtensions(ext => ext.RegisterAssembly(typeof(AspNetExtensions).GetTypeInfo().Assembly));
-            LogManager.AddHiddenAssembly(typeof(AspNetExtensions).GetTypeInfo().Assembly);
+            LogManager.Setup().SetupLogFactory(setup => setup.AddCallSiteHiddenAssembly(typeof(AspNetExtensions).GetTypeInfo().Assembly));
             string fileName = Path.Combine(env.ContentRootPath, configFileRelativePath);
             LogManager.Setup().LoadConfigurationFromFile(fileName);
             return LogManager.Configuration;

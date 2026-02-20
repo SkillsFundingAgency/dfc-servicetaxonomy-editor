@@ -15,11 +15,11 @@ namespace DFC.ServiceTaxonomy.GraphVisualiser.Services
             S = localizer;
         }
 
-        public Task BuildNavigationAsync(string name, NavigationBuilder builder)
+        public ValueTask BuildNavigationAsync(string name, NavigationBuilder builder)
         {
             if (!String.Equals(name, "admin", StringComparison.OrdinalIgnoreCase))
             {
-                return Task.CompletedTask;
+                return ValueTask.CompletedTask;
             }
 
             builder
@@ -28,7 +28,7 @@ namespace DFC.ServiceTaxonomy.GraphVisualiser.Services
                    .Add(S["Visualise Ontology"], "1", ontology => ontology
                        .Action(nameof(VisualiseController.Viewer), "Visualise", new { area = typeof(Startup)!.Namespace })));
 
-            return Task.CompletedTask;
+            return ValueTask.CompletedTask;
         }
     }
 }

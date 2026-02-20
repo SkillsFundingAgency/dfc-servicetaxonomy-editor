@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.Json.Nodes;
 using DFC.ServiceTaxonomy.GraphSync.Interfaces;
 using FakeItEasy;
-using Newtonsoft.Json.Linq;
 using Xunit;
 
 namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Helpers.GraphValidationHelper
@@ -10,16 +10,16 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Helpers.GraphVali
     public class GraphValidationHelper_ContentPropertyMatchesNodePropertyTests
     {
         public const string ContentKey = "Text";
-        public JObject ContentItemField { get; set; }
+        public JsonObject ContentItemField { get; set; }
         public const string NodePropertyName = "nodePropertyName";
         public INode SourceNode { get; set; }
         public Dictionary<string, object> SourceNodeProperties { get; set; }
-        public Func<JValue, object, bool> AreBothSame { get; set; }
+        public Func<JsonValue, object, bool> AreBothSame { get; set; }
         public ServiceTaxonomy.GraphSync.GraphSyncers.Helpers.GraphValidationHelper GraphValidationHelper { get; set; }
 
         public GraphValidationHelper_ContentPropertyMatchesNodePropertyTests()
         {
-            ContentItemField = JObject.Parse("{}");
+            ContentItemField = JObject.Parse("{}")!;
 
             SourceNode = A.Fake<INode>();
             SourceNodeProperties = new Dictionary<string, object>();
@@ -35,7 +35,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Helpers.GraphVali
         [InlineData(false, false)]
         public void ContentPropertyMatchesNodeProperty_ContentAndNodeHaveAValue_ReturnsCallbackReturn(bool expectedValidated, bool callbackReturn)
         {
-            ContentItemField = JObject.Parse($"{{\"{ContentKey}\": \"ContentValue\"}}");
+            ContentItemField = JObject.Parse($"{{\"{ContentKey}\": \"ContentValue\"}}")!;
 
             SourceNodeProperties.Add(NodePropertyName, "NodeValue");
 
@@ -57,7 +57,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Helpers.GraphVali
         [Fact]
         public void ContentPropertyMatchesNodeProperty_ContentPropertyValueNullNodePropertyMissing_ReturnsValidated()
         {
-            ContentItemField = JObject.Parse($"{{\"{ContentKey}\": null}}");
+            ContentItemField = JObject.Parse($"{{\"{ContentKey}\": null}}")!;
 
             (bool validated, _) = CallContentPropertyMatchesNodeProperty();
 
@@ -87,7 +87,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Helpers.GraphVali
         [Fact]
         public void ContentPropertyMatchesNodeProperty_ContentPropertyNullNodePropertyValueExists_ReturnsNotValidated()
         {
-            ContentItemField = JObject.Parse($"{{\"{ContentKey}\": null}}");
+            ContentItemField = JObject.Parse($"{{\"{ContentKey}\": null}}")!;
 
             SourceNodeProperties.Add(NodePropertyName, "NodeValue");
 
@@ -99,7 +99,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Helpers.GraphVali
         [Fact]
         public void ContentPropertyMatchesNodeProperty_ContentPropertyValueExistsNodePropertyMissing_ReturnsNotValidated()
         {
-            ContentItemField = JObject.Parse($"{{\"{ContentKey}\": \"ContentValue\"}}");
+            ContentItemField = JObject.Parse($"{{\"{ContentKey}\": \"ContentValue\"}}")!;
 
             (bool validated, _) = CallContentPropertyMatchesNodeProperty();
 
@@ -109,7 +109,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Helpers.GraphVali
         [Fact]
         public void ContentPropertyMatchesNodeProperty_ContentPropertyValueExistsNodePropertyNull_ReturnsNotValidated()
         {
-            ContentItemField = JObject.Parse($"{{\"{ContentKey}\": \"ContentValue\"}}");
+            ContentItemField = JObject.Parse($"{{\"{ContentKey}\": \"ContentValue\"}}")!;
 
             SourceNodeProperties.Add(NodePropertyName, null!);
 
@@ -123,7 +123,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Helpers.GraphVali
         [InlineData("content property value was 'ContentValue', but node property value was 'NodeValue'", false)]
         public void ContentPropertyMatchesNodeProperty_ContentAndNodeHaveAValue_ReturnsMessage(string expectedFailureReason, bool callbackReturn)
         {
-            ContentItemField = JObject.Parse($"{{\"{ContentKey}\": \"ContentValue\"}}");
+            ContentItemField = JObject.Parse($"{{\"{ContentKey}\": \"ContentValue\"}}")!;
 
             SourceNodeProperties.Add(NodePropertyName, "NodeValue");
 

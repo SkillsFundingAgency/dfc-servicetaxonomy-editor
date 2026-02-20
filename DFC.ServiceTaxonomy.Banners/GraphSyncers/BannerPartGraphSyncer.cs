@@ -1,10 +1,10 @@
 ﻿using System;
+using System.Text.Json.Nodes;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.Banners.Models;
 using DFC.ServiceTaxonomy.GraphSync.Extensions;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Contexts;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts;
-using Newtonsoft.Json.Linq;
 
 namespace DFC.ServiceTaxonomy.Banners.GraphSyncers
 {
@@ -17,14 +17,14 @@ namespace DFC.ServiceTaxonomy.Banners.GraphSyncers
 
         private const string WebPageNamePropertyName = "WebPageName";
         private const string WebPageURLPropertyName = "WebPageURL";
-        public override async Task AddSyncComponents(JObject content, IGraphMergeContext context)
+        public override async Task AddSyncComponents(JsonObject content, IGraphMergeContext context)
         {
             using var _ = context.SyncNameProvider.PushPropertyNameTransform(_bannerPropertyNameTransform);
             context.MergeNodeCommand.AddProperty<string>(await context.SyncNameProvider.PropertyName(WebPageNamePropertyName), content, WebPageNamePropertyName);
             context.MergeNodeCommand.AddProperty<string>(await context.SyncNameProvider.PropertyName(WebPageURLPropertyName), content, WebPageURLPropertyName);
         }
 
-        public override async Task<(bool validated, string failureReason)> ValidateSyncComponent(JObject content,
+        public override async Task<(bool validated, string failureReason)> ValidateSyncComponent(JsonObject content,
             IValidateAndRepairContext context)
         {
             using var _ = context.SyncNameProvider.PushPropertyNameTransform(_bannerPropertyNameTransform);

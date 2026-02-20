@@ -1,9 +1,10 @@
 using System;
+using System.Text.Json;
+using System.Text.Json.Nodes;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Contexts;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Parts;
 using DFC.ServiceTaxonomy.GraphSync.Models;
-using Newtonsoft.Json.Linq;
 
 namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
 {
@@ -12,7 +13,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
         public override int Priority { get => int.MaxValue; }
         public override string PartName => nameof(GraphSyncPart);
 
-        public override Task AddSyncComponents(JObject content, IGraphMergeContext context)
+        public override Task AddSyncComponents(JsonObject content, IGraphMergeContext context)
         {
             object? idValue = context.SyncNameProvider.GetNodeIdPropertyValue(content, context.ContentItemVersion);
             if (idValue != null)
@@ -27,7 +28,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
             return Task.CompletedTask;
         }
 
-        public override async Task MutateOnClone(JObject content, ICloneContext context)
+        public override async Task MutateOnClone(JsonObject content, ICloneContext context)
         {
             string newIdPropertyValue = await context.SyncNameProvider.GenerateIdPropertyValue(context.ContentItem.ContentType);
 
@@ -39,7 +40,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
         }
 
         public override Task<(bool validated, string failureReason)> ValidateSyncComponent(
-            JObject content,
+            JsonObject content,
             IValidateAndRepairContext context)
         {
             //todo: assumes string id
@@ -50,7 +51,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
                 context.NodeWithRelationships.SourceNode!,
                 (contentValue, nodeValue) =>
                 {
-                    if (nodeValue is JValue {Type: JTokenType.String} nodeValueToken)
+                    if (nodeValue is JsonValue nodeValueToken && nodeValueToken.GetValueKind() == JsonValueKind.String)
                     {
                         nodeValue = nodeValueToken.ToObject<string>()!;
                     }

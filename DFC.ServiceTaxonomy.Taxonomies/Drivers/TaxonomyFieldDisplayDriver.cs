@@ -63,11 +63,11 @@ namespace DFC.ServiceTaxonomy.Taxonomies.Drivers
             });
         }
 
-        public override async Task<IDisplayResult> UpdateAsync(TaxonomyField field, IUpdateModel updater, UpdateFieldEditorContext context)
+        public override async Task<IDisplayResult> UpdateAsync(TaxonomyField field, UpdateFieldEditorContext context)
         {
             var model = new EditTaxonomyFieldViewModel();
 
-            if (await updater.TryUpdateModelAsync(model, Prefix))
+            if (await context.Updater.TryUpdateModelAsync(model, Prefix))
             {
                 var settings = context.PartFieldDefinition.GetSettings<TaxonomyFieldSettings>();
 
@@ -81,7 +81,7 @@ namespace DFC.ServiceTaxonomy.Taxonomies.Drivers
 
                 if (settings.Required && field.TermContentItemIds.Length == 0)
                 {
-                    updater.ModelState.AddModelError(
+                    context.Updater.ModelState.AddModelError(
                         nameof(EditTaxonomyFieldViewModel.TermEntries),
                         S["A value is required for '{0}'", context.PartFieldDefinition.DisplayName()]);
                 }

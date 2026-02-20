@@ -2,35 +2,36 @@
 
 using System;
 using System.Linq;
+using System.Text.Json.Nodes;
 using DFC.ServiceTaxonomy.Taxonomies.Models;
-using Newtonsoft.Json.Linq;
+using Json.More;
 
 namespace DFC.ServiceTaxonomy.Taxonomies.Helper
 {
     public class TaxonomyHelper : ITaxonomyHelper
     {
-        public JArray? GetTerms(JObject contentItem)
+        public JsonArray? GetTerms(JsonObject contentItem)
         {
             //make sure we always check for terms at the root of the object first, or the taxonomy reshuffle validation won't work.
             if (contentItem.ContainsKey(nameof(TaxonomyPart.Terms)))
-                return contentItem[nameof(TaxonomyPart.Terms)] as JArray;
+                return contentItem[nameof(TaxonomyPart.Terms)] as JsonArray;
 
-            return contentItem[nameof(TaxonomyPart)]?[nameof(TaxonomyPart.Terms)] as JArray;
+            return contentItem[nameof(TaxonomyPart)]?[nameof(TaxonomyPart.Terms)] as JsonArray;
         }
 
-        public JObject? FindParentTaxonomyTerm(JObject termContentItem, JObject taxonomyContentItem)
+        public JsonObject? FindParentTaxonomyTerm(JsonObject termContentItem, JsonObject taxonomyContentItem)
         {
-            JArray? terms = GetTerms(taxonomyContentItem);
+            JsonArray? terms = GetTerms(taxonomyContentItem);
 
             if (terms == null)
                 return null;
 
-            if (terms.Any(x => (string?)x["ContentItemId"] == (string?)termContentItem["ContentItemId"]))
+            if (terms.Any(x => (string?)x!["ContentItemId"] == (string?)termContentItem["ContentItemId"]))
                 return taxonomyContentItem;
 
-            JObject? result = null;
+            JsonObject? result = null;
 
-            foreach (JObject term in terms)
+            foreach (JsonObject term in terms!)
             {
                 result = FindParentTaxonomyTerm(termContentItem, term);
 
@@ -43,14 +44,14 @@ namespace DFC.ServiceTaxonomy.Taxonomies.Helper
             return null;
         }
 
-        public string BuildTermUrl(JObject term, JObject taxonomy)
+        public string BuildTermUrl(JsonObject term, JsonObject taxonomy)
         {
             string? url = term["DisplayText"]?.Value<string?>();
 
             if (url == null)
                 throw new InvalidOperationException($"No DisplayText property found on: {term}");
 
-            JObject? parent = FindParentTaxonomyTerm(term, taxonomy);
+            JsonObject? parent = FindParentTaxonomyTerm(term, taxonomy);
 
             while (parent != null && (string?)parent!["ContentType"] != "Taxonomy")
             {
@@ -61,21 +62,22 @@ namespace DFC.ServiceTaxonomy.Taxonomies.Helper
             return url.Trim('/');
         }
 
-        public JArray GetAllTerms(JObject taxonomy)
+        public JsonArray GetAllTerms(JsonObject taxonomy)
         {
-            var results = new JArray();
+            var results = new JsonArray();
             return GetAllTermsInternal(taxonomy, results);
         }
 
-        private JArray GetAllTermsInternal(JObject taxonomy, JArray results)
+        private JsonArray GetAllTermsInternal(JsonObject taxonomy, JsonArray results)
         {
             var terms = GetTerms(taxonomy);
 
             if (terms != null)
             {
-                results.Merge(terms);
+                
+                JObject.Parse(results.ToJsonString()).Merge(terms);
 
-                foreach (dynamic term in terms)
+                foreach (dynamic term in terms!)
                 {
                     GetAllTermsInternal(term, results);
                 }

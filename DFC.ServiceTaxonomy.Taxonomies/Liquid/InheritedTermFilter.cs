@@ -1,10 +1,10 @@
 using System;
 using System.Collections.Generic;
+using System.Text.Json.Nodes;
 using System.Threading.Tasks;
 using Fluid;
 using Fluid.Values;
 using Microsoft.Extensions.DependencyInjection;
-using Newtonsoft.Json.Linq;
 using OrchardCore.ContentManagement;
 using OrchardCore.Liquid;
 
@@ -51,7 +51,7 @@ namespace DFC.ServiceTaxonomy.Taxonomies.Liquid
 
             var terms = new List<ContentItem>();
 
-            TaxonomyOrchardHelperExtensions.FindTermHierarchy(taxonomy.Content.TaxonomyPart.Terms as JArray, termContentItemId, terms);
+            TaxonomyOrchardHelperExtensions.FindTermHierarchy(taxonomy.Content.TaxonomyPart.Terms as JsonArray, termContentItemId, terms);
 
             return FluidValue.Create(terms, TemplateOptions.Default);
         }

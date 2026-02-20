@@ -7,7 +7,7 @@ namespace DFC.ServiceTaxonomy.VersionComparison.Drivers
 {
     public class VersionComparisonOptionsDisplayDriver : DisplayDriver<VersionComparisonOptions>
     {
-        public override IDisplayResult Edit(VersionComparisonOptions model)
+        public override IDisplayResult Edit(VersionComparisonOptions model, BuildEditorContext context)
         {
             return Combine(
                 Initialize<VersionComparisonOptions>("VersionComparisonSelectLists", m => BuildUserOptionsViewModel(m, model)).Location("Search:10")

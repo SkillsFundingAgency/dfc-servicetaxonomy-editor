@@ -1,10 +1,10 @@
-﻿using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Exceptions;
+﻿using System.Text.Json.Nodes;
+using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Exceptions;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.ContentItemVersions;
 using DFC.ServiceTaxonomy.GraphSync.Models;
 using DFC.ServiceTaxonomy.GraphSync.Settings;
 using FakeItEasy;
-using Newtonsoft.Json.Linq;
 using OrchardCore.ContentManagement.Metadata;
 using OrchardCore.ContentManagement.Metadata.Models;
 using Xunit;
@@ -31,7 +31,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Helpers
                 {
                     new ContentTypePartDefinition(nameof(GraphSyncPart), new ContentPartDefinition(nameof(GraphSyncPart)), null)
                 },
-                new JObject());
+                new JsonObject());
             A.CallTo(() => ContentDefinitionManager.GetTypeDefinitionAsync(_contentType)).Returns(ContentTypeDefinition);
 
             SuperpositionContentItemVersion = A.Fake<ISuperpositionContentItemVersion>();

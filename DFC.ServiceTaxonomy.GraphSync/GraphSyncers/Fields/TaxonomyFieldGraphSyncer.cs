@@ -8,12 +8,12 @@ using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Contexts;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Fields;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Helpers;
 using DFC.ServiceTaxonomy.GraphSync.Models;
-using Newtonsoft.Json.Linq;
 using OrchardCore.ContentManagement;
 using DFC.ServiceTaxonomy.Taxonomies.Models;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Contexts;
 using DFC.ServiceTaxonomy.Taxonomies.Settings;
 using DFC.ServiceTaxonomy.GraphSync.Interfaces;
+using System.Text.Json.Nodes;
 
 namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
 {
@@ -49,7 +49,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
             _serviceProvider = serviceProvider;
         }
 
-        public async Task AddSyncComponents(JObject contentItemField, IGraphMergeContext context)
+        public async Task AddSyncComponents(JsonObject contentItemField, IGraphMergeContext context)
         {
             //todo: share code with contentpickerfield?
 
@@ -58,7 +58,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
             ContentItem? taxonomyContentItem = await GetTaxonomyContentItem(
                 contentItemField, context.ContentItemVersion, context.ContentManager);
 
-            JObject taxonomyPartContent = taxonomyContentItem!.Content[nameof(TaxonomyPart)];
+            JsonObject taxonomyPartContent = taxonomyContentItem!.Content[nameof(TaxonomyPart)];
             string? termContentType = taxonomyPartContent[TermContentType]?.Value<string>();
             if (!string.IsNullOrEmpty(termContentType))
             {
@@ -67,8 +67,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
                 //todo requires 'picked' part has a graph sync part
                 // add to docs & handle picked part not having graph sync part or throw exception
 
-                JArray? contentItemIdsJArray = (JArray?)contentItemField[TermContentItemIds];
-                if (contentItemIdsJArray == null || !contentItemIdsJArray.HasValues)
+                JsonArray? contentItemIdsJArray = (JsonArray?)contentItemField[TermContentItemIds];
+                if (contentItemIdsJArray == null || !contentItemIdsJArray.HasValues())
                     return; //todo:
 
                 IEnumerable<string> contentItemIds = contentItemIdsJArray.Select(jtoken => jtoken.ToObject<string>()!);
@@ -126,7 +126,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
                 context.ContentManager,
                 taxonomyFieldSettings.TaxonomyContentItemId);
 
-            JObject taxonomyPartContent = taxonomyContentItem!.Content[nameof(TaxonomyPart)];
+            JsonObject taxonomyPartContent = taxonomyContentItem!.Content[nameof(TaxonomyPart)];
             string termContentType = taxonomyPartContent[TermContentType]?.Value<string>() ?? string.Empty;
             if (string.IsNullOrWhiteSpace(termContentType))
             {
@@ -150,19 +150,19 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
             }
         }
 
-        private static Dictionary<string, ContentItem> GetFlattenedTermsContentItems(JObject taxonomyPartContent)
+        private static Dictionary<string, ContentItem> GetFlattenedTermsContentItems(JsonObject taxonomyPartContent)
         {
             IEnumerable<ContentItem> termsRootContentItems = GetTermsRootContentItems(taxonomyPartContent);
 
             return termsRootContentItems
-                .Flatten(ci => ((JArray?)((JObject)ci.Content)["Terms"])
+                .Flatten(ci => ((JsonArray?)((JsonObject)ci.Content)["Terms"])
                     ?.ToObject<IEnumerable<ContentItem>>() ?? Enumerable.Empty<ContentItem>())
                 .ToDictionary(ci => ci.ContentItemId, ci => ci.ContentItem);
         }
 
-        private static IEnumerable<ContentItem> GetTermsRootContentItems(JObject taxonomyPartContent)
+        private static IEnumerable<ContentItem> GetTermsRootContentItems(JsonObject taxonomyPartContent)
         {
-            return ((JArray)taxonomyPartContent[Terms]!).ToObject<IEnumerable<ContentItem>>()!;
+            return ((JsonArray)taxonomyPartContent[Terms]!).ToObject<IEnumerable<ContentItem>>()!;
         }
 
         private object? GetNodeId(
@@ -173,11 +173,11 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
         {
             ContentItem termContentItem = taxonomyTerms[termContentItemId];
             return termSyncNameProvider.GetNodeIdPropertyValue(
-                (JObject)termContentItem.Content[nameof(GraphSyncPart)]!, contentItemVersion);
+                (JsonObject)termContentItem.Content[nameof(GraphSyncPart)]!, contentItemVersion);
         }
 
         private async Task<ContentItem?> GetTaxonomyContentItem(
-            JObject contentItemField,
+            JsonObject contentItemField,
             IContentItemVersion contentItemVersion,
             IContentManager contentManager)
         {
@@ -199,7 +199,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
             return $"has{taxonomyName}Taxonomy";
         }
 
-        public async Task AddRelationship(JObject contentItemField, IDescribeRelationshipsContext parentContext)
+        public async Task AddRelationship(JsonObject contentItemField, IDescribeRelationshipsContext parentContext)
         {
             //todo: check for null
             ContentItem? taxonomyContentItem = await GetTaxonomyContentItem(
@@ -207,7 +207,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
                 parentContext.ContentItemVersion,
                 parentContext.ContentManager);
 
-            JObject taxonomyPartContent = taxonomyContentItem!.Content[nameof(TaxonomyPart)];
+            JsonObject taxonomyPartContent = taxonomyContentItem!.Content[nameof(TaxonomyPart)];
             string termContentType = taxonomyPartContent[TermContentType]?.Value<string>() ?? string.Empty;
             if (!string.IsNullOrEmpty(termContentType))
             {
@@ -258,7 +258,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
         }
 
         public async Task<(bool validated, string failureReason)> ValidateSyncComponent(
-            JObject contentItemField,
+            JsonObject contentItemField,
             IValidateAndRepairContext context)
         {
             //todo: check for null
@@ -274,7 +274,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
                 .Where(r => r.Type == termRelationshipType)
                 .ToArray();
 
-            var contentItemIds = (JArray)contentItemField[TermContentItemIds]!;
+            var contentItemIds = (JsonArray)contentItemField[TermContentItemIds]!;
             if (contentItemIds.Count != actualRelationships.Length)
             {
                 return (false, $"expecting {contentItemIds.Count} relationships of type {termRelationshipType} in graph, but found {actualRelationships.Length}");
@@ -284,7 +284,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
 
             var flattenedTermsContentItems = GetFlattenedTermsContentItems(taxonomyPartContent);
 
-            foreach (JToken item in contentItemIds)
+            foreach (var item in contentItemIds)
             {
                 string contentItemId = (string)item!;
 

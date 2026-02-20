@@ -109,6 +109,22 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers
             _contentTypeOrchestrator.RemoveFieldFromItemsWithPart(context.ContentPartName, context.ContentFieldName)
                 .GetAwaiter().GetResult();
         }
+
+        public void ContentTypeUpdated(ContentTypeUpdatedContext context)
+        {
+        }
+        public void ContentPartUpdated(ContentPartUpdatedContext context)
+        {
+        }
+        public void ContentTypePartUpdated(ContentTypePartUpdatedContext context)
+        {
+        }
+        public void ContentFieldUpdated(ContentFieldUpdatedContext context)
+        {
+        }
+        public void ContentPartFieldUpdated(ContentPartFieldUpdatedContext context)
+        {
+        }
     }
 #pragma warning disable S1186
 }

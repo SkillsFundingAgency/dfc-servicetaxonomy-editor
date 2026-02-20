@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
+using System.Text.Json.Nodes;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts;
 using DFC.ServiceTaxonomy.GraphSync.Services;
-using Newtonsoft.Json.Linq;
 using Xunit;
 
 namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Parts.TitlePartGraphSyncerTests
@@ -21,7 +21,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Parts.TitlePartGr
         {
             const string title = "title";
 
-            Content = JObject.Parse($"{{\"Title\": \"{title}\"}}");
+            Content = JObject.Parse($"{{\"Title\": \"{title}\"}}")!;
 
             await CallAddSyncComponents();
 
@@ -35,7 +35,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Parts.TitlePartGr
         public async Task AddSyncComponents_NullTitleInContent_DisplayTextAddedToMergeNodeCommandsProperties()
         {
             const string displayText = "DisplayText";
-            Content = JObject.Parse("{\"Title\": null}");
+            Content = JObject.Parse("{\"Title\": null}")!;
             ContentItem.DisplayText = displayText;
 
             await CallAddSyncComponents();

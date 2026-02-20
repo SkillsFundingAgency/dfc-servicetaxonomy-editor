@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.Banners.Indexes;
 using DFC.ServiceTaxonomy.Banners.Models;
 using OrchardCore.ContentManagement.GraphQL.Queries;
@@ -18,6 +19,11 @@ namespace DFC.ServiceTaxonomy.Banners.GraphQL
         };
 
         public IEnumerable<IndexAlias> GetAliases()
+        {
+            return _aliases;
+        }
+
+        public async ValueTask<IEnumerable<IndexAlias>> GetAliasesAsync()
         {
             return _aliases;
         }

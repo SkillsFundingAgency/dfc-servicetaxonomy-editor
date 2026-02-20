@@ -7,12 +7,12 @@ using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.EmbeddedContentItems
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Helpers;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Results.AllowSync;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Results.AllowSync;
-using Newtonsoft.Json.Linq;
 using OrchardCore.ContentManagement.Metadata;
 using DFC.ServiceTaxonomy.Taxonomies.Models;
 using Microsoft.Extensions.Logging;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts.Taxonomy;
 using DFC.ServiceTaxonomy.GraphSync.CosmosDb.GraphSyncers.Helpers;
+using System.Text.Json.Nodes;
 
 namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb.GraphSyncers.Parts.Taxonomy
 {
@@ -51,7 +51,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb.GraphSyncers.Parts.Taxonomy
         }
 
         public override async Task AllowSync(
-            JArray? contentItems,
+            JsonArray? contentItems,
             IGraphMergeContext context,
             IAllowSync allowSync)
         {

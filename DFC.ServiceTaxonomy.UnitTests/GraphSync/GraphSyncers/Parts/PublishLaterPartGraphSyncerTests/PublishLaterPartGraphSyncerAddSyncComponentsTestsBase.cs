@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.Json.Nodes;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts;
 using FakeItEasy;
-using Newtonsoft.Json.Linq;
 using Xunit;
 
 namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Parts.HtmlBodyPartGraphSyncerTests
@@ -23,7 +23,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Parts.HtmlBodyPar
             const string scheduledDateUtc = "2020-06-28T09:58:00Z";
             DateTime expectedDateUtc = new DateTime(2020, 6, 28, 9, 58, 0, DateTimeKind.Utc);
 
-            Content = JObject.Parse($"{{\"ScheduledPublishUtc\": \"{scheduledDateUtc}\"}}");
+            Content = JObject.Parse($"{{\"ScheduledPublishUtc\": \"{scheduledDateUtc}\"}}")!;
 
             await CallAddSyncComponents();
 
@@ -38,7 +38,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Parts.HtmlBodyPar
         {
             A.CallTo(() => SyncNameProvider.PropertyName("ScheduledPublishUtc")).Returns("publishlater_ScheduledPublishUtc");
 
-            Content = JObject.Parse("{\"ScheduledPublishUtc\": null}");
+            Content = JObject.Parse("{\"ScheduledPublishUtc\": null}")!;
 
             await CallAddSyncComponents();
 

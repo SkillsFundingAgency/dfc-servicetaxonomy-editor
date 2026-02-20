@@ -1,8 +1,9 @@
 using System;
+using System.Text.Json;
+using System.Text.Json.Nodes;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.Extensions;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Contexts;
-using Newtonsoft.Json.Linq;
 using OrchardCore.Html.Models;
 
 namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
@@ -16,18 +17,18 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
         private static readonly Func<string, string> _htmlBodyFieldsPropertyNameTransform = n => $"htmlbody_{n}";
         private const string HtmlPropertyName = "Html";
 
-        public override async Task AddSyncComponents(JObject content, IGraphMergeContext context)
+        public override async Task AddSyncComponents(JsonObject content, IGraphMergeContext context)
         {
             // prefix field property names, so there's no possibility of a clash with the eponymous fields property names
             using var _ = context.SyncNameProvider.PushPropertyNameTransform(_htmlBodyFieldsPropertyNameTransform);
 
-            JValue? htmlValue = (JValue?)content[HtmlPropertyName];
-            if (htmlValue != null && htmlValue.Type != JTokenType.Null)
+            JsonValue? htmlValue = (JsonValue?)content[HtmlPropertyName];
+            if (htmlValue != null && htmlValue.GetValueKind() != JsonValueKind.Null)
                 context.MergeNodeCommand.Properties.Add(await context.SyncNameProvider.PropertyName(HtmlPropertyName), htmlValue.As<string>());
         }
 
         public override async Task<(bool validated, string failureReason)> ValidateSyncComponent(
-            JObject content,
+            JsonObject content,
             IValidateAndRepairContext context)
         {
             // prefix field property names, so there's no possibility of a clash with the eponymous fields property names

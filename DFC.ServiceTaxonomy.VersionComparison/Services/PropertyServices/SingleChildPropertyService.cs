@@ -1,21 +1,21 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json;
 using DFC.ServiceTaxonomy.VersionComparison.Models;
 using DFC.ServiceTaxonomy.VersionComparison.Models.Parts;
-using Newtonsoft.Json.Linq;
 
 namespace DFC.ServiceTaxonomy.VersionComparison.Services.PropertyServices
 {
     public class SingleChildPropertyService : IPropertyService
     {
-        public bool CanProcess(JToken? jToken, string? propertyName = null)
+        public bool CanProcess(JsonElement? jElement, string? propertyName = null)
         {
-            return jToken != null && jToken.Type == JTokenType.Object && jToken.Children().Count() == 1;
+            return jElement != null && jElement.GetValueOrDefault().ValueKind == JsonValueKind.Object && jElement.GetValueOrDefault().EnumerateObject().Count() == 1;
         }
 
-        public IList<PropertyExtract> Process(string propertyName, JToken? jToken)
+        public IList<PropertyExtract> Process(string propertyName, JsonElement? jElement)
         {
-            var objectValue = jToken?.ToObject<ObjectValue>();
+            var objectValue = jElement?.Deserialize<ObjectValue>();
             return new List<PropertyExtract> {new PropertyExtract {Key = propertyName, Name = propertyName, Value = objectValue?.ToString()}};
         }
     }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json.Nodes;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.Content.Services.Interface;
 using DFC.ServiceTaxonomy.GraphSync.Handlers.Contexts;
@@ -11,7 +12,6 @@ using DFC.ServiceTaxonomy.PageLocation.Constants;
 using DFC.ServiceTaxonomy.PageLocation.Models;
 using DFC.ServiceTaxonomy.Taxonomies.Handlers;
 using DFC.ServiceTaxonomy.Taxonomies.Helper;
-using Newtonsoft.Json.Linq;
 using OrchardCore.ContentManagement;
 using YesSql;
 
@@ -73,7 +73,7 @@ namespace DFC.ServiceTaxonomy.PageLocation.Handlers
                 {
                     //rebuild the Full URL to ensure it matches the current state of the term
                     var pageUrlName = page.As<PageLocationPart>().UrlName;
-                    var termUrl = _taxonomyHelper.BuildTermUrl(JObject.FromObject(term), JObject.FromObject(taxonomy));
+                    var termUrl = _taxonomyHelper.BuildTermUrl(JObject.FromObject(term)!, JObject.FromObject(taxonomy)!);
 
                     var fullUrl = string.IsNullOrWhiteSpace(termUrl)
                         ? $"/{pageUrlName}"

@@ -1,8 +1,9 @@
 ﻿using System;
+using System.Text.Json;
+using System.Text.Json.Nodes;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Contexts;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Fields;
-using Newtonsoft.Json.Linq;
 using OrchardCore.ContentFields.Settings;
 
 namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
@@ -13,10 +14,10 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
 
         private const string ContentKey = "Value";
 
-        public async Task AddSyncComponents(JObject contentItemField, IGraphMergeContext context)
+        public async Task AddSyncComponents(JsonObject contentItemField, IGraphMergeContext context)
         {
-            JValue? value = (JValue?)contentItemField?[ContentKey];
-            if (value == null || value.Type == JTokenType.Null)
+            JsonValue? value = (JsonValue?)contentItemField?[ContentKey];
+            if (value == null || value.GetValueKind() == JsonValueKind.Null)
                 return;
 
             var fieldSettings = context.ContentPartFieldDefinition!.GetSettings<NumericFieldSettings>();
@@ -33,7 +34,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
         }
 
         public async Task<(bool validated, string failureReason)> ValidateSyncComponent(
-            JObject contentItemField,
+            JsonObject contentItemField,
             IValidateAndRepairContext context)
         {
             //todo: use/move to GraphValidationHelper?
@@ -41,8 +42,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
             string nodePropertyName = await context.SyncNameProvider.PropertyName(context.ContentPartFieldDefinition!.Name);
             context.NodeWithRelationships.SourceNode!.Properties.TryGetValue(nodePropertyName, out object? nodePropertyValue);
 
-            JToken? contentItemFieldValue = contentItemField[ContentKey];
-            if (contentItemFieldValue == null || contentItemFieldValue.Type == JTokenType.Null)
+            var contentItemFieldValue = contentItemField[ContentKey];
+            if (contentItemFieldValue == null || contentItemFieldValue.GetValueKind() == JsonValueKind.Null)
             {
                 bool bothNull = nodePropertyValue == null;
                 return (bothNull, $"content property value was null, but node property value was not null (numeric - {nodePropertyName} - {nodePropertyValue})");

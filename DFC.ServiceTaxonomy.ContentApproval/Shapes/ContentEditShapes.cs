@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.ContentApproval.Models;
 using DFC.ServiceTaxonomy.ContentApproval.Models.Enums;
 using Microsoft.AspNetCore.Http;
@@ -17,7 +18,7 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Shapes
             _httpContextAccessor = httpContextAccessor;
         }
 
-        public void Discover(ShapeTableBuilder builder)
+        public async ValueTask DiscoverAsync(ShapeTableBuilder builder)
         {
             builder.Describe("Content_Edit").OnDisplaying(context =>
             {

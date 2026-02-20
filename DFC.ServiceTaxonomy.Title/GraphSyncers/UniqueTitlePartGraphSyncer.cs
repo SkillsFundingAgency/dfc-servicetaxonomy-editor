@@ -4,7 +4,7 @@ using DFC.ServiceTaxonomy.Title.Models;
 using DFC.ServiceTaxonomy.GraphSync.Extensions;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Contexts;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts;
-using Newtonsoft.Json.Linq;
+using System.Text.Json.Nodes;
 
 namespace DFC.ServiceTaxonomy.Title.GraphSyncers
 {
@@ -16,13 +16,13 @@ namespace DFC.ServiceTaxonomy.Title.GraphSyncers
 
 
         private const string TitlePropertyName = "Title";
-        public override async Task AddSyncComponents(JObject content, IGraphMergeContext context)
+        public override async Task AddSyncComponents(JsonObject content, IGraphMergeContext context)
         {
             using var _ = context.SyncNameProvider.PushPropertyNameTransform(_uniquePropertyNameTransform);
             context.MergeNodeCommand.AddProperty<string>(await context.SyncNameProvider.PropertyName(TitlePropertyName), content, TitlePropertyName);
         }
 
-        public override async Task<(bool validated, string failureReason)> ValidateSyncComponent(JObject content,
+        public override async Task<(bool validated, string failureReason)> ValidateSyncComponent(JsonObject content,
             IValidateAndRepairContext context)
         {
             using var _ = context.SyncNameProvider.PushPropertyNameTransform(_uniquePropertyNameTransform);

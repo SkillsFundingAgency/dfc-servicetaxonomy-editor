@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.Json.Nodes;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.ContentItemVersions;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Contexts;
@@ -7,7 +8,6 @@ using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Helpers;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Parts;
 using DFC.ServiceTaxonomy.GraphSync.Interfaces;
 using FakeItEasy;
-using Newtonsoft.Json.Linq;
 using OrchardCore.ContentManagement;
 using OrchardCore.ContentManagement.Metadata.Models;
 
@@ -15,7 +15,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Parts
 {
     public class PartGraphSyncer_AddSyncComponentsTestsBase
     {
-        public JObject Content { get; set; }
+        public JsonObject Content { get; set; }
         public ContentItem ContentItem { get; set; }
         public IMergeNodeCommand MergeNodeCommand { get; set; }
         public IReplaceRelationshipsCommand ReplaceRelationshipsCommand { get; set; }
@@ -31,7 +31,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Parts
 
         public PartGraphSyncer_AddSyncComponentsTestsBase()
         {
-            Content = JObject.Parse("{}");
+            Content = JObject.Parse("{}")!;
 
             MergeNodeCommand = A.Fake<IMergeNodeCommand>();
             //todo: best way to do this?

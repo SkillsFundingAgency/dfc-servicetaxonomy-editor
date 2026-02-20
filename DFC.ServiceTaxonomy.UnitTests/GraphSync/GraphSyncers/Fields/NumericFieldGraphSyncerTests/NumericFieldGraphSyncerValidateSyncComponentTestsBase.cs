@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
+using System.Text.Json.Nodes;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields;
 using FakeItEasy;
-using Newtonsoft.Json.Linq;
 using OrchardCore.ContentFields.Settings;
 using Xunit;
 
@@ -32,7 +32,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Fields.NumericFie
             const string valueContent = "123.0";
             const long valueProperty = 123;
 
-            ContentItemField = JObject.Parse($"{{\"Value\": {valueContent}}}");
+            ContentItemField = JObject.Parse($"{{\"Value\": {valueContent}}}")!;
 
             SourceNodeProperties.Add(FieldNameTransformed, valueProperty);
 
@@ -49,7 +49,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Fields.NumericFie
             const string valueContent = "123.0";
             const double valueProperty = 123d;
 
-            ContentItemField = JObject.Parse($"{{\"Value\": {valueContent}}}");
+            ContentItemField = JObject.Parse($"{{\"Value\": {valueContent}}}")!;
 
             SourceNodeProperties.Add(FieldNameTransformed, valueProperty);
 
@@ -65,7 +65,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Fields.NumericFie
         {
             const long valueProperty = 123;
 
-            ContentItemField = JObject.Parse($"{{\"Value\": null}}");
+            ContentItemField = JObject.Parse($"{{\"Value\": null}}")!;
 
             SourceNodeProperties.Add(FieldNameTransformed, valueProperty);
 
@@ -78,7 +78,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Fields.NumericFie
         public async Task ValidateSyncComponent_PropertyMissing_ReturnsFalse()
         {
             const string valueContent = "123.0";
-            ContentItemField = JObject.Parse($"{{\"Value\": {valueContent}}}");
+            ContentItemField = JObject.Parse($"{{\"Value\": {valueContent}}}")!;
 
             NumericFieldSettings.Scale = 0;
 
@@ -93,7 +93,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Fields.NumericFie
             const string valueContent = "123.0";
             const long valueProperty = 321;
 
-            ContentItemField = JObject.Parse($"{{\"Value\": {valueContent}}}");
+            ContentItemField = JObject.Parse($"{{\"Value\": {valueContent}}}")!;
 
             SourceNodeProperties.Add(FieldNameTransformed, valueProperty);
 
@@ -128,7 +128,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Fields.NumericFie
             const string valueContent = "123.0";
             const double valueProperty = 123.4d;
 
-            ContentItemField = JObject.Parse($"{{\"Value\": {valueContent}}}");
+            ContentItemField = JObject.Parse($"{{\"Value\": {valueContent}}}")!;
 
             SourceNodeProperties.Add(FieldNameTransformed, valueProperty);
 

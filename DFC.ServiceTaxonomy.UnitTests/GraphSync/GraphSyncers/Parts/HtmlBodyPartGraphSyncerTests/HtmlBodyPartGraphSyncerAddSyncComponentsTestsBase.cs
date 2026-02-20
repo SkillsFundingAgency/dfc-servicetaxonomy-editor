@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
+using System.Text.Json.Nodes;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts;
 using FakeItEasy;
-using Newtonsoft.Json.Linq;
 using Xunit;
 
 namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Parts.HtmlBodyPartGraphSyncerTests
@@ -21,7 +21,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Parts.HtmlBodyPar
 
             const string html = "<p>A test paragraph</p>";
 
-            Content = JObject.Parse($"{{\"Html\": \"{html}\"}}");
+            Content = JObject.Parse($"{{\"Html\": \"{html}\"}}")!;
 
             await CallAddSyncComponents();
 
@@ -36,7 +36,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Parts.HtmlBodyPar
         {
             A.CallTo(() => SyncNameProvider.PropertyName("Html")).Returns("htmlbody_Html");
 
-            Content = JObject.Parse("{\"Html\": null}");
+            Content = JObject.Parse("{\"Html\": null}")!;
 
             await CallAddSyncComponents();
 

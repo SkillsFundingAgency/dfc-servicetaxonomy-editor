@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
+using System.Text.Json.Nodes;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields;
-using Newtonsoft.Json.Linq;
 using Xunit;
 
 namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Fields.LinkFieldGraphSyncerTests
@@ -19,7 +19,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Fields.LinkFieldG
             const string text = "abc";
             string expectedFieldName = $"{_fieldName}_text";
 
-            ContentItemField = JObject.Parse($"{{\"Text\": \"{text}\"}}");
+            ContentItemField = JObject.Parse($"{{\"Text\": \"{text}\"}}")!;
 
             await CallAddSyncComponents();
 
