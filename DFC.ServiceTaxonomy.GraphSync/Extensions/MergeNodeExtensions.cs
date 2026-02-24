@@ -33,16 +33,13 @@ namespace DFC.ServiceTaxonomy.GraphSync.Extensions
             T value;
             JsonValue? jvalue = (JsonValue?)content[contentPropertyName];
 
-            if (jvalue == null)
-                return default;
-
-            switch (jvalue.GetValueKind())
+            switch (jvalue?.GetValueKind() ?? JsonValueKind.Null)
             {
                 case JsonValueKind.Null:
                     mergeNodeCommand.Properties.Add(nodePropertyName, null);
                     return default;
                 case JsonValueKind.String:
-                    if (DateTime.TryParseExact(jvalue.GetValue<string>(), "yyyy-MM-ddTHH:mm:ssK",
+                    if (DateTime.TryParseExact(jvalue!.GetValue<string>(), "yyyy-MM-ddTHH:mm:ssK",
                             CultureInfo.InvariantCulture, DateTimeStyles.AdjustToUniversal, out DateTime utcTime))
                     {
                         value = (T)(object)utcTime;
@@ -56,7 +53,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Extensions
 #pragma warning restore S907 // "goto" statement should not be used
                     }
                 default:
-                    if (typeof(T) == typeof(bool) && bool.TryParse(jvalue.ToString(), out bool boolValue))
+                    if (typeof(T) == typeof(bool) && bool.TryParse(jvalue!.ToString(), out bool boolValue))
                         value = (T) Convert.ChangeType(boolValue, typeof(T)) ;
                     else
                         value = jvalue.Value<T>()!;

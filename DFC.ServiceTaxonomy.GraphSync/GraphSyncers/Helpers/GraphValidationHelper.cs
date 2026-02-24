@@ -59,6 +59,12 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
                         goto default;
 #pragma warning restore S907 // "goto" statement should not be used
                     }
+                case JsonValueKind.False:
+                case JsonValueKind.True:
+                    {
+                        returnString = jvalue.GetValue<bool>().ToString();
+                        break;
+                    }
 
                 default:
                     returnString = jvalue.ToString();
@@ -195,7 +201,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
             where T : Enum
         {
             return ContentPropertyMatchesNodeProperty(contentKey, contentItemField, nodePropertyName, sourceNode,
-                (contentValue, nodeValue) => Equals(((T)(object)(int)contentValue).ToString().ToLowerInvariant(), nodeValue.As<string>()));
+                (contentValue, nodeValue) => Equals(((T)(object)(contentValue.GetValueKind() == JsonValueKind.String ? int.Parse((string)contentValue!) :(int)contentValue)).ToString().ToLowerInvariant(), nodeValue.As<string>()));
         }
 
         public (bool matched, string failureReason) DateTimeContentPropertyMatchesNodeProperty(

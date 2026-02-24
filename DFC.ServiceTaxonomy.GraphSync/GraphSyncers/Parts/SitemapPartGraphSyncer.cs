@@ -29,7 +29,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
             //todo: helper for these?
             JsonValue? value = (JsonValue?)content[OverrideSitemapConfigPropertyName];
             if (value != null && value.GetValueKind() != JsonValueKind.Null) //first bool?
-                context.MergeNodeCommand.Properties.Add(await context.SyncNameProvider.PropertyName(OverrideSitemapConfigPropertyName), value.As<bool>());
+                context.MergeNodeCommand.Properties.Add(await context.SyncNameProvider.PropertyName(OverrideSitemapConfigPropertyName), (value.GetValueKind() == JsonValueKind.String ? bool.Parse(value.As<string>()):value.As<bool>()));
 
             //todo: we want the change frequency value lowercase (as the sitemap xml format wants it lowercase),
             // but we probably want enums to serialise using normal casing, so can Enum.Parse etc.

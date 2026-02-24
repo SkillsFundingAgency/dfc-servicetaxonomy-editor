@@ -4,6 +4,7 @@ using System.Text.Json.Nodes;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Contexts;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Fields;
+using Json.Path;
 using OrchardCore.ContentFields.Settings;
 
 namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
@@ -25,11 +26,11 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
             string propertyName = await context.SyncNameProvider.PropertyName(context.ContentPartFieldDefinition!.Name);
             if (fieldSettings.Scale == 0)
             {
-                context.MergeNodeCommand.Properties.Add(propertyName, (int)value);
+                context.MergeNodeCommand.Properties.Add(propertyName, value.TryGetValue<int>(out int intValue) ? intValue : (int)value.Deserialize<decimal>());
             }
             else
             {
-                context.MergeNodeCommand.Properties.Add(propertyName, (decimal)value);
+                context.MergeNodeCommand.Properties.Add(propertyName, value.Deserialize<decimal>());
             }
         }
 
@@ -64,7 +65,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
                 }
                 else
                 {
-                    longsSame = nodePropertyValueLong == (long)contentItemFieldValue;
+                    longsSame = nodePropertyValueLong == (contentItemFieldValue.TryGetValue<long>(out long longValue) ? longValue : (long)contentItemFieldValue.Deserialize<decimal>());
                 }
                 return (longsSame, longsSame?"":$"long content property value was '{contentItemFieldValue}', but node property value was '{nodePropertyValue}'");
             }
