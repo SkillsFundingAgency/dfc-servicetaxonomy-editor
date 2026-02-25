@@ -18,13 +18,9 @@ namespace DFC.ServiceTaxonomy.JobProfiles.DataTransfer.GraphQL
                     }
             };
 
-        public IEnumerable<IndexAlias> GetAliases()
-        {
-            return _aliases;
-        }
-
         public async ValueTask<IEnumerable<IndexAlias>> GetAliasesAsync()
         {
+            await Task.Yield();
             return _aliases;
         }
     }

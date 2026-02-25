@@ -23,6 +23,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Settings
 
         public override async Task<IDisplayResult> EditAsync(ContentTypePartDefinition contentTypePartDefinition, BuildEditorContext context)
         {
+            await Task.Yield();
             if (!string.Equals(nameof(GraphSyncPart), contentTypePartDefinition.PartDefinition.Name))
             {
                 return default!;

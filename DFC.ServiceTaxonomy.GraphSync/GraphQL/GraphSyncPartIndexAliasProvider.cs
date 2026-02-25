@@ -19,6 +19,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphQL
 
         public async ValueTask<IEnumerable<IndexAlias>> GetAliasesAsync()
         {
+            await Task.Yield();
             return _aliases;
         }
     }

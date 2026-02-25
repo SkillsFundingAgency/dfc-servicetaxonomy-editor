@@ -200,6 +200,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Notifications
         //todo: add Trace Id to std notifications?
         public async ValueTask AddAsync(NotifyType type, LocalizedHtmlString message)
         {
+            await Task.Yield();
             if (_logger.IsEnabled(LogLevel.Information))
             {
                 _logger.LogInformation("Notification '{NotificationType}' with message '{NotificationMessage}'.", type, message);
