@@ -20,6 +20,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Drivers
 
         public override async Task<IDisplayResult> EditAsync(GraphSyncPart graphSyncPart, BuildPartEditorContext context)
         {
+            await Task.Yield();
             return Initialize<GraphSyncPartViewModel>("GraphSyncPart_Edit",
                 async m => await BuildViewModel(m, graphSyncPart));
         }

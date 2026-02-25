@@ -20,6 +20,7 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Shapes
 
         public async ValueTask DiscoverAsync(ShapeTableBuilder builder)
         {
+            await Task.Yield();
             builder.Describe("Content_Edit").OnDisplaying(context =>
             {
                 dynamic shape = context.Shape;

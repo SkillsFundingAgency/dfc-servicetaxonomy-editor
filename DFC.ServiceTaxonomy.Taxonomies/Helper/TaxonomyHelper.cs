@@ -30,10 +30,10 @@ namespace DFC.ServiceTaxonomy.Taxonomies.Helper
                 return taxonomyContentItem;
 
             JsonObject? result = null;
-
-            foreach (JsonObject term in terms!)
+             
+            foreach (var term in terms!)
             {
-                result = FindParentTaxonomyTerm(termContentItem, term);
+                result = FindParentTaxonomyTerm(termContentItem, term!.AsObject());
 
                 if (result != null)
                 {
@@ -77,9 +77,9 @@ namespace DFC.ServiceTaxonomy.Taxonomies.Helper
                 
                 JObject.Parse(results.ToJsonString()).Merge(terms);
 
-                foreach (dynamic term in terms!)
+                foreach (var term in terms!)
                 {
-                    GetAllTermsInternal(term, results);
+                    GetAllTermsInternal(term!.AsObject(), results);
                 }
             }
 

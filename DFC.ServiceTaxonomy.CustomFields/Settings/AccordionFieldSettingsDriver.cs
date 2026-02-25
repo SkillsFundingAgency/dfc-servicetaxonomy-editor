@@ -12,6 +12,7 @@ namespace DFC.ServiceTaxonomy.CustomFields.Settings
     {
         public async override Task<IDisplayResult> EditAsync(ContentPartFieldDefinition partFieldDefinition, BuildEditorContext context)
         {
+            await Task.Yield();
             return Initialize<EditAccordionFieldSettingsViewModel>("AccordionFieldSettings_Edit", model =>
             {})
             .Location("Content");

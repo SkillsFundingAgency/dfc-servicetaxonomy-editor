@@ -17,6 +17,8 @@ namespace DFC.ServiceTaxonomy.Taxonomies
     {
         public async ValueTask DiscoverAsync(ShapeTableBuilder builder)
         {
+            await Task.Yield();
+
             // Add standard alternates to a TermPart because it is rendered by a content display driver not a part display driver
             builder.Describe("TermPart")
                 .OnDisplaying(context =>

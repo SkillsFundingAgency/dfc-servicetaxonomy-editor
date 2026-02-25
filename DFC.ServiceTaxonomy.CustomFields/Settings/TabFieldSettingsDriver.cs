@@ -12,6 +12,7 @@ namespace DFC.ServiceTaxonomy.CustomFields.Settings
     {
         public async override Task<IDisplayResult> EditAsync(ContentPartFieldDefinition partFieldDefinition, BuildEditorContext context)
         {
+            await Task.Yield();
             return Initialize<EditTabFieldSettingsViewModel>("TabFieldSettings_Edit", model =>
             {
             })
