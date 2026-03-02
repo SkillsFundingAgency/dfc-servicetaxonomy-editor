@@ -1,25 +1,27 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json;
+using System.Text.Json.Nodes;
+using System.Text.Json.Serialization;
 using DFC.ServiceTaxonomy.GraphSync.CosmosDb.Queries.Models;
 using DFC.ServiceTaxonomy.GraphSync.Helpers;
 using DFC.ServiceTaxonomy.GraphSync.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.Models;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
+
 using static DFC.ServiceTaxonomy.GraphSync.Helpers.DocumentHelper;
 
 namespace DFC.ServiceTaxonomy.GraphSync.JsonConverters
 {
-    public class NodeWithOutgoingRelationshipsConverter : JsonConverter
+    public class NodeWithOutgoingRelationshipsConverter : JsonConverter<object>
     {
         public override bool CanConvert(Type objectType) => true;
-        public override object? ReadJson(JsonReader reader, Type objectType, object? existingValue, JsonSerializer serializer)
+        public override object? Read(ref Utf8JsonReader reader, Type objectType, JsonSerializerOptions options)
         {
-            var jobj = JObject.Load(reader);
+            var jobj = JObject.Load(ref reader);
 
 #pragma warning disable CS8600 // Converting null literal or possible null value to non-nullable type.
-            var contentType = (string)jobj["ContentType"] ?? "unknown";
+            var contentType = (string)jobj!["ContentType"] ?? "unknown";
             var parentId = GetAsString(jobj["id"]!);
 #pragma warning restore CS8600 // Converting null literal or possible null value to non-nullable type.
 
@@ -81,8 +83,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.JsonConverters
             return new CosmosDbNodeWithOutgoingRelationships(parentNode, relationships);
         }
 
-        public override bool CanWrite { get { return false; } }
-
-        public override void WriteJson(JsonWriter writer, object? value, JsonSerializer serializer) => throw new NotImplementedException();
+        public override void Write(Utf8JsonWriter writer, object value, JsonSerializerOptions options) => throw new NotImplementedException();
     }
 }

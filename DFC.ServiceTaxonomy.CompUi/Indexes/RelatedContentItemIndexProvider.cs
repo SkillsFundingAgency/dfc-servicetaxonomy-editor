@@ -1,8 +1,7 @@
-﻿using Newtonsoft.Json.Linq;
-using Newtonsoft.Json;
-using OrchardCore.ContentManagement;
+﻿using OrchardCore.ContentManagement;
 using YesSql.Indexes;
 using Microsoft.Extensions.Configuration;
+using System.Text.Json;
 
 
 namespace DFC.ServiceTaxonomy.CompUi.Indexes
@@ -28,11 +27,40 @@ namespace DFC.ServiceTaxonomy.CompUi.Indexes
                         return default!;
                     }
 
-                    var content = JsonConvert.SerializeObject(contentItem.Content);
+                    var content = JsonSerializer.Serialize(contentItem.Content);
 
-                    var root = JToken.Parse(content);
+                    using var doc = JsonDocument.Parse(content);
+                    var root = doc.RootElement;
 
-                    var tiles = root.SelectTokens("..ContentItemIds[*]");
+                    var tiles = new List<string>();
+
+                    var stack = new Stack<JsonElement>();
+                    stack.Push(root);
+
+                    while (stack.Count > 0)
+                    {
+                        var node = stack.Pop();
+
+                        if (node.ValueKind == JsonValueKind.Object)
+                        {
+                            foreach (var prop in node.EnumerateObject())
+                            {
+                                if (prop.NameEquals("ContentItemIds") &&
+                                    prop.Value.ValueKind == JsonValueKind.Array)
+                                {
+                                    foreach (var item in prop.Value.EnumerateArray())
+                                        tiles.Add(item!.Deserialize<string>()!);
+                                }
+
+                                stack.Push(prop.Value);
+                            }
+                        }
+                        else if (node.ValueKind == JsonValueKind.Array)
+                        {
+                            foreach (var item in node.EnumerateArray())
+                                stack.Push(item);
+                        }
+                    }
 
                     string contentIdList = string.Join("','", tiles);
                     if (!string.IsNullOrEmpty(contentIdList))
