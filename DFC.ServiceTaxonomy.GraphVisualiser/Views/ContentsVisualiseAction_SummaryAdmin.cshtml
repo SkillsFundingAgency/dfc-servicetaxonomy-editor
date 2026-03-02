@@ -9,7 +9,7 @@
     ContentItem contentItem = Model.ContentItem;
     var termPart = ((JsonObject)contentItem.Content)[nameof(TermPart)];
     var hasPublished = termPart != null || await ContentManager.HasPublishedVersionAsync(contentItem);
-    var hasGraphSyncPartText = !string.IsNullOrWhiteSpace(contentItem.Content[nameof(GraphSyncPart)]?[nameof(GraphSyncPart.Text)]?.Value);
+    var hasGraphSyncPartText = !string.IsNullOrWhiteSpace(contentItem.Content[nameof(GraphSyncPart)]?[nameof(GraphSyncPart.Text)]);
 }
 
 @* Visualise graph - handle graph visualiser buttons dependent of valid graph synchronisation *@
