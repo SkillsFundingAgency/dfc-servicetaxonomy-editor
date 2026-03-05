@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json;
+using System.Text.Json.Nodes;
 using DFC.ServiceTaxonomy.VersionComparison.Models;
 using DFC.ServiceTaxonomy.VersionComparison.Services.PropertyServices;
-using Newtonsoft.Json.Linq;
+using Json.More;
 using OrchardCore.ContentManagement;
 using OrchardCore.ContentManagement.Metadata;
 using OrchardCore.ContentManagement.Metadata.Models;
@@ -57,9 +59,9 @@ namespace DFC.ServiceTaxonomy.VersionComparison.Services
         }
 
         private void LoadDictionaries(Dictionary<string, PropertyExtract> dictionary,
-            ContentTypePartDefinition? partDefinition, JObject? jObject)
+            ContentTypePartDefinition? partDefinition, JsonObject? jObject)
         {
-            var basePart = jObject?.GetValue(partDefinition?.Name) as JObject;
+            var basePart = jObject?[partDefinition!.Name!]!.GetValue<JsonObject>();
             if (basePart != null)
             {
                 LoadPropertyValues(basePart, dictionary, partDefinition);
@@ -86,21 +88,22 @@ namespace DFC.ServiceTaxonomy.VersionComparison.Services
             return diffList;
         }
 
-        private void LoadPropertyValues(JObject part, Dictionary<string, PropertyExtract> propertyDictionary, ContentTypePartDefinition? partDefinition)
+        private void LoadPropertyValues(JsonObject part, Dictionary<string, PropertyExtract> propertyDictionary, ContentTypePartDefinition? partDefinition)
         {
             var fieldArray = partDefinition?.PartDefinition.Fields.ToArray() ?? Array.Empty<ContentPartFieldDefinition>();
             var fieldLookUp = fieldArray.ToDictionary(k => k.Name, v => v.DisplayName());
 
-            foreach (JProperty jProperty in part.Properties())
+
+            foreach (var jProperty in part)
             {
 
-                var propertyName = jProperty.Name;
+                var propertyName = jProperty.Key;
                 if (fieldLookUp.ContainsKey(propertyName))
                 {
                     propertyName = fieldLookUp[propertyName];
                 }
-                var propertyKey = ValidDictionaryKey(propertyDictionary, jProperty.Name);
-                var partProperty = part.GetValue(jProperty.Name);
+                var propertyKey = ValidDictionaryKey(propertyDictionary, jProperty.Key);
+                var partProperty = part[jProperty.Key]!.GetValue<JsonElement?>(); 
 
                 var propertyService = _propertyServices.FirstOrDefault(ps => ps.CanProcess(partProperty, propertyName));
                 if (propertyService != null)
@@ -111,19 +114,18 @@ namespace DFC.ServiceTaxonomy.VersionComparison.Services
                         propertyDictionary.Add(propertyDto.Key ?? propertyKey, propertyDto);
                     }
                 }
-                else if (partProperty != null && partProperty.Type == JTokenType.Object) // Objects with multiple values
+                else if (partProperty != null && partProperty.GetValueOrDefault().ValueKind == JsonValueKind.Object) 
                 {
-                    foreach (JToken child in partProperty.Children())
+                    foreach (var child in partProperty.GetValueOrDefault().EnumerateObject())
                     {
-                        if (child.Type == JTokenType.Object)
+                        if (child.Value.ValueKind == JsonValueKind.Object)
                         {
-                            LoadPropertyValues((JObject)child, propertyDictionary, partDefinition);
+                            LoadPropertyValues(JObject.Parse(child.Value.ToJsonString())!, propertyDictionary, partDefinition);
                         }
-                        else if (child.Type == JTokenType.Property)
+                        else 
                         {
-                            var childProperty = child as JProperty;
-                            var childPropertyName = $"{propertyKey}-{childProperty?.Name}";
-                            propertyDictionary.Add(childPropertyName, new PropertyExtract { Name = childPropertyName, Value = childProperty?.Value.ToString() });
+                            var childPropertyName = $"{propertyKey}-{child.Name}";
+                            propertyDictionary.Add(childPropertyName, new PropertyExtract { Name = childPropertyName, Value = child.Value.ToString() });
                         }
                     }
                 }

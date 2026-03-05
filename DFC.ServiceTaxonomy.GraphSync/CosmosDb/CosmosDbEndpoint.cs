@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json.Nodes;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.CosmosDb.Commands;
 using DFC.ServiceTaxonomy.GraphSync.CosmosDb.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.Extensions;
 using DFC.ServiceTaxonomy.GraphSync.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.Models;
-using Newtonsoft.Json.Linq;
 using Microsoft.Extensions.Logging;
 using Microsoft.Rest;
 using static DFC.ServiceTaxonomy.GraphSync.Helpers.DocumentHelper;
@@ -309,21 +309,23 @@ namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb
             item["_links"] = itemLinks;
         }
 
-        private static (string Key, JObject Relationship) ExtractRelationship(CommandRelationship relationship)
+        private static (string Key, JsonObject Relationship) ExtractRelationship(CommandRelationship relationship)
         {
             string relationshipKey = $"cont:{relationship.RelationshipType}";
 
-            var valuesDictionary = new JObject
+            var valuesDictionary = new JsonObject
             {
-                new JProperty("href", ((string)relationship.DestinationNodeIdPropertyValues.FirstOrDefault()!).ExtactCurieHref()),
-                new JProperty("contentType", relationship.DestinationNodeLabels.First(lab => lab != "Resource"))
+
+                ["href"] = ((string)relationship.DestinationNodeIdPropertyValues.FirstOrDefault()!).ExtactCurieHref(),
+                ["contentType"] = relationship.DestinationNodeLabels.First(lab => lab != "Resource")
+
             };
 
             if (relationship.Properties != null)
             {
                 foreach ((string? key, object? value) in relationship.Properties)
                 {
-                    valuesDictionary.Add(new JProperty(key, value));
+                    valuesDictionary[key!] = JsonValue.Create(value);
                 }
             }
 

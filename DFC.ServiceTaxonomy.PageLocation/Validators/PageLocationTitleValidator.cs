@@ -1,9 +1,9 @@
 ﻿using System;
+using System.Text.Json.Nodes;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.PageLocation.Constants;
 using DFC.ServiceTaxonomy.Taxonomies.Helper;
 using DFC.ServiceTaxonomy.Taxonomies.Validation;
-using Newtonsoft.Json.Linq;
 using OrchardCore.ContentManagement;
 
 namespace DFC.ServiceTaxonomy.PageLocation.Validators
@@ -17,7 +17,7 @@ namespace DFC.ServiceTaxonomy.PageLocation.Validators
             _taxonomyHelper = taxonomyHelper;
         }
 
-        public Task<(bool, string)> ValidateCreate(JObject term, JObject taxonomy)
+        public Task<(bool, string)> ValidateCreate(JsonObject term, JsonObject taxonomy)
         {
             ContentItem? termContentItem = term.ToObject<ContentItem>();
 
@@ -32,7 +32,7 @@ namespace DFC.ServiceTaxonomy.PageLocation.Validators
             if (termContentItem.DisplayText.Trim() != "/")
                 return Task.FromResult((true, string.Empty));
 
-            JObject? parent = _taxonomyHelper.FindParentTaxonomyTerm(term, taxonomy);
+            JsonObject? parent = _taxonomyHelper.FindParentTaxonomyTerm(term, taxonomy);
 
             if (parent == null)
                 throw new InvalidOperationException($"Could not find parent taxonomy term for {term}");
@@ -43,12 +43,12 @@ namespace DFC.ServiceTaxonomy.PageLocation.Validators
             return Task.FromResult((false, "'/' is not a valid Title for this page location"));
         }
 
-        public Task<(bool, string)> ValidateUpdate(JObject term, JObject taxonomy)
+        public Task<(bool, string)> ValidateUpdate(JsonObject term, JsonObject taxonomy)
         {
             return ValidateCreate(term, taxonomy);
         }
 
-        public Task<(bool, string)> ValidateDelete(JObject term, JObject taxonomy)
+        public Task<(bool, string)> ValidateDelete(JsonObject term, JsonObject taxonomy)
         {
             return Task.FromResult((true, string.Empty));
         }

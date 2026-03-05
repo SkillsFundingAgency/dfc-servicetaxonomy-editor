@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
-using System.Globalization;
-using Newtonsoft.Json.Linq;
+using System.Text.Json.Nodes;
 
 namespace DFC.ServiceTaxonomy.GraphSync.Helpers
 {
@@ -37,9 +36,9 @@ namespace DFC.ServiceTaxonomy.GraphSync.Helpers
                 return guidItem.ToString();
             }
 
-            if (item is JValue jValueItem)
+            if (item is JsonValue jValueItem)
             {
-                return jValueItem.ToString(CultureInfo.InvariantCulture);
+                return jValueItem.ToString();
             }
 
             return (string)item;
@@ -82,7 +81,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Helpers
                 throw new ArgumentNullException(nameof(value));
             }
 
-            if (value is JObject valObj)
+            if (value is JsonObject valObj)
             {
                 return valObj.ToObject<Dictionary<string, object>>()!;
             }
@@ -102,7 +101,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Helpers
                 throw new ArgumentNullException(nameof(value));
             }
 
-            return value is JArray || value is List<Dictionary<string, object>>;
+            return value is JsonArray || value is List<Dictionary<string, object>>;
         }
 
         public static List<Dictionary<string, object>> SafeCastToList(object? value)
@@ -112,7 +111,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Helpers
                 throw new ArgumentNullException(nameof(value));
             }
 
-            if (value is JArray valAry)
+            if (value is JsonArray valAry)
             {
                 return valAry.ToObject<List<Dictionary<string, object>>>()!;
             }

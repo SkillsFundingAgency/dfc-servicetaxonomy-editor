@@ -1,58 +1,58 @@
-﻿using Newtonsoft.Json;
+﻿using System.Text.Json.Serialization;
 
 namespace DFC.ServiceTaxonomy.CompUi.Models
 {
     public class ContentItem
     {
-        [JsonProperty("PageLocationPart")]
+        [JsonPropertyName("PageLocationPart")]
         public PageLocationParts? PageLocationParts { get; set; }
 
-        [JsonProperty("GraphSyncPart")]
+        [JsonPropertyName("GraphSyncPart")]
         public GraphSyncParts? GraphSyncParts { get; set; }
 
-        [JsonProperty("TitlePart")]
+        [JsonPropertyName("TitlePart")]
         public TitlePart? TitlePart { get; set; }
 
-        [JsonProperty("JobProfile")]
+        [JsonPropertyName("JobProfile")]
         public CurrentOpportunitiesData? JobProfile { get; set; }
     }
 
     public class GraphSyncParts
     {
-        [JsonProperty("Text")]
+        [JsonPropertyName("Text")]
         public string? Text { get; set; }
     }
 
     public class PageLocationParts
     {
-        [JsonProperty("FullUrl")]
+        [JsonPropertyName("FullUrl")]
         public string? FullUrl { get; set; }
 
-        [JsonProperty("RedirectLocations")]
+        [JsonPropertyName("RedirectLocations")]
         public string? RedirectLocations { get; set; }
 
-        [JsonProperty("DefaultPageForLocation")]
+        [JsonPropertyName("DefaultPageForLocation")]
         public bool? DefaultPageForLocation { get; set; }
     }
 
     public class TitlePart
     {
-        [JsonProperty("Title")]
+        [JsonPropertyName("Title")]
         public string? Title { get; set; }
     }
 
     public class CurrentOpportunitiesData
     {
-        [JsonProperty("Coursekeywords")]
+        [JsonPropertyName("Coursekeywords")]
         public CourseKeywords? CourseKeywords { get; set; }
 
-        [JsonProperty("SOCCode")]
+        [JsonPropertyName("SOCCode")]
         public ContentItemIds? SOCCode { get; set; }
     }
 
     public class CourseKeywords
     {
-        [JsonProperty("Text")]
+        [JsonPropertyName("Text")]
         public string? Text { get; set; }
     }
 }

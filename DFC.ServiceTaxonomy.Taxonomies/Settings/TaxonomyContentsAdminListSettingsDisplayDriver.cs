@@ -32,7 +32,7 @@ namespace DFC.ServiceTaxonomy.Taxonomies.Settings
             _session = session;
         }
 
-        public override async Task<IDisplayResult> EditAsync(TaxonomyContentsAdminListSettings settings, BuildEditorContext context)
+        public override async Task<IDisplayResult> EditAsync(ISite iSite, TaxonomyContentsAdminListSettings settings, BuildEditorContext context)
         {
             var user = _httpContextAccessor.HttpContext?.User;
             if (user == null || !await _authorizationService.AuthorizeAsync(user, Permissions.ManageTaxonomies))
@@ -55,7 +55,7 @@ namespace DFC.ServiceTaxonomy.Taxonomies.Settings
             }).Location("Content:2").OnGroup(GroupId);
         }
 
-        public override async Task<IDisplayResult> UpdateAsync(TaxonomyContentsAdminListSettings settings, BuildEditorContext context)
+        public override async Task<IDisplayResult> UpdateAsync(ISite iSite, TaxonomyContentsAdminListSettings settings, UpdateEditorContext context)
         {
             if (context.GroupId == GroupId)
             {
@@ -67,7 +67,7 @@ namespace DFC.ServiceTaxonomy.Taxonomies.Settings
                 }
             }
 
-            return await EditAsync(settings, context);
+            return await EditAsync(iSite, settings, context);
         }
     }
 }

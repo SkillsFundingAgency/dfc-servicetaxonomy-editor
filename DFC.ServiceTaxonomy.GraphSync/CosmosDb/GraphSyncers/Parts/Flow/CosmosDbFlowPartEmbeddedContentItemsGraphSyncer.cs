@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json.Nodes;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.CosmosDb.GraphSyncers.Helpers;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Contexts;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.EmbeddedContentItemsGraphSyncer;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Helpers;
 using Microsoft.Extensions.Logging;
-using Newtonsoft.Json.Linq;
 using OrchardCore.ContentManagement;
 using OrchardCore.ContentManagement.Metadata;
 using OrchardCore.ContentManagement.Metadata.Settings;
@@ -53,7 +53,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb.GraphSyncers.Parts.Flow
             //todo: do we need more config/method for RelationshipPropertyName (and rename existing NodePropertyName?)
             //todo: handle nulls?
 
-            JObject flowMetaDataContent = (JObject)contentItem.Content[FlowMetaData]!;
+            JsonObject flowMetaDataContent = (JsonObject)contentItem.Content[FlowMetaData]!;
 
             FlowAlignment alignment = (FlowAlignment)(int)flowMetaDataContent[Alignment]!;
             flowMetaData.Add(await syncNameProvider!.PropertyName(Alignment), alignment.ToString());

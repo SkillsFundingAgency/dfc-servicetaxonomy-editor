@@ -1,8 +1,8 @@
 using System.Threading.Tasks;
-using Newtonsoft.Json.Linq;
 using OrchardCore.Autoroute.Models;
 using DFC.ServiceTaxonomy.GraphSync.Extensions;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Contexts;
+using System.Text.Json.Nodes;
 
 namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
 {
@@ -13,14 +13,14 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
         private const string _contentTitlePropertyName = "Path";
         private const string NodeTitlePropertyName = "autoroute_path";
 
-        public override Task AddSyncComponents(JObject content, IGraphMergeContext context)
+        public override Task AddSyncComponents(JsonObject content, IGraphMergeContext context)
         {
             context.MergeNodeCommand.AddProperty<string>(NodeTitlePropertyName, content, _contentTitlePropertyName);
 
             return Task.CompletedTask;
         }
 
-        public override Task<(bool validated, string failureReason)> ValidateSyncComponent(JObject content,
+        public override Task<(bool validated, string failureReason)> ValidateSyncComponent(JsonObject content,
             IValidateAndRepairContext context)
         {
             return Task.FromResult(context.GraphValidationHelper.StringContentPropertyMatchesNodeProperty(

@@ -1,12 +1,12 @@
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json.Nodes;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.Taxonomies.Fields;
 using DFC.ServiceTaxonomy.Taxonomies.Models;
 using DFC.ServiceTaxonomy.Taxonomies.Settings;
 using DFC.ServiceTaxonomy.Taxonomies.ViewModels;
 using Microsoft.Extensions.Localization;
-using Newtonsoft.Json.Linq;
 using OrchardCore.ContentManagement;
 using OrchardCore.ContentManagement.Display.ContentDisplay;
 using OrchardCore.ContentManagement.Display.Models;
@@ -61,11 +61,11 @@ namespace DFC.ServiceTaxonomy.Taxonomies.Drivers
             });
         }
 
-        public override async Task<IDisplayResult> UpdateAsync(TaxonomyField field, IUpdateModel updater, UpdateFieldEditorContext context)
+        public override async Task<IDisplayResult> UpdateAsync(TaxonomyField field, UpdateFieldEditorContext context)
         {
             var model = new EditTaxonomyFieldViewModel();
 
-            if (await updater.TryUpdateModelAsync(model, Prefix))
+            if (await context.Updater.TryUpdateModelAsync(model, Prefix))
             {
                 var settings = context.PartFieldDefinition.GetSettings<TaxonomyFieldSettings>();
 
@@ -74,7 +74,7 @@ namespace DFC.ServiceTaxonomy.Taxonomies.Drivers
 
                 if (settings.Required && field.TermContentItemIds.Length == 0)
                 {
-                    updater.ModelState.AddModelError(
+                    context.Updater.ModelState.AddModelError(
                         nameof(EditTaxonomyFieldViewModel.TermEntries),
                         S["A value is required for '{0}'", context.PartFieldDefinition.DisplayName()]);
                 }
@@ -91,7 +91,7 @@ namespace DFC.ServiceTaxonomy.Taxonomies.Drivers
 
                 foreach (var termContentItemId in field.TermContentItemIds)
                 {
-                    var term = TaxonomyOrchardHelperExtensions.FindTerm(taxonomy.Content.TaxonomyPart.Terms as JArray, termContentItemId);
+                    var term = TaxonomyOrchardHelperExtensions.FindTerm(taxonomy.Content.TaxonomyPart.Terms as JsonArray, termContentItemId);
                     terms.Add(term);
                 }
 

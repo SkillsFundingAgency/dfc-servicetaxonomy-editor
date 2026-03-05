@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json.Nodes;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.Content.Services.Interface;
 using DFC.ServiceTaxonomy.PageLocation.Constants;
 using DFC.ServiceTaxonomy.Taxonomies.Helper;
 using DFC.ServiceTaxonomy.Taxonomies.Models;
 using DFC.ServiceTaxonomy.Taxonomies.Validation;
-using Newtonsoft.Json.Linq;
 using OrchardCore.ContentManagement;
 
 namespace DFC.ServiceTaxonomy.PageLocation.Validators
@@ -40,17 +40,17 @@ namespace DFC.ServiceTaxonomy.PageLocation.Validators
             //make sure nothing has moved that has associated pages anywhere down the tree
             List<ContentItem> allPages = await _contentItemsService.GetActive(ContentTypes.Page);
 
-            JArray? terms = _taxonomyHelper.GetAllTerms(JObject.FromObject(part.ContentItem));
+            JsonArray? terms = _taxonomyHelper.GetAllTerms(JObject.FromObject(part.ContentItem)!);
 
             if (terms != null)
             {
                 //todo: look at this
                 #pragma warning disable S3217
-                foreach (JObject term in terms)
+                foreach (var term in terms)
                 #pragma warning restore S3217
                 {
-                    dynamic? originalParent = _taxonomyHelper.FindParentTaxonomyTerm(term, JObject.FromObject(part.ContentItem));
-                    dynamic? newParent = _taxonomyHelper.FindParentTaxonomyTerm(term, JObject.FromObject(part));
+                    dynamic? originalParent = _taxonomyHelper.FindParentTaxonomyTerm(JObject.FromObject(term)!, JObject.FromObject(part.ContentItem)!);
+                    dynamic? newParent = _taxonomyHelper.FindParentTaxonomyTerm(JObject.FromObject(term)!, JObject.FromObject(part)!);
 
                     if (originalParent == null || newParent == null)
                         throw new InvalidOperationException($"Could not find {(originalParent == null ? "original" : "new")} parent taxonomy term for {term}");
@@ -58,9 +58,9 @@ namespace DFC.ServiceTaxonomy.PageLocation.Validators
                     if (newParent?.ContentItemId != null && newParent?.ContentItemId != originalParent?.ContentItemId)
                     {
                         //find all child terms down the taxonomy tree
-                        var childTermsFromTree = _taxonomyHelper.GetAllTerms(term);
+                        var childTermsFromTree = _taxonomyHelper.GetAllTerms(JObject.FromObject(term)!);
 
-                        if (allPages.Any(x => (string)x.Content.Page.PageLocations.TermContentItemIds[0] == (string)term["ContentItemId"]! || childTermsFromTree.Any(t => (string)t["ContentItemId"]! == (string)x.Content.Page.PageLocations.TermContentItemIds[0])))
+                        if (allPages.Any(x => (string)x.Content.Page.PageLocations.TermContentItemIds[0] == (string)term!["ContentItemId"]! || childTermsFromTree.Any(t => (string)t!["ContentItemId"]! == (string)x.Content.Page.PageLocations.TermContentItemIds[0])))
                         {
                             errors.Add("You cannot move a Page Location which has associated Pages linked to it, or any of its children.");
                         }
@@ -68,7 +68,7 @@ namespace DFC.ServiceTaxonomy.PageLocation.Validators
                         foreach (var validator in _validators)
                         {
                             (bool validated, string errorMessage) =
-                                await validator.ValidateUpdate(term, JObject.FromObject(part));
+                                await validator.ValidateUpdate(JObject.FromObject(term)!, JObject.FromObject(part));
 
                             if (!validated)
                             {
@@ -77,8 +77,8 @@ namespace DFC.ServiceTaxonomy.PageLocation.Validators
                         }
 
                         //make sure display text doesn't clash with any other term at this level
-                        JArray parentTerms = _taxonomyHelper.GetTerms(JObject.FromObject(newParent));
-                        if (parentTerms?.Any(x => (string)x["ContentItemId"]! != (string)term["ContentItemId"]! && (string)x["DisplayText"]! == (string)term["DisplayText"]!) ?? false)
+                        JsonArray parentTerms = _taxonomyHelper.GetTerms(JObject.FromObject(newParent));
+                        if (parentTerms?.Any(x => (string)x!["ContentItemId"]! != (string)term!["ContentItemId"]! && (string)x["DisplayText"]! == (string)term["DisplayText"]!) ?? false)
                         {
                             errors.Add("Terms at the same hierarchical position must have unique titles.");
                         }

@@ -1,8 +1,9 @@
-﻿using System.Threading.Tasks;
+﻿using System.Text.Json;
+using System.Text.Json.Nodes;
+using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.Extensions;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Contexts;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Fields;
-using Newtonsoft.Json.Linq;
 
 namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
 {
@@ -13,20 +14,20 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
         private const string UrlFieldKey = "Url", TextFieldKey = "Text";
         private const string LinkUrlPostfix = "_url", LinkTextPostfix = "_text";
 
-        public async Task AddSyncComponents(JObject contentItemField, IGraphMergeContext context)
+        public async Task AddSyncComponents(JsonObject contentItemField, IGraphMergeContext context)
         {
             string basePropertyName = await context.SyncNameProvider.PropertyName(context.ContentPartFieldDefinition!.Name);
 
-            JValue? value = (JValue?)contentItemField[UrlFieldKey];
-            if (value != null && value.Type != JTokenType.Null)
+            JsonValue? value = (JsonValue?)contentItemField[UrlFieldKey];
+            if (value != null && value.GetValueKind() != JsonValueKind.Null)
                 context.MergeNodeCommand.Properties.Add($"{basePropertyName}{LinkUrlPostfix}", value.As<string>());
 
-            value = (JValue?)contentItemField[TextFieldKey];
-            if (value != null && value.Type != JTokenType.Null)
+            value = (JsonValue?)contentItemField[TextFieldKey];
+            if (value != null && value.GetValueKind() != JsonValueKind.Null)
                 context.MergeNodeCommand.Properties.Add($"{basePropertyName}{LinkTextPostfix}", value.As<string>());
         }
 
-        public async Task<(bool validated, string failureReason)> ValidateSyncComponent(JObject contentItemField,
+        public async Task<(bool validated, string failureReason)> ValidateSyncComponent(JsonObject contentItemField,
             IValidateAndRepairContext context)
         {
             string nodeBasePropertyName = await context.SyncNameProvider.PropertyName(context.ContentPartFieldDefinition!.Name);

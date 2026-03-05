@@ -8,7 +8,7 @@ using OrchardCore.Workflows.Helpers;
 using DFC.ServiceTaxonomy.GraphSync.Models;
 using DFC.ServiceTaxonomy.GraphSync.Interfaces.Queries;
 using DFC.ServiceTaxonomy.GraphSync.JsonConverters;
-using Newtonsoft.Json;
+using System.Text.Json.Serialization;
 
 namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb.Queries.Models
 {

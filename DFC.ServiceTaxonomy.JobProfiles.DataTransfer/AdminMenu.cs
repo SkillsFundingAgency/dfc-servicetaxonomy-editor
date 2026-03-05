@@ -14,7 +14,7 @@ namespace DFC.ServiceTaxonomy.JobProfiles.DataTransfer
         public AdminMenu(IStringLocalizer<AdminMenu> localizer) =>
             S = localizer;
 
-        public Task BuildNavigationAsync(string name, NavigationBuilder builder)
+        public ValueTask BuildNavigationAsync(string name, NavigationBuilder builder)
         {
             if (string.Equals(name, "admin", StringComparison.OrdinalIgnoreCase))
             {
@@ -28,7 +28,7 @@ namespace DFC.ServiceTaxonomy.JobProfiles.DataTransfer
                     );
             }
 
-            return Task.CompletedTask;
+            return ValueTask.CompletedTask;
         }
     }
 }

@@ -1,8 +1,9 @@
 ﻿using System;
+using System.Text.Json;
+using System.Text.Json.Nodes;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.Extensions;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Contexts;
-using Newtonsoft.Json.Linq;
 using OrchardCore.Forms.Models;
 
 namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts.Form
@@ -17,35 +18,35 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts.Form
         private const string EnableAntiForgeryTokenPropertyName = "EnableAntiForgeryToken";
         private const string WorkflowTypeIdPropertyName = "WorkflowTypeId";
 
-        public override async Task AddSyncComponents(JObject content, IGraphMergeContext context)
+        public override async Task AddSyncComponents(JsonObject content, IGraphMergeContext context)
         {
             // prefix field property names, so there's no possibility of a clash with the eponymous fields property names
             using var _ = context.SyncNameProvider.PushPropertyNameTransform(_formFieldsPropertyNameTransform);
 
-            JValue? actionValue = (JValue?)content[ActionPropertyName];
-            if (actionValue != null && actionValue.Type != JTokenType.Null)
+            JsonValue? actionValue = (JsonValue?)content[ActionPropertyName];
+            if (actionValue != null && actionValue.GetValueKind() != JsonValueKind.Null)
                 context.MergeNodeCommand.Properties.Add(await context.SyncNameProvider.PropertyName(ActionPropertyName), actionValue.As<string>());
 
-            JValue? methodValue = (JValue?)content[MethodPropertyName];
-            if (methodValue != null && methodValue.Type != JTokenType.Null)
+            JsonValue? methodValue = (JsonValue?)content[MethodPropertyName];
+            if (methodValue != null && methodValue.GetValueKind() != JsonValueKind.Null)
                 context.MergeNodeCommand.Properties.Add(await context.SyncNameProvider.PropertyName(MethodPropertyName), methodValue.As<string>());
 
-            JValue? encTypeValue = (JValue?)content[EncTypePropertyName];
-            if (encTypeValue != null && encTypeValue.Type != JTokenType.Null)
+            JsonValue? encTypeValue = (JsonValue?)content[EncTypePropertyName];
+            if (encTypeValue != null && encTypeValue.GetValueKind() != JsonValueKind.Null)
                 context.MergeNodeCommand.Properties.Add(await context.SyncNameProvider.PropertyName(EncTypePropertyName), encTypeValue.As<string>());
 
-            JValue? workflowTypeIdValue = (JValue?)content[WorkflowTypeIdPropertyName];
-            if (workflowTypeIdValue != null && workflowTypeIdValue.Type != JTokenType.Null)
+            JsonValue? workflowTypeIdValue = (JsonValue?)content[WorkflowTypeIdPropertyName];
+            if (workflowTypeIdValue != null && workflowTypeIdValue.GetValueKind() != JsonValueKind.Null)
                 context.MergeNodeCommand.Properties.Add(await context.SyncNameProvider.PropertyName(WorkflowTypeIdPropertyName), workflowTypeIdValue.As<string>());
 
 
-            JValue? enableAntiForgeryTokenValue = (JValue?)content[EnableAntiForgeryTokenPropertyName];
-            if (enableAntiForgeryTokenValue != null && enableAntiForgeryTokenValue.Type != JTokenType.Null)
+            JsonValue? enableAntiForgeryTokenValue = (JsonValue?)content[EnableAntiForgeryTokenPropertyName];
+            if (enableAntiForgeryTokenValue != null && enableAntiForgeryTokenValue.GetValueKind() != JsonValueKind.Null)
                 context.MergeNodeCommand.Properties.Add(await context.SyncNameProvider.PropertyName(EnableAntiForgeryTokenPropertyName), enableAntiForgeryTokenValue.As<bool>());
         }
 
         public override async Task<(bool validated, string failureReason)> ValidateSyncComponent(
-            JObject content,
+            JsonObject content,
             IValidateAndRepairContext context)
         {
             // prefix field property names, so there's no possibility of a clash with the eponymous fields property names

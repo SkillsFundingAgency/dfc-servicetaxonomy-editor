@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json.Nodes;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.CosmosDb.Commands;
 using DFC.ServiceTaxonomy.GraphSync.CosmosDb.Queries;
@@ -18,7 +19,6 @@ using DFC.ServiceTaxonomy.GraphSync.Interfaces.Queries;
 using DFC.ServiceTaxonomy.GraphSync.Models;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Newtonsoft.Json.Linq;
 using OrchardCore.ContentManagement;
 using OrchardCore.ContentManagement.Metadata;
 using OrchardCore.ContentManagement.Metadata.Models;
@@ -53,7 +53,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb.GraphSyncers.Helpers
         }
 
         public virtual async Task AllowSync(
-            JArray? contentItems,
+            JsonArray? contentItems,
             IGraphMergeContext context,
             IAllowSync allowSync)
         {
@@ -139,7 +139,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb.GraphSyncers.Helpers
         }
 
         private async Task<List<CommandRelationship>> GetRequiredRelationshipsAndOptionallySync(
-            JArray? contentItems,
+            JsonArray? contentItems,
             IGraphMergeContext context,
             IAllowSync? allowSync = null)
         {
@@ -192,7 +192,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb.GraphSyncers.Helpers
             return requiredRelationships;
         }
 
-        public async Task AddSyncComponents(JArray? contentItems, IGraphMergeContext context)
+        public async Task AddSyncComponents(JsonArray? contentItems, IGraphMergeContext context)
         {
             List<CommandRelationship> requiredRelationships = await GetRequiredRelationshipsAndOptionallySync(contentItems, context);
 
@@ -328,7 +328,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb.GraphSyncers.Helpers
         }
 
         public async Task AllowDelete(
-            JArray? contentItems,
+            JsonArray? contentItems,
             IGraphDeleteContext context,
             IAllowSync allowSync)
         {
@@ -375,7 +375,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb.GraphSyncers.Helpers
         private static IEnumerable<KeyValuePair<string, object>> TwoWayRelationshipProperties { get; } =
             new Dictionary<string, object> { { CosmosDbNodeWithOutgoingRelationshipsCommand.TwoWayRelationshipPropertyName, true } };
 
-        public async Task DeleteComponents(JArray? contentItems, IGraphDeleteContext context)
+        public async Task DeleteComponents(JsonArray? contentItems, IGraphDeleteContext context)
         {
             ContentItem[] embeddedContentItems = ConvertToContentItems(contentItems);
 
@@ -396,7 +396,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb.GraphSyncers.Helpers
         }
 
         //todo: change sigs to accept ContentItem[]??
-        public async Task<ContentItem[]> MutateOnClone(JArray? contentItems, ICloneContext context)
+        public async Task<ContentItem[]> MutateOnClone(JsonArray? contentItems, ICloneContext context)
         {
             ContentItem[] embeddedContentItems = ConvertToContentItems(contentItems);
 
@@ -499,7 +499,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb.GraphSyncers.Helpers
         }
 
         public async Task<(bool validated, string failureReason)> ValidateSyncComponent(
-            JArray? contentItems,
+            JsonArray? contentItems,
             IValidateAndRepairContext context)
         {
             IEnumerable<ContentItem> embeddedContentItems = ConvertToContentItems(contentItems);
@@ -588,7 +588,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb.GraphSyncers.Helpers
             return Task.FromResult<Dictionary<string, object>?>(null);
         }
 
-        private ContentItem[] ConvertToContentItems(JArray? contentItems)
+        private ContentItem[] ConvertToContentItems(JsonArray? contentItems)
         {
             if (contentItems == null)
             {
@@ -602,7 +602,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb.GraphSyncers.Helpers
             return embeddedContentItems;
         }
 
-        public async Task AddRelationship(JArray? contentItems, IDescribeRelationshipsContext context)
+        public async Task AddRelationship(JsonArray? contentItems, IDescribeRelationshipsContext context)
         {
             if (contentItems == null)
             {

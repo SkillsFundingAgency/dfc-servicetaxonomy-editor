@@ -1,13 +1,14 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json;
+using System.Text.Json.Nodes;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.Taxonomies.Helper;
 using DFC.ServiceTaxonomy.Taxonomies.Models;
 using DFC.ServiceTaxonomy.Taxonomies.Validation;
 using DFC.ServiceTaxonomy.Taxonomies.ViewModels;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using OrchardCore.ContentManagement;
 using OrchardCore.ContentManagement.Display.ContentDisplay;
 using OrchardCore.ContentManagement.Display.Models;
@@ -39,7 +40,7 @@ namespace DFC.ServiceTaxonomy.Taxonomies.Drivers
             .Location("Detail", "Content:5");
         }
 
-        public override IDisplayResult Edit(TaxonomyPart part)
+        public override IDisplayResult Edit(TaxonomyPart part, BuildPartEditorContext context)
         {
             return Initialize<TaxonomyPartEditViewModel>("TaxonomyPart_Edit", model =>
             {
@@ -48,23 +49,23 @@ namespace DFC.ServiceTaxonomy.Taxonomies.Drivers
             });
         }
 
-        public override async Task<IDisplayResult> UpdateAsync(TaxonomyPart part, IUpdateModel updater)
+        public override async Task<IDisplayResult> UpdateAsync(TaxonomyPart part, UpdatePartEditorContext context)
         {
             var model = new TaxonomyPartEditViewModel();
 
-            if (await updater.TryUpdateModelAsync(model, Prefix, t => t.Hierarchy, t => t.TermContentType))
+            if (await context.Updater.TryUpdateModelAsync(model, Prefix, t => t.Hierarchy, t => t.TermContentType))
             {
                 if (!String.IsNullOrWhiteSpace(model.Hierarchy))
                 {
                     var originalTaxonomyItems = part.ContentItem.As<TaxonomyPart>();
 
-                    var newHierarchy = JArray.Parse(model.Hierarchy);
+                    var newHierarchy = JArray.FromObject(model.Hierarchy);
 
-                    var taxonomyItems = new JArray();
+                    var taxonomyItems = new JsonArray();
 
                     foreach (var item in newHierarchy)
                     {
-                        taxonomyItems.Add(ProcessItem(originalTaxonomyItems, item as JObject));
+                        taxonomyItems.Add(ProcessItem(originalTaxonomyItems, item as JsonObject));
                     }
 
                     part.Terms = taxonomyItems.ToObject<List<ContentItem>>();
@@ -76,7 +77,7 @@ namespace DFC.ServiceTaxonomy.Taxonomies.Drivers
                         {
                             foreach (var error in result.Errors)
                             {
-                                updater.ModelState.AddModelError(Prefix, nameof(TaxonomyPart.Terms), error);
+                                context.Updater.ModelState.AddModelError(Prefix, nameof(TaxonomyPart.Terms), error);
                             }
                         }
                     }
@@ -85,13 +86,13 @@ namespace DFC.ServiceTaxonomy.Taxonomies.Drivers
                 part.TermContentType = model.TermContentType;
             }
 
-            return Edit(part);
+            return Edit(part, context);
         }
 
         /// <summary>
         /// Clone the content items at the specific index.
         /// </summary>
-        private JObject GetTaxonomyItemAt(List<ContentItem> taxonomyItems, int[] indexes)
+        private JsonObject GetTaxonomyItemAt(List<ContentItem> taxonomyItems, int[] indexes)
         {
             ContentItem taxonomyItem = null;
 
@@ -106,33 +107,33 @@ namespace DFC.ServiceTaxonomy.Taxonomies.Drivers
 
                 taxonomyItem = taxonomyItems[index];
 
-                var terms = taxonomyItem.Content.Terms as JArray;
+                var terms = taxonomyItem.Content.Terms as JsonArray;
                 taxonomyItems = terms?.ToObject<List<ContentItem>>();
             }
 
-            var newObj = JObject.Parse(JsonConvert.SerializeObject(taxonomyItem));
+            var newObj = JObject.Parse(JsonSerializer.Serialize(taxonomyItem));
 
             if (newObj["Terms"] != null)
             {
-                newObj["Terms"] = new JArray();
+                newObj["Terms"] = new JsonArray();
             }
 
             return newObj;
         }
 
-        private JObject ProcessItem(TaxonomyPart originalItems, JObject item)
+        private JsonObject ProcessItem(TaxonomyPart originalItems, JsonObject item)
         {
             var contentItem = GetTaxonomyItemAt(originalItems.Terms, item["index"].ToString().Split('-').Select(x => Convert.ToInt32(x)).ToArray());
 
-            var children = item["children"] as JArray;
+            var children = item["children"] as JsonArray;
 
             if (children != null)
             {
-                var taxonomyItems = new JArray();
+                var taxonomyItems = new JsonArray();
 
                 for (var i = 0; i < children.Count; i++)
                 {
-                    taxonomyItems.Add(ProcessItem(originalItems, children[i] as JObject));
+                    taxonomyItems.Add(ProcessItem(originalItems, children[i] as JsonObject));
                     contentItem["Terms"] = taxonomyItems;
                 }
             }

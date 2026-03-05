@@ -5,6 +5,6 @@
         string Name { get; }
 
         T GetSettings<T>() where T : new();
-        void PopulateSettings<T>(T target);
+        //void PopulateSettings<T>(T target);
     }
 }

@@ -78,9 +78,9 @@ namespace DFC.ServiceTaxonomy.CompUi.Repository
                       $"AND ContentType = 'JobProfile' ";
 
                     var documentIdList =
-                        (await Task.WhenAll(items.Select(x =>
+                        (await Task.WhenAll(items!.Select(x =>
                             ExecuteQuery<int>(sql, new { contentItemId = x.Replace("'", "") }))))
-                        .SelectMany(x => x).ToList();
+                        .SelectMany(x => x!).ToList();
 
                     if (documentIdList?.Count() > 0)
                     {

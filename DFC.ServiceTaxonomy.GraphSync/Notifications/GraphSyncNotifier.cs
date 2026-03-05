@@ -197,6 +197,21 @@ namespace DFC.ServiceTaxonomy.GraphSync.Notifications
             return Task.CompletedTask;
         }
 
+        //todo: add Trace Id to std notifications?
+        public async ValueTask AddAsync(NotifyType type, LocalizedHtmlString message)
+        {
+            await Task.Yield();
+            if (_logger.IsEnabled(LogLevel.Information))
+            {
+                _logger.LogInformation("Notification '{NotificationType}' with message '{NotificationMessage}'.", type, message);
+            }
+            var newEntry = new NotifyEntry { Type = type, Message = message };
+            if (type != NotifyType.Warning || !_entries.Any(e => e.Type == NotifyType.Warning))
+            {
+                _entries.Add(newEntry);
+            }
+        }
+
         private string GetExceptionText(Exception? exception)
         {
             const int maxExceptionTextLength = 200;
@@ -212,19 +227,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Notifications
             return exceptionMessage;
         }
 
-        //todo: add Trace Id to std notifications?
-        public void Add(NotifyType type, LocalizedHtmlString message)
-        {
-            if (_logger.IsEnabled(LogLevel.Information))
-            {
-                _logger.LogInformation("Notification '{NotificationType}' with message '{NotificationMessage}'.", type, message);
-            }
-            var newEntry = new NotifyEntry { Type = type, Message = message };
-            if (type != NotifyType.Warning || !_entries.Any(e => e.Type == NotifyType.Warning))
-            {
-                _entries.Add(newEntry);
-            }
-        }
+        
 
         public IList<NotifyEntry> List()
         {

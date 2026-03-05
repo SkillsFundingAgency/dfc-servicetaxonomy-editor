@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
+using System.Text.Json.Serialization;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.ContentItemVersions;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Helpers;
 using DFC.ServiceTaxonomy.GraphSync.JsonConverters;
 using DFC.ServiceTaxonomy.GraphSync.Models;
-using Newtonsoft.Json;
 
 namespace DFC.ServiceTaxonomy.GraphSync.Interfaces.Queries
 {

@@ -4,7 +4,6 @@ using DFC.ServiceTaxonomy.CustomFields.ViewModels;
 using OrchardCore.ContentManagement.Display.ContentDisplay;
 using OrchardCore.ContentManagement.Display.Models;
 using OrchardCore.ContentManagement.Metadata.Models;
-using OrchardCore.DisplayManagement.ModelBinding;
 using OrchardCore.DisplayManagement.Views;
 
 namespace DFC.ServiceTaxonomy.CustomFields.Drivers
@@ -28,7 +27,7 @@ namespace DFC.ServiceTaxonomy.CustomFields.Drivers
             });
         }
 
-        public override async Task<IDisplayResult> UpdateAsync(AccordionField field, IUpdateModel updater, UpdateFieldEditorContext context)
+        public override async Task<IDisplayResult> UpdateAsync(AccordionField field, UpdateFieldEditorContext context)
         {
             return await EditAsync(field, context);
         }

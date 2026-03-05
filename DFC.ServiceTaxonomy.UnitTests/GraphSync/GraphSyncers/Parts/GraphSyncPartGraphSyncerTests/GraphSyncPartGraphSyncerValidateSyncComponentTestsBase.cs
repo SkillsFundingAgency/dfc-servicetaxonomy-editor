@@ -1,8 +1,8 @@
 ﻿using System;
+using System.Text.Json.Nodes;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts;
 using FakeItEasy;
-using Newtonsoft.Json.Linq;
 using Xunit;
 
 namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Parts.GraphSyncPartGraphSyncerTests
@@ -27,10 +27,10 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Parts.GraphSyncPa
         {
             A.CallTo(() => GraphValidationHelper.ContentPropertyMatchesNodeProperty(
                 ContentIdPropertyName,
-                A<JObject>._,
+                A<JsonObject>._,
                 NodeTitlePropertyName,
                 SourceNode,
-                A<Func<JValue, object, bool>>._)).Returns((stringContentPropertyMatchesNodePropertyReturns, ""));
+                A<Func<JsonValue, object, bool>>._)).Returns((stringContentPropertyMatchesNodePropertyReturns, ""));
 
             (bool validated, _) = await CallValidateSyncComponent();
 

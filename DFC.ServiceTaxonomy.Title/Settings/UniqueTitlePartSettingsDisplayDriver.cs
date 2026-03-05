@@ -1,8 +1,10 @@
 ﻿using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.Title.Models;
 using Microsoft.Extensions.Options;
+using OrchardCore.ContentManagement.Display.Models;
 using OrchardCore.ContentManagement.Metadata.Models;
 using OrchardCore.ContentTypes.Editors;
+using OrchardCore.DisplayManagement.Handlers;
 using OrchardCore.DisplayManagement.Views;
 
 namespace DFC.ServiceTaxonomy.Title.Settings
@@ -16,8 +18,9 @@ namespace DFC.ServiceTaxonomy.Title.Settings
             _uniqueTitlePartSettingsConfiguration = uniqueTitlePartSettingsConfiguration;
         }
 
-        public override IDisplayResult Edit(ContentTypePartDefinition contentTypePartDefinition)
+        public async override Task<IDisplayResult> EditAsync(ContentTypePartDefinition contentTypePartDefinition, BuildEditorContext context)
         {
+            await Task.Yield();
             if (!string.Equals(nameof(UniqueTitlePart), contentTypePartDefinition.PartDefinition.Name))
             {
                 return default!;
@@ -70,7 +73,7 @@ namespace DFC.ServiceTaxonomy.Title.Settings
                 });
             }
 
-            return Edit(contentTypePartDefinition);
+            return await EditAsync(contentTypePartDefinition, context);
         }
 
 

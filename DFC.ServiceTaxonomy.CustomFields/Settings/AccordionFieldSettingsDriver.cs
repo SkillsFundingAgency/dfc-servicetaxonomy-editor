@@ -3,14 +3,16 @@ using DFC.ServiceTaxonomy.CustomFields.Fields;
 using DFC.ServiceTaxonomy.CustomFields.ViewModels;
 using OrchardCore.ContentManagement.Metadata.Models;
 using OrchardCore.ContentTypes.Editors;
+using OrchardCore.DisplayManagement.Handlers;
 using OrchardCore.DisplayManagement.Views;
 
 namespace DFC.ServiceTaxonomy.CustomFields.Settings
 {
     public class AccordionFieldSettingsDriver : ContentPartFieldDefinitionDisplayDriver<AccordionField>
     {
-        public override IDisplayResult Edit(ContentPartFieldDefinition partFieldDefinition)
+        public async override Task<IDisplayResult> EditAsync(ContentPartFieldDefinition partFieldDefinition, BuildEditorContext context)
         {
+            await Task.Yield();
             return Initialize<EditAccordionFieldSettingsViewModel>("AccordionFieldSettings_Edit", model =>
             {})
             .Location("Content");
@@ -26,7 +28,7 @@ namespace DFC.ServiceTaxonomy.CustomFields.Settings
                 context.Builder.WithSettings(new AccordionFieldSettings());
             }
 
-            return Edit(partFieldDefinition);
+            return await EditAsync(partFieldDefinition, context);
         }
     }
 }

@@ -1,15 +1,15 @@
 ﻿@using DFC.ServiceTaxonomy.GraphSync.Models
 @using DFC.ServiceTaxonomy.Taxonomies.Models
-@using Newtonsoft.Json.Linq
 @using OrchardCore.ContentManagement
+@using System.Text.Json.Nodes
 
 @inject IContentManager ContentManager
 
 @{
     ContentItem contentItem = Model.ContentItem;
-    var termPart = ((JObject)contentItem.Content)[nameof(TermPart)];
+    var termPart = ((JsonObject)contentItem.Content)[nameof(TermPart)];
     var hasPublished = termPart != null || await ContentManager.HasPublishedVersionAsync(contentItem);
-    var hasGraphSyncPartText = !string.IsNullOrWhiteSpace(contentItem.Content[nameof(GraphSyncPart)]?[nameof(GraphSyncPart.Text)]?.Value);
+    var hasGraphSyncPartText = !string.IsNullOrWhiteSpace(contentItem.Content[nameof(GraphSyncPart)]?[nameof(GraphSyncPart.Text)] as string);
 }
 
 @* Visualise graph - handle graph visualiser buttons dependent of valid graph synchronisation *@

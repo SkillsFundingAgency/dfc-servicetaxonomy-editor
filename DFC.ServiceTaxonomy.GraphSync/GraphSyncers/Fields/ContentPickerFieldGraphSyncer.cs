@@ -7,13 +7,13 @@ using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Contexts;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Fields;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Helpers;
 using DFC.ServiceTaxonomy.GraphSync.Models;
-using Newtonsoft.Json.Linq;
 using OrchardCore.ContentFields.Settings;
 using OrchardCore.ContentManagement;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.ContentItemVersions;
 using System;
 using Microsoft.Extensions.DependencyInjection;
 using DFC.ServiceTaxonomy.GraphSync.Interfaces;
+using System.Text.Json.Nodes;
 
 namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
 {
@@ -36,15 +36,15 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
             _serviceProvider = serviceProvider;
         }
 
-        public Task AddSyncComponents(JObject contentItemField, IGraphMergeContext context)
+        public Task AddSyncComponents(JsonObject contentItemField, IGraphMergeContext context)
         {
             //todo requires 'picked' part has a graph sync part
             // add to docs & handle picked part not having graph sync part or throw exception
 
-            return AddSyncComponents(context, (JArray?)contentItemField[ContentItemIdsKey]);
+            return AddSyncComponents(context, (JsonArray?)contentItemField[ContentItemIdsKey]);
         }
 
-        private async Task AddSyncComponents(IGraphMergeContext context, JArray? contentItemIdsJArray = null)
+        private async Task AddSyncComponents(IGraphMergeContext context, JsonArray? contentItemIdsJArray = null)
         {
             ContentPickerFieldSettings contentPickerFieldSettings =
                 context.ContentPartFieldDefinition!.GetSettings<ContentPickerFieldSettings>();
@@ -59,7 +59,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
 
             IEnumerable<string> destNodeLabels = await pickedContentSyncNameProvider.NodeLabels();
 
-            if (contentItemIdsJArray?.HasValues != true)
+            if (contentItemIdsJArray?.HasValues() != true)
             {
                 context.ReplaceRelationshipsCommand.RemoveAnyRelationshipsTo(
                     relationshipType,
@@ -107,16 +107,16 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
             return AddSyncComponents(context);
         }
 
-        public async Task AddRelationship(JObject contentItemField, IDescribeRelationshipsContext parentContext)
+        public async Task AddRelationship(JsonObject contentItemField, IDescribeRelationshipsContext parentContext)
         {
             var describeContentItemHelper = _serviceProvider.GetRequiredService<IDescribeContentItemHelper>();
 
             ContentPickerFieldSettings contentPickerFieldSettings =
                 parentContext.ContentPartFieldDefinition!.GetSettings<ContentPickerFieldSettings>();
 
-            JArray? contentItemIdsJArray = (JArray?)contentItemField[ContentItemIdsKey];
+            JsonArray? contentItemIdsJArray = (JsonArray?)contentItemField[ContentItemIdsKey];
 
-            if (contentItemIdsJArray?.HasValues == true)
+            if (contentItemIdsJArray?.HasValues() == true)
             {
                 string relationshipType = await RelationshipTypeContentPicker(contentPickerFieldSettings, parentContext.SyncNameProvider);
                 var sourceNodeLabels = await parentContext.SyncNameProvider.NodeLabels(parentContext.ContentItem.ContentType);
@@ -137,7 +137,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
         }
 
         public async Task<(bool validated, string failureReason)> ValidateSyncComponent(
-            JObject contentItemField,
+            JsonObject contentItemField,
             IValidateAndRepairContext context)
         {
             ContentPickerFieldSettings contentPickerFieldSettings =
@@ -149,7 +149,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
                 .Where(r => r.Type == relationshipType)
                 .ToArray();
 
-            var contentItemIds = (JArray)contentItemField[ContentItemIdsKey]!;
+            var contentItemIds = (JsonArray)contentItemField[ContentItemIdsKey]!;
 
             ContentItem[] destinationContentItems = await GetContentItemsFromIds(
                 contentItemIds,
@@ -200,7 +200,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
         }
 
         private async Task<ContentItem[]> GetContentItemsFromIds(
-            JArray contentItemIds,
+            JsonArray contentItemIds,
             IContentManager contentManager,
             IContentItemVersion contentItemVersion)
         {

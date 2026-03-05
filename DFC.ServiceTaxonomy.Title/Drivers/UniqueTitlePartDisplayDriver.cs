@@ -53,16 +53,15 @@ namespace DFC.ServiceTaxonomy.Title.Drivers
             model.ReadOnlyOnPublish = uniqueTitlePartSettings is { ReadOnlyOnPublish: true };
         }
 
-        public override async Task<IDisplayResult> UpdateAsync(UniqueTitlePart part, IUpdateModel updater,
-            UpdatePartEditorContext context)
+        public override async Task<IDisplayResult> UpdateAsync(UniqueTitlePart part, UpdatePartEditorContext context)
         {
             _logger.LogInformation($"UpdateAsync: UniqueTitlePart {part}");
-            var updated = await updater.TryUpdateModelAsync(part, Prefix, b => b.Title);
+            var updated = await context.Updater.TryUpdateModelAsync(part, Prefix, b => b.Title);
             if (updated)
             {
                 await foreach (var item in part.ValidateAsync(S, _uniqueTitleIndexRepository))
                 {
-                    updater.ModelState.BindValidationResult(Prefix, item);
+                    context.Updater.ModelState.BindValidationResult(Prefix, item);
                 }
             }
 

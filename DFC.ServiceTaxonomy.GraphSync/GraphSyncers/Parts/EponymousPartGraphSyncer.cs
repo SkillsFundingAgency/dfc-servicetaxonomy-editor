@@ -1,11 +1,11 @@
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json.Nodes;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.CustomFields.Fields;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Contexts;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Helpers;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Results.AllowSync;
-using Newtonsoft.Json.Linq;
 using OrchardCore.ContentManagement.Metadata.Models;
 
 namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
@@ -34,23 +34,23 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
                 || contentPartDefinition.Fields.Any(f => _groupingFields.Contains(f.FieldDefinition.Name));
         }
 
-        public override Task AllowSync(JObject content, IGraphMergeContext context, IAllowSync allowSync)
+        public override Task AllowSync(JsonObject content, IGraphMergeContext context, IAllowSync allowSync)
         {
             return _contentFieldsGraphSyncer.AllowSync(content, context, allowSync);
         }
 
-        public override Task AddSyncComponents(JObject content, IGraphMergeContext context)
+        public override Task AddSyncComponents(JsonObject content, IGraphMergeContext context)
         {
             return _contentFieldsGraphSyncer.AddSyncComponents(content, context);
         }
 
-        public override Task AddRelationship(JObject content, IDescribeRelationshipsContext context)
+        public override Task AddRelationship(JsonObject content, IDescribeRelationshipsContext context)
         {
             return _contentFieldsGraphSyncer.AddRelationship(content, context);
         }
 
         public override Task<(bool validated, string failureReason)> ValidateSyncComponent(
-            JObject content,
+            JsonObject content,
             IValidateAndRepairContext context)
         {
             return _contentFieldsGraphSyncer.ValidateSyncComponent(content, context);

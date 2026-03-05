@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Text.Json;
+using System.Text.Json.Nodes;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.Orchestrators.Interfaces;
 using Microsoft.Extensions.Logging;
-using Newtonsoft.Json.Linq;
 using OrchardCore.ContentManagement;
 using OrchardCore.Recipes.Models;
 using OrchardCore.Recipes.Services;
@@ -53,12 +54,12 @@ namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
 
                 Stopwatch stopwatch = Stopwatch.StartNew();
 
-                ContentStepModel? model = context.Step.ToObject<ContentStepModel>();
-                JArray? data = model?.Data;
+                ContentStepModel? model = context.Step.Deserialize<ContentStepModel>();
+                JsonArray? data = model?.Data;
                 if (data == null)
                     return;
 
-                foreach (JToken? token in data)
+                foreach (var token in data)
                 {
                     ContentItem? contentItem = token.ToObject<ContentItem>();
                     if (contentItem == null)
@@ -89,6 +90,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
 
     public class ContentStepModel
     {
-        public JArray? Data { get; set; }
+        public JsonArray? Data { get; set; }
     }
 }

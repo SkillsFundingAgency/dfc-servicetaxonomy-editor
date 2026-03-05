@@ -1,10 +1,10 @@
 using System;
 using System.Collections.Generic;
+using System.Text.Json.Nodes;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.Taxonomies.Fields;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Newtonsoft.Json.Linq;
 using OrchardCore.ContentManagement;
 using OrchardCore.Indexing;
 
@@ -46,7 +46,7 @@ namespace DFC.ServiceTaxonomy.Taxonomies.Indexing
             foreach (var contentItemId in field.TermContentItemIds)
             {
 
-                TaxonomyOrchardHelperExtensions.FindTermHierarchy(taxonomy.Content.TaxonomyPart.Terms as JArray, contentItemId, inheritedContentItems);
+                TaxonomyOrchardHelperExtensions.FindTermHierarchy(taxonomy.Content.TaxonomyPart.Terms as JsonArray, contentItemId, inheritedContentItems);
             }
 
             foreach (var key in context.Keys)

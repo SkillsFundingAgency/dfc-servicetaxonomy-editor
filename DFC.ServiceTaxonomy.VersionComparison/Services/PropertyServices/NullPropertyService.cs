@@ -1,17 +1,17 @@
 ﻿using System.Collections.Generic;
+using System.Text.Json;
 using DFC.ServiceTaxonomy.VersionComparison.Models;
-using Newtonsoft.Json.Linq;
 
 namespace DFC.ServiceTaxonomy.VersionComparison.Services.PropertyServices
 {
     public class NullPropertyService : IPropertyService
     {
-        public bool CanProcess(JToken? jToken, string? propertyName = null)
+        public bool CanProcess(JsonElement? jElement, string? propertyName = null)
         {
-            return jToken == null;
+            return jElement == null;
         }
 
-        public IList<PropertyExtract> Process(string propertyName, JToken? jToken)
+        public IList<PropertyExtract> Process(string propertyName, JsonElement? jElement)
         {
             return new List<PropertyExtract> { new PropertyExtract{ Name = propertyName, Key = propertyName} };
         }

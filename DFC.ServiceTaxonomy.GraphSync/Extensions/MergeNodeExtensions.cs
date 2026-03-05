@@ -2,9 +2,10 @@
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
+using System.Text.Json;
+using System.Text.Json.Nodes;
 using DFC.ServiceTaxonomy.GraphSync.Interfaces;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
+
 
 namespace DFC.ServiceTaxonomy.GraphSync.Extensions
 {
@@ -17,7 +18,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Extensions
         public static T AddProperty<T>(
             this IMergeNodeCommand mergeNodeCommand,
             string propertyName,
-            JObject content)
+            JsonObject content)
         {
             return mergeNodeCommand.AddProperty<T>(propertyName, content, propertyName);
         }
@@ -26,30 +27,36 @@ namespace DFC.ServiceTaxonomy.GraphSync.Extensions
         public static T AddProperty<T>(
             this IMergeNodeCommand mergeNodeCommand,
             string nodePropertyName,
-            JObject content,
+            JsonObject content,
             string contentPropertyName)
         {
             T value;
-            JValue? jvalue = (JValue?)content[contentPropertyName];
+            JsonValue? jvalue = (JsonValue?)content[contentPropertyName];
 
-            if (jvalue == null)
-                return default;
-
-            switch (jvalue.Type)
+            switch (jvalue?.GetValueKind() ?? JsonValueKind.Null)
             {
-                case JTokenType.Null:
+                case JsonValueKind.Null:
                     mergeNodeCommand.Properties.Add(nodePropertyName, null);
                     return default;
-                case JTokenType.Date:
-                    string utcdate = jvalue.ToString(Formatting.None).Trim('"');
-                    DateTime utcTime = DateTime.ParseExact(utcdate, "yyyy-MM-ddTHH:mm:ssK",
-                        CultureInfo.InvariantCulture, DateTimeStyles.AdjustToUniversal);
-
-                    value = (T)(object)utcTime;
-                    mergeNodeCommand.Properties.Add(nodePropertyName, value);
-                    break;
+                case JsonValueKind.String:
+                    if (DateTime.TryParseExact(jvalue!.GetValue<string>(), "yyyy-MM-ddTHH:mm:ssK",
+                            CultureInfo.InvariantCulture, DateTimeStyles.AdjustToUniversal, out DateTime utcTime))
+                    {
+                        value = (T)(object)utcTime;
+                        mergeNodeCommand.Properties.Add(nodePropertyName, value);
+                        break;
+                    }
+                    else
+                    {
+#pragma warning disable S907 // "goto" statement should not be used
+                        goto default;
+#pragma warning restore S907 // "goto" statement should not be used
+                    }
                 default:
-                    value = jvalue.Value<T>()!;
+                    if (typeof(T) == typeof(bool) && bool.TryParse(jvalue!.ToString(), out bool boolValue))
+                        value = (T) Convert.ChangeType(boolValue, typeof(T)) ;
+                    else
+                        value = jvalue.Value<T>()!;
                     if (value == null)
                         throw new InvalidCastException($"Could not convert content property {jvalue} to type {typeof(T)}");
                     mergeNodeCommand.Properties.Add(nodePropertyName, value);
@@ -62,7 +69,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Extensions
         public static List<T>? AddArrayProperty<T>(
             this IMergeNodeCommand mergeNodeCommand,
             string propertyName,
-            JObject content)
+            JsonObject content)
         {
             return mergeNodeCommand.AddArrayProperty<T>(propertyName, content, propertyName);
         }
@@ -70,11 +77,11 @@ namespace DFC.ServiceTaxonomy.GraphSync.Extensions
         public static List<T>? AddArrayProperty<T>(
             this IMergeNodeCommand mergeNodeCommand,
             string nodePropertyName,
-            JObject content,
+            JsonObject content,
             string contentPropertyName)
         {
             List<T>? values;
-            JArray? jarray = (JArray?)content[contentPropertyName];
+            JsonArray? jarray = content[contentPropertyName]!.GetValue<JsonArray>();
 
             values = AddArrayProperty<T>(mergeNodeCommand, nodePropertyName, jarray);
             return values;
@@ -84,11 +91,10 @@ namespace DFC.ServiceTaxonomy.GraphSync.Extensions
         public static List<T>? AddArrayProperty<T>(
            this IMergeNodeCommand mergeNodeCommand,
            string nodePropertyName,
-           JArray? content)
+           JsonArray? jarray)
         {
             List<T>? values;
-            JArray? jarray = content;
-            if (jarray != null && jarray.Type != JTokenType.Null)
+            if (jarray != null && jarray.GetValueKind() != JsonValueKind.Null)
             {
                 values = jarray.ToObject<List<T>>();
 
@@ -108,12 +114,12 @@ namespace DFC.ServiceTaxonomy.GraphSync.Extensions
         public static string[] AddArrayPropertyFromMultilineString(
             this IMergeNodeCommand mergeNodeCommand,
             string nodePropertyName,
-            JObject content,
+            JsonObject content,
             string contentPropertyName)
         {
             string[]? valueStrings;
-            JToken? values = content[contentPropertyName];
-            if (values != null && values.Type != JTokenType.Null)
+            var values = content[contentPropertyName];
+            if (values != null && values.GetValueKind() != JsonValueKind.Null)
             {
                 valueStrings = values.Value<string>()?.Split("\r\n") ?? new string[0];
             }

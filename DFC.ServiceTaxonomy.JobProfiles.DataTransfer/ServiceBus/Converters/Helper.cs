@@ -1,12 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json.Nodes;
 using System.Threading.Tasks;
 
 using DFC.ServiceTaxonomy.GraphSync.Models;
 using DFC.ServiceTaxonomy.JobProfiles.DataTransfer.Extensions;
 using DFC.ServiceTaxonomy.JobProfiles.DataTransfer.Models.ServiceBus;
-
-using Newtonsoft.Json.Linq;
 
 using OrchardCore.ContentManagement;
 using OrchardCore.Title.Models;
@@ -19,7 +18,7 @@ namespace DFC.ServiceTaxonomy.JobProfiles.DataTransfer.ServiceBus.Converters
         {
             if (contentPicker != null)
             {
-                var contentItemIds = (JArray)contentPicker.ContentItemIds;
+                var contentItemIds = (JsonArray)contentPicker.ContentItemIds;
                 if (contentItemIds.Any())
                 {
                     var idList = contentItemIds.Select(c => c.Value<string>());
@@ -36,7 +35,7 @@ namespace DFC.ServiceTaxonomy.JobProfiles.DataTransfer.ServiceBus.Converters
             IList<string> contentItemNames = new List<string>();
             if (contentPicker != null)
             {
-                var contentItemIds = (JArray)contentPicker.ContentItemIds;
+                var contentItemIds = (JsonArray)contentPicker.ContentItemIds;
                 if (contentItemIds.Any())
                 {
                     var idList = contentItemIds.Select(c => c.Value<string>());
@@ -57,7 +56,7 @@ namespace DFC.ServiceTaxonomy.JobProfiles.DataTransfer.ServiceBus.Converters
             IList<string> contentItemNames = new List<string>();
             if (contentPicker != null)
             {
-                var contentItemIds = (JArray)contentPicker.ContentItemIds;
+                var contentItemIds = (JsonArray)contentPicker.ContentItemIds;
                 if (contentItemIds.Any())
                 {
                     var idList = contentItemIds.Select(c => c.Value<string>());

@@ -1,16 +1,16 @@
 ﻿using System;
-using Newtonsoft.Json;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace DFC.ServiceTaxonomy.GraphSync.JsonConverters
 {
-    public class NoConverter : JsonConverter
+    public class NoConverter : JsonConverter<object>
     {
+        public NoConverter() { }
+
         public override bool CanConvert(Type objectType) => false;
+        public override object? Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) => throw new NotImplementedException();
+        public override void Write(Utf8JsonWriter writer, object value, JsonSerializerOptions options) => throw new NotImplementedException();
 
-        public override bool CanRead { get { return false; } }
-        public override bool CanWrite { get { return false; } }
-
-        public override object? ReadJson(JsonReader reader, Type objectType, object? existingValue, JsonSerializer serializer) => throw new NotImplementedException();
-        public override void WriteJson(JsonWriter writer, object? value, JsonSerializer serializer) => throw new NotImplementedException();
     }
 }

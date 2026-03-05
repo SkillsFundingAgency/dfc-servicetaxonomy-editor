@@ -1,3 +1,4 @@
+using System.Text.Json;
 using AutoMapper;
 using DFC.ServiceTaxonomy.CompUi.Enums;
 using DFC.ServiceTaxonomy.CompUi.Interfaces;
@@ -5,7 +6,6 @@ using DFC.ServiceTaxonomy.CompUi.Models;
 using DfE.NCS.Framework.Event.Model;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
-using Newtonsoft.Json;
 using OrchardCore.ContentManagement.Handlers;
 using ContentItem = DFC.ServiceTaxonomy.CompUi.Models.ContentItem;
 
@@ -81,7 +81,7 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
     {
         if (Enum.IsDefined(typeof(ContentTypes), processing.ContentType!))
         {
-            var current = JsonConvert.DeserializeObject<ContentItem>(processing.CurrentContent!);
+            var current = JsonSerializer.Deserialize<ContentItem>(processing.CurrentContent!);
 
             if (current == null)
             {
@@ -192,7 +192,7 @@ public class CacheHandler : ContentHandlerBase, ICacheHandler
 
     private async Task ProcessContentUrlUpdate(Processing processing, ContentItem currentContent)
     {
-        var previous = !string.IsNullOrEmpty(processing.PreviousContent) ? JsonConvert.DeserializeObject<ContentItem>(processing.PreviousContent) : new ContentItem();
+        var previous = !string.IsNullOrEmpty(processing.PreviousContent) ? JsonSerializer.Deserialize<ContentItem>(processing.PreviousContent) : new ContentItem();
         var pageUrlChanged = currentContent?.PageLocationParts?.FullUrl == previous?.PageLocationParts?.FullUrl ? false : true;
 
         if (pageUrlChanged)

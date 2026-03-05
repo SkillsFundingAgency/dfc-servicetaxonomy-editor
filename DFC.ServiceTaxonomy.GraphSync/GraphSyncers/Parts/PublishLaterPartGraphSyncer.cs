@@ -1,8 +1,8 @@
 using System;
+using System.Text.Json.Nodes;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.Extensions;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Contexts;
-using Newtonsoft.Json.Linq;
 using OrchardCore.PublishLater.Models;
 
 namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
@@ -16,7 +16,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
         private static readonly Func<string, string> _publishLaterFieldsPropertyNameTransform = n => $"publishlater_{n}";
         private const string ScheduledPublishUtcPropertyName = "ScheduledPublishUtc";
 
-        public override async Task AddSyncComponents(JObject content, IGraphMergeContext context)
+        public override async Task AddSyncComponents(JsonObject content, IGraphMergeContext context)
         {
             // prefix field property names, so there's no possibility of a clash with the eponymous fields property names
             using var _ = context.SyncNameProvider.PushPropertyNameTransform(_publishLaterFieldsPropertyNameTransform);
@@ -27,7 +27,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
         }
 
         public override async Task<(bool validated, string failureReason)> ValidateSyncComponent(
-            JObject content,
+            JsonObject content,
             IValidateAndRepairContext context)
         {
             // prefix field property names, so there's no possibility of a clash with the eponymous fields property names

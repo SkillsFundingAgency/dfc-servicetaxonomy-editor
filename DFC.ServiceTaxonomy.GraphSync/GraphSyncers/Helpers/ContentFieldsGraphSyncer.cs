@@ -1,12 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json.Nodes;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Contexts;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Fields;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Helpers;
 using DFC.ServiceTaxonomy.GraphSync.Orchestrators;
 using Microsoft.Extensions.Logging;
-using Newtonsoft.Json.Linq;
 using OrchardCore.ContentManagement.Metadata.Models;
 
 namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
@@ -53,7 +53,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
             _logger = logger;
         }
 
-        public async Task AddRelationship(JObject content, IDescribeRelationshipsContext context)
+        public async Task AddRelationship(JsonObject content, IDescribeRelationshipsContext context)
         {
             foreach (var contentFieldGraphSyncer in _contentFieldGraphSyncer)
             {
@@ -63,7 +63,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
 
                 foreach (ContentPartFieldDefinition contentPartFieldDefinition in contentPartFieldDefinitions)
                 {
-                    JObject? contentItemField = (JObject?)content[contentPartFieldDefinition.Name];
+                    JsonObject? contentItemField = (JsonObject?)content[contentPartFieldDefinition.Name];
                     if (contentItemField == null)
                         continue;
 
@@ -77,7 +77,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
         }
 
         //todo: share code with above
-        public async Task AddSyncComponents(JObject content, IGraphMergeContext context)
+        public async Task AddSyncComponents(JsonObject content, IGraphMergeContext context)
         {
             foreach (var contentFieldGraphSyncer in _contentFieldGraphSyncer)
             {
@@ -97,7 +97,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
                     }
                     else
                     {
-                        JObject? contentItemField = content[contentPartFieldDefinition.Name] as JObject;
+                        JsonObject? contentItemField = content[contentPartFieldDefinition.Name] as JsonObject;
                         if (contentItemField == null)
                         {
                             _logger.LogWarning("The '{ContentItem}' {ContentType} is missing content for the {FieldName} {FieldType}.",
@@ -117,7 +117,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
         }
 
         public async Task<(bool validated, string failureReason)> ValidateSyncComponent(
-            JObject content,
+            JsonObject content,
             IValidateAndRepairContext context)
         {
             foreach (var contentFieldGraphSyncer in _contentFieldGraphSyncer)
@@ -128,7 +128,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
 
                 foreach (ContentPartFieldDefinition contentPartFieldDefinition in contentPartFieldDefinitions)
                 {
-                    JObject? contentItemField = content[contentPartFieldDefinition.Name] as JObject;
+                    JsonObject? contentItemField = content[contentPartFieldDefinition.Name] as JsonObject;
                     if (contentItemField == null)
                     {
                         _logger.LogWarning("Found unexpected content for {ContentPartFieldDefinitionName} field. Content: {Content}",

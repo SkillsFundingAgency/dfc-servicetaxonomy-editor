@@ -2,10 +2,14 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Text.Json;
+using System.Text.Json.Nodes;
+
+//using System.Text.Json;
+//using System.Text.Json.Nodes;
 using DFC.ServiceTaxonomy.GraphSync.Extensions;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Helpers;
 using DFC.ServiceTaxonomy.GraphSync.Interfaces;
-using Newtonsoft.Json.Linq;
 using NodaTime;
 
 namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
@@ -14,17 +18,17 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
     {
         public (bool matched, string failureReason) ContentPropertyMatchesNodeProperty(
             string contentKey,
-            JObject contentItemField,
+            JsonObject contentItemField,
             string nodePropertyName,
             INode sourceNode,
-            Func<JValue, object, bool> areBothSame)
+            Func<JsonValue, object, bool> areBothSame)
         {
             sourceNode.Properties.TryGetValue(nodePropertyName, out object? nodePropertyValue);
 
-            JValue? contentItemFieldValue = (JValue?)contentItemField?[contentKey];
-            if (contentItemFieldValue == null || contentItemFieldValue.Type == JTokenType.Null)
+            JsonValue? contentItemFieldValue = (JsonValue?)contentItemField?[contentKey];
+            if (contentItemFieldValue == null || contentItemFieldValue.GetValueKind() == JsonValueKind.Null)
             {
-                bool bothNull = nodePropertyValue == null || (nodePropertyValue is JValue && ((JValue)nodePropertyValue).Type == JTokenType.Null);
+                bool bothNull = nodePropertyValue == null || (nodePropertyValue is JsonValue && ((JsonValue)nodePropertyValue).GetValueKind() == JsonValueKind.Null);
                 return (bothNull, bothNull ? string.Empty : $"content property value was null, but node property value was not null (gvh - {nodePropertyName} - {nodePropertyValue})");
             }
 
@@ -37,26 +41,49 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
             return (bothSame, bothSame ? string.Empty : $"content property value was '{JValueToString(contentItemFieldValue)}', but node property value was '{nodePropertyValue}'");
         }
 
-        private string JValueToString(JValue jvalue)
+        private string JValueToString(JsonValue jvalue)
         {
-            return jvalue.Type switch
+            var returnString = string.Empty;
+            switch (jvalue.GetValueKind())
             {
-                JTokenType.Date => jvalue.ToString("u"),
-                _ => jvalue.ToString(CultureInfo.InvariantCulture)
-            };
+                case JsonValueKind.String:
+
+                    if (DateTime.TryParse(jvalue.GetValue<string>(), CultureInfo.InvariantCulture, DateTimeStyles.AdjustToUniversal, out DateTime utcTime))
+                    {
+                        returnString = utcTime.ToString("u");
+                        break;
+                    }
+                    else
+                    {
+#pragma warning disable S907 // "goto" statement should not be used
+                        goto default;
+#pragma warning restore S907 // "goto" statement should not be used
+                    }
+                case JsonValueKind.False:
+                case JsonValueKind.True:
+                    {
+                        returnString = jvalue.GetValue<bool>().ToString();
+                        break;
+                    }
+
+                default:
+                    returnString = jvalue.ToString();
+                    break;
+            }
+            return returnString;
         }
 
         public (bool matched, string failureReason) ContentArrayPropertyMatchesNodeProperty(
             string contentKey,
-            JObject contentItemField,
+            JsonObject contentItemField,
             string nodePropertyName,
             INode sourceNode,
-            Func<JValue, object, bool> areBothSame)
+            Func<JsonValue, object, bool> areBothSame)
         {
             sourceNode.Properties.TryGetValue(nodePropertyName, out object? nodePropertyValue);
 
-            JArray? contentItemFieldArray = (JArray?)contentItemField?[contentKey];
-            if (contentItemFieldArray == null || contentItemFieldArray.Type == JTokenType.Null)
+            JsonArray? contentItemFieldArray = (JsonArray?)contentItemField?[contentKey];
+            if (contentItemFieldArray == null || contentItemFieldArray.GetValueKind() == JsonValueKind.Null)
             {
                 bool bothNull = nodePropertyValue == null;
                 return (bothNull, bothNull ? string.Empty : "content property array was null, but node property array was not null");
@@ -74,7 +101,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
                 return (false, GenerateErrorMessage($"content property array has {contentItemFieldArray.Count} items, node property array has {nodePropertyValues.Count()} items"));
             }
 
-            var areSame = contentItemFieldArray.Zip(nodePropertyValues, (cv, nv) => areBothSame((JValue)cv, nv));
+            var areSame = contentItemFieldArray.Zip(nodePropertyValues, (cv, nv) => areBothSame((JsonValue)cv!, nv));
             if (areSame.Any(same => !same))
                 return (false, GenerateErrorMessage());
 
@@ -88,7 +115,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
 
         public (bool matched, string failureReason) ContentMultilineStringPropertyMatchesNodeProperty(
             string contentKey,
-            JObject contentItemField,
+            JsonObject contentItemField,
             string nodePropertyName,
             INode sourceNode)
         {
@@ -100,8 +127,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
             if (nodeStrings == null)
                 return (false, "expecting node property array of string");
 
-            JToken? contentMultilineString = contentItemField?[contentKey];
-            if (contentMultilineString == null || contentMultilineString.Type == JTokenType.Null)
+            var contentMultilineString = contentItemField?[contentKey];
+            if (contentMultilineString == null || contentMultilineString.GetValueKind() == JsonValueKind.Null)
             {
                 bool bothEmpty = !nodeStrings.Any();
                 return (bothEmpty, bothEmpty ? string.Empty : "content multiline string was null, but node property array had value(s)");
@@ -128,17 +155,17 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
 
         public (bool matched, string failureReason) StringArrayContentPropertyMatchesNodeProperty(
             string contentKey,
-            JObject contentItemField,
+            JsonObject contentItemField,
             string nodePropertyName,
             INode sourceNode)
         {
             return ContentArrayPropertyMatchesNodeProperty(contentKey, contentItemField, nodePropertyName, sourceNode,
-                (contentValue, nodeValue) => EqualsCheck<string>(contentValue, nodeValue, JTokenType.String));
+                (contentValue, nodeValue) => EqualsCheck<string>(contentValue, nodeValue, JsonValueKind.String));
         }
 
         public (bool matched, string failureReason) StringContentPropertyMatchesNodeProperty(
             string contentKey,
-            JObject contentItemField,
+            JsonObject contentItemField,
             string nodePropertyName,
             INode sourceNode)
         {
@@ -148,38 +175,38 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
 
         public (bool matched, string failureReason) BoolContentPropertyMatchesNodeProperty(
             string contentKey,
-            JObject contentItemField,
+            JsonObject contentItemField,
             string nodePropertyName,
             INode sourceNode)
         {
             return ContentPropertyMatchesNodeProperty(contentKey, contentItemField, nodePropertyName, sourceNode,
-                (contentValue, nodeValue) => EqualsCheck<bool>(contentValue, nodeValue, JTokenType.Boolean));
+                (contentValue, nodeValue) => EqualsCheck<bool>(contentValue, nodeValue, JsonValueKind.True));
         }
 
         public (bool matched, string failureReason) LongContentPropertyMatchesNodeProperty(
             string contentKey,
-            JObject contentItemField,
+            JsonObject contentItemField,
             string nodePropertyName,
             INode sourceNode)
         {
             return ContentPropertyMatchesNodeProperty(contentKey, contentItemField, nodePropertyName, sourceNode,
-                (contentValue, nodeValue) => EqualsCheck<long>(contentValue, nodeValue, JTokenType.Integer));
+                (contentValue, nodeValue) => EqualsCheck<long>(contentValue, nodeValue, JsonValueKind.Number));
         }
 
         public (bool matched, string failureReason) EnumContentPropertyMatchesNodeProperty<T>(
             string contentKey,
-            JObject contentItemField,
+            JsonObject contentItemField,
             string nodePropertyName,
             INode sourceNode)
             where T : Enum
         {
             return ContentPropertyMatchesNodeProperty(contentKey, contentItemField, nodePropertyName, sourceNode,
-                (contentValue, nodeValue) => Equals(((T)(object)(int)contentValue).ToString().ToLowerInvariant(), nodeValue.As<string>()));
+                (contentValue, nodeValue) => Equals(((T)(object)(contentValue.GetValueKind() == JsonValueKind.String ? int.Parse((string)contentValue!) :(int)contentValue)).ToString().ToLowerInvariant(), nodeValue.As<string>()));
         }
 
         public (bool matched, string failureReason) DateTimeContentPropertyMatchesNodeProperty(
             string contentKey,
-            JObject contentItemField,
+            JsonObject contentItemField,
             string nodePropertyName,
             INode sourceNode)
         {
@@ -267,12 +294,12 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
             return first.Count() == second.Count() && !first.Except(second).Any();
         }
 
-        private bool StringEqualsCheck(JValue contentValue, object nodeValue)
+        private bool StringEqualsCheck(JsonValue contentValue, object nodeValue)
         {
             var leftValue = contentValue.ToString();
             string rightValue;
 
-            if (nodeValue is JValue jRightValue)
+            if (nodeValue is JsonValue jRightValue)
             {
                 rightValue = jRightValue.ToString();
             }
@@ -291,14 +318,14 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
             return Equals(leftValue, rightValue);
         }
 
-        private bool EqualsCheck<T>(JValue contentValue, object nodeValue, JTokenType type)
+        private bool EqualsCheck<T>(JsonValue contentValue, object nodeValue, JsonValueKind type)
         {
             T leftValue = contentValue.ToObject<T>()!;
             T rightValue;
 
-            if (nodeValue is JValue jRightValue && jRightValue.Type == type)
+            if (nodeValue is JsonValue jRightValue && (jRightValue.GetValueKind() == type || jRightValue.GetValueKind() == JsonValueKind.False))
             {
-                rightValue = jRightValue.ToObject<T>()!;
+                rightValue = jRightValue.Deserialize<T>()!;
             }
             else
             {

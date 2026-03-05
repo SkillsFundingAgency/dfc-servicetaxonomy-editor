@@ -1,5 +1,5 @@
 ﻿using System;
-using Newtonsoft.Json.Linq;
+using System.Text.Json.Nodes;
 
 namespace DFC.ServiceTaxonomy.GraphSync.Extensions
 {
@@ -61,7 +61,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Extensions
         public static T As<T>(this object value)
         #pragma warning disable CS8603 // Possible null reference return.
         {
-            if (value is JValue jValue)
+            if (value is JsonValue jValue)
             {
                 return jValue.ToObject<T>();
             }

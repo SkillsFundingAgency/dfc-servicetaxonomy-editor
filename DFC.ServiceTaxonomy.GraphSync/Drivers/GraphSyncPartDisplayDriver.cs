@@ -5,6 +5,7 @@ using OrchardCore.DisplayManagement.ModelBinding;
 using OrchardCore.DisplayManagement.Views;
 using DFC.ServiceTaxonomy.GraphSync.Models;
 using DFC.ServiceTaxonomy.GraphSync.ViewModels;
+using OrchardCore.ContentManagement.Display.Models;
 
 namespace DFC.ServiceTaxonomy.GraphSync.Drivers
 {
@@ -17,27 +18,18 @@ namespace DFC.ServiceTaxonomy.GraphSync.Drivers
             _syncNameProvider = syncNameProvider;
         }
 
-        // public override IDisplayResult Display(GraphSyncPart GraphSyncPart)
-        // {
-        //     return Combine(
-        //         Initialize<GraphSyncPartViewModel>("GraphSyncPart", m => BuildViewModel(m, GraphSyncPart))
-        //             .Location("Detail", "Content:20"),
-        //         Initialize<GraphSyncPartViewModel>("GraphSyncPart_Summary", m => BuildViewModel(m, GraphSyncPart))
-        //             .Location("Summary", "Meta:5")
-        //     );
-        // }
-
-        public override IDisplayResult Edit(GraphSyncPart graphSyncPart) //, BuildPartEditorContext context)
+        public override async Task<IDisplayResult> EditAsync(GraphSyncPart graphSyncPart, BuildPartEditorContext context)
         {
+            await Task.Yield();
             return Initialize<GraphSyncPartViewModel>("GraphSyncPart_Edit",
                 async m => await BuildViewModel(m, graphSyncPart));
         }
 
-        public override async Task<IDisplayResult> UpdateAsync(GraphSyncPart model, IUpdateModel updater)
+        public override async Task<IDisplayResult> UpdateAsync(GraphSyncPart model, UpdatePartEditorContext context)
         {
-            await updater.TryUpdateModelAsync(model, Prefix, t => t.Text);
+            await context.Updater.TryUpdateModelAsync(model, Prefix, t => t.Text);
 
-            return Edit(model);
+            return await EditAsync(model, context);
         }
 
         private async Task BuildViewModel(GraphSyncPartViewModel model, GraphSyncPart part)

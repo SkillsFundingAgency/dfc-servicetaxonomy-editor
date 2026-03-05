@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json.Nodes;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Exceptions;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.ContentItemVersions;
@@ -10,7 +11,6 @@ using DFC.ServiceTaxonomy.GraphSync.Models;
 using DFC.ServiceTaxonomy.GraphSync.Settings;
 using Microsoft.CodeAnalysis.CSharp.Scripting;
 using Microsoft.CodeAnalysis.Scripting;
-using Newtonsoft.Json.Linq;
 using OrchardCore.ContentManagement.Metadata;
 using OrchardCore.ContentManagement.Metadata.Models;
 
@@ -196,7 +196,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
 
         //todo: shared code
         public object? GetAndConvertIdPropertyValue(
-            JObject graphSyncContent,
+            JsonObject graphSyncContent,
             IContentItemVersion contentItemVersion,
             params IContentItemVersion[] fromContentItemVersions)
         {
@@ -225,7 +225,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
 
         //todo: shared code
         public object? GetEventIdPropertyValue(
-            JObject graphSyncContent,
+            JsonObject graphSyncContent,
             IContentItemVersion contentItemVersion)
         {
             object? idValue = graphSyncContent[ContentIdPropertyName]?.ToObject<object?>();
@@ -248,7 +248,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
         }
 
         public object? GetNodeIdPropertyValue(
-            JObject graphSyncContent,
+            JsonObject graphSyncContent,
             IContentItemVersion contentItemVersion)
         {
             CheckPreconditions();

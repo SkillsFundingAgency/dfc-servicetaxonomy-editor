@@ -1,8 +1,9 @@
+using System.Text.Json;
+using System.Text.Json.Nodes;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.Extensions;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Contexts;
 using DFC.ServiceTaxonomy.GraphSync.Services.Interface;
-using Newtonsoft.Json.Linq;
 using OrchardCore.Title.Models;
 
 namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
@@ -25,7 +26,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
 
         public const string UniqueTitlePartNodeLabel = "uniquetitle_Title";
 
-        public override Task AddSyncComponents(JObject content, IGraphMergeContext context)
+        public override Task AddSyncComponents(JsonObject content, IGraphMergeContext context)
         {
             string? title = context.MergeNodeCommand.AddProperty<string>(NodeTitlePropertyName, content, _contentTitlePropertyName);
             if (title == null)
@@ -35,11 +36,11 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
         }
 
         public override Task<(bool validated, string failureReason)> ValidateSyncComponent(
-            JObject content,
+            JsonObject content,
             IValidateAndRepairContext context)
         {
             var sourceNode = context.NodeWithRelationships.SourceNode!;
-            if (content[_contentTitlePropertyName]?.Type == JTokenType.Null && sourceNode.Properties.ContainsKey(UniqueTitlePartNodeLabel))
+            if (content[_contentTitlePropertyName]?.GetValueKind() == JsonValueKind.Null && sourceNode.Properties.ContainsKey(UniqueTitlePartNodeLabel))
             {
                 return Task.FromResult((true, string.Empty));
             }
@@ -50,7 +51,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
                 context.NodeWithRelationships.SourceNode!));
         }
 
-        public override Task MutateOnClone(JObject content, ICloneContext context)
+        public override Task MutateOnClone(JsonObject content, ICloneContext context)
         {
             string title = (string?)content[nameof(TitlePart.Title)] ?? string.Empty;
 

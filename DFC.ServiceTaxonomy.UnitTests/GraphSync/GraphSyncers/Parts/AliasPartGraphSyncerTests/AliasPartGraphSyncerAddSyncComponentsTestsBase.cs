@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
+using System.Text.Json.Nodes;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts;
-using Newtonsoft.Json.Linq;
 using Xunit;
 
 namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Parts.AliasPartGraphSyncerTests
@@ -20,7 +20,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Parts.AliasPartGr
         {
             const string alias = "alias";
 
-            Content = JObject.Parse($"{{\"Alias\": \"{alias}\"}}");
+            Content = JObject.Parse($"{{\"Alias\": \"{alias}\"}}")!;
 
             await CallAddSyncComponents();
 
@@ -33,7 +33,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Parts.AliasPartGr
         [Fact]
         public async Task AddSyncComponents_NullTitleInContent_TitleNotAddedToMergeNodeCommandsProperties()
         {
-            Content = JObject.Parse("{\"Alias\": null}");
+            Content = JObject.Parse("{\"Alias\": null}")!;
 
             await CallAddSyncComponents();
 

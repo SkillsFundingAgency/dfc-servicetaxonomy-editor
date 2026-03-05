@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Options;
 using OrchardCore.ContentManagement.Metadata.Models;
 using OrchardCore.ContentTypes.Editors;
+using OrchardCore.DisplayManagement.Handlers;
 using OrchardCore.DisplayManagement.Views;
 using OrchardCore.Mvc.ModelBinding;
 
@@ -20,8 +21,9 @@ namespace DFC.ServiceTaxonomy.GraphSync.Settings
             _graphSyncPartSettings = graphSyncPartSettings;
         }
 
-        public override IDisplayResult Edit(ContentTypePartDefinition contentTypePartDefinition)
+        public override async Task<IDisplayResult> EditAsync(ContentTypePartDefinition contentTypePartDefinition, BuildEditorContext context)
         {
+            await Task.Yield();
             if (!string.Equals(nameof(GraphSyncPart), contentTypePartDefinition.PartDefinition.Name))
             {
                 return default!;
@@ -121,7 +123,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Settings
                 });
             }
 
-            return Edit(contentTypePartDefinition);
+            return await EditAsync(contentTypePartDefinition, context);
         }
 
         private bool Valid(GraphSyncPartSettingsViewModel model, UpdateTypePartEditorContext context)

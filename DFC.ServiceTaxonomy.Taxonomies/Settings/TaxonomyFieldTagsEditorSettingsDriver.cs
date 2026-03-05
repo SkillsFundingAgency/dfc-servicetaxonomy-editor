@@ -1,17 +1,19 @@
 using System.Threading.Tasks;
+using DFC.ServiceTaxonomy.Taxonomies.Fields;
 using OrchardCore.ContentManagement.Metadata.Models;
 using OrchardCore.ContentTypes.Editors;
+using OrchardCore.DisplayManagement.Handlers;
 using OrchardCore.DisplayManagement.Views;
-using DFC.ServiceTaxonomy.Taxonomies.Fields;
 
 namespace DFC.ServiceTaxonomy.Taxonomies.Settings
 {
     public class TaxonomyFieldTagsEditorSettingsDriver : ContentPartFieldDefinitionDisplayDriver<TaxonomyField>
     {
-        public override IDisplayResult Edit(ContentPartFieldDefinition partFieldDefinition)
+        public override IDisplayResult Edit(ContentPartFieldDefinition partFieldDefinition, BuildEditorContext context)
         {
-            return Initialize<TaxonomyFieldTagsEditorSettings>("TaxonomyFieldTagsEditorSettings_Edit", model => partFieldDefinition.PopulateSettings(model))
-                .Location("Editor");
+            return Initialize<TaxonomyFieldTagsEditorSettings>("TaxonomyFieldTagsEditorSettings_Edit", model => {
+                var settings = partFieldDefinition.GetSettings<TaxonomyFieldTagsEditorSettings>();
+            }).Location("Editor");
         }
 
         public override async Task<IDisplayResult> UpdateAsync(ContentPartFieldDefinition partFieldDefinition, UpdatePartFieldEditorContext context)
@@ -25,7 +27,7 @@ namespace DFC.ServiceTaxonomy.Taxonomies.Settings
                 context.Builder.WithSettings(model);
             }
 
-            return Edit(partFieldDefinition);
+            return Edit(partFieldDefinition, context);
         }
     }
 }

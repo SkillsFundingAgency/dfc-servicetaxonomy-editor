@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json.Nodes;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Contexts;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Items;
@@ -10,7 +11,6 @@ using DFC.ServiceTaxonomy.GraphSync.Helpers;
 using DFC.ServiceTaxonomy.GraphSync.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.Orchestrators;
 using Microsoft.Extensions.Logging;
-using Newtonsoft.Json.Linq;
 using OrchardCore.ContentManagement;
 using OrchardCore.ContentManagement.Metadata;
 using OrchardCore.ContentManagement.Metadata.Models;
@@ -76,8 +76,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Items
 
         private async Task IteratePartSyncers(
             IItemSyncContext context,
-            Func<IContentPartGraphSyncer, JObject, Task> action,
-            Func<IContentPartGraphSyncer, JObject, Task>? detachingPartAction = null)
+            Func<IContentPartGraphSyncer, JsonObject, Task> action,
+            Func<IContentPartGraphSyncer, JsonObject, Task>? detachingPartAction = null)
         {
             foreach (var partSync in _partSyncers)
             {
@@ -96,7 +96,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Items
 
                     string namedPartName = contentTypePartDefinition.Name;
 
-                    JObject? partContent = context.ContentItem.Content[namedPartName];
+                    JsonObject? partContent = context.ContentItem.Content[namedPartName];
                     if (partContent == null)
                         continue; //todo: throw??
 
@@ -138,7 +138,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Items
                 context.ContentTypePartDefinition = contentTypePartDefinition;
 
                 (bool validated, string partFailureReason) = await partSyncer.ValidateSyncComponent(
-                    (JObject)partContent, context);
+                    (JsonObject)partContent, context);
 
                 if (validated)
                     continue;
