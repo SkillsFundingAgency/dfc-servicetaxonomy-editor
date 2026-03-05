@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json.Dynamic;
 using System.Text.Json.Nodes;
 using DFC.ServiceTaxonomy.Taxonomies.Fields;
 using DFC.ServiceTaxonomy.Taxonomies.ViewModels;
@@ -19,7 +20,7 @@ namespace DFC.ServiceTaxonomy.Taxonomies.Drivers
             {
                 var children = Array.Empty<ContentItem>();
 
-                if (contentItem.Content.Terms is JsonArray termsArray)
+                if (contentItem.Content.Terms is JsonDynamicArray termsArray)
                 {
                     children = termsArray.ToObject<ContentItem[]>();
                 }
