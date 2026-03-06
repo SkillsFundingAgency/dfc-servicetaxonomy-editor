@@ -4,6 +4,7 @@ parameters:
     default: refs/heads/master
 
 variables:
+  npmroot: 'dfc-servicetaxonomy-editor/DFC.ServiceTaxonomy.Theme'
   SolutionBaseName: 'DFC.ServiceTaxonomy'
   EditorAdminUserEmail: 'careersdevops@education.gov.uk'
 
@@ -67,6 +68,30 @@ stages:
     workspace:
       clean: all
     steps:
+    - task: PowerShell@2
+      displayName: "Override Node, NPM and Python versions"
+      inputs:
+        targetType: inline
+        script: |
+          $currentPath = $env:PATH
+          $newPath = "C:\hostedtoolcache\windows\node\20.15.0\x64;C:\hostedtoolcache\windows\Python\3.12.4\x64;$currentPath"
+          Write-Host "##vso[task.prependpath]$newPath"
+
+    - task: Npm@1
+      displayName: "Run npm install"
+      inputs:
+        command: 'install' 
+        workingDir: '$(System.DefaultWorkingDirectory)/DFC.ServiceTaxonomy.Theme'
+        customRegistry: useFeed
+        customFeed: NationalCareersService
+
+    - task: gulp@1
+      displayName: "Run gulp"
+      inputs:
+        workingDirectory: '$(System.DefaultWorkingDirectory)/DFC.ServiceTaxonomy.Theme'
+        gulpFile: '$(System.DefaultWorkingDirectory)/DFC.ServiceTaxonomy.Theme/gulpfile.js'
+        targets: default
+
     - template: StepTemplates/dfc-dotnetcore-build.yml
       parameters:
         SolutionBaseName: $(SolutionBaseName).Editor
