@@ -122,6 +122,7 @@ $font-face-bold-url-woff: "/DFC.ServiceTaxonomy.Theme/Fonts/bold-affa96571d-v2.w
         padding-bottom: 15px;
     }
 
+    @include meta.load-css("../../node_modules/accessible-autocomplete/dist/accessible-autocomplete.min");
     @include meta.load-css("../../node_modules/nationalcareers_toolkit/assets/dist/css/all");
 }
 
