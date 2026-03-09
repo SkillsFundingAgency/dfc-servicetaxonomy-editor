@@ -28,10 +28,6 @@ namespace DFC.ServiceTaxonomy.PageLocation.Indexes
                     {
                         var content = JsonSerializer.Serialize(contentItem.Content);
 
-                        //var root = JToken.Parse(content);
-                        //var tile = (bool?)root.SelectToken("..UseInTriageTool.Value");
-
-
                         using var d = JsonDocument.Parse(content);
                         bool? tile = null;
 
