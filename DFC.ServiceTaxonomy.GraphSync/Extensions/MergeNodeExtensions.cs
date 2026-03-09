@@ -38,19 +38,12 @@ namespace DFC.ServiceTaxonomy.GraphSync.Extensions
                 case JsonValueKind.Null:
                     mergeNodeCommand.Properties.Add(nodePropertyName, null);
                     return default;
-                case JsonValueKind.String:
-                    if (DateTime.TryParseExact(jvalue!.GetValue<string>(), "yyyy-MM-ddTHH:mm:ssK",
-                            CultureInfo.InvariantCulture, DateTimeStyles.AdjustToUniversal, out DateTime utcTime))
+                case JsonValueKind.String when DateTime.TryParseExact(jvalue!.GetValue<string>(), "yyyy-MM-ddTHH:mm:ssK",
+                            CultureInfo.InvariantCulture, DateTimeStyles.AdjustToUniversal, out DateTime utcTime):
                     {
                         value = (T)(object)utcTime;
                         mergeNodeCommand.Properties.Add(nodePropertyName, value);
                         break;
-                    }
-                    else
-                    {
-#pragma warning disable S907 // "goto" statement should not be used
-                        goto default;
-#pragma warning restore S907 // "goto" statement should not be used
                     }
                 default:
                     if (typeof(T) == typeof(bool) && bool.TryParse(jvalue!.ToString(), out bool boolValue))
