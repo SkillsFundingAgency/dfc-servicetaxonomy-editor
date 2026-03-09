@@ -40,34 +40,25 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
 
         private string JValueToString(JsonValue jvalue)
         {
-            var returnString = string.Empty;
             switch (jvalue.GetValueKind())
             {
                 case JsonValueKind.String:
+                    var stringValue = jvalue.GetValue<string>();
+                    if (DateTime.TryParse(stringValue, CultureInfo.InvariantCulture,
+                        DateTimeStyles.AdjustToUniversal, out DateTime utcTime))
+                    {
+                        return utcTime.ToString("u");
+                    }
+                    return stringValue;
 
-                    if (DateTime.TryParse(jvalue.GetValue<string>(), CultureInfo.InvariantCulture, DateTimeStyles.AdjustToUniversal, out DateTime utcTime))
-                    {
-                        returnString = utcTime.ToString("u");
-                        break;
-                    }
-                    else
-                    {
-#pragma warning disable S907 // "goto" statement should not be used
-                        goto default;
-#pragma warning restore S907 // "goto" statement should not be used
-                    }
                 case JsonValueKind.False:
                 case JsonValueKind.True:
-                    {
-                        returnString = jvalue.GetValue<bool>().ToString();
-                        break;
-                    }
+                    return jvalue.GetValue<bool>().ToString();
 
                 default:
-                    returnString = jvalue.ToString();
-                    break;
+                    return jvalue.ToString();
+
             }
-            return returnString;
         }
 
         public (bool matched, string failureReason) ContentArrayPropertyMatchesNodeProperty(
