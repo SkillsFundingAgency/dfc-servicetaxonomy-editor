@@ -27,21 +27,20 @@ namespace DFC.ServiceTaxonomy.GraphSync.Extensions
             foreach (var item in linksDictionary.Where(link => link.Key != "self" && link.Key != "curies"))
             {
                 var list = new List<string>();
-                if(item.Value is JsonObject itemJObject)
+                if (item.Value is Dictionary<string, object> dict)
                 {
-                    var dict = itemJObject.ToObject<Dictionary<string, object>>();
                     var uri = (string)dict!["href"];
                     if (!string.IsNullOrWhiteSpace(uri))
                     {
                         list.Add(uri);
                     }
                 }
-                else if (item.Value is JsonArray itemJArray)
+                else if (item.Value is List<object> itemList)
                 {
-                    foreach (var arrayItem in itemJArray)
+                    foreach (var listItem in itemList)
                     {
-                        var dict = arrayItem.ToObject<Dictionary<string, object>>();
-                        var uri = (string)dict!["href"];
+                        var dic = listItem as Dictionary<string, object>;
+                        var uri = (string)dic!["href"];
                         if (!string.IsNullOrWhiteSpace(uri))
                         {
                             list.Add(uri);

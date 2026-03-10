@@ -81,7 +81,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Helpers
                 throw new ArgumentNullException(nameof(value));
             }
 
-            if (value is JsonObject valObj)
+            if (JObject.TryParse(value.ToString()!, out var valObj))
             {
                 return valObj.ToObject<Dictionary<string, object>>()!;
             }
