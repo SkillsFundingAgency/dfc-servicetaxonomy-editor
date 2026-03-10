@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text.Json.Nodes;
 
 namespace DFC.ServiceTaxonomy.GraphSync.Helpers
@@ -116,7 +117,13 @@ namespace DFC.ServiceTaxonomy.GraphSync.Helpers
                 return valAry.ToObject<List<Dictionary<string, object>>>()!;
             }
 
-            return (List<Dictionary<string, object>>)value;
+
+            return (value as IEnumerable<object>)
+                    ?.Select(x => x as IDictionary<string, object>)
+                    .Where(x => x != null)!
+                    .Select(dict => dict!.ToDictionary(k => k.Key, v => v.Value))
+                    .ToList()!;
+                            
         }
     }
 }
