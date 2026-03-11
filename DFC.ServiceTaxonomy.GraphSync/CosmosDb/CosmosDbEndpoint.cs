@@ -355,7 +355,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb
         {
             if (itemBeforeUpdate == null) return;
 
-            string itemId = (string)itemBeforeUpdate["ContentType"] + (string)itemBeforeUpdate["id"];
+            string itemId = itemBeforeUpdate["ContentType"].ToString() + itemBeforeUpdate["id"].ToString();
 
             var existingItemRelationships = SafeCastToDictionary(itemBeforeUpdate["_links"])
                 .GetLinks()
