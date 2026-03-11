@@ -8,7 +8,6 @@ using OrchardCore.ContentManagement;
 using OrchardCore.Contents.Services;
 using OrchardCore.Contents.ViewModels;
 using OrchardCore.DisplayManagement.ModelBinding;
-using OrchardCore.Entities;
 using OrchardCore.Settings;
 using YesSql;
 
@@ -28,7 +27,7 @@ namespace DFC.ServiceTaxonomy.Taxonomies.Services
         public async Task FilterAsync(ContentOptionsViewModel model, IQuery<ContentItem> query, IUpdateModel updater)
         {
             var settings = (await _siteService.GetSiteSettingsAsync()).As<TaxonomyContentsAdminListSettings>();
-            _logger.LogInformation($"FilterAsync: query {query} ");
+            _logger.LogInformation("FilterAsync: query {Query} ", query);
             foreach (var contentItemId in settings.TaxonomyContentItemIds)
             {
                 var viewModel = new TaxonomyContentsAdminFilterViewModel();
@@ -39,7 +38,7 @@ namespace DFC.ServiceTaxonomy.Taxonomies.Services
                     {
                         if (viewModel.SelectedContentItemId.StartsWith("Taxonomy:", StringComparison.OrdinalIgnoreCase))
                         {
-                            _logger.LogInformation($"FilterAsync: Taxonomy {viewModel.SelectedContentItemId} "); 
+                            _logger.LogInformation("FilterAsync: Taxonomy {SelectedContentItemId} ", viewModel.SelectedContentItemId);
                             viewModel.SelectedContentItemId = viewModel.SelectedContentItemId.Substring(9);
                             query.All(
                                 x => query.With<TaxonomyIndex>(x => x.TaxonomyContentItemId == viewModel.SelectedContentItemId)
@@ -47,7 +46,7 @@ namespace DFC.ServiceTaxonomy.Taxonomies.Services
                         }
                         else if (viewModel.SelectedContentItemId.StartsWith("Term:", StringComparison.OrdinalIgnoreCase))
                         {
-                            _logger.LogInformation($"FilterAsync: Term {viewModel.SelectedContentItemId} ");
+                            _logger.LogInformation("FilterAsync: Term {SelectedContentItemId} ", viewModel.SelectedContentItemId);
                             viewModel.SelectedContentItemId = viewModel.SelectedContentItemId.Substring(5);
                             query.All(
                                 x => query.With<TaxonomyIndex>(x => x.TermContentItemId == viewModel.SelectedContentItemId)

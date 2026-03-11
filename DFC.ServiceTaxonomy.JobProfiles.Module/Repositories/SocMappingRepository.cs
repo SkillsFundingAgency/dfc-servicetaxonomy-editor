@@ -24,12 +24,12 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module.Repositories
             }
 
             var socMapping = _dbContext.DfcSocMappings.AsQueryable().FirstOrDefault(s => s.SocCode == socCode);
-            if(socMapping == null)
+            if (socMapping == null)
             {
                 // Add a new soc code - onet id mapping
                 await _dbContext.DfcSocMappings.AddAsync(new DfcSocMapping { SocCode = socCode, OnetCode = onetData.OnetsocCode, JobProfile = onetData.Title, QualityRating = 0, UpdateStatus = "UpdateCompleted" });
             }
-            else if(socMapping.OnetCode != onetId)
+            else if (socMapping.OnetCode != onetId)
             {
                 // Update and existing soc code with a new onet id mapping
                 socMapping.OnetCode = onetData.OnetsocCode;

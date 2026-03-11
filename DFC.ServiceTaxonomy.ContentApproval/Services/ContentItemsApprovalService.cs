@@ -32,17 +32,17 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Services
             switch (card)
             {
                 case DashboardItemsStatusCard.InDraft:
-                    counts.Count =  GetManageContentItemCount(card);
+                    counts.Count = GetManageContentItemCount(card);
                     break;
                 case DashboardItemsStatusCard.Published:
-                    counts.Count =  GetManageContentItemCount(card);
+                    counts.Count = GetManageContentItemCount(card);
                     var forcePublishedCount = GetManageContentItemCount(card, null, true);
                     counts.SubCounts = new[] { counts.Count, forcePublishedCount };
                     break;
                 case DashboardItemsStatusCard.WaitingForReview:
                 case DashboardItemsStatusCard.InReview:
                     var reviewTypes = Enum.GetValues(typeof(ReviewType)).Cast<ReviewType>();
-                    var reviewTypeCounts = reviewTypes.Select(rt => GetManageContentItemCount(card, rt==ReviewType.None?(ReviewType?)null:rt)).ToArray();
+                    var reviewTypeCounts = reviewTypes.Select(rt => GetManageContentItemCount(card, rt == ReviewType.None ? (ReviewType?)null : rt)).ToArray();
                     counts.Count = reviewTypeCounts[0];
                     counts.SubCounts = reviewTypeCounts;
                     break;
@@ -60,7 +60,7 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Services
             var user = _httpContextAccessor.HttpContext?.User.Identity!.Name ?? string.Empty;
 
             var query = _session.Query<ContentItem>().With<ContentItemIndex>(i => i.Author == user && i.Latest);
-            await foreach (var item in  query.OrderByDescending(c => c.ModifiedUtc).ToAsyncEnumerable())
+            await foreach (var item in query.OrderByDescending(c => c.ModifiedUtc).ToAsyncEnumerable())
             {
                 // For some reason can't filter DisplayText in the query so having to check here and enforce the count limit
                 if (!string.IsNullOrWhiteSpace(item.DisplayText))

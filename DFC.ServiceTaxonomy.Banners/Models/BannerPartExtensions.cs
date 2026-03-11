@@ -22,14 +22,14 @@ namespace DFC.ServiceTaxonomy.Banners.Models
 
             var matches = await session.QueryIndex<BannerPartIndex>(b =>
                 b.WebPageName == part.WebPageName && b.ContentItemId != part.ContentItem.ContentItemId).CountAsync();
-            if(matches > 0)
+            if (matches > 0)
             {
                 yield return new ValidationResult(S["The Webpage name '{0}' is already in use on another page banner.", part.WebPageName!]);
 
             }
             matches = await session.QueryIndex<BannerPartIndex>(b =>
                 b.WebPageURL == part.WebPageURL && b.ContentItemId != part.ContentItem.ContentItemId).CountAsync();
-            if (matches > 0) 
+            if (matches > 0)
             {
                 yield return new ValidationResult(S["The webpage location '{0}' is already in use on another page banner.", part.WebPageURL!]);
 

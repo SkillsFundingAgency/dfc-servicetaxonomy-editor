@@ -12,7 +12,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Extensions
             object? val = jobject[name];
             return !string.IsNullOrEmpty(val?.ToString())
                 ? DateTime.Parse(val.ToString()!)
-                : (DateTime?) null;
+                : (DateTime?)null;
         }
 
         public static Dictionary<string, List<string>> GetLinks(this Dictionary<string, object> linksDictionary)
@@ -27,7 +27,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Extensions
             foreach (var item in linksDictionary.Where(link => link.Key != "self" && link.Key != "curies"))
             {
                 var list = new List<string>();
-                if(item.Value is JObject itemJObject)
+                if (item.Value is JObject itemJObject)
                 {
                     var dict = itemJObject.ToObject<Dictionary<string, object>>();
                     var uri = (string)dict!["href"];

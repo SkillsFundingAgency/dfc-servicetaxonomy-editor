@@ -65,7 +65,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
                 {
                     longsSame = nodePropertyValueLong == (long)contentItemFieldValue;
                 }
-                return (longsSame, longsSame?"":$"long content property value was '{contentItemFieldValue}', but node property value was '{nodePropertyValue}'");
+                return (longsSame, longsSame ? "" : $"long content property value was '{contentItemFieldValue}', but node property value was '{nodePropertyValue}'");
             }
 
             // calculate allowable tolerance from scale setting
@@ -81,7 +81,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
                 doublesSame = Math.Abs(nodePropertyValueDouble - (double)contentItemFieldValue) <= allowableDifference;
             }
 
-            return (doublesSame, doublesSame?"":$"double content property value was '{contentItemFieldValue}', but node property value was '{nodePropertyValue}' and allowable difference was {allowableDifference}");
+            return (doublesSame, doublesSame ? "" : $"double content property value was '{contentItemFieldValue}', but node property value was '{nodePropertyValue}' and allowable difference was {allowableDifference}");
         }
     }
 }

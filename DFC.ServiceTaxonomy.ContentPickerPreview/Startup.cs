@@ -18,7 +18,7 @@ namespace DFC.ServiceTaxonomy.ContentPickerPreview
             services.AddScoped<IContentPickerResultProvider, EditLinkContentPickerResultProvider>();
             services.AddScoped<IContentPickerResultProvider, EditPublishedLinkContentPickerResultProvider>();
 
-            
+
             services.AddScoped<IBannerContentPickerResultProvider, BannerContentPickerResultProvider>();
 
 

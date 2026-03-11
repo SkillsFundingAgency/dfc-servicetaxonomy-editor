@@ -1,7 +1,7 @@
-﻿using OrchardCore.ContentManagement.Handlers;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.Models;
 using OrchardCore.ContentManagement;
+using OrchardCore.ContentManagement.Handlers;
 
 namespace DFC.ServiceTaxonomy.GraphSync.Handlers
 {

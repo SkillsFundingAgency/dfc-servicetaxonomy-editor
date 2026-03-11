@@ -19,7 +19,7 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Handlers
             // 2. it is a Save or Publish event only
             // 3. there is a content approval part add as part of the content type
             if (context is AuditTrailCreateContext<AuditTrailContentEvent> contentEvent &&
-                new[] {Constants.ContentEvent_Saved, Constants.ContentEvent_Published}.Any(ev => ev.Equals(contentEvent.Name, StringComparison.CurrentCultureIgnoreCase)) &&
+                new[] { Constants.ContentEvent_Saved, Constants.ContentEvent_Published }.Any(ev => ev.Equals(contentEvent.Name, StringComparison.CurrentCultureIgnoreCase)) &&
                 contentEvent.AuditTrailEventItem.ContentItem.Has<ContentApprovalPart>())
             {
                 var contentApprovalPart = contentEvent.AuditTrailEventItem.ContentItem.As<ContentApprovalPart>();

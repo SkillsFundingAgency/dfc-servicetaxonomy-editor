@@ -45,9 +45,9 @@ namespace DFC.ServiceTaxonomy.PageLocation.Validators
             if (terms != null)
             {
                 //todo: look at this
-                #pragma warning disable S3217
+#pragma warning disable S3217
                 foreach (JObject term in terms)
-                #pragma warning restore S3217
+#pragma warning restore S3217
                 {
                     dynamic? originalParent = _taxonomyHelper.FindParentTaxonomyTerm(term, JObject.FromObject(part.ContentItem));
                     dynamic? newParent = _taxonomyHelper.FindParentTaxonomyTerm(term, JObject.FromObject(part));

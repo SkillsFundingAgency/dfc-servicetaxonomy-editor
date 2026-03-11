@@ -47,10 +47,10 @@ namespace DFC.ServiceTaxonomy.Taxonomies.Controllers
         [ActionName("Create")]
         public async Task<IActionResult> CreatePost(string taxonomyContentItemId, string displayText)
         {
-            _logger.LogInformation($"CreatePost taxonomyContentItemId {taxonomyContentItemId} displayText {displayText}");
+            _logger.LogInformation("CreatePost taxonomyContentItemId {TaxonomyContentItemId} displayText {DisplayText}", taxonomyContentItemId, displayText);
             if (!await _authorizationService.AuthorizeAsync(User, Permissions.ManageTaxonomies))
             {
-                _logger.LogWarning($"CreatePost Unauthorized");
+                _logger.LogWarning("CreatePost Unauthorized");
                 return Unauthorized();
             }
 
@@ -69,7 +69,7 @@ namespace DFC.ServiceTaxonomy.Taxonomies.Controllers
 
             if (taxonomy == null)
             {
-                _logger.LogWarning($"CreatePost taxonomy {taxonomy}  notfound");
+                _logger.LogWarning("CreatePost taxonomy {Taxonomy}  not found", taxonomy);
                 return NotFound();
             }
 
@@ -90,7 +90,7 @@ namespace DFC.ServiceTaxonomy.Taxonomies.Controllers
 
             if (!ModelState.IsValid)
             {
-                _logger.LogWarning($"CreatePost ModelState {ModelState.IsValid} BadRequest");
+                _logger.LogWarning("CreatePost ModelState {ModelState.IsValid} BadRequest", ModelState.IsValid);
                 return BadRequest();
             }
 

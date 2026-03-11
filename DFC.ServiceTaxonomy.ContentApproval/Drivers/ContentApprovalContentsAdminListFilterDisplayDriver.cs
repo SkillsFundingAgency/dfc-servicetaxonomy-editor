@@ -76,7 +76,7 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Drivers
         public override async Task<IDisplayResult> UpdateAsync(ContentOptionsViewModel model, IUpdateModel updater)
         {
             var viewModel = new ContentApprovalContentsAdminListFilterViewModel();
-            if(await updater.TryUpdateModelAsync(viewModel, Constants.ContentApprovalPartPrefix))
+            if (await updater.TryUpdateModelAsync(viewModel, Constants.ContentApprovalPartPrefix))
             {
                 model?.FilterResult?.MapFrom(viewModel);
             }

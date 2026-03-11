@@ -13,7 +13,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Interfaces.Queries
         INode SourceNode { get; set; }
         IEnumerable<IOutgoingRelationship> OutgoingRelationships { get; set; }
 
-        #pragma warning disable S4136
+#pragma warning disable S4136
         IEnumerable<CommandRelationship> ToCommandRelationships(ISyncNameProvider syncNameProvider);
 
         IReplaceRelationshipsCommand ToReplaceRelationshipsCommand(ISyncNameProvider syncNameProvider);
@@ -29,6 +29,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.Interfaces.Queries
             IContentItemVersion fromContentItemVersion,
             IContentItemVersion toContentItemVersion,
             bool replaceExistingRelationships = true);
-        #pragma warning restore S4136
+#pragma warning restore S4136
     }
 }

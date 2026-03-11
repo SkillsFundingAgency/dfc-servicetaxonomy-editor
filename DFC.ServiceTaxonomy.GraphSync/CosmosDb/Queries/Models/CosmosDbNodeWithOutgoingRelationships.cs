@@ -4,11 +4,11 @@ using DFC.ServiceTaxonomy.GraphSync.CosmosDb.Commands;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.ContentItemVersions;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Helpers;
 using DFC.ServiceTaxonomy.GraphSync.Interfaces;
-using OrchardCore.Workflows.Helpers;
-using DFC.ServiceTaxonomy.GraphSync.Models;
 using DFC.ServiceTaxonomy.GraphSync.Interfaces.Queries;
 using DFC.ServiceTaxonomy.GraphSync.JsonConverters;
+using DFC.ServiceTaxonomy.GraphSync.Models;
 using Newtonsoft.Json;
+using OrchardCore.Workflows.Helpers;
 
 namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb.Queries.Models
 {
@@ -16,9 +16,9 @@ namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb.Queries.Models
     public class CosmosDbNodeWithOutgoingRelationships : INodeWithOutgoingRelationships
     {
         public INode SourceNode { get; set; }
-        #pragma warning disable CS8766 // Nullability of reference types in return type doesn't match implicitly implemented member (possibly because of nullability attributes).
+#pragma warning disable CS8766 // Nullability of reference types in return type doesn't match implicitly implemented member (possibly because of nullability attributes).
         public IEnumerable<IOutgoingRelationship>? OutgoingRelationships { get; set; }
-        #pragma warning restore CS8766 // Nullability of reference types in return type doesn't match implicitly implemented member (possibly because of nullability attributes).
+#pragma warning restore CS8766 // Nullability of reference types in return type doesn't match implicitly implemented member (possibly because of nullability attributes).
 
         public CosmosDbNodeWithOutgoingRelationships(INode sourceNode, IEnumerable<(IRelationship relationship, INode destinationNode)> outgoingRelationships)
         {
@@ -29,7 +29,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb.Queries.Models
                 outgoingRelationships?.Select(or => new OutgoingRelationship(or.relationship, or.destinationNode));
         }
 
-        #pragma warning disable S4136
+#pragma warning disable S4136
         public IEnumerable<CommandRelationship> ToCommandRelationships(ISyncNameProvider syncNameProvider)
         {
             //todo: don't get id twice
@@ -132,6 +132,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb.Queries.Models
 
             return replaceRelationshipsCommand;
         }
-        #pragma warning restore S4136
+#pragma warning restore S4136
     }
 }

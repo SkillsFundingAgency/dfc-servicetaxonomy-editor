@@ -18,8 +18,8 @@ namespace DFC.ServiceTaxonomy.JobProfiles.DataTransfer.Models.ServiceBus
 
         public decimal? ONetRank { get; set; }
 
-        public IEnumerable<FrameworkSkillItem>? RelatedSkill { get; set; } 
+        public IEnumerable<FrameworkSkillItem>? RelatedSkill { get; set; }
 
-        public IEnumerable<RelatedSocCodeItem>? RelatedSOC { get; set; } 
+        public IEnumerable<RelatedSocCodeItem>? RelatedSOC { get; set; }
     }
 }

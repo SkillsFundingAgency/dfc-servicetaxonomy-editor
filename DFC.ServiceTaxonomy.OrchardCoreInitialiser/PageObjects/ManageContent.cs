@@ -1,6 +1,6 @@
-﻿using OpenQA.Selenium;
+﻿using System;
+using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
-using System;
 
 namespace DFC.ServiceTaxonomy.OrchardCoreInitialiser.PageObjects
 {
@@ -28,7 +28,7 @@ namespace DFC.ServiceTaxonomy.OrchardCoreInitialiser.PageObjects
             }
             catch (Exception e)
             {
-                throw new Exception("ManageContent: Exception in function SetFilter:\n" , e);
+                throw new Exception("ManageContent: Exception in function SetFilter:\n", e);
             }
             return this;
         }
@@ -57,7 +57,7 @@ namespace DFC.ServiceTaxonomy.OrchardCoreInitialiser.PageObjects
             // assume starts on page one of results
             string baseUrl = _webDriver.Url;
 
-            while( GetPageRecordCount() > 0)
+            while (GetPageRecordCount() > 0)
             {
                 try
                 {
@@ -96,7 +96,7 @@ namespace DFC.ServiceTaxonomy.OrchardCoreInitialiser.PageObjects
                 _webDriver.FindElement(By.Id("Options_DisplayText")).SendKeys(title);
                 _webDriver.FindElement(By.Id("Options_DisplayText")).SendKeys(Keys.Return);
             }
-            catch( Exception e)
+            catch (Exception e)
             {
                 throw new Exception("ManageContent: Exception in function FindItem:\n", e);
             }
@@ -111,7 +111,7 @@ namespace DFC.ServiceTaxonomy.OrchardCoreInitialiser.PageObjects
             }
             catch (Exception e)
             {
-                Console.WriteLine("ManageContent: Unable to log out:\n"+ e);
+                Console.WriteLine("ManageContent: Unable to log out:\n" + e);
             }
 
 
@@ -143,7 +143,7 @@ namespace DFC.ServiceTaxonomy.OrchardCoreInitialiser.PageObjects
                 _webDriver.FindElement(By.LinkText("Delete"))
                                                .Click();
             }
-            catch( Exception e)
+            catch (Exception e)
             {
                 throw new Exception("ManageContent: Exception in function DeleteFirstItem: :\n", e);
             }
@@ -169,7 +169,7 @@ namespace DFC.ServiceTaxonomy.OrchardCoreInitialiser.PageObjects
                 returnValue = _webDriver.FindElement(By.XPath("/html/body/div[1]/div[3]/div")).Text
                                                              .EndsWith("has been " + action + ".");
             }
-            catch( Exception e)
+            catch (Exception e)
             {
                 throw new Exception("ManageContent: Exception in function ConfirmActionSuccess:\n", e);
             }

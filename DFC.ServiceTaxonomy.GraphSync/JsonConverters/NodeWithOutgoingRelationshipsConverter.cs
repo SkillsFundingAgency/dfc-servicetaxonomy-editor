@@ -60,7 +60,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.JsonConverters
                         var relationshipNode = new StandardNode
                         {
                             Id = endNodeId,
-                            Labels = new List<string> {linkContentType, "Resource"},
+                            Labels = new List<string> { linkContentType, "Resource" },
                             Properties = new Dictionary<string, object>
                             {
                                 {"uri", linkHref}, {"contentType", linkContentType}

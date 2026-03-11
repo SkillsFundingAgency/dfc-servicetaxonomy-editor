@@ -155,7 +155,7 @@ namespace DFC.ServiceTaxonomy.GraphSync
             services.AddTransient<IDeleteOrchestrator, DeleteOrchestrator>();
             services.AddTransient<ISyncOrchestrator, SyncOrchestrator>();
             services.AddTransient<IContentTypeOrchestrator, ContentTypeOrchestrator>();
-            
+
             // syncers
             services.AddTransient<IMergeGraphSyncer, MergeGraphSyncer>();
             services.AddTransient<IDeleteGraphSyncer, DeleteGraphSyncer>();

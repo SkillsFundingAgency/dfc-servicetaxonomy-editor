@@ -19,9 +19,9 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Services
                 .WithNamedTerm("reviewstatus", builder => builder
                     .OneCondition((val, query, ctx) =>
                     {
-                        if(Enum.TryParse<ReviewStatusFilterOptions>(val, true, out var reviewStatus))
+                        if (Enum.TryParse<ReviewStatusFilterOptions>(val, true, out var reviewStatus))
                         {
-                            switch(reviewStatus)
+                            switch (reviewStatus)
                             {
                                 case ReviewStatusFilterOptions.WillNeedReview:
                                     query.With<ContentItemIndex>(x => x.Latest && !x.Published);
@@ -71,7 +71,7 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Services
                     })
                     .MapFrom<ContentApprovalContentsAdminListFilterViewModel>((model) =>
                     {
-                        if(model.SelectedReviewType.HasValue)
+                        if (model.SelectedReviewType.HasValue)
                         {
                             return (true, model?.SelectedReviewType?.ToString().ToLower());
                         }

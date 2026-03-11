@@ -1,5 +1,5 @@
-﻿using OpenQA.Selenium;
-using System;
+﻿using System;
+using OpenQA.Selenium;
 
 
 namespace DFC.ServiceTaxonomy.OrchardCoreInitialiser.PageObjects
@@ -25,7 +25,7 @@ namespace DFC.ServiceTaxonomy.OrchardCoreInitialiser.PageObjects
             {
                 _webDriver.FindElement(By.Id("UserName")).SendKeys(username);
             }
-            catch( Exception e)
+            catch (Exception e)
             {
                 throw new Exception("Error in function EnterUsername:\n", e);
             }
@@ -43,18 +43,18 @@ namespace DFC.ServiceTaxonomy.OrchardCoreInitialiser.PageObjects
             {
                 throw new Exception("Error in function enterPassword:\n", e);
             }
-            
+
             return this;
         }
 
-        public StartPage SubmitLogonDetails ( string editorBaseUrl, string editorUid, string editorPassword)
+        public StartPage SubmitLogonDetails(string editorBaseUrl, string editorUid, string editorPassword)
         {
             navigateToLoginPage(editorBaseUrl);
             enterUsername(editorUid);
             enterPassword(editorPassword);
             // check no validation errors
             var elements = _webDriver.FindElements(By.ClassName("text-danger"));
-            if ( elements.Count > 0)
+            if (elements.Count > 0)
             {
                 throw new Exception("Error in function SubmitLogonDetails: " + elements[0].Text);
             }

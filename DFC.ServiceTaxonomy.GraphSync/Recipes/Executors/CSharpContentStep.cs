@@ -128,7 +128,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
             {
                 return await _cypherToContentCSharpScriptGlobals.Content.GetContentItemIdByDisplayText(contentType, displayText);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 _logger.LogError(ex, "{ContentType} with DisplayText '{DisplayText}' not found!",
                     contentType, displayText);

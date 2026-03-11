@@ -21,7 +21,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Indexes
 
                     if (!string.IsNullOrEmpty(text) && (contentItem.Published || contentItem.Latest))
                     {
-                        return new GraphSyncPartIndex {ContentItemId = contentItem.ContentItemId, NodeId = text};
+                        return new GraphSyncPartIndex { ContentItemId = contentItem.ContentItemId, NodeId = text };
                     }
 
 #pragma warning disable CS8603 // Possible null reference return.
