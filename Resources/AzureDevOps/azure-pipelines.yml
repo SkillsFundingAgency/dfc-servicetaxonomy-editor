@@ -2,6 +2,11 @@ parameters:
   - name: DfcServiceTaxonomyTestBranch
     type: string
     default: refs/heads/master
+  - name: PerformBranchCheck
+    type: boolean
+    default: true
+    displayName: 'Perform branch comparison with default branch (master/main) when deploying to Pre-Prod / Prod environments'
+
 
 variables:
   npmroot: 'dfc-servicetaxonomy-editor/DFC.ServiceTaxonomy.Theme'
@@ -16,6 +21,10 @@ resources:
     name: SkillsFundingAgency/dfc-devops
     ref: refs/tags/v1.16.4
     endpoint: 'SkillsFundingAgency'
+  - repository: Infra
+    name: National Careers Service (NCS)/dfe-ncs-infrastructure
+    type: git
+    ref: refs/heads/main
 
 trigger:
   branches:
@@ -159,6 +168,7 @@ stages:
       TestExclusionTag: 'NotDev'
       MediaStorageAccountName: $(MediaStorageAccountName)
       PSScriptPath: "$(Pipeline.Workspace)/${{ variables.SolutionBaseName }}.Editor.Resources.PSScripts"
+      PerformBranchCheck: ${{ parameters.performBranchCheck }}
 
 - stage: DeployToDev
   condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'))
@@ -196,6 +206,7 @@ stages:
       TestExclusionTag: 'NotDev'
       MediaStorageAccountName: $(MediaStorageAccountName)
       PSScriptPath: "$(Pipeline.Workspace)/${{ variables.SolutionBaseName }}.Editor.Resources.PSScripts"
+      PerformBranchCheck: ${{ parameters.performBranchCheck }}
 
 
 - stage: DeployToSit
@@ -233,6 +244,7 @@ stages:
       TestExclusionTag: 'NotSit'
       MediaStorageAccountName: $(MediaStorageAccountName)
       PSScriptPath: "$(Pipeline.Workspace)/${{ variables.SolutionBaseName }}.Editor.Resources.PSScripts"
+      PerformBranchCheck: ${{ parameters.performBranchCheck }}
 
 
 
@@ -271,6 +283,7 @@ stages:
       TestExclusionTag: 'NotPP'
       MediaStorageAccountName: $(MediaStorageAccountName)
       PSScriptPath: "$(Pipeline.Workspace)/${{ variables.SolutionBaseName }}.Editor.Resources.PSScripts"
+      PerformBranchCheck: ${{ parameters.performBranchCheck }}
 
 - stage: DeployToPrd
   condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'))
@@ -306,6 +319,7 @@ stages:
       TestArtifactBranch: ${{ parameters.DfcServiceTaxonomyTestBranch }}
       MediaStorageAccountName: $(MediaStorageAccountName)
       PSScriptPath: "$(Pipeline.Workspace)/${{ variables.SolutionBaseName }}.Editor.Resources.PSScripts"
+      PerformBranchCheck: ${{ parameters.performBranchCheck }}
 
   - job: RetainPipeline
     displayName: Retain Pipeline
