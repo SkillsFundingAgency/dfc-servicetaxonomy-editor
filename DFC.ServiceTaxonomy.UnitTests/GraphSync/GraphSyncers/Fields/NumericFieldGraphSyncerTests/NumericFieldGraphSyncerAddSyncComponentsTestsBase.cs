@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
+using System.Text.Json.Nodes;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields;
 using FakeItEasy;
-using Newtonsoft.Json.Linq;
 using OrchardCore.ContentFields.Settings;
 using Xunit;
 
@@ -28,7 +28,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Fields.NumericFie
 
             //todo: JValue's type is being set to Object. code under test doesn't rely on it being Float like within oc, but should arrange as close to oc as possible
             //todo: make sure type is set correctly in all unit tests
-            ContentItemField = JObject.Parse($"{{\"Value\": {value}}}");
+            ContentItemField = JObject.Parse($"{{\"Value\": {value}}}")!;
 
             NumericFieldSettings.Scale = 0;
 

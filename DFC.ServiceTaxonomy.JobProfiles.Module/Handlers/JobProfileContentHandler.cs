@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Linq;
+using System.Text.Json.Nodes;
 using System.Threading.Tasks;
 
 using DFC.ServiceTaxonomy.JobProfiles.DataTransfer.ServiceBus;
 using Microsoft.AspNetCore.Mvc.Localization;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Newtonsoft.Json.Linq;
 
 using OrchardCore.ContentManagement;
 using OrchardCore.ContentManagement.Handlers;
@@ -42,7 +42,7 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module.Handlers
             if (context.ContentItem.ContentType == ContentTypes.JobProfile)
             {
                 // Only three job sectors can be selected
-                var sectorContentItemIds = (JArray)context.ContentItem.Content.JobProfile.JobProfileSector.ContentItemIds;
+                var sectorContentItemIds = (JsonArray)context.ContentItem.Content.JobProfile.JobProfileSector.ContentItemIds;
                 if (sectorContentItemIds.Count > 3)
                 {
                     _logger.LogInformation("Only three job sectors can be selected.");
@@ -54,7 +54,7 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module.Handlers
                     if (!string.IsNullOrEmpty(socCode))
                     {
                         var socSkillsMatrixContentItemsList = await _session.Query<ContentItem, ContentItemIndex>(c => c.ContentType == ContentTypes.SOCSkillsMatrix && c.DisplayText.StartsWith(socCode) && c.Published).ListAsync();
-                        context.ContentItem.Content.JobProfile.Relatedskills.ContentItemIds = new JArray(socSkillsMatrixContentItemsList.Select(c => c.ContentItemId));
+                        context.ContentItem.Content.JobProfile.Relatedskills.ContentItemIds = JArray.FromObject(socSkillsMatrixContentItemsList.Select(c => c.ContentItemId));
                     }
                 }
             }
@@ -65,7 +65,7 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module.Handlers
             if (context.ContentItem.ContentType == ContentTypes.JobProfile)
             {
                 // Only three job sectors can be selected
-                var sectorContentItemIds = (JArray)context.ContentItem.Content.JobProfile.JobProfileSector.ContentItemIds;
+                var sectorContentItemIds = (JsonArray)context.ContentItem.Content.JobProfile.JobProfileSector.ContentItemIds;
                 if (sectorContentItemIds.Count > 3)
                 {
                     context.Cancel = true;
@@ -80,7 +80,7 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module.Handlers
                         var socSkillsMatrixContentItemsList = await _session.Query<ContentItem, ContentItemIndex>(c => c.ContentType == ContentTypes.SOCSkillsMatrix && c.DisplayText.StartsWith(socCode) && c.Published).ListAsync();
                         if (context.ContentItem.Content.JobProfile.Relatedskills != null)
                         {
-                            context.ContentItem.Content.JobProfile.Relatedskills.ContentItemIds = new JArray(socSkillsMatrixContentItemsList.Select(c => c.ContentItemId));
+                            context.ContentItem.Content.JobProfile.Relatedskills.ContentItemIds = JArray.FromObject(socSkillsMatrixContentItemsList.Select(c => c.ContentItemId));
                         }
                     }
 
@@ -90,8 +90,8 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module.Handlers
 
         private async Task<string> SkillReloadRequired(ContentContextBase context)
         {
-            var socCodeContentItemIds = (JArray)context.ContentItem.Content.JobProfile.SOCCode.ContentItemIds;
-            var relatedSkillsIds = context.ContentItem.Content.JobProfile.Relatedskills == null ? default : (JArray)context.ContentItem.Content.JobProfile.Relatedskills.ContentItemIds;
+            var socCodeContentItemIds = (JsonArray)context.ContentItem.Content.JobProfile.SOCCode.ContentItemIds;
+            var relatedSkillsIds = context.ContentItem.Content.JobProfile.Relatedskills == null ? default : (JsonArray)context.ContentItem.Content.JobProfile.Relatedskills.ContentItemIds;
 
             // If no SOC code assigned then no need to create the skill relationships
             if(socCodeContentItemIds == null || !socCodeContentItemIds.Any() || socCodeContentItemIds.Count != 1)
@@ -106,7 +106,7 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module.Handlers
 
             var contentManager = _serviceProvider.GetRequiredService<IContentManager>();
             // If no related skills then go ahead and load related skills
-            var socCodeContentItem = await contentManager.GetAsync(socCodeContentItemIds.First().Value<string>(), VersionOptions.Latest);
+            var socCodeContentItem = await contentManager.GetAsync(socCodeContentItemIds.First().Value<string>(), VersionOptions.Published);
             var socCode = socCodeContentItem.As<TitlePart>().Title;
             if (relatedSkillsIds == null || !relatedSkillsIds.Any())
             {
@@ -114,7 +114,7 @@ namespace DFC.ServiceTaxonomy.JobProfiles.Module.Handlers
             }
 
             // Check skills relate to SOC code
-            var relatedSkillsContentItems = await contentManager.GetAsync(relatedSkillsIds.Select(r => r.Value<string>()), true);
+            var relatedSkillsContentItems = await contentManager.GetAsync(relatedSkillsIds.Select(r => r.Value<string>()), VersionOptions.Published);
             // if no related to soc code then clear and reload
             if(!relatedSkillsContentItems.Any(c => c.DisplayText.StartsWith(socCode)))
             {

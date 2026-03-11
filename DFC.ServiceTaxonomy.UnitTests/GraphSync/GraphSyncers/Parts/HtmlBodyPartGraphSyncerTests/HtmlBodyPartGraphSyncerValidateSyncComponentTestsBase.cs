@@ -1,7 +1,7 @@
-﻿using System.Threading.Tasks;
+﻿using System.Text.Json.Nodes;
+using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts;
 using FakeItEasy;
-using Newtonsoft.Json.Linq;
 using Xunit;
 
 namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Parts.HtmlBodyPartGraphSyncerTests
@@ -23,7 +23,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Parts.HtmlBodyPar
         {
             A.CallTo(() => GraphValidationHelper.StringContentPropertyMatchesNodeProperty(
                 ContentKey,
-                A<JObject>._,
+                A<JsonObject>._,
                 NodeTitlePropertyName,
                 SourceNode)).Returns((stringContentPropertyMatchesNodePropertyReturns, ""));
             A.CallTo(() => SyncNameProvider.PropertyName("Html")).Returns("htmlbody_Html");

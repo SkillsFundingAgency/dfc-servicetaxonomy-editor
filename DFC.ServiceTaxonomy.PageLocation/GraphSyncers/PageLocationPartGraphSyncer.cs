@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json.Nodes;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.Content.Services.Interface;
 using DFC.ServiceTaxonomy.GraphSync.Extensions;
@@ -10,7 +11,6 @@ using DFC.ServiceTaxonomy.PageLocation.Constants;
 using DFC.ServiceTaxonomy.PageLocation.Models;
 using DFC.ServiceTaxonomy.PageLocation.Services;
 using Microsoft.Extensions.Logging;
-using Newtonsoft.Json.Linq;
 using OrchardCore.ContentManagement;
 using OrchardCore.ContentManagement.Metadata;
 
@@ -41,7 +41,7 @@ namespace DFC.ServiceTaxonomy.PageLocation.GraphSyncers
             FullUrlPropertyName = "FullUrl",
             RedirectLocationsPropertyName = "RedirectLocations";
 
-        public override async Task AddSyncComponents(JObject content, IGraphMergeContext context)
+        public override async Task AddSyncComponents(JsonObject content, IGraphMergeContext context)
         {
             _logger.LogInformation($"AddSyncComponents");
             using var _ = context.SyncNameProvider.PushPropertyNameTransform(_pageLocationPropertyNameTransform);
@@ -66,7 +66,7 @@ namespace DFC.ServiceTaxonomy.PageLocation.GraphSyncers
         }
 
         public override async Task<(bool validated, string failureReason)> ValidateSyncComponent(
-            JObject content,
+            JsonObject content,
             IValidateAndRepairContext context)
         {
             using var _ = context.SyncNameProvider.PushPropertyNameTransform(_pageLocationPropertyNameTransform);
@@ -123,7 +123,7 @@ namespace DFC.ServiceTaxonomy.PageLocation.GraphSyncers
             return (true, "");
         }
 
-        public override async Task MutateOnClone(JObject content, ICloneContext context)
+        public override async Task MutateOnClone(JsonObject content, ICloneContext context)
         {
             string? urlName = (string?)content[nameof(PageLocationPart.UrlName)];
             string? fullUrl = (string?)content[nameof(PageLocationPart.FullUrl)];

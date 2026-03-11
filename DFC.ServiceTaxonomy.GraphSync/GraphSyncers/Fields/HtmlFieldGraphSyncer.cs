@@ -1,8 +1,9 @@
-﻿using System.Threading.Tasks;
+﻿using System.Text.Json;
+using System.Text.Json.Nodes;
+using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.Extensions;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Contexts;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Fields;
-using Newtonsoft.Json.Linq;
 
 namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
 {
@@ -12,10 +13,10 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
 
         private const string ContentKey = "Html";
 
-        public async Task AddSyncComponents(JObject contentItemField, IGraphMergeContext context)
+        public async Task AddSyncComponents(JsonObject contentItemField, IGraphMergeContext context)
         {
-            JValue? value = (JValue?)contentItemField[ContentKey];
-            if (value == null || value.Type == JTokenType.Null)
+            JsonValue? value = (JsonValue?)contentItemField[ContentKey];
+            if (value == null || value.GetValueKind() == JsonValueKind.Null)
                 return;
 
             context.MergeNodeCommand.Properties.Add(
@@ -23,7 +24,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
                 value.As<string>());
         }
 
-        public async Task<(bool validated, string failureReason)> ValidateSyncComponent(JObject contentItemField,
+        public async Task<(bool validated, string failureReason)> ValidateSyncComponent(JsonObject contentItemField,
             IValidateAndRepairContext context)
         {
             string nodePropertyName = await context.SyncNameProvider.PropertyName(context.ContentPartFieldDefinition!.Name);

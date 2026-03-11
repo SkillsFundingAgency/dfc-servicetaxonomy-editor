@@ -1,11 +1,11 @@
 ﻿using System;
+using System.Text.Json.Nodes;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.DataAccess.Repositories;
 using DFC.ServiceTaxonomy.GraphSync.Recipes.Executors;
 using DFC.ServiceTaxonomy.Title.Indexes;
 using DFC.ServiceTaxonomy.Title.Models;
 using Microsoft.Extensions.Logging;
-using Newtonsoft.Json.Linq;
 using OrchardCore.ContentManagement;
 using OrchardCore.Recipes.Models;
 using OrchardCore.Recipes.Services;
@@ -30,13 +30,13 @@ namespace DFC.ServiceTaxonomy.Title.Handlers
             ContentStepModel model = context.Step.ToObject<ContentStepModel>();
             int numberOfDuplicates = 0;
           
-            JArray data = model?.Data;
+            JsonArray data = model?.Data;
             if (data == null)
                 return;
 
             _logger.LogInformation($"ExecuteAsync data {data}");
 
-            foreach (JToken token in data)
+            foreach (var token in data)
             {
                 ContentItem contentItem = token.ToObject<ContentItem>();
                 if (contentItem == null)

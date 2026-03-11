@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
+using System.Text.Json.Nodes;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields;
-using Newtonsoft.Json.Linq;
 using Xunit;
 
 namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Fields.HtmlFieldGraphSyncerTests
@@ -18,7 +18,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Fields.HtmlFieldG
         {
             const string html = "<p>abc</p>";
 
-            ContentItemField = JObject.Parse($"{{\"Html\": \"{html}\"}}");
+            ContentItemField = JObject.Parse($"{{\"Html\": \"{html}\"}}")!;
 
             await CallAddSyncComponents();
 

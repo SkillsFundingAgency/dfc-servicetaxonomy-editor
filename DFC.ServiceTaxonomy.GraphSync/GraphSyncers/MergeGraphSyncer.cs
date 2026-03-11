@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json.Nodes;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.Content.Services.Interface;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Contexts;
@@ -21,7 +22,6 @@ using DFC.ServiceTaxonomy.GraphSync.Models;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using MoreLinq;
-using Newtonsoft.Json.Linq;
 using OrchardCore.ContentManagement;
 
 namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
@@ -106,10 +106,10 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             _logger.LogDebug("SyncAllowed to {GraphReplicaSetName} for '{ContentItem}' {ContentType}?",
                 graphReplicaSet.Name, contentItem.ToString(), contentItem.ContentType);
 
-            _logger.LogDebug("ContentItem content: {Content}", ((JObject)contentItem.Content).ToString());
+            _logger.LogDebug("ContentItem content: {Content}", ((JsonObject)contentItem.Content).ToString());
 
             // we use the existence of a GraphSync content part as a marker to indicate that the content item should be synced
-            JObject? graphSyncPartContent = (JObject?)contentItem.Content[nameof(GraphSyncPart)];
+            JsonObject? graphSyncPartContent = (JsonObject?)contentItem.Content[nameof(GraphSyncPart)];
             if (graphSyncPartContent == null)
                 return AllowSync.NotRequired;
 
@@ -133,7 +133,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             return await SyncAllowed();
         }
 
-        private async Task PopulateMergeNodeCommand(JObject graphSyncPartContent)
+        private async Task PopulateMergeNodeCommand(JsonObject graphSyncPartContent)
         {
             MergeNodeCommand.NodeLabels.UnionWith(await _syncNameProvider.NodeLabels());
             MergeNodeCommand.IdPropertyName = _syncNameProvider.IdPropertyName();
@@ -188,7 +188,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
         {
             _logger.LogDebug("Syncing embedded {ContentItem}.", contentItem.ToString());
 
-            JObject? graphSyncPartContent = (JObject?)contentItem.Content[nameof(GraphSyncPart)];
+            JsonObject? graphSyncPartContent = (JsonObject?)contentItem.Content[nameof(GraphSyncPart)];
             if (graphSyncPartContent == null)
                 return null;
 

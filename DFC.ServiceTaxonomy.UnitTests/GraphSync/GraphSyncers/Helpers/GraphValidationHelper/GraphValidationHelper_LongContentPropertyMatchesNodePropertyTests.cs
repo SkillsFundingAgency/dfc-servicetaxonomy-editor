@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
+using System.Text.Json.Nodes;
 using DFC.ServiceTaxonomy.GraphSync.Interfaces;
 using FakeItEasy;
-using Newtonsoft.Json.Linq;
 using Xunit;
 
 namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Helpers.GraphValidationHelper
@@ -9,7 +9,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Helpers.GraphVali
     public class GraphValidationHelper_LongContentPropertyMatchesNodePropertyTests
     {
         public const string ContentKey = "Long";
-        public JObject ContentItemField { get; set; }
+        public JsonObject ContentItemField { get; set; }
         public const string NodePropertyName = "nodePropertyName";
         public INode SourceNode { get; set; }
         public Dictionary<string, object> SourceNodeProperties { get; set; }
@@ -17,7 +17,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Helpers.GraphVali
 
         public GraphValidationHelper_LongContentPropertyMatchesNodePropertyTests()
         {
-            ContentItemField = JObject.Parse("{}");
+            ContentItemField = JObject.Parse("{}")!;
 
             SourceNode = A.Fake<INode>();
             SourceNodeProperties = new Dictionary<string, object>();
@@ -35,7 +35,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Helpers.GraphVali
         public void LongContentPropertyMatchesNodeProperty_PropertyCorrect_ReturnsTrue(long value)
         {
             string json = $"{{\"{ContentKey}\": {value}}}";
-            ContentItemField = JObject.Parse(json);
+            ContentItemField = JObject.Parse(json)!;
 
             SourceNodeProperties.Add(NodePropertyName, value);
 
@@ -53,7 +53,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Helpers.GraphVali
         public void LongContentPropertyMatchesNodeProperty_PropertyMissing_ReturnsFalse(long value)
         {
             string json = $"{{\"{ContentKey}\": {value}}}";
-            ContentItemField = JObject.Parse(json);
+            ContentItemField = JObject.Parse(json)!;
 
             (bool validated, _) = CallLongContentPropertyMatchesNodeProperty();
 
@@ -69,7 +69,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Helpers.GraphVali
         public void LongContentPropertyMatchesNodeProperty_PropertiesSameTypeButDifferentValues_ReturnsFalse(long contentValue, long nodeValue)
         {
             string json = $"{{\"{ContentKey}\": {contentValue}}}";
-            ContentItemField = JObject.Parse(json);
+            ContentItemField = JObject.Parse(json)!;
 
             SourceNodeProperties.Add(NodePropertyName, nodeValue);
 
@@ -92,7 +92,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Helpers.GraphVali
         public void LongContentPropertyMatchesNodeProperty_PropertiesDifferentTypes_ReturnsFalse(long contentValue, object nodeValue)
         {
             string json = $"{{\"{ContentKey}\": {contentValue}}}";
-            ContentItemField = JObject.Parse(json);
+            ContentItemField = JObject.Parse(json)!;
 
             SourceNodeProperties.Add(NodePropertyName, nodeValue);
 
@@ -109,7 +109,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Helpers.GraphVali
         public void LongContentPropertyMatchesNodeProperty_PropertySameTypeButDifferent_ReturnsFailedValidationMessage(string expectedMessage, long contentValue, long nodeValue)
         {
             string json = $"{{\"{ContentKey}\": {contentValue}}}";
-            ContentItemField = JObject.Parse(json);
+            ContentItemField = JObject.Parse(json)!;
 
             SourceNodeProperties.Add(NodePropertyName, nodeValue);
 

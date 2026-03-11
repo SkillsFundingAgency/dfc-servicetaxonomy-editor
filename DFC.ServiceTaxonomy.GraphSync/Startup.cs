@@ -96,12 +96,25 @@ namespace DFC.ServiceTaxonomy.GraphSync
 
             if (cosmosDbOptions.Endpoints.Values.All(v => v.ConnectionString == firstConnString))
             {
-                sharedClient = new CosmosClient(firstConnString);
+                sharedClient = new CosmosClient(firstConnString, new CosmosClientOptions
+                {
+                    UseSystemTextJsonSerializerWithOptions = new System.Text.Json.JsonSerializerOptions()
+                    {
+                        PropertyNamingPolicy = System.Text.Json.JsonNamingPolicy.CamelCase,
+                    }
+                });
+
             }
 
             foreach (var endpoint in cosmosDbOptions.Endpoints!)
             {
-                var client = sharedClient ?? new CosmosClient(endpoint.Value.ConnectionString);
+                var client = sharedClient ?? new CosmosClient(endpoint.Value.ConnectionString, new CosmosClientOptions
+                {
+                    UseSystemTextJsonSerializerWithOptions = new System.Text.Json.JsonSerializerOptions()
+                    {
+                        PropertyNamingPolicy = System.Text.Json.JsonNamingPolicy.CamelCase,
+                    }
+                });
                 var db = (await client.CreateDatabaseIfNotExistsAsync(endpoint.Value.DatabaseName, ThroughputProperties.CreateManualThroughput(400))).Database;
                 var containerName = endpoint.Value.ContainerName ?? endpoint.Key;
                 var container = await db.CreateContainerIfNotExistsAsync(containerName, $"/{PartitionKeyKey}");

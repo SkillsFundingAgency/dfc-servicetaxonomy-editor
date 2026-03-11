@@ -1,17 +1,18 @@
 ﻿#nullable enable
 
-using Newtonsoft.Json.Linq;
+
+using System.Text.Json.Nodes;
 
 namespace DFC.ServiceTaxonomy.Taxonomies.Helper
 {
     public interface ITaxonomyHelper
     {
-        JArray GetAllTerms(JObject taxonomy);
+        JsonArray GetAllTerms(JsonObject taxonomy);
 
-        JArray? GetTerms(JObject contentItem);
+        JsonArray? GetTerms(JsonObject contentItem);
 
-        JObject? FindParentTaxonomyTerm(JObject termContentItem, JObject taxonomyContentItem);
+        JsonObject? FindParentTaxonomyTerm(JsonObject termContentItem, JsonObject taxonomyContentItem);
 
-        string BuildTermUrl(JObject term, JObject taxonomy);
+        string BuildTermUrl(JsonObject term, JsonObject taxonomy);
     }
 }

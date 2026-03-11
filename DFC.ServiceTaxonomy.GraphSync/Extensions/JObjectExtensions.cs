@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Newtonsoft.Json.Linq;
+using System.Text.Json.Nodes;
 
 namespace DFC.ServiceTaxonomy.GraphSync.Extensions
 {
     public static class JObjectExtensions
     {
-        public static DateTime? GetDateTime(this JObject jobject, string name)
+        public static DateTime? GetDateTime(this JsonObject jobject, string name)
         {
             object? val = jobject[name];
             return !string.IsNullOrEmpty(val?.ToString())
@@ -27,21 +27,20 @@ namespace DFC.ServiceTaxonomy.GraphSync.Extensions
             foreach (var item in linksDictionary.Where(link => link.Key != "self" && link.Key != "curies"))
             {
                 var list = new List<string>();
-                if(item.Value is JObject itemJObject)
+                if (item.Value is Dictionary<string, object> dict)
                 {
-                    var dict = itemJObject.ToObject<Dictionary<string, object>>();
                     var uri = (string)dict!["href"];
                     if (!string.IsNullOrWhiteSpace(uri))
                     {
                         list.Add(uri);
                     }
                 }
-                else if (item.Value is JArray itemJArray)
+                else if (item.Value is List<object> itemList)
                 {
-                    foreach (JToken arrayItem in itemJArray)
+                    foreach (var listItem in itemList)
                     {
-                        var dict = arrayItem.ToObject<Dictionary<string, object>>();
-                        var uri = (string)dict!["href"];
+                        var dic = listItem as Dictionary<string, object>;
+                        var uri = (string)dic!["href"];
                         if (!string.IsNullOrWhiteSpace(uri))
                         {
                             list.Add(uri);

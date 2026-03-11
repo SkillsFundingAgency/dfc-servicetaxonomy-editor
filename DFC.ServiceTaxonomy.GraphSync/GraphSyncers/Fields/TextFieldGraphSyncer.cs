@@ -1,10 +1,10 @@
 ﻿using System;
+using System.Text.Json.Nodes;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.Extensions;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Contexts;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Fields;
 using DFC.ServiceTaxonomy.GraphSync.OrchardCore.Interfaces;
-using Newtonsoft.Json.Linq;
 using OrchardCore.ContentFields.Settings;
 
 namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
@@ -17,7 +17,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
 
         private const string SyncToArrayFlag = "##synctoarray";
 
-        public async Task AddSyncComponents(JObject contentItemField, IGraphMergeContext context)
+        public async Task AddSyncComponents(JsonObject contentItemField, IGraphMergeContext context)
         {
             string nodePropertyName = await context.SyncNameProvider.PropertyName(context.ContentPartFieldDefinition!.Name);
 
@@ -32,7 +32,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
         }
 
         public async Task<(bool validated, string failureReason)> ValidateSyncComponent(
-            JObject contentItemField,
+            JsonObject contentItemField,
             IValidateAndRepairContext context)
         {
             string nodePropertyName = await context.SyncNameProvider.PropertyName(context.ContentPartFieldDefinition!.Name);

@@ -1,7 +1,7 @@
-﻿using System.Threading.Tasks;
+﻿using System.Text.Json.Nodes;
+using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields;
 using FakeItEasy;
-using Newtonsoft.Json.Linq;
 using Xunit;
 
 namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Fields.DateTimeFieldGraphSyncerTests
@@ -23,7 +23,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Fields.DateTimeFi
         {
             A.CallTo(() => GraphValidationHelper.DateTimeContentPropertyMatchesNodeProperty(
                 ContentKey,
-                A<JObject>._,
+                A<JsonObject>._,
                 FieldNameTransformed,
                 SourceNode)).Returns((dateTimeMatches, ""));
 

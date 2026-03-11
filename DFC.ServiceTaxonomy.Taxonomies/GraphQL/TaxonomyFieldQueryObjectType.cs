@@ -1,8 +1,8 @@
 using System.Collections.Generic;
+using System.Text.Json.Nodes;
 using DFC.ServiceTaxonomy.Taxonomies.Fields;
 using GraphQL.Types;
 using Microsoft.Extensions.DependencyInjection;
-using Newtonsoft.Json.Linq;
 using OrchardCore.Apis.GraphQL;
 using OrchardCore.ContentManagement;
 using OrchardCore.ContentManagement.GraphQL.Queries.Types;
@@ -15,8 +15,7 @@ namespace DFC.ServiceTaxonomy.Taxonomies.GraphQL
         {
             Name = nameof(TaxonomyField);
 
-            Field<ListGraphType<StringGraphType>, IEnumerable<string>>()
-                .Name("termContentItemIds")
+            Field<ListGraphType<StringGraphType>, IEnumerable<string>>("termContentItemIds")
                 .Description("term content item ids")
                 .PagingArguments()
                 .Resolve(x =>
@@ -24,16 +23,14 @@ namespace DFC.ServiceTaxonomy.Taxonomies.GraphQL
                     return x.Page(x.Source.TermContentItemIds);
                 });
 
-            Field<StringGraphType, string>()
-                .Name("taxonomyContentItemId")
+            Field<StringGraphType, string>("taxonomyContentItemId")
                 .Description("taxonomy content item id")
                 .Resolve(x =>
                 {
                     return x.Source.TaxonomyContentItemId;
                 });
 
-            Field<ListGraphType<ContentItemInterface>, List<ContentItem>>()
-                .Name("termContentItems")
+            Field<ListGraphType<ContentItemInterface>, List<ContentItem>>("termContentItems")
                 .Description("the term content items")
                 .PagingArguments()
                 .ResolveLockedAsync(async x =>
@@ -52,20 +49,19 @@ namespace DFC.ServiceTaxonomy.Taxonomies.GraphQL
 
                     foreach (var termContentItemId in ids)
                     {
-                        var term = TaxonomyOrchardHelperExtensions.FindTerm(taxonomy.Content.TaxonomyPart.Terms as JArray, termContentItemId);
+                        var term = TaxonomyOrchardHelperExtensions.FindTerm(taxonomy.Content.TaxonomyPart.Terms as JsonArray, termContentItemId);
                         terms.Add(term);
                     }
 
                     return terms;
                 });
 
-            Field<ContentItemInterface, ContentItem>()
-                .Name("taxonomyContentItem")
+             Field<ContentItemInterface, ContentItem>("taxonomyContentItem")
                 .Description("the taxonomy content item")
-                .ResolveLockedAsync(x =>
+                .ResolveLockedAsync(async x =>
                 {
                     var contentManager = x.RequestServices!.GetService<IContentManager>();
-                    return contentManager.GetAsync(x.Source.TaxonomyContentItemId);
+                    return await contentManager.GetAsync(x.Source.TaxonomyContentItemId);
                 });
         }
     }

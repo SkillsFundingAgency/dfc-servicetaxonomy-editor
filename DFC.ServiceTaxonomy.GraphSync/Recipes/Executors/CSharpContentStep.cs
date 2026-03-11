@@ -1,5 +1,7 @@
 using System;
 using System.Diagnostics;
+using System.Text.Json;
+using System.Text.Json.Nodes;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.Orchestrators.Interfaces;
@@ -7,7 +9,6 @@ using DFC.ServiceTaxonomy.GraphSync.Recipes.Interfaces;
 using Microsoft.CodeAnalysis.CSharp.Scripting;
 using Microsoft.CodeAnalysis.Scripting;
 using Microsoft.Extensions.Logging;
-using Newtonsoft.Json.Linq;
 using OrchardCore.ContentManagement;
 using OrchardCore.Recipes.Models;
 using OrchardCore.Recipes.Services;
@@ -51,15 +52,15 @@ namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
 
                 Stopwatch stopwatch = Stopwatch.StartNew();
 
-                CSharpContentStepModel? model = context.Step.ToObject<CSharpContentStepModel>();
+                CSharpContentStepModel? model = context.Step.Deserialize<CSharpContentStepModel>();
                 if (model?.Data == null)
                     return;
 
-                string dataString = model.Data.ToString();
-                string json = ReplaceCSharpHelpers(dataString, model.DebugImport);
-                JArray data = JArray.Parse(json);
+                var dataString = model.Data.ToString();
+                var json = ReplaceCSharpHelpers(dataString, model.DebugImport);
+                var data = JArray.Parse(json);
 
-                foreach (JToken token in data)
+                foreach (var token in data!)
                 {
                     ContentItem? contentItem = token.ToObject<ContentItem>();
                     if (contentItem == null)
@@ -140,7 +141,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
         public class CSharpContentStepModel
         {
             public bool DebugImport { get; set; }
-            public JArray? Data { get; set; }
+            public JsonArray? Data { get; set; }
         }
     }
 }

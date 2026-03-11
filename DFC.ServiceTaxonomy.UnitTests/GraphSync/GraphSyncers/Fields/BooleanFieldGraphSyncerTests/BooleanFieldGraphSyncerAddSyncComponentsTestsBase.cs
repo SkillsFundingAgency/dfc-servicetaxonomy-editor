@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
+using System.Text.Json.Nodes;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields;
-using Newtonsoft.Json.Linq;
 using Xunit;
 
 namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Fields.BooleanFieldGraphSyncerTests
@@ -17,7 +17,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Fields.BooleanFie
         public async Task AddSyncComponents_BooleanInContent_BooleanAddedToMergeNodeCommandsProperties()
         {
             bool value = true;
-            ContentItemField = JObject.Parse($"{{\"Value\": \"{value:o}\"}}");
+            ContentItemField = JObject.Parse($"{{\"Value\": \"{value:o}\"}}")!;
 
             await CallAddSyncComponents();
 

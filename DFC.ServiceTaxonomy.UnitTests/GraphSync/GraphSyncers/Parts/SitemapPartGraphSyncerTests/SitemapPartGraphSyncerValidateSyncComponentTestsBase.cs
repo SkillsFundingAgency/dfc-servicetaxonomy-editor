@@ -1,7 +1,7 @@
-﻿using System.Threading.Tasks;
+﻿using System.Text.Json.Nodes;
+using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts;
 using FakeItEasy;
-using Newtonsoft.Json.Linq;
 using OrchardCore.Sitemaps.Models;
 using Xunit;
 
@@ -30,25 +30,25 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Parts.SitemapPart
         {
             A.CallTo(() => GraphValidationHelper.BoolContentPropertyMatchesNodeProperty(
                 "OverrideSitemapConfig",
-                A<JObject>._,
+                A<JsonObject>._,
                 "sitemap_OverrideSitemapConfig",
                 SourceNode)).Returns((overrideSitemapConfigMatches, ""));
 
             A.CallTo(() => GraphValidationHelper.EnumContentPropertyMatchesNodeProperty<ChangeFrequency>(
                 "ChangeFrequency",
-                A<JObject>._,
+                A<JsonObject>._,
                 "sitemap_ChangeFrequency",
                 SourceNode)).Returns((changeFrequencyMatches, ""));
 
             A.CallTo(() => GraphValidationHelper.LongContentPropertyMatchesNodeProperty(
                 "Priority",
-                A<JObject>._,
+                A<JsonObject>._,
                 "sitemap_Priority",
                 SourceNode)).Returns((priorityMatches, ""));
 
             A.CallTo(() => GraphValidationHelper.BoolContentPropertyMatchesNodeProperty(
                 "Exclude",
-                A<JObject>._,
+                A<JsonObject>._,
                 "sitemap_Exclude",
                 SourceNode)).Returns((exludeMatches, ""));
 

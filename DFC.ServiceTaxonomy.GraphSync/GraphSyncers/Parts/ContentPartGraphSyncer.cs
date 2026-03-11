@@ -1,8 +1,8 @@
-﻿using System.Threading.Tasks;
+﻿using System.Text.Json.Nodes;
+using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Contexts;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Parts;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Results.AllowSync;
-using Newtonsoft.Json.Linq;
 using OrchardCore.ContentManagement.Metadata.Models;
 
 namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
@@ -17,12 +17,12 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
             return contentPartDefinition.Name == PartName;
         }
 
-        public virtual Task AllowSync(JObject content, IGraphMergeContext context, IAllowSync allowSync)
+        public virtual Task AllowSync(JsonObject content, IGraphMergeContext context, IAllowSync allowSync)
         {
             return Task.CompletedTask;
         }
 
-        public abstract Task AddSyncComponents(JObject content, IGraphMergeContext context);
+        public abstract Task AddSyncComponents(JsonObject content, IGraphMergeContext context);
 
         public virtual Task AllowSyncDetaching(IGraphMergeContext context, IAllowSync allowSync)
         {
@@ -34,26 +34,26 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
             return Task.CompletedTask;
         }
 
-        public virtual Task AllowDelete(JObject content, IGraphDeleteContext context, IAllowSync allowSync)
+        public virtual Task AllowDelete(JsonObject content, IGraphDeleteContext context, IAllowSync allowSync)
         {
             return Task.CompletedTask;
         }
 
-        public virtual Task DeleteComponents(JObject content, IGraphDeleteContext context)
+        public virtual Task DeleteComponents(JsonObject content, IGraphDeleteContext context)
         {
             return Task.CompletedTask;
         }
 
-        public virtual Task MutateOnClone(JObject content, ICloneContext context)
+        public virtual Task MutateOnClone(JsonObject content, ICloneContext context)
         {
             return Task.CompletedTask;
         }
 
         public abstract Task<(bool validated, string failureReason)> ValidateSyncComponent(
-            JObject content,
+            JsonObject content,
             IValidateAndRepairContext context);
 
-        public virtual Task AddRelationship(JObject content, IDescribeRelationshipsContext context)
+        public virtual Task AddRelationship(JsonObject content, IDescribeRelationshipsContext context)
         {
             return Task.CompletedTask;
         }

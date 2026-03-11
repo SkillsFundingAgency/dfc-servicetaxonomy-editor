@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using DFC.ServiceTaxonomy.Taxonomies.Fields;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Localization;
-using Newtonsoft.Json.Linq;
 using OrchardCore.ContentManagement;
 using OrchardCore.DisplayManagement;
 using OrchardCore.DisplayManagement.Handlers;
@@ -18,6 +17,7 @@ using DFC.ServiceTaxonomy.Taxonomies.Models;
 using DFC.ServiceTaxonomy.Taxonomies.Settings;
 using DFC.ServiceTaxonomy.Taxonomies.ViewModels;
 using OrchardCore.ContentManagement.Metadata;
+using System.Text.Json.Nodes;
 
 namespace DFC.ServiceTaxonomy.Taxonomies.Drivers
 {
@@ -42,7 +42,7 @@ namespace DFC.ServiceTaxonomy.Taxonomies.Drivers
             S = stringLocalizer;
         }
 
-        public override async Task<IDisplayResult> EditAsync(ContentOptionsViewModel model, IUpdateModel updater)
+        public override async Task<IDisplayResult> EditAsync(ContentOptionsViewModel model, BuildEditorContext context)
         {
             var settings = (await _siteService.GetSiteSettingsAsync()).As<TaxonomyContentsAdminListSettings>();
 
@@ -113,13 +113,13 @@ namespace DFC.ServiceTaxonomy.Taxonomies.Drivers
             return null;
         }
 
-        public override async Task<IDisplayResult> UpdateAsync(ContentOptionsViewModel model, IUpdateModel updater)
+        public override async Task<IDisplayResult> UpdateAsync(ContentOptionsViewModel model, UpdateEditorContext context)
         {
             var settings = (await _siteService.GetSiteSettingsAsync()).As<TaxonomyContentsAdminListSettings>();
             foreach (var contentItemId in settings.TaxonomyContentItemIds)
             {
                 var viewModel = new TaxonomyContentsAdminFilterViewModel();
-                if (await updater.TryUpdateModelAsync(viewModel, "Taxonomy" + contentItemId))
+                if (await context.Updater.TryUpdateModelAsync(viewModel, "Taxonomy" + contentItemId))
                 {
                     if (!String.IsNullOrEmpty(viewModel.SelectedContentItemId))
                     {
@@ -128,7 +128,7 @@ namespace DFC.ServiceTaxonomy.Taxonomies.Drivers
                 }
             }
 
-            return await EditAsync(model, updater);
+            return await EditAsync(model, context);
         }
 
         private static void PopulateTermEntries(List<FilterTermEntry> termEntries, IEnumerable<ContentItem> contentItems, int level)
@@ -137,7 +137,7 @@ namespace DFC.ServiceTaxonomy.Taxonomies.Drivers
             {
                 var children = Array.Empty<ContentItem>();
 
-                if (contentItem.Content.Terms is JArray termsArray)
+                if (contentItem.Content.Terms is JsonArray termsArray)
                 {
                     children = termsArray.ToObject<ContentItem[]>();
                 }

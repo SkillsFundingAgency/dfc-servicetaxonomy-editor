@@ -31,14 +31,14 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Drivers
             Prefix = Constants.ContentApprovalPartPrefix;
         }
 
-        public override IDisplayResult Display(ContentOptionsViewModel model)
+        public override IDisplayResult Display(ContentOptionsViewModel model, BuildDisplayContext context)
         {
             return Combine(
                 View("ContentsAdminFilters_Thumbnail__ReviewStatus", model).Location("Thumbnail", "Content:50"),
                 View("ContentsAdminFilters_Thumbnail__ReviewType", model).Location("Thumbnail", "Content:60"));
         }
 
-        public override IDisplayResult Edit(ContentOptionsViewModel model, IUpdateModel updater)
+        public override IDisplayResult Edit(ContentOptionsViewModel model, BuildEditorContext context)
         {
             return Initialize<ContentApprovalContentsAdminListFilterViewModel>("ContentsAdminList__ContentApprovalFilter", m =>
             {
@@ -73,17 +73,17 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Drivers
         }
 
 
-        public override async Task<IDisplayResult> UpdateAsync(ContentOptionsViewModel model, IUpdateModel updater)
+        public override async Task<IDisplayResult> UpdateAsync(ContentOptionsViewModel model, UpdateEditorContext context)
         {
             var viewModel = new ContentApprovalContentsAdminListFilterViewModel();
-            if(await updater.TryUpdateModelAsync(viewModel, Constants.ContentApprovalPartPrefix))
+            if(await context.Updater.TryUpdateModelAsync(viewModel, Constants.ContentApprovalPartPrefix))
             {
                 model?.FilterResult?.MapFrom(viewModel);
             }
             // Code conventions in STAX clashing with Orchard Core approach
 #pragma warning disable AsyncFixer02 // Long-running or blocking operations inside an async method
 #pragma warning disable CS8604 // Possible null reference argument.
-            return Edit(model, updater);
+            return Edit(model, context);
 #pragma warning restore CS8604 // Possible null reference argument.
 #pragma warning restore AsyncFixer02 // Long-running or blocking operations inside an async method
         }

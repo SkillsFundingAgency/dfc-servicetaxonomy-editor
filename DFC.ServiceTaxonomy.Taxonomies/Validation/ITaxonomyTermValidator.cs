@@ -1,12 +1,12 @@
-﻿using System.Threading.Tasks;
-using Newtonsoft.Json.Linq;
+﻿using System.Text.Json.Nodes;
+using System.Threading.Tasks;
 
 namespace DFC.ServiceTaxonomy.Taxonomies.Validation
 {
     public interface ITaxonomyTermValidator
     {
-        Task<(bool, string)> ValidateCreate(JObject term, JObject taxonomy);
-        Task<(bool, string)> ValidateUpdate(JObject term, JObject taxonomy);
-        Task<(bool, string)> ValidateDelete(JObject term, JObject taxonomy);
+        Task<(bool, string)> ValidateCreate(JsonObject term, JsonObject taxonomy);
+        Task<(bool, string)> ValidateUpdate(JsonObject term, JsonObject taxonomy);
+        Task<(bool, string)> ValidateDelete(JsonObject term, JsonObject taxonomy);
     }
 }

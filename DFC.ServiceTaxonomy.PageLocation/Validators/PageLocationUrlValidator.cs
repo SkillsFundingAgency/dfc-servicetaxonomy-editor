@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json.Nodes;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.PageLocation.Indexes;
 using DFC.ServiceTaxonomy.Taxonomies.Helper;
 using DFC.ServiceTaxonomy.Taxonomies.Validation;
-using Newtonsoft.Json.Linq;
 using OrchardCore.ContentManagement;
 using OrchardCore.ContentManagement.Utilities;
 using YesSql;
@@ -25,7 +25,7 @@ namespace DFC.ServiceTaxonomy.PageLocation.Validators
             _taxonomyHelper = taxonomyHelper;
         }
 
-        public async Task<(bool, string)> ValidateCreate(JObject term, JObject taxonomy)
+        public async Task<(bool, string)> ValidateCreate(JsonObject term, JsonObject taxonomy)
         {
             if (!term.ContainsKey("PageLocation"))
             {
@@ -62,12 +62,12 @@ namespace DFC.ServiceTaxonomy.PageLocation.Validators
             return (true, string.Empty);
         }
 
-        public Task<(bool, string)> ValidateUpdate(JObject term, JObject taxonomy)
+        public Task<(bool, string)> ValidateUpdate(JsonObject term, JsonObject taxonomy)
         {
             return ValidateCreate(term, taxonomy);
         }
 
-        public Task<(bool, string)> ValidateDelete(JObject term, JObject taxonomy)
+        public Task<(bool, string)> ValidateDelete(JsonObject term, JsonObject taxonomy)
         {
             return Task.FromResult((true, string.Empty));
         }

@@ -1,7 +1,7 @@
-﻿using System.Threading.Tasks;
+﻿using System.Text.Json.Nodes;
+using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields;
 using FakeItEasy;
-using Newtonsoft.Json.Linq;
 using Xunit;
 
 namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Fields.LinkFieldGraphSyncerTests
@@ -31,13 +31,13 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Fields.LinkFieldG
         {
             A.CallTo(() => GraphValidationHelper.StringContentPropertyMatchesNodeProperty(
                 ContentKeyText,
-                A<JObject>._,
+                A<JsonObject>._,
                 FieldNameText,
                 SourceNode)).Returns((textStringContentPropertyMatchesNodePropertyReturns, ""));
 
             A.CallTo(() => GraphValidationHelper.StringContentPropertyMatchesNodeProperty(
                 ContentKeyUrl,
-                A<JObject>._,
+                A<JsonObject>._,
                 FieldNameUrl,
                 SourceNode)).Returns((urlStringContentPropertyMatchesNodePropertyReturns, ""));
 

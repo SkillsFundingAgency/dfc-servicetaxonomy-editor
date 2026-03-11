@@ -7,7 +7,7 @@ namespace DFC.ServiceTaxonomy.VersionComparison.Drivers
 {
     public class DiffItemDisplayDriver : DisplayDriver<DiffItem>
     {
-        public override IDisplayResult Display(DiffItem model)
+        public override IDisplayResult Display(DiffItem model, BuildDisplayContext context)
         {
             var linkShape = (model.BaseURLs?.Any() ?? false) || (model.CompareURLs?.Any() ?? false);
             var shapeView = $"DiffItemDetailAdmin{(linkShape ? "Link" : "Text")}";

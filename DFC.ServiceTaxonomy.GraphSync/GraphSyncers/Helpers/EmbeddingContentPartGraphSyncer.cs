@@ -1,9 +1,9 @@
-﻿using System.Threading.Tasks;
+﻿using System.Text.Json.Nodes;
+using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Contexts;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.EmbeddedContentItemsGraphSyncer;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Results.AllowSync;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts;
-using Newtonsoft.Json.Linq;
 
 namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
 {
@@ -17,14 +17,14 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
             _embeddedContentItemsGraphSyncer = embeddedContentItemsGraphSyncer;
         }
 
-        public override Task AllowSync(JObject content, IGraphMergeContext context, IAllowSync allowSync)
+        public override Task AllowSync(JsonObject content, IGraphMergeContext context, IAllowSync allowSync)
         {
-            return _embeddedContentItemsGraphSyncer.AllowSync((JArray?)content[ContainerName], context, allowSync);
+            return _embeddedContentItemsGraphSyncer.AllowSync((JsonArray?)content[ContainerName], context, allowSync);
         }
 
-        public override Task AddSyncComponents(JObject content, IGraphMergeContext context)
+        public override Task AddSyncComponents(JsonObject content, IGraphMergeContext context)
         {
-            return _embeddedContentItemsGraphSyncer.AddSyncComponents((JArray?)content[ContainerName], context);
+            return _embeddedContentItemsGraphSyncer.AddSyncComponents((JsonArray?)content[ContainerName], context);
         }
 
         public override Task AllowSyncDetaching(IGraphMergeContext context, IAllowSync allowSync)
@@ -37,19 +37,19 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
             return _embeddedContentItemsGraphSyncer.AddSyncComponentsDetaching(context);
         }
 
-        public override Task AllowDelete(JObject content, IGraphDeleteContext context, IAllowSync allowSync)
+        public override Task AllowDelete(JsonObject content, IGraphDeleteContext context, IAllowSync allowSync)
         {
-            return _embeddedContentItemsGraphSyncer.AllowDelete((JArray?)content[ContainerName], context, allowSync);
+            return _embeddedContentItemsGraphSyncer.AllowDelete((JsonArray?)content[ContainerName], context, allowSync);
         }
 
-        public override Task DeleteComponents(JObject content, IGraphDeleteContext context)
+        public override Task DeleteComponents(JsonObject content, IGraphDeleteContext context)
         {
-            return _embeddedContentItemsGraphSyncer.DeleteComponents((JArray?)content[ContainerName], context);
+            return _embeddedContentItemsGraphSyncer.DeleteComponents((JsonArray?)content[ContainerName], context);
         }
 
-        public override async Task MutateOnClone(JObject content, ICloneContext context)
+        public override async Task MutateOnClone(JsonObject content, ICloneContext context)
         {
-            var mutatedContentItems = await _embeddedContentItemsGraphSyncer.MutateOnClone((JArray?)content[ContainerName], context);
+            var mutatedContentItems = await _embeddedContentItemsGraphSyncer.MutateOnClone((JsonArray?)content[ContainerName], context);
             var mutatedContentItemsJArray = JArray.FromObject(mutatedContentItems);
             content[ContainerName] = mutatedContentItemsJArray;
 
@@ -57,17 +57,17 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
             // context.ContentItem.Alter<FlowPart>(p => p.Widgets = mutatedContentItems.ToList());
         }
 
-        public override Task AddRelationship(JObject content, IDescribeRelationshipsContext context)
+        public override Task AddRelationship(JsonObject content, IDescribeRelationshipsContext context)
         {
-            return _embeddedContentItemsGraphSyncer.AddRelationship((JArray?)content[ContainerName], context);
+            return _embeddedContentItemsGraphSyncer.AddRelationship((JsonArray?)content[ContainerName], context);
         }
 
         public override Task<(bool validated, string failureReason)> ValidateSyncComponent(
-            JObject content,
+            JsonObject content,
             IValidateAndRepairContext context)
         {
             return _embeddedContentItemsGraphSyncer.ValidateSyncComponent(
-                (JArray?)content[ContainerName], context);
+                (JsonArray?)content[ContainerName], context);
         }
     }
 }

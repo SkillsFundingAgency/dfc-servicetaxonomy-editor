@@ -1,11 +1,11 @@
 ﻿using System;
+using System.Text.Json.Nodes;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Contexts;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.EmbeddedContentItemsGraphSyncer;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Helpers;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Results.AllowSync;
-using Newtonsoft.Json.Linq;
 using OrchardCore.Flows.Models;
 
 namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts.Flow
@@ -29,14 +29,14 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts.Flow
             _contentFieldsGraphSyncer = contentFieldsGraphSyncer;
         }
 
-        public override Task AllowSync(JObject content, IGraphMergeContext context, IAllowSync allowSync)
+        public override Task AllowSync(JsonObject content, IGraphMergeContext context, IAllowSync allowSync)
         {
             return Task.WhenAll(
                 base.AllowSync(content, context, allowSync),
                 _contentFieldsGraphSyncer.AllowSync(content, context, allowSync));
         }
 
-        public override async Task AddSyncComponents(JObject content, IGraphMergeContext context)
+        public override async Task AddSyncComponents(JsonObject content, IGraphMergeContext context)
         {
             //todo: make concurrent?
             await base.AddSyncComponents(content, context);
@@ -48,7 +48,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts.Flow
             await _contentFieldsGraphSyncer.AddSyncComponents(content, context);
         }
 
-        public override async Task<(bool validated, string failureReason)> ValidateSyncComponent(JObject content,
+        public override async Task<(bool validated, string failureReason)> ValidateSyncComponent(JsonObject content,
             IValidateAndRepairContext context)
         {
             (bool validated, string failureReason) =

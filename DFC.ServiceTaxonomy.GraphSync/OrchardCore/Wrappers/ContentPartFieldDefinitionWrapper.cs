@@ -20,8 +20,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.OrchardCore.Wrappers
 
         public T GetSettings<T>() where T : new() => _contentPartFieldDefinition.GetSettings<T>();
 
-        public void PopulateSettings<T>(T target) => _contentPartFieldDefinition.PopulateSettings(target);
-
         public ContentFieldDefinition FieldDefinition => _contentPartFieldDefinition.FieldDefinition;
 
         public ContentPartDefinition PartDefinition

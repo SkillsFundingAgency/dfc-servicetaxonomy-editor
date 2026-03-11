@@ -9,7 +9,6 @@ using DFC.ServiceTaxonomy.Taxonomies.Validation;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Localization;
-using Newtonsoft.Json.Linq;
 using OrchardCore.ContentManagement;
 using OrchardCore.ContentManagement.Display;
 using OrchardCore.ContentManagement.Metadata;
@@ -19,6 +18,8 @@ using OrchardCore.DisplayManagement.Notify;
 using OrchardCore.Title.Models;
 using YesSql;
 using Microsoft.Extensions.Logging;
+using System.Text.Json.Nodes;
+using System.Text.Json.Settings;
 
 namespace DFC.ServiceTaxonomy.Taxonomies.Controllers
 {
@@ -171,11 +172,11 @@ namespace DFC.ServiceTaxonomy.Taxonomies.Controllers
                     return ValidationError($"Another {contentItem.ContentType} already exists with this name.", model, taxonomyContentItemId, taxonomyItemId);
                 }
 
-                var taxonomyItems = parentTaxonomyItem?.Terms as JArray;
+                var taxonomyItems = parentTaxonomyItem?.Terms as JsonArray;
 
                 if (taxonomyItems == null)
                 {
-                    parentTaxonomyItem["Terms"] = taxonomyItems = new JArray();
+                    parentTaxonomyItem["Terms"] = taxonomyItems = new JsonArray();
                 }
 
                 taxonomyItems.Add(JObject.FromObject(contentItem));
@@ -222,7 +223,7 @@ namespace DFC.ServiceTaxonomy.Taxonomies.Controllers
             }
 
             // Look for the target taxonomy item in the hierarchy
-            JObject taxonomyItem = FindTaxonomyItem(taxonomy.As<TaxonomyPart>().Content, taxonomyItemId);
+            var taxonomyItem = FindTaxonomyItem(taxonomy.As<TaxonomyPart>().Content, taxonomyItemId);
 
             // Couldn't find targeted taxonomy item
             if (taxonomyItem == null)
@@ -231,8 +232,9 @@ namespace DFC.ServiceTaxonomy.Taxonomies.Controllers
                 return NotFound();
             }
 
-            var contentItem = taxonomyItem.ToObject<ContentItem>();
+            var contentItem = (ContentItem) taxonomyItem;
             contentItem.Weld<TermPart>();
+
             contentItem.Alter<TermPart>(t => t.TaxonomyContentItemId = taxonomyContentItemId);
 
             dynamic model = await _contentItemDisplayManager.BuildEditorAsync(contentItem, _updateModelAccessor.ModelUpdater, false);
@@ -273,7 +275,7 @@ namespace DFC.ServiceTaxonomy.Taxonomies.Controllers
             }
 
             // Look for the target taxonomy item in the hierarchy
-            JObject taxonomyItem = FindTaxonomyItem(taxonomy.As<TaxonomyPart>().Content, taxonomyItemId);
+            var taxonomyItem = FindTaxonomyItem(taxonomy.As<TaxonomyPart>().Content, taxonomyItemId);
 
             // Couldn't find targeted taxonomy item
             if (taxonomyItem == null)
@@ -282,7 +284,7 @@ namespace DFC.ServiceTaxonomy.Taxonomies.Controllers
                 return NotFound();
             }
 
-            var existing = taxonomyItem.ToObject<ContentItem>();
+            var existing = (ContentItem) taxonomyItem;
 
             // Create a new item to take into account the current type definition.
             var contentItem = await _contentManager.NewAsync(existing.ContentType);
@@ -421,23 +423,23 @@ namespace DFC.ServiceTaxonomy.Taxonomies.Controllers
             return RedirectToAction("Edit", "Admin", new { area = "OrchardCore.Contents", contentItemId = taxonomyContentItemId });
         }
 
-        private JObject FindTaxonomyItem(JObject contentItem, string taxonomyItemId)
+        private JsonObject FindTaxonomyItem(JsonObject contentItem, string taxonomyItemId)
         {
-            if (contentItem["ContentItemId"]?.Value<string>() == taxonomyItemId)
+            if (contentItem["ContentItemId"]?.GetValue<string>() == taxonomyItemId)
             {
                 return contentItem;
             }
 
-            if (contentItem.GetValue("Terms") == null)
+            if (contentItem["Terms"]?.GetValue<JsonArray>() == null)
             {
                 return null;
             }
 
-            var taxonomyItems = (JArray)contentItem["Terms"];
+            var taxonomyItems = (JsonArray)contentItem["Terms"];
 
-            JObject result;
+            JsonObject result;
 
-            foreach (JObject taxonomyItem in taxonomyItems)
+            foreach (JsonObject taxonomyItem in taxonomyItems)
             {
                 // Search in inner taxonomy items
                 result = FindTaxonomyItem(taxonomyItem, taxonomyItemId);
@@ -453,7 +455,7 @@ namespace DFC.ServiceTaxonomy.Taxonomies.Controllers
 
         private bool ValidateTaxonomyTerm(dynamic parent, ContentItem term)
         {
-            JArray terms = _taxonomyHelper.GetTerms(JObject.FromObject(parent));
+            JsonArray terms = _taxonomyHelper.GetTerms(JObject.FromObject(parent));
             return terms?.All(x => (string)x["ContentItemId"] == term.ContentItemId || (string)x["DisplayText"] != term.DisplayText) ?? true;
         }
 

@@ -1,13 +1,13 @@
 ﻿using System.Collections.Generic;
+using System.Text.Json;
 using DFC.ServiceTaxonomy.VersionComparison.Models;
-using Newtonsoft.Json.Linq;
 
 namespace DFC.ServiceTaxonomy.VersionComparison.Services.PropertyServices
 {
     public interface IPropertyService
     {
-        bool CanProcess(JToken? jToken, string? propertyName = null);
+        bool CanProcess(JsonElement? jElement, string? propertyName = null);
 
-        IList<PropertyExtract> Process(string propertyName, JToken? jToken);
+        IList<PropertyExtract> Process(string propertyName, JsonElement? jElement);
     }
 }

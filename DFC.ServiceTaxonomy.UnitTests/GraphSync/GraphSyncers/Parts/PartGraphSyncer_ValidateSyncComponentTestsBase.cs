@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.Json.Nodes;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.ContentItemVersions;
@@ -8,7 +9,6 @@ using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Helpers;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Parts;
 using DFC.ServiceTaxonomy.GraphSync.Interfaces;
 using FakeItEasy;
-using Newtonsoft.Json.Linq;
 using OrchardCore.ContentManagement;
 using OrchardCore.ContentManagement.Metadata.Models;
 
@@ -16,7 +16,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Parts
 {
     public class PartGraphSyncer_ValidateSyncComponentTestsBase
     {
-        public JObject Content { get; set; }
+        public JsonObject Content { get; set; }
         public ContentTypePartDefinition ContentTypePartDefinition { get; set; }
         public IContentManager ContentManager { get; set; }
         public IContentItemVersion ContentItemVersion { get; set; }
@@ -31,7 +31,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Parts
 
         public PartGraphSyncer_ValidateSyncComponentTestsBase()
         {
-            Content = JObject.Parse("{}");
+            Content = JObject.Parse("{}")!;
 
             ContentTypePartDefinition = A.Fake<ContentTypePartDefinition>();
 

@@ -1,23 +1,24 @@
 ﻿using System;
 using System.Collections.Generic;
-using DFC.ServiceTaxonomy.GraphSync.Models;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using System.Linq;
+using System.Text.Json;
+using System.Text.Json.Nodes;
+using System.Text.Json.Serialization;
 using DFC.ServiceTaxonomy.GraphSync.CosmosDb.Helpers;
 using DFC.ServiceTaxonomy.GraphSync.Interfaces;
+using DFC.ServiceTaxonomy.GraphSync.Models;
 using static DFC.ServiceTaxonomy.GraphSync.Helpers.DocumentHelper;
 using static DFC.ServiceTaxonomy.GraphSync.Helpers.UniqueNumberHelper;
 
 namespace DFC.ServiceTaxonomy.GraphSync.JsonConverters
 {
-    public class SubgraphConverter : JsonConverter
+    public class SubgraphConverter : JsonConverter<object>
     {
         public override bool CanConvert(Type objectType) => true;
-        public override object? ReadJson(JsonReader reader, Type objectType, object? existingValue, JsonSerializer serializer)
+        public override object? Read(ref Utf8JsonReader reader, Type objectType, JsonSerializerOptions options)
         {
-            var data = JObject.Load(reader);
-            var links = SafeCastToDictionary(data["_links"]);
+            var data = JObject.Load(ref reader);
+            var links = SafeCastToDictionary(data!["_links"]);
 
             string dataId = GetAsString(data["id"]!);
             string dataContentType = (string)data["ContentType"]!;
@@ -122,7 +123,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.JsonConverters
                 });
         }
 
-        private Dictionary<string, object> GetProperties(JObject data)
+        private Dictionary<string, object> GetProperties(JsonObject data)
         {
             var properties = new Dictionary<string, object>();
             foreach (var property in data)
@@ -156,8 +157,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.JsonConverters
             return SafeCastToList(incomingObject["items"]);
         }
 
-        public override bool CanWrite { get { return false; } }
 
-        public override void WriteJson(JsonWriter writer, object? value, JsonSerializer serializer) => throw new NotImplementedException();
+
+        public override void Write(Utf8JsonWriter writer, object value, JsonSerializerOptions options) => throw new NotImplementedException();
     }
 }

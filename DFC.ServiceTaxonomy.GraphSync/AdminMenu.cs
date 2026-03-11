@@ -15,10 +15,10 @@ namespace DFC.ServiceTaxonomy.GraphSync
             S = localizer;
         }
 
-        public Task BuildNavigationAsync(string name, NavigationBuilder builder)
+        public ValueTask BuildNavigationAsync(string name, NavigationBuilder builder)
         {
             if (!string.Equals(name, "admin", StringComparison.OrdinalIgnoreCase))
-                return Task.CompletedTask;
+                return ValueTask.CompletedTask;
 
             builder
                 .Add(S["Graph"], "99", graph => graph
@@ -39,7 +39,7 @@ namespace DFC.ServiceTaxonomy.GraphSync
                         }))
                 );
 
-            return Task.CompletedTask;
+            return ValueTask.CompletedTask;
         }
     }
 }

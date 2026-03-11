@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.Json.Nodes;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields;
-using Newtonsoft.Json.Linq;
 using Xunit;
 
 namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Fields.DateTimeFieldGraphSyncerTests
@@ -19,7 +19,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Fields.DateTimeFi
         public async Task AddSyncComponents_DateTimeInContent_DateTimeAddedToMergeNodeCommandsProperties()
         {
             DateTime value = new DateTime(2019, 2, 18, 20, 14, 13, DateTimeKind.Utc);
-            ContentItemField = JObject.Parse($"{{\"Value\": \"{value:o}\"}}");
+            ContentItemField = JObject.Parse($"{{\"Value\": \"{value:o}\"}}")!;
 
             await CallAddSyncComponents();
 

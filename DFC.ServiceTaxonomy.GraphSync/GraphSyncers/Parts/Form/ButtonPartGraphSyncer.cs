@@ -1,8 +1,9 @@
 ﻿using System;
+using System.Text.Json;
+using System.Text.Json.Nodes;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.Extensions;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Contexts;
-using Newtonsoft.Json.Linq;
 using OrchardCore.Forms.Models;
 
 namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts.Form
@@ -14,20 +15,20 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts.Form
         private const string TextPropertyName = "Text";
         private const string TypePropertyName = "Type";
 
-        public override async Task AddSyncComponents(JObject content, IGraphMergeContext context)
+        public override async Task AddSyncComponents(JsonObject content, IGraphMergeContext context)
         {
             using var _ = context.SyncNameProvider.PushPropertyNameTransform(_formFieldsPropertyNameTransform);
 
-            JValue? textValue = (JValue?)content[TextPropertyName];
-            if (textValue != null && textValue.Type != JTokenType.Null)
+            JsonValue? textValue = (JsonValue?)content[TextPropertyName];
+            if (textValue != null && textValue.GetValueKind() != JsonValueKind.Null)
                 context.MergeNodeCommand.Properties.Add(await context.SyncNameProvider.PropertyName(TextPropertyName), textValue.As<string>());
 
-            JValue? typeValue = (JValue?)content[TypePropertyName];
-            if (typeValue != null && typeValue.Type != JTokenType.Null)
+            JsonValue? typeValue = (JsonValue?)content[TypePropertyName];
+            if (typeValue != null && typeValue.GetValueKind() != JsonValueKind.Null)
                 context.MergeNodeCommand.Properties.Add(await context.SyncNameProvider.PropertyName(TypePropertyName), typeValue.As<string>());
         }
 
-        public override async  Task<(bool validated, string failureReason)> ValidateSyncComponent(JObject content,
+        public override async  Task<(bool validated, string failureReason)> ValidateSyncComponent(JsonObject content,
             IValidateAndRepairContext context)
         {
             using var _ = context.SyncNameProvider.PushPropertyNameTransform(_formFieldsPropertyNameTransform);

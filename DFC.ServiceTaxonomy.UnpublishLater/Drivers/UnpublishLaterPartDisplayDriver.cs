@@ -44,7 +44,7 @@ namespace DFC.ServiceTaxonomy.UnpublishLater.Drivers
             .Location("Actions:10");
         }
 
-        public override async Task<IDisplayResult> UpdateAsync(UnpublishLaterPart part, IUpdateModel updater, UpdatePartEditorContext context)
+        public override async Task<IDisplayResult> UpdateAsync(UnpublishLaterPart part, UpdatePartEditorContext context)
         {
             var httpContext = _httpContextAccessor.HttpContext;
 
@@ -52,7 +52,7 @@ namespace DFC.ServiceTaxonomy.UnpublishLater.Drivers
             {
                 var viewModel = new UnpublishLaterPartViewModel();
 
-                await updater.TryUpdateModelAsync(viewModel, Prefix);
+                await context.Updater.TryUpdateModelAsync(viewModel, Prefix);
 
                 if (viewModel.ScheduledUnpublishLocalDateTime == null || httpContext!.Request.Form["submit.Save"] == "submit.CancelUnpublishLater")
                 {

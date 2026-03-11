@@ -33,9 +33,9 @@ namespace DFC.ServiceTaxonomy.ContentApproval.Drivers
                 Initialize<ContentApprovalItemStatusDashboardPartViewModel>(GetEditorShapeType(context), m => BuildViewModel(m, part)));
         }
 
-        public override async Task<IDisplayResult> UpdateAsync(ContentApprovalItemStatusDashboardPart model, IUpdateModel updater, UpdatePartEditorContext context)
+        public override async Task<IDisplayResult> UpdateAsync(ContentApprovalItemStatusDashboardPart model, UpdatePartEditorContext context)
         {
-            await updater.TryUpdateModelAsync(model, Prefix, t => t.Card);
+            await context.Updater.TryUpdateModelAsync(model, Prefix, t => t.Card);
 
             return await EditAsync(model, context);
         }

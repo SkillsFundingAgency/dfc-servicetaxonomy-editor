@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json.Nodes;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.CosmosDb.Helpers;
 using DFC.ServiceTaxonomy.GraphSync.CosmosDb.Queries;
@@ -10,7 +11,6 @@ using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Helpers;
 using DFC.ServiceTaxonomy.GraphSync.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.Interfaces.Queries;
 using DFC.ServiceTaxonomy.GraphSync.Models;
-using Newtonsoft.Json.Linq;
 using OrchardCore.ContentManagement;
 using static DFC.ServiceTaxonomy.GraphSync.Helpers.DocumentHelper;
 using static DFC.ServiceTaxonomy.GraphSync.Helpers.UniqueNumberHelper;
@@ -87,7 +87,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             // Get all results from top level
             var queryResults = await _neoGraphCluster.Run(graphName, relationshipCommands.ToArray());
             var outgoingResults = queryResults
-                .Select(queryResult => (queryResult as JObject)?.ToObject<INodeAndOutRelationshipsAndTheirInRelationships>())
+                .Select(queryResult => (queryResult as JsonObject)?.ToObject<INodeAndOutRelationshipsAndTheirInRelationships>())
                 .ToList();
 
             Subgraph subgraph = new Subgraph();
@@ -125,7 +125,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             }
 
             ISubgraph? incomingResults = queryResults
-                .Select(queryResult => (queryResult as JObject)?.ToObject<Subgraph>())
+                .Select(queryResult => (queryResult as JsonObject)?.ToObject<Subgraph>())
                 .FirstOrDefault(incomingResult => incomingResult != null);
 
             if (incomingResults != null)
@@ -208,7 +208,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 
             foreach (var link in links.Where(lnk => lnk.Key != "self" && lnk.Key != "curies"))
             {
-                if (link.Value is JArray jArray)
+                if (link.Value is JsonArray jArray)
                 {
                     string? returnItem = GetContHasNameForArrayItem(jArray, link, parentId);
                     if (returnItem == null)
@@ -234,7 +234,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             return defaultName;
         }
 
-        private static string? GetContHasNameForArrayItem(JArray jArray, KeyValuePair<string, object> link, string parentId)
+        private static string? GetContHasNameForArrayItem(JsonArray jArray, KeyValuePair<string, object> link, string parentId)
         {
             var linkListDictionary = jArray.ToObject<List<Dictionary<string, object>>>();
 
@@ -314,7 +314,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 
             foreach (var link in links.Where(lnk => lnk.Key != "self" && lnk.Key != "curies"))
             {
-                if (link.Value is JArray jArray)
+                if (link.Value is JsonArray jArray)
                 {
                     GetSecondLevelOutgoingLinksForArray(jArray, contentTypesWithIds, rootContentType, parentContentType, link);
                     continue;
@@ -381,7 +381,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
         }
 
         private static void GetSecondLevelOutgoingLinksForArray(
-            JArray jArray,
+            JsonArray jArray,
             Dictionary<string, List<Guid>> contentTypesWithIds,
             string rootContentType,
             string parentContentType,

@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.Json.Nodes;
 using DFC.ServiceTaxonomy.GraphSync.Interfaces;
 using FakeItEasy;
-using Newtonsoft.Json.Linq;
 using Xunit;
 
 namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Helpers.GraphValidationHelper
@@ -24,7 +24,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Helpers.GraphVali
         }
 
         public const string ContentKey = "Enum";
-        public JObject ContentItemField { get; set; }
+        public JsonObject ContentItemField { get; set; }
         public const string NodePropertyName = "nodePropertyName";
         public INode SourceNode { get; set; }
         public Dictionary<string, object> SourceNodeProperties { get; set; }
@@ -32,7 +32,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Helpers.GraphVali
 
         public GraphValidationHelper_EnumContentPropertyMatchesNodePropertyTests()
         {
-            ContentItemField = JObject.Parse("{}");
+            ContentItemField = JObject.Parse("{}")!;
 
             SourceNode = A.Fake<INode>();
             SourceNodeProperties = new Dictionary<string, object>();
@@ -49,7 +49,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Helpers.GraphVali
             where T : Enum
         {
             string json = $"{{\"{ContentKey}\": {(int)(object)value}}}";
-            ContentItemField = JObject.Parse(json);
+            ContentItemField = JObject.Parse(json)!;
 
             SourceNodeProperties.Add(NodePropertyName, value.ToString().ToLowerInvariant());
 
@@ -66,7 +66,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Helpers.GraphVali
             where T : Enum
         {
             string json = $"{{\"{ContentKey}\": \"{(int)(object)value}\"}}";
-            ContentItemField = JObject.Parse(json);
+            ContentItemField = JObject.Parse(json)!;
 
             (bool validated, _) = CallEnumContentPropertyMatchesNodeProperty<T>();
 
@@ -80,7 +80,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Helpers.GraphVali
             where T : Enum
         {
             string json = $"{{\"{ContentKey}\": \"{(int)(object)contentValue}\"}}";
-            ContentItemField = JObject.Parse(json);
+            ContentItemField = JObject.Parse(json)!;
 
             SourceNodeProperties.Add(NodePropertyName, nodeValue.ToString().ToLowerInvariant());
 
@@ -102,7 +102,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Helpers.GraphVali
             where T : Enum
         {
             string json = $"{{\"{ContentKey}\": \"{(int)(object)contentValue}\"}}";
-            ContentItemField = JObject.Parse(json);
+            ContentItemField = JObject.Parse(json)!;
 
             SourceNodeProperties.Add(NodePropertyName, nodeValue);
 
@@ -118,7 +118,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Helpers.GraphVali
             where T2 : Enum
         {
             string json = $"{{\"{ContentKey}\": \"{(int)(object)contentValue}\"}}";
-            ContentItemField = JObject.Parse(json);
+            ContentItemField = JObject.Parse(json)!;
 
             SourceNodeProperties.Add(NodePropertyName, nodeValue.ToString().ToLowerInvariant());
 
@@ -136,7 +136,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Helpers.GraphVali
             where T : Enum
         {
             string json = $"{{\"{ContentKey}\": \"{(int)(object)contentValue}\"}}";
-            ContentItemField = JObject.Parse(json);
+            ContentItemField = JObject.Parse(json)!;
 
             SourceNodeProperties.Add(NodePropertyName, nodeValue.ToString().ToLowerInvariant());
 

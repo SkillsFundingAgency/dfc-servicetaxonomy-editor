@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
+using System.Text.Json;
 using DFC.ServiceTaxonomy.GraphSync.Extensions;
 using DFC.ServiceTaxonomy.GraphSync.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.Interfaces.Queries;
 using DFC.ServiceTaxonomy.GraphSync.Models;
-using Newtonsoft.Json;
 
 namespace DFC.ServiceTaxonomy.GraphSync.Services
 {
@@ -31,7 +31,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Services
         }
         public string ProcessRecord(IRecord record)
         {
-            return JsonConvert.SerializeObject(record.Values.Values);
+            return JsonSerializer.Serialize(record.Values.Values);
         }
     }
 }

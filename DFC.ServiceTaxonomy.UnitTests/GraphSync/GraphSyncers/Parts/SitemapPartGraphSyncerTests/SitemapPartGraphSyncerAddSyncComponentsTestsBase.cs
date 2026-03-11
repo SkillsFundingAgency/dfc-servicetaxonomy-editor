@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
+using System.Text.Json.Nodes;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts;
 using FakeItEasy;
-using Newtonsoft.Json.Linq;
 using Xunit;
 
 namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Parts.SitemapPartGraphSyncerTests
@@ -23,7 +23,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Parts.SitemapPart
         public async Task AddSyncComponents_AllPropertiesInContent_AllPropertiesAddedToMergeNodeCommandsProperties()
         {
             Content = JObject.Parse(@$"{{""OverrideSitemapConfig"": ""{true.ToString().ToLower()}"",
-                                        ""ChangeFrequency"": 2, ""Priority"": 1, ""Exclude"": false}}");
+                                        ""ChangeFrequency"": 2, ""Priority"": 1, ""Exclude"": false}}")!;
 
             await CallAddSyncComponents();
 

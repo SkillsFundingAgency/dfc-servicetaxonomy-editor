@@ -1,8 +1,9 @@
 ﻿using System;
+using System.Text.Json;
+using System.Text.Json.Nodes;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.Extensions;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Contexts;
-using Newtonsoft.Json.Linq;
 using OrchardCore.Forms.Models;
 
 namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts.Form
@@ -14,24 +15,24 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts.Form
         public const string TypePropertyName = "Type";
         public const string DefaultValuePropertyName = "DefaultValue";
         public const string PlaceholderPropertyName = "Placeholder";
-        public override async Task AddSyncComponents(JObject content, IGraphMergeContext context)
+        public override async Task AddSyncComponents(JsonObject content, IGraphMergeContext context)
         {
             using var _ = context.SyncNameProvider.PushPropertyNameTransform(_formFieldsPropertyNameTransform);
 
-            JValue? typeValue = (JValue?)content[TypePropertyName];
-            if (typeValue != null && typeValue.Type != JTokenType.Null)
+            JsonValue? typeValue = (JsonValue?)content[TypePropertyName];
+            if (typeValue != null && typeValue.GetValueKind() != JsonValueKind.Null)
                 context.MergeNodeCommand.Properties.Add(await context.SyncNameProvider.PropertyName(TypePropertyName), typeValue.As<string>());
 
-            JValue? defaultValue = (JValue?)content[DefaultValuePropertyName];
-            if (defaultValue != null && defaultValue.Type != JTokenType.Null)
+            JsonValue? defaultValue = (JsonValue?)content[DefaultValuePropertyName];
+            if (defaultValue != null && defaultValue.GetValueKind() != JsonValueKind.Null)
                 context.MergeNodeCommand.Properties.Add(await context.SyncNameProvider.PropertyName(DefaultValuePropertyName), defaultValue.As<string>());
 
-            JValue? placeholderValue = (JValue?)content[DefaultValuePropertyName];
-            if (placeholderValue != null && placeholderValue.Type != JTokenType.Null)
+            JsonValue? placeholderValue = (JsonValue?)content[DefaultValuePropertyName];
+            if (placeholderValue != null && placeholderValue.GetValueKind() != JsonValueKind.Null)
                 context.MergeNodeCommand.Properties.Add(await context.SyncNameProvider.PropertyName(DefaultValuePropertyName), placeholderValue.As<string>());
         }
 
-        public override async Task<(bool validated, string failureReason)> ValidateSyncComponent(JObject content,
+        public override async Task<(bool validated, string failureReason)> ValidateSyncComponent(JsonObject content,
             IValidateAndRepairContext context)
         {
             using var _ = context.SyncNameProvider.PushPropertyNameTransform(_formFieldsPropertyNameTransform);

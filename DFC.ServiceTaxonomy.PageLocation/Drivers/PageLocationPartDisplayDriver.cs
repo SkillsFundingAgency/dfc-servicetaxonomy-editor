@@ -16,8 +16,8 @@ using OrchardCore.ContentManagement.Records;
 using System;
 using DFC.ServiceTaxonomy.PageLocation.Constants;
 using DFC.ServiceTaxonomy.Taxonomies.Helper;
-using Newtonsoft.Json.Linq;
 using OrchardCore.ContentManagement.Utilities;
+using System.Text.Json.Nodes;
 
 namespace DFC.ServiceTaxonomy.PageLocation.Drivers
 {
@@ -50,11 +50,11 @@ namespace DFC.ServiceTaxonomy.PageLocation.Drivers
             });
         }
 
-        public override async Task<IDisplayResult> UpdateAsync(PageLocationPart model, IUpdateModel updater, UpdatePartEditorContext context)
+        public override async Task<IDisplayResult> UpdateAsync(PageLocationPart model, UpdatePartEditorContext context)
         {
-            await updater.TryUpdateModelAsync(model, Prefix, t => t.UrlName, t => t.DefaultPageForLocation, t => t.RedirectLocations, t => t.FullUrl, t => t.UseInTriageTool);
+            await context.Updater.TryUpdateModelAsync(model, Prefix, t => t.UrlName, t => t.DefaultPageForLocation, t => t.RedirectLocations, t => t.FullUrl, t => t.UseInTriageTool);
 
-            await ValidateAsync(model, updater);
+            await ValidateAsync(model, context.Updater);
 
             return await EditAsync(model, context);
         }
@@ -136,7 +136,7 @@ namespace DFC.ServiceTaxonomy.PageLocation.Drivers
 
                 if (taxonomy != null)
                 {
-                    RecursivelyBuildUrls(JObject.FromObject(taxonomy));
+                    RecursivelyBuildUrls(JObject.FromObject(taxonomy)!);
 
                     if (_pageLocations.Any(x => x.Equals(pageLocation.FullUrl.Trim('/'), StringComparison.OrdinalIgnoreCase)))
                     {
@@ -159,20 +159,20 @@ namespace DFC.ServiceTaxonomy.PageLocation.Drivers
 
         private readonly List<string> _pageLocations = new List<string>();
 
-        private void RecursivelyBuildUrls(JObject taxonomy)
+        private void RecursivelyBuildUrls(JsonObject taxonomy)
         {
-            JArray? terms = _taxonomyHelper.GetTerms(taxonomy);
+            JsonArray? terms = _taxonomyHelper.GetTerms(taxonomy);
 
             if (terms == null)
                 return;
 
             //todo: look at this
 #pragma warning disable S3217
-            foreach (JObject term in terms)
+            foreach (var term in terms)
 #pragma warning restore S3217
             {
-                _pageLocations.Add(_taxonomyHelper.BuildTermUrl(term, taxonomy));
-                RecursivelyBuildUrls(term);
+                _pageLocations.Add(_taxonomyHelper.BuildTermUrl(JObject.FromObject(term)!, taxonomy));
+                RecursivelyBuildUrls(JObject.FromObject(term)!);
             }
         }
     }

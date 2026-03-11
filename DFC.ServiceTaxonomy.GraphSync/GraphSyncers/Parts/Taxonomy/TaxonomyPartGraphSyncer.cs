@@ -1,10 +1,10 @@
-﻿using System.Threading.Tasks;
+﻿using System.Text.Json.Nodes;
+using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.Extensions;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Contexts;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.EmbeddedContentItemsGraphSyncer;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Parts;
-using Newtonsoft.Json.Linq;
 using DFC.ServiceTaxonomy.Taxonomies.Models;
 
 namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts.Taxonomy
@@ -25,35 +25,35 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts.Taxonomy
             _embeddedContentItemsGraphSyncer = taxonomyPartEmbeddedContentItemsGraphSyncer;
         }
 
-        public override Task AddSyncComponents(JObject content, IGraphMergeContext context)
+        public override Task AddSyncComponents(JsonObject content, IGraphMergeContext context)
         {
             context.MergeNodeCommand.AddProperty<string>(TermContentTypePropertyName, content);
 
             _embeddedContentItemsGraphSyncer.IsNonLeafEmbeddedTerm = false;
-            return _embeddedContentItemsGraphSyncer.AddSyncComponents((JArray?)content[ContainerName], context);
+            return _embeddedContentItemsGraphSyncer.AddSyncComponents((JsonArray?)content[ContainerName], context);
         }
 
-        public Task AddSyncComponentsForNonLeafEmbeddedTerm(JObject content, IGraphMergeContext context)
+        public Task AddSyncComponentsForNonLeafEmbeddedTerm(JsonObject content, IGraphMergeContext context)
         {
             _embeddedContentItemsGraphSyncer.IsNonLeafEmbeddedTerm = true;
-            return _embeddedContentItemsGraphSyncer.AddSyncComponents((JArray?)content[ContainerName], context);
+            return _embeddedContentItemsGraphSyncer.AddSyncComponents((JsonArray?)content[ContainerName], context);
         }
 
-        public override Task DeleteComponents(JObject content, IGraphDeleteContext context)
+        public override Task DeleteComponents(JsonObject content, IGraphDeleteContext context)
         {
             _embeddedContentItemsGraphSyncer.IsNonLeafEmbeddedTerm = false;
-            return _embeddedContentItemsGraphSyncer.DeleteComponents((JArray?)content[ContainerName], context);
+            return _embeddedContentItemsGraphSyncer.DeleteComponents((JsonArray?)content[ContainerName], context);
         }
 
-        public Task DeleteComponentsForNonLeafEmbeddedTerm(JObject content, IGraphDeleteContext context)
+        public Task DeleteComponentsForNonLeafEmbeddedTerm(JsonObject content, IGraphDeleteContext context)
         {
             _embeddedContentItemsGraphSyncer.IsNonLeafEmbeddedTerm = true;
-            return _embeddedContentItemsGraphSyncer.DeleteComponents((JArray?)content[ContainerName], context);
+            return _embeddedContentItemsGraphSyncer.DeleteComponents((JsonArray?)content[ContainerName], context);
         }
 
         //todo: we now need to validate any 2 way incoming relationships we created
         public override Task<(bool validated, string failureReason)> ValidateSyncComponent(
-            JObject content,
+            JsonObject content,
             IValidateAndRepairContext context)
         {
             _embeddedContentItemsGraphSyncer.IsNonLeafEmbeddedTerm = false;
@@ -61,7 +61,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts.Taxonomy
         }
 
         public Task<(bool validated, string failureReason)> ValidateSyncComponentForNonLeafEmbeddedTerm(
-            JObject content,
+            JsonObject content,
             IValidateAndRepairContext context)
         {
             _embeddedContentItemsGraphSyncer.IsNonLeafEmbeddedTerm = true;
@@ -69,12 +69,12 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts.Taxonomy
         }
 
         private async Task<(bool validated, string failureReason)> ValidateSyncComponentImplementation(
-            JObject content,
+            JsonObject content,
             IValidateAndRepairContext context)
         {
             (bool validated, string failureReason) =
                 await _embeddedContentItemsGraphSyncer.ValidateSyncComponent(
-                    (JArray?)content[ContainerName], context);
+                    (JsonArray?)content[ContainerName], context);
 
             if (!validated)
                 return (validated, failureReason);

@@ -43,15 +43,15 @@ namespace DFC.ServiceTaxonomy.Banners.Drivers
             model.PartDefinition = typePartDefinition;
         }
 
-        public override async Task<IDisplayResult> UpdateAsync(BannerPart part, IUpdateModel updater,
+        public override async Task<IDisplayResult> UpdateAsync(BannerPart part, 
             UpdatePartEditorContext context)
         {
-            var updated = await updater.TryUpdateModelAsync(part, Prefix, b => b.WebPageName, b => b.WebPageURL);
+            var updated = await context.Updater.TryUpdateModelAsync(part, Prefix, b => b.WebPageName, b => b.WebPageURL);
             if (updated)
             {
                 await foreach (var item in part.ValidateAsync(S, _session))
                 {
-                    updater.ModelState.BindValidationResult(Prefix, item);
+                    context.Updater.ModelState.BindValidationResult(Prefix, item);
                 }
             }
 

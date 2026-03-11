@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.Json.Nodes;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.ContentItemVersions;
 using DFC.ServiceTaxonomy.GraphSync.Settings;
-using Newtonsoft.Json.Linq;
 
 namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Helpers
 {
@@ -31,7 +31,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Helpers
         Task<string> GenerateIdPropertyValue();
 
         object? GetNodeIdPropertyValue(
-            JObject graphSyncContent,
+            JsonObject graphSyncContent,
             IContentItemVersion contentItemVersion);
 
         string IdPropertyValueFromNodeValue(string nodeIdValue, IContentItemVersion contentItemVersion);
@@ -52,12 +52,12 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Helpers
         GraphSyncPartSettings GetGraphSyncPartSettings(string contentType);
 
         object? GetAndConvertIdPropertyValue(
-            JObject graphSyncContent,
+            JsonObject graphSyncContent,
             IContentItemVersion contentItemVersion,
             params IContentItemVersion[] fromContentItemVersions);
 
         object? GetEventIdPropertyValue(
-            JObject graphSyncContent,
+            JsonObject graphSyncContent,
             IContentItemVersion contentItemVersion);
 
         string ConvertIdPropertyValue(

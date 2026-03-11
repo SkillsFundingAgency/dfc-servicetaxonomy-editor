@@ -3,13 +3,14 @@ using DFC.ServiceTaxonomy.PageLocation.Models;
 using DFC.ServiceTaxonomy.PageLocation.ViewModels;
 using OrchardCore.ContentManagement.Metadata.Models;
 using OrchardCore.ContentTypes.Editors;
+using OrchardCore.DisplayManagement.Handlers;
 using OrchardCore.DisplayManagement.Views;
 
 namespace DFC.ServiceTaxonomy.PageLocation.Drivers
 {
     public class PageLocationPartSettingsDisplayDriver : ContentTypePartDefinitionDisplayDriver
     {
-        public override IDisplayResult Edit(ContentTypePartDefinition contentTypePartDefinition)
+        public override IDisplayResult Edit(ContentTypePartDefinition contentTypePartDefinition, BuildEditorContext context)
         {
             if (!string.Equals(nameof(PageLocationPart), contentTypePartDefinition.PartDefinition.Name))
             {
@@ -44,7 +45,7 @@ namespace DFC.ServiceTaxonomy.PageLocation.Drivers
                 DefaultPageLocationPath = model.DefaultPageLocationPath
             });
 
-            return await EditAsync(contentTypePartDefinition, context.Updater);
+            return await EditAsync(contentTypePartDefinition, context);
         }
     }
 }

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
+using System.Text.Json.Nodes;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields;
-using Newtonsoft.Json.Linq;
 using Xunit;
 
 namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Fields.TextFieldGraphSyncerTests
@@ -17,7 +17,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Fields.TextFieldG
         public async Task AddSyncComponents_TextInContent_TextAddedToMergeNodeCommandsProperties()
         {
             const string text = "abc";
-            ContentItemField = JObject.Parse($"{{\"Text\": \"{text}\"}}");
+            ContentItemField = JObject.Parse($"{{\"Text\": \"{text}\"}}")!;
 
             await CallAddSyncComponents();
 

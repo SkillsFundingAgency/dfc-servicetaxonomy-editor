@@ -6,7 +6,7 @@ using OrchardCore.Navigation;
 
 namespace DFC.ServiceTaxonomy.Taxonomies
 {
-    public class AdminMenu : INavigationProvider
+    public class AdminMenu : AdminNavigationProvider
     {
         private readonly IStringLocalizer S;
 
@@ -15,13 +15,8 @@ namespace DFC.ServiceTaxonomy.Taxonomies
             S = localizer;
         }
 
-        public Task BuildNavigationAsync(string name, NavigationBuilder builder)
+        protected override ValueTask BuildAsync(NavigationBuilder builder)
         {
-            if (!String.Equals(name, "admin", StringComparison.OrdinalIgnoreCase))
-            {
-                return Task.CompletedTask;
-            }
-
             builder.Add(S["Configuration"], configuration => configuration
                        .Add(S["Settings"], "1", settings => settings
                             .Add(S["Taxonomy Filters"], S["Taxonomy Filters"].PrefixPosition(), admt => admt
@@ -31,7 +26,7 @@ namespace DFC.ServiceTaxonomy.Taxonomies
                                 .LocalNav()
                     )));
 
-            return Task.CompletedTask;
+            return ValueTask.CompletedTask;
         }
     }
 }
