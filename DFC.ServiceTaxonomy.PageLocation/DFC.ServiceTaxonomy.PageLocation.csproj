@@ -13,10 +13,10 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="OrchardCore.ContentManagement" Version="2.0.2" />
-    <PackageReference Include="OrchardCore.ContentManagement.Display" Version="2.0.2" />
-    <PackageReference Include="OrchardCore.DisplayManagement" Version="2.0.2" />
-    <PackageReference Include="OrchardCore.Module.Targets" Version="2.0.2" />
+    <PackageReference Include="OrchardCore.ContentManagement" Version="2.2.1" />
+    <PackageReference Include="OrchardCore.ContentManagement.Display" Version="2.2.1" />
+    <PackageReference Include="OrchardCore.DisplayManagement" Version="2.2.1" />
+    <PackageReference Include="OrchardCore.Module.Targets" Version="2.2.1" />
     <PackageReference Include="SonarAnalyzer.CSharp" Version="8.15.0.24505">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>

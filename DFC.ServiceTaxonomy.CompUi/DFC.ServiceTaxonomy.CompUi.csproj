@@ -13,10 +13,10 @@
     <PackageReference Include="DfE.NCS.Framework.Event" Version="2.0.0" />
     <PackageReference Include="Microsoft.Azure.Cosmos" Version="3.57.1" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
-    <PackageReference Include="OrchardCore.Data.Abstractions" Version="2.0.2" />
-    <PackageReference Include="OrchardCore.Module.Targets" Version="2.0.2" />
-    <PackageReference Include="OrchardCore.ContentManagement" Version="2.0.2" />
-    <PackageReference Include="OrchardCore.ContentTypes.Abstractions" Version="2.0.2" />
-    <PackageReference Include="OrchardCore.DisplayManagement" Version="2.0.2" />
+    <PackageReference Include="OrchardCore.Data.Abstractions" Version="2.2.1" />
+    <PackageReference Include="OrchardCore.Module.Targets" Version="2.2.1" />
+    <PackageReference Include="OrchardCore.ContentManagement" Version="2.2.1" />
+    <PackageReference Include="OrchardCore.ContentTypes.Abstractions" Version="2.2.1" />
+    <PackageReference Include="OrchardCore.DisplayManagement" Version="2.2.1" />
   </ItemGroup>
 </Project>

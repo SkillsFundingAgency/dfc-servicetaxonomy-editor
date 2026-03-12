@@ -25,19 +25,19 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="GovUk.Frontend.AspNetCore" Version="1.5.0" />
-    <PackageReference Include="OrchardCore.Admin" Version="2.0.2" />
-    <PackageReference Include="OrchardCore.Infrastructure" Version="2.0.2" />
-    <PackageReference Include="OrchardCore.Infrastructure.Abstractions" Version="2.0.2" />
-    <PackageReference Include="OrchardCore.Theme.Targets" Version="2.0.2" />
-    <PackageReference Include="OrchardCore.ContentManagement" Version="2.0.2" />
-    <PackageReference Include="OrchardCore.ContentManagement.Abstractions" Version="2.0.2" />
-    <PackageReference Include="OrchardCore.DisplayManagement" Version="2.0.2" />
-    <PackageReference Include="OrchardCore.Users" Version="2.0.2" />
-    <PackageReference Include="OrchardCore.ResourceManagement" Version="2.0.2" />
+    <PackageReference Include="OrchardCore.Admin" Version="2.2.1" />
+    <PackageReference Include="OrchardCore.Infrastructure" Version="2.2.1" />
+    <PackageReference Include="OrchardCore.Infrastructure.Abstractions" Version="2.2.1" />
+    <PackageReference Include="OrchardCore.Theme.Targets" Version="2.2.1" />
+    <PackageReference Include="OrchardCore.ContentManagement" Version="2.2.1" />
+    <PackageReference Include="OrchardCore.ContentManagement.Abstractions" Version="2.2.1" />
+    <PackageReference Include="OrchardCore.DisplayManagement" Version="2.2.1" />
+    <PackageReference Include="OrchardCore.Users" Version="2.2.1" />
+    <PackageReference Include="OrchardCore.ResourceManagement" Version="2.2.1" />
     <PackageReference Include="SonarAnalyzer.CSharp" Version="8.15.0.24505">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="TheAdmin" Version="2.0.2" />
+    <PackageReference Include="TheAdmin" Version="2.2.1" />
   </ItemGroup>
 </Project>

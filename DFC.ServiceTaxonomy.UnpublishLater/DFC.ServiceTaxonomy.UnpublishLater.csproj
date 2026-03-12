@@ -12,12 +12,12 @@
     <FrameworkReference Include="Microsoft.AspNetCore.App" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="OrchardCore.ContentManagement.Abstractions" Version="2.0.2" />
-    <PackageReference Include="OrchardCore.ContentManagement.Display" Version="2.0.2" />
-    <PackageReference Include="OrchardCore.Data.Abstractions" Version="2.0.2" />
-    <PackageReference Include="OrchardCore.DisplayManagement" Version="2.0.2" />
-    <PackageReference Include="OrchardCore.Module.Targets" Version="2.0.2" />
-    <PackageReference Include="OrchardCore.Contents.Core" Version="2.0.2" />
-    <PackageReference Include="OrchardCore.Infrastructure" Version="2.0.2" />
+    <PackageReference Include="OrchardCore.ContentManagement.Abstractions" Version="2.2.1" />
+    <PackageReference Include="OrchardCore.ContentManagement.Display" Version="2.2.1" />
+    <PackageReference Include="OrchardCore.Data.Abstractions" Version="2.2.1" />
+    <PackageReference Include="OrchardCore.DisplayManagement" Version="2.2.1" />
+    <PackageReference Include="OrchardCore.Module.Targets" Version="2.2.1" />
+    <PackageReference Include="OrchardCore.Contents.Core" Version="2.2.1" />
+    <PackageReference Include="OrchardCore.Infrastructure" Version="2.2.1" />
   </ItemGroup>
 </Project>
