@@ -36,7 +36,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
             // add flag to any enum helpers, such as EnumContentPropertyMatchesNodeProperty
             value = (JsonValue?)content[ChangeFrequencyPropertyName];
             if (value != null && value.GetValueKind() != JsonValueKind.Null)
-                context.MergeNodeCommand.Properties.Add(await context.SyncNameProvider.PropertyName(ChangeFrequencyPropertyName), ((ChangeFrequency)value.As<int>()).ToString().ToLowerInvariant());
+                context.MergeNodeCommand.Properties.Add(await context.SyncNameProvider.PropertyName(ChangeFrequencyPropertyName), value.As<string>().ToLowerInvariant());
 
             value = (JsonValue?)content[PriorityPropertyName];
             if (value != null && value.GetValueKind() != JsonValueKind.Null)

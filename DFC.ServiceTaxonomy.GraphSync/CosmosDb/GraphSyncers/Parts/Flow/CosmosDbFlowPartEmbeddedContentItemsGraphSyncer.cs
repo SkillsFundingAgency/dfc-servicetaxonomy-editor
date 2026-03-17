@@ -55,7 +55,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.CosmosDb.GraphSyncers.Parts.Flow
 
             JsonObject flowMetaDataContent = (JsonObject)contentItem.Content[FlowMetaData]!;
 
-            FlowAlignment alignment = (FlowAlignment)(int)flowMetaDataContent[Alignment]!;
+            var alignment = flowMetaDataContent[Alignment]!;
             flowMetaData.Add(await syncNameProvider!.PropertyName(Alignment), alignment.ToString());
 
             flowMetaData.Add(await syncNameProvider!.PropertyName(Size), (long)flowMetaDataContent[Size]!);

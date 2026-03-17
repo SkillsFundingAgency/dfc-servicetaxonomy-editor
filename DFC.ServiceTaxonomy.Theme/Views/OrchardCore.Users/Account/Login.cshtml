@@ -4,10 +4,11 @@
 @inject ISiteService SiteService
 @inject UserManager<IUser> UserManager;
 
+
 @{
     Layout = "LoginLayout";
-
-    var userCanRegister = (await SiteService.GetSiteSettingsAsync()).As<RegistrationSettings>().UsersCanRegister == UserRegistrationType.AllowRegistration;
+    //revisit. looks like currently not in use - check if was before upgrades
+    //var userCanRegister = (await SiteService.GetSiteSettingsAsync()).As<RegistrationSettings>().UsersCanRegister == UserRegistrationType.AllowRegistration;
     var allowResetPassword = (await SiteService.GetSiteSettingsAsync()).As<ResetPasswordSettings>().AllowResetPassword;
     var loginProviders = (await SignInManager.GetExternalAuthenticationSchemesAsync()).ToList();
     var disableLocalLogin = (await SiteService.GetSiteSettingsAsync()).As<LoginSettings>().DisableLocalLogin;
@@ -49,12 +50,11 @@
                 @await RenderSectionAsync("AfterLogin", required: false)
                 <div></div>
                 <button type="submit" class="btn btn-primary" tabindex="4">@T["Log in"]</button>
-                @if (userCanRegister)
-                {
-                    <div class="mt-4">
-                        <a asp-controller="Registration" asp-action="Register" asp-route-returnurl="@ViewData["ReturnUrl"]">@T["Register as a new user"]</a>
-                    </div>
-                }
+                
+                <div class="mt-4">
+                    <a asp-controller="Registration" asp-action="Register" asp-route-returnurl="@ViewData["ReturnUrl"]">@T["Register as a new user"]</a>
+                </div>
+                
             </form>
         </div>
     }
